@@ -1,0 +1,9 @@
+spring:
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/wjm
+    username: root
+    password: root
+easyorm:
+  auto-ddl: true
+  default-schema: wjm
+  dialect: mysql

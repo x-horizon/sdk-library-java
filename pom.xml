@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>cn.srd</groupId>
+        <artifactId>itcp-iot-manager</artifactId>
+        <version>1.0</version>
+        <relativePath>../itcp-iot/itcp-iot-manager</relativePath>
+    </parent>
+
+    <artifactId>itcp-sugar</artifactId>
+
+    <modules>
+        <module>itcp-sugar-convert</module>
+        <module>itcp-sugar-hsweb</module>
+        <module>itcp-sugar-mybatis-plus</module>
+        <module>itcp-sugar-redisson</module>
+        <module>itcp-sugar-tools</module>
+    </modules>
+
+    <properties>
+        <!-- ======================== project environment ======================== -->
+        <skipTests>true</skipTests>
+        <java.version>11</java.version>
+        <encoding-mode>UTF-8</encoding-mode>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.jdk>${java.version}</project.build.jdk>
+        <project.build.sourceEncoding>${encoding-mode}</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${encoding-mode}</project.reporting.outputEncoding>
+
+        <!-- =============================== test ================================ -->
+        <jmh-core.version>1.35</jmh-core.version>
+        <jmh-generator-annprocess.version>1.35</jmh-generator-annprocess.version>
+
+        <!-- ============================== database ============================= -->
+        <druid.version>1.2.8</druid.version>
+
+        <!-- ============================= framework ============================= -->
+        <!-- spring -->
+        <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
+        <!-- mybatis-plus -->
+        <mybatis-plus.version>3.4.1</mybatis-plus.version>
+        <mybatis-plus-generator.version>3.4.1</mybatis-plus-generator.version>
+        <!-- hsweb  -->
+        <hsweb-commons-crud.version>4.0.13</hsweb-commons-crud.version>
+        <hsweb-authorization-basic.version>4.0.13</hsweb-authorization-basic.version>
+
+        <!-- =============================== tools =============================== -->
+        <!-- parser -->
+        <json-path.version>2.7.0</json-path.version>
+        <!-- concurrent -->
+        <redisson-spring-boot-starter.version>3.16.8</redisson-spring-boot-starter.version>
+        <!-- serialization -->
+        <fastjson.version>2.0.7</fastjson.version>
+        <jackson.version>2.13.3</jackson.version>
+        <javax.el.version>2.2.6</javax.el.version>
+        <javax.el-api.version>3.0.0</javax.el-api.version>
+        <!-- utils -->
+        <lombok.version>1.18.22</lombok.version>
+        <mapstruct.version>1.5.2.Final</mapstruct.version>
+        <mapstruct-processor.version>1.5.2.Final</mapstruct-processor.version>
+        <mapstruct-lombok-binding.version>0.2.0</mapstruct-lombok-binding.version>
+        <vavr.version>1.0.0-alpha-4</vavr.version>
+        <guava.version>31.1-jre</guava.version>
+        <hutool.version>5.8.3</hutool.version>
+        <reflectasm.version>1.11.9</reflectasm.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <okhttps-jackson.version>3.5.2</okhttps-jackson.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- =============================== test ================================ -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <optional>true</optional>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <optional>true</optional>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-core</artifactId>
+            <version>${jmh-core.version}</version>
+            <optional>true</optional>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-generator-annprocess</artifactId>
+            <version>${jmh-generator-annprocess.version}</version>
+            <optional>true</optional>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ============================= framework ============================= -->
+        <!-- spring -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <optional>true</optional>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- =============================== tools =============================== -->
+        <!-- utils -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <optional>true</optional>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <annotationProcessorPaths>
+                            <!-- 用于解决 mapstruct 与 lombok 混合使用时无法编译的问题，参考链接：                              -->
+                            <!-- https://github.com/mapstruct/mapstruct-examples/blob/master/mapstruct-lombok/pom.xml   -->
+                            <!-- https://mapstruct.org/faq/#Can-I-use-MapStruct-together-with-Project-Lombok            -->
+                            <path>
+                                <groupId>org.mapstruct</groupId>
+                                <artifactId>mapstruct-processor</artifactId>
+                                <version>${mapstruct-processor.version}</version>
+                            </path>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${lombok.version}</version>
+                            </path>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok-mapstruct-binding</artifactId>
+                                <version>${mapstruct-lombok-binding.version}</version>
+                            </path>
+                            <!-- 结合下面的 exec-maven-plugin 解决 JMH 基准性能测试报错问题：Unable to find the resource: /META-INF/BenchmarkList -->
+                            <path>
+                                <groupId>org.openjdk.jmh</groupId>
+                                <artifactId>jmh-generator-annprocess</artifactId>
+                                <version>${jmh-generator-annprocess.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
+                    </configuration>
+                </plugin>
+
+                <!-- 解决 JMH 基准测试报错问题：Unable to find the resource: /META-INF/BenchmarkList -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>run-benchmarks</id>
+                            <phase>integration-test</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                            <configuration>
+                                <classpathScope>test</classpathScope>
+                                <executable>java</executable>
+                                <arguments>
+                                    <argument>-classpath</argument>
+                                    <classpath/>
+                                    <argument>org.openjdk.jmh.Main</argument>
+                                    <argument>.*</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>aliyun-nexus</id>
+            <name>aliyun</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>hsweb-nexus</id>
+            <name>Nexus Release Repository</name>
+            <url>http://nexus.hsweb.me/content/groups/public/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>aliyun-nexus</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+</project>

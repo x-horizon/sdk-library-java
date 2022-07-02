@@ -1,0 +1,16 @@
+# JetBrain Files
+.idea/
+*.iml
+
+# Build Files
+commons-hsweb/target/
+**/out/
+*.class
+*.jar
+*.war
+**/pom.xml.versionsBackup
+!/.mvn/wrapper/maven-wrapper.jar
+
+# System Files
+*.log
+**/logs/
