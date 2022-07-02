@@ -4,8 +4,6 @@ import cn.srd.itcp.sugar.tools.core.*;
 import cn.srd.itcp.sugar.tools.core.asserts.Assert;
 import cn.srd.itcp.sugar.tools.core.enums.EnumsUtil;
 import cn.srd.itcp.sugar.tools.core.enums.autowired.exception.*;
-import cn.sugar.tools.core.*;
-import cn.sugar.tools.core.enums.autowired.exception.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
 

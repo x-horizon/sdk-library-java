@@ -8,7 +8,7 @@ import cn.srd.itcp.sugar.convert.all.mapstruct.bean.domain.StudentDO;
 import cn.srd.itcp.sugar.convert.all.mapstruct.bean.vo.GradeVO;
 import cn.srd.itcp.sugar.convert.all.mapstruct.bean.vo.StudentVO;
 import cn.srd.itcp.sugar.convert.all.mapstruct.mapstruct.StudentMapstructConverter;
-import cn.sugar.convert.all.mapstruct.mapstruct.StudentMapstructConverterImpl;
+import cn.srd.itcp.sugar.convert.all.mapstruct.mapstruct.StudentMapstructConverterImpl;
 import com.esotericsoftware.reflectasm.MethodAccess;
 import lombok.SneakyThrows;
 import org.openjdk.jmh.annotations.*;
@@ -42,7 +42,7 @@ public class ConvertAllBenchmarkTest {
 
     private ConfigurableApplicationContext applicationContext;
 
-    @Param({"1000000"})
+    @Param({"100000"})
     // @Param({"1000", "10000", "100000", "1000000", "10000000"})
     private int dataSize;
 
