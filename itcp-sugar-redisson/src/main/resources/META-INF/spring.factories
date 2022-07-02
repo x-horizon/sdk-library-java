@@ -1,10 +1,10 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-cn.sugar.redisson.core.RedissonFairLockHandler,\
-cn.sugar.redisson.core.RedissonNonFairLockHandler,\
-cn.sugar.redisson.core.support.RedissonFairLockAspect,\
-cn.sugar.redisson.core.support.RedissonNonFairLockAspect,\
-cn.sugar.redisson.core.support.RedissonLockAspectSupporter
+cn.srd.itcp.sugar.redisson.core.RedissonFairLockHandler,\
+cn.srd.itcp.sugar.redisson.core.RedissonNonFairLockHandler,\
+cn.srd.itcp.sugar.redisson.core.support.RedissonFairLockAspect,\
+cn.srd.itcp.sugar.redisson.core.support.RedissonNonFairLockAspect,\
+cn.srd.itcp.sugar.redisson.core.support.RedissonLockAspectSupporter
 ## Auto Configure
 #org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 #cn.commons.redisson.core.support.RedissonAutoConfiguration

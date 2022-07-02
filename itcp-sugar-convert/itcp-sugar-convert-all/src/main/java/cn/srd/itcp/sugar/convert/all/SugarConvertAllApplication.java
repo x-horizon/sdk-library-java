@@ -1,0 +1,13 @@
+package cn.srd.itcp.sugar.convert.all;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SugarConvertAllApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SugarConvertAllApplication.class, args);
+    }
+
+}

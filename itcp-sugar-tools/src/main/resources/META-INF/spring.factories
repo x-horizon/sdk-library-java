@@ -1,4 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-cn.sugar.tools.core.SpringsUtil,\
-cn.sugar.tools.core.enums.autowired.EnumAutowiredSupport
+cn.srd.itcp.sugar.tools.core.SpringsUtil,\
+cn.srd.itcp.sugar.tools.core.enums.autowired.EnumAutowiredSupport
