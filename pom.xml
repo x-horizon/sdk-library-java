@@ -7,9 +7,9 @@
 
     <parent>
         <groupId>cn.srd</groupId>
-        <artifactId>itcp-iot-manager</artifactId>
+        <artifactId>itcp-manager</artifactId>
         <version>1.0</version>
-        <relativePath>../itcp-iot/itcp-iot-manager</relativePath>
+        <relativePath>../itcp-manager</relativePath>
     </parent>
 
     <artifactId>itcp-sugar</artifactId>
