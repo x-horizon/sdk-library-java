@@ -27,8 +27,6 @@
             <optional>true</optional>
             <scope>compile</scope>
         </dependency>
-
-        <!-- =============================== tools =============================== -->
         <!-- concurrent -->
         <dependency>
             <groupId>org.redisson</groupId>
@@ -37,6 +35,8 @@
             <optional>true</optional>
             <scope>compile</scope>
         </dependency>
+
+        <!-- =============================== tools =============================== -->
         <!-- utils -->
         <dependency>
             <groupId>${project.groupId}</groupId>

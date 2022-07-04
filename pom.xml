@@ -42,19 +42,19 @@
 
         <!-- ============================= framework ============================= -->
         <!-- spring -->
-        <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
+        <spring-boot-dependencies.version>2.3.12.RELEASE</spring-boot-dependencies.version>
         <!-- mybatis-plus -->
         <mybatis-plus.version>3.4.1</mybatis-plus.version>
         <mybatis-plus-generator.version>3.4.1</mybatis-plus-generator.version>
         <!-- hsweb  -->
         <hsweb-commons-crud.version>4.0.13</hsweb-commons-crud.version>
         <hsweb-authorization-basic.version>4.0.13</hsweb-authorization-basic.version>
+        <!-- concurrent -->
+        <redisson-spring-boot-starter.version>3.16.8</redisson-spring-boot-starter.version>
 
         <!-- =============================== tools =============================== -->
         <!-- parser -->
         <json-path.version>2.7.0</json-path.version>
-        <!-- concurrent -->
-        <redisson-spring-boot-starter.version>3.16.8</redisson-spring-boot-starter.version>
         <!-- serialization -->
         <fastjson.version>2.0.7</fastjson.version>
         <jackson.version>2.13.3</jackson.version>
@@ -78,7 +78,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
+                <version>${spring-boot-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -148,6 +148,7 @@
                     <configuration>
                         <source>${java.version}</source>
                         <target>${java.version}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
                         <annotationProcessorPaths>
                             <!-- 用于解决 mapstruct 与 lombok 混合使用时无法编译的问题，参考链接：                              -->
                             <!-- https://github.com/mapstruct/mapstruct-examples/blob/master/mapstruct-lombok/pom.xml   -->
