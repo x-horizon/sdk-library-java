@@ -19,7 +19,7 @@ public class MpQueryWrapper<T> extends QueryWrapper<T> {
     private static final long serialVersionUID = 8790186304790523031L;
 
     /**
-     * 不建议直接 new 该实例，而是使用如：WQueryWrappers.<T>eqIfPresent(column,value)
+     * 不建议直接 new 该实例，而是使用如：MpQueryWrappers.<T>eqIfPresent(column,value)
      */
     MpQueryWrapper() {
     }
@@ -72,8 +72,6 @@ public class MpQueryWrapper<T> extends QueryWrapper<T> {
         return this;
     }
 
-    // ========== 重写父类方法，方便链式调用，如果有没加上去的，在这里加上并注册至 WQueryWrappers 即可 ==========
-
     @Override
     public MpQueryWrapper<T> eq(boolean condition, String column, Object value) {
         super.eq(condition, column, value);
@@ -92,25 +90,21 @@ public class MpQueryWrapper<T> extends QueryWrapper<T> {
         return this;
     }
 
-    @Override
     public MpQueryWrapper<T> exists(String existsSql) {
         super.exists(existsSql);
         return this;
     }
 
-    @Override
     public MpQueryWrapper<T> exists(boolean condition, String existsSql) {
         super.exists(condition, existsSql);
         return this;
     }
 
-    @Override
     public MpQueryWrapper<T> notExists(String existsSql) {
         super.notExists(existsSql);
         return this;
     }
 
-    @Override
     public MpQueryWrapper<T> notExists(boolean condition, String existsSql) {
         super.notExists(condition, existsSql);
         return this;
