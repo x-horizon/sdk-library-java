@@ -45,7 +45,6 @@
         <spring-boot-dependencies.version>2.3.12.RELEASE</spring-boot-dependencies.version>
         <!-- mybatis-plus -->
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
-        <mybatis-plus-generator.version>3.5.1</mybatis-plus-generator.version>
         <!-- hsweb  -->
         <hsweb-commons-crud.version>4.0.13</hsweb-commons-crud.version>
         <hsweb-authorization-basic.version>4.0.13</hsweb-authorization-basic.version>
