@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.mybatis.plus.support;
 
-import cn.srd.itcp.sugar.mybatis.plus.core.MpBaseMapper;
+import cn.srd.itcp.sugar.mybatis.plus.core.GenericCurdDao;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.extension.injector.methods.InsertBatchSomeColumn;
 
@@ -17,7 +17,7 @@ public class InsertBatchMethod extends InsertBatchSomeColumn {
     private static final long serialVersionUID = 706400903072847988L;
 
     /**
-     * 对应 {@link MpBaseMapper#insertBatch(Collection)} 的方法名
+     * 对应 {@link GenericCurdDao#insertBatch(Collection)} 的方法名
      *
      * @param sqlMethod
      * @return

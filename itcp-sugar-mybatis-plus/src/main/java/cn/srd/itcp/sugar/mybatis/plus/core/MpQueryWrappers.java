@@ -90,4 +90,8 @@ public class MpQueryWrappers {
         return new MpQueryWrapper<T>().isNotNull(lastSql);
     }
 
+    public static <T> MpQueryWrapper<T> select(String... columns) {
+        return new MpQueryWrapper<T>().select(columns);
+    }
+
 }

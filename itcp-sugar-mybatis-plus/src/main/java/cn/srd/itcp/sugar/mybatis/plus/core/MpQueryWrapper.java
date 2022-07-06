@@ -146,4 +146,10 @@ public class MpQueryWrapper<T> extends QueryWrapper<T> {
         return this;
     }
 
+    @Override
+    public MpQueryWrapper<T> select(String... columns) {
+        super.select(columns);
+        return this;
+    }
+    
 }

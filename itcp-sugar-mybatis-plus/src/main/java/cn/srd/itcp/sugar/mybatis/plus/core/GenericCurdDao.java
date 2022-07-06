@@ -1,6 +1,5 @@
 package cn.srd.itcp.sugar.mybatis.plus.core;
 
-
 import cn.srd.itcp.sugar.tools.constant.StringPool;
 import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tools.core.Objects;
@@ -22,12 +21,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * 自定义通用 mapper
+ * 通用的增删查改 dao
  *
  * @author wjm
  * @date 2020/12/25 11:44
  */
-public interface MpBaseMapper<T> extends BaseMapper<T> {
+public interface GenericCurdDao<PO> extends BaseMapper<PO> {
 
     /**
      * 批量保存时一次最多能保存的记录数
@@ -45,7 +44,7 @@ public interface MpBaseMapper<T> extends BaseMapper<T> {
      * @param entity
      * @return
      */
-    default T save(T entity) {
+    default PO save(PO entity) {
         insert(entity);
         return entity;
     }
@@ -57,7 +56,7 @@ public interface MpBaseMapper<T> extends BaseMapper<T> {
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
-    default boolean saveBatch(Collection<T> batchList) {
+    default boolean saveBatch(Collection<PO> batchList) {
         if (batchList.size() <= SAVE_BATCH_MAX_COUNT) {
             return insertBatch(batchList);
         }
@@ -83,7 +82,7 @@ public interface MpBaseMapper<T> extends BaseMapper<T> {
      * @param batchList
      */
     @Transactional(rollbackFor = Exception.class)
-    default void updateBatchByPrimaryKey(Collection<T> batchList) {
+    default void updateBatchByPrimaryKey(Collection<PO> batchList) {
         if (batchList.size() <= UPDATE_BATCH_MAX_COUNT) {
             updateBatchById(batchList);
         }
@@ -114,7 +113,7 @@ public interface MpBaseMapper<T> extends BaseMapper<T> {
      */
     @Deprecated
     @Transactional(rollbackFor = Exception.class)
-    boolean insertBatch(@Param("list") Collection<T> batchList);
+    boolean insertBatch(@Param("list") Collection<PO> batchList);
 
     /**
      * 自定义批量更新，条件为主键
@@ -126,20 +125,20 @@ public interface MpBaseMapper<T> extends BaseMapper<T> {
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
-    int updateBatchById(@Param("list") Collection<T> batchList);
+    int updateBatchById(@Param("list") Collection<PO> batchList);
 
     /**
      * 相当于 {@link BaseMapper#selectById(Serializable)}，增加非空校验
      *
-     * @param id
+     * @param primaryKey
      * @return
      */
     @NonNull
-    default T getById(Serializable id) {
-        Assert.INSTANCE.set(HttpStatusEnum.BAD_REQUEST.getCode(), "id为空，请检查").throwsIfNull(id);
-        T result = selectById(id);
+    default PO getByPrimary(Serializable primaryKey) {
+        Assert.INSTANCE.set(HttpStatusEnum.BAD_REQUEST.getCode(), "id为空，请检查").throwsIfNull(primaryKey);
+        PO result = selectById(primaryKey);
         if (Objects.isEmpty(result)) {
-            WarnAssert.INSTANCE.set(501, StringsUtil.format("数据不存在，id: {}{}", id, getStackTraceMsg())).throwsNow();
+            WarnAssert.INSTANCE.set(501, StringsUtil.format("数据不存在，primaryKey: {}{}", primaryKey, getStackTraceMsg())).throwsNow();
         }
         return result;
     }
@@ -151,7 +150,7 @@ public interface MpBaseMapper<T> extends BaseMapper<T> {
      * @return
      */
     @Nullable
-    default T getByIdSafe(Serializable id) {
+    default PO getByIdSafe(Serializable id) {
         if (Objects.isNull(id)) {
             return null;
         }
@@ -161,15 +160,15 @@ public interface MpBaseMapper<T> extends BaseMapper<T> {
     /**
      * 相当于 {@link BaseMapper#selectBatchIds(Collection)} ，若数据不存在或入参为空，返回空的集合
      *
-     * @param ids
+     * @param primaryKeys
      * @return
      */
     @NonNull
-    default List<T> listByIds(Collection<? extends Serializable> ids) {
-        if (Objects.isEmpty(ids)) {
+    default List<PO> listByPrimaryKeys(Collection<? extends Serializable> primaryKeys) {
+        if (Objects.isEmpty(primaryKeys)) {
             return new ArrayList<>();
         }
-        return selectBatchIds(ids);
+        return selectBatchIds(primaryKeys);
     }
 
     /**
@@ -179,9 +178,9 @@ public interface MpBaseMapper<T> extends BaseMapper<T> {
      * @return
      */
     @NonNull
-    default T getByUuid(String uuid) {
+    default PO getByUuid(String uuid) {
         WarnAssert.INSTANCE.set(HttpStatusEnum.BAD_REQUEST.getCode(), "uuid为空，请检查").throwsIfNull(uuid);
-        T result = selectOne(MpQueryWrappers.apply("uuid = '" + uuid + "'::uuid"));
+        PO result = selectOne(MpQueryWrappers.apply("uuid = '" + uuid + "'::uuid"));
         if (Objects.isEmpty(result)) {
             WarnAssert.INSTANCE.set(501, StringsUtil.format("数据不存在，uuid: {}{}", uuid, getStackTraceMsg())).throwsNow();
         }
@@ -195,7 +194,7 @@ public interface MpBaseMapper<T> extends BaseMapper<T> {
      * @return
      */
     @Nullable
-    default T getByUuidSafe(String uuid) {
+    default PO getByUuidSafe(String uuid) {
         if (Objects.isEmpty(uuid)) {
             return null;
         }
@@ -208,7 +207,7 @@ public interface MpBaseMapper<T> extends BaseMapper<T> {
      * @param entity
      * @return
      */
-    default T updateByPrimaryKey(T entity) {
+    default PO updateByPrimaryKey(PO entity) {
         boolean success = SqlHelper.retBool(updateById(entity));
         if (Objects.isFalse(success)) {
             WarnAssert.INSTANCE.set(501, StringsUtil.format("更新失败，请确认数据是否存在，entity: {}{}", entity.toString(), getStackTraceMsg())).throwsNow();
@@ -223,7 +222,7 @@ public interface MpBaseMapper<T> extends BaseMapper<T> {
      * @param uuid
      * @return
      */
-    default boolean updateByUuid(T entity, String uuid) {
+    default boolean updateByUuid(PO entity, String uuid) {
         boolean success = SqlHelper.retBool(update(entity, MpQueryWrappers.apply("uuid = '" + uuid + "'::uuid")));
         if (Objects.isFalse(success)) {
             WarnAssert.INSTANCE.set(501, StringsUtil.format("更新失败，请确认数据是否存在，uuid: {}{}", uuid, getStackTraceMsg())).throwsNow();
@@ -237,7 +236,7 @@ public interface MpBaseMapper<T> extends BaseMapper<T> {
      * @param id
      * @return
      */
-    default boolean removeById(Serializable id) {
+    default boolean removeByPrimaryKey(Serializable id) {
         boolean success = SqlHelper.retBool(deleteById(id));
         if (Objects.isFalse(success)) {
             WarnAssert.INSTANCE.set(501, StringsUtil.format("删除失败，请确认数据是否存在，id: {}{}", id, getStackTraceMsg())).throwsNow();
@@ -265,7 +264,7 @@ public interface MpBaseMapper<T> extends BaseMapper<T> {
      * @param queryWrapper
      * @return
      */
-    default boolean remove(Wrapper<T> queryWrapper) {
+    default boolean remove(Wrapper<PO> queryWrapper) {
         boolean success = SqlHelper.retBool(delete(queryWrapper));
         if (Objects.isFalse(success)) {
             WarnAssert.INSTANCE.set(501, StringsUtil.format("删除失败，请确认数据是否存在，entity: {}{}", queryWrapper.getEntity(), getStackTraceMsg())).throwsNow();
