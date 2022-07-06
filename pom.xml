@@ -42,7 +42,7 @@
 
         <!-- ============================= framework ============================= -->
         <!-- spring -->
-        <spring-boot-dependencies.version>2.3.12.RELEASE</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>2.3.9.RELEASE</spring-boot-dependencies.version>
         <!-- mybatis-plus -->
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <!-- hsweb  -->
