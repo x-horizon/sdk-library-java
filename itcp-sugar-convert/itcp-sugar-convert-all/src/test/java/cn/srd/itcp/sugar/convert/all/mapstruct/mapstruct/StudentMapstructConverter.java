@@ -6,7 +6,7 @@ import cn.srd.itcp.sugar.convert.all.mapstruct.bean.domain.StudentUnsupportedMap
 import cn.srd.itcp.sugar.convert.all.mapstruct.bean.vo.StudentUnsupportedMapstructConvertVO;
 import cn.srd.itcp.sugar.convert.all.mapstruct.bean.vo.StudentVO;
 import cn.srd.itcp.sugar.convert.mapstruct.core.BindMapstruct;
-import cn.srd.itcp.sugar.convert.mapstruct.util.MapstructMappingManager;
+import cn.srd.itcp.sugar.convert.mapstruct.utils.MapstructMappingManager;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

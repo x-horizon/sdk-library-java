@@ -3,7 +3,7 @@ package cn.srd.itcp.sugar.convert.all.mapstruct.mapstruct;
 import cn.srd.itcp.sugar.convert.all.mapstruct.bean.domain.GradeDO;
 import cn.srd.itcp.sugar.convert.all.mapstruct.bean.vo.GradeVO;
 import cn.srd.itcp.sugar.convert.mapstruct.core.BindMapstruct;
-import cn.srd.itcp.sugar.convert.mapstruct.util.MapstructMappingManager;
+import cn.srd.itcp.sugar.convert.mapstruct.utils.MapstructMappingManager;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

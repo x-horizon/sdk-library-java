@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.mybatis.plus.mapstruct;
 
 import cn.srd.itcp.sugar.convert.mapstruct.core.BindMapstruct;
-import cn.srd.itcp.sugar.convert.mapstruct.util.MapstructMappingManager;
+import cn.srd.itcp.sugar.convert.mapstruct.utils.MapstructMappingManager;
 import cn.srd.itcp.sugar.mybatis.plus.bean.domain.StudentDO;
 import cn.srd.itcp.sugar.mybatis.plus.bean.vo.StudentVO;
 import cn.srd.itcp.sugar.tools.page.PageResult;

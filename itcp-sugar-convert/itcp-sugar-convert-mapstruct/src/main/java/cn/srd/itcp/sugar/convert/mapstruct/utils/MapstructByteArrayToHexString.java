@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.convert.mapstruct.util;
+package cn.srd.itcp.sugar.convert.mapstruct.utils;
 
 import org.mapstruct.Qualifier;
 
@@ -8,13 +8,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Mapstruct 属性映射转换器注解，String => List
+ * Mapstruct 属性映射转换器注解，Byte[] => Hex String
  *
  * @author wjm
- * @date 2021/3/11 10:25
+ * @date 2022-07-06
  */
 @Qualifier
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
-public @interface MapstructStringToList {
+public @interface MapstructByteArrayToHexString {
 }

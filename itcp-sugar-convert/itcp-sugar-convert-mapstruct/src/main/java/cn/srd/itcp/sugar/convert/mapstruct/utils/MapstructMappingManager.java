@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.convert.mapstruct.util;
+package cn.srd.itcp.sugar.convert.mapstruct.utils;
 
 import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tools.core.HexsUtil;
