@@ -71,6 +71,7 @@ public class MapstructMappingManager {
      * @param value
      * @return
      */
+    @Nullable
     @MapstructByteArrayToHexString
     public static String byteArrayToHexString(@Nullable Byte[] value) {
         return HexsUtil.hexToString(value, false);
