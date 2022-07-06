@@ -2,8 +2,8 @@ package cn.srd.itcp.sugar.redisson.core;
 
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
-import cn.srd.itcp.sugar.redisson.core.support.RedissonLockTemplate;
 import cn.srd.itcp.sugar.redisson.exception.RedissonGenerateLockNameFailedException;
+import cn.srd.itcp.sugar.redisson.support.RedissonLockTemplate;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;

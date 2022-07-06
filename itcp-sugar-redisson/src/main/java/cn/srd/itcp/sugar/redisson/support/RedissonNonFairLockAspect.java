@@ -1,6 +1,6 @@
-package cn.srd.itcp.sugar.redisson.core.support;
+package cn.srd.itcp.sugar.redisson.support;
 
-import cn.srd.itcp.sugar.redisson.core.RedissonFairLock;
+import cn.srd.itcp.sugar.redisson.core.RedissonNonFairLock;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,33 +11,33 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
 /**
- * 基于 {@link RedissonFairLock} 的切面
+ * 基于 {@link RedissonNonFairLock} 的切面
  *
  * @author wjm
  * @date 2020/12/12 18:06
  */
 @Aspect
 @Component
-public class RedissonFairLockAspect extends RedissonLockAspectSupporter {
+public class RedissonNonFairLockAspect extends RedissonLockAspectSupporter {
 
-    private static RedissonFairLockAspect instance = null;
+    private static RedissonNonFairLockAspect instance = null;
 
     @PostConstruct
     public void init() {
         instance = this;
     }
 
-    public static RedissonFairLockAspect getInstance() {
+    public static RedissonNonFairLockAspect getInstance() {
         return instance;
     }
 
-    @Pointcut("@annotation(cn.srd.itcp.sugar.redisson.core.RedissonFairLock)")
+    @Pointcut("@annotation(cn.srd.itcp.sugar.redisson.core.RedissonNonFairLock)")
     public void pointcut() {
     }
 
     @Around("pointcut()")
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
-        RedissonFairLock lockAnnotation = ((MethodSignature) joinPoint.getSignature()).getMethod().getAnnotation(RedissonFairLock.class);
+        RedissonNonFairLock lockAnnotation = ((MethodSignature) joinPoint.getSignature()).getMethod().getAnnotation(RedissonNonFairLock.class);
         return lock(
                 lockAnnotation.lockName(),
                 lockAnnotation.fieldName(),

@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.redisson.core;
 
-import cn.srd.itcp.sugar.redisson.core.support.RedissonLockTemplate;
-import cn.srd.itcp.sugar.redisson.core.support.RedissonManager;
+import cn.srd.itcp.sugar.redisson.support.RedissonLockTemplate;
+import cn.srd.itcp.sugar.redisson.support.RedissonManager;
 import org.redisson.api.RLock;
 import org.springframework.stereotype.Component;
 

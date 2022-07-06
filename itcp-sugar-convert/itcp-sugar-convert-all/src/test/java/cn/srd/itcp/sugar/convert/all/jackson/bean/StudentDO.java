@@ -1,8 +1,8 @@
 package cn.srd.itcp.sugar.convert.all.jackson.bean;
 
-import cn.srd.itcp.sugar.convert.jackson.core.support.JacksonCapableToEnumDeserializer;
-import cn.srd.itcp.sugar.convert.jackson.core.support.JacksonEnumToIntegerSerializer;
 import cn.hutool.core.util.RandomUtil;
+import cn.srd.itcp.sugar.convert.jackson.support.JacksonCapableToEnumDeserializer;
+import cn.srd.itcp.sugar.convert.jackson.support.JacksonEnumToIntegerSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
@@ -48,10 +48,10 @@ public class StudentDO implements Serializable {
 
     public static StudentDO newDO() {
         return new StudentDO()
-            .setId(RandomUtil.randomInt(99))
-            .setName("name" + RandomUtil.randomNumbers(2))
-            .setAge(RandomUtil.randomInt(15, 20))
-            .setSex(Sex.GIRL);
+                .setId(RandomUtil.randomInt(99))
+                .setName("name" + RandomUtil.randomNumbers(2))
+                .setAge(RandomUtil.randomInt(15, 20))
+                .setSex(Sex.GIRL);
     }
 
     public static List<StudentDO> newDOs() {

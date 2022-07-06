@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.mybatis.plus.utils;
 
 import cn.srd.itcp.sugar.convert.mapstruct.core.MapstructConverts;
-import cn.srd.itcp.sugar.convert.mapstruct.core.support.MapstructConvertsSupporterManager;
+import cn.srd.itcp.sugar.convert.mapstruct.support.MapstructConvertsSupporterManager;
 import cn.srd.itcp.sugar.tools.core.Objects;
 import cn.srd.itcp.sugar.tools.page.PageResult;
 import com.baomidou.mybatisplus.core.metadata.IPage;

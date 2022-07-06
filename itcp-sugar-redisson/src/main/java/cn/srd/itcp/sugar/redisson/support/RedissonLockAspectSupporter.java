@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.redisson.core.support;
+package cn.srd.itcp.sugar.redisson.support;
 
 import cn.hutool.core.util.IdUtil;
 import cn.srd.itcp.sugar.redisson.core.RedissonFairLock;

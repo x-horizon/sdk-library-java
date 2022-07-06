@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.hsweb.curd.utils;
 
 import cn.srd.itcp.sugar.convert.mapstruct.core.MapstructConverts;
-import cn.srd.itcp.sugar.convert.mapstruct.core.support.MapstructConvertsSupporterManager;
+import cn.srd.itcp.sugar.convert.mapstruct.support.MapstructConvertsSupporterManager;
 import cn.srd.itcp.sugar.hsweb.curd.page.PageResult;
 import cn.srd.itcp.sugar.tools.core.Objects;
 import org.hswebframework.web.api.crud.entity.PagerResult;

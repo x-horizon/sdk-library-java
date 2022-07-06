@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.redisson.core;
 
-import cn.srd.itcp.sugar.redisson.core.support.RedissonLockTemplate;
+import cn.srd.itcp.sugar.redisson.support.RedissonLockTemplate;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
