@@ -17,44 +17,42 @@ import java.util.concurrent.TimeUnit;
 /**
  * 基准性能测试
  * <pre>
- *
- * `  @BenchmarkMode
+ * &#064;BenchmarkMode
  *       JMH 进行 Benchmark 时所使用的模式，可以用在类 / 方法上；
  *          Throughput: 吞吐量，统计单位时间内可以对方法测试多少次，例如 “1秒内可以执行多少次调用”，单位：操作数/时间；
  *          AverageTime: 调用的平均响应时间，例如 “每次调用平均耗时 xxx 毫秒”，单位：时间/操作数；
  *          SampleTime: 随机取样，最后输出取样结果的分布，统计每个响应时间范围内的响应次数，比如 “0-1ms，3次；1-2ms，5次；99% 的调用在 xxx 毫秒以内，99.99% 的调用在 xxx 毫秒以内”；
  *          SingleShotTime: 跳过预热阶段，只进行一次测试（以上三种模式都不只有一次），一般与 @WarmUp(0) 共用，用于测试冷启动时的性能；
  *
- * `  @Iteration：JMH 进行测试的最小单位，与 @BenchmarkMode 的 Throughput、AverageTime、SampleTime 配合使用，一次 iteration 代表的是一秒；
+ * &#064;Iteration：JMH 进行测试的最小单位，与 @BenchmarkMode 的 Throughput、AverageTime、SampleTime 配合使用，一次 iteration 代表的是一秒；
  *
- * `  @Benchmark：表示该方法是需要进行 benchmark 的对象，可以用在方法上；
+ * &#064;Benchmark：表示该方法是需要进行 benchmark 的对象，可以用在方法上；
  *
- * `  @Fork：例如 1，表示开启一个线程进行测试；
+ * &#064;Fork：例如 1，表示开启一个线程进行测试；
  *
- * `  @Measurement：例如 5，表示进行 5 次测试，可以用在类 / 方法上；
+ * &#064;Measurement：例如 5，表示进行 5 次测试，可以用在类 / 方法上；
  *
- * `  @WarmUp：例如 3，表示测试前进行三次预热执行，可以用在类 / 方法上；
+ * &#064;WarmUp：例如 3，表示测试前进行三次预热执行，可以用在类 / 方法上；
  *
- * `  @OutputTimeUnit：输出的时间单位；
+ * &#064;OutputTimeUnit：输出的时间单位；
  *
- * `  @Setup：执行所有 @Benchmark 前执行，主要用于初始化，可以用在方法上；
+ * &#064;Setup：执行所有 @Benchmark 前执行，主要用于初始化，可以用在方法上；
  *
- * `  @TearDown：执行完所有 @Benchmark 后执行，主要用于资源的回收等，可以用在方法上；
+ * &#064;TearDown：执行完所有 @Benchmark 后执行，主要用于资源的回收等，可以用在方法上；
  *
- * `  @Setup/@TearDown 注解使用 Level 参数来指定何时调用，
+ * &#064;Setup/@TearDown 注解使用 Level 参数来指定何时调用，
  *          Level.Trial：默认level，执行所有 @Benchmark 前 / 后 执行
  *          Level.Iteration：一次迭代前 / 后
  *          Level.Invocation：每个方法调用前 / 后
  *
- * `  @State
+ * &#064;State
  *          Scope.Thread：默认的 State，每个测试线程分配一个实例；
  *          Scope.Benchmark：所有测试线程共享一个实例，用于测试有状态实例在多线程共享下的性能；
  *          Scope.Group：每个线程组共享一个实例；
  *
- * `  @Param：
+ * &#064;Param：
  *        可以用于指定某项参数的多种情况，适合用于测试一个函数在不同的参数输入的情况下的性能，可以用在成员变量上；
  *        多个 @Param 注解的成员之间是乘积关系，比如有两个用 @Param 注解的字段，第一个字段有 5 个值，第二个字段有 2 个值，则每个测试方法会跑 5*2 = 10 次；
- *
  * </pre>
  *
  * @author wjm

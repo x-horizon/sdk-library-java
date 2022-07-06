@@ -22,7 +22,7 @@ public class SpringsUtil extends SpringUtil {
     }
 
     /**
-     * ` @SpringBootApplication 启动类所在的包路径
+     * {@link SpringBootApplication} 启动类所在的包路径
      */
     private static String rootPackagePath = null;
 
@@ -72,7 +72,6 @@ public class SpringsUtil extends SpringUtil {
             return CollectionsUtil.newHashSet();
         }
     }
-
 
     /**
      * 获取 @SpringBootApplication 启动类所在的包路径

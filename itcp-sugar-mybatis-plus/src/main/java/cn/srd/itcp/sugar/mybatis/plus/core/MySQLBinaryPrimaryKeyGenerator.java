@@ -19,11 +19,11 @@ import com.baomidou.mybatisplus.core.incrementer.IKeyGenerator;
  *         //      COMMENT '示例表';
  *
  *         // persistent object 实体
- *        `@KeySequence("mysqlBinUuidPrimaryKeyGenerator")
- *        `@TableName(value = "table_name", autoResultMap = true)
+ *        &#064;KeySequence("mysqlBinUuidPrimaryKeyGenerator")
+ *        &#064;TableName(value = "table_name", autoResultMap = true)
  *         public class TableNamePO implements Serializable {
  *             private static final long serialVersionUID = -1635772589307788624L;
- *            `@TableId(type = IdType.INPUT)
+ *            &#064;TableId(type = IdType.INPUT)
  *             private Byte[] tenantUuid;
  *         }
  *    }

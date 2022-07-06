@@ -11,19 +11,17 @@ import java.time.LocalDateTime;
  * <pre>
  *    以下示例代码表示插入、更新、插入和更新时自动填充值：
  *
- *    {@code
- *        `@TableName(value = "table_name", autoResultMap = true)
+ *         &#064;TableName(value = "table_name", autoResultMap = true)
  *         public class TableNamePO implements Serializable {
  *             private static final long serialVersionUID = -4579156082783453314L;
- *            `@TableLogic
- *            `@TableField(fill = FieldFill.INSERT)
+ *             &#064;TableLogic
+ *             &#064;TableField(fill = FieldFill.INSERT)
  *             private Boolean deleteFlag;
- *            `@TableField(fill = FieldFill.INSERT)
+ *             &#064;TableField(fill = FieldFill.INSERT)
  *             private LocalDateTime createTime;
- *            `@TableField(fill = FieldFill.INSERT_UPDATE)
+ *             &#064;TableField(fill = FieldFill.INSERT_UPDATE)
  *             private LocalDateTime updateTime;
  *         }
- *    }
  * </pre>
  *
  * @author wjm

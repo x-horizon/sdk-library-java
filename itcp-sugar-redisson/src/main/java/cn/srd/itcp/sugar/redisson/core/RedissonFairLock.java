@@ -2,8 +2,8 @@ package cn.srd.itcp.sugar.redisson.core;
 
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
-import cn.srd.itcp.sugar.redisson.exception.RedissonGenerateLockNameFailedException;
 import cn.srd.itcp.sugar.redisson.core.support.RedissonLockTemplate;
+import cn.srd.itcp.sugar.redisson.exception.RedissonGenerateLockNameFailedException;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
@@ -33,7 +33,7 @@ import java.util.function.Supplier;
  *   二、由于该注解是方法级别，需要确保临界区只有应该要加锁的逻辑，无关逻辑不应放在标记了该注解的方法里；
  *
  *   三、使用说明：
- *     {@code
+ *
  *          public class Person {
  *               private Integer id;
  *          }
@@ -41,7 +41,7 @@ import java.util.function.Supplier;
  *               private Integer id;
  *          }
  *          public class Test {
- * `             @RedissonFairLock(
+ *               &#064;RedissonFairLock(
  *                       lockName = "name",
  *                       fieldName = "id",
  *                       fieldOrder = "2",
@@ -52,7 +52,7 @@ import java.util.function.Supplier;
  *               public void test(Person person, Book book) {
  *               }
  *          }
- *     }
+ *
  *      以上表示：
  *       1、在执行 test(Person person, Book book) 前加锁，执行 test(Person person, Book book) 完毕或异常时释放锁，使用 "name" 作为锁名，客户端获取锁时最多等待 3 秒，已持有锁的客户端最多可以持有 5 秒；
  *       2、lockName、fieldName、fieldOrder：
