@@ -75,7 +75,7 @@ import java.lang.annotation.*;
  *                   public class Xxx2Xxx1Handler implements Handler {}
  *
  *                   &#064;Getter
- *                   &#064;@EnumAutowired(autowiredBeanClass = Handler.class)
+ *                   &#064;EnumAutowired(autowiredBeanClass = Handler.class)
  *                   public enum HandlerEnum {
  *                       XXX1,
  *                       XXX2,
