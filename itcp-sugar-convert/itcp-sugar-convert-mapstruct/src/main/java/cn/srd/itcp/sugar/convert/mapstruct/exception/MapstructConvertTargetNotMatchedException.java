@@ -1,5 +1,4 @@
-package cn.itcp.srd.sugar.convert.mapstruct.exception;
-
+package cn.srd.itcp.sugar.convert.mapstruct.exception;
 
 /**
  * 执行结果类型与提供的目标值类型不一致异常

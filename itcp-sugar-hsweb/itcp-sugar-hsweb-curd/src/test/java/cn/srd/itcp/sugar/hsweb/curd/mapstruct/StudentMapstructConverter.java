@@ -1,8 +1,7 @@
 package cn.srd.itcp.sugar.hsweb.curd.mapstruct;
 
-
-import cn.itcp.srd.sugar.convert.mapstruct.core.BindMapstruct;
-import cn.itcp.srd.sugar.convert.mapstruct.core.util.MapstructMappingManager;
+import cn.srd.itcp.sugar.convert.mapstruct.core.BindMapstruct;
+import cn.srd.itcp.sugar.convert.mapstruct.core.util.MapstructMappingManager;
 import cn.srd.itcp.sugar.hsweb.curd.bean.domain.StudentDO;
 import cn.srd.itcp.sugar.hsweb.curd.bean.vo.StudentVO;
 import cn.srd.itcp.sugar.hsweb.curd.page.PageResult;

@@ -1,4 +1,4 @@
-package cn.itcp.srd.sugar.convert.mapstruct.core.support;
+package cn.srd.itcp.sugar.convert.mapstruct.core.support;
 
 import cn.srd.itcp.sugar.tools.constant.StringPool;
 import org.springframework.lang.NonNull;

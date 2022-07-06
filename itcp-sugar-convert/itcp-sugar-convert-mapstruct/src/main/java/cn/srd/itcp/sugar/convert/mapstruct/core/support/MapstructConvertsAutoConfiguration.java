@@ -1,6 +1,6 @@
-package cn.itcp.srd.sugar.convert.mapstruct.core.support;
+package cn.srd.itcp.sugar.convert.mapstruct.core.support;
 
-import cn.itcp.srd.sugar.convert.mapstruct.core.MapstructConverts;
+import cn.srd.itcp.sugar.convert.mapstruct.core.MapstructConverts;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 

@@ -1,4 +1,4 @@
-package cn.itcp.srd.sugar.convert.mapstruct.core.util;
+package cn.srd.itcp.sugar.convert.mapstruct.core.util;
 
 import org.mapstruct.Qualifier;
 
@@ -8,13 +8,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Mapstruct 属性映射转换器注解，Enum => Enum 的数字字段值
+ * Mapstruct 属性映射转换器注解，Byte[] => Hex String
  *
  * @author wjm
- * @date 2021/3/11 10:25
+ * @date 2022-07-06
  */
 @Qualifier
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
-public @interface MapstructEnumToEnumNumber {
+public @interface MapstructByteArrayToHexString {
 }

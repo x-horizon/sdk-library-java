@@ -1,10 +1,9 @@
 package cn.srd.itcp.sugar.mybatis.plus;
 
-
-import cn.itcp.srd.sugar.convert.mapstruct.exception.MapstructConvertMethodNotFoundException;
+import cn.srd.itcp.sugar.convert.mapstruct.exception.MapstructConvertMethodNotFoundException;
+import cn.srd.itcp.sugar.mybatis.plus.bean.domain.StudentDO;
 import cn.srd.itcp.sugar.mybatis.plus.bean.vo.StudentVO;
 import cn.srd.itcp.sugar.mybatis.plus.utils.Converts;
-import cn.srd.itcp.sugar.mybatis.plus.bean.domain.StudentDO;
 import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.Assert;
@@ -31,7 +30,7 @@ public class MapstructMybatisPlusConvertsTest {
         DEFAULT_PAGE.setSize(3);
         DEFAULT_PAGE.setTotal(3);
     }
-    
+
     @Test
     public void testMybatisPlusMapstructBeanConverter() {
         // 转换成功

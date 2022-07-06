@@ -2,7 +2,7 @@ package cn.srd.itcp.sugar.convert.all.core;
 
 import cn.srd.itcp.sugar.convert.fastjson.core.FastJsonConverts;
 import cn.srd.itcp.sugar.convert.jackson.core.JacksonConverts;
-import cn.itcp.srd.sugar.convert.mapstruct.core.MapstructConverts;
+import cn.srd.itcp.sugar.convert.mapstruct.core.MapstructConverts;
 import cn.srd.itcp.sugar.convert.spring.core.SpringConverts;
 
 /**

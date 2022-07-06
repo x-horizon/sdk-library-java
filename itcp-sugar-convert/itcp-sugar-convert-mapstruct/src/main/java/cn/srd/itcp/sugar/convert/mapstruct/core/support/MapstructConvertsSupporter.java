@@ -1,4 +1,4 @@
-package cn.itcp.srd.sugar.convert.mapstruct.core.support;
+package cn.srd.itcp.sugar.convert.mapstruct.core.support;
 
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;

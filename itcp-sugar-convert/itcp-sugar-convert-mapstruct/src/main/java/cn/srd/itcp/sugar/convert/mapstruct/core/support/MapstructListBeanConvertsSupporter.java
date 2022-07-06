@@ -1,6 +1,6 @@
-package cn.itcp.srd.sugar.convert.mapstruct.core.support;
+package cn.srd.itcp.sugar.convert.mapstruct.core.support;
 
-import cn.itcp.srd.sugar.convert.mapstruct.exception.MapstructConvertMethodUnsupportedException;
+import cn.srd.itcp.sugar.convert.mapstruct.exception.MapstructConvertMethodUnsupportedException;
 import cn.srd.itcp.sugar.tools.constant.StringPool;
 import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
 import org.springframework.lang.NonNull;

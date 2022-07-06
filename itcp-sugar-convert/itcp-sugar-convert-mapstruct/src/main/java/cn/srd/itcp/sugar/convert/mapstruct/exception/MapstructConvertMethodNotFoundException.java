@@ -1,5 +1,4 @@
-package cn.itcp.srd.sugar.convert.mapstruct.exception;
-
+package cn.srd.itcp.sugar.convert.mapstruct.exception;
 
 /**
  * 未找到转换方法时的异常

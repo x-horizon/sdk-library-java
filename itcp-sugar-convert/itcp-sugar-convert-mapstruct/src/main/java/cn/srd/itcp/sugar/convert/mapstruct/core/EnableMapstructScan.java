@@ -1,4 +1,4 @@
-package cn.itcp.srd.sugar.convert.mapstruct.core;
+package cn.srd.itcp.sugar.convert.mapstruct.core;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
