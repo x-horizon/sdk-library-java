@@ -1,6 +1,7 @@
 package cn.itcp.srd.sugar.convert.mapstruct.core.util;
 
 import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
+import cn.srd.itcp.sugar.tools.core.HexsUtil;
 import cn.srd.itcp.sugar.tools.core.Objects;
 import cn.srd.itcp.sugar.tools.core.enums.EnumsUtil;
 import org.springframework.lang.Nullable;
@@ -62,6 +63,17 @@ public class MapstructMappingManager {
     @MapstructEnumToEnumNumber
     public static Integer enumToEnumNumber(@Nullable Enum<?> value) {
         return EnumsUtil.getEnumValue(value, Integer.class);
+    }
+
+    /**
+     * Byte[] => Hex String
+     *
+     * @param value
+     * @return
+     */
+    @MapstructByteArrayToHexString
+    public static String byteArrayToHexString(@Nullable Byte[] value) {
+        return HexsUtil.hexToString(value, false);
     }
 
 }
