@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.convert.mapstruct.core.util;
+package cn.srd.itcp.sugar.convert.mapstruct.util;
 
 import org.mapstruct.Qualifier;
 
@@ -8,13 +8,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Mapstruct 属性映射注解标记，标记了该注解的类可以作为 Mapstruct 中的转换方法
+ * Mapstruct 属性映射转换器注解，List => String
  *
  * @author wjm
  * @date 2021/3/11 10:25
  */
 @Qualifier
-@Target(ElementType.TYPE)
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
-public @interface MapstructMappingQualify {
+public @interface MapstructListToString {
 }
