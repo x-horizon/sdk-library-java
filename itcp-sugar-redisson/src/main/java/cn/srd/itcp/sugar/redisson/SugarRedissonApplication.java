@@ -5,8 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
-@SpringBootApplication
 @Import(SpringsUtil.class)
+@SpringBootApplication
 public class SugarRedissonApplication {
 
     public static void main(String[] args) {
