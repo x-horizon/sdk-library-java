@@ -14,7 +14,7 @@
     <artifactId>itcp-sugar-security</artifactId>
 
     <modules>
-        <module>itcp-sugar-security-spring</module>
+        <module>itcp-sugar-security-sa-token</module>
     </modules>
 
 </project>

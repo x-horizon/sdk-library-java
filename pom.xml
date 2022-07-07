@@ -50,7 +50,9 @@
         <hsweb-commons-crud.version>4.0.13</hsweb-commons-crud.version>
         <hsweb-authorization-basic.version>4.0.13</hsweb-authorization-basic.version>
         <!-- concurrent -->
-        <redisson-spring-boot-starter.version>3.16.8</redisson-spring-boot-starter.version>
+        <redisson.version>3.16.8</redisson.version>
+        <!-- security -->
+        <sa-token.version>1.30.0</sa-token.version>
 
         <!-- =============================== tools =============================== -->
         <!-- parser -->

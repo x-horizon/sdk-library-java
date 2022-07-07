@@ -6,32 +6,33 @@
 
     <parent>
         <groupId>cn.srd</groupId>
-        <artifactId>itcp-sugar</artifactId>
+        <artifactId>itcp-sugar-security</artifactId>
         <version>1.0</version>
     </parent>
 
-    <artifactId>itcp-sugar-redisson</artifactId>
+    <artifactId>itcp-sugar-security-sa-token</artifactId>
 
     <dependencies>
         <!-- ============================= framework ============================= -->
-        <!-- spring -->
+        <!-- security -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-spring-boot-starter</artifactId>
+            <version>${sa-token.version}</version>
             <optional>true</optional>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-dao-redis-jackson</artifactId>
+            <version>${sa-token.version}</version>
             <optional>true</optional>
             <scope>compile</scope>
         </dependency>
-        <!-- concurrent -->
         <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson-spring-boot-starter</artifactId>
-            <version>${redisson.version}</version>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-jwt</artifactId>
+            <version>${sa-token.version}</version>
             <optional>true</optional>
             <scope>compile</scope>
         </dependency>
