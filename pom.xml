@@ -20,6 +20,7 @@
         <module>itcp-sugar-mybatis-plus</module>
         <module>itcp-sugar-redisson</module>
         <module>itcp-sugar-tools</module>
+        <module>itcp-sugar-security</module>
     </modules>
 
     <properties>
@@ -55,7 +56,7 @@
         <!-- parser -->
         <json-path.version>2.7.0</json-path.version>
         <!-- serialization -->
-        <fastjson.version>2.0.7</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <jackson.version>2.13.3</jackson.version>
         <javax.el.version>2.2.6</javax.el.version>
         <javax.el-api.version>3.0.0</javax.el-api.version>
@@ -212,13 +213,8 @@
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
         </repository>
         <repository>
-            <id>hsweb-nexus</id>
-            <name>Nexus Release Repository</name>
-            <url>http://nexus.hsweb.me/content/groups/public/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2/</url>
         </repository>
     </repositories>
 
