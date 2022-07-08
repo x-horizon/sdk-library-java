@@ -8,87 +8,143 @@ package cn.srd.itcp.sugar.tools.constant;
  */
 public interface StringPool {
 
+    /**
+     * 空格符 {@code " "}
+     */
     String SPACE = String.valueOf(CharPool.SPACE);
+
+    /**
+     * 反斜杠 {@code "\\"}
+     */
     String BACKSLASH = String.valueOf(CharPool.BACKSLASH);
+
+    /**
+     * 回车符 {@code "\r"}
+     */
     String CR = String.valueOf(CharPool.CR);
+
+    /**
+     * 减号 {@code "-"}
+     */
     String DASHED = String.valueOf(CharPool.DASHED);
+
+    /**
+     * 下划线 {@code "_"}
+     */
     String UNDERLINE = String.valueOf(CharPool.UNDERLINE);
+
+    /**
+     * 花括号（左） {@code "{"}
+     */
     String DELIM_START = String.valueOf(CharPool.DELIM_START);
+
+    /**
+     * 花括号（右） {@code "}"}
+     */
     String DELIM_END = String.valueOf(CharPool.DELIM_END);
+
+    /**
+     * 中括号（左） {@code "["}
+     */
     String BRACKET_START = String.valueOf(CharPool.BRACKET_START);
+
+    /**
+     * 中括号（右） {@code "]"}
+     */
     String BRACKET_END = String.valueOf(CharPool.BRACKET_END);
+
+    /**
+     * 双引号 {@code "\""}
+     */
     String DOUBLE_QUOTES = String.valueOf(CharPool.DOUBLE_QUOTES);
+
+    /**
+     * 单引号 {@code "\'"}
+     */
     String SINGLE_QUOTE = String.valueOf(CharPool.SINGLE_QUOTE);
+
+    /**
+     * 与 {@code "&"}
+     */
     String AMP = String.valueOf(CharPool.AMP);
+
+    /**
+     * 艾特 {@code "@"}
+     */
     String AT = String.valueOf(CharPool.AT);
 
     /**
-     * 制表符 "\t"
+     * 制表符 {@code "\t"}
      */
     String TAB = String.valueOf(CharPool.TAB);
 
     /**
-     * 换行符 "\n"
+     * 换行符 {@code "\n"}
      */
     String LF = String.valueOf(CharPool.LF);
 
     /**
-     * 斜杠 "/"
+     * 斜杠 {@code "/"}
      */
     String SLASH = String.valueOf(CharPool.SLASH);
 
     /**
-     * 冒号 ":"
+     * 冒号 {@code ":"}
      */
     String COLON = String.valueOf(CharPool.COLON);
 
     /**
-     * 空字符串 ""
+     * 星号 {@code "*"}
+     */
+    String ASTERISK = "*";
+
+    /**
+     * 空字符串 {@code ""}
      */
     String EMPTY = "";
 
     /**
-     * 逗号 ","
+     * 逗号 {@code ","}
      */
     String COMMA = String.valueOf(CharPool.COMMA);
 
     /**
-     * 点 "."
+     * 点 {@code "."}
      */
     String DOT = String.valueOf(CharPool.DOT);
 
     /**
-     * 中文顿号 "、"
+     * 中文顿号 {@code "、"}
      */
     String CHINESE_DOT = "、";
 
     /**
-     * 单书名号（左）"<"
+     * 单书名号（左）{@code "<"}
      */
     String SINGLE_BOOK_NAME_LEFT = "<";
 
     /**
-     * 单书名号（右）">"
+     * 单书名号（右）{@code ">"}
      */
     String SINGLE_BOOK_NAME_RIGHT = ">";
 
     /**
-     * 单书名号
+     * 单书名号 {@code "<>"}
      */
     String SINGLE_BOOK_NAME = "<>";
 
     /**
-     * 双书名号（左）"《"
+     * 双书名号（左）{@code "《"}
      */
     String DOUBLE_BOOK_NAME_LEFT = "《";
 
     /**
-     * 双书名号（右）"《"
+     * 双书名号（右）{@code "《"}
      */
     String DOUBLE_BOOK_NAME_RIGHT = "》";
 
     /**
-     * 双书名号
+     * 双书名号 {@code "《》"}
      */
     String DOUBLE_BOOK_NAME = "《》";
 
