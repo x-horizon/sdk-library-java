@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 
 /**
  * <pre>
- *   该注解为：被该注解标记了的方法无需鉴权，如：
+ *   该注解为：被该注解标记了的方法无需登录可进入，如：
  *
  *     &#064;{@link SaAnonymous}
  *     &#064;PostMapping
@@ -21,7 +21,7 @@ import java.lang.annotation.*;
  *
  * @author wjm
  * @date 2022-07-07
- * @see SaAnonymousSupporter
+ * @see SaAnonymousSupporter#afterPropertiesSet()
  * @see SaConfig#addInterceptors(InterceptorRegistry)
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
