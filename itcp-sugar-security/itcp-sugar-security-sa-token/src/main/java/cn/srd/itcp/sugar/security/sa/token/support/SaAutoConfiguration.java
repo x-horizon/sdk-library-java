@@ -2,7 +2,6 @@ package cn.srd.itcp.sugar.security.sa.token.support;
 
 import cn.dev33.satoken.spring.SaBeanInject;
 import cn.dev33.satoken.spring.SaBeanRegister;
-import cn.srd.itcp.sugar.security.sa.token.core.SaTokens;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
@@ -16,11 +15,16 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConditionalOnClass({SaBeanRegister.class, SaBeanInject.class})
-public class SugarSecuritySaTokenAutoConfiguration {
+public class SaAutoConfiguration {
 
     @Bean
-    public SaTokens saTokens() {
-        return new SaTokens();
+    public SaAnonymousSupporter saAnonymousSupporter() {
+        return new SaAnonymousSupporter();
+    }
+
+    @Bean
+    public SaConfig saConfig() {
+        return new SaConfig();
     }
 
 }
