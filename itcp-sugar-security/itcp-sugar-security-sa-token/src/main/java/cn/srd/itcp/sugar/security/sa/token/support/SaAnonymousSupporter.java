@@ -15,12 +15,6 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 /**
- * 匿名访问者：无需鉴权即可访问；
- * <pre>
- *   可标记在函数上；
- *   可标记在类上，效果等同于标记在此类的所有方法上；
- * </pre>
- *
  * @author wjm
  * @date 2022-07-07
  * @see SaAnonymous
