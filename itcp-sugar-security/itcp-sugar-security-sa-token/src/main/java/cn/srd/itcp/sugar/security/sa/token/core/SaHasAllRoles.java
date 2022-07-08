@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.security.sa.token.core;
 
-import cn.dev33.satoken.annotation.SaCheckPermission;
+import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.annotation.SaMode;
 import org.springframework.core.annotation.AliasFor;
 
@@ -8,10 +8,10 @@ import java.lang.annotation.*;
 
 /**
  * <pre>
- *   该注解为：同时拥有所有权限时可进入被该注解标记了的方法，如：
+ *   该注解为：同时拥有所有角色时可进入被该注解标记了的方法，如：
  *
- *     // 同时拥有 "system:user:add"、"system:user:edit" 权限时可进入 test 方法
- *     &#064;{@link SaHasAllPermission}({"system:user:add","system:user:edit"})
+ *     // 同时拥有 "user1"、"user2" 角色时可进入 test 方法
+ *     &#064;{@link SaHasAllRoles}({"user1","user2"})
  *     &#064;PostMapping
  *     public void test(Test test) {
  *     }
@@ -23,18 +23,18 @@ import java.lang.annotation.*;
  * @author wjm
  * @date 2022-07-07
  */
-@SaCheckPermission(mode = SaMode.AND)
+@SaCheckRole(mode = SaMode.AND)
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface SaHasAllPermission {
+public @interface SaHasAllRoles {
 
     /**
-     * 需要校验的权限码，如：@{@link SaHasAllPermission}("system:config:add")
+     * 需要校验的权限码，如：@{@link SaHasAllRoles}("admin")
      *
-     * @return 需要校验的权限码
+     * @return 需要校验的角色标识
      */
-    @AliasFor(annotation = SaCheckPermission.class)
+    @AliasFor(annotation = SaCheckRole.class)
     String[] value() default {};
 
 }

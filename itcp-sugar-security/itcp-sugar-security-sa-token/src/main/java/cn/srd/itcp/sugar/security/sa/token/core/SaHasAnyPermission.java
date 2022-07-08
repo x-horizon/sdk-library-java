@@ -11,7 +11,7 @@ import java.lang.annotation.*;
  *   该注解为：拥有任一权限时可进入被该注解标记了的方法，如：
  *
  *     // 拥有 "system:user:add"、"system:user:edit" 任一权限时可进入 test 方法
- *     &#064;{@link SaHasAllPermission}({"system:user:add","system:user:edit"})
+ *     &#064;{@link SaHasAnyPermission}({"system:user:add","system:user:edit"})
  *     &#064;PostMapping
  *     public void test(Test test) {
  *     }
