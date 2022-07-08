@@ -36,7 +36,7 @@ import java.lang.annotation.*;
  *      三、用法：直接在枚举上声明被 Spring 管理的实现类的父级接口即可，示例代码：
  *
  *               &#064;Getter
- *               &#064;EnumAutowired(autowiredBeanClass = Handler.class)
+ *               &#064;{@link EnumAutowired}(autowiredBeanClass = Handler.class)
  *               public enum HandlerEnum {
  *                   XXX1,
  *                   XXX2,
@@ -51,7 +51,7 @@ import java.lang.annotation.*;
  *              显式指定接口实现类要注入到枚举的哪个字段中，若不指定，则获取枚举中类型为指定接口的字段进行注入，例如：
  *
  *                   &#064;Getter
- *                   &#064;EnumAutowired(autowiredBeanClass = Handler.class)
+ *                   &#064;{@link EnumAutowired}(autowiredBeanClass = Handler.class)
  *                   public enum HandlerEnum {
  *                       XXX1,
  *                       XXX2,
@@ -75,7 +75,7 @@ import java.lang.annotation.*;
  *                   public class Xxx2Xxx1Handler implements Handler {}
  *
  *                   &#064;Getter
- *                   &#064;EnumAutowired(autowiredBeanClass = Handler.class)
+ *                   &#064;{@link EnumAutowired}(autowiredBeanClass = Handler.class)
  *                   public enum HandlerEnum {
  *                       XXX1,
  *                       XXX2,

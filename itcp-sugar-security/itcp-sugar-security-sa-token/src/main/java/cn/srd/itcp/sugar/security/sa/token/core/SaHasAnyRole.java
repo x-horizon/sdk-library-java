@@ -3,7 +3,6 @@ package cn.srd.itcp.sugar.security.sa.token.core;
 import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.annotation.SaMode;
 import org.springframework.core.annotation.AliasFor;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.lang.annotation.*;
 
@@ -13,7 +12,7 @@ import java.lang.annotation.*;
  *
  *     // 拥有 "user1"、"user2" 任一角色时可进入 test 方法
  *     &#064;{@link SaHasAnyRole}({"user1","user2"})
- *     &#064;{@link PostMapping}
+ *     &#064;PostMapping
  *     public void test(Test test) {
  *     }
  *

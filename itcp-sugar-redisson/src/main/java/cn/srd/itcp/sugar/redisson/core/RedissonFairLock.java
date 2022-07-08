@@ -41,7 +41,7 @@ import java.util.function.Supplier;
  *               private Integer id;
  *          }
  *          public class Test {
- *               &#064;RedissonFairLock(
+ *               &#064;{@link RedissonFairLock}(
  *                       lockName = "name",
  *                       fieldName = "id",
  *                       fieldOrder = "2",

@@ -2,7 +2,6 @@ package cn.srd.itcp.sugar.security.sa.token.core;
 
 import cn.srd.itcp.sugar.security.sa.token.support.SaAnonymousSupporter;
 import cn.srd.itcp.sugar.security.sa.token.support.SaConfig;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 import java.lang.annotation.*;
@@ -12,7 +11,7 @@ import java.lang.annotation.*;
  *   该注解为：被该注解标记了的方法无需鉴权，如：
  *
  *     &#064;{@link SaAnonymous}
- *     &#064;{@link PostMapping}
+ *     &#064;PostMapping
  *     public void test(Test test) {
  *     }
  *
