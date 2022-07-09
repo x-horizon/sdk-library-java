@@ -21,7 +21,7 @@ import javax.annotation.PostConstruct;
  * @author wjm
  * @date 2022-07-07
  */
-public class SaConfig implements WebMvcConfigurer {
+public class SaTokenConfig implements WebMvcConfigurer {
 
     /**
      * 代表所有 URI 的路径匹配符
@@ -39,7 +39,7 @@ public class SaConfig implements WebMvcConfigurer {
                 // 获取所有 Endpoints
                 .match(MATCH_ALL_ROUTE_PATTER)
                 // 从所有 Endpoints 中排除掉不需要拦截的 Endpoints
-                .notMatch(SaAnonymousSupporter.getSaAnonymousUrlsToExcludes())
+                .notMatch(AnonymousSupporter.getSaAnonymousUrlsToExcludes())
                 // 对未被排除的 Endpoints 使用自定义的方法进行检查
                 .check(SaTokenUtil::checkLogin))
         ).addPathPatterns(MATCH_ALL_ROUTE_PATTER);

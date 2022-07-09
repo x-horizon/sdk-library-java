@@ -11,7 +11,7 @@ import java.lang.annotation.*;
  *   该注解为：拥有任一角色时可进入被该注解标记了的方法，如：
  *
  *     // 拥有 "user1"、"user2" 任一角色时可进入 test 方法
- *     &#064;{@link SaHasAnyRole}({"user1","user2"})
+ *     &#064;{@link HasAnyRole}({"user1","user2"})
  *     &#064;PostMapping
  *     public void test(Test test) {
  *     }
@@ -27,10 +27,10 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface SaHasAnyRole {
+public @interface HasAnyRole {
 
     /**
-     * 需要校验的权限码，如：@{@link SaHasAnyRole}("admin")
+     * 需要校验的权限码，如：@{@link HasAnyRole}("admin")
      *
      * @return 需要校验的角色标识
      */

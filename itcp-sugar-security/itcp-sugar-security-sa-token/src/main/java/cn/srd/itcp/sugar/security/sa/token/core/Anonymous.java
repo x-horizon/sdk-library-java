@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.security.sa.token.core;
 
-import cn.srd.itcp.sugar.security.sa.token.support.SaAnonymousSupporter;
-import cn.srd.itcp.sugar.security.sa.token.support.SaConfig;
+import cn.srd.itcp.sugar.security.sa.token.support.AnonymousSupporter;
+import cn.srd.itcp.sugar.security.sa.token.support.SaTokenConfig;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 import java.lang.annotation.*;
@@ -10,7 +10,7 @@ import java.lang.annotation.*;
  * <pre>
  *   该注解为：被该注解标记了的方法无需登录可进入，如：
  *
- *     &#064;{@link SaAnonymous}
+ *     &#064;{@link Anonymous}
  *     &#064;PostMapping
  *     public void test(Test test) {
  *     }
@@ -21,11 +21,11 @@ import java.lang.annotation.*;
  *
  * @author wjm
  * @date 2022-07-07
- * @see SaAnonymousSupporter#afterPropertiesSet()
- * @see SaConfig#addInterceptors(InterceptorRegistry)
+ * @see AnonymousSupporter#afterPropertiesSet()
+ * @see SaTokenConfig#addInterceptors(InterceptorRegistry)
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface SaAnonymous {
+public @interface Anonymous {
 }

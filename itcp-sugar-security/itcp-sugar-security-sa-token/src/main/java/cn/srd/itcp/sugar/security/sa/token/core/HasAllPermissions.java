@@ -8,10 +8,10 @@ import java.lang.annotation.*;
 
 /**
  * <pre>
- *   该注解为：拥有任一权限时可进入被该注解标记了的方法，如：
+ *   该注解为：同时拥有所有权限时可进入被该注解标记了的方法，如：
  *
- *     // 拥有 "system:user:add"、"system:user:edit" 任一权限时可进入 test 方法
- *     &#064;{@link SaHasAnyPermission}({"system:user:add","system:user:edit"})
+ *     // 同时拥有 "system:user:add"、"system:user:edit" 权限时可进入 test 方法
+ *     &#064;{@link HasAllPermissions}({"system:user:add","system:user:edit"})
  *     &#064;PostMapping
  *     public void test(Test test) {
  *     }
@@ -23,14 +23,14 @@ import java.lang.annotation.*;
  * @author wjm
  * @date 2022-07-07
  */
-@SaCheckPermission(mode = SaMode.OR)
+@SaCheckPermission(mode = SaMode.AND)
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface SaHasAnyPermission {
+public @interface HasAllPermissions {
 
     /**
-     * 需要校验的权限码，如：@{@link SaHasAnyPermission}("system:config:add")
+     * 需要校验的权限码，如：@{@link HasAllPermissions}("system:config:add")
      *
      * @return 需要校验的权限码
      */

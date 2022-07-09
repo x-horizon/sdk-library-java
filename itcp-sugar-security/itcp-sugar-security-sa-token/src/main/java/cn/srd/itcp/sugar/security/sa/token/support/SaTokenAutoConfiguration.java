@@ -15,16 +15,16 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConditionalOnClass({SaBeanRegister.class, SaBeanInject.class})
-public class SaAutoConfiguration {
+public class SaTokenAutoConfiguration {
 
     @Bean
-    public SaAnonymousSupporter saAnonymousSupporter() {
-        return new SaAnonymousSupporter();
+    public AnonymousSupporter saAnonymousSupporter() {
+        return new AnonymousSupporter();
     }
 
     @Bean
-    public SaConfig saConfig() {
-        return new SaConfig();
+    public SaTokenConfig saConfig() {
+        return new SaTokenConfig();
     }
 
 }
