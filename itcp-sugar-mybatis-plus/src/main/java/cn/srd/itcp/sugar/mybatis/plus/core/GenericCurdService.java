@@ -2,7 +2,6 @@ package cn.srd.itcp.sugar.mybatis.plus.core;
 
 import cn.srd.itcp.sugar.mybatis.plus.support.SQL;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -14,7 +13,6 @@ import java.util.List;
  * @author wjm
  * @date 2022-07-05
  */
-@Service
 public class GenericCurdService<PO> {
 
     @Autowired
