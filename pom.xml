@@ -64,6 +64,7 @@
         <javax.el-api.version>3.0.0</javax.el-api.version>
         <!-- utils -->
         <lombok.version>1.18.22</lombok.version>
+        <hibernate-validator.version>6.1.7.Final</hibernate-validator.version>
         <mapstruct.version>1.5.2.Final</mapstruct.version>
         <mapstruct-processor.version>1.5.2.Final</mapstruct-processor.version>
         <mapstruct-lombok-binding.version>0.2.0</mapstruct-lombok-binding.version>
