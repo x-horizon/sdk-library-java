@@ -41,9 +41,9 @@ public class SaTokenConfig implements WebMvcConfigurer {
                 // 从所有 Endpoints 中排除掉不需要拦截的 Endpoints
                 .notMatch(AnonymousSupporter.getSaAnonymousUrlsToExcludes())
                 // 对未被排除的 Endpoints 使用自定义的方法进行检查
-                .check(SaTokenUtil::checkLogin))
-        ).addPathPatterns(MATCH_ALL_ROUTE_PATTER);
-        // 注册 Sa-Token 的注解式拦截器，对所有 Endpoints 通过注解进行鉴权
+                .check(SaTokenUtil::checkLogin)
+        )).addPathPatterns(MATCH_ALL_ROUTE_PATTER);
+        // 注册 Sa-Token 的注解式拦截器，对所有的 Endpoints 允许通过注解进行鉴权
         registry.addInterceptor(new SaAnnotationInterceptor()).addPathPatterns(MATCH_ALL_ROUTE_PATTER);
     }
 
