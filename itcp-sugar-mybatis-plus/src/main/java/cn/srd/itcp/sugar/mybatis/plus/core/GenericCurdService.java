@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.mybatis.plus.core;
 
 import cn.srd.itcp.sugar.mybatis.plus.support.SQL;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 public class GenericCurdService<PO> {
 
+    @Lazy
     @Autowired
     private GenericCurdDao<PO> genericCurdDao;
 
