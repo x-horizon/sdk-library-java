@@ -2,9 +2,9 @@ package cn.srd.itcp.sugar.tools.core.asserts;
 
 import cn.srd.itcp.sugar.tools.core.Objects;
 import cn.srd.itcp.sugar.tools.exceptions.ExceptionMessageTemplate;
+import cn.srd.itcp.sugar.tools.exceptions.ExceptionTemplate;
 import cn.srd.itcp.sugar.tools.exceptions.RunningException;
 import cn.srd.itcp.sugar.tools.web.HttpStatus;
-import cn.srd.itcp.sugar.tools.exceptions.ExceptionTemplate;
 import org.springframework.lang.Nullable;
 
 import java.util.Collection;
@@ -123,7 +123,7 @@ public interface AssertSupport extends ExceptionTemplate {
      * @param exception 异常
      * @return this
      */
-    // TODO 实现延迟加载这三个形参
+    // TODO wjm 实现延迟加载这三个形参
     AssertSupport set(@Nullable Integer code, @Nullable String message, @Nullable Exception exception);
 
     //=====================断言功能
