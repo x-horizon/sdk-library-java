@@ -164,7 +164,7 @@ public class MapstructConverts {
      *        统一转换器无法知道具体要使用哪个方法进行转换，因此定义了该 map 用于收集这种不支持的方法，用于转换时实时提示；
      *        当出现了这种情况时，可通过直接调用 Mapstruct 的转换方法进行转换，而不使用统一转换器；
      *        但其实该种情况基本不会出现；
-     *        TODO 考虑一个兜底策略，当出现这种情况时，是否能直接调到对应的方法？
+     *        TODO wjm 考虑一个兜底策略，当出现这种情况时，是否能直接调到对应的方法？
      * </pre>
      */
     private Map<String, List<Method>> mapstructUnsupportedMethodInputAndOutputParameterNameMappingMethodsMap;
