@@ -34,15 +34,7 @@ public @interface HasAnyRole {
      *
      * @return 需要校验的角色标识
      */
-    @AliasFor(annotation = SaCheckRole.class)
+    @AliasFor(annotation = SaCheckRole.class, attribute = "value")
     String[] value() default {};
-
-    /**
-     * 验证模式
-     *
-     * @return 验证模式
-     */
-    @AliasFor(annotation = SaCheckRole.class)
-    SaMode mode() default SaMode.AND;
 
 }

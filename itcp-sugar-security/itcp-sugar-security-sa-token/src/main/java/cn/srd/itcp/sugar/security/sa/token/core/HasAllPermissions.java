@@ -34,7 +34,20 @@ public @interface HasAllPermissions {
      *
      * @return 需要校验的权限码
      */
-    @AliasFor(annotation = SaCheckPermission.class)
+    @AliasFor(annotation = SaCheckPermission.class, attribute = "value")
     String[] value() default {};
+
+    /**
+     * 在权限认证不通过时的次要选择
+     * <pre>
+     * 例1：@{@link HasAllPermissions}(value = "system:config:add", orRole = "admin")，表示本次请求需要拥有 system:config:add 权限或 admin 角色时，可通过校验；
+     * 例2：@{@link HasAllPermissions}(value = "system:config:add", orRole = "admin", "manager", "staff")，表示本次请求需要拥有 system:config:add 权限或 admin、manager、staff 中任一角色时，可通过校验；
+     * 例3：@{@link HasAllPermissions}(value = "system:config:add", orRole = {"admin, manager, staff"})，表示本次请求需要拥有 system:config:add 权限或同时拥有 admin、manager、staff 这三个角色时，可通过校验；
+     * </pre>
+     *
+     * @return 需要校验的权限码
+     */
+    @AliasFor(annotation = SaCheckPermission.class, attribute = "orRole")
+    String[] orRole() default {};
 
 }

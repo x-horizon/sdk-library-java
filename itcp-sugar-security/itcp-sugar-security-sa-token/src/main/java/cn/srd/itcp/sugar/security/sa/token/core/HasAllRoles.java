@@ -34,7 +34,7 @@ public @interface HasAllRoles {
      *
      * @return 需要校验的角色标识
      */
-    @AliasFor(annotation = SaCheckRole.class)
+    @AliasFor(annotation = SaCheckRole.class, attribute = "value")
     String[] value() default {};
 
 }
