@@ -8,7 +8,7 @@ import java.lang.annotation.*;
  * <pre>
  *   该注解为：被该注解标记了的方法登录后可进入，如：
  *
- *     &#064;{@link Authenticated}
+ *     &#064;{@link RequireLogin}
  *     &#064;PostMapping
  *     public void test(Test test) {
  *     }
@@ -24,6 +24,6 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Authenticated {
+public @interface RequireLogin {
 
 }

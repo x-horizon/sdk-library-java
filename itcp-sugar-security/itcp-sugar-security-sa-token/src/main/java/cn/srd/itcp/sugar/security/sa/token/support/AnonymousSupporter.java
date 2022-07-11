@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
  * @see Anonymous
  * @see SaTokenConfig#addInterceptors(InterceptorRegistry)
  */
+@Deprecated
 public class AnonymousSupporter implements InitializingBean {
 
     /**
