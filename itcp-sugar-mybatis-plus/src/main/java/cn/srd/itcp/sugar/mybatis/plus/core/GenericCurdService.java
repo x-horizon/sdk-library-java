@@ -68,7 +68,7 @@ public class GenericCurdService<PO> {
      * @param primaryKey 主键
      * @return PO 模型
      */
-    public PO getByPrimary(Serializable primaryKey) {
+    public PO getByPrimaryKey(Serializable primaryKey) {
         return genericCurdDao.getByPrimary(primaryKey);
     }
 
@@ -83,7 +83,7 @@ public class GenericCurdService<PO> {
      * @param primaryKey 主键
      * @return PO 模型
      */
-    public PO getByPrimary(Class<PO> poClass, Serializable primaryKey) {
+    public PO getByPrimaryKey(Class<PO> poClass, Serializable primaryKey) {
         return genericCurdDao.selectOne(MpQueryWrappers.apply(SQL.getDecodeHexPrimaryKey(poClass, primaryKey)));
     }
 
