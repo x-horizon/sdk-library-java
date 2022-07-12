@@ -107,4 +107,14 @@ public class GenericCurdService<PO> {
         return genericCurdDao.removeByPrimaryKey(primaryKey);
     }
 
+    /**
+     * 根据主键删除数据，返回影响行数
+     *
+     * @param primaryKeys 主键
+     * @return 影响行数
+     */
+    public int removeByPrimaryKeys(Collection<Long> primaryKeys) {
+        return genericCurdDao.deleteBatchIds(primaryKeys);
+    }
+
 }
