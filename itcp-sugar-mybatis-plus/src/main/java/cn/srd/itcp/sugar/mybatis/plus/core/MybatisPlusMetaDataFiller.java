@@ -31,24 +31,45 @@ public interface MybatisPlusMetaDataFiller extends MetaObjectHandler {
 
     /**
      * 创建时间字段的字段名
-     *
-     * @return
      */
-    String getCreateTimeFieldName();
+    String CREATE_TIME = "createTime";
+
+    /**
+     * 更新时间字段的字段名
+     */
+    String UPDATE_TIME = "updateTime";
+
+    /**
+     * 删除标识字段的字段名
+     */
+    String DELETE_FLAG = "deleteFlag";
+
+    /**
+     * 创建时间字段的字段名
+     *
+     * @return 创建时间字段的字段名
+     */
+    default String getCreateTimeFieldName() {
+        return CREATE_TIME;
+    }
 
     /**
      * 更新时间字段的字段名
      *
-     * @return
+     * @return 更新时间字段的字段名
      */
-    String getUpdateTimeFieldName();
+    default String getUpdateTimeFieldName() {
+        return UPDATE_TIME;
+    }
 
     /**
      * 删除标识字段的字段名
      *
-     * @return
+     * @return 删除标识字段的字段名
      */
-    String getDeleteFlagFieldName();
+    default String getDeleteFlagFieldName() {
+        return DELETE_FLAG;
+    }
 
     /**
      * 插入表时填充属性
