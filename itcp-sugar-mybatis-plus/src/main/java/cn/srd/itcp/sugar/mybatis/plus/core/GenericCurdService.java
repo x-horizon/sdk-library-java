@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.mybatis.plus.core;
 
 import cn.srd.itcp.sugar.mybatis.plus.support.SQL;
+import cn.srd.itcp.sugar.tools.core.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
@@ -114,6 +115,9 @@ public class GenericCurdService<PO> {
      * @return 影响行数
      */
     public int removeByPrimaryKeys(Collection<Long> primaryKeys) {
+        if (Objects.isEmpty(primaryKeys)) {
+            return 0;
+        }
         return genericCurdDao.deleteBatchIds(primaryKeys);
     }
 
