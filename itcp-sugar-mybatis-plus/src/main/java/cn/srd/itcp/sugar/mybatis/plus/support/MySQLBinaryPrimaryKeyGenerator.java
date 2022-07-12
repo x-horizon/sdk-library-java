@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.mybatis.plus.core;
+package cn.srd.itcp.sugar.mybatis.plus.support;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.incrementer.IKeyGenerator;

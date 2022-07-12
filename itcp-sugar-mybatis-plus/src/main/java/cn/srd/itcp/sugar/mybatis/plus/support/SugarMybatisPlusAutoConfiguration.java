@@ -1,7 +1,6 @@
 package cn.srd.itcp.sugar.mybatis.plus.support;
 
 import cn.srd.itcp.sugar.mybatis.plus.core.GenericCurdService;
-import cn.srd.itcp.sugar.mybatis.plus.core.MySQLBinaryPrimaryKeyGenerator;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;

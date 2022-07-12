@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.mybatis.plus.core;
+package cn.srd.itcp.sugar.mybatis.plus.support;
 
 import cn.srd.itcp.sugar.tools.core.Objects;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
