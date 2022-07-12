@@ -39,6 +39,17 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
+     * 获取 List 第 3 个元素
+     *
+     * @param from
+     * @param <T>
+     * @return
+     */
+    public static <T> T getThird(@Nullable List<T> from) {
+        return Objects.isNotEmpty(from) && from.size() >= 3 ? from.get(2) : null;
+    }
+
+    /**
      * 获取 Map 第一个 Entry 的 Key
      *
      * @param from
@@ -164,17 +175,29 @@ public class CollectionsUtil extends CollUtil {
     // ==================================== anything => List ====================================
 
     /**
-     * String => List
+     * String => List，根据 {@link StringPool#COMMA} 进行截取
      *
      * @param from 如："["1","2","3"]"
      * @return
      */
     @NonNull
     public static List<String> toList(@Nullable String from) {
+        return toList(from, StringPool.COMMA);
+    }
+
+    /**
+     * String => List
+     *
+     * @param from        如："["1","2","3"]"
+     * @param splitSymbol 截取符号，如：","
+     * @return
+     */
+    @NonNull
+    public static List<String> toList(@Nullable String from, @NonNull String splitSymbol) {
         if (Objects.isBlank(from)) {
             return new ArrayList<>();
         }
-        return new ArrayList<>(Arrays.asList(StringUtils.strip(from, "[]").replaceAll(StringPool.SPACE, "").split(",")));
+        return new ArrayList<>(Arrays.asList(StringUtils.strip(from, "[]").replaceAll(StringPool.SPACE, "").split(splitSymbol)));
     }
 
     /**
