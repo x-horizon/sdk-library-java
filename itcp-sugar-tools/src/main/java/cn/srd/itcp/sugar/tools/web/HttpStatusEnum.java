@@ -5,9 +5,6 @@ import lombok.Getter;
 
 /**
  * 响应码 + 响应码对应的描述
- * <pre>
- * 参考：{@link cn.hutool.http.HttpStatus}
- * </pre>
  *
  * @author wjm
  * @date 2020/6/29 14:25

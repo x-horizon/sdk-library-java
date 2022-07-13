@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.tools.web;
 
+import cn.srd.itcp.sugar.tools.core.Objects;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
@@ -8,16 +9,18 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
+ * webmvc 响应结果通知
+ *
  * @author wjm
  * @date 2020/6/13 20:05
  */
 @ControllerAdvice
-public class WebResponseBodyAdvice implements ResponseBodyAdvice<Object> {
+public class WebResponseAdvice implements ResponseBodyAdvice<Object> {
 
     /**
      * 统一格式化响应信息
      *
-     * @param body                  Controller返回结果
+     * @param body
      * @param returnType
      * @param selectedContentType
      * @param selectedConverterType
@@ -39,7 +42,7 @@ public class WebResponseBodyAdvice implements ResponseBodyAdvice<Object> {
      */
     @Override
     public boolean supports(MethodParameter returnType, Class converterType) {
-        if (returnType.getMethod() == null) {
+        if (Objects.isNull(returnType.getMethod())) {
             return false;
         }
         return returnType.getMethod().getReturnType() == WebResponse.class;

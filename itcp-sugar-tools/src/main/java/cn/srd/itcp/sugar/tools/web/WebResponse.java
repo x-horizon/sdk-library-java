@@ -7,6 +7,8 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
+ * webmvc 响应结果
+ *
  * @param <T>
  * @author wjm
  * @date 2020/01/05 13:45

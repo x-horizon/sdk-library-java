@@ -24,7 +24,9 @@ import java.util.stream.Collectors;
 import static cn.srd.itcp.sugar.tools.web.WebResponse.error;
 
 /**
- * Web 全局异常处理器（示例代码，本项目用不到 spring-boot-starter-web，故注释，用作参考用）
+ * webmvc 全局异常处理器
+ * <p>
+ * TODO: wjm 需要增加功能：该类需要被 spring 容器排除，需要手工 @Import 后才能使用
  *
  * @author wjm
  * @date 2020/6/13 20:05
