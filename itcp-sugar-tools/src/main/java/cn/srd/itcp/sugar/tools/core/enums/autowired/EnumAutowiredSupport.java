@@ -5,7 +5,6 @@ import cn.srd.itcp.sugar.tools.core.asserts.Assert;
 import cn.srd.itcp.sugar.tools.core.enums.EnumsUtil;
 import cn.srd.itcp.sugar.tools.core.enums.autowired.exception.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Field;
@@ -18,7 +17,6 @@ import java.util.Set;
  * @author wjm
  * @date 2021/9/8 16:07
  */
-@Component
 public class EnumAutowiredSupport {
 
     /**

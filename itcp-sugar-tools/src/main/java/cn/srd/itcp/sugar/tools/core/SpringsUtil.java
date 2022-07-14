@@ -3,7 +3,6 @@ package cn.srd.itcp.sugar.tools.core;
 import cn.hutool.extra.spring.SpringUtil;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;
@@ -15,7 +14,6 @@ import java.util.Set;
  * @author wjm
  * @date 2020/8/9 11:12
  */
-@Component
 public class SpringsUtil extends SpringUtil {
 
     private SpringsUtil() {
