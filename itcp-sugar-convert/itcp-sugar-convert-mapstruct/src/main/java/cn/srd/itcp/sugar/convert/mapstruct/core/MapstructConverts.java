@@ -224,18 +224,18 @@ public class MapstructConverts {
      */
     private void collectMapstructAllMethods() {
         /**
-         * 若使用 {@link EnableMapstructScan} 指定了要扫描的包路径，则在指定的包路径下扫描被 {@link BindMapstruct} 注解标记了的 Mapstruct 转换类；
-         * 若没有显式指定 {@link EnableMapstructScan}，则在 {@link SpringBootApplication} 所在的包下扫描被 {@link BindMapstruct} 注解标记了的 Mapstruct 转换类；
+         * 若使用 {@link MapstructScan} 指定了要扫描的包路径，则在指定的包路径下扫描被 {@link BindMapstruct} 注解标记了的 Mapstruct 转换类；
+         * 若没有显式指定 {@link MapstructScan}，则在 {@link SpringBootApplication} 所在的包下扫描被 {@link BindMapstruct} 注解标记了的 Mapstruct 转换类；
          */
-        Set<Class<?>> classesWithMapstructScan = SpringsUtil.scanPackageByAnnotation(EnableMapstructScan.class);
+        Set<Class<?>> classesWithMapstructScan = SpringsUtil.scanPackageByAnnotation(MapstructScan.class);
         Set<Class<?>> classesWithBindMapstruct;
         Assert.INSTANCE.set(StringsUtil.format(
                 "found multi @{} in {}, please just specifies one",
-                EnableMapstructScan.class.getSimpleName(),
+                MapstructScan.class.getSimpleName(),
                 classesWithMapstructScan.stream().map(Class::getName).collect(Collectors.toList())
         )).throwsIfTrue(classesWithMapstructScan.size() > 1);
         if (Objects.isNotEmpty(classesWithMapstructScan)) {
-            String[] packageNamesToFindMapstruct = AnnotationsUtil.getAnnotationValue(CollectionsUtil.getFirst(SpringsUtil.scanPackageByAnnotation(EnableMapstructScan.class)), EnableMapstructScan.class);
+            String[] packageNamesToFindMapstruct = AnnotationsUtil.getAnnotationValue(CollectionsUtil.getFirst(SpringsUtil.scanPackageByAnnotation(MapstructScan.class)), MapstructScan.class);
             classesWithBindMapstruct = ClassesUtil.scanPackageByAnnotation(packageNamesToFindMapstruct, BindMapstruct.class);
         } else {
             classesWithBindMapstruct = SpringsUtil.scanPackageByAnnotation(BindMapstruct.class);
