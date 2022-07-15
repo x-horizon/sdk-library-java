@@ -42,6 +42,7 @@
         <knife4j.version>2.0.9</knife4j.version>
 
         <!-- ============================== database ============================= -->
+        <postgresql.version>42.2.16</postgresql.version>
         <druid.version>1.2.8</druid.version>
 
         <!-- ============================= framework ============================= -->
