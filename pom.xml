@@ -38,6 +38,9 @@
         <jmh-core.version>1.35</jmh-core.version>
         <jmh-generator-annprocess.version>1.35</jmh-generator-annprocess.version>
 
+        <!-- ================================ doc ================================ -->
+        <knife4j.version>2.0.9</knife4j.version>
+
         <!-- ============================== database ============================= -->
         <druid.version>1.2.8</druid.version>
 
@@ -90,6 +93,15 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- ================================ doc ================================ -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>${knife4j.version}</version>
+            <optional>true</optional>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- =============================== test ================================ -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -53,18 +53,18 @@ public class MapstructMybatisPlusConvertsSupporter implements MapstructConvertsS
                 ?
                 new PageResult<>()
                         .setCurrentPage(0L)
-                        .setPages(0L)
+                        .setTotalPages(0L)
                         .setPageSize(0L)
-                        .setAmount(0L)
-                        .setRecords(new ArrayList<>())
+                        .setTotal(0L)
+                        .setData(new ArrayList<>())
                 :
                 // TODO wjm 关于分页参数未优化，应该不会有这种需求
                 new PageResult<>()
                         .setCurrentPage(1L)
-                        .setPages(1L)
+                        .setTotalPages(1L)
                         .setPageSize(1L)
-                        .setAmount(1L)
-                        .setRecords(CollectionsUtil.newArrayList(defaultValue));
+                        .setTotal(1L)
+                        .setData(CollectionsUtil.newArrayList(defaultValue));
     }
 
 }

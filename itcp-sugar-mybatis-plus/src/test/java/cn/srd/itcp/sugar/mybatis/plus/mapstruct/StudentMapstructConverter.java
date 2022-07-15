@@ -29,11 +29,10 @@ public interface StudentMapstructConverter {
     List<StudentVO> toVOs(List<StudentDO> entities);
 
     @Mappings({
-            @Mapping(source = "total", target = "amount"),
-            @Mapping(source = "pages", target = "pages"),
+            @Mapping(source = "pages", target = "totalPages"),
             @Mapping(source = "current", target = "currentPage"),
             @Mapping(source = "size", target = "pageSize"),
-            @Mapping(source = "records", target = "records", qualifiedByName = "toVOs"),
+            @Mapping(source = "records", target = "data", qualifiedByName = "toVOs"),
             @Mapping(target = "datum", ignore = true),
     })
     PageResult<StudentVO> toPageVO(IPage<StudentDO> page);
