@@ -42,7 +42,7 @@ public interface MybatisPlusMetaDataFiller extends MetaObjectHandler {
     /**
      * 删除标识字段的字段名
      */
-    String DELETE_FLAG = "deleteFlag";
+    String DELETE_IS = "deleteIs";
 
     /**
      * 创建时间字段的字段名
@@ -68,7 +68,7 @@ public interface MybatisPlusMetaDataFiller extends MetaObjectHandler {
      * @return 删除标识字段的字段名
      */
     default String getDeleteFlagFieldName() {
-        return DELETE_FLAG;
+        return DELETE_IS;
     }
 
     /**
