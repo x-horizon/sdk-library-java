@@ -6,6 +6,7 @@ import cn.srd.itcp.sugar.tools.core.asserts.Assert;
 import cn.srd.itcp.sugar.tools.web.HttpStatus;
 import org.springframework.lang.Nullable;
 
+import java.io.ObjectStreamClass;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -2535,6 +2536,16 @@ public class Objects {
         } catch (Exception ignore) {
         }
         return value;
+    }
+
+    /**
+     * 获取序列化ID，类必须要实现{@link java.io.Serializable Serializable}
+     *
+     * @param clazz 实现了 {@link java.io.Serializable Serializable} 的类
+     * @return 序列化ID
+     */
+    public static long getSerialVersionUID(Class<?> clazz) {
+        return ObjectStreamClass.lookup(clazz).getSerialVersionUID();
     }
 
 }
