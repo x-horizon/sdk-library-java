@@ -27,10 +27,10 @@ public class SugarSaTokenProperties {
     public static class Interceptor {
 
         /**
-         * 是否开启拦截（全局）
+         * 是否开启拦截（全局），需注意：即便关闭了全局拦截，但代码逻辑里若需要获取有关联到 {@link cn.dev33.satoken.stp.StpUtil#getLoginId()} 的相关方法，此时同样会抛出未通过登录认证的相关异常；
          */
         private Boolean enable;
-        
+
     }
 
 }

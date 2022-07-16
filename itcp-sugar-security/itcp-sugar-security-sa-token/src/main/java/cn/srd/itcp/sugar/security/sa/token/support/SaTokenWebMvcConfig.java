@@ -25,6 +25,18 @@ public class SaTokenWebMvcConfig implements WebMvcConfigurer {
      */
     private static final String MATCH_ALL_ENDPOINTS_PATTER = "/**";
 
+    @PostConstruct
+    public void enhanceSaToken() {
+        // 增加注解合并功能
+        SaStrategy.me.getAnnotation = AnnotatedElementUtils::getMergedAnnotation;
+    }
+
+    @Bean
+    public StpLogic stpLogic() {
+        // 注入整合了 jwt 的 StpLogic
+        return new StpLogicJwtForSimple();
+    }
+
     /**
      * 注册拦截器
      */
@@ -35,18 +47,6 @@ public class SaTokenWebMvcConfig implements WebMvcConfigurer {
         interceptorRegistry
                 .addInterceptor(SpringsUtil.getBean(SaTokenPreEachRequestAnnotationInterceptor.class))
                 .addPathPatterns(MATCH_ALL_ENDPOINTS_PATTER);
-    }
-
-    @Bean
-    public StpLogic stpLogic() {
-        // 注入整合了 jwt 的 StpLogic
-        return new StpLogicJwtForSimple();
-    }
-
-    @PostConstruct
-    public void enhanceSaToken() {
-        // 增加注解合并功能
-        SaStrategy.me.getAnnotation = AnnotatedElementUtils::getMergedAnnotation;
     }
 
 }
