@@ -1,6 +1,5 @@
 package cn.srd.itcp.sugar.mybatis.plus.support;
 
-import cn.srd.itcp.sugar.mybatis.plus.core.GenericCurdService;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
@@ -22,14 +21,10 @@ import java.util.List;
 @ConditionalOnClass(MybatisPlusAutoConfiguration.class)
 public class SugarMybatisPlusAutoConfiguration {
 
+    // TODO wjm 需要增加条件注入，当连接的数据库为 mysql 时才注入，或者使用 @Enable注入
     @Bean
     public MySQLBinaryPrimaryKeyGenerator mysqlBinUuidPrimaryKeyGenerator() {
         return new MySQLBinaryPrimaryKeyGenerator();
-    }
-
-    @Bean
-    public <PO> GenericCurdService<PO> genericCurdService() {
-        return new GenericCurdService<>();
     }
 
     // TODO wjm 暂时去除，后续根据最新版本的 mybatis-plus 进行自定义
