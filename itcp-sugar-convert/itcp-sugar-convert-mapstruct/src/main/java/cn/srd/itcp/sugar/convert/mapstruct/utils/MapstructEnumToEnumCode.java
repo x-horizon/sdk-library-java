@@ -16,5 +16,5 @@ import java.lang.annotation.Target;
 @Qualifier
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
-public @interface MapstructEnumToEnumString {
+public @interface MapstructEnumToEnumCode {
 }
