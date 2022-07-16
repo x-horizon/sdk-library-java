@@ -171,7 +171,7 @@ public class WebExceptionHandler {
     public WebResponse<WarnOperationException> handleWarnOperationException(WarnOperationException exception) {
         String msg = exception.getExceptionTemplate().getDescription();
         log.warn(msg);
-        return error(exception.getExceptionTemplate().getCode(), StringsUtil.subBefore(msg, WebResponse.MARKED_STACK_TRACE_MSG, true));
+        return error(exception.getExceptionTemplate().getCode(), msg);
     }
 
     /**

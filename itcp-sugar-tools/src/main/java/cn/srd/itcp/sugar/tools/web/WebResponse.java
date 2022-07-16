@@ -1,6 +1,5 @@
 package cn.srd.itcp.sugar.tools.web;
 
-import cn.srd.itcp.sugar.tools.core.asserts.WarnAssert;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,18 +17,6 @@ import java.io.Serializable;
 public final class WebResponse<T> implements Serializable {
 
     private static final long serialVersionUID = 7838683692331475145L;
-
-    /**
-     * <pre>
-     * {@link WarnAssert}
-     * MpBaseMapper
-     * 用于截取信息，例如当查数据库查到一条数据不存在时，会抛出例如“数据不存在，id：**，调用者信息：**”
-     * 此时后台会打印 warn 的完整信息，而 mvc 只响应部分信息如：“数据不存在，id：**”
-     * </pre>
-     *
-     * @return
-     */
-    public static final String MARKED_STACK_TRACE_MSG = ", 调用位置: ";
 
     /**
      * 状态码
