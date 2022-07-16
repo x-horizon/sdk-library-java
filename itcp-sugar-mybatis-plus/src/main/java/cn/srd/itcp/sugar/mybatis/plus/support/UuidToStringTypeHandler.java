@@ -20,53 +20,53 @@ public class UuidToStringTypeHandler extends BaseTypeHandler<UUID> {
     /**
      * 定义设置参数时，如何把Java类型的参数转换为对应的数据库类型
      *
-     * @param ps
+     * @param preparedStatement
      * @param columnIndex
-     * @param parameter   Java 类型的参数值
+     * @param parameter         Java 类型的参数值
      * @param jdbcType
      */
     @Override
     @SneakyThrows
-    public void setNonNullParameter(PreparedStatement ps, int columnIndex, UUID parameter, JdbcType jdbcType) {
+    public void setNonNullParameter(PreparedStatement preparedStatement, int columnIndex, UUID parameter, JdbcType jdbcType) {
         if (null != parameter) {
-            ps.setObject(columnIndex, parameter.toString());
+            preparedStatement.setObject(columnIndex, parameter.toString());
         }
     }
 
     /**
      * 定义通过字段名称获取字段数据时，如何把数据库类型转换为对应的Java类型
      *
-     * @param rs
+     * @param resultSet
      * @param columnName
      * @return
      */
     @Override
     @SneakyThrows
-    public UUID getNullableResult(ResultSet rs, String columnName) {
-        return UUID.fromString(rs.getString(columnName));
+    public UUID getNullableResult(ResultSet resultSet, String columnName) {
+        return UUID.fromString(resultSet.getString(columnName));
     }
 
     /**
      * 定义通过字段索引获取字段数据时，如何把数据库类型转换为对应的Java类型
      *
-     * @param rs
+     * @param resultSet
      * @param columnIndex
      * @return
      */
     @Override
-    public UUID getNullableResult(ResultSet rs, int columnIndex) {
+    public UUID getNullableResult(ResultSet resultSet, int columnIndex) {
         return null;
     }
 
     /**
      * 定义调用存储过程后，如何把数据库类型转换为对应的Java类型
      *
-     * @param cs
+     * @param callableStatement
      * @param columnIndex
      * @return
      */
     @Override
-    public UUID getNullableResult(CallableStatement cs, int columnIndex) {
+    public UUID getNullableResult(CallableStatement callableStatement, int columnIndex) {
         return null;
     }
 
