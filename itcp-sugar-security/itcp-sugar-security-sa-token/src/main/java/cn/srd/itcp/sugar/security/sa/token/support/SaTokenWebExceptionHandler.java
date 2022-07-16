@@ -21,7 +21,7 @@ import static cn.srd.itcp.sugar.tools.web.WebResponse.error;
  */
 @Slf4j
 @RestControllerAdvice
-public class SaWebExceptionHandler {
+public class SaTokenWebExceptionHandler {
 
     /**
      * 未能通过登录认证时的处理；

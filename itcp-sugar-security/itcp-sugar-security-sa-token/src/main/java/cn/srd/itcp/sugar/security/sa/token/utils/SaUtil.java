@@ -8,6 +8,6 @@ import cn.dev33.satoken.stp.StpUtil;
  * @author wjm
  * @date 2022-07-07
  */
-public class SaTokenUtil extends StpUtil {
+public class SaUtil extends StpUtil {
 
 }

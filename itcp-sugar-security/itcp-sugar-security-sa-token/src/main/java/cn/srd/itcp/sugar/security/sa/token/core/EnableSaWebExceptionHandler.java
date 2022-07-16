@@ -1,11 +1,11 @@
 package cn.srd.itcp.sugar.security.sa.token.core;
 
-import cn.srd.itcp.sugar.security.sa.token.support.SaWebExceptionHandler;
+import cn.srd.itcp.sugar.security.sa.token.support.SaTokenWebExceptionHandler;
 
 import java.lang.annotation.*;
 
 /**
- * 启用 {@link SaWebExceptionHandler} 的功能
+ * 启用 {@link SaTokenWebExceptionHandler} 的功能
  *
  * @author wjm
  * @date 2022-07-16 18:16:22

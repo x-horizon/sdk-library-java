@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  * @author wjm
  * @date 2022-07-07
  * @see Anonymous
- * @see SaTokenConfig#addInterceptors(InterceptorRegistry)
+ * @see SaTokenWebMvcConfig#addInterceptors(InterceptorRegistry)
  */
 @Deprecated
 public class AnonymousSupporter implements InitializingBean {
