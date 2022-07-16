@@ -48,7 +48,7 @@ public class MapstructMappingManager {
      * @return
      */
     @Nullable
-    @MapstructEnumToEnumCode
+    @MapstructEnumToEnumString
     public static String enumToEnumString(@Nullable Enum<?> value) {
         return EnumsUtil.getEnumValue(value, String.class);
     }
@@ -60,7 +60,7 @@ public class MapstructMappingManager {
      * @return
      */
     @Nullable
-    @MapstructEnumToEnumNumber
+    @MapstructEnumToEnumCode
     public static Integer enumToEnumNumber(@Nullable Enum<?> value) {
         return EnumsUtil.getEnumValue(value, Integer.class);
     }

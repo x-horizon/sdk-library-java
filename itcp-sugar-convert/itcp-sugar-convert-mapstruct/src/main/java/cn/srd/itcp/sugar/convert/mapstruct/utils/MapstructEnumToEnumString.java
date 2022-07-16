@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Mapstruct 属性映射转换器注解，Enum => Enum 的数字字段值
+ * Mapstruct 属性映射转换器注解，Enum => Enum 的字符串字段值
  *
  * @author wjm
  * @date 2021/3/11 10:25
@@ -16,5 +16,5 @@ import java.lang.annotation.Target;
 @Qualifier
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
-public @interface MapstructEnumToEnumNumber {
+public @interface MapstructEnumToEnumString {
 }
