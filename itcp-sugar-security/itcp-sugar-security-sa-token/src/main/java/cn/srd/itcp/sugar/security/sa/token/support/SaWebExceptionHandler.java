@@ -1,0 +1,65 @@
+package cn.srd.itcp.sugar.security.sa.token.support;
+
+import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.exception.NotPermissionException;
+import cn.dev33.satoken.exception.NotRoleException;
+import cn.srd.itcp.sugar.tools.web.HttpStatusEnum;
+import cn.srd.itcp.sugar.tools.web.WebResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import javax.servlet.http.HttpServletRequest;
+
+import static cn.srd.itcp.sugar.tools.web.WebResponse.error;
+
+/**
+ * webmvc sa-token 全局异常处理器
+ *
+ * @author wjm
+ * @date 2022-07-16 18:16:22
+ */
+@Slf4j
+@RestControllerAdvice
+public class SaWebExceptionHandler {
+
+    /**
+     * 未能通过登录认证时的处理；
+     *
+     * @param httpServletRequest Servlet 上下文信息
+     * @param exception          抛出的异常
+     * @return 响应结果
+     */
+    @ExceptionHandler(NotLoginException.class)
+    public WebResponse<Void> handleNotLoginException(HttpServletRequest httpServletRequest, NotLoginException exception) {
+        log.warn("请求资源地址：'{}'，错误信息：未能通过登录认证", httpServletRequest.getRequestURI());
+        return error(HttpStatusEnum.UNAUTHORIZED, "未能通过登录认证");
+    }
+
+    /**
+     * 未能通过权限认证时的处理；
+     *
+     * @param httpServletRequest Servlet 上下文信息
+     * @param exception          抛出的异常
+     * @return 响应结果
+     */
+    @ExceptionHandler(NotPermissionException.class)
+    public WebResponse<Void> handleNotPermissionException(HttpServletRequest httpServletRequest, NotPermissionException exception) {
+        log.warn("请求资源地址：'{}'，错误信息：未能通过权限认证", httpServletRequest.getRequestURI());
+        return error(HttpStatusEnum.UNAUTHORIZED, "未能通过权限认证");
+    }
+
+    /**
+     * 未能通过角色认证时的处理；
+     *
+     * @param httpServletRequest Servlet 上下文信息
+     * @param exception          抛出的异常
+     * @return 响应结果
+     */
+    @ExceptionHandler(NotRoleException.class)
+    public WebResponse<Void> handleNotRoleException(HttpServletRequest httpServletRequest, NotRoleException exception) {
+        log.warn("请求资源地址：'{}'，错误信息：未能通过角色认证", httpServletRequest.getRequestURI());
+        return error(HttpStatusEnum.UNAUTHORIZED, "未能通过角色认证");
+    }
+
+}

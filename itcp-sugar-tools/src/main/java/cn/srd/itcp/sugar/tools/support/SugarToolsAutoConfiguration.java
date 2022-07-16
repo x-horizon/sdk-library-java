@@ -4,6 +4,8 @@ import cn.srd.itcp.sugar.tools.core.Objects;
 import cn.srd.itcp.sugar.tools.core.SpringsUtil;
 import cn.srd.itcp.sugar.tools.core.enums.autowired.EnableEnumAutowired;
 import cn.srd.itcp.sugar.tools.core.enums.autowired.EnumAutowiredSupport;
+import cn.srd.itcp.sugar.tools.web.EnableWebExceptionHandler;
+import cn.srd.itcp.sugar.tools.web.WebExceptionHandler;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
@@ -19,6 +21,14 @@ public class SugarToolsAutoConfiguration {
     public EnumAutowiredSupport enumAutowiredSupport() {
         if (Objects.isNotEmpty(SpringsUtil.scanPackageByAnnotation(EnableEnumAutowired.class))) {
             return new EnumAutowiredSupport();
+        }
+        return null;
+    }
+
+    @Bean
+    public WebExceptionHandler webExceptionHandler() {
+        if (Objects.isNotEmpty(SpringsUtil.scanPackageByAnnotation(EnableWebExceptionHandler.class))) {
+            return SpringsUtil.registerBean(WebExceptionHandler.class);
         }
         return null;
     }

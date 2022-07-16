@@ -2,7 +2,10 @@ package cn.srd.itcp.sugar.tools.core;
 
 import cn.hutool.extra.spring.SpringUtil;
 import org.springframework.aop.framework.AopContext;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;
@@ -95,6 +98,31 @@ public class SpringsUtil extends SpringUtil {
      */
     public static <T> T getCurrentProxy(Class<T> clazz) {
         return clazz.cast(AopContext.currentProxy());
+    }
+
+    /**
+     * 向 IOC 注册 bean，并返回注册后的 bean
+     * <pre>
+     * 该方法支持注册带有特定注解功能的 bean，例如如下 bean 未被 spring 扫描到，使用该方法注册后该 bean 将具备 {@link org.springframework.web.bind.annotation.RestControllerAdvice RestControllerAdvice} 的功能
+     * &#064;{@link org.springframework.web.bind.annotation.RestControllerAdvice RestControllerAdvice}
+     * public class WebExceptionHandler {
+     *
+     * }
+     * </pre>
+     *
+     * @param clazz 要注册的 bean
+     * @param <T>   要注册的 bean 类型
+     * @return 注册后的 bean
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T registerBean(Class<T> clazz) {
+        String lowerFirstClassSimpleName = StringsUtil.lowerFirst(clazz.getSimpleName());
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(clazz);
+        DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) applicationContext.getBeanFactory();
+        GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
+        beanDefinition.setBeanClass(clazz);
+        beanFactory.registerBeanDefinition(lowerFirstClassSimpleName, beanDefinition);
+        return (T) applicationContext.getBean(lowerFirstClassSimpleName);
     }
 
 }
