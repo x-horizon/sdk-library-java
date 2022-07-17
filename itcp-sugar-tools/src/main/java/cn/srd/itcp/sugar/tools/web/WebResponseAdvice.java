@@ -16,6 +16,21 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  */
 @ControllerAdvice
 public class WebResponseAdvice implements ResponseBodyAdvice<Object> {
+    
+    /**
+     * 只拦截返回结果为 {@link WebResponse} 类型
+     *
+     * @param returnType
+     * @param converterType
+     * @return
+     */
+    @Override
+    public boolean supports(MethodParameter returnType, Class converterType) {
+        if (Objects.isNull(returnType.getMethod())) {
+            return false;
+        }
+        return returnType.getMethod().getReturnType() == WebResponse.class;
+    }
 
     /**
      * 统一格式化响应信息
@@ -31,21 +46,6 @@ public class WebResponseAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         return body;
-    }
-
-    /**
-     * 只拦截返回结果为 {@link WebResponse} 类型
-     *
-     * @param returnType
-     * @param converterType
-     * @return
-     */
-    @Override
-    public boolean supports(MethodParameter returnType, Class converterType) {
-        if (Objects.isNull(returnType.getMethod())) {
-            return false;
-        }
-        return returnType.getMethod().getReturnType() == WebResponse.class;
     }
 
 }

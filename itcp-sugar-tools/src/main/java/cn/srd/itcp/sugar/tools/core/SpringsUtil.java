@@ -115,7 +115,7 @@ public class SpringsUtil extends SpringUtil {
      * @return 注册后的 bean
      */
     @SuppressWarnings("unchecked")
-    public static <T> T registerBean(Class<T> clazz) {
+    public static <T> T registerCapableBean(Class<T> clazz) {
         String lowerFirstClassSimpleName = StringsUtil.lowerFirst(clazz.getSimpleName());
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(clazz);
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) applicationContext.getBeanFactory();
