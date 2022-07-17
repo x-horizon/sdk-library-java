@@ -3,6 +3,7 @@ package cn.srd.itcp.sugar.tools.web;
 import cn.srd.itcp.sugar.tools.core.Objects;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,37 +16,23 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @date 2020/6/13 20:05
  */
 @ControllerAdvice
-public class WebResponseAdvice implements ResponseBodyAdvice<Object> {
-    
-    /**
-     * 只拦截返回结果为 {@link WebResponse} 类型
-     *
-     * @param returnType
-     * @param converterType
-     * @return
-     */
+public class WebResponseAdvice implements ResponseBodyAdvice<WebResponse<?>> {
+
     @Override
-    public boolean supports(MethodParameter returnType, Class converterType) {
-        if (Objects.isNull(returnType.getMethod())) {
+    public boolean supports(MethodParameter methodParameter, Class converterType) {
+        if (Objects.isNull(methodParameter.getMethod())) {
             return false;
         }
-        return returnType.getMethod().getReturnType() == WebResponse.class;
+        /**
+         * 只拦截响应参数为{@link WebResponse}的类型
+         */
+        return methodParameter.getMethod().getReturnType() == WebResponse.class;
     }
 
-    /**
-     * 统一格式化响应信息
-     *
-     * @param body
-     * @param returnType
-     * @param selectedContentType
-     * @param selectedConverterType
-     * @param request
-     * @param response
-     * @return
-     */
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        return body;
+    public WebResponse<?> beforeBodyWrite(WebResponse<?> webResponse, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> httpMessageConverter, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+        // 统一格式化响应信息
+        return webResponse;
     }
 
 }

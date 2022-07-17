@@ -51,7 +51,7 @@ public final class WebResponse<T> implements Serializable {
      * @return
      */
     public static <T> WebResponse<T> success(T data) {
-        return response(HttpStatusEnum.SUCCESS.getCode(), null, data);
+        return response(HttpStatusEnum.SUCCESS.getCode(), HttpStatusEnum.SUCCESS.getDescription(), data);
     }
 
     /**
@@ -95,7 +95,7 @@ public final class WebResponse<T> implements Serializable {
      * @return
      */
     public static <T> WebResponse<T> error(T data) {
-        return response(HttpStatusEnum.INTERNAL_ERROR.getCode(), null, data);
+        return response(HttpStatusEnum.INTERNAL_ERROR.getCode(), HttpStatusEnum.INTERNAL_ERROR.getDescription(), data);
     }
 
     /**
