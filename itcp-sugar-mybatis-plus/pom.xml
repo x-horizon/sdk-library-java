@@ -44,6 +44,13 @@
             <optional>true</optional>
             <scope>compile</scope>
         </dependency>
+        <!-- mybatis-plus-join -->
+        <dependency>
+            <groupId>com.github.yulichang</groupId>
+            <artifactId>mybatis-plus-join</artifactId>
+            <version>${mybatis-plus-join.version}</version>
+        </dependency>
+
 
         <!-- =============================== tools =============================== -->
         <!-- serialization -->
