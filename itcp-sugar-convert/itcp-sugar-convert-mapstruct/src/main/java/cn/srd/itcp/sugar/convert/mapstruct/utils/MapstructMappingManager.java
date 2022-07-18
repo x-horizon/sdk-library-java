@@ -3,9 +3,12 @@ package cn.srd.itcp.sugar.convert.mapstruct.utils;
 import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tools.core.HexsUtil;
 import cn.srd.itcp.sugar.tools.core.Objects;
+import cn.srd.itcp.sugar.tools.core.TimeUtil;
 import cn.srd.itcp.sugar.tools.core.enums.EnumsUtil;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -75,6 +78,18 @@ public class MapstructMappingManager {
     @MapstructByteArrayToHexString
     public static String byteArrayToHexString(@Nullable Byte[] value) {
         return HexsUtil.hexToString(value, false);
+    }
+
+    /**
+     * LocalDateTime => Long
+     *
+     * @param localDateTime
+     * @return
+     */
+    @NonNull
+    @MapstructLocalDateTimeToLong
+    public static Long localDateTimeToLong(@NonNull LocalDateTime localDateTime) {
+        return TimeUtil.toLong(localDateTime);
     }
 
 }

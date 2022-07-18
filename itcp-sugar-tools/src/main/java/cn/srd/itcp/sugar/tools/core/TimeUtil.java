@@ -36,7 +36,7 @@ public class TimeUtil extends DateUtil {
     private TimeUtil() {
     }
 
-    // ************* LocalDate、LocalDateTime、LocalTime、String、Date 互转 *************
+    // ************* LocalDate、LocalDateTime、LocalTime、Date、String、Long 互转 *************
 
     /**
      * LocalDateTime => Date<br>
@@ -133,18 +133,6 @@ public class TimeUtil extends DateUtil {
     }
 
     /**
-     * 按照 format 转换 Date 为 String<br>
-     * 支持格式：{@link #getCurrentTimeString(String)}
-     *
-     * @param date
-     * @param format
-     * @return
-     */
-    public static String toString(Date date, @Nullable String format) {
-        return toLocalDateTime(date).format(DateTimeFormatter.ofPattern(format == null ? DatePattern.NORM_DATETIME_PATTERN : format));
-    }
-
-    /**
      * Date => LocalDateTime
      *
      * @param date
@@ -172,6 +160,28 @@ public class TimeUtil extends DateUtil {
      */
     public static LocalTime toLocalTime(Date date) {
         return toLocalDateTime(date).toLocalTime();
+    }
+
+    /**
+     * 按照 format 转换 Date 为 String<br>
+     * 支持格式：{@link #getCurrentTimeString(String)}
+     *
+     * @param date
+     * @param format
+     * @return
+     */
+    public static String toString(Date date, @Nullable String format) {
+        return toLocalDateTime(date).format(DateTimeFormatter.ofPattern(format == null ? DatePattern.NORM_DATETIME_PATTERN : format));
+    }
+
+    /**
+     * LocalDateTime => Long
+     *
+     * @param localDateTime
+     * @return
+     */
+    public static Long toLong(LocalDateTime localDateTime) {
+        return localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
     /**
