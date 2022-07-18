@@ -1,8 +1,8 @@
-package cn.srd.itcp.sugar.mybatis.plus;
+package cn.srd.itcp.sugar.mybatis.plus.convert;
 
 import cn.srd.itcp.sugar.convert.mapstruct.exception.MapstructConvertMethodNotFoundException;
-import cn.srd.itcp.sugar.mybatis.plus.bean.domain.StudentDO;
-import cn.srd.itcp.sugar.mybatis.plus.bean.vo.StudentVO;
+import cn.srd.itcp.sugar.mybatis.plus.convert.bean.domain.StudentDO;
+import cn.srd.itcp.sugar.mybatis.plus.convert.bean.vo.StudentVO;
 import cn.srd.itcp.sugar.mybatis.plus.utils.Converts;
 import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MapstructMybatisPlusConvertsTest {
+public class MybatisPlusMapstructConvertsTest {
 
     private static final StudentVO DEFAULT_STUDENT_VO = StudentVO.newVO();
     private static final StudentDO DEFAULT_STUDENT_DO = StudentDO.newDO();

@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.mybatis.plus.bean.domain;
+package cn.srd.itcp.sugar.mybatis.plus.convert.bean.domain;
 
 import cn.hutool.core.util.RandomUtil;
 import lombok.AllArgsConstructor;

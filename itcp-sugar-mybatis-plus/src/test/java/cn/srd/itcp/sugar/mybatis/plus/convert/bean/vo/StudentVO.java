@@ -1,7 +1,7 @@
-package cn.srd.itcp.sugar.mybatis.plus.bean.vo;
+package cn.srd.itcp.sugar.mybatis.plus.convert.bean.vo;
 
 import cn.hutool.core.util.RandomUtil;
-import cn.srd.itcp.sugar.mybatis.plus.bean.domain.StudentDO;
+import cn.srd.itcp.sugar.mybatis.plus.convert.bean.domain.StudentDO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
