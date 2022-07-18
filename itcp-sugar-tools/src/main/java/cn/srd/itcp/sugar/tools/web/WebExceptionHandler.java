@@ -167,7 +167,6 @@ public class WebExceptionHandler {
      */
     @ExceptionHandler(RuntimeException.class)
     public WebResponse<Void> handleRuntimeException(HttpServletRequest httpServletRequest, RuntimeException exception) {
-        String msg = exception.getMessage();
         log.error("请求资源地址：'{}'，错误信息：'{}'", httpServletRequest.getRequestURI(), exception);
         return error(HttpStatusEnum.INTERNAL_ERROR);
     }
