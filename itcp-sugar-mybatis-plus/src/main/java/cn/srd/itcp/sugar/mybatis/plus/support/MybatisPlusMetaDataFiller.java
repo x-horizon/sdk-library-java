@@ -65,7 +65,7 @@ public interface MybatisPlusMetaDataFiller extends MetaObjectHandler {
             this.setFieldValByName(getUpdateTimeFieldName(), localDateTime, metaObject);
         }
         if (needToFill(metaObject, getDeleteIsFieldName())) {
-            this.setFieldValByName(getDeleteIsFieldName(), false, metaObject);
+            this.setFieldValByName(getDeleteIsFieldName(), Boolean.FALSE, metaObject);
         }
     }
 
