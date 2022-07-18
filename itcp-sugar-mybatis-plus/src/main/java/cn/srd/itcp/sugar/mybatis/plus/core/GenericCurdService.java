@@ -2,7 +2,7 @@ package cn.srd.itcp.sugar.mybatis.plus.core;
 
 import cn.srd.itcp.sugar.mybatis.plus.support.SQL;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.yulichang.base.MPJBaseServiceImpl;
 
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author wjm
  * @date 2022-07-05
  */
-public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends ServiceImpl<Dao, PO> {
+public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJBaseServiceImpl<Dao, PO> {
 
     /**
      * <pre>
