@@ -6,6 +6,12 @@ import cn.srd.itcp.sugar.mybatis.plus.metadata.bean.dto.PostgresqlTableDTO;
 import cn.srd.itcp.sugar.mybatis.plus.metadata.bean.po.PostgresqlTablePO;
 import cn.srd.itcp.sugar.mybatis.plus.metadata.dao.PostgresqlTableDao;
 
+/**
+ * postgresql table 基本信息 handler
+ *
+ * @author wjm
+ * @date 2022-07-18 17:59:54
+ */
 public class PostgresqlTableHandler extends GenericCurdService<PostgresqlTableDao, PostgresqlTablePO> {
 
     /**

@@ -5,6 +5,12 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+/**
+ * (pg_constraint) 持久化模型
+ *
+ * @author wjm
+ * @date 2022-07-18 17:59:54
+ */
 @Data
 @Accessors(chain = true)
 @TableName(value = "pg_constraint", autoResultMap = true)

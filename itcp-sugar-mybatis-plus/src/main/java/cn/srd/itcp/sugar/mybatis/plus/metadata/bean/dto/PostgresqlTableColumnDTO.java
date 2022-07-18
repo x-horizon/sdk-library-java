@@ -3,6 +3,12 @@ package cn.srd.itcp.sugar.mybatis.plus.metadata.bean.dto;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+/**
+ * postgresql table column 相关信息 数据传输模型
+ *
+ * @author wjm
+ * @date 2022-07-18 17:59:54
+ */
 @Data
 @Accessors(chain = true)
 public class PostgresqlTableColumnDTO {
