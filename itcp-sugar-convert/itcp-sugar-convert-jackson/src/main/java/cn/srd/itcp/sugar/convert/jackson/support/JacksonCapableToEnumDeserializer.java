@@ -17,12 +17,12 @@ import org.springframework.boot.jackson.JsonComponent;
  * @date 2020/12/15 17:02
  */
 @JsonComponent
-public class JacksonCapableToEnumDeserializer extends JsonDeserializer<Enum<?>> {
+public class JacksonCapableToEnumDeserializer<E extends Enum<E>> extends JsonDeserializer<E> {
 
     @Override
     @SneakyThrows
     @SuppressWarnings("unchecked")
-    public Enum<?> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) {
+    public E deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) {
         try {
             String prepareToDeserializerValue = jsonParser.getText();
             String prepareToDeserializerFieldName = jsonParser.getCurrentName();
@@ -31,7 +31,7 @@ public class JacksonCapableToEnumDeserializer extends JsonDeserializer<Enum<?>> 
             if (EnumsUtil.isNotEnum(prepareToDeserializerClass)) {
                 throw new JacksonDeserializerException(StringsUtil.format(" 该类 “{}” 中的 “{}” 字段不是枚举类型, 无法反序列化，请检查！", classContainPrepareToDeserializerField.getName(), prepareToDeserializerFieldName));
             }
-            return EnumsUtil.capableToEnum(Objects.getActualValue(prepareToDeserializerValue), (Class<Enum<?>>) prepareToDeserializerClass);
+            return EnumsUtil.capableToEnum(Objects.getActualValue(prepareToDeserializerValue), (Class<E>) prepareToDeserializerClass);
         } catch (NoSuchFieldException e) {
             throw new RuntimeException(e);
         }

@@ -1,10 +1,10 @@
 package cn.srd.itcp.sugar.tools.core.enums;
 
+import cn.hutool.core.util.EnumUtil;
+import cn.hutool.core.util.ReflectUtil;
 import cn.srd.itcp.sugar.tools.core.ClassesUtil;
 import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tools.core.Objects;
-import cn.hutool.core.util.EnumUtil;
-import cn.hutool.core.util.ReflectUtil;
 import org.springframework.lang.NonNull;
 
 import java.lang.reflect.Field;
@@ -66,7 +66,7 @@ public class EnumsUtil extends EnumUtil {
             fieldName = field.getName();
             fieldType = field.getType();
 
-            //跳过特殊字段、name、enum 类型的字段；只寻找 Enum 类中为对应类型且除特殊字段外的字段
+            // 跳过特殊字段、name、enum 类型的字段；只寻找 Enum 类中为对应类型且除特殊字段外的字段
             if (isEnum(fieldType) || Objects.equals("name", fieldName) || isEnumSpecialField(field)) {
                 continue;
             }
@@ -128,7 +128,7 @@ public class EnumsUtil extends EnumUtil {
      * @param enumClass      枚举类
      * @return
      */
-    public static Enum<?> capableToEnum(Object enumFiledValue, Class<Enum<?>> enumClass) {
+    public static <E extends Enum<E>> E capableToEnum(Object enumFiledValue, Class<E> enumClass) {
         if (Objects.isNull(enumClass, enumFiledValue)) {
             return null;
         }
@@ -139,13 +139,13 @@ public class EnumsUtil extends EnumUtil {
         }
 
         final Field[] fields = ReflectUtil.getFields(enumClass);
-        final Enum<?>[] enums = enumClass.getEnumConstants();
+        final E[] enums = enumClass.getEnumConstants();
         for (Field field : fields) {
-            //跳过特殊字段、enum 类型的字段；
+            // 跳过特殊字段、enum 类型的字段；
             if (field.getType().isEnum() || isEnumSpecialField(field)) {
                 continue;
             }
-            for (Enum<?> enumObj : enums) {
+            for (E enumObj : enums) {
                 if (Objects.equals(currentEnumFiledValue, ReflectUtil.getFieldValue(enumObj, field))) {
                     return enumObj;
                 }
