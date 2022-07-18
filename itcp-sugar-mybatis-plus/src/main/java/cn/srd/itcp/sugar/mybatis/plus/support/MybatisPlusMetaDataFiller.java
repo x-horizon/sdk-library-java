@@ -31,45 +31,24 @@ public interface MybatisPlusMetaDataFiller extends MetaObjectHandler {
 
     /**
      * 创建时间字段的字段名
-     */
-    String CREATE_TIME = "createTime";
-
-    /**
-     * 更新时间字段的字段名
-     */
-    String UPDATE_TIME = "updateTime";
-
-    /**
-     * 删除标识字段的字段名
-     */
-    String DELETE_IS = "deleteIs";
-
-    /**
-     * 创建时间字段的字段名
      *
      * @return 创建时间字段的字段名
      */
-    default String getCreateTimeFieldName() {
-        return CREATE_TIME;
-    }
+    String getCreateTimeFieldName();
 
     /**
      * 更新时间字段的字段名
      *
      * @return 更新时间字段的字段名
      */
-    default String getUpdateTimeFieldName() {
-        return UPDATE_TIME;
-    }
+    String getUpdateTimeFieldName();
 
     /**
      * 删除标识字段的字段名
      *
      * @return 删除标识字段的字段名
      */
-    default String getDeleteFlagFieldName() {
-        return DELETE_IS;
-    }
+    String getDeleteIsFieldName();
 
     /**
      * 插入表时填充属性
@@ -85,8 +64,8 @@ public interface MybatisPlusMetaDataFiller extends MetaObjectHandler {
         if (needToFill(metaObject, getUpdateTimeFieldName())) {
             this.setFieldValByName(getUpdateTimeFieldName(), localDateTime, metaObject);
         }
-        if (needToFill(metaObject, getDeleteFlagFieldName())) {
-            this.setFieldValByName(getDeleteFlagFieldName(), false, metaObject);
+        if (needToFill(metaObject, getDeleteIsFieldName())) {
+            this.setFieldValByName(getDeleteIsFieldName(), false, metaObject);
         }
     }
 
