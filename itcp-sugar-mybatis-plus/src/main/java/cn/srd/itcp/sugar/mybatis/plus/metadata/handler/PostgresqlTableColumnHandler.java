@@ -9,6 +9,7 @@ import cn.srd.itcp.sugar.mybatis.plus.metadata.dao.PostgresqlClassDao;
 import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tools.core.Objects;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -52,11 +53,36 @@ public class PostgresqlTableColumnHandler extends GenericCurdService<PostgresqlC
                         .eq(PostgresqlClassPO::getRelname, tableName)
         );
         PostgresqlTablePrimaryKeyDTO postgresqlTablePrimaryKeyDTO = getPrimaryKeyByTableName(tableName);
-        postgresqlTableColumnDTOs.forEach(postgresqlTableColumnDTO -> postgresqlTableColumnDTO.setPrimary_key_is(false));
+        postgresqlTableColumnDTOs.forEach(postgresqlTableColumnDTO -> postgresqlTableColumnDTO.setTableName(tableName).setPrimaryKeyIs(false));
         CollectionsUtil.filters(
                 postgresqlTableColumnDTOs,
                 postgresqlTableColumnDTO -> Objects.equals(postgresqlTableColumnDTO.getColumnName(), postgresqlTablePrimaryKeyDTO.getPrimaryKeyColumnName())
-        ).forEach(postgresqlTableColumnDTO -> postgresqlTableColumnDTO.setPrimary_key_is(true));
+        ).forEach(postgresqlTableColumnDTO -> postgresqlTableColumnDTO.setPrimaryKeyIs(true));
+        return postgresqlTableColumnDTOs;
+    }
+
+    public List<PostgresqlTableColumnDTO> listByTableNames(Collection<String> tableNames) {
+        List<PostgresqlTableColumnDTO> postgresqlTableColumnDTOs = selectJoinList(
+                PostgresqlTableColumnDTO.class,
+                MpWrappers.<PostgresqlClassPO>ofLambda()
+                        .selectAs(PostgresqlAttributePO::getAttname, PostgresqlTableColumnDTO::getColumnName)
+                        .selectAs(PostgresqlTypePO::getTypname, PostgresqlTableColumnDTO::getColumnType)
+                        .selectAs(PostgresqlDescriptionPO::getDescription, PostgresqlTableColumnDTO::getColumnComment)
+                        .selectAs(PostgresqlClassPO::getRelname, PostgresqlTableColumnDTO::getTableName)
+                        .innerJoin(PostgresqlAttributePO.class, PostgresqlAttributePO::getAttrelid, PostgresqlClassPO::getOid)
+                        .innerJoin(PostgresqlTypePO.class, PostgresqlTypePO::getOid, PostgresqlAttributePO::getAtttypid)
+                        .innerJoin(PostgresqlDescriptionPO.class, on -> on.eq(PostgresqlDescriptionPO::getObjoid, PostgresqlAttributePO::getAttrelid).eq(PostgresqlDescriptionPO::getObjsubid, PostgresqlAttributePO::getAttnum))
+                        .innerJoin(PostgresqlAmPO.class, PostgresqlAmPO::getOid, PostgresqlClassPO::getRelam)
+                        .gt(PostgresqlAttributePO::getAttnum, 0)
+                        .in(PostgresqlClassPO::getRelname, tableNames)
+        );
+        List<PostgresqlTablePrimaryKeyDTO> postgresqlTablePrimaryKeyDTOs = listPrimaryKeysByTableNames(tableNames);
+        postgresqlTableColumnDTOs.forEach(postgresqlTableColumnDTO -> postgresqlTableColumnDTO.setPrimaryKeyIs(false));
+        CollectionsUtil.filters(
+                postgresqlTableColumnDTOs,
+                // TODO wjm 这种做法仅支持单主键的表，后续需要优化
+                postgresqlTableColumnDTO -> Objects.equals(postgresqlTableColumnDTO.getColumnName(), CollectionsUtil.getFirst(CollectionsUtil.filters(postgresqlTablePrimaryKeyDTOs, postgresqlTablePrimaryKeyDTO -> Objects.equals(postgresqlTablePrimaryKeyDTO.getTableName(), postgresqlTableColumnDTO.getTableName()))).getPrimaryKeyColumnName())
+        ).forEach(postgresqlTableColumnDTO -> postgresqlTableColumnDTO.setPrimaryKeyIs(true));
         return postgresqlTableColumnDTOs;
     }
 
@@ -79,11 +105,23 @@ public class PostgresqlTableColumnHandler extends GenericCurdService<PostgresqlC
         return selectJoinOne(
                 PostgresqlTablePrimaryKeyDTO.class,
                 MpWrappers.<PostgresqlClassPO>of()
-                        .select("pg_constraint.conname AS primary_key_name", "pg_attribute.attname AS primary_key_column_name")
+                        .select("t.relname AS table_name", "pg_constraint.conname AS primary_key_name", "pg_attribute.attname AS primary_key_column_name")
                         .innerJoin("pg_constraint ON pg_constraint.conrelid = t.oid")
                         .innerJoin("pg_attribute ON pg_attribute.attrelid = t.oid AND pg_attribute.attnum = pg_constraint.conkey[1]")
                         .gt("pg_attribute.attnum", 0)
                         .eq("t.relname", tableName)
+        );
+    }
+
+    private List<PostgresqlTablePrimaryKeyDTO> listPrimaryKeysByTableNames(Collection<String> tableNames) {
+        return selectJoinList(
+                PostgresqlTablePrimaryKeyDTO.class,
+                MpWrappers.<PostgresqlClassPO>of()
+                        .select("t.relname AS table_name", "pg_constraint.conname AS primary_key_name", "pg_attribute.attname AS primary_key_column_name")
+                        .innerJoin("pg_constraint ON pg_constraint.conrelid = t.oid")
+                        .innerJoin("pg_attribute ON pg_attribute.attrelid = t.oid AND pg_attribute.attnum = pg_constraint.conkey[1]")
+                        .gt("pg_attribute.attnum", 0)
+                        .in("t.relname", tableNames)
         );
     }
 

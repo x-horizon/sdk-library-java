@@ -14,6 +14,11 @@ import lombok.experimental.Accessors;
 public class PostgresqlTableColumnDTO {
 
     /**
+     * 表名称
+     */
+    private String tableName;
+
+    /**
      * 字段名称
      */
     private String columnName;
@@ -31,6 +36,6 @@ public class PostgresqlTableColumnDTO {
     /**
      * 是否为主键
      */
-    private Boolean primary_key_is;
+    private Boolean primaryKeyIs;
 
 }

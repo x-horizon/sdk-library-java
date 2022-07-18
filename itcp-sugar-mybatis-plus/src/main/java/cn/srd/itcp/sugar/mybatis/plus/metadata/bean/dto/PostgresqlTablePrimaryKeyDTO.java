@@ -14,6 +14,11 @@ import lombok.experimental.Accessors;
 public class PostgresqlTablePrimaryKeyDTO {
 
     /**
+     * 表名称
+     */
+    private String tableName;
+
+    /**
      * 主键名称
      */
     private String primaryKeyName;

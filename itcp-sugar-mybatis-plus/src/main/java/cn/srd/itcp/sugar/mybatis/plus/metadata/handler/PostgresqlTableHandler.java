@@ -6,6 +6,9 @@ import cn.srd.itcp.sugar.mybatis.plus.metadata.bean.dto.PostgresqlTableDTO;
 import cn.srd.itcp.sugar.mybatis.plus.metadata.bean.po.PostgresqlTablePO;
 import cn.srd.itcp.sugar.mybatis.plus.metadata.dao.PostgresqlTableDao;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * postgresql table 基本信息 handler
  *
@@ -23,7 +26,7 @@ public class PostgresqlTableHandler extends GenericCurdService<PostgresqlTableDa
      *          INNER JOIN pg_tables ON pg_tables.tablename = t.relname
      * WHERE pg_tables.tablename = t.relname
      *   AND pg_tables.schemaname = 'public'
-     *   AND pg_tables.tablename = 'sys_post';
+     *   AND pg_tables.tablename = 'tableName';
      * </pre>
      *
      * @param tableName 表名
@@ -37,6 +40,32 @@ public class PostgresqlTableHandler extends GenericCurdService<PostgresqlTableDa
                         .innerJoin("pg_class on pg_class.relname = t.tablename")
                         .eq("schemaname", "public")
                         .eq("tablename", tableName)
+        );
+    }
+
+    /**
+     * 查询表信息
+     * <pre>
+     * SELECT pg_tables.tablename                                         AS table_name,
+     *        CAST(OBJ_DESCRIPTION(t.relfilenode, 'pg_class') AS VARCHAR) AS table_comment
+     * FROM pg_class t
+     *          INNER JOIN pg_tables ON pg_tables.tablename = t.relname
+     * WHERE pg_tables.tablename = t.relname
+     *   AND pg_tables.schemaname = 'public'
+     *   AND pg_tables.tablename IN ('tableName');
+     * </pre>
+     *
+     * @param tableNames 表名
+     * @return 表信息
+     */
+    public List<PostgresqlTableDTO> listByTableNames(Collection<String> tableNames) {
+        return selectJoinList(
+                PostgresqlTableDTO.class,
+                MpWrappers.<PostgresqlTablePO>of()
+                        .select("t.tablename AS table_name", "CAST(OBJ_DESCRIPTION(pg_class.relfilenode, 'pg_class') AS VARCHAR) AS table_comment")
+                        .innerJoin("pg_class on pg_class.relname = t.tablename")
+                        .eq("schemaname", "public")
+                        .in("tablename", tableNames)
         );
     }
 
