@@ -102,7 +102,7 @@ public interface MybatisPlusMetaDataFiller extends MetaObjectHandler {
         }
     }
 
-    private boolean needToFill(MetaObject metaObject, String fieldName) {
+    default boolean needToFill(MetaObject metaObject, String fieldName) {
         if (metaObject.hasSetter(fieldName)) {
             return Objects.isEmpty(metaObject.getValue(fieldName));
         }

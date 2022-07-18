@@ -1,15 +1,10 @@
 package cn.srd.itcp.sugar.mybatis.plus.support;
 
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
-import com.baomidou.mybatisplus.core.injector.AbstractMethod;
-import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
-import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.List;
 
 /**
  * {@link EnableAutoConfiguration AutoConfiguration} for Sugar Mybatis Plus
@@ -70,33 +65,5 @@ public class SugarMybatisPlusAutoConfiguration {
     //     b1.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:cn/srd/itcp/portal/dao/impl/*Mapper.xml"));
     //     return b1.getObject();
     // }
-
-    /**
-     * 注入自定义的 SqlInjector
-     */
-    @Bean
-    public LogicSqlInjector myLogicSqlInjector() {
-        return new LogicSqlInjector();
-    }
-
-    /**
-     * 自定义 SqlInjector
-     */
-    private static class LogicSqlInjector extends DefaultSqlInjector {
-
-        /**
-         * 在 {@link com.baomidou.mybatisplus.core.mapper.BaseMapper} 基础上增加自定义的方法，先 super.getMethodList()，再add
-         *
-         * @return
-         */
-        @Override
-        public List<AbstractMethod> getMethodList(Class<?> mapperClass, TableInfo tableInfo) {
-            List<AbstractMethod> methodList = super.getMethodList(mapperClass, tableInfo);
-            methodList.add(new InsertBatchMethod());
-            methodList.add(new UpdateBatchMethod());
-            return methodList;
-        }
-
-    }
 
 }
