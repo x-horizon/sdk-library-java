@@ -3,7 +3,6 @@ package cn.srd.itcp.sugar.security.sa.token.support;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 /**
  * Properties for Sugar Security Sa-Token
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Component;
  */
 @Getter
 @Setter
-@Component
 @ConfigurationProperties(prefix = "sugar.sa-token")
 public class SugarSaTokenProperties {
 
