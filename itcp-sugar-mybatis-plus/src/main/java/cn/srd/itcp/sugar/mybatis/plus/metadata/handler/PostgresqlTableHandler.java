@@ -5,9 +5,7 @@ import cn.srd.itcp.sugar.mybatis.plus.core.MpWrappers;
 import cn.srd.itcp.sugar.mybatis.plus.metadata.bean.dto.PostgresqlTableDTO;
 import cn.srd.itcp.sugar.mybatis.plus.metadata.bean.po.PostgresqlTablePO;
 import cn.srd.itcp.sugar.mybatis.plus.metadata.dao.PostgresqlTableDao;
-import org.springframework.stereotype.Service;
 
-@Service
 public class PostgresqlTableHandler extends GenericCurdService<PostgresqlTableDao, PostgresqlTablePO> {
 
     /**

@@ -8,11 +8,9 @@ import cn.srd.itcp.sugar.mybatis.plus.metadata.bean.po.*;
 import cn.srd.itcp.sugar.mybatis.plus.metadata.dao.PostgresqlClassDao;
 import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tools.core.Objects;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public class PostgresqlTableColumnHandler extends GenericCurdService<PostgresqlClassDao, PostgresqlClassPO> {
 
     /**

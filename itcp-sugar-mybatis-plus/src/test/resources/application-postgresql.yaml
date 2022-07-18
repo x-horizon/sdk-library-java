@@ -10,3 +10,7 @@ spring:
       max-active: 50
       min-idle: 5
       max-wait: 6000
+
+sugar:
+  mybatis-plus:
+    dbType: postgresql
