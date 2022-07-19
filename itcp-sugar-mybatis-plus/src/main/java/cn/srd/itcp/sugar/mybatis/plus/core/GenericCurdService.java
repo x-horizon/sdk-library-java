@@ -26,7 +26,7 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
      * @return PO 模型
      */
     public PO getById(Class<PO> poClass, Serializable primaryKey) {
-        return getOne(MpWrappers.<PO>withJoinLambda().apply(SQL.getDecodeHexPrimaryKey(poClass, primaryKey)));
+        return getOne(MpWrappers.<PO>withLambdaJoinQuery().apply(SQL.getDecodeHexPrimaryKey(poClass, primaryKey)));
     }
 
     /**

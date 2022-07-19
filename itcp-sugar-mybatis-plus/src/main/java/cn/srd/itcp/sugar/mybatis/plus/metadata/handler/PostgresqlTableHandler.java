@@ -51,7 +51,7 @@ public class PostgresqlTableHandler extends GenericCurdService<PostgresqlTableDa
     public List<PostgresqlTableDTO> listByTableNames(Collection<String> tableNames) {
         return selectJoinList(
                 PostgresqlTableDTO.class,
-                MpWrappers.<PostgresqlTablePO>withJoin()
+                MpWrappers.<PostgresqlTablePO>withJoinQuery()
                         .select("t.tablename AS table_name", "CAST(OBJ_DESCRIPTION(pg_class.relfilenode, 'pg_class') AS VARCHAR) AS table_comment")
                         .innerJoin("pg_class on pg_class.relname = t.tablename")
                         .eq("schemaname", "public")
@@ -76,7 +76,7 @@ public class PostgresqlTableHandler extends GenericCurdService<PostgresqlTableDa
         return Converts.withMybatisPlusMapstruct().toPageBean(
                 selectJoinListPage(new Page<>(pageParam.getPageIndex(), pageParam.getPageSize()),
                         PostgresqlTableDTO.class,
-                        MpWrappers.<PostgresqlTablePO>withJoin()
+                        MpWrappers.<PostgresqlTablePO>withJoinQuery()
                                 .select("t.tablename AS table_name", "CAST(OBJ_DESCRIPTION(pg_class.relfilenode, 'pg_class') AS VARCHAR) AS table_comment")
                                 .innerJoin("pg_class on pg_class.relname = t.tablename")
                                 .eq("schemaname", "public")
