@@ -27,7 +27,7 @@ public class PostgresqlTableHandler extends GenericCurdService<PostgresqlTableDa
      * 查询表信息
      *
      * @param tableName 表名
-     * @return 表信息
+     * @return 结果集
      */
     public PostgresqlTableDTO getByTableName(String tableName) {
         return CollectionsUtil.getFirst(listByTableNames(CollectionsUtil.toList(tableName)));
@@ -46,12 +46,12 @@ public class PostgresqlTableHandler extends GenericCurdService<PostgresqlTableDa
      * </pre>
      *
      * @param tableNames 表名
-     * @return 表信息
+     * @return 结果集
      */
     public List<PostgresqlTableDTO> listByTableNames(Collection<String> tableNames) {
         return selectJoinList(
                 PostgresqlTableDTO.class,
-                MpWrappers.<PostgresqlTablePO>with()
+                MpWrappers.<PostgresqlTablePO>withJoin()
                         .select("t.tablename AS table_name", "CAST(OBJ_DESCRIPTION(pg_class.relfilenode, 'pg_class') AS VARCHAR) AS table_comment")
                         .innerJoin("pg_class on pg_class.relname = t.tablename")
                         .eq("schemaname", "public")
@@ -70,14 +70,13 @@ public class PostgresqlTableHandler extends GenericCurdService<PostgresqlTableDa
      *   AND pg_tables.schemaname = 'public';
      * </pre>
      *
-     * @return 所有表信息
+     * @return 结果集
      */
     public <T extends PageParam> PageResult<PostgresqlTableVO> listAll(T pageParam) {
         return Converts.withMybatisPlusMapstruct().toPageBean(
-                selectJoinListPage(
-                        new Page<>(pageParam.getPageIndex(), pageParam.getPageSize()),
+                selectJoinListPage(new Page<>(pageParam.getPageIndex(), pageParam.getPageSize()),
                         PostgresqlTableDTO.class,
-                        MpWrappers.<PostgresqlTablePO>with()
+                        MpWrappers.<PostgresqlTablePO>withJoin()
                                 .select("t.tablename AS table_name", "CAST(OBJ_DESCRIPTION(pg_class.relfilenode, 'pg_class') AS VARCHAR) AS table_comment")
                                 .innerJoin("pg_class on pg_class.relname = t.tablename")
                                 .eq("schemaname", "public")
