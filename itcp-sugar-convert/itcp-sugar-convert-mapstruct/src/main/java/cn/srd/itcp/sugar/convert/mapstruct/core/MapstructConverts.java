@@ -16,6 +16,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.mapstruct.factory.Mappers;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -240,6 +241,21 @@ public class MapstructConverts {
         } else {
             classesWithBindMapstruct = SpringsUtil.scanPackageByAnnotation(BindMapstruct.class);
         }
+
+        /**
+         * 由于所有 mapstruct 的相关类使用了 bean 来管理，
+         * 若 mapstruct 的相关类未使用如：&#064;{@link org.mapstruct.Mapper Mapper}(componentModel = "spring")，
+         * 此时 mapstruct 不会加入 IOC 容器，
+         * 此处将未加入 IOC 容器的 mapstruct 加入 IOC 容器；
+         */
+        classesWithBindMapstruct.forEach(classWithBindMapstruct -> {
+            if (Objects.isNull(SpringsUtil.getBean(classWithBindMapstruct))) {
+                SpringsUtil.registerBean(
+                        StringsUtil.lowerFirst(classWithBindMapstruct.getSimpleName()),
+                        Objects.requireNotNull(() -> StringsUtil.format("无法获取 {} 的实例，请检查！", classWithBindMapstruct.getName()), Mappers.getMapper(classWithBindMapstruct))
+                );
+            }
+        });
 
         /**
          * 收集 {@link BindMapstruct} 注解标记了的 Mapstruct 转换类的所有方法
