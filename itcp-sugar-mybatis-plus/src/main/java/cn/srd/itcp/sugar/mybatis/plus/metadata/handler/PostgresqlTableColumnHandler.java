@@ -41,7 +41,7 @@ public class PostgresqlTableColumnHandler extends GenericCurdService<PostgresqlC
     public List<PostgresqlTableColumnDTO> listByTableName(String tableName) {
         List<PostgresqlTableColumnDTO> postgresqlTableColumnDTOs = selectJoinList(
                 PostgresqlTableColumnDTO.class,
-                MpWrappers.<PostgresqlClassPO>ofLambda()
+                MpWrappers.<PostgresqlClassPO>withLambda()
                         .selectAs(PostgresqlAttributePO::getAttname, PostgresqlTableColumnDTO::getColumnName)
                         .selectAs(PostgresqlTypePO::getTypname, PostgresqlTableColumnDTO::getColumnType)
                         .selectAs(PostgresqlDescriptionPO::getDescription, PostgresqlTableColumnDTO::getColumnComment)
@@ -64,7 +64,7 @@ public class PostgresqlTableColumnHandler extends GenericCurdService<PostgresqlC
     public List<PostgresqlTableColumnDTO> listByTableNames(Collection<String> tableNames) {
         List<PostgresqlTableColumnDTO> postgresqlTableColumnDTOs = selectJoinList(
                 PostgresqlTableColumnDTO.class,
-                MpWrappers.<PostgresqlClassPO>ofLambda()
+                MpWrappers.<PostgresqlClassPO>withLambda()
                         .selectAs(PostgresqlAttributePO::getAttname, PostgresqlTableColumnDTO::getColumnName)
                         .selectAs(PostgresqlTypePO::getTypname, PostgresqlTableColumnDTO::getColumnType)
                         .selectAs(PostgresqlDescriptionPO::getDescription, PostgresqlTableColumnDTO::getColumnComment)
@@ -104,7 +104,7 @@ public class PostgresqlTableColumnHandler extends GenericCurdService<PostgresqlC
     private PostgresqlTablePrimaryKeyDTO getPrimaryKeyByTableName(String tableName) {
         return selectJoinOne(
                 PostgresqlTablePrimaryKeyDTO.class,
-                MpWrappers.<PostgresqlClassPO>of()
+                MpWrappers.<PostgresqlClassPO>with()
                         .select("t.relname AS table_name", "pg_constraint.conname AS primary_key_name", "pg_attribute.attname AS primary_key_column_name")
                         .innerJoin("pg_constraint ON pg_constraint.conrelid = t.oid")
                         .innerJoin("pg_attribute ON pg_attribute.attrelid = t.oid AND pg_attribute.attnum = pg_constraint.conkey[1]")
@@ -116,7 +116,7 @@ public class PostgresqlTableColumnHandler extends GenericCurdService<PostgresqlC
     private List<PostgresqlTablePrimaryKeyDTO> listPrimaryKeysByTableNames(Collection<String> tableNames) {
         return selectJoinList(
                 PostgresqlTablePrimaryKeyDTO.class,
-                MpWrappers.<PostgresqlClassPO>of()
+                MpWrappers.<PostgresqlClassPO>with()
                         .select("t.relname AS table_name", "pg_constraint.conname AS primary_key_name", "pg_attribute.attname AS primary_key_column_name")
                         .innerJoin("pg_constraint ON pg_constraint.conrelid = t.oid")
                         .innerJoin("pg_attribute ON pg_attribute.attrelid = t.oid AND pg_attribute.attnum = pg_constraint.conkey[1]")

@@ -29,7 +29,7 @@ public class MpWrappers {
      * @param <T> 在单表查询中表示该表对应的 PO 模型类型，在连表查询中表示主表对应的 PO 模型类型
      * @return 使用硬编码查询的 Wrapper
      */
-    public static <T> MPJQueryWrapper<T> of() {
+    public static <T> MPJQueryWrapper<T> with() {
         return new MPJQueryWrapper<>();
     }
 
@@ -49,7 +49,7 @@ public class MpWrappers {
      * @param <T> 在单表查询中表示该表对应的 PO 模型类型，在连表查询中表示主表对应的 PO 模型类型
      * @return 使用 lambda 方式查询的 Wrapper
      */
-    public static <T> MPJLambdaWrapper<T> ofLambda() {
+    public static <T> MPJLambdaWrapper<T> withLambda() {
         return new MPJLambdaWrapper<>();
     }
 
