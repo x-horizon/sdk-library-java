@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.github.yulichang.base.MPJBaseServiceImpl;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 通用的增删查改 service
@@ -37,6 +38,16 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
      */
     public PO getByCondition(Wrapper<PO> queryWrapper) {
         return getOne(queryWrapper);
+    }
+
+    /**
+     * 查询列表数据（不分页）
+     *
+     * @param queryWrapper 查询条件
+     * @return 结果集
+     */
+    public List<PO> listByCondition(Wrapper<PO> queryWrapper) {
+        return list(queryWrapper);
     }
 
 }
