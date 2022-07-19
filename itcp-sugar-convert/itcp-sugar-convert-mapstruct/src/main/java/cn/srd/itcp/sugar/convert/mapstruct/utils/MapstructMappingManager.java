@@ -83,13 +83,25 @@ public class MapstructMappingManager {
     /**
      * LocalDateTime => Long
      *
-     * @param localDateTime
+     * @param value
      * @return
      */
     @NonNull
     @MapstructLocalDateTimeToLong
-    public static Long localDateTimeToLong(@NonNull LocalDateTime localDateTime) {
-        return TimeUtil.toLong(localDateTime);
+    public static Long localDateTimeToLong(@NonNull LocalDateTime value) {
+        return TimeUtil.toLong(value);
+    }
+
+    /**
+     * Long => String
+     *
+     * @param value
+     * @return
+     */
+    @NonNull
+    @MapstructLongToString
+    public static String longToString(@NonNull Long value) {
+        return value.toString();
     }
 
 }
