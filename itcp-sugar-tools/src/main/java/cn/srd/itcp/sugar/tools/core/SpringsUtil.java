@@ -51,6 +51,21 @@ public class SpringsUtil extends SpringUtil {
     }
 
     /**
+     * 重写父类的 {@link SpringUtil#getBean(Class)}，获取 bean 时出现错误应该返回 null 值而不是抛异常
+     *
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public static <T> T getBean(Class<T> clazz) {
+        try {
+            return SpringUtil.getBean(clazz);
+        } catch (Exception ignore) {
+            return null;
+        }
+    }
+
+    /**
      * 获取加入IOC容器中被指定注解 注解了的Bean
      *
      * @param annotationClass
