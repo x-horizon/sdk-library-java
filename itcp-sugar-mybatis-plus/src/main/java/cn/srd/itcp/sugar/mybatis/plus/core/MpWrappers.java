@@ -51,7 +51,8 @@ public class MpWrappers {
      *   {@link MPJBaseServiceImpl#selectJoinMaps(MPJBaseJoin)}
      *   {@link MPJBaseServiceImpl#selectJoinMapsPage(IPage, MPJBaseJoin)}
      *   {@link MPJBaseServiceImpl#selectJoinOne(Class, MPJBaseJoin)}
-     * 2、使用示例：
+     * 2、使用该方式查询必须显式指定结果集，否则不会返回结果集；
+     * 3、使用示例：
      *    MpWrappers.&#060;PO&#062;ofLambda()
      *            .selectAs(PO::getName, DTO::getSpecialName)
      *            .innerJoin(PO2.class, PO2::getId, PO::getId)
@@ -88,7 +89,8 @@ public class MpWrappers {
      *   {@link MPJBaseServiceImpl#selectJoinMaps(MPJBaseJoin)}
      *   {@link MPJBaseServiceImpl#selectJoinMapsPage(IPage, MPJBaseJoin)}
      *   {@link MPJBaseServiceImpl#selectJoinOne(Class, MPJBaseJoin)}
-     * 2、使用示例：
+     * 2、使用该方式查询必须显式指定结果集，否则不会返回结果集；
+     * 3、使用示例：
      *    MpWrappers.&#060;PO&#062;ofLambda()
      *            .selectAs(PO::getName, DTO::getSpecialName)
      *            .innerJoin(PO2.class, PO2::getId, PO::getId)
