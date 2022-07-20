@@ -5,26 +5,27 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * ID 有效性注解，使用 @VerifyId 标记在实体类字段上，校验 id 不可为 null 且必须大于 0
+ * 标记在字段上用于验证数据类型必须为数字类型
  *
  * @author wjm
- * @date 2020/12/08 13:49
+ * @date 2022-07-20 11:18:25
+ * @see RequireNumberSupport
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = VerifyIntIdSupport.class)
+@Constraint(validatedBy = RequireNumberSupport.class)
 @Documented
-public @interface VerifyIntId {
+public @interface RequireNumber {
 
     /**
-     * 默认校验失败的信息
+     * 校验失败时的信息
      *
      * @return
      */
-    String message() default "无效的ID";
+    String message() default "number is required";
 
     /**
-     * 指定要校验的分组，默认不分组
+     * 要校验的分组
      *
      * @return
      */
