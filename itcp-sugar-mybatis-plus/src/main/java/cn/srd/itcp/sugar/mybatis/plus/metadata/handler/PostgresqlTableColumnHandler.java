@@ -67,8 +67,14 @@ public class PostgresqlTableColumnHandler extends GenericCurdService<PostgresqlC
         postgresqlTableColumnDTOs.forEach(postgresqlTableColumnDTO -> postgresqlTableColumnDTO.setPrimaryKeyIs(false));
         CollectionsUtil.filters(
                 postgresqlTableColumnDTOs,
-                // TODO wjm 这种做法仅支持单主键的表，后续需要优化
-                postgresqlTableColumnDTO -> Objects.equals(postgresqlTableColumnDTO.getColumnName(), CollectionsUtil.getFirst(CollectionsUtil.filters(postgresqlTablePrimaryKeyDTOs, postgresqlTablePrimaryKeyDTO -> Objects.equals(postgresqlTablePrimaryKeyDTO.getTableName(), postgresqlTableColumnDTO.getTableName()))).getPrimaryKeyColumnName())
+                // TODO wjm 这种做法仅支持单主键或无主键的表，后续需要优化
+                postgresqlTableColumnDTO -> {
+                    PostgresqlTablePrimaryKeyDTO postgresqlTablePrimaryKeyDTOHasSameTable = CollectionsUtil.getFirst(CollectionsUtil.filters(
+                            postgresqlTablePrimaryKeyDTOs,
+                            postgresqlTablePrimaryKeyDTO -> Objects.equals(postgresqlTablePrimaryKeyDTO.getTableName(), postgresqlTableColumnDTO.getTableName())
+                    ));
+                    return Objects.isNull(postgresqlTablePrimaryKeyDTOHasSameTable) ? Boolean.FALSE : Objects.equals(postgresqlTableColumnDTO.getColumnName(), postgresqlTablePrimaryKeyDTOHasSameTable.getPrimaryKeyColumnName());
+                }
         ).forEach(postgresqlTableColumnDTO -> postgresqlTableColumnDTO.setPrimaryKeyIs(true));
         return postgresqlTableColumnDTOs;
     }
