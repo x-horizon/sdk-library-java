@@ -159,6 +159,22 @@ public final class WebResponse<T> implements Serializable {
     /**
      * 响应信息
      *
+     * @param httpStatusEnum 自定义状态码、响应信息
+     * @param data           自定义响应数据，字段名为 data
+     * @param <T>
+     * @return
+     */
+    public static <T> WebResponse<T> response(HttpStatusEnum httpStatusEnum, T data) {
+        WebResponse<T> result = new WebResponse<>();
+        result.status = httpStatusEnum.getCode();
+        result.message = httpStatusEnum.getDescription();
+        result.data = data;
+        return result;
+    }
+
+    /**
+     * 响应信息
+     *
      * @param status  自定义状态码
      * @param message 自定义响应信息，字段名为 message
      * @param data    自定义响应数据，字段名为 data
