@@ -13,7 +13,7 @@ import java.util.*;
 public class ValidList<E> implements List<E> {
 
     @Valid
-    @NotEmpty(message = "参数无效")
+    @NotEmpty(message = "参数不可为空")
     private List<E> list = new ArrayList<>();
 
     @Override
