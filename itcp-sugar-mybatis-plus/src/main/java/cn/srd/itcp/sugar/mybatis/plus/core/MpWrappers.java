@@ -40,25 +40,7 @@ public class MpWrappers {
     }
 
     /**
-     * 获取硬编码方式并支持连表查询的 Wrapper
-     * <pre>
-     * 相关说明：
-     * 1、在 join 的相关函数里，主表默认使用别名 t，因此只有使用以下方式查询时才能使用该方法，其余情况由于不会自动使用别名 t，此时使用该方法会报 SQL 的错误；
-     *   {@link MPJBaseServiceImpl#selectJoinCount(MPJBaseJoin)}
-     *   {@link MPJBaseServiceImpl#selectJoinList(Class, MPJBaseJoin)}
-     *   {@link MPJBaseServiceImpl#selectJoinListPage(IPage, Class, MPJBaseJoin)}
-     *   {@link MPJBaseServiceImpl#selectJoinMap(MPJBaseJoin)}
-     *   {@link MPJBaseServiceImpl#selectJoinMaps(MPJBaseJoin)}
-     *   {@link MPJBaseServiceImpl#selectJoinMapsPage(IPage, MPJBaseJoin)}
-     *   {@link MPJBaseServiceImpl#selectJoinOne(Class, MPJBaseJoin)}
-     * 2、使用该方式查询必须显式指定结果集，否则不会返回结果集；
-     * 3、使用示例：
-     *    MpWrappers.&#060;PO&#062;ofLambda()
-     *            .selectAs(PO::getName, DTO::getSpecialName)
-     *            .innerJoin(PO2.class, PO2::getId, PO::getId)
-     *            .gt(PO2::getAge, 20)
-     *            .eq(PO::getSex, "sex");
-     * </pre>
+     * 获取硬编码方式并支持连表查询的 Wrapper，参考 {@link #withLambdaQuery()}
      *
      * @param <T> 在单表查询中表示该表对应的 PO 模型类型，在连表查询中表示主表对应的 PO 模型类型
      * @return 用于连表查询的 {@link MPJQueryWrapper}&lt;T&gt;
@@ -91,7 +73,7 @@ public class MpWrappers {
      *   {@link MPJBaseServiceImpl#selectJoinOne(Class, MPJBaseJoin)}
      * 2、使用该方式查询必须显式指定结果集，否则不会返回结果集；
      * 3、使用示例：
-     *    MpWrappers.&#060;PO&#062;ofLambda()
+     *    MpWrappers.&#060;PO&#062;withLambdaJoinQuery()
      *            .selectAs(PO::getName, DTO::getSpecialName)
      *            .innerJoin(PO2.class, PO2::getId, PO::getId)
      *            .gt(PO2::getAge, 20)
