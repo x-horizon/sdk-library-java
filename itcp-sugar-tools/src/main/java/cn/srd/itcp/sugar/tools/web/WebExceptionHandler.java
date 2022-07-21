@@ -43,7 +43,7 @@ public class WebExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public WebResponse<Void> handleHttpMessageNotReadableException(HttpServletRequest httpServletRequest, HttpMessageNotReadableException exception) {
         log.warn("请求资源地址：'{}'，错误信息：参数格式错误", httpServletRequest.getRequestURI());
-        return error(HttpStatusEnum.BAD_REQUEST, "参数格式错误，请检查");
+        return error(HttpStatusEnum.BAD_REQUEST, "参数格式错误，请检查，相关信息" + exception.getMessage());
     }
 
     /**
