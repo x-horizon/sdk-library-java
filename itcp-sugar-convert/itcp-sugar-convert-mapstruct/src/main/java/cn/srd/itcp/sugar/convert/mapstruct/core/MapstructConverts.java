@@ -230,13 +230,9 @@ public class MapstructConverts {
          */
         Set<Class<?>> classesWithMapstructScan = SpringsUtil.scanPackageByAnnotation(MapstructScan.class);
         Set<Class<?>> classesWithBindMapstruct;
-        Assert.INSTANCE.set(StringsUtil.format(
-                "found multi @{} in {}, please just specifies one",
-                MapstructScan.class.getSimpleName(),
-                classesWithMapstructScan.stream().map(Class::getName).collect(Collectors.toList())
-        )).throwsIfTrue(classesWithMapstructScan.size() > 1);
+        Assert.INSTANCE.set(StringsUtil.format("found multi @{} in {}, please just specifies one", MapstructScan.class.getSimpleName(), classesWithMapstructScan.stream().map(Class::getName).collect(Collectors.toList()))).throwsIfTrue(classesWithMapstructScan.size() > 1);
         if (Objects.isNotEmpty(classesWithMapstructScan)) {
-            String[] packageNamesToFindMapstruct = AnnotationsUtil.getAnnotationValue(CollectionsUtil.getFirst(SpringsUtil.scanPackageByAnnotation(MapstructScan.class)), MapstructScan.class);
+            String[] packageNamesToFindMapstruct = AnnotationsUtil.getAnnotationValue(CollectionsUtil.getFirst(classesWithMapstructScan), MapstructScan.class);
             classesWithBindMapstruct = ClassesUtil.scanPackageByAnnotation(packageNamesToFindMapstruct, BindMapstruct.class);
         } else {
             classesWithBindMapstruct = SpringsUtil.scanPackageByAnnotation(BindMapstruct.class);
