@@ -5,7 +5,9 @@ import org.springframework.lang.Nullable;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -55,17 +57,32 @@ public class ClassesUtil extends ClassUtil {
     }
 
     /**
-     * 扫描指定包路径集下所有包含指定注解的类
+     * 扫描指定包路径集合下所有包含指定注解的类
      *
-     * @param packageNames    包路径集
+     * @param packageNames    包路径集合
      * @param annotationClass 注解类
-     * @return
+     * @return 类集合
      */
     public static Set<Class<?>> scanPackageByAnnotation(String[] packageNames, Class<? extends Annotation> annotationClass) {
         return Stream.of(Objects.setIfEmpty(packageNames, new String[]{}))
                 .map(path -> scanPackageByAnnotation(path, annotationClass))
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet());
+    }
+
+    /**
+     * 扫描指定包路径集合下所有指定类或接口的子类或实现类
+     *
+     * @param packageNames 包路径集合
+     * @param superClass   父类或接口
+     * @return 类集合
+     */
+    public static Set<Class<?>> scanPackagesBySuper(String[] packageNames, final Class<?> superClass) {
+        Set<Class<?>> allPackageNames = new HashSet<>();
+        Arrays.stream(packageNames).forEach(packageName -> {
+            CollectionsUtil.addAll(allPackageNames, scanPackageBySuper(packageName, superClass));
+        });
+        return allPackageNames;
     }
 
 }
