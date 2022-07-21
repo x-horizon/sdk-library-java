@@ -9,9 +9,8 @@ import org.springframework.lang.Nullable;
 import java.io.ObjectStreamClass;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -2462,6 +2461,68 @@ public class Objects {
             return valueIfEmpty;
         }
         return value;
+    }
+
+    /**
+     * 当给定对象不为 null 时，返回设定的值
+     *
+     * @param value          被检查对象
+     * @param valueIfNotNull 设定的值
+     * @param <T>            对象类型
+     * @return 原对象或设定的值
+     */
+    public static <T> T setIfNotNull(T value, T valueIfNotNull) {
+        if (isNotNull(value)) {
+            return valueIfNotNull;
+        }
+        return null;
+    }
+
+    /**
+     * 当给定对象不为 empty 时，返回设定的值
+     *
+     * @param value           被检查对象
+     * @param valueIfNotEmpty 设定的值
+     * @param <T>             对象类型
+     * @return 原对象或设定的值
+     */
+    public static <T> T setIfNotEmpty(T value, T valueIfNotEmpty) {
+        if (isNotEmpty(value)) {
+            return valueIfNotEmpty;
+        }
+        return value;
+    }
+
+    /**
+     * 当给定数组不为 null 时，返回设定的值，否则返回 null
+     *
+     * @param value           被检查对象
+     * @param valueIfNotEmpty 设定的值
+     * @param <T>             被检查对象类型
+     * @param <K>             满足条件时返回的对象类型
+     * @return 满足条件时返回设定的值，否则返回 null
+     */
+    public static <T, K> K setIfNotNull(T value, Function<T, K> valueIfNotEmpty) {
+        if (isNotNull(value)) {
+            return valueIfNotEmpty.apply(value);
+        }
+        return null;
+    }
+
+    /**
+     * 当给定数组不为 empty 时，返回设定的值，否则返回空数组
+     *
+     * @param value           被检查对象
+     * @param valueIfNotEmpty 设定的值
+     * @param <T>             被检查对象类型
+     * @param <K>             满足条件时返回的对象类型
+     * @return 满足条件时返回设定的值，否则返回空数组
+     */
+    public static <T, K> List<K> setIfNotEmpty(List<T> value, Function<List<T>, List<K>> valueIfNotEmpty) {
+        if (isNotEmpty(value)) {
+            return valueIfNotEmpty.apply(value);
+        }
+        return new ArrayList<>();
     }
 
     //============================================= modify value end
