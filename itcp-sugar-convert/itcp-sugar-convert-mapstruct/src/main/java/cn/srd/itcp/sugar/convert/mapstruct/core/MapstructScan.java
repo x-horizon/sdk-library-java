@@ -17,8 +17,6 @@ public @interface MapstructScan {
 
     /**
      * 指定在哪些包下扫描标记了 {@link BindMapstruct} 的类，若不指定，默认在 {@link SpringBootApplication} 所在的包路径下扫描
-     *
-     * @return
      */
     String[] value();
 
