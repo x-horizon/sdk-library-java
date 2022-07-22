@@ -830,7 +830,7 @@ public class Objects {
      * @return
      */
     public static boolean isPositive(Number number) {
-        return number != null && number.intValue() > 0;
+        return number != null && number.longValue() > 0;
     }
 
     /**
