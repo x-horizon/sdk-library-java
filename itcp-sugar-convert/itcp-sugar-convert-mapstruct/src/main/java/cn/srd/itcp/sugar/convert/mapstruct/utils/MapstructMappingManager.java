@@ -5,10 +5,12 @@ import cn.srd.itcp.sugar.tools.core.HexsUtil;
 import cn.srd.itcp.sugar.tools.core.Objects;
 import cn.srd.itcp.sugar.tools.core.TimeUtil;
 import cn.srd.itcp.sugar.tools.core.enums.EnumsUtil;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -102,6 +104,33 @@ public class MapstructMappingManager {
     @MapstructLongToString
     public static String longToString(@NonNull Long value) {
         return value.toString();
+    }
+
+    /**
+     * JSONObject => String
+     *
+     * @param value
+     * @return
+     */
+    @Nullable
+    @MapstructJSONObjectToStringFormatter
+    public static String jsonToString(@Nullable JSONObject value) {
+        return Objects.isNotEmpty(value) ? value.toJSONString() : null;
+    }
+
+    /**
+     * null List => Empty ArrayList
+     *
+     * @param value
+     * @return
+     */
+    @NonNull
+    @MapstructNullListToEmptyArrayList
+    public static <T> ArrayList<T> longToString(@NonNull List<T> value) {
+        if (Objects.isEmpty(value)) {
+            return new ArrayList<>();
+        }
+        return new ArrayList<>(value);
     }
 
 }
