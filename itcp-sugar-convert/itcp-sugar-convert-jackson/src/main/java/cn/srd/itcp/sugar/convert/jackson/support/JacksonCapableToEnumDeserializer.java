@@ -8,7 +8,6 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import lombok.SneakyThrows;
-import org.springframework.boot.jackson.JsonComponent;
 
 /**
  * Jackson 反序列化：Enum属性值 => Enum
@@ -16,7 +15,6 @@ import org.springframework.boot.jackson.JsonComponent;
  * @author wjm
  * @date 2020/12/15 17:02
  */
-@JsonComponent
 public class JacksonCapableToEnumDeserializer<E extends Enum<E>> extends JsonDeserializer<E> {
 
     @Override
