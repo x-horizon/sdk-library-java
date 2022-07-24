@@ -54,7 +54,7 @@ public class TimeUtil extends LocalDateTimeUtil {
      * @return
      */
     public static Long toLong(LocalDateTime localDateTime) {
-        return localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        return Objects.isNull(localDateTime) ? null : localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
     /**
