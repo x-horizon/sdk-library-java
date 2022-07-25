@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.annotation.Order;
 
 /**
  * {@link EnableAutoConfiguration AutoConfiguration} for Sugar Mybatis Plus
@@ -26,16 +27,17 @@ import org.springframework.context.annotation.DependsOn;
 public class SugarMybatisPlusAutoConfiguration {
 
     @Bean
+    @Order()
     @DependsOn("sugarMybatisPlusProperties")
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         DbType dbType = EnumsUtil.capableToEnum(SpringsUtil.getBean(SugarMybatisPlusProperties.class).getDbType(), DbType.class);
         if (Objects.isNotNull(dbType)) {
-            MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-            // 分页插件，一级缓存和二级缓存遵循 mybatis 的规则
-            interceptor.addInnerInterceptor(new PaginationInnerInterceptor(dbType));
-            return interceptor;
+            // 设置分页插件
+            MybatisPlusInnerInterceptorsConfigurer.set(new PaginationInnerInterceptor(dbType));
         }
-        return null;
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        MybatisPlusInnerInterceptorsConfigurer.get().forEach(innerInterceptorSupplier -> interceptor.addInnerInterceptor(innerInterceptorSupplier.get()));
+        return interceptor;
     }
 
     @Bean
