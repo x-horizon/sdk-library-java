@@ -41,11 +41,7 @@ public class SugarMybatisPlusAutoConfiguration {
     }
 
     @Bean
-    public SugarMybatisPlusProperties sugarMybatisPlusProperties() {
-        return SpringsUtil.registerCapableBean(SugarMybatisPlusProperties.class);
-    }
-
-    @Bean
+    @DependsOn("sugarMybatisPlusProperties")
     public MySQLBinaryPrimaryKeyGenerator mysqlBinUuidPrimaryKeyGenerator() {
         if (Objects.equals(DbType.MYSQL, EnumsUtil.capableToEnum(SpringsUtil.getBean(SugarMybatisPlusProperties.class).getDbType(), DbType.class))) {
             return new MySQLBinaryPrimaryKeyGenerator();
@@ -54,6 +50,7 @@ public class SugarMybatisPlusAutoConfiguration {
     }
 
     @Bean
+    @DependsOn("sugarMybatisPlusProperties")
     public PostgresqlTableColumnHandler postgresqlTableColumnHandler() {
         if (Objects.equals(DbType.POSTGRE_SQL, EnumsUtil.capableToEnum(SpringsUtil.getBean(SugarMybatisPlusProperties.class).getDbType(), DbType.class))) {
             return new PostgresqlTableColumnHandler();
@@ -62,6 +59,7 @@ public class SugarMybatisPlusAutoConfiguration {
     }
 
     @Bean
+    @DependsOn("sugarMybatisPlusProperties")
     public PostgresqlTableHandler postgresqlTableHandler() {
         if (Objects.equals(DbType.POSTGRE_SQL, EnumsUtil.capableToEnum(SpringsUtil.getBean(SugarMybatisPlusProperties.class).getDbType(), DbType.class))) {
             return new PostgresqlTableHandler();
@@ -70,4 +68,9 @@ public class SugarMybatisPlusAutoConfiguration {
 
     }
 
+    @Bean
+    public SugarMybatisPlusProperties sugarMybatisPlusProperties() {
+        return SpringsUtil.registerCapableBean(SugarMybatisPlusProperties.class);
+    }
+    
 }
