@@ -11,7 +11,7 @@ import java.lang.annotation.*;
  *   该注解为：同时拥有所有权限时可进入被该注解标记了的方法，如：
  *
  *     // 同时拥有 "system:user:save"、"system:user:update" 权限时可进入 test 方法
- *     &#064;{@link HasAllPermissions}({"system:user:save","system:user:update"})
+ *     &#064;{@link HasAllResourcePermissions}({"system:user:save","system:user:update"})
  *     &#064;PostMapping
  *     public void test(Test test) {
  *     }
@@ -27,10 +27,10 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface HasAllPermissions {
+public @interface HasAllResourcePermissions {
 
     /**
-     * 需要校验的权限码，如：@{@link HasAllPermissions}("system:param:save")
+     * 需要校验的权限码，如：@{@link HasAllResourcePermissions}("system:param:save")
      *
      * @return 需要校验的权限码
      */
@@ -40,9 +40,9 @@ public @interface HasAllPermissions {
     /**
      * 在权限认证不通过时的次要选择
      * <pre>
-     * 例1：@{@link HasAllPermissions}(value = "system:param:save", orRole = "admin")，表示本次请求需要拥有 system:param:save 权限或 admin 角色时，可通过校验；
-     * 例2：@{@link HasAllPermissions}(value = "system:param:save", orRole = "admin", "manager", "staff")，表示本次请求需要拥有 system:param:save 权限或 admin、manager、staff 中任一角色时，可通过校验；
-     * 例3：@{@link HasAllPermissions}(value = "system:param:save", orRole = {"admin, manager, staff"})，表示本次请求需要拥有 system:param:save 权限或同时拥有 admin、manager、staff 这三个角色时，可通过校验；
+     * 例1：@{@link HasAllResourcePermissions}(value = "system:param:save", orRole = "admin")，表示本次请求需要拥有 system:param:save 权限或 admin 角色时，可通过校验；
+     * 例2：@{@link HasAllResourcePermissions}(value = "system:param:save", orRole = "admin", "manager", "staff")，表示本次请求需要拥有 system:param:save 权限或 admin、manager、staff 中任一角色时，可通过校验；
+     * 例3：@{@link HasAllResourcePermissions}(value = "system:param:save", orRole = {"admin, manager, staff"})，表示本次请求需要拥有 system:param:save 权限或同时拥有 admin、manager、staff 这三个角色时，可通过校验；
      * </pre>
      *
      * @return 需要校验的权限码

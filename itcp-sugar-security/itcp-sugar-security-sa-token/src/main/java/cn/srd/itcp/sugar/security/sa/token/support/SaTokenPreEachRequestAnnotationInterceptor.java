@@ -1,6 +1,8 @@
 package cn.srd.itcp.sugar.security.sa.token.support;
 
 import cn.dev33.satoken.strategy.SaStrategy;
+import cn.srd.itcp.sugar.security.sa.token.core.HasAllResourcePermissions;
+import cn.srd.itcp.sugar.security.sa.token.core.HasAnyResourcePermission;
 import cn.srd.itcp.sugar.tools.core.Objects;
 import cn.srd.itcp.sugar.tools.core.SpringsUtil;
 import org.springframework.stereotype.Component;
@@ -16,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  * 对标记了以下注解的方法或类，在每次请求之前触发的拦截器
  * {@link cn.srd.itcp.sugar.security.sa.token.core.Anonymous Anonymous}
  * {@link cn.srd.itcp.sugar.security.sa.token.core.RequireLogin RequireLogin}
- * {@link cn.srd.itcp.sugar.security.sa.token.core.HasAllPermissions HasAllPermissions}
- * {@link cn.srd.itcp.sugar.security.sa.token.core.HasAnyPermission HasAnyPermission}
+ * {@link HasAllResourcePermissions HasAllPermissions}
+ * {@link HasAnyResourcePermission HasAnyPermission}
  * {@link cn.srd.itcp.sugar.security.sa.token.core.HasAllRoles HasAllRoles}
  * {@link cn.srd.itcp.sugar.security.sa.token.core.HasAnyRole HasAnyRole}
  * </pre>
