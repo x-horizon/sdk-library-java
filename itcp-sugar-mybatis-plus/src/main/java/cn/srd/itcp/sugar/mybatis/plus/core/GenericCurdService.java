@@ -1,11 +1,13 @@
 package cn.srd.itcp.sugar.mybatis.plus.core;
 
 import cn.srd.itcp.sugar.mybatis.plus.support.SQL;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import cn.srd.itcp.sugar.tools.core.Objects;
+import cn.srd.itcp.sugar.tools.core.ReflectsUtil;
+import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.github.yulichang.base.MPJBaseServiceImpl;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 通用的增删查改 service
@@ -31,23 +33,39 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
     }
 
     /**
-     * 查询单条数据
+     * 校验唯一性，该函数只适合与新增数据时不存在主键的唯一性校验，若存在主键的唯一性校验，使用 {@link #isUnique(Class, SFunction, String, Serializable)}
      *
-     * @param queryWrapper 查询条件
-     * @return 结果集
+     * @param poClass                  表映射的实体类
+     * @param requireUniqueColumn      校验唯一性的字段
+     * @param requireUniqueColumnValue 校验唯一性的字段值
+     * @return true 代表唯一，false 代表不唯一
      */
-    public PO getByCondition(Wrapper<PO> queryWrapper) {
-        return getOne(queryWrapper);
+    public boolean isUnique(Class<PO> poClass, SFunction<PO, ?> requireUniqueColumn, String requireUniqueColumnValue) {
+        return isUnique(poClass, requireUniqueColumn, requireUniqueColumnValue, null);
     }
 
     /**
-     * 查询列表数据（不分页）
+     * 校验唯一性
      *
-     * @param queryWrapper 查询条件
-     * @return 结果集
+     * @param poClass                  表映射的实体类
+     * @param requireUniqueColumn      校验唯一性的字段
+     * @param requireUniqueColumnValue 校验唯一性的字段值
+     * @param id                       表主键值，新增数据时传 null，更新数据时传具体的表主键值
+     * @return true 代表唯一，false 代表不唯一
      */
-    public List<PO> listByCondition(Wrapper<PO> queryWrapper) {
-        return list(queryWrapper);
+    public boolean isUnique(Class<PO> poClass, SFunction<PO, ?> requireUniqueColumn, String requireUniqueColumnValue, @Nullable Serializable id) {
+        // 新增情况，id 为空，使用需要判断唯一值的字段查库，若存在数据，表示不唯一；
+        if (Objects.isNull(id)) {
+            return count(MpWrappers.<PO>withLambdaQuery().eq(requireUniqueColumn, requireUniqueColumnValue)) == 0L;
+        }
+        // 更新情况，id 不为空，使用需要判断唯一值的字段查库；
+        PO po = getOne(MpWrappers.<PO>withLambdaQuery().eq(requireUniqueColumn, requireUniqueColumnValue));
+        // 不存在数据，表示唯一；
+        if (Objects.isNull(po)) {
+            return true;
+        }
+        // 存在数据，若查出来数据的主键值等于形参中的主键值，表示为未修改该字段，此时是唯一的，否则不唯一；
+        return Objects.equals(ReflectsUtil.getFieldValue(po, MpTables.getTableInfo(poClass).getKeyProperty()), id);
     }
 
 }
