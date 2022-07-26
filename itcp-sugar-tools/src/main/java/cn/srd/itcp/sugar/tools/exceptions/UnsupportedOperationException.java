@@ -5,7 +5,7 @@ package cn.srd.itcp.sugar.tools.exceptions;
  * 不支持操作的异常
  *
  * @author wjm
- * @date 2021/4/13 11:52
+ * @since 2021/4/13 11:52
  */
 public class UnsupportedOperationException extends RuntimeException {
 

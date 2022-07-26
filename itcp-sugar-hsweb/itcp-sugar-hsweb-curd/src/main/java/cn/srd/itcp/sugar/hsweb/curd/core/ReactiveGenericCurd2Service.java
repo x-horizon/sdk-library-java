@@ -1,6 +1,5 @@
 package cn.srd.itcp.sugar.hsweb.curd.core;
 
-
 import cn.srd.itcp.sugar.hsweb.curd.page.PageResult;
 import cn.srd.itcp.sugar.hsweb.curd.utils.Converts;
 import org.hswebframework.ezorm.rdb.mapping.ReactiveRepository;
@@ -27,13 +26,13 @@ import reactor.core.publisher.Mono;
  * @param <PO>             PO 模型
  * @param <PrimaryKeyType> 主键类型
  * @author wjm
- * @date 2022/6/18 19:17
  * @see ReactiveCrudController
  * @see ReactiveSaveController
  * @see ReactiveQueryController
  * @see ReactiveDeleteController
  * @see ReactiveCrudService
  * @see ReactiveRepository
+ * @since 2022/6/18 19:17
  */
 public interface ReactiveGenericCurd2Service<PO, PrimaryKeyType> extends ReactiveCrudService<PO, PrimaryKeyType> {
 

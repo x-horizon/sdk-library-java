@@ -7,8 +7,8 @@ import javax.validation.ConstraintValidatorContext;
  * 用于验证数据类型必须为数字类型
  *
  * @author wjm
- * @date 2022-07-20 11:18:25
  * @see RequireNumber
+ * @since 2022-07-20 11:18:25
  */
 public class RequireNumberSupport implements ConstraintValidator<RequireNumber, Object> {
 

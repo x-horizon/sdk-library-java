@@ -21,7 +21,7 @@ import java.util.stream.Stream;
  * Jackson 反序列化：Enum属性值 => Enum
  *
  * @author wjm
- * @date 2020/12/15 17:02
+ * @since 2020/12/15 17:02
  */
 public class JacksonCapableToEnumDeserializer<E extends Enum<E>> extends JsonDeserializer<E> {
 

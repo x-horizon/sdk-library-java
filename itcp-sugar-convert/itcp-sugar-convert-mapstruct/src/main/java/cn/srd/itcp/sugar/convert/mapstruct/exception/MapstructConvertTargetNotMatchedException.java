@@ -4,7 +4,7 @@ package cn.srd.itcp.sugar.convert.mapstruct.exception;
  * 执行结果类型与提供的目标值类型不一致异常
  *
  * @author wjm
- * @date 2021/5/1 14:13
+ * @since 2021/5/1 14:13
  */
 public class MapstructConvertTargetNotMatchedException extends RuntimeException {
 

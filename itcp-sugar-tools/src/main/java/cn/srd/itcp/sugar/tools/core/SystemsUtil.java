@@ -6,7 +6,7 @@ import cn.hutool.system.SystemUtil;
  * System工具
  *
  * @author wjm
- * @date 2020/1/15 11:02
+ * @since 2020/1/15 11:02
  */
 public class SystemsUtil extends SystemUtil {
 

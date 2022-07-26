@@ -24,7 +24,7 @@ import java.util.stream.Stream;
  * </pre>
  *
  * @author wjm
- * @date 2020/8/11 15:27
+ * @since 2020/8/11 15:27
  */
 public class TimeUtil extends LocalDateTimeUtil {
 

@@ -11,7 +11,7 @@ import java.util.Set;
  * 匹配枚举可能要注入的实现类规则：{@link EnumAutowired#autowiredBeanClass()} 的实现类类名包含枚举名（忽略大小写）
  *
  * @author wjm
- * @date 2021/9/8 16:07
+ * @since 2021/9/8 16:07
  */
 public class FindBeanNamesMayAutowiredByBeanNameContainsIgnoreCaseEnumNameRule implements FindBeanNamesMayAutowiredRule {
 

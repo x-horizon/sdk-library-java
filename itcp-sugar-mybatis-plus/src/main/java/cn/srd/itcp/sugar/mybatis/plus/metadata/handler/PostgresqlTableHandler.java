@@ -19,7 +19,7 @@ import java.util.List;
  * postgresql table 基本信息 handler
  *
  * @author wjm
- * @date 2022-07-18 17:59:54
+ * @since 2022-07-18 17:59:54
  */
 public class PostgresqlTableHandler extends GenericCurdService<PostgresqlTableDao, PostgresqlTablePO> {
 

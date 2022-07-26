@@ -8,7 +8,7 @@ import java.io.Serializable;
  * 常用 SQL
  *
  * @author wjm
- * @date 2022-07-06
+ * @since 2022-07-06
  */
 public class SQL {
 

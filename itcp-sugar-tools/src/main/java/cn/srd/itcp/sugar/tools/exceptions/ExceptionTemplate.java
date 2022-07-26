@@ -4,7 +4,7 @@ package cn.srd.itcp.sugar.tools.exceptions;
  * 自定义异常模板
  *
  * @author wjm
- * @date 2020/6/7 20:52
+ * @since 2020/6/7 20:52
  */
 public interface ExceptionTemplate {
 

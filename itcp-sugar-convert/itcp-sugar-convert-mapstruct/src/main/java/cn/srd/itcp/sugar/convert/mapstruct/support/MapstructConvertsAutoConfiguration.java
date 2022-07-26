@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
  * Mapstruct 转换器自动装配
  *
  * @author wjm
- * @date 2021/5/1 14:13
+ * @since 2021/5/1 14:13
  */
 @Configuration
 @Import(MapstructConverts.class)

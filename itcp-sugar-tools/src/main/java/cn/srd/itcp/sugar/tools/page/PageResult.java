@@ -12,7 +12,7 @@ import java.util.List;
  * 分页结果
  *
  * @author wjm
- * @date 2020/01/05 13:45
+ * @since 2020/01/05 13:45
  */
 @ApiModel(description = "分页结果模型")
 @Data

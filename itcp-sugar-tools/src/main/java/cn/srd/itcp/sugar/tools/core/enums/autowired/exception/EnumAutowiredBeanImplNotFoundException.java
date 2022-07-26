@@ -7,7 +7,7 @@ import cn.srd.itcp.sugar.tools.core.enums.autowired.EnumAutowired;
  * 根据 {@link EnumAutowired#autowiredBeanClass()} 无法找到其实现类时异常
  *
  * @author wjm
- * @date 2021/9/8 16:07
+ * @since 2021/9/8 16:07
  */
 public class EnumAutowiredBeanImplNotFoundException extends RuntimeException {
 

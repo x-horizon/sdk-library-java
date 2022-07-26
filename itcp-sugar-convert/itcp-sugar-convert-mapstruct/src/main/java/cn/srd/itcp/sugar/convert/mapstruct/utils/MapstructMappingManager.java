@@ -17,7 +17,7 @@ import java.util.List;
  * Mapstruct 属性转换管理，用于绑定转换方法
  *
  * @author wjm
- * @date 2021/3/11 10:25
+ * @since 2021/3/11 10:25
  */
 @MapstructMappingQualify
 public class MapstructMappingManager {

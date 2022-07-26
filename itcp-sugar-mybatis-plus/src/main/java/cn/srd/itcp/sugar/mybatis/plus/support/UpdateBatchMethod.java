@@ -9,7 +9,7 @@ import org.apache.ibatis.mapping.SqlSource;
  * 自定义批量更新方法
  *
  * @author wjm
- * @date 2020/12/25 11:44
+ * @since 2020/12/25 11:44
  */
 public class UpdateBatchMethod extends AbstractMethod {
 

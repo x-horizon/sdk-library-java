@@ -9,7 +9,7 @@ import java.util.List;
  * Mapstruct 转换器支持
  *
  * @author wjm
- * @date 2021/5/1 14:13
+ * @since 2021/5/1 14:13
  */
 public interface MapstructConvertsSupporter {
 

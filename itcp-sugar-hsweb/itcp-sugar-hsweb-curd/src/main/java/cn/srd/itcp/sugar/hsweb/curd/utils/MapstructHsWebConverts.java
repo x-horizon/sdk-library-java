@@ -12,7 +12,7 @@ import org.springframework.lang.Nullable;
  * 在 All in one 转换器的基础上增加对 {@link PagerResult} => {@link PageResult} 的转换支持
  *
  * @author wjm
- * @date 2022/6/18 19:17
+ * @since 2022/6/18 19:17
  */
 @Deprecated
 public class MapstructHsWebConverts {

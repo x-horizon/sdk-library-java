@@ -7,7 +7,7 @@ import java.util.Set;
  * 匹配枚举可能要注入的实现类规则
  *
  * @author wjm
- * @date 2021/9/8 16:07
+ * @since 2021/9/8 16:07
  */
 public interface FindBeanNamesMayAutowiredRule {
 

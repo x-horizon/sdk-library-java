@@ -20,7 +20,7 @@ import org.springframework.core.annotation.Order;
  * {@link EnableAutoConfiguration AutoConfiguration} for Sugar Mybatis Plus
  *
  * @author wjm
- * @date 2022-07-05
+ * @since 2022-07-05
  */
 @Configuration
 @ConditionalOnClass(MybatisPlusAutoConfiguration.class)
@@ -72,5 +72,5 @@ public class SugarMybatisPlusAutoConfiguration {
     public SugarMybatisPlusProperties sugarMybatisPlusProperties() {
         return SpringsUtil.registerCapableBean(SugarMybatisPlusProperties.class);
     }
-    
+
 }

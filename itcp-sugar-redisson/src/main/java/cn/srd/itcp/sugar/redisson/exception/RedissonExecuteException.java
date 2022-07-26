@@ -4,7 +4,7 @@ package cn.srd.itcp.sugar.redisson.exception;
  * Redisson 执行异常
  *
  * @author wjm
- * @date 2020/12/12 18:06
+ * @since 2020/12/12 18:06
  */
 public class RedissonExecuteException extends RuntimeException {
 

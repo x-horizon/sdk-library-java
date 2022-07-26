@@ -14,7 +14,7 @@ import java.io.Serializable;
  * 分页参数
  *
  * @author wjm
- * @date 2020/01/05 13:45
+ * @since 2020/01/05 13:45
  */
 @ApiModel(description = "分页参数模型")
 @Data

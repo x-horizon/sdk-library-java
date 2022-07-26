@@ -4,7 +4,7 @@ package cn.srd.itcp.sugar.convert.mapstruct.exception;
  * 不支持的转换方法异常
  *
  * @author wjm
- * @date 2021/5/1 14:13
+ * @since 2021/5/1 14:13
  */
 public class MapstructConvertMethodUnsupportedException extends RuntimeException {
 

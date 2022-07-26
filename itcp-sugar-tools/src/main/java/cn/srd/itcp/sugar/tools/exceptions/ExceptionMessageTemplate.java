@@ -7,7 +7,7 @@ import lombok.Getter;
  * 异常模板信息
  *
  * @author wjm
- * @date 2021/2/1 20:38
+ * @since 2021/2/1 20:38
  */
 @Getter
 @AllArgsConstructor

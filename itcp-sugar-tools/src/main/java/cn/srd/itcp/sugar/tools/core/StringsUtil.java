@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.tools.core;
 
-import cn.srd.itcp.sugar.tools.constant.StringPool;
 import cn.hutool.core.util.StrUtil;
+import cn.srd.itcp.sugar.tools.constant.StringPool;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.Nullable;
 
@@ -16,7 +16,7 @@ import static java.util.stream.Collectors.groupingBy;
  * 字符串工具
  *
  * @author wjm
- * @date 2020/5/19 17:12
+ * @since 2020/5/19 17:12
  */
 public class StringsUtil extends StrUtil {
 
@@ -168,7 +168,7 @@ public class StringsUtil extends StrUtil {
             return false;
         }
         for (char charStr : specifiedStr.toCharArray()) {
-            //使用中文的编码区间来判断
+            // 使用中文的编码区间来判断
             if (charStr >= 0x4E00 && charStr <= 0x9FA5) {
                 // System.out.println("中文字符：" + charStr);
                 return true;

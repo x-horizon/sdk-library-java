@@ -12,7 +12,7 @@ import org.springframework.lang.Nullable;
  * 在 All in one 转换器的基础上增加对 {@link IPage} => {@link PageResult} 的转换支持
  *
  * @author wjm
- * @date 2021/5/1 14:13
+ * @since 2021/5/1 14:13
  */
 @Deprecated
 public class MapstructMybatisPlusConverts {

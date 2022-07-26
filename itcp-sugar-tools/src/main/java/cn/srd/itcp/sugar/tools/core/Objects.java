@@ -18,7 +18,7 @@ import java.util.function.Supplier;
  * 通用工具
  *
  * @author wjm
- * @date 2020/7/8 16:11
+ * @since 2020/7/8 16:11
  */
 @SuppressWarnings("unchecked")
 public class Objects {

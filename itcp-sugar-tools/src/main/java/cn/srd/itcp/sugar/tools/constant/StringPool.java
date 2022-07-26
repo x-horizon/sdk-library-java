@@ -4,7 +4,7 @@ package cn.srd.itcp.sugar.tools.constant;
  * 字符串常量池
  *
  * @author wjm
- * @date 2021/2/1 20:38
+ * @since 2021/2/1 20:38
  */
 public interface StringPool {
 

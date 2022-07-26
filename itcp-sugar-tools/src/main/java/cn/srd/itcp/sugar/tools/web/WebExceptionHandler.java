@@ -27,7 +27,7 @@ import static cn.srd.itcp.sugar.tools.web.WebResponse.error;
  * webmvc 全局异常处理器
  *
  * @author wjm
- * @date 2020/6/13 20:05
+ * @since 2020/6/13 20:05
  */
 @Slf4j
 @RestControllerAdvice

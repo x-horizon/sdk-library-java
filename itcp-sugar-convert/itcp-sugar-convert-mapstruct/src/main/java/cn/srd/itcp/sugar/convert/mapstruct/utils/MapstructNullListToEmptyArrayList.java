@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * Mapstruct 属性映射转换器注解，null List => Empty ArrayList
  *
  * @author wjm
- * @date 2022-07-20 11:37:25
+ * @since 2022-07-20 11:37:25
  */
 @Qualifier
 @Target(ElementType.METHOD)

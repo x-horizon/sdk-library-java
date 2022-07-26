@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
  * Mapstruct 转换器
  *
  * @author wjm
- * @date 2021/5/1 14:13
+ * @since 2021/5/1 14:13
  */
 @Slf4j
 @Getter(AccessLevel.PACKAGE)

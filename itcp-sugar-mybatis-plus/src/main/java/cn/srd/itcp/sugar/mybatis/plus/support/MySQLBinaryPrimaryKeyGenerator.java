@@ -30,7 +30,7 @@ import com.baomidou.mybatisplus.core.incrementer.IKeyGenerator;
  * </pre>
  *
  * @author wjm
- * @date 2022-07-05
+ * @since 2022-07-05
  */
 public class MySQLBinaryPrimaryKeyGenerator implements IKeyGenerator {
 

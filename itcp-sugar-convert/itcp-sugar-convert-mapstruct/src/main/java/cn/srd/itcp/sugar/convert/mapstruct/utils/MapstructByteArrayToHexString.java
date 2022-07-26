@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * Mapstruct 属性映射转换器注解，Byte[] => Hex String
  *
  * @author wjm
- * @date 2022-07-06
+ * @since 2022-07-06
  */
 @Qualifier
 @Target(ElementType.METHOD)

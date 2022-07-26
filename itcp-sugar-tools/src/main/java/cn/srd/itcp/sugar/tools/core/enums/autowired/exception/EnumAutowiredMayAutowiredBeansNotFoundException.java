@@ -2,12 +2,11 @@ package cn.srd.itcp.sugar.tools.core.enums.autowired.exception;
 
 import cn.srd.itcp.sugar.tools.core.enums.autowired.EnumAutowired;
 
-
 /**
  * 根据 {@link EnumAutowired#findBeanNamesMayAutowiredRule()} 无法找到可能要注入的实现类时异常
  *
  * @author wjm
- * @date 2021/9/8 16:07
+ * @since 2021/9/8 16:07
  */
 public class EnumAutowiredMayAutowiredBeansNotFoundException extends RuntimeException {
 

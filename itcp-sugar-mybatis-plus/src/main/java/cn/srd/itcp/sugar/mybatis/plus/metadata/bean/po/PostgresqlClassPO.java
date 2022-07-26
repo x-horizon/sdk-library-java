@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
  * (pg_class) 持久化模型
  *
  * @author wjm
- * @date 2022-07-18 17:59:54
+ * @since 2022-07-18 17:59:54
  */
 @Data
 @Accessors(chain = true)

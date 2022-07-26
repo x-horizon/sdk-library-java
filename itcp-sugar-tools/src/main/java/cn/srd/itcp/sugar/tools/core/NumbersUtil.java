@@ -6,7 +6,7 @@ import cn.hutool.core.util.NumberUtil;
  * 数字工具
  *
  * @author wjm
- * @date 2020/8/20 17:42
+ * @since 2020/8/20 17:42
  */
 public class NumbersUtil extends NumberUtil {
 

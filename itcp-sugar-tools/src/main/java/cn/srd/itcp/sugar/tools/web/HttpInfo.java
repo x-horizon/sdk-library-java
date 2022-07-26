@@ -6,7 +6,7 @@ import cn.hutool.http.HttpStatus;
  * HTTP 相关常量
  *
  * @author wjm
- * @date 2020/6/29 14:25
+ * @since 2020/6/29 14:25
  */
 public class HttpInfo extends HttpStatus {
 

@@ -6,7 +6,7 @@ import cn.hutool.core.util.HexUtil;
  * 十六进制工具
  *
  * @author wjm
- * @date 2022-07-06
+ * @since 2022-07-06
  */
 public class HexsUtil extends HexUtil {
 

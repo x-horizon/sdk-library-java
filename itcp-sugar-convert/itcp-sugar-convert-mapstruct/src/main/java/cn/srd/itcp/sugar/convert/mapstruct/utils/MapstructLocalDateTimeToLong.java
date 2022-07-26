@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * Mapstruct 属性映射转换器注解，LocalDateTime => Long
  *
  * @author wjm
- * @date 2022-07-18 09:59:42
+ * @since 2022-07-18 09:59:42
  */
 @Qualifier
 @Target(ElementType.METHOD)

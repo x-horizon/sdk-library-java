@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  * </pre>
  *
  * @author wjm
- * @date 2022-07-16 18:16:22
+ * @since 2022-07-16 18:16:22
  */
 @Component
 public class SaTokenPreEachRequestAnnotationInterceptor implements HandlerInterceptor {

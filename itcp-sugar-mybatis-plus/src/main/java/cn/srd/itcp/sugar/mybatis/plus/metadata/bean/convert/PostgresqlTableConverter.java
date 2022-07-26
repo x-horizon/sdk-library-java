@@ -15,7 +15,7 @@ import java.util.List;
  * postgresql table 相关信息 模型转换
  *
  * @author wjm
- * @date 2022-07-18 17:59:54
+ * @since 2022-07-18 17:59:54
  */
 @BindMapstruct
 @Mapper(componentModel = "spring", uses = MapstructMappingManager.class)

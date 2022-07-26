@@ -4,7 +4,7 @@ package cn.srd.itcp.sugar.convert.mapstruct.exception;
  * 未找到转换方法时的异常
  *
  * @author wjm
- * @date 2021/5/1 14:13
+ * @since 2021/5/1 14:13
  */
 public class MapstructConvertMethodNotFoundException extends RuntimeException {
 

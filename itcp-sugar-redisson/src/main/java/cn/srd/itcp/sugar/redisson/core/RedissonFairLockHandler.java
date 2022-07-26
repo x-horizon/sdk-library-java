@@ -11,7 +11,7 @@ import javax.annotation.PostConstruct;
  * Redisson 分布式单点公平锁操作，参考 {@link RedissonFairLock}
  *
  * @author wjm
- * @date 2020/12/12 18:06
+ * @since 2020/12/12 18:06
  */
 @Component
 public class RedissonFairLockHandler implements RedissonLockTemplate {

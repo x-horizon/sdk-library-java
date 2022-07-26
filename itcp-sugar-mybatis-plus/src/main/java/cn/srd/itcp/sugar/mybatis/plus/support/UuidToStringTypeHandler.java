@@ -13,7 +13,7 @@ import java.util.UUID;
  * 数据类型转换：{@link UUID} => {@link String}
  *
  * @author wjm
- * @date 2022-07-12
+ * @since 2022-07-12
  */
 public class UuidToStringTypeHandler extends BaseTypeHandler<UUID> {
 

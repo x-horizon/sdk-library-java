@@ -4,7 +4,7 @@ package cn.srd.itcp.sugar.redisson.exception;
  * Redisson 生成锁名失败异常
  *
  * @author wjm
- * @date 2020/12/12 18:06
+ * @since 2020/12/12 18:06
  */
 public class RedissonGenerateLockNameFailedException extends RuntimeException {
 

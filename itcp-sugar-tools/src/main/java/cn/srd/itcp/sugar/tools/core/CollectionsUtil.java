@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * 集合工具
  *
  * @author wjm
- * @date 2020/12/15 12:40
+ * @since 2020/12/15 12:40
  */
 public class CollectionsUtil extends CollUtil {
 

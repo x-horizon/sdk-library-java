@@ -15,7 +15,7 @@ import com.github.yulichang.wrapper.MPJLambdaWrapper;
  * Mybatis Plus 使用入口
  *
  * @author wjm
- * @date 2022-07-18 17:59:54
+ * @since 2022-07-18 17:59:54
  */
 public class MpWrappers {
 

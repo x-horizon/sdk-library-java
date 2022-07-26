@@ -15,7 +15,7 @@ import org.springframework.context.annotation.DependsOn;
  * {@link EnableAutoConfiguration AutoConfiguration} for Sugar Security Sa-Token
  *
  * @author wjm
- * @date 2022-07-07
+ * @since 2022-07-07
  */
 @Configuration
 @ConditionalOnClass({SaBeanRegister.class, SaBeanInject.class})

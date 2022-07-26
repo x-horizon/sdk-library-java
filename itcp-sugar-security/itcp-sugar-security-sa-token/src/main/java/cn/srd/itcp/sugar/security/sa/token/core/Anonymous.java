@@ -20,9 +20,9 @@ import java.lang.annotation.*;
  * </pre>
  *
  * @author wjm
- * @date 2022-07-07
  * @see AnonymousSupporter#afterPropertiesSet()
  * @see SaTokenWebMvcConfig#addInterceptors(InterceptorRegistry)
+ * @since 2022-07-07
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

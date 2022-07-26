@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * </pre>
  *
  * @author wjm
- * @date 2022-07-16
+ * @since 2022-07-16
  */
 public class PostgresqlJsonObjectMappingJsonbTypeHandler extends BaseTypeHandler<JSONObject> {
 

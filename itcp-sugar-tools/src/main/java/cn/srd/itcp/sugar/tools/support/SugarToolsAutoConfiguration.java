@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Bean;
  * {@link EnableAutoConfiguration AutoConfiguration} for Sugar Tools
  *
  * @author wjm
- * @date 2022-07-14
+ * @since 2022-07-14
  */
 public class SugarToolsAutoConfiguration {
 

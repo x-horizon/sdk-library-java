@@ -6,7 +6,7 @@ import java.lang.annotation.*;
  * 必须标记了该注解，才启用 {@link EnumAutowired}
  *
  * @author wjm
- * @date 2021-07-14
+ * @since 2021-07-14
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

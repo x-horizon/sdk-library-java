@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 
 /**
  * @author wjm
- * @date 2022-07-07
+ * @since 2022-07-07
  * @see Anonymous
  * @see SaTokenWebMvcConfig#addInterceptors(InterceptorRegistry)
  */

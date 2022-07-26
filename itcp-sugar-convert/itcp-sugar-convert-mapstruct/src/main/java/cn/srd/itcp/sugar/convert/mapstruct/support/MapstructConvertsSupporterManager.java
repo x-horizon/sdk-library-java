@@ -11,7 +11,7 @@ import java.util.function.Function;
  * Mapstruct 转换器支持类管理
  *
  * @author wjm
- * @date 2021/5/1 14:13
+ * @since 2021/5/1 14:13
  */
 public class MapstructConvertsSupporterManager {
 

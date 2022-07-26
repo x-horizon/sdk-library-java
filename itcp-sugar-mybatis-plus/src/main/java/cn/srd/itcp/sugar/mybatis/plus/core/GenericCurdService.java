@@ -13,7 +13,7 @@ import java.io.Serializable;
  * 通用的增删查改 service
  *
  * @author wjm
- * @date 2022-07-05
+ * @since 2022-07-05
  */
 public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJBaseServiceImpl<Dao, PO> {
 

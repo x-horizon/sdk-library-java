@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  * Redisson 分布式锁注解切面支持
  *
  * @author wjm
- * @date 2020/12/12 18:06
+ * @since 2020/12/12 18:06
  */
 @Component
 public class RedissonLockAspectSupporter {

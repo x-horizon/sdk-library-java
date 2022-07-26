@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  * 实体类与表的映射信息辅助工具
  *
  * @author wjm
- * @date 2022-07-22 00:43:21
+ * @since 2022-07-22 00:43:21
  */
 public class MpTables extends TableInfoHelper {
 

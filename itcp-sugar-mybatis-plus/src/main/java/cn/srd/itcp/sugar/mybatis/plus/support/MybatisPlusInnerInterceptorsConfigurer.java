@@ -10,7 +10,7 @@ import java.util.function.Supplier;
  * mybatis-plus 插件配置
  *
  * @author wjm
- * @date 2022-07-25 21:51:19
+ * @since 2022-07-25 21:51:19
  */
 public class MybatisPlusInnerInterceptorsConfigurer {
 

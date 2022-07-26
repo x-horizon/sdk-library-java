@@ -17,7 +17,7 @@ import java.util.function.Supplier;
  * assert support
  *
  * @author wjm
- * @date 2020/6/13 20:05
+ * @since 2020/6/13 20:05
  */
 public interface AssertSupport extends ExceptionTemplate {
 

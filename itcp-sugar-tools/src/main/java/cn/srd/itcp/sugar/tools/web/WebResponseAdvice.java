@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * webmvc 响应结果通知
  *
  * @author wjm
- * @date 2020/6/13 20:05
+ * @since 2020/6/13 20:05
  */
 @ControllerAdvice
 public class WebResponseAdvice implements ResponseBodyAdvice<WebResponse<?>> {

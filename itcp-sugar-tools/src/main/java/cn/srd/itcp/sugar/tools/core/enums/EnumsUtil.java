@@ -15,7 +15,7 @@ import java.util.List;
  * 枚举工具
  *
  * @author wjm
- * @date 2021/5/10 17:46
+ * @since 2021/5/10 17:46
  */
 public class EnumsUtil extends EnumUtil {
 

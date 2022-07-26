@@ -7,7 +7,7 @@ import lombok.Setter;
  * 自定义运行时异常
  *
  * @author wjm
- * @date 2020/6/7 20:52
+ * @since 2020/6/7 20:52
  */
 @Getter
 @Setter

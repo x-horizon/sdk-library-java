@@ -16,7 +16,7 @@ import java.util.Objects;
  * Mapstruct 转换器支持：{@link IPage} 类型
  *
  * @author wjm
- * @date 2021/5/1 14:13
+ * @since 2021/5/1 14:13
  */
 @Deprecated
 public class MapstructMybatisPlusConvertsSupporter implements MapstructConvertsSupporter {

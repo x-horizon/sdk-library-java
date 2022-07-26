@@ -17,7 +17,7 @@ import static cn.srd.itcp.sugar.tools.web.WebResponse.error;
  * webmvc sa-token 全局异常处理器
  *
  * @author wjm
- * @date 2022-07-16 18:16:22
+ * @since 2022-07-16 18:16:22
  */
 @Slf4j
 @RestControllerAdvice

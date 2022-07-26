@@ -16,7 +16,7 @@ import java.util.Objects;
  * Mapstruct 转换器支持：{@link PagerResult} 类型
  *
  * @author wjm
- * @date 2022/6/18 19:17
+ * @since 2022/6/18 19:17
  */
 @Deprecated
 public class MapstructHsWebConvertsSupporter implements MapstructConvertsSupporter {

@@ -6,7 +6,7 @@ import cn.srd.itcp.sugar.tools.core.asserts.WarnAssert;
  * 用于告警的异常，参考{@link WarnAssert}
  *
  * @author wjm
- * @date 2021/5/6 17:27
+ * @since 2021/5/6 17:27
  */
 public class WarnOperationException extends RuntimeException {
 

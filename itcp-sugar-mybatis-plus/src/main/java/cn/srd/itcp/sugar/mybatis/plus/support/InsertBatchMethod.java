@@ -10,7 +10,7 @@ import java.util.Collection;
  * 自定义批量插入方法，这里只重写了方法名，参考 {@link InsertBatchSomeColumn}
  *
  * @author wjm
- * @date 2020/12/25 11:44
+ * @since 2020/12/25 11:44
  */
 public class InsertBatchMethod extends InsertBatchSomeColumn {
 

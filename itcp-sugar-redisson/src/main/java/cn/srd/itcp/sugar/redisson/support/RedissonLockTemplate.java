@@ -20,7 +20,6 @@ import java.util.function.Supplier;
  * Redisson 分布式锁操作模板
  *
  * @author wjm
- * @date 2020/12/12 18:06
  * @see RedissonFairLock
  * @see RedissonNonFairLock
  * @see RedissonFairLockAspect
@@ -28,6 +27,7 @@ import java.util.function.Supplier;
  * @see RedissonLockAspectSupporter
  * @see RedissonFairLockHandler
  * @see RedissonNonFairLockHandler
+ * @since 2020/12/12 18:06
  */
 public interface RedissonLockTemplate {
 

@@ -6,7 +6,7 @@ import cn.dev33.satoken.stp.StpUtil;
  * Sa-Token 权限认证工具
  *
  * @author wjm
- * @date 2022-07-07
+ * @since 2022-07-07
  */
 public class SaUtil extends StpUtil {
 

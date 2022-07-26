@@ -5,7 +5,7 @@ package cn.srd.itcp.sugar.convert.jackson.exception;
  * jackson 序列化异常
  *
  * @author wjm
- * @date 2021/5/1 14:13
+ * @since 2021/5/1 14:13
  */
 public class JacksonSerializerException extends RuntimeException {
 

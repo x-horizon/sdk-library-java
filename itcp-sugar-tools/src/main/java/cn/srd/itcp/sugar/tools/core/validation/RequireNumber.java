@@ -8,7 +8,7 @@ import java.lang.annotation.*;
  * 标记在字段上用于验证数据类型必须为数字类型
  *
  * @author wjm
- * @date 2022-07-20 11:18:25
+ * @since 2022-07-20 11:18:25
  * @see RequireNumberSupport
  */
 @Target({ElementType.FIELD})

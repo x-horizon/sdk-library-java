@@ -22,7 +22,7 @@ import reactor.core.publisher.Mono;
  * @param <PO>             PO 模型
  * @param <PrimaryKeyType> 主键类型
  * @author wjm
- * @date 2022/6/18 19:17
+ * @since 2022/6/18 19:17
  * @see ReactiveGenericCurd2Service
  */
 public interface ReactiveGenericCurdService<PO, PrimaryKeyType> extends ReactiveCrudService<PO, PrimaryKeyType> {

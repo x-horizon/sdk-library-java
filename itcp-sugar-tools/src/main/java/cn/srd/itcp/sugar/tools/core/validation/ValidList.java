@@ -8,7 +8,7 @@ import java.util.*;
  * 校验 List，用于支持 Controller @Validated 对 List 的 validation 校验
  *
  * @author wjm
- * @date 2020/12/08 19:45
+ * @since 2020/12/08 19:45
  */
 public class ValidList<E> implements List<E> {
 
