@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.mybatis.plus.support;
+package cn.srd.itcp.sugar.mybatis.plus.utils;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.incrementer.IKeyGenerator;
@@ -32,7 +32,7 @@ import com.baomidou.mybatisplus.core.incrementer.IKeyGenerator;
  * @author wjm
  * @since 2022-07-05
  */
-public class MySQLBinaryPrimaryKeyGenerator implements IKeyGenerator {
+public class MysqlBinaryPrimaryKeyGenerator implements IKeyGenerator {
 
     @Override
     public String executeSql(String incrementerName) {

@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.mybatis.plus.support;
+package cn.srd.itcp.sugar.mybatis.plus.handler;
 
 import cn.srd.itcp.sugar.tools.core.Objects;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
  * @author wjm
  * @since 2022-07-05
  */
-public interface MybatisPlusMetaDataFiller extends MetaObjectHandler {
+public interface MybatisPlusMetaDataHandler extends MetaObjectHandler {
 
     /**
      * 创建时间字段的字段名

@@ -1,20 +1,23 @@
 package cn.srd.itcp.sugar.mybatis.plus.support;
 
+import cn.srd.itcp.sugar.mybatis.plus.interceptor.MybatisPlusInnerInterceptorsConfigurer;
+import cn.srd.itcp.sugar.mybatis.plus.interceptor.MybatisPlusInterceptors;
+import cn.srd.itcp.sugar.mybatis.plus.interceptor.MybatisPlusPageInterceptor;
 import cn.srd.itcp.sugar.mybatis.plus.metadata.handler.PostgresqlTableColumnHandler;
 import cn.srd.itcp.sugar.mybatis.plus.metadata.handler.PostgresqlTableHandler;
+import cn.srd.itcp.sugar.mybatis.plus.utils.MysqlBinaryPrimaryKeyGenerator;
 import cn.srd.itcp.sugar.tools.core.Objects;
+import cn.srd.itcp.sugar.tools.core.ReflectsUtil;
 import cn.srd.itcp.sugar.tools.core.SpringsUtil;
 import cn.srd.itcp.sugar.tools.core.enums.EnumsUtil;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.core.annotation.Order;
 
 /**
  * {@link EnableAutoConfiguration AutoConfiguration} for Sugar Mybatis Plus
@@ -27,24 +30,26 @@ import org.springframework.core.annotation.Order;
 public class SugarMybatisPlusAutoConfiguration {
 
     @Bean
-    @Order()
-    @DependsOn("sugarMybatisPlusProperties")
+    @DependsOn("mybatisPlusPageInterceptors")
+    // TODO wjm 这里可能还有问题，后续需要详细测试与优化
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
-        DbType dbType = EnumsUtil.capableToEnum(SpringsUtil.getBean(SugarMybatisPlusProperties.class).getDbType(), DbType.class);
-        if (Objects.isNotNull(dbType)) {
-            // 设置分页插件
-            MybatisPlusInnerInterceptorsConfigurer.set(new PaginationInnerInterceptor(dbType));
-        }
-        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        MybatisPlusInnerInterceptorsConfigurer.get().forEach(innerInterceptorSupplier -> interceptor.addInnerInterceptor(innerInterceptorSupplier.get()));
-        return interceptor;
+        SpringsUtil.getBeansOfType(MybatisPlusInterceptors.class).forEach((beanName, beanClass) -> ReflectsUtil.invoke(beanClass, "addInterceptor"));
+        MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
+        MybatisPlusInnerInterceptorsConfigurer.get().forEach(innerInterceptorSupplier -> mybatisPlusInterceptor.addInnerInterceptor(innerInterceptorSupplier.get()));
+        return mybatisPlusInterceptor;
     }
 
     @Bean
     @DependsOn("sugarMybatisPlusProperties")
-    public MySQLBinaryPrimaryKeyGenerator mysqlBinUuidPrimaryKeyGenerator() {
+    public MybatisPlusPageInterceptor mybatisPlusPageInterceptors() {
+        return new MybatisPlusPageInterceptor();
+    }
+
+    @Bean
+    @DependsOn("sugarMybatisPlusProperties")
+    public MysqlBinaryPrimaryKeyGenerator mysqlBinUuidPrimaryKeyGenerator() {
         if (Objects.equals(DbType.MYSQL, EnumsUtil.capableToEnum(SpringsUtil.getBean(SugarMybatisPlusProperties.class).getDbType(), DbType.class))) {
-            return new MySQLBinaryPrimaryKeyGenerator();
+            return new MysqlBinaryPrimaryKeyGenerator();
         }
         return null;
     }

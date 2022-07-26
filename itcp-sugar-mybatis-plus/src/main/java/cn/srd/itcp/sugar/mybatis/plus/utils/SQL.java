@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.mybatis.plus.support;
+package cn.srd.itcp.sugar.mybatis.plus.utils;
 
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 

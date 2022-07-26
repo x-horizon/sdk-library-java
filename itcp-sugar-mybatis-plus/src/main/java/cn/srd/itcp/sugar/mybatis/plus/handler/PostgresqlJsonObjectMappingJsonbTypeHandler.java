@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.mybatis.plus.support;
+package cn.srd.itcp.sugar.mybatis.plus.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
