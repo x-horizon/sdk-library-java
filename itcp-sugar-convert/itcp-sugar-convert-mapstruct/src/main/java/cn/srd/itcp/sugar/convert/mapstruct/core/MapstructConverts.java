@@ -39,6 +39,7 @@ import java.util.stream.Collectors;
 @Setter(AccessLevel.PRIVATE)
 @Component
 @SuppressWarnings("unchecked")
+@Deprecated
 public class MapstructConverts {
 
     protected MapstructConverts() {

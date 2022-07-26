@@ -14,6 +14,7 @@ import org.springframework.lang.Nullable;
  * @author wjm
  * @date 2021/5/1 14:13
  */
+@Deprecated
 public class MapstructMybatisPlusConverts {
 
     protected MapstructMybatisPlusConverts() {

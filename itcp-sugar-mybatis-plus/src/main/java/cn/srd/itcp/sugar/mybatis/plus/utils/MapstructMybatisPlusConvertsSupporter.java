@@ -18,6 +18,7 @@ import java.util.Objects;
  * @author wjm
  * @date 2021/5/1 14:13
  */
+@Deprecated
 public class MapstructMybatisPlusConvertsSupporter implements MapstructConvertsSupporter {
 
     public static final MapstructMybatisPlusConvertsSupporter INSTANCE = new MapstructMybatisPlusConvertsSupporter();

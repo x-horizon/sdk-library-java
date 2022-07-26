@@ -18,6 +18,7 @@ import java.util.Objects;
  * @author wjm
  * @date 2022/6/18 19:17
  */
+@Deprecated
 public class MapstructHsWebConvertsSupporter implements MapstructConvertsSupporter {
 
     public static final MapstructHsWebConvertsSupporter INSTANCE = new MapstructHsWebConvertsSupporter();

@@ -14,6 +14,7 @@ import org.springframework.lang.Nullable;
  * @author wjm
  * @date 2022/6/18 19:17
  */
+@Deprecated
 public class MapstructHsWebConverts {
 
     protected MapstructHsWebConverts() {

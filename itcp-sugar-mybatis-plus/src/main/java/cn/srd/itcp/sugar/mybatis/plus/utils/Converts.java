@@ -16,6 +16,7 @@ public class Converts extends cn.srd.itcp.sugar.convert.all.core.Converts {
      *
      * @return 支持 MyBatis-Plus 实体的 Mapstruct 转换器
      */
+    @Deprecated
     public static MapstructMybatisPlusConverts withMybatisPlusMapstruct() {
         return MapstructMybatisPlusConverts.getInstance();
     }

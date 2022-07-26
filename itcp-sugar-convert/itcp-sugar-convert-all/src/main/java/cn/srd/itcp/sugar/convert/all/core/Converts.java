@@ -48,6 +48,7 @@ public class Converts extends cn.srd.itcp.sugar.tools.core.convert.Converts {
      *
      * @return 通用的 Mapstruct 转换器
      */
+    @Deprecated
     public static MapstructConverts withGenericMapstruct() {
         return MapstructConverts.getInstance();
     }
