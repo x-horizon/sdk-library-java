@@ -2494,7 +2494,23 @@ public class Objects {
     }
 
     /**
-     * 当给定数组不为 null 时，返回设定的值，否则返回 null
+     * 当给定对象不为 null 时，返回设定的值，否则返回 null
+     *
+     * @param value           被检查对象
+     * @param valueIfNotEmpty 设定的值
+     * @param <T>             被检查对象类型
+     * @param <K>             满足条件时返回的对象类型
+     * @return 满足条件时返回设定的值，否则返回 null
+     */
+    public static <T, K> List<K> setIfNotNull(T value, Supplier<List<K>> valueIfNotEmpty) {
+        if (isNotNull(value)) {
+            return valueIfNotEmpty.get();
+        }
+        return new ArrayList<>();
+    }
+
+    /**
+     * 当给定对象不为 null 时，返回设定的值，否则返回 null
      *
      * @param value           被检查对象
      * @param valueIfNotEmpty 设定的值
@@ -2507,6 +2523,22 @@ public class Objects {
             return valueIfNotEmpty.apply(value);
         }
         return null;
+    }
+
+    /**
+     * 当给定数组不为 empty 时，返回设定的值，否则返回空数组
+     *
+     * @param value           被检查对象
+     * @param valueIfNotEmpty 设定的值
+     * @param <T>             被检查对象类型
+     * @param <K>             满足条件时返回的对象类型
+     * @return 满足条件时返回设定的值，否则返回空数组
+     */
+    public static <T, K> List<K> setIfNotEmpty(List<T> value, Supplier<List<K>> valueIfNotEmpty) {
+        if (isNotEmpty(value)) {
+            return valueIfNotEmpty.get();
+        }
+        return new ArrayList<>();
     }
 
     /**
