@@ -148,4 +148,9 @@ public interface StringPool {
      */
     String DOUBLE_BOOK_NAME = "《》";
 
+    /**
+     * Http 协议
+     */
+    String HTTP_PROTOCOL = "http://";
+
 }
