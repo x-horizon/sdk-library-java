@@ -8,6 +8,8 @@ package cn.srd.itcp.sugar.tools.constant;
  */
 public interface StringPool {
 
+    // ================ 标点符号相关信息 ================
+
     /**
      * 空格符 {@code " "}
      */
@@ -148,9 +150,8 @@ public interface StringPool {
      */
     String DOUBLE_BOOK_NAME = "《》";
 
-    /**
-     * Http 协议
-     */
+    // ================ 传输协议相关信息 ================
+
     String HTTP_PROTOCOL = "http://";
 
 }
