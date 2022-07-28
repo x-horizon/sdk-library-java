@@ -12,6 +12,8 @@ import java.io.Serializable;
 /**
  * 通用的增删查改 service
  *
+ * @param <Dao> 持久化模型对应的 dao
+ * @param <PO>  持久化模型
  * @author wjm
  * @since 2022-07-05
  */
