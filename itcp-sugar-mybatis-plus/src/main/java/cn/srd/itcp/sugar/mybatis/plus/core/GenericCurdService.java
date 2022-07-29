@@ -35,14 +35,14 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
     }
 
     /**
-     * 校验唯一性，该函数只适合与新增数据时不存在主键的唯一性校验，若存在主键的唯一性校验，使用 {@link #isUnique(Class, SFunction, String, Serializable)}
+     * 校验唯一性，该函数只适合与新增数据时不存在主键的唯一性校验，若存在主键的唯一性校验，使用 {@link #isUnique(Class, SFunction, Object, Serializable)}
      *
      * @param poClass                  表映射的实体类
      * @param requireUniqueColumn      校验唯一性的字段
      * @param requireUniqueColumnValue 校验唯一性的字段值
      * @return true 代表唯一，false 代表不唯一
      */
-    public boolean isUnique(Class<PO> poClass, SFunction<PO, ?> requireUniqueColumn, String requireUniqueColumnValue) {
+    public <T> boolean isUnique(Class<PO> poClass, SFunction<PO, T> requireUniqueColumn, T requireUniqueColumnValue) {
         return isUnique(poClass, requireUniqueColumn, requireUniqueColumnValue, null);
     }
 
@@ -55,10 +55,14 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
      * @param id                       表主键值，新增数据时传 null，更新数据时传具体的表主键值
      * @return true 代表唯一，false 代表不唯一
      */
-    public boolean isUnique(Class<PO> poClass, SFunction<PO, ?> requireUniqueColumn, String requireUniqueColumnValue, @Nullable Serializable id) {
+    public <T> boolean isUnique(Class<PO> poClass, SFunction<PO, T> requireUniqueColumn, T requireUniqueColumnValue, @Nullable Serializable id) {
         // 新增情况，id 为空，使用需要判断唯一值的字段查库，若存在数据，表示不唯一；
         if (Objects.isNull(id)) {
             return count(MpWrappers.<PO>withLambdaQuery().eq(requireUniqueColumn, requireUniqueColumnValue)) == 0L;
+        }
+        // 更新情况，id 不为空，若唯一值字段为空，表示唯一；
+        if (Objects.isEmpty(requireUniqueColumnValue)) {
+            return true;
         }
         // 更新情况，id 不为空，使用需要判断唯一值的字段查库；
         PO po = getOne(MpWrappers.<PO>withLambdaQuery().eq(requireUniqueColumn, requireUniqueColumnValue));
