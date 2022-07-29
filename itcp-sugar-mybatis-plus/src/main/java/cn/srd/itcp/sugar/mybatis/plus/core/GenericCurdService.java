@@ -70,4 +70,20 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
         return Objects.equals(ReflectsUtil.getFieldValue(po, MpTables.getTableInfo(poClass).getKeyProperty()), id);
     }
 
+    /**
+     * 校验唯一性
+     *
+     * @param requireUniqueColumn       需要唯一性的字段，例如传入手机号码的字段名
+     * @param requireUniqueColumnValue  需要唯一性的字段值，例如传入手机号码的字段值
+     * @param conditionScopeColumn      限制在什么范围下校验唯一性的字段名，例如：传入表父级主键字段名，此时在同一个父级范围内手机号码不允许重复；
+     * @param conditionScopeColumnValue 限制在什么范围下校验唯一性的字段值，例如：传入表父级主键字段值，此时在同一个父级范围内手机号码不允许重复；
+     * @return true 代表唯一，false 代表不唯一
+     */
+    public <T, K> boolean isUnique(SFunction<PO, T> requireUniqueColumn, T requireUniqueColumnValue, SFunction<PO, K> conditionScopeColumn, K conditionScopeColumnValue) {
+        return Objects.isNull(getOne(MpWrappers.<PO>withLambdaQuery()
+                .eq(requireUniqueColumn, requireUniqueColumnValue)
+                .eq(conditionScopeColumn, conditionScopeColumnValue)
+        ));
+    }
+
 }
