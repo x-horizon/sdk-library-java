@@ -35,7 +35,7 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
     }
 
     /**
-     * 校验唯一性，该函数只适合与新增数据时不存在主键的唯一性校验，若存在主键的唯一性校验，使用 {@link #isUnique(Class, SFunction, Object, Serializable)}
+     * 校验唯一性，该函数只适合与新增数据时不存在主键的唯一性校验，若存在主键的唯一性校验，使用 {@link #isUnique(Class, Serializable, SFunction, Object)}
      *
      * @param poClass                  表映射的实体类
      * @param requireUniqueColumn      校验唯一性的字段
@@ -43,19 +43,19 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
      * @return true 代表唯一，false 代表不唯一
      */
     public <T> boolean isUnique(Class<PO> poClass, SFunction<PO, T> requireUniqueColumn, T requireUniqueColumnValue) {
-        return isUnique(poClass, requireUniqueColumn, requireUniqueColumnValue, null);
+        return isUnique(poClass, null, requireUniqueColumn, requireUniqueColumnValue);
     }
 
     /**
      * 校验唯一性
      *
      * @param poClass                  表映射的实体类
+     * @param id                       表主键值，新增数据时传 null，更新数据时传具体的表主键值
      * @param requireUniqueColumn      校验唯一性的字段
      * @param requireUniqueColumnValue 校验唯一性的字段值
-     * @param id                       表主键值，新增数据时传 null，更新数据时传具体的表主键值
      * @return true 代表唯一，false 代表不唯一
      */
-    public <T> boolean isUnique(Class<PO> poClass, SFunction<PO, T> requireUniqueColumn, T requireUniqueColumnValue, @Nullable Serializable id) {
+    public <T> boolean isUnique(Class<PO> poClass, @Nullable Serializable id, SFunction<PO, T> requireUniqueColumn, T requireUniqueColumnValue) {
         // 新增情况，id 为空，使用需要判断唯一值的字段查库，若存在数据，表示不唯一；
         if (Objects.isNull(id)) {
             return count(MpWrappers.<PO>withLambdaQuery().eq(requireUniqueColumn, requireUniqueColumnValue)) == 0L;
@@ -75,19 +75,53 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
     }
 
     /**
-     * 校验唯一性
+     * 校验唯一性，该函数只适合与新增数据时不存在主键的唯一性校验，若存在主键的唯一性校验，使用 {@link #isUnique(Class, Serializable, SFunction, Object, SFunction, Object)}
      *
+     * @param poClass                   表映射的实体类
      * @param requireUniqueColumn       需要唯一性的字段，例如传入手机号码的字段名
      * @param requireUniqueColumnValue  需要唯一性的字段值，例如传入手机号码的字段值
      * @param conditionScopeColumn      限制在什么范围下校验唯一性的字段名，例如：传入表父级主键字段名，此时在同一个父级范围内手机号码不允许重复；
      * @param conditionScopeColumnValue 限制在什么范围下校验唯一性的字段值，例如：传入表父级主键字段值，此时在同一个父级范围内手机号码不允许重复；
      * @return true 代表唯一，false 代表不唯一
      */
-    public <T, K> boolean isUnique(SFunction<PO, T> requireUniqueColumn, T requireUniqueColumnValue, SFunction<PO, K> conditionScopeColumn, K conditionScopeColumnValue) {
-        return Objects.isNull(getOne(MpWrappers.<PO>withLambdaQuery()
+    public <T, K> boolean isUnique(Class<PO> poClass, SFunction<PO, T> requireUniqueColumn, T requireUniqueColumnValue, SFunction<PO, K> conditionScopeColumn, K conditionScopeColumnValue) {
+        return isUnique(poClass, null, requireUniqueColumn, requireUniqueColumnValue, conditionScopeColumn, conditionScopeColumnValue);
+    }
+
+    /**
+     * 校验唯一性
+     *
+     * @param poClass                   表映射的实体类
+     * @param id                        表主键值，新增数据时传 null，更新数据时传具体的表主键值
+     * @param requireUniqueColumn       需要唯一性的字段，例如传入手机号码的字段名
+     * @param requireUniqueColumnValue  需要唯一性的字段值，例如传入手机号码的字段值
+     * @param conditionScopeColumn      限制在什么范围下校验唯一性的字段名，例如：传入表父级主键字段名，此时在同一个父级范围内手机号码不允许重复；
+     * @param conditionScopeColumnValue 限制在什么范围下校验唯一性的字段值，例如：传入表父级主键字段值，此时在同一个父级范围内手机号码不允许重复；
+     * @return true 代表唯一，false 代表不唯一
+     */
+    public <T, K> boolean isUnique(Class<PO> poClass, @Nullable Serializable id, SFunction<PO, T> requireUniqueColumn, T requireUniqueColumnValue, SFunction<PO, K> conditionScopeColumn, K conditionScopeColumnValue) {
+        // 新增情况，id 为空，使用需要判断唯一值的字段查库，若存在数据，表示不唯一；
+        if (Objects.isEmpty(id)) {
+            return count(MpWrappers.<PO>withLambdaQuery()
+                    .eq(requireUniqueColumn, requireUniqueColumnValue)
+                    .eq(conditionScopeColumn, conditionScopeColumnValue)
+            ) == 0L;
+        }
+        // 更新情况，id 不为空，若唯一值字段为空，表示唯一；
+        if (Objects.isEmpty(requireUniqueColumnValue)) {
+            return true;
+        }
+        // 更新情况，id 不为空，使用需要判断唯一值的字段查库；
+        PO po = getOne(MpWrappers.<PO>withLambdaQuery()
                 .eq(requireUniqueColumn, requireUniqueColumnValue)
                 .eq(conditionScopeColumn, conditionScopeColumnValue)
-        ));
+        );
+        // 不存在数据，表示唯一；
+        if (Objects.isNull(po)) {
+            return true;
+        }
+        // 存在数据，若查出来数据的主键值等于形参中的主键值，表示为未修改该字段，此时是唯一的，否则不唯一；
+        return Objects.equals(ReflectsUtil.getFieldValue(po, MpTables.getTableInfo(poClass).getKeyProperty()), id);
     }
 
 }
