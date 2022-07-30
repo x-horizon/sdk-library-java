@@ -11,6 +11,7 @@ import cn.srd.itcp.sugar.tools.core.ReflectsUtil;
 import cn.srd.itcp.sugar.tools.core.SpringsUtil;
 import cn.srd.itcp.sugar.tools.core.enums.EnumsUtil;
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -37,6 +38,12 @@ public class SugarMybatisPlusAutoConfiguration {
         MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
         MybatisPlusInnerInterceptorsConfigurer.get().forEach(innerInterceptorSupplier -> mybatisPlusInterceptor.addInnerInterceptor(innerInterceptorSupplier.get()));
         return mybatisPlusInterceptor;
+    }
+
+    @Bean
+    public ConfigurationCustomizer configurationCustomizer() {
+        // 开启 XML resultMap 下划线自动转换驼峰，不用写 <result> 相关的 数据库字段名 与 实体类字段名 的转换
+        return configuration -> configuration.setMapUnderscoreToCamelCase(true);
     }
 
     @Bean
