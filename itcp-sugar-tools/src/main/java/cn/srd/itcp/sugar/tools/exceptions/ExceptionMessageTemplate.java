@@ -19,6 +19,8 @@ public enum ExceptionMessageTemplate {
     TRUE_CHECK("It is not allowed to be true here"),
     FALSE_CHECK("It is not allowed to be false here"),
     POSITIVE_CHECK("It is not allowed to be positive here"),
+
+    UN_POSITIVE_CHECK("It is require to be positive here"),
     EQUALS_CHECK("It is not allowed to be equal here"),
     NULL_NEED("This must be null"),
     EMPTY_NEED("This must be empty"),
