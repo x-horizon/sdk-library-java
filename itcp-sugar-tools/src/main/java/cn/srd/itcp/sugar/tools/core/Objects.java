@@ -268,13 +268,13 @@ public class Objects {
         }
 
         if (object instanceof CharSequence) {
-            return ((CharSequence) object).length() == 0;
+            return isBlank((CharSequence) object);
         } else if (object instanceof Map) {
-            return ((Map) object).isEmpty();
+            return isEmpty(((Map) object));
         } else if (object instanceof Iterable) {
-            return !((Iterable) object).iterator().hasNext();
+            return isEmpty(((Iterable) object));
         } else if (object instanceof Iterator) {
-            return !((Iterator) object).hasNext();
+            return isEmpty(((Iterator) object));
         } else if (object.getClass().isArray()) {
             return Array.getLength(object) == 0;
         }
