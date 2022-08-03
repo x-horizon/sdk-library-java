@@ -56,13 +56,13 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
      * @return true 代表唯一，false 代表不唯一
      */
     public <T> boolean isUnique(Class<PO> poClass, @Nullable Serializable id, SFunction<PO, T> requireUniqueColumn, T requireUniqueColumnValue) {
+        // 若唯一值字段为空，表示唯一；
+        if (Objects.isEmpty(requireUniqueColumnValue)) {
+            return true;
+        }
         // 新增情况，id 为空，使用需要判断唯一值的字段查库，若存在数据，表示不唯一；
         if (Objects.isNull(id)) {
             return count(MpWrappers.<PO>withLambdaQuery().eq(requireUniqueColumn, requireUniqueColumnValue)) == 0L;
-        }
-        // 更新情况，id 不为空，若唯一值字段为空，表示唯一；
-        if (Objects.isEmpty(requireUniqueColumnValue)) {
-            return true;
         }
         // 更新情况，id 不为空，使用需要判断唯一值的字段查库；
         PO po = getOne(MpWrappers.<PO>withLambdaQuery().eq(requireUniqueColumn, requireUniqueColumnValue));
@@ -100,16 +100,16 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
      * @return true 代表唯一，false 代表不唯一
      */
     public <T, K> boolean isUnique(Class<PO> poClass, @Nullable Serializable id, SFunction<PO, T> requireUniqueColumn, T requireUniqueColumnValue, SFunction<PO, K> conditionScopeColumn, K conditionScopeColumnValue) {
+        // 若唯一值字段为空，表示唯一；
+        if (Objects.isEmpty(requireUniqueColumnValue)) {
+            return true;
+        }
         // 新增情况，id 为空，使用需要判断唯一值的字段查库，若存在数据，表示不唯一；
         if (Objects.isEmpty(id)) {
             return count(MpWrappers.<PO>withLambdaQuery()
                     .eq(requireUniqueColumn, requireUniqueColumnValue)
                     .eq(conditionScopeColumn, conditionScopeColumnValue)
             ) == 0L;
-        }
-        // 更新情况，id 不为空，若唯一值字段为空，表示唯一；
-        if (Objects.isEmpty(requireUniqueColumnValue)) {
-            return true;
         }
         // 更新情况，id 不为空，使用需要判断唯一值的字段查库；
         PO po = getOne(MpWrappers.<PO>withLambdaQuery()
