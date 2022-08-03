@@ -1,10 +1,12 @@
 package cn.srd.itcp.sugar.convert.mapstruct.utils;
 
+import cn.srd.itcp.sugar.tools.constant.StringPool;
 import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tools.core.HexsUtil;
 import cn.srd.itcp.sugar.tools.core.Objects;
 import cn.srd.itcp.sugar.tools.core.TimeUtil;
 import cn.srd.itcp.sugar.tools.core.enums.EnumsUtil;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -107,15 +109,27 @@ public class MapstructMappingManager {
     }
 
     /**
-     * JSONObject => String
+     * {@link JSONObject} => String
      *
      * @param value
      * @return
      */
-    @Nullable
+    @NonNull
     @MapstructJSONObjectToStringFormatter
-    public static String jsonToString(@Nullable JSONObject value) {
-        return Objects.isNotEmpty(value) ? value.toJSONString() : null;
+    public static String jsonObjectToString(@Nullable JSONObject value) {
+        return Objects.isNotEmpty(value) ? value.toJSONString() : StringPool.EMPTY;
+    }
+
+    /**
+     * String => {@link JSONObject}
+     *
+     * @param value
+     * @return
+     */
+    @NonNull
+    @MapstructStringToJSONObjectFormatter
+    public static JSONObject stringToJSONObject(@Nullable String value) {
+        return Objects.isNotBlank(value) ? JSON.parseObject(value) : new JSONObject();
     }
 
     /**
