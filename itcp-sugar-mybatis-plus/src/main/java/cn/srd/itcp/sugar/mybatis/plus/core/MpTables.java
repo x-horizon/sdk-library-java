@@ -3,7 +3,11 @@ package cn.srd.itcp.sugar.mybatis.plus.core;
 import cn.srd.itcp.sugar.tools.constant.StringPool;
 import cn.srd.itcp.sugar.tools.core.StringsUtil;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
+import lombok.SneakyThrows;
+import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 
+import java.io.Serializable;
 import java.util.stream.Collectors;
 
 /**
@@ -49,6 +53,33 @@ public class MpTables extends TableInfoHelper {
                 .map(column -> "t." + column)
                 .collect(Collectors.toList())
         );
+    }
+
+    /**
+     * <pre>
+     * example:
+     * {@link #getPostgresqlInStringToArray(Serializable, String)} 传入：1550095650131333122, "org_ancestor_ids"，则生成的 SQL 语句为：
+     * '' || 1550095650131333122 = ANY (STRING_TO_ARRAY(org_ancestor_ids, ','))
+     * </pre>
+     *
+     * @param needToInValue
+     * @param stringToArrayFieldName
+     * @return
+     */
+    public static String getPostgresqlInStringToArray(Serializable needToInValue, String stringToArrayFieldName) {
+        // example: '' || 1550095650131333122 = ANY (STRING_TO_ARRAY(org_ancestor_ids, ','))
+        return StringsUtil.format(" '' || {} = ANY (string_to_array({},',')) ", needToInValue, stringToArrayFieldName);
+    }
+
+    /**
+     * @param needToInValue
+     * @param stringToArrayFieldName
+     * @return
+     * @see #getPostgresqlInStringToArray(Serializable, String)
+     */
+    @SneakyThrows
+    public static Expression getPostgresqlInStringToArrayExpression(Serializable needToInValue, String stringToArrayFieldName) {
+        return CCJSqlParserUtil.parseExpression(getPostgresqlInStringToArray(needToInValue, stringToArrayFieldName));
     }
 
 }
