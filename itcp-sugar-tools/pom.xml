@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>cn.srd</groupId>
-        <artifactId>itcp-sugar</artifactId>
+        <artifactId>itcp-sugar-java</artifactId>
         <version>1.0</version>
     </parent>
 

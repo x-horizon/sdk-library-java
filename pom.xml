@@ -12,7 +12,7 @@
         <relativePath>../itcp-manager</relativePath>
     </parent>
 
-    <artifactId>itcp-sugar</artifactId>
+    <artifactId>itcp-sugar-java</artifactId>
 
     <modules>
         <module>itcp-sugar-convert</module>
