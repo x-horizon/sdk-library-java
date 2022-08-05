@@ -9,13 +9,14 @@
         <groupId>cn.srd</groupId>
         <artifactId>itcp-manager</artifactId>
         <version>1.0</version>
-        <relativePath>../itcp-manager</relativePath>
+        <relativePath>../../itcp-manager</relativePath>
     </parent>
 
     <artifactId>itcp-sugar-java</artifactId>
 
     <modules>
         <module>itcp-sugar-convert</module>
+        <module>itcp-sugar-excel</module>
         <module>itcp-sugar-hsweb</module>
         <module>itcp-sugar-mybatis-plus</module>
         <module>itcp-sugar-redisson</module>
@@ -59,6 +60,8 @@
         <redisson.version>3.16.8</redisson.version>
         <!-- security -->
         <sa-token.version>1.30.0</sa-token.version>
+        <!-- excel -->
+        <alibaba.easyexcel>3.1.1</alibaba.easyexcel>
 
         <!-- =============================== tools =============================== -->
         <!-- parser -->
