@@ -13,7 +13,7 @@
     <artifactId>itcp-sugar-excel</artifactId>
 
     <dependencies>
-        <!-- ============================= framework ============================= -->
+        <!-- =============================== tools =============================== -->
         <!-- excel -->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -22,8 +22,6 @@
             <optional>true</optional>
             <scope>compile</scope>
         </dependency>
-
-        <!-- =============================== tools =============================== -->
         <!-- utils -->
         <dependency>
             <groupId>${project.groupId}</groupId>

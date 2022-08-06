@@ -60,12 +60,12 @@
         <redisson.version>3.16.8</redisson.version>
         <!-- security -->
         <sa-token.version>1.30.0</sa-token.version>
-        <!-- excel -->
-        <alibaba.easyexcel>3.1.1</alibaba.easyexcel>
 
         <!-- =============================== tools =============================== -->
         <!-- parser -->
         <json-path.version>2.7.0</json-path.version>
+        <!-- excel -->
+        <alibaba.easyexcel>3.1.1</alibaba.easyexcel>
         <!-- serialization -->
         <fastjson.version>1.2.83</fastjson.version>
         <jackson.version>2.13.3</jackson.version>
