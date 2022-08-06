@@ -21,7 +21,7 @@ public class Converts extends Convert {
     /**
      * 是否静默转换，即报错不抛出异常，只打印日志，默认不静默转换
      */
-    public static final boolean DEFAULT_CONVERT_QUIETLY = Boolean.FALSE;
+    public static final boolean DEFAULT_CONVERT_QUIETLY = false;
 
     /**
      * Supplier => Function

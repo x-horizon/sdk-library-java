@@ -66,7 +66,7 @@ public class JacksonConverts {
         return INSTANCE;
     }
 
-    private static final boolean DEFAULT_VALIDATE_ENABLE = Boolean.FALSE;
+    private static final boolean DEFAULT_VALIDATE_ENABLE = false;
 
     private static final Validator VALIDATOR = Validation.buildDefaultValidatorFactory().getValidator();
 
@@ -102,7 +102,7 @@ public class JacksonConverts {
 
         public static class Builder extends MapperBuilder<JacksonMapper, Builder> {
 
-            private static volatile Boolean allowToReplaceGlobalObjectMapper = Boolean.TRUE;
+            private static volatile Boolean allowToReplaceGlobalObjectMapper = true;
 
             private Builder(JacksonMapper mapper) {
                 super(mapper);
@@ -117,7 +117,7 @@ public class JacksonConverts {
                 synchronized (Builder.class) {
                     Assert.TRUE_NEED.throwsIfFalse(allowToReplaceGlobalObjectMapper);
                     getInstance().replaceGlobalJacksonMapper(jacksonMapper);
-                    allowToReplaceGlobalObjectMapper = Boolean.FALSE;
+                    allowToReplaceGlobalObjectMapper = false;
                 }
             }
 

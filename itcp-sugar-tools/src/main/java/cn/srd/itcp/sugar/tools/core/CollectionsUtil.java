@@ -647,7 +647,7 @@ public class CollectionsUtil extends CollUtil {
             if (Objects.isNull(r)) {
                 return false;
             }
-            return Objects.isNull(seen.putIfAbsent(r, Boolean.TRUE));
+            return Objects.isNull(seen.putIfAbsent(r, true));
         };
     }
 
