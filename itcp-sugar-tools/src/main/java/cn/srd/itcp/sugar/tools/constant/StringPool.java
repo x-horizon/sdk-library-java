@@ -154,4 +154,6 @@ public interface StringPool {
 
     String HTTP_PROTOCOL = "http://";
 
+    String HTTPS_PROTOCOL = "https://";
+
 }
