@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.tools.web;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -12,8 +12,8 @@ import java.io.Serializable;
  * @author wjm
  * @since 2020/01/05 13:45
  */
-@Getter
-@Setter
+@Data
+@Accessors(chain = true)
 public final class WebResponse<T> implements Serializable {
 
     private static final long serialVersionUID = 7838683692331475145L;
