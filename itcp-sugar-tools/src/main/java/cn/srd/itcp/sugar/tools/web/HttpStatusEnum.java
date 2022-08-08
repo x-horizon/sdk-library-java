@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.tools.web;
 
+import cn.srd.itcp.sugar.tools.constant.HttpInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

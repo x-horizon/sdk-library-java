@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.tools.web;
+package cn.srd.itcp.sugar.tools.constant;
 
 import cn.hutool.http.HttpStatus;
 
@@ -46,5 +46,6 @@ public class HttpInfo extends HttpStatus {
      */
     public static final String CONTENT_TYPE_JSON = "application/json";
     public static final String CONTENT_TYPE_OCTET_STREAM = "application/octet-stream";
+    public static final String CONTENT_TYPE_EXCEL = "application/vnd.ms-excel";
 
 }
