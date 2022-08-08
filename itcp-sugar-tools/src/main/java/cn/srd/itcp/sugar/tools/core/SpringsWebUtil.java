@@ -18,15 +18,15 @@ public class SpringsWebUtil {
     }
 
     public static ServletRequestAttributes getServletRequestAttributes() {
-        return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes());
+        return Objects.requireNotNull(() -> "当前为非web上下文环境，无法获取，请检查！", (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes());
     }
 
     public static HttpServletRequest getHttpServletRequest() {
-        return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        return getServletRequestAttributes().getRequest();
     }
 
     public static HttpServletResponse getHttpServletResponse() {
-        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+        return getServletRequestAttributes().getResponse();
     }
 
 }
