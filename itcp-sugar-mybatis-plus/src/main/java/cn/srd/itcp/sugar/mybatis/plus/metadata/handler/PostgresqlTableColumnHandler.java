@@ -73,7 +73,7 @@ public class PostgresqlTableColumnHandler extends GenericCurdService<PostgresqlC
                             postgresqlTablePrimaryKeyDTOs,
                             postgresqlTablePrimaryKeyDTO -> Objects.equals(postgresqlTablePrimaryKeyDTO.getTableName(), postgresqlTableColumnDTO.getTableName())
                     ));
-                    return Objects.isNull(postgresqlTablePrimaryKeyDTOHasSameTable) ? false : Objects.equals(postgresqlTableColumnDTO.getColumnName(), postgresqlTablePrimaryKeyDTOHasSameTable.getPrimaryKeyColumnName());
+                    return Objects.isNotNull(postgresqlTablePrimaryKeyDTOHasSameTable) && Objects.equals(postgresqlTableColumnDTO.getColumnName(), postgresqlTablePrimaryKeyDTOHasSameTable.getPrimaryKeyColumnName());
                 }
         ).forEach(postgresqlTableColumnDTO -> postgresqlTableColumnDTO.setPrimaryKeyIs(true));
         return postgresqlTableColumnDTOs;

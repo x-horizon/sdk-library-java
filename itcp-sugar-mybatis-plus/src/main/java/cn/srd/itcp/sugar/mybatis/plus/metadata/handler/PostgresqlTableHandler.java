@@ -2,11 +2,11 @@ package cn.srd.itcp.sugar.mybatis.plus.metadata.handler;
 
 import cn.srd.itcp.sugar.mybatis.plus.core.GenericCurdService;
 import cn.srd.itcp.sugar.mybatis.plus.core.MpWrappers;
+import cn.srd.itcp.sugar.mybatis.plus.metadata.bean.convert.PostgresqlTableConverter;
 import cn.srd.itcp.sugar.mybatis.plus.metadata.bean.dto.PostgresqlTableDTO;
 import cn.srd.itcp.sugar.mybatis.plus.metadata.bean.po.PostgresqlTablePO;
 import cn.srd.itcp.sugar.mybatis.plus.metadata.bean.vo.PostgresqlTableVO;
 import cn.srd.itcp.sugar.mybatis.plus.metadata.dao.PostgresqlTableDao;
-import cn.srd.itcp.sugar.mybatis.plus.utils.Converts;
 import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tools.page.PageParam;
 import cn.srd.itcp.sugar.tools.page.PageResult;
@@ -73,15 +73,14 @@ public class PostgresqlTableHandler extends GenericCurdService<PostgresqlTableDa
      * @return 结果集
      */
     public <T extends PageParam> PageResult<PostgresqlTableVO> listAll(T pageParam) {
-        return Converts.withMybatisPlusMapstruct().toPageBean(
+        return PostgresqlTableConverter.INSTANCE.toPostgresqlTablePageResultVO(
                 selectJoinListPage(new Page<>(pageParam.getPageIndex(), pageParam.getPageSize()),
                         PostgresqlTableDTO.class,
                         MpWrappers.<PostgresqlTablePO>withJoinQuery()
                                 .select("t.tablename AS table_name", "CAST(OBJ_DESCRIPTION(pg_class.relfilenode, 'pg_class') AS VARCHAR) AS table_comment")
                                 .innerJoin("pg_class on pg_class.relname = t.tablename")
                                 .eq("schemaname", "public")
-                ),
-                PostgresqlTableVO.class
+                )
         );
     }
 
