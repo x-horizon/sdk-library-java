@@ -5,6 +5,7 @@ import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tools.core.HexsUtil;
 import cn.srd.itcp.sugar.tools.core.Objects;
 import cn.srd.itcp.sugar.tools.core.TimeUtil;
+import cn.srd.itcp.sugar.tools.core.algorithm.Algorithms;
 import cn.srd.itcp.sugar.tools.core.enums.EnumsUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -145,6 +146,12 @@ public class MapstructMappingManager {
             return new ArrayList<>();
         }
         return new ArrayList<>(value);
+    }
+
+    @NonNull
+    @ParseHighestOneBit
+    public static List<Integer> parseHighestOneBit(Integer num) {
+        return Algorithms.parseHighestOneBit(num);
     }
 
 }
