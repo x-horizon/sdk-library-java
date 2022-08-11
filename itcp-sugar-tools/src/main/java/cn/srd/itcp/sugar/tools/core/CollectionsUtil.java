@@ -262,6 +262,21 @@ public class CollectionsUtil extends CollUtil {
     // ==================================== anything => Set ====================================
 
     /**
+     * 嵌套 List =>  Set
+     *
+     * @param from
+     * @param <T>
+     * @return
+     */
+    @NonNull
+    public static <T> Set<T> toSet(@Nullable List<List<T>> from) {
+        if (Objects.isEmpty(from)) {
+            return new HashSet<>();
+        }
+        return from.stream().flatMap(Collection::stream).collect(Collectors.toSet());
+    }
+
+    /**
      * 提取集合中元素的某个字段，并将该字段构造为新的 Set
      *
      * @param from
