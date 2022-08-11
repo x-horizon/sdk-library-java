@@ -1,10 +1,7 @@
 package cn.srd.itcp.sugar.convert.mapstruct.utils;
 
 import cn.srd.itcp.sugar.tools.constant.StringPool;
-import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
-import cn.srd.itcp.sugar.tools.core.HexsUtil;
-import cn.srd.itcp.sugar.tools.core.Objects;
-import cn.srd.itcp.sugar.tools.core.TimeUtil;
+import cn.srd.itcp.sugar.tools.core.*;
 import cn.srd.itcp.sugar.tools.core.algorithm.Algorithms;
 import cn.srd.itcp.sugar.tools.core.enums.EnumsUtil;
 import com.alibaba.fastjson.JSON;
@@ -146,6 +143,18 @@ public class MapstructMappingManager {
             return new ArrayList<>();
         }
         return new ArrayList<>(value);
+    }
+
+    /**
+     * Boolean => String
+     *
+     * @param value
+     * @return
+     */
+    @NonNull
+    @MapstructBooleanToString
+    public static String booleanToString(@Nullable Boolean value) {
+        return Objects.isNull(value) ? "未知" : BooleansUtil.toString(value, "是", "否");
     }
 
     @NonNull
