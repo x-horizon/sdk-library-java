@@ -33,7 +33,7 @@ public class SaTokenWebExceptionHandler {
     @ExceptionHandler(NotLoginException.class)
     public WebResponse<Void> handleNotLoginException(HttpServletRequest httpServletRequest, NotLoginException exception) {
         log.warn("请求资源地址：'{}'，错误信息：未能通过登录认证", httpServletRequest.getRequestURI());
-        return error(HttpStatusEnum.UNAUTHORIZED, "未能通过登录认证");
+        return error(HttpStatusEnum.NOT_LOGIN, "未能通过登录认证");
     }
 
     /**
@@ -46,7 +46,7 @@ public class SaTokenWebExceptionHandler {
     @ExceptionHandler(NotPermissionException.class)
     public WebResponse<Void> handleNotPermissionException(HttpServletRequest httpServletRequest, NotPermissionException exception) {
         log.warn("请求资源地址：'{}'，错误信息：未能通过权限认证", httpServletRequest.getRequestURI());
-        return error(HttpStatusEnum.UNAUTHORIZED, "未能通过权限认证");
+        return error(HttpStatusEnum.NOT_PERMISSION, "未能通过权限认证");
     }
 
     /**
@@ -59,7 +59,7 @@ public class SaTokenWebExceptionHandler {
     @ExceptionHandler(NotRoleException.class)
     public WebResponse<Void> handleNotRoleException(HttpServletRequest httpServletRequest, NotRoleException exception) {
         log.warn("请求资源地址：'{}'，错误信息：未能通过角色认证", httpServletRequest.getRequestURI());
-        return error(HttpStatusEnum.UNAUTHORIZED, "未能通过角色认证");
+        return error(HttpStatusEnum.NOT_ROLE, "未能通过角色认证");
     }
 
 }
