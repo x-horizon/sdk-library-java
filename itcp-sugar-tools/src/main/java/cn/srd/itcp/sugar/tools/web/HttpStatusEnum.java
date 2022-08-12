@@ -69,10 +69,31 @@ public enum HttpStatusEnum implements HttpStatus {
 
     /**
      * <pre>
-     * 401 - 客户端认证失败（登陆、鉴权失败）
+     * 401 - 客户端认证失败（笼统的未登录、鉴权失败等）
      * </pre>
      */
     UNAUTHORIZED(HttpInfo.HTTP_UNAUTHORIZED, "client error - unauthorized"),
+
+    /**
+     * <pre>
+     * 430 - 客户端认证失败（未登录）
+     * </pre>
+     */
+    NOT_LOGIN(HttpInfo.NOT_LOGIN, "client error - not login"),
+
+    /**
+     * <pre>
+     * 431 - 客户端认证失败（未通过权限认证）
+     * </pre>
+     */
+    NOT_PERMISSION(HttpInfo.NOT_PERMISSION, "client error - not permission"),
+
+    /**
+     * <pre>
+     * 432 - 客户端认证失败（未通过角色认证）
+     * </pre>
+     */
+    NOT_ROLE(HttpInfo.NOT_ROLE, "client error - not role"),
 
     /**
      * <pre>

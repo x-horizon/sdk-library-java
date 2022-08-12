@@ -48,4 +48,11 @@ public class HttpInfo extends HttpStatus {
     public static final String CONTENT_TYPE_OCTET_STREAM = "application/octet-stream";
     public static final String CONTENT_TYPE_EXCEL = "application/vnd.ms-excel";
 
+    /**
+     * status
+     */
+    public static final int NOT_LOGIN = 430;
+    public static final int NOT_PERMISSION = 431;
+    public static final int NOT_ROLE = 432;
+
 }
