@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.excel;
+package cn.srd.itcp.sugar.excel.core;
 
 import cn.srd.itcp.sugar.tools.constant.Charset;
 import cn.srd.itcp.sugar.tools.constant.HttpInfo;
@@ -15,9 +15,9 @@ import java.util.List;
  * @author wjm
  * @since 2022-08-08 17:59:12
  */
-public class ExcelsUtil {
+public class Excels {
 
-    private ExcelsUtil() {
+    private Excels() {
     }
 
     /**
