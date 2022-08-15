@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Jackson 反序列化：Enum属性值 => Enum
+ * Jackson 反序列化：Enum 属性值 => Enum
  *
  * @author wjm
  * @since 2020/12/15 17:02
