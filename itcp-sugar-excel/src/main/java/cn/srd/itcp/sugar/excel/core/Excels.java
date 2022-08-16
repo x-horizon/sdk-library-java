@@ -30,7 +30,7 @@ public class Excels {
      * @param <T>             导出的数据类型
      */
     @SneakyThrows
-    public static <T> void export(Class<T> exportDataClass, List<T> exportData, String fileName, String sheetName) {
+    public static <T> void exportData(Class<T> exportDataClass, List<T> exportData, String fileName, String sheetName) {
         HttpServletResponse httpServletResponse = SpringsWebUtil.getHttpServletResponse();
         httpServletResponse.setContentType(HttpInfo.CONTENT_TYPE_EXCEL);
         httpServletResponse.setCharacterEncoding(Charset.UTF8);
