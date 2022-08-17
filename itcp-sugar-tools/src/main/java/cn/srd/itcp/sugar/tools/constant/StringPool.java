@@ -86,6 +86,11 @@ public interface StringPool {
     String LF = String.valueOf(CharPool.LF);
 
     /**
+     * 强制前端换行符: &lt;br/&gt;，若 {@link #LF} 在前端显示不生效，则可使用该换行符
+     */
+    String LABEL_BR = "<br/>";
+
+    /**
      * 斜杠 {@code "/"}
      */
     String SLASH = String.valueOf(CharPool.SLASH);
