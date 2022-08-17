@@ -8,6 +8,8 @@ import com.github.yulichang.base.MPJBaseServiceImpl;
 import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 通用的增删查改 service
@@ -74,14 +76,14 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
         return Objects.equals(ReflectsUtil.getFieldValue(po, MpTables.getTableInfo(poClass).getKeyProperty()), id);
     }
 
-    // public <T> boolean isUnique(SFunction<PO, T> requireUniqueColumn, List<T> requireUniqueColumnValues) {
-    //     // 若唯一值字段为空，表示唯一；
-    //     if (Objects.isEmpty(requireUniqueColumnValues)) {
-    //         return true;
-    //     }
-    //     // 使用需要判断唯一值的字段查库，若存在数据，表示不唯一；
-    //     return count(MpWrappers.<PO>withLambdaQuery().in(requireUniqueColumn, requireUniqueColumnValues)) == 0L;
-    // }
+    public <T> List<PO> isUnique(SFunction<PO, T> requireUniqueColumn, List<T> requireUniqueColumnValues) {
+        // 若唯一值字段为空，表示唯一；
+        if (Objects.isEmpty(requireUniqueColumnValues)) {
+            return new ArrayList<>();
+        }
+        // 使用需要判断唯一值的字段查库，若存在数据，表示不唯一；
+        return list(MpWrappers.<PO>withLambdaQuery().in(requireUniqueColumn, requireUniqueColumnValues));
+    }
 
     /**
      * 校验唯一性，该函数只适合与新增数据时不存在主键的唯一性校验，若存在主键的唯一性校验，使用 {@link #isUnique(Class, Serializable, SFunction, Object, SFunction, Object)}
