@@ -65,11 +65,11 @@ public class PostgresqlTableColumnHandler extends GenericCurdService<PostgresqlC
         );
         List<PostgresqlTablePrimaryKeyDTO> postgresqlTablePrimaryKeyDTOs = listPrimaryKeysByTableNames(tableNames);
         postgresqlTableColumnDTOs.forEach(postgresqlTableColumnDTO -> postgresqlTableColumnDTO.setPrimaryKeyIs(false));
-        CollectionsUtil.filters(
+        CollectionsUtil.filtersToList(
                 postgresqlTableColumnDTOs,
                 // TODO wjm 这种做法仅支持单主键或无主键的表，后续需要优化
                 postgresqlTableColumnDTO -> {
-                    PostgresqlTablePrimaryKeyDTO postgresqlTablePrimaryKeyDTOHasSameTable = CollectionsUtil.getFirst(CollectionsUtil.filters(
+                    PostgresqlTablePrimaryKeyDTO postgresqlTablePrimaryKeyDTOHasSameTable = CollectionsUtil.getFirst(CollectionsUtil.filtersToList(
                             postgresqlTablePrimaryKeyDTOs,
                             postgresqlTablePrimaryKeyDTO -> Objects.equals(postgresqlTablePrimaryKeyDTO.getTableName(), postgresqlTableColumnDTO.getTableName())
                     ));

@@ -432,13 +432,13 @@ public class CollectionsUtil extends CollUtil {
      * @param <T>
      * @return
      */
-    public static <T extends E, E> List<T> filters(@NonNull Collection<T> from, @NonNull Predicate<E> predicate) {
+    public static <T extends E, E> List<T> filtersToList(@NonNull Collection<T> from, @NonNull Predicate<E> predicate) {
         Objects.requireNonNull(from, predicate);
         return from.stream().filter(predicate).collect(Collectors.toList());
     }
 
     /**
-     * 过滤出数组中条件为 true 的元素并构造为新的 List，参考 {@link #filters(Collection, Predicate)}
+     * 过滤出数组中条件为 true 的元素并构造为新的 List，参考 {@link #filtersToList(Collection, Predicate)}
      *
      * @param from
      * @param predicate
@@ -446,7 +446,7 @@ public class CollectionsUtil extends CollUtil {
      * @param <E>
      * @return
      */
-    public static <T extends E, E> List<T> filters(@NonNull T[] from, @NonNull Predicate<E> predicate) {
+    public static <T extends E, E> List<T> filtersToList(@NonNull T[] from, @NonNull Predicate<E> predicate) {
         Objects.requireNonNull(from, predicate);
         return Arrays.stream(from).filter(predicate).collect(Collectors.toList());
     }
@@ -471,7 +471,7 @@ public class CollectionsUtil extends CollUtil {
      * @param <V>
      * @return
      */
-    public static <K, V> Map<K, V> filters(@NonNull Map<K, V> from, @NonNull Predicate<? super Map.Entry<K, V>> predicate) {
+    public static <K, V> Map<K, V> filtersToList(@NonNull Map<K, V> from, @NonNull Predicate<? super Map.Entry<K, V>> predicate) {
         Objects.requireNonNull(from, predicate);
         return from.entrySet().stream().filter(predicate).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
@@ -496,9 +496,9 @@ public class CollectionsUtil extends CollUtil {
      * @param <V>       value 元素类型
      * @return 把条件为 true 的集合过滤并返回
      */
-    public static <K, V> List<V> capableFilters(@NonNull Map<K, V> from, @NonNull Predicate<? super V> predicate) {
+    public static <K, V> List<V> capableFiltersToList(@NonNull Map<K, V> from, @NonNull Predicate<? super V> predicate) {
         Objects.requireNonNull(from, predicate);
-        return filters(from.values(), predicate);
+        return filtersToList(from.values(), predicate);
     }
 
     /**
@@ -526,22 +526,45 @@ public class CollectionsUtil extends CollUtil {
      * @param <V>
      * @return
      */
-    public static <K, V> Map<K, V> capableFilters(@NonNull Map<K, List<V>> from, @NonNull Predicate<? super Map.Entry<K, List<V>>> predicate, @NonNull Function<? super Map.Entry<K, List<V>>, V> valueFunction) {
+    public static <K, V> Map<K, V> capableFiltersToList(@NonNull Map<K, List<V>> from, @NonNull Predicate<? super Map.Entry<K, List<V>>> predicate, @NonNull Function<? super Map.Entry<K, List<V>>, V> valueFunction) {
         Objects.requireNonNull(from, predicate, valueFunction);
         return from.entrySet().stream().filter(predicate).collect(Collectors.toMap(Map.Entry::getKey, valueFunction));
     }
 
     /**
-     * 过滤出集合中条件为 true 的元素后计算集合大小，参考 {@link #filters(Collection, Predicate)}
+     * 过滤出集合中条件为 true 的元素后计算集合大小，参考 {@link #filtersToList(Collection, Predicate)}
      *
      * @param from
      * @param predicate
      * @param <T>
      * @return
      */
-    public static <T> long countFilters(@NonNull Collection<T> from, @NonNull Predicate<? super T> predicate) {
+    public static <T> long countAfterFilters(@NonNull Collection<T> from, @NonNull Predicate<? super T> predicate) {
         Objects.requireNonNull(from, predicate);
         return from.stream().filter(predicate).count();
+    }
+
+    /**
+     * 过滤出集合中条件为 true 的元素并构造为新的 Set
+     * <pre>
+     *    {@code
+     *         List<`String> list = new ArrayList<>();
+     *         list.add("123");
+     *         list.add("123");
+     *         list.add("113");
+     *         Set<`String> set = filters(list, item -> item.startsWith("12"));
+     *    }
+     *    上述代码结果为: set: [123]
+     * </pre>
+     *
+     * @param from
+     * @param predicate
+     * @param <T>
+     * @return
+     */
+    public static <T extends E, E> Set<T> filtersToSet(@NonNull Collection<T> from, @NonNull Predicate<E> predicate) {
+        Objects.requireNonNull(from, predicate);
+        return from.stream().filter(predicate).collect(Collectors.toSet());
     }
 
     // ==================================== 集合去重 ====================================
@@ -755,7 +778,7 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
-     * 过滤出集合中条件为 true 的元素后进行求和，参考 {@link #filters(Collection, Predicate)}、{@link #sum(Collection, ToIntFunction)}
+     * 过滤出集合中条件为 true 的元素后进行求和，参考 {@link #filtersToList(Collection, Predicate)}、{@link #sum(Collection, ToIntFunction)}
      * <pre>
      *     Stream 中不允许出现 null 元素，如果可能有 null 元素，可先进行过滤，如：sum(people, Objects::isNotNull, Person::getAge);
      * </pre>
@@ -805,7 +828,7 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
-     * 过滤出集合中条件为 true 的元素后，根据集合元素的某个字段值进行分组，并构造为新的 Map，参考 {@link #filters(Collection, Predicate)}、{@link #groupBy(Collection, Function)}
+     * 过滤出集合中条件为 true 的元素后，根据集合元素的某个字段值进行分组，并构造为新的 Map，参考 {@link #filtersToList(Collection, Predicate)}、{@link #groupBy(Collection, Function)}
      * <pre>
      *     Stream 中不允许出现 null 元素，如果可能有 null 元素，可先进行过滤，如：groupBy(people, Objects::isNotNull, Person::getName);
      * </pre>

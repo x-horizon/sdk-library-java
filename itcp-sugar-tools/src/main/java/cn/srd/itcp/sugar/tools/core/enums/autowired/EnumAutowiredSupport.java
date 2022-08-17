@@ -64,7 +64,7 @@ public class EnumAutowiredSupport {
                         // 要注入的字段名
                         String fieldNameToAutowired = enumAutowired.autowiredFiledName();
                         if (Objects.isBlank(fieldNameToAutowired)) {
-                            List<Field> matchFields = CollectionsUtil.filters(ClassesUtil.getDeclaredFields(internalEnumWithEnumAutowired.getClass()), enumField -> Objects.equals(enumField.getType(), enumAutowired.autowiredBeanClass()));
+                            List<Field> matchFields = CollectionsUtil.filtersToList(ClassesUtil.getDeclaredFields(internalEnumWithEnumAutowired.getClass()), enumField -> Objects.equals(enumField.getType(), enumAutowired.autowiredBeanClass()));
                             Assert.INSTANCE.set(new EnumAutowiredUnmatchedFieldException(StringsUtil.format("在 “{}” 中无法找到与 “{}” 相匹配的字段，无法注入，请检查！", classSimpleNameWithEnumAutowired, autowiredBeanClassSimpleName))).throwsIfEmpty(matchFields);
                             Assert.INSTANCE.set(new EnumAutowiredMultiMatchedFieldException(StringsUtil.format("在 “{}” 中找到多个与 “{}” 相匹配的字段，无法注入，请检查！", classSimpleNameWithEnumAutowired, autowiredBeanClassSimpleName))).throwsIfTrue(matchFields.size() > 1);
                             fieldNameToAutowired = CollectionsUtil.getFirst(matchFields).getName();

@@ -74,6 +74,15 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
         return Objects.equals(ReflectsUtil.getFieldValue(po, MpTables.getTableInfo(poClass).getKeyProperty()), id);
     }
 
+    // public <T> boolean isUnique(SFunction<PO, T> requireUniqueColumn, List<T> requireUniqueColumnValues) {
+    //     // 若唯一值字段为空，表示唯一；
+    //     if (Objects.isEmpty(requireUniqueColumnValues)) {
+    //         return true;
+    //     }
+    //     // 使用需要判断唯一值的字段查库，若存在数据，表示不唯一；
+    //     return count(MpWrappers.<PO>withLambdaQuery().in(requireUniqueColumn, requireUniqueColumnValues)) == 0L;
+    // }
+
     /**
      * 校验唯一性，该函数只适合与新增数据时不存在主键的唯一性校验，若存在主键的唯一性校验，使用 {@link #isUnique(Class, Serializable, SFunction, Object, SFunction, Object)}
      *

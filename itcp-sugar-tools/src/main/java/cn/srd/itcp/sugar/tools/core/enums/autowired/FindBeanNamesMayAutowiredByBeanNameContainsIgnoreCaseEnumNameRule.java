@@ -17,7 +17,7 @@ public class FindBeanNamesMayAutowiredByBeanNameContainsIgnoreCaseEnumNameRule i
 
     @Override
     public <E extends Enum<E>> List<String> getBeanNamesMayAutowired(Enum<E> internalEnumWithEnumAutowired, Set<String> autowiredBeanChildrenClassSimpleNames) {
-        return CollectionsUtil.filters(autowiredBeanChildrenClassSimpleNames, autowiredBeanChildrenClassSimpleName ->
+        return CollectionsUtil.filtersToList(autowiredBeanChildrenClassSimpleNames, autowiredBeanChildrenClassSimpleName ->
                 StringsUtil.containsIgnoreCase(autowiredBeanChildrenClassSimpleName, StringsUtil.removeAll(internalEnumWithEnumAutowired.name(), StringPool.UNDERLINE))
         );
     }

@@ -294,9 +294,9 @@ public class MapstructConverts {
         // 获取所有支持统一转换的方法
         List<Method> mapstructSupportedMethods = new ArrayList<>(getMapstructSupportedMethodInputAndOutputParameterNameMappingMethodMap().values());
         // 从所有支持统一转换的方法中过滤出只有一个入参的方法
-        List<Method> haveOneParameterMapstructSupportedMethods = CollectionsUtil.filters(mapstructSupportedMethods, method -> method.getParameterTypes().length == 1);
+        List<Method> haveOneParameterMapstructSupportedMethods = CollectionsUtil.filtersToList(mapstructSupportedMethods, method -> method.getParameterTypes().length == 1);
         // 从所有支持统一转换的方法中过滤出有多个入参的方法
-        List<Method> haveMoreParameterMapstructSupportedMethods = CollectionsUtil.filters(mapstructSupportedMethods, method -> method.getParameterTypes().length > 1);
+        List<Method> haveMoreParameterMapstructSupportedMethods = CollectionsUtil.filtersToList(mapstructSupportedMethods, method -> method.getParameterTypes().length > 1);
         /**
          * 从只有一个入参的方法中，再过滤掉该入参存在于多个入参方法中的方法
          *  例如：
@@ -309,7 +309,7 @@ public class MapstructConverts {
          *      原因是，在实际转换前的匹配方法过程中，会首先用第一个待转换类进行匹配，若第 1 个方法也存在该 map 中，此时就会出现有多个转换类的方法被匹配到只有一个转换类的方法；
          *      而第 4 个方法存在泛型，不是普通 Bean，存在泛型表示在实际转换前的匹配方法过程中必须拼接字符串用于匹配，因此也不会加入到该 map 中；
          */
-        List<Method> doHaveOneParameterMapstructSupportedMethods = CollectionsUtil.filters(haveOneParameterMapstructSupportedMethods,
+        List<Method> doHaveOneParameterMapstructSupportedMethods = CollectionsUtil.filtersToList(haveOneParameterMapstructSupportedMethods,
                 mapstructSupportedMethodHasOneParameter -> {
                     if (TypesUtil.isFirstParameterExistGeneric(mapstructSupportedMethodHasOneParameter)) {
                         return false;
@@ -325,7 +325,7 @@ public class MapstructConverts {
                     return true;
                 }
         );
-        setMapstructSupportedMethodInputParameterNameMappingMethodMap(CollectionsUtil.toImmutableMap(CollectionsUtil.capableFilters(
+        setMapstructSupportedMethodInputParameterNameMappingMethodMap(CollectionsUtil.toImmutableMap(CollectionsUtil.capableFiltersToList(
                 CollectionsUtil.toMultiMap(
                         doHaveOneParameterMapstructSupportedMethods,
                         method -> StringsUtil.removeAny(
@@ -347,7 +347,7 @@ public class MapstructConverts {
      * 收集 {@link #mapstructSupportedMethodInputAndOutputParameterNameMappingMethodMap}
      */
     private void collectMapstructSupportedMethodInputAndOutputParameterNameMappingMethodMap() {
-        setMapstructSupportedMethodInputAndOutputParameterNameMappingMethodMap(CollectionsUtil.toImmutableMap(CollectionsUtil.capableFilters(
+        setMapstructSupportedMethodInputAndOutputParameterNameMappingMethodMap(CollectionsUtil.toImmutableMap(CollectionsUtil.capableFiltersToList(
                 getMapstructAllMethodsInputAndOutputParameterNameMappingMethodsMap(),
                 // 待转换类只有一个
                 entry -> entry.getValue().size() == 1,
@@ -359,7 +359,7 @@ public class MapstructConverts {
      * 收集 {@link #mapstructUnsupportedMethodInputAndOutputParameterNameMappingMethodsMap}
      */
     private void collectMapstructUnsupportedMethodInputAndOutputParameterNameMappingMethodsMap() {
-        setMapstructUnsupportedMethodInputAndOutputParameterNameMappingMethodsMap(CollectionsUtil.toImmutableMap(CollectionsUtil.filters(
+        setMapstructUnsupportedMethodInputAndOutputParameterNameMappingMethodsMap(CollectionsUtil.toImmutableMap(CollectionsUtil.filtersToList(
                 getMapstructAllMethodsInputAndOutputParameterNameMappingMethodsMap(),
                 // 待转换类有多个
                 entry -> entry.getValue().size() > 1
