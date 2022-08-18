@@ -155,6 +155,11 @@ public interface StringPool {
      */
     String DOUBLE_BOOK_NAME = "《》";
 
+    /**
+     * 竖线（vertical bar） {@code "|"}
+     */
+    String VB = "|";
+
     // ================ 传输协议相关信息 ================
 
     String HTTP_PROTOCOL = "http://";
