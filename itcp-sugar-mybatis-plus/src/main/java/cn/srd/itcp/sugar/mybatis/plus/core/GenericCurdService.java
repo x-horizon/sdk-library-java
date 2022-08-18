@@ -9,6 +9,7 @@ import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -76,7 +77,7 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
         return Objects.equals(ReflectsUtil.getFieldValue(po, MpTables.getTableInfo(poClass).getKeyProperty()), id);
     }
 
-    public <T> List<PO> isUnique(SFunction<PO, T> requireUniqueColumn, List<T> requireUniqueColumnValues) {
+    public <T> List<PO> isUnique(SFunction<PO, T> requireUniqueColumn, Collection<T> requireUniqueColumnValues) {
         // 若唯一值字段为空，表示唯一；
         if (Objects.isEmpty(requireUniqueColumnValues)) {
             return new ArrayList<>();
