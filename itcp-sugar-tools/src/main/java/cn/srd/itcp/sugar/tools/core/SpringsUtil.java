@@ -111,7 +111,7 @@ public class SpringsUtil extends SpringUtil {
      * @param <T>   对象类型
      * @return 当前代理的对象
      */
-    public static <T> T getCurrentProxy(Class<T> clazz) {
+    public static <T> T wrapProxy(Class<T> clazz) {
         return clazz.cast(AopContext.currentProxy());
     }
 
