@@ -74,6 +74,13 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+            <optional>true</optional>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>com.ejlchina</groupId>
             <artifactId>okhttps-jackson</artifactId>
             <version>${okhttps-jackson.version}</version>
