@@ -10,4 +10,7 @@ import cn.hutool.core.util.ArrayUtil;
  */
 public class ArraysUtil extends ArrayUtil {
 
+    private ArraysUtil() {
+    }
+
 }

@@ -9,6 +9,9 @@ import cn.hutool.core.util.HexUtil;
  * @since 2022-07-06
  */
 public class HexsUtil extends HexUtil {
+    
+    private HexsUtil() {
+    }
 
     /**
      * 将字节数组转换为十六进制字符串
