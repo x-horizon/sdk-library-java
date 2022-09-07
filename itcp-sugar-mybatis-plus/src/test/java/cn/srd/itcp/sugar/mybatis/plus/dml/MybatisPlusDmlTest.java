@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.mybatis.plus.dml;
 
-import cn.srd.itcp.sugar.mybatis.plus.metadata.handler.PostgresqlTableColumnHandler;
-import cn.srd.itcp.sugar.mybatis.plus.metadata.handler.PostgresqlTableHandler;
+import cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.handler.PostgresqlTableColumnHandler;
+import cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.handler.PostgresqlTableHandler;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

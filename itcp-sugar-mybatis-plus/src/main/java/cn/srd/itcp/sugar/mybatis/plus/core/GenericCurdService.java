@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.mybatis.plus.core;
 
-import cn.srd.itcp.sugar.mybatis.plus.utils.SQL;
+import cn.srd.itcp.sugar.mybatis.plus.database.mysql.utils.SQL;
 import cn.srd.itcp.sugar.tools.core.Objects;
 import cn.srd.itcp.sugar.tools.core.ReflectsUtil;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;

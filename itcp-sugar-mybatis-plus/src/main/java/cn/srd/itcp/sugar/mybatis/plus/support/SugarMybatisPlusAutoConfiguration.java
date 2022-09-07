@@ -1,11 +1,11 @@
 package cn.srd.itcp.sugar.mybatis.plus.support;
 
+import cn.srd.itcp.sugar.mybatis.plus.database.mysql.utils.MysqlBinaryPrimaryKeyGenerator;
+import cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.handler.PostgresqlTableColumnHandler;
+import cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.handler.PostgresqlTableHandler;
 import cn.srd.itcp.sugar.mybatis.plus.interceptor.MybatisPlusInnerInterceptorsConfigurer;
 import cn.srd.itcp.sugar.mybatis.plus.interceptor.MybatisPlusInterceptors;
 import cn.srd.itcp.sugar.mybatis.plus.interceptor.MybatisPlusPageInterceptor;
-import cn.srd.itcp.sugar.mybatis.plus.metadata.handler.PostgresqlTableColumnHandler;
-import cn.srd.itcp.sugar.mybatis.plus.metadata.handler.PostgresqlTableHandler;
-import cn.srd.itcp.sugar.mybatis.plus.utils.MysqlBinaryPrimaryKeyGenerator;
 import cn.srd.itcp.sugar.tools.core.Objects;
 import cn.srd.itcp.sugar.tools.core.ReflectsUtil;
 import cn.srd.itcp.sugar.tools.core.SpringsUtil;
