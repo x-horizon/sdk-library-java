@@ -30,7 +30,7 @@ import java.sql.ResultSet;
  *          &#064;TableId(value = "example_id")
  *          private Long exampleId;
  *
- *          &#064;TableField(value = "example_json_object", typeHandler = exampleJsonObjectMappingJsonbTypeHandler.class)
+ *          &#064;TableField(value = "example_json_object", typeHandler = ExampleJsonObjectMappingJsonbTypeHandler.class)
  *          private ExampleJsonObject exampleJsonObject;
  *
  *          &#064;Data
