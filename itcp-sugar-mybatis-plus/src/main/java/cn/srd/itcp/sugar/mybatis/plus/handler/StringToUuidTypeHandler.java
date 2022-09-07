@@ -18,7 +18,7 @@ import java.util.UUID;
 public class StringToUuidTypeHandler extends BaseTypeHandler<String> {
 
     /**
-     * 定义设置参数时，如何把Java类型的参数转换为对应的数据库类型
+     * 定义如何把 Java 类型的参数转换为指定的数据库类型
      *
      * @param ps
      * @param columnIndex
@@ -35,7 +35,7 @@ public class StringToUuidTypeHandler extends BaseTypeHandler<String> {
     }
 
     /**
-     * 定义通过字段名称获取字段数据时，如何把数据库类型转换为对应的Java类型
+     * 定义通过字段名称获取字段数据时，如何把数据库类型转换为指定的 Java 类型
      *
      * @param rs
      * @param columnName
@@ -48,7 +48,7 @@ public class StringToUuidTypeHandler extends BaseTypeHandler<String> {
     }
 
     /**
-     * 定义通过字段索引获取字段数据时，如何把数据库类型转换为对应的Java类型
+     * 定义通过字段索引获取字段数据时，如何把数据库类型转换为指定的 Java 类型
      *
      * @param rs
      * @param columnIndex
@@ -61,7 +61,7 @@ public class StringToUuidTypeHandler extends BaseTypeHandler<String> {
     }
 
     /**
-     * 定义调用存储过程后，如何把数据库类型转换为对应的Java类型
+     * 定义通过存储过程获取字段数据时，如何把数据库类型转换为指定的 Java 类型
      *
      * @param cs
      * @param columnIndex
