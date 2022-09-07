@@ -20,7 +20,7 @@ public interface JsonbHandler<T> {
     /**
      * postgresql 的 JSONB 类型名字
      */
-    String POSTGRESQL_TYPE = "jsonb";
+    String POSTGRESQL_TYPE_JSONB = "jsonb";
 
     /**
      * 获取转换目标类的类型
@@ -40,7 +40,7 @@ public interface JsonbHandler<T> {
     @SneakyThrows
     default PGobject convertObjectToJsonb(Object object) {
         PGobject pgObject = new PGobject();
-        pgObject.setType(POSTGRESQL_TYPE);
+        pgObject.setType(POSTGRESQL_TYPE_JSONB);
         pgObject.setValue(JSON.toJSONString(object));
         return pgObject;
     }
