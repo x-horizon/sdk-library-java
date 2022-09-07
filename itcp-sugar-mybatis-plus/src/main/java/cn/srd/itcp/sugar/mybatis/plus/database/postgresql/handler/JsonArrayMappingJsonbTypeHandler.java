@@ -13,13 +13,13 @@ import java.sql.ResultSet;
 /**
  * <pre>
  * {@link JSONArray} 与 PostgreSQL 中 JSONB 类型字段的类型映射处理器；
- * 适用于 Java 字段的数据类型为 {@link JSONArray}，PostgreSQL 字段的数据类型为 JSONB 的映射；
+ * 适用于 Java 字段的数据类型为 {@link JSONArray} <==> PostgreSQL 字段的数据类型为 JSONB 的相互转换；
  * </pre>
  *
  * @author wjm
  * @since 2022-08-05
  */
-public class JsonArrayMappingJsonbTypeHandler extends BaseTypeHandler<JSONArray> implements JsonbHandler {
+public class JsonArrayMappingJsonbTypeHandler extends BaseTypeHandler<JSONArray> implements JsonbHandler<JSONArray> {
 
     /**
      * 定义如何把 Java 类型的参数转换为指定的数据库类型
