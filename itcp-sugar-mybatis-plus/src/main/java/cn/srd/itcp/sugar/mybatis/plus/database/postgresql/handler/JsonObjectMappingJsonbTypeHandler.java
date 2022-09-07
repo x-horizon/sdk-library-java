@@ -1,11 +1,10 @@
 package cn.srd.itcp.sugar.mybatis.plus.database.postgresql.handler;
 
-import com.alibaba.fastjson.JSON;
+import cn.srd.itcp.sugar.tools.core.Objects;
 import com.alibaba.fastjson.JSONObject;
 import lombok.SneakyThrows;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
-import org.postgresql.util.PGobject;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -20,12 +19,10 @@ import java.sql.ResultSet;
  * @author wjm
  * @since 2022-07-16
  */
-public class JsonObjectMappingJsonbTypeHandler extends BaseTypeHandler<JSONObject> {
-
-    private static final String POSTGRESQL_TYPE = "jsonb";
+public class JsonObjectMappingJsonbTypeHandler extends BaseTypeHandler<JSONObject> implements JsonbHandler {
 
     /**
-     * 定义设置参数时，如何把Java类型的参数转换为对应的数据库类型
+     * 定义如何把 Java 类型的参数转换为指定的数据库类型
      *
      * @param preparedStatement
      * @param columnIndex
@@ -35,16 +32,13 @@ public class JsonObjectMappingJsonbTypeHandler extends BaseTypeHandler<JSONObjec
     @Override
     @SneakyThrows
     public void setNonNullParameter(PreparedStatement preparedStatement, int columnIndex, JSONObject parameter, JdbcType jdbcType) {
-        if (null != parameter) {
-            PGobject jsonObject = new PGobject();
-            jsonObject.setType(POSTGRESQL_TYPE);
-            jsonObject.setValue(JSON.toJSONString(parameter));
-            preparedStatement.setObject(columnIndex, jsonObject);
+        if (Objects.isNotNull(parameter)) {
+            preparedStatement.setObject(columnIndex, convertObjectToJsonb(parameter));
         }
     }
 
     /**
-     * 定义通过字段名称获取字段数据时，如何把数据库类型转换为对应的Java类型
+     * 定义通过字段名称获取字段数据时，如何把数据库类型转换为指定的 Java 类型
      *
      * @param resultSet
      * @param columnName
@@ -53,11 +47,11 @@ public class JsonObjectMappingJsonbTypeHandler extends BaseTypeHandler<JSONObjec
     @Override
     @SneakyThrows
     public JSONObject getNullableResult(ResultSet resultSet, String columnName) {
-        return JSON.parseObject(resultSet.getString(columnName));
+        return convertJsonbStringToJsonObject(resultSet.getString(columnName));
     }
 
     /**
-     * 定义通过字段索引获取字段数据时，如何把数据库类型转换为对应的Java类型
+     * 定义通过字段索引获取字段数据时，如何把数据库类型转换为指定的 Java 类型
      *
      * @param resultSet
      * @param columnIndex
@@ -66,11 +60,11 @@ public class JsonObjectMappingJsonbTypeHandler extends BaseTypeHandler<JSONObjec
     @SneakyThrows
     @Override
     public JSONObject getNullableResult(ResultSet resultSet, int columnIndex) {
-        return JSON.parseObject(resultSet.getString(columnIndex));
+        return convertJsonbStringToJsonObject(resultSet.getString(columnIndex));
     }
 
     /**
-     * 定义调用存储过程后，如何把数据库类型转换为对应的Java类型
+     * 定义通过存储过程获取字段数据时，如何把数据库类型转换为指定的 Java 类型
      *
      * @param callableStatement
      * @param columnIndex
@@ -79,7 +73,7 @@ public class JsonObjectMappingJsonbTypeHandler extends BaseTypeHandler<JSONObjec
     @SneakyThrows
     @Override
     public JSONObject getNullableResult(CallableStatement callableStatement, int columnIndex) {
-        return JSON.parseObject(callableStatement.getString(columnIndex));
+        return convertJsonbStringToJsonObject(callableStatement.getString(columnIndex));
     }
 
 }
