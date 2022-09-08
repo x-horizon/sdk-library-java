@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.redisson.core;
 
 import cn.srd.itcp.sugar.redisson.support.RedissonLockTemplate;
+import cn.srd.itcp.sugar.redisson.support.RedissonNonFairLockAspect;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit;
  * </pre>
  *
  * @author wjm
+ * @see RedissonNonFairLockAspect
  * @since 2020/12/12 18:06
  */
 @Target({ElementType.METHOD})
