@@ -1,8 +1,8 @@
 package cn.srd.itcp.sugar.convert.all.jackson.bean;
 
 import cn.hutool.core.util.RandomUtil;
-import cn.srd.itcp.sugar.convert.jackson.support.JacksonCapableToEnumDeserializer;
 import cn.srd.itcp.sugar.convert.jackson.support.JacksonEnumToIntegerSerializer;
+import cn.srd.itcp.sugar.convert.jackson.support.JacksonEnumValueToEnumDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
@@ -34,7 +34,7 @@ public class StudentDO implements Serializable {
     private Integer age;
 
     @JsonSerialize(using = JacksonEnumToIntegerSerializer.class)
-    @JsonDeserialize(using = JacksonCapableToEnumDeserializer.class)
+    @JsonDeserialize(using = JacksonEnumValueToEnumDeserializer.class)
     private Sex sex;
 
     @Getter

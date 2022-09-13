@@ -9,6 +9,12 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import lombok.SneakyThrows;
 
+/**
+ * Jackson 序列化处理器：Enum => Enum 内部 Integer 类型的值
+ *
+ * @author wjm
+ * @since 2020/12/15 17:02
+ */
 public class JacksonEnumToIntegerSerializer extends JsonSerializer<Enum<?>> {
 
     @Override

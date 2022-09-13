@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.tools.core;
 
 import cn.srd.itcp.sugar.tools.constant.StringPool;
+import lombok.SneakyThrows;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -160,6 +161,61 @@ public class TypesUtil {
             }
         }
         return null;
+    }
+
+    /**
+     * see {@link #getEmbedGenericTypes(Class, String)}
+     *
+     * @param fieldOfClass 字段所在的类
+     * @param fieldName    字段名
+     * @return 泛型类类型
+     */
+    public static Class<?> getEmbedGenericTypeClass(Class<?> fieldOfClass, String fieldName) {
+        return (Class<?>) getEmbedGenericTypes(fieldOfClass, fieldName)[0];
+    }
+
+    /**
+     * see {@link #getEmbedGenericTypes(Class, String)}
+     *
+     * @param fieldOfClass 字段所在的类
+     * @param fieldName    字段名
+     * @return 字段类型
+     */
+    public static Class<?> getTypeClass(Class<?> fieldOfClass, String fieldName) {
+        return ClassesUtil.getDeclaredField(fieldOfClass, fieldName).getType();
+    }
+
+    /**
+     * 获取泛型类类型
+     * <pre>
+     *  示例类：
+     *  public class Test {
+     *      private List&lt;String&gt; field1;
+     *      private List&lt;List&lt;?&gt;&gt; field2;
+     *      private List&lt;List&lt;String&gt;&gt; field3;
+     *      private List&lt;? extends List&lt;?&gt;&gt; field4;
+     *      private List&lt;? extends List&lt;? extends List&lt;?&gt;&gt;&gt; field5;
+     *      private String field6;
+     *  }
+     *
+     *  入参：Test.class, "field1" ，结果： Type[0] {Class@1994}                 class java.lang.String
+     *  入参：Test.class, "field2" ，结果： Type[0] {ParameterizedTypeImpl@1994} java.util.List&lt;?&gt;
+     *  入参：Test.class, "field3" ，结果： Type[0] {ParameterizedTypeImpl@1994} java.util.List&lt;java.lang.String&gt;
+     *  入参：Test.class, "field4" ，结果： Type[0] {WildcardTypeImpl@1994}      ? extends java.util.List&lt;?&gt;
+     *  入参：Test.class, "field5" ，结果： Type[0] {WildcardTypeImpl@1994}      ? extends java.util.List&lt;? extends java.util.List&lt;?&gt;&gt;
+     *  入参：Test.class, "field6" ，结果： Class   {Class@1994}                 class java.lang.String
+     *
+     *  对于 field1，可通过 {@link #getEmbedGenericTypeClass(Class, String)} 直接获取泛型类类型
+     *  对于 field6，可通过 {@link #getTypeClass(Class, String)} 获取类类型
+     * </pre>
+     *
+     * @param fieldOfClass 字段所在的类
+     * @param fieldName    字段名
+     * @return 泛型类类型
+     */
+    @SneakyThrows
+    public static Type[] getEmbedGenericTypes(Class<?> fieldOfClass, String fieldName) {
+        return ((ParameterizedType) fieldOfClass.getDeclaredField(fieldName).getGenericType()).getActualTypeArguments();
     }
 
 }

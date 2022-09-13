@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Jackson 反序列化：String => LocalDateTime（只包含日期，如 2038-01-01）
+ * Jackson 反序列化处理器：String => LocalDateTime（只包含日期，如 2038-01-01）
  *
  * @author wjm
  * @since 2022-07-20 11:37:28
