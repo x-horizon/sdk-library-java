@@ -20,7 +20,7 @@ import java.util.List;
  * @author wjm
  * @since 2022-09-13 09:45:13
  */
-public class JacksonEnumValueToListEnumDeserializer<E extends Enum<E>> extends JsonDeserializer<List<E>> {
+public class JacksonListEnumValueToListEnumDeserializer<E extends Enum<E>> extends JsonDeserializer<List<E>> {
 
     @SneakyThrows
     @Override
