@@ -1,12 +1,14 @@
 package cn.srd.itcp.sugar.mybatis.plus.database.postgresql.handler;
 
 import cn.srd.itcp.sugar.convert.all.core.Converts;
+import cn.srd.itcp.sugar.tools.core.Objects;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.SneakyThrows;
 import org.postgresql.util.PGobject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,7 +74,7 @@ public interface JsonbHandler<T> {
      * @return 转换结果集
      */
     default List<T> convertJsonbStringToList(String jsonbString) {
-        return Converts.withJackson().toBeans(jsonbString, getTargetClass());
+        return Objects.isBlank(jsonbString) ? new ArrayList<>() : Converts.withJackson().toBeans(jsonbString, getTargetClass());
     }
 
     /**
@@ -81,8 +83,9 @@ public interface JsonbHandler<T> {
      * @param jsonbString postgresql 中 JSONB 类型的数据
      * @return 转换结果集
      */
+    @SneakyThrows
     default T convertJsonbStringToObject(String jsonbString) {
-        return Converts.withJackson().toBean(jsonbString, getTargetClass());
+        return Objects.isBlank(jsonbString) ? getTargetClass().getDeclaredConstructor().newInstance() : Converts.withJackson().toBean(jsonbString, getTargetClass());
     }
 
 }
