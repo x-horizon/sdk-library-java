@@ -1,8 +1,12 @@
 package cn.srd.itcp.sugar.tools.core.extractor;
 
 import cn.srd.itcp.sugar.tools.core.ArraysUtil;
+import cn.srd.itcp.sugar.tools.core.ClassesUtil;
 import cn.srd.itcp.sugar.tools.core.Objects;
 import cn.srd.itcp.sugar.tools.core.ReflectsUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 方法形参列表提取器
@@ -55,8 +59,16 @@ public interface FunctionParameterExtractorHandler<T> {
         int internalExtractIndex = isExtractFirstParameter(extractIndex) ? EXTRACT_FIRST_PARAMETER_INDEX : extractIndex;
         // 根据 internalExtractIndex 获取方法形参列表上的第几个形参，internalExtractIndex 为 0 时获取第 1 个，为 n 时获取第 n 个；
         Object methodParameter = internalExtractIndex > 0 ? methodParameters[internalExtractIndex - 1] : methodParameters[0];
-        // 若需要提取方法形参列表中某个形参内的某个字段值作为返回结果时该字段的字段名为空，则表示提取方法中某个形参的值作为返回结果，否则表示提取方法中某个形参的值作为返回结果
-        return Objects.isBlank(extractFieldName) ? (T) methodParameter : (T) ReflectsUtil.getFieldValue(methodParameter, extractFieldName);
+        // 提取最终结果
+        if (Objects.isBlank(extractFieldName)) {
+            return (T) methodParameter;
+        }
+        if (ClassesUtil.isAssignable(Iterable.class, methodParameter.getClass())) {
+            List<Object> extractResult = new ArrayList<>();
+            ((Iterable<?>) methodParameter).forEach(element -> extractResult.add(ReflectsUtil.getFieldValue(element, extractFieldName)));
+            return (T) extractResult;
+        }
+        return (T) ReflectsUtil.getFieldValue(methodParameter, extractFieldName);
     }
 
 }

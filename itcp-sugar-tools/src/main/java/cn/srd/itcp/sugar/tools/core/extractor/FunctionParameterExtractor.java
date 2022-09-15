@@ -3,6 +3,8 @@ package cn.srd.itcp.sugar.tools.core.extractor;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 方法形参列表提取器
@@ -12,10 +14,11 @@ import java.lang.annotation.*;
  * 2、提取方法形参列表中某个形参内的某个字段值作为返回结果；
  *
  * 参数说明：
- * 1、若显式指定了 {@link #extractIndex()}、{@link #extractFieldName()}，此时将从方法形参列表中的第 {@link #extractIndex()} 个形参中，使用该形参中字段名为 {@link #extractFieldName()} 的值作为操作对象；
- * 2、若显式指定了 {@link #extractIndex()}，未指定 {@link #extractFieldName()}，此时将从方法形参列表中的第 {@link #extractIndex()} 个形参中，使用该形参的值作为操作对象；
- * 3、若显式指定了 {@link #extractFieldName()}，未指定 {@link #extractIndex()}，此时将使用方法形参列表中的第 1 个形参中的字段名为 {@link #extractFieldName()} 的值作为操作对象；
- * 4、若 {@link #extractIndex()}、{@link #extractFieldName()} 两者均未指定，此时将使用方法形参列表中的第 1 个形参的值作为操作对象；
+ * 1、若显式指定了 {@link #extractIndex()}、{@link #extractFieldName()}，此时将从方法形参列表中的第 {@link #extractIndex()} 个形参中，使用该形参中字段名为 {@link #extractFieldName()} 的值作为提取结果返回；
+ * 2、若显式指定了 {@link #extractIndex()}，未指定 {@link #extractFieldName()}，此时将从方法形参列表中的第 {@link #extractIndex()} 个形参中，使用该形参的值作为提取结果返回；
+ * 3、若显式指定了 {@link #extractFieldName()}，未指定 {@link #extractIndex()}，此时将使用方法形参列表中的第 1 个形参中的字段名为 {@link #extractFieldName()} 的值作为提取结果返回；
+ * 4、若 {@link #extractIndex()}、{@link #extractFieldName()} 两者均未指定，此时将使用方法形参列表中的第 1 个形参的值作为提取结果返回；
+ * 5、在 1、3 中，若在方法形参列表中提取的形参为 {@link Iterable} 类型，此时将提取该形参里每个元素中字段名为 {@link #extractFieldName()} 的值并封装为 {@link ArrayList} 作为提取结果返回，在该情况下，{@link FunctionParameterExtractorHandler} 的子类必须将泛型类型指定为 {@link List} 或 {@link ArrayList} 类型；
  *
  * 用法：
  * 1、通过继承该注解，使用 {@link AliasFor} 指定该注解中的参数即可；
