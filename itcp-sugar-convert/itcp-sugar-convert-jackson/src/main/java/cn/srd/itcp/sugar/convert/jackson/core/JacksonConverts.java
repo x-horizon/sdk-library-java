@@ -102,7 +102,7 @@ public class JacksonConverts {
 
         public static class Builder extends MapperBuilder<JacksonMapper, Builder> {
 
-            private static volatile Boolean allowToReplaceGlobalObjectMapper = true;
+            private static volatile boolean allowToReplaceGlobalObjectMapper = true;
 
             private Builder(JacksonMapper mapper) {
                 super(mapper);
