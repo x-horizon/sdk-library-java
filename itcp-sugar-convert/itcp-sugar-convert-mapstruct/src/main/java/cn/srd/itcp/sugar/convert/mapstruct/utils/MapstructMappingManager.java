@@ -12,6 +12,7 @@ import org.springframework.lang.Nullable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Mapstruct 属性转换管理，用于绑定转换方法
@@ -35,15 +36,39 @@ public class MapstructMappingManager {
     }
 
     /**
-     * String => List
+     * List<Integer> => String
      *
      * @param value
      * @return
      */
     @Nullable
-    @MapstructStringToList
-    public static List<String> stringToList(@Nullable String value) {
+    @MapstructListIntegerToString
+    public static String listIntegerToString(@Nullable List<Integer> value) {
+        return Objects.isNotEmpty(value) ? StringsUtil.join(StringPool.COMMA, value) : null;
+    }
+
+    /**
+     * String => List<String>
+     *
+     * @param value
+     * @return
+     */
+    @Nullable
+    @MapstructStringToListString
+    public static List<String> stringToListString(@Nullable String value) {
         return Objects.isNotEmpty(value) ? CollectionsUtil.toList(value) : null;
+    }
+
+    /**
+     * String => List<Integer>
+     *
+     * @param value
+     * @return
+     */
+    @Nullable
+    @MapstructStringToListInteger
+    public static List<Integer> stringToListInteger(@Nullable String value) {
+        return Objects.isNotEmpty(value) ? CollectionsUtil.toList(value, StringPool.COMMA).stream().map(Integer::valueOf).collect(Collectors.toList()) : null;
     }
 
     /**
@@ -138,7 +163,7 @@ public class MapstructMappingManager {
      */
     @NonNull
     @MapstructNullListToEmptyArrayList
-    public static <T> ArrayList<T> longToString(@NonNull List<T> value) {
+    public static <T> List<T> longToString(@NonNull List<T> value) {
         if (Objects.isEmpty(value)) {
             return new ArrayList<>();
         }
