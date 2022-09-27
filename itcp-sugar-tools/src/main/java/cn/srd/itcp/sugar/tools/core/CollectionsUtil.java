@@ -106,7 +106,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static String getMax(@NonNull Collection<String> from) {
-        Objects.requireNotNull(from);
         return from.stream().filter(Objects::isNotNull).max(Comparator.comparing(String::length)).orElse(null);
     }
 
@@ -130,7 +129,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T> T getMax(@NonNull Collection<T> from, @NonNull Comparator<? super T> comparator) {
-        Objects.requireNonNull(from, comparator);
         return from.stream().filter(Objects::isNotNull).max(comparator).orElse(null);
     }
 
@@ -141,7 +139,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static String getMin(@NonNull Collection<String> from) {
-        Objects.requireNotNull(from);
         return from.stream().filter(Objects::isNotNull).min(Comparator.comparing(String::length)).orElse(null);
     }
 
@@ -154,7 +151,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T> T getMin(@NonNull Collection<T> from, @NonNull Comparator<? super T> comparator) {
-        Objects.requireNonNull(from, comparator);
         return from.stream().filter(Objects::isNotNull).min(comparator).orElse(null);
     }
 
@@ -241,7 +237,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T, U> List<U> toList(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
-        Objects.requireNonNull(from, function);
         return from.stream().map(function).collect(Collectors.toList());
     }
 
@@ -255,7 +250,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T, U> List<U> toListIgnoreNull(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
-        Objects.requireNonNull(from, function);
         return from.stream().map(function).filter(Objects::isNotNull).collect(Collectors.toList());
     }
 
@@ -286,7 +280,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T, U> Set<U> toSet(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
-        Objects.requireNonNull(from, function);
         return from.stream().map(function).collect(Collectors.toSet());
     }
 
@@ -300,7 +293,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T, U> Set<U> toSetIgnoreNull(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
-        Objects.requireNonNull(from, function);
         return from.stream().map(function).filter(Objects::isNotNull).collect(Collectors.toSet());
     }
 
@@ -334,7 +326,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <K, V> Map<K, V> toMap(@NonNull Collection<V> from, @NonNull Function<V, K> keyFunction) {
-        Objects.requireNonNull(from, keyFunction);
         return from.stream().collect(Collectors.toMap(keyFunction, item -> item));
     }
 
@@ -358,7 +349,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T, K, V> Map<K, V> toMap(@NonNull Collection<T> from, @NonNull Function<T, K> keyFunction, @NonNull Function<T, V> valueFunction) {
-        Objects.requireNonNull(from, keyFunction, valueFunction);
         return from.stream().collect(Collectors.toMap(keyFunction, valueFunction));
     }
 
@@ -382,7 +372,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <K, V> Map<K, List<V>> toMultiMap(@NonNull Collection<V> from, @NonNull Function<V, K> keyFunction) {
-        Objects.requireNonNull(from, keyFunction);
         return from.stream().collect(Collectors.groupingBy(keyFunction, Collectors.mapping(item -> item, Collectors.toList())));
     }
 
@@ -408,7 +397,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T, K, V> Map<K, List<V>> toMultiMap(@NonNull Collection<T> from, @NonNull Function<T, K> keyFunction, @NonNull Function<T, V> valueFunction) {
-        Objects.requireNonNull(from, keyFunction, valueFunction);
         return from.stream().collect(Collectors.groupingBy(keyFunction, Collectors.mapping(valueFunction, Collectors.toList())));
     }
 
@@ -433,7 +421,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T extends E, E> List<T> filtersToList(@NonNull Collection<T> from, @NonNull Predicate<E> predicate) {
-        Objects.requireNonNull(from, predicate);
         return from.stream().filter(predicate).collect(Collectors.toList());
     }
 
@@ -447,7 +434,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T extends E, E> List<T> filtersToList(@NonNull T[] from, @NonNull Predicate<E> predicate) {
-        Objects.requireNonNull(from, predicate);
         return Arrays.stream(from).filter(predicate).collect(Collectors.toList());
     }
 
@@ -472,7 +458,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <K, V> Map<K, V> filtersToList(@NonNull Map<K, V> from, @NonNull Predicate<? super Map.Entry<K, V>> predicate) {
-        Objects.requireNonNull(from, predicate);
         return from.entrySet().stream().filter(predicate).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
@@ -497,7 +482,6 @@ public class CollectionsUtil extends CollUtil {
      * @return 把条件为 true 的集合过滤并返回
      */
     public static <K, V> List<V> capableFiltersToList(@NonNull Map<K, V> from, @NonNull Predicate<? super V> predicate) {
-        Objects.requireNonNull(from, predicate);
         return filtersToList(from.values(), predicate);
     }
 
@@ -527,7 +511,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <K, V> Map<K, V> capableFiltersToList(@NonNull Map<K, List<V>> from, @NonNull Predicate<? super Map.Entry<K, List<V>>> predicate, @NonNull Function<? super Map.Entry<K, List<V>>, V> valueFunction) {
-        Objects.requireNonNull(from, predicate, valueFunction);
         return from.entrySet().stream().filter(predicate).collect(Collectors.toMap(Map.Entry::getKey, valueFunction));
     }
 
@@ -540,7 +523,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T> long countAfterFilters(@NonNull Collection<T> from, @NonNull Predicate<? super T> predicate) {
-        Objects.requireNonNull(from, predicate);
         return from.stream().filter(predicate).count();
     }
 
@@ -563,7 +545,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T extends E, E> Set<T> filtersToSet(@NonNull Collection<T> from, @NonNull Predicate<E> predicate) {
-        Objects.requireNonNull(from, predicate);
         return from.stream().filter(predicate).collect(Collectors.toSet());
     }
 
@@ -588,7 +569,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T, U> List<T> distinct(@NonNull Collection<T> from, @NonNull Function<? super T, U> function) {
-        Objects.requireNonNull(from, function);
         return from.stream().filter(distinctSupporter(function)).collect(Collectors.toList());
     }
 
@@ -611,7 +591,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T, U> List<U> distinctDuplicatedKey(@NonNull Collection<T> from, @NonNull Function<? super T, U> function) {
-        Objects.requireNonNull(from, function);
         return from.stream().map(function).distinct().collect(Collectors.toList());
     }
 
@@ -637,7 +616,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T, U> List<T> capableDistinct(@NonNull Collection<T> from, @NonNull Predicate<? super T> predicate, @NonNull Function<? super T, U> function) {
-        Objects.requireNonNull(from, predicate, function);
         return from.stream().filter(predicate).filter(distinctSupporter(function)).collect(Collectors.toList());
     }
 
@@ -651,7 +629,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T, U> long countDistinct(@NonNull Collection<T> from, @NonNull Function<? super T, U> function) {
-        Objects.requireNonNull(from, function);
         return from.stream().filter(distinctSupporter(function)).count();
     }
 
@@ -666,7 +643,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T, U> long countDistinct(@NonNull Collection<T> from, @NonNull Predicate<? super T> predicate, @NonNull Function<? super T, U> function) {
-        Objects.requireNonNull(from, predicate, function);
         return from.stream().filter(predicate).filter(distinctSupporter(function)).count();
     }
 
@@ -717,7 +693,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T, U extends Comparable<? super U>> List<T> asc(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
-        Objects.requireNonNull(from, function);
         return from.stream().sorted(Comparator.comparing(function)).collect(Collectors.toList());
     }
 
@@ -747,7 +722,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T, U extends Comparable<? super U>> List<T> desc(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
-        Objects.requireNonNull(from, function);
         return from.stream().sorted(Comparator.comparing(function).reversed()).collect(Collectors.toList());
     }
 
@@ -773,7 +747,6 @@ public class CollectionsUtil extends CollUtil {
      * @return 计算后的值
      */
     public static <T> int sum(@NonNull Collection<T> from, @NonNull ToIntFunction<? super T> function) {
-        Objects.requireNonNull(from, function);
         return from.stream().mapToInt(function).sum();
     }
 
@@ -790,7 +763,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T> int sum(@NonNull Collection<T> from, @NonNull Predicate<? super T> predicate, @NonNull ToIntFunction<? super T> function) {
-        Objects.requireNonNull(from, predicate, function);
         return from.stream().filter(predicate).mapToInt(function).sum();
     }
 
@@ -823,7 +795,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T, U> Map<U, List<T>> groupBy(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
-        Objects.requireNonNull(from, function);
         return from.stream().collect(Collectors.groupingBy(function));
     }
 
@@ -841,7 +812,6 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T, U> Map<U, List<T>> groupBy(@NonNull Collection<T> from, @NonNull Predicate<? super T> predicate, @NonNull Function<T, U> function) {
-        Objects.requireNonNull(from, predicate, function);
         return from.stream().filter(predicate).collect(Collectors.groupingBy(function));
     }
 
