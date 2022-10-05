@@ -1,6 +1,9 @@
 package cn.srd.itcp.sugar.tools.core;
 
 import cn.hutool.extra.spring.SpringUtil;
+import cn.srd.itcp.sugar.tools.constant.StringPool;
+import io.vavr.control.Option;
+import io.vavr.control.Try;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
@@ -25,48 +28,53 @@ public class SpringsUtil extends SpringUtil {
     /**
      * {@link SpringBootApplication} 启动类所在的包路径
      */
-    private static String rootPackagePath = null;
+    private static String rootPackagePath = StringPool.EMPTY;
 
     /**
-     * 通过 name 获取 Bean（支持大写字母开头）
+     * 通过 beanName 获取 Bean（支持大写字母开头、支持不符合驼峰规范命名的 beanName）
      *
-     * @param name
-     * @param <T>
+     * @param beanName
      * @return
      */
-    public static <T> T getBean(String name) {
-        return SpringUtil.getBean(StringsUtil.lowerFirst(name));
+    public static Object getBean(String beanName) {
+        return Option.of(Try.of(() -> SpringUtil.getBean(StringsUtil.lowerFirst(beanName))).getOrNull())
+                .orElse(() -> Option.of(Try.of(() -> SpringUtil.getConfigurableBeanFactory().getBean(beanName)).getOrNull()))
+                .getOrNull();
     }
 
     /**
-     * 通过 name，以及 Class 获取指定的 Bean（支持大写字母开头）
+     * 通过 beanName，以及 beanClass 获取指定的 Bean（支持大写字母开头）
      *
-     * @param name
-     * @param clazz
+     * @param beanName
+     * @param beanClass
      * @param <T>
      * @return
      */
-    public static <T> T getBean(String name, Class<T> clazz) {
-        return SpringUtil.getBean(StringsUtil.lowerFirst(name), clazz);
-    }
-
-    /**
-     * 重写父类的 {@link SpringUtil#getBean(Class)}，获取 bean 时出现错误应该返回 null 值而不是抛异常
-     *
-     * @param clazz
-     * @param <T>
-     * @return
-     */
-    public static <T> T getBean(Class<T> clazz) {
+    public static <T> T getBean(String beanName, Class<T> beanClass) {
         try {
-            return SpringUtil.getBean(clazz);
+            return SpringUtil.getBean(StringsUtil.lowerFirst(beanName), beanClass);
         } catch (Exception ignore) {
             return null;
         }
     }
 
     /**
-     * 获取加入IOC容器中被指定注解 注解了的Bean
+     * 通过 beanClass 获取 Bean
+     *
+     * @param beanClass
+     * @param <T>
+     * @return
+     */
+    public static <T> T getBean(Class<T> beanClass) {
+        try {
+            return SpringUtil.getBean(beanClass);
+        } catch (Exception ignore) {
+            return null;
+        }
+    }
+
+    /**
+     * 获取加入 IOC 容器中被【指定注解】注解了的Bean
      *
      * @param annotationClass
      * @return
@@ -110,10 +118,9 @@ public class SpringsUtil extends SpringUtil {
      */
     public static String getRootPackagePath() {
         if (Objects.isNull(rootPackagePath)) {
-            rootPackagePath = ClassesUtil.getPackage(Objects.requireNotNull(
-                    () -> "不存在 @SpringBootApplication，请检查！",
-                    CollectionsUtil.getFirstValue(SpringsUtil.getBeansMapWithAnnotation(SpringBootApplication.class))
-            ).getClass());
+            rootPackagePath = ClassesUtil.getPackage(Objects.requireNotNull(() -> "不存在 @SpringBootApplication，请检查！", CollectionsUtil.getFirstValue(
+                    SpringsUtil.getBeansMapWithAnnotation(SpringBootApplication.class)
+            )).getClass());
         }
         return rootPackagePath;
     }
