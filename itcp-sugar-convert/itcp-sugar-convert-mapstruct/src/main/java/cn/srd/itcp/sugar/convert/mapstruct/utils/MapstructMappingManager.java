@@ -67,7 +67,7 @@ public class MapstructMappingManager {
     @Nullable
     @MapstructStringToListInteger
     public static List<Integer> stringToListInteger(@Nullable String value) {
-        return StringsUtil.split(value, StringPool.COMMA);
+        return StringsUtil.splitToListInteger(value, StringPool.COMMA);
     }
 
     /**
