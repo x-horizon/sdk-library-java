@@ -12,7 +12,6 @@ import org.springframework.lang.Nullable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Mapstruct 属性转换管理，用于绑定转换方法
@@ -68,7 +67,7 @@ public class MapstructMappingManager {
     @Nullable
     @MapstructStringToListInteger
     public static List<Integer> stringToListInteger(@Nullable String value) {
-        return Objects.isNotEmpty(value) ? CollectionsUtil.toList(value, StringPool.COMMA).stream().map(Integer::valueOf).collect(Collectors.toList()) : null;
+        return StringsUtil.split(value, StringPool.COMMA);
     }
 
     /**

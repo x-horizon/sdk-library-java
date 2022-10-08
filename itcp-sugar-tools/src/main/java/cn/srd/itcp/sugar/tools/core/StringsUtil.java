@@ -328,4 +328,8 @@ public class StringsUtil extends StrUtil {
         return join(tag, collection.stream().filter(Objects::isNotNull).collect(Collectors.toList()));
     }
 
+    public static List<Integer> split(String input, String separator) {
+        return Objects.isNotEmpty(input) ? CollectionsUtil.toList(input, separator).stream().map(Integer::valueOf).collect(Collectors.toList()) : null;
+    }
+
 }
