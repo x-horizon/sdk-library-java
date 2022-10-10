@@ -43,7 +43,7 @@ public interface JsonbHandler<T> {
     default PGobject convertObjectToJsonb(Object object) {
         PGobject pgObject = new PGobject();
         pgObject.setType(POSTGRESQL_TYPE_JSONB);
-        pgObject.setValue(JSON.toJSONString(object));
+        pgObject.setValue(Converts.withJackson().toString(object));
         return pgObject;
     }
 
