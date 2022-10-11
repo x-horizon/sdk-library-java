@@ -425,6 +425,18 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
+     * 过滤出集合中条件为 true 的元素并构造为新的 List，并取出第一个元素
+     *
+     * @param from
+     * @param predicate
+     * @param <T>
+     * @return
+     */
+    public static <T extends E, E> T filtersToOne(@NonNull Collection<T> from, @NonNull Predicate<E> predicate) {
+        return filtersToList(from, predicate).get(0);
+    }
+
+    /**
      * 过滤出数组中条件为 true 的元素并构造为新的 List，参考 {@link #filtersToList(Collection, Predicate)}
      *
      * @param from
