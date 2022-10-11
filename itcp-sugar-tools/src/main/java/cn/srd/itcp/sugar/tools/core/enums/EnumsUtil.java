@@ -5,6 +5,7 @@ import cn.hutool.core.util.ReflectUtil;
 import cn.srd.itcp.sugar.tools.core.ClassesUtil;
 import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tools.core.Objects;
+import cn.srd.itcp.sugar.tools.core.StringsUtil;
 import org.springframework.lang.NonNull;
 
 import java.lang.reflect.Field;
@@ -153,31 +154,15 @@ public class EnumsUtil extends EnumUtil {
         }
         return null;
     }
-    // public static <E extends Enum<E>> E capableToEnum(Object enumFiledValue, Class<E> enumClass) {
-    //     if (Objects.isNull(enumClass, enumFiledValue)) {
-    //         return null;
-    //     }
-    //
-    //     Object currentEnumFiledValue = enumFiledValue;
-    //     if (enumFiledValue instanceof CharSequence) {
-    //         currentEnumFiledValue = enumFiledValue.toString().trim();
-    //     }
-    //
-    //     final Field[] fields = ReflectUtil.getFields(enumClass);
-    //     final Enum<?>[] enums = enumClass.getEnumConstants();
-    //     for (Field field : fields) {
-    //         //跳过特殊字段、enum 类型的字段；
-    //         if (field.getType().isEnum() || isEnumSpecialField(field)) {
-    //             continue;
-    //         }
-    //         for (Enum<?> enumObj : enums) {
-    //             if (Objects.equals(currentEnumFiledValue, ReflectUtil.getFieldValue(enumObj, field))) {
-    //                 return (E) enumObj;
-    //             }
-    //         }
-    //     }
-    //     return null;
-    // }
+
+    public static <E extends Enum<E>> List<E> splitToListEnum(String input, String separator, Class<E> enumClass) {
+        List<E> result = new ArrayList<>();
+        if (Objects.isBlank(input)) {
+            return result;
+        }
+        StringsUtil.splitToListInteger(input, separator).forEach(item -> result.add(capableToEnum(item, enumClass)));
+        return result;
+    }
 
     /**
      * 是否是Enum的特殊字段： ENUM$VALUES、ordinal
