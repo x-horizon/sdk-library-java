@@ -329,7 +329,7 @@ public class StringsUtil extends StrUtil {
     }
 
     public static List<Integer> splitToListInteger(String input, String separator) {
-        return Objects.isNotEmpty(input) ? CollectionsUtil.toList(input, separator).stream().map(Integer::valueOf).collect(Collectors.toList()) : new ArrayList<>();
+        return Objects.isNotBlank(input) ? CollectionsUtil.toList(input, separator).stream().map(Integer::valueOf).collect(Collectors.toList()) : new ArrayList<>();
     }
 
 }
