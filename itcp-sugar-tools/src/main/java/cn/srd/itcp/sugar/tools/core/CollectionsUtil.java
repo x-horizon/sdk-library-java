@@ -433,7 +433,7 @@ public class CollectionsUtil extends CollUtil {
      * @return
      */
     public static <T extends E, E> T filtersToOne(@NonNull Collection<T> from, @NonNull Predicate<E> predicate) {
-        return filtersToList(from, predicate).get(0);
+        return CollectionsUtil.getFirst(filtersToList(from, predicate));
     }
 
     /**
