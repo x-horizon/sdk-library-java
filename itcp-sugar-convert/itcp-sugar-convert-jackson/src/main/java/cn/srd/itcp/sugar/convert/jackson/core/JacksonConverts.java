@@ -92,7 +92,7 @@ public class JacksonConverts {
         getInstance().replaceGlobalJacksonMapper(getInstance().builder().build());
     }
 
-    public static class JacksonMapper extends ObjectMapper {
+    public static final class JacksonMapper extends ObjectMapper {
 
         private static final long serialVersionUID = -8474265145182256290L;
 
@@ -100,7 +100,7 @@ public class JacksonConverts {
             return new JacksonConverts().replaceGlobalJacksonMapper(this);
         }
 
-        public static class Builder extends MapperBuilder<JacksonMapper, Builder> {
+        public static final class Builder extends MapperBuilder<JacksonMapper, Builder> {
 
             private static volatile boolean allowToReplaceGlobalObjectMapper = true;
 
