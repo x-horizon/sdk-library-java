@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.tools.core;
 
 import cn.hutool.core.util.StrUtil;
 import cn.srd.itcp.sugar.tools.constant.StringPool;
+import cn.srd.itcp.sugar.tools.core.enums.EnumsUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.Nullable;
 
@@ -326,6 +327,60 @@ public class StringsUtil extends StrUtil {
     public static String toWholeIgnoreNull(Collection<String> collection, @Nullable String tag) {
         tag = Objects.isNull(tag) ? COMMA : tag;
         return join(tag, collection.stream().filter(Objects::isNotNull).collect(Collectors.toList()));
+    }
+
+    /**
+     * 将枚举中 {@link EnumInternalType} 类型的字段提取出来，使用 {@link StringPool#COMMA} 作为分隔符，转为 String
+     * <pre>
+     *     例如有如下枚举：
+     *
+     *     &#064;Getter
+     *     &#064;AllArgsConstructor
+     *     public enum SexEnum {
+     *          MAN(1, "男"),
+     *          WOMAN(2, "女"),
+     *          UNKNOWN(3, "未知");
+     *          private final int code;
+     *          private final String description;
+     *     }
+     *
+     *     例如有如下集合：
+     *     List&lt;SexEnum&gt; sexEnums = new ArrayList(){{
+     *         add(SexEnum.MAN);
+     *         add(SexEnum.WOMAN);
+     *         add(SexEnum.UNKNOWN);
+     *     }};
+     *
+     *     使用该函数进行转换：
+     *     {@link StringsUtil}.{@link StringsUtil#split(List, Class)}(sexEnums, Integer.class);  结果为 ===> "1,2,3"
+     * </pre>
+     *
+     * @param input
+     * @param enumInternalType
+     * @param <EnumInternalType>
+     * @param <E>
+     * @return
+     */
+    public static <EnumInternalType, E extends Enum<E>> String split(List<E> input, Class<EnumInternalType> enumInternalType) {
+        return split(input, enumInternalType, StringPool.COMMA);
+    }
+
+    /**
+     * 将枚举中 {@link EnumInternalType} 类型的字段提取出来，使用 joinTag 作为分隔符，转为 String，参考：{@link #split(List, Class)}
+     *
+     * @param input
+     * @param enumInternalType
+     * @param joinTag
+     * @param <EnumInternalType>
+     * @param <E>
+     * @return
+     */
+    public static <EnumInternalType, E extends Enum<E>> String split(List<E> input, Class<EnumInternalType> enumInternalType, String joinTag) {
+        List<EnumInternalType> enumIntegerValues = new ArrayList<>();
+        for (E item : input) {
+            enumIntegerValues.add(EnumsUtil.getEnumValue(item, enumInternalType));
+        }
+        return StringsUtil.join(joinTag, enumIntegerValues);
     }
 
     public static List<Integer> splitToListInteger(String input) {

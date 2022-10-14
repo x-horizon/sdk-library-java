@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.tools.core.enums;
 
 import cn.hutool.core.util.EnumUtil;
 import cn.hutool.core.util.ReflectUtil;
+import cn.srd.itcp.sugar.tools.constant.StringPool;
 import cn.srd.itcp.sugar.tools.core.ClassesUtil;
 import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tools.core.Objects;
@@ -153,6 +154,10 @@ public class EnumsUtil extends EnumUtil {
             }
         }
         return null;
+    }
+
+    public static <E extends Enum<E>> List<E> splitToListEnum(String input, Class<E> enumClass) {
+        return splitToListEnum(input, StringPool.COMMA, enumClass);
     }
 
     public static <E extends Enum<E>> List<E> splitToListEnum(String input, String separator, Class<E> enumClass) {
