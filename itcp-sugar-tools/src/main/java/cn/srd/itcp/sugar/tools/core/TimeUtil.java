@@ -4,6 +4,7 @@ import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import org.springframework.lang.Nullable;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -50,11 +51,21 @@ public class TimeUtil extends LocalDateTimeUtil {
     /**
      * LocalDateTime => Long
      *
-     * @param localDateTime
+     * @param input
      * @return
      */
-    public static Long toLong(LocalDateTime localDateTime) {
-        return Objects.isNull(localDateTime) ? null : localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+    public static Long toLong(LocalDateTime input) {
+        return Objects.isNull(input) ? null : input.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+    }
+
+    /**
+     * LocalDate => Long
+     *
+     * @param input
+     * @return
+     */
+    public static Long toLong(LocalDate input) {
+        return Objects.isNull(input) ? null : input.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
     /**
