@@ -215,7 +215,7 @@ public class TypesUtil {
      */
     @SneakyThrows
     public static Type[] getEmbedGenericTypes(Class<?> fieldOfClass, String fieldName) {
-        return ((ParameterizedType) fieldOfClass.getDeclaredField(fieldName).getGenericType()).getActualTypeArguments();
+        return ((ParameterizedType) ClassesUtil.getDeclaredField(fieldOfClass, fieldName).getGenericType()).getActualTypeArguments();
     }
 
 }
