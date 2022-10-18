@@ -4,6 +4,7 @@ import cn.hutool.core.util.ClassUtil;
 import org.springframework.lang.Nullable;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
@@ -83,6 +84,18 @@ public class ClassesUtil extends ClassUtil {
             CollectionsUtil.addAll(allPackageNames, scanPackageBySuper(packageName, superClass));
         });
         return allPackageNames;
+    }
+
+    /**
+     * 查找指定类及其父类中的所有字段（包括非public字段），先匹配指定类，若指定类不存在再到父类寻找，字段不存在则返回 null
+     *
+     * @param clazz     被查找字段的类
+     * @param fieldName 字段名
+     * @return 字段
+     */
+    public static Field getDeclaredField(Class<?> clazz, String fieldName) {
+        Field currentClassField = ClassUtil.getDeclaredField(clazz, fieldName);
+        return Objects.isNull(currentClassField) ? ClassUtil.getDeclaredField(clazz.getSuperclass(), fieldName) : currentClassField;
     }
 
 }
