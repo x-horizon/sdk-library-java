@@ -11,10 +11,10 @@ import javax.validation.ConstraintValidatorContext;
  * @author wjm
  * @date 2020/12/08 13:49
  */
-public class VerifyPositiveShortSupport implements ConstraintValidator<VerifyPositiveLong, Short> {
+public class VerifyPositiveShortSupport implements ConstraintValidator<VerifyPositiveShort, Short> {
 
     @Override
-    public void initialize(VerifyPositiveLong verifyPositiveLong) {
+    public void initialize(VerifyPositiveShort verifyPositiveLong) {
 
     }
 
