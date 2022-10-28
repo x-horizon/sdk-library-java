@@ -50,26 +50,26 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
-     * 获取 Map 第一个 Entry 的 Key
+     * 获取 Map 第一个 Entry 的 Key（仅当 map 只有一个元素时有意义，多个元素每次获取第一个可能会不相同）
      *
      * @param from
      * @param <K>
      * @param <V>
      * @return
      */
-    public static <K, V> K getFirstKey(@Nullable LinkedHashMap<K, V> from) {
+    public static <K, V> K getFirstKey(@Nullable Map<K, V> from) {
         return Objects.isNotEmpty(from) ? getFirst(from.keySet()) : null;
     }
 
     /**
-     * 获取 Map 第一个 Entry 的 Value
+     * 获取 Map 第一个 Entry 的 Value（仅当 map 只有一个元素时有意义，多个元素每次获取第一个可能会不相同）
      *
      * @param from
      * @param <K>
      * @param <V>
      * @return
      */
-    public static <K, V> V getFirstValue(@Nullable LinkedHashMap<K, V> from) {
+    public static <K, V> V getFirstValue(@Nullable Map<K, V> from) {
         return Objects.isNotEmpty(from) ? from.get(getFirstKey(from)) : null;
     }
 
