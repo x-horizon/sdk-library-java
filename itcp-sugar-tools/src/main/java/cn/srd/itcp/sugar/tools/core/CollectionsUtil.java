@@ -57,7 +57,7 @@ public class CollectionsUtil extends CollUtil {
      * @param <V>
      * @return
      */
-    public static <K, V> K getFirstKey(@Nullable Map<K, V> from) {
+    public static <K, V> K getFirstKey(@Nullable LinkedHashMap<K, V> from) {
         return Objects.isNotEmpty(from) ? getFirst(from.keySet()) : null;
     }
 
@@ -69,7 +69,7 @@ public class CollectionsUtil extends CollUtil {
      * @param <V>
      * @return
      */
-    public static <K, V> V getFirstValue(@Nullable Map<K, V> from) {
+    public static <K, V> V getFirstValue(@Nullable LinkedHashMap<K, V> from) {
         return Objects.isNotEmpty(from) ? from.get(getFirstKey(from)) : null;
     }
 
