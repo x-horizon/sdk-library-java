@@ -55,4 +55,8 @@ public class HttpInfo extends HttpStatus {
     public static final int NOT_PERMISSION = 431;
     public static final int NOT_ROLE = 432;
 
+    // ================ 传输协议相关信息 ================
+
+    public static final String HTTP_PROTOCOL = "http://";
+    public static final String HTTPS_PROTOCOL = "https://";
 }

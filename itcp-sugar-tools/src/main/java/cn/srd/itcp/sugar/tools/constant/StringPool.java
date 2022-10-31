@@ -160,10 +160,4 @@ public interface StringPool {
      */
     String VB = "|";
 
-    // ================ 传输协议相关信息 ================
-
-    String HTTP_PROTOCOL = "http://";
-
-    String HTTPS_PROTOCOL = "https://";
-
 }
