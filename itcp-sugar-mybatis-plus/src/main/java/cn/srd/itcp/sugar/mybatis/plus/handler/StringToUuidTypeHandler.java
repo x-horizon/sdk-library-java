@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.mybatis.plus.handler;
 
+import cn.srd.itcp.sugar.tools.core.Objects;
 import lombok.SneakyThrows;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
@@ -28,10 +29,8 @@ public class StringToUuidTypeHandler extends BaseTypeHandler<String> {
     @Override
     @SneakyThrows
     public void setNonNullParameter(PreparedStatement ps, int columnIndex, String parameter, JdbcType jdbcType) {
-        if (null != parameter) {
-            // String 转为 jdbcType 的 UUID 类型
-            ps.setObject(columnIndex, UUID.fromString(parameter));
-        }
+        // String 转为 jdbcType 的 UUID 类型
+        ps.setObject(columnIndex, Objects.isBlank(parameter) ? null : UUID.fromString(parameter));
     }
 
     /**
