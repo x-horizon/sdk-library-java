@@ -2641,4 +2641,52 @@ public class Objects {
         return ObjectStreamClass.lookup(clazz).getSerialVersionUID();
     }
 
+    /**
+     * 比较两个集合的值是否相等
+     *
+     * @param input1
+     * @param input2
+     * @param <E>
+     * @return
+     */
+    public static <E> boolean equals(Collection<E> input1, Collection<E> input2) {
+        if (input1 == input2) {
+            return true;
+        }
+
+        if (input1 == null && input2 == null) {
+            return true;
+        }
+        if (input2 != null && input1 == null) {
+            return false;
+        }
+
+        if (input1 != null && input2 == null) {
+            return false;
+        }
+
+        if (input1.size() == 0 && input2.size() == 0) {
+            return true;
+        }
+        if (input2.size() == 0 && input1 == null) {
+            return false;
+        }
+        if (input1.size() == 0 && input2 == null) {
+            return false;
+        }
+
+        Set<E> duplicateRemovalInput1 = new HashSet<>(input1);
+        Set<E> duplicateRemovalInput2 = new HashSet<>(input2);
+
+        if (duplicateRemovalInput1.size() != duplicateRemovalInput2.size()) {
+            return false;
+        }
+
+        if (!duplicateRemovalInput1.containsAll(duplicateRemovalInput2)) {
+            return false;
+        }
+
+        return true;
+    }
+
 }
