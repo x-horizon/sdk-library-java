@@ -58,5 +58,6 @@ public class HttpInfo extends HttpStatus {
     // ================ 传输协议相关信息 ================
 
     public static final String HTTP_PROTOCOL = "http://";
+    public static final String RTSP_PROTOCOL = "rtsp://";
     public static final String HTTPS_PROTOCOL = "https://";
 }
