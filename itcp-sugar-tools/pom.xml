@@ -81,9 +81,9 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.ejlchina</groupId>
-            <artifactId>okhttps-jackson</artifactId>
-            <version>${okhttps-jackson.version}</version>
+            <groupId>cn.zhxu</groupId>
+            <artifactId>okhttps</artifactId>
+            <version>4.0.0</version>
             <optional>true</optional>
             <scope>compile</scope>
         </dependency>
