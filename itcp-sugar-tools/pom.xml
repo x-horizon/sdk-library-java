@@ -83,7 +83,7 @@
         <dependency>
             <groupId>cn.zhxu</groupId>
             <artifactId>okhttps</artifactId>
-            <version>4.0.0</version>
+            <version>${okhttps.version}</version>
             <optional>true</optional>
             <scope>compile</scope>
         </dependency>
