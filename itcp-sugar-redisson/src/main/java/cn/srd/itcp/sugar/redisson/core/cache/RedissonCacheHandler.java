@@ -10,12 +10,12 @@ public class RedissonCacheHandler {
 
     public static final RedissonBucketCacheHandler BUCKET = new RedissonBucketCacheHandler();
 
-    public static final RedissonBucketCacheHandler HASH = new RedissonBucketCacheHandler();
+    public static final RedissonHashCacheHandler HASH = new RedissonHashCacheHandler();
 
-    public static final RedissonBucketCacheHandler LIST = new RedissonBucketCacheHandler();
+    public static final RedissonListCacheHandler LIST = new RedissonListCacheHandler();
 
-    public static final RedissonBucketCacheHandler SET = new RedissonBucketCacheHandler();
+    public static final RedissonSetCacheHandler SET = new RedissonSetCacheHandler();
 
-    public static final RedissonBucketCacheHandler SORTED_SET = new RedissonBucketCacheHandler();
+    public static final RedissonSortedSetCacheHandler SORTED_SET = new RedissonSortedSetCacheHandler();
 
 }
