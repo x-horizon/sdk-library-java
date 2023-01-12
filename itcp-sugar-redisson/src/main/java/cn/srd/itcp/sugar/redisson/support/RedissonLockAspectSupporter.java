@@ -1,8 +1,8 @@
 package cn.srd.itcp.sugar.redisson.support;
 
 import cn.hutool.core.util.IdUtil;
-import cn.srd.itcp.sugar.redisson.core.RedissonFairLock;
-import cn.srd.itcp.sugar.redisson.core.RedissonLockTemplate;
+import cn.srd.itcp.sugar.redisson.core.lock.RedissonFairLock;
+import cn.srd.itcp.sugar.redisson.core.lock.RedissonLockTemplate;
 import cn.srd.itcp.sugar.redisson.exception.RedissonGenerateLockNameFailedException;
 import cn.srd.itcp.sugar.redisson.exception.RedissonIllegalArgumentException;
 import cn.srd.itcp.sugar.tools.core.Objects;

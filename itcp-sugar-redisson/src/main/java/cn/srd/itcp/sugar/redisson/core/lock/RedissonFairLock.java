@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.redisson.core;
+package cn.srd.itcp.sugar.redisson.core.lock;
 
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;

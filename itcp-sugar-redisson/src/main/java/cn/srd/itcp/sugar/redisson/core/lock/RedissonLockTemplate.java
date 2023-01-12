@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.redisson.core;
+package cn.srd.itcp.sugar.redisson.core.lock;
 
 import cn.srd.itcp.sugar.redisson.exception.RedissonExecuteException;
 import cn.srd.itcp.sugar.redisson.support.RedissonFairLockAspect;

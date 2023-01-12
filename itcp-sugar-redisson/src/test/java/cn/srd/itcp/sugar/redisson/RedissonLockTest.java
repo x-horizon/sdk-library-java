@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.redisson;
 
-import cn.srd.itcp.sugar.redisson.core.RedissonFairLockHandler;
+import cn.srd.itcp.sugar.redisson.core.lock.RedissonFairLockHandler;
 import cn.srd.itcp.sugar.tools.core.StringsUtil;
 import lombok.Setter;
 import lombok.SneakyThrows;

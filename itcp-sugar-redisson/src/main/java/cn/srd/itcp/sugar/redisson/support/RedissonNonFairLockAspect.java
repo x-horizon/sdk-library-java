@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.redisson.support;
 
-import cn.srd.itcp.sugar.redisson.core.RedissonNonFairLock;
+import cn.srd.itcp.sugar.redisson.core.lock.RedissonNonFairLock;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -31,7 +31,7 @@ public class RedissonNonFairLockAspect extends RedissonLockAspectSupporter {
         return instance;
     }
 
-    @Pointcut("@annotation(cn.srd.itcp.sugar.redisson.core.RedissonNonFairLock)")
+    @Pointcut("@annotation(cn.srd.itcp.sugar.redisson.core.lock.RedissonNonFairLock)")
     public void pointcut() {
     }
 
