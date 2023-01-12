@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.redisson.core.lock;
 
-import cn.srd.itcp.sugar.redisson.support.RedissonNonFairLockAspect;
+import cn.srd.itcp.sugar.redisson.support.lock.RedissonNonFairLockAspect;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
