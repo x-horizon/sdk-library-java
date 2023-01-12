@@ -1,6 +1,5 @@
 package cn.srd.itcp.sugar.redisson.core;
 
-import cn.srd.itcp.sugar.redisson.support.RedissonLockTemplate;
 import cn.srd.itcp.sugar.redisson.support.RedissonNonFairLockAspect;
 
 import java.lang.annotation.*;

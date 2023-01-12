@@ -4,7 +4,6 @@ import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
 import cn.srd.itcp.sugar.redisson.exception.RedissonGenerateLockNameFailedException;
 import cn.srd.itcp.sugar.redisson.support.RedissonFairLockAspect;
-import cn.srd.itcp.sugar.redisson.support.RedissonLockTemplate;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;

@@ -20,7 +20,7 @@ public class RedissonManager {
      *
      * @return
      */
-    public static RedissonClient getRedissonClient() {
+    public static RedissonClient getClient() {
         return RedissonClientSingleTonHolder.REDISSON_CLIENT_INSTANCE;
     }
 

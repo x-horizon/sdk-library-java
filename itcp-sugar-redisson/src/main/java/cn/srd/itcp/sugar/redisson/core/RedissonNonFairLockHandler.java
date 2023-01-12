@@ -1,6 +1,5 @@
 package cn.srd.itcp.sugar.redisson.core;
 
-import cn.srd.itcp.sugar.redisson.support.RedissonLockTemplate;
 import cn.srd.itcp.sugar.redisson.support.RedissonManager;
 import org.redisson.api.RLock;
 import org.springframework.stereotype.Component;
@@ -29,7 +28,7 @@ public class RedissonNonFairLockHandler implements RedissonLockTemplate {
 
     @Override
     public RLock getRLock(String lockName) {
-        return RedissonManager.getRedissonClient().getLock(lockName);
+        return RedissonManager.getClient().getLock(lockName);
     }
 
 }
