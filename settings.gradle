@@ -10,7 +10,6 @@ pluginManagement {
 
 rootProject.name = 'itcp-sugar-java'
 
-//include(':itcp-sugar-convert')
 include(':itcp-sugar-convert:itcp-sugar-convert-all')
 include(':itcp-sugar-convert:itcp-sugar-convert-fastjson')
 include(':itcp-sugar-convert:itcp-sugar-convert-jackson')
@@ -19,18 +18,15 @@ include(':itcp-sugar-convert:itcp-sugar-convert-spring')
 
 include(':itcp-sugar-excel')
 
-//include(':itcp-sugar-hsweb')
 include(':itcp-sugar-hsweb:itcp-sugar-hsweb-authorize')
 include(':itcp-sugar-hsweb:itcp-sugar-hsweb-curd')
 
-//include(':itcp-sugar-id-generator')
 include(':itcp-sugar-id-generator:itcp-sugar-id-generator-snowflake')
 
 include(':itcp-sugar-mybatis-plus')
 
 include(':itcp-sugar-redisson')
 
-//include(':itcp-sugar-security')
 include(':itcp-sugar-security:itcp-sugar-security-sa-token')
 
 include(':itcp-sugar-tools')
