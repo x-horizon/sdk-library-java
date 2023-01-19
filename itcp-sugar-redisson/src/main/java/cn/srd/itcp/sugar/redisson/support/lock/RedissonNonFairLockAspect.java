@@ -1,14 +1,13 @@
 package cn.srd.itcp.sugar.redisson.support.lock;
 
 import cn.srd.itcp.sugar.redisson.core.lock.RedissonNonFairLock;
+import jakarta.annotation.PostConstruct;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
 
 /**
  * 基于 {@link RedissonNonFairLock} 的切面

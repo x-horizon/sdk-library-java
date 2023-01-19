@@ -1,10 +1,9 @@
 package cn.srd.itcp.sugar.redisson.core.lock;
 
 import cn.srd.itcp.sugar.redisson.support.RedissonManager;
+import jakarta.annotation.PostConstruct;
 import org.redisson.api.RLock;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
 
 /**
  * Redisson 分布式单点非公平锁操作，参考 {@link RedissonNonFairLock}

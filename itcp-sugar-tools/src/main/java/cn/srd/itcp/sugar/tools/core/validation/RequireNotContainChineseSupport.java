@@ -1,9 +1,8 @@
 package cn.srd.itcp.sugar.tools.core.validation;
 
 import cn.srd.itcp.sugar.tools.core.StringsUtil;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * 用于验证字符串类型的字段不包含中文字符

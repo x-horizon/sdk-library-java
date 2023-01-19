@@ -1,9 +1,8 @@
 package cn.srd.itcp.sugar.tools.core.validation;
 
 import cn.srd.itcp.sugar.tools.core.Objects;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * Integer 类型数字的正整数校验注解（必须大于 0）

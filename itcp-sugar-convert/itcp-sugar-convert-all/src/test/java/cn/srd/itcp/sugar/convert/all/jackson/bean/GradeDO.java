@@ -1,14 +1,14 @@
 package cn.srd.itcp.sugar.convert.all.jackson.bean;
 
 import cn.hutool.core.util.RandomUtil;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NegativeOrZero;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NegativeOrZero;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +32,9 @@ public class GradeDO implements Serializable {
 
     public static GradeDO newDO() {
         return new GradeDO()
-            .setId(RandomUtil.randomInt(99))
-            .setName(RandomUtil.randomInt(1, 7) + "年级")
-            .setStudents(StudentDO.newDOs());
+                .setId(RandomUtil.randomInt(99))
+                .setName(RandomUtil.randomInt(1, 7) + "年级")
+                .setStudents(StudentDO.newDOs());
     }
 
     public static List<GradeDO> newDOs() {

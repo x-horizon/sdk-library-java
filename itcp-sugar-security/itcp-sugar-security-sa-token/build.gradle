@@ -1,0 +1,11 @@
+group = 'cn.itcp.sugar.security.sa.token'
+version = '1.0'
+description = 'itcp-sugar-security-sa-token'
+
+dependencies {
+    implementation(project(':itcp-sugar-tools'))
+
+    api("$sa_token")
+    api("$sa_token_jwt")
+    api("$sa_token_dao_redis_jackson")
+}

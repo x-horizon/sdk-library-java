@@ -6,7 +6,6 @@ import cn.srd.itcp.sugar.hsweb.curd.bean.domain.StudentDO;
 import cn.srd.itcp.sugar.hsweb.curd.bean.vo.StudentVO;
 import cn.srd.itcp.sugar.hsweb.curd.page.PageResult;
 import org.hswebframework.web.api.crud.entity.PagerResult;
-import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;

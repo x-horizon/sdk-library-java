@@ -12,6 +12,7 @@ import cn.srd.itcp.sugar.tools.core.asserts.Assert;
 import cn.srd.itcp.sugar.tools.core.convert.Converts;
 import com.esotericsoftware.reflectasm.MethodAccess;
 import com.google.common.collect.ImmutableMap;
+import jakarta.annotation.PostConstruct;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +23,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

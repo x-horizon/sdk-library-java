@@ -5,13 +5,12 @@ import cn.srd.itcp.sugar.security.sa.token.core.HasAllResourcePermissions;
 import cn.srd.itcp.sugar.security.sa.token.core.HasAnyResourcePermission;
 import cn.srd.itcp.sugar.tools.core.Objects;
 import cn.srd.itcp.sugar.tools.core.SpringsUtil;
+import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * <pre>

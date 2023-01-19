@@ -1,15 +1,16 @@
 package cn.srd.itcp.sugar.tools.core.validation;
 
-import javax.validation.Constraint;
-import javax.validation.Payload;
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
+
 import java.lang.annotation.*;
 
 /**
  * 标记在字段上用于验证数据类型必须为数字类型
  *
  * @author wjm
- * @since 2022-07-20 11:18:25
  * @see RequireNumberSupport
+ * @since 2022-07-20 11:18:25
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

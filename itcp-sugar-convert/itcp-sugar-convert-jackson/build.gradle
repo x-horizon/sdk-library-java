@@ -1,0 +1,8 @@
+group = 'cn.itcp.sugar.convert.jackson'
+version = '1.0'
+description = 'itcp-sugar-convert-jackson'
+
+dependencies {
+    implementation(project(':itcp-sugar-tools'))
+    implementation("$spring_boot_starter_web")
+}

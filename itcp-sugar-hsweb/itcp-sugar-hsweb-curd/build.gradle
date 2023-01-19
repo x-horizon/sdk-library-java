@@ -1,0 +1,12 @@
+group = 'cn.itcp.sugar.hsweb.curd'
+version = '1.0'
+description = 'itcp-sugar-hsweb-curd'
+
+dependencies {
+    implementation(project(':itcp-sugar-tools'))
+    implementation(project(':itcp-sugar-convert:itcp-sugar-convert-all'))
+    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
+
+    api("$hsweb_commons_crud")
+}
+

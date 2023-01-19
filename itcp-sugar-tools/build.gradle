@@ -1,0 +1,25 @@
+group = 'cn.itcp.sugar.tools'
+version = '1.0'
+description = 'itcp-sugar-tools'
+
+dependencies {
+    implementation("$spring_boot_starter_aop")
+    implementation("$spring_boot_starter_web")
+
+    api("$vavr")
+    api("$guava")
+    api("$hutool")
+    api("$fastjson")
+    api("$jackson_core")
+    api("$jackson_databind")
+    api("$jackson_annotation")
+    api("$javax_el")
+    api("$javax_el_api")
+    api("$json_path")
+    api("$reflectasm")
+    api("$hibernate_validator")
+    api("$apache_commons_lang3")
+    api("$apache_commons_io")
+    api("$apache_commons_pool")
+}
+

@@ -10,11 +10,11 @@ import cn.srd.itcp.sugar.tools.core.ReflectsUtil;
 import cn.srd.itcp.sugar.tools.core.SpringsUtil;
 import cn.srd.itcp.sugar.tools.core.asserts.Assert;
 import cn.srd.itcp.sugar.tools.core.convert.Converts;
+import jakarta.annotation.PostConstruct;
 import lombok.SneakyThrows;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;

@@ -11,6 +11,7 @@ import cn.srd.itcp.sugar.tools.core.StringsUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.collect.ImmutableMap;
+import jakarta.validation.ConstraintViolationException;
 import lombok.SneakyThrows;
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,7 +19,6 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.validation.ConstraintViolationException;
 import java.io.File;
 import java.net.URL;
 import java.util.List;
@@ -155,19 +155,19 @@ public class JacksonConvertsTest {
     @SneakyThrows
     public void testCustomizeLocalAndGlobalJacksonConverts() {
         Assert.assertTrue(StringsUtil.containsBlank(Converts.withJackson()
-            .builder()
-            .enable(SerializationFeature.INDENT_OUTPUT)
-            .build()
-            .getConverts()
-            .toString(STUDENT_DO))
+                .builder()
+                .enable(SerializationFeature.INDENT_OUTPUT)
+                .build()
+                .getConverts()
+                .toString(STUDENT_DO))
         );
 
         Assert.assertFalse(StringsUtil.containsBlank(Converts.withJackson().toString(STUDENT_DO)));
 
         Converts.withJackson()
-            .builder()
-            .enable(SerializationFeature.INDENT_OUTPUT)
-            .buildGlobal();
+                .builder()
+                .enable(SerializationFeature.INDENT_OUTPUT)
+                .buildGlobal();
         Assert.assertTrue(StringsUtil.containsBlank(Converts.withJackson().toString(STUDENT_DO)));
         restoreGlobalJacksonMapperToAllowReplaceAgain();
     }

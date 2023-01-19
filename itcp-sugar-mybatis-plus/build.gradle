@@ -1,0 +1,22 @@
+group = 'cn.itcp.sugar.mybatis.plus'
+version = '1.0'
+description = 'itcp-sugar-mybatis-plus'
+
+dependencies {
+    implementation(project(':itcp-sugar-tools'))
+    implementation(project(':itcp-sugar-convert:itcp-sugar-convert-mapstruct'))
+
+    implementation("$mysql")
+    implementation("$postgresql")
+    implementation("$druid")
+    implementation("$mybatis_plus")
+    implementation("$mybatis_plus_join")
+    implementation("$mybatis_plus_generator")
+
+    annotationProcessor("$mapstruct_processor")
+    annotationProcessor("$lombok_mapstruct_binding")
+
+    testAnnotationProcessor("$mapstruct_processor")
+    testAnnotationProcessor("$lombok_mapstruct_binding")
+}
+

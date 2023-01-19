@@ -5,11 +5,10 @@ import cn.dev33.satoken.exception.NotPermissionException;
 import cn.dev33.satoken.exception.NotRoleException;
 import cn.srd.itcp.sugar.tools.web.HttpStatusEnum;
 import cn.srd.itcp.sugar.tools.web.WebResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import javax.servlet.http.HttpServletRequest;
 
 import static cn.srd.itcp.sugar.tools.web.WebResponse.error;
 

@@ -5,14 +5,14 @@ import cn.srd.itcp.sugar.convert.jackson.support.JacksonEnumToIntegerSerializer;
 import cn.srd.itcp.sugar.convert.jackson.support.JacksonEnumValueToEnumDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import jakarta.validation.constraints.NegativeOrZero;
+import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NegativeOrZero;
-import javax.validation.constraints.Null;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

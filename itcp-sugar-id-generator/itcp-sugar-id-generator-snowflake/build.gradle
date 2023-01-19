@@ -1,0 +1,10 @@
+group = 'cn.itcp.sugar.id.generator.snowflake'
+version = '1.0'
+description = 'itcp-sugar-id-generator-snowflake'
+
+dependencies {
+    implementation(project(':itcp-sugar-tools'))
+
+    api("$yitter_id_generator")
+}
+

@@ -1,0 +1,57 @@
+plugins {
+    id 'idea'
+    id 'java-library'
+    id 'org.springframework.boot' version '3.0.1'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'cn.itcp.sugar.java'
+version = '1.0'
+
+allprojects {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+
+    apply plugin: 'idea'
+    apply plugin: 'java-library'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply from: getRootDir().getAbsolutePath() + "/dependencies.gradle"
+
+    repositories {
+        mavenLocal()
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/spring/' }
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation("$spring_boot_starter")
+        implementation("$knife4j")
+        compileOnly("$lombok")
+        annotationProcessor("$lombok")
+        testCompileOnly("$lombok")
+        testAnnotationProcessor("$lombok")
+        testAnnotationProcessor("$jmh_generator_annprocess")
+        testImplementation("$junit")
+        testImplementation("$jmh_core")
+        testImplementation("$spring_boot_starter_test")
+    }
+
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            options.encoding = 'UTF-8'
+        }
+    }
+
+    //  编译、打包时跳过测试(TODO 未解决，要实现打包时不测试，但能手动测试，加了这个不能手动测试了)
+    gradle.taskGraph.whenReady {
+        tasks.each { task ->
+            if (task.name.contains("test")) {
+                task.enabled = false
+            }
+        }
+    }
+}

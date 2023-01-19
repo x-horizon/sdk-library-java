@@ -1,16 +1,37 @@
-# JetBrain Files
-.idea/
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
 *.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
 
-# Build Files
-commons-hsweb/target/
-**/out/
-*.class
-*.jar
-*.war
-**/pom.xml.versionsBackup
-!/.mvn/wrapper/maven-wrapper.jar
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
 
-# System Files
-*.log
-**/logs/
+### VS Code ###
+.vscode/

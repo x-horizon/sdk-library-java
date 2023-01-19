@@ -1,0 +1,7 @@
+group = 'cn.itcp.sugar.convert.fastjson'
+version = '1.0'
+description = 'itcp-sugar-convert-fastjson'
+
+dependencies {
+    implementation(project(':itcp-sugar-tools'))
+}

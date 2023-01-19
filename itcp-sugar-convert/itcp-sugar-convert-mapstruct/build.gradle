@@ -1,0 +1,12 @@
+group = 'cn.itcp.sugar.convert.mapstruct'
+version = '1.0'
+description = 'itcp-sugar-convert-mapstruct'
+
+dependencies {
+    implementation(project(':itcp-sugar-tools'))
+
+    api("$mapstruct")
+
+    annotationProcessor("$mapstruct_processor")
+    annotationProcessor("$lombok_mapstruct_binding")
+}

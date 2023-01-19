@@ -1,9 +1,8 @@
 package cn.srd.itcp.sugar.tools.core.validation;
 
 import cn.hutool.json.JSONUtil;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * 用于验证数据类型必须为可转换为 JSON 对象的字符串
