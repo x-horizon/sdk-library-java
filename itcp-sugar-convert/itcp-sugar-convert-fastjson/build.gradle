@@ -1,4 +1,4 @@
-group = 'cn.itcp.sugar.convert.fastjson'
+group = 'cn.srd.itcp.sugar.convert.fastjson'
 version = '1.0'
 description = 'itcp-sugar-convert-fastjson'
 

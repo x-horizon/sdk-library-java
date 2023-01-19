@@ -1,4 +1,4 @@
-group = 'cn.itcp.sugar.convert.spring'
+group = 'cn.srd.itcp.sugar.convert.spring'
 version = '1.0'
 description = 'itcp-sugar-convert-spring'
 

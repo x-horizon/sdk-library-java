@@ -1,4 +1,4 @@
-group = 'cn.itcp.sugar.convert.all'
+group = 'cn.srd.itcp.sugar.convert.all'
 version = '1.0'
 description = 'itcp-sugar-convert-all'
 

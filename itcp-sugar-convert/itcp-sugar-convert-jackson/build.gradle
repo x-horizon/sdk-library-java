@@ -1,4 +1,4 @@
-group = 'cn.itcp.sugar.convert.jackson'
+group = 'cn.srd.itcp.sugar.convert.jackson'
 version = '1.0'
 description = 'itcp-sugar-convert-jackson'
 

@@ -1,4 +1,4 @@
-group = 'cn.itcp.sugar.convert.mapstruct'
+group = 'cn.srd.itcp.sugar.convert.mapstruct'
 version = '1.0'
 description = 'itcp-sugar-convert-mapstruct'
 

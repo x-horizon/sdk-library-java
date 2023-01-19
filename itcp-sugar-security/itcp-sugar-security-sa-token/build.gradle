@@ -1,4 +1,4 @@
-group = 'cn.itcp.sugar.security.sa.token'
+group = 'cn.srd.itcp.sugar.security.sa.token'
 version = '1.0'
 description = 'itcp-sugar-security-sa-token'
 

@@ -1,4 +1,4 @@
-group = 'cn.itcp.sugar.redisson'
+group = 'cn.srd.itcp.sugar.redisson'
 version = '1.0'
 description = 'itcp-sugar-redisson'
 
