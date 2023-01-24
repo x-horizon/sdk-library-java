@@ -4,6 +4,8 @@ plugins {
 
 version = '1.5'
 
+def projectName = 'itcp-sugar-tools'
+
 dependencies {
     implementation("$spring_boot_starter_aop")
     implementation("$spring_boot_starter_web")
@@ -43,13 +45,13 @@ javadoc {
     options {
         encoding projectCharset
         version true
-        title "itcp-sugar-tools"
+        title projectName
     }
 }
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
+        publishApp(MavenPublication) {
             groupId group
             artifactId jar.baseName
             version project.version
@@ -60,12 +62,12 @@ publishing {
     }
     repositories {
         maven {
-            allowInsecureProtocol = true
-            url publishUrl
             credentials {
                 username publishUsername
                 password publishPassword
             }
+            url repositoryUrl
+            allowInsecureProtocol = true
         }
     }
 }
