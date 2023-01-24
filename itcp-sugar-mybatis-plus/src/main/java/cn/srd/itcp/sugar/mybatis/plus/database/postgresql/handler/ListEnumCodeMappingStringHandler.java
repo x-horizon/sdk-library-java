@@ -2,7 +2,6 @@ package cn.srd.itcp.sugar.mybatis.plus.database.postgresql.handler;
 
 import cn.srd.itcp.sugar.tools.core.Objects;
 import cn.srd.itcp.sugar.tools.core.StringsUtil;
-import cn.srd.itcp.sugar.tools.core.enums.EnumsUtil;
 import lombok.SneakyThrows;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
@@ -48,7 +47,7 @@ public abstract class ListEnumCodeMappingStringHandler<E extends Enum<E>> extend
     @Override
     @SneakyThrows
     public List<E> getNullableResult(ResultSet resultSet, String columnName) {
-        return EnumsUtil.splitToListEnum(resultSet.getString(columnName), getTargetEnumClass());
+        return StringsUtil.splitToListEnum(resultSet.getString(columnName), getTargetEnumClass());
     }
 
     /**
@@ -61,7 +60,7 @@ public abstract class ListEnumCodeMappingStringHandler<E extends Enum<E>> extend
     @SneakyThrows
     @Override
     public List<E> getNullableResult(ResultSet resultSet, int columnIndex) {
-        return EnumsUtil.splitToListEnum(resultSet.getString(columnIndex), getTargetEnumClass());
+        return StringsUtil.splitToListEnum(resultSet.getString(columnIndex), getTargetEnumClass());
     }
 
     /**
@@ -74,7 +73,7 @@ public abstract class ListEnumCodeMappingStringHandler<E extends Enum<E>> extend
     @SneakyThrows
     @Override
     public List<E> getNullableResult(CallableStatement callableStatement, int columnIndex) {
-        return EnumsUtil.splitToListEnum(callableStatement.getString(columnIndex), getTargetEnumClass());
+        return StringsUtil.splitToListEnum(callableStatement.getString(columnIndex), getTargetEnumClass());
     }
 
 }

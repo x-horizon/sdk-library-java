@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
  *
  *         &#064;TableName(value = "table_name", autoResultMap = true)
  *         public class TableNamePO implements Serializable {
- *             private static final long serialVersionUID = -4579156082783453314L;
+ *                 @Serial
+ * private static final long serialVersionUID = -4579156082783453314L;
  *             &#064;TableLogic
  *             &#064;TableField(fill = FieldFill.INSERT)
  *             private Boolean deleteFlag;

@@ -1,5 +1,7 @@
 package cn.srd.itcp.sugar.redisson.exception;
 
+import java.io.Serial;
+
 /**
  * Redisson 执行异常
  *
@@ -8,6 +10,7 @@ package cn.srd.itcp.sugar.redisson.exception;
  */
 public class RedissonExecuteException extends RuntimeException {
 
+    @Serial
     private static final long serialVersionUID = 1216257915167180153L;
 
     public RedissonExecuteException() {

@@ -1,5 +1,7 @@
 package cn.srd.itcp.sugar.redisson.exception;
 
+import java.io.Serial;
+
 /**
  * Redisson 生成锁名失败异常
  *
@@ -8,6 +10,7 @@ package cn.srd.itcp.sugar.redisson.exception;
  */
 public class RedissonGenerateLockNameFailedException extends RuntimeException {
 
+    @Serial
     private static final long serialVersionUID = 4788862752143525070L;
 
     public RedissonGenerateLockNameFailedException() {

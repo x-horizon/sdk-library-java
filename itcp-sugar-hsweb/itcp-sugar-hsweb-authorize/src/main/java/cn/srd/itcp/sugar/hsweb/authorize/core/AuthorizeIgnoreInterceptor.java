@@ -25,12 +25,12 @@ import java.util.List;
  * </pre>
  *
  * @author wjm
- * @since 2022/6/18 19:17
  * @see Authorize
  * @see AopMethodAuthorizeDefinitionCustomizerParser
  * @see AopAuthorizeDefinition
  * @see EmptyAuthorizeDefinition
  * @see DefaultAopMethodAuthorizeDefinitionParser#setParserCustomizers(List)
+ * @since 2022/6/18 19:17
  */
 public interface AuthorizeIgnoreInterceptor extends AopMethodAuthorizeDefinitionCustomizerParser {
 

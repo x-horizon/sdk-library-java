@@ -1,6 +1,5 @@
 package cn.srd.itcp.sugar.hsweb.curd.core;
 
-
 import cn.srd.itcp.sugar.hsweb.curd.page.PageResult;
 import cn.srd.itcp.sugar.hsweb.curd.utils.Converts;
 import cn.srd.itcp.sugar.tools.core.Objects;
@@ -22,8 +21,8 @@ import reactor.core.publisher.Mono;
  * @param <PO>             PO 模型
  * @param <PrimaryKeyType> 主键类型
  * @author wjm
- * @since 2022/6/18 19:17
  * @see ReactiveGenericCurd2Service
+ * @since 2022/6/18 19:17
  */
 public interface ReactiveGenericCurdService<PO, PrimaryKeyType> extends ReactiveCrudService<PO, PrimaryKeyType> {
 

@@ -1,5 +1,7 @@
 package cn.srd.itcp.sugar.redisson.exception;
 
+import java.io.Serial;
+
 /**
  * Redisson 非法参数异常
  *
@@ -8,6 +10,7 @@ package cn.srd.itcp.sugar.redisson.exception;
  */
 public class RedissonIllegalArgumentException extends RuntimeException {
 
+    @Serial
     private static final long serialVersionUID = 5365186821008194503L;
 
     public RedissonIllegalArgumentException() {

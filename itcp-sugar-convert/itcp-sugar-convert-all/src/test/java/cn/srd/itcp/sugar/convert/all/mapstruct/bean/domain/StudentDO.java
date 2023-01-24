@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 @Accessors(chain = true)
 public class StudentDO implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 6221890475348794702L;
 
     private Integer id;
@@ -36,10 +38,10 @@ public class StudentDO implements Serializable {
 
     public static StudentDO newDO() {
         return new StudentDO()
-            .setId(RandomUtil.randomInt(99))
-            .setName("name" + RandomUtil.randomNumbers(2))
-            .setAge(RandomUtil.randomInt(15, 20))
-            .setSex(Sex.GIRL);
+                .setId(RandomUtil.randomInt(99))
+                .setName("name" + RandomUtil.randomNumbers(2))
+                .setAge(RandomUtil.randomInt(15, 20))
+                .setSex(Sex.GIRL);
     }
 
     public static List<StudentDO> newDOs() {

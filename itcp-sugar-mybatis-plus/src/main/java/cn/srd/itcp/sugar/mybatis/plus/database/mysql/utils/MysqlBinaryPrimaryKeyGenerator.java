@@ -22,7 +22,8 @@ import com.baomidou.mybatisplus.core.incrementer.IKeyGenerator;
  *        &#064;KeySequence("mysqlBinUuidPrimaryKeyGenerator")
  *        &#064;TableName(value = "table_name", autoResultMap = true)
  *         public class TableNamePO implements Serializable {
- *             private static final long serialVersionUID = -1635772589307788624L;
+ *                 @Serial
+ * private static final long serialVersionUID = -1635772589307788624L;
  *            &#064;TableId(type = IdType.INPUT)
  *             private Byte[] tenantUuid;
  *         }

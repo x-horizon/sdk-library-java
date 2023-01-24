@@ -1,5 +1,7 @@
 package cn.srd.itcp.sugar.convert.jackson.exception;
 
+import java.io.Serial;
+
 /**
  * jackson 反序列化异常
  *
@@ -8,6 +10,7 @@ package cn.srd.itcp.sugar.convert.jackson.exception;
  */
 public class JacksonDeserializerException extends RuntimeException {
 
+    @Serial
     private static final long serialVersionUID = -2587853132749498768L;
 
     public JacksonDeserializerException() {

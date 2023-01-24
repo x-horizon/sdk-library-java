@@ -26,7 +26,8 @@ import java.util.List;
  *      &#064;TableName(value = "example", autoResultMap = true)
  *      public class ExamplePO implements Serializable {
  *
- *          private static final long serialVersionUID = -1366954660147806379L;
+ *              @Serial
+ * private static final long serialVersionUID = -1366954660147806379L;
  *
  *          &#064;TableId(value = "example_id")
  *          private Long exampleId;
@@ -38,7 +39,8 @@ import java.util.List;
  *          &#064;Accessors(chain = true)
  *          public static final class ExampleJsonArray implements Serializable {
  *
- *              private static final long serialVersionUID = 1529342927734057832L;
+ *                  @Serial
+ * private static final long serialVersionUID = 1529342927734057832L;
  *
  *              private String exampleName1;
  *

@@ -1,5 +1,7 @@
 package cn.srd.itcp.sugar.convert.mapstruct.exception;
 
+import java.io.Serial;
+
 /**
  * 执行结果类型与提供的目标值类型不一致异常
  *
@@ -8,21 +10,41 @@ package cn.srd.itcp.sugar.convert.mapstruct.exception;
  */
 public class MapstructConvertTargetNotMatchedException extends RuntimeException {
 
+    @Serial
     private static final long serialVersionUID = -5264714970657813977L;
 
+    /**
+     * public constructor
+     */
     public MapstructConvertTargetNotMatchedException() {
     }
 
+    /**
+     * public constructor
+     *
+     * @param message 异常信息
+     */
     public MapstructConvertTargetNotMatchedException(String message) {
         super(message);
     }
 
-    public MapstructConvertTargetNotMatchedException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
+    /**
+     * public constructor
+     *
+     * @param cause wrapper exception
+     */
     public MapstructConvertTargetNotMatchedException(Throwable cause) {
         super(cause);
+    }
+
+    /**
+     * public constructor
+     *
+     * @param message 异常信息
+     * @param cause   wrapper exception
+     */
+    public MapstructConvertTargetNotMatchedException(String message, Throwable cause) {
+        super(message, cause);
     }
 
 }

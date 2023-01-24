@@ -14,6 +14,7 @@ import jakarta.validation.Validator;
 import lombok.SneakyThrows;
 
 import java.io.File;
+import java.io.Serial;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -94,6 +95,7 @@ public class JacksonConverts {
 
     public static final class JacksonMapper extends ObjectMapper {
 
+        @Serial
         private static final long serialVersionUID = -8474265145182256290L;
 
         public JacksonConverts getConverts() {
