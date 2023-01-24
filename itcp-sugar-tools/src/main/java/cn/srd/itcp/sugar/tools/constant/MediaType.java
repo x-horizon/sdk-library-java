@@ -11,37 +11,52 @@ import java.util.List;
  */
 public class MediaType {
 
+    /**
+     * 媒体类型：image/png
+     */
     public static final String IMAGE_PNG = "image/png";
 
+    /**
+     * 媒体类型：image/jpg
+     */
     public static final String IMAGE_JPG = "image/jpg";
 
+    /**
+     * 媒体类型：image/jpeg
+     */
     public static final String IMAGE_JPEG = "image/jpeg";
 
+    /**
+     * 媒体类型：image/bmp
+     */
     public static final String IMAGE_BMP = "image/bmp";
 
+    /**
+     * 媒体类型：image/gif
+     */
     public static final String IMAGE_GIF = "image/gif";
 
+    /**
+     * 根据前缀获取实际类型
+     *
+     * @param prefix 前缀
+     * @return 实际类型
+     */
     public static String getExtension(String prefix) {
-        switch (prefix) {
-            case IMAGE_PNG:
-                return "png";
-            case IMAGE_JPG:
-                return "jpg";
-            case IMAGE_JPEG:
-                return "jpeg";
-            case IMAGE_BMP:
-                return "bmp";
-            case IMAGE_GIF:
-                return "gif";
-            default:
-                return "";
-        }
+        return switch (prefix) {
+            case IMAGE_PNG -> "png";
+            case IMAGE_JPG -> "jpg";
+            case IMAGE_JPEG -> "jpeg";
+            case IMAGE_BMP -> "bmp";
+            case IMAGE_GIF -> "gif";
+            default -> "";
+        };
     }
 
     /**
      * 图片类型
      */
-    public static final List<String> IMAGE_TYPE = new ArrayList<String>() {{
+    public static final List<String> IMAGE_TYPE = new ArrayList<>() {{
         add("bmp");
         add("gif");
         add("jpg");

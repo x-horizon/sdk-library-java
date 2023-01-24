@@ -10,13 +10,16 @@ import cn.hutool.system.SystemUtil;
  */
 public class SystemsUtil extends SystemUtil {
 
+    /**
+     * private block constructor
+     */
     private SystemsUtil() {
     }
 
     /**
      * 获取项目所在绝对路径，如: /Users/user/Documents/IDE/WorkSpace/project
      *
-     * @return
+     * @return 项目所在绝对路径
      */
     public static String getProjectAbsolutePath() {
         return System.getProperty("user.dir");
@@ -25,7 +28,7 @@ public class SystemsUtil extends SystemUtil {
     /**
      * 获取最大可用的CPU核数
      *
-     * @return
+     * @return 最大可用的CPU核数
      */
     public static int getProcessors() {
         return Runtime.getRuntime().availableProcessors();

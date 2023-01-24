@@ -7,9 +7,9 @@ import jakarta.validation.ConstraintValidatorContext;
 /**
  * 用于验证字符串类型的字段不包含中文字符
  *
- * @author
+ * @author xiongjing
  * @see RequireNotContainChinese
- * @since
+ * @since 2022-11-20 13:49:11
  */
 public class RequireNotContainChineseSupport implements ConstraintValidator<RequireNotContainChinese, String> {
 

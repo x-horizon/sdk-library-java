@@ -21,6 +21,9 @@ import static java.util.stream.Collectors.groupingBy;
  */
 public class StringsUtil extends StrUtil {
 
+    /**
+     * private block constructor
+     */
     private StringsUtil() {
     }
 
@@ -30,7 +33,7 @@ public class StringsUtil extends StrUtil {
      * @param str         被替换的字符串
      * @param replacement 要替换成什么字符串
      * @param searchStrs  这里的字符串全都替换成 replacement
-     * @return
+     * @return 被改变后的字符串
      */
     public static String replace(String str, String replacement, String... searchStrs) {
         for (CharSequence searchStr : searchStrs) {
@@ -42,8 +45,8 @@ public class StringsUtil extends StrUtil {
     /**
      * 去除头尾双引号："\"yy\"" -> "yy"
      *
-     * @param str
-     * @return
+     * @param str 原字符串
+     * @return 被改变后的字符串
      */
     public static String trimHeadAndTailDoubleQuotes(String str) {
         return subBetween(str, StringPool.DOUBLE_QUOTES);
@@ -52,8 +55,8 @@ public class StringsUtil extends StrUtil {
     /**
      * 大写
      *
-     * @param str
-     * @return
+     * @param str 原字符串
+     * @return 被改变后的字符串
      */
     public static String upperCase(final String str) {
         return StringUtils.upperCase(str);
@@ -62,8 +65,8 @@ public class StringsUtil extends StrUtil {
     /**
      * 驼峰命名并大写首字母
      *
-     * @param str
-     * @return
+     * @param str 原字符串
+     * @return 被改变后的字符串
      */
     public static String toUpperCamelCase(CharSequence str) {
         return upperFirst(toCamelCase(str));
@@ -87,7 +90,6 @@ public class StringsUtil extends StrUtil {
      * @param str      被监测字符串
      * @param suffixes 结尾字符串
      * @return 是否以指定字符串结尾
-     * @return
      */
     public static boolean endWith(CharSequence str, List<String> suffixes) {
         for (String s : suffixes) {
@@ -129,9 +131,9 @@ public class StringsUtil extends StrUtil {
     /**
      * 查找 specifiedStr 中 strToFind 出现的次数
      *
-     * @param specifiedStr
-     * @param strToFind
-     * @return
+     * @param specifiedStr 指定的字符串
+     * @param strToFind    要搜索的字符串
+     * @return 出现次数
      */
     public static int charsCount(String specifiedStr, final String strToFind) {
         if (Objects.isEmpty(specifiedStr, strToFind)) {
@@ -148,8 +150,8 @@ public class StringsUtil extends StrUtil {
     /**
      * 统计 specifiedStr 中各个字符出现的次数
      *
-     * @param specifiedStr
-     * @return
+     * @param specifiedStr 指定的字符串
+     * @return 出现次数
      */
     public static Map<Character, Long> charsCount(final String specifiedStr) {
         if (Objects.isEmpty(specifiedStr)) {
@@ -161,8 +163,8 @@ public class StringsUtil extends StrUtil {
     /**
      * 查找 specifiedStr 中是否包含中文字符
      *
-     * @param specifiedStr
-     * @return
+     * @param specifiedStr 指定的字符串
+     * @return 是否包含中文字符
      */
     public static boolean isChineseIncluded(final String specifiedStr) {
         if (Objects.isEmpty(specifiedStr)) {
@@ -181,8 +183,8 @@ public class StringsUtil extends StrUtil {
     /**
      * 判断 specifiedStr 是否全部是中文
      *
-     * @param specifiedStr
-     * @return
+     * @param specifiedStr 指定的字符串
+     * @return 是否全部是中文
      */
     public static boolean isAllChinese(final String specifiedStr) {
         if (Objects.isEmpty(specifiedStr)) {
@@ -355,11 +357,11 @@ public class StringsUtil extends StrUtil {
      *     {@link StringsUtil}.{@link StringsUtil#split(List, Class)}(sexEnums, Integer.class);  结果为 ===> "1,2,3"
      * </pre>
      *
-     * @param input
-     * @param enumInternalType
-     * @param <EnumInternalType>
-     * @param <E>
-     * @return
+     * @param input              输入集合
+     * @param enumInternalType   要提取的枚举类
+     * @param <EnumInternalType> 要提取的枚举类类型
+     * @param <E>                集合元素类型
+     * @return 分隔后的字符串
      */
     public static <EnumInternalType, E extends Enum<E>> String split(List<E> input, Class<EnumInternalType> enumInternalType) {
         return split(input, enumInternalType, StringPool.COMMA);
@@ -368,12 +370,12 @@ public class StringsUtil extends StrUtil {
     /**
      * 将枚举中 {@link EnumInternalType} 类型的字段提取出来，使用 joinTag 作为分隔符，转为 String，参考：{@link #split(List, Class)}
      *
-     * @param input
-     * @param enumInternalType
-     * @param joinTag
-     * @param <EnumInternalType>
-     * @param <E>
-     * @return
+     * @param input              输入集合
+     * @param enumInternalType   要提取的枚举类
+     * @param joinTag            分隔符
+     * @param <EnumInternalType> 要提取的枚举类类型
+     * @param <E>                集合元素类型
+     * @return 分隔后的字符串
      */
     public static <EnumInternalType, E extends Enum<E>> String split(List<E> input, Class<EnumInternalType> enumInternalType, String joinTag) {
         List<EnumInternalType> enumIntegerValues = new ArrayList<>();
@@ -383,12 +385,55 @@ public class StringsUtil extends StrUtil {
         return StringsUtil.join(joinTag, enumIntegerValues);
     }
 
+    /**
+     * 将数字字符串通过 {@link StringPool#COMMA} 分隔为数字后再转换为数字集合
+     *
+     * @param input 输入对象
+     * @return 转换后集合
+     */
     public static List<Integer> splitToListInteger(String input) {
         return splitToListInteger(input, StringPool.COMMA);
     }
 
+    /**
+     * 将数字字符串通过 指定分隔符 分隔为数字后再转换为数字集合
+     *
+     * @param input     输入对象
+     * @param separator 分隔符
+     * @return 转换后集合
+     */
     public static List<Integer> splitToListInteger(String input, String separator) {
         return Objects.isNotBlank(input) ? CollectionsUtil.toList(input, separator).stream().map(Integer::valueOf).collect(Collectors.toList()) : new ArrayList<>();
+    }
+
+    /**
+     * 将枚举字符串通过 {@link StringPool#COMMA} 分隔为枚举后再转换为枚举集合
+     *
+     * @param input     输入对象
+     * @param enumClass 枚举类
+     * @param <E>       枚举类型
+     * @return 转换后集合
+     */
+    public static <E extends Enum<E>> List<E> splitToListEnum(String input, Class<E> enumClass) {
+        return splitToListEnum(input, StringPool.COMMA, enumClass);
+    }
+
+    /**
+     * 将枚举字符串通过 指定分隔符 分隔为枚举后再转换为枚举集合
+     *
+     * @param input     输入对象
+     * @param separator 输入对象
+     * @param enumClass 枚举类
+     * @param <E>       分隔符
+     * @return 转换后集合
+     */
+    public static <E extends Enum<E>> List<E> splitToListEnum(String input, String separator, Class<E> enumClass) {
+        List<E> result = new ArrayList<>();
+        if (Objects.isBlank(input)) {
+            return result;
+        }
+        StringsUtil.splitToListInteger(input, separator).forEach(item -> result.add(EnumsUtil.capableToEnum(item, enumClass)));
+        return result;
     }
 
 }

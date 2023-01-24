@@ -8,7 +8,7 @@ import jakarta.validation.ConstraintValidatorContext;
  * Long 类型数字的正整数校验注解（必须大于 0）
  *
  * @author wjm
- * @date 2020/12/08 13:49
+ * @since 2020/12/08 13:49
  */
 public class VerifyPositiveLongSupport implements ConstraintValidator<VerifyPositiveLong, Long> {
 

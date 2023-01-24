@@ -2,11 +2,9 @@ package cn.srd.itcp.sugar.tools.core.enums;
 
 import cn.hutool.core.util.EnumUtil;
 import cn.hutool.core.util.ReflectUtil;
-import cn.srd.itcp.sugar.tools.constant.StringPool;
 import cn.srd.itcp.sugar.tools.core.ClassesUtil;
 import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tools.core.Objects;
-import cn.srd.itcp.sugar.tools.core.StringsUtil;
 import org.springframework.lang.NonNull;
 
 import java.lang.reflect.Field;
@@ -21,36 +19,39 @@ import java.util.List;
  */
 public class EnumsUtil extends EnumUtil {
 
+    /**
+     * private block constructor
+     */
     private EnumsUtil() {
     }
 
     /**
      * 指定类是否不为 Enum 类
      *
-     * @param clazz
-     * @return
+     * @param clazz 指定类
+     * @return 是否不为 Enum 类
      */
     public static boolean isNotEnum(Class<?> clazz) {
         return !isEnum(clazz);
     }
 
     /**
-     * 指定类是否不为 Enum 类
+     * 指定对象是否不为 Enum 类
      *
-     * @param obj
-     * @return
+     * @param obj 指定对象
+     * @return 是否不为 Enum 类
      */
     public static boolean isNotEnum(Object obj) {
         return !isEnum(obj);
     }
 
     /**
-     * 获取 Enum 中 T 类型的字段值，仅支持一种 T 类型的字段；其余情况返回 null
+     * 获取 Enum 中 T 类型的属性值，仅支持一种 T 类型的字段；其余情况返回 null
      *
-     * @param eEnum
-     * @param clazz
-     * @param <T>
-     * @return
+     * @param eEnum 输入枚举
+     * @param clazz 待获取的属性类型
+     * @param <T>   枚举类类型
+     * @return 获取的属性值
      */
     @SuppressWarnings("unchecked")
     public static <T> T getEnumValue(Enum<?> eEnum, Class<T> clazz) {
@@ -88,9 +89,9 @@ public class EnumsUtil extends EnumUtil {
     /**
      * 根据枚举类获取枚举值
      *
-     * @param enumClass
-     * @param <E>
-     * @return
+     * @param enumClass 输入枚举类
+     * @param <E>       输入枚举类类型
+     * @return 获取到的枚举集合
      */
     @NonNull
     public static <E extends Enum<E>> List<E> getEnumValues(@NonNull Class<E> enumClass) {
@@ -108,8 +109,8 @@ public class EnumsUtil extends EnumUtil {
      *
      * @param enumValue 枚举值
      * @param enumClass 枚举类
-     * @param <E>
-     * @return
+     * @param <E>       枚举类类型
+     * @return 转换后的枚举
      */
     public static <E extends Enum<E>> E toEnum(String enumValue, Class<E> enumClass) {
         if (Objects.isNull(enumClass, enumValue)) {
@@ -128,7 +129,8 @@ public class EnumsUtil extends EnumUtil {
      *
      * @param enumFiledValue 枚举字段值
      * @param enumClass      枚举类
-     * @return
+     * @param <E>            枚举类类型
+     * @return 转换后的枚举
      */
     public static <E extends Enum<E>> E capableToEnum(Object enumFiledValue, Class<E> enumClass) {
         if (Objects.isNull(enumClass, enumFiledValue)) {
@@ -156,24 +158,11 @@ public class EnumsUtil extends EnumUtil {
         return null;
     }
 
-    public static <E extends Enum<E>> List<E> splitToListEnum(String input, Class<E> enumClass) {
-        return splitToListEnum(input, StringPool.COMMA, enumClass);
-    }
-
-    public static <E extends Enum<E>> List<E> splitToListEnum(String input, String separator, Class<E> enumClass) {
-        List<E> result = new ArrayList<>();
-        if (Objects.isBlank(input)) {
-            return result;
-        }
-        StringsUtil.splitToListInteger(input, separator).forEach(item -> result.add(capableToEnum(item, enumClass)));
-        return result;
-    }
-
     /**
-     * 是否是Enum的特殊字段： ENUM$VALUES、ordinal
+     * 是否为 Enum 的特殊字段： ENUM$VALUES、ordinal
      *
-     * @param field
-     * @return
+     * @param field 字段对象
+     * @return 是否为 Enum 的特殊字段
      */
     public static boolean isEnumSpecialField(Field field) {
         return "ENUM$VALUES".equals(field.getName()) || "ordinal".equals(field.getName());

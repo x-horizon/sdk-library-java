@@ -22,6 +22,9 @@ import java.util.Set;
  */
 public class SpringsUtil extends SpringUtil {
 
+    /**
+     * private block constructor
+     */
     private SpringsUtil() {
     }
 
@@ -33,8 +36,8 @@ public class SpringsUtil extends SpringUtil {
     /**
      * 通过 beanName 获取 Bean（支持大写字母开头、支持不符合驼峰规范命名的 beanName）
      *
-     * @param beanName
-     * @return
+     * @param beanName bean 名称
+     * @return bean 对象
      */
     public static Object getBean(String beanName) {
         return Option.of(Try.of(() -> SpringUtil.getBean(StringsUtil.lowerFirst(beanName))).getOrNull())
@@ -45,10 +48,10 @@ public class SpringsUtil extends SpringUtil {
     /**
      * 通过 beanName，以及 beanClass 获取指定的 Bean（支持大写字母开头）
      *
-     * @param beanName
-     * @param beanClass
-     * @param <T>
-     * @return
+     * @param beanName  bean 名称
+     * @param beanClass bean 类
+     * @param <T>       bean 类类型
+     * @return bean 对象
      */
     public static <T> T getBean(String beanName, Class<T> beanClass) {
         try {
@@ -61,9 +64,9 @@ public class SpringsUtil extends SpringUtil {
     /**
      * 通过 beanClass 获取 Bean
      *
-     * @param beanClass
-     * @param <T>
-     * @return
+     * @param beanClass bean 类
+     * @param <T>       bean 类类型
+     * @return bean 对象
      */
     public static <T> T getBean(Class<T> beanClass) {
         try {
@@ -76,8 +79,8 @@ public class SpringsUtil extends SpringUtil {
     /**
      * 获取加入 IOC 容器中被【指定注解】注解了的Bean
      *
-     * @param annotationClass
-     * @return
+     * @param annotationClass 指定注解类
+     * @return bean name mapping bean map
      */
     public static Map<String, Object> getBeansMapWithAnnotation(Class<? extends Annotation> annotationClass) {
         return getApplicationContext().getBeansWithAnnotation(annotationClass);
@@ -86,8 +89,8 @@ public class SpringsUtil extends SpringUtil {
     /**
      * 扫描被 {@link SpringBootApplication} 注解了的启动类包下被指定注解 注解了的类
      *
-     * @param annotationClass
-     * @return
+     * @param annotationClass 指定注解类
+     * @return bean collection
      */
     public static Set<Class<?>> scanPackageByAnnotation(Class<? extends Annotation> annotationClass) {
         try {
@@ -114,7 +117,7 @@ public class SpringsUtil extends SpringUtil {
     /**
      * 获取 @SpringBootApplication 启动类所在的包路径
      *
-     * @return
+     * @return 启动类所在的包路径
      */
     public static String getRootPackagePath() {
         if (Objects.isNull(rootPackagePath)) {

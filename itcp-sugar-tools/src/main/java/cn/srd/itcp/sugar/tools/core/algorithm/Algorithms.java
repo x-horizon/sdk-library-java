@@ -20,7 +20,7 @@ public class Algorithms {
      * 通过数字获取二进制位组成的数组
      *
      * @param num 任意整数
-     * @return List<Integer> 元素为二进制数字的数组
+     * @return 元素为二进制数字的数组
      */
     public static List<Integer> parseHighestOneBit(Integer num) {
         List<Integer> list = new ArrayList<>();

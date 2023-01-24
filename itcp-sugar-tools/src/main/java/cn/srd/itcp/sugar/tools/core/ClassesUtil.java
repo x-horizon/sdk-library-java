@@ -21,14 +21,17 @@ import java.util.stream.Stream;
  */
 public class ClassesUtil extends ClassUtil {
 
+    /**
+     * private block constructor
+     */
     private ClassesUtil() {
     }
 
     /**
-     * 获取方法所在的类
+     * 获取函数所在的类
      *
-     * @param method
-     * @return
+     * @param method 指定的函数
+     * @return 指定函数所在的类
      */
     @Nullable
     public static Class<?> getDeclaringClass(@Nullable Method method) {
@@ -41,9 +44,9 @@ public class ClassesUtil extends ClassUtil {
     /**
      * 如果 sourceType 有一个{@link #isAssignable(Class, Class)}，则返回true
      *
-     * @param sourceType
-     * @param targetTypes
-     * @return
+     * @param sourceType  原类型
+     * @param targetTypes 目标类型
+     * @return 是否存在同类型
      */
     public static boolean isAssignable(@Nullable Class<?> sourceType, @Nullable Class<?>... targetTypes) {
         if (Objects.isNull((Object) targetTypes)) {

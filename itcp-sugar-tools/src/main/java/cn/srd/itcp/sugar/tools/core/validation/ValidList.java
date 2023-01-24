@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.tools.core.validation;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Data;
 
 import java.util.*;
 
@@ -11,6 +12,7 @@ import java.util.*;
  * @author wjm
  * @since 2020/12/08 19:45
  */
+@Data
 public class ValidList<E> implements List<E> {
 
     @Valid
@@ -130,14 +132,6 @@ public class ValidList<E> implements List<E> {
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
         return list.subList(fromIndex, toIndex);
-    }
-
-    public List<E> getList() {
-        return list;
-    }
-
-    public void setList(List<E> list) {
-        this.list = list;
     }
 
 }

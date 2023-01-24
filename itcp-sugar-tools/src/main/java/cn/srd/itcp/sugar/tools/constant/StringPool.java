@@ -11,77 +11,77 @@ public interface StringPool {
     // ================ 标点符号相关信息 ================
 
     /**
-     * 空格符 {@code " "}
+     * 空格符
      */
     String SPACE = String.valueOf(CharPool.SPACE);
 
     /**
-     * 反斜杠 {@code "\\"}
+     * 反斜杠 \
      */
     String BACKSLASH = String.valueOf(CharPool.BACKSLASH);
 
     /**
-     * 回车符 {@code "\r"}
+     * 回车符 \r
      */
     String CR = String.valueOf(CharPool.CR);
 
     /**
-     * 减号 {@code "-"}
+     * 减号 -
      */
     String DASHED = String.valueOf(CharPool.DASHED);
 
     /**
-     * 下划线 {@code "_"}
+     * 下划线 _
      */
     String UNDERLINE = String.valueOf(CharPool.UNDERLINE);
 
     /**
-     * 花括号（左） {@code "{"}
+     * 花括号（左） {
      */
     String DELIM_START = String.valueOf(CharPool.DELIM_START);
 
     /**
-     * 花括号（右） {@code "}"}
+     * 花括号（右） }
      */
     String DELIM_END = String.valueOf(CharPool.DELIM_END);
 
     /**
-     * 中括号（左） {@code "["}
+     * 中括号（左） [
      */
     String BRACKET_START = String.valueOf(CharPool.BRACKET_START);
 
     /**
-     * 中括号（右） {@code "]"}
+     * 中括号（右） ]
      */
     String BRACKET_END = String.valueOf(CharPool.BRACKET_END);
 
     /**
-     * 双引号 {@code "\""}
+     * 双引号 "
      */
     String DOUBLE_QUOTES = String.valueOf(CharPool.DOUBLE_QUOTES);
 
     /**
-     * 单引号 {@code "\'"}
+     * 单引号 '
      */
     String SINGLE_QUOTE = String.valueOf(CharPool.SINGLE_QUOTE);
 
     /**
-     * 与 {@code "&"}
+     * 与、且 &amp;
      */
     String AMP = String.valueOf(CharPool.AMP);
 
     /**
-     * 艾特 {@code "@"}
+     * 艾特 &#064;
      */
     String AT = String.valueOf(CharPool.AT);
 
     /**
-     * 制表符 {@code "\t"}
+     * 制表符 \t
      */
     String TAB = String.valueOf(CharPool.TAB);
 
     /**
-     * 换行符 {@code "\n"}
+     * 换行符 \n
      */
     String LF = String.valueOf(CharPool.LF);
 
@@ -91,72 +91,72 @@ public interface StringPool {
     String LABEL_BR = "<br/>";
 
     /**
-     * 斜杠 {@code "/"}
+     * 斜杠 /
      */
     String SLASH = String.valueOf(CharPool.SLASH);
 
     /**
-     * 冒号 {@code ":"}
+     * 冒号 :
      */
     String COLON = String.valueOf(CharPool.COLON);
 
     /**
-     * 星号 {@code "*"}
+     * 星号 *
      */
     String ASTERISK = "*";
 
     /**
-     * 空字符串 {@code ""}
+     * 空字符串
      */
     String EMPTY = "";
 
     /**
-     * 逗号 {@code ","}
+     * 逗号 ,
      */
     String COMMA = String.valueOf(CharPool.COMMA);
 
     /**
-     * 点 {@code "."}
+     * 点 .
      */
     String DOT = String.valueOf(CharPool.DOT);
 
     /**
-     * 中文顿号 {@code "、"}
+     * 中文顿号 、
      */
     String CHINESE_DOT = "、";
 
     /**
-     * 单书名号（左）{@code "<"}
+     * 单书名号（左）&lt;
      */
     String SINGLE_BOOK_NAME_LEFT = "<";
 
     /**
-     * 单书名号（右）{@code ">"}
+     * 单书名号（右）&gt;
      */
     String SINGLE_BOOK_NAME_RIGHT = ">";
 
     /**
-     * 单书名号 {@code "<>"}
+     * 单书名号 &lt;&gt;
      */
     String SINGLE_BOOK_NAME = "<>";
 
     /**
-     * 双书名号（左）{@code "《"}
+     * 双书名号（左）《
      */
     String DOUBLE_BOOK_NAME_LEFT = "《";
 
     /**
-     * 双书名号（右）{@code "《"}
+     * 双书名号（右）《
      */
     String DOUBLE_BOOK_NAME_RIGHT = "》";
 
     /**
-     * 双书名号 {@code "《》"}
+     * 双书名号 《》
      */
     String DOUBLE_BOOK_NAME = "《》";
 
     /**
-     * 竖线（vertical bar） {@code "|"}
+     * 竖线（vertical bar） |
      */
     String VB = "|";
 

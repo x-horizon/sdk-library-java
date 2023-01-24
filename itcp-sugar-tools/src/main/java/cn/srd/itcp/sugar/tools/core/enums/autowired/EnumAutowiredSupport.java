@@ -29,7 +29,7 @@ public class EnumAutowiredSupport {
      * 6、注入；
      * </pre>
      *
-     * @param <E>
+     * @param <E> 枚举类类型
      */
     @PostConstruct
     @SuppressWarnings("unchecked")

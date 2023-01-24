@@ -15,6 +15,9 @@ import java.util.function.Supplier;
  */
 public class Converts extends Convert {
 
+    /**
+     * protected block constructor
+     */
     protected Converts() {
     }
 
@@ -26,9 +29,9 @@ public class Converts extends Convert {
     /**
      * Supplier => Function
      *
-     * @param supplier
-     * @param <T>
-     * @return
+     * @param supplier 转换源
+     * @param <T>      转换源参数类型
+     * @return 结果集
      */
     public static <T> Function<Void, T> toFunction(Supplier<T> supplier) {
         return t -> supplier.get();
@@ -37,10 +40,10 @@ public class Converts extends Convert {
     /**
      * Consumer => Function
      *
-     * @param param
-     * @param consumer
-     * @param <T>
-     * @return
+     * @param param    消费参数
+     * @param consumer 转换源
+     * @param <T>      转换源参数类型
+     * @return 结果集
      */
     public static <T> Function<T, Void> toFunction(T param, Consumer<T> consumer) {
         return t -> {
@@ -52,10 +55,10 @@ public class Converts extends Convert {
     /**
      * Predicate => Function
      *
-     * @param param
-     * @param predicate
-     * @param <T>
-     * @return
+     * @param param     断言参数
+     * @param predicate 转换源
+     * @param <T>       转换源参数类型
+     * @return 结果集
      */
     public static <T> Function<T, Boolean> toFunction(T param, Predicate<T> predicate) {
         return t -> predicate.test(param);

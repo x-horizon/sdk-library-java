@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Range;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -21,13 +22,20 @@ import java.io.Serializable;
 @Accessors(chain = true)
 public class PageParam implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -2956893884714618641L;
 
+    /**
+     * 页码
+     */
     @ApiModelProperty(value = "页码", required = true, example = "1")
     @NotNull(message = "页码不能为空")
     @Min(value = 1, message = "页码最小值为1")
     private Integer pageIndex;
 
+    /**
+     * 每页显示条数
+     */
     @ApiModelProperty(value = "每页显示条数", required = true, example = "10")
     @NotNull(message = "每页显示条数不能为空")
     @Range(min = 1, max = 100, message = "每页显示条数范围为[1, 100]")

@@ -20,9 +20,12 @@ import java.util.function.Supplier;
  * @author wjm
  * @since 2020/7/8 16:11
  */
-@SuppressWarnings("unchecked")
+// @SuppressWarnings("unchecked")
 public class Objects {
 
+    /**
+     * private block constructor
+     */
     private Objects() {
     }
 
@@ -31,20 +34,20 @@ public class Objects {
     //============================================= null
 
     /**
-     * Object 是否为 null
+     * 判断是否为 null
      *
-     * @param object
-     * @return
+     * @param object 待判断对象
+     * @return 是否为 null
      */
     public static boolean isNull(Object object) {
         return null == object;
     }
 
     /**
-     * Object 是否为 null，如果有一个为 null，返回 true
+     * 判断是否为 null，如果有一个为 null，返回 true
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为 null
      */
     public static boolean isNull(Object... objects) {
         if (null == objects) {
@@ -59,10 +62,10 @@ public class Objects {
     }
 
     /**
-     * Object 是否全部为 null
+     * 判断是否全部为 null
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否全部为 null
      */
     public static boolean isAllNull(Object... objects) {
         if (null == objects) {
@@ -78,20 +81,20 @@ public class Objects {
     }
 
     /**
-     * Object 是否不为 null
+     * 判断是否不为 null
      *
-     * @param object
-     * @return
+     * @param object 待判断对象
+     * @return 是否不为 null
      */
     public static boolean isNotNull(Object object) {
         return !isNull(object);
     }
 
     /**
-     * Object 是否全部不为 null
+     * 判断是否全部不为 null
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否全部不为 null
      */
     public static boolean isNotNull(Object... objects) {
         return !isNull(objects);
@@ -100,29 +103,29 @@ public class Objects {
     //============================================= empty
 
     /**
-     * CharSequence 是否为空，定义：
+     * 判断是否为空，定义：
      * <pre>
      * 1、为 null
      * 2、为""
      * </pre>
      *
-     * @param object
-     * @return
+     * @param object 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(CharSequence object) {
         return null == object || object.length() == 0;
     }
 
     /**
-     * CharSequence 是否为空，定义：
+     * 判断是否为空，定义：
      * <pre>
      * 1、为 null
      * 2、为""
      * 如果有一个为空，则返回true
      * </pre>
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(CharSequence... objects) {
         if (null == objects) {
@@ -137,29 +140,29 @@ public class Objects {
     }
 
     /**
-     * Map 是否为空，定义：
+     * 判断是否为空，定义：
      * <pre>
      * 1、为 null
      * 2、size为0
      * </pre>
      *
-     * @param object
-     * @return
+     * @param object 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(Map<?, ?> object) {
         return null == object || object.isEmpty();
     }
 
     /**
-     * Map 是否为空，定义：
+     * 判断是否为空，定义：
      * <pre>
      * 1、为 null
      * 2、size为0
      * 如果有一个为空，则返回true
      * </pre>
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(Map<?, ?>... objects) {
         if (null == objects) {
@@ -174,29 +177,29 @@ public class Objects {
     }
 
     /**
-     * Iterable 是否为空，定义：
+     * 判断是否为空，定义：
      * <pre>
      * 1、为 null
      * 2、size为0
      * </pre>
      *
-     * @param object
-     * @return
+     * @param object 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(Iterable<?> object) {
         return null == object || isEmpty(object.iterator());
     }
 
     /**
-     * Iterable 是否为空，定义：
+     * 判断是否为空，定义：
      * <pre>
      * 1、为 null
      * 2、size为0
      * 如果有一个为空，则返回true
      * </pre>
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(Iterable<?>... objects) {
         if (null == objects) {
@@ -217,8 +220,8 @@ public class Objects {
      * 2、size为0
      * </pre>
      *
-     * @param object
-     * @return
+     * @param object 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(Iterator<?> object) {
         return null == object || !object.hasNext();
@@ -232,8 +235,8 @@ public class Objects {
      * 如果有一个为空，则返回true
      * </pre>
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(Iterator<?>... objects) {
         if (null == objects) {
@@ -248,7 +251,7 @@ public class Objects {
     }
 
     /**
-     * Object 是否为空：
+     * 判断是否为空：
      * <pre>
      * 1. CharSequence
      * 2. Map
@@ -258,8 +261,8 @@ public class Objects {
      * 6. Object
      * </pre>
      *
-     * @param object
-     * @return
+     * @param object 待判断对象
+     * @return 是否为空
      */
     @SuppressWarnings("rawtypes")
     public static boolean isEmpty(Object object) {
@@ -283,7 +286,7 @@ public class Objects {
     }
 
     /**
-     * Object 是否为空：
+     * 判断是否为空：
      * <pre>
      * 1. CharSequence
      * 2. Map
@@ -295,8 +298,8 @@ public class Objects {
      * 如果有一个为空，则返回true
      * </pre>
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(Object... objects) {
         if (null == objects) {
@@ -323,8 +326,8 @@ public class Objects {
      * 2、长度为0
      * </pre>
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(byte[] objects) {
         return null == objects || objects.length == 0;
@@ -337,8 +340,8 @@ public class Objects {
      * 2、长度为0
      * </pre>
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(short[] objects) {
         return null == objects || objects.length == 0;
@@ -351,8 +354,8 @@ public class Objects {
      * 2、长度为0
      * </pre>
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(int[] objects) {
         return null == objects || objects.length == 0;
@@ -365,8 +368,8 @@ public class Objects {
      * 2、长度为0
      * </pre>
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(long[] objects) {
         return null == objects || objects.length == 0;
@@ -379,8 +382,8 @@ public class Objects {
      * 2、长度为0
      * </pre>
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(float[] objects) {
         return null == objects || objects.length == 0;
@@ -393,8 +396,8 @@ public class Objects {
      * 2、长度为0
      * </pre>
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(double[] objects) {
         return null == objects || objects.length == 0;
@@ -407,8 +410,8 @@ public class Objects {
      * 2、长度为0
      * </pre>
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(char[] objects) {
         return null == objects || objects.length == 0;
@@ -421,8 +424,8 @@ public class Objects {
      * 2、长度为0
      * </pre>
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(String[] objects) {
         return null == objects || objects.length == 0;
@@ -435,21 +438,21 @@ public class Objects {
      * 2、长度为0
      * </pre>
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为空
      */
     public static boolean isEmpty(boolean[] objects) {
         return null == objects || objects.length == 0;
     }
 
     /**
-     * CharSequence 是否全部为{@link #isEmpty(CharSequence)}
+     * 判断是否全部为{@link #isEmpty(CharSequence)}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否全部为空
      */
     public static boolean isAllEmpty(CharSequence... objects) {
-        if (null == objects || objects.length == 0) {
+        if (null == objects) {
             return true;
         }
 
@@ -462,13 +465,13 @@ public class Objects {
     }
 
     /**
-     * Map 是否全部为{@link Objects#isEmpty(Map)}
+     * 判断是否全部为{@link Objects#isEmpty(Map)}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否全部为空
      */
     public static boolean isAllEmpty(Map<?, ?>... objects) {
-        if (null == objects || objects.length == 0) {
+        if (null == objects) {
             return true;
         }
 
@@ -481,13 +484,13 @@ public class Objects {
     }
 
     /**
-     * Iterable 是否全部为{@link #isEmpty(Iterable)}
+     * 判断是否全部为{@link #isEmpty(Iterable)}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否全部为空
      */
     public static boolean isAllEmpty(Iterable<?>... objects) {
-        if (null == objects || objects.length == 0) {
+        if (null == objects) {
             return true;
         }
 
@@ -502,11 +505,11 @@ public class Objects {
     /**
      * Iterator 是否全部为{@link #isEmpty(Iterator)}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否全部为空
      */
     public static boolean isAllEmpty(Iterator<?>... objects) {
-        if (null == objects || objects.length == 0) {
+        if (null == objects) {
             return true;
         }
 
@@ -519,13 +522,13 @@ public class Objects {
     }
 
     /**
-     * Object 是否全部为{@link #isEmpty(Object)}
+     * 判断是否全部为{@link #isEmpty(Object)}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否全部为空
      */
     public static boolean isAllEmpty(Object... objects) {
-        if (null == objects || objects.length == 0) {
+        if (null == objects) {
             return true;
         }
 
@@ -538,50 +541,50 @@ public class Objects {
     }
 
     /**
-     * CharSequence 是否不为{@link #isEmpty(CharSequence)}
+     * 判断是否不为{@link #isEmpty(CharSequence)}
      *
-     * @param object
-     * @return
+     * @param object 待判断对象
+     * @return 是否不为空
      */
     public static boolean isNotEmpty(CharSequence object) {
         return !isEmpty(object);
     }
 
     /**
-     * CharSequence 是否全部不为{@link #isEmpty(CharSequence)}
+     * 判断是否全部不为{@link #isEmpty(CharSequence)}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否全部不为空
      */
     public static boolean isNotEmpty(CharSequence... objects) {
         return !isAllEmpty(objects);
     }
 
     /**
-     * Map 是否不为{@link Objects#isEmpty(Map)}
+     * 判断是否不为{@link Objects#isEmpty(Map)}
      *
-     * @param object
-     * @return
+     * @param object 待判断对象
+     * @return 是否不为空
      */
     public static boolean isNotEmpty(Map<?, ?> object) {
         return !isEmpty(object);
     }
 
     /**
-     * Map 是否全部不为{@link Objects#isEmpty(Map)}
+     * 判断是否全部不为{@link Objects#isEmpty(Map)}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否全部不为空
      */
     public static boolean isNotEmpty(Map<?, ?>... objects) {
         return !isAllEmpty(objects);
     }
 
     /**
-     * Iterable 是否不为{@link #isEmpty(Iterable)}
+     * 判断是否不为{@link #isEmpty(Iterable)}
      *
-     * @param object
-     * @return
+     * @param object 待判断对象
+     * @return 是否不为空
      */
     public static boolean isNotEmpty(Iterable<?> object) {
         return !isEmpty(object);
@@ -590,8 +593,8 @@ public class Objects {
     /**
      * Iterator 是否全部不为{@link #isEmpty(Iterator)}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否全部不为空
      */
     public static boolean isNotEmpty(Iterator<?>... objects) {
         return !isAllEmpty(objects);
@@ -600,128 +603,128 @@ public class Objects {
     /**
      * Iterator 是否不为{@link #isEmpty(Iterator)}
      *
-     * @param object
-     * @return
+     * @param object 待判断对象
+     * @return 是否不为空
      */
     public static boolean isNotEmpty(Iterator<?> object) {
         return !isEmpty(object);
     }
 
     /**
-     * Iterable 是否全部不为{@link #isEmpty(Iterable)}
+     * 判断是否全部不为{@link #isEmpty(Iterable)}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否全部不为空
      */
     public static boolean isNotEmpty(Iterable<?>... objects) {
         return !isAllEmpty(objects);
     }
 
     /**
-     * Object 是否不为{@link #isEmpty(Object)}
+     * 判断是否不为{@link #isEmpty(Object)}
      *
-     * @param object
-     * @return
+     * @param object 待判断对象
+     * @return 是否不为空
      */
     public static boolean isNotEmpty(Object object) {
         return !isEmpty(object);
     }
 
     /**
-     * Object 是否全部不为{@link #isEmpty(Object)}
+     * 判断是否全部不为{@link #isEmpty(Object)}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否全部不为空
      */
     public static boolean isNotEmpty(Object... objects) {
         return !isAllEmpty(objects);
     }
 
     /**
-     * byte[] 是否不为{@link #isEmpty(byte[])}
+     * 判断是否不为{@link #isEmpty(byte[])}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否不为空
      */
     public static boolean isNotEmpty(byte[] objects) {
         return !isEmpty(objects);
     }
 
     /**
-     * short[] 是否不为{@link #isEmpty(short[])}
+     * 判断是否不为{@link #isEmpty(short[])}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否不为空
      */
     public static boolean isNotEmpty(short[] objects) {
         return !isEmpty(objects);
     }
 
     /**
-     * int[] 是否不为{@link #isEmpty(int[])}
+     * 判断是否不为{@link #isEmpty(int[])}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否不为空
      */
     public static boolean isNotEmpty(int[] objects) {
         return !isEmpty(objects);
     }
 
     /**
-     * long[] 是否不为{@link #isEmpty(long[])}
+     * 判断是否不为{@link #isEmpty(long[])}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否不为空
      */
     public static boolean isNotEmpty(long[] objects) {
         return !isEmpty(objects);
     }
 
     /**
-     * float[] 是否不为{@link #isEmpty(float[])}
+     * 判断是否不为{@link #isEmpty(float[])}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否不为空
      */
     public static boolean isNotEmpty(float[] objects) {
         return !isEmpty(objects);
     }
 
     /**
-     * double[] 是否不为{@link #isEmpty(double[])}
+     * 判断是否不为{@link #isEmpty(double[])}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否不为空
      */
     public static boolean isNotEmpty(double[] objects) {
         return !isEmpty(objects);
     }
 
     /**
-     * char[] 是否不为{@link #isEmpty(char[])}
+     * 判断是否不为{@link #isEmpty(char[])}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否不为空
      */
     public static boolean isNotEmpty(char[] objects) {
         return !isEmpty(objects);
     }
 
     /**
-     * String[] 是否不为{@link #isEmpty(String[])}
+     * 判断是否不为{@link #isEmpty(String[])}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否不为空
      */
     public static boolean isNotEmpty(String[] objects) {
         return !isEmpty(objects);
     }
 
     /**
-     * boolean[] 是否不为{@link #isEmpty(boolean[])}
+     * 判断是否不为{@link #isEmpty(boolean[])}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否不为空
      */
     public static boolean isNotEmpty(boolean[] objects) {
         return !isEmpty(objects);
@@ -730,15 +733,15 @@ public class Objects {
     //============================================= blank
 
     /**
-     * CharSequence 是否为空白，定义：
+     * 判断是否为空白，定义：
      * <pre>
      * 1、为 null
      * 2、为不可见字符（如空格）
      * 3、""
      * </pre>
      *
-     * @param object
-     * @return
+     * @param object 待判断对象
+     * @return 是否为空白
      */
     public static boolean isBlank(CharSequence object) {
         int length;
@@ -759,7 +762,7 @@ public class Objects {
     }
 
     /**
-     * CharSequence 是否为空白，定义：
+     * 判断是否为空白，定义：
      * <pre>
      * 1、为 null
      * 2、为不可见字符（如空格）
@@ -767,8 +770,8 @@ public class Objects {
      * 如果有一个为空，则返回true
      * </pre>
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为空白
      */
     public static boolean isBlank(CharSequence... objects) {
         if (null == objects) {
@@ -783,13 +786,13 @@ public class Objects {
     }
 
     /**
-     * CharSequence 是否全部为{@link #isBlank(CharSequence)}
+     * 判断是否全部为{@link #isBlank(CharSequence)}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否全部为空白
      */
     public static boolean isAllBlank(CharSequence... objects) {
-        if (null == objects || objects.length == 0) {
+        if (null == objects) {
             return true;
         }
 
@@ -802,20 +805,20 @@ public class Objects {
     }
 
     /**
-     * CharSequence 是否不为{@link #isBlank(CharSequence)}
+     * 判断是否不为{@link #isBlank(CharSequence)}
      *
-     * @param object
-     * @return
+     * @param object 待判断对象
+     * @return 是否不为空白
      */
     public static boolean isNotBlank(CharSequence object) {
         return !isBlank(object);
     }
 
     /**
-     * CharSequence 是否全部不为{@link #isBlank(CharSequence)}
+     * 判断是否全部不为{@link #isBlank(CharSequence)}
      *
-     * @param objects
-     * @return
+     * @param objects 待判断对象
+     * @return 是否全部不为空白
      */
     public static boolean isNotBlank(CharSequence... objects) {
         return !isAllBlank(objects);
@@ -826,24 +829,24 @@ public class Objects {
     /**
      * 如果为正整数，返回 true
      *
-     * @param number
-     * @return
+     * @param object 待判断对象
+     * @return 是否为正整数
      */
-    public static boolean isPositive(Number number) {
-        return number != null && number.longValue() > 0;
+    public static boolean isPositive(Number object) {
+        return object != null && object.longValue() > 0;
     }
 
     /**
      * 如果全部为正整数，返回 true
      *
-     * @param numbers
-     * @return
+     * @param objects 待判断对象
+     * @return 是否全部为正整数
      */
-    public static boolean isAllPositive(Number... numbers) {
-        if (null == numbers) {
+    public static boolean isAllPositive(Number... objects) {
+        if (null == objects) {
             return false;
         }
-        for (Number number : numbers) {
+        for (Number number : objects) {
             if (isNotPositive(number)) {
                 return false;
             }
@@ -854,31 +857,21 @@ public class Objects {
     /**
      * 如果不为正整数，返回 true
      *
-     * @param number
-     * @return
+     * @param object 待判断对象
+     * @return 是否不为正整数
      */
-    public static boolean isNotPositive(Number number) {
-        return !isPositive(number);
+    public static boolean isNotPositive(Number object) {
+        return !isPositive(object);
     }
 
     /**
      * 如果有一个不为正整数，返回 true
      *
-     * @param numbers
-     * @return
+     * @param objects 待判断对象
+     * @return 是否不为正整数
      */
-    public static boolean isNotPositive(Number... numbers) {
-        return !isAllPositive(numbers);
-    }
-
-    /**
-     * 如果为 true，返回 true
-     *
-     * @param supplier
-     * @return
-     */
-    public static boolean isTrue(Supplier<Boolean> supplier) {
-        return isTrue(supplier.get());
+    public static boolean isNotPositive(Number... objects) {
+        return !isAllPositive(objects);
     }
 
     //============================================= boolean
@@ -886,24 +879,34 @@ public class Objects {
     /**
      * 如果为 true，返回 true
      *
-     * @param isTrue
-     * @return
+     * @param object 待判断对象
+     * @return 是否为 true
      */
-    public static boolean isTrue(Boolean isTrue) {
-        return isNotEmpty(isTrue) && isTrue;
+    public static boolean isTrue(Supplier<Boolean> object) {
+        return isTrue(object.get());
+    }
+
+    /**
+     * 如果为 true，返回 true
+     *
+     * @param object 待判断对象
+     * @return 是否为 true
+     */
+    public static boolean isTrue(Boolean object) {
+        return isNotEmpty(object) && object;
     }
 
     /**
      * 如果有一个为 true，返回 true
      *
-     * @param areTrue
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为 true
      */
-    public static boolean isTrue(Boolean... areTrue) {
-        if (ArrayUtil.isEmpty(areTrue)) {
+    public static boolean isTrue(Boolean... objects) {
+        if (ArrayUtil.isEmpty(objects)) {
             return false;
         }
-        for (Boolean isTrue : areTrue) {
+        for (Boolean isTrue : objects) {
             if (isTrue) {
                 return true;
             }
@@ -914,14 +917,14 @@ public class Objects {
     /**
      * 如果全部为 true，返回 true
      *
-     * @param areTrue
-     * @return
+     * @param objects 待判断对象
+     * @return 是否全部为 true
      */
-    public static boolean isAllTrue(Boolean... areTrue) {
-        if (ArrayUtil.isEmpty(areTrue)) {
+    public static boolean isAllTrue(Boolean... objects) {
+        if (ArrayUtil.isEmpty(objects)) {
             return false;
         }
-        for (Boolean isTrue : areTrue) {
+        for (Boolean isTrue : objects) {
             if (!isTrue) {
                 return false;
             }
@@ -932,28 +935,30 @@ public class Objects {
     /**
      * 如果为 false，返回 true
      *
-     * @param isFalse
-     * @return
+     * @param object 待判断对象
+     * @return 是否为 false
      */
-    public static boolean isFalse(Boolean isFalse) {
-        return isNotNull(isFalse) && !isFalse;
+    public static boolean isFalse(Boolean object) {
+        return isNotNull(object) && !object;
     }
 
     /**
      * 如果为 false，返回 true
      *
-     * @param supplier
-     * @return
+     * @param object 待判断对象
+     * @return 是否为 false
      */
-    public static boolean isFalse(Supplier<Boolean> supplier) {
-        return isFalse(supplier.get());
+    public static boolean isFalse(Supplier<Boolean> object) {
+        return isFalse(object.get());
     }
 
     /**
      * 如果为 false，返回 true
      *
-     * @param predicate
-     * @return
+     * @param item      待判断对象
+     * @param predicate 判断逻辑
+     * @param <T>       对象类型
+     * @return 是否为 false
      */
     public static <T> boolean isFalse(T item, Predicate<T> predicate) {
         return !predicate.test(item);
@@ -962,14 +967,14 @@ public class Objects {
     /**
      * 如果有一个为 false，返回 true
      *
-     * @param areFalse
-     * @return
+     * @param objects 待判断对象
+     * @return 是否为 false
      */
-    public static boolean isFalse(Boolean... areFalse) {
-        if (ArrayUtil.isEmpty(areFalse)) {
+    public static boolean isFalse(Boolean... objects) {
+        if (ArrayUtil.isEmpty(objects)) {
             return false;
         }
-        for (Boolean isFalse : areFalse) {
+        for (Boolean isFalse : objects) {
             if (!isFalse) {
                 return true;
             }
@@ -980,14 +985,14 @@ public class Objects {
     /**
      * 如果全部为 false，返回 true
      *
-     * @param areFalse
-     * @return
+     * @param objects 待判断对象
+     * @return 是否全部为 false
      */
-    public static boolean isAllFalse(Boolean... areFalse) {
-        if (ArrayUtil.isEmpty(areFalse)) {
+    public static boolean isAllFalse(Boolean... objects) {
+        if (ArrayUtil.isEmpty(objects)) {
             return false;
         }
-        for (Boolean isFalse : areFalse) {
+        for (Boolean isFalse : objects) {
             if (isFalse) {
                 return false;
             }
@@ -1001,15 +1006,15 @@ public class Objects {
      * 比较两个对象是否相同；安全的 null 值比较
      * <pre>
      * 相同的条件如下，满足一个则返回 true：
-     * 1、obj1 == null && obj2 == null
+     * 1、obj1 == null 且 obj2 == null
      * 2、obj1.equals(obj2)
      * 3、BigDecimal 的比较，则为 0 == obj1.compareTo(obj2)
      * 4、数组的比较，则为数组长度和每个元素都相等
      * </pre>
      *
-     * @param obj1
-     * @param obj2
-     * @return
+     * @param obj1 待比较对象
+     * @param obj2 待比较对象
+     * @return 是否相同
      */
     public static boolean equals(@Nullable Object obj1, @Nullable Object obj2) {
         if (obj1 == obj2) {
@@ -1036,9 +1041,9 @@ public class Objects {
      * 比较规则：{@link #equals(Object, Object)}
      * </pre>
      *
-     * @param obj1
-     * @param objs
-     * @return
+     * @param obj1 待比较对象
+     * @param objs 待比较对象
+     * @return 是否相同
      * @see Objects#equals(Object, Object)
      */
     public static boolean equals(@Nullable Object obj1, @Nullable Object... objs) {
@@ -1066,9 +1071,10 @@ public class Objects {
      * 比较对象是否与集合元素是否相同，若对象与集合元素有一个相同，返回 true；<br>
      * 两者有一个为 null，返回false；
      *
-     * @param obj1
-     * @param objs
-     * @return
+     * @param obj1 待比较对象
+     * @param objs 待比较对象
+     * @param <T>  对象类型
+     * @return 是否相同
      */
     public static <T> boolean collEquals(@Nullable T obj1, @Nullable Collection<T> objs) {
         if (null == obj1 || null == objs) {
@@ -1085,9 +1091,9 @@ public class Objects {
     /**
      * 比较两个对象是否不同，若不同返回 true，否则返回 false；安全的 null 值比较
      *
-     * @param obj1
-     * @param obj2
-     * @return
+     * @param obj1 待比较对象
+     * @param obj2 待比较对象
+     * @return 是否不同
      */
     public static boolean notEquals(@Nullable Object obj1, @Nullable Object obj2) {
         return !equals(obj1, obj2);
@@ -1096,9 +1102,9 @@ public class Objects {
     /**
      * 比较第一个对象是否与后续对象不同，若第一个对象与后续对象全部都不同，返回 true，否则返回 false；安全的 null 值比较
      *
-     * @param obj1
-     * @param objs
-     * @return
+     * @param obj1 待比较对象
+     * @param objs 待比较对象
+     * @return 是否不同
      */
     public static boolean notEquals(@Nullable Object obj1, @Nullable Object... objs) {
         return !equals(obj1, objs);
@@ -1107,9 +1113,10 @@ public class Objects {
     /**
      * 若对象是与集合所有元素全部不同，返回 true；安全的 null 值比较
      *
-     * @param obj1
-     * @param objs
-     * @return
+     * @param obj1 待比较对象
+     * @param objs 待比较对象
+     * @param <T>  对象类型
+     * @return 是否不同
      */
     public static <T> boolean collNotEquals(@Nullable T obj1, @Nullable Collection<T> objs) {
         if (null == obj1 || null == objs) {
@@ -1130,9 +1137,9 @@ public class Objects {
     /**
      * 需要为 null
      *
-     * @param object
-     * @param <T>
-     * @return
+     * @param object 待断言对象
+     * @param <T>    对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireNull(T object) {
         Assert.NULL_NEED.throwsIfNotNull(object);
@@ -1142,9 +1149,10 @@ public class Objects {
     /**
      * 需要为 null
      *
-     * @param httpStatus
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param object     待断言对象
+     * @param <T>        对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireNull(HttpStatus httpStatus, T object) {
         Assert.INSTANCE.set(httpStatus).throwsIfNotNull(object);
@@ -1154,10 +1162,11 @@ public class Objects {
     /**
      * 需要为 null
      *
-     * @param httpStatus
-     * @param message
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param object     待断言对象
+     * @param <T>        对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireNull(HttpStatus httpStatus, Supplier<String> message, T object) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfNotNull(object);
@@ -1167,10 +1176,10 @@ public class Objects {
     /**
      * 需要为 null
      *
-     * @param object
-     * @param message
-     * @param <T>
-     * @return
+     * @param message 断言信息
+     * @param object  待断言对象
+     * @param <T>     对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireNull(Supplier<String> message, T object) {
         Assert.INSTANCE.set(message).throwsIfNotNull(object);
@@ -1180,55 +1189,53 @@ public class Objects {
     /**
      * 需要至少有一个为 null
      *
-     * @param objects
-     * @param <T>
-     * @return
+     * @param objects 待断言对象
+     * @param <T>     对象类型
      */
     public static <T> void requireNull(T... objects) {
-        Assert.NULL_NEED.throwsIfNotNull(objects);
+        Assert.NULL_NEED.throwsIfNotNull((Object[]) objects);
     }
 
     /**
      * 需要至少有一个为 null
      *
-     * @param httpStatus
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param objects    待断言对象
+     * @param <T>        对象类型
      */
     public static <T> void requireNull(HttpStatus httpStatus, T... objects) {
-        Assert.INSTANCE.set(httpStatus).throwsIfNotNull(objects);
+        Assert.INSTANCE.set(httpStatus).throwsIfNotNull((Object[]) objects);
     }
 
     /**
      * 需要至少有一个为 null
      *
-     * @param httpStatus
-     * @param message
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param objects    待断言对象
+     * @param <T>        对象类型
      */
     public static <T> void requireNull(HttpStatus httpStatus, Supplier<String> message, T... objects) {
-        Assert.INSTANCE.set(httpStatus, message).throwsIfNotNull(objects);
+        Assert.INSTANCE.set(httpStatus, message).throwsIfNotNull((Object[]) objects);
     }
 
     /**
      * 需要至少有一个为 null
      *
-     * @param objects
-     * @param message
-     * @param <T>
-     * @return
+     * @param message 断言信息
+     * @param objects 待断言对象
+     * @param <T>     对象类型
      */
     public static <T> void requireNull(Supplier<String> message, T... objects) {
-        Assert.INSTANCE.set(message).throwsIfNotNull(objects);
+        Assert.INSTANCE.set(message).throwsIfNotNull((Object[]) objects);
     }
 
     /**
      * 需要为 empty
      *
-     * @param object
-     * @param <T>
-     * @return
+     * @param object 待断言对象
+     * @param <T>    对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireEmpty(T object) {
         Assert.EMPTY_NEED.throwsIfNotEmpty(object);
@@ -1236,11 +1243,10 @@ public class Objects {
     }
 
     /**
-     * 需要为 empty
-     *
-     * @param httpStatus
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param object     待断言对象
+     * @param <T>        对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireEmpty(HttpStatus httpStatus, T object) {
         Assert.INSTANCE.set(httpStatus).throwsIfNotEmpty(object);
@@ -1250,10 +1256,11 @@ public class Objects {
     /**
      * 需要为 empty
      *
-     * @param httpStatus
-     * @param message
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param object     待断言对象
+     * @param <T>        对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireEmpty(HttpStatus httpStatus, Supplier<String> message, T object) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfNotEmpty(object);
@@ -1263,10 +1270,10 @@ public class Objects {
     /**
      * 需要为 empty
      *
-     * @param object
-     * @param message
-     * @param <T>
-     * @return
+     * @param message 断言信息
+     * @param object  待断言对象
+     * @param <T>     对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireEmpty(Supplier<String> message, T object) {
         Assert.INSTANCE.set(message).throwsIfNotEmpty(object);
@@ -1276,54 +1283,52 @@ public class Objects {
     /**
      * 需要至少有一个为 empty
      *
-     * @param objects
-     * @param <T>
-     * @return
+     * @param objects 待断言对象
+     * @param <T>     对象类型
      */
     public static <T> void requireEmpty(T... objects) {
-        Assert.EMPTY_NEED.throwsIfNotEmpty(objects);
+        Assert.EMPTY_NEED.throwsIfNotEmpty((Object[]) objects);
     }
 
     /**
      * 需要至少有一个为 empty
      *
-     * @param httpStatus
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param objects    待断言对象
+     * @param <T>        对象类型
      */
     public static <T> void requireEmpty(HttpStatus httpStatus, T... objects) {
-        Assert.INSTANCE.set(httpStatus).throwsIfNotEmpty(objects);
+        Assert.INSTANCE.set(httpStatus).throwsIfNotEmpty((Object[]) objects);
     }
 
     /**
      * 需要至少有一个为 empty
      *
-     * @param httpStatus
-     * @param message
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param objects    待断言对象
+     * @param <T>        对象类型
      */
     public static <T> void requireEmpty(HttpStatus httpStatus, Supplier<String> message, T... objects) {
-        Assert.INSTANCE.set(httpStatus, message).throwsIfNotEmpty(objects);
+        Assert.INSTANCE.set(httpStatus, message).throwsIfNotEmpty((Object[]) objects);
     }
 
     /**
      * 需要至少有一个为 empty
      *
-     * @param objects
-     * @param message
-     * @param <T>
-     * @return
+     * @param message 断言信息
+     * @param objects 待断言对象
+     * @param <T>     对象类型
      */
     public static <T> void requireEmpty(Supplier<String> message, T... objects) {
-        Assert.INSTANCE.set(message).throwsIfNotEmpty(objects);
+        Assert.INSTANCE.set(message).throwsIfNotEmpty((Object[]) objects);
     }
 
     /**
      * 需要为 blank
      *
-     * @param object
-     * @return
+     * @param object 待断言对象
+     * @return 断言成功返回原对象
      */
     public static String requireBlank(String object) {
         Assert.BLANK_NEED.throwsIfNotBlank(object);
@@ -1333,9 +1338,9 @@ public class Objects {
     /**
      * 需要为 blank
      *
-     * @param httpStatus
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param object     待断言对象
+     * @return 断言成功返回原对象
      */
     public static String requireBlank(HttpStatus httpStatus, String object) {
         Assert.INSTANCE.set(httpStatus).throwsIfNotBlank(object);
@@ -1345,10 +1350,10 @@ public class Objects {
     /**
      * 需要为 blank
      *
-     * @param httpStatus
-     * @param message
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param object     待断言对象
+     * @return 断言成功返回原对象
      */
     public static String requireBlank(HttpStatus httpStatus, Supplier<String> message, String object) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfNotBlank(object);
@@ -1358,9 +1363,9 @@ public class Objects {
     /**
      * 需要为 blank
      *
-     * @param object
-     * @param message
-     * @return
+     * @param object  待断言对象
+     * @param message 断言信息
+     * @return 断言成功返回原对象
      */
     public static String requireBlank(Supplier<String> message, String object) {
         Assert.INSTANCE.set(message).throwsIfNotBlank(object);
@@ -1370,8 +1375,7 @@ public class Objects {
     /**
      * 需要至少有一个为 blank
      *
-     * @param objects
-     * @return
+     * @param objects 待断言对象
      */
     public static void requireBlank(String... objects) {
         Assert.BLANK_NEED.throwsIfNotBlank(objects);
@@ -1380,9 +1384,8 @@ public class Objects {
     /**
      * 需要至少有一个为 blank
      *
-     * @param httpStatus
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param objects    待断言对象
      */
     public static void requireBlank(HttpStatus httpStatus, String... objects) {
         Assert.INSTANCE.set(httpStatus).throwsIfNotBlank(objects);
@@ -1391,10 +1394,9 @@ public class Objects {
     /**
      * 需要至少有一个为 blank
      *
-     * @param httpStatus
-     * @param message
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param objects    待断言对象
      */
     public static void requireBlank(HttpStatus httpStatus, Supplier<String> message, String... objects) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfNotBlank(objects);
@@ -1403,9 +1405,8 @@ public class Objects {
     /**
      * 需要至少有一个为 blank
      *
-     * @param objects
-     * @param message
-     * @return
+     * @param objects 待判断对象
+     * @param message 断言信息
      */
     public static void requireBlank(Supplier<String> message, String... objects) {
         Assert.INSTANCE.set(message).throwsIfNotBlank(objects);
@@ -1414,9 +1415,9 @@ public class Objects {
     /**
      * 不可为 null
      *
-     * @param object
-     * @param <T>
-     * @return
+     * @param object 待断言对象
+     * @param <T>    对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireNotNull(T object) {
         Assert.NULL_CHECK.throwsIfNull(object);
@@ -1426,9 +1427,10 @@ public class Objects {
     /**
      * 不可为 null
      *
-     * @param httpStatus
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param object     待断言对象
+     * @param <T>        对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireNotNull(HttpStatus httpStatus, T object) {
         Assert.INSTANCE.set(httpStatus).throwsIfNull(object);
@@ -1436,12 +1438,11 @@ public class Objects {
     }
 
     /**
-     * 不可为 null
-     *
-     * @param httpStatus
-     * @param message
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param object     待断言对象
+     * @param <T>        对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireNotNull(HttpStatus httpStatus, Supplier<String> message, T object) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfNull(object);
@@ -1451,10 +1452,10 @@ public class Objects {
     /**
      * 不可为 null
      *
-     * @param message
-     * @param object
-     * @param <T>
-     * @return
+     * @param message 断言信息
+     * @param object  http 状态码
+     * @param <T>     对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireNotNull(Supplier<String> message, T object) {
         Assert.INSTANCE.set(message).throwsIfNull(object);
@@ -1464,10 +1465,10 @@ public class Objects {
     /**
      * 不可为 null
      *
-     * @param exception
-     * @param object
-     * @param <T>
-     * @return
+     * @param exception 自定义异常
+     * @param object    待断言对象
+     * @param <T>       对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireNotNull(Exception exception, T object) {
         Assert.INSTANCE.set(exception).throwsIfNull(object);
@@ -1477,101 +1478,97 @@ public class Objects {
     /**
      * 需要至少有一个不为 null
      *
-     * @param objects
-     * @param <T>
-     * @return
+     * @param objects 待断言对象
+     * @param <T>     对象类型
      */
     public static <T> void requireNotNull(T... objects) {
-        Assert.NULL_CHECK.throwsIfAllNull(objects);
+        Assert.NULL_CHECK.throwsIfAllNull((Object[]) objects);
     }
 
     /**
      * 需要至少有一个不为 null
      *
-     * @param httpStatus
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param objects    待断言对象
+     * @param <T>        对象类型
      */
     public static <T> void requireNotNull(HttpStatus httpStatus, T... objects) {
-        Assert.INSTANCE.set(httpStatus).throwsIfAllNull(objects);
+        Assert.INSTANCE.set(httpStatus).throwsIfAllNull((Object[]) objects);
     }
 
     /**
      * 需要至少有一个不为 null
      *
-     * @param httpStatus
-     * @param message
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param objects    待断言对象
+     * @param <T>        对象类型
      */
     public static <T> void requireNotNull(HttpStatus httpStatus, Supplier<String> message, T... objects) {
-        Assert.INSTANCE.set(httpStatus, message).throwsIfAllNull(objects);
+        Assert.INSTANCE.set(httpStatus, message).throwsIfAllNull((Object[]) objects);
     }
 
     /**
      * 需要至少有一个不为 null
      *
-     * @param objects
-     * @param message
-     * @param <T>
-     * @return
+     * @param objects 待断言对象
+     * @param message 断言信息
+     * @param <T>     对象类型
      */
     public static <T> void requireNotNull(Supplier<String> message, T... objects) {
-        Assert.INSTANCE.set(message).throwsIfAllNull(objects);
+        Assert.INSTANCE.set(message).throwsIfAllNull((Object[]) objects);
     }
 
     /**
      * 需要全部不为 null
      *
-     * @param objects
-     * @param <T>
-     * @return
+     * @param objects 断言信息
+     * @param <T>     对象类型
      */
     public static <T> void requireNonNull(T... objects) {
-        Assert.NULL_NEED.throwsIfNull(objects);
+        Assert.NULL_NEED.throwsIfNull((Object[]) objects);
     }
 
     /**
      * 需要全部不为 null
      *
-     * @param httpStatus
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param objects    待断言对象
+     * @param <T>        对象类型
      */
     public static <T> void requireNonNull(HttpStatus httpStatus, T... objects) {
-        Assert.INSTANCE.set(httpStatus).throwsIfNull(objects);
+        Assert.INSTANCE.set(httpStatus).throwsIfNull((Object[]) objects);
     }
 
     /**
      * 需要全部不为 null
      *
-     * @param httpStatus
-     * @param message
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param objects    待断言对象
+     * @param <T>        对象类型
      */
     public static <T> void requireNonNull(HttpStatus httpStatus, Supplier<String> message, T... objects) {
-        Assert.INSTANCE.set(httpStatus, message).throwsIfNull(objects);
+        Assert.INSTANCE.set(httpStatus, message).throwsIfNull((Object[]) objects);
     }
 
     /**
      * 需要全部不为 null
      *
-     * @param objects
-     * @param message
-     * @param <T>
-     * @return
+     * @param objects 待断言对象
+     * @param message 断言信息
+     * @param <T>     对象类型
      */
     public static <T> void requireNonNull(Supplier<String> message, T... objects) {
-        Assert.INSTANCE.set(message).throwsIfNull(objects);
+        Assert.INSTANCE.set(message).throwsIfNull((Object[]) objects);
     }
 
     /**
      * 不可为 empty
      *
-     * @param object
-     * @param <T>
-     * @return
+     * @param object 待断言对象
+     * @param <T>    对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireNotEmpty(T object) {
         Assert.EMPTY_CHECK.throwsIfEmpty(object);
@@ -1581,9 +1578,10 @@ public class Objects {
     /**
      * 不可为 empty
      *
-     * @param httpStatus
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param object     待断言对象
+     * @param <T>        对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireNotEmpty(HttpStatus httpStatus, T object) {
         Assert.INSTANCE.set(httpStatus).throwsIfEmpty(object);
@@ -1593,10 +1591,11 @@ public class Objects {
     /**
      * 不可为 empty
      *
-     * @param httpStatus
-     * @param message
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param object     待断言对象
+     * @param <T>        对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireNotEmpty(HttpStatus httpStatus, Supplier<String> message, T object) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfEmpty(object);
@@ -1606,10 +1605,10 @@ public class Objects {
     /**
      * 不可为 empty
      *
-     * @param message
-     * @param object
-     * @param <T>
-     * @return
+     * @param message 断言信息
+     * @param object  待断言对象
+     * @param <T>     对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireNotEmpty(Supplier<String> message, T object) {
         Assert.INSTANCE.set(message).throwsIfEmpty(object);
@@ -1619,10 +1618,10 @@ public class Objects {
     /**
      * 不可为 empty
      *
-     * @param exception
-     * @param object
-     * @param <T>
-     * @return
+     * @param exception 自定义异常
+     * @param object    待断言对象
+     * @param <T>       对象类型
+     * @return 断言成功返回原对象
      */
     public static <T> T requireNotEmpty(Exception exception, T object) {
         Assert.INSTANCE.set(exception).throwsIfEmpty(object);
@@ -1632,99 +1631,96 @@ public class Objects {
     /**
      * 不可有一个为 empty
      *
-     * @param objects
-     * @param <T>
-     * @return
+     * @param objects 待断言对象
+     * @param <T>     对象类型
      */
     public static <T> void requireNotEmpty(T... objects) {
-        Assert.EMPTY_CHECK.throwsIfEmpty(objects);
+        Assert.EMPTY_CHECK.throwsIfEmpty((Object[]) objects);
     }
 
     /**
      * 不可有一个为 empty
      *
-     * @param httpStatus
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param objects    待断言对象
+     * @param <T>        对象类型
      */
     public static <T> void requireNotEmpty(HttpStatus httpStatus, T... objects) {
-        Assert.INSTANCE.set(httpStatus).throwsIfEmpty(objects);
+        Assert.INSTANCE.set(httpStatus).throwsIfEmpty((Object[]) objects);
     }
 
     /**
      * 不可有一个为 empty
      *
-     * @param httpStatus
-     * @param message
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param objects    待断言对象
+     * @param <T>        对象类型
      */
     public static <T> void requireNotEmpty(HttpStatus httpStatus, Supplier<String> message, T... objects) {
-        Assert.INSTANCE.set(httpStatus, message).throwsIfEmpty(objects);
+        Assert.INSTANCE.set(httpStatus, message).throwsIfEmpty((Object[]) objects);
     }
 
     /**
      * 不可有一个为 empty
      *
-     * @param objects
-     * @param message
-     * @param <T>
-     * @return
+     * @param objects 待断言对象
+     * @param message 断言信息
+     * @param <T>     对象类型
      */
     public static <T> void requireNotEmpty(Supplier<String> message, T... objects) {
-        Assert.INSTANCE.set(message).throwsIfEmpty(objects);
+        Assert.INSTANCE.set(message).throwsIfEmpty((Object[]) objects);
     }
 
     /**
      * 不可全部为 empty
      *
-     * @param objects
-     * @param <T>
+     * @param objects 待断言对象
+     * @param <T>     对象类型
      */
     public static <T> void requireNonEmpty(T... objects) {
-        Assert.EMPTY_CHECK.throwsIfAllEmpty(objects);
+        Assert.EMPTY_CHECK.throwsIfAllEmpty((Object[]) objects);
     }
 
     /**
      * 不可全部为 empty
      *
-     * @param httpStatus
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param objects    待断言对象
+     * @param <T>        对象类型
      */
     public static <T> void requireNonEmpty(HttpStatus httpStatus, T... objects) {
-        Assert.INSTANCE.set(httpStatus).throwsIfAllEmpty(objects);
+        Assert.INSTANCE.set(httpStatus).throwsIfAllEmpty((Object[]) objects);
     }
 
     /**
      * 不可全部为 empty
      *
-     * @param httpStatus
-     * @param message
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param objects    待断言对象
+     * @param <T>        对象类型
      */
     public static <T> void requireNonEmpty(HttpStatus httpStatus, Supplier<String> message, T... objects) {
-        Assert.INSTANCE.set(httpStatus, message).throwsIfAllEmpty(objects);
+        Assert.INSTANCE.set(httpStatus, message).throwsIfAllEmpty((Object[]) objects);
     }
 
     /**
      * 不可全部为 empty
      *
-     * @param objects
-     * @param message
-     * @param <T>
-     * @return
+     * @param message 断言信息
+     * @param objects 待断言对象
+     * @param <T>     对象类型
      */
     public static <T> void requireNonEmpty(Supplier<String> message, T... objects) {
-        Assert.INSTANCE.set(message).throwsIfAllEmpty(objects);
+        Assert.INSTANCE.set(message).throwsIfAllEmpty((Object[]) objects);
     }
 
     /**
      * 不可为 blank
      *
-     * @param object
-     * @return
+     * @param object 待断言对象
+     * @return 断言成功返回原对象
      */
     public static String requireNotBlank(String object) {
         Assert.BLANK_CHECK.throwsIfBlank(object);
@@ -1734,9 +1730,9 @@ public class Objects {
     /**
      * 不可为 blank
      *
-     * @param httpStatus
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param object     待断言对象
+     * @return 断言成功返回原对象
      */
     public static String requireNotBlank(HttpStatus httpStatus, String object) {
         Assert.INSTANCE.set(httpStatus).throwsIfBlank(object);
@@ -1746,10 +1742,10 @@ public class Objects {
     /**
      * 不可为 blank
      *
-     * @param httpStatus
-     * @param message
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param object     待断言对象
+     * @return 断言成功返回原对象
      */
     public static String requireNotBlank(HttpStatus httpStatus, Supplier<String> message, String object) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfBlank(object);
@@ -1759,9 +1755,9 @@ public class Objects {
     /**
      * 不可为 blank
      *
-     * @param message
-     * @param object
-     * @return
+     * @param message 断言信息
+     * @param object  待断言对象
+     * @return 断言成功返回原对象
      */
     public static String requireNotBlank(Supplier<String> message, String object) {
         Assert.INSTANCE.set(message).throwsIfBlank(object);
@@ -1771,9 +1767,9 @@ public class Objects {
     /**
      * 不可为 blank
      *
-     * @param exception
-     * @param object
-     * @return
+     * @param exception 自定义异常
+     * @param object    待判断对象
+     * @return 断言成功返回原对象
      */
     public static String requireNotBlank(Exception exception, String object) {
         Assert.INSTANCE.set(exception).throwsIfBlank(object);
@@ -1783,8 +1779,7 @@ public class Objects {
     /**
      * 不可有一个为 blank
      *
-     * @param objects
-     * @return
+     * @param objects 待断言对象
      */
     public static void requireNotBlank(String... objects) {
         Assert.BLANK_CHECK.throwsIfBlank(objects);
@@ -1793,9 +1788,8 @@ public class Objects {
     /**
      * 不可有一个为 blank
      *
-     * @param httpStatus
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param objects    待断言对象
      */
     public static void requireNotBlank(HttpStatus httpStatus, String... objects) {
         Assert.INSTANCE.set(httpStatus).throwsIfBlank(objects);
@@ -1804,10 +1798,9 @@ public class Objects {
     /**
      * 不可有一个为 blank
      *
-     * @param httpStatus
-     * @param message
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param objects    待断言对象
      */
     public static void requireNotBlank(HttpStatus httpStatus, Supplier<String> message, String... objects) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfBlank(objects);
@@ -1816,9 +1809,8 @@ public class Objects {
     /**
      * 不可有一个为 blank
      *
-     * @param message
-     * @param objects
-     * @return
+     * @param message 断言信息
+     * @param objects 待断言对象
      */
     public static void requireNotBlank(Supplier<String> message, String... objects) {
         Assert.INSTANCE.set(message).throwsIfBlank(objects);
@@ -1827,9 +1819,8 @@ public class Objects {
     /**
      * 不可有一个为 blank
      *
-     * @param exception
-     * @param objects
-     * @return
+     * @param exception 自定义异常
+     * @param objects   待断言对象
      */
     public static void requireNotBlank(Exception exception, String... objects) {
         Assert.INSTANCE.set(exception).throwsIfBlank(objects);
@@ -1838,8 +1829,7 @@ public class Objects {
     /**
      * 不可全部为 blank
      *
-     * @param objects
-     * @return
+     * @param objects 待断言对象
      */
     public static void requireNonBlank(String... objects) {
         Assert.BLANK_CHECK.throwsIfAllBlank(objects);
@@ -1848,9 +1838,8 @@ public class Objects {
     /**
      * 不可全部为 blank
      *
-     * @param httpStatus
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param objects    待断言对象
      */
     public static void requireNonBlank(HttpStatus httpStatus, String... objects) {
         Assert.INSTANCE.set(httpStatus).throwsIfAllBlank(objects);
@@ -1859,9 +1848,8 @@ public class Objects {
     /**
      * 不可全部为 blank
      *
-     * @param objects
-     * @param message
-     * @return
+     * @param objects 待断言对象
+     * @param message 断言信息
      */
     public static void requireNonBlank(Supplier<String> message, String... objects) {
         Assert.INSTANCE.set(message).throwsIfAllBlank(objects);
@@ -1870,10 +1858,9 @@ public class Objects {
     /**
      * 不可全部为 blank
      *
-     * @param httpStatus
-     * @param message
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param objects    待断言对象
      */
     public static void requireNonBlank(HttpStatus httpStatus, Supplier<String> message, String... objects) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfAllBlank(objects);
@@ -1882,8 +1869,8 @@ public class Objects {
     /**
      * 需要为 true
      *
-     * @param object
-     * @return
+     * @param object 待断言对象
+     * @return 断言成功返回原对象
      */
     public static Boolean requireTrue(Boolean object) {
         Assert.TRUE_NEED.throwsIfFalse(object);
@@ -1893,9 +1880,9 @@ public class Objects {
     /**
      * 需要为 true
      *
-     * @param httpStatus
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param object     待断言对象
+     * @return 断言成功返回原对象
      */
     public static Boolean requireTrue(HttpStatus httpStatus, Boolean object) {
         Assert.INSTANCE.set(httpStatus).throwsIfFalse(object);
@@ -1905,10 +1892,10 @@ public class Objects {
     /**
      * 需要为 true
      *
-     * @param httpStatus
-     * @param message
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param object     待断言对象
+     * @return 断言成功返回原对象
      */
     public static Boolean requireTrue(HttpStatus httpStatus, Supplier<String> message, Boolean object) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfFalse(object);
@@ -1918,9 +1905,9 @@ public class Objects {
     /**
      * 需要为 true
      *
-     * @param message
-     * @param object
-     * @return
+     * @param message 断言信息
+     * @param object  待断言对象
+     * @return 断言成功返回原对象
      */
     public static Boolean requireTrue(Supplier<String> message, Boolean object) {
         Assert.INSTANCE.set(message).throwsIfFalse(object);
@@ -1930,9 +1917,9 @@ public class Objects {
     /**
      * 需要为 true
      *
-     * @param exception
-     * @param object
-     * @return
+     * @param exception 自定义异常
+     * @param object    待断言对象
+     * @return 断言成功返回原对象
      */
     public static Boolean requireTrue(Exception exception, Boolean object) {
         Assert.INSTANCE.set(exception).throwsIfFalse(object);
@@ -1942,8 +1929,7 @@ public class Objects {
     /**
      * 需要至少有一个为 true
      *
-     * @param object
-     * @return
+     * @param object 待断言对象
      */
     public static void requireTrue(Boolean... object) {
         Assert.TRUE_NEED.throwsIfAllFalse(object);
@@ -1952,9 +1938,8 @@ public class Objects {
     /**
      * 需要至少有一个为 true
      *
-     * @param httpStatus
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param objects    待断言对象
      */
     public static void requireTrue(HttpStatus httpStatus, Boolean... objects) {
         Assert.INSTANCE.set(httpStatus).throwsIfAllFalse(objects);
@@ -1963,10 +1948,9 @@ public class Objects {
     /**
      * 需要至少有一个为 true
      *
-     * @param httpStatus
-     * @param message
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param objects    待断言对象
      */
     public static void requireTrue(HttpStatus httpStatus, Supplier<String> message, Boolean... objects) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfAllFalse(objects);
@@ -1975,9 +1959,8 @@ public class Objects {
     /**
      * 需要至少有一个为 true
      *
-     * @param objects
-     * @param message
-     * @return
+     * @param objects 待断言对象
+     * @param message 断言信息
      */
     public static void requireTrue(Supplier<String> message, Boolean... objects) {
         Assert.INSTANCE.set(message).throwsIfAllFalse(objects);
@@ -1986,8 +1969,7 @@ public class Objects {
     /**
      * 需要全部为 true
      *
-     * @param object
-     * @return
+     * @param object 待断言对象
      */
     public static void requireAllTrue(Boolean... object) {
         Assert.TRUE_NEED.throwsIfFalse(object);
@@ -1996,9 +1978,8 @@ public class Objects {
     /**
      * 需要全部为 true
      *
-     * @param httpStatus
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param objects    待断言对象
      */
     public static void requireAllTrue(HttpStatus httpStatus, Boolean... objects) {
         Assert.INSTANCE.set(httpStatus).throwsIfFalse(objects);
@@ -2007,10 +1988,9 @@ public class Objects {
     /**
      * 需要全部为 true
      *
-     * @param httpStatus
-     * @param message
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param objects    待断言对象
      */
     public static void requireAllTrue(HttpStatus httpStatus, Supplier<String> message, Boolean... objects) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfFalse(objects);
@@ -2019,9 +1999,8 @@ public class Objects {
     /**
      * 需要全部为 true
      *
-     * @param objects
-     * @param message
-     * @return
+     * @param objects 待断言对象
+     * @param message 断言信息
      */
     public static void requireAllTrue(Supplier<String> message, Boolean... objects) {
         Assert.INSTANCE.set(message).throwsIfFalse(objects);
@@ -2030,8 +2009,8 @@ public class Objects {
     /**
      * 需要为 false
      *
-     * @param object
-     * @return
+     * @param object 待断言对象
+     * @return 断言成功返回原对象
      */
     public static Boolean requireFalse(Boolean object) {
         Assert.FALSE_NEED.throwsIfTrue(object);
@@ -2041,9 +2020,9 @@ public class Objects {
     /**
      * 需要为 false
      *
-     * @param httpStatus
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param object     待断言对象
+     * @return 断言成功返回原对象
      */
     public static Boolean requireFalse(HttpStatus httpStatus, Boolean object) {
         Assert.INSTANCE.set(httpStatus).throwsIfTrue(object);
@@ -2053,10 +2032,10 @@ public class Objects {
     /**
      * 需要为 false
      *
-     * @param httpStatus
-     * @param message
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param object     待断言对象
+     * @return 断言成功返回原对象
      */
     public static Boolean requireFalse(HttpStatus httpStatus, Supplier<String> message, Boolean object) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfTrue(object);
@@ -2066,9 +2045,9 @@ public class Objects {
     /**
      * 需要为 false
      *
-     * @param message
-     * @param object
-     * @return
+     * @param message 断言信息
+     * @param object  待断言对象
+     * @return 断言成功返回原对象
      */
     public static Boolean requireFalse(Supplier<String> message, Boolean object) {
         Assert.INSTANCE.set(message).throwsIfTrue(object);
@@ -2078,9 +2057,9 @@ public class Objects {
     /**
      * 需要为 false
      *
-     * @param exception
-     * @param object
-     * @return
+     * @param exception 自定义异常
+     * @param object    待断言对象
+     * @return 断言成功返回原对象
      */
     public static Boolean requireFalse(Exception exception, Boolean object) {
         Assert.INSTANCE.set(exception).throwsIfTrue(object);
@@ -2090,8 +2069,7 @@ public class Objects {
     /**
      * 需要至少有一个为 false
      *
-     * @param objects
-     * @return
+     * @param objects 待断言对象
      */
     public static void requireFalse(Boolean... objects) {
         Assert.FALSE_NEED.throwsIfAllTrue(objects);
@@ -2100,9 +2078,8 @@ public class Objects {
     /**
      * 需要至少有一个为 false
      *
-     * @param objects
-     * @param message
-     * @return
+     * @param objects 待断言对象
+     * @param message 断言信息
      */
     public static void requireFalse(Supplier<String> message, Boolean... objects) {
         Assert.INSTANCE.set(message).throwsIfAllTrue(objects);
@@ -2111,9 +2088,8 @@ public class Objects {
     /**
      * 需要至少有一个为 false
      *
-     * @param httpStatus
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param objects    待断言对象
      */
     public static void requireFalse(HttpStatus httpStatus, Boolean... objects) {
         Assert.INSTANCE.set(httpStatus).throwsIfAllTrue(objects);
@@ -2122,10 +2098,9 @@ public class Objects {
     /**
      * 需要至少有一个为 false
      *
-     * @param httpStatus
-     * @param message
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param objects    待断言对象
      */
     public static void requireFalse(HttpStatus httpStatus, Supplier<String> message, Boolean... objects) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfAllTrue(objects);
@@ -2134,8 +2109,7 @@ public class Objects {
     /**
      * 需要全部为 false
      *
-     * @param objects
-     * @return
+     * @param objects 待断言对象
      */
     public static void requireAllFalse(Boolean... objects) {
         Assert.FALSE_NEED.throwsIfTrue(objects);
@@ -2144,9 +2118,8 @@ public class Objects {
     /**
      * 需要全部为 false
      *
-     * @param httpStatus
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param objects    待断言对象
      */
     public static void requireAllFalse(HttpStatus httpStatus, Boolean... objects) {
         Assert.INSTANCE.set(httpStatus).throwsIfTrue(objects);
@@ -2155,10 +2128,9 @@ public class Objects {
     /**
      * 需要全部为 false
      *
-     * @param httpStatus
-     * @param message
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param objects    待断言对象
      */
     public static void requireAllFalse(HttpStatus httpStatus, Supplier<String> message, Boolean... objects) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfTrue(objects);
@@ -2167,9 +2139,8 @@ public class Objects {
     /**
      * 需要全部为 false
      *
-     * @param objects
-     * @param message
-     * @return
+     * @param message 断言信息
+     * @param objects 待断言对象
      */
     public static void requireAllFalse(Supplier<String> message, Boolean... objects) {
         Assert.INSTANCE.set(message).throwsIfTrue(objects);
@@ -2178,8 +2149,9 @@ public class Objects {
     /**
      * 需要为 正整数
      *
-     * @param object
-     * @return
+     * @param object 待断言对象
+     * @param <T>    对象类型
+     * @return 断言成功返回原对象
      */
     public static <T extends Number> T requirePositive(T object) {
         Assert.POSITIVE_NEED.throwsIfNotPositive(object);
@@ -2189,9 +2161,10 @@ public class Objects {
     /**
      * 需要为 正整数
      *
-     * @param httpStatus
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param object     待断言对象
+     * @param <T>        对象类型
+     * @return 断言成功返回原对象
      */
     public static <T extends Number> T requirePositive(HttpStatus httpStatus, T object) {
         Assert.INSTANCE.set(httpStatus).throwsIfNotPositive(object);
@@ -2201,10 +2174,11 @@ public class Objects {
     /**
      * 需要为 正整数
      *
-     * @param httpStatus
-     * @param message
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param object     待断言对象
+     * @param <T>        对象类型
+     * @return 断言成功返回原对象
      */
     public static <T extends Number> T requirePositive(HttpStatus httpStatus, Supplier<String> message, T object) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfNotPositive(object);
@@ -2214,9 +2188,10 @@ public class Objects {
     /**
      * 需要为 正整数
      *
-     * @param object
-     * @param message
-     * @return
+     * @param object  待断言对象
+     * @param message 断言信息
+     * @param <T>     对象类型
+     * @return 断言成功返回原对象
      */
     public static <T extends Number> T requirePositive(Supplier<String> message, T object) {
         Assert.INSTANCE.set(message).throwsIfNotPositive(object);
@@ -2226,8 +2201,7 @@ public class Objects {
     /**
      * 需要全部为 正整数
      *
-     * @param objects
-     * @return
+     * @param objects 待断言对象
      */
     public static void requireAllPositive(Number... objects) {
         Assert.POSITIVE_NEED.throwsIfNotPositive(objects);
@@ -2236,9 +2210,8 @@ public class Objects {
     /**
      * 需要全部为 正整数
      *
-     * @param httpStatus
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param objects    待断言对象
      */
     public static void requireAllPositive(HttpStatus httpStatus, Number... objects) {
         Assert.INSTANCE.set(httpStatus).throwsIfNotPositive(objects);
@@ -2247,10 +2220,9 @@ public class Objects {
     /**
      * 需要全部为 正整数
      *
-     * @param httpStatus
-     * @param message
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param objects    待断言对象
      */
     public static void requireAllPositive(HttpStatus httpStatus, Supplier<String> message, Number... objects) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfNotPositive(objects);
@@ -2259,9 +2231,8 @@ public class Objects {
     /**
      * 需要全部为 正整数
      *
-     * @param objects
-     * @param message
-     * @return
+     * @param message 断言信息
+     * @param objects 待断言对象
      */
     public static void requireAllPositive(Supplier<String> message, Number... objects) {
         Assert.INSTANCE.set(message).throwsIfNotPositive(objects);
@@ -2270,8 +2241,9 @@ public class Objects {
     /**
      * 需要为 0 或 负数
      *
-     * @param object
-     * @return
+     * @param object 待断言对象
+     * @param <T>    对象类型
+     * @return 断言成功返回原对象
      */
     public static <T extends Number> T requireNotPositive(T object) {
         Assert.POSITIVE_CHECK.throwsIfPositive(object);
@@ -2281,9 +2253,10 @@ public class Objects {
     /**
      * 需要为 0 或 负数
      *
-     * @param httpStatus
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param object     待断言对象
+     * @param <T>        对象类型
+     * @return 断言成功返回原对象
      */
     public static <T extends Number> T requireNotPositive(HttpStatus httpStatus, T object) {
         Assert.INSTANCE.set(httpStatus).throwsIfPositive(object);
@@ -2293,10 +2266,11 @@ public class Objects {
     /**
      * 需要为 0 或 负数
      *
-     * @param httpStatus
-     * @param message
-     * @param object
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param object     待断言对象
+     * @param <T>        对象类型
+     * @return 断言成功返回原对象
      */
     public static <T extends Number> T requireNotPositive(HttpStatus httpStatus, Supplier<String> message, T object) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfPositive(object);
@@ -2306,9 +2280,10 @@ public class Objects {
     /**
      * 需要为 0 或 负数
      *
-     * @param object
-     * @param message
-     * @return
+     * @param object  待断言对象
+     * @param message 断言信息
+     * @param <T>     对象类型
+     * @return 断言成功返回原对象
      */
     public static <T extends Number> T requireNotPositive(Supplier<String> message, T object) {
         Assert.INSTANCE.set(message).throwsIfPositive(object);
@@ -2318,8 +2293,7 @@ public class Objects {
     /**
      * 需要有一个为 0 或 负数
      *
-     * @param objects
-     * @return
+     * @param objects 待断言对象
      */
     public static void requireNotPositive(Number... objects) {
         Assert.POSITIVE_CHECK.throwsIfAllPositive(objects);
@@ -2328,9 +2302,8 @@ public class Objects {
     /**
      * 需要有一个为 0 或 负数
      *
-     * @param httpStatus
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param objects    待断言对象
      */
     public static void requireNotPositive(HttpStatus httpStatus, Number... objects) {
         Assert.INSTANCE.set(httpStatus).throwsIfAllPositive(objects);
@@ -2339,10 +2312,9 @@ public class Objects {
     /**
      * 需要有一个为 0 或 负数
      *
-     * @param httpStatus
-     * @param message
-     * @param objects
-     * @return
+     * @param httpStatus http 状态码
+     * @param message    断言信息
+     * @param objects    待断言对象
      */
     public static void requireNotPositive(HttpStatus httpStatus, Supplier<String> message, Number... objects) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfAllPositive(objects);
@@ -2351,9 +2323,8 @@ public class Objects {
     /**
      * 需要有一个为 0 或 负数
      *
-     * @param objects
-     * @param message
-     * @return
+     * @param objects 待断言对象
+     * @param message 断言信息
      */
     public static void requireNotPositive(Supplier<String> message, Number... objects) {
         Assert.INSTANCE.set(message).throwsIfAllPositive(objects);
@@ -2362,8 +2333,8 @@ public class Objects {
     /**
      * 需要两者相等
      *
-     * @param obj1
-     * @param obj2
+     * @param obj1 待断言对象
+     * @param obj2 待断言对象
      */
     public static void requireEquals(@Nullable Object obj1, @Nullable Object obj2) {
         Assert.EQUALS_NEED.throwsIfNotEquals(obj1, obj2);
@@ -2372,8 +2343,8 @@ public class Objects {
     /**
      * 需要起码有一个对象相等
      *
-     * @param obj1
-     * @param objs
+     * @param obj1 待断言对象
+     * @param objs 待断言对象
      */
     public static void requireEquals(@Nullable Object obj1, @Nullable Object... objs) {
         Assert.EQUALS_NEED.throwsIfNotEquals(obj1, objs);
@@ -2382,8 +2353,9 @@ public class Objects {
     /**
      * 需要起码有一个对象与集合的元素相同
      *
-     * @param obj1
-     * @param objs
+     * @param obj1 待断言对象
+     * @param objs 待断言对象
+     * @param <T>  对象类型
      */
     public static <T> void requireCollEquals(@Nullable T obj1, @Nullable Collection<T> objs) {
         Assert.EQUALS_NEED.throwsIfCollNotEquals(obj1, objs);
@@ -2392,8 +2364,8 @@ public class Objects {
     /**
      * 需要两者不相等
      *
-     * @param obj1
-     * @param obj2
+     * @param obj1 待断言对象
+     * @param obj2 待断言对象
      */
     public static void requireNotEquals(@Nullable Object obj1, @Nullable Object obj2) {
         Assert.EQUALS_CHECK.throwsIfEquals(obj1, obj2);
@@ -2402,8 +2374,8 @@ public class Objects {
     /**
      * 需要全部不相等
      *
-     * @param obj1
-     * @param objs
+     * @param obj1 待断言对象
+     * @param objs 待断言对象
      */
     public static void requireNotEquals(@Nullable Object obj1, @Nullable Object... objs) {
         Assert.EQUALS_CHECK.throwsIfEquals(obj1, objs);
@@ -2412,8 +2384,9 @@ public class Objects {
     /**
      * 需要与集合的所有元素都不相等
      *
-     * @param obj1
-     * @param objs
+     * @param obj1 待断言对象
+     * @param objs 待断言对象
+     * @param <T>  对象类型
      */
     public static <T> void requireCollNotEquals(@Nullable T obj1, @Nullable Collection<T> objs) {
         Assert.EQUALS_CHECK.throwsIfCollEquals(obj1, objs);
@@ -2562,73 +2535,73 @@ public class Objects {
     /**
      * 是否为 JSONObject，首尾都为大括号判定为 JSONObject
      *
-     * @param data
-     * @return
+     * @param object 待判定对象
+     * @return 判定是否成功
      */
-    public static boolean doesStringLikeJson(String data) {
-        if (isBlank(data)) {
+    public static boolean doesStringLikeJson(String object) {
+        if (isBlank(object)) {
             return false;
         }
 
-        CharSequence str = data.trim();
+        CharSequence str = object.trim();
         return str.charAt(0) == CharPool.DELIM_START && str.charAt(str.length() - 1) == CharPool.DELIM_END;
     }
 
     /**
      * 是否为 JSONArray，首尾都为中括号判定为 JSONArray
      *
-     * @param data
-     * @return
+     * @param object 待判定对象
+     * @return 判定是否成功
      */
-    public static boolean doesStringLikeJsonArray(String data) {
-        if (isBlank(data)) {
+    public static boolean doesStringLikeJsonArray(String object) {
+        if (isBlank(object)) {
             return false;
         }
 
-        CharSequence str = data.trim();
+        CharSequence str = object.trim();
         return str.charAt(0) == CharPool.BRACKET_START && str.charAt(str.length() - 1) == CharPool.BRACKET_END;
     }
 
     /**
      * 是否不为 JSONObject，首尾都为大括号判定为 JSONObject
      *
-     * @param data
-     * @return
+     * @param object 待判定对象
+     * @return 判定是否成功
      */
-    public static boolean doesStringNotLikeJson(String data) {
-        return !doesStringLikeJson(data);
+    public static boolean doesStringNotLikeJson(String object) {
+        return !doesStringLikeJson(object);
     }
 
     /**
      * 是否不为 JSONArray，首尾都为中括号判定为 JSONArray
      *
-     * @param data
-     * @return
+     * @param object 待判定对象
+     * @return 判定是否成功
      */
-    public static boolean doesStringNotLikeJsonArray(String data) {
-        return !doesStringLikeJsonArray(data);
+    public static boolean doesStringNotLikeJsonArray(String object) {
+        return !doesStringLikeJsonArray(object);
     }
 
     /**
      * 获取实际的值 TODO 场景未够完善
      *
-     * @param value
-     * @return
+     * @param object 输入值
+     * @return 获取实际值
      */
-    public static Object getActualValue(String value) {
-        if (Objects.isNull(value)) {
+    public static Object getActualValue(String object) {
+        if (Objects.isNull(object)) {
             return null;
         }
         try {
-            if (NumbersUtil.isInteger(value)) {
-                return Integer.valueOf(value);
+            if (NumbersUtil.isInteger(object)) {
+                return Integer.valueOf(object);
             }
-            if (NumbersUtil.isLong(value)) {
-                return Long.valueOf(value);
+            if (NumbersUtil.isLong(object)) {
+                return Long.valueOf(object);
             }
         } catch (Exception ignore) {
         }
-        return value;
+        return object;
     }
 
     /**
@@ -2642,12 +2615,12 @@ public class Objects {
     }
 
     /**
-     * 比较两个集合的值是否相等
+     * 比较两个集合的值是否相等（TODO wjm 临时加，后续完善）
      *
-     * @param input1
-     * @param input2
-     * @param <E>
-     * @return
+     * @param input1 待比较对象
+     * @param input2 待比较对象
+     * @param <E>    对象类型
+     * @return 是否相等
      */
     public static <E> boolean equals(Collection<E> input1, Collection<E> input2) {
         if (input1 == input2) {

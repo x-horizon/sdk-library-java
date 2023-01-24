@@ -10,6 +10,9 @@ import cn.hutool.core.annotation.AnnotationUtil;
  */
 public class AnnotationsUtil extends AnnotationUtil {
 
+    /**
+     * private block constructor
+     */
     private AnnotationsUtil() {
     }
 

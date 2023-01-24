@@ -8,6 +8,9 @@ package cn.srd.itcp.sugar.tools.constant;
  */
 public class Charset {
 
+    /**
+     * 字符集：UTF-8
+     */
     public static final String UTF8 = "UTF-8";
 
 }

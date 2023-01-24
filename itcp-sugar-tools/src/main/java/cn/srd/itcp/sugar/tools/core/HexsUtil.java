@@ -9,7 +9,10 @@ import cn.hutool.core.util.HexUtil;
  * @since 2022-07-06
  */
 public class HexsUtil extends HexUtil {
-    
+
+    /**
+     * private block constructor
+     */
     private HexsUtil() {
     }
 
@@ -21,7 +24,7 @@ public class HexsUtil extends HexUtil {
      * @return 十六进制字符串
      */
     public static String hexToString(Byte[] data, boolean needLower) {
-        return Objects.isNotNull(data) ? hexToString(ArraysUtil.unWrap(data), needLower) : null;
+        return Objects.isNotNull((Object[]) data) ? hexToString(ArraysUtil.unWrap(data), needLower) : null;
     }
 
     /**

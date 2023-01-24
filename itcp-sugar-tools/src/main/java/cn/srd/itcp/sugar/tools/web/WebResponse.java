@@ -3,12 +3,13 @@ package cn.srd.itcp.sugar.tools.web;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
  * webmvc 响应结果
  *
- * @param <T>
+ * @param <T> 响应结果类型
  * @author wjm
  * @since 2020/01/05 13:45
  */
@@ -16,6 +17,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 public final class WebResponse<T> implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 7838683692331475145L;
 
     /**
@@ -36,8 +38,8 @@ public final class WebResponse<T> implements Serializable {
     /**
      * 响应正确信息
      *
-     * @param <T>
-     * @return
+     * @param <T> 响应数据类型
+     * @return 响应实例
      */
     public static <T> WebResponse<T> success() {
         return response(HttpStatusEnum.SUCCESS.getCode(), HttpStatusEnum.SUCCESS.getDescription(), null);
@@ -47,8 +49,8 @@ public final class WebResponse<T> implements Serializable {
      * 响应正确信息
      *
      * @param data 自定义响应数据，字段名为 data
-     * @param <T>
-     * @return
+     * @param <T>  响应数据类型
+     * @return 响应实例
      */
     public static <T> WebResponse<T> success(T data) {
         return response(HttpStatusEnum.SUCCESS.getCode(), HttpStatusEnum.SUCCESS.getDescription(), data);
@@ -58,8 +60,8 @@ public final class WebResponse<T> implements Serializable {
      * 响应正确信息
      *
      * @param message 自定义响应信息，字段名为 message
-     * @param <T>
-     * @return
+     * @param <T>     响应数据类型
+     * @return 响应实例
      */
     public static <T> WebResponse<T> success(String message) {
         return response(HttpStatusEnum.SUCCESS.getCode(), message, null);
@@ -70,8 +72,8 @@ public final class WebResponse<T> implements Serializable {
      *
      * @param message 自定义响应信息，字段名为 message
      * @param data    自定义响应数据，字段名为 data
-     * @param <T>
-     * @return
+     * @param <T>     响应数据类型
+     * @return 响应实例
      */
     public static <T> WebResponse<T> success(String message, T data) {
         return response(HttpStatusEnum.SUCCESS.getCode(), message, data);
@@ -80,8 +82,8 @@ public final class WebResponse<T> implements Serializable {
     /**
      * 响应错误信息
      *
-     * @param <T>
-     * @return
+     * @param <T> 响应数据类型
+     * @return 响应实例
      */
     public static <T> WebResponse<T> error() {
         return response(HttpStatusEnum.INTERNAL_ERROR.getCode(), HttpStatusEnum.INTERNAL_ERROR.getDescription(), null);
@@ -91,8 +93,8 @@ public final class WebResponse<T> implements Serializable {
      * 响应错误信息
      *
      * @param data 自定义响应数据，字段名为 data
-     * @param <T>
-     * @return
+     * @param <T>  响应数据类型
+     * @return 响应实例
      */
     public static <T> WebResponse<T> error(T data) {
         return response(HttpStatusEnum.INTERNAL_ERROR.getCode(), HttpStatusEnum.INTERNAL_ERROR.getDescription(), data);
@@ -102,8 +104,8 @@ public final class WebResponse<T> implements Serializable {
      * 响应错误信息
      *
      * @param message 自定义响应信息，字段名为 message
-     * @param <T>
-     * @return
+     * @param <T>     响应数据类型
+     * @return 响应实例
      */
     public static <T> WebResponse<T> error(String message) {
         return response(HttpStatusEnum.INTERNAL_ERROR.getCode(), message, null);
@@ -114,8 +116,8 @@ public final class WebResponse<T> implements Serializable {
      *
      * @param message 自定义响应信息，字段名为 message
      * @param data    自定义响应数据，字段名为 data
-     * @param <T>
-     * @return
+     * @param <T>     响应数据类型
+     * @return 响应实例
      */
     public static <T> WebResponse<T> error(String message, T data) {
         return response(HttpStatusEnum.INTERNAL_ERROR.getCode(), message, data);
@@ -126,8 +128,8 @@ public final class WebResponse<T> implements Serializable {
      *
      * @param status  自定义状态码
      * @param message 自定义响应信息，字段名为 message
-     * @param <T>
-     * @return
+     * @param <T>     响应数据类型
+     * @return 响应实例
      */
     public static <T> WebResponse<T> error(Integer status, String message) {
         return response(status, message, null);
@@ -138,8 +140,8 @@ public final class WebResponse<T> implements Serializable {
      *
      * @param httpStatusEnum 自定义状态码
      * @param message        自定义响应信息，字段名为 message
-     * @param <T>
-     * @return
+     * @param <T>            响应数据类型
+     * @return 响应实例
      */
     public static <T> WebResponse<T> error(HttpStatusEnum httpStatusEnum, String message) {
         return response(httpStatusEnum.getCode(), message, null);
@@ -149,8 +151,8 @@ public final class WebResponse<T> implements Serializable {
      * 响应错误信息
      *
      * @param httpStatusEnum 自定义状态码、响应信息
-     * @param <T>
-     * @return
+     * @param <T>            响应数据类型
+     * @return 响应实例
      */
     public static <T> WebResponse<T> error(HttpStatusEnum httpStatusEnum) {
         return response(httpStatusEnum.getCode(), httpStatusEnum.getDescription(), null);
@@ -161,8 +163,8 @@ public final class WebResponse<T> implements Serializable {
      *
      * @param httpStatusEnum 自定义状态码、响应信息
      * @param data           自定义响应数据，字段名为 data
-     * @param <T>
-     * @return
+     * @param <T>            响应数据类型
+     * @return 响应实例
      */
     public static <T> WebResponse<T> response(HttpStatusEnum httpStatusEnum, T data) {
         WebResponse<T> result = new WebResponse<>();
@@ -178,8 +180,8 @@ public final class WebResponse<T> implements Serializable {
      * @param status  自定义状态码
      * @param message 自定义响应信息，字段名为 message
      * @param data    自定义响应数据，字段名为 data
-     * @param <T>
-     * @return
+     * @param <T>     响应数据类型
+     * @return 响应实例
      */
     public static <T> WebResponse<T> response(Integer status, String message, T data) {
         WebResponse<T> result = new WebResponse<>();

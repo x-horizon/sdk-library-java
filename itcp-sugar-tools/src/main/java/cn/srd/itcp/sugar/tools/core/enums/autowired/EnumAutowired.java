@@ -107,21 +107,29 @@ public @interface EnumAutowired {
 
     /**
      * 指定要注入的实现类的父级接口
+     *
+     * @return 父级接口
      */
     Class<?> autowiredBeanClass();
 
     /**
-     * 指定具体要将实现类注入到枚举的哪个字段中
+     * 指定具体要将实现类注入到枚举的哪个属性中
+     *
+     * @return 枚举属性名
      */
     String autowiredFiledName() default "";
 
     /**
      * 获取到指定的父级接口所有实现类后，根据该字段指定的规则，匹配到枚举可能要注入的实现类
+     *
+     * @return 匹配枚举可能要注入的实现类规则
      */
     Class<? extends FindBeanNamesMayAutowiredRule> findBeanNamesMayAutowiredRule() default FindBeanNamesMayAutowiredByBeanNameContainsIgnoreCaseEnumNameRule.class;
 
     /**
      * 获取到枚举可能要注入的实现类后，根据该字段指定的规则，筛选出最终要注入的实现类
+     *
+     * @return 匹配枚举最终要注入的实现类规则
      */
     Class<? extends FindBeanNameToAutowiredRule> findBeanNameToAutowiredRule() default FindBeanNameToAutowiredByShortestBeanNameRule.class;
 

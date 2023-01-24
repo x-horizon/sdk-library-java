@@ -21,17 +21,22 @@ public @interface RequireJsonString {
     /**
      * 校验失败时的信息
      *
-     * @return
+     * @return 校验失败时的信息
      */
     String message() default "json string is required";
 
     /**
      * 要校验的分组
      *
-     * @return
+     * @return 要校验的分组
      */
     Class<?>[] groups() default {};
 
+    /**
+     * 负载类
+     *
+     * @return 负载类
+     */
     Class<? extends Payload>[] payload() default {};
 
 }

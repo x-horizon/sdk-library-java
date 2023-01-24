@@ -13,17 +13,35 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  */
 public class SpringsWebUtil {
 
+    /**
+     * private block constructor
+     */
     private SpringsWebUtil() {
     }
 
+    /**
+     * 获取请求属性
+     *
+     * @return 请求属性
+     */
     public static ServletRequestAttributes getServletRequestAttributes() {
         return Objects.requireNotNull(() -> "当前为非web上下文环境，无法获取，请检查！", (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes());
     }
 
+    /**
+     * 获取请求对象
+     *
+     * @return 请求对象
+     */
     public static HttpServletRequest getHttpServletRequest() {
         return getServletRequestAttributes().getRequest();
     }
 
+    /**
+     * 获取响应对象
+     *
+     * @return 响应对象
+     */
     public static HttpServletResponse getHttpServletResponse() {
         return getServletRequestAttributes().getResponse();
     }

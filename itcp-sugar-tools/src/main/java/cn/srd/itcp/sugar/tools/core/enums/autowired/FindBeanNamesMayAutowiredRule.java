@@ -16,7 +16,7 @@ public interface FindBeanNamesMayAutowiredRule {
      *
      * @param internalEnumWithEnumAutowired         标记了 {@link EnumAutowired} 的枚举中的内部枚举
      * @param autowiredBeanChildrenClassSimpleNames {@link EnumAutowired#autowiredBeanClass()} 接口的所有实现类类名
-     * @param <E>
+     * @param <E>                                   枚举中的内部枚举类类型
      * @return 枚举可能要注入的实现类类名
      */
     <E extends Enum<E>> List<String> getBeanNamesMayAutowired(Enum<E> internalEnumWithEnumAutowired, Set<String> autowiredBeanChildrenClassSimpleNames);

@@ -53,25 +53,95 @@ import org.springframework.lang.Nullable;
 @Getter
 public class Assert implements AssertSupport {
 
+    /**
+     * private block constructor
+     */
     private Assert() {
     }
 
+    /**
+     * 空实例构造
+     */
     public static final Assert INSTANCE = of();
+
+    /**
+     * 必须不为 null 异常实例构造
+     */
     public static final Assert NULL_CHECK = of(ExceptionMessageTemplate.NULL_CHECK);
+
+    /**
+     * 必须不为 empty 异常实例构造
+     */
     public static final Assert EMPTY_CHECK = of(ExceptionMessageTemplate.EMPTY_CHECK);
+
+    /**
+     * 必须不为 blank 异常实例构造
+     */
     public static final Assert BLANK_CHECK = of(ExceptionMessageTemplate.BLANK_CHECK);
+
+    /**
+     * 必须不为 true 异常实例构造
+     */
     public static final Assert TRUE_CHECK = of(ExceptionMessageTemplate.TRUE_CHECK);
+
+    /**
+     * 必须不为 false 异常实例构造
+     */
     public static final Assert FALSE_CHECK = of(ExceptionMessageTemplate.FALSE_CHECK);
+
+    /**
+     * 必须不为正整数 异常实例构造
+     */
     public static final Assert POSITIVE_CHECK = of(ExceptionMessageTemplate.POSITIVE_CHECK);
+
+    /**
+     * 必须不相等 异常实例构造
+     */
     public static final Assert EQUALS_CHECK = of(ExceptionMessageTemplate.EQUALS_CHECK);
+
+    /**
+     * 必须为 null 异常实例构造
+     */
     public static final Assert NULL_NEED = of(ExceptionMessageTemplate.NULL_NEED);
+
+    /**
+     * 必须为 empty 异常实例构造
+     */
     public static final Assert EMPTY_NEED = of(ExceptionMessageTemplate.EMPTY_NEED);
+
+    /**
+     * 必须为 blank 异常实例构造
+     */
     public static final Assert BLANK_NEED = of(ExceptionMessageTemplate.BLANK_NEED);
+
+    /**
+     * 必须为 true 异常实例构造
+     */
     public static final Assert TRUE_NEED = of(ExceptionMessageTemplate.TRUE_NEED);
+
+    /**
+     * 必须为 false 异常实例构造
+     */
     public static final Assert FALSE_NEED = of(ExceptionMessageTemplate.FALSE_NEED);
+
+    /**
+     * 必须为正整数 异常实例构造
+     */
     public static final Assert POSITIVE_NEED = of(ExceptionMessageTemplate.POSITIVE_NEED);
+
+    /**
+     * 必须相等 异常实例构造
+     */
     public static final Assert EQUALS_NEED = of(ExceptionMessageTemplate.EQUALS_NEED);
+
+    /**
+     * 不支持的操作 异常实例构造
+     */
     public static final Assert UNSUPPORTED_OPERATE = of(ExceptionMessageTemplate.UNSUPPORTED_OPERATE);
+
+    /**
+     * 不支持的参数 异常实例构造
+     */
     public static final Assert UNSUPPORTED_PARAMETERS = of(ExceptionMessageTemplate.UNSUPPORTED_PARAMETERS);
 
     private static Assert of() {

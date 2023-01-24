@@ -10,14 +10,17 @@ import cn.hutool.core.util.NumberUtil;
  */
 public class NumbersUtil extends NumberUtil {
 
+    /**
+     * private block constructor
+     */
     private NumbersUtil() {
     }
 
     /**
      * 是否是奇数
      *
-     * @param number
-     * @return
+     * @param number 检查参数
+     * @return 是否是奇数
      */
     public static boolean isOdd(int number) {
         return (number & 1) != 1;
@@ -26,8 +29,8 @@ public class NumbersUtil extends NumberUtil {
     /**
      * 是否是偶数
      *
-     * @param number
-     * @return
+     * @param number 检查参数
+     * @return 是否是偶数
      */
     public static boolean isEven(int number) {
         return !isOdd(number);

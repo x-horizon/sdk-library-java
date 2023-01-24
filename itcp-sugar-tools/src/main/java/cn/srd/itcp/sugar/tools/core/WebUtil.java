@@ -8,6 +8,9 @@ package cn.srd.itcp.sugar.tools.core;
  */
 public class WebUtil {
 
+    /**
+     * private block constructor
+     */
     private WebUtil() {
     }
 

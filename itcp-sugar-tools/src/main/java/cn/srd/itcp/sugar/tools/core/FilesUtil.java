@@ -10,6 +10,9 @@ import cn.hutool.core.io.FileUtil;
  */
 public class FilesUtil extends FileUtil {
 
+    /**
+     * private block constructor
+     */
     private FilesUtil() {
     }
 

@@ -11,14 +11,14 @@ public interface HttpStatus {
     /**
      * 响应码
      *
-     * @return
+     * @return 响应码
      */
     int getCode();
 
     /**
      * 响应码对应的描述
      *
-     * @return
+     * @return 响应码对应的描述
      */
     String getDescription();
 

@@ -13,21 +13,46 @@ import lombok.Setter;
 @Setter
 public class RunningException extends RuntimeException {
 
+    /**
+     * 自定义异常模板
+     */
     ExceptionTemplate exceptionTemplate;
 
-    public RunningException(String msg) {
-        super(msg);
+    /**
+     * public constructor
+     *
+     * @param message 异常信息
+     */
+    public RunningException(String message) {
+        super(message);
     }
 
-    public RunningException(String msg, Throwable cause) {
-        super(msg, cause);
+    /**
+     * public constructor
+     *
+     * @param message 异常信息
+     * @param cause   wrapper exception
+     */
+    public RunningException(String message, Throwable cause) {
+        super(message, cause);
     }
 
+    /**
+     * public constructor
+     *
+     * @param exceptionTemplate 自定义异常模板
+     */
     public RunningException(ExceptionTemplate exceptionTemplate) {
         super(exceptionTemplate.getDescription());
         this.exceptionTemplate = exceptionTemplate;
     }
 
+    /**
+     * public constructor
+     *
+     * @param exceptionTemplate 自定义异常模板
+     * @param cause             wrapper exception
+     */
     public RunningException(ExceptionTemplate exceptionTemplate, Throwable cause) {
         super(exceptionTemplate.getDescription(), cause);
         this.exceptionTemplate = exceptionTemplate;

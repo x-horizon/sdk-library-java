@@ -17,14 +17,17 @@ import java.util.List;
  */
 public class TypesUtil {
 
+    /**
+     * private block constructor
+     */
     private TypesUtil() {
     }
 
     /**
      * 获取方法的第一个入参类型
      *
-     * @param method
-     * @return
+     * @param method 输入方法对象
+     * @return 方法的第一个入参类型
      */
     public static Type getFirstParametricType(@Nullable Method method) {
         return getParametricType(method, 0);
@@ -33,9 +36,9 @@ public class TypesUtil {
     /**
      * 获取方法第 n 个入参类型，从 0 开始
      *
-     * @param method
-     * @param index
-     * @return
+     * @param method 输入方法对象
+     * @param index  索引位置
+     * @return 方法的第 n 个入参类型
      */
     public static Type getParametricType(@Nullable Method method, int index) {
         List<Type> types = getParametricTypes(method);
@@ -48,8 +51,8 @@ public class TypesUtil {
     /**
      * 获取方法的入参类型列表
      *
-     * @param method
-     * @return
+     * @param method 输入方法对象
+     * @return 方法的入参类型列表
      */
     @NonNull
     public static List<Type> getParametricTypes(@Nullable Method method) {
@@ -62,8 +65,8 @@ public class TypesUtil {
     /**
      * 获取方法的第一个入参类型的名字，参考
      *
-     * @param method
-     * @return
+     * @param method 输入方法对象
+     * @return 方法的第一个入参类型的名字
      */
     @NonNull
     public static String getFirstParametricTypeName(@Nullable Method method) {
@@ -78,17 +81,17 @@ public class TypesUtil {
      * 获取方法所有入参类型的名字
      * <pre>
      *   本方法对于入参若有泛型，会带泛型输出：
-     *      例如方法入参为 List<`TestBean>：
-     *        带泛型输出：method.getGenericParameterTypes() -> java.util.List<`cn.test.bean.TestBean>
+     *      例如方法入参为 List&lt;TestBean&gt;：
+     *        带泛型输出：method.getGenericParameterTypes() -> java.util.List&lt;cn.test.bean.TestBean&gt;
      *        不带泛型输出：method.getParameterTypes() -> java.util.List
      *   示例：
      *      cn.test.bean.TestBean
-     *      java.util.List<`cn.test.bean.TestBean>
-     *      java.util.Set<`cn.test.bean.TestBean>
+     *      java.util.List&lt;cn.test.bean.TestBean&gt;
+     *      java.util.Set&lt;cn.test.bean.TestBean&gt;
      * </pre>
      *
-     * @param method
-     * @return
+     * @param method 输入方法对象
+     * @return 方法所有入参类型的名字
      */
     @NonNull
     public static List<String> getParameterTypeNames(@Nullable Method method) {
@@ -98,8 +101,8 @@ public class TypesUtil {
     /**
      * 获取方法出参类型
      *
-     * @param method
-     * @return
+     * @param method 输入方法对象
+     * @return 方法出参类型
      */
     public static Type getReturnType(@Nullable Method method) {
         return method == null ? null : method.getGenericReturnType();
@@ -109,17 +112,17 @@ public class TypesUtil {
      * 获取方法出参类型的名字
      * <pre>
      *   本方法对于出参若有泛型，会带泛型输出：
-     *      例如方法出参为 List<`TestBean>：
-     *        带泛型输出：method.getGenericParameterTypes() -> java.util.List<`cn.test.bean.TestBean>
+     *      例如方法出参为 List&lt;TestBean&gt;：
+     *        带泛型输出：method.getGenericParameterTypes() -> java.util.List&lt;cn.test.bean.TestBean&gt;
      *        不带泛型输出：method.getParameterTypes() -> java.util.List
      *   示例：
      *      cn.test.bean.TestBean
-     *      java.util.List<`cn.test.bean.TestBean>
-     *      java.util.Set<`cn.test.bean.TestBean>
+     *      java.util.List&lt;cn.test.bean.TestBean&gt;
+     *      java.util.Set&lt;cn.test.bean.TestBean&gt;
      * </pre>
      *
-     * @param method
-     * @return
+     * @param method 输入方法对象
+     * @return 方法出参类型的名字
      */
     @NonNull
     public static String getReturnTypeName(@Nullable Method method) {
@@ -132,8 +135,8 @@ public class TypesUtil {
     /**
      * 判断方法的第一个入参是否存在泛型
      *
-     * @param method
-     * @return
+     * @param method 输入方法对象
+     * @return 方法的第一个入参是否存在泛型
      */
     public static boolean isFirstParameterExistGeneric(@Nullable Method method) {
         return StringsUtil.containsAny(getFirstParametricTypeName(method), StringPool.SINGLE_BOOK_NAME_LEFT, StringPool.SINGLE_BOOK_NAME_RIGHT);
@@ -142,8 +145,8 @@ public class TypesUtil {
     /**
      * 获得Type对应的原始类
      *
-     * @param type
-     * @return
+     * @param type 类型对象
+     * @return 类型对象原始类对象
      */
     public static Class<?> getClass(@Nullable Type type) {
         if (null != type) {

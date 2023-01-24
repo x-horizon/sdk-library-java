@@ -22,21 +22,47 @@ import org.springframework.lang.Nullable;
 @Getter
 public class WarnAssert implements AssertSupport {
 
+    /**
+     * private block constructor
+     */
     private WarnAssert() {
     }
 
+    /**
+     * 空实例构造
+     */
     public static final WarnAssert INSTANCE = of();
 
+    /**
+     * 响应码
+     */
     private Integer code;
 
+    /**
+     * 异常信息
+     */
     private String description;
 
+    /**
+     * 自定义抛出的异常
+     */
     private WarnOperationException exception;
 
+    /**
+     * 构造实例
+     *
+     * @param exceptionMessageTemplate 异常模板信息
+     * @return 实例
+     */
     private static WarnAssert of(ExceptionMessageTemplate exceptionMessageTemplate) {
         return (WarnAssert) of().set(exceptionMessageTemplate);
     }
 
+    /**
+     * 构造空实例
+     *
+     * @return 空实例
+     */
     private static WarnAssert of() {
         return new WarnAssert();
     }

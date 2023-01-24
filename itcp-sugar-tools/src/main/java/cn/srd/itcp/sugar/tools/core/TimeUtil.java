@@ -30,6 +30,9 @@ import java.util.stream.Stream;
  */
 public class TimeUtil extends LocalDateTimeUtil {
 
+    /**
+     * private block constructor
+     */
     private TimeUtil() {
     }
 
@@ -40,9 +43,10 @@ public class TimeUtil extends LocalDateTimeUtil {
      * 格式为：yyyy-MM-dd HH:mm:ss => 获取到的String：2020-11-21 18:43:36
      * 格式为：yyyy-MM-dd          => 获取到的String：2020-11-21
      * 格式为：HH:mm:ss            => 获取到的String：18:43:36
+     * </pre>
      *
-     * @param format
-     * @return
+     * @param format 时间字符串
+     * @return 当前时间对象
      * @see DatePattern#NORM_DATETIME_PATTERN
      */
     public static String getCurrentTimeString(@Nullable String format) {
@@ -52,8 +56,8 @@ public class TimeUtil extends LocalDateTimeUtil {
     /**
      * LocalDateTime => Long
      *
-     * @param input
-     * @return
+     * @param input 输入时间对象
+     * @return 时间戳
      */
     public static Long toLong(LocalDateTime input) {
         return Objects.isNull(input) ? null : input.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
@@ -62,8 +66,8 @@ public class TimeUtil extends LocalDateTimeUtil {
     /**
      * LocalDate => Long
      *
-     * @param input
-     * @return
+     * @param input 输入时间对象
+     * @return 时间戳
      */
     public static Long toLong(LocalDate input) {
         return Objects.isNull(input) ? null : input.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
@@ -72,8 +76,8 @@ public class TimeUtil extends LocalDateTimeUtil {
     /**
      * Long => LocalDateTime
      *
-     * @param input
-     * @return
+     * @param input 输入时间戳
+     * @return 时间对象
      */
     public static LocalDateTime toLocalDateTime(Long input) {
         return Objects.isNull(input) ? null : LocalDateTime.ofInstant(Instant.ofEpochMilli(input), ZoneId.systemDefault());
@@ -82,8 +86,8 @@ public class TimeUtil extends LocalDateTimeUtil {
     /**
      * Long => LocalDate
      *
-     * @param input
-     * @return
+     * @param input 输入时间戳
+     * @return 时间对象
      */
     public static LocalDate toLocalDate(Long input) {
         return Objects.isNull(input) ? null : LocalDate.ofInstant(Instant.ofEpochMilli(input), ZoneId.systemDefault());
@@ -92,12 +96,12 @@ public class TimeUtil extends LocalDateTimeUtil {
     /**
      * 获取日期最大值
      *
-     * @param dates
-     * @return
+     * @param dates 输入日期对象
+     * @return 日期最大值
      */
     @Nullable
     public static Date max(Date... dates) {
-        if (Objects.isAllEmpty(dates)) {
+        if (Objects.isAllEmpty((Object[]) dates)) {
             return null;
         }
         return Stream.of(dates).filter(Objects::isNotEmpty).max(Comparator.naturalOrder()).orElse(null);

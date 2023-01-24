@@ -19,6 +19,11 @@ import org.springframework.context.annotation.Bean;
  */
 public class SugarToolsAutoConfiguration {
 
+    /**
+     * 装配 {@link EnumAutowiredSupport}
+     *
+     * @return 装配对象
+     */
     @Bean
     public EnumAutowiredSupport enumAutowiredSupport() {
         if (Objects.isNotEmpty(SpringsUtil.scanPackageByAnnotation(EnableEnumAutowired.class))) {
@@ -27,6 +32,11 @@ public class SugarToolsAutoConfiguration {
         return null;
     }
 
+    /**
+     * 装配 {@link WebExceptionHandler}
+     *
+     * @return 装配对象
+     */
     @Bean
     public WebExceptionHandler webExceptionHandler() {
         if (Objects.isNotEmpty(SpringsUtil.scanPackageByAnnotation(EnableWebExceptionHandler.class))) {
@@ -35,6 +45,11 @@ public class SugarToolsAutoConfiguration {
         return null;
     }
 
+    /**
+     * 装配 {@link WebResponseAdvice}
+     *
+     * @return 装配对象
+     */
     @Bean
     public WebResponseAdvice webResponseAdvice() {
         if (Objects.isNotEmpty(SpringsUtil.scanPackageByAnnotation(EnableWebResponseAdvice.class))) {

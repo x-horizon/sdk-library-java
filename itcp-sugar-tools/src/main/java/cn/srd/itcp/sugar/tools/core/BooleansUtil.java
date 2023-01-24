@@ -10,6 +10,9 @@ import cn.hutool.core.util.BooleanUtil;
  */
 public class BooleansUtil extends BooleanUtil {
 
+    /**
+     * private block constructor
+     */
     private BooleansUtil() {
     }
 
