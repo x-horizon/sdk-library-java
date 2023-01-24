@@ -1,6 +1,4 @@
-group = 'cn.srd.itcp.sugar.convert.jackson'
 version = '1.0'
-description = 'itcp-sugar-convert-jackson'
 
 dependencies {
     implementation(project(':itcp-sugar-tools'))

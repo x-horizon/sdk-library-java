@@ -1,6 +1,4 @@
-group = 'cn.srd.itcp.sugar.convert.spring'
 version = '1.0'
-description = 'itcp-sugar-convert-spring'
 
 dependencies {
     implementation(project(':itcp-sugar-tools'))

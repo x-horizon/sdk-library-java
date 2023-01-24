@@ -1,6 +1,4 @@
-group = 'cn.srd.itcp.sugar.convert.all'
 version = '1.0'
-description = 'itcp-sugar-convert-all'
 
 dependencies {
     implementation(project(':itcp-sugar-tools'))

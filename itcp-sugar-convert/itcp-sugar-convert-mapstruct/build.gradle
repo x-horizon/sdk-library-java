@@ -1,6 +1,4 @@
-group = 'cn.srd.itcp.sugar.convert.mapstruct'
 version = '1.0'
-description = 'itcp-sugar-convert-mapstruct'
 
 dependencies {
     implementation(project(':itcp-sugar-tools'))

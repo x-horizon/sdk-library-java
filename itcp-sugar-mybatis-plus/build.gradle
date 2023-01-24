@@ -1,6 +1,4 @@
-group = 'cn.srd.itcp.sugar.mybatis.plus'
 version = '1.0'
-description = 'itcp-sugar-mybatis-plus'
 
 dependencies {
     implementation(project(':itcp-sugar-tools'))

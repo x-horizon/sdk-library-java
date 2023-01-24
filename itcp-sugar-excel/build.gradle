@@ -1,6 +1,4 @@
-group = 'cn.srd.itcp.sugar.excel'
 version = '1.0'
-description = 'itcp-sugar-excel'
 
 dependencies {
     implementation(project(':itcp-sugar-tools'))

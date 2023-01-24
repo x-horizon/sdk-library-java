@@ -1,6 +1,4 @@
-group = 'cn.srd.itcp.sugar.hsweb.curd'
 version = '1.0'
-description = 'itcp-sugar-hsweb-curd'
 
 dependencies {
     implementation(project(':itcp-sugar-tools'))
