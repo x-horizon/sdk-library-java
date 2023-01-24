@@ -1,6 +1,8 @@
-group = 'cn.srd.itcp.sugar.tools'
-version = '1.0'
-description = 'itcp-sugar-tools'
+plugins {
+    id 'maven-publish'
+}
+
+version = '1.5'
 
 dependencies {
     implementation("$spring_boot_starter_aop")
@@ -23,3 +25,47 @@ dependencies {
     api("$apache_commons_pool")
 }
 
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = projectCharset
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier.set("sources")
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set("javadoc")
+    from javadoc.destinationDir
+}
+
+javadoc {
+    options {
+        encoding projectCharset
+        version true
+        title "itcp-sugar-tools"
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId group
+            artifactId jar.baseName
+            version project.version
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            allowInsecureProtocol = true
+            url publishUrl
+            credentials {
+                username publishUsername
+                password publishPassword
+            }
+        }
+    }
+}
