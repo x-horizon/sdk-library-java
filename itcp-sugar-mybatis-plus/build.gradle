@@ -13,9 +13,9 @@ dependencies {
     implementation("$mysql")
     implementation("$postgresql")
     implementation("$druid")
-    implementation("$mybatis_plus")
-    implementation("$mybatis_plus_join")
-    implementation("$mybatis_plus_generator")
+
+    api("$mybatis_plus")
+    api("$mybatis_plus_join")
 
     annotationProcessor("$mapstruct_processor")
     annotationProcessor("$lombok_mapstruct_binding")
