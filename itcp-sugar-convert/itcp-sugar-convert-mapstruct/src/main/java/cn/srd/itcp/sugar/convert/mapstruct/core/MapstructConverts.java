@@ -42,13 +42,24 @@ import java.util.stream.Collectors;
 @Deprecated
 public class MapstructConverts {
 
+    /**
+     * protected block constructor
+     */
     protected MapstructConverts() {
     }
 
+    /**
+     * slacker signal ton pattern
+     */
     private static final class SingleTonHolder {
         private static final MapstructConverts INSTANCE = SpringsUtil.getBean(MapstructConverts.class);
     }
 
+    /**
+     * 获取实例
+     *
+     * @return 实例
+     */
     public static MapstructConverts getInstance() {
         return SingleTonHolder.INSTANCE;
     }
@@ -85,11 +96,11 @@ public class MapstructConverts {
      *        5、List< GradeVO> toVOs1(List< GradeDO> gradeDOs)
      *        6、List< GradeVO> toVOs2(List< GradeDO> gradeDOs)
      *      收集为该 map 时，其值为：
-     *        1、xxx.StudentDO/xxx.StudentVO => [Method(toVO)]
-     *        2、xxx.StudentDO/xxx.GradeDO/xxx.StudentVO => [Method(toVOMethod)]
-     *        3、xxx.GradeDO => [Method(toVO)]
-     *        4、java.util.Listxxx.StudentDO/java.util.Listxxx.StudentVO => [Method(toVOsMethod)]
-     *        5、6、java.util.Listxxx.GradeDO/java.util.Listxxx.GradeVO => [Method(toVOs1Method), Method(toVOs2Method)]
+     *        1、xxx.StudentDO/xxx.StudentVO =&gt; [Method(toVO)]
+     *        2、xxx.StudentDO/xxx.GradeDO/xxx.StudentVO =&gt; [Method(toVOMethod)]
+     *        3、xxx.GradeDO =&gt; [Method(toVO)]
+     *        4、java.util.Listxxx.StudentDO/java.util.Listxxx.StudentVO =&gt; [Method(toVOsMethod)]
+     *        5、6、java.util.Listxxx.GradeDO/java.util.Listxxx.GradeVO =&gt; [Method(toVOs1Method), Method(toVOs2Method)]
      *      该 map 仅用于帮助构建
      *          {@link #mapstructSupportedMethodInputAndOutputParameterNameMappingMethodMap}
      *          {@link #mapstructUnsupportedMethodInputAndOutputParameterNameMappingMethodsMap}
@@ -109,7 +120,7 @@ public class MapstructConverts {
      *        5、List< GradeVO> toVOs1(List< GradeDO> gradeDOs)
      *        6、List< GradeVO> toVOs2(List< GradeDO> gradeDOs)
      *      收集为该 map 时，其值为：
-     *        xxx.GradeDO => [Method(toVO)]
+     *        xxx.GradeDO =&gt; [Method(toVO)]
      *      其中，第 1、2、4、5、6 个方法不会被收集到该 map 中，原因如下：
      *        该 map 用作实际转换时，若只有一个待转换类，比如第 3 个方法，则直接根据该待转换类的类名来匹配转换方法；
      *          如：将 GradeDO 类的全路径类名 xxx.GradeDO 作为 key 在该 map 中匹配到对应的转换方法进行转换；
@@ -138,10 +149,10 @@ public class MapstructConverts {
      *        5、List< GradeVO> toVOs1(List< GradeDO> gradeDOs)
      *        6、List< GradeVO> toVOs2(List< GradeDO> gradeDOs)
      *      收集为该 map 时，其值为：
-     *        1、xxx.StudentDO/xxx.StudentVO => [Method(toVO)]
-     *        2、xxx.StudentDO/xxx.GradeDO/xxx.StudentVO => [Method(toVOMethod)]
-     *        3、xxx.GradeDO => [Method(toVO)]
-     *        4、java.util.Listxxx.StudentDO/java.util.Listxxx.StudentVO => [Method(toVOsMethod)]
+     *        1、xxx.StudentDO/xxx.StudentVO =&gt; [Method(toVO)]
+     *        2、xxx.StudentDO/xxx.GradeDO/xxx.StudentVO =&gt; [Method(toVOMethod)]
+     *        3、xxx.GradeDO =&gt; [Method(toVO)]
+     *        4、java.util.Listxxx.StudentDO/java.util.Listxxx.StudentVO =&gt; [Method(toVOsMethod)]
      *      其中，第 5、6 个方法不会被收集到该 map 中，原因如下：
      *        首先，在匹配转换方法时，第一层缓存 {@link #mapstructSupportedMethodInputParameterNameMappingMethodMap} 中找不到时，会进入该 map 中进行匹配；
      *        该 map 用作匹配转换方法的第二层缓存，常用于待转换类有多个，比如第 2 个方法，或者待转换类不是普通 Bean 类型，比如第 4 个方法的情况；
@@ -160,7 +171,7 @@ public class MapstructConverts {
      *        5、List< GradeVO> toVOs1(List< GradeDO> gradeDOs)
      *        6、List< GradeVO> toVOs2(List< GradeDO> gradeDOs)
      *      收集为该 map 时，其值为：
-     *        4、5、java.util.Listxxx.GradeDO/java.util.Listxxx.GradeVO => [Method(toVOs1Method), Method(toVOs2Method)]
+     *        4、5、java.util.Listxxx.GradeDO/java.util.Listxxx.GradeVO =&gt; [Method(toVOs1Method), Method(toVOs2Method)]
      *      其中，第 1、2、3、4 个方法不会被收集到该 map 中，原因如下：
      *        统一转换器进行转换前需要根据待转换类以及目标类匹配到对应的转换方法，当待转换类、目标类完全一致，但其对应的转换方法有多个，且为不同的方法名时，
      *        统一转换器无法知道具体要使用哪个方法进行转换，因此定义了该 map 用于收集这种不支持的方法，用于转换时实时提示；

@@ -10,11 +10,10 @@ import java.time.LocalDateTime;
  * mybatis-plus 自动填充字段值，配合 {@link com.baomidou.mybatisplus.annotation.TableField} 使用
  * <pre>
  *    以下示例代码表示插入、更新、插入和更新时自动填充值：
- *
  *         &#064;TableName(value = "table_name", autoResultMap = true)
  *         public class TableNamePO implements Serializable {
- *                 @Serial
- * private static final long serialVersionUID = -4579156082783453314L;
+ *             &#064;Serial
+ *             private static final long serialVersionUID = -4579156082783453314L;
  *             &#064;TableLogic
  *             &#064;TableField(fill = FieldFill.INSERT)
  *             private Boolean deleteFlag;
@@ -54,7 +53,7 @@ public interface MybatisPlusMetaDataHandler extends MetaObjectHandler {
     /**
      * 插入表时填充属性
      *
-     * @param metaObject
+     * @param metaObject 元数据对象
      */
     @Override
     default void insertFill(MetaObject metaObject) {
@@ -73,7 +72,7 @@ public interface MybatisPlusMetaDataHandler extends MetaObjectHandler {
     /**
      * 更新表时填充属性
      *
-     * @param metaObject
+     * @param metaObject 元数据对象
      */
     @Override
     default void updateFill(MetaObject metaObject) {
@@ -82,6 +81,13 @@ public interface MybatisPlusMetaDataHandler extends MetaObjectHandler {
         }
     }
 
+    /**
+     * 判断是否需要自动填充
+     *
+     * @param metaObject 元数据对象
+     * @param fieldName  元数据对象中要填充的字段名
+     * @return 是否需要自动填充
+     */
     default boolean needToFill(MetaObject metaObject, String fieldName) {
         if (metaObject.hasSetter(fieldName)) {
             return Objects.isEmpty(metaObject.getValue(fieldName));

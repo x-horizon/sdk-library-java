@@ -9,7 +9,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 /**
- * 在 All in one 转换器的基础上增加对 {@link IPage} => {@link PageResult} 的转换支持
+ * 在 All in one 转换器的基础上增加对 {@link IPage} =&gt; {@link PageResult} 的转换支持
  *
  * @author wjm
  * @since 2021/5/1 14:13
@@ -17,14 +17,25 @@ import org.springframework.lang.Nullable;
 @Deprecated
 public class MapstructMybatisPlusConverts {
 
+    /**
+     * protected block constructor
+     */
     protected MapstructMybatisPlusConverts() {
         super();
     }
 
+    /**
+     * slacker signal ton pattern
+     */
     private static final class SingleTonHolder {
         private static final MapstructMybatisPlusConverts INSTANCE = new MapstructMybatisPlusConverts();
     }
 
+    /**
+     * 获取实例
+     *
+     * @return 实例
+     */
     public static MapstructMybatisPlusConverts getInstance() {
         return SingleTonHolder.INSTANCE;
     }

@@ -23,49 +23,49 @@ public @interface RedissonNonFairLock {
     /**
      * 参考：{@link RedissonFairLock#lockName()}
      *
-     * @return
+     * @return {@link RedissonFairLock#lockName()}
      */
     String lockName() default "";
 
     /**
      * 参考：{@link RedissonFairLock#fieldName()}
      *
-     * @return
+     * @return {@link RedissonFairLock#fieldName()}
      */
     String fieldName() default "";
 
     /**
      * 参考：{@link RedissonFairLock#fieldOrder()}
      *
-     * @return
+     * @return {@link RedissonFairLock#fieldOrder()}
      */
     int fieldOrder() default 1;
 
     /**
      * 参考：{@link RedissonFairLock#waitTime()}
      *
-     * @return
+     * @return {@link RedissonFairLock#waitTime()}
      */
     long waitTime() default RedissonLockTemplate.DEFAULT_WAIT_TIME;
 
     /**
      * 参考：{@link RedissonFairLock#leaseTime()}
      *
-     * @return
+     * @return {@link RedissonFairLock#leaseTime()}
      */
     long leaseTime() default RedissonLockTemplate.DEFAULT_LEASE_TIME;
 
     /**
      * 参考：{@link RedissonFairLock#timeUnit()}
      *
-     * @return
+     * @return {@link RedissonFairLock#timeUnit()}
      */
     TimeUnit timeUnit() default TimeUnit.SECONDS;
 
     /**
      * 参考：{@link RedissonFairLock#redissonLockTemplate()}
      *
-     * @return
+     * @return {@link RedissonFairLock#redissonLockTemplate()}
      */
     Class<? extends RedissonLockTemplate> redissonLockTemplate() default RedissonNonFairLockHandler.class;
 

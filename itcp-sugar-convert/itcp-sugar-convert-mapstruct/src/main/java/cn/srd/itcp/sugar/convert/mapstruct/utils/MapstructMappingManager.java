@@ -23,10 +23,10 @@ import java.util.List;
 public class MapstructMappingManager {
 
     /**
-     * List => String
+     * List =&gt; String
      *
-     * @param value
-     * @return
+     * @param value 待转换对象
+     * @return 转换结果
      */
     @Nullable
     @MapstructListToString
@@ -35,10 +35,10 @@ public class MapstructMappingManager {
     }
 
     /**
-     * List<Integer> => String
+     * List&lt;Integer&gt; =&gt; String
      *
-     * @param value
-     * @return
+     * @param value 待转换对象
+     * @return 转换结果
      */
     @Nullable
     @MapstructListIntegerToString
@@ -47,10 +47,10 @@ public class MapstructMappingManager {
     }
 
     /**
-     * String => List<String>
+     * String =&gt; List&lt;String&gt;
      *
-     * @param value
-     * @return
+     * @param value 待转换对象
+     * @return 转换结果
      */
     @Nullable
     @MapstructStringToListString
@@ -59,10 +59,10 @@ public class MapstructMappingManager {
     }
 
     /**
-     * String => List<Integer>
+     * String =&gt; List&lt;Integer&gt;
      *
-     * @param value
-     * @return
+     * @param value 待转换对象
+     * @return 转换结果
      */
     @Nullable
     @MapstructStringToListInteger
@@ -73,8 +73,8 @@ public class MapstructMappingManager {
     /**
      * 展示 Enum 的字符串字段值
      *
-     * @param value
-     * @return
+     * @param value 待转换对象
+     * @return 转换结果
      */
     @Nullable
     @MapstructEnumToEnumString
@@ -85,8 +85,8 @@ public class MapstructMappingManager {
     /**
      * 展示 Enum 的数字字段值
      *
-     * @param value
-     * @return
+     * @param value 待转换对象
+     * @return 转换结果
      */
     @Nullable
     @MapstructEnumToEnumCode
@@ -95,10 +95,10 @@ public class MapstructMappingManager {
     }
 
     /**
-     * Byte[] => Hex String
+     * Byte[] =&gt; Hex String
      *
-     * @param value
-     * @return
+     * @param value 待转换对象
+     * @return 转换结果
      */
     @Nullable
     @MapstructByteArrayToHexString
@@ -107,10 +107,10 @@ public class MapstructMappingManager {
     }
 
     /**
-     * LocalDateTime => Long
+     * LocalDateTime =&gt; Long
      *
-     * @param value
-     * @return
+     * @param value 待转换对象
+     * @return 转换结果
      */
     @NonNull
     @MapstructLocalDateTimeToLong
@@ -119,10 +119,10 @@ public class MapstructMappingManager {
     }
 
     /**
-     * Long => String
+     * Long =&gt; String
      *
-     * @param value
-     * @return
+     * @param value 待转换对象
+     * @return 转换结果
      */
     @NonNull
     @MapstructLongToString
@@ -131,10 +131,10 @@ public class MapstructMappingManager {
     }
 
     /**
-     * {@link JSONObject} => String
+     * {@link JSONObject} =&gt; String
      *
-     * @param value
-     * @return
+     * @param value 待转换对象
+     * @return 转换结果
      */
     @NonNull
     @MapstructJSONObjectToStringFormatter
@@ -143,10 +143,10 @@ public class MapstructMappingManager {
     }
 
     /**
-     * String => {@link JSONObject}
+     * String =&gt; {@link JSONObject}
      *
-     * @param value
-     * @return
+     * @param value 待转换对象
+     * @return 转换结果
      */
     @NonNull
     @MapstructStringToJSONObjectFormatter
@@ -155,10 +155,11 @@ public class MapstructMappingManager {
     }
 
     /**
-     * null List => Empty ArrayList
+     * null List =&gt; Empty ArrayList
      *
-     * @param value
-     * @return
+     * @param value 待转换对象
+     * @param <T>   待转换对象l类型
+     * @return 转换结果
      */
     @NonNull
     @MapstructNullListToEmptyArrayList
@@ -170,10 +171,10 @@ public class MapstructMappingManager {
     }
 
     /**
-     * Boolean => String
+     * Boolean =&gt; String
      *
-     * @param value
-     * @return
+     * @param value 待转换对象
+     * @return 转换结果
      */
     @NonNull
     @MapstructBooleanToString
@@ -181,10 +182,16 @@ public class MapstructMappingManager {
         return Objects.isNull(value) ? "未知" : BooleansUtil.toString(value, "是", "否");
     }
 
+    /**
+     * 数字 =&gt; 高位
+     *
+     * @param value 待转换对象
+     * @return 转换结果
+     */
     @NonNull
     @ParseHighestOneBit
-    public static List<Integer> parseHighestOneBit(Integer num) {
-        return Algorithms.parseHighestOneBit(num);
+    public static List<Integer> parseHighestOneBit(Integer value) {
+        return Algorithms.parseHighestOneBit(value);
     }
 
 }

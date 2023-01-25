@@ -8,6 +8,11 @@ package cn.srd.itcp.sugar.id.generator.snowflake.core;
  */
 public interface SnowflakeIdConfig {
 
+    /**
+     * 设置节点 id
+     *
+     * @return 节点 id
+     */
     short setWorkerId();
 
 }

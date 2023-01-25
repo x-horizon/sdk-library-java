@@ -13,19 +13,38 @@ public class JacksonSerializerException extends RuntimeException {
     @Serial
     private static final long serialVersionUID = -5404014469580075860L;
 
+    /**
+     * public constructor
+     */
     public JacksonSerializerException() {
     }
 
+    /**
+     * public constructor
+     *
+     * @param message 异常信息
+     */
     public JacksonSerializerException(String message) {
         super(message);
     }
 
-    public JacksonSerializerException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
+    /**
+     * public constructor
+     *
+     * @param cause exception wrapper
+     */
     public JacksonSerializerException(Throwable cause) {
         super(cause);
+    }
+
+    /**
+     * public constructor
+     *
+     * @param message 异常信息
+     * @param cause   exception wrapper
+     */
+    public JacksonSerializerException(String message, Throwable cause) {
+        super(message, cause);
     }
 
 }

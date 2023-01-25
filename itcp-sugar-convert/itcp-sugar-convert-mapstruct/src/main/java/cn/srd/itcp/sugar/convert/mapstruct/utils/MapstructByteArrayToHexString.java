@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Mapstruct 属性映射转换器注解，Byte[] => Hex String
+ * Mapstruct 属性映射转换器注解，Byte[] =&gt; Hex String
  *
  * @author wjm
  * @since 2022-07-06

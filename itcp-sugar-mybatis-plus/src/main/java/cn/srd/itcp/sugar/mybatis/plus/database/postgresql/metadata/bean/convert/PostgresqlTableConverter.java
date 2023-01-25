@@ -19,14 +19,35 @@ import java.util.List;
 @Mapper(uses = MapstructMappingManager.class)
 public interface PostgresqlTableConverter {
 
+    /**
+     * 获取实例
+     */
     PostgresqlTableConverter INSTANCE = Mappers.getMapper(PostgresqlTableConverter.class);
 
+    /**
+     * PostgresqlTableDTO =&gt; PostgresqlTableVO
+     *
+     * @param entity 待转换对象
+     * @return 转换结果
+     */
     PostgresqlTableVO toPostgresqlTableVO(PostgresqlTableDTO entity);
 
+    /**
+     * List&lt;PostgresqlTableDTO&gt; =&gt; List&lt;PostgresqlTableVO&gt;
+     *
+     * @param entities 待转换对象
+     * @return 转换结果
+     */
     @Named("toVOs1")
     @IterableMapping(elementTargetType = PostgresqlTableVO.class)
     List<PostgresqlTableVO> toPostgresqlTableVOs(List<PostgresqlTableDTO> entities);
 
+    /**
+     * IPage&lt;PostgresqlTableDTO&gt; =&gt; PageResult&lt;PostgresqlTableVO&gt;
+     *
+     * @param page 待转换对象
+     * @return 转换结果
+     */
     @Mappings({
             @Mapping(source = "pages", target = "totalPages"),
             @Mapping(source = "current", target = "currentPage"),

@@ -8,6 +8,9 @@ package cn.srd.itcp.sugar.mybatis.plus.utils;
  */
 public class Converts extends cn.srd.itcp.sugar.convert.all.core.Converts {
 
+    /**
+     * protected block constructor
+     */
     protected Converts() {
     }
 

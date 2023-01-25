@@ -21,27 +21,52 @@ import org.springframework.context.annotation.DependsOn;
 @ConditionalOnClass({SaBeanRegister.class, SaBeanInject.class})
 public class SugarSaTokenAutoConfiguration {
 
+    /**
+     * 装配 {@link SugarSaTokenProperties}
+     *
+     * @return 装配对象
+     */
     @Bean
     public SugarSaTokenProperties sugarSaTokenProperties() {
         return SpringsUtil.registerCapableBean(SugarSaTokenProperties.class);
     }
 
+    /**
+     * 装配 {@link SaTokenPreEachRequestAnnotationInterceptor}
+     *
+     * @return 装配对象
+     */
     @Bean
     @DependsOn("sugarSaTokenProperties")
     public SaTokenPreEachRequestAnnotationInterceptor saTokenPreEachRequestAnnotationInterceptor() {
         return SpringsUtil.registerCapableBean(SaTokenPreEachRequestAnnotationInterceptor.class);
     }
 
+    /**
+     * 装配 {@link AnonymousSupporter}
+     *
+     * @return 装配对象
+     */
     @Bean
     public AnonymousSupporter anonymousSupporter() {
         return new AnonymousSupporter();
     }
 
+    /**
+     * 装配 {@link SaTokenWebMvcConfig}
+     *
+     * @return 装配对象
+     */
     @Bean
     public SaTokenWebMvcConfig saTokenWebMvcConfig() {
         return new SaTokenWebMvcConfig();
     }
 
+    /**
+     * 装配 {@link SaTokenWebExceptionHandler}
+     *
+     * @return 装配对象
+     */
     @Bean
     public SaTokenWebExceptionHandler saWebExceptionHandler() {
         if (Objects.isNotEmpty(SpringsUtil.scanPackageByAnnotation(EnableSaWebExceptionHandler.class))) {

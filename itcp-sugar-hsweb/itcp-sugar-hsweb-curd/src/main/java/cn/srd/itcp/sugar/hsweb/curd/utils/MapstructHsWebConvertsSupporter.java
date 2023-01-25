@@ -21,6 +21,9 @@ import java.util.Objects;
 @Deprecated
 public class MapstructHsWebConvertsSupporter implements MapstructConvertsSupporter {
 
+    /**
+     * hungry signal ton pattern
+     */
     public static final MapstructHsWebConvertsSupporter INSTANCE = new MapstructHsWebConvertsSupporter();
 
     /**

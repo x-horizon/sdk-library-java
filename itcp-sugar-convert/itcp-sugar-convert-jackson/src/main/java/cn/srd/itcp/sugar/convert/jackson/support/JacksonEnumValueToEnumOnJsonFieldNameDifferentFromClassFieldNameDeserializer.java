@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Jackson 反序列化处理器：Enum 属性值 => Enum（适用于 json 字段名与类字段名不同时的场景）
+ * Jackson 反序列化处理器：Enum 属性值 =&gt; Enum（适用于 json 字段名与类字段名不同时的场景）
  *
  * @author wjm
  * @since 2020/12/15 17:02

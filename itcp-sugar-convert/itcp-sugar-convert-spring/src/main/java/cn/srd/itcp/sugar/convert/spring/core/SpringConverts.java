@@ -8,11 +8,22 @@ package cn.srd.itcp.sugar.convert.spring.core;
  */
 public class SpringConverts {
 
+    /**
+     * private block constructor
+     */
     private SpringConverts() {
     }
 
+    /**
+     * hungry signal ton pattern
+     */
     private static final SpringConverts INSTANCE = new SpringConverts();
 
+    /**
+     * 获取实例
+     *
+     * @return 实例
+     */
     public static SpringConverts getInstance() {
         return INSTANCE;
     }

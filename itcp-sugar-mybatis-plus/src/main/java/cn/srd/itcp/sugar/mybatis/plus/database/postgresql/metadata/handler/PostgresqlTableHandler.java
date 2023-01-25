@@ -70,6 +70,8 @@ public class PostgresqlTableHandler extends GenericCurdService<PostgresqlTableDa
      *   AND pg_tables.schemaname = 'public';
      * </pre>
      *
+     * @param pageParam 分页参数
+     * @param <T>       implement by {@link PageParam}
      * @return 结果集
      */
     public <T extends PageParam> PageResult<PostgresqlTableVO> listAll(T pageParam) {

@@ -8,11 +8,22 @@ package cn.srd.itcp.sugar.convert.fastjson.core;
  */
 public class FastJsonConverts {
 
+    /**
+     * private block constructor
+     */
     private FastJsonConverts() {
     }
 
+    /**
+     * hungry signal ton pattern
+     */
     private static final FastJsonConverts INSTANCE = new FastJsonConverts();
 
+    /**
+     * 获取实例
+     *
+     * @return 实例
+     */
     public static FastJsonConverts getInstance() {
         return INSTANCE;
     }

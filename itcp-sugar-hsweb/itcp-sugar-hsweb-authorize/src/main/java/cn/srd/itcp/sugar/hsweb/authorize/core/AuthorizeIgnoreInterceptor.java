@@ -37,17 +37,17 @@ public interface AuthorizeIgnoreInterceptor extends AopMethodAuthorizeDefinition
     /**
      * 是否需要忽略权限控制
      *
-     * @return
+     * @return 是否需要忽略权限控制
      */
     boolean ignoreAuthorize();
 
     /**
      * 解析权限控制定义：如果返回 {@link EmptyAuthorizeDefinition} 表示不进行权限控制，如果返回 null 表示使用默认的权限定义
      *
-     * @param target
-     * @param method
-     * @param context
-     * @return
+     * @param target  目标控制类
+     * @param method  目标控制函数
+     * @param context 函数拦截上下文
+     * @return 权限控制定义对象
      */
     @Override
     default AuthorizeDefinition parse(Class<?> target, Method method, MethodInterceptorContext context) {

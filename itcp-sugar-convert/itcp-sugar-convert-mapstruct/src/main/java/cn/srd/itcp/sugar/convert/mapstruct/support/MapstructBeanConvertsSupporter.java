@@ -12,6 +12,9 @@ import org.springframework.lang.Nullable;
  */
 public class MapstructBeanConvertsSupporter implements MapstructConvertsSupporter {
 
+    /**
+     * hungry signal ton pattern
+     */
     public static final MapstructBeanConvertsSupporter INSTANCE = new MapstructBeanConvertsSupporter();
 
     @Override

@@ -58,13 +58,13 @@ public class MpTables extends TableInfoHelper {
     /**
      * <pre>
      * example:
-     * {@link #getPostgresqlInStringToArray(Serializable, String)} 传入：1550095650131333122, "org_ancestor_ids"，则生成的 SQL 语句为：
+     * 传入：1550095650131333122, "org_ancestor_ids"，则生成的 SQL 语句为：
      * '' || 1550095650131333122 = ANY (STRING_TO_ARRAY(org_ancestor_ids, ','))
      * </pre>
      *
-     * @param needToInValue
-     * @param stringToArrayFieldName
-     * @return
+     * @param needToInValue          被搜索的值
+     * @param stringToArrayFieldName 搜索集合的字段名
+     * @return 结果集
      */
     public static String getPostgresqlInStringToArray(Serializable needToInValue, String stringToArrayFieldName) {
         // example: '' || 1550095650131333122 = ANY (STRING_TO_ARRAY(org_ancestor_ids, ','))
@@ -72,9 +72,9 @@ public class MpTables extends TableInfoHelper {
     }
 
     /**
-     * @param needToInValue
-     * @param stringToArrayFieldName
-     * @return
+     * @param needToInValue          被搜索的值
+     * @param stringToArrayFieldName 搜索集合的字段名
+     * @return 结果集
      * @see #getPostgresqlInStringToArray(Serializable, String)
      */
     @SneakyThrows

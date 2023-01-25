@@ -9,7 +9,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 /**
- * 在 All in one 转换器的基础上增加对 {@link PagerResult} => {@link PageResult} 的转换支持
+ * 在 All in one 转换器的基础上增加对 {@link PagerResult} =&gt; {@link PageResult} 的转换支持
  *
  * @author wjm
  * @since 2022/6/18 19:17
@@ -17,14 +17,25 @@ import org.springframework.lang.Nullable;
 @Deprecated
 public class MapstructHsWebConverts {
 
+    /**
+     * protected block constructor
+     */
     protected MapstructHsWebConverts() {
         super();
     }
 
+    /**
+     * slacker signal ton pattern
+     */
     private static final class SingleTonHolder {
         private static final MapstructHsWebConverts INSTANCE = new MapstructHsWebConverts();
     }
 
+    /**
+     * 获取实例
+     *
+     * @return 实例
+     */
     public static MapstructHsWebConverts getInstance() {
         return SingleTonHolder.INSTANCE;
     }

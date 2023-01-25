@@ -40,9 +40,9 @@ public class TimeUtil extends LocalDateTimeUtil {
      * 获取当前时间 String，支持所有的日期格式，默认格式：yyyy-MM-dd HH:mm:ss
      * <pre>
      * 示例：
-     * 格式为：yyyy-MM-dd HH:mm:ss => 获取到的String：2020-11-21 18:43:36
-     * 格式为：yyyy-MM-dd          => 获取到的String：2020-11-21
-     * 格式为：HH:mm:ss            => 获取到的String：18:43:36
+     * 格式为：yyyy-MM-dd HH:mm:ss =&gt; 获取到的String：2020-11-21 18:43:36
+     * 格式为：yyyy-MM-dd          =&gt; 获取到的String：2020-11-21
+     * 格式为：HH:mm:ss            =&gt; 获取到的String：18:43:36
      * </pre>
      *
      * @param format 时间字符串
@@ -54,7 +54,7 @@ public class TimeUtil extends LocalDateTimeUtil {
     }
 
     /**
-     * LocalDateTime => Long
+     * LocalDateTime =&gt; Long
      *
      * @param input 输入时间对象
      * @return 时间戳
@@ -64,7 +64,7 @@ public class TimeUtil extends LocalDateTimeUtil {
     }
 
     /**
-     * LocalDate => Long
+     * LocalDate =&gt; Long
      *
      * @param input 输入时间对象
      * @return 时间戳
@@ -74,7 +74,7 @@ public class TimeUtil extends LocalDateTimeUtil {
     }
 
     /**
-     * Long => LocalDateTime
+     * Long =&gt; LocalDateTime
      *
      * @param input 输入时间戳
      * @return 时间对象
@@ -84,7 +84,7 @@ public class TimeUtil extends LocalDateTimeUtil {
     }
 
     /**
-     * Long => LocalDate
+     * Long =&gt; LocalDate
      *
      * @param input 输入时间戳
      * @return 时间对象

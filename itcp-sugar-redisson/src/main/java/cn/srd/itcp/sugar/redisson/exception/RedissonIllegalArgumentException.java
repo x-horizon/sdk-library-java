@@ -13,19 +13,38 @@ public class RedissonIllegalArgumentException extends RuntimeException {
     @Serial
     private static final long serialVersionUID = 5365186821008194503L;
 
+    /**
+     * public constructor
+     */
     public RedissonIllegalArgumentException() {
     }
 
+    /**
+     * public constructor
+     *
+     * @param message 异常信息
+     */
     public RedissonIllegalArgumentException(String message) {
         super(message);
     }
 
-    public RedissonIllegalArgumentException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
+    /**
+     * public constructor
+     *
+     * @param cause wrapper exception
+     */
     public RedissonIllegalArgumentException(Throwable cause) {
         super(cause);
+    }
+
+    /**
+     * public constructor
+     *
+     * @param message 异常信息
+     * @param cause   wrapper exception
+     */
+    public RedissonIllegalArgumentException(String message, Throwable cause) {
+        super(message, cause);
     }
 
 }

@@ -8,8 +8,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author
- * @since
+ * 解析最高位
+ *
+ * @author xiongjing
+ * @since 2022-11-14 09:38:12
  */
 @Qualifier
 @Target(ElementType.METHOD)

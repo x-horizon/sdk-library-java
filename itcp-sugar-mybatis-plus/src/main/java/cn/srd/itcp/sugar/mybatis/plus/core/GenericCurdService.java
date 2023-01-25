@@ -43,6 +43,7 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
      * @param poClass                  表映射的实体类
      * @param requireUniqueColumn      校验唯一性的字段
      * @param requireUniqueColumnValue 校验唯一性的字段值
+     * @param <T>                      校验唯一性的字段类型
      * @return true 代表唯一，false 代表不唯一
      */
     public <T> boolean isUnique(Class<PO> poClass, SFunction<PO, T> requireUniqueColumn, T requireUniqueColumnValue) {
@@ -56,6 +57,7 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
      * @param id                       表主键值，新增数据时传 null，更新数据时传具体的表主键值
      * @param requireUniqueColumn      校验唯一性的字段
      * @param requireUniqueColumnValue 校验唯一性的字段值
+     * @param <T>                      校验唯一性的字段类型
      * @return true 代表唯一，false 代表不唯一
      */
     public <T> boolean isUnique(Class<PO> poClass, @Nullable Serializable id, SFunction<PO, T> requireUniqueColumn, T requireUniqueColumnValue) {
@@ -77,6 +79,14 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
         return Objects.equals(ReflectsUtil.getFieldValue(po, MpTables.getTableInfo(poClass).getKeyProperty()), id);
     }
 
+    /**
+     * 唯一性结果查询
+     *
+     * @param requireUniqueColumn       校验唯一性的字段
+     * @param requireUniqueColumnValues 校验唯一性的字段值
+     * @param <T>                       校验唯一性的字段类型
+     * @return 结果集
+     */
     public <T> List<PO> isUnique(SFunction<PO, T> requireUniqueColumn, Collection<T> requireUniqueColumnValues) {
         // 若唯一值字段为空，表示唯一；
         if (Objects.isEmpty(requireUniqueColumnValues)) {
@@ -94,6 +104,8 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
      * @param requireUniqueColumnValue  需要唯一性的字段值，例如传入手机号码的字段值
      * @param conditionScopeColumn      限制在什么范围下校验唯一性的字段名，例如：传入表父级主键字段名，此时在同一个父级范围内手机号码不允许重复；
      * @param conditionScopeColumnValue 限制在什么范围下校验唯一性的字段值，例如：传入表父级主键字段值，此时在同一个父级范围内手机号码不允许重复；
+     * @param <T>                       校验唯一性的字段类型
+     * @param <K>                       范围字段类型
      * @return true 代表唯一，false 代表不唯一
      */
     public <T, K> boolean isUnique(Class<PO> poClass, SFunction<PO, T> requireUniqueColumn, T requireUniqueColumnValue, SFunction<PO, K> conditionScopeColumn, K conditionScopeColumnValue) {
@@ -109,6 +121,8 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
      * @param requireUniqueColumnValue  需要唯一性的字段值，例如传入手机号码的字段值
      * @param conditionScopeColumn      限制在什么范围下校验唯一性的字段名，例如：传入表父级主键字段名，此时在同一个父级范围内手机号码不允许重复；
      * @param conditionScopeColumnValue 限制在什么范围下校验唯一性的字段值，例如：传入表父级主键字段值，此时在同一个父级范围内手机号码不允许重复；
+     * @param <T>                       校验唯一性的字段类型
+     * @param <K>                       范围字段类型
      * @return true 代表唯一，false 代表不唯一
      */
     public <T, K> boolean isUnique(Class<PO> poClass, @Nullable Serializable id, SFunction<PO, T> requireUniqueColumn, T requireUniqueColumnValue, SFunction<PO, K> conditionScopeColumn, K conditionScopeColumnValue) {

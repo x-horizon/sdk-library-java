@@ -8,6 +8,9 @@ package cn.srd.itcp.sugar.redisson.core.cache;
  */
 public class RedissonSortedSetCacheHandler {
 
+    /**
+     * protected block constructor
+     */
     protected RedissonSortedSetCacheHandler() {
     }
 

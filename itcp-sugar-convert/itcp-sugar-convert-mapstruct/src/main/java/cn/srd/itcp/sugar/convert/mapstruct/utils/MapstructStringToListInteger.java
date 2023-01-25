@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Mapstruct 属性映射转换器注解，String => List<Integer>
+ * Mapstruct 属性映射转换器注解，String =&gt; List&lt;Integer&gt;
  *
  * @author wjm
  * @since 2021/3/11 10:25

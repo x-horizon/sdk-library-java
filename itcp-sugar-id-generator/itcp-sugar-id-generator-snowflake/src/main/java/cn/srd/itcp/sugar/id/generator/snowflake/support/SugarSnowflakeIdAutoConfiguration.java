@@ -24,6 +24,9 @@ public class SugarSnowflakeIdAutoConfiguration {
 
     private static final String METHOD_NAME_OF_SET_WORKER_ID = "setWorkerId";
 
+    /**
+     * 装配 {@link YitIdHelper}
+     */
     @Bean
     public void initIdGeneratorOptions() {
         if (Objects.isNotEmpty(SpringsUtil.scanPackageByAnnotation(EnableSnowflakeId.class))) {

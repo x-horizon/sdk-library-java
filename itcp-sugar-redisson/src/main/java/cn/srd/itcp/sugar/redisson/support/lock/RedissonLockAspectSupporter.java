@@ -28,13 +28,24 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedissonLockAspectSupporter {
 
+    /**
+     * 实例
+     */
     private static RedissonLockAspectSupporter instance = null;
 
+    /**
+     * 实例初始化
+     */
     @PostConstruct
     public void init() {
         instance = this;
     }
 
+    /**
+     * 获取实例
+     *
+     * @return 实例
+     */
     public static RedissonLockAspectSupporter getInstance() {
         return instance;
     }
@@ -55,8 +66,8 @@ public class RedissonLockAspectSupporter {
      * @param timeUnit                  参考 {@link RedissonFairLock#timeUnit()}
      * @param redissonLockTemplateClass 参考 {@link RedissonFairLock#redissonLockTemplate()}
      * @param joinPoint                 切点
-     * @param <T>
-     * @return
+     * @param <T>                       implement by {@link RedissonLockTemplate}
+     * @return 临界区响应值
      */
     protected <T extends RedissonLockTemplate> Object lock(String lockName, String fieldName, int fieldOrder, long waitTime, long leaseTime, TimeUnit timeUnit, Class<T> redissonLockTemplateClass, ProceedingJoinPoint joinPoint) {
         return doLock(generateLockName(lockName, fieldName, fieldOrder, joinPoint), waitTime, leaseTime, timeUnit, redissonLockTemplateClass, joinPoint);
@@ -69,7 +80,7 @@ public class RedissonLockAspectSupporter {
      * @param fieldName  参考 {@link RedissonFairLock#fieldName()}
      * @param fieldOrder 参考 {@link RedissonFairLock#fieldOrder()}
      * @param joinPoint  切点
-     * @return
+     * @return 锁名
      */
     private String generateLockName(String lockName, String fieldName, int fieldOrder, ProceedingJoinPoint joinPoint) {
         if (Objects.isBlank(lockName)) {
@@ -99,8 +110,8 @@ public class RedissonLockAspectSupporter {
      * @param timeUnit                  参考 {@link RedissonFairLock#timeUnit()}
      * @param redissonLockTemplateClass 参考 {@link RedissonFairLock#redissonLockTemplate()}
      * @param joinPoint                 切点
-     * @param <T>
-     * @return
+     * @param <T>                       {@link RedissonLockTemplate} 实现类类型
+     * @return 临界区响应值
      */
     private <T extends RedissonLockTemplate> Object doLock(String lockName, long waitTime, long leaseTime, TimeUnit timeUnit, Class<T> redissonLockTemplateClass, ProceedingJoinPoint joinPoint) {
         Assert.INSTANCE.set(new RedissonIllegalArgumentException("非法的 waitTime 值，请检查！")).throwsIfTrue(waitTime < 0);
@@ -111,9 +122,9 @@ public class RedissonLockAspectSupporter {
     /**
      * 获取 {@link RedissonLockTemplate} 实现类
      *
-     * @param redissonLockTemplateClass
-     * @param <T>
-     * @return
+     * @param redissonLockTemplateClass {@link RedissonLockTemplate}类
+     * @param <T>                       {@link RedissonLockTemplate} 实现类类型
+     * @return implement by {@link RedissonLockTemplate}
      */
     private <T extends RedissonLockTemplate> RedissonLockTemplate getRedissonLockTemplate(Class<T> redissonLockTemplateClass) {
         RedissonLockTemplate redissonLockTemplate = REDISSON_LOCK_TEMPLATE_CACHE.get(redissonLockTemplateClass);
@@ -127,8 +138,8 @@ public class RedissonLockAspectSupporter {
     /**
      * 执行临界区
      *
-     * @param joinPoint
-     * @return
+     * @param joinPoint 切点
+     * @return 切面响应值
      */
     @SneakyThrows
     private Object proceed(ProceedingJoinPoint joinPoint) {

@@ -24,12 +24,20 @@ public class SaTokenWebMvcConfig implements WebMvcConfigurer {
      */
     private static final String MATCH_ALL_ENDPOINTS_PATTER = "/**";
 
+    /**
+     * 功能增强
+     */
     @PostConstruct
     public void enhanceSaToken() {
         // 增加注解合并功能
         SaStrategy.me.getAnnotation = AnnotatedElementUtils::getMergedAnnotation;
     }
 
+    /**
+     * 装配自定义权限认证
+     *
+     * @return 装配对象
+     */
     @Bean
     public StpLogic stpLogic() {
         // 注入整合了 jwt 的 StpLogic

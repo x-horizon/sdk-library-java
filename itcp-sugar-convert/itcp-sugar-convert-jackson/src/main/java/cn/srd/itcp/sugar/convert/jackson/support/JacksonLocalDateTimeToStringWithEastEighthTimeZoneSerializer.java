@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 /**
- * Jackson 序列化处理器：LocalDateTime => String，包含年月日时分秒，东八时区
+ * Jackson 序列化处理器：LocalDateTime =&gt; String，包含年月日时分秒，东八时区
  *
  * @author wjm
  * @since 2022-11-14 21:16:51

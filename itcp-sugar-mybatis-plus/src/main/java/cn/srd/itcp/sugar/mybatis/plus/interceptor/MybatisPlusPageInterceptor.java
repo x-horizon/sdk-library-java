@@ -7,6 +7,12 @@ import cn.srd.itcp.sugar.tools.core.enums.EnumsUtil;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 
+/**
+ * mybatis-plus 拦截器 - 分页插件
+ *
+ * @author wjm
+ * @since 2022-07-25 21:51:19
+ */
 public class MybatisPlusPageInterceptor implements MybatisPlusInterceptors {
 
     public void addInterceptor() {

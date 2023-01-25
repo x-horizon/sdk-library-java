@@ -13,6 +13,9 @@ import cn.srd.itcp.sugar.convert.spring.core.SpringConverts;
  */
 public class Converts extends cn.srd.itcp.sugar.tools.core.convert.Converts {
 
+    /**
+     * protected block constructor
+     */
     protected Converts() {
     }
 

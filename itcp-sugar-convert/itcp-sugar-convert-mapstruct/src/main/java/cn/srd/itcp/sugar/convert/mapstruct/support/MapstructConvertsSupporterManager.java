@@ -23,7 +23,7 @@ public class MapstructConvertsSupporterManager {
     /**
      * 添加 Mapstruct 转换器支持
      *
-     * @param supporterFunction
+     * @param supporterFunction Mapstruct 转换器支持
      */
     public static void addConvertSupporter(Function<Object, MapstructConvertsSupporter> supporterFunction) {
         CONVERT_SUPPORTERS.add(supporterFunction);
@@ -32,8 +32,8 @@ public class MapstructConvertsSupporterManager {
     /**
      * 获取转换器支持
      *
-     * @param source
-     * @return
+     * @param source 匹配对象
+     * @return Mapstruct 转换器支持
      */
     @NonNull
     public static MapstructConvertsSupporter getSupporter(@NonNull Object source) {

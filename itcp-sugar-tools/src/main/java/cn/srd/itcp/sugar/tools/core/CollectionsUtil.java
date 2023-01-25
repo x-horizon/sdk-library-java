@@ -171,10 +171,10 @@ public class CollectionsUtil extends CollUtil {
         return java.util.Collections.unmodifiableMap(from);
     }
 
-    // ==================================== anything => List ====================================
+    // ==================================== anything =&gt; List ====================================
 
     /**
-     * String => List，根据 {@link StringPool#COMMA} 进行截取
+     * String =&gt; List，根据 {@link StringPool#COMMA} 进行截取
      *
      * @param from 如："["1","2","3"]"
      * @return 输出集合
@@ -185,7 +185,7 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
-     * String => List
+     * String =&gt; List
      *
      * @param from        如："["1","2","3"]"
      * @param splitSymbol 截取符号，如：","
@@ -200,7 +200,7 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
-     * Map value => List
+     * Map value =&gt; List
      *
      * @param from 输入参数
      * @param <K>  Key 类型
@@ -216,7 +216,7 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
-     * 嵌套 List =>  List
+     * 嵌套 List =&gt;  List
      *
      * @param from 输入参数
      * @param <T>  元素类型
@@ -256,10 +256,10 @@ public class CollectionsUtil extends CollUtil {
         return from.stream().map(function).filter(Objects::isNotNull).collect(Collectors.toList());
     }
 
-    // ==================================== anything => Set ====================================
+    // ==================================== anything =&gt; Set ====================================
 
     /**
-     * 嵌套 List =>  Set
+     * 嵌套 List =&gt;  Set
      *
      * @param from 输入参数
      * @param <T>  元素类型
@@ -299,10 +299,10 @@ public class CollectionsUtil extends CollUtil {
         return from.stream().map(function).filter(Objects::isNotNull).collect(Collectors.toSet());
     }
 
-    // ==================================== anything => Map ====================================
+    // ==================================== anything =&gt; Map ====================================
 
     /**
-     * Bean => Map
+     * Bean =&gt; Map
      *
      * @param bean 输入参数
      * @param <T>  bean 类型

@@ -8,6 +8,9 @@ package cn.srd.itcp.sugar.hsweb.curd.utils;
  */
 public class Converts extends cn.srd.itcp.sugar.convert.all.core.Converts {
 
+    /**
+     * protected block constructor
+     */
     protected Converts() {
     }
 

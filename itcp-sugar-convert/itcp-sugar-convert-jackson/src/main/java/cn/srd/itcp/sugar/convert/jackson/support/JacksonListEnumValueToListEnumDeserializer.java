@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Jackson 反序列化处理器：List&lt;Enum 属性值&gt; => List&lt;Enum&gt;
+ * Jackson 反序列化处理器：List&lt;Enum 属性值&gt; =&gt; List&lt;Enum&gt;
  *
  * @author wjm
  * @since 2022-09-13 09:45:13

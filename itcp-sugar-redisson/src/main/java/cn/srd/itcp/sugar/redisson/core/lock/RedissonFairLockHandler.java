@@ -14,13 +14,24 @@ import org.springframework.stereotype.Component;
 @Component
 public class RedissonFairLockHandler implements RedissonLockTemplate {
 
+    /**
+     * 实例
+     */
     private static RedissonFairLockHandler instance = null;
 
+    /**
+     * 实例初始化
+     */
     @PostConstruct
     public void init() {
         instance = this;
     }
 
+    /**
+     * 获取实例
+     *
+     * @return 实例
+     */
     public static RedissonFairLockHandler getInstance() {
         return instance;
     }

@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import lombok.SneakyThrows;
 
 /**
- * Jackson 反序列化处理器：Enum 属性值 => Enum
+ * Jackson 反序列化处理器：Enum 属性值 =&gt; Enum
  *
  * @author wjm
  * @since 2020/12/15 17:02

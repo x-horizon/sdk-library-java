@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Mapstruct 属性映射转换器注解，LocalDateTime => Long
+ * Mapstruct 属性映射转换器注解，LocalDateTime =&gt; Long
  *
  * @author wjm
  * @since 2022-07-18 09:59:42

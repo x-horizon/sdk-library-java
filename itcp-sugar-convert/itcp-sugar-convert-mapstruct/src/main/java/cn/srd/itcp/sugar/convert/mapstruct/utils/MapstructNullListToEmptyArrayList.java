@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Mapstruct 属性映射转换器注解，null List => Empty ArrayList
+ * Mapstruct 属性映射转换器注解，null List =&gt; Empty ArrayList
  *
  * @author wjm
  * @since 2022-07-20 11:37:25

@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 /**
  * <pre>
  * {@link T} 与 PostgreSQL 中 JSONB 类型字段的类型映射处理器；
- * 适用于 Java 字段的数据类型为 {@link T} <==> PostgreSQL 字段的数据类型为 JSONB 的相互转换；
+ * 适用于 Java 字段的数据类型为 {@link T} &lt;==&gt; PostgreSQL 字段的数据类型为 JSONB 的相互转换；
  *
  * 使用方式：
  *
@@ -25,8 +25,8 @@ import java.sql.ResultSet;
  *      &#064;TableName(value = "example", autoResultMap = true)
  *      public class ExamplePO implements Serializable {
  *
- *              @Serial
- * private static final long serialVersionUID = -1366954660147806379L;
+ *          &#064;Serial
+ *          private static final long serialVersionUID = -1366954660147806379L;
  *
  *          &#064;TableId(value = "example_id")
  *          private Long exampleId;
@@ -38,8 +38,8 @@ import java.sql.ResultSet;
  *          &#064;Accessors(chain = true)
  *          public static final class ExampleJsonObject implements Serializable {
  *
- *                  @Serial
- * private static final long serialVersionUID = 1529342927734057832L;
+ *              &#064;Serial
+ *              private static final long serialVersionUID = 1529342927734057832L;
  *
  *              private String exampleName1;
  *
@@ -79,10 +79,10 @@ public abstract class ObjectMappingJsonbTypeHandler<T> extends BaseTypeHandler<T
     /**
      * 定义如何把 Java 类型的参数转换为指定的数据库类型
      *
-     * @param preparedStatement
-     * @param columnIndex
-     * @param parameter
-     * @param jdbcType
+     * @param preparedStatement SQL 预编译对象
+     * @param columnIndex       字段索引
+     * @param parameter         自定义参数
+     * @param jdbcType          JDBC 数据类型
      */
     @Override
     @SneakyThrows
@@ -95,9 +95,9 @@ public abstract class ObjectMappingJsonbTypeHandler<T> extends BaseTypeHandler<T
     /**
      * 定义通过字段名称获取字段数据时，如何把数据库类型转换为指定的 Java 类型
      *
-     * @param resultSet
-     * @param columnName
-     * @return
+     * @param resultSet  结果集
+     * @param columnName 字段名称
+     * @return 转换结果
      */
     @Override
     @SneakyThrows
@@ -108,9 +108,9 @@ public abstract class ObjectMappingJsonbTypeHandler<T> extends BaseTypeHandler<T
     /**
      * 定义通过字段索引获取字段数据时，如何把数据库类型转换为指定的 Java 类型
      *
-     * @param resultSet
-     * @param columnIndex
-     * @return
+     * @param resultSet   结果集
+     * @param columnIndex 字段索引
+     * @return 转换结果
      */
     @SneakyThrows
     @Override
@@ -121,9 +121,9 @@ public abstract class ObjectMappingJsonbTypeHandler<T> extends BaseTypeHandler<T
     /**
      * 定义通过存储过程获取字段数据时，如何把数据库类型转换为指定的 Java 类型
      *
-     * @param callableStatement
-     * @param columnIndex
-     * @return
+     * @param callableStatement 存储过程执行对象
+     * @param columnIndex       字段索引
+     * @return 转换结果
      */
     @SneakyThrows
     @Override

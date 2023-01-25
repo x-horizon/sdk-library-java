@@ -21,6 +21,9 @@ import java.util.Objects;
 @Deprecated
 public class MapstructMybatisPlusConvertsSupporter implements MapstructConvertsSupporter {
 
+    /**
+     * hungry signal ton pattern
+     */
     public static final MapstructMybatisPlusConvertsSupporter INSTANCE = new MapstructMybatisPlusConvertsSupporter();
 
     /**

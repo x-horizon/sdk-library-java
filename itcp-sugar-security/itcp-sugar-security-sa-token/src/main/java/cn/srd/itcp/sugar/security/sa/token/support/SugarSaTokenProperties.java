@@ -20,6 +20,9 @@ public class SugarSaTokenProperties {
      */
     private Interceptor interceptor;
 
+    /**
+     * Properties for interceptor
+     */
     @Getter
     @Setter
     public static class Interceptor {

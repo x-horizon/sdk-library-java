@@ -19,21 +19,41 @@ import org.springframework.stereotype.Component;
 @Component
 public class RedissonFairLockAspect extends RedissonLockAspectSupporter {
 
+    /**
+     * 实例
+     */
     private static RedissonFairLockAspect instance = null;
 
+    /**
+     * 实例初始化
+     */
     @PostConstruct
     public void init() {
         instance = this;
     }
 
+    /**
+     * 获取实例
+     *
+     * @return 实例
+     */
     public static RedissonFairLockAspect getInstance() {
         return instance;
     }
 
+    /**
+     * 切点声明
+     */
     @Pointcut("@annotation(cn.srd.itcp.sugar.redisson.core.lock.RedissonFairLock)")
     public void pointcut() {
     }
 
+    /**
+     * 切点环绕操作
+     *
+     * @param joinPoint 切点
+     * @return 切面响应值
+     */
     @Around("pointcut()")
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
         RedissonFairLock lockAnnotation = ((MethodSignature) joinPoint.getSignature()).getMethod().getAnnotation(RedissonFairLock.class);

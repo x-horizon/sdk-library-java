@@ -205,7 +205,7 @@ public class StringsUtil extends StrUtil {
     }
 
     /**
-     * 连接多个字符串为一个，如果是 null ，转为 ""，如 concatNullToEmpty(null, null, "xx", null) => "xx"
+     * 连接多个字符串为一个，如果是 null ，转为 ""，如 concatNullToEmpty(null, null, "xx", null) =&gt; "xx"
      *
      * @param strs 字符串数组
      * @return 连接后的字符串
@@ -231,7 +231,7 @@ public class StringsUtil extends StrUtil {
     }
 
     /**
-     * 集合格式化为 String，如 ["a","b","c"] => "'a','b','c'"
+     * 集合格式化为 String，如 ["a","b","c"] =&gt; "'a','b','c'"
      *
      * @param collection 需要格式化的集合
      * @return 格式化后的 String
@@ -244,7 +244,7 @@ public class StringsUtil extends StrUtil {
      * 集合格式化为 String
      *
      * @param collection 需要格式化的集合
-     * @param tag        tag 为空：["a","b","c"] => "a,b,c";   tag 不为空，["a","b","c"] => "atagbtagctag";
+     * @param tag        tag 为空：["a","b","c"] =&gt; "a,b,c";   tag 不为空，["a","b","c"] =&gt; "atagbtagctag";
      * @return 格式化后的 String
      */
     public static String pretty(Collection<String> collection, @Nullable String tag) {
@@ -258,7 +258,7 @@ public class StringsUtil extends StrUtil {
     }
 
     /**
-     * 集合格式化为 String，忽略 null 值，如 ["a","b","c",null,null] => "'a','b','c'"
+     * 集合格式化为 String，忽略 null 值，如 ["a","b","c",null,null] =&gt; "'a','b','c'"
      *
      * @param collection 需要格式化的集合
      * @return 格式化后的 String
@@ -271,7 +271,7 @@ public class StringsUtil extends StrUtil {
      * 集合格式化为 String，忽略 null 值
      *
      * @param collection 需要格式化的集合
-     * @param tag        tag 为空：["a","b","c",null,null] => "'a','b','c'";   tag 不为空，["a","b","c",null,null] => "'a'tag,'b'tag,'c'tag";
+     * @param tag        tag 为空：["a","b","c",null,null] =&gt; "'a','b','c'";   tag 不为空，["a","b","c",null,null] =&gt; "'a'tag,'b'tag,'c'tag";
      * @return 格式化后的 String
      */
     public static String prettyIgnoreNull(Collection<String> collection, @Nullable String tag) {
@@ -288,7 +288,7 @@ public class StringsUtil extends StrUtil {
     }
 
     /**
-     * 集合格式化为 String，如 ["a","b","c"] => "a,b,c"
+     * 集合格式化为 String，如 ["a","b","c"] =&gt; "a,b,c"
      *
      * @param collection 需要格式化的集合
      * @return 格式化后的 String
@@ -301,7 +301,7 @@ public class StringsUtil extends StrUtil {
      * 集合格式化为 String
      *
      * @param collection 需要格式化的集合
-     * @param tag        tag 为空：["a","b","c"] => "a,b,c";   tag 不为空，["a","b","c"] => "atagbtagc";
+     * @param tag        tag 为空：["a","b","c"] =&gt; "a,b,c";   tag 不为空，["a","b","c"] =&gt; "atagbtagc";
      * @return 格式化后的 String
      */
     public static String toWhole(Collection<String> collection, @Nullable String tag) {
@@ -310,7 +310,7 @@ public class StringsUtil extends StrUtil {
     }
 
     /**
-     * 集合格式化为 String，忽略 null 值，如 ["a","b","c",null,null] => "a,b,c"
+     * 集合格式化为 String，忽略 null 值，如 ["a","b","c",null,null] =&gt; "a,b,c"
      *
      * @param collection 需要格式化的集合
      * @return 格式化后的 String
@@ -323,7 +323,7 @@ public class StringsUtil extends StrUtil {
      * 集合格式化为 String，忽略 null 值
      *
      * @param collection 需要格式化的集合
-     * @param tag        tag 为空：["a","b","c",null,null] => "a,b,c";   tag 不为空，["a","b","c",null,null] => "atagbtagc";
+     * @param tag        tag 为空：["a","b","c",null,null] =&gt; "a,b,c";   tag 不为空，["a","b","c",null,null] =&gt; "atagbtagc";
      * @return 格式化后的 String
      */
     public static String toWholeIgnoreNull(Collection<String> collection, @Nullable String tag) {
@@ -354,7 +354,7 @@ public class StringsUtil extends StrUtil {
      *     }};
      *
      *     使用该函数进行转换：
-     *     {@link StringsUtil}.{@link StringsUtil#split(List, Class)}(sexEnums, Integer.class);  结果为 ===> "1,2,3"
+     *     {@link StringsUtil}.{@link StringsUtil#split(List, Class)}(sexEnums, Integer.class);  结果为 ===&gt; "1,2,3"
      * </pre>
      *
      * @param input              输入集合

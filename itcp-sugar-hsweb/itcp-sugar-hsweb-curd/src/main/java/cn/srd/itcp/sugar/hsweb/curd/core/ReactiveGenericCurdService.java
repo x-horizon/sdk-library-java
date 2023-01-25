@@ -189,7 +189,7 @@ public interface ReactiveGenericCurdService<PO, PrimaryKeyType> extends Reactive
      *
      *  GET 方式查询列表数据（不分页），如果需要获取全部数据，请设置参数 paging=false
      *  示例：
-     *   GET /_query/no-paging?pageIndex=0&pageSize=20&where=name is 张三&orderBy=id desc
+     *   GET /_query/no-paging?pageIndex=0&amp;pageSize=20&amp;where=name is 张三&amp;orderBy=id desc
      *
      * </pre>
      *
@@ -210,7 +210,7 @@ public interface ReactiveGenericCurdService<PO, PrimaryKeyType> extends Reactive
      *
      *  GET 方式查询列表数据（分页）
      *  示例:
-     *   GET /_query/no-paging?pageIndex=0&pageSize=20&where=name is 张三&orderBy=id desc
+     *   GET /_query/no-paging?pageIndex=0&amp;pageSize=20&amp;where=name is 张三&amp;orderBy=id desc
      *
      * </pre>
      *
@@ -271,6 +271,7 @@ public interface ReactiveGenericCurdService<PO, PrimaryKeyType> extends Reactive
      *
      * @param entity         实体
      * @param authentication 权限信息
+     * @return 设置后的实体
      * @see RecordCreationEntity
      * @see RecordModifierEntity
      */
@@ -285,6 +286,13 @@ public interface ReactiveGenericCurdService<PO, PrimaryKeyType> extends Reactive
         return entity;
     }
 
+    /**
+     * 尝试设置登陆用户信息到实体中
+     *
+     * @param authentication 权限信息
+     * @param entity         实体
+     * @return 设置后的实体
+     */
     @Authorize(ignore = true)
     default PO applyCreationEntity(Authentication authentication, PO entity) {
         RecordCreationEntity creationEntity = ((RecordCreationEntity) entity);
@@ -294,6 +302,13 @@ public interface ReactiveGenericCurdService<PO, PrimaryKeyType> extends Reactive
         return entity;
     }
 
+    /**
+     * 尝试设置登陆用户信息到实体中
+     *
+     * @param authentication 权限信息
+     * @param entity         实体
+     * @return 设置后的实体
+     */
     @Authorize(ignore = true)
     default PO applyModifierEntity(Authentication authentication, PO entity) {
         RecordModifierEntity modifierEntity = ((RecordModifierEntity) entity);

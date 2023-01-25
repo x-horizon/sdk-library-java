@@ -30,6 +30,11 @@ import org.springframework.context.annotation.DependsOn;
 @ConditionalOnClass(MybatisPlusAutoConfiguration.class)
 public class SugarMybatisPlusAutoConfiguration {
 
+    /**
+     * 装配 {@link MybatisPlusInterceptor}
+     *
+     * @return 装配对象
+     */
     @Bean
     @DependsOn("mybatisPlusPageInterceptors")
     // TODO wjm 这里可能还有问题，后续需要详细测试与优化
@@ -40,18 +45,33 @@ public class SugarMybatisPlusAutoConfiguration {
         return mybatisPlusInterceptor;
     }
 
+    /**
+     * 装配 {@link ConfigurationCustomizer}
+     *
+     * @return 装配对象
+     */
     @Bean
     public ConfigurationCustomizer configurationCustomizer() {
         // 开启 XML resultMap 下划线自动转换驼峰，不用写 <result> 相关的 数据库字段名 与 实体类字段名 的转换
         return configuration -> configuration.setMapUnderscoreToCamelCase(true);
     }
 
+    /**
+     * 装配 {@link MybatisPlusPageInterceptor}
+     *
+     * @return 装配对象
+     */
     @Bean
     @DependsOn("sugarMybatisPlusProperties")
     public MybatisPlusPageInterceptor mybatisPlusPageInterceptors() {
         return new MybatisPlusPageInterceptor();
     }
 
+    /**
+     * 装配 {@link MysqlBinaryPrimaryKeyGenerator}
+     *
+     * @return 装配对象
+     */
     @Bean
     @DependsOn("sugarMybatisPlusProperties")
     public MysqlBinaryPrimaryKeyGenerator mysqlBinUuidPrimaryKeyGenerator() {
@@ -61,6 +81,11 @@ public class SugarMybatisPlusAutoConfiguration {
         return null;
     }
 
+    /**
+     * 装配 {@link PostgresqlTableColumnHandler}
+     *
+     * @return 装配对象
+     */
     @Bean
     @DependsOn("sugarMybatisPlusProperties")
     public PostgresqlTableColumnHandler postgresqlTableColumnHandler() {
@@ -70,6 +95,11 @@ public class SugarMybatisPlusAutoConfiguration {
         return null;
     }
 
+    /**
+     * 装配 {@link PostgresqlTableHandler}
+     *
+     * @return 装配对象
+     */
     @Bean
     @DependsOn("sugarMybatisPlusProperties")
     public PostgresqlTableHandler postgresqlTableHandler() {
@@ -80,6 +110,11 @@ public class SugarMybatisPlusAutoConfiguration {
 
     }
 
+    /**
+     * 装配 {@link SugarMybatisPlusProperties}
+     *
+     * @return 装配对象
+     */
     @Bean
     public SugarMybatisPlusProperties sugarMybatisPlusProperties() {
         return SpringsUtil.registerCapableBean(SugarMybatisPlusProperties.class);

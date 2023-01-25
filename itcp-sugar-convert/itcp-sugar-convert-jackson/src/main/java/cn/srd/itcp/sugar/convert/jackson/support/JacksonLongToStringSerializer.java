@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import lombok.SneakyThrows;
 
 /**
- * Jackson 序列化处理器：Long => String
+ * Jackson 序列化处理器：Long =&gt; String
  *
  * @author wjm
  * @since 2022-10-13 10:26:34

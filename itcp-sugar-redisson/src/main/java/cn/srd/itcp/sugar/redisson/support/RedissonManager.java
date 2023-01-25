@@ -11,6 +11,9 @@ import org.redisson.api.RedissonClient;
  */
 public class RedissonManager {
 
+    /**
+     * slacker signal ton pattern
+     */
     private static final class RedissonClientSingleTonHolder {
         private static final RedissonClient REDISSON_CLIENT_INSTANCE = SpringsUtil.getBean(RedissonClient.class);
     }
@@ -18,7 +21,7 @@ public class RedissonManager {
     /**
      * 获取 Redisson 客户端
      *
-     * @return
+     * @return Redisson 客户端
      */
     public static RedissonClient getClient() {
         return RedissonClientSingleTonHolder.REDISSON_CLIENT_INSTANCE;

@@ -12,6 +12,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class RedissonBucketCacheHandler {
 
+    /**
+     * protected block constructor
+     */
     protected RedissonBucketCacheHandler() {
     }
 

@@ -58,26 +58,57 @@ import java.util.function.Consumer;
  */
 public class JacksonConverts {
 
+    /**
+     * private block constructor
+     */
     private JacksonConverts() {
     }
 
+    /**
+     * hungry signal ton pattern
+     */
     private static final JacksonConverts INSTANCE = new JacksonConverts();
 
+    /**
+     * 获取实例
+     *
+     * @return 实例
+     */
     public static JacksonConverts getInstance() {
         return INSTANCE;
     }
 
+    /**
+     * 是否开启 Jackson 相关注解校验默认值
+     */
     private static final boolean DEFAULT_VALIDATE_ENABLE = false;
 
+    /**
+     * 校验器设置
+     */
     private static final Validator VALIDATOR = Validation.buildDefaultValidatorFactory().getValidator();
 
+    /**
+     * 默认 Jackson 转换器
+     */
     private JacksonMapper defaultJacksonMapper;
 
+    /**
+     * 替换 Jackson 全局转换器
+     *
+     * @param jacksonMapper Jackson 转换器
+     * @return Jackson 转换工具
+     */
     private JacksonConverts replaceGlobalJacksonMapper(JacksonMapper jacksonMapper) {
         this.defaultJacksonMapper = jacksonMapper;
         return this;
     }
 
+    /**
+     * 构建 Jackson 转换器
+     *
+     * @return Jackson 转换器
+     */
     public JacksonMapper.Builder builder() {
         return new JacksonMapper.Builder(new JacksonMapper());
     }
@@ -93,27 +124,54 @@ public class JacksonConverts {
         getInstance().replaceGlobalJacksonMapper(getInstance().builder().build());
     }
 
+    /**
+     * implement by {@link ObjectMapper}
+     */
     public static final class JacksonMapper extends ObjectMapper {
 
         @Serial
         private static final long serialVersionUID = -8474265145182256290L;
 
+        /**
+         * 获取 Jackson 转换器
+         *
+         * @return Jackson 转换器
+         */
         public JacksonConverts getConverts() {
             return new JacksonConverts().replaceGlobalJacksonMapper(this);
         }
 
+        /**
+         * implement by {@link MapperBuilder}
+         */
         public static final class Builder extends MapperBuilder<JacksonMapper, Builder> {
 
+            /**
+             * 是否允许替换全局 Jackson 转换器
+             */
             private static volatile boolean allowToReplaceGlobalObjectMapper = true;
 
-            private Builder(JacksonMapper mapper) {
-                super(mapper);
+            /**
+             * private block constructor
+             *
+             * @param jacksonMapper see {@link JacksonMapper}
+             */
+            private Builder(JacksonMapper jacksonMapper) {
+                super(jacksonMapper);
             }
 
+            /**
+             * 全局 Jackson 转换器构造器
+             */
             public void buildGlobal() {
                 buildGlobal(super.build());
             }
 
+            /**
+             * 构造全局 Jackson 转换器
+             *
+             * @param jacksonMapper see {@link JacksonMapper}
+             */
             public void buildGlobal(JacksonMapper jacksonMapper) {
                 Assert.TRUE_NEED.throwsIfFalse(allowToReplaceGlobalObjectMapper);
                 synchronized (Builder.class) {
@@ -127,26 +185,61 @@ public class JacksonConverts {
 
     }
 
-    @SneakyThrows
-    public String toString(Object object) {
-        return defaultJacksonMapper.writeValueAsString(object);
-    }
-
-    @SneakyThrows
-    public JsonNode toJsonNode(String json) {
-        return defaultJacksonMapper.readTree(json);
-    }
-
+    /**
+     * 将对象写入文件
+     *
+     * @param file   待写入文件
+     * @param object 待写入对象
+     */
     @SneakyThrows
     public void writeToFile(File file, Object object) {
         defaultJacksonMapper.writeValue(file, object);
     }
 
+    /**
+     * 转换为 Json Format String
+     *
+     * @param object 待转换对象
+     * @return 转换后对象
+     */
+    @SneakyThrows
+    public String toString(Object object) {
+        return defaultJacksonMapper.writeValueAsString(object);
+    }
+
+    /**
+     * 转换为 {@link JsonNode}
+     *
+     * @param json 待转换对象
+     * @return 转换后对象
+     */
+    @SneakyThrows
+    public JsonNode toJsonNode(String json) {
+        return defaultJacksonMapper.readTree(json);
+    }
+
+    /**
+     * 转换为实体对象
+     *
+     * @param json        待转换对象
+     * @param targetClass 目标转换对象类
+     * @param <T>         待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <T> T toBean(String json, Class<T> targetClass) {
         return toBean(json, targetClass, DEFAULT_VALIDATE_ENABLE);
     }
 
+    /**
+     * 转换为实体对象
+     *
+     * @param json           待转换对象
+     * @param targetClass    目标转换对象类
+     * @param enableValidate 是否开启 Jackson 相关注解校验
+     * @param <T>            待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <T> T toBean(String json, Class<T> targetClass, boolean enableValidate) {
         return validateIfNeed(
@@ -156,11 +249,28 @@ public class JacksonConverts {
         );
     }
 
+    /**
+     * 转换为实体对象
+     *
+     * @param file        待转换对象
+     * @param targetClass 目标转换对象类
+     * @param <T>         待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <T> T toBean(File file, Class<T> targetClass) {
         return toBean(file, targetClass, DEFAULT_VALIDATE_ENABLE);
     }
 
+    /**
+     * 转换为实体对象
+     *
+     * @param file           待转换对象
+     * @param targetClass    目标转换对象类
+     * @param enableValidate 是否开启 Jackson 相关注解校验
+     * @param <T>            待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <T> T toBean(File file, Class<T> targetClass, boolean enableValidate) {
         return validateIfNeed(
@@ -170,11 +280,28 @@ public class JacksonConverts {
         );
     }
 
+    /**
+     * 转换为实体对象
+     *
+     * @param url         待转换对象
+     * @param targetClass 目标转换对象类
+     * @param <T>         待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <T> T toBean(URL url, Class<T> targetClass) {
         return toBean(url, targetClass, DEFAULT_VALIDATE_ENABLE);
     }
 
+    /**
+     * 转换为实体对象
+     *
+     * @param url            待转换对象
+     * @param targetClass    目标转换对象类
+     * @param enableValidate 是否开启 Jackson 相关注解校验
+     * @param <T>            待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <T> T toBean(URL url, Class<T> targetClass, boolean enableValidate) {
         return validateIfNeed(
@@ -184,11 +311,28 @@ public class JacksonConverts {
         );
     }
 
+    /**
+     * 转换为实体对象集合
+     *
+     * @param jsonArray   待转换对象
+     * @param targetClass 目标转换对象类
+     * @param <T>         待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <T> List<T> toBeans(String jsonArray, Class<T> targetClass) {
         return toBeans(jsonArray, targetClass, DEFAULT_VALIDATE_ENABLE);
     }
 
+    /**
+     * 转换为实体对象集合
+     *
+     * @param jsonArray      待转换对象
+     * @param targetClass    目标转换对象类
+     * @param enableValidate 是否开启 Jackson 相关注解校验
+     * @param <T>            待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <T> List<T> toBeans(String jsonArray, Class<T> targetClass, boolean enableValidate) {
         return validateIfNeed(
@@ -198,11 +342,28 @@ public class JacksonConverts {
         );
     }
 
+    /**
+     * 转换为实体对象集合
+     *
+     * @param file        待转换对象
+     * @param targetClass 目标转换对象类
+     * @param <T>         待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <T> List<T> toBeans(File file, Class<T> targetClass) {
         return toBeans(file, targetClass, DEFAULT_VALIDATE_ENABLE);
     }
 
+    /**
+     * 转换为实体对象集合
+     *
+     * @param file           待转换对象
+     * @param targetClass    目标转换对象类
+     * @param enableValidate 是否开启 Jackson 相关注解校验
+     * @param <T>            待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <T> List<T> toBeans(File file, Class<T> targetClass, boolean enableValidate) {
         return validateIfNeed(
@@ -212,11 +373,28 @@ public class JacksonConverts {
         );
     }
 
+    /**
+     * 转换为实体对象集合
+     *
+     * @param url         待转换对象
+     * @param targetClass 目标转换对象类
+     * @param <T>         待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <T> List<T> toBeans(URL url, Class<T> targetClass) {
         return toBeans(url, targetClass, DEFAULT_VALIDATE_ENABLE);
     }
 
+    /**
+     * 转换为实体对象集合
+     *
+     * @param url            待转换对象
+     * @param targetClass    目标转换对象类
+     * @param enableValidate 是否开启 Jackson 相关注解校验
+     * @param <T>            待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <T> List<T> toBeans(URL url, Class<T> targetClass, boolean enableValidate) {
         return validateIfNeed(
@@ -226,11 +404,28 @@ public class JacksonConverts {
         );
     }
 
+    /**
+     * 转换为 Map
+     *
+     * @param json       待转换对象
+     * @param valueClass 目标转换对象类
+     * @param <V>        待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <V> Map<String, V> toMap(String json, Class<V> valueClass) {
         return toMap(json, valueClass, DEFAULT_VALIDATE_ENABLE);
     }
 
+    /**
+     * 转换为 Map
+     *
+     * @param json           待转换对象
+     * @param valueClass     目标转换对象类
+     * @param enableValidate 是否开启 Jackson 相关注解校验
+     * @param <V>            待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <V> Map<String, V> toMap(String json, Class<V> valueClass, boolean enableValidate) {
         return validateIfNeed(
@@ -240,11 +435,28 @@ public class JacksonConverts {
         );
     }
 
+    /**
+     * 转换为 Map
+     *
+     * @param file       待转换对象
+     * @param valueClass 目标转换对象类
+     * @param <V>        待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <V> Map<String, V> toMap(File file, Class<V> valueClass) {
         return toMap(file, valueClass, DEFAULT_VALIDATE_ENABLE);
     }
 
+    /**
+     * 转换为 Map
+     *
+     * @param file           待转换对象
+     * @param valueClass     目标转换对象类
+     * @param enableValidate 是否开启 Jackson 相关注解校验
+     * @param <V>            待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <V> Map<String, V> toMap(File file, Class<V> valueClass, boolean enableValidate) {
         return validateIfNeed(
@@ -254,11 +466,28 @@ public class JacksonConverts {
         );
     }
 
+    /**
+     * 转换为 Map
+     *
+     * @param url        待转换对象
+     * @param valueClass 目标转换对象类
+     * @param <V>        待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <V> Map<String, V> toMap(URL url, Class<V> valueClass) {
         return toMap(url, valueClass, DEFAULT_VALIDATE_ENABLE);
     }
 
+    /**
+     * 转换为 Map
+     *
+     * @param url            待转换对象
+     * @param valueClass     目标转换对象类
+     * @param enableValidate 是否开启 Jackson 相关注解校验
+     * @param <V>            待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <V> Map<String, V> toMap(URL url, Class<V> valueClass, boolean enableValidate) {
         return validateIfNeed(
@@ -268,11 +497,28 @@ public class JacksonConverts {
         );
     }
 
+    /**
+     * 转换为 Map
+     *
+     * @param json       待转换对象
+     * @param valueClass 目标转换对象类
+     * @param <V>        待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <V> Map<String, List<V>> toMaps(String json, Class<V> valueClass) {
         return toMaps(json, valueClass, DEFAULT_VALIDATE_ENABLE);
     }
 
+    /**
+     * 转换为 Map
+     *
+     * @param json           待转换对象
+     * @param valueClass     目标转换对象类
+     * @param enableValidate 是否开启 Jackson 相关注解校验
+     * @param <V>            待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <V> Map<String, List<V>> toMaps(String json, Class<V> valueClass, boolean enableValidate) {
         return validateIfNeed(
@@ -286,11 +532,28 @@ public class JacksonConverts {
         );
     }
 
+    /**
+     * 转换为 Map
+     *
+     * @param file       待转换对象
+     * @param valueClass 目标转换对象类
+     * @param <V>        待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <V> Map<String, List<V>> toMaps(File file, Class<V> valueClass) {
         return toMaps(file, valueClass, DEFAULT_VALIDATE_ENABLE);
     }
 
+    /**
+     * 转换为 Map
+     *
+     * @param file           待转换对象
+     * @param valueClass     目标转换对象类
+     * @param enableValidate 是否开启 Jackson 相关注解校验
+     * @param <V>            待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <V> Map<String, List<V>> toMaps(File file, Class<V> valueClass, boolean enableValidate) {
         return validateIfNeed(
@@ -304,11 +567,28 @@ public class JacksonConverts {
         );
     }
 
+    /**
+     * 转换为 Map
+     *
+     * @param url        待转换对象
+     * @param valueClass 目标转换对象类
+     * @param <V>        待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <V> Map<String, List<V>> toMaps(URL url, Class<V> valueClass) {
         return toMaps(url, valueClass, DEFAULT_VALIDATE_ENABLE);
     }
 
+    /**
+     * 转换为 Map
+     *
+     * @param url            待转换对象
+     * @param valueClass     目标转换对象类
+     * @param enableValidate 是否开启 Jackson 相关注解校验
+     * @param <V>            待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <V> Map<String, List<V>> toMaps(URL url, Class<V> valueClass, boolean enableValidate) {
         return validateIfNeed(
@@ -322,21 +602,51 @@ public class JacksonConverts {
         );
     }
 
+    /**
+     * 根据 目标转换对象类型引用 转换为 目标对象
+     *
+     * @param json                待转换对象
+     * @param targetTypeReference 目标转换对象类型引用
+     * @param <T>                 待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <T> T toAnything(String json, TypeReference<T> targetTypeReference) {
         return defaultJacksonMapper.readValue(json, targetTypeReference);
     }
 
+    /**
+     * 根据 目标转换对象类型引用 转换为 目标对象
+     *
+     * @param file                待转换对象
+     * @param targetTypeReference 目标转换对象类型引用
+     * @param <T>                 待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <T> T toAnything(File file, TypeReference<T> targetTypeReference) {
         return defaultJacksonMapper.readValue(file, targetTypeReference);
     }
 
+    /**
+     * 根据 目标转换对象类型引用 转换为 目标对象
+     *
+     * @param url                 待转换对象
+     * @param targetTypeReference 目标转换对象类型引用
+     * @param <T>                 待转换对象类型
+     * @return 转换后对象
+     */
     @SneakyThrows
     public <T> T toAnything(URL url, TypeReference<T> targetTypeReference) {
         return defaultJacksonMapper.readValue(url, targetTypeReference);
     }
 
+    /**
+     * Jackson 相关注解校验
+     *
+     * @param object 目标校验对象
+     * @param <T>    目标校验对象类型
+     */
     private <T> void validate(T object) {
         Set<ConstraintViolation<T>> constraintViolations = VALIDATOR.validate(object);
         if (Objects.isNotEmpty(constraintViolations)) {
@@ -344,6 +654,15 @@ public class JacksonConverts {
         }
     }
 
+    /**
+     * Jackson 相关注解校验
+     *
+     * @param target         目标校验对象
+     * @param consumer       是否开启校验逻辑
+     * @param enableValidate 是否开启开启校验
+     * @param <T>            目标校验对象类型
+     * @return 目标校验对象
+     */
     private <T> T validateIfNeed(T target, Consumer<T> consumer, boolean enableValidate) {
         if (enableValidate) {
             consumer.accept(target);

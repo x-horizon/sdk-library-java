@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * MapStruct 属性映射转换器注解，String => {@link com.alibaba.fastjson.JSONObject JSONObject}
+ * MapStruct 属性映射转换器注解，String =&gt; {@link com.alibaba.fastjson.JSONObject JSONObject}
  *
  * @author wjm
  * @since 2021/3/11 10:25

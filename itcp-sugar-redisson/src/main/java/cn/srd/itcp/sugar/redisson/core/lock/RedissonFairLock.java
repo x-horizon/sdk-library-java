@@ -90,7 +90,7 @@ public @interface RedissonFairLock {
      * 可直接设置该参数作为锁名
      * </pre>
      *
-     * @return
+     * @return 锁名
      */
     String lockName() default "";
 
@@ -101,7 +101,7 @@ public @interface RedissonFairLock {
      * 当显式设置了{@link #lockName()}，该参数不起作用；
      * </pre>
      *
-     * @return
+     * @return 获取锁的属性名
      */
     String fieldName() default "";
 
@@ -112,7 +112,7 @@ public @interface RedissonFairLock {
      * 当显式设置了{@link #lockName()}，该参数不起作用；
      * </pre>
      *
-     * @return
+     * @return 获取锁的属性索引
      */
     int fieldOrder() default 1;
 
@@ -122,7 +122,7 @@ public @interface RedissonFairLock {
      * 若显式设置了一个大于 0 的值时，使用 {@link RedissonLockTemplate#tryLock(Supplier, String, long, long, TimeUnit)} 的方式上锁，否则使用 {@link RedissonLockTemplate#lock(Supplier, String, long, TimeUnit)} 的方式上锁；
      * </pre>
      *
-     * @return
+     * @return 获取锁等待超时时间
      */
     long waitTime() default RedissonLockTemplate.DEFAULT_WAIT_TIME;
 
@@ -134,21 +134,21 @@ public @interface RedissonFairLock {
      * 因此强烈建议不要使用默认的 -1 值，而是根据需要设置合理的值；
      * </pre>
      *
-     * @return
+     * @return 持有锁等待超时时间
      */
     long leaseTime() default RedissonLockTemplate.DEFAULT_LEASE_TIME;
 
     /**
-     * 表示 waitTime、leaseTime 的时间单位，默认值为秒；
+     * 表示 {@link #waitTime()}、{@link #leaseTime()} ()} 的时间单位，默认值为秒；
      *
-     * @return
+     * @return 超时时间单位
      */
     TimeUnit timeUnit() default TimeUnit.SECONDS;
 
     /**
-     * 指定使用哪个锁进行锁操作
+     * 指定要使用的锁类型
      *
-     * @return
+     * @return 锁类型
      */
     Class<? extends RedissonLockTemplate> redissonLockTemplate() default RedissonFairLockHandler.class;
 
