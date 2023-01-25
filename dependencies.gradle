@@ -32,7 +32,6 @@ ext {
     lombok_mapstruct_binding = "org.projectlombok:lombok-mapstruct-binding:0.2.0"
     mapstruct = "org.mapstruct:mapstruct:1.5.2.Final"
     mapstruct_processor = "org.mapstruct:mapstruct-processor:1.5.2.Final"
-    mybatis_plus_generator = "com.baomidou:mybatis-plus-generator:3.5.1"
     vavr = "io.vavr:vavr:0.10.4"
     guava = "com.google.guava:guava:31.1-jre"
     hutool = "cn.hutool:hutool-all:5.8.3"
