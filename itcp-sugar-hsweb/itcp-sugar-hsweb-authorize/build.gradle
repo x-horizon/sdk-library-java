@@ -1,3 +1,9 @@
+plugins {
+    id 'maven-publish'
+}
+
+def projectName = 'itcp-sugar-hsweb-authorize'
+
 version = '1.0'
 
 dependencies {
@@ -5,4 +11,50 @@ dependencies {
 
     api("$hsweb_authorization_basic")
 }
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = projectCharset
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier.set("sources")
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set("javadoc")
+    from javadoc.destinationDir
+}
+
+javadoc {
+    options {
+        encoding projectCharset
+        version true
+        title projectName
+    }
+}
+
+publishing {
+    publications {
+        publishApp(MavenPublication) {
+            groupId group
+            artifactId jar.baseName
+            version project.version
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username publishUsername
+                password publishPassword
+            }
+            url repositoryUrl
+            allowInsecureProtocol = true
+        }
+    }
+}
+
 
