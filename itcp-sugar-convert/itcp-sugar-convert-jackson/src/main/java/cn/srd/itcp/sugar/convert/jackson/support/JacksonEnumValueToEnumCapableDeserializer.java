@@ -22,7 +22,7 @@ import java.util.stream.Stream;
  * @author wjm
  * @since 2020/12/15 17:02
  */
-public class JacksonEnumValueToEnumOnJsonFieldNameDifferentFromClassFieldNameDeserializer<E extends Enum<E>> extends JsonDeserializer<E> {
+public class JacksonEnumValueToEnumCapableDeserializer<E extends Enum<E>> extends JsonDeserializer<E> {
 
     @Override
     @SneakyThrows
