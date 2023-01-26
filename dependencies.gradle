@@ -9,7 +9,7 @@ ext {
 
     // database
     druid = "com.alibaba:druid-spring-boot-starter:1.2.8"
-    mysql = "mysql:mysql-connector-java:8.0.31"
+    mysql = "com.mysql:mysql-connector-j:8.0.32"
     postgresql = "org.postgresql:postgresql:42.5.1"
     mybatis_plus = "com.baomidou:mybatis-plus-boot-starter:3.5.1"
     mybatis_plus_join = "com.github.yulichang:mybatis-plus-join:1.4.2.2"
