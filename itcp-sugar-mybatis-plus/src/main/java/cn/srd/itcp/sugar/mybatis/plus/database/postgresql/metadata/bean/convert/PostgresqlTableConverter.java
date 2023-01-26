@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.bean.convert;
 
+import cn.srd.itcp.sugar.convert.mapstruct.utils.IgnoreUnmappedMapperConfigurator;
 import cn.srd.itcp.sugar.convert.mapstruct.utils.MapstructMappingManager;
 import cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.bean.dto.PostgresqlTableDTO;
 import cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.bean.vo.PostgresqlTableVO;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author wjm
  * @since 2022-07-18 17:59:54
  */
-@Mapper(uses = MapstructMappingManager.class)
+@Mapper(uses = MapstructMappingManager.class, config = IgnoreUnmappedMapperConfigurator.class)
 public interface PostgresqlTableConverter {
 
     /**
