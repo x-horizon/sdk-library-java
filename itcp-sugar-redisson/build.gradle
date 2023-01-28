@@ -7,16 +7,20 @@ def projectName = 'itcp-sugar-redisson'
 version = '1.0'
 
 dependencies {
-    implementation(project(':itcp-sugar-tools'))
+    // framework
+    implementation("$spring_boot_starter")
     implementation("$spring_boot_starter_aop")
 
+    // database
     api("$redisson")
 
-    testImplementation 'org.testng:testng:7.1.0'
-
+    // tool
+    implementation(project(':itcp-sugar-tools'))
     annotationProcessor("$spring_boot_annotation_processor")
-
     testAnnotationProcessor("$spring_boot_annotation_processor")
+
+    // test
+    testImplementation 'org.testng:testng:7.1.0'
 }
 
 tasks.withType(JavaCompile).configureEach {

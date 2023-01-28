@@ -7,8 +7,11 @@ def projectName = 'itcp-sugar-convert-jackson'
 version = '1.0'
 
 dependencies {
-    implementation(project(':itcp-sugar-tools'))
+    // framework
     implementation("$spring_boot_starter_web")
+
+    // tool
+    implementation(project(':itcp-sugar-tools'))
 }
 
 tasks.withType(JavaCompile).configureEach {

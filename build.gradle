@@ -35,13 +35,17 @@ allprojects {
     }
 
     dependencies {
-        implementation("$spring_boot_starter")
+        // doc
         implementation("$knife4j")
+
+        // tool
         compileOnly("$lombok")
         annotationProcessor("$lombok")
         testCompileOnly("$lombok")
         testAnnotationProcessor("$lombok")
         testAnnotationProcessor("$jmh_generator_annprocess")
+
+        // test
         testImplementation("$junit")
         testImplementation("$jmh_core")
         testImplementation("$spring_boot_starter_test")

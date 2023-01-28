@@ -7,9 +7,12 @@ def projectName = 'itcp-sugar-hsweb-authorize'
 version = '1.0'
 
 dependencies {
-    implementation(project(':itcp-sugar-tools'))
-
+    // framework
+    implementation("$spring_boot_starter")
     api("$hsweb_authorization_basic")
+
+    // tool
+    implementation(project(':itcp-sugar-tools'))
 }
 
 tasks.withType(JavaCompile).configureEach {

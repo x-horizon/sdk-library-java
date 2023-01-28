@@ -7,9 +7,13 @@ def projectName = 'itcp-sugar-excel'
 version = '1.0'
 
 dependencies {
-    implementation(project(':itcp-sugar-tools'))
+    // framework
     implementation("$spring_boot_starter_web")
 
+    // tool
+    implementation(project(':itcp-sugar-tools'))
+
+    // component
     api("$easyexcel")
 }
 

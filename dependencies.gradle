@@ -4,8 +4,10 @@ ext {
     spring_boot_starter_web = "org.springframework.boot:spring-boot-starter-web"
     spring_boot_starter_aop = "org.springframework.boot:spring-boot-starter-aop"
     spring_boot_annotation_processor = "org.springframework.boot:spring-boot-configuration-processor"
+    spring_cloud_starter_kubernetes_fabric8_all = "org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8-all:3.0.1"
     hsweb_authorization_basic = "org.hswebframework.web:hsweb-authorization-basic:4.0.14"
     hsweb_commons_crud = "org.hswebframework.web:hsweb-commons-crud:4.0.14"
+    data_r2dbc = "org.springframework.boot:spring-boot-starter-data-r2dbc"
 
     // database
     druid = "com.alibaba:druid-spring-boot-starter:1.2.8"

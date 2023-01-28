@@ -7,19 +7,21 @@ def projectName = 'itcp-sugar-mybatis-plus'
 version = '1.0'
 
 dependencies {
-    implementation(project(':itcp-sugar-tools'))
-    implementation(project(':itcp-sugar-convert:itcp-sugar-convert-all'))
+    // framework
+    implementation("$spring_boot_starter")
 
+    // database
     implementation("$mysql")
     implementation("$postgresql")
     implementation("$druid")
-
     api("$mybatis_plus")
     api("$mybatis_plus_join")
 
+    // tool
+    implementation(project(':itcp-sugar-tools'))
+    implementation(project(':itcp-sugar-convert:itcp-sugar-convert-all'))
     annotationProcessor("$mapstruct_processor")
     annotationProcessor("$lombok_mapstruct_binding")
-
     testAnnotationProcessor("$mapstruct_processor")
     testAnnotationProcessor("$lombok_mapstruct_binding")
 }

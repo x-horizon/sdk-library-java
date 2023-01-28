@@ -7,6 +7,10 @@ def projectName = 'itcp-sugar-convert-spring'
 version = '1.0'
 
 dependencies {
+    // framework
+    implementation("$spring_boot_starter")
+
+    // tool
     implementation(project(':itcp-sugar-tools'))
 }
 

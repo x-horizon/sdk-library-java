@@ -7,11 +7,14 @@ def projectName = 'itcp-sugar-hsweb-curd'
 version = '1.0'
 
 dependencies {
+    // framework
+    implementation("$spring_boot_starter")
+    implementation("$data_r2dbc")
+    api("$hsweb_commons_crud")
+
+    // tool
     implementation(project(':itcp-sugar-tools'))
     implementation(project(':itcp-sugar-convert:itcp-sugar-convert-all'))
-    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
-
-    api("$hsweb_commons_crud")
 }
 
 tasks.withType(JavaCompile).configureEach {

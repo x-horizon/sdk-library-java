@@ -7,13 +7,18 @@ def projectName = 'itcp-sugar-security-sa-token'
 version = '1.0'
 
 dependencies {
-    implementation(project(':itcp-sugar-tools'))
+    // framework
+    implementation("$spring_boot_starter")
 
+    // security
     api("$sa_token")
     api("$sa_token_jwt")
     api("$sa_token_dao_redis_jackson")
     api("$sa_token_alone_redis")
     api("$sa_token_jakata_servlet")
+
+    // tool
+    implementation(project(':itcp-sugar-tools'))
 }
 
 tasks.withType(JavaCompile).configureEach {

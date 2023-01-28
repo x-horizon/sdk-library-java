@@ -7,10 +7,14 @@ def projectName = 'itcp-sugar-convert-mapstruct'
 version = '1.0'
 
 dependencies {
+    // framework
+    implementation("$spring_boot_starter")
+
+    // tool
     implementation(project(':itcp-sugar-tools'))
 
+    // tool
     api("$mapstruct")
-
     annotationProcessor("$mapstruct_processor")
     annotationProcessor("$lombok_mapstruct_binding")
 }
