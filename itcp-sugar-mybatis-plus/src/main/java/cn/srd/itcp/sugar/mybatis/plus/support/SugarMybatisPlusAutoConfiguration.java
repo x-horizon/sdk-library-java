@@ -83,6 +83,7 @@ public class SugarMybatisPlusAutoConfiguration {
 
     /**
      * 装配 {@link PostgresqlTableColumnHandler}
+     * TODO wjm 目前若在配置文件里开启了 sugar-mybatis-plus-enable 属性，则必须手工扫描：@MapperScan({"cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.dao"})，后续需要自动化
      *
      * @return 装配对象
      */
@@ -107,7 +108,6 @@ public class SugarMybatisPlusAutoConfiguration {
             return new PostgresqlTableHandler();
         }
         return null;
-
     }
 
     /**
