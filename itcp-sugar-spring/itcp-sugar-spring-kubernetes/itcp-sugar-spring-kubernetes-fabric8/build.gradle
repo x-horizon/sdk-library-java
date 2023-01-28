@@ -1,0 +1,60 @@
+plugins {
+    id 'maven-publish'
+}
+
+def projectName = 'itcp-sugar-spring-kubernetes-fabric8'
+
+version = '1.0'
+
+dependencies {
+    // framework
+    api("$spring_cloud_starter_kubernetes_fabric8_all")
+
+    // tool
+    implementation(project(':itcp-sugar-tools'))
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = projectCharset
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier.set("sources")
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set("javadoc")
+    from javadoc.destinationDir
+}
+
+javadoc {
+    options {
+        encoding projectCharset
+        version true
+        title projectName
+    }
+}
+
+publishing {
+    publications {
+        publishApp(MavenPublication) {
+            groupId group
+            artifactId jar.baseName
+            version project.version
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username publishUsername
+                password publishPassword
+            }
+            url repositoryUrl
+            allowInsecureProtocol = true
+        }
+    }
+}
