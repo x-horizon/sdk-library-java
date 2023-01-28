@@ -11,7 +11,7 @@ dependencies {
     implementation("$spring_boot_starter_aop")
 
     api("$redisson")
-    
+
     testImplementation 'org.testng:testng:7.1.0'
 
     annotationProcessor("$spring_boot_annotation_processor")
