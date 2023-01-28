@@ -1,7 +1,6 @@
 package cn.srd.itcp.sugar.tools.page;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -17,7 +16,7 @@ import java.io.Serializable;
  * @author wjm
  * @since 2020/01/05 13:45
  */
-@ApiModel(description = "分页参数模型")
+@Schema(description = "分页参数模型")
 @Data
 @Accessors(chain = true)
 public class PageParam implements Serializable {
@@ -28,7 +27,7 @@ public class PageParam implements Serializable {
     /**
      * 页码
      */
-    @ApiModelProperty(value = "页码", required = true, example = "1")
+    @Schema(description = "页码", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
     @NotNull(message = "页码不能为空")
     @Min(value = 1, message = "页码最小值为1")
     private Integer pageIndex;
@@ -36,7 +35,7 @@ public class PageParam implements Serializable {
     /**
      * 每页显示条数
      */
-    @ApiModelProperty(value = "每页显示条数", required = true, example = "10")
+    @Schema(description = "每页显示条数", requiredMode = Schema.RequiredMode.REQUIRED, example = "10")
     @NotNull(message = "每页显示条数不能为空")
     @Range(min = 1, max = 100, message = "每页显示条数范围为[1, 100]")
     private Integer pageSize;
