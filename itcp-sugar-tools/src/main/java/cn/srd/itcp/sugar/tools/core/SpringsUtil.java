@@ -120,7 +120,7 @@ public class SpringsUtil extends SpringUtil {
      * @return 启动类所在的包路径
      */
     public static String getRootPackagePath() {
-        if (Objects.isNull(rootPackagePath)) {
+        if (Objects.isBlank(rootPackagePath)) {
             rootPackagePath = ClassesUtil.getPackage(Objects.requireNotNull(() -> "不存在 @SpringBootApplication，请检查！", CollectionsUtil.getFirstValue(
                     SpringsUtil.getBeansMapWithAnnotation(SpringBootApplication.class)
             )).getClass());
@@ -146,7 +146,9 @@ public class SpringsUtil extends SpringUtil {
      * @param <T>   要注册的 bean 类型
      */
     public static <T> void registerBean(Class<T> clazz) {
-        registerBean(StringsUtil.lowerFirst(clazz.getSimpleName()), clazz);
+        if (Objects.isNotNull(getBean(clazz))) {
+            registerBean(StringsUtil.lowerFirst(clazz.getSimpleName()), clazz);
+        }
     }
 
     /**
