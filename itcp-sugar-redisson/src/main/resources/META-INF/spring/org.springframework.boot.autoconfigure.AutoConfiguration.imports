@@ -1,0 +1,6 @@
+cn.srd.itcp.sugar.redisson.core.lock.RedissonFairLockHandler
+cn.srd.itcp.sugar.redisson.core.lock.RedissonNonFairLockHandler
+cn.srd.itcp.sugar.redisson.support.lock.RedissonFairLockAspect
+cn.srd.itcp.sugar.redisson.support.lock.RedissonNonFairLockAspect
+cn.srd.itcp.sugar.redisson.support.lock.RedissonLockAspectSupporter
+#cn.commons.redisson.core.support.RedissonAutoConfiguration
