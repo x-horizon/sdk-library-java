@@ -36,7 +36,8 @@ public class AnonymousSupporter implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        SpringsUtil.getBean(RequestMappingHandlerMapping.class).getHandlerMethods().forEach((requestMappingInfo, requestMappingMethod) -> {
+        // 适配 SpringBoot3.0: 获取 RequestMappingHandlerMapping 实例使用更严谨的方式获取，即 beanName + beanClass，因为 RequestMappingHandlerMapping 在 Springdoc 2.0 中有了子类，原 beanClass 的方式获取会获取到多个 bean
+        SpringsUtil.getBean("requestMappingHandlerMapping", RequestMappingHandlerMapping.class).getHandlerMethods().forEach((requestMappingInfo, requestMappingMethod) -> {
             // 获取标记了 SaAnonymous 注解的方法，将其 URI 中的占位符替换为 *
             Optional.ofNullable(AnnotationUtils.findAnnotation(requestMappingMethod.getMethod(), Anonymous.class)).ifPresent(anonymous -> {
                 Set<String> patterns = requestMappingInfo.getPatternsCondition().getPatterns();
