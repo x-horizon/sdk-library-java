@@ -4,7 +4,7 @@ plugins {
 
 def projectName = 'itcp-sugar-convert-mapstruct'
 
-version = '2.0'
+version = projectVersion
 
 dependencies {
     // framework
