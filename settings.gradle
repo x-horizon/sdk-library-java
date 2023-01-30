@@ -29,8 +29,8 @@ include(':itcp-sugar-redisson')
 
 include(':itcp-sugar-security:itcp-sugar-security-sa-token')
 
-include(':itcp-sugar-spring:itcp-sugar-spring-kubernetes:itcp-sugar-spring-kubernetes-client')
-include(':itcp-sugar-spring:itcp-sugar-spring-kubernetes:itcp-sugar-spring-kubernetes-fabric8')
+//include(':itcp-sugar-spring:itcp-sugar-spring-kubernetes:itcp-sugar-spring-kubernetes-client')
+//include(':itcp-sugar-spring:itcp-sugar-spring-kubernetes:itcp-sugar-spring-kubernetes-fabric8')
 
 include(':itcp-sugar-tools')
 include 'itcp-sugar-spring'
