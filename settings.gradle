@@ -35,5 +35,4 @@ include(':itcp-sugar-security:itcp-sugar-security-sa-token')
 include(':itcp-sugar-tools')
 include 'itcp-sugar-spring'
 include 'itcp-sugar-spring:itcp-sugar-spring-kubernetes'
-findProject(':itcp-sugar-spring:itcp-sugar-spring-kubernetes')?.name = 'itcp-sugar-spring-kubernetes'
 
