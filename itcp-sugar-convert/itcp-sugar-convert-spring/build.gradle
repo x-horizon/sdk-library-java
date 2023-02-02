@@ -50,10 +50,10 @@ publishing {
     repositories {
         maven {
             credentials {
-                username publishUsername
-                password publishPassword
+                username projectNexusUsername
+                password projectNexusPassword
             }
-            url repositoryUrl
+            url = projectNexusUrl
             allowInsecureProtocol = true
         }
     }

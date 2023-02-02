@@ -21,10 +21,10 @@ allprojects {
         mavenLocal()
         maven {
             credentials {
-                username publishUsername
-                password publishPassword
+                username projectNexusUsername
+                password projectNexusPassword
             }
-            url = repositoryUrl
+            url = projectNexusUrl
             allowInsecureProtocol = true
         }
         maven { url 'https://maven.aliyun.com/repository/public/' }
