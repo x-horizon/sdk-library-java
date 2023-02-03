@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.security.sa.token.reactor;
+package cn.srd.itcp.sugar.security.sa.token;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * boot
  */
 @SpringBootApplication
-public class SugarSecuritySaTokenSpringWebfluxApplication {
+public class SugarSecuritySaTokenApplication {
 
     /**
      * main
@@ -15,7 +15,7 @@ public class SugarSecuritySaTokenSpringWebfluxApplication {
      * @param args main argument
      */
     public static void main(String[] args) {
-        SpringApplication.run(SugarSecuritySaTokenSpringWebfluxApplication.class, args);
+        SpringApplication.run(SugarSecuritySaTokenApplication.class, args);
     }
 
 }
