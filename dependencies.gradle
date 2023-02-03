@@ -15,6 +15,7 @@ ext {
     postgresql = "org.postgresql:postgresql:42.5.1"
     mybatis_plus = "com.baomidou:mybatis-plus-boot-starter:3.5.3.1"
     mybatis_plus_join = "com.github.yulichang:mybatis-plus-join:1.4.2.2"
+    lettuce = 'io.lettuce:lettuce-core:6.2.2.RELEASE'
     redisson = "org.redisson:redisson-spring-boot-starter:3.19.1"
 
     // doc
