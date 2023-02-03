@@ -11,6 +11,9 @@ dependencies {
     implementation("$spring_boot_starter_webflux")
     implementation("$spring_boot_annotation_processor")
 
+    // security
+    api("$sa_token_reactor")
+
     // tool
     implementation(project(':itcp-sugar-tool'))
     implementation(project(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-common-tool'))
