@@ -16,6 +16,8 @@ include(':itcp-sugar-convert:itcp-sugar-convert-jackson')
 include(':itcp-sugar-convert:itcp-sugar-convert-mapstruct')
 include(':itcp-sugar-convert:itcp-sugar-convert-spring')
 
+include(':itcp-sugar-doc:itcp-sugar-doc-knife4j')
+
 include(':itcp-sugar-excel')
 
 include(':itcp-sugar-hsweb:itcp-sugar-hsweb-authorize')

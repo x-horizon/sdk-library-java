@@ -2,17 +2,13 @@ plugins {
     id 'maven-publish'
 }
 
-def projectName = 'itcp-sugar-spring-common-tool'
+def projectName = 'itcp-sugar-doc-knife4j'
 
 version = projectVersion
 
 dependencies {
-    // framework
-    implementation("$spring_boot_starter")
-    implementation("$spring_boot_starter_aop")
-
     // doc
-    implementation(project(':itcp-sugar-doc:itcp-sugar-doc-knife4j'))
+    api("$knife4j")
 
     // tool
     implementation(project(':itcp-sugar-tool'))
