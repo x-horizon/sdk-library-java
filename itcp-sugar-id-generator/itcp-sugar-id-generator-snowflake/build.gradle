@@ -1,7 +1,3 @@
-plugins {
-    id 'maven-publish'
-}
-
 def projectName = 'itcp-sugar-id-generator-snowflake'
 
 version = projectVersion

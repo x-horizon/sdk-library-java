@@ -1,7 +1,3 @@
-plugins {
-    id 'maven-publish'
-}
-
 def projectName = 'itcp-sugar-spring-tool-common'
 
 version = projectVersion
