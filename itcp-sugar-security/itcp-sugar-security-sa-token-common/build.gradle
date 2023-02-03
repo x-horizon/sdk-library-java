@@ -18,7 +18,6 @@ dependencies {
     api("$sa_token_jwt")
     api("$sa_token_dao_redis_jackson")
     api("$sa_token_alone_redis")
-    api("$sa_token_jakata_servlet")
 
     // tool
     implementation(project(':itcp-sugar-tool'))
