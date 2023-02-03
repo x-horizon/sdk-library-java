@@ -1,13 +1,9 @@
 package cn.srd.itcp.sugar.security.sa.token.support;
 
-import cn.dev33.satoken.jwt.StpLogicJwtForSimple;
-import cn.dev33.satoken.stp.StpLogic;
-import cn.dev33.satoken.strategy.SaStrategy;
 import cn.srd.itcp.sugar.spring.tool.common.core.SpringsUtil;
-import jakarta.annotation.PostConstruct;
-import org.springframework.context.annotation.Bean;
+import cn.srd.itcp.sugar.tool.core.Objects;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -25,35 +21,21 @@ public class SaTokenWebMvcConfig implements WebMvcConfigurer {
     private static final String MATCH_ALL_ENDPOINTS_PATTER = "/**";
 
     /**
-     * 功能增强
-     */
-    @PostConstruct
-    public void enhanceSaToken() {
-        // 增加注解合并功能
-        SaStrategy.me.getAnnotation = AnnotatedElementUtils::getMergedAnnotation;
-    }
-
-    /**
-     * 装配自定义权限认证
-     *
-     * @return 装配对象
-     */
-    @Bean
-    public StpLogic stpLogic() {
-        // 注入整合了 jwt 的 StpLogic
-        return new StpLogicJwtForSimple();
-    }
-
-    /**
      * 注册拦截器
+     *
+     * @param interceptorRegistry 拦截器注册器
      */
     @DependsOn("sugarSaTokenAutoConfiguration")
     @Override
-    public void addInterceptors(InterceptorRegistry interceptorRegistry) {
-        // 注册每次请求前的注解式拦截器
-        interceptorRegistry
-                .addInterceptor(SpringsUtil.getBean(SaTokenPreEachRequestAnnotationInterceptor.class))
-                .addPathPatterns(MATCH_ALL_ENDPOINTS_PATTER);
+    public void addInterceptors(@NonNull InterceptorRegistry interceptorRegistry) {
+        SaTokenPreEachRequestAnnotationInterceptor saTokenPreEachRequestAnnotationInterceptor = SpringsUtil.getBean(SaTokenPreEachRequestAnnotationInterceptor.class);
+        if (Objects.isNotNull(saTokenPreEachRequestAnnotationInterceptor)) {
+            interceptorRegistry
+                    // 注册每次请求前的注解式拦截器
+                    .addInterceptor(saTokenPreEachRequestAnnotationInterceptor)
+                    // 对所有路径生效
+                    .addPathPatterns(MATCH_ALL_ENDPOINTS_PATTER);
+        }
     }
 
 }
