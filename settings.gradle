@@ -27,7 +27,7 @@ include(':itcp-sugar-mybatis-plus')
 
 include(':itcp-sugar-redisson')
 
-include(':itcp-sugar-security:itcp-sugar-security-sa-token')
+include(':itcp-sugar-security:itcp-sugar-security-sa-token-spring-web-mvc')
 
 //include(':itcp-sugar-spring:itcp-sugar-spring-kubernetes:itcp-sugar-spring-kubernetes-client')
 //include(':itcp-sugar-spring:itcp-sugar-spring-kubernetes:itcp-sugar-spring-kubernetes-fabric8')

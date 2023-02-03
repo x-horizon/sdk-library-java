@@ -2,13 +2,13 @@ plugins {
     id 'maven-publish'
 }
 
-def projectName = 'itcp-sugar-security-sa-token'
+def projectName = 'itcp-sugar-security-sa-token-spring-web-mvc'
 
 version = projectVersion
 
 dependencies {
     // framework
-    implementation("$spring_boot_starter")
+    implementation("$spring_boot_starter_web")
 
     // database
     // sa_token_alone_redis 必须依赖包
