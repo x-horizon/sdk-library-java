@@ -2,22 +2,27 @@ plugins {
     id 'maven-publish'
 }
 
-def projectName = 'itcp-sugar-security-sa-token-spring-web-mvc'
+def projectName = 'itcp-sugar-security-sa-token-common'
 
 version = projectVersion
 
 dependencies {
     // framework
-    implementation("$spring_boot_starter_web_mvc")
     implementation("$spring_boot_annotation_processor")
 
+    // database
+    // sa_token_alone_redis 必须依赖包
+    api("$lettuce")
+
     // security
-    api("$sa_token")
+    api("$sa_token_jwt")
+    api("$sa_token_dao_redis_jackson")
+    api("$sa_token_alone_redis")
+    api("$sa_token_jakata_servlet")
 
     // tool
     implementation(project(':itcp-sugar-tool'))
     implementation(project(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-common-tool'))
-    api(project(':itcp-sugar-security:itcp-sugar-security-sa-token-common'))
 }
 
 tasks.withType(JavaCompile).configureEach {
