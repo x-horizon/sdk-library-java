@@ -7,7 +7,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * webmvc 响应结果
+ * spring mvc 响应结果
  *
  * @param <T> 响应结果类型
  * @author wjm

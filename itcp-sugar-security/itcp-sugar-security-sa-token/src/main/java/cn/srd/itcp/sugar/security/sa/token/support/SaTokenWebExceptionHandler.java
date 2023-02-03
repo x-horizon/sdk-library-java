@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import static cn.srd.itcp.sugar.tools.web.WebResponse.error;
 
 /**
- * webmvc sa-token 全局异常处理器
+ * spring mvc sa-token 全局异常处理器
  *
  * @author wjm
  * @since 2022-07-16 18:16:22

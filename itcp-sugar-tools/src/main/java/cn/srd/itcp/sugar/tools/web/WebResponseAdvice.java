@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
- * webmvc 响应结果通知
+ * spring mvc 响应结果通知
  *
  * @author wjm
  * @since 2020/6/13 20:05
