@@ -29,9 +29,9 @@ include(':itcp-sugar-mybatis-plus')
 
 include(':itcp-sugar-redisson')
 
+include(':itcp-sugar-security:itcp-sugar-security-sa-token')
 include(':itcp-sugar-security:itcp-sugar-security-sa-token-common')
-include(':itcp-sugar-security:itcp-sugar-security-sa-token-spring-web-mvc')
-include(':itcp-sugar-security:itcp-sugar-security-sa-token-spring-webflux')
+include(':itcp-sugar-security:itcp-sugar-security-sa-token-reactor')
 
 include(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-common-tool')
 include(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-web-mvc-tool')
