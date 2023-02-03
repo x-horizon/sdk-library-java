@@ -1,8 +1,8 @@
 package cn.srd.itcp.sugar.convert.mapstruct.support;
 
 import cn.srd.itcp.sugar.tools.constant.StringPool;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
+import cn.srd.itcp.sugar.tools.core.validation.Nullable;
+import lombok.NonNull;
 
 /**
  * Mapstruct 转换器支持：普通 Bean 类型

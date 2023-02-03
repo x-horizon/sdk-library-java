@@ -5,6 +5,7 @@ import cn.srd.itcp.sugar.convert.mapstruct.exception.MapstructConvertMethodUnsup
 import cn.srd.itcp.sugar.convert.mapstruct.support.MapstructConvertsSupporter;
 import cn.srd.itcp.sugar.convert.mapstruct.support.MapstructConvertsSupporterManager;
 import cn.srd.itcp.sugar.convert.mapstruct.support.MapstructListBeanConvertsSupporter;
+import cn.srd.itcp.sugar.spring.common.tool.core.SpringsUtil;
 import cn.srd.itcp.sugar.tools.constant.StringPool;
 import cn.srd.itcp.sugar.tools.core.Objects;
 import cn.srd.itcp.sugar.tools.core.*;
@@ -15,12 +16,12 @@ import com.google.common.collect.ImmutableMap;
 import jakarta.annotation.PostConstruct;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
+import cn.srd.itcp.sugar.tools.core.validation.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;

@@ -2,9 +2,8 @@ package cn.srd.itcp.sugar.tools.core;
 
 import cn.hutool.core.util.StrUtil;
 import cn.srd.itcp.sugar.tools.constant.StringPool;
-import cn.srd.itcp.sugar.tools.core.enums.EnumsUtil;
+import cn.srd.itcp.sugar.tools.core.validation.Nullable;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.lang.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;

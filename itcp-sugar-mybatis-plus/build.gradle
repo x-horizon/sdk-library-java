@@ -19,6 +19,7 @@ dependencies {
 
     // tool
     implementation(project(':itcp-sugar-tools'))
+    implementation(project(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-common-tool'))
     implementation(project(':itcp-sugar-convert:itcp-sugar-convert-all'))
     annotationProcessor("$mapstruct_processor")
     annotationProcessor("$lombok_mapstruct_binding")

@@ -3,8 +3,8 @@ package cn.srd.itcp.sugar.convert.mapstruct.support;
 import cn.srd.itcp.sugar.convert.mapstruct.exception.MapstructConvertMethodUnsupportedException;
 import cn.srd.itcp.sugar.tools.constant.StringPool;
 import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
+import cn.srd.itcp.sugar.tools.core.validation.Nullable;
+import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;

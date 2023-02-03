@@ -8,11 +8,12 @@ version = projectVersion
 
 dependencies {
     // framework
-    implementation("$spring_boot_starter_web")
-    testImplementation("$spring_boot_starter_web")
+    implementation("$spring_boot_starter_web_mvc")
+    testImplementation("$spring_boot_starter_web_mvc")
 
     // tool
     implementation(project(':itcp-sugar-tools'))
+    implementation(project(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-common-tool'))
     api(project(':itcp-sugar-convert:itcp-sugar-convert-spring'))
     api(project(':itcp-sugar-convert:itcp-sugar-convert-jackson'))
     api(project(':itcp-sugar-convert:itcp-sugar-convert-fastjson'))

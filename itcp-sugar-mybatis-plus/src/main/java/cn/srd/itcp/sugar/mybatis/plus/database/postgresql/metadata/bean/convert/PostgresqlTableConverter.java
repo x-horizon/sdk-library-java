@@ -4,7 +4,7 @@ import cn.srd.itcp.sugar.convert.mapstruct.utils.IgnoreUnmappedMapperConfigurato
 import cn.srd.itcp.sugar.convert.mapstruct.utils.MapstructMappingManager;
 import cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.bean.dto.PostgresqlTableDTO;
 import cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.bean.vo.PostgresqlTableVO;
-import cn.srd.itcp.sugar.tools.page.PageResult;
+import cn.srd.itcp.sugar.spring.common.tool.core.page.PageResult;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;

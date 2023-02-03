@@ -8,10 +8,11 @@ version = projectVersion
 
 dependencies {
     // framework
-    implementation("$spring_boot_starter_web")
+    implementation("$spring_boot_starter_web_mvc")
 
     // tool
     implementation(project(':itcp-sugar-tools'))
+    implementation(project(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-web-mvc-tool'))
 
     // component
     api("$easyexcel")

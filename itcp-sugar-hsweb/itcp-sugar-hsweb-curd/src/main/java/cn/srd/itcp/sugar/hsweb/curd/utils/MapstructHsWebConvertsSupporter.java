@@ -5,9 +5,9 @@ import cn.srd.itcp.sugar.convert.mapstruct.support.MapstructConvertsSupporter;
 import cn.srd.itcp.sugar.hsweb.curd.page.PageResult;
 import cn.srd.itcp.sugar.tools.constant.StringPool;
 import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
+import lombok.NonNull;
 import org.hswebframework.web.api.crud.entity.PagerResult;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
+import cn.srd.itcp.sugar.tools.core.validation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Objects;

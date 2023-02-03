@@ -4,7 +4,7 @@ import cn.srd.itcp.sugar.convert.mapstruct.core.BindMapstruct;
 import cn.srd.itcp.sugar.convert.mapstruct.utils.MapstructMappingManager;
 import cn.srd.itcp.sugar.mybatis.plus.convert.bean.domain.StudentDO;
 import cn.srd.itcp.sugar.mybatis.plus.convert.bean.vo.StudentVO;
-import cn.srd.itcp.sugar.tools.page.PageResult;
+import cn.srd.itcp.sugar.spring.common.tool.core.page.PageResult;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;

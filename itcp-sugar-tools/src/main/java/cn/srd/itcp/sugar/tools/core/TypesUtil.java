@@ -1,9 +1,9 @@
 package cn.srd.itcp.sugar.tools.core;
 
 import cn.srd.itcp.sugar.tools.constant.StringPool;
+import cn.srd.itcp.sugar.tools.core.validation.Nullable;
+import lombok.NonNull;
 import lombok.SneakyThrows;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 import java.lang.reflect.*;
 import java.util.ArrayList;

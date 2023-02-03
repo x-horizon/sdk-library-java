@@ -1,11 +1,11 @@
 package cn.srd.itcp.sugar.tools.core.asserts;
 
 import cn.srd.itcp.sugar.tools.core.Objects;
+import cn.srd.itcp.sugar.tools.core.validation.Nullable;
 import cn.srd.itcp.sugar.tools.exceptions.ExceptionMessageTemplate;
 import cn.srd.itcp.sugar.tools.exceptions.WarnOperationException;
 import cn.srd.itcp.sugar.tools.web.HttpStatusEnum;
 import lombok.Getter;
-import org.springframework.lang.Nullable;
 
 /**
  * 断言工具，与 {@link Assert} 区别在于

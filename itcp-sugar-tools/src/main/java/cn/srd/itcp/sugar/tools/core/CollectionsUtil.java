@@ -3,9 +3,9 @@ package cn.srd.itcp.sugar.tools.core;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.srd.itcp.sugar.tools.constant.StringPool;
+import cn.srd.itcp.sugar.tools.core.validation.Nullable;
+import lombok.NonNull;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

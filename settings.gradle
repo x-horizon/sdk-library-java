@@ -27,10 +27,14 @@ include(':itcp-sugar-mybatis-plus')
 
 include(':itcp-sugar-redisson')
 
+include(':itcp-sugar-security:itcp-sugar-security-sa-token-common')
 include(':itcp-sugar-security:itcp-sugar-security-sa-token-spring-web-mvc')
+include(':itcp-sugar-security:itcp-sugar-security-sa-token-spring-webflux')
 
-//include(':itcp-sugar-spring:itcp-sugar-spring-kubernetes:itcp-sugar-spring-kubernetes-client')
-//include(':itcp-sugar-spring:itcp-sugar-spring-kubernetes:itcp-sugar-spring-kubernetes-fabric8')
+include(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-common-tool')
+include(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-web-mvc-tool')
+include(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-webflux-tool')
+include(':itcp-sugar-spring:itcp-sugar-spring-kubernetes:itcp-sugar-spring-kubernetes-fabric8')
 
 include(':itcp-sugar-tools')
 include 'itcp-sugar-spring'

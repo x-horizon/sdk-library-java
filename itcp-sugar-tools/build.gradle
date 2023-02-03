@@ -7,10 +7,9 @@ def projectName = 'itcp-sugar-tools'
 version = projectVersion
 
 dependencies {
-    // framework
-    implementation("$spring_boot_starter_aop")
-    implementation("$spring_boot_starter_web")
-
+//    // framework
+//    implementation("$spring_boot_starter_aop")
+//    implementation("$spring_boot_starter_web_mvc")
     // tool
     api("$vavr")
     api("$guava")

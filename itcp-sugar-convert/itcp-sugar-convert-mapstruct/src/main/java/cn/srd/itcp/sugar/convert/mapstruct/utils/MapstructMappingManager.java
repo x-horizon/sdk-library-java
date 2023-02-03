@@ -3,11 +3,10 @@ package cn.srd.itcp.sugar.convert.mapstruct.utils;
 import cn.srd.itcp.sugar.tools.constant.StringPool;
 import cn.srd.itcp.sugar.tools.core.*;
 import cn.srd.itcp.sugar.tools.core.algorithm.Algorithms;
-import cn.srd.itcp.sugar.tools.core.enums.EnumsUtil;
+import cn.srd.itcp.sugar.tools.core.validation.Nullable;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
+import lombok.NonNull;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

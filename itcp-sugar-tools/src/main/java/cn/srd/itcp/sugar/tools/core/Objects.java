@@ -3,8 +3,8 @@ package cn.srd.itcp.sugar.tools.core;
 import cn.hutool.core.util.ArrayUtil;
 import cn.srd.itcp.sugar.tools.constant.CharPool;
 import cn.srd.itcp.sugar.tools.core.asserts.Assert;
+import cn.srd.itcp.sugar.tools.core.validation.Nullable;
 import cn.srd.itcp.sugar.tools.web.HttpStatus;
-import org.springframework.lang.Nullable;
 
 import java.io.ObjectStreamClass;
 import java.lang.reflect.Array;

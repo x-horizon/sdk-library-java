@@ -3,6 +3,7 @@ package cn.srd.itcp.sugar.id.generator.snowflake.support;
 import cn.srd.itcp.sugar.id.generator.snowflake.core.EnableSnowflakeId;
 import cn.srd.itcp.sugar.id.generator.snowflake.core.SnowflakeIdConfig;
 import cn.srd.itcp.sugar.id.generator.snowflake.core.SnowflakeIdConfigScan;
+import cn.srd.itcp.sugar.spring.common.tool.core.SpringsUtil;
 import cn.srd.itcp.sugar.tools.core.*;
 import cn.srd.itcp.sugar.tools.core.asserts.Assert;
 import com.github.yitter.contract.IdGeneratorOptions;

@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.tools.core;
 
 import cn.hutool.core.util.ClassUtil;
-import org.springframework.lang.Nullable;
+import cn.srd.itcp.sugar.tools.core.validation.Nullable;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

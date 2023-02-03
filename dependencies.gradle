@@ -1,7 +1,8 @@
 ext {
     // framework
     spring_boot_starter = "org.springframework.boot:spring-boot-starter"
-    spring_boot_starter_web = "org.springframework.boot:spring-boot-starter-web"
+    spring_boot_starter_web_mvc = "org.springframework.boot:spring-boot-starter-web"
+    spring_boot_starter_webflux = "org.springframework.boot:spring-boot-starter-webflux"
     spring_boot_starter_aop = "org.springframework.boot:spring-boot-starter-aop"
     spring_boot_annotation_processor = "org.springframework.boot:spring-boot-configuration-processor"
     spring_cloud_starter_kubernetes_fabric8_all = "org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8-all:3.0.1"

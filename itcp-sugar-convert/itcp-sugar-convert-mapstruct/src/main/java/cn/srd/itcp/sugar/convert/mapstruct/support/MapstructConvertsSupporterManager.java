@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.convert.mapstruct.support;
 
 import cn.srd.itcp.sugar.tools.core.Objects;
-import org.springframework.lang.NonNull;
+import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;

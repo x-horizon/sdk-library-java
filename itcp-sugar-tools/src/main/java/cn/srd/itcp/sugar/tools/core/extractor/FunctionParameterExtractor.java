@@ -1,7 +1,5 @@
 package cn.srd.itcp.sugar.tools.core.extractor;
 
-import org.springframework.core.annotation.AliasFor;
-
 import java.lang.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,7 @@ import java.util.List;
  * 5、在 1、3 中，若在方法形参列表中提取的形参为 {@link Iterable} 类型，此时将提取该形参里每个元素中字段名为 {@link #extractFieldName()} 的值并封装为 {@link ArrayList} 作为提取结果返回，在该情况下，{@link FunctionParameterExtractorHandler} 的子类必须将泛型类型指定为 {@link List} 或 {@link ArrayList} 类型；
  *
  * 用法：
- * 1、通过继承该注解，使用 {@link AliasFor} 指定该注解中的参数即可；
+ * 1、通过继承该注解，使用 org.springframework.core.annotation.AliasFor 指定该注解中的参数即可；
  * 2、该注解的 {@link ElementType#TYPE} 属性是为了让该注解可以被其他注解标记在类上来继承，并不代表从类上提取值；
  * </pre>
  *

@@ -1,12 +1,12 @@
 package cn.srd.itcp.sugar.tools.core.asserts;
 
 import cn.srd.itcp.sugar.tools.core.Objects;
+import cn.srd.itcp.sugar.tools.core.validation.Nullable;
 import cn.srd.itcp.sugar.tools.exceptions.ExceptionMessageTemplate;
 import cn.srd.itcp.sugar.tools.exceptions.RunningException;
 import cn.srd.itcp.sugar.tools.web.HttpStatusEnum;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import org.springframework.lang.Nullable;
 
 /**
  * 断言工具
