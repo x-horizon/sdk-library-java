@@ -5,7 +5,7 @@ import cn.srd.itcp.sugar.redisson.core.lock.RedissonFairLock;
 import cn.srd.itcp.sugar.redisson.core.lock.RedissonLockTemplate;
 import cn.srd.itcp.sugar.redisson.exception.RedissonGenerateLockNameFailedException;
 import cn.srd.itcp.sugar.redisson.exception.RedissonIllegalArgumentException;
-import cn.srd.itcp.sugar.spring.common.tool.core.SpringsUtil;
+import cn.srd.itcp.sugar.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.core.ReflectsUtil;
 import cn.srd.itcp.sugar.tool.core.asserts.Assert;

@@ -3,7 +3,7 @@ package cn.srd.itcp.sugar.security.sa.token.support;
 import cn.dev33.satoken.jwt.StpLogicJwtForSimple;
 import cn.dev33.satoken.stp.StpLogic;
 import cn.dev33.satoken.strategy.SaStrategy;
-import cn.srd.itcp.sugar.spring.common.tool.core.SpringsUtil;
+import cn.srd.itcp.sugar.spring.tool.common.core.SpringsUtil;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;

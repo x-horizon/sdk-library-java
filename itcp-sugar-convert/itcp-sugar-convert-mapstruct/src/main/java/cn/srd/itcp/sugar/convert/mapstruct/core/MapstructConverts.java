@@ -5,7 +5,7 @@ import cn.srd.itcp.sugar.convert.mapstruct.exception.MapstructConvertMethodUnsup
 import cn.srd.itcp.sugar.convert.mapstruct.support.MapstructConvertsSupporter;
 import cn.srd.itcp.sugar.convert.mapstruct.support.MapstructConvertsSupporterManager;
 import cn.srd.itcp.sugar.convert.mapstruct.support.MapstructListBeanConvertsSupporter;
-import cn.srd.itcp.sugar.spring.common.tool.core.SpringsUtil;
+import cn.srd.itcp.sugar.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.core.*;

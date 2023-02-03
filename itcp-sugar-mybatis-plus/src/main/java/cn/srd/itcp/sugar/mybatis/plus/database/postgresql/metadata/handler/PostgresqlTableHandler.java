@@ -7,8 +7,8 @@ import cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.bean.dto.Post
 import cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.bean.po.PostgresqlTablePO;
 import cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.bean.vo.PostgresqlTableVO;
 import cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.dao.PostgresqlTableDao;
-import cn.srd.itcp.sugar.spring.common.tool.core.page.PageParam;
-import cn.srd.itcp.sugar.spring.common.tool.core.page.PageResult;
+import cn.srd.itcp.sugar.spring.tool.common.core.page.PageParam;
+import cn.srd.itcp.sugar.spring.tool.common.core.page.PageResult;
 import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 

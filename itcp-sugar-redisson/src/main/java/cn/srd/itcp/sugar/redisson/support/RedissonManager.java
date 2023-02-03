@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.redisson.support;
 
-import cn.srd.itcp.sugar.spring.common.tool.core.SpringsUtil;
+import cn.srd.itcp.sugar.spring.tool.common.core.SpringsUtil;
 import org.redisson.api.RedissonClient;
 
 /**

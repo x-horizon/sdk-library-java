@@ -4,7 +4,7 @@ import cn.dev33.satoken.spring.SaBeanInject;
 import cn.dev33.satoken.spring.SaBeanRegister;
 import cn.srd.itcp.sugar.security.sa.token.common.support.SugarSaTokenProperties;
 import cn.srd.itcp.sugar.security.sa.token.core.EnableSaWebExceptionHandler;
-import cn.srd.itcp.sugar.spring.common.tool.core.SpringsUtil;
+import cn.srd.itcp.sugar.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;

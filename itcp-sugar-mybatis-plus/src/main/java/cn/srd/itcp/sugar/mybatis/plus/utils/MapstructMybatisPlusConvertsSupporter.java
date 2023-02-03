@@ -2,7 +2,7 @@ package cn.srd.itcp.sugar.mybatis.plus.utils;
 
 import cn.srd.itcp.sugar.convert.mapstruct.exception.MapstructConvertMethodUnsupportedException;
 import cn.srd.itcp.sugar.convert.mapstruct.support.MapstructConvertsSupporter;
-import cn.srd.itcp.sugar.spring.common.tool.core.page.PageResult;
+import cn.srd.itcp.sugar.spring.tool.common.core.page.PageResult;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;

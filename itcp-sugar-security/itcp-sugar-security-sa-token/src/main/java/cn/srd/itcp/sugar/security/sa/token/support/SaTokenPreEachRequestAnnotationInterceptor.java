@@ -4,7 +4,7 @@ import cn.dev33.satoken.strategy.SaStrategy;
 import cn.srd.itcp.sugar.security.sa.token.common.core.*;
 import cn.srd.itcp.sugar.security.sa.token.common.support.SugarSaTokenProperties;
 import cn.srd.itcp.sugar.security.sa.token.core.Anonymous;
-import cn.srd.itcp.sugar.spring.common.tool.core.SpringsUtil;
+import cn.srd.itcp.sugar.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;

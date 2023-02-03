@@ -13,7 +13,7 @@ dependencies {
 
     // tool
     implementation(project(':itcp-sugar-tool'))
-    implementation(project(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-common-tool'))
+    implementation(project(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-tool-common'))
     api(project(':itcp-sugar-convert:itcp-sugar-convert-spring'))
     api(project(':itcp-sugar-convert:itcp-sugar-convert-jackson'))
     api(project(':itcp-sugar-convert:itcp-sugar-convert-fastjson'))
