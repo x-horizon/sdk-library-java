@@ -5,7 +5,7 @@ import cn.srd.itcp.sugar.spring.web.mvc.tool.core.web.EnableWebExceptionHandler;
 import cn.srd.itcp.sugar.spring.web.mvc.tool.core.web.EnableWebResponseAdvice;
 import cn.srd.itcp.sugar.spring.web.mvc.tool.core.web.WebExceptionHandler;
 import cn.srd.itcp.sugar.spring.web.mvc.tool.core.web.WebResponseAdvice;
-import cn.srd.itcp.sugar.tools.core.Objects;
+import cn.srd.itcp.sugar.tool.core.Objects;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 

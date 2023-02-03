@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.redisson;
 
 import cn.srd.itcp.sugar.redisson.core.lock.RedissonFairLockHandler;
-import cn.srd.itcp.sugar.tools.core.StringsUtil;
+import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import org.junit.Assert;

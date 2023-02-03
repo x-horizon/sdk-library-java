@@ -11,7 +11,7 @@ dependencies {
     implementation("$spring_boot_starter")
 
     // tool
-    implementation(project(':itcp-sugar-tools'))
+    implementation(project(':itcp-sugar-tool'))
 }
 
 tasks.withType(JavaCompile).configureEach {

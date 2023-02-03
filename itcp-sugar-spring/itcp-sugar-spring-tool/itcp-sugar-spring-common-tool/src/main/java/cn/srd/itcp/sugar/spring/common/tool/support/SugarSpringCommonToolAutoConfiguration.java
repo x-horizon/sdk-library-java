@@ -3,7 +3,7 @@ package cn.srd.itcp.sugar.spring.common.tool.support;
 import cn.srd.itcp.sugar.spring.common.tool.core.SpringsUtil;
 import cn.srd.itcp.sugar.spring.common.tool.core.enums.autowired.EnableEnumAutowired;
 import cn.srd.itcp.sugar.spring.common.tool.core.enums.autowired.EnumAutowiredSupport;
-import cn.srd.itcp.sugar.tools.core.Objects;
+import cn.srd.itcp.sugar.tool.core.Objects;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 

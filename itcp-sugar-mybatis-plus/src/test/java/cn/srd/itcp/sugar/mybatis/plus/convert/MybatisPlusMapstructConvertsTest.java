@@ -4,7 +4,7 @@ import cn.srd.itcp.sugar.convert.mapstruct.exception.MapstructConvertMethodNotFo
 import cn.srd.itcp.sugar.mybatis.plus.convert.bean.domain.StudentDO;
 import cn.srd.itcp.sugar.mybatis.plus.convert.bean.vo.StudentVO;
 import cn.srd.itcp.sugar.mybatis.plus.utils.Converts;
-import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
+import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.Assert;
 import org.junit.Test;

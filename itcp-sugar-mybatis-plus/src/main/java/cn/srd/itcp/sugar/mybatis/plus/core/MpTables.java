@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.mybatis.plus.core;
 
-import cn.srd.itcp.sugar.tools.constant.StringPool;
-import cn.srd.itcp.sugar.tools.core.StringsUtil;
+import cn.srd.itcp.sugar.tool.constant.StringPool;
+import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import lombok.SneakyThrows;
 import net.sf.jsqlparser.expression.Expression;

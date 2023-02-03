@@ -9,7 +9,7 @@ import cn.srd.itcp.sugar.convert.all.mapstruct.bean.vo.StudentUnsupportedMapstru
 import cn.srd.itcp.sugar.convert.all.mapstruct.bean.vo.StudentVO;
 import cn.srd.itcp.sugar.convert.mapstruct.exception.MapstructConvertMethodNotFoundException;
 import cn.srd.itcp.sugar.convert.mapstruct.exception.MapstructConvertMethodUnsupportedException;
-import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
+import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

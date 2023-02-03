@@ -13,7 +13,7 @@ dependencies {
     api("$hsweb_commons_crud")
 
     // tool
-    implementation(project(':itcp-sugar-tools'))
+    implementation(project(':itcp-sugar-tool'))
     implementation(project(':itcp-sugar-convert:itcp-sugar-convert-all'))
 }
 

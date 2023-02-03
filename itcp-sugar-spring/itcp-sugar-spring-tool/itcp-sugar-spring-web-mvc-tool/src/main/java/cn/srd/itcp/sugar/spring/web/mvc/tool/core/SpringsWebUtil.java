@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.spring.web.mvc.tool.core;
 
-import cn.srd.itcp.sugar.tools.core.Objects;
+import cn.srd.itcp.sugar.tool.core.Objects;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.context.request.RequestContextHolder;

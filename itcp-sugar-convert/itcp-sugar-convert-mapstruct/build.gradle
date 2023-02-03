@@ -11,7 +11,7 @@ dependencies {
     implementation("$spring_boot_starter")
 
     // tool
-    implementation(project(':itcp-sugar-tools'))
+    implementation(project(':itcp-sugar-tool'))
     implementation(project(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-common-tool'))
 
     // tool

@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.convert.mapstruct.support;
 
-import cn.srd.itcp.sugar.tools.core.Objects;
+import cn.srd.itcp.sugar.tool.core.Objects;
 import lombok.NonNull;
 
 import java.util.ArrayList;

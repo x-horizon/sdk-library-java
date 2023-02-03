@@ -4,7 +4,7 @@ import cn.srd.itcp.sugar.convert.mapstruct.exception.MapstructConvertMethodNotFo
 import cn.srd.itcp.sugar.hsweb.curd.bean.domain.StudentDO;
 import cn.srd.itcp.sugar.hsweb.curd.bean.vo.StudentVO;
 import cn.srd.itcp.sugar.hsweb.curd.utils.Converts;
-import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
+import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import org.hswebframework.web.api.crud.entity.PagerResult;
 import org.junit.Assert;
 import org.junit.Test;

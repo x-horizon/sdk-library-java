@@ -15,7 +15,7 @@ dependencies {
     implementation("$knife4j")
 
     // tool
-    implementation(project(':itcp-sugar-tools'))
+    implementation(project(':itcp-sugar-tool'))
 }
 
 tasks.withType(JavaCompile).configureEach {

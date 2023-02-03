@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.spring.common.tool.core.enums.autowired;
 
-import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
+import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 
 import java.util.List;
 

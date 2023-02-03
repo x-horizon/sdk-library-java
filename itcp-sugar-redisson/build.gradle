@@ -15,7 +15,7 @@ dependencies {
     api("$redisson")
 
     // tool
-    implementation(project(':itcp-sugar-tools'))
+    implementation(project(':itcp-sugar-tool'))
     implementation(project(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-common-tool'))
     annotationProcessor("$spring_boot_annotation_processor")
     testAnnotationProcessor("$spring_boot_annotation_processor")

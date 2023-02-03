@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.convert.jackson.support;
 
-import cn.srd.itcp.sugar.tools.core.TimeUtil;
+import cn.srd.itcp.sugar.tool.core.TimeUtil;
 import com.fasterxml.jackson.databind.util.StdConverter;
 
 import java.time.LocalDateTime;

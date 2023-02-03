@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.convert.mapstruct.support;
 
-import cn.srd.itcp.sugar.tools.constant.StringPool;
-import cn.srd.itcp.sugar.tools.core.validation.Nullable;
+import cn.srd.itcp.sugar.tool.constant.StringPool;
+import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import lombok.NonNull;
 
 /**

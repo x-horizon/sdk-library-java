@@ -1,11 +1,11 @@
 package cn.srd.itcp.sugar.spring.web.mvc.tool.core.web;
 
-import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
-import cn.srd.itcp.sugar.tools.core.StringsUtil;
-import cn.srd.itcp.sugar.tools.exceptions.RunningException;
-import cn.srd.itcp.sugar.tools.exceptions.WarnOperationException;
-import cn.srd.itcp.sugar.tools.web.HttpStatusEnum;
-import cn.srd.itcp.sugar.tools.web.WebResponse;
+import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
+import cn.srd.itcp.sugar.tool.core.StringsUtil;
+import cn.srd.itcp.sugar.tool.exceptions.RunningException;
+import cn.srd.itcp.sugar.tool.exceptions.WarnOperationException;
+import cn.srd.itcp.sugar.tool.web.HttpStatusEnum;
+import cn.srd.itcp.sugar.tool.web.WebResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -23,7 +23,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import java.util.stream.Collectors;
 
-import static cn.srd.itcp.sugar.tools.web.WebResponse.error;
+import static cn.srd.itcp.sugar.tool.web.WebResponse.error;
 
 /**
  * spring mvc 全局异常处理器

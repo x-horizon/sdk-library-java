@@ -6,8 +6,8 @@ import cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.bean.dto.Post
 import cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.bean.dto.PostgresqlTablePrimaryKeyDTO;
 import cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.bean.po.*;
 import cn.srd.itcp.sugar.mybatis.plus.database.postgresql.metadata.dao.PostgresqlClassDao;
-import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
-import cn.srd.itcp.sugar.tools.core.Objects;
+import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
+import cn.srd.itcp.sugar.tool.core.Objects;
 
 import java.util.Collection;
 import java.util.List;

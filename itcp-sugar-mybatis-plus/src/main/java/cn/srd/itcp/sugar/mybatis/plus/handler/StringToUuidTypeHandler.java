@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.mybatis.plus.handler;
 
-import cn.srd.itcp.sugar.tools.core.Objects;
+import cn.srd.itcp.sugar.tool.core.Objects;
 import lombok.SneakyThrows;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;

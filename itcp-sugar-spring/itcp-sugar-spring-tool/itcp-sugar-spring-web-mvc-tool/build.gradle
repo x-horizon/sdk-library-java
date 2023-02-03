@@ -12,7 +12,7 @@ dependencies {
     implementation("$spring_boot_starter_aop")
 
     // tool
-    implementation(project(':itcp-sugar-tools'))
+    implementation(project(':itcp-sugar-tool'))
     api(project(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-common-tool'))
 }
 

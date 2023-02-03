@@ -2,8 +2,8 @@ package cn.srd.itcp.sugar.mybatis.plus.interceptor;
 
 import cn.srd.itcp.sugar.mybatis.plus.support.SugarMybatisPlusProperties;
 import cn.srd.itcp.sugar.spring.common.tool.core.SpringsUtil;
-import cn.srd.itcp.sugar.tools.core.EnumsUtil;
-import cn.srd.itcp.sugar.tools.core.Objects;
+import cn.srd.itcp.sugar.tool.core.EnumsUtil;
+import cn.srd.itcp.sugar.tool.core.Objects;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 

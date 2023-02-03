@@ -2,7 +2,7 @@ package cn.srd.itcp.sugar.hsweb.curd.core;
 
 import cn.srd.itcp.sugar.hsweb.curd.page.PageResult;
 import cn.srd.itcp.sugar.hsweb.curd.utils.Converts;
-import cn.srd.itcp.sugar.tools.core.Objects;
+import cn.srd.itcp.sugar.tool.core.Objects;
 import org.hswebframework.ezorm.rdb.mapping.defaults.SaveResult;
 import org.hswebframework.web.api.crud.entity.PagerResult;
 import org.hswebframework.web.api.crud.entity.QueryParamEntity;

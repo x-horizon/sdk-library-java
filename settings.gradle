@@ -36,7 +36,5 @@ include(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-web-mvc-too
 include(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-webflux-tool')
 include(':itcp-sugar-spring:itcp-sugar-spring-kubernetes:itcp-sugar-spring-kubernetes-fabric8')
 
-include(':itcp-sugar-tools')
-include 'itcp-sugar-spring'
-include 'itcp-sugar-spring:itcp-sugar-spring-kubernetes'
+include(':itcp-sugar-tool')
 

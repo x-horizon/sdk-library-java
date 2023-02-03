@@ -12,7 +12,7 @@ dependencies {
     testImplementation("$spring_boot_starter_web_mvc")
 
     // tool
-    implementation(project(':itcp-sugar-tools'))
+    implementation(project(':itcp-sugar-tool'))
     implementation(project(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-common-tool'))
     api(project(':itcp-sugar-convert:itcp-sugar-convert-spring'))
     api(project(':itcp-sugar-convert:itcp-sugar-convert-jackson'))
@@ -20,7 +20,7 @@ dependencies {
     api(project(':itcp-sugar-convert:itcp-sugar-convert-mapstruct'))
     annotationProcessor("$mapstruct_processor")
     annotationProcessor("$lombok_mapstruct_binding")
-    testImplementation(project(':itcp-sugar-tools'))
+    testImplementation(project(':itcp-sugar-tool'))
     testImplementation(project(':itcp-sugar-convert:itcp-sugar-convert-jackson'))
     testImplementation(project(':itcp-sugar-convert:itcp-sugar-convert-mapstruct'))
     testAnnotationProcessor("$mapstruct_processor")

@@ -2,8 +2,8 @@ package cn.srd.itcp.sugar.spring.common.tool.core.enums.autowired;
 
 import cn.srd.itcp.sugar.spring.common.tool.core.SpringsUtil;
 import cn.srd.itcp.sugar.spring.common.tool.core.enums.autowired.exception.*;
-import cn.srd.itcp.sugar.tools.core.*;
-import cn.srd.itcp.sugar.tools.core.asserts.Assert;
+import cn.srd.itcp.sugar.tool.core.*;
+import cn.srd.itcp.sugar.tool.core.asserts.Assert;
 import jakarta.annotation.PostConstruct;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

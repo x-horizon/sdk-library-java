@@ -3,10 +3,10 @@ package cn.srd.itcp.sugar.hsweb.curd.utils;
 import cn.srd.itcp.sugar.convert.mapstruct.core.MapstructConverts;
 import cn.srd.itcp.sugar.convert.mapstruct.support.MapstructConvertsSupporterManager;
 import cn.srd.itcp.sugar.hsweb.curd.page.PageResult;
-import cn.srd.itcp.sugar.tools.core.Objects;
+import cn.srd.itcp.sugar.tool.core.Objects;
 import lombok.NonNull;
 import org.hswebframework.web.api.crud.entity.PagerResult;
-import cn.srd.itcp.sugar.tools.core.validation.Nullable;
+import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 
 /**
  * 在 All in one 转换器的基础上增加对 {@link PagerResult} =&gt; {@link PageResult} 的转换支持

@@ -2,7 +2,7 @@ plugins {
     id 'maven-publish'
 }
 
-def projectName = 'itcp-sugar-spring-web-reactor-tool'
+def projectName = 'itcp-sugar-spring-webflux-tool'
 
 version = projectVersion
 
@@ -11,7 +11,7 @@ dependencies {
     implementation("$spring_boot_starter_webflux")
 
     // tool
-    implementation(project(':itcp-sugar-tools'))
+    implementation(project(':itcp-sugar-tool'))
     api(project(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-common-tool'))
 }
 

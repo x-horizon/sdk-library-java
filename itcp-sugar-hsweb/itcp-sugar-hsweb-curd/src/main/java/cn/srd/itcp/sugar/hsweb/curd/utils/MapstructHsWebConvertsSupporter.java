@@ -3,11 +3,11 @@ package cn.srd.itcp.sugar.hsweb.curd.utils;
 import cn.srd.itcp.sugar.convert.mapstruct.exception.MapstructConvertMethodUnsupportedException;
 import cn.srd.itcp.sugar.convert.mapstruct.support.MapstructConvertsSupporter;
 import cn.srd.itcp.sugar.hsweb.curd.page.PageResult;
-import cn.srd.itcp.sugar.tools.constant.StringPool;
-import cn.srd.itcp.sugar.tools.core.CollectionsUtil;
+import cn.srd.itcp.sugar.tool.constant.StringPool;
+import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import lombok.NonNull;
 import org.hswebframework.web.api.crud.entity.PagerResult;
-import cn.srd.itcp.sugar.tools.core.validation.Nullable;
+import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Objects;

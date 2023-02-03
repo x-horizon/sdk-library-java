@@ -11,7 +11,7 @@ dependencies {
     api("$spring_cloud_starter_kubernetes_fabric8_all")
 
     // tool
-    implementation(project(':itcp-sugar-tools'))
+    implementation(project(':itcp-sugar-tool'))
 }
 
 tasks.withType(JavaCompile).configureEach {

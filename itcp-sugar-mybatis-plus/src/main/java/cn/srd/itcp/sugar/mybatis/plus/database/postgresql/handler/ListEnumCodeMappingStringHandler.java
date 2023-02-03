@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.mybatis.plus.database.postgresql.handler;
 
-import cn.srd.itcp.sugar.tools.core.Objects;
-import cn.srd.itcp.sugar.tools.core.StringsUtil;
+import cn.srd.itcp.sugar.tool.core.Objects;
+import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import lombok.SneakyThrows;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
