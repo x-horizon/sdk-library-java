@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.excel.core;
 
-import cn.srd.itcp.sugar.spring.tool.web.mvc.core.SpringsWebUtil;
+import cn.srd.itcp.sugar.spring.tool.web.mvc.core.SpringsWebMVCUtil;
 import cn.srd.itcp.sugar.tool.constant.Charset;
 import cn.srd.itcp.sugar.tool.constant.HttpInfo;
 import com.alibaba.excel.EasyExcel;
@@ -31,7 +31,7 @@ public class Excels {
      */
     @SneakyThrows
     public static <T> void exportData(Class<T> exportDataClass, List<T> exportData, String fileName, String sheetName) {
-        HttpServletResponse httpServletResponse = SpringsWebUtil.getHttpServletResponse();
+        HttpServletResponse httpServletResponse = SpringsWebMVCUtil.getHttpServletResponse();
         httpServletResponse.setContentType(HttpInfo.CONTENT_TYPE_EXCEL);
         httpServletResponse.setCharacterEncoding(Charset.UTF8);
         httpServletResponse.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xlsx");

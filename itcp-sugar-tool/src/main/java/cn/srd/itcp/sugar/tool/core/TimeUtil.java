@@ -59,7 +59,7 @@ public class TimeUtil extends LocalDateTimeUtil {
      * @param input 输入时间对象
      * @return 时间戳
      */
-    public static Long toLong(LocalDateTime input) {
+    public static Long toLong(@Nullable LocalDateTime input) {
         return Objects.isNull(input) ? null : input.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
@@ -69,7 +69,7 @@ public class TimeUtil extends LocalDateTimeUtil {
      * @param input 输入时间对象
      * @return 时间戳
      */
-    public static Long toLong(LocalDate input) {
+    public static Long toLong(@Nullable LocalDate input) {
         return Objects.isNull(input) ? null : input.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
@@ -79,7 +79,7 @@ public class TimeUtil extends LocalDateTimeUtil {
      * @param input 输入时间戳
      * @return 时间对象
      */
-    public static LocalDateTime toLocalDateTime(Long input) {
+    public static LocalDateTime toLocalDateTime(@Nullable Long input) {
         return Objects.isNull(input) ? null : LocalDateTime.ofInstant(Instant.ofEpochMilli(input), ZoneId.systemDefault());
     }
 
@@ -89,7 +89,7 @@ public class TimeUtil extends LocalDateTimeUtil {
      * @param input 输入时间戳
      * @return 时间对象
      */
-    public static LocalDate toLocalDate(Long input) {
+    public static LocalDate toLocalDate(@Nullable Long input) {
         return Objects.isNull(input) ? null : LocalDate.ofInstant(Instant.ofEpochMilli(input), ZoneId.systemDefault());
     }
 

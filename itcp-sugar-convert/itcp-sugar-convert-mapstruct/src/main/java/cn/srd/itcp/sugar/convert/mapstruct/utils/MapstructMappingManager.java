@@ -111,9 +111,9 @@ public class MapstructMappingManager {
      * @param value 待转换对象
      * @return 转换结果
      */
-    @NonNull
+    @Nullable
     @MapstructLocalDateTimeToLong
-    public static Long localDateTimeToLong(@NonNull LocalDateTime value) {
+    public static Long localDateTimeToLong(@Nullable LocalDateTime value) {
         return TimeUtil.toLong(value);
     }
 
