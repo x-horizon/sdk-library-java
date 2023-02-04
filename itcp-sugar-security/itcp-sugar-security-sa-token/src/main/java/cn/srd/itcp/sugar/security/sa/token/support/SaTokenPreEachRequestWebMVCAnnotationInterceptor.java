@@ -24,7 +24,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * @since 2022-07-16 18:16:22
  */
 @Component
-public class SaTokenPreEachRequestAnnotationInterceptor implements HandlerInterceptor {
+public class SaTokenPreEachRequestWebMVCAnnotationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {

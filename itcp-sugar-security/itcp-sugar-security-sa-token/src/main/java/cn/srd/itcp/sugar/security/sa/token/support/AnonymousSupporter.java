@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 /**
  * @author wjm
  * @see Anonymous
- * @see SaTokenWebMvcConfig#addInterceptors(InterceptorRegistry)
+ * @see SaTokenWebMVCConfig#addInterceptors(InterceptorRegistry)
  * @since 2022-07-07
  */
 @Deprecated

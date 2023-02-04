@@ -12,14 +12,14 @@ import org.springframework.stereotype.Component;
  * @since 2023-01-28 00:29:11
  */
 @Component
-public class SaTokenContextHacker {
+public class SaTokenContextHackerForSpringMVC {
 
     /**
      * 注入自定义 {@link SaTokenContext}
      */
     @PostConstruct
     public void init() {
-        SaTokenContext saTokenContext = new SaTokenContextForSpring();
+        SaTokenContext saTokenContext = new SaTokenContextForSpringMVC();
         SaManager.setSaTokenContext(saTokenContext);
     }
 

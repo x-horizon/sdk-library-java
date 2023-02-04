@@ -5,8 +5,8 @@ import cn.dev33.satoken.spring.SaBeanInject;
 import cn.dev33.satoken.spring.SaBeanRegister;
 import cn.dev33.satoken.stp.StpLogic;
 import cn.dev33.satoken.strategy.SaStrategy;
-import cn.srd.itcp.sugar.security.sa.token.core.EnableSaTokenPreEachRequestAnnotationInterceptor;
-import cn.srd.itcp.sugar.security.sa.token.core.EnableSaTokenWebExceptionHandler;
+import cn.srd.itcp.sugar.security.sa.token.core.EnableSaTokenPreEachRequestWebMVCAnnotationInterceptor;
+import cn.srd.itcp.sugar.security.sa.token.core.EnableSaTokenWebMVCExceptionHandler;
 import cn.srd.itcp.sugar.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import jakarta.annotation.PostConstruct;
@@ -24,7 +24,7 @@ import org.springframework.core.annotation.AnnotatedElementUtils;
  */
 @Configuration
 @ConditionalOnClass({SaBeanRegister.class, SaBeanInject.class})
-public class SugarSaTokenAutoConfiguration {
+public class SugarSaTokenWebMVCAutoConfiguration {
 
     /**
      * 功能增强
@@ -57,37 +57,37 @@ public class SugarSaTokenAutoConfiguration {
     }
 
     /**
-     * 装配 {@link SaTokenWebMvcConfig}
+     * 装配 {@link SaTokenWebMVCConfig}
      *
      * @return 装配对象
      */
     @Bean
-    public SaTokenWebMvcConfig saTokenWebMvcConfig() {
-        return new SaTokenWebMvcConfig();
+    public SaTokenWebMVCConfig saTokenWebMvcConfig() {
+        return new SaTokenWebMVCConfig();
     }
 
     /**
-     * 装配 {@link SaTokenWebExceptionHandler}
+     * 装配 {@link SaTokenWebMVCExceptionHandler}
      *
      * @return 装配对象
      */
     @Bean
-    public SaTokenWebExceptionHandler saWebExceptionHandler() {
-        if (Objects.isNotEmpty(SpringsUtil.scanPackageByAnnotation(EnableSaTokenWebExceptionHandler.class))) {
-            return SpringsUtil.registerCapableBean(SaTokenWebExceptionHandler.class);
+    public SaTokenWebMVCExceptionHandler saTokenWebMVCExceptionHandler() {
+        if (Objects.isNotEmpty(SpringsUtil.scanPackageByAnnotation(EnableSaTokenWebMVCExceptionHandler.class))) {
+            return SpringsUtil.registerCapableBean(SaTokenWebMVCExceptionHandler.class);
         }
         return null;
     }
 
     /**
-     * 装配 {@link SaTokenPreEachRequestAnnotationInterceptor}
+     * 装配 {@link SaTokenPreEachRequestWebMVCAnnotationInterceptor}
      *
      * @return 装配对象
      */
     @Bean
-    public SaTokenPreEachRequestAnnotationInterceptor saTokenPreEachRequestAnnotationInterceptor() {
-        if (Objects.isNotEmpty(SpringsUtil.scanPackageByAnnotation(EnableSaTokenPreEachRequestAnnotationInterceptor.class))) {
-            return SpringsUtil.registerCapableBean(SaTokenPreEachRequestAnnotationInterceptor.class);
+    public SaTokenPreEachRequestWebMVCAnnotationInterceptor saTokenPreEachRequestWebMVCAnnotationInterceptor() {
+        if (Objects.isNotEmpty(SpringsUtil.scanPackageByAnnotation(EnableSaTokenPreEachRequestWebMVCAnnotationInterceptor.class))) {
+            return SpringsUtil.registerCapableBean(SaTokenPreEachRequestWebMVCAnnotationInterceptor.class);
         }
         return null;
     }

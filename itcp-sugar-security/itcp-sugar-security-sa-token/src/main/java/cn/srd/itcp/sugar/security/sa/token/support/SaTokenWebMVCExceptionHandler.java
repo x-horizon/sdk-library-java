@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import static cn.srd.itcp.sugar.tool.web.WebResponse.error;
 
 /**
- * spring mvc sa-token 全局异常处理器
+ * spring web mvc sa-token 全局异常处理器
  *
  * @author wjm
  * @since 2022-07-16 18:16:22
  */
 @Slf4j
 @RestControllerAdvice
-public class SaTokenWebExceptionHandler {
+public class SaTokenWebMVCExceptionHandler {
 
     /**
      * 未能通过登录认证时的处理；

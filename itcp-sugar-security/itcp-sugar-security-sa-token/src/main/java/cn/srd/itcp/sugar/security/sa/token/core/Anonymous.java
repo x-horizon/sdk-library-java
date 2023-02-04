@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.security.sa.token.core;
 
 import cn.srd.itcp.sugar.security.sa.token.support.AnonymousSupporter;
-import cn.srd.itcp.sugar.security.sa.token.support.SaTokenWebMvcConfig;
+import cn.srd.itcp.sugar.security.sa.token.support.SaTokenWebMVCConfig;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 import java.lang.annotation.*;
@@ -21,7 +21,7 @@ import java.lang.annotation.*;
  *
  * @author wjm
  * @see AnonymousSupporter#afterPropertiesSet()
- * @see SaTokenWebMvcConfig#addInterceptors(InterceptorRegistry)
+ * @see SaTokenWebMVCConfig#addInterceptors(InterceptorRegistry)
  * @since 2022-07-07
  */
 @Target({ElementType.METHOD, ElementType.TYPE})

@@ -15,7 +15,7 @@ import cn.dev33.satoken.spring.SaPathMatcherHolder;
  * @author wjm
  * @since 2023-01-28 00:29:11
  */
-public class SaTokenContextForSpring implements SaTokenContext {
+public class SaTokenContextForSpringMVC implements SaTokenContext {
 
     /**
      * 获取当前请求的Request对象

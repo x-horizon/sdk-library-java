@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author wjm
  * @since 2022-07-07
  */
-public class SaTokenWebMvcConfig implements WebMvcConfigurer {
+public class SaTokenWebMVCConfig implements WebMvcConfigurer {
 
     /**
      * 代表所有 URI 的路径匹配符
@@ -28,11 +28,11 @@ public class SaTokenWebMvcConfig implements WebMvcConfigurer {
     @DependsOn("sugarSaTokenAutoConfiguration")
     @Override
     public void addInterceptors(@NonNull InterceptorRegistry interceptorRegistry) {
-        SaTokenPreEachRequestAnnotationInterceptor saTokenPreEachRequestAnnotationInterceptor = SpringsUtil.getBean(SaTokenPreEachRequestAnnotationInterceptor.class);
-        if (Objects.isNotNull(saTokenPreEachRequestAnnotationInterceptor)) {
+        SaTokenPreEachRequestWebMVCAnnotationInterceptor saTokenPreEachRequestWebMVCAnnotationInterceptor = SpringsUtil.getBean(SaTokenPreEachRequestWebMVCAnnotationInterceptor.class);
+        if (Objects.isNotNull(saTokenPreEachRequestWebMVCAnnotationInterceptor)) {
             interceptorRegistry
                     // 注册每次请求前的注解式拦截器
-                    .addInterceptor(saTokenPreEachRequestAnnotationInterceptor)
+                    .addInterceptor(saTokenPreEachRequestWebMVCAnnotationInterceptor)
                     // 对所有路径生效
                     .addPathPatterns(MATCH_ALL_ENDPOINTS_PATTER);
         }
