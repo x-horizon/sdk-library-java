@@ -7,17 +7,17 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
- * Spring Web 工具
+ * Spring WebMVC 工具
  *
  * @author wjm
  * @since 2022-08-05 22:53:11
  */
-public class SpringsWebUtil {
+public class SpringsWebMVCUtil {
 
     /**
      * private block constructor
      */
-    private SpringsWebUtil() {
+    private SpringsWebMVCUtil() {
     }
 
     /**
