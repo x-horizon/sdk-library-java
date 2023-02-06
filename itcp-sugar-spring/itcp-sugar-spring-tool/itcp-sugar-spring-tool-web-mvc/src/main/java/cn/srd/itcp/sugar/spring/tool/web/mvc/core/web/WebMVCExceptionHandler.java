@@ -33,7 +33,7 @@ import static cn.srd.itcp.sugar.tool.web.WebResponse.error;
  */
 @Slf4j
 @RestControllerAdvice
-public class WebExceptionHandler {
+public class WebMVCExceptionHandler {
 
     /**
      * 格式错误的处理，如：接收数据的 JSON 格式错误；

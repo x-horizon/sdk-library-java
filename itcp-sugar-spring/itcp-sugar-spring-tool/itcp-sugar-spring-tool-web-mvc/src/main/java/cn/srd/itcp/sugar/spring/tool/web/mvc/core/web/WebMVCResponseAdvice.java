@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @since 2020/6/13 20:05
  */
 @ControllerAdvice
-public class WebResponseAdvice implements ResponseBodyAdvice<WebResponse<?>> {
+public class WebMVCResponseAdvice implements ResponseBodyAdvice<WebResponse<?>> {
 
     @Override
     public boolean supports(MethodParameter methodParameter, Class converterType) {
