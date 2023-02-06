@@ -157,6 +157,20 @@ public class CollectionsUtil extends CollUtil {
         return from.stream().filter(Objects::isNotNull).min(comparator).orElse(null);
     }
 
+    // ==================================== move item ====================================
+
+    /**
+     * 将指定索引位置的元素移动到目标索引位置中
+     *
+     * @param from           输入参数
+     * @param specifiedIndex 指定索引位置
+     * @param targetIndex    目标索引位置
+     * @param <T>            元素类型
+     */
+    public static <T> void swap(List<T> from, int specifiedIndex, int targetIndex) {
+        Collections.swap(from, specifiedIndex, targetIndex);
+    }
+
     // ==================================== unmodifiable / immutable ====================================
 
     /**
