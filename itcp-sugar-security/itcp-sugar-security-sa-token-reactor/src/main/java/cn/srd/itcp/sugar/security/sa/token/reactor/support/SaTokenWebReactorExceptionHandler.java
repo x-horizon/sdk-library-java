@@ -17,6 +17,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.lang.NonNull;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.handler.ResponseStatusExceptionHandler;
 import reactor.core.publisher.Mono;
@@ -69,21 +70,23 @@ public class SaTokenWebReactorExceptionHandler implements ErrorWebExceptionHandl
             return error(HttpStatusEnum.NOT_ROLE, "未能通过角色认证");
         });
 
+        // 这里有顺序要求，粒度从小到大，后续整理
+        FINAL_EXCEPTION_HANDLERS.put(ResponseStatusException.class, (exchange, throwable) -> {
+            log.warn("请求资源地址：'{}'，错误信息：'{}'", exchange.getRequest().getPath(), throwable);
+            return error(((ResponseStatusException) throwable).getStatusCode().value(), ((ResponseStatusException) throwable).getMessage());
+        });
         FINAL_EXCEPTION_HANDLERS.put(RunningException.class, (exchange, throwable) -> {
             log.warn("请求资源地址：'{}'，错误信息：'{}'", exchange.getRequest().getPath(), throwable);
             return error(((RunningException) throwable).getExceptionTemplate().getCode(), ((RunningException) throwable).getExceptionTemplate().getDescription());
         });
-
         FINAL_EXCEPTION_HANDLERS.put(RuntimeException.class, (exchange, throwable) -> {
             log.error("请求资源地址：'{}'，错误信息：'{}'", exchange.getRequest().getPath(), throwable);
             return error(HttpStatusEnum.INTERNAL_ERROR);
         });
-
         FINAL_EXCEPTION_HANDLERS.put(Exception.class, (exchange, throwable) -> {
             log.error("请求资源地址：'{}'，错误信息：'{}'", exchange.getRequest().getPath(), throwable);
             return error(HttpStatusEnum.INTERNAL_ERROR);
         });
-
         FINAL_EXCEPTION_HANDLERS.put(Throwable.class, (exchange, throwable) -> {
             log.error("请求资源地址：'{}'，错误信息：'{}'", exchange.getRequest().getPath(), throwable);
             return error(HttpStatusEnum.INTERNAL_ERROR);
@@ -91,9 +94,9 @@ public class SaTokenWebReactorExceptionHandler implements ErrorWebExceptionHandl
     }
 
     private WebResponse<?> match(ServerWebExchange exchange, Throwable throwable) {
-        Throwable throwableToMatch = throwable;
-        Class<? extends Throwable> throwableClassToMatch = throwableToMatch.getClass();
         for (Class<? extends Throwable> specificExceptionClass : SPECIFIC_EXCEPTION_HANDLERS.keySet()) {
+            Throwable throwableToMatch = throwable;
+            Class<? extends Throwable> throwableClassToMatch = throwableToMatch.getClass();
             if (throwableClassToMatch == specificExceptionClass) {
                 return SPECIFIC_EXCEPTION_HANDLERS.get(throwableClassToMatch).apply(exchange, throwableToMatch);
             }
@@ -107,11 +110,10 @@ public class SaTokenWebReactorExceptionHandler implements ErrorWebExceptionHandl
             }
         }
 
-        throwableToMatch = throwable;
-        throwableClassToMatch = throwableToMatch.getClass();
+        Class<? extends Throwable> throwableClassToMatch = throwable.getClass();
         for (Class<? extends Throwable> finalExceptionClass : FINAL_EXCEPTION_HANDLERS.keySet()) {
             if (finalExceptionClass.isAssignableFrom(throwableClassToMatch)) {
-                return FINAL_EXCEPTION_HANDLERS.get(throwableClassToMatch).apply(exchange, throwableToMatch);
+                return FINAL_EXCEPTION_HANDLERS.get(throwableClassToMatch).apply(exchange, throwable);
             }
         }
 
