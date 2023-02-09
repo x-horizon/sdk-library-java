@@ -1,0 +1,61 @@
+def projectName = 'itcp-sugar-jdk-hack'
+
+version = projectVersion
+
+dependencies {
+    // framework
+    implementation("$spring_boot_starter")
+    implementation("$spring_boot_starter_aop")
+
+    // hack
+    implementation("$burningwave_core")
+
+    // tool
+    implementation(project(':itcp-sugar-tool'))
+    implementation(project(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-tool-common'))
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = projectCharset
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier.set("sources")
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set("javadoc")
+    from javadoc.destinationDir
+}
+
+javadoc {
+    options {
+        encoding projectCharset
+        version true
+        title projectName
+    }
+}
+
+publishing {
+    publications {
+        publishApp(MavenPublication) {
+            groupId group
+            artifactId jar.baseName
+            version project.version
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username projectNexusUsername
+                password projectNexusPassword
+            }
+            url = projectNexusUrl
+            allowInsecureProtocol = true
+        }
+    }
+}

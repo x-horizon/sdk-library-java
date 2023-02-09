@@ -25,6 +25,8 @@ include(':itcp-sugar-hsweb:itcp-sugar-hsweb-curd')
 
 include(':itcp-sugar-id-generator:itcp-sugar-id-generator-snowflake')
 
+include(':itcp-sugar-jdk:itcp-sugar-jdk-hack')
+
 include(':itcp-sugar-mybatis-plus')
 
 include(':itcp-sugar-redisson')

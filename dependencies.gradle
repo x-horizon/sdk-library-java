@@ -34,6 +34,9 @@ ext {
     easyexcel = 'com.alibaba:easyexcel:3.1.5'
     yitter_id_generator = 'com.github.yitter:yitter-idgenerator:1.0.6'
 
+    // hack
+    burningwave_core = 'org.burningwave:core:12.62.5'
+
     // tool
     lombok = "org.projectlombok:lombok:1.18.22"
     lombok_mapstruct_binding = "org.projectlombok:lombok-mapstruct-binding:0.2.0"
