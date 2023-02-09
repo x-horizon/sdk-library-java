@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
 /**
- * {@link EnableAutoConfiguration AutoConfiguration} for Sugar Tools
+ * {@link EnableAutoConfiguration AutoConfiguration} for Spring WebMVC Tool
  *
  * @author wjm
  * @since 2022-07-14

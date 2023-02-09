@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * {@link EnableAutoConfiguration AutoConfiguration} for Sugar Security Sa-Token
+ * {@link EnableAutoConfiguration AutoConfiguration} for Sugar Security Sa-Token Web Reactor
  *
  * @author wjm
  * @since 2023-02-04 17:49:16

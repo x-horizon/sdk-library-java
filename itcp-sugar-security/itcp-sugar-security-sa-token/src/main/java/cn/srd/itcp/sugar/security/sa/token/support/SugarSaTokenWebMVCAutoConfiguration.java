@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 
 /**
- * {@link EnableAutoConfiguration AutoConfiguration} for Sugar Security Sa-Token
+ * {@link EnableAutoConfiguration AutoConfiguration} for Sugar Security Sa-Token WebMVC
  *
  * @author wjm
  * @since 2022-07-07
