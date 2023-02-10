@@ -36,7 +36,7 @@ include(':itcp-sugar-security:itcp-sugar-security-sa-token-common')
 include(':itcp-sugar-security:itcp-sugar-security-sa-token-reactor')
 
 include(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-tool-common')
-include(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-tool-web-mvc')
+include(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-tool-webmvc')
 include(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-tool-webflux')
 include(':itcp-sugar-spring:itcp-sugar-spring-kubernetes:itcp-sugar-spring-kubernetes-fabric8')
 

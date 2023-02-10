@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.spring.tool.web.mvc.core.web;
+package cn.srd.itcp.sugar.spring.tool.webmvc.core.web;
 
 import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.web.WebResponse;

@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.spring.tool.web.mvc.core;
+package cn.srd.itcp.sugar.spring.tool.webmvc.core;
 
 import cn.srd.itcp.sugar.tool.core.Objects;
 import jakarta.servlet.http.HttpServletRequest;

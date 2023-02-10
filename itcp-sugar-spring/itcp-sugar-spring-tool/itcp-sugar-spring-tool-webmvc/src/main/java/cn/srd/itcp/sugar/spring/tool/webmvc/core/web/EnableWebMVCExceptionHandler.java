@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.spring.tool.web.mvc.core.web;
+package cn.srd.itcp.sugar.spring.tool.webmvc.core.web;
 
 import java.lang.annotation.*;
 

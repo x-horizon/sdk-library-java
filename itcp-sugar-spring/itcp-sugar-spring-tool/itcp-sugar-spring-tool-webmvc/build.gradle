@@ -1,4 +1,4 @@
-def projectName = 'itcp-sugar-spring-tool-web-mvc'
+def projectName = 'itcp-sugar-spring-tool-webmvc'
 
 version = projectVersion
 

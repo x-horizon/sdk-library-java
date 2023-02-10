@@ -1,10 +1,10 @@
-package cn.srd.itcp.sugar.spring.tool.web.mvc.support;
+package cn.srd.itcp.sugar.spring.tool.webmvc.support;
 
 import cn.srd.itcp.sugar.spring.tool.common.core.SpringsUtil;
-import cn.srd.itcp.sugar.spring.tool.web.mvc.core.web.EnableWebMVCExceptionHandler;
-import cn.srd.itcp.sugar.spring.tool.web.mvc.core.web.EnableWebMVCResponseAdvice;
-import cn.srd.itcp.sugar.spring.tool.web.mvc.core.web.WebMVCExceptionHandler;
-import cn.srd.itcp.sugar.spring.tool.web.mvc.core.web.WebMVCResponseAdvice;
+import cn.srd.itcp.sugar.spring.tool.webmvc.core.web.EnableWebMVCExceptionHandler;
+import cn.srd.itcp.sugar.spring.tool.webmvc.core.web.EnableWebMVCResponseAdvice;
+import cn.srd.itcp.sugar.spring.tool.webmvc.core.web.WebMVCExceptionHandler;
+import cn.srd.itcp.sugar.spring.tool.webmvc.core.web.WebMVCResponseAdvice;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
