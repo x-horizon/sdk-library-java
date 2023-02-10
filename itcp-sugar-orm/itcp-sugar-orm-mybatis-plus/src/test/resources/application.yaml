@@ -4,7 +4,7 @@ spring:
     active: postgresql
 
 mybatis-plus:
-  typeAliasesPackage: cn.srd.itcp.sugar.mybatis.plus
+  typeAliasesPackage: cn.srd.itcp.sugar.orm.mybatis.plus
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
