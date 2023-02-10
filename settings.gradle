@@ -10,27 +10,27 @@ pluginManagement {
 
 rootProject.name = 'itcp-sugar-java'
 
-include(':itcp-sugar-component:itcp-sugar-convert:itcp-sugar-convert-all')
-include(':itcp-sugar-component:itcp-sugar-convert:itcp-sugar-convert-fastjson')
-include(':itcp-sugar-component:itcp-sugar-convert:itcp-sugar-convert-jackson')
-include(':itcp-sugar-component:itcp-sugar-convert:itcp-sugar-convert-mapstruct')
-include(':itcp-sugar-component:itcp-sugar-convert:itcp-sugar-convert-spring')
-include(':itcp-sugar-component:itcp-sugar-excel')
-include(':itcp-sugar-component:itcp-sugar-id-generator:itcp-sugar-id-generator-snowflake')
-include(':itcp-sugar-component:itcp-sugar-jdk')
+include(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-all')
+include(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-fastjson')
+include(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-jackson')
+include(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-mapstruct')
+include(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-spring')
+include(':itcp-sugar-component:itcp-sugar-component-excel')
+include(':itcp-sugar-component:itcp-sugar-component-id-generator:itcp-sugar-component-id-generator-snowflake')
+include(':itcp-sugar-component:itcp-sugar-component-jdk')
 
-include(':itcp-sugar-database:itcp-sugar-redisson')
+include(':itcp-sugar-database:itcp-sugar-database-redisson')
 
 include(':itcp-sugar-doc:itcp-sugar-doc-knife4j')
 
-include(':itcp-sugar-framework:itcp-sugar-hsweb:itcp-sugar-hsweb-authorize')
-include(':itcp-sugar-framework:itcp-sugar-hsweb:itcp-sugar-hsweb-curd')
-include(':itcp-sugar-framework:itcp-sugar-spring:itcp-sugar-spring-kubernetes:itcp-sugar-spring-kubernetes-fabric8')
-include(':itcp-sugar-framework:itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-tool-common')
-include(':itcp-sugar-framework:itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-tool-webmvc')
-include(':itcp-sugar-framework:itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-tool-webflux')
+include(':itcp-sugar-framework:itcp-sugar-framework-hsweb:itcp-sugar-framework-hsweb-authorize')
+include(':itcp-sugar-framework:itcp-sugar-framework-hsweb:itcp-sugar-framework-hsweb-curd')
+include(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-kubernetes:itcp-sugar-framework-spring-kubernetes-fabric8')
+include(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-common')
+include(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-webmvc')
+include(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-webflux')
 
-include(':itcp-sugar-orm:itcp-sugar-mybatis-plus')
+include(':itcp-sugar-orm:itcp-sugar-orm-mybatis-plus')
 
 include(':itcp-sugar-security:itcp-sugar-security-sa-token')
 include(':itcp-sugar-security:itcp-sugar-security-sa-token-common')

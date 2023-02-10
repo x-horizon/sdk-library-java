@@ -1,20 +1,13 @@
-def projectName = 'itcp-sugar-security-sa-token'
+def projectName = 'itcp-sugar-component-convert-fastjson'
 
 version = projectVersion
 
 dependencies {
     // framework
-    implementation("$spring_boot_starter_webmvc")
-    implementation("$spring_boot_annotation_processor")
-
-    // security
-    api("$sa_token")
-    api("$sa_token_jakata_servlet")
+    implementation("$spring_boot_starter")
 
     // tool
     implementation(project(':itcp-sugar-tool'))
-    implementation(project(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-common'))
-    api(project(':itcp-sugar-security:itcp-sugar-security-sa-token-common'))
 }
 
 tasks.withType(JavaCompile).configureEach {
