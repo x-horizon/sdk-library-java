@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.security.sa.token.reactor.support;
 
+import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.security.sa.token.reactor.core.EnableSaTokenWebReactorExceptionHandler;
-import cn.srd.itcp.sugar.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;

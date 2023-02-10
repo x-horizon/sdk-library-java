@@ -17,7 +17,7 @@ dependencies {
 
     // tool
     implementation(project(':itcp-sugar-tool'))
-    implementation(project(':itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-tool-common'))
+    implementation(project(':itcp-sugar-framework:itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-tool-common'))
 }
 
 tasks.withType(JavaCompile).configureEach {

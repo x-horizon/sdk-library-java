@@ -1,0 +1,62 @@
+def projectName = 'itcp-sugar-convert-mapstruct'
+
+version = projectVersion
+
+dependencies {
+    // framework
+    implementation("$spring_boot_starter")
+
+    // tool
+    implementation(project(':itcp-sugar-tool'))
+    implementation(project(':itcp-sugar-framework:itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-tool-common'))
+
+    // tool
+    api("$mapstruct")
+    annotationProcessor("$mapstruct_processor")
+    annotationProcessor("$lombok_mapstruct_binding")
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = projectCharset
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier.set("sources")
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set("javadoc")
+    from javadoc.destinationDir
+}
+
+javadoc {
+    options {
+        encoding projectCharset
+        version true
+        title projectName
+    }
+}
+
+publishing {
+    publications {
+        publishApp(MavenPublication) {
+            groupId group
+            artifactId jar.baseName
+            version project.version
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username projectNexusUsername
+                password projectNexusPassword
+            }
+            url = projectNexusUrl
+            allowInsecureProtocol = true
+        }
+    }
+}

@@ -1,0 +1,69 @@
+def projectName = 'itcp-sugar-convert-all'
+
+version = projectVersion
+
+dependencies {
+    // framework
+    implementation("$spring_boot_starter_webmvc")
+    testImplementation("$spring_boot_starter_webmvc")
+
+    // tool
+    implementation(project(':itcp-sugar-tool'))
+    implementation(project(':itcp-sugar-framework:itcp-sugar-spring:itcp-sugar-spring-tool:itcp-sugar-spring-tool-common'))
+    api(project(':itcp-sugar-component:itcp-sugar-convert:itcp-sugar-convert-spring'))
+    api(project(':itcp-sugar-component:itcp-sugar-convert:itcp-sugar-convert-jackson'))
+    api(project(':itcp-sugar-component:itcp-sugar-convert:itcp-sugar-convert-fastjson'))
+    api(project(':itcp-sugar-component:itcp-sugar-convert:itcp-sugar-convert-mapstruct'))
+    annotationProcessor("$mapstruct_processor")
+    annotationProcessor("$lombok_mapstruct_binding")
+    testImplementation(project(':itcp-sugar-tool'))
+    testImplementation(project(':itcp-sugar-component:itcp-sugar-convert:itcp-sugar-convert-jackson'))
+    testImplementation(project(':itcp-sugar-component:itcp-sugar-convert:itcp-sugar-convert-mapstruct'))
+    testAnnotationProcessor("$mapstruct_processor")
+    testAnnotationProcessor("$lombok_mapstruct_binding")
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = projectCharset
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier.set("sources")
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set("javadoc")
+    from javadoc.destinationDir
+}
+
+javadoc {
+    options {
+        encoding projectCharset
+        version true
+        title projectName
+    }
+}
+
+publishing {
+    publications {
+        publishApp(MavenPublication) {
+            groupId group
+            artifactId jar.baseName
+            version project.version
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username projectNexusUsername
+                password projectNexusPassword
+            }
+            url = projectNexusUrl
+            allowInsecureProtocol = true
+        }
+    }
+}

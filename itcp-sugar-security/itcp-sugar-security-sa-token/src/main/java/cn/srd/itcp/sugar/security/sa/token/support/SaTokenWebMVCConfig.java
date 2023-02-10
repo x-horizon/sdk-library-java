@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.security.sa.token.support;
 
-import cn.srd.itcp.sugar.spring.tool.common.core.SpringsUtil;
+import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.lang.NonNull;

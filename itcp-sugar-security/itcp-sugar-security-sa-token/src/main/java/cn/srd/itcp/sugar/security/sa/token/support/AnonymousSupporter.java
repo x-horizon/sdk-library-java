@@ -1,8 +1,8 @@
 package cn.srd.itcp.sugar.security.sa.token.support;
 
 import cn.hutool.core.util.ReUtil;
+import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.security.sa.token.core.Anonymous;
-import cn.srd.itcp.sugar.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
 import lombok.Getter;
 import org.springframework.beans.factory.InitializingBean;
