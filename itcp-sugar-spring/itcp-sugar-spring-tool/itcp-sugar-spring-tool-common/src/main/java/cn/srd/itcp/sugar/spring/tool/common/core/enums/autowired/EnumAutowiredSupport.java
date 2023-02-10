@@ -73,7 +73,7 @@ public class EnumAutowiredSupport {
                         Assert.INSTANCE.set(new EnumAutowiredMayAutowiredBeansNotFoundException(StringsUtil.format("在 “{}” 中无法找到实现了 “{}” 并且允许匹配的实现类，无法注入，请检查！", classSimpleNameWithEnumAutowired, autowiredBeanClassSimpleName))).throwsIfEmpty(beanNamesMayAutowired);
                         // 最终要注入的实现类
                         String beanNameToAutowired = findBeanNameToAutowiredRule.getBeanNameToAutowired(beanNamesMayAutowired);
-                        Assert.INSTANCE.set(new EnumAutowiredAutowiredBeanNotFoundException(StringsUtil.format("在 “{}” 中无法找到实现了 “{}” 并且允许注入的实现类，无法注入，请检查！", classSimpleNameWithEnumAutowired, autowiredBeanClassSimpleName))).throwsIfBlank(beanNameToAutowired);
+                        Assert.INSTANCE.set(new EnumAutowiredFinallyAutowiredBeanNotFoundException(StringsUtil.format("在 “{}” 中无法找到实现了 “{}” 并且允许注入的实现类，无法注入，请检查！", classSimpleNameWithEnumAutowired, autowiredBeanClassSimpleName))).throwsIfBlank(beanNameToAutowired);
 
                         ReflectsUtil.setFieldValue(internalEnumWithEnumAutowired, fieldNameToAutowired, SpringsUtil.getBean(beanNameToAutowired));
                     }

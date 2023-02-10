@@ -10,7 +10,7 @@ import java.io.Serial;
  * @author wjm
  * @since 2021/9/8 16:07
  */
-public class EnumAutowiredAutowiredBeanNotFoundException extends RuntimeException {
+public class EnumAutowiredFinallyAutowiredBeanNotFoundException extends RuntimeException {
 
     @Serial
     private static final long serialVersionUID = 6283571063586018310L;
@@ -18,7 +18,7 @@ public class EnumAutowiredAutowiredBeanNotFoundException extends RuntimeExceptio
     /**
      * public constructor
      */
-    public EnumAutowiredAutowiredBeanNotFoundException() {
+    public EnumAutowiredFinallyAutowiredBeanNotFoundException() {
     }
 
     /**
@@ -26,7 +26,7 @@ public class EnumAutowiredAutowiredBeanNotFoundException extends RuntimeExceptio
      *
      * @param message 异常信息
      */
-    public EnumAutowiredAutowiredBeanNotFoundException(String message) {
+    public EnumAutowiredFinallyAutowiredBeanNotFoundException(String message) {
         super(message);
     }
 
@@ -35,7 +35,7 @@ public class EnumAutowiredAutowiredBeanNotFoundException extends RuntimeExceptio
      *
      * @param cause exception wrapper
      */
-    public EnumAutowiredAutowiredBeanNotFoundException(Throwable cause) {
+    public EnumAutowiredFinallyAutowiredBeanNotFoundException(Throwable cause) {
         super(cause);
     }
 
@@ -45,7 +45,7 @@ public class EnumAutowiredAutowiredBeanNotFoundException extends RuntimeExceptio
      * @param message 异常信息
      * @param cause   exception wrapper
      */
-    public EnumAutowiredAutowiredBeanNotFoundException(String message, Throwable cause) {
+    public EnumAutowiredFinallyAutowiredBeanNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 
