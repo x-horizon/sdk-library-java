@@ -1,67 +1,105 @@
+import org.codehaus.groovy.runtime.GStringImpl
+
 ext {
+    // version
+    spring_cloud_starter_kubernetes_fabric8_version = "3.0.1"
+    hsweb_version = "4.0.14"
+    druid_version = "1.2.8"
+    mysql_version = "8.0.32"
+    postgresql_version = "42.5.1"
+    lettuce_version = "6.2.2.RELEASE"
+    redisson_version = "3.19.1"
+    mybatis_plus_version = "3.5.3.1"
+    mybatis_plus_join_version = "1.4.2.2"
+    knife4j_version = "4.0.0"
+    sa_token_version = "1.34.0"
+    easyexcel_version = "3.1.5"
+    yitter_id_generator_version = "1.0.6"
+    burningwave_version = "12.62.5"
+    lombok_version = "1.18.22"
+    lombok_mapstruct_binding_version = "0.2.0"
+    mapstruct_version = "1.5.2.Final"
+    vavr_version = "0.10.4"
+    guava_version = "31.1-jre"
+    hutool_version = "5.8.3"
+    fastjson_version = "1.2.79"
+    jackson_version = "2.13.1"
+    okhttps_version = "3.5.0"
+    json_path_version = "2.7.0"
+    reflectasm_version = "1.11.9"
+    javax_el_version = "2.2.6"
+    javax_el_api_version = "3.0.0"
+    apache_commons_lang3_version = "3.12.0"
+    apache_commons_io_version = "2.11.0"
+    apache_commons_pool_version = "2.11.1"
+    junit_version = "4.13.2"
+    jmh_version = "1.35"
+
     // framework
     spring_boot_starter = "org.springframework.boot:spring-boot-starter"
     spring_boot_starter_webmvc = "org.springframework.boot:spring-boot-starter-web"
     spring_boot_starter_webflux = "org.springframework.boot:spring-boot-starter-webflux"
     spring_boot_starter_aop = "org.springframework.boot:spring-boot-starter-aop"
     spring_boot_annotation_processor = "org.springframework.boot:spring-boot-configuration-processor"
-    spring_cloud_starter_kubernetes_fabric8_all = "org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8-all:3.0.1"
-    hsweb_authorization_basic = "org.hswebframework.web:hsweb-authorization-basic:4.0.14"
-    hsweb_commons_crud = "org.hswebframework.web:hsweb-commons-crud:4.0.14"
-    data_r2dbc = "org.springframework.boot:spring-boot-starter-data-r2dbc"
+    spring_cloud_starter_kubernetes_fabric8_all = "org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8-all:${spring_cloud_starter_kubernetes_fabric8_version}" as GStringImpl
+    hsweb_authorization_basic = "org.hswebframework.web:hsweb-authorization-basic:${hsweb_version}" as GStringImpl
+    hsweb_commons_crud = "org.hswebframework.web:hsweb-commons-crud:${hsweb_version}" as GStringImpl
 
     // database
-    druid = "com.alibaba:druid-spring-boot-starter:1.2.8"
-    mysql = "com.mysql:mysql-connector-j:8.0.32"
-    postgresql = "org.postgresql:postgresql:42.5.1"
-    mybatis_plus = "com.baomidou:mybatis-plus-boot-starter:3.5.3.1"
-    mybatis_plus_join = "com.github.yulichang:mybatis-plus-join:1.4.2.2"
-    lettuce = 'io.lettuce:lettuce-core:6.2.2.RELEASE'
-    redisson = "org.redisson:redisson-spring-boot-starter:3.19.1"
+    druid = "com.alibaba:druid-spring-boot-starter:${druid_version}" as GStringImpl
+    mysql = "com.mysql:mysql-connector-j:${mysql_version}" as GStringImpl
+    postgresql = "org.postgresql:postgresql:${postgresql_version}" as GStringImpl
+    lettuce = "io.lettuce:lettuce-core:${lettuce_version}" as GStringImpl
+    redisson = "org.redisson:redisson-spring-boot-starter:${redisson_version}" as GStringImpl
+
+    // orm
+    mybatis_plus = "com.baomidou:mybatis-plus-boot-starter:${mybatis_plus_version}" as GStringImpl
+    mybatis_plus_join = "com.github.yulichang:mybatis-plus-join:${mybatis_plus_join_version}" as GStringImpl
+    data_r2dbc = "org.springframework.boot:spring-boot-starter-data-r2dbc"
 
     // doc
-    knife4j = "com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter:4.0.0"
+    knife4j = "com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter:${knife4j_version}" as GStringImpl
 
     // security
-    sa_token = "cn.dev33:sa-token-spring-boot-starter:1.34.0"
-    sa_token_reactor = "cn.dev33:sa-token-reactor-spring-boot-starter:1.34.0"
-    sa_token_jwt = "cn.dev33:sa-token-jwt:1.34.0"
-    sa_token_dao_redis_jackson = "cn.dev33:sa-token-dao-redis-jackson:1.34.0"
-    sa_token_alone_redis = "cn.dev33:sa-token-alone-redis:1.34.0"
-    sa_token_jakata_servlet = "cn.dev33:sa-token-jakarta-servlet:1.34.0"
+    sa_token = "cn.dev33:sa-token-spring-boot-starter:${sa_token_version}" as GStringImpl
+    sa_token_reactor = "cn.dev33:sa-token-reactor-spring-boot-starter:${sa_token_version}" as GStringImpl
+    sa_token_jwt = "cn.dev33:sa-token-jwt:${sa_token_version}" as GStringImpl
+    sa_token_dao_redis_jackson = "cn.dev33:sa-token-dao-redis-jackson:${sa_token_version}" as GStringImpl
+    sa_token_alone_redis = "cn.dev33:sa-token-alone-redis:${sa_token_version}" as GStringImpl
+    sa_token_jakata_servlet = "cn.dev33:sa-token-jakarta-servlet:${sa_token_version}" as GStringImpl
 
     // component
-    easyexcel = 'com.alibaba:easyexcel:3.1.5'
-    yitter_id_generator = 'com.github.yitter:yitter-idgenerator:1.0.6'
+    easyexcel = "com.alibaba:easyexcel:${easyexcel_version}" as GStringImpl
+    yitter_id_generator = "com.github.yitter:yitter-idgenerator:${yitter_id_generator_version}" as GStringImpl
 
     // hack
-    burningwave_core = 'org.burningwave:core:12.62.5'
+    burningwave_core = "org.burningwave:core:${burningwave_version}" as GStringImpl
 
     // tool
-    lombok = "org.projectlombok:lombok:1.18.22"
-    lombok_mapstruct_binding = "org.projectlombok:lombok-mapstruct-binding:0.2.0"
-    mapstruct = "org.mapstruct:mapstruct:1.5.2.Final"
-    mapstruct_processor = "org.mapstruct:mapstruct-processor:1.5.2.Final"
-    vavr = "io.vavr:vavr:0.10.4"
-    guava = "com.google.guava:guava:31.1-jre"
-    hutool = "cn.hutool:hutool-all:5.8.3"
-    fastjson = "com.alibaba:fastjson:1.2.79"
-    jackson_core = "com.fasterxml.jackson.core:jackson-core:2.13.1"
-    jackson_databind = "com.fasterxml.jackson.core:jackson-databind:2.13.1"
-    jackson_annotation = "com.fasterxml.jackson.core:jackson-annotations:2.13.1"
-    okhttps_jackson = "com.ejlchina:okhttps-jackson:3.5.0"
-    json_path = 'com.jayway.jsonpath:json-path:2.7.0'
-    reflectasm = "com.esotericsoftware:reflectasm:1.11.9"
+    lombok = "org.projectlombok:lombok:${lombok_version}" as GStringImpl
+    lombok_mapstruct_binding = "org.projectlombok:lombok-mapstruct-binding:${lombok_mapstruct_binding_version}" as GStringImpl
+    mapstruct = "org.mapstruct:mapstruct:${mapstruct_version}" as GStringImpl
+    mapstruct_processor = "org.mapstruct:mapstruct-processor:${mapstruct_version}" as GStringImpl
+    vavr = "io.vavr:vavr:${vavr_version}" as GStringImpl
+    guava = "com.google.guava:guava:${guava_version}" as GStringImpl
+    hutool = "cn.hutool:hutool-all:${hutool_version}" as GStringImpl
+    fastjson = "com.alibaba:fastjson:${fastjson_version}" as GStringImpl
+    jackson_core = "com.fasterxml.jackson.core:jackson-core:${jackson_version}" as GStringImpl
+    jackson_databind = "com.fasterxml.jackson.core:jackson-databind:${jackson_version}" as GStringImpl
+    jackson_annotation = "com.fasterxml.jackson.core:jackson-annotations:${jackson_version}" as GStringImpl
+    okhttps_jackson = "com.ejlchina:okhttps-jackson:${okhttps_version}" as GStringImpl
+    json_path = "com.jayway.jsonpath:json-path:${json_path_version}" as GStringImpl
+    reflectasm = "com.esotericsoftware:reflectasm:${reflectasm_version}" as GStringImpl
     hibernate_validator = "org.hibernate.validator:hibernate-validator"
-    javax_el = 'org.glassfish.web:javax.el:2.2.6'
-    javax_el_api = 'javax.el:javax.el-api:3.0.0'
-    apache_commons_lang3 = "org.apache.commons:commons-lang3:3.12.0"
-    apache_commons_io = 'commons-io:commons-io:2.11.0'
-    apache_commons_pool = 'org.apache.commons:commons-pool2:2.11.1'
+    javax_el = "org.glassfish.web:javax.el:${javax_el_version}" as GStringImpl
+    javax_el_api = "javax.el:javax.el-api:${javax_el_api_version}" as GStringImpl
+    apache_commons_lang3 = "org.apache.commons:commons-lang3:${apache_commons_lang3_version}" as GStringImpl
+    apache_commons_io = "commons-io:commons-io:${apache_commons_io_version}" as GStringImpl
+    apache_commons_pool = "org.apache.commons:commons-pool2:${apache_commons_pool_version}" as GStringImpl
 
     // test
-    junit = "junit:junit:4.13.2"
-    jmh_core = 'org.openjdk.jmh:jmh-core:1.35'
-    jmh_generator_annprocess = 'org.openjdk.jmh:jmh-generator-annprocess:1.35'
+    junit = "junit:junit:${junit_version}" as GStringImpl
+    jmh_core = "org.openjdk.jmh:jmh-core:${jmh_version}" as GStringImpl
+    jmh_generator_annprocess = "org.openjdk.jmh:jmh-generator-annprocess:${jmh_version}" as GStringImpl
     spring_boot_starter_test = "org.springframework.boot:spring-boot-starter-test"
 }

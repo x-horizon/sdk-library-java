@@ -15,6 +15,7 @@ include(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component
 include(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-jackson')
 include(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-mapstruct')
 include(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-spring')
+include(':itcp-sugar-component:itcp-sugar-component-docker')
 include(':itcp-sugar-component:itcp-sugar-component-excel')
 include(':itcp-sugar-component:itcp-sugar-component-id-generator:itcp-sugar-component-id-generator-snowflake')
 include(':itcp-sugar-component:itcp-sugar-component-jdk')
