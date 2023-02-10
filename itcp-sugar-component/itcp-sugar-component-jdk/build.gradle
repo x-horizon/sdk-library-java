@@ -1,4 +1,4 @@
-def projectName = 'itcp-sugar-component-jdk-hack'
+def projectName = 'itcp-sugar-component-jdk'
 
 version = projectVersion
 
