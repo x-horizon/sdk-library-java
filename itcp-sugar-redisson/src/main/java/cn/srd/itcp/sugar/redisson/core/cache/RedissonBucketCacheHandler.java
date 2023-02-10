@@ -159,4 +159,13 @@ public class RedissonBucketCacheHandler {
         return clazz.cast(RedissonManager.getClient().getBucket(key).getAndDelete());
     }
 
+    /**
+     * 删除缓存对象
+     *
+     * @param key 缓存 key 名
+     */
+    public void delete(String key) {
+        RedissonManager.getClient().getBucket(key).getAndDelete();
+    }
+
 }
