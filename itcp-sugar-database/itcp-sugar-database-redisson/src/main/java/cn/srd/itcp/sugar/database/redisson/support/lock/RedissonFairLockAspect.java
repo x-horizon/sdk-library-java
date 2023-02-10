@@ -44,7 +44,7 @@ public class RedissonFairLockAspect extends RedissonLockAspectSupporter {
     /**
      * 切点声明
      */
-    @Pointcut("@annotation(cn.srd.itcp.sugar.redisson.core.lock.RedissonFairLock)")
+    @Pointcut("@annotation(cn.srd.itcp.sugar.database.redisson.core.lock.RedissonFairLock)")
     public void pointcut() {
     }
 
