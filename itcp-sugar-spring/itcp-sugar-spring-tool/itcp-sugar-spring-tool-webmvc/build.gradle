@@ -4,7 +4,7 @@ version = projectVersion
 
 dependencies {
     // framework
-    implementation("$spring_boot_starter_web_mvc")
+    implementation("$spring_boot_starter_webmvc")
     implementation("$spring_boot_starter_aop")
 
     // tool
