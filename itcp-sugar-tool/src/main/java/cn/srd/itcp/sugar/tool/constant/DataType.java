@@ -13,17 +13,64 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum DataType {
 
+    /**
+     * byte
+     */
     BYTE("byte", "Byte", "BYTE"),
+
+    /**
+     * short
+     */
     SHORT("short", "Short", "SHORT"),
+
+    /**
+     * int
+     */
     INT("int", "Int", "INT"),
+
+    /**
+     * integer
+     */
     INTEGER("integer", "Integer", "INTEGER"),
+
+    /**
+     * long
+     */
     LONG("long", "Long", "LONG"),
+
+    /**
+     * float
+     */
     FLOAT("float", "Float", "FLOAT"),
+
+    /**
+     * double
+     */
     DOUBLE("double", "Double", "DOUBLE"),
+
+    /**
+     * boolean
+     */
     BOOLEAN("boolean", "Boolean", "BOOLEAN"),
+
+    /**
+     * char
+     */
     CHAR("char", "Char", "CHAR"),
+
+    /**
+     * string
+     */
     STRING("string", "String", "STRING"),
+
+    /**
+     * array
+     */
     ARRAY("array", "Array", "ARRAY"),
+
+    /**
+     * object
+     */
     OBJECT("object", "Object", "OBJECT"),
     ;
 
