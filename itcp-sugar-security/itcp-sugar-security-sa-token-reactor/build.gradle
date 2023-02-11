@@ -5,7 +5,7 @@ version = projectVersion
 dependencies {
     // framework
     implementation("$spring_boot_starter_webflux")
-    implementation("$spring_boot_annotation_processor")
+    implementation("$spring_boot_configuration_processor")
 
     // security
     api("$sa_token_reactor")

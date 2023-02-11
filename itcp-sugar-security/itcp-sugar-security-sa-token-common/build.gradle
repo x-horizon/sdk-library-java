@@ -4,7 +4,7 @@ version = projectVersion
 
 dependencies {
     // framework
-    implementation("$spring_boot_annotation_processor")
+    implementation("$spring_boot_configuration_processor")
 
     // database
     // sa_token_alone_redis 必须依赖包

@@ -1,7 +1,6 @@
 package cn.srd.itcp.sugar.database.redisson.support;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -11,8 +10,7 @@ import org.springframework.stereotype.Component;
  * @author wjm
  * @since 2020/12/12 18:06
  */
-@Getter
-@Setter
+@Data
 @Component
 @ConfigurationProperties(prefix = "spring.redis.redisson")
 public class RedissonProperties {

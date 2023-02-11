@@ -13,8 +13,8 @@ dependencies {
     // tool
     implementation(project(':itcp-sugar-tool'))
     implementation(project(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-common'))
-    annotationProcessor("$spring_boot_annotation_processor")
-    testAnnotationProcessor("$spring_boot_annotation_processor")
+    annotationProcessor("$spring_boot_configuration_processor")
+    testAnnotationProcessor("$spring_boot_configuration_processor")
 
     // test
     testImplementation 'org.testng:testng:7.1.0'
