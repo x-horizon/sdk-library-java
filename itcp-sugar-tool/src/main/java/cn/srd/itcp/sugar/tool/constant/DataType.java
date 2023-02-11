@@ -16,62 +16,63 @@ public enum DataType {
     /**
      * byte
      */
-    BYTE("byte", "Byte", "BYTE"),
+    BYTE(DataTypeConstant.LowerCaseAll.BYTE, DataTypeConstant.UpperCaseFirst.BYTE, DataTypeConstant.UpperCaseAll.BYTE),
 
     /**
      * short
      */
-    SHORT("short", "Short", "SHORT"),
+    SHORT(DataTypeConstant.LowerCaseAll.SHORT, DataTypeConstant.UpperCaseFirst.SHORT, DataTypeConstant.UpperCaseAll.SHORT),
 
     /**
      * int
      */
-    INT("int", "Int", "INT"),
+    INT(DataTypeConstant.LowerCaseAll.INT, DataTypeConstant.UpperCaseFirst.INT, DataTypeConstant.UpperCaseAll.INT),
 
     /**
      * integer
      */
-    INTEGER("integer", "Integer", "INTEGER"),
+    INTEGER(DataTypeConstant.LowerCaseAll.INTEGER, DataTypeConstant.UpperCaseFirst.INTEGER, DataTypeConstant.UpperCaseAll.INTEGER),
 
     /**
      * long
      */
-    LONG("long", "Long", "LONG"),
+    LONG(DataTypeConstant.LowerCaseAll.LONG, DataTypeConstant.UpperCaseFirst.LONG, DataTypeConstant.UpperCaseAll.LONG),
 
     /**
      * float
      */
-    FLOAT("float", "Float", "FLOAT"),
+    FLOAT(DataTypeConstant.LowerCaseAll.FLOAT, DataTypeConstant.UpperCaseFirst.FLOAT, DataTypeConstant.UpperCaseAll.FLOAT),
 
     /**
      * double
      */
-    DOUBLE("double", "Double", "DOUBLE"),
+    DOUBLE(DataTypeConstant.LowerCaseAll.DOUBLE, DataTypeConstant.UpperCaseFirst.DOUBLE, DataTypeConstant.UpperCaseAll.DOUBLE),
 
     /**
      * boolean
      */
-    BOOLEAN("boolean", "Boolean", "BOOLEAN"),
+    BOOLEAN(DataTypeConstant.LowerCaseAll.BOOLEAN, DataTypeConstant.UpperCaseFirst.BOOLEAN, DataTypeConstant.UpperCaseAll.BOOLEAN),
 
     /**
      * char
      */
-    CHAR("char", "Char", "CHAR"),
+    CHAR(DataTypeConstant.LowerCaseAll.CHAR, DataTypeConstant.UpperCaseFirst.CHAR, DataTypeConstant.UpperCaseAll.CHAR),
 
     /**
      * string
      */
-    STRING("string", "String", "STRING"),
+    STRING(DataTypeConstant.LowerCaseAll.STRING, DataTypeConstant.UpperCaseFirst.STRING, DataTypeConstant.UpperCaseAll.STRING),
 
     /**
      * array
      */
-    ARRAY("array", "Array", "ARRAY"),
+    ARRAY(DataTypeConstant.LowerCaseAll.ARRAY, DataTypeConstant.UpperCaseFirst.ARRAY, DataTypeConstant.UpperCaseAll.ARRAY),
 
     /**
      * object
      */
-    OBJECT("object", "Object", "OBJECT"),
+    OBJECT(DataTypeConstant.LowerCaseAll.OBJECT, DataTypeConstant.UpperCaseFirst.OBJECT, DataTypeConstant.UpperCaseAll.OBJECT),
+
     ;
 
     private final String lowerCaseAll;
