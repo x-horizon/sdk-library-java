@@ -1,7 +1,12 @@
-package cn.srd.itcp.sugar.tool.core;
+package cn.srd.itcp.sugar.tool.core.time;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.LocalDateTimeUtil;
+import cn.srd.itcp.sugar.tool.constant.TimeUnitPool;
+import cn.srd.itcp.sugar.tool.core.EnumsUtil;
+import cn.srd.itcp.sugar.tool.core.Objects;
+import cn.srd.itcp.sugar.tool.core.StringsUtil;
+import cn.srd.itcp.sugar.tool.core.asserts.Assert;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 
 import java.time.Instant;
@@ -11,6 +16,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
@@ -105,6 +111,31 @@ public class TimeUtil extends LocalDateTimeUtil {
             return null;
         }
         return Stream.of(dates).filter(Objects::isNotEmpty).max(Comparator.naturalOrder()).orElse(null);
+    }
+
+    /**
+     * 将 时间字符串 包装为 时间处理器
+     *
+     * @param timeFormat 时间字符串
+     * @return 时间处理器
+     */
+    public static TimeUnitHandler wrapper(String timeFormat) {
+        for (Function<String, String> convertToTimeUnitFunction : TimeUnitHandler.CONVERT_TO_TIME_UNIT_FUNCTIONS) {
+            String timeUnit = convertToTimeUnitFunction.apply(timeFormat);
+            TimeUnitPool timeUnitEnum = EnumsUtil.capableToEnum(timeUnit, TimeUnitPool.class);
+            if (Objects.isNotNull(timeUnitEnum)) {
+                TimeUnitHandler timeUnitHandler = TimeUnitHandler.TIME_UNIT_MAPPING_HANDLER_MAP.get(timeUnitEnum);
+                Assert.INSTANCE.set(StringsUtil.format("could not match handler to handle time unit by input [{}] -> [{}]", timeFormat, timeUnit)).throwsIfNull(timeUnitHandler);
+                long time;
+                try {
+                    time = Long.parseLong(StringsUtil.removeAny(timeFormat, timeUnit));
+                } catch (Exception exception) {
+                    throw new RuntimeException(StringsUtil.format("invalid time by remove [{}] from input [{}]", timeUnit, timeFormat), exception);
+                }
+                return timeUnitHandler.newInstance().setTimeUnit(timeUnit).setTime(time);
+            }
+        }
+        throw new RuntimeException(StringsUtil.format("invalid time format by input [{}]", timeFormat));
     }
 
 }
