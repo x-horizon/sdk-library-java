@@ -147,7 +147,7 @@ public class EnumsUtil extends EnumUtil {
                 continue;
             }
             for (E enumObj : enums) {
-                if (Objects.equals(currentEnumFiledValue, ReflectUtil.getFieldValue(enumObj, field))) {
+                if (Objects.equals(currentEnumFiledValue, ReflectsUtil.getFieldValue(enumObj, field))) {
                     return enumObj;
                 }
             }
