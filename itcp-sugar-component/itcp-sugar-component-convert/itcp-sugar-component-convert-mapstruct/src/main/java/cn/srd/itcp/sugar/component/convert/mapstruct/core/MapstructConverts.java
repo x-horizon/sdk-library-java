@@ -50,7 +50,7 @@ public class MapstructConverts {
     }
 
     /**
-     * slacker signal ton pattern
+     * signal ton pattern
      */
     private static final class SingleTonHolder {
         private static final MapstructConverts INSTANCE = SpringsUtil.getBean(MapstructConverts.class);

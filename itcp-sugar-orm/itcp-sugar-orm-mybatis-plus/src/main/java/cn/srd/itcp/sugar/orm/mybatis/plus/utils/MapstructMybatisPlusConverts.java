@@ -25,7 +25,7 @@ public class MapstructMybatisPlusConverts {
     }
 
     /**
-     * slacker signal ton pattern
+     * signal ton pattern
      */
     private static final class SingleTonHolder {
         private static final MapstructMybatisPlusConverts INSTANCE = new MapstructMybatisPlusConverts();
