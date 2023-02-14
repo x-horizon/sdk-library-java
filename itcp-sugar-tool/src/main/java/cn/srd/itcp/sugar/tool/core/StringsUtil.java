@@ -128,6 +128,28 @@ public class StringsUtil extends StrUtil {
     }
 
     /**
+     * 移除字符串中所有数字
+     *
+     * @param input 字符串
+     * @return 移除数字后的字符串
+     */
+    public static String removeAllDigit(@Nullable String input) {
+        if (Objects.isNull(input)) {
+            return StringPool.EMPTY;
+        }
+        int length = input.length();
+        StringBuilder output = builder(length);
+        char inputChar;
+        for (int index = 0; index < length; ++index) {
+            inputChar = input.charAt(index);
+            if (isNotDigit(inputChar)) {
+                output.append(inputChar);
+            }
+        }
+        return output.toString();
+    }
+
+    /**
      * 查找 specifiedStr 中 strToFind 出现的次数
      *
      * @param specifiedStr 指定的字符串
@@ -157,6 +179,26 @@ public class StringsUtil extends StrUtil {
             return new HashMap<>();
         }
         return specifiedStr.chars().mapToObj(c -> (char) c).collect(groupingBy(identity(), counting()));
+    }
+
+    /**
+     * 字符是否为数字
+     *
+     * @param input 字符
+     * @return 是否为数字
+     */
+    public static boolean isDigit(char input) {
+        return Character.isDigit(input);
+    }
+
+    /**
+     * 字符是否不为数字
+     *
+     * @param input 字符
+     * @return 是否不为数字
+     */
+    public static boolean isNotDigit(char input) {
+        return !isDigit(input);
     }
 
     /**
