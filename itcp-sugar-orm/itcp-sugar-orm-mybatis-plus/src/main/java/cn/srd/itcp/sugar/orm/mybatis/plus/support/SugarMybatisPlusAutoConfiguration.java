@@ -23,7 +23,6 @@ import org.springframework.context.annotation.Import;
  * @author wjm
  * @since 2022-07-05
  */
-// @Configuration
 @AutoConfiguration
 @Import(PostgresqlMetadataInjector.class)
 @ConditionalOnClass(MybatisPlusAutoConfiguration.class)
