@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.component.convert.mapstruct.support;
 
 import cn.srd.itcp.sugar.component.convert.mapstruct.core.MapstructConverts;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 /**
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Import;
  * @author wjm
  * @since 2021/5/1 14:13
  */
-@Configuration
+@AutoConfiguration
 @Import(MapstructConverts.class)
 public class MapstructConvertsAutoConfiguration {
 

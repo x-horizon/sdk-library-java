@@ -1,9 +1,11 @@
 package cn.srd.itcp.sugar.framework.spring.tool.webmvc.core.web;
 
+import org.springframework.context.annotation.Import;
+
 import java.lang.annotation.*;
 
 /**
- * 启用拦截 {@link WebMVCExceptionHandler} 的响应结果通知
+ * 启用拦截 {@link WebMVCResponseAdvice} 的响应结果通知
  *
  * @author wjm
  * @see WebMVCExceptionHandler
@@ -13,6 +15,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
+@Import(WebMVCResponseAdvice.class)
 public @interface EnableWebMVCResponseAdvice {
 
 }

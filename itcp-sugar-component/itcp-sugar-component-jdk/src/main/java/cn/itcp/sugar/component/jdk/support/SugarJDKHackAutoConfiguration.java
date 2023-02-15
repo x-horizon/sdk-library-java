@@ -5,6 +5,7 @@ import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import jakarta.annotation.PostConstruct;
 import org.burningwave.core.assembler.StaticComponentContainer;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 /**
@@ -13,6 +14,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
  * @author wjm
  * @since 2022-07-14
  */
+@AutoConfiguration
 public class SugarJDKHackAutoConfiguration {
 
     /**

@@ -13,7 +13,6 @@ import cn.srd.itcp.sugar.tool.core.convert.Converts;
 import jakarta.annotation.PostConstruct;
 import lombok.SneakyThrows;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -25,7 +24,6 @@ import java.util.concurrent.TimeUnit;
  * @author wjm
  * @since 2020/12/12 18:06
  */
-@Component
 public class RedissonLockAspectSupporter {
 
     /**

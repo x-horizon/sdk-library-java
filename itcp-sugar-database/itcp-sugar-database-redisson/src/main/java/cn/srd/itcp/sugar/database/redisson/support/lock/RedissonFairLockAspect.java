@@ -7,7 +7,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.stereotype.Component;
 
 /**
  * 基于 {@link RedissonFairLock} 的切面
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Component;
  * @since 2020/12/12 18:06
  */
 @Aspect
-@Component
 public class RedissonFairLockAspect extends RedissonLockAspectSupporter {
 
     /**

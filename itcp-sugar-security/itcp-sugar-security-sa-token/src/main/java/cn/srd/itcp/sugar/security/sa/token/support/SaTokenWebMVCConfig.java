@@ -2,7 +2,6 @@ package cn.srd.itcp.sugar.security.sa.token.support;
 
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -25,7 +24,6 @@ public class SaTokenWebMVCConfig implements WebMvcConfigurer {
      *
      * @param interceptorRegistry 拦截器注册器
      */
-    @DependsOn("sugarSaTokenAutoConfiguration")
     @Override
     public void addInterceptors(@NonNull InterceptorRegistry interceptorRegistry) {
         SaTokenPreEachRequestWebMVCAnnotationInterceptor saTokenPreEachRequestWebMVCAnnotationInterceptor = SpringsUtil.getBean(SaTokenPreEachRequestWebMVCAnnotationInterceptor.class);

@@ -8,9 +8,9 @@ import cn.srd.itcp.sugar.tool.core.*;
 import cn.srd.itcp.sugar.tool.core.asserts.Assert;
 import com.github.yitter.contract.IdGeneratorOptions;
 import com.github.yitter.idgen.YitIdHelper;
+import jakarta.annotation.PostConstruct;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.Set;
 
@@ -20,7 +20,7 @@ import java.util.Set;
  * @author wjm
  * @since 2022-08-29 09:04:19
  */
-@Configuration
+@AutoConfiguration
 public class SugarSnowflakeIdAutoConfiguration {
 
     private static final String METHOD_NAME_OF_SET_WORKER_ID = "setWorkerId";
@@ -28,7 +28,7 @@ public class SugarSnowflakeIdAutoConfiguration {
     /**
      * 装配 {@link YitIdHelper}
      */
-    @Bean
+    @PostConstruct
     public void initIdGeneratorOptions() {
         if (Objects.isNotEmpty(SpringsUtil.scanPackageByAnnotation(EnableSnowflakeId.class))) {
             String[] packageNamesToFindSnowflakeConfig = new String[]{SpringsUtil.getRootPackagePath()};

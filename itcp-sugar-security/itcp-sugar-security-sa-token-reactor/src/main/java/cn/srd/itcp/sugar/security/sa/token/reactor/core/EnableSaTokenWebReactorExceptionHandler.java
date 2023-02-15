@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.security.sa.token.reactor.core;
 
 import cn.srd.itcp.sugar.security.sa.token.reactor.support.SaTokenWebReactorExceptionHandler;
+import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
 
@@ -13,6 +14,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
+@Import(SaTokenWebReactorExceptionHandler.class)
 public @interface EnableSaTokenWebReactorExceptionHandler {
 
 }

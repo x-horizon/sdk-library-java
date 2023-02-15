@@ -19,8 +19,10 @@ dependencies {
     implementation(project(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-all'))
     annotationProcessor("$mapstruct_processor")
     annotationProcessor("$lombok_mapstruct_binding")
+    annotationProcessor("$spring_boot_configuration_processor")
     testAnnotationProcessor("$mapstruct_processor")
     testAnnotationProcessor("$lombok_mapstruct_binding")
+    testAnnotationProcessor("$spring_boot_configuration_processor")
 }
 
 tasks.withType(JavaCompile).configureEach {

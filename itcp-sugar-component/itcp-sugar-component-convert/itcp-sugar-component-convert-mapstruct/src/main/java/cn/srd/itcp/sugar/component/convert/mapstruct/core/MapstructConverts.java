@@ -22,7 +22,6 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -38,7 +37,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @Getter(AccessLevel.PACKAGE)
 @Setter(AccessLevel.PRIVATE)
-@Component
 @SuppressWarnings("unchecked")
 @Deprecated
 public class MapstructConverts {

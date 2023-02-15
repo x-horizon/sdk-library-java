@@ -3,7 +3,6 @@ package cn.srd.itcp.sugar.database.redisson.core.lock;
 import cn.srd.itcp.sugar.database.redisson.support.RedissonManager;
 import jakarta.annotation.PostConstruct;
 import org.redisson.api.RLock;
-import org.springframework.stereotype.Component;
 
 /**
  * Redisson 分布式单点非公平锁操作，参考 {@link RedissonNonFairLock}
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
  * @author wjm
  * @since 2020/12/12 18:06
  */
-@Component
 public class RedissonNonFairLockHandler implements RedissonLockTemplate {
 
     /**
