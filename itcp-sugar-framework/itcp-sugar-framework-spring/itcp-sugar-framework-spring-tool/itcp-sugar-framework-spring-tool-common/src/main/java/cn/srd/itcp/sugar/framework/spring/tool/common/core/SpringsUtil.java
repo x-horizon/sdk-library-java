@@ -163,6 +163,12 @@ public class SpringsUtil extends SpringUtil {
      * public class WebExceptionHandler {
      *
      * }
+     *
+     * 记录需要使用该函数注册才能生效的注解有：
+     * {@link org.springframework.web.bind.annotation.RestControllerAdvice RestControllerAdvice}
+     *
+     * 不需要使用该函数注册，直接通过 new 来返回给 &#064;Bean 的有：
+     * {@link org.springframework.boot.context.properties.ConfigurationProperties ConfigurationProperties}
      * </pre>
      *
      * @param clazz 要注册的 bean
@@ -171,9 +177,9 @@ public class SpringsUtil extends SpringUtil {
      */
     @SuppressWarnings("unchecked")
     public static <T> T registerCapableBean(Class<T> clazz) {
-        String lowerFirstClassSimpleName = StringsUtil.lowerFirst(clazz.getSimpleName());
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(clazz);
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) applicationContext.getBeanFactory();
+        String lowerFirstClassSimpleName = StringsUtil.lowerFirst(clazz.getSimpleName());
         GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
         beanDefinition.setBeanClass(clazz);
         beanFactory.registerBeanDefinition(lowerFirstClassSimpleName, beanDefinition);
