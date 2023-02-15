@@ -160,4 +160,9 @@ public interface StringPool {
      */
     String VB = "|";
 
+    /**
+     * 加号 +
+     */
+    String PLUS_SIGN = "+";
+
 }
