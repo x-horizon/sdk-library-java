@@ -1,82 +1,212 @@
 package cn.srd.itcp.sugar.tool.constant;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
- * 数据类型
+ * 数据类型常量
  *
  * @author wjm
  * @since 2023-02-11 11:36:22
  */
-@Getter
-@AllArgsConstructor
-public enum DataType {
+public class DataType {
 
     /**
-     * byte
+     * lower case all
      */
-    BYTE(DataTypeConstant.LowerCaseAll.BYTE, DataTypeConstant.UpperCaseFirst.BYTE, DataTypeConstant.UpperCaseAll.BYTE),
+    public static class LowerCaseAll {
+
+        /**
+         * BYTE
+         */
+        public static final String BYTE = "byte";
+
+        /**
+         * SHORT
+         */
+        public static final String SHORT = "short";
+
+        /**
+         * INT
+         */
+        public static final String INT = "int";
+
+        /**
+         * INTEGER
+         */
+        public static final String INTEGER = "integer";
+
+        /**
+         * LONG
+         */
+        public static final String LONG = "long";
+
+        /**
+         * FLOAT
+         */
+        public static final String FLOAT = "float";
+
+        /**
+         * DOUBLE
+         */
+        public static final String DOUBLE = "double";
+
+        /**
+         * BOOLEAN
+         */
+        public static final String BOOLEAN = "boolean";
+
+        /**
+         * CHAR
+         */
+        public static final String CHAR = "char";
+
+        /**
+         * STRING
+         */
+        public static final String STRING = "string";
+
+        /**
+         * ARRAY
+         */
+        public static final String ARRAY = "array";
+
+        /**
+         * OBJECT
+         */
+        public static final String OBJECT = "object";
+
+    }
 
     /**
-     * short
+     * upper case first
      */
-    SHORT(DataTypeConstant.LowerCaseAll.SHORT, DataTypeConstant.UpperCaseFirst.SHORT, DataTypeConstant.UpperCaseAll.SHORT),
+    public static class UpperCaseFirst {
+
+        /**
+         * BYTE
+         */
+        public static final String BYTE = "Byte";
+
+        /**
+         * SHORT
+         */
+        public static final String SHORT = "Short";
+
+        /**
+         * INT
+         */
+        public static final String INT = "Int";
+
+        /**
+         * INTEGER
+         */
+        public static final String INTEGER = "Integer";
+
+        /**
+         * LONG
+         */
+        public static final String LONG = "Long";
+
+        /**
+         * FLOAT
+         */
+        public static final String FLOAT = "Float";
+
+        /**
+         * DOUBLE
+         */
+        public static final String DOUBLE = "Double";
+
+        /**
+         * BOOLEAN
+         */
+        public static final String BOOLEAN = "Boolean";
+
+        /**
+         * CHAR
+         */
+        public static final String CHAR = "Char";
+
+        /**
+         * STRING
+         */
+        public static final String STRING = "String";
+
+        /**
+         * ARRAY
+         */
+        public static final String ARRAY = "Array";
+
+        /**
+         * OBJECT
+         */
+        public static final String OBJECT = "Object";
+
+    }
 
     /**
-     * int
+     * upper case all
      */
-    INT(DataTypeConstant.LowerCaseAll.INT, DataTypeConstant.UpperCaseFirst.INT, DataTypeConstant.UpperCaseAll.INT),
+    public static class UpperCaseAll {
 
-    /**
-     * integer
-     */
-    INTEGER(DataTypeConstant.LowerCaseAll.INTEGER, DataTypeConstant.UpperCaseFirst.INTEGER, DataTypeConstant.UpperCaseAll.INTEGER),
+        /**
+         * BYTE
+         */
+        public static final String BYTE = "BYTE";
 
-    /**
-     * long
-     */
-    LONG(DataTypeConstant.LowerCaseAll.LONG, DataTypeConstant.UpperCaseFirst.LONG, DataTypeConstant.UpperCaseAll.LONG),
+        /**
+         * SHORT
+         */
+        public static final String SHORT = "SHORT";
 
-    /**
-     * float
-     */
-    FLOAT(DataTypeConstant.LowerCaseAll.FLOAT, DataTypeConstant.UpperCaseFirst.FLOAT, DataTypeConstant.UpperCaseAll.FLOAT),
+        /**
+         * INT
+         */
+        public static final String INT = "INT";
 
-    /**
-     * double
-     */
-    DOUBLE(DataTypeConstant.LowerCaseAll.DOUBLE, DataTypeConstant.UpperCaseFirst.DOUBLE, DataTypeConstant.UpperCaseAll.DOUBLE),
+        /**
+         * INTEGER
+         */
+        public static final String INTEGER = "INTEGER";
 
-    /**
-     * boolean
-     */
-    BOOLEAN(DataTypeConstant.LowerCaseAll.BOOLEAN, DataTypeConstant.UpperCaseFirst.BOOLEAN, DataTypeConstant.UpperCaseAll.BOOLEAN),
+        /**
+         * LONG
+         */
+        public static final String LONG = "LONG";
 
-    /**
-     * char
-     */
-    CHAR(DataTypeConstant.LowerCaseAll.CHAR, DataTypeConstant.UpperCaseFirst.CHAR, DataTypeConstant.UpperCaseAll.CHAR),
+        /**
+         * FLOAT
+         */
+        public static final String FLOAT = "FLOAT";
 
-    /**
-     * string
-     */
-    STRING(DataTypeConstant.LowerCaseAll.STRING, DataTypeConstant.UpperCaseFirst.STRING, DataTypeConstant.UpperCaseAll.STRING),
+        /**
+         * DOUBLE
+         */
+        public static final String DOUBLE = "DOUBLE";
 
-    /**
-     * array
-     */
-    ARRAY(DataTypeConstant.LowerCaseAll.ARRAY, DataTypeConstant.UpperCaseFirst.ARRAY, DataTypeConstant.UpperCaseAll.ARRAY),
+        /**
+         * BOOLEAN
+         */
+        public static final String BOOLEAN = "BOOLEAN";
 
-    /**
-     * object
-     */
-    OBJECT(DataTypeConstant.LowerCaseAll.OBJECT, DataTypeConstant.UpperCaseFirst.OBJECT, DataTypeConstant.UpperCaseAll.OBJECT),
+        /**
+         * CHAR
+         */
+        public static final String CHAR = "CHAR";
 
-    ;
+        /**
+         * STRING
+         */
+        public static final String STRING = "STRING";
 
-    private final String lowerCaseAll;
-    private final String upperCaseFirst;
-    private final String upperCaseAll;
+        /**
+         * ARRAY
+         */
+        public static final String ARRAY = "ARRAY";
+
+        /**
+         * OBJECT
+         */
+        public static final String OBJECT = "OBJECT";
+
+    }
 
 }
