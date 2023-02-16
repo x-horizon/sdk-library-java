@@ -1,0 +1,63 @@
+def projectName = 'itcp-sugar-database-redisson-webmvc'
+
+version = projectVersion
+
+dependencies {
+    // framework
+    implementation("$spring_boot_starter_webmvc")
+    implementation("$spring_boot_starter_aop")
+
+    // database
+    api(project(':itcp-sugar-database:itcp-sugar-database-redisson'))
+
+    // tool
+    implementation(project(':itcp-sugar-tool'))
+    implementation(project(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-common'))
+    annotationProcessor("$spring_boot_configuration_processor")
+    testAnnotationProcessor("$spring_boot_configuration_processor")
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = projectCharset
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier.set("sources")
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set("javadoc")
+    from javadoc.destinationDir
+}
+
+javadoc {
+    options {
+        encoding projectCharset
+        version true
+        title projectName
+    }
+}
+
+publishing {
+    publications {
+        publishApp(MavenPublication) {
+            groupId group
+            artifactId jar.baseName
+            version project.version
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username projectNexusUsername
+                password projectNexusPassword
+            }
+            url = projectNexusUrl
+            allowInsecureProtocol = true
+        }
+    }
+}
