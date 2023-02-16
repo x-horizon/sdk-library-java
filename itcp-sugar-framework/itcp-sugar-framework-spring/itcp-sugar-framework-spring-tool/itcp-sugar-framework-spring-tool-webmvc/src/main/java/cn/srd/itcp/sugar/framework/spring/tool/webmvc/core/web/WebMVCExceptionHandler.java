@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 import static cn.srd.itcp.sugar.tool.web.WebResponse.error;
 
 /**
- * spring mvc 全局异常处理器
+ * spring web mvc global exception handler
  *
  * @author wjm
  * @since 2020/6/13 20:05
