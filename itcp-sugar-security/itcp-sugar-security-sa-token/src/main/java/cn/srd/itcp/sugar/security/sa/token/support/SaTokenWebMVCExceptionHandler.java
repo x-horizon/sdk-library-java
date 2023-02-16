@@ -7,6 +7,8 @@ import cn.srd.itcp.sugar.tool.web.HttpStatusEnum;
 import cn.srd.itcp.sugar.tool.web.WebResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -19,6 +21,7 @@ import static cn.srd.itcp.sugar.tool.web.WebResponse.error;
  * @since 2022-07-16 18:16:22
  */
 @Slf4j
+@Order(Ordered.LOWEST_PRECEDENCE - 1)
 @RestControllerAdvice
 public class SaTokenWebMVCExceptionHandler {
 

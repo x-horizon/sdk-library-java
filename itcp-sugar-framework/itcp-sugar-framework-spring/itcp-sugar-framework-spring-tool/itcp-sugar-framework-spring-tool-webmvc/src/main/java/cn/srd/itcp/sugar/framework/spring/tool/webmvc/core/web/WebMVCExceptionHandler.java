@@ -11,6 +11,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -32,6 +33,7 @@ import static cn.srd.itcp.sugar.tool.web.WebResponse.error;
  * @since 2020/6/13 20:05
  */
 @Slf4j
+@Order
 @RestControllerAdvice
 public class WebMVCExceptionHandler {
 
