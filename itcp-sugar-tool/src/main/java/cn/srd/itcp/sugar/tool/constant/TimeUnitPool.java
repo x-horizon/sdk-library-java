@@ -39,7 +39,7 @@ public enum TimeUnitPool {
     DAY("d", "D", "day", "Day", "DAY", "天", "天数"),
 
     /**
-     * month
+     * month TODO wjm BUG 枚举值与分钟有重复，待处理
      */
     MONTH("m", "M", "month", "Month", "MONTH", "月", "月数"),
 
