@@ -53,6 +53,11 @@ allprojects {
         testImplementation("$spring_boot_starter_test")
     }
 
+//    idea.module {
+//        downloadJavadoc = true
+//        downloadSources = true
+//    }
+
     tasks.withType(JavaCompile).tap {
         configureEach {
             options.encoding = projectCharset
