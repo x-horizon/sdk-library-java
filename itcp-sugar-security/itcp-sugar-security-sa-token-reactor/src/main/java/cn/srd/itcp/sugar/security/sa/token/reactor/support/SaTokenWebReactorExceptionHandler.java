@@ -37,7 +37,6 @@ import static cn.srd.itcp.sugar.tool.web.WebResponse.error;
  */
 @Slf4j
 @Order(-1)
-// @Configuration
 public class SaTokenWebReactorExceptionHandler implements ErrorWebExceptionHandler {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
