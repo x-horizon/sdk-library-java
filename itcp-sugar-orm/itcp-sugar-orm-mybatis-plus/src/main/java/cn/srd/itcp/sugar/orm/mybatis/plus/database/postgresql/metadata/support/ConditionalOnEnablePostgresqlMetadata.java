@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.database.postgresql.metadata.support;
 
+import cn.srd.itcp.sugar.orm.mybatis.plus.database.postgresql.support.ConditionalOnEnablePostgresql;
 import cn.srd.itcp.sugar.orm.mybatis.plus.support.SugarMybatisPlusProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 

@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.orm.mybatis.plus.database.postgresql.metadata.support;
+package cn.srd.itcp.sugar.orm.mybatis.plus.database.postgresql.support;
 
 import cn.srd.itcp.sugar.orm.mybatis.plus.support.SugarMybatisPlusProperties;
 import cn.srd.itcp.sugar.tool.constant.DatabaseType;
