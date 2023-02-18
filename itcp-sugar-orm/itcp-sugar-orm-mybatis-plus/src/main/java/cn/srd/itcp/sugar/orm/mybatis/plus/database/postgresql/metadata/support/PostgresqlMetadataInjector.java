@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
  * @since 2023-02-15 09:34:12
  */
 @AutoConfiguration(after = SugarMybatisPlusAutoConfiguration.class)
-@ConditionalOnDatabasePostgresql
+@ConditionalOnEnablePostgresqlMetadata
 public class PostgresqlMetadataInjector {
 
     // /**
@@ -24,7 +24,6 @@ public class PostgresqlMetadataInjector {
     //  * @return 装配对象
     //  */
     // @Bean
-    // @ConditionalOnEnableMetadata
     // public PostgresqlMetadataMapperScanner postgresqlMetadataMapperScanner() {
     //     return new PostgresqlMetadataMapperScanner();
     //     // return SpringsUtil.registerCapableBean(PostgresqlMetadataMapperScanner.class);
@@ -36,7 +35,6 @@ public class PostgresqlMetadataInjector {
      * @return 装配对象
      */
     @Bean
-    @ConditionalOnEnableMetadata
     public PostgresqlTableHandler postgresqlTableHandler() {
         return new PostgresqlTableHandler();
     }
@@ -47,7 +45,6 @@ public class PostgresqlMetadataInjector {
      * @return 装配对象
      */
     @Bean
-    @ConditionalOnEnableMetadata
     public PostgresqlTableColumnHandler postgresqlTableColumnHandler() {
         return new PostgresqlTableColumnHandler();
     }

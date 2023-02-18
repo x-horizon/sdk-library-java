@@ -17,6 +17,6 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @ConditionalOnProperty(name = "sugar.orm.mybatis-plus.database", havingValue = DatabaseType.POSTGRE_SQL)
-public @interface ConditionalOnDatabasePostgresql {
+public @interface ConditionalOnEnablePostgresql {
 
 }
