@@ -16,7 +16,7 @@ import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerIntercept
 public class MybatisPlusPageInterceptor implements MybatisPlusInterceptors {
 
     public void addInterceptor() {
-        DbType dbType = EnumsUtil.capableToEnum(SpringsUtil.getBean(SugarMybatisPlusProperties.class).getDbType(), DbType.class);
+        DbType dbType = EnumsUtil.capableToEnum(SpringsUtil.getBean(SugarMybatisPlusProperties.class).getDatabase(), DbType.class);
         if (Objects.isNotNull(dbType)) {
             // 设置分页插件
             MybatisPlusInnerInterceptorsConfigurer.set(new PaginationInnerInterceptor(dbType));

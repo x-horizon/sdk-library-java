@@ -21,7 +21,7 @@ public class SugarMybatisPlusProperties {
     /**
      * 数据库类型，可用值参考：{@link DbType} TODO wjm 后续实现直接注入枚举
      */
-    private String dbType;
+    private String database;
 
     /**
      * 是否启用元数据表操作，see {@link PostgresqlTableHandler}、{@link PostgresqlTableColumnHandler}

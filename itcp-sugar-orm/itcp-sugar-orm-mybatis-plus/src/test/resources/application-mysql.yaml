@@ -13,5 +13,6 @@ spring:
       max-wait: 6000
 
 sugar:
-  mybatis-plus:
-    dbType: mysql
+  orm:
+    mybatis-plus:
+      database: mysql

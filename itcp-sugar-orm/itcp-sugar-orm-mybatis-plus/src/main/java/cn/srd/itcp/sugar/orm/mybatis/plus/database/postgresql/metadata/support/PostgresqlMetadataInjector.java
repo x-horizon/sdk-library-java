@@ -3,19 +3,18 @@ package cn.srd.itcp.sugar.orm.mybatis.plus.database.postgresql.metadata.support;
 import cn.srd.itcp.sugar.orm.mybatis.plus.database.postgresql.metadata.handler.PostgresqlTableColumnHandler;
 import cn.srd.itcp.sugar.orm.mybatis.plus.database.postgresql.metadata.handler.PostgresqlTableHandler;
 import cn.srd.itcp.sugar.orm.mybatis.plus.support.SugarMybatisPlusAutoConfiguration;
-import cn.srd.itcp.sugar.tool.constant.DatabaseType;
+import cn.srd.itcp.sugar.orm.mybatis.plus.support.SugarMybatisPlusProperties;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 
 /**
- * autowired metadata bean if SugarMybatisPlusProperties#getEnableMetadata() is true
+ * Autowired Metadata Bean If {@link SugarMybatisPlusProperties#enableMetadata} Is True
  *
  * @author wjm
  * @since 2023-02-15 09:34:12
  */
 @AutoConfiguration(after = SugarMybatisPlusAutoConfiguration.class)
-@ConditionalOnProperty(name = "sugar.orm.mybatis-plus.dbType", havingValue = DatabaseType.POSTGRE_SQL)
+@ConditionalOnDatabasePostgresql
 public class PostgresqlMetadataInjector {
 
     // /**
@@ -25,7 +24,7 @@ public class PostgresqlMetadataInjector {
     //  * @return 装配对象
     //  */
     // @Bean
-    // @ConditionalOnProperty(name = "sugar.orm.mybatis-plus.enableMetadata", havingValue = "true")
+    // @ConditionalOnEnableMetadata
     // public PostgresqlMetadataMapperScanner postgresqlMetadataMapperScanner() {
     //     return new PostgresqlMetadataMapperScanner();
     //     // return SpringsUtil.registerCapableBean(PostgresqlMetadataMapperScanner.class);
@@ -37,7 +36,7 @@ public class PostgresqlMetadataInjector {
      * @return 装配对象
      */
     @Bean
-    @ConditionalOnProperty(name = "sugar.orm.mybatis-plus.enableMetadata", havingValue = "true")
+    @ConditionalOnEnableMetadata
     public PostgresqlTableHandler postgresqlTableHandler() {
         return new PostgresqlTableHandler();
     }
@@ -48,7 +47,7 @@ public class PostgresqlMetadataInjector {
      * @return 装配对象
      */
     @Bean
-    @ConditionalOnProperty(name = "sugar.orm.mybatis-plus.enableMetadata", havingValue = "true")
+    @ConditionalOnEnableMetadata
     public PostgresqlTableColumnHandler postgresqlTableColumnHandler() {
         return new PostgresqlTableColumnHandler();
     }
