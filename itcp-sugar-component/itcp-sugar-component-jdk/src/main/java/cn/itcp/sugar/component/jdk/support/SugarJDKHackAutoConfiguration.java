@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
  * {@link EnableAutoConfiguration AutoConfiguration} for Sugar JDK Hack
  *
  * @author wjm
- * @since 2022-07-14
+ * @since 2023-02-09 11:19:44
  */
 @AutoConfiguration
 public class SugarJDKHackAutoConfiguration {
