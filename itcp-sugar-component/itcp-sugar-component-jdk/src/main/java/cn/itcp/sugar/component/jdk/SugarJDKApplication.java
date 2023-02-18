@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * boot
  */
 @SpringBootApplication
-public class SugarJDKHackApplication {
+public class SugarJDKApplication {
 
     /**
      * main
@@ -15,7 +15,7 @@ public class SugarJDKHackApplication {
      * @param args main argument
      */
     public static void main(String[] args) {
-        SpringApplication.run(SugarJDKHackApplication.class, args);
+        SpringApplication.run(SugarJDKApplication.class, args);
     }
 
 }
