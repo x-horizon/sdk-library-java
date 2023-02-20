@@ -5,7 +5,7 @@ version = projectVersion
 dependencies {
     // framework
     implementation("$spring_boot_starter_webmvc")
-    compileOnly("$spring_boot_configuration_processor")
+    annotationProcessor("$spring_boot_configuration_processor")
 
     // security
     api("$sa_token")
@@ -17,7 +17,7 @@ dependencies {
     implementation(project(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-common'))
 
     // test
-    testCompileOnly("$spring_boot_configuration_processor")
+    testAnnotationProcessor("$spring_boot_configuration_processor")
 }
 
 tasks.withType(JavaCompile).configureEach {

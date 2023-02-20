@@ -5,7 +5,7 @@ version = projectVersion
 dependencies {
     // framework
     implementation("$spring_boot_starter")
-    compileOnly("$spring_boot_configuration_processor")
+    annotationProcessor("$spring_boot_configuration_processor")
 
     // database
     implementation("$mysql")
@@ -22,7 +22,7 @@ dependencies {
     annotationProcessor("$lombok_mapstruct_binding")
 
     // test
-    testCompileOnly("$spring_boot_configuration_processor")
+    testAnnotationProcessor("$spring_boot_configuration_processor")
     testAnnotationProcessor("$mapstruct_processor")
     testAnnotationProcessor("$lombok_mapstruct_binding")
 }

@@ -5,7 +5,7 @@ version = projectVersion
 dependencies {
     // framework
     implementation("$spring_boot_starter")
-    compileOnly("$spring_boot_configuration_processor")
+    annotationProcessor("$spring_boot_configuration_processor")
 
     // component
     api("$docker_java_core")
@@ -15,7 +15,7 @@ dependencies {
     implementation(project(':itcp-sugar-tool'))
 
     // test
-    testCompileOnly("$spring_boot_configuration_processor")
+    testAnnotationProcessor("$spring_boot_configuration_processor")
 }
 
 tasks.withType(JavaCompile).configureEach {

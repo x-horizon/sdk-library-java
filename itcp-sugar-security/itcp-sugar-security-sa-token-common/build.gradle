@@ -4,7 +4,7 @@ version = projectVersion
 
 dependencies {
     // framework
-    compileOnly("$spring_boot_configuration_processor")
+    annotationProcessor("$spring_boot_configuration_processor")
 
     // database
     // sa_token_alone_redis 必须依赖包
@@ -20,7 +20,7 @@ dependencies {
     implementation(project(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-common'))
 
     // test
-    testCompileOnly("$spring_boot_configuration_processor")
+    testAnnotationProcessor("$spring_boot_configuration_processor")
 }
 
 tasks.withType(JavaCompile).configureEach {
