@@ -1,9 +1,7 @@
-package cn.srd.itcp.sugar.orm.mybatis.plus.database.postgresql.metadata.support;
+package cn.srd.itcp.sugar.orm.mybatis.plus.support;
 
 import cn.srd.itcp.sugar.orm.mybatis.plus.database.postgresql.metadata.handler.PostgresqlTableColumnHandler;
 import cn.srd.itcp.sugar.orm.mybatis.plus.database.postgresql.metadata.handler.PostgresqlTableHandler;
-import cn.srd.itcp.sugar.orm.mybatis.plus.support.SugarMybatisPlusAutoConfiguration;
-import cn.srd.itcp.sugar.orm.mybatis.plus.support.SugarMybatisPlusProperties;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 

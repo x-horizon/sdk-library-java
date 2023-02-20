@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.orm.mybatis.plus.database.postgresql.metadata.support;
+package cn.srd.itcp.sugar.orm.mybatis.plus.support;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.annotation.MapperScan;

@@ -1,17 +1,14 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.support;
 
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
-import cn.srd.itcp.sugar.orm.mybatis.plus.database.postgresql.metadata.support.PostgresqlMetadataInjector;
 import cn.srd.itcp.sugar.orm.mybatis.plus.interceptor.MybatisPlusInnerInterceptorsConfigurer;
 import cn.srd.itcp.sugar.orm.mybatis.plus.interceptor.MybatisPlusInterceptors;
 import cn.srd.itcp.sugar.orm.mybatis.plus.interceptor.MybatisPlusPageInterceptor;
 import cn.srd.itcp.sugar.tool.core.ReflectsUtil;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
-import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
@@ -25,7 +22,6 @@ import org.springframework.context.annotation.Import;
  */
 @AutoConfiguration
 @Import(PostgresqlMetadataInjector.class)
-@ConditionalOnClass(MybatisPlusAutoConfiguration.class)
 @EnableConfigurationProperties(SugarMybatisPlusProperties.class)
 public class SugarMybatisPlusAutoConfiguration {
 
