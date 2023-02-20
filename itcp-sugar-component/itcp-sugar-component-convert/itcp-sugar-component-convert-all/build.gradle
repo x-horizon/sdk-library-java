@@ -16,6 +16,8 @@ dependencies {
     api(project(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-mapstruct'))
     annotationProcessor("$mapstruct_processor")
     annotationProcessor("$lombok_mapstruct_binding")
+
+    // test
     testImplementation(project(':itcp-sugar-tool'))
     testImplementation(project(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-jackson'))
     testImplementation(project(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-mapstruct'))

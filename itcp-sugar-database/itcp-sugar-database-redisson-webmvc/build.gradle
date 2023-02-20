@@ -6,6 +6,7 @@ dependencies {
     // framework
     implementation("$spring_boot_starter_webmvc")
     implementation("$spring_boot_starter_aop")
+    compileOnly("$spring_boot_configuration_processor")
 
     // database
     api(project(':itcp-sugar-database:itcp-sugar-database-redisson'))
@@ -13,8 +14,11 @@ dependencies {
     // tool
     implementation(project(':itcp-sugar-tool'))
     implementation(project(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-common'))
-    annotationProcessor("$spring_boot_configuration_processor")
-    testAnnotationProcessor("$spring_boot_configuration_processor")
+
+    // test
+    testCompileOnly("$spring_boot_configuration_processor")
+    testAnnotationProcessor("$mapstruct_processor")
+    testAnnotationProcessor("$lombok_mapstruct_binding")
 }
 
 tasks.withType(JavaCompile).configureEach {
