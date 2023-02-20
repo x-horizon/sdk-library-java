@@ -5,7 +5,6 @@ version = projectVersion
 dependencies {
     // framework
     implementation("$spring_boot_starter_webflux")
-    implementation("$spring_boot_configuration_processor")
 
     // security
     api("$sa_token_reactor")
@@ -14,6 +13,8 @@ dependencies {
     implementation(project(':itcp-sugar-tool'))
     implementation(project(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-webflux'))
     api(project(':itcp-sugar-security:itcp-sugar-security-sa-token-common'))
+    annotationProcessor("$spring_boot_configuration_processor")
+    testAnnotationProcessor("$spring_boot_configuration_processor")
 }
 
 tasks.withType(JavaCompile).configureEach {
