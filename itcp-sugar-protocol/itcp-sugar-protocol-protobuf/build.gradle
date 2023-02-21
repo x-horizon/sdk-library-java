@@ -27,7 +27,6 @@ protobuf {
     }
 }
 
-
 tasks.withType(JavaCompile).configureEach {
     options.encoding = projectCharset
 }
