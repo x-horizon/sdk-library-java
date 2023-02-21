@@ -34,6 +34,8 @@ include(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-
 
 include(':itcp-sugar-orm:itcp-sugar-orm-mybatis-plus')
 
+include(':itcp-sugar-protocol:itcp-sugar-protocol-protobuf')
+
 include(':itcp-sugar-security:itcp-sugar-security-sa-token')
 include(':itcp-sugar-security:itcp-sugar-security-sa-token-common')
 include(':itcp-sugar-security:itcp-sugar-security-sa-token-reactor')

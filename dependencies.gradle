@@ -16,6 +16,8 @@ ext {
     easyexcel_version = "3.1.5"
     yitter_id_generator_version = "1.0.6"
     docker_java_version = "3.2.14"
+    protobuf_version = "3.22.0"
+    grpc_protoc_gen_grpc_java_version = "1.53.0"
     burningwave_version = "12.62.5"
     lombok_version = "1.18.22"
     lombok_mapstruct_binding_version = "0.2.0"
@@ -74,6 +76,11 @@ ext {
     yitter_id_generator = "com.github.yitter:yitter-idgenerator:${yitter_id_generator_version}" as GStringImpl
     docker_java_core = "com.github.docker-java:docker-java-core:${docker_java_version}" as GStringImpl
     docker_java_transport_httpclient5 = "com.github.docker-java:docker-java-transport-httpclient5:${docker_java_version}" as GStringImpl
+
+    // protocol
+    protobuf_java = "com.google.protobuf:protobuf-java:${protobuf_version}" as GStringImpl
+    protobuf_protoc = "com.google.protobuf:protoc:${protobuf_version}" as GStringImpl
+    grpc_protoc_gen_grpc_java = "io.grpc:protoc-gen-grpc-java:${grpc_protoc_gen_grpc_java_version}" as GStringImpl
 
     // hack
     burningwave_core = "org.burningwave:core:${burningwave_version}" as GStringImpl
