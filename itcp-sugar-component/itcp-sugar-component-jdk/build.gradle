@@ -8,7 +8,7 @@ dependencies {
     implementation("$spring_boot_starter_aop")
 
     // hack
-    implementation("$burningwave_core")
+    api("$burningwave_core")
 
     // tool
     implementation(project(':itcp-sugar-tool'))
