@@ -20,7 +20,6 @@ import java.util.function.Supplier;
  * @author wjm
  * @since 2020/7/8 16:11
  */
-// @SuppressWarnings("unchecked")
 public class Objects {
 
     /**
@@ -1192,6 +1191,7 @@ public class Objects {
      * @param objects 待断言对象
      * @param <T>     对象类型
      */
+    @SafeVarargs
     public static <T> void requireNull(T... objects) {
         Assert.NULL_NEED.throwsIfNotNull((Object[]) objects);
     }
@@ -1203,6 +1203,7 @@ public class Objects {
      * @param objects    待断言对象
      * @param <T>        对象类型
      */
+    @SafeVarargs
     public static <T> void requireNull(HttpStatus httpStatus, T... objects) {
         Assert.INSTANCE.set(httpStatus).throwsIfNotNull((Object[]) objects);
     }
@@ -1215,6 +1216,7 @@ public class Objects {
      * @param objects    待断言对象
      * @param <T>        对象类型
      */
+    @SafeVarargs
     public static <T> void requireNull(HttpStatus httpStatus, Supplier<String> message, T... objects) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfNotNull((Object[]) objects);
     }
@@ -1226,6 +1228,7 @@ public class Objects {
      * @param objects 待断言对象
      * @param <T>     对象类型
      */
+    @SafeVarargs
     public static <T> void requireNull(Supplier<String> message, T... objects) {
         Assert.INSTANCE.set(message).throwsIfNotNull((Object[]) objects);
     }
@@ -1286,6 +1289,7 @@ public class Objects {
      * @param objects 待断言对象
      * @param <T>     对象类型
      */
+    @SafeVarargs
     public static <T> void requireEmpty(T... objects) {
         Assert.EMPTY_NEED.throwsIfNotEmpty((Object[]) objects);
     }
@@ -1297,6 +1301,7 @@ public class Objects {
      * @param objects    待断言对象
      * @param <T>        对象类型
      */
+    @SafeVarargs
     public static <T> void requireEmpty(HttpStatus httpStatus, T... objects) {
         Assert.INSTANCE.set(httpStatus).throwsIfNotEmpty((Object[]) objects);
     }
@@ -1309,6 +1314,7 @@ public class Objects {
      * @param objects    待断言对象
      * @param <T>        对象类型
      */
+    @SafeVarargs
     public static <T> void requireEmpty(HttpStatus httpStatus, Supplier<String> message, T... objects) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfNotEmpty((Object[]) objects);
     }
@@ -1320,6 +1326,7 @@ public class Objects {
      * @param objects 待断言对象
      * @param <T>     对象类型
      */
+    @SafeVarargs
     public static <T> void requireEmpty(Supplier<String> message, T... objects) {
         Assert.INSTANCE.set(message).throwsIfNotEmpty((Object[]) objects);
     }
@@ -1481,6 +1488,7 @@ public class Objects {
      * @param objects 待断言对象
      * @param <T>     对象类型
      */
+    @SafeVarargs
     public static <T> void requireNotNull(T... objects) {
         Assert.NULL_CHECK.throwsIfAllNull((Object[]) objects);
     }
@@ -1492,6 +1500,7 @@ public class Objects {
      * @param objects    待断言对象
      * @param <T>        对象类型
      */
+    @SafeVarargs
     public static <T> void requireNotNull(HttpStatus httpStatus, T... objects) {
         Assert.INSTANCE.set(httpStatus).throwsIfAllNull((Object[]) objects);
     }
@@ -1504,6 +1513,7 @@ public class Objects {
      * @param objects    待断言对象
      * @param <T>        对象类型
      */
+    @SafeVarargs
     public static <T> void requireNotNull(HttpStatus httpStatus, Supplier<String> message, T... objects) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfAllNull((Object[]) objects);
     }
@@ -1515,6 +1525,7 @@ public class Objects {
      * @param message 断言信息
      * @param <T>     对象类型
      */
+    @SafeVarargs
     public static <T> void requireNotNull(Supplier<String> message, T... objects) {
         Assert.INSTANCE.set(message).throwsIfAllNull((Object[]) objects);
     }
@@ -1525,6 +1536,7 @@ public class Objects {
      * @param objects 断言信息
      * @param <T>     对象类型
      */
+    @SafeVarargs
     public static <T> void requireNonNull(T... objects) {
         Assert.NULL_NEED.throwsIfNull((Object[]) objects);
     }
@@ -1536,6 +1548,7 @@ public class Objects {
      * @param objects    待断言对象
      * @param <T>        对象类型
      */
+    @SafeVarargs
     public static <T> void requireNonNull(HttpStatus httpStatus, T... objects) {
         Assert.INSTANCE.set(httpStatus).throwsIfNull((Object[]) objects);
     }
@@ -1548,6 +1561,7 @@ public class Objects {
      * @param objects    待断言对象
      * @param <T>        对象类型
      */
+    @SafeVarargs
     public static <T> void requireNonNull(HttpStatus httpStatus, Supplier<String> message, T... objects) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfNull((Object[]) objects);
     }
@@ -1559,6 +1573,7 @@ public class Objects {
      * @param message 断言信息
      * @param <T>     对象类型
      */
+    @SafeVarargs
     public static <T> void requireNonNull(Supplier<String> message, T... objects) {
         Assert.INSTANCE.set(message).throwsIfNull((Object[]) objects);
     }
@@ -1634,6 +1649,7 @@ public class Objects {
      * @param objects 待断言对象
      * @param <T>     对象类型
      */
+    @SafeVarargs
     public static <T> void requireNotEmpty(T... objects) {
         Assert.EMPTY_CHECK.throwsIfEmpty((Object[]) objects);
     }
@@ -1645,6 +1661,7 @@ public class Objects {
      * @param objects    待断言对象
      * @param <T>        对象类型
      */
+    @SafeVarargs
     public static <T> void requireNotEmpty(HttpStatus httpStatus, T... objects) {
         Assert.INSTANCE.set(httpStatus).throwsIfEmpty((Object[]) objects);
     }
@@ -1657,6 +1674,7 @@ public class Objects {
      * @param objects    待断言对象
      * @param <T>        对象类型
      */
+    @SafeVarargs
     public static <T> void requireNotEmpty(HttpStatus httpStatus, Supplier<String> message, T... objects) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfEmpty((Object[]) objects);
     }
@@ -1668,6 +1686,7 @@ public class Objects {
      * @param message 断言信息
      * @param <T>     对象类型
      */
+    @SafeVarargs
     public static <T> void requireNotEmpty(Supplier<String> message, T... objects) {
         Assert.INSTANCE.set(message).throwsIfEmpty((Object[]) objects);
     }
@@ -1678,6 +1697,7 @@ public class Objects {
      * @param objects 待断言对象
      * @param <T>     对象类型
      */
+    @SafeVarargs
     public static <T> void requireNonEmpty(T... objects) {
         Assert.EMPTY_CHECK.throwsIfAllEmpty((Object[]) objects);
     }
@@ -1689,6 +1709,7 @@ public class Objects {
      * @param objects    待断言对象
      * @param <T>        对象类型
      */
+    @SafeVarargs
     public static <T> void requireNonEmpty(HttpStatus httpStatus, T... objects) {
         Assert.INSTANCE.set(httpStatus).throwsIfAllEmpty((Object[]) objects);
     }
@@ -1701,6 +1722,7 @@ public class Objects {
      * @param objects    待断言对象
      * @param <T>        对象类型
      */
+    @SafeVarargs
     public static <T> void requireNonEmpty(HttpStatus httpStatus, Supplier<String> message, T... objects) {
         Assert.INSTANCE.set(httpStatus, message).throwsIfAllEmpty((Object[]) objects);
     }
@@ -1712,6 +1734,7 @@ public class Objects {
      * @param objects 待断言对象
      * @param <T>     对象类型
      */
+    @SafeVarargs
     public static <T> void requireNonEmpty(Supplier<String> message, T... objects) {
         Assert.INSTANCE.set(message).throwsIfAllEmpty((Object[]) objects);
     }
@@ -2627,25 +2650,16 @@ public class Objects {
             return true;
         }
 
-        if (input1 == null && input2 == null) {
-            return true;
-        }
         if (input2 != null && input1 == null) {
             return false;
         }
 
-        if (input1 != null && input2 == null) {
+        if (input2 == null) {
             return false;
         }
 
         if (input1.size() == 0 && input2.size() == 0) {
             return true;
-        }
-        if (input2.size() == 0 && input1 == null) {
-            return false;
-        }
-        if (input1.size() == 0 && input2 == null) {
-            return false;
         }
 
         Set<E> duplicateRemovalInput1 = new HashSet<>(input1);
@@ -2655,11 +2669,7 @@ public class Objects {
             return false;
         }
 
-        if (!duplicateRemovalInput1.containsAll(duplicateRemovalInput2)) {
-            return false;
-        }
-
-        return true;
+        return duplicateRemovalInput1.containsAll(duplicateRemovalInput2);
     }
 
 }
