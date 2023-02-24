@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.framework.spring.kubernetes.fabric8;
+package cn.srd.itcp.sugar.framework.spring.cloud.kubernetes.fabric8;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * boot
  */
 @SpringBootApplication
-public class SugarSpringKubernetesFabric8Application {
+public class SugarSpringCloudKubernetesFabric8Application {
 
     /**
      * main
@@ -15,7 +15,7 @@ public class SugarSpringKubernetesFabric8Application {
      * @param args main argument
      */
     public static void main(String[] args) {
-        SpringApplication.run(SugarSpringKubernetesFabric8Application.class, args);
+        SpringApplication.run(SugarSpringCloudKubernetesFabric8Application.class, args);
     }
 
 }
