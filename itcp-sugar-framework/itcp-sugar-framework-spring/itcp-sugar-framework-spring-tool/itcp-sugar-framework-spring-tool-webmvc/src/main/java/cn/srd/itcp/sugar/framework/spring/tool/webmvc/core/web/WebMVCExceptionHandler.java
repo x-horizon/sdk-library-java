@@ -156,7 +156,7 @@ public class WebMVCExceptionHandler {
      * @return 响应结果
      */
     @ExceptionHandler(RunningException.class)
-    public WebResponse<Void> handleBaseException(HttpServletRequest httpServletRequest, RunningException exception) {
+    public WebResponse<Void> handleRunningException(HttpServletRequest httpServletRequest, RunningException exception) {
         String msg = exception.getExceptionTemplate().getDescription();
         log.warn("请求资源地址：'{}'，错误信息：'{}'", httpServletRequest.getRequestURI(), exception);
         return error(exception.getExceptionTemplate().getCode(), msg);
