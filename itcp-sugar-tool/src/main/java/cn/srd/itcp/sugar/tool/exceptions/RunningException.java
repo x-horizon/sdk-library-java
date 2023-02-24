@@ -3,6 +3,8 @@ package cn.srd.itcp.sugar.tool.exceptions;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
+
 /**
  * 自定义运行时异常
  *
@@ -13,6 +15,9 @@ import lombok.Setter;
 @Setter
 public class RunningException extends RuntimeException {
 
+    @Serial
+    private static final long serialVersionUID = 3975594528435116604L;
+    
     /**
      * 自定义异常模板
      */
