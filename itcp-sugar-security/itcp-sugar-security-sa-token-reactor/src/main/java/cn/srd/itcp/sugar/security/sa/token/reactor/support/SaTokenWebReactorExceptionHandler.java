@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -36,7 +37,7 @@ import static cn.srd.itcp.sugar.tool.web.WebResponse.error;
  * @since 2023-02-04 17:49:16
  */
 @Slf4j
-@Order(-1)
+@Order(Ordered.LOWEST_PRECEDENCE - 4)
 public class SaTokenWebReactorExceptionHandler implements ErrorWebExceptionHandler {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
