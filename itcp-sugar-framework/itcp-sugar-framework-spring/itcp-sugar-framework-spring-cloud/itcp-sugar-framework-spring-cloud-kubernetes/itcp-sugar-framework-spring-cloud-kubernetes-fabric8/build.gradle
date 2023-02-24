@@ -1,4 +1,4 @@
-def projectName = 'itcp-sugar-framework-spring-kubernetes-fabric8'
+def projectName = 'itcp-sugar-framework-spring-cloud-kubernetes-fabric8'
 
 version = projectVersion
 
