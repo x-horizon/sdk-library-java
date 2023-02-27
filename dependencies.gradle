@@ -34,6 +34,7 @@ ext {
     reflectasm_version = "1.11.9"
     javax_el_version = "2.2.6"
     javax_el_api_version = "3.0.0"
+    caffeine_version = "3.1.4"
     apache_commons_lang3_version = "3.12.0"
     apache_commons_io_version = "2.11.0"
     apache_commons_pool_version = "2.11.1"
@@ -107,6 +108,7 @@ ext {
     hibernate_validator = "org.hibernate.validator:hibernate-validator"
     javax_el = "org.glassfish.web:javax.el:${javax_el_version}" as GStringImpl
     javax_el_api = "javax.el:javax.el-api:${javax_el_api_version}" as GStringImpl
+    caffeine = "com.github.ben-manes.caffeine:caffeine:${caffeine_version}" as GStringImpl
     apache_commons_lang3 = "org.apache.commons:commons-lang3:${apache_commons_lang3_version}" as GStringImpl
     apache_commons_io = "commons-io:commons-io:${apache_commons_io_version}" as GStringImpl
     apache_commons_pool = "org.apache.commons:commons-pool2:${apache_commons_pool_version}" as GStringImpl
