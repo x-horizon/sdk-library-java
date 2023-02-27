@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.security.sa.token.webmvc.common.core;
+package cn.srd.itcp.sugar.security.sa.token.common.core;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.annotation.SaMode;
@@ -8,10 +8,10 @@ import java.lang.annotation.*;
 
 /**
  * <pre>
- *   该注解为：同时拥有所有权限时可进入被该注解标记了的方法，如：
+ *   该注解为：拥有任一权限时可进入被该注解标记了的方法，如：
  *
- *     // 同时拥有 "system:user:save"、"system:user:update" 权限时可进入 test 方法
- *     &#064;{@link HasAllResourcePermissions}({"system:user:save","system:user:update"})
+ *     // 拥有 "system:user:save"、"system:user:update" 任一权限时可进入 test 方法
+ *     &#064;{@link HasAnyResourcePermission}({"system:user:save","system:user:update"})
  *     &#064;PostMapping
  *     public void test(Test test) {
  *     }
@@ -23,14 +23,14 @@ import java.lang.annotation.*;
  * @author wjm
  * @since 2022-07-07
  */
-@SaCheckPermission(mode = SaMode.AND)
+@SaCheckPermission(mode = SaMode.OR)
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface HasAllResourcePermissions {
+public @interface HasAnyResourcePermission {
 
     /**
-     * 需要校验的权限码，如：@{@link HasAllResourcePermissions}("system:param:save")
+     * 需要校验的权限码，如：@{@link HasAnyResourcePermission}("system:param:save")
      *
      * @return 需要校验的权限码
      */

@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.security.sa.token.webmvc.common.core;
+package cn.srd.itcp.sugar.security.sa.token.common.core;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 

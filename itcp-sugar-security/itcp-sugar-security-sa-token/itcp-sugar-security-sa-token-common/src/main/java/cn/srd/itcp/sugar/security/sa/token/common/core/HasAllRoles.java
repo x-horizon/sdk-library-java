@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.security.sa.token.webmvc.common.core;
+package cn.srd.itcp.sugar.security.sa.token.common.core;
 
 import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.annotation.SaMode;
@@ -8,10 +8,10 @@ import java.lang.annotation.*;
 
 /**
  * <pre>
- *   该注解为：拥有任一角色时可进入被该注解标记了的方法，如：
+ *   该注解为：同时拥有所有角色时可进入被该注解标记了的方法，如：
  *
- *     // 拥有 "user1"、"user2" 任一角色时可进入 test 方法
- *     &#064;{@link HasAnyRole}({"user1","user2"})
+ *     // 同时拥有 "user1"、"user2" 角色时可进入 test 方法
+ *     &#064;{@link HasAllRoles}({"user1","user2"})
  *     &#064;PostMapping
  *     public void test(Test test) {
  *     }
@@ -23,14 +23,14 @@ import java.lang.annotation.*;
  * @author wjm
  * @since 2022-07-07
  */
-@SaCheckRole(mode = SaMode.OR)
+@SaCheckRole(mode = SaMode.AND)
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface HasAnyRole {
+public @interface HasAllRoles {
 
     /**
-     * 需要校验的权限码，如：@{@link HasAnyRole}("admin")
+     * 需要校验的权限码，如：@{@link HasAllRoles}("admin")
      *
      * @return 需要校验的角色标识
      */

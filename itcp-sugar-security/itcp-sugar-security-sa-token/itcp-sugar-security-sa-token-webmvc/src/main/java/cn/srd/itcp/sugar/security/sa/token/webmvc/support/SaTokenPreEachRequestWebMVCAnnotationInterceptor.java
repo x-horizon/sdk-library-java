@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.security.sa.token.webmvc.support;
 
 import cn.dev33.satoken.strategy.SaStrategy;
-import cn.srd.itcp.sugar.security.sa.token.webmvc.common.core.*;
+import cn.srd.itcp.sugar.security.sa.token.common.core.*;
 import cn.srd.itcp.sugar.security.sa.token.webmvc.core.Anonymous;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

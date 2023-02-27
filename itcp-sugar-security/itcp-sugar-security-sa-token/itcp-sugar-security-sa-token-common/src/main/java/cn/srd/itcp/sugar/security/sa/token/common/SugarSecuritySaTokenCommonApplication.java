@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.security.sa.token.webmvc.common;
+package cn.srd.itcp.sugar.security.sa.token.common;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

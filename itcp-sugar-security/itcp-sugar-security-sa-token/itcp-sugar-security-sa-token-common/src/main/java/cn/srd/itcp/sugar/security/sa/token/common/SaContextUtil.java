@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.security.sa.token.webmvc.common.utils;
+package cn.srd.itcp.sugar.security.sa.token.common;
 
 import cn.dev33.satoken.context.SaHolder;
 
