@@ -21,7 +21,7 @@ import static cn.srd.itcp.sugar.tool.web.WebResponse.error;
  * @since 2022-07-16 18:16:22
  */
 @Slf4j
-@Order(Ordered.LOWEST_PRECEDENCE - 4)
+@Order(Ordered.LOWEST_PRECEDENCE - 2)
 @RestControllerAdvice
 public class SaTokenWebMVCExceptionHandler {
 
