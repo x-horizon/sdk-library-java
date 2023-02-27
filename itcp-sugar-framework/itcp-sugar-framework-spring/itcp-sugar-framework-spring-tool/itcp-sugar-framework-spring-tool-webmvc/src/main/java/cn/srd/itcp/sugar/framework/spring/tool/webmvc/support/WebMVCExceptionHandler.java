@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.framework.spring.tool.webmvc.core.web;
+package cn.srd.itcp.sugar.framework.spring.tool.webmvc.support;
 
 import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tool.core.StringsUtil;

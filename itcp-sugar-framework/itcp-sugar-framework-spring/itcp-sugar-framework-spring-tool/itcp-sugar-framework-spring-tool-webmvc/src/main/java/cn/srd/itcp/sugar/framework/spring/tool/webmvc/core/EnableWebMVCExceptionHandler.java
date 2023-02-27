@@ -1,5 +1,6 @@
-package cn.srd.itcp.sugar.framework.spring.tool.webmvc.core.web;
+package cn.srd.itcp.sugar.framework.spring.tool.webmvc.core;
 
+import cn.srd.itcp.sugar.framework.spring.tool.webmvc.support.WebMVCExceptionHandler;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
