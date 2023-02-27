@@ -11,12 +11,12 @@ dependencies {
     implementation("$mysql")
     implementation("$postgresql")
     
+    // pool
+    implementation("$druid")
+
     // orm
     api("$mybatis_plus")
     api("$mybatis_plus_join")
-
-    // pool
-    implementation("$druid")
 
     // tool
     implementation(project(':itcp-sugar-tool'))

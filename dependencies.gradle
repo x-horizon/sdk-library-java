@@ -61,15 +61,15 @@ ext {
     caffeine = "com.github.ben-manes.caffeine:caffeine:${caffeine_version}" as GStringImpl
     lettuce = "io.lettuce:lettuce-core:${lettuce_version}" as GStringImpl
     redisson = "org.redisson:redisson-spring-boot-starter:${redisson_version}" as GStringImpl
+    
+    // pool
+    druid = "com.alibaba:druid-spring-boot-starter:${druid_version}" as GStringImpl
+    apache_commons_pool = "org.apache.commons:commons-pool2:${apache_commons_pool_version}" as GStringImpl
 
     // orm
     mybatis_plus = "com.baomidou:mybatis-plus-boot-starter:${mybatis_plus_version}" as GStringImpl
     mybatis_plus_join = "com.github.yulichang:mybatis-plus-join:${mybatis_plus_join_version}" as GStringImpl
     data_r2dbc = "org.springframework.boot:spring-boot-starter-data-r2dbc"
-
-    // pool
-    druid = "com.alibaba:druid-spring-boot-starter:${druid_version}" as GStringImpl
-    apache_commons_pool = "org.apache.commons:commons-pool2:${apache_commons_pool_version}" as GStringImpl
 
     // doc
     knife4j = "com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter:${knife4j_version}" as GStringImpl
