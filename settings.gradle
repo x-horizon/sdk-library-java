@@ -20,8 +20,8 @@ include(':itcp-sugar-component:itcp-sugar-component-excel')
 include(':itcp-sugar-component:itcp-sugar-component-id-generator:itcp-sugar-component-id-generator-snowflake')
 include(':itcp-sugar-component:itcp-sugar-component-jdk')
 
-include(':itcp-sugar-cache:itcp-sugar-database-redisson')
-include(':itcp-sugar-cache:itcp-sugar-database-redisson-webmvc')
+include(':itcp-sugar-cache:itcp-sugar-cache-redisson')
+include(':itcp-sugar-cache:itcp-sugar-cache-redisson-webmvc')
 
 include(':itcp-sugar-doc:itcp-sugar-doc-knife4j')
 

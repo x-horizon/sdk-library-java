@@ -9,7 +9,7 @@ dependencies {
     annotationProcessor("$spring_boot_configuration_processor")
 
     // cache
-    api(project(':itcp-sugar-database:itcp-sugar-database-redisson'))
+    api(project(':itcp-sugar-cache:itcp-sugar-cache-redisson'))
 
     // tool
     implementation(project(':itcp-sugar-tool'))
