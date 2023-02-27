@@ -1,24 +1,22 @@
-def projectName = 'itcp-sugar-cache-redisson-webmvc'
+def projectName = 'itcp-sugar-security-sa-token-webflux'
 
 version = projectVersion
 
 dependencies {
     // framework
-    implementation("$spring_boot_starter_webmvc")
-    implementation("$spring_boot_starter_aop")
+    implementation("$spring_boot_starter_webflux")
     annotationProcessor("$spring_boot_configuration_processor")
 
-    // cache
-    api(project(':itcp-sugar-cache:itcp-sugar-cache-redisson-common'))
+    // security
+    api("$sa_token_reactor")
+    api(project(':itcp-sugar-security:itcp-sugar-security-sa-token:itcp-sugar-security-sa-token-common'))
 
     // tool
     implementation(project(':itcp-sugar-tool'))
-    implementation(project(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-common'))
+    implementation(project(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-webflux'))
 
     // test
     testAnnotationProcessor("$spring_boot_configuration_processor")
-    testAnnotationProcessor("$mapstruct_processor")
-    testAnnotationProcessor("$lombok_mapstruct_binding")
 }
 
 tasks.withType(JavaCompile).configureEach {
