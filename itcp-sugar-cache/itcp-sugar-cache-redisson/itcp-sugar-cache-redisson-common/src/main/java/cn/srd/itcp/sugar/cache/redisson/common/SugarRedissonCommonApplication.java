@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Import;
  */
 @Import(SpringsUtil.class)
 @SpringBootApplication
-public class SugarRedissonApplication {
+public class SugarRedissonCommonApplication {
 
     /**
      * main
@@ -18,7 +18,7 @@ public class SugarRedissonApplication {
      * @param args main argument
      */
     public static void main(String[] args) {
-        SpringApplication.run(SugarRedissonApplication.class, args);
+        SpringApplication.run(SugarRedissonCommonApplication.class, args);
     }
 
 }

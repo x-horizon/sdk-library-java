@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * boot
  */
 @SpringBootApplication
-public class SugarSecuritySaTokenReactorApplication {
+public class SugarSecuritySaTokenWebFluxApplication {
 
     /**
      * main
@@ -15,7 +15,7 @@ public class SugarSecuritySaTokenReactorApplication {
      * @param args main argument
      */
     public static void main(String[] args) {
-        SpringApplication.run(SugarSecuritySaTokenReactorApplication.class, args);
+        SpringApplication.run(SugarSecuritySaTokenWebFluxApplication.class, args);
     }
 
 }
