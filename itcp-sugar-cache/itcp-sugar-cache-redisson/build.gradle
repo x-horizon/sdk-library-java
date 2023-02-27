@@ -1,4 +1,4 @@
-def projectName = 'itcp-sugar-database-redisson'
+def projectName = 'itcp-sugar-cache-redisson'
 
 version = projectVersion
 

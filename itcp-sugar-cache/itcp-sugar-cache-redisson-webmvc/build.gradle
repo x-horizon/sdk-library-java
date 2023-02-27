@@ -1,4 +1,4 @@
-def projectName = 'itcp-sugar-database-redisson-webmvc'
+def projectName = 'itcp-sugar-cache-redisson-webmvc'
 
 version = projectVersion
 
@@ -8,7 +8,7 @@ dependencies {
     implementation("$spring_boot_starter_aop")
     annotationProcessor("$spring_boot_configuration_processor")
 
-    // database
+    // cache
     api(project(':itcp-sugar-database:itcp-sugar-database-redisson'))
 
     // tool

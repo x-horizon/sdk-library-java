@@ -54,9 +54,11 @@ ext {
     hsweb_commons_crud = "org.hswebframework.web:hsweb-commons-crud:${hsweb_version}" as GStringImpl
 
     // database
-    druid = "com.alibaba:druid-spring-boot-starter:${druid_version}" as GStringImpl
     mysql = "com.mysql:mysql-connector-j:${mysql_version}" as GStringImpl
     postgresql = "org.postgresql:postgresql:${postgresql_version}" as GStringImpl
+
+    // cache
+    caffeine = "com.github.ben-manes.caffeine:caffeine:${caffeine_version}" as GStringImpl
     lettuce = "io.lettuce:lettuce-core:${lettuce_version}" as GStringImpl
     redisson = "org.redisson:redisson-spring-boot-starter:${redisson_version}" as GStringImpl
 
@@ -64,6 +66,10 @@ ext {
     mybatis_plus = "com.baomidou:mybatis-plus-boot-starter:${mybatis_plus_version}" as GStringImpl
     mybatis_plus_join = "com.github.yulichang:mybatis-plus-join:${mybatis_plus_join_version}" as GStringImpl
     data_r2dbc = "org.springframework.boot:spring-boot-starter-data-r2dbc"
+
+    // pool
+    druid = "com.alibaba:druid-spring-boot-starter:${druid_version}" as GStringImpl
+    apache_commons_pool = "org.apache.commons:commons-pool2:${apache_commons_pool_version}" as GStringImpl
 
     // doc
     knife4j = "com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter:${knife4j_version}" as GStringImpl
@@ -108,10 +114,8 @@ ext {
     hibernate_validator = "org.hibernate.validator:hibernate-validator"
     javax_el = "org.glassfish.web:javax.el:${javax_el_version}" as GStringImpl
     javax_el_api = "javax.el:javax.el-api:${javax_el_api_version}" as GStringImpl
-    caffeine = "com.github.ben-manes.caffeine:caffeine:${caffeine_version}" as GStringImpl
     apache_commons_lang3 = "org.apache.commons:commons-lang3:${apache_commons_lang3_version}" as GStringImpl
     apache_commons_io = "commons-io:commons-io:${apache_commons_io_version}" as GStringImpl
-    apache_commons_pool = "org.apache.commons:commons-pool2:${apache_commons_pool_version}" as GStringImpl
 
     // test
     junit = "junit:junit:${junit_version}" as GStringImpl

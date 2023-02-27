@@ -6,7 +6,7 @@ dependencies {
     // framework
     annotationProcessor("$spring_boot_configuration_processor")
 
-    // database
+    // cache
     // sa_token_alone_redis 必须依赖包
     api("$lettuce")
 

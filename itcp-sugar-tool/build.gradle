@@ -3,6 +3,12 @@ def projectName = 'itcp-sugar-tool'
 version = projectVersion
 
 dependencies {
+    // cache
+    api("$caffeine")
+
+    // pool
+    api("$apache_commons_pool")
+
     // tool
     api("$vavr")
     api("$guava")
@@ -16,10 +22,8 @@ dependencies {
     api("$json_path")
     api("$reflectasm")
     api("$hibernate_validator")
-    api("$caffeine")
     api("$apache_commons_lang3")
     api("$apache_commons_io")
-    api("$apache_commons_pool")
 }
 
 tasks.withType(JavaCompile).configureEach {

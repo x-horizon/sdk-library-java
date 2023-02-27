@@ -5,8 +5,10 @@ version = projectVersion
 dependencies {
     // framework
     implementation("$spring_boot_starter")
-    implementation("$data_r2dbc")
     api("$hsweb_commons_crud")
+
+    // orm
+    implementation("$data_r2dbc")
 
     // tool
     implementation(project(':itcp-sugar-tool'))
