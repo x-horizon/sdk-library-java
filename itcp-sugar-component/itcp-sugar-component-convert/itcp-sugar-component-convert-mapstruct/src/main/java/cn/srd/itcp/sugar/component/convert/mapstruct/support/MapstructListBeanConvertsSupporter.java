@@ -19,7 +19,7 @@ import java.util.Objects;
 public class MapstructListBeanConvertsSupporter implements MapstructConvertsSupporter {
 
     /**
-     * hungry signal ton pattern
+     * singleton pattern
      */
     public static final MapstructListBeanConvertsSupporter INSTANCE = new MapstructListBeanConvertsSupporter();
 

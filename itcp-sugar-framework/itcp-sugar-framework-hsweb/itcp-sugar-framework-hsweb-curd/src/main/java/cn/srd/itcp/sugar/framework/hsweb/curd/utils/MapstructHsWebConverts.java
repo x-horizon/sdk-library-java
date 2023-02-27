@@ -25,7 +25,7 @@ public class MapstructHsWebConverts {
     }
 
     /**
-     * signal ton pattern
+     * singleton pattern
      */
     private static final class SingleTonHolder {
         private static final MapstructHsWebConverts INSTANCE = new MapstructHsWebConverts();

@@ -15,7 +15,7 @@ public class SpringConverts {
     }
 
     /**
-     * hungry signal ton pattern
+     * singleton pattern
      */
     private static final SpringConverts INSTANCE = new SpringConverts();
 

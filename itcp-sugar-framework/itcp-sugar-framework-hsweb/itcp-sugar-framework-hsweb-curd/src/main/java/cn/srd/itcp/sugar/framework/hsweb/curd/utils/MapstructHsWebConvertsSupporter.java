@@ -22,7 +22,7 @@ import java.util.Objects;
 public class MapstructHsWebConvertsSupporter implements MapstructConvertsSupporter {
 
     /**
-     * hungry signal ton pattern
+     * singleton pattern
      */
     public static final MapstructHsWebConvertsSupporter INSTANCE = new MapstructHsWebConvertsSupporter();
 

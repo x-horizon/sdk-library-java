@@ -19,7 +19,7 @@ public class TimeUnitDayHandler extends TimeUnitHandler {
     }
 
     /**
-     * signal ton pattern
+     * singleton pattern
      */
     protected static final TimeUnitDayHandler INSTANCE = new TimeUnitDayHandler();
 

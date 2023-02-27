@@ -22,7 +22,7 @@ import java.util.Objects;
 public class MapstructMybatisPlusConvertsSupporter implements MapstructConvertsSupporter {
 
     /**
-     * hungry signal ton pattern
+     * singleton pattern
      */
     public static final MapstructMybatisPlusConvertsSupporter INSTANCE = new MapstructMybatisPlusConvertsSupporter();
 

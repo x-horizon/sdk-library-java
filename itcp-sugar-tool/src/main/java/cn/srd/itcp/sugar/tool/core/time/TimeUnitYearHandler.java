@@ -17,7 +17,7 @@ public class TimeUnitYearHandler extends TimeUnitHandler {
     }
 
     /**
-     * signal ton pattern
+     * singleton pattern
      */
     protected static final TimeUnitYearHandler INSTANCE = new TimeUnitYearHandler();
 

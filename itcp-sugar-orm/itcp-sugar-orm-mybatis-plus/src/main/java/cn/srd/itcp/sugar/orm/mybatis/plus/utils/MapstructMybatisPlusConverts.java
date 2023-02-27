@@ -25,7 +25,7 @@ public class MapstructMybatisPlusConverts {
     }
 
     /**
-     * signal ton pattern
+     * singleton pattern
      */
     private static final class SingleTonHolder {
         private static final MapstructMybatisPlusConverts INSTANCE = new MapstructMybatisPlusConverts();

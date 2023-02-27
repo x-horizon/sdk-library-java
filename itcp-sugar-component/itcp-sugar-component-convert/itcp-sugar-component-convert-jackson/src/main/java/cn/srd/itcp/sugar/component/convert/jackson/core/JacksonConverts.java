@@ -65,7 +65,7 @@ public class JacksonConverts {
     }
 
     /**
-     * hungry signal ton pattern
+     * singleton pattern
      */
     private static final JacksonConverts INSTANCE = new JacksonConverts();
 

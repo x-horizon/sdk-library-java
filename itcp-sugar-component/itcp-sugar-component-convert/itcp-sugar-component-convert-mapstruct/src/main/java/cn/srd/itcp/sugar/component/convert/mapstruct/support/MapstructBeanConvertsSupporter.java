@@ -13,7 +13,7 @@ import lombok.NonNull;
 public class MapstructBeanConvertsSupporter implements MapstructConvertsSupporter {
 
     /**
-     * hungry signal ton pattern
+     * singleton pattern
      */
     public static final MapstructBeanConvertsSupporter INSTANCE = new MapstructBeanConvertsSupporter();
 

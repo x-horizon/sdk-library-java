@@ -19,7 +19,7 @@ public class TimeUnitSecondHandler extends TimeUnitHandler {
     }
 
     /**
-     * signal ton pattern
+     * singleton pattern
      */
     protected static final TimeUnitSecondHandler INSTANCE = new TimeUnitSecondHandler();
 

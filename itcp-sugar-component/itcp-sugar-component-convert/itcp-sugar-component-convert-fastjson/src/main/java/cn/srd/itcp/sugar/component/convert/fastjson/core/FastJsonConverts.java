@@ -15,7 +15,7 @@ public class FastJsonConverts {
     }
 
     /**
-     * hungry signal ton pattern
+     * singleton pattern
      */
     private static final FastJsonConverts INSTANCE = new FastJsonConverts();
 
