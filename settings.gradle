@@ -21,7 +21,7 @@ include(':itcp-sugar-component:itcp-sugar-component-id-generator:itcp-sugar-comp
 include(':itcp-sugar-component:itcp-sugar-component-jdk')
 
 include(':itcp-sugar-cache:itcp-sugar-cache-caffeine')
-include(':itcp-sugar-cache:itcp-sugar-cache-redisson')
+include(':itcp-sugar-cache:itcp-sugar-cache-redisson-common')
 include(':itcp-sugar-cache:itcp-sugar-cache-redisson-webmvc')
 
 include(':itcp-sugar-doc:itcp-sugar-doc-knife4j')
@@ -38,9 +38,9 @@ include(':itcp-sugar-orm:itcp-sugar-orm-mybatis-plus')
 
 include(':itcp-sugar-protocol:itcp-sugar-protocol-protobuf')
 
-include(':itcp-sugar-security:itcp-sugar-security-sa-token')
 include(':itcp-sugar-security:itcp-sugar-security-sa-token-common')
-include(':itcp-sugar-security:itcp-sugar-security-sa-token-reactor')
+include(':itcp-sugar-security:itcp-sugar-security-sa-token-webmvc')
+include(':itcp-sugar-security:itcp-sugar-security-sa-token-webflux')
 
 include(':itcp-sugar-tool')
 

@@ -1,15 +1,15 @@
-def projectName = 'itcp-sugar-cache-redisson-webmvc'
+def projectName = 'itcp-sugar-cache-redisson-common'
 
 version = projectVersion
 
 dependencies {
     // framework
-    implementation("$spring_boot_starter_webmvc")
+    implementation("$spring_boot_starter")
     implementation("$spring_boot_starter_aop")
     annotationProcessor("$spring_boot_configuration_processor")
 
-    // cache
-    api(project(':itcp-sugar-cache:itcp-sugar-cache-redisson-common'))
+    // database
+    api("$redisson")
 
     // tool
     implementation(project(':itcp-sugar-tool'))
@@ -17,8 +17,6 @@ dependencies {
 
     // test
     testAnnotationProcessor("$spring_boot_configuration_processor")
-    testAnnotationProcessor("$mapstruct_processor")
-    testAnnotationProcessor("$lombok_mapstruct_binding")
 }
 
 tasks.withType(JavaCompile).configureEach {
