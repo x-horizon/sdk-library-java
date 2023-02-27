@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.security.sa.token.common;
+package cn.srd.itcp.sugar.security.sa.token.common.utils;
 
 import cn.dev33.satoken.secure.BCrypt;
 
