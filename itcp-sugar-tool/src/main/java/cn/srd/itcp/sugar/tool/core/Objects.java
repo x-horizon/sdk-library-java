@@ -1067,6 +1067,38 @@ public class Objects {
     }
 
     /**
+     * 比较第一个对象是否与后续对象相同，若第一个对象与后续对象有一个不同，返回 false，全部相同返回 true；
+     * <pre>
+     * 比较规则：{@link #equals(Object, Object)}
+     * </pre>
+     *
+     * @param obj1 待比较对象
+     * @param objs 待比较对象
+     * @return 是否相同
+     * @see Objects#equals(Object, Object)
+     */
+    public static boolean allEquals(@Nullable Object obj1, @Nullable Object... objs) {
+        if (obj1 == objs) {
+            return true;
+        }
+        if (null == obj1 || null == objs) {
+            return false;
+        }
+        for (Object objToCompare : objs) {
+            if (!obj1.equals(objToCompare)) {
+                return false;
+            }
+            if (obj1 instanceof BigDecimal && objToCompare instanceof BigDecimal && (0 != ((BigDecimal) obj1).compareTo((BigDecimal) objToCompare))) {
+                return false;
+            }
+            if (obj1.getClass().isArray() && objToCompare.getClass().isArray() && (!ArrayUtil.equals(obj1, objToCompare))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * 比较对象是否与集合元素是否相同，若对象与集合元素有一个相同，返回 true；<br>
      * 两者有一个为 null，返回false；
      *
