@@ -848,6 +848,21 @@ public class CollectionsUtil extends CollUtil {
         return from.stream().filter(predicate).collect(Collectors.groupingBy(function));
     }
 
+    // ============================ 集合元素是否存在 ============================
+
+    /**
+     * 判断集合是否存在某个属性，只要有一个存在则返回 true
+     *
+     * @param from      输入参数
+     * @param predicate 判断是否存在逻辑
+     * @param <T>       元素类型
+     * @param <E>       提取属性类型
+     * @return 是否存在
+     */
+    public static <T extends E, E> boolean capableContains(@NonNull Collection<T> from, @NonNull Predicate<E> predicate) {
+        return from.stream().anyMatch(predicate);
+    }
+
     // ============================ 其他操作 ============================
 
     /**
