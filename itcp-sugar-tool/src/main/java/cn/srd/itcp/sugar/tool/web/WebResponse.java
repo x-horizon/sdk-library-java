@@ -1,7 +1,6 @@
 package cn.srd.itcp.sugar.tool.web;
 
 import cn.srd.itcp.sugar.tool.core.Objects;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -36,12 +35,6 @@ public final class WebResponse<T> implements Serializable {
      * 响应信息
      */
     private String message;
-
-    /**
-     * 异常全限定类名
-     */
-    @JsonInclude(value = JsonInclude.Include.NON_NULL)
-    private String throwableClassFullName;
 
     /**
      * 是否响应成功
@@ -185,32 +178,6 @@ public final class WebResponse<T> implements Serializable {
     }
 
     /**
-     * 响应错误信息
-     *
-     * @param status                 自定义状态码
-     * @param message                自定义响应信息，字段名为 message
-     * @param throwableClassFullName 异常全限定类名
-     * @param <T>                    响应数据类型
-     * @return 响应实例
-     */
-    public static <T> WebResponse<T> error(Integer status, String message, String throwableClassFullName) {
-        return response(status, message, null, throwableClassFullName);
-    }
-
-    /**
-     * 响应错误信息
-     *
-     * @param httpStatusEnum         自定义状态码
-     * @param message                自定义响应信息，字段名为 message
-     * @param throwableClassFullName 异常全限定类名
-     * @param <T>                    响应数据类型
-     * @return 响应实例
-     */
-    public static <T> WebResponse<T> error(HttpStatusEnum httpStatusEnum, String message, String throwableClassFullName) {
-        return response(httpStatusEnum.getCode(), message, null, throwableClassFullName);
-    }
-
-    /**
      * 响应信息
      *
      * @param httpStatusEnum 自定义状态码、响应信息
@@ -240,25 +207,6 @@ public final class WebResponse<T> implements Serializable {
         response.status = status;
         response.message = message;
         response.data = data;
-        return response;
-    }
-
-    /**
-     * 响应信息
-     *
-     * @param status                 自定义状态码
-     * @param message                自定义响应信息，字段名为 message
-     * @param data                   自定义响应数据，字段名为 data
-     * @param throwableClassFullName 异常全限定类名
-     * @param <T>                    响应数据类型
-     * @return 响应实例
-     */
-    public static <T> WebResponse<T> response(Integer status, String message, T data, String throwableClassFullName) {
-        WebResponse<T> response = new WebResponse<>();
-        response.status = status;
-        response.message = message;
-        response.data = data;
-        response.throwableClassFullName = throwableClassFullName;
         return response;
     }
 

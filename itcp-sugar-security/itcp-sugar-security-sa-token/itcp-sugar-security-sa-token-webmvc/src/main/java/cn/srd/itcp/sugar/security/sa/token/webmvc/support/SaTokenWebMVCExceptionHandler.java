@@ -3,7 +3,6 @@ package cn.srd.itcp.sugar.security.sa.token.webmvc.support;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotPermissionException;
 import cn.dev33.satoken.exception.NotRoleException;
-import cn.srd.itcp.sugar.tool.core.ClassesUtil;
 import cn.srd.itcp.sugar.tool.web.HttpStatusEnum;
 import cn.srd.itcp.sugar.tool.web.WebResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,7 +35,7 @@ public class SaTokenWebMVCExceptionHandler {
     @ExceptionHandler(NotLoginException.class)
     public WebResponse<Void> handleNotLoginException(HttpServletRequest httpServletRequest, NotLoginException exception) {
         log.warn("请求资源地址：'{}'，错误信息：未能通过登录认证", httpServletRequest.getRequestURI());
-        return error(HttpStatusEnum.NOT_LOGIN, "未能通过登录认证", ClassesUtil.getClassFullName(NotLoginException.class));
+        return error(HttpStatusEnum.NOT_LOGIN, "未能通过登录认证");
     }
 
     /**
@@ -49,7 +48,7 @@ public class SaTokenWebMVCExceptionHandler {
     @ExceptionHandler(NotPermissionException.class)
     public WebResponse<Void> handleNotPermissionException(HttpServletRequest httpServletRequest, NotPermissionException exception) {
         log.warn("请求资源地址：'{}'，错误信息：未能通过权限认证", httpServletRequest.getRequestURI());
-        return error(HttpStatusEnum.NOT_PERMISSION, "未能通过权限认证", ClassesUtil.getClassFullName(NotPermissionException.class));
+        return error(HttpStatusEnum.NOT_PERMISSION, "未能通过权限认证");
     }
 
     /**
@@ -62,7 +61,7 @@ public class SaTokenWebMVCExceptionHandler {
     @ExceptionHandler(NotRoleException.class)
     public WebResponse<Void> handleNotRoleException(HttpServletRequest httpServletRequest, NotRoleException exception) {
         log.warn("请求资源地址：'{}'，错误信息：未能通过角色认证", httpServletRequest.getRequestURI());
-        return error(HttpStatusEnum.NOT_ROLE, "未能通过角色认证", ClassesUtil.getClassFullName(NotRoleException.class));
+        return error(HttpStatusEnum.NOT_ROLE, "未能通过角色认证");
     }
 
 }

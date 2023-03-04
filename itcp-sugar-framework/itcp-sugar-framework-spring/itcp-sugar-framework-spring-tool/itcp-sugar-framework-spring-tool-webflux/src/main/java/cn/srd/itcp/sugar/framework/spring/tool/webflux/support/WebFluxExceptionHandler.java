@@ -1,6 +1,5 @@
 package cn.srd.itcp.sugar.framework.spring.tool.webflux.support;
 
-import cn.srd.itcp.sugar.tool.core.ClassesUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.exceptions.RunningException;
 import cn.srd.itcp.sugar.tool.web.HttpStatusEnum;
@@ -52,27 +51,27 @@ public class WebFluxExceptionHandler implements ErrorWebExceptionHandler {
     public void init() {
         EXCEPTION_HANDLERS.put(ResponseStatusException.class, (exchange, throwable) -> {
             log.warn("请求资源地址：'{}'，错误信息：'{}'", exchange.getRequest().getPath(), throwable);
-            return error(((ResponseStatusException) throwable).getStatusCode().value(), ((ResponseStatusException) throwable).getMessage(), ClassesUtil.getClassFullName(ResponseStatusException.class));
+            return error(((ResponseStatusException) throwable).getStatusCode().value(), ((ResponseStatusException) throwable).getMessage());
         });
         EXCEPTION_HANDLERS.put(RunningException.class, (exchange, throwable) -> {
             log.warn("请求资源地址：'{}'，错误信息：'{}'", exchange.getRequest().getPath(), throwable);
-            return error(((RunningException) throwable).getExceptionTemplate().getCode(), ((RunningException) throwable).getExceptionTemplate().getDescription(), ClassesUtil.getClassFullName(RunningException.class));
+            return error(((RunningException) throwable).getExceptionTemplate().getCode(), ((RunningException) throwable).getExceptionTemplate().getDescription());
         });
         EXCEPTION_HANDLERS.put(RuntimeException.class, (exchange, throwable) -> {
             log.error("请求资源地址：'{}'，错误信息：'{}'", exchange.getRequest().getPath(), throwable);
-            return error(HttpStatusEnum.INTERNAL_ERROR.getCode(), HttpStatusEnum.INTERNAL_ERROR.getDescription(), ClassesUtil.getClassFullName(RuntimeException.class));
+            return error(HttpStatusEnum.INTERNAL_ERROR);
         });
         EXCEPTION_HANDLERS.put(Exception.class, (exchange, throwable) -> {
             log.error("请求资源地址：'{}'，错误信息：'{}'", exchange.getRequest().getPath(), throwable);
-            return error(HttpStatusEnum.INTERNAL_ERROR.getCode(), HttpStatusEnum.INTERNAL_ERROR.getDescription(), ClassesUtil.getClassFullName(Exception.class));
+            return error(HttpStatusEnum.INTERNAL_ERROR);
         });
         EXCEPTION_HANDLERS.put(Throwable.class, (exchange, throwable) -> {
             log.error("请求资源地址：'{}'，错误信息：'{}'", exchange.getRequest().getPath(), throwable);
-            return error(HttpStatusEnum.INTERNAL_ERROR.getCode(), HttpStatusEnum.INTERNAL_ERROR.getDescription(), ClassesUtil.getClassFullName(Throwable.class));
+            return error(HttpStatusEnum.INTERNAL_ERROR);
         });
         EXCEPTION_HANDLERS.put(NotRegisterHandlerException.class, (exchange, throwable) -> {
             log.error("请求资源地址：'{}'，错误信息：'cannot find handler to handle [{}], it may not be registered, please consider adding it, the detail error message is: {}'", exchange.getRequest().getPath(), throwable.getClass(), throwable);
-            return error(HttpStatusEnum.INTERNAL_ERROR.getCode(), HttpStatusEnum.INTERNAL_ERROR.getDescription(), ClassesUtil.getClassFullName(NotRegisterHandlerException.class));
+            return error(HttpStatusEnum.INTERNAL_ERROR);
         });
     }
 

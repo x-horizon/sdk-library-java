@@ -17,7 +17,7 @@ public class RunningException extends RuntimeException {
 
     @Serial
     private static final long serialVersionUID = 3975594528435116604L;
-    
+
     /**
      * 自定义异常模板
      */
@@ -30,6 +30,31 @@ public class RunningException extends RuntimeException {
      */
     public RunningException(String message) {
         super(message);
+    }
+
+    /**
+     * public constructor
+     *
+     * @param status  状态码
+     * @param message 异常信息
+     */
+    public RunningException(Integer status, String message) {
+        this.exceptionTemplate = new ExceptionTemplate() {
+            @Override
+            public Integer getCode() {
+                return status;
+            }
+
+            @Override
+            public String getDescription() {
+                return message;
+            }
+
+            @Override
+            public Exception getException() {
+                return null;
+            }
+        };
     }
 
     /**
