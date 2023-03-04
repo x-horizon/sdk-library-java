@@ -9,6 +9,10 @@ dependencies {
 
     // network
     api("$openfeign_okhttp")
+
+    // tool
+    implementation(project(':itcp-sugar-tool'))
+    implementation(project(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-all'))
 }
 
 tasks.withType(JavaCompile).configureEach {
