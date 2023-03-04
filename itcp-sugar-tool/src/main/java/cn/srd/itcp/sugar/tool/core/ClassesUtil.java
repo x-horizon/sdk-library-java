@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.tool.core;
 
 import cn.hutool.core.util.ClassUtil;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
+import lombok.SneakyThrows;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -25,6 +26,39 @@ public class ClassesUtil extends ClassUtil {
      * private block constructor
      */
     private ClassesUtil() {
+    }
+
+    /**
+     * 根据全限定类名获取类
+     *
+     * @param classFullName 全限定类名
+     * @param <T>           类类型
+     * @return 类
+     */
+    @SneakyThrows
+    @SuppressWarnings("unchecked")
+    public static <T> Class<T> getClass(String classFullName) {
+        return (Class<T>) Class.forName(classFullName);
+    }
+
+    /**
+     * 获取简单类名（不带包名）
+     *
+     * @param clazz 要获取类名的类
+     * @return 简单类名（不带包名）
+     */
+    public static String getClassSimpleName(Class<?> clazz) {
+        return getClassName(clazz, true);
+    }
+
+    /**
+     * 获取全限定类名
+     *
+     * @param clazz 要获取类名的类
+     * @return 全限定类名
+     */
+    public static String getClassFullName(Class<?> clazz) {
+        return getClassName(clazz, false);
     }
 
     /**
