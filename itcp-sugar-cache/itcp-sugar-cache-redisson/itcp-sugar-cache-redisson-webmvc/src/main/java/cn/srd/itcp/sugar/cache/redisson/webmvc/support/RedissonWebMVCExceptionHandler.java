@@ -3,7 +3,8 @@ package cn.srd.itcp.sugar.cache.redisson.webmvc.support;
 import cn.srd.itcp.sugar.cache.redisson.common.exception.RedissonExecuteException;
 import cn.srd.itcp.sugar.cache.redisson.common.exception.RedissonGenerateLockNameFailedException;
 import cn.srd.itcp.sugar.cache.redisson.common.exception.RedissonIllegalArgumentException;
-import cn.srd.itcp.sugar.tool.constant.HttpInfo;
+import cn.srd.itcp.sugar.tool.core.ClassesUtil;
+import cn.srd.itcp.sugar.tool.web.HttpStatusEnum;
 import cn.srd.itcp.sugar.tool.web.WebResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -34,9 +35,9 @@ public class RedissonWebMVCExceptionHandler {
      */
     @ExceptionHandler(RedissonExecuteException.class)
     public WebResponse<Void> handleRedissonExecuteException(HttpServletRequest httpServletRequest, RedissonExecuteException exception) {
-        String msg = exception.getCause().getMessage();
+        String message = exception.getCause().getMessage();
         log.warn("请求资源地址：'{}'，错误信息：'{}'", httpServletRequest.getRequestURI(), exception);
-        return error(HttpInfo.HTTP_INTERNAL_ERROR, msg);
+        return error(HttpStatusEnum.INTERNAL_ERROR, message, ClassesUtil.getClassFullName(RedissonExecuteException.class));
     }
 
     /**
@@ -48,9 +49,9 @@ public class RedissonWebMVCExceptionHandler {
      */
     @ExceptionHandler(RedissonGenerateLockNameFailedException.class)
     public WebResponse<Void> handleRedissonExecuteException(HttpServletRequest httpServletRequest, RedissonGenerateLockNameFailedException exception) {
-        String msg = exception.getCause().getMessage();
+        String message = exception.getCause().getMessage();
         log.warn("请求资源地址：'{}'，错误信息：'{}'", httpServletRequest.getRequestURI(), exception);
-        return error(HttpInfo.HTTP_INTERNAL_ERROR, msg);
+        return error(HttpStatusEnum.INTERNAL_ERROR, message, ClassesUtil.getClassFullName(RedissonGenerateLockNameFailedException.class));
     }
 
     /**
@@ -62,9 +63,9 @@ public class RedissonWebMVCExceptionHandler {
      */
     @ExceptionHandler(RedissonIllegalArgumentException.class)
     public WebResponse<Void> handleRedissonExecuteException(HttpServletRequest httpServletRequest, RedissonIllegalArgumentException exception) {
-        String msg = exception.getCause().getMessage();
+        String message = exception.getCause().getMessage();
         log.warn("请求资源地址：'{}'，错误信息：'{}'", httpServletRequest.getRequestURI(), exception);
-        return error(HttpInfo.HTTP_INTERNAL_ERROR, msg);
+        return error(HttpStatusEnum.INTERNAL_ERROR, message, ClassesUtil.getClassFullName(RedissonIllegalArgumentException.class));
     }
 
 }

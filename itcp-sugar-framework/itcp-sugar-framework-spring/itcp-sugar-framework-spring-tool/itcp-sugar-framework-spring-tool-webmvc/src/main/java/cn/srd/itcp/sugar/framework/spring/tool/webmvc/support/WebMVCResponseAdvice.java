@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
@@ -20,19 +21,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 public class WebMVCResponseAdvice implements ResponseBodyAdvice<WebResponse<?>> {
 
     @Override
-    public boolean supports(MethodParameter methodParameter, Class converterType) {
-        if (Objects.isNull(methodParameter.getMethod())) {
-            return false;
-        }
-        /**
-         * 只拦截响应参数为{@link WebResponse}的类型
-         */
-        return methodParameter.getMethod().getReturnType() == WebResponse.class;
+    public boolean supports(MethodParameter methodParameter, @NonNull Class converterType) {
+        return Objects.isNotNull(methodParameter.getMethod()) && methodParameter.getMethod().getReturnType() == WebResponse.class;
     }
 
     @Override
-    public WebResponse<?> beforeBodyWrite(WebResponse<?> webResponse, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> httpMessageConverter, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        // 统一格式化响应信息
+    public WebResponse<?> beforeBodyWrite(WebResponse<?> webResponse, @NonNull MethodParameter methodParameter, @NonNull MediaType mediaType, @NonNull Class<? extends HttpMessageConverter<?>> httpMessageConverter, @NonNull ServerHttpRequest serverHttpRequest, @NonNull ServerHttpResponse serverHttpResponse) {
         return webResponse;
     }
 
