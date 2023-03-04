@@ -6,7 +6,9 @@ dependencies {
     // framework
     implementation("$spring_boot_starter")
     api("$spring_cloud_starter_openfeign")
-    api("$spring_cloud_starter_openfeign_okhttp")
+
+    // network
+    api("$openfeign_okhttp")
 }
 
 tasks.withType(JavaCompile).configureEach {
