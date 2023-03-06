@@ -40,6 +40,13 @@ allprojects {
         mavenCentral()
     }
 
+    dependencyManagement {
+        imports {
+            mavenBom "${spring_cloud_bom}"
+            mavenBom "${openfeign_bom}"
+        }
+    }
+
     dependencies {
         // tool
         compileOnly("$lombok")

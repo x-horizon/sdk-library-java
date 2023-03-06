@@ -2,9 +2,8 @@ import org.codehaus.groovy.runtime.GStringImpl
 
 ext {
     // version
-    spring_cloud_starter_openfeign_version = "4.0.1"
-    spring_cloud_starter_kubernetes_fabric8_version = "3.0.1"
-    openfeign_okhttp_version = "12.2"
+    spring_cloud_bom_version = "2022.0.1"
+    openfeign_bom_version = "12.2"
     hsweb_version = "4.0.14"
     druid_version = "1.2.8"
     mysql_version = "8.0.32"
@@ -48,13 +47,15 @@ ext {
     spring_boot_starter_webflux = "org.springframework.boot:spring-boot-starter-webflux"
     spring_boot_starter_aop = "org.springframework.boot:spring-boot-starter-aop"
     spring_boot_configuration_processor = "org.springframework.boot:spring-boot-configuration-processor"
-    spring_cloud_starter_openfeign = "org.springframework.cloud:spring-cloud-starter-openfeign:${spring_cloud_starter_openfeign_version}" as GStringImpl
-    spring_cloud_starter_kubernetes_fabric8_all = "org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8-all:${spring_cloud_starter_kubernetes_fabric8_version}" as GStringImpl
+    spring_cloud_bom = "org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_bom_version}" as GStringImpl
+    spring_cloud_starter_openfeign = "org.springframework.cloud:spring-cloud-starter-openfeign"
+    spring_cloud_starter_kubernetes_fabric8_all = "org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8-all"
     hsweb_authorization_basic = "org.hswebframework.web:hsweb-authorization-basic:${hsweb_version}" as GStringImpl
     hsweb_commons_crud = "org.hswebframework.web:hsweb-commons-crud:${hsweb_version}" as GStringImpl
 
     // network
-    openfeign_okhttp = "io.github.openfeign:feign-okhttp:${openfeign_okhttp_version}" as GStringImpl
+    openfeign_bom = "io.github.openfeign:feign-bom:${openfeign_bom_version}" as GStringImpl
+    openfeign_okhttp = "io.github.openfeign:feign-okhttp"
 
     // database
     mysql = "com.mysql:mysql-connector-j:${mysql_version}" as GStringImpl
