@@ -99,7 +99,7 @@ ext {
     // protocol
     protobuf_bom = "com.google.protobuf:protobuf-bom:${protobuf_bom_version}" as GStringImpl
     protobuf_java = "com.google.protobuf:protobuf-java"
-    protobuf_protoc = "com.google.protobuf:protoc"
+    protobuf_protoc = "com.google.protobuf:protoc:${protobuf_bom_version}" as GStringImpl
     grpc_protoc_gen_grpc_java = "io.grpc:protoc-gen-grpc-java:${grpc_protoc_gen_grpc_java_version}" as GStringImpl
 
     // hack

@@ -6,7 +6,10 @@ apply plugin: 'com.google.protobuf'
 
 dependencies {
     // protocol
-    implementation("$protobuf_java")
+    api("$protobuf_java")
+
+    // tool
+    implementation(project(':itcp-sugar-tool'))
 }
 
 protobuf {
