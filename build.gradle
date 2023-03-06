@@ -44,6 +44,7 @@ allprojects {
         imports {
             mavenBom "${spring_cloud_bom}"
             mavenBom "${openfeign_bom}"
+            mavenBom "${reactor_bom}"
             mavenBom "${sa_token_bom}"
             mavenBom "${docker_bom}"
             mavenBom "${protobuf_bom}"
