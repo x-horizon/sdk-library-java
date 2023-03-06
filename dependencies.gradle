@@ -4,6 +4,11 @@ ext {
     // version
     spring_cloud_bom_version = "2022.0.1"
     openfeign_bom_version = "12.2"
+    sa_token_bom_version = "1.34.0"
+    docker_bom_version = "3.3.0"
+    protobuf_bom_version = "3.22.0"
+    jackson_bom_version = "2.14.2"
+    thingsboard_version = "3.2.2"
     hsweb_version = "4.0.14"
     druid_version = "1.2.8"
     mysql_version = "8.0.32"
@@ -13,11 +18,8 @@ ext {
     mybatis_plus_version = "3.5.3.1"
     mybatis_plus_join_version = "1.4.2.2"
     knife4j_version = "4.0.0"
-    sa_token_version = "1.34.0"
     easyexcel_version = "3.1.5"
     yitter_id_generator_version = "1.0.6"
-    docker_java_version = "3.2.14"
-    protobuf_version = "3.22.0"
     grpc_protoc_gen_grpc_java_version = "1.53.0"
     burningwave_version = "12.62.5"
     lombok_version = "1.18.22"
@@ -27,8 +29,6 @@ ext {
     guava_version = "31.1-jre"
     hutool_version = "5.8.14"
     fastjson_version = "1.2.79"
-    jackson_version = "2.13.1"
-    okhttps_version = "3.5.0"
     json_path_version = "2.7.0"
     reflectasm_version = "1.11.9"
     javax_el_version = "2.2.6"
@@ -80,22 +80,26 @@ ext {
     knife4j = "com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter:${knife4j_version}" as GStringImpl
 
     // security
-    sa_token = "cn.dev33:sa-token-spring-boot-starter:${sa_token_version}" as GStringImpl
-    sa_token_reactor = "cn.dev33:sa-token-reactor-spring-boot-starter:${sa_token_version}" as GStringImpl
-    sa_token_jwt = "cn.dev33:sa-token-jwt:${sa_token_version}" as GStringImpl
-    sa_token_dao_redis_jackson = "cn.dev33:sa-token-dao-redis-jackson:${sa_token_version}" as GStringImpl
-    sa_token_alone_redis = "cn.dev33:sa-token-alone-redis:${sa_token_version}" as GStringImpl
-    sa_token_jakata_servlet = "cn.dev33:sa-token-jakarta-servlet:${sa_token_version}" as GStringImpl
+    sa_token_bom = "cn.dev33:sa-token-dependencies:${sa_token_bom_version}" as GStringImpl
+    sa_token = "cn.dev33:sa-token-spring-boot-starter"
+    sa_token_reactor = "cn.dev33:sa-token-reactor-spring-boot-starter"
+    sa_token_jwt = "cn.dev33:sa-token-jwt"
+    sa_token_dao_redis_jackson = "cn.dev33:sa-token-dao-redis-jackson"
+    sa_token_alone_redis = "cn.dev33:sa-token-alone-redis"
+    sa_token_jakata_servlet = "cn.dev33:sa-token-jakarta-servlet"
 
     // component
+    thingsboard_actor = "org.thingsboard.common:actor:${thingsboard_version}" as GStringImpl
     easyexcel = "com.alibaba:easyexcel:${easyexcel_version}" as GStringImpl
     yitter_id_generator = "com.github.yitter:yitter-idgenerator:${yitter_id_generator_version}" as GStringImpl
-    docker_java_core = "com.github.docker-java:docker-java-core:${docker_java_version}" as GStringImpl
-    docker_java_transport_httpclient5 = "com.github.docker-java:docker-java-transport-httpclient5:${docker_java_version}" as GStringImpl
+    docker_bom = "com.github.docker-java:docker-java-bom:${docker_bom_version}" as GStringImpl
+    docker_java_core = "com.github.docker-java:docker-java-core"
+    docker_java_transport_httpclient5 = "com.github.docker-java:docker-java-transport-httpclient5"
 
     // protocol
-    protobuf_java = "com.google.protobuf:protobuf-java:${protobuf_version}" as GStringImpl
-    protobuf_protoc = "com.google.protobuf:protoc:${protobuf_version}" as GStringImpl
+    protobuf_bom = "com.google.protobuf:protobuf-bom:${protobuf_bom_version}" as GStringImpl
+    protobuf_java = "com.google.protobuf:protobuf-java"
+    protobuf_protoc = "com.google.protobuf:protoc"
     grpc_protoc_gen_grpc_java = "io.grpc:protoc-gen-grpc-java:${grpc_protoc_gen_grpc_java_version}" as GStringImpl
 
     // hack
@@ -110,10 +114,10 @@ ext {
     guava = "com.google.guava:guava:${guava_version}" as GStringImpl
     hutool = "cn.hutool:hutool-all:${hutool_version}" as GStringImpl
     fastjson = "com.alibaba:fastjson:${fastjson_version}" as GStringImpl
-    jackson_core = "com.fasterxml.jackson.core:jackson-core:${jackson_version}" as GStringImpl
-    jackson_databind = "com.fasterxml.jackson.core:jackson-databind:${jackson_version}" as GStringImpl
-    jackson_annotation = "com.fasterxml.jackson.core:jackson-annotations:${jackson_version}" as GStringImpl
-    okhttps_jackson = "com.ejlchina:okhttps-jackson:${okhttps_version}" as GStringImpl
+    jackson_bom = "com.fasterxml.jackson:jackson-bom:${jackson_bom_version}" as GStringImpl
+    jackson_core = "com.fasterxml.jackson.core:jackson-core"
+    jackson_databind = "com.fasterxml.jackson.core:jackson-databind"
+    jackson_annotation = "com.fasterxml.jackson.core:jackson-annotations"
     json_path = "com.jayway.jsonpath:json-path:${json_path_version}" as GStringImpl
     reflectasm = "com.esotericsoftware:reflectasm:${reflectasm_version}" as GStringImpl
     hibernate_validator = "org.hibernate.validator:hibernate-validator"
