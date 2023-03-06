@@ -8,6 +8,18 @@ package cn.srd.itcp.sugar.tool.constant;
  */
 public interface StringPool {
 
+    // =================== 数据类型 ===================
+
+    /**
+     * true
+     */
+    String TRUE = "true";
+
+    /**
+     * false
+     */
+    String FALSE = "false";
+
     // ================ 标点符号相关信息 ================
 
     /**
