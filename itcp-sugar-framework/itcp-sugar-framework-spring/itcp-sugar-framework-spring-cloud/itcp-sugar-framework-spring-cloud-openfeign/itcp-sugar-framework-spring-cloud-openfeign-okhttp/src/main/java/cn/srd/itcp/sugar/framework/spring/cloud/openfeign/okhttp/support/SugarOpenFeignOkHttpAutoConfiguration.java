@@ -22,6 +22,7 @@ import java.util.Set;
  * @since 2023-03-04 16:48:19
  */
 @AutoConfiguration
+@ConditionalOnProperty(name = "spring.cloud.openfeign.okhttp.enabled", havingValue = StringPool.TRUE, matchIfMissing = true)
 public class SugarOpenFeignOkHttpAutoConfiguration implements OpenFeignOkHttpConfigurator {
 
     /**
@@ -30,7 +31,6 @@ public class SugarOpenFeignOkHttpAutoConfiguration implements OpenFeignOkHttpCon
      * @return 装配对象
      */
     @Bean
-    @ConditionalOnProperty(name = "spring.cloud.openfeign.okhttp.enabled", havingValue = StringPool.TRUE, matchIfMissing = true)
     public OkHttpClient.Builder okHttpClientBuilder() {
         Set<Class<?>> classesWithEnableOpenFeignOkHttpInterceptor = SpringsUtil.scanPackageByAnnotation(EnableOpenFeignOkHttpInterceptor.class);
         Set<Class<? extends OpenFeignOkHttpInterceptor<?>>> interceptors = new HashSet<>();
