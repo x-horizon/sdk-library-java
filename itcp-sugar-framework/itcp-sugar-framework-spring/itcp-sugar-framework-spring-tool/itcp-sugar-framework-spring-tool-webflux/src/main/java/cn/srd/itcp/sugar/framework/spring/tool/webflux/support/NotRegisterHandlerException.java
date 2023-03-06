@@ -12,5 +12,5 @@ public class NotRegisterHandlerException extends Throwable {
 
     @Serial
     private static final long serialVersionUID = 5735385740693788825L;
-    
+
 }
