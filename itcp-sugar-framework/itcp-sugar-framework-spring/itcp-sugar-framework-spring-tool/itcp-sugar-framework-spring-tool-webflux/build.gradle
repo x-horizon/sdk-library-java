@@ -7,8 +7,8 @@ dependencies {
     implementation("$spring_boot_webflux")
 
     // tool
-    implementation(project(':itcp-sugar-tool'))
-    api(project(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-common'))
+    implementation(project("$itcp_sugar_tool"))
+    api(project("$itcp_sugar_framework_spring_tool_common"))
 }
 
 tasks.withType(JavaCompile).configureEach {

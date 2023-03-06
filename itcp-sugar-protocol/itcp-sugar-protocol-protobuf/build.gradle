@@ -9,7 +9,7 @@ dependencies {
     api("$protobuf_java")
 
     // tool
-    implementation(project(':itcp-sugar-tool'))
+    implementation(project("$itcp_sugar_tool"))
 }
 
 protobuf {

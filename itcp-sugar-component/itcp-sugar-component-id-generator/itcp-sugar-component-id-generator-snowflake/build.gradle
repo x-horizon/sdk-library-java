@@ -10,8 +10,8 @@ dependencies {
     api("$yitter_id_generator")
 
     // tool
-    implementation(project(':itcp-sugar-tool'))
-    implementation(project(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-common'))
+    implementation(project("$itcp_sugar_tool"))
+    implementation(project("$itcp_sugar_framework_spring_tool_common"))
 }
 
 tasks.withType(JavaCompile).configureEach {

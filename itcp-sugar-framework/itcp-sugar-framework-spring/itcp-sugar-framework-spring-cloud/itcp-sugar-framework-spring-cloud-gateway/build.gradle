@@ -7,7 +7,7 @@ dependencies {
     api("$spring_cloud_gateway")
 
     // tool
-    implementation(project(':itcp-sugar-tool'))
+    implementation(project("$itcp_sugar_tool"))
 }
 
 tasks.withType(JavaCompile).configureEach {

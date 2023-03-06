@@ -8,42 +8,43 @@ pluginManagement {
     }
 }
 
+apply from: getRootDir().getAbsolutePath() + "/dependencies.gradle"
+
 rootProject.name = 'itcp-sugar-java'
 
-include(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-all')
-include(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-fastjson')
-include(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-jackson')
-include(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-mapstruct')
-include(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-spring')
-include(':itcp-sugar-component:itcp-sugar-component-actor:itcp-sugar-component-actor-thingsboard')
-include(':itcp-sugar-component:itcp-sugar-component-docker')
-include(':itcp-sugar-component:itcp-sugar-component-excel')
-include(':itcp-sugar-component:itcp-sugar-component-id-generator:itcp-sugar-component-id-generator-snowflake')
-include(':itcp-sugar-component:itcp-sugar-component-jdk')
+include("$itcp_sugar_component_convert_all")
+include("$itcp_sugar_component_convert_fastjson")
+include("$itcp_sugar_component_convert_jackson")
+include("$itcp_sugar_component_convert_mapstruct")
+include("$itcp_sugar_component_convert_spring")
+include("$itcp_sugar_component_actor_thingsboard")
+include("$itcp_sugar_component_docker")
+include("$itcp_sugar_component_excel")
+include("$itcp_sugar_component_id_generator_snowflake")
+include("$itcp_sugar_component_jdk")
 
-include(':itcp-sugar-cache:itcp-sugar-cache-caffeine')
-include(':itcp-sugar-cache:itcp-sugar-cache-redisson:itcp-sugar-cache-redisson-common')
-include(':itcp-sugar-cache:itcp-sugar-cache-redisson:itcp-sugar-cache-redisson-webmvc')
+include("$itcp_sugar_cache_caffeine")
+include("$itcp_sugar_cache_redisson_common")
+include("$itcp_sugar_cache_redisson_webmvc")
 
-include(':itcp-sugar-doc:itcp-sugar-doc-knife4j')
+include("$itcp_sugar_doc_knife4j")
 
-include(':itcp-sugar-framework:itcp-sugar-framework-hsweb:itcp-sugar-framework-hsweb-authorize')
-include(':itcp-sugar-framework:itcp-sugar-framework-hsweb:itcp-sugar-framework-hsweb-curd')
-include(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-cloud:itcp-sugar-framework-spring-cloud-gateway')
-include(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-cloud:itcp-sugar-framework-spring-cloud-kubernetes:itcp-sugar-framework-spring-cloud-kubernetes-fabric8')
-include(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-cloud:itcp-sugar-framework-spring-cloud-openfeign:itcp-sugar-framework-spring-cloud-openfeign-common')
-include(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-cloud:itcp-sugar-framework-spring-cloud-openfeign:itcp-sugar-framework-spring-cloud-openfeign-okhttp')
-include(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-common')
-include(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-webmvc')
-include(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-webflux')
+include("$itcp_sugar_framework_hsweb_authorize")
+include("$itcp_sugar_framework_hsweb_curd")
+include("$itcp_sugar_framework_spring_cloud_gateway")
+include("$itcp_sugar_framework_spring_cloud_kubernetes_fabric8")
+include("$itcp_sugar_framework_spring_cloud_openfeign_common")
+include("$itcp_sugar_framework_spring_cloud_openfeign_okhttp")
+include("$itcp_sugar_framework_spring_tool_common")
+include("$itcp_sugar_framework_spring_tool_webmvc")
+include("$itcp_sugar_framework_spring_tool_webflux")
 
-include(':itcp-sugar-orm:itcp-sugar-orm-mybatis-plus')
+include("$itcp_sugar_orm_mybatis_plus")
 
-include(':itcp-sugar-protocol:itcp-sugar-protocol-protobuf')
+include("$itcp_sugar_protocol_protobuf")
 
-include(':itcp-sugar-security:itcp-sugar-security-sa-token:itcp-sugar-security-sa-token-common')
-include(':itcp-sugar-security:itcp-sugar-security-sa-token:itcp-sugar-security-sa-token-webmvc')
-include(':itcp-sugar-security:itcp-sugar-security-sa-token:itcp-sugar-security-sa-token-webflux')
+include("$itcp_sugar_security_sa_token_common")
+include("$itcp_sugar_security_sa_token_webmvc")
+include("$itcp_sugar_security_sa_token_webflux")
 
-include(':itcp-sugar-tool')
-
+include("$itcp_sugar_tool")

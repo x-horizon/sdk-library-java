@@ -9,11 +9,11 @@ dependencies {
 
     // security
     api("$sa_token_reactor")
-    api(project(':itcp-sugar-security:itcp-sugar-security-sa-token:itcp-sugar-security-sa-token-common'))
+    api(project("$itcp_sugar_security_sa_token_common"))
 
     // tool
-    implementation(project(':itcp-sugar-tool'))
-    implementation(project(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-webflux'))
+    implementation(project("$itcp_sugar_tool"))
+    implementation(project("$itcp_sugar_framework_spring_tool_webflux"))
 
     // test
     testAnnotationProcessor("$spring_boot_configuration_processor")

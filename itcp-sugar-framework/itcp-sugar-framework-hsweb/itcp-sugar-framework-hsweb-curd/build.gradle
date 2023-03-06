@@ -11,8 +11,8 @@ dependencies {
     implementation("$data_r2dbc")
 
     // tool
-    implementation(project(':itcp-sugar-tool'))
-    implementation(project(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-all'))
+    implementation(project("$itcp_sugar_tool"))
+    implementation(project("$itcp_sugar_component_convert_all"))
 }
 
 tasks.withType(JavaCompile).configureEach {

@@ -8,7 +8,7 @@ dependencies {
     api("$hsweb_authorization_basic")
 
     // tool
-    implementation(project(':itcp-sugar-tool'))
+    implementation(project("$itcp_sugar_tool"))
 }
 
 tasks.withType(JavaCompile).configureEach {

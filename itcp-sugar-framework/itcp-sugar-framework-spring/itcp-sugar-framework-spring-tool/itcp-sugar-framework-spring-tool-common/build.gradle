@@ -8,10 +8,10 @@ dependencies {
     implementation("$spring_boot_aop")
 
     // doc
-    implementation(project(':itcp-sugar-doc:itcp-sugar-doc-knife4j'))
+    implementation(project("$itcp_sugar_doc_knife4j"))
 
     // tool
-    implementation(project(':itcp-sugar-tool'))
+    implementation(project("$itcp_sugar_tool"))
 }
 
 tasks.withType(JavaCompile).configureEach {

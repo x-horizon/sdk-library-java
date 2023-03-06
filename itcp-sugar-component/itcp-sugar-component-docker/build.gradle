@@ -12,7 +12,7 @@ dependencies {
     api("$docker_java_transport_httpclient5")
 
     // tool
-    implementation(project(':itcp-sugar-tool'))
+    implementation(project("$itcp_sugar_tool"))
 
     // test
     testAnnotationProcessor("$spring_boot_configuration_processor")

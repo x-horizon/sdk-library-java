@@ -8,19 +8,19 @@ dependencies {
     testImplementation("$spring_boot_webmvc")
 
     // tool
-    implementation(project(':itcp-sugar-tool'))
-    implementation(project(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-common'))
-    api(project(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-spring'))
-    api(project(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-jackson'))
-    api(project(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-fastjson'))
-    api(project(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-mapstruct'))
+    implementation(project("$itcp_sugar_tool"))
+    implementation(project("$itcp_sugar_framework_spring_tool_common"))
+    api(project("$itcp_sugar_component_convert_spring"))
+    api(project("$itcp_sugar_component_convert_jackson"))
+    api(project("$itcp_sugar_component_convert_fastjson"))
+    api(project("$itcp_sugar_component_convert_mapstruct"))
     annotationProcessor("$mapstruct_processor")
     annotationProcessor("$lombok_mapstruct_binding")
 
     // test
-    testImplementation(project(':itcp-sugar-tool'))
-    testImplementation(project(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-jackson'))
-    testImplementation(project(':itcp-sugar-component:itcp-sugar-component-convert:itcp-sugar-component-convert-mapstruct'))
+    testImplementation(project("$itcp_sugar_tool"))
+    testImplementation(project("$itcp_sugar_component_convert_jackson"))
+    testImplementation(project("$itcp_sugar_component_convert_mapstruct"))
     testAnnotationProcessor("$mapstruct_processor")
     testAnnotationProcessor("$lombok_mapstruct_binding")
 }
