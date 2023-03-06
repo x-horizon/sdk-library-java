@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.framework.spring.cloud.openfeign.support;
+package cn.srd.itcp.sugar.framework.spring.cloud.openfeign.okhttp.support;
 
 import lombok.SneakyThrows;
 import okhttp3.Interceptor;
@@ -6,12 +6,12 @@ import okhttp3.Response;
 import org.springframework.lang.NonNull;
 
 /**
- * open feign okhttp 响应拦截器
+ * open feign okhttp 拦截器
  *
  * @author wjm
  * @since 2023-03-04 16:48:19
  */
-public interface OpenFeignOkHttpResponseInterceptor<T> extends Interceptor {
+public interface OpenFeignOkHttpInterceptor<T> extends OpenFeignOkHttpConfigurator, Interceptor {
 
     /**
      * 解析生产端响应结果

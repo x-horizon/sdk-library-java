@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.framework.spring.cloud.openfeign.support;
+package cn.srd.itcp.sugar.framework.spring.cloud.openfeign.okhttp.support;
 
 import cn.srd.itcp.sugar.component.convert.all.core.Converts;
 import cn.srd.itcp.sugar.tool.exceptions.RunningException;
@@ -13,7 +13,7 @@ import okhttp3.ResponseBody;
  * @author wjm
  * @since 2023-03-04 16:48:19
  */
-public class OpenFeignOkHttpResponseHandleWebResponseInterceptor implements OpenFeignOkHttpResponseInterceptor<WebResponse<?>> {
+public class OpenFeignOkHttpHandleWebResponseInterceptor implements OpenFeignOkHttpInterceptor<WebResponse<?>> {
 
     @SneakyThrows
     @Override
