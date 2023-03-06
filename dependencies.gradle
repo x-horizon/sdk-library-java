@@ -25,7 +25,7 @@ ext {
     mapstruct_version = "1.5.2.Final"
     vavr_version = "0.10.4"
     guava_version = "31.1-jre"
-    hutool_version = "5.8.3"
+    hutool_version = "5.8.14"
     fastjson_version = "1.2.79"
     jackson_version = "2.13.1"
     okhttps_version = "3.5.0"
