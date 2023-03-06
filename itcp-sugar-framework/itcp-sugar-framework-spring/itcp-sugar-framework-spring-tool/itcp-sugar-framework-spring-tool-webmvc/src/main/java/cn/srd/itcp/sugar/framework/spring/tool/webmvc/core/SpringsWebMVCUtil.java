@@ -1,8 +1,8 @@
 package cn.srd.itcp.sugar.framework.spring.tool.webmvc.core;
 
-import cn.srd.itcp.sugar.tool.core.Objects;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.lang.NonNull;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -25,8 +25,9 @@ public class SpringsWebMVCUtil {
      *
      * @return 请求属性
      */
+    @NonNull
     public static ServletRequestAttributes getServletRequestAttributes() {
-        return Objects.requireNotNull(() -> "当前为非web上下文环境，无法获取，请检查！", (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes());
+        return (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
     }
 
     /**
