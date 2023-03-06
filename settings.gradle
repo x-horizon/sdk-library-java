@@ -28,6 +28,7 @@ include(':itcp-sugar-doc:itcp-sugar-doc-knife4j')
 
 include(':itcp-sugar-framework:itcp-sugar-framework-hsweb:itcp-sugar-framework-hsweb-authorize')
 include(':itcp-sugar-framework:itcp-sugar-framework-hsweb:itcp-sugar-framework-hsweb-curd')
+include(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-cloud:itcp-sugar-framework-spring-cloud-gateway')
 include(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-cloud:itcp-sugar-framework-spring-cloud-kubernetes:itcp-sugar-framework-spring-cloud-kubernetes-fabric8')
 include(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-cloud:itcp-sugar-framework-spring-cloud-openfeign:itcp-sugar-framework-spring-cloud-openfeign-okhttp')
 include(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-tool:itcp-sugar-framework-spring-tool-common')

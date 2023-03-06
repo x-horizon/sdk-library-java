@@ -48,6 +48,7 @@ ext {
     spring_boot_starter_aop = "org.springframework.boot:spring-boot-starter-aop"
     spring_boot_configuration_processor = "org.springframework.boot:spring-boot-configuration-processor"
     spring_cloud_bom = "org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_bom_version}" as GStringImpl
+    spring_cloud_gateway = "org.springframework.cloud:spring-cloud-starter-gateway"
     spring_cloud_starter_openfeign = "org.springframework.cloud:spring-cloud-starter-openfeign"
     spring_cloud_starter_kubernetes_fabric8_all = "org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8-all"
     hsweb_authorization_basic = "org.hswebframework.web:hsweb-authorization-basic:${hsweb_version}" as GStringImpl
