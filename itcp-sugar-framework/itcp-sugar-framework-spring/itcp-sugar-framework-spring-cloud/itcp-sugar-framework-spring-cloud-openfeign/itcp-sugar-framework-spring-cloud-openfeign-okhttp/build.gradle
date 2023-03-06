@@ -5,8 +5,8 @@ version = projectVersion
 dependencies {
     // framework
     implementation("$spring_data_commons")
-    implementation("$spring_boot_starter")
-    api("$spring_cloud_starter_openfeign")
+    implementation("$spring_boot")
+    api("$spring_cloud_openfeign")
 
     // network
     api("$openfeign_okhttp")

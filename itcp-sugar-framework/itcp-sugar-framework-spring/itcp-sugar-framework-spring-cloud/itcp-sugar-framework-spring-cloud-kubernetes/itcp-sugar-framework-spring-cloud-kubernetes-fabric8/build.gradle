@@ -4,7 +4,7 @@ version = projectVersion
 
 dependencies {
     // framework
-    api("$spring_cloud_starter_kubernetes_fabric8_all")
+    api("$spring_cloud_kubernetes_fabric8_all")
 
     // tool
     implementation(project(':itcp-sugar-tool'))

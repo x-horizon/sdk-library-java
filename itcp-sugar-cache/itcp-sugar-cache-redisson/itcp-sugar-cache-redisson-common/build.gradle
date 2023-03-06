@@ -4,8 +4,8 @@ version = projectVersion
 
 dependencies {
     // framework
-    implementation("$spring_boot_starter")
-    implementation("$spring_boot_starter_aop")
+    implementation("$spring_boot")
+    implementation("$spring_boot_aop")
     annotationProcessor("$spring_boot_configuration_processor")
 
     // database

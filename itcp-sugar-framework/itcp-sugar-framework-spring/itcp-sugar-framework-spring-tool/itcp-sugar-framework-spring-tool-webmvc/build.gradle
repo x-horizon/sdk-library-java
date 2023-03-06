@@ -4,8 +4,8 @@ version = projectVersion
 
 dependencies {
     // framework
-    implementation("$spring_boot_starter_webmvc")
-    implementation("$spring_boot_starter_aop")
+    implementation("$spring_boot_webmvc")
+    implementation("$spring_boot_aop")
 
     // tool
     implementation(project(':itcp-sugar-tool'))

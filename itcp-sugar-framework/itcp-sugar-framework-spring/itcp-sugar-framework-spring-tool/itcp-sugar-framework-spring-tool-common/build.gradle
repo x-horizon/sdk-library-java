@@ -4,8 +4,8 @@ version = projectVersion
 
 dependencies {
     // framework
-    implementation("$spring_boot_starter")
-    implementation("$spring_boot_starter_aop")
+    implementation("$spring_boot")
+    implementation("$spring_boot_aop")
 
     // doc
     implementation(project(':itcp-sugar-doc:itcp-sugar-doc-knife4j'))

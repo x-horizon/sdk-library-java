@@ -42,15 +42,15 @@ ext {
 
     // framework
     spring_data_commons = "org.springframework.data:spring-data-commons"
-    spring_boot_starter = "org.springframework.boot:spring-boot-starter"
-    spring_boot_starter_webmvc = "org.springframework.boot:spring-boot-starter-web"
-    spring_boot_starter_webflux = "org.springframework.boot:spring-boot-starter-webflux"
-    spring_boot_starter_aop = "org.springframework.boot:spring-boot-starter-aop"
+    spring_boot = "org.springframework.boot:spring-boot-starter"
+    spring_boot_webmvc = "org.springframework.boot:spring-boot-starter-web"
+    spring_boot_webflux = "org.springframework.boot:spring-boot-starter-webflux"
+    spring_boot_aop = "org.springframework.boot:spring-boot-starter-aop"
     spring_boot_configuration_processor = "org.springframework.boot:spring-boot-configuration-processor"
     spring_cloud_bom = "org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_bom_version}" as GStringImpl
     spring_cloud_gateway = "org.springframework.cloud:spring-cloud-starter-gateway"
-    spring_cloud_starter_openfeign = "org.springframework.cloud:spring-cloud-starter-openfeign"
-    spring_cloud_starter_kubernetes_fabric8_all = "org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8-all"
+    spring_cloud_openfeign = "org.springframework.cloud:spring-cloud-starter-openfeign"
+    spring_cloud_kubernetes_fabric8_all = "org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8-all"
     hsweb_authorization_basic = "org.hswebframework.web:hsweb-authorization-basic:${hsweb_version}" as GStringImpl
     hsweb_commons_crud = "org.hswebframework.web:hsweb-commons-crud:${hsweb_version}" as GStringImpl
 
@@ -126,5 +126,5 @@ ext {
     junit = "junit:junit:${junit_version}" as GStringImpl
     jmh_core = "org.openjdk.jmh:jmh-core:${jmh_version}" as GStringImpl
     jmh_generator_annprocess = "org.openjdk.jmh:jmh-generator-annprocess:${jmh_version}" as GStringImpl
-    spring_boot_starter_test = "org.springframework.boot:spring-boot-starter-test"
+    spring_boot_test = "org.springframework.boot:spring-boot-starter-test"
 }

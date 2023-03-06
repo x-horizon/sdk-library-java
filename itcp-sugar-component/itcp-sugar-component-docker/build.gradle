@@ -4,7 +4,7 @@ version = projectVersion
 
 dependencies {
     // framework
-    implementation("$spring_boot_starter")
+    implementation("$spring_boot")
     annotationProcessor("$spring_boot_configuration_processor")
 
     // component

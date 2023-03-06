@@ -55,7 +55,7 @@ allprojects {
         // test
         testImplementation("$junit")
         testImplementation("$jmh_core")
-        testImplementation("$spring_boot_starter_test")
+        testImplementation("$spring_boot_test")
         testCompileOnly("$lombok")
         testAnnotationProcessor("$lombok")
         testAnnotationProcessor("$jmh_generator_annprocess")
