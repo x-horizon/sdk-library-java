@@ -9,6 +9,7 @@ dependencies {
     api("$spring_cloud_openfeign")
 
     // network
+    api(project(':itcp-sugar-framework:itcp-sugar-framework-spring:itcp-sugar-framework-spring-cloud:itcp-sugar-framework-spring-cloud-openfeign:itcp-sugar-framework-spring-cloud-openfeign-common'))
     api("$openfeign_okhttp")
 
     // tool
