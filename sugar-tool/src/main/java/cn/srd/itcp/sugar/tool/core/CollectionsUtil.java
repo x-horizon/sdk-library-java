@@ -418,11 +418,11 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 过滤出集合中条件为 true 的元素并构造为新的 List
      * <pre>
-     *     List&lt;String> list = new ArrayList<>();
+     *     List&lt;String&gt; list = new ArrayList&lt;&gt;();
      *     list.add("123");
      *     list.add("123");
      *     list.add("113");
-     *     List&lt;String> list2 = filters(list, item -> item.startsWith("12"));
+     *     List&lt;String&gt; list2 = filters(list, item -> item.startsWith("12"));
      *
      *    上述代码结果为: list2: [123, 123]
      * </pre>
@@ -466,12 +466,12 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 过滤出 Map 中条件为 true 的元素并构造为新的 Map
      * <pre>
-     *     Map&lt;String, String> map1 = new HashMap<>();
+     *     Map&lt;String, String&gt; map1 = new HashMap&lt;&gt;();
      *     map1.put("123", "test");
      *     map1.put("121", "test");
      *     map1.put("113", "test");
      *     map1.put("111", "test");
-     *     Map&lt;String, String> map2 = filters(map1, entry -> entry.getKey().startsWith("12"));
+     *     Map&lt;String, String&gt; map2 = filters(map1, entry -> entry.getKey().startsWith("12"));
      *
      *    上述代码结果为: map2: {123="test", 121="test"}
      * </pre>
@@ -489,12 +489,12 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 过滤出 Map value 中条件为 true 的元素并构造为新的 List
      * <pre>
-     *     Map&lt;String, String> map = new HashMap<>();
+     *     Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
      *     map.put("test1", "123");
      *     map.put("test2", "121");
      *     map.put("test3", "113");
      *     map.put("test4", "111");
-     *     List&lt;String> list = capableFilters(map, str -> str.startsWith("12"));
+     *     List&lt;String&gt; list = capableFilters(map, str -> str.startsWith("12"));
      *
      *    上述代码结果为: list: [123,121]
      * </pre>
@@ -514,14 +514,14 @@ public class CollectionsUtil extends CollUtil {
      * <pre>
      *     Person person1 = new Person().setName("John").setAge(18);
      *     Person person2 = new Person().setName("John").setAge(19);
-     *     List&lt;Person> people = toList(person1, person2);
+     *     List&lt;Person&gt; people = toList(person1, person2);
      *
-     *     Map&lt;String, List&lt;Person>> map1 = new HashMap<>();
+     *     Map&lt;String, List&lt;Person&gt;&gt; map1 = new HashMap&lt;&gt;();
      *     map1.put("test1", people);
      *     map1.put("test2", people);
      *     map1.put("test3", people);
      *
-     *     Map&lt;String, Person> map2 = capableFilters(map1, entry -> "test1".equals(entry.getKey()), entry -> entry.getValue().get(0));
+     *     Map&lt;String, Person&gt; map2 = capableFilters(map1, entry -> "test1".equals(entry.getKey()), entry -> entry.getValue().get(0));
      *
      *    上述代码结果为: map2: {"test1"={Person@700} "Person(name="John", age=18)"}
      * </pre>
@@ -552,11 +552,11 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 过滤出集合中条件为 true 的元素并构造为新的 Set
      * <pre>
-     *     List&lt;String> list = new ArrayList<>();
+     *     List&lt;String&gt; list = new ArrayList&lt;&gt;();
      *     list.add("123");
      *     list.add("123");
      *     list.add("113");
-     *     Set&lt;String> set = filters(list, item -> item.startsWith("12"));
+     *     Set&lt;String&gt; set = filters(list, item -> item.startsWith("12"));
      *
      *    上述代码结果为: set: [123]
      * </pre>
@@ -622,8 +622,8 @@ public class CollectionsUtil extends CollUtil {
      *     Person person2 = new Person().setName("John").setAge(19);
      *     Person person3 = new Person().setName("Mike").setAge(20);
      *     Person person4 = new Person().setName("Mike").setAge(21);
-     *     List&lt;Person> people = toList(person1, person2, person3, person4);
-     *     List&lt;Person> people2 = capableDistinct(people, person -> person.getAge() < 21, Person::getName);
+     *     List&lt;Person&gt; people = toList(person1, person2, person3, person4);
+     *     List&lt;Person&gt; people2 = capableDistinct(people, person -> person.getAge() &lt; 21, Person::getName);
      *
      *    上述代码结果为: people2: [{Person@701} "Person(name="John", age=18), {Person@702} "Person(name="Mike", age=20)]
      * </pre>
