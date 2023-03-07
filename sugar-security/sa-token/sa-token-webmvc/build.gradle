@@ -1,0 +1,66 @@
+def projectName = 'itcp-sugar-security-sa-token-webmvc'
+
+version = projectVersion
+
+dependencies {
+    // framework
+    implementation("$spring_boot_webmvc")
+    annotationProcessor("$spring_boot_configuration_processor")
+
+    // security
+    api("$sa_token")
+    api("$sa_token_jakata_servlet")
+    api(project("$itcp_sugar_security_sa_token_common"))
+
+    // tool
+    implementation(project("$itcp_sugar_tool"))
+    implementation(project("$itcp_sugar_framework_spring_tool_common"))
+
+    // test
+    testAnnotationProcessor("$spring_boot_configuration_processor")
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = projectCharset
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier.set("sources")
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set("javadoc")
+    from javadoc.destinationDir
+}
+
+javadoc {
+    options {
+        encoding projectCharset
+        version true
+        title projectName
+    }
+}
+
+publishing {
+    publications {
+        publishApp(MavenPublication) {
+            groupId group
+            artifactId projectName
+            version project.version
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username projectNexusUsername
+                password projectNexusPassword
+            }
+            url = projectNexusUrl
+            allowInsecureProtocol = true
+        }
+    }
+}
