@@ -3,6 +3,7 @@ package cn.srd.itcp.sugar.framework.spring.cloud.openfeign.okhttp.support;
 import lombok.SneakyThrows;
 import okhttp3.Interceptor;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import org.springframework.lang.NonNull;
 
 /**
@@ -16,26 +17,20 @@ public interface OpenFeignOkHttpInterceptor<T> extends Interceptor {
     /**
      * 解析生产端响应结果
      *
-     * @param response okhttp response
+     * @param responseBody okhttp response body
      * @return 生产端响应结果
      */
-    T parseProductionResponse(Response response);
-
-    /**
-     * 构造 okhttp response
-     *
-     * @param response           okhttp response
-     * @param productionResponse 生产端响应结果
-     * @return okhttp response
-     */
-    Response ofResponse(Response response, T productionResponse);
+    String parseProductionResponse(ResponseBody responseBody);
 
     @SneakyThrows
     @NonNull
     @Override
     default Response intercept(Chain chain) {
         Response response = chain.proceed(chain.request());
-        return ofResponse(response, parseProductionResponse(response));
+        ResponseBody responseBody = response.body();
+        return response.newBuilder()
+                .body(ResponseBody.create(parseProductionResponse(responseBody), responseBody.contentType()))
+                .build();
     }
 
 }

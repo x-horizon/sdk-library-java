@@ -4,7 +4,6 @@ import cn.srd.itcp.sugar.component.convert.all.core.Converts;
 import cn.srd.itcp.sugar.tool.exceptions.RunningException;
 import cn.srd.itcp.sugar.tool.web.WebResponse;
 import lombok.SneakyThrows;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 /**
@@ -17,18 +16,12 @@ public class OpenFeignOkHttpHandleWebResponseInterceptor implements OpenFeignOkH
 
     @SneakyThrows
     @Override
-    public WebResponse<?> parseProductionResponse(Response response) {
-        return Converts.withJackson().toBean(response.body().string(), WebResponse.class);
-    }
-
-    @Override
-    public Response ofResponse(Response response, WebResponse<?> productionResponse) {
+    public String parseProductionResponse(ResponseBody responseBody) {
+        WebResponse<?> productionResponse = Converts.withJackson().toBean(responseBody.string(), WebResponse.class);
         if (productionResponse.errorIs()) {
             throw new RunningException(productionResponse.getStatus(), productionResponse.getMessage());
         }
-        return response.newBuilder()
-                .body(ResponseBody.create(Converts.withJackson().toString(productionResponse.getData()), response.body().contentType()))
-                .build();
+        return Converts.withJackson().toString(productionResponse.getData());
     }
 
 }
