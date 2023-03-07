@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.framework.spring.tool.common.core.enums.autowired.exception;
 
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.enums.autowired.EnumAutowired;
+import lombok.experimental.StandardException;
 
 import java.io.Serial;
 
@@ -10,43 +11,10 @@ import java.io.Serial;
  * @author wjm
  * @since 2021/9/8 16:07
  */
+@StandardException
 public class EnumAutowiredMayAutowiredBeansNotFoundException extends RuntimeException {
 
     @Serial
     private static final long serialVersionUID = 5574291562911269061L;
-
-    /**
-     * public constructor
-     */
-    public EnumAutowiredMayAutowiredBeansNotFoundException() {
-    }
-
-    /**
-     * public constructor
-     *
-     * @param message 异常信息
-     */
-    public EnumAutowiredMayAutowiredBeansNotFoundException(String message) {
-        super(message);
-    }
-
-    /**
-     * public constructor
-     *
-     * @param cause exception wrapper
-     */
-    public EnumAutowiredMayAutowiredBeansNotFoundException(Throwable cause) {
-        super(cause);
-    }
-
-    /**
-     * public constructor
-     *
-     * @param message 异常信息
-     * @param cause   exception wrapper
-     */
-    public EnumAutowiredMayAutowiredBeansNotFoundException(String message, Throwable cause) {
-        super(message, cause);
-    }
 
 }
