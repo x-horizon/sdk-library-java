@@ -2,7 +2,6 @@ package cn.srd.itcp.sugar.tool.exceptions;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.StandardException;
 
 import java.io.Serial;
 
@@ -14,7 +13,6 @@ import java.io.Serial;
  */
 @Getter
 @Setter
-@StandardException
 public class RunningException extends RuntimeException {
 
     @Serial
@@ -24,6 +22,15 @@ public class RunningException extends RuntimeException {
      * 自定义异常模板
      */
     ExceptionTemplate exceptionTemplate;
+
+    /**
+     * public constructor
+     *
+     * @param message 异常信息
+     */
+    public RunningException(String message) {
+        super(message);
+    }
 
     /**
      * public constructor
@@ -48,6 +55,16 @@ public class RunningException extends RuntimeException {
                 return null;
             }
         };
+    }
+
+    /**
+     * public constructor
+     *
+     * @param message 异常信息
+     * @param cause   wrapper exception
+     */
+    public RunningException(String message, Throwable cause) {
+        super(message, cause);
     }
 
     /**
