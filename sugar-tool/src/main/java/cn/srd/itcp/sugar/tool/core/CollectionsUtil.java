@@ -115,14 +115,13 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 获取最大比较规则元素
      * <pre>
-     *    {@code
-     *         Person person1 = new Person().setName("John").setAge(18);
-     *         Person person2 = new Person().setName("John").setAge(19);
-     *         Person person3 = new Person().setName("Mike").setAge(20);
-     *         Person person4 = new Person().setName("Mike").setAge(21);
-     *         List&lt;Person> people = toList(person1, person2, person3, person4);
-     *         Person person = getMax(people, Comparator.comparing(Person::getAge));
-     *    }
+     *     Person person1 = new Person().setName("John").setAge(18);
+     *     Person person2 = new Person().setName("John").setAge(19);
+     *     Person person3 = new Person().setName("Mike").setAge(20);
+     *     Person person4 = new Person().setName("Mike").setAge(21);
+     *     List&lt;Person> people = toList(person1, person2, person3, person4);
+     *     Person person = getMax(people, Comparator.comparing(Person::getAge));
+     *
      *    上述代码结果为: person: {Person@701} "Person(name="Mike", age=21)
      * </pre>
      *
@@ -329,10 +328,9 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 提取集合中元素某个字段的值作为 key，该字段作为 value 构造为新的 Map
      * <pre>
-     *    {@code
-     *      List&lt;Person> people = toList(new Person().setName("John").setAge(18));
-     *      Map&lt;String, Person> map = toMap(people, Person::getName);
-     *    }
+     *     List&lt;Person> people = toList(new Person().setName("John").setAge(18));
+     *     Map&lt;String, Person> map = toMap(people, Person::getName);
+     *
      *    1、上述代码结果为: "John" -> {Person@700} "Person(name="John", age=18)"
      *    2、key 不允许重复，否则抛出异常 java.lang.IllegalStateException: Duplicate key
      * </pre>
@@ -350,10 +348,9 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 提取集合中元素某个字段的值作为 key，另一个字段的值作为 value 构造为新的 Map
      * <pre>
-     *    {@code
-     *      List&lt;Person> people = toList(new Person().setName("John").setAge(18));
-     *      Map&lt;String, Integer> map = toMap(people, Person::getName, Person::getAge);
-     *    }
+     *     List&lt;Person> people = toList(new Person().setName("John").setAge(18));
+     *     Map&lt;String, Integer> map = toMap(people, Person::getName, Person::getAge);
+     *
      *    1、上述代码结果为: "John" -> 18
      *    2、key 不允许重复，否则抛出异常 java.lang.IllegalStateException: Duplicate key
      * </pre>
@@ -373,12 +370,11 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 提取集合中元素某个字段的值作为 key，该字段作为 value 构造为新的 Map
      * <pre>
-     *    {@code
-     *      Person person1 = new Person().setName("John").setAge(18);
-     *      Person person2 = new Person().setName("John").setAge(19);
-     *      List&lt;Person> people = toList(person1, person2);
-     *      Map&lt;String, List&lt;Person>> map = toMultiMap(people, Person::getName);
-     *    }
+     *     Person person1 = new Person().setName("John").setAge(18);
+     *     Person person2 = new Person().setName("John").setAge(19);
+     *     List&lt;Person> people = toList(person1, person2);
+     *     Map&lt;String, List&lt;Person>> map = toMultiMap(people, Person::getName);
+     *
      *    1、上述代码结果为: "John" -> {ArrayList@777}  size = 2  [Person(name="John", age=18), Person(name="John", age=19)]
      *    2、重复的 key 对应的 value 合并为 List
      * </pre>
@@ -396,12 +392,11 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 提取集合中元素某个字段的值作为 key，另一个字段的值作为 value 构造为新的 Map
      * <pre>
-     *    {@code
-     *      Person person1 = new Person().setName("John").setAge(18);
-     *      Person person2 = new Person().setName("John").setAge(19);
-     *      List&lt;Person> people = toList(person1, person2);
-     *      Map&lt;String, List&lt;Person>> map = toMultiMap(people, Person::getName, Person::getAge);
-     *    }
+     *     Person person1 = new Person().setName("John").setAge(18);
+     *     Person person2 = new Person().setName("John").setAge(19);
+     *     List&lt;Person> people = toList(person1, person2);
+     *     Map&lt;String, List&lt;Person>> map = toMultiMap(people, Person::getName, Person::getAge);
+     *
      *    1、上述代码结果为: "John" -> {ArrayList@777}  size = 2  [18, 19]
      *    2、重复的 key 对应的 value 合并为 List
      * </pre>
@@ -423,13 +418,12 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 过滤出集合中条件为 true 的元素并构造为新的 List
      * <pre>
-     *    {@code
-     *         List&lt;String> list = new ArrayList<>();
-     *         list.add("123");
-     *         list.add("123");
-     *         list.add("113");
-     *         List&lt;String> list2 = filters(list, item -> item.startsWith("12"));
-     *    }
+     *     List&lt;String> list = new ArrayList<>();
+     *     list.add("123");
+     *     list.add("123");
+     *     list.add("113");
+     *     List&lt;String> list2 = filters(list, item -> item.startsWith("12"));
+     *
      *    上述代码结果为: list2: [123, 123]
      * </pre>
      *
@@ -472,14 +466,13 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 过滤出 Map 中条件为 true 的元素并构造为新的 Map
      * <pre>
-     *    {@code
-     *         Map&lt;String, String> map1 = new HashMap<>();
-     *         map1.put("123", "test");
-     *         map1.put("121", "test");
-     *         map1.put("113", "test");
-     *         map1.put("111", "test");
-     *         Map&lt;String, String> map2 = filters(map1, entry -> entry.getKey().startsWith("12"));
-     *    }
+     *     Map&lt;String, String> map1 = new HashMap<>();
+     *     map1.put("123", "test");
+     *     map1.put("121", "test");
+     *     map1.put("113", "test");
+     *     map1.put("111", "test");
+     *     Map&lt;String, String> map2 = filters(map1, entry -> entry.getKey().startsWith("12"));
+     *
      *    上述代码结果为: map2: {123="test", 121="test"}
      * </pre>
      *
@@ -496,14 +489,13 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 过滤出 Map value 中条件为 true 的元素并构造为新的 List
      * <pre>
-     *    {@code
-     *         Map&lt;String, String> map = new HashMap<>();
-     *         map.put("test1", "123");
-     *         map.put("test2", "121");
-     *         map.put("test3", "113");
-     *         map.put("test4", "111");
-     *         List&lt;String> list = capableFilters(map, str -> str.startsWith("12"));
-     *    }
+     *     Map&lt;String, String> map = new HashMap<>();
+     *     map.put("test1", "123");
+     *     map.put("test2", "121");
+     *     map.put("test3", "113");
+     *     map.put("test4", "111");
+     *     List&lt;String> list = capableFilters(map, str -> str.startsWith("12"));
+     *
      *    上述代码结果为: list: [123,121]
      * </pre>
      *
@@ -520,18 +512,17 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 过滤出 Map 中条件为 true 的元素，并按要求提取元素中的 value 构造为新的 Map
      * <pre>
-     *    {@code
-     *         Person person1 = new Person().setName("John").setAge(18);
-     *         Person person2 = new Person().setName("John").setAge(19);
-     *         List&lt;Person> people = toList(person1, person2);
+     *     Person person1 = new Person().setName("John").setAge(18);
+     *     Person person2 = new Person().setName("John").setAge(19);
+     *     List&lt;Person> people = toList(person1, person2);
      *
-     *         Map&lt;String, List&lt;Person>> map1 = new HashMap<>();
-     *         map1.put("test1", people);
-     *         map1.put("test2", people);
-     *         map1.put("test3", people);
+     *     Map&lt;String, List&lt;Person>> map1 = new HashMap<>();
+     *     map1.put("test1", people);
+     *     map1.put("test2", people);
+     *     map1.put("test3", people);
      *
-     *         Map&lt;String, Person> map2 = capableFilters(map1, entry -> "test1".equals(entry.getKey()), entry -> entry.getValue().get(0));
-     *    }
+     *     Map&lt;String, Person> map2 = capableFilters(map1, entry -> "test1".equals(entry.getKey()), entry -> entry.getValue().get(0));
+     *
      *    上述代码结果为: map2: {"test1"={Person@700} "Person(name="John", age=18)"}
      * </pre>
      *
@@ -561,13 +552,12 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 过滤出集合中条件为 true 的元素并构造为新的 Set
      * <pre>
-     *    {@code
-     *         List&lt;String> list = new ArrayList<>();
-     *         list.add("123");
-     *         list.add("123");
-     *         list.add("113");
-     *         Set&lt;String> set = filters(list, item -> item.startsWith("12"));
-     *    }
+     *     List&lt;String> list = new ArrayList<>();
+     *     list.add("123");
+     *     list.add("123");
+     *     list.add("113");
+     *     Set&lt;String> set = filters(list, item -> item.startsWith("12"));
+     *
      *    上述代码结果为: set: [123]
      * </pre>
      *
@@ -586,12 +576,11 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 根据元素中某个字段去重并构造为新的 List
      * <pre>
-     *    {@code
-     *         Person person1 = new Person().setName("John").setAge(18);
-     *         Person person2 = new Person().setName("John").setAge(19);
-     *         List&lt;Person> people = toList(person1, person2);
-     *         List&lt;Person> people2 = distinct(people, Person::getName);
-     *    }
+     *     Person person1 = new Person().setName("John").setAge(18);
+     *     Person person2 = new Person().setName("John").setAge(19);
+     *     List&lt;Person> people = toList(person1, person2);
+     *     List&lt;Person> people2 = distinct(people, Person::getName);
+     *
      *    上述代码结果为: people2: [{Person@701} "Person(name="John", age=18)]
      * </pre>
      *
@@ -608,12 +597,11 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 根据元素中某个字段去重并构造为新的 List
      * <pre>
-     *    {@code
-     *         Person person1 = new Person().setName("John").setAge(18);
-     *         Person person2 = new Person().setName("John").setAge(19);
-     *         List&lt;Person> people = toList(person1, person2);
-     *         List&lt;String> names = distinctDuplicatedKey(people, Person::getName);
-     *    }
+     *     Person person1 = new Person().setName("John").setAge(18);
+     *     Person person2 = new Person().setName("John").setAge(19);
+     *     List&lt;Person> people = toList(person1, person2);
+     *     List&lt;String> names = distinctDuplicatedKey(people, Person::getName);
+     *
      *    上述代码结果为: names: ["John"]
      * </pre>
      *
@@ -630,14 +618,13 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 过滤出集合中条件为 true 的元素，再根据元素中某个字段去重后，构造为新的 List
      * <pre>
-     *    {@code
-     *         Person person1 = new Person().setName("John").setAge(18);
-     *         Person person2 = new Person().setName("John").setAge(19);
-     *         Person person3 = new Person().setName("Mike").setAge(20);
-     *         Person person4 = new Person().setName("Mike").setAge(21);
-     *         List&lt;Person> people = toList(person1, person2, person3, person4);
-     *         List&lt;Person> people2 = capableDistinct(people, person -> person.getAge() < 21, Person::getName);
-     *    }
+     *     Person person1 = new Person().setName("John").setAge(18);
+     *     Person person2 = new Person().setName("John").setAge(19);
+     *     Person person3 = new Person().setName("Mike").setAge(20);
+     *     Person person4 = new Person().setName("Mike").setAge(21);
+     *     List&lt;Person> people = toList(person1, person2, person3, person4);
+     *     List&lt;Person> people2 = capableDistinct(people, person -> person.getAge() < 21, Person::getName);
+     *
      *    上述代码结果为: people2: [{Person@701} "Person(name="John", age=18), {Person@702} "Person(name="Mike", age=20)]
      * </pre>
      *
@@ -703,14 +690,13 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 根据集合元素中某个字段值升序排除后构造为新的 List
      * <pre>
-     *    {@code
-     *         Person person1 = new Person().setName("John").setAge(18);
-     *         Person person2 = new Person().setName("John").setAge(19);
-     *         Person person3 = new Person().setName("Mike").setAge(20);
-     *         Person person4 = new Person().setName("Mike").setAge(21);
-     *         List&lt;Person> people = toList(person1, person2, person3, person4);
-     *         List&lt;Person> people2 = asc(people, Person::getAge);
-     *    }
+     *     Person person1 = new Person().setName("John").setAge(18);
+     *     Person person2 = new Person().setName("John").setAge(19);
+     *     Person person3 = new Person().setName("Mike").setAge(20);
+     *     Person person4 = new Person().setName("Mike").setAge(21);
+     *     List&lt;Person> people = toList(person1, person2, person3, person4);
+     *     List&lt;Person> people2 = asc(people, Person::getAge);
+     *
      *    上述代码结果为: people2: [
      *                              {Person@701} "Person(name="John", age=18),
      *                              {Person@702} "Person(name="John", age=19),
@@ -732,14 +718,13 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 根据集合元素中某个字段值降序排序后构造为新的 List
      * <pre>
-     *    {@code
-     *         Person person1 = new Person().setName("John").setAge(18);
-     *         Person person2 = new Person().setName("John").setAge(19);
-     *         Person person3 = new Person().setName("Mike").setAge(20);
-     *         Person person4 = new Person().setName("Mike").setAge(21);
-     *         List&lt;Person> people = toList(person1, person2, person3, person4);
-     *         List&lt;Person> people2 = desc(people, Person::getAge);
-     *    }
+     *     Person person1 = new Person().setName("John").setAge(18);
+     *     Person person2 = new Person().setName("John").setAge(19);
+     *     Person person3 = new Person().setName("Mike").setAge(20);
+     *     Person person4 = new Person().setName("Mike").setAge(21);
+     *     List&lt;Person> people = toList(person1, person2, person3, person4);
+     *     List&lt;Person> people2 = desc(people, Person::getAge);
+     *
      *    上述代码结果为: people2: [
      *                              {Person@701} "Person(name="Mike", age=21),
      *                              {Person@702} "Person(name="Mike", age=20),
@@ -763,14 +748,13 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 求和
      * <pre>
-     *    {@code
-     *         Person person1 = new Person().setName("John").setAge(18);
-     *         Person person2 = new Person().setName("John").setAge(19);
-     *         Person person3 = new Person().setName("Mike").setAge(20);
-     *         Person person4 = new Person().setName("Mike").setAge(21);
-     *         List&lt;Person> people = toList(person1, person2, person3, person4);
-     *         int age = sum(people, Person::getAge);
-     *    }
+     *     Person person1 = new Person().setName("John").setAge(18);
+     *     Person person2 = new Person().setName("John").setAge(19);
+     *     Person person3 = new Person().setName("Mike").setAge(20);
+     *     Person person4 = new Person().setName("Mike").setAge(21);
+     *     List&lt;Person> people = toList(person1, person2, person3, person4);
+     *     int age = sum(people, Person::getAge);
+     *
      *    上述代码结果为: age: 78
      * </pre>
      *
@@ -804,16 +788,15 @@ public class CollectionsUtil extends CollUtil {
     /**
      * 根据集合元素的某个字段值进行分组，并构造为新的 Map
      * <pre>
-     *    {@code
-     *         Person person1 = new Person().setName("John").setAge(18);
-     *         Person person2 = new Person().setName("John").setAge(19);
-     *         Person person3 = new Person().setName("Mike").setAge(20);
-     *         Person person4 = new Person().setName("Mike").setAge(21);
-     *         Person person5 = new Person().setName("Carl").setAge(22);
-     *         Person person6 = new Person().setName("Carl").setAge(23);
-     *         List&lt;Person> people = toList(person1, person2, person3, person4, person5, person6);
-     *         Map&lt;String, List&lt;Person>> map = groupBy(people, Person::getName);
-     *    }
+     *     Person person1 = new Person().setName("John").setAge(18);
+     *     Person person2 = new Person().setName("John").setAge(19);
+     *     Person person3 = new Person().setName("Mike").setAge(20);
+     *     Person person4 = new Person().setName("Mike").setAge(21);
+     *     Person person5 = new Person().setName("Carl").setAge(22);
+     *     Person person6 = new Person().setName("Carl").setAge(23);
+     *     List&lt;Person> people = toList(person1, person2, person3, person4, person5, person6);
+     *     Map&lt;String, List&lt;Person>> map = groupBy(people, Person::getName);
+     *
      *    上述代码结果为: map: {
      *                          "John"=[{Person@700} "Person(name="John", age=18), {Person@701} "Person(name="John", age=19)]
      *                          "Mike"=[{Person@702} "Person(name="Mike", age=20), {Person@703} "Person(name="Mike", age=21)]
