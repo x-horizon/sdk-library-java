@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.framework.spring.cloud.openfeign.okhttp.support;
 
+import lombok.Cleanup;
 import lombok.SneakyThrows;
 import okhttp3.Interceptor;
 import okhttp3.Response;
@@ -26,7 +27,7 @@ public interface OpenFeignOkHttpInterceptor<T> extends Interceptor {
     @NonNull
     @Override
     default Response intercept(Chain chain) {
-        Response response = chain.proceed(chain.request());
+        @Cleanup Response response = chain.proceed(chain.request());
         ResponseBody responseBody = response.body();
         return response.newBuilder()
                 .body(ResponseBody.create(parseProductionResponse(responseBody), responseBody.contentType()))
