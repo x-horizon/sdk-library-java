@@ -113,14 +113,14 @@ public class JacksonConverts {
         return new JacksonMapper.Builder(new JacksonMapper());
     }
 
-    /**
-     * <pre>
-     * 设置静态块（最先加载）来初始化 {@link #defaultJacksonMapper}；
-     * 若直接对 {@link #defaultJacksonMapper} 赋值，如：{@link #defaultJacksonMapper} = getInstance().builder().build()，
-     * 此时单例正在加载的过程中又要获取单例，就会造成空指针问题；
-     * </pre>
-     */
     static {
+        /**
+         * <pre>
+         * 设置静态块（最先加载）来初始化 {@link #defaultJacksonMapper}；
+         * 若直接对 {@link #defaultJacksonMapper} 赋值，如：{@link #defaultJacksonMapper} = getInstance().builder().build()，
+         * 此时单例正在加载的过程中又要获取单例，就会造成空指针问题；
+         * </pre>
+         */
         getInstance().replaceGlobalJacksonMapper(getInstance().builder().build());
     }
 
