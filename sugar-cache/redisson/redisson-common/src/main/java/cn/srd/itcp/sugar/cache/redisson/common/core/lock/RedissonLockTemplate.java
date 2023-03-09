@@ -6,6 +6,7 @@ import cn.srd.itcp.sugar.cache.redisson.common.support.lock.RedissonLockAspectSu
 import cn.srd.itcp.sugar.cache.redisson.common.support.lock.RedissonNonFairLockAspect;
 import cn.srd.itcp.sugar.tool.core.convert.Converts;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
+import io.vavr.control.Try;
 import lombok.NonNull;
 import org.redisson.api.RLock;
 
@@ -393,7 +394,8 @@ public interface RedissonLockTemplate {
      */
     default <T, R> R tryLock(@Nullable T param, @NonNull Function<T, R> function, @NonNull String lockName, long waitTime, long leaseTime, @NonNull TimeUnit timeUnit) {
         RLock rLock = getRLock(lockName);
-        try {
+
+        return Try.of(() -> {
             R result = null;
             if (waitTime > DEFAULT_WAIT_TIME) {
                 if (rLock.tryLock(waitTime, leaseTime, timeUnit)) {
@@ -404,11 +406,9 @@ public interface RedissonLockTemplate {
                 result = function.apply(param);
             }
             return result;
-        } catch (Exception exception) {
-            throw new RedissonExecuteException(exception);
-        } finally {
-            unlockSafely(rLock);
-        }
+        }).onFailure(throwable -> {
+            throw new RedissonExecuteException(throwable);
+        }).andFinally(() -> unlockSafely(rLock)).get();
     }
 
     /**

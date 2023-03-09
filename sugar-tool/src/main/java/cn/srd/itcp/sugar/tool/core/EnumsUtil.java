@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.tool.core;
 
 import cn.hutool.core.util.EnumUtil;
 import cn.hutool.core.util.ReflectUtil;
+import io.vavr.control.Try;
 import lombok.NonNull;
 
 import java.lang.reflect.Field;
@@ -113,11 +114,7 @@ public class EnumsUtil extends EnumUtil {
         if (Objects.isNull(enumClass, enumValue)) {
             return null;
         }
-        try {
-            return Enum.valueOf(enumClass, enumValue);
-        } catch (IllegalArgumentException e) {
-            return null;
-        }
+        return Try.of(() -> Enum.valueOf(enumClass, enumValue)).getOrNull();
     }
 
     /**
@@ -147,7 +144,7 @@ public class EnumsUtil extends EnumUtil {
                 continue;
             }
             for (E enumObj : enums) {
-                if (Objects.equals(currentEnumFiledValue, ReflectsUtil.getFieldValue(enumObj, field))) {
+                if (Objects.equals(currentEnumFiledValue, ReflectsUtil.getFieldValueIgnoreThrowable(enumObj, field))) {
                     return enumObj;
                 }
             }

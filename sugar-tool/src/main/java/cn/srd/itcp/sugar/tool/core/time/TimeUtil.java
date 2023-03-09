@@ -8,6 +8,7 @@ import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import cn.srd.itcp.sugar.tool.core.asserts.Assert;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
+import io.vavr.control.Try;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -126,12 +127,11 @@ public class TimeUtil extends LocalDateTimeUtil {
             if (Objects.isNotNull(timeUnitEnum)) {
                 TimeUnitHandler timeUnitHandler = TimeUnitHandler.TIME_UNIT_MAPPING_HANDLER_MAP.get(timeUnitEnum);
                 Assert.INSTANCE.set(StringsUtil.format("could not match handler to handle time unit by input [{}] -> [{}]", timeFormat, timeUnit)).throwsIfNull(timeUnitHandler);
-                long time;
-                try {
-                    time = Long.parseLong(StringsUtil.removeAny(timeFormat, timeUnit));
-                } catch (Exception exception) {
-                    throw new RuntimeException(StringsUtil.format("invalid time by remove [{}] from input [{}]", timeUnit, timeFormat), exception);
-                }
+                long time = Try.of(() -> Long.parseLong(StringsUtil.removeAny(timeFormat, timeUnit)))
+                        .onFailure(throwable -> {
+                            throw new RuntimeException(StringsUtil.format("invalid time by remove [{}] from input [{}]", timeUnit, timeFormat), throwable);
+                        })
+                        .get();
                 return timeUnitHandler.newInstance().setTimeUnit(timeUnit).setTime(time);
             }
         }

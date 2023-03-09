@@ -58,11 +58,7 @@ public class SpringsUtil extends SpringUtil {
      * @return bean 对象
      */
     public static <T> T getBean(String beanName, Class<T> beanClass) {
-        try {
-            return SpringUtil.getBean(StringsUtil.lowerFirst(beanName), beanClass);
-        } catch (Exception ignore) {
-            return null;
-        }
+        return Try.of(() -> SpringUtil.getBean(StringsUtil.lowerFirst(beanName), beanClass)).getOrNull();
     }
 
     /**
@@ -73,11 +69,7 @@ public class SpringsUtil extends SpringUtil {
      * @return bean 对象
      */
     public static <T> T getBean(Class<T> beanClass) {
-        try {
-            return SpringUtil.getBean(beanClass);
-        } catch (Exception ignore) {
-            return null;
-        }
+        return Try.of(() -> SpringUtil.getBean(beanClass)).getOrNull();
     }
 
     /**
@@ -97,11 +89,7 @@ public class SpringsUtil extends SpringUtil {
      * @return bean collection
      */
     public static Set<Class<?>> scanPackageByAnnotation(Class<? extends Annotation> annotationClass) {
-        try {
-            return ClassesUtil.scanPackageByAnnotation(getRootPackagePath(), annotationClass);
-        } catch (Exception ignore) {
-            return CollectionsUtil.newHashSet();
-        }
+        return Try.of(() -> ClassesUtil.scanPackageByAnnotation(getRootPackagePath(), annotationClass)).getOrElse(CollectionsUtil.newHashSet());
     }
 
     /**
@@ -111,11 +99,7 @@ public class SpringsUtil extends SpringUtil {
      * @return 类集合
      */
     public static Set<Class<?>> scanPackagesBySuper(final Class<?> superClass) {
-        try {
-            return ClassesUtil.scanPackagesBySuper(new String[]{getRootPackagePath()}, superClass);
-        } catch (Exception ignore) {
-            return CollectionsUtil.newHashSet();
-        }
+        return Try.of(() -> ClassesUtil.scanPackagesBySuper(new String[]{getRootPackagePath()}, superClass)).getOrElse(CollectionsUtil.newHashSet());
     }
 
     /**

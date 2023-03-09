@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.tool.core;
 
 import cn.hutool.core.util.ReflectUtil;
+import io.vavr.control.Try;
 
 import java.lang.reflect.Field;
 
@@ -28,12 +29,8 @@ public class ReflectsUtil extends ReflectUtil {
      * @param field 字段
      * @return 字段值
      */
-    public static Object getFieldValue(Object obj, Field field) {
-        try {
-            return ReflectUtil.getFieldValue(obj, field);
-        } catch (Throwable throwable) {
-            return null;
-        }
+    public static Object getFieldValueIgnoreThrowable(Object obj, Field field) {
+        return Try.of(() -> ReflectUtil.getFieldValue(obj, field)).getOrNull();
     }
 
 }
