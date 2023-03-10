@@ -31,7 +31,7 @@ public class ChainConsumer1<C1> implements Chain {
     }
 
     /**
-     * 添加 {@link NodeConsumer1} 以及该节点的生效条件，若生效条件不满足，则该节点不会执行
+     * 添加节点以及该节点的生效条件，若生效条件不满足，则该节点不会执行
      *
      * @param node      {@link NodeConsumer1}
      * @param predicate 生效条件
@@ -47,7 +47,7 @@ public class ChainConsumer1<C1> implements Chain {
     }
 
     /**
-     * 添加 {@link NodeConsumer1} 以及该节点的生效条件，若生效条件不满足，则该节点不会执行
+     * 添加节点以及该节点的生效条件，若生效条件不满足，则该节点不会执行
      *
      * @param node      {@link NodeConsumer1}
      * @param predicate 生效条件
@@ -65,7 +65,7 @@ public class ChainConsumer1<C1> implements Chain {
     }
 
     /**
-     * 添加 {@link NodeConsumer1} 以及该节点的生效条件，若生效条件不满足，则该节点不会执行
+     * 添加节点以及该节点的生效条件，若生效条件不满足，则该节点不会执行
      *
      * @param node      {@link NodeConsumer1}
      * @param predicate 生效条件
@@ -85,7 +85,7 @@ public class ChainConsumer1<C1> implements Chain {
     }
 
     /**
-     * 添加 {@link NodeConsumer1} 以及该节点的生效条件，若生效条件不满足，则该节点不会执行
+     * 添加节点以及该节点的生效条件，若生效条件不满足，则该节点不会执行
      *
      * @param node      {@link NodeConsumer1}
      * @param predicate 生效条件
@@ -107,7 +107,7 @@ public class ChainConsumer1<C1> implements Chain {
     }
 
     /**
-     * 添加 {@link NodeConsumer1} 以及该节点的生效条件，若生效条件不满足，则该节点不会执行
+     * 添加节点以及该节点的生效条件，若生效条件不满足，则该节点不会执行
      *
      * @param node      {@link NodeConsumer1}
      * @param predicate 生效条件
