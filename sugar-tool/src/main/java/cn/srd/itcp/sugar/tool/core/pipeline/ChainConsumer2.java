@@ -21,7 +21,7 @@ public class ChainConsumer2<C1, C2> implements Chain {
     private final List<NodeConsumer2<C1, C2>> nodes = new LinkedList<>();
 
     /**
-     * 添加 {@link NodeConsumer2}
+     * 添加节点
      *
      * @param node {@link NodeConsumer2}
      * @return this
