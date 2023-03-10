@@ -3,6 +3,11 @@ package cn.srd.itcp.sugar.tool.core.pipeline;
 /**
  * 消费节点，该节点可以处理接收五个形参，无出参的动作
  *
+ * @param <N1> 处理动作的形参类型 1
+ * @param <N2> 处理动作的形参类型 2
+ * @param <N3> 处理动作的形参类型 3
+ * @param <N4> 处理动作的形参类型 4
+ * @param <N5> 处理动作的形参类型 5
  * @author wjm
  * @since 2023-03-10 09:20:11
  */
