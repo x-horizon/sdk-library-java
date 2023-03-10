@@ -864,4 +864,15 @@ public class CollectionsUtil extends CollUtil {
         return from;
     }
 
+    /**
+     * see {@link #contains(Collection, Object)}
+     *
+     * @param from   输入参数
+     * @param object 需要查找的值
+     * @return 是否不存在
+     */
+    public static boolean notContains(Collection<?> from, Object object) {
+        return !contains(from, object);
+    }
+
 }
