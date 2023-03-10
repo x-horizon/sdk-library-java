@@ -31,12 +31,12 @@ public class ChainConsumer1<C1> implements Chain {
     }
 
     /**
-     * 添加 {@link NodeConsumer1} 以及该节点的互斥条件，若互斥条件生效，则该节点不会执行
+     * 添加 {@link NodeConsumer1} 以及该节点的生效条件，若生效条件不满足，则该节点不会执行
      *
      * @param node      {@link NodeConsumer1}
-     * @param predicate 互斥条件
-     * @param p1        互斥条件的入参 1
-     * @param <P1>      互斥条件参数类型 1
+     * @param predicate 生效条件
+     * @param p1        生效条件的入参 1
+     * @param <P1>      生效条件参数类型 1
      * @return this
      */
     public <P1> ChainConsumer1<C1> addNode(NodeConsumer1<C1> node, Function1<P1, Boolean> predicate, P1 p1) {
@@ -47,14 +47,14 @@ public class ChainConsumer1<C1> implements Chain {
     }
 
     /**
-     * 添加 {@link NodeConsumer1} 以及该节点的互斥条件，若互斥条件生效，则该节点不会执行
+     * 添加 {@link NodeConsumer1} 以及该节点的生效条件，若生效条件不满足，则该节点不会执行
      *
      * @param node      {@link NodeConsumer1}
-     * @param predicate 互斥条件
-     * @param p1        互斥条件的入参 1
-     * @param p2        互斥条件的入参 2
-     * @param <P1>      互斥条件参数类型 1
-     * @param <P2>      互斥条件参数类型 2
+     * @param predicate 生效条件
+     * @param p1        生效条件的入参 1
+     * @param p2        生效条件的入参 2
+     * @param <P1>      生效条件参数类型 1
+     * @param <P2>      生效条件参数类型 2
      * @return this
      */
     public <P1, P2> ChainConsumer1<C1> addNode(NodeConsumer1<C1> node, Function2<P1, P2, Boolean> predicate, P1 p1, P2 p2) {
@@ -65,16 +65,16 @@ public class ChainConsumer1<C1> implements Chain {
     }
 
     /**
-     * 添加 {@link NodeConsumer1} 以及该节点的互斥条件，若互斥条件生效，则该节点不会执行
+     * 添加 {@link NodeConsumer1} 以及该节点的生效条件，若生效条件不满足，则该节点不会执行
      *
      * @param node      {@link NodeConsumer1}
-     * @param predicate 互斥条件
-     * @param p1        互斥条件的入参 1
-     * @param p2        互斥条件的入参 2
-     * @param p3        互斥条件的入参 3
-     * @param <P1>      互斥条件参数类型 1
-     * @param <P2>      互斥条件参数类型 2
-     * @param <P3>      互斥条件参数类型 3
+     * @param predicate 生效条件
+     * @param p1        生效条件的入参 1
+     * @param p2        生效条件的入参 2
+     * @param p3        生效条件的入参 3
+     * @param <P1>      生效条件参数类型 1
+     * @param <P2>      生效条件参数类型 2
+     * @param <P3>      生效条件参数类型 3
      * @return this
      */
     public <P1, P2, P3> ChainConsumer1<C1> addNode(NodeConsumer1<C1> node, Function3<P1, P2, P3, Boolean> predicate, P1 p1, P2 p2, P3 p3) {
@@ -85,18 +85,18 @@ public class ChainConsumer1<C1> implements Chain {
     }
 
     /**
-     * 添加 {@link NodeConsumer1} 以及该节点的互斥条件，若互斥条件生效，则该节点不会执行
+     * 添加 {@link NodeConsumer1} 以及该节点的生效条件，若生效条件不满足，则该节点不会执行
      *
      * @param node      {@link NodeConsumer1}
-     * @param predicate 互斥条件
-     * @param p1        互斥条件的入参 1
-     * @param p2        互斥条件的入参 2
-     * @param p3        互斥条件的入参 3
-     * @param p4        互斥条件的入参 4
-     * @param <P1>      互斥条件参数类型 1
-     * @param <P2>      互斥条件参数类型 2
-     * @param <P3>      互斥条件参数类型 3
-     * @param <P4>      互斥条件参数类型 4
+     * @param predicate 生效条件
+     * @param p1        生效条件的入参 1
+     * @param p2        生效条件的入参 2
+     * @param p3        生效条件的入参 3
+     * @param p4        生效条件的入参 4
+     * @param <P1>      生效条件参数类型 1
+     * @param <P2>      生效条件参数类型 2
+     * @param <P3>      生效条件参数类型 3
+     * @param <P4>      生效条件参数类型 4
      * @return this
      */
     public <P1, P2, P3, P4> ChainConsumer1<C1> addNode(NodeConsumer1<C1> node, Function4<P1, P2, P3, P4, Boolean> predicate, P1 p1, P2 p2, P3 p3, P4 p4) {
@@ -107,20 +107,20 @@ public class ChainConsumer1<C1> implements Chain {
     }
 
     /**
-     * 添加 {@link NodeConsumer1} 以及该节点的互斥条件，若互斥条件生效，则该节点不会执行
+     * 添加 {@link NodeConsumer1} 以及该节点的生效条件，若生效条件不满足，则该节点不会执行
      *
      * @param node      {@link NodeConsumer1}
-     * @param predicate 互斥条件
-     * @param p1        互斥条件的入参 1
-     * @param p2        互斥条件的入参 2
-     * @param p3        互斥条件的入参 3
-     * @param p4        互斥条件的入参 4
-     * @param p5        互斥条件的入参 5
-     * @param <P1>      互斥条件参数类型 1
-     * @param <P2>      互斥条件参数类型 2
-     * @param <P3>      互斥条件参数类型 3
-     * @param <P4>      互斥条件参数类型 4
-     * @param <P5>      互斥条件参数类型 5
+     * @param predicate 生效条件
+     * @param p1        生效条件的入参 1
+     * @param p2        生效条件的入参 2
+     * @param p3        生效条件的入参 3
+     * @param p4        生效条件的入参 4
+     * @param p5        生效条件的入参 5
+     * @param <P1>      生效条件参数类型 1
+     * @param <P2>      生效条件参数类型 2
+     * @param <P3>      生效条件参数类型 3
+     * @param <P4>      生效条件参数类型 4
+     * @param <P5>      生效条件参数类型 5
      * @return this
      */
     public <P1, P2, P3, P4, P5> ChainConsumer1<C1> addNode(NodeConsumer1<C1> node, Function5<P1, P2, P3, P4, P5, Boolean> predicate, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) {
