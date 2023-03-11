@@ -26,7 +26,7 @@ public class VerifyStringPatternSupport implements ConstraintValidator<VerifyStr
     public boolean isValid(String value, ConstraintValidatorContext context) {
 
         if (Objects.isNotBlank(value) && value.length() < max) {
-            String regex = "^[\\w\\\\s*]$";
+            String regex = "^\\w+$";
             return value.matches(regex);
         }
         return false;
