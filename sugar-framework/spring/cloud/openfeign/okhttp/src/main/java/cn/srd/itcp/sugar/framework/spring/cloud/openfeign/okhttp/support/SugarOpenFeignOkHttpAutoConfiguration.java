@@ -22,7 +22,7 @@ import java.util.Set;
  * @since 2023-03-04 16:48:19
  */
 @AutoConfiguration
-@ConditionalOnProperty(name = "spring.cloud.openfeign.okhttp.enabled", havingValue = StringPool.TRUE, matchIfMissing = true)
+@ConditionalOnProperty(name = "spring.cloud.openfeign.okhttp.enabled", havingValue = StringPool.TRUE, matchIfMissing = false)
 public class SugarOpenFeignOkHttpAutoConfiguration implements OpenFeignOkHttpConfigurator {
 
     /**
