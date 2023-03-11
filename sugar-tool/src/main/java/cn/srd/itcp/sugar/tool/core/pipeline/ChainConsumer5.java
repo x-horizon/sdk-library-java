@@ -45,7 +45,7 @@ public class ChainConsumer5<C1, C2, C3, C4, C5> implements Chain {
      */
     public <P1> ChainConsumer5<C1, C2, C3, C4, C5> addNode(NodeConsumer5<C1, C2, C3, C4, C5> node, Function1<P1, Boolean> predicate, P1 p1) {
         if (predicate.apply(p1)) {
-            nodes.add(node);
+            return addNode(node);
         }
         return this;
     }
@@ -63,7 +63,7 @@ public class ChainConsumer5<C1, C2, C3, C4, C5> implements Chain {
      */
     public <P1, P2> ChainConsumer5<C1, C2, C3, C4, C5> addNode(NodeConsumer5<C1, C2, C3, C4, C5> node, Function2<P1, P2, Boolean> predicate, P1 p1, P2 p2) {
         if (predicate.apply(p1, p2)) {
-            nodes.add(node);
+            return addNode(node);
         }
         return this;
     }
@@ -83,7 +83,7 @@ public class ChainConsumer5<C1, C2, C3, C4, C5> implements Chain {
      */
     public <P1, P2, P3> ChainConsumer5<C1, C2, C3, C4, C5> addNode(NodeConsumer5<C1, C2, C3, C4, C5> node, Function3<P1, P2, P3, Boolean> predicate, P1 p1, P2 p2, P3 p3) {
         if (predicate.apply(p1, p2, p3)) {
-            nodes.add(node);
+            return addNode(node);
         }
         return this;
     }
@@ -105,7 +105,7 @@ public class ChainConsumer5<C1, C2, C3, C4, C5> implements Chain {
      */
     public <P1, P2, P3, P4> ChainConsumer5<C1, C2, C3, C4, C5> addNode(NodeConsumer5<C1, C2, C3, C4, C5> node, Function4<P1, P2, P3, P4, Boolean> predicate, P1 p1, P2 p2, P3 p3, P4 p4) {
         if (predicate.apply(p1, p2, p3, p4)) {
-            nodes.add(node);
+            return addNode(node);
         }
         return this;
     }
@@ -129,7 +129,7 @@ public class ChainConsumer5<C1, C2, C3, C4, C5> implements Chain {
      */
     public <P1, P2, P3, P4, P5> ChainConsumer5<C1, C2, C3, C4, C5> addNode(NodeConsumer5<C1, C2, C3, C4, C5> node, Function5<P1, P2, P3, P4, P5, Boolean> predicate, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) {
         if (predicate.apply(p1, p2, p3, p4, p5)) {
-            nodes.add(node);
+            return addNode(node);
         }
         return this;
     }
