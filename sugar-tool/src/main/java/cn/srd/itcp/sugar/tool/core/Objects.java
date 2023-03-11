@@ -5,11 +5,13 @@ import cn.srd.itcp.sugar.tool.constant.CharPool;
 import cn.srd.itcp.sugar.tool.core.asserts.Assert;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import cn.srd.itcp.sugar.tool.web.HttpStatus;
+import lombok.SneakyThrows;
 
 import java.io.ObjectStreamClass;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -28,9 +30,9 @@ public class Objects {
     private Objects() {
     }
 
-    //============================================= null、empty、blank、positive、boolean、equals start
+    // ============================================= null、empty、blank、positive、boolean、equals start
 
-    //============================================= null
+    // ============================================= null
 
     /**
      * 判断是否为 null
@@ -99,7 +101,7 @@ public class Objects {
         return !isNull(objects);
     }
 
-    //============================================= empty
+    // ============================================= empty
 
     /**
      * 判断是否为空，定义：
@@ -729,7 +731,7 @@ public class Objects {
         return !isEmpty(objects);
     }
 
-    //============================================= blank
+    // ============================================= blank
 
     /**
      * 判断是否为空白，定义：
@@ -823,7 +825,7 @@ public class Objects {
         return !isAllBlank(objects);
     }
 
-    //============================================= positive
+    // ============================================= positive
 
     /**
      * 如果为正整数，返回 true
@@ -873,7 +875,7 @@ public class Objects {
         return !isAllPositive(objects);
     }
 
-    //============================================= boolean
+    // ============================================= boolean
 
     /**
      * 如果为 true，返回 true
@@ -999,7 +1001,7 @@ public class Objects {
         return true;
     }
 
-    //============================================= equals
+    // ============================================= equals
 
     /**
      * 比较两个对象是否相同；安全的 null 值比较
@@ -1163,7 +1165,7 @@ public class Objects {
 
     // null、empty、blank、positive、boolean、equals end =============================================
 
-    //============================================= require start
+    // ============================================= require start
 
     /**
      * 需要为 null
@@ -2449,7 +2451,7 @@ public class Objects {
 
     // require end =============================================
 
-    //============================================= modify value start
+    // ============================================= modify value start
 
     /**
      * 当给定字符串为 null 时，设置为空串
@@ -2585,7 +2587,39 @@ public class Objects {
         return new ArrayList<>();
     }
 
-    //============================================= modify value end
+    // ============================================= modify value end
+
+    // ============================================= do predicate start
+
+    /**
+     * 若执行条件为真，执行动作
+     *
+     * @param condition   执行条件
+     * @param doAction    执行动作
+     * @param actionParam 执行动作参数
+     * @param <T>         执行动作参数类型
+     */
+    public static <T> void doIfTrue(boolean condition, Consumer<T> doAction, T actionParam) {
+        if (condition) {
+            doAction.accept(actionParam);
+        }
+    }
+
+    /**
+     * 若执行条件为真，抛出异常
+     *
+     * @param condition 执行条件
+     * @param throwable 异常
+     * @param <T>       异常类型
+     */
+    @SneakyThrows
+    public static <T extends Throwable> void throwsIfTrue(boolean condition, T throwable) {
+        if (condition) {
+            throw throwable;
+        }
+    }
+
+    // ============================================= do predicate end
 
     /**
      * 是否为 JSONObject，首尾都为大括号判定为 JSONObject
