@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,7 +39,15 @@ public class SugarOpenFeignOkHttpAutoConfiguration implements OpenFeignOkHttpCon
             EnableOpenFeignOkHttpInterceptor enableOpenFeignOkHttpInterceptor = AnnotationsUtil.getAnnotation(item, EnableOpenFeignOkHttpInterceptor.class);
             interceptors.addAll(Arrays.asList(enableOpenFeignOkHttpInterceptor.value()));
         });
-        interceptors.forEach(interceptor -> OKHTTP_CLIENT_BUILDER_INSTANCE.addInterceptor(ReflectsUtil.newInstance(interceptor)));
+
+        var interceptorsAscByPriority = interceptors.stream()
+                .map(ReflectsUtil::newInstance)
+                .sorted(Comparator.comparing(OpenFeignOkHttpInterceptor::priority))
+                .map(interceptorInstance -> interceptorInstance.getClass())
+                .toList();
+
+        interceptorsAscByPriority.forEach(interceptor -> OKHTTP_CLIENT_BUILDER_INSTANCE.addInterceptor(ReflectsUtil.newInstance(interceptor)));
+
         return OKHTTP_CLIENT_BUILDER_INSTANCE;
     }
 

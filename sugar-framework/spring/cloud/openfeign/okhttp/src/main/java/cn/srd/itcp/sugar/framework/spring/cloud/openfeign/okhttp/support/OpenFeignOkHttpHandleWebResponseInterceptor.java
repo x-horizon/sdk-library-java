@@ -13,6 +13,11 @@ import lombok.SneakyThrows;
  */
 public class OpenFeignOkHttpHandleWebResponseInterceptor implements OpenFeignOkHttpInterceptor<WebResponse<?>> {
 
+    @Override
+    public int priority() {
+        return Integer.MIN_VALUE;
+    }
+
     @SneakyThrows
     @Override
     public WebResponse<?> parse(String responseBody) {

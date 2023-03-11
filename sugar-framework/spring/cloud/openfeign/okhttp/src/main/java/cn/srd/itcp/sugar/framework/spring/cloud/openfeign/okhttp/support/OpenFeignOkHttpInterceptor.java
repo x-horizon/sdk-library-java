@@ -20,6 +20,13 @@ import org.springframework.lang.NonNull;
 public interface OpenFeignOkHttpInterceptor<T> extends Interceptor {
 
     /**
+     * 拦截器优先级，数字越小，越先被拦截
+     *
+     * @return 拦截器优先级
+     */
+    int priority();
+
+    /**
      * 解析生产端响应结果
      *
      * @param responseBody okhttp response body
@@ -37,8 +44,8 @@ public interface OpenFeignOkHttpInterceptor<T> extends Interceptor {
 
     /**
      * <pre>
-     *    当前拦截器在遇到该函数返回的异常时，进行抛出；
-     *    若遇到不是该函数返回的异常，该拦截器返回拦截前的数据，由下一拦截器继续拦截
+     * 当前拦截器在遇到该函数返回的异常时，进行抛出；
+     * 若遇到不是该函数返回的异常，该拦截器返回拦截前的数据，由下一拦截器继续拦截；
      * </pre>
      *
      * @return 要抛出的异常

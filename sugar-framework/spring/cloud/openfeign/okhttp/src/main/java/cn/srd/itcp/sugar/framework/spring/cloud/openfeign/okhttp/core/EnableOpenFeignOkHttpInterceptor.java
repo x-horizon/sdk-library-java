@@ -16,7 +16,7 @@ import java.lang.annotation.*;
 public @interface EnableOpenFeignOkHttpInterceptor {
 
     /**
-     * 指定拦截器集合：有先后顺序，从指定的第一个拦截器开始按顺序进行拦截
+     * 指定拦截器集合
      *
      * @return 拦截器
      */
