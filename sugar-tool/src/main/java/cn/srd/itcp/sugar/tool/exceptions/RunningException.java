@@ -39,6 +39,7 @@ public class RunningException extends RuntimeException {
      * @param message 异常信息
      */
     public RunningException(Integer status, String message) {
+        super(message);
         this.exceptionTemplate = new ExceptionTemplate() {
             @Override
             public Integer getCode() {
