@@ -36,7 +36,7 @@ public class SugarOpenFeignOkHttpAutoConfiguration implements OpenFeignOkHttpCon
         Set<Class<? extends OpenFeignOkHttpInterceptor<?>>> interceptors = new HashSet<>();
         classesWithEnableOpenFeignOkHttpInterceptor.forEach(item -> {
             EnableOpenFeignOkHttpInterceptor enableOpenFeignOkHttpInterceptor = AnnotationsUtil.getAnnotation(item, EnableOpenFeignOkHttpInterceptor.class);
-            interceptors.addAll(Arrays.asList(enableOpenFeignOkHttpInterceptor.interceptors()));
+            interceptors.addAll(Arrays.asList(enableOpenFeignOkHttpInterceptor.value()));
         });
         interceptors.forEach(interceptor -> OKHTTP_CLIENT_BUILDER_INSTANCE.addInterceptor(ReflectsUtil.newInstance(interceptor)));
         return OKHTTP_CLIENT_BUILDER_INSTANCE;

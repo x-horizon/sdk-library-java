@@ -1,10 +1,9 @@
 package cn.srd.itcp.sugar.framework.spring.cloud.openfeign.okhttp.support;
 
 import cn.srd.itcp.sugar.component.convert.all.core.Converts;
-import cn.srd.itcp.sugar.tool.exceptions.RunningException;
+import cn.srd.itcp.sugar.tool.core.ReflectsUtil;
 import cn.srd.itcp.sugar.tool.web.WebResponse;
 import lombok.SneakyThrows;
-import okhttp3.ResponseBody;
 
 /**
  * open feign okhttp 响应拦截器，用于拦截 {@link WebResponse}
@@ -16,12 +15,17 @@ public class OpenFeignOkHttpHandleWebResponseInterceptor implements OpenFeignOkH
 
     @SneakyThrows
     @Override
-    public String parseProductionResponse(ResponseBody responseBody) {
-        WebResponse<?> productionResponse = Converts.withJackson().toBean(responseBody.string(), WebResponse.class);
-        if (productionResponse.errorIs()) {
-            throw new RunningException(productionResponse.getStatus(), productionResponse.getMessage());
+    public WebResponse<?> parse(String responseBody) {
+        WebResponse<?> response = Converts.withJackson().toBean(responseBody, WebResponse.class);
+        if (response.errorIs()) {
+            throw ReflectsUtil.newInstance(getExceptionToThrow(), response.getStatus(), response.getMessage());
         }
-        return Converts.withJackson().toString(productionResponse.getData());
+        return response;
+    }
+
+    @Override
+    public String filter(WebResponse<?> response) {
+        return Converts.withJackson().toString(response.getData());
     }
 
 }
