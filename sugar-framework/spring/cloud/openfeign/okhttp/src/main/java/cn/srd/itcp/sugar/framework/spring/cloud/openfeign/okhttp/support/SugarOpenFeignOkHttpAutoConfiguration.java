@@ -1,10 +1,12 @@
 package cn.srd.itcp.sugar.framework.spring.cloud.openfeign.okhttp.support;
 
-import cn.srd.itcp.sugar.framework.spring.cloud.openfeign.okhttp.core.EnableOpenFeignOkHttpInterceptor;
+import cn.srd.itcp.sugar.framework.spring.cloud.openfeign.okhttp.core.EnableOpenFeignOkHttpHandleResponseInterceptor;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.core.AnnotationsUtil;
-import cn.srd.itcp.sugar.tool.core.ReflectsUtil;
+import cn.srd.itcp.sugar.tool.core.ClassesUtil;
+import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
+import cn.srd.itcp.sugar.tool.core.Objects;
 import okhttp3.OkHttpClient;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -12,8 +14,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -33,21 +33,15 @@ public class SugarOpenFeignOkHttpAutoConfiguration implements OpenFeignOkHttpCon
      */
     @Bean
     public OkHttpClient.Builder okHttpClientBuilder() {
-        Set<Class<?>> classesWithEnableOpenFeignOkHttpInterceptor = SpringsUtil.scanPackageByAnnotation(EnableOpenFeignOkHttpInterceptor.class);
-        Set<Class<? extends OpenFeignOkHttpInterceptor<?>>> interceptors = new HashSet<>();
-        classesWithEnableOpenFeignOkHttpInterceptor.forEach(item -> {
-            EnableOpenFeignOkHttpInterceptor enableOpenFeignOkHttpInterceptor = AnnotationsUtil.getAnnotation(item, EnableOpenFeignOkHttpInterceptor.class);
-            interceptors.addAll(Arrays.asList(enableOpenFeignOkHttpInterceptor.value()));
-        });
-
-        var interceptorsAscByPriority = interceptors.stream()
-                .map(ReflectsUtil::newInstance)
-                .sorted(Comparator.comparing(OpenFeignOkHttpInterceptor::priority))
-                .map(interceptorInstance -> interceptorInstance.getClass())
-                .toList();
-
-        interceptorsAscByPriority.forEach(interceptor -> OKHTTP_CLIENT_BUILDER_INSTANCE.addInterceptor(ReflectsUtil.newInstance(interceptor)));
-
+        Set<Class<?>> classesWithEnableOpenFeignOkHttpHandleResponseInterceptor = SpringsUtil.scanPackageByAnnotation(EnableOpenFeignOkHttpHandleResponseInterceptor.class);
+        if (Objects.isNotEmpty(classesWithEnableOpenFeignOkHttpHandleResponseInterceptor)) {
+            classesWithEnableOpenFeignOkHttpHandleResponseInterceptor.forEach(item -> {
+                EnableOpenFeignOkHttpHandleResponseInterceptor enableOpenFeignOkHttpHandleResponseInterceptor = AnnotationsUtil.getAnnotation(item, EnableOpenFeignOkHttpHandleResponseInterceptor.class);
+                RESPONSE_MODELS_TO_PARSE.addAll(Arrays.asList(enableOpenFeignOkHttpHandleResponseInterceptor.models()));
+            });
+            RESPONSE_MODEL_NAMES_TO_PARSE.addAll(CollectionsUtil.toList(RESPONSE_MODELS_TO_PARSE, ClassesUtil::getClassFullName));
+            OKHTTP_CLIENT_BUILDER_INSTANCE.addInterceptor(new OpenFeignOkHttpHandleRepsonseInterceptor<>());
+        }
         return OKHTTP_CLIENT_BUILDER_INSTANCE;
     }
 
