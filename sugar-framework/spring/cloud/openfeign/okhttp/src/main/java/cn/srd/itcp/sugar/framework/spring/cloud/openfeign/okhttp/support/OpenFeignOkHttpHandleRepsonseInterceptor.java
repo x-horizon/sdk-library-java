@@ -32,8 +32,8 @@ public class OpenFeignOkHttpHandleRepsonseInterceptor<T> implements Interceptor 
      */
     @SneakyThrows
     public String parse(String responseBody) {
-        ResponseModel responseModel = null;
-        for (Class<? extends ResponseModel> responseModelClass : OpenFeignOkHttpConfigurator.RESPONSE_MODELS_TO_PARSE) {
+        ResponseModel<?> responseModel = null;
+        for (Class<? extends ResponseModel<?>> responseModelClass : OpenFeignOkHttpConfigurator.RESPONSE_MODELS_TO_PARSE) {
             responseModel = Try.of(() -> Converts.withJackson().toBean(responseBody, responseModelClass)).getOrNull();
             if (Objects.isNotNull(responseModel)) {
                 break;

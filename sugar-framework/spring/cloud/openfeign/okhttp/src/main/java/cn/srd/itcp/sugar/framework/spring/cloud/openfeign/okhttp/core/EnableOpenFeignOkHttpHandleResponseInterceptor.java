@@ -17,10 +17,10 @@ import java.lang.annotation.*;
 public @interface EnableOpenFeignOkHttpHandleResponseInterceptor {
 
     /**
-     * 指定要解析的 response model 集合
+     * 指定要解析的 response model 集合（按指定顺序进行解析）
      *
      * @return response model 集合
      */
-    Class<? extends ResponseModel>[] models();
+    Class<? extends ResponseModel<?>>[] models();
 
 }
