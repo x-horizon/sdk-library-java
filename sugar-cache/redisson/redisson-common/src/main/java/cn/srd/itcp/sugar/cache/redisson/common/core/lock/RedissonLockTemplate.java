@@ -1,6 +1,5 @@
 package cn.srd.itcp.sugar.cache.redisson.common.core.lock;
 
-import cn.srd.itcp.sugar.cache.redisson.common.exception.RedissonExecuteException;
 import cn.srd.itcp.sugar.cache.redisson.common.support.lock.RedissonFairLockAspect;
 import cn.srd.itcp.sugar.cache.redisson.common.support.lock.RedissonLockAspectSupporter;
 import cn.srd.itcp.sugar.cache.redisson.common.support.lock.RedissonNonFairLockAspect;
@@ -396,19 +395,19 @@ public interface RedissonLockTemplate {
         RLock rLock = getRLock(lockName);
 
         return Try.of(() -> {
-            R result = null;
-            if (waitTime > DEFAULT_WAIT_TIME) {
-                if (rLock.tryLock(waitTime, leaseTime, timeUnit)) {
-                    result = function.apply(param);
-                }
-            } else {
-                rLock.lock(leaseTime, timeUnit);
-                result = function.apply(param);
-            }
-            return result;
-        }).onFailure(throwable -> {
-            throw new RedissonExecuteException(throwable);
-        }).andFinally(() -> unlockSafely(rLock)).get();
+                    R result = null;
+                    if (waitTime > DEFAULT_WAIT_TIME) {
+                        if (rLock.tryLock(waitTime, leaseTime, timeUnit)) {
+                            result = function.apply(param);
+                        }
+                    } else {
+                        rLock.lock(leaseTime, timeUnit);
+                        result = function.apply(param);
+                    }
+                    return result;
+                })
+                .andFinally(() -> unlockSafely(rLock))
+                .get();
     }
 
     /**
