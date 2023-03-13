@@ -22,7 +22,7 @@ public interface OpenFeignOkHttpConfigurator {
     /**
      * 要解析的 {@link ResponseModel} 集合
      */
-    List<Class<? extends ResponseModel<?>>> RESPONSE_MODELS_TO_PARSE = new ArrayList<>();
+    List<Class<? extends ResponseModel>> RESPONSE_MODELS_TO_PARSE = new ArrayList<>();
 
     /**
      * 要解析的 {@link ResponseModel} 类名

@@ -21,6 +21,6 @@ public @interface EnableOpenFeignOkHttpHandleResponseInterceptor {
      *
      * @return response model 集合
      */
-    Class<? extends ResponseModel<?>>[] models();
+    Class<? extends ResponseModel>[] models();
 
 }
