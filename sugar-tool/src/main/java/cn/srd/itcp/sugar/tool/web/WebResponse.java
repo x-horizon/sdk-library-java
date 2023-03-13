@@ -1,6 +1,5 @@
 package cn.srd.itcp.sugar.tool.web;
 
-import cn.srd.itcp.sugar.tool.core.Objects;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -16,7 +15,7 @@ import java.io.Serializable;
  */
 @Data
 @Accessors(chain = true)
-public final class WebResponse<T> implements Serializable {
+public final class WebResponse<T> implements ResponseModel<T>, Serializable {
 
     @Serial
     private static final long serialVersionUID = 7838683692331475145L;
@@ -35,24 +34,6 @@ public final class WebResponse<T> implements Serializable {
      * 响应信息
      */
     private String message;
-
-    /**
-     * 是否响应成功
-     *
-     * @return 是否响应成功
-     */
-    public boolean successIs() {
-        return Objects.equals(HttpStatusEnum.SUCCESS.getCode(), this.status);
-    }
-
-    /**
-     * 是否响应失败
-     *
-     * @return 是否响应失败
-     */
-    public boolean errorIs() {
-        return !this.successIs();
-    }
 
     /**
      * 响应正确信息
