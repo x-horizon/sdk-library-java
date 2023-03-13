@@ -22,7 +22,7 @@ import org.springframework.lang.NonNull;
  * @author wjm
  * @since 2023-03-04 16:48:19
  */
-public class OpenFeignOkHttpHandleRepsonseInterceptor<T> implements Interceptor {
+public class OpenFeignOkHttpHandleRepsonseInterceptor implements Interceptor {
 
     /**
      * 解析生产端响应结果

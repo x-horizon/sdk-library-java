@@ -40,7 +40,7 @@ public class SugarOpenFeignOkHttpAutoConfiguration implements OpenFeignOkHttpCon
                 RESPONSE_MODELS_TO_PARSE.addAll(Arrays.asList(enableOpenFeignOkHttpHandleResponseInterceptor.models()));
             });
             RESPONSE_MODEL_NAMES_TO_PARSE.addAll(CollectionsUtil.toList(RESPONSE_MODELS_TO_PARSE, ClassesUtil::getClassFullName));
-            OKHTTP_CLIENT_BUILDER_INSTANCE.addInterceptor(new OpenFeignOkHttpHandleRepsonseInterceptor<>());
+            OKHTTP_CLIENT_BUILDER_INSTANCE.addInterceptor(new OpenFeignOkHttpHandleRepsonseInterceptor());
         }
         return OKHTTP_CLIENT_BUILDER_INSTANCE;
     }
