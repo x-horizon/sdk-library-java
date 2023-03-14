@@ -10,7 +10,7 @@ import lombok.SneakyThrows;
 import java.util.List;
 
 /**
- * Jackson 序列化处理器：List<Long> =&gt; List<String>
+ * Jackson 序列化处理器：List&lt;Long&gt; =&gt; List&lt;String&gt;
  *
  * @author xiongjing
  * @since 2023-03-14 17:57:59
