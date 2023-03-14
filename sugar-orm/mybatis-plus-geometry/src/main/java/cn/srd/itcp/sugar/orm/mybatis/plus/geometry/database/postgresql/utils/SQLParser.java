@@ -33,10 +33,9 @@ public class SQLParser {
      *
      * @param sql        指定的语句
      * @param columnName 指定的字段名
-     * @param <PO>       PO 模型
      * @return id, columnName ==&gt; id, ST_ASTEXT(columnName) AS columnName
      */
-    public static <PO> String replaceSelectSQLToGeometryToString(String sql, String columnName) {
+    public static String replaceSelectSQLToGeometryToString(String sql, String columnName) {
         String columnAfterReplace = GEOMETRY_TO_STRING_FUNCTION + "(" + columnName + ") AS " + columnName;
         return StringsUtil.replace(sql, columnName, columnAfterReplace);
     }
