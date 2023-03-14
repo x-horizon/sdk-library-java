@@ -5,6 +5,7 @@ version = projectVersion
 dependencies {
     // tool
     api("$locationtech_jts_core")
+    implementation(project("$itcp_sugar_tool"))
 }
 
 tasks.withType(JavaCompile).configureEach {
