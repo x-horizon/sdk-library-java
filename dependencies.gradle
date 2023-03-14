@@ -32,6 +32,7 @@ ext {
     fastjson_version = "1.2.79"
     json_path_version = "2.7.0"
     reflectasm_version = "1.11.9"
+    locationtech_version = "1.19.0"
     javax_el_version = "2.2.6"
     javax_el_api_version = "3.0.0"
     caffeine_version = "3.1.4"
@@ -53,6 +54,7 @@ ext {
     itcp_sugar_component_actor_thingsboard = ":sugar-component:actor:thingsboard"
     itcp_sugar_component_docker = ":sugar-component:docker"
     itcp_sugar_component_excel = ":sugar-component:excel"
+    itcp_sugar_component_geometry = ":sugar-component:geometry"
     itcp_sugar_component_id_generator_snowflake = ":sugar-component:id-generator:snowflake"
     itcp_sugar_component_jdk = ":sugar-component:jdk"
     itcp_sugar_doc_knife4j = ":sugar-doc:knife4j"
@@ -156,6 +158,7 @@ ext {
     json_path = "com.jayway.jsonpath:json-path:${json_path_version}" as GStringImpl
     reflectasm = "com.esotericsoftware:reflectasm:${reflectasm_version}" as GStringImpl
     hibernate_validator = "org.hibernate.validator:hibernate-validator"
+    locationtech_jts_core = "org.locationtech.jts:jts-core:${locationtech_version}" as GStringImpl
     javax_el = "org.glassfish.web:javax.el:${javax_el_version}" as GStringImpl
     javax_el_api = "javax.el:javax.el-api:${javax_el_api_version}" as GStringImpl
     apache_commons_lang3 = "org.apache.commons:commons-lang3:${apache_commons_lang3_version}" as GStringImpl
