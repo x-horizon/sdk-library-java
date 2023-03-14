@@ -60,7 +60,7 @@ public class PostgresqlGeometryToTextFunctionOnSelectSqlInterceptor implements I
                         // 从原始整条 sql 语句中提取查询结果集 sql 语句出来，如 id,name,location
                         String selectResultSetSql = StringsUtil.subBetween(allSql, SQLPool.SELECT, SQLPool.FROM + StringPool.SPACE + tableNameAnnotation.value());
                         // 将查询结果集 sql 语句替换为加上函数后的语句，如 id,name,ST_ASTEXT(location) AS location
-                        String selectResultSetSqlAfterReplace = SQLParser.replaceSelectSQLToGeometryToString(modelBoundByTable, selectResultSetSql, columnName);
+                        String selectResultSetSqlAfterReplace = SQLParser.replaceSelectSQLToGeometryToString(selectResultSetSql, columnName);
                         // 将替换后的结果集语句放回到整条 sql 语句中
                         String allSqlAfterReplace = StringsUtil.replace(allSql, selectResultSetSql, selectResultSetSqlAfterReplace);
                         // 修改原始 sql 语句
