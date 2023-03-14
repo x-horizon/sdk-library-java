@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * boot
  */
 @SpringBootApplication
-public class SugarMybatisPlusApplication {
+public class SugarMybatisPlusCommonApplication {
 
     /**
      * main
@@ -15,7 +15,7 @@ public class SugarMybatisPlusApplication {
      * @param args main argument
      */
     public static void main(String[] args) {
-        SpringApplication.run(SugarMybatisPlusApplication.class, args);
+        SpringApplication.run(SugarMybatisPlusCommonApplication.class, args);
     }
 
 }

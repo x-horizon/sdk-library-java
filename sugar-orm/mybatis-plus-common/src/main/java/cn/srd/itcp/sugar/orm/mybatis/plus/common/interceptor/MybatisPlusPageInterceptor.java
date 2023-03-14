@@ -6,6 +6,8 @@ import cn.srd.itcp.sugar.tool.core.EnumsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 
 /**
  * mybatis-plus 拦截器 - 分页插件
@@ -13,6 +15,7 @@ import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerIntercept
  * @author wjm
  * @since 2022-07-25 21:51:19
  */
+@Order(Ordered.LOWEST_PRECEDENCE - 1)
 public class MybatisPlusPageInterceptor implements MybatisPlusInterceptors {
 
     public void addInterceptor() {

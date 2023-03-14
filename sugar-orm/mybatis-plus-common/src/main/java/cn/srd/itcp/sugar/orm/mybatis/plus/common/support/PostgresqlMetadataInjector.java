@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
  * @author wjm
  * @since 2023-02-15 09:34:12
  */
-@AutoConfiguration(after = SugarMybatisPlusAutoConfiguration.class)
+@AutoConfiguration(after = SugarMybatisPlusCommonAutoConfiguration.class)
 @ConditionalOnEnablePostgresqlMetadata
 public class PostgresqlMetadataInjector {
 

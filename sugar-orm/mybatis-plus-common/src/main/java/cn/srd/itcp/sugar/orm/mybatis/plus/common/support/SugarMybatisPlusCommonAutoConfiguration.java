@@ -3,7 +3,6 @@ package cn.srd.itcp.sugar.orm.mybatis.plus.common.support;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.orm.mybatis.plus.common.interceptor.MybatisPlusInnerInterceptorsConfigurer;
 import cn.srd.itcp.sugar.orm.mybatis.plus.common.interceptor.MybatisPlusInterceptors;
-import cn.srd.itcp.sugar.orm.mybatis.plus.common.interceptor.MybatisPlusPageInterceptor;
 import cn.srd.itcp.sugar.tool.core.ReflectsUtil;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
@@ -11,29 +10,19 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.annotation.Order;
 
 /**
- * {@link EnableAutoConfiguration AutoConfiguration} for Sugar Mybatis Plus
+ * {@link EnableAutoConfiguration AutoConfiguration} for Sugar Mybatis Plus Common
  *
  * @author wjm
  * @since 2022-07-05
  */
 @AutoConfiguration
-@Import(PostgresqlMetadataInjector.class)
+@Import({PostgresqlMetadataInjector.class})
 @EnableConfigurationProperties(SugarMybatisPlusProperties.class)
-public class SugarMybatisPlusAutoConfiguration {
-
-    /**
-     * 装配 {@link MybatisPlusPageInterceptor}
-     *
-     * @return 装配对象
-     */
-    @Bean
-    public MybatisPlusPageInterceptor mybatisPlusPageInterceptors() {
-        return new MybatisPlusPageInterceptor();
-    }
+public class SugarMybatisPlusCommonAutoConfiguration {
 
     /**
      * 装配 {@link MybatisPlusInterceptor}
@@ -41,7 +30,7 @@ public class SugarMybatisPlusAutoConfiguration {
      * @return 装配对象
      */
     @Bean
-    @DependsOn("mybatisPlusPageInterceptors")
+    @Order
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         SpringsUtil.getBeansOfType(MybatisPlusInterceptors.class).forEach((beanName, beanClass) -> ReflectsUtil.invoke(beanClass, "addInterceptor"));
         MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
