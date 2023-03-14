@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://192.168.10.180:5432/thingsboard
+    url: jdbc:postgresql://192.168.10.91:30567/itcp-iot
     username: postgres
-    password: postgres
+    password: fFoFuY8W33LCpJ
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 10
@@ -15,3 +15,4 @@ sugar:
   orm:
     mybatis-plus:
       database: postgresql
+      enableMetadata: false
