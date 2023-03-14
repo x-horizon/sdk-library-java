@@ -40,7 +40,7 @@ include("$itcp_sugar_framework_spring_tool_common")
 include("$itcp_sugar_framework_spring_tool_webmvc")
 include("$itcp_sugar_framework_spring_tool_webflux")
 
-include("$itcp_sugar_orm_mybatis_plus")
+include("$itcp_sugar_orm_mybatis_plus_common")
 
 include("$itcp_sugar_protocol_protobuf")
 
