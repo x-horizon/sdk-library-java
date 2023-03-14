@@ -19,7 +19,6 @@ import org.apache.ibatis.session.RowBounds;
 import org.locationtech.jts.geom.Geometry;
 
 import java.lang.reflect.Field;
-import java.sql.SQLException;
 
 /**
  * mybatis-plus 拦截器 - Postgresql Geometry 修改查询语句插件
@@ -34,7 +33,7 @@ import java.sql.SQLException;
 public class PostgresqlGeometryToTextFunctionOnSelectSqlInterceptor implements InnerInterceptor {
 
     @Override
-    public void beforeQuery(Executor executor, MappedStatement mappedStatement, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
+    public void beforeQuery(Executor executor, MappedStatement mappedStatement, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
         // 获取相当于 @ResultMap 所有内容
         for (ResultMap resultMap : mappedStatement.getResultMaps()) {
             // 获取与表绑定的持久化模型
