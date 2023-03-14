@@ -68,6 +68,7 @@ ext {
     itcp_sugar_framework_spring_tool_webmvc = ":sugar-framework:spring:tool:tool-webmvc"
     itcp_sugar_framework_spring_tool_webflux = ":sugar-framework:spring:tool:tool-webflux"
     itcp_sugar_orm_mybatis_plus_common = ":sugar-orm:mybatis-plus-common"
+    itcp_sugar_orm_mybatis_plus_geometry = ":sugar-orm:mybatis-plus-geometry"
     itcp_sugar_protocol_protobuf = ":sugar-protocol:protobuf"
     itcp_sugar_security_sa_token_common = ":sugar-security:sa-token:sa-token-common"
     itcp_sugar_security_sa_token_webmvc = ":sugar-security:sa-token:sa-token-webmvc"
