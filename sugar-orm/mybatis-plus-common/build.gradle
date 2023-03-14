@@ -1,4 +1,4 @@
-def projectName = 'itcp-sugar-orm-mybatis-plus'
+def projectName = 'itcp-sugar-orm-mybatis-plus-common'
 
 version = projectVersion
 
