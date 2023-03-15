@@ -1,6 +1,8 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.geometry;
 
+import cn.srd.itcp.sugar.component.convert.all.core.Converts;
 import cn.srd.itcp.sugar.orm.mybatis.plus.common.core.EnableMybatisPlusPageInterceptor;
+import cn.srd.itcp.sugar.orm.mybatis.plus.common.core.MpWrappers;
 import cn.srd.itcp.sugar.orm.mybatis.plus.geometry.database.postgresql.core.EnableMybatisPlusPostgresqlGeometryInterceptor;
 import cn.srd.itcp.sugar.orm.mybatis.plus.geometry.model.po.GeometryTestPO;
 import cn.srd.itcp.sugar.orm.mybatis.plus.geometry.service.GeometryTestService;
@@ -26,6 +28,13 @@ public class GeometryTest {
     @Test
     public void testGeometryJdbcConvert() {
         List<GeometryTestPO> geometryTestPOs = geometryTestService.list();
+    }
+
+    @Test
+    public void testGeometryJacksonConvert() {
+        GeometryTestPO geometryTestPO = geometryTestService.getOne(MpWrappers.<GeometryTestPO>withLambdaQuery().eq(GeometryTestPO::getId, 1));
+        String value1 = Converts.withJackson().toString(geometryTestPO);
+        GeometryTestPO value2 = Converts.withJackson().toBean(value1, GeometryTestPO.class);
     }
 
 }

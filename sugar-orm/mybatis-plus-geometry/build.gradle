@@ -20,6 +20,8 @@ dependencies {
     implementation(project("$itcp_sugar_tool"))
     implementation(project("$itcp_sugar_framework_spring_tool_common"))
     implementation(project("$itcp_sugar_component_geometry"))
+    testImplementation(project("$itcp_sugar_component_convert_all"))
+    testImplementation(project("$itcp_sugar_component_convert_jackson_geometry"))
 }
 
 tasks.withType(JavaCompile).configureEach {

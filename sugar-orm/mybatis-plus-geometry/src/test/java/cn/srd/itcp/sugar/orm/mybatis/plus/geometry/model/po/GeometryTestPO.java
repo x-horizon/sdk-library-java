@@ -1,11 +1,15 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.geometry.model.po;
 
+import cn.srd.itcp.sugar.component.convert.jackson.geometry.support.JacksonGeometryToStringSerializer;
+import cn.srd.itcp.sugar.component.convert.jackson.geometry.support.JacksonStringToGeometryDeserializer;
 import cn.srd.itcp.sugar.orm.mybatis.plus.geometry.database.postgresql.handler.GeometryTypeHandler;
 import cn.srd.itcp.sugar.orm.mybatis.plus.geometry.database.postgresql.support.PostgresqlGeometryToTextFunctionOnSelectSqlWrapper;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.locationtech.jts.geom.Geometry;
@@ -31,6 +35,8 @@ public class GeometryTestPO implements Serializable {
     private Long id;
 
     @TableField(value = "location_info", typeHandler = GeometryTypeHandler.class)
+    @JsonDeserialize(converter = JacksonStringToGeometryDeserializer.class)
+    @JsonSerialize(using = JacksonGeometryToStringSerializer.class)
     @PostgresqlGeometryToTextFunctionOnSelectSqlWrapper
     private Geometry locationInfo;
 
