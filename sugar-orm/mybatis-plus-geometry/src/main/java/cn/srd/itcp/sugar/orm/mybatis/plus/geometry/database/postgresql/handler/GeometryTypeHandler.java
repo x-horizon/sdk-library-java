@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.geometry.database.postgresql.handler;
 
 import cn.srd.itcp.sugar.component.geometry.core.GeometryUtil;
+import cn.srd.itcp.sugar.tool.core.Objects;
 import lombok.SneakyThrows;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
@@ -30,7 +31,9 @@ public class GeometryTypeHandler extends BaseTypeHandler<Geometry> {
     @Override
     @SneakyThrows
     public void setNonNullParameter(PreparedStatement preparedStatement, int columnIndex, Geometry parameter, JdbcType jdbcType) {
-        preparedStatement.setBytes(columnIndex, new WKBWriter(GeometryUtil.getDimension(parameter), true).write(parameter));
+        if (Objects.isNotNull(parameter)) {
+            preparedStatement.setBytes(columnIndex, new WKBWriter(GeometryUtil.getDimension(parameter), true).write(parameter));
+        }
     }
 
     /**
@@ -43,7 +46,8 @@ public class GeometryTypeHandler extends BaseTypeHandler<Geometry> {
     @Override
     @SneakyThrows
     public Geometry getNullableResult(ResultSet resultSet, String columnName) {
-        return GeometryUtil.toGeometry(resultSet.getString(columnName));
+        String value = resultSet.getString(columnName);
+        return Objects.isBlank(value) ? null : GeometryUtil.toGeometry(value);
     }
 
     /**
@@ -56,7 +60,8 @@ public class GeometryTypeHandler extends BaseTypeHandler<Geometry> {
     @Override
     @SneakyThrows
     public Geometry getNullableResult(ResultSet resultSet, int columnIndex) {
-        return GeometryUtil.toGeometry(resultSet.getString(columnIndex));
+        String value = resultSet.getString(columnIndex);
+        return Objects.isBlank(value) ? null : GeometryUtil.toGeometry(value);
     }
 
     /**
@@ -69,7 +74,8 @@ public class GeometryTypeHandler extends BaseTypeHandler<Geometry> {
     @Override
     @SneakyThrows
     public Geometry getNullableResult(CallableStatement callableStatement, int columnIndex) {
-        return GeometryUtil.toGeometry(callableStatement.getString(columnIndex));
+        String value = callableStatement.getString(columnIndex);
+        return Objects.isBlank(value) ? null : GeometryUtil.toGeometry(value);
     }
 
 }
