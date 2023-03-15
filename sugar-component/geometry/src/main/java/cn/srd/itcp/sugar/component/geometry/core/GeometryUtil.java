@@ -38,7 +38,9 @@ public class GeometryUtil {
      * @return 输出
      */
     public static String toString(Geometry input) {
-        Objects.requireNotNull(input);
+        if (Objects.isNull(input)) {
+            return null;
+        }
         return input.toText();
     }
 
@@ -50,7 +52,9 @@ public class GeometryUtil {
      */
     @SneakyThrows
     public static Geometry toGeometry(String input) {
-        Objects.requireNotBlank(input);
+        if (Objects.isBlank(input)) {
+            return null;
+        }
         return WKT_READER.read(input);
     }
 

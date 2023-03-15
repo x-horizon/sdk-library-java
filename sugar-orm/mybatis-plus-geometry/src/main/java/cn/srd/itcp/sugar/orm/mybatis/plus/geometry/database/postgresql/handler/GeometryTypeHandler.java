@@ -46,8 +46,7 @@ public class GeometryTypeHandler extends BaseTypeHandler<Geometry> {
     @Override
     @SneakyThrows
     public Geometry getNullableResult(ResultSet resultSet, String columnName) {
-        String value = resultSet.getString(columnName);
-        return Objects.isBlank(value) ? null : GeometryUtil.toGeometry(value);
+        return GeometryUtil.toGeometry(resultSet.getString(columnName));
     }
 
     /**
@@ -60,8 +59,7 @@ public class GeometryTypeHandler extends BaseTypeHandler<Geometry> {
     @Override
     @SneakyThrows
     public Geometry getNullableResult(ResultSet resultSet, int columnIndex) {
-        String value = resultSet.getString(columnIndex);
-        return Objects.isBlank(value) ? null : GeometryUtil.toGeometry(value);
+        return GeometryUtil.toGeometry(resultSet.getString(columnIndex));
     }
 
     /**
@@ -74,8 +72,7 @@ public class GeometryTypeHandler extends BaseTypeHandler<Geometry> {
     @Override
     @SneakyThrows
     public Geometry getNullableResult(CallableStatement callableStatement, int columnIndex) {
-        String value = callableStatement.getString(columnIndex);
-        return Objects.isBlank(value) ? null : GeometryUtil.toGeometry(value);
+        return GeometryUtil.toGeometry(callableStatement.getString(columnIndex));
     }
 
 }
