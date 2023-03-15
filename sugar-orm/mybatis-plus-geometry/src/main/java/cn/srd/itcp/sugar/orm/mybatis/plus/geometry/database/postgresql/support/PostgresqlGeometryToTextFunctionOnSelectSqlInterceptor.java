@@ -63,8 +63,7 @@ public class PostgresqlGeometryToTextFunctionOnSelectSqlInterceptor implements I
                         // 将替换后的结果集语句放回到整条 sql 语句中
                         String allSqlAfterReplace = StringsUtil.replace(allSql, selectResultSetSql, selectResultSetSqlAfterReplace);
                         // 修改原始 sql 语句
-                        PluginUtils.MPBoundSql mpBs = PluginUtils.mpBoundSql(boundSql);
-                        mpBs.sql(allSqlAfterReplace);
+                        PluginUtils.mpBoundSql(boundSql).sql(allSqlAfterReplace);
                     }
                 }
             }
