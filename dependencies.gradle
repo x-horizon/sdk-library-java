@@ -49,6 +49,7 @@ ext {
     itcp_sugar_component_convert_all = ":sugar-component:convert:all"
     itcp_sugar_component_convert_fastjson = ":sugar-component:convert:fastjson"
     itcp_sugar_component_convert_jackson = ":sugar-component:convert:jackson"
+    itcp_sugar_component_convert_jackson_geometry = ":sugar-component:convert:jackson-geometry"
     itcp_sugar_component_convert_mapstruct = ":sugar-component:convert:mapstruct"
     itcp_sugar_component_convert_spring = ":sugar-component:convert:spring"
     itcp_sugar_component_actor_thingsboard = ":sugar-component:actor:thingsboard"
