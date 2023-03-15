@@ -1,6 +1,5 @@
 package cn.srd.itcp.sugar.component.geometry.core;
 
-import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import lombok.SneakyThrows;
 import org.locationtech.jts.geom.Geometry;
@@ -39,9 +38,7 @@ public class GeometryUtil {
      * @return 输出
      */
     public static String toString(Geometry input) {
-        if (Objects.isNull(input)) {
-            return StringPool.EMPTY;
-        }
+        Objects.requireNotNull(input);
         return input.toText();
     }
 
@@ -53,9 +50,7 @@ public class GeometryUtil {
      */
     @SneakyThrows
     public static Geometry toGeometry(String input) {
-        if (Objects.isBlank(input)) {
-            return null;
-        }
+        Objects.requireNotBlank(input);
         return WKT_READER.read(input);
     }
 
