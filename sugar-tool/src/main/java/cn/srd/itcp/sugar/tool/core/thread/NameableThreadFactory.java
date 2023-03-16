@@ -15,46 +15,17 @@
  */
 package cn.srd.itcp.sugar.tool.core.thread;
 
-import javax.annotation.Nonnull;
-import java.util.concurrent.Executors;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+
 import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * copy of {@link Executors.DefaultThreadFactory} to make it nameable
+ * Nameable thread pool
  *
  * @author wjm
  * @since 2023-03-16 18:57:12
  */
-public class NameableThreadFactory implements ThreadFactory {
-
-    /**
-     * see {@link Executors.DefaultThreadFactory#poolNumber}
-     */
-    private static final AtomicInteger poolNumber = new AtomicInteger(1);
-
-    /**
-     * see {@link Executors.DefaultThreadFactory#group}
-     */
-    private final ThreadGroup group;
-
-    /**
-     * see {@link Executors.DefaultThreadFactory#threadNumber}
-     */
-    private final AtomicInteger threadNumber = new AtomicInteger(1);
-
-    /**
-     * see {@link Executors.DefaultThreadFactory#namePrefix}
-     */
-    private final String namePrefix;
-
-    /**
-     * see {@link Executors.DefaultThreadFactory#DefaultThreadFactory()} and delete {@link SecurityManager} code here because it is deprecated and marked for removal
-     */
-    private NameableThreadFactory(String name) {
-        group = Thread.currentThread().getThreadGroup();
-        namePrefix = name + "-" + poolNumber.getAndIncrement() + "-thread-";
-    }
+public class NameableThreadFactory {
 
     /**
      * named the thread pool
@@ -62,18 +33,8 @@ public class NameableThreadFactory implements ThreadFactory {
      * @param name thread pool name
      * @return self
      */
-    public static NameableThreadFactory forName(String name) {
-        return new NameableThreadFactory(name);
-    }
-
-    @Override
-    public Thread newThread(@Nonnull Runnable runnable) {
-        Thread thread = new Thread(group, runnable, namePrefix + threadNumber.getAndIncrement(), 0);
-        if (thread.isDaemon())
-            thread.setDaemon(false);
-        if (thread.getPriority() != Thread.NORM_PRIORITY)
-            thread.setPriority(Thread.NORM_PRIORITY);
-        return thread;
+    public static ThreadFactory of(String name) {
+        return new ThreadFactoryBuilder().setNameFormat(name).build();
     }
 
 }
