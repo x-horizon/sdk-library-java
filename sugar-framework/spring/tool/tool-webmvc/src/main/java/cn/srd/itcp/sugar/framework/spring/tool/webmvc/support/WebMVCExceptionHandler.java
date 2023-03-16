@@ -101,7 +101,7 @@ public class WebMVCExceptionHandler {
      */
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public WebResponse<Void> handleMissingServletRequestParameterException(HttpServletRequest httpServletRequest, MissingServletRequestParameterException exception) {
-        String message = String.format("【%s】参数缺失", exception.getParameterName());
+        String message = String.format("[%s]参数缺失", exception.getParameterName());
         log.warn("请求资源地址：'{}'，错误信息：'{}'", httpServletRequest.getRequestURI(), message);
         return error(HttpStatusEnum.BAD_REQUEST, message);
     }
@@ -115,7 +115,7 @@ public class WebMVCExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public WebResponse<Void> handleMethodArgumentTypeMismatchException(HttpServletRequest httpServletRequest, MethodArgumentTypeMismatchException exception) {
-        String message = String.format("【%s】参数类型错误", exception.getName());
+        String message = String.format("[%s]参数类型错误", exception.getName());
         log.warn("请求资源地址：'{}'，错误信息：'{}'", httpServletRequest.getRequestURI(), message);
         return error(HttpStatusEnum.BAD_REQUEST, message);
     }

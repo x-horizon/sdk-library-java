@@ -41,7 +41,7 @@ public class OpenFeignOkHttpHandleRepsonseInterceptor implements Interceptor {
         }
         if (Objects.isNull(responseModel)) {
             throw new RunningException(StringsUtil.format(
-                    "\ncannot parse feign result to any model defined in class【{}】, \ncurrent define models are【{}】, \nplease check your config! \ncurrent feign result is【{}】",
+                    "\ncannot parse feign result to any model defined in class[{}], \ncurrent define models are[{}], \nplease check your config! \ncurrent feign result is[{}]",
                     ClassesUtil.getClassFullName(EnableOpenFeignOkHttpHandleResponseInterceptor.class),
                     StringsUtil.pretty(OpenFeignOkHttpConfigurator.RESPONSE_MODEL_NAMES_TO_PARSE),
                     responseBody

@@ -41,8 +41,8 @@ public class SugarSnowflakeIdAutoConfiguration {
             } else {
                 snowflakeConfigSubclasses = SpringsUtil.scanPackagesBySuper(SnowflakeIdConfig.class);
             }
-            Assert.INSTANCE.set(StringsUtil.format("no sub class of 【{}】, please specifies one", SnowflakeIdConfig.class.getSimpleName())).throwsIfEmpty(snowflakeConfigSubclasses);
-            Assert.INSTANCE.set(StringsUtil.format("found multi sub class 【{}】 of 【{}】, please just specifies one", CollectionsUtil.toList(snowflakeConfigSubclasses, Class::getName), SnowflakeIdConfig.class.getSimpleName())).throwsIfTrue(snowflakeConfigSubclasses.size() > 1);
+            Assert.INSTANCE.set(StringsUtil.format("no sub class of [{}], please specifies one", SnowflakeIdConfig.class.getSimpleName())).throwsIfEmpty(snowflakeConfigSubclasses);
+            Assert.INSTANCE.set(StringsUtil.format("found multi sub class [{}] of [{}], please just specifies one", CollectionsUtil.toList(snowflakeConfigSubclasses, Class::getName), SnowflakeIdConfig.class.getSimpleName())).throwsIfTrue(snowflakeConfigSubclasses.size() > 1);
             Class<?> snowflakeConfigSubclass = CollectionsUtil.getFirst(snowflakeConfigSubclasses);
             short workerId = ReflectsUtil.invoke(SpringsUtil.registerCapableBean(snowflakeConfigSubclass), METHOD_NAME_OF_SET_WORKER_ID);
             IdGeneratorOptions options = new IdGeneratorOptions(workerId);

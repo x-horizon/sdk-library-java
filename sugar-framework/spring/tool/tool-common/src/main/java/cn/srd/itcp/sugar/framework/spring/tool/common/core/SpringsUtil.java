@@ -73,7 +73,7 @@ public class SpringsUtil extends SpringUtil {
     }
 
     /**
-     * 获取加入 IOC 容器中被【指定注解】注解了的Bean
+     * 获取加入 IOC 容器中被[指定注解]注解了的Bean
      *
      * @param annotationClass 指定注解类
      * @return bean name mapping bean map

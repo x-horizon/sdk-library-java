@@ -434,7 +434,7 @@ public class MapstructConverts {
      */
     private void handleMapstructMethodsNotFound(String key) {
         Assert.INSTANCE.set(new MapstructConvertMethodNotFoundException(
-                StringsUtil.format("未能找到匹配的方法，请确保已使用 @{} 标记了 Mapstruct 转换器，且在转换器中定义了以下参数的方法：\n\t 入参:【{}】\n\t 出参:【{}】",
+                StringsUtil.format("未能找到匹配的方法，请确保已使用 @{} 标记了 Mapstruct 转换器，且在转换器中定义了以下参数的方法：\n\t 入参:[{}]\n\t 出参:[{}]",
                         BindMapstruct.class.getSimpleName(),
                         StringsUtil.subBefore(key, StringPool.SLASH, true),
                         StringsUtil.subAfter(key, StringPool.SLASH, true))
@@ -453,11 +453,11 @@ public class MapstructConverts {
         }
         List<String> unsupportedLocations = new ArrayList<>();
         mapstructUnsupportedMethodParameterNameMappingMethodsMap.forEach((name, methods) -> {
-            StringBuilder unsupportedReason = new StringBuilder().append("\t 位置【类名#方法名】: ");
-            methods.forEach(method -> unsupportedReason.append(StringsUtil.format("【{}#{}】", method.getDeclaringClass().getName(), method.getName())));
+            StringBuilder unsupportedReason = new StringBuilder().append("\t 位置[类名#方法名]: ");
+            methods.forEach(method -> unsupportedReason.append(StringsUtil.format("[{}#{}]", method.getDeclaringClass().getName(), method.getName())));
             Method methodToGetParameter = CollectionsUtil.getFirst(methods);
             unsupportedLocations.add(StringsUtil.format(
-                    "{}, 入参:【{}】, 出参:【{}】",
+                    "{}, 入参:[{}], 出参:[{}]",
                     unsupportedReason.toString(),
                     StringsUtil.pretty(TypesUtil.getParameterTypeNames(methodToGetParameter)),
                     TypesUtil.getReturnTypeName(methodToGetParameter)
