@@ -25,7 +25,7 @@ import java.util.concurrent.ThreadFactory;
  * @author wjm
  * @since 2023-03-16 18:57:12
  */
-public class NameableThreadFactory {
+public class NamedThreadFactory {
 
     /**
      * named the thread pool
