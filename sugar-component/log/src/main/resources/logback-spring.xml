@@ -209,7 +209,7 @@
               level:
                 com.test.sample: debug
     -->
-    <springProfile name="localhost">
+    <springProfile name="environment-localhost">
         <root level="info">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="DEBUG_FILE"/>
@@ -220,7 +220,7 @@
         </root>
     </springProfile>
 
-    <springProfile name="development">
+    <springProfile name="environment-development">
         <root level="info">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="DEBUG_FILE"/>
@@ -231,7 +231,7 @@
         </root>
     </springProfile>
 
-    <springProfile name="kubernetes">
+    <springProfile name="environment-kubernetes">
         <root level="info">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="DEBUG_FILE"/>
