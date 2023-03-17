@@ -54,7 +54,7 @@
               %-20.30(%c)  ：表示最短 20 位，最长 30 位，若 %c 的内容不足 20 位，则在右侧以空格填充满 20 长度，若 %c 的内容超过 30 位，则截取掉左侧的内容，只留下 30 位长度；
               %-20.-30(%c) ：表示最短 20 位，最长 30 位，若 %c 的内容不足 20 位，则在右侧以空格填充满 20 长度，若 %c 的内容超过 30 位，则截取掉右侧的内容，只留下 30 位长度；
     -->
-    <springProperty scope="context" name="logPattern" source="sugar.component.log.pattern" defaultValue="%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level - %50.-50(%logger{50}) - [%thread]: %message%n"/>
+    <springProperty scope="context" name="logPattern" source="sugar.component.log.pattern" defaultValue="%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level - %-50.50(%logger{50}) - [%thread]: %message%n"/>
     <!--  日志字符集，可选配置，默认：UTF-8  -->
     <springProperty scope="context" name="logCharset" source="sugar.component.log.charset" defaultValue="UTF-8"/>
     <!--  记录 DEBUG 级别的日志文件名，可选配置，默认：debug.log  -->
