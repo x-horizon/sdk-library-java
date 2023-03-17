@@ -5,6 +5,9 @@ version = projectVersion
 dependencies {
     // framework
     implementation("$spring_boot_logging")
+
+    // tool
+    implementation(project("$itcp_sugar_tool"))
 }
 
 tasks.withType(JavaCompile).configureEach {
