@@ -26,11 +26,11 @@ public class SystemsUtil extends SystemUtil {
     }
 
     /**
-     * 获取最大可用的CPU核数
+     * 获取可用的CPU核数
      *
-     * @return 最大可用的CPU核数
+     * @return 可用的CPU核数
      */
-    public static int getProcessors() {
+    public static int getAvailableProcessors() {
         return Runtime.getRuntime().availableProcessors();
     }
 
