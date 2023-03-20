@@ -31,13 +31,32 @@ import java.util.concurrent.ThreadFactory;
 public class Threads {
 
     /**
+     * 获取线程 id
+     *
+     * @return 线程 id
+     */
+    public static long getId() {
+        return Thread.currentThread().getId();
+    }
+
+    /**
+     * 生成拼接了线程 id 的线程名称
+     *
+     * @param name 线程名称
+     * @return 线程名称
+     */
+    public static String generateThreadName(String name) {
+        return name + "-thread-" + getId();
+    }
+
+    /**
      * create {@link ThreadFactory} with name
      *
      * @param name thread pool name
      * @return {@link ThreadFactory}
      */
     public static ThreadFactory newThreadFactory(String name) {
-        return new ThreadFactoryBuilder().setNameFormat(name).build();
+        return new ThreadFactoryBuilder().setNameFormat(generateThreadName(name)).build();
     }
 
     /**
@@ -49,7 +68,7 @@ public class Threads {
     public static ForkJoinPool.ForkJoinWorkerThreadFactory newForkJoinWorkerThreadFactory(String name) {
         return pool -> {
             ForkJoinWorkerThread forkJoinWorkerThread = ForkJoinPool.defaultForkJoinWorkerThreadFactory.newThread(pool);
-            forkJoinWorkerThread.setName(name);
+            forkJoinWorkerThread.setName(generateThreadName(name));
             return forkJoinWorkerThread;
         };
     }
