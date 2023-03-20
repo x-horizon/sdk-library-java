@@ -34,7 +34,7 @@ public class SugarSnowflakeIdAutoConfiguration {
             String[] packageNamesToFindSnowflakeConfig = new String[]{SpringsUtil.getRootPackagePath()};
             Set<Class<?>> classesWithSnowflakeConfigScan = SpringsUtil.scanPackageByAnnotation(SnowflakeIdConfigScan.class);
             Assert.INSTANCE.set(StringsUtil.format("found multi @{} in {}, please just specifies one", SnowflakeIdConfigScan.class.getSimpleName(), CollectionsUtil.toList(classesWithSnowflakeConfigScan, Class::getName))).throwsIfTrue(classesWithSnowflakeConfigScan.size() > 1);
-            Set<Class<?>> snowflakeConfigSubclasses;
+            Set<Class<? extends SnowflakeIdConfig>> snowflakeConfigSubclasses;
             if (Objects.isNotEmpty(classesWithSnowflakeConfigScan)) {
                 packageNamesToFindSnowflakeConfig = ArraysUtil.append(packageNamesToFindSnowflakeConfig, AnnotationsUtil.getAnnotationValue(CollectionsUtil.getFirst(classesWithSnowflakeConfigScan), SnowflakeIdConfigScan.class));
                 snowflakeConfigSubclasses = ClassesUtil.scanPackagesBySuper(packageNamesToFindSnowflakeConfig, SnowflakeIdConfig.class);

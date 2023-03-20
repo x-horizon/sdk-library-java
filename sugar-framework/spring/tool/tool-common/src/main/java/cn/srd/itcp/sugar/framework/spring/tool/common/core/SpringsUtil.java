@@ -96,9 +96,11 @@ public class SpringsUtil extends SpringUtil {
      * 扫描被 {@link SpringBootApplication} 注解了的启动类包下所有指定类或接口的子类或实现类
      *
      * @param superClass 父类或接口
+     * @param <Parent>   父类类型
      * @return 类集合
      */
-    public static Set<Class<?>> scanPackagesBySuper(final Class<?> superClass) {
+
+    public static <Parent> Set<Class<? extends Parent>> scanPackagesBySuper(final Class<Parent> superClass) {
         return Try.of(() -> ClassesUtil.scanPackagesBySuper(new String[]{getRootPackagePath()}, superClass)).getOrElse(CollectionsUtil.newHashSet());
     }
 
