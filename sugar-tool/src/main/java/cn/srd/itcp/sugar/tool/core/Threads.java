@@ -17,10 +17,7 @@ package cn.srd.itcp.sugar.tool.core;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.ForkJoinWorkerThread;
-import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.*;
 
 /**
  * thread tool
@@ -74,13 +71,23 @@ public class Threads {
     }
 
     /**
+     * create single thread pool with name
+     *
+     * @param name thread pool name
+     * @return single thread pool
+     */
+    public static ExecutorService newSingleThreadPool(String name) {
+        return Executors.newSingleThreadExecutor(newThreadFactory(name));
+    }
+
+    /**
      * create {@link ForkJoinPool} with name
      *
      * @param parallelism see {@link ForkJoinPool#ForkJoinPool(int, ForkJoinPool.ForkJoinWorkerThreadFactory, Thread.UncaughtExceptionHandler, boolean)}
      * @param name        thread pool name
      * @return {@link ForkJoinPool}
      */
-    public static ExecutorService newWorkStealingPool(int parallelism, String name) {
+    public static ExecutorService newWorkStealingThreadPool(int parallelism, String name) {
         return new ForkJoinPool(parallelism, newForkJoinWorkerThreadFactory(name), null, true);
     }
 
