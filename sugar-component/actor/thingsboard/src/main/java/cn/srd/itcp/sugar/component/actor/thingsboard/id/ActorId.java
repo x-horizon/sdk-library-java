@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.UUID;
 
 /**
- * signal actor id
+ * actor id
  *
  * @author wjm
  * @since 2023-03-20 11:04:19

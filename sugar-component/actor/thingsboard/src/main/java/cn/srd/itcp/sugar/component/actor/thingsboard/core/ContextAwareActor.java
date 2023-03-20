@@ -10,7 +10,7 @@ import org.thingsboard.server.actors.TbActorMailbox;
 import org.thingsboard.server.common.msg.TbActorMsg;
 
 /**
- * signal context aware actor, 用于对 actor system 的上下文感知
+ * context aware actor, 用于对 actor system 的上下文感知
  *
  * @author wjm
  * @since 2023-03-20 11:04:19
@@ -19,7 +19,7 @@ import org.thingsboard.server.common.msg.TbActorMsg;
 public abstract class ContextAwareActor extends AbstractTbActor {
 
     /**
-     * signal actor system context
+     * actor system context
      */
     protected final ActorSystemContext actorSystemContext;
 

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 /**
- * default signal actor system
+ * default actor system
  *
  * @author wjm
  * @since 2023-03-20 11:04:19
@@ -22,19 +22,19 @@ public class DefaultActorSystem implements ActorSystem {
     /**
      * all actor system inherit from {@link ActorSystem}
      */
-    private static Set<Class<? extends ActorSystem>> SIGNAL_ACTOR_SYSTEMS;
+    private static Set<Class<? extends ActorSystem>> ACTOR_SYSTEMS;
 
     @PostConstruct
     @Override
     public void init() {
-        SIGNAL_ACTOR_SYSTEMS = CollectionsUtil.filter(ClassesUtil.scanPackagesBySuper(new String[]{SpringsUtil.getRootPackagePath()}, ActorSystem.class), signalLifeCycleActorSystem -> Objects.notEquals(DefaultActorSystem.class, signalLifeCycleActorSystem));
-        SIGNAL_ACTOR_SYSTEMS.forEach(signalLifeCycleActorSystem -> SpringsUtil.getBean(signalLifeCycleActorSystem).init());
+        ACTOR_SYSTEMS = CollectionsUtil.filter(ClassesUtil.scanPackagesBySuper(new String[]{SpringsUtil.getRootPackagePath()}, ActorSystem.class), item -> Objects.notEquals(DefaultActorSystem.class, item));
+        ACTOR_SYSTEMS.forEach(item -> SpringsUtil.getBean(item).init());
     }
 
     @PreDestroy
     @Override
     public void destroy() {
-        SIGNAL_ACTOR_SYSTEMS.forEach(signalActorSystemLifeCycle -> SpringsUtil.getBean(signalActorSystemLifeCycle).destroy());
+        ACTOR_SYSTEMS.forEach(item -> SpringsUtil.getBean(item).destroy());
     }
 
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.thingsboard.server.actors.TbActorSystem;
 
 /**
- * signal actor system context
+ * actor system context
  *
  * @author wjm
  * @since 2023-03-20 11:04:19

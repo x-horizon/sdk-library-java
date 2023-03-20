@@ -6,7 +6,7 @@ import cn.srd.itcp.sugar.tool.core.Threads;
 import java.util.concurrent.ExecutorService;
 
 /**
- * signal actor system
+ * actor system
  *
  * @author wjm
  * @since 2023-03-20 11:04:19
