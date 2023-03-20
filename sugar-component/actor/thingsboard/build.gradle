@@ -4,7 +4,14 @@ version = projectVersion
 
 dependencies {
     // framework
+    implementation("$spring_boot")
+    implementation("$spring_boot_aop")
+    implementation("$spring_boot_configuration_processor")
     api("$thingsboard_actor")
+
+    // tool
+    implementation(project("$itcp_sugar_tool"))
+    implementation(project("$itcp_sugar_framework_spring_tool_common"))
 }
 
 tasks.withType(JavaCompile).configureEach {
