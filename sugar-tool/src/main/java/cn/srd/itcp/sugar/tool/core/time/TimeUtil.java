@@ -6,7 +6,6 @@ import cn.srd.itcp.sugar.tool.constant.TimeUnitPool;
 import cn.srd.itcp.sugar.tool.core.EnumsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.core.StringsUtil;
-import cn.srd.itcp.sugar.tool.core.asserts.Assert;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import io.vavr.control.Try;
 
@@ -148,14 +147,12 @@ public class TimeUtil extends LocalDateTimeUtil {
             String timeUnit = convertToTimeUnitFunction.apply(timeFormat);
             TimeUnitPool timeUnitPool = EnumsUtil.capableToEnum(timeUnit, TimeUnitPool.class);
             if (Objects.isNotNull(timeUnitPool)) {
-                TimeUnitHandler timeUnitHandler = TimeUnitHandler.TIME_UNIT_POOL_MAPPING_HANDLER_MAP.get(timeUnitPool);
-                Assert.INSTANCE.set(StringsUtil.format("could not match handler to handle time unit by input [{}] -> [{}]", timeFormat, timeUnit)).throwsIfNull(timeUnitHandler);
                 long time = Try.of(() -> Long.parseLong(StringsUtil.removeAny(timeFormat, timeUnit)))
                         .onFailure(throwable -> {
                             throw new RuntimeException(StringsUtil.format("invalid time by remove [{}] from input [{}]", timeUnit, timeFormat), throwable);
                         })
                         .get();
-                return timeUnitHandler.newInstance().setTime(time);
+                return wrapper(time, timeUnitPool);
             }
         }
         throw new RuntimeException(StringsUtil.format("invalid time format by input [{}]", timeFormat));
