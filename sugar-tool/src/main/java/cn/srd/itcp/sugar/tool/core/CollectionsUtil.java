@@ -7,6 +7,7 @@ import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import lombok.NonNull;
 import org.apache.commons.lang3.StringUtils;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -29,7 +30,29 @@ public class CollectionsUtil extends CollUtil {
     private CollectionsUtil() {
     }
 
-    // ==================================== 获取集合元素 ====================================
+    // ==================================== get function ====================================
+
+    /**
+     * 获取集合大小
+     *
+     * @param from 输入参数
+     * @param <T>  元素类型
+     * @return 集合大小
+     */
+    public static <T> int getSize(@Nullable Collection<T> from) {
+        return Objects.isNull(from) ? 0 : from.size();
+    }
+
+    /**
+     * 获取数组长度
+     *
+     * @param from 输入参数
+     * @param <T>  元素类型
+     * @return 数组长度
+     */
+    public static <T> int getSize(@Nullable T[] from) {
+        return Objects.isNull(from) ? 0 : Array.getLength(from);
+    }
 
     /**
      * 获取 List 第 2 个元素
