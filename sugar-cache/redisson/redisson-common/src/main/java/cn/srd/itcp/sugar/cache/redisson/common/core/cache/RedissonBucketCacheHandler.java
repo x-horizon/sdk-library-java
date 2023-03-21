@@ -167,7 +167,7 @@ public class RedissonBucketCacheHandler {
      * @return 缓存对象
      */
     public <T> List<T> get(List<String> keys) {
-        return CollectionsUtil.toList(RedissonManager.getClient().getBuckets().get(CollectionsUtil.toArray(keys, String.class)));
+        return get(CollectionsUtil.toArray(keys, String.class));
     }
 
     /**
@@ -250,9 +250,7 @@ public class RedissonBucketCacheHandler {
      * @return 受影响个数
      */
     public int delete(List<String> keys) {
-        RBatch pipeline = RedissonManager.getClient().createBatch();
-        pipeline.getKeys().deleteAsync(CollectionsUtil.toArray(keys, String.class));
-        return pipeline.execute().getResponses().size();
+        return delete(CollectionsUtil.toArray(keys, String.class));
     }
 
     /**
