@@ -33,7 +33,25 @@ public class CollectionsUtil extends CollUtil {
     // ==================================== get function ====================================
 
     /**
-     * 获取集合大小
+     * 获取大小
+     *
+     * @param from 输入参数
+     * @param <T>
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> int getSize(@Nullable Object from) {
+        if (ArraysUtil.isArray(from)) {
+            return getSize((T[]) from);
+        }
+        if (from instanceof Collection<?>) {
+            return getSize((Collection<?>) from);
+        }
+        throw new RuntimeException(StringsUtil.format("unsupported get size from input [{}], please check!", from));
+    }
+
+    /**
+     * 获取大小
      *
      * @param from 输入参数
      * @param <T>  元素类型
@@ -44,7 +62,7 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
-     * 获取数组长度
+     * 获取大小
      *
      * @param from 输入参数
      * @param <T>  元素类型
