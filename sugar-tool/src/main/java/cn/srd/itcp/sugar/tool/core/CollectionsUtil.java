@@ -39,24 +39,6 @@ public class CollectionsUtil extends CollUtil {
      * @param <T>  元素类型
      * @return 大小
      */
-    @SuppressWarnings("unchecked")
-    public static <T> int getSize(@Nullable Object from) {
-        if (ArraysUtil.isArray(from)) {
-            return getSize((T[]) from);
-        }
-        if (from instanceof Collection<?>) {
-            return getSize((Collection<?>) from);
-        }
-        throw new RuntimeException(StringsUtil.format("unsupported get size from input [{}], please check!", from));
-    }
-
-    /**
-     * 获取大小
-     *
-     * @param from 输入参数
-     * @param <T>  元素类型
-     * @return 大小
-     */
     public static <T> int getSize(@Nullable Collection<T> from) {
         return Objects.isNull(from) ? 0 : from.size();
     }
@@ -70,6 +52,24 @@ public class CollectionsUtil extends CollUtil {
      */
     public static <T> int getSize(@Nullable T[] from) {
         return Objects.isNull(from) ? 0 : Array.getLength(from);
+    }
+
+    /**
+     * 获取大小
+     *
+     * @param from 输入参数
+     * @param <T>  元素类型
+     * @return 大小
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> int getSize(@Nullable Object from) {
+        if (ArraysUtil.isArray(from)) {
+            return getSize((T[]) from);
+        }
+        if (from instanceof Collection<?>) {
+            return getSize((Collection<?>) from);
+        }
+        throw new RuntimeException(StringsUtil.format("unsupported get size from input [{}], please check!", from));
     }
 
     /**
