@@ -1,8 +1,12 @@
 package cn.srd.itcp.sugar.cache.redisson.common.core.cache;
 
 import cn.srd.itcp.sugar.cache.redisson.common.support.RedissonManager;
+import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
+import org.redisson.api.RBatch;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 /**
  * Redisson 缓存操作（桶）
@@ -27,6 +31,30 @@ public class RedissonBucketCacheHandler {
      */
     public <T> void set(String key, T value) {
         RedissonManager.getClient().getBucket(key).set(value);
+    }
+
+    /**
+     * 批量设置缓存
+     *
+     * @param values         操作集合
+     * @param getKeyFunction 如何获取要缓存的 key 名，将操作集合中元素本身作为要缓存的对象
+     * @param <T>            操作集合中元素的类型
+     */
+    public <T> void set(List<T> values, Function<T, String> getKeyFunction) {
+        RedissonManager.getClient().getBuckets().set(CollectionsUtil.toMap(values, getKeyFunction));
+    }
+
+    /**
+     * 批量设置缓存
+     *
+     * @param values           操作集合
+     * @param getKeyFunction   如何获取要缓存的 key 名
+     * @param getValueFunction 如何获取要缓存的对象
+     * @param <T>              操作集合中元素的类型
+     * @param <V>              要缓存对象的类型
+     */
+    public <T, V> void set(List<T> values, Function<T, String> getKeyFunction, Function<T, V> getValueFunction) {
+        RedissonManager.getClient().getBuckets().set(CollectionsUtil.toMap(values, getKeyFunction, getValueFunction));
     }
 
     /**
@@ -120,6 +148,40 @@ public class RedissonBucketCacheHandler {
     }
 
     /**
+     * 获取多个缓存
+     *
+     * @param keys 缓存 key 名
+     * @param <T>  缓存对象的类型
+     * @return 缓存对象
+     */
+    public <T> List<T> get(String... keys) {
+        return CollectionsUtil.toList(RedissonManager.getClient().getBuckets().get(keys));
+    }
+
+    /**
+     * 获取多个缓存
+     *
+     * @param keys 缓存 key 名
+     * @param <T>  缓存对象的类型
+     * @return 缓存对象
+     */
+    public <T> List<T> get(List<String> keys) {
+        return CollectionsUtil.toList(RedissonManager.getClient().getBuckets().get(CollectionsUtil.toArray(keys, String.class)));
+    }
+
+    /**
+     * 模糊查询缓存
+     *
+     * @param pattern key 表达式，如 cache:*
+     * @param <T>     缓存对象的类型
+     * @return 缓存对象
+     */
+    public <T> List<T> getByPattern(String pattern) {
+        String[] keys = CollectionsUtil.toArray(RedissonManager.getClient().getKeys().getKeysByPattern(pattern), String.class);
+        return CollectionsUtil.toList(RedissonManager.getClient().getBuckets().get(keys));
+    }
+
+    /**
      * 获取旧的缓存对象，并将新的缓存对象设置进去
      *
      * @param key      缓存 key 名
@@ -166,6 +228,42 @@ public class RedissonBucketCacheHandler {
      */
     public void delete(String key) {
         RedissonManager.getClient().getBucket(key).getAndDelete();
+    }
+
+    /**
+     * 删除缓存对象
+     *
+     * @param keys 缓存 key 名
+     * @return 受影响个数
+     */
+    public int delete(String... keys) {
+        RBatch pipeline = RedissonManager.getClient().createBatch();
+        pipeline.getKeys().deleteAsync(keys);
+        return pipeline.execute().getResponses().size();
+    }
+
+    /**
+     * 删除缓存对象
+     *
+     * @param keys 缓存 key 名
+     * @return 受影响个数
+     */
+    public int delete(List<String> keys) {
+        RBatch pipeline = RedissonManager.getClient().createBatch();
+        pipeline.getKeys().deleteAsync(CollectionsUtil.toArray(keys, String.class));
+        return pipeline.execute().getResponses().size();
+    }
+
+    /**
+     * 删除缓存对象
+     *
+     * @param pattern key 表达式，如 cache:*
+     * @return 受影响个数
+     */
+    public int deleteByPattern(String pattern) {
+        RBatch pipeline = RedissonManager.getClient().createBatch();
+        pipeline.getKeys().deleteByPatternAsync(pattern);
+        return pipeline.execute().getResponses().size();
     }
 
 }
