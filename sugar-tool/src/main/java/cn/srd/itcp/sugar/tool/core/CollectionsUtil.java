@@ -13,6 +13,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * 集合工具
@@ -184,7 +185,50 @@ public class CollectionsUtil extends CollUtil {
         return java.util.Collections.unmodifiableMap(from);
     }
 
-    // ==================================== anything =&gt; List ====================================
+    // ==================================== convert ====================================
+
+    /**
+     * Iterable =&gt; R[]
+     *
+     * @param from       输入参数
+     * @param arrayClass 指定数组的类型
+     * @param <T>        输入参数的元素类型
+     * @param <R>        数组类型
+     * @return 输出数组
+     */
+
+    public static <T, R> R[] toArray(@NonNull Iterable<T> from, Class<R> arrayClass) {
+        return toArray(StreamSupport.stream(from.spliterator(), false).toArray(), arrayClass);
+    }
+
+    /**
+     * List =&gt; R[]
+     *
+     * @param from       输入参数
+     * @param arrayClass 指定数组的类型
+     * @param <T>        输入参数的元素类型
+     * @param <R>        数组类型
+     * @return 输出数组
+     */
+    public static <T, R> R[] toArray(@NonNull List<T> from, Class<R> arrayClass) {
+        return toArray(from.toArray(), arrayClass);
+    }
+
+    /**
+     * Object[] =&gt; R[]
+     *
+     * @param from       输入参数
+     * @param arrayClass 指定数组的类型
+     * @param <R>        数组类型
+     * @return 输出数组
+     */
+    @SuppressWarnings("all")
+    public static <R> R[] toArray(@NonNull Object[] from, Class<R> arrayClass) {
+        int originalArrayLength = from.length;
+        Object newArray = ArraysUtil.newArray(arrayClass, originalArrayLength);
+        System.arraycopy(from, 0, newArray, 0, originalArrayLength);
+        return (R[]) newArray;
+    }
 
     /**
      * String =&gt; List，根据 {@link StringPool#COMMA} 进行截取
@@ -269,8 +313,6 @@ public class CollectionsUtil extends CollUtil {
         return from.stream().map(function).filter(Objects::isNotNull).collect(Collectors.toList());
     }
 
-    // ==================================== anything =&gt; Set ====================================
-
     /**
      * 嵌套 List =&gt;  Set
      *
@@ -311,8 +353,6 @@ public class CollectionsUtil extends CollUtil {
     public static <T, U> Set<U> toSetIgnoreNull(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
         return from.stream().map(function).filter(Objects::isNotNull).collect(Collectors.toSet());
     }
-
-    // ==================================== anything =&gt; Map ====================================
 
     /**
      * Bean =&gt; Map
