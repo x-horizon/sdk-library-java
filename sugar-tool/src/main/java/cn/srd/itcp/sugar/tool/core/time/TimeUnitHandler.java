@@ -9,6 +9,7 @@ import lombok.experimental.Accessors;
 
 import java.time.Duration;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 /**
@@ -23,14 +24,19 @@ import java.util.function.Function;
 public abstract class TimeUnitHandler {
 
     /**
+     * {@link TimeUnit} 与 {@link TimeUnitHandler} 的映射
+     */
+    protected static final Map<TimeUnit, TimeUnitHandler> TIME_UNIT_MAPPING_HANDLER_MAP = new HashMap<>();
+
+    /**
+     * {@link TimeUnitPool} 与 {@link TimeUnitHandler} 的映射
+     */
+    protected static final Map<TimeUnitPool, TimeUnitHandler> TIME_UNIT_POOL_MAPPING_HANDLER_MAP = new HashMap<>();
+
+    /**
      * 定义如何将 时间字符串 转换为 时间单位，如 “2s” 如何转换为 “s”
      */
     protected static final List<Function<String, String>> CONVERT_TO_TIME_UNIT_FUNCTIONS = new ArrayList<>();
-
-    /**
-     * 时间单位与其对应处理器的映射
-     */
-    protected static final Map<TimeUnitPool, TimeUnitHandler> TIME_UNIT_MAPPING_HANDLER_MAP = new HashMap<>();
 
     /**
      * 时间，如 “2s” 中的 “2”
@@ -43,8 +49,37 @@ public abstract class TimeUnitHandler {
     private String timeUnit;
 
     static {
+        establishTimeUnitMapping();
+        establishHandlerMapping();
         initConvertToTimeUnitFunction();
-        establishStrategyMapping();
+    }
+
+    /**
+     * 建立 {@link TimeUnit} 与 {@link TimeUnitHandler} 的映射
+     */
+    private static void establishTimeUnitMapping() {
+        TIME_UNIT_MAPPING_HANDLER_MAP.put(TimeUnit.NANOSECONDS, TimeUnitNanosecondHandler.INSTANCE);
+        TIME_UNIT_MAPPING_HANDLER_MAP.put(TimeUnit.MICROSECONDS, TimeUnitMicrosecondHandler.INSTANCE);
+        TIME_UNIT_MAPPING_HANDLER_MAP.put(TimeUnit.MILLISECONDS, TimeUnitMillisecondHandler.INSTANCE);
+        TIME_UNIT_MAPPING_HANDLER_MAP.put(TimeUnit.SECONDS, TimeUnitSecondHandler.INSTANCE);
+        TIME_UNIT_MAPPING_HANDLER_MAP.put(TimeUnit.MINUTES, TimeUnitMinuteHandler.INSTANCE);
+        TIME_UNIT_MAPPING_HANDLER_MAP.put(TimeUnit.HOURS, TimeUnitHourHandler.INSTANCE);
+        TIME_UNIT_MAPPING_HANDLER_MAP.put(TimeUnit.DAYS, TimeUnitDayHandler.INSTANCE);
+    }
+
+    /**
+     * 建立 {@link TimeUnitPool} 与 {@link TimeUnitHandler} 的映射
+     */
+    private static void establishHandlerMapping() {
+        TIME_UNIT_POOL_MAPPING_HANDLER_MAP.put(TimeUnitPool.NANOSECOND, TimeUnitNanosecondHandler.INSTANCE);
+        TIME_UNIT_POOL_MAPPING_HANDLER_MAP.put(TimeUnitPool.MICROSECOND, TimeUnitMicrosecondHandler.INSTANCE);
+        TIME_UNIT_POOL_MAPPING_HANDLER_MAP.put(TimeUnitPool.MILLISECOND, TimeUnitMillisecondHandler.INSTANCE);
+        TIME_UNIT_POOL_MAPPING_HANDLER_MAP.put(TimeUnitPool.SECOND, TimeUnitSecondHandler.INSTANCE);
+        TIME_UNIT_POOL_MAPPING_HANDLER_MAP.put(TimeUnitPool.MINUTE, TimeUnitMinuteHandler.INSTANCE);
+        TIME_UNIT_POOL_MAPPING_HANDLER_MAP.put(TimeUnitPool.HOUR, TimeUnitHourHandler.INSTANCE);
+        TIME_UNIT_POOL_MAPPING_HANDLER_MAP.put(TimeUnitPool.DAY, TimeUnitDayHandler.INSTANCE);
+        TIME_UNIT_POOL_MAPPING_HANDLER_MAP.put(TimeUnitPool.MONTH, TimeUnitMonthHandler.INSTANCE);
+        TIME_UNIT_POOL_MAPPING_HANDLER_MAP.put(TimeUnitPool.YEAR, TimeUnitYearHandler.INSTANCE);
     }
 
     /**
@@ -59,19 +94,6 @@ public abstract class TimeUnitHandler {
      */
     private static void addConvertToTimeUnitFunctionWithRemoveAllDigit() {
         addConvertToTimeUnitFunction(StringsUtil::removeAllDigit);
-    }
-
-    /**
-     * 建立 时间单位 与其 对应处理器 的映射
-     */
-    private static void establishStrategyMapping() {
-        TIME_UNIT_MAPPING_HANDLER_MAP.put(TimeUnitPool.MILLISECOND, TimeUnitMillisecondHandler.INSTANCE);
-        TIME_UNIT_MAPPING_HANDLER_MAP.put(TimeUnitPool.SECOND, TimeUnitSecondHandler.INSTANCE);
-        TIME_UNIT_MAPPING_HANDLER_MAP.put(TimeUnitPool.MINUTE, TimeUnitMinuteHandler.INSTANCE);
-        TIME_UNIT_MAPPING_HANDLER_MAP.put(TimeUnitPool.HOUR, TimeUnitHourHandler.INSTANCE);
-        TIME_UNIT_MAPPING_HANDLER_MAP.put(TimeUnitPool.DAY, TimeUnitDayHandler.INSTANCE);
-        TIME_UNIT_MAPPING_HANDLER_MAP.put(TimeUnitPool.MONTH, TimeUnitMonthHandler.INSTANCE);
-        TIME_UNIT_MAPPING_HANDLER_MAP.put(TimeUnitPool.YEAR, TimeUnitYearHandler.INSTANCE);
     }
 
     /**

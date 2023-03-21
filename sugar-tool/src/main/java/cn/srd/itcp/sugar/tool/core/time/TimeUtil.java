@@ -17,6 +17,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -115,24 +116,46 @@ public class TimeUtil extends LocalDateTimeUtil {
     }
 
     /**
-     * 将 时间字符串 包装为 时间处理器
+     * {@link TimeUnitHandler} wrapper
      *
-     * @param timeFormat 时间字符串
-     * @return 时间处理器
+     * @param time     时间
+     * @param timeUnit 时间单位
+     * @return {@link TimeUnitHandler}
+     */
+    public static TimeUnitHandler wrapper(long time, TimeUnit timeUnit) {
+        return TimeUnitHandler.TIME_UNIT_MAPPING_HANDLER_MAP.get(timeUnit).newInstance().setTime(time);
+    }
+
+    /**
+     * {@link TimeUnitHandler} wrapper
+     *
+     * @param time         时间
+     * @param timeUnitPool 时间单位
+     * @return {@link TimeUnitHandler}
+     */
+    public static TimeUnitHandler wrapper(long time, TimeUnitPool timeUnitPool) {
+        return TimeUnitHandler.TIME_UNIT_POOL_MAPPING_HANDLER_MAP.get(timeUnitPool).newInstance().setTime(time);
+    }
+
+    /**
+     * {@link TimeUnitHandler} wrapper
+     *
+     * @param timeFormat 时间字符串，如 "2s"、"2h"
+     * @return {@link TimeUnitHandler}
      */
     public static TimeUnitHandler wrapper(String timeFormat) {
         for (Function<String, String> convertToTimeUnitFunction : TimeUnitHandler.CONVERT_TO_TIME_UNIT_FUNCTIONS) {
             String timeUnit = convertToTimeUnitFunction.apply(timeFormat);
-            TimeUnitPool timeUnitEnum = EnumsUtil.capableToEnum(timeUnit, TimeUnitPool.class);
-            if (Objects.isNotNull(timeUnitEnum)) {
-                TimeUnitHandler timeUnitHandler = TimeUnitHandler.TIME_UNIT_MAPPING_HANDLER_MAP.get(timeUnitEnum);
+            TimeUnitPool timeUnitPool = EnumsUtil.capableToEnum(timeUnit, TimeUnitPool.class);
+            if (Objects.isNotNull(timeUnitPool)) {
+                TimeUnitHandler timeUnitHandler = TimeUnitHandler.TIME_UNIT_POOL_MAPPING_HANDLER_MAP.get(timeUnitPool);
                 Assert.INSTANCE.set(StringsUtil.format("could not match handler to handle time unit by input [{}] -> [{}]", timeFormat, timeUnit)).throwsIfNull(timeUnitHandler);
                 long time = Try.of(() -> Long.parseLong(StringsUtil.removeAny(timeFormat, timeUnit)))
                         .onFailure(throwable -> {
                             throw new RuntimeException(StringsUtil.format("invalid time by remove [{}] from input [{}]", timeUnit, timeFormat), throwable);
                         })
                         .get();
-                return timeUnitHandler.newInstance().setTimeUnit(timeUnit).setTime(time);
+                return timeUnitHandler.newInstance().setTime(time);
             }
         }
         throw new RuntimeException(StringsUtil.format("invalid time format by input [{}]", timeFormat));

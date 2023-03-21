@@ -1,6 +1,5 @@
 package cn.srd.itcp.sugar.tool.constant;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -10,23 +9,32 @@ import lombok.Getter;
  * @since 2023-02-11 17:54:19
  */
 @Getter
-@AllArgsConstructor
 public enum TimeUnitPool {
+
+    /**
+     * nanosecond
+     */
+    NANOSECOND("ns", "NS", "nanosecond", "Nanosecond", "NANOSECOND", "纳秒"),
+
+    /**
+     * microsecond
+     */
+    MICROSECOND("microsecond", "Microsecond", "MICROSECOND", "微秒"),
 
     /**
      * millisecond
      */
-    MILLISECOND("ms", "MS", "millisecond", "Millisecond", "MILLISECOND", "毫秒", "毫秒钟"),
+    MILLISECOND("ms", "MS", "millisecond", "Millisecond", "MILLISECOND", "毫秒"),
 
     /**
      * second
      */
-    SECOND("s", "S", "second", "Second", "SECOND", "秒", "秒钟"),
+    SECOND("s", "S", "second", "Second", "SECOND", "秒"),
 
     /**
      * minute
      */
-    MINUTE("m", "M", "minute", "Minute", "MINUTE", "分", "分钟"),
+    MINUTE("m", "M", "minute", "Minute", "MINUTE", "分"),
 
     /**
      * hour
@@ -36,17 +44,17 @@ public enum TimeUnitPool {
     /**
      * day
      */
-    DAY("d", "D", "day", "Day", "DAY", "天", "天数"),
+    DAY("d", "D", "day", "Day", "DAY", "天"),
 
     /**
-     * month TODO wjm BUG 枚举值与分钟有重复，待处理
+     * month
      */
-    MONTH("m", "M", "month", "Month", "MONTH", "月", "月数"),
+    MONTH("month", "Month", "MONTH", "月"),
 
     /**
      * year
      */
-    YEAR("y", "Y", "year", "Year", "YEAR", "年", "年数"),
+    YEAR("y", "Y", "year", "Year", "YEAR", "年"),
 
     ;
 
@@ -70,12 +78,10 @@ public enum TimeUnitPool {
      */
     public static final short HOUR_UNIT = 24;
 
-    private final String name1;
-    private final String name2;
-    private final String name3;
-    private final String name4;
-    private final String name5;
-    private final String name6;
-    private final String name7;
+    TimeUnitPool(String... names) {
+        this.names = names;
+    }
+
+    private final String[] names;
 
 }
