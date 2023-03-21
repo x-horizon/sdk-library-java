@@ -36,8 +36,8 @@ public class CollectionsUtil extends CollUtil {
      * 获取大小
      *
      * @param from 输入参数
-     * @param <T>
-     * @return
+     * @param <T>  元素类型
+     * @return 大小
      */
     @SuppressWarnings("unchecked")
     public static <T> int getSize(@Nullable Object from) {
@@ -55,7 +55,7 @@ public class CollectionsUtil extends CollUtil {
      *
      * @param from 输入参数
      * @param <T>  元素类型
-     * @return 集合大小
+     * @return 大小
      */
     public static <T> int getSize(@Nullable Collection<T> from) {
         return Objects.isNull(from) ? 0 : from.size();
@@ -66,7 +66,7 @@ public class CollectionsUtil extends CollUtil {
      *
      * @param from 输入参数
      * @param <T>  元素类型
-     * @return 数组长度
+     * @return 大小
      */
     public static <T> int getSize(@Nullable T[] from) {
         return Objects.isNull(from) ? 0 : Array.getLength(from);
