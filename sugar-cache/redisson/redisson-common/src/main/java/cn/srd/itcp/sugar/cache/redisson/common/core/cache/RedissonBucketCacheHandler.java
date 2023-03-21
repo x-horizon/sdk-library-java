@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.cache.redisson.common.core.cache;
 
 import cn.srd.itcp.sugar.cache.redisson.common.support.RedissonManager;
 import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
+import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
 import org.redisson.api.RBatch;
 
 import java.util.List;
@@ -105,7 +106,7 @@ public class RedissonBucketCacheHandler {
      * @return true 代表设置成功，false 代表未设置
      */
     public <T> boolean setIfNotExists(String key, T value) {
-        return RedissonManager.getClient().getBucket(key).trySet(value);
+        return RedissonManager.getClient().getBucket(key).setIfAbsent(value);
     }
 
     /**
@@ -119,7 +120,7 @@ public class RedissonBucketCacheHandler {
      * @return true 代表设置成功，false 代表未设置
      */
     public <T> boolean setIfNotExists(String key, T value, long expiration, TimeUnit timeUnit) {
-        return RedissonManager.getClient().getBucket(key).trySet(value, expiration, timeUnit);
+        return RedissonManager.getClient().getBucket(key).setIfAbsent(value, TimeUtil.wrapper(expiration, timeUnit).toMillisecond());
     }
 
     /**
