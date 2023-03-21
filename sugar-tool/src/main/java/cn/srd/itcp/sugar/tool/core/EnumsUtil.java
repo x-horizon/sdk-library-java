@@ -144,7 +144,12 @@ public class EnumsUtil extends EnumUtil {
                 continue;
             }
             for (E enumObj : enums) {
-                if (Objects.equals(currentEnumFiledValue, ReflectsUtil.getFieldValueIgnoreThrowable(enumObj, field))) {
+                Object fieldValue = ReflectsUtil.getFieldValueIgnoreThrowable(enumObj, field);
+                if (Objects.equals(fieldValue, currentEnumFiledValue)) {
+                    return enumObj;
+                }
+                // 用于适应枚举里的值为可变参数
+                if (ArraysUtil.isArray(fieldValue) && ArraysUtil.contains((Object[]) fieldValue, currentEnumFiledValue)) {
                     return enumObj;
                 }
             }
