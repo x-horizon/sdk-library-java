@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.metadata.bean.vo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
  * @since 2022-07-18 17:59:54
  */
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 public class PostgresqlTableVO {
 

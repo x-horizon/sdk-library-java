@@ -3,8 +3,8 @@ package cn.srd.itcp.sugar.framework.spring.tool.common.core.page;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Range;
 
@@ -19,7 +19,7 @@ import java.io.Serializable;
  */
 @Schema(description = "分页参数模型")
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 public class PageParam implements Serializable {
 

@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.tool.web;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @since 2020/01/05 13:45
  */
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 public final class WebResponse<T> implements ResponseModel<T>, Serializable {
 

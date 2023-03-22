@@ -1,14 +1,14 @@
 package cn.srd.itcp.sugar.tool.core.pieline;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 public class CustomerVO implements Serializable {
 

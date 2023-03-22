@@ -1,8 +1,8 @@
 package cn.srd.itcp.sugar.cache.redisson.common;
 
 import cn.srd.itcp.sugar.cache.redisson.common.core.cache.RedissonCacheHandler;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +38,7 @@ public class RedissonCacheTest {
 }
 
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 class Student {
     private Integer id;

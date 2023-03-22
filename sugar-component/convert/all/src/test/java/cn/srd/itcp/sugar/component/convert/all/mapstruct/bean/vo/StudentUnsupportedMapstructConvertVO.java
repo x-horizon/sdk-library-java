@@ -1,8 +1,8 @@
 package cn.srd.itcp.sugar.component.convert.all.mapstruct.bean.vo;
 
 import cn.hutool.core.util.RandomUtil;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 public class StudentUnsupportedMapstructConvertVO implements Serializable {
 

@@ -2,8 +2,8 @@ package cn.srd.itcp.sugar.framework.hsweb.curd.bean.vo;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.srd.itcp.sugar.framework.hsweb.curd.bean.domain.StudentDO;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 public class StudentVO implements Serializable {
 

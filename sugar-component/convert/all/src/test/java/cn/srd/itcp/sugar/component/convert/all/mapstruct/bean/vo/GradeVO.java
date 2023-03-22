@@ -1,15 +1,15 @@
 package cn.srd.itcp.sugar.component.convert.all.mapstruct.bean.vo;
 
 import com.alibaba.fastjson.JSONArray;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 public class GradeVO implements Serializable {
 

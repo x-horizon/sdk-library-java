@@ -2,12 +2,12 @@ package cn.srd.itcp.sugar.tool.core.pieline;
 
 import cn.srd.itcp.sugar.tool.core.asserts.Assert;
 import cn.srd.itcp.sugar.tool.core.pipeline.NodeConsumer2;
-import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 public class CheckTenantAndUserLoginNode implements NodeConsumer2<TenantVO, UserVO> {
 
