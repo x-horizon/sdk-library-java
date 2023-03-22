@@ -5,6 +5,7 @@ import cn.srd.itcp.sugar.framework.spring.tool.common.core.enums.autowired.excep
 import cn.srd.itcp.sugar.tool.core.*;
 import cn.srd.itcp.sugar.tool.core.asserts.Assert;
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.lang.reflect.Field;
@@ -17,6 +18,7 @@ import java.util.Set;
  * @author wjm
  * @since 2021/9/8 16:07
  */
+@Slf4j
 public class EnumAutowiredSupport {
 
     /**
@@ -34,10 +36,11 @@ public class EnumAutowiredSupport {
     @PostConstruct
     @SuppressWarnings("unchecked")
     public <E extends Enum<E>> void autowired() {
+        log.debug("Enum Autowired enable, starting matching...");
         String[] packageNamesToFindEnumAutowired = new String[]{SpringsUtil.getRootPackagePath()};
         Set<Class<?>> classesWithEnumAutowiredScan = SpringsUtil.scanPackageByAnnotation(EnumAutowiredScan.class);
         Set<Class<?>> classesWithEnumAutowired;
-        Assert.INSTANCE.set(StringsUtil.format("found multi @{} in {}, please just specifies one", EnumAutowiredScan.class.getSimpleName(), CollectionsUtil.toList(classesWithEnumAutowiredScan, Class::getName))).throwsIfTrue(classesWithEnumAutowiredScan.size() > 1);
+        Assert.INSTANCE.set(StringsUtil.format("Find multi [@{}] in [{}], please specify one", EnumAutowiredScan.class.getSimpleName(), CollectionsUtil.toList(classesWithEnumAutowiredScan, Class::getName))).throwsIfTrue(classesWithEnumAutowiredScan.size() > 1);
         if (Objects.isNotEmpty(classesWithEnumAutowiredScan)) {
             packageNamesToFindEnumAutowired = ArraysUtil.append(packageNamesToFindEnumAutowired, AnnotationsUtil.getAnnotationValue(CollectionsUtil.getFirst(classesWithEnumAutowiredScan), EnumAutowiredScan.class));
             classesWithEnumAutowired = ClassesUtil.scanPackageByAnnotation(packageNamesToFindEnumAutowired, EnumAutowired.class);
@@ -45,14 +48,18 @@ public class EnumAutowiredSupport {
             classesWithEnumAutowired = SpringsUtil.scanPackageByAnnotation(EnumAutowired.class);
         }
 
+        if (Objects.isEmpty(classesWithEnumAutowired)) {
+            log.debug("No classes with [@{}] found to autowired.", EnumAutowired.class.getSimpleName());
+        }
+
         for (Class<?> classWithEnumAutowired : classesWithEnumAutowired) {
-            Objects.requireTrue(new EnumAutowiredUnsupportedException(StringsUtil.format("标记了 @EnumAutowired 的 “{}” 必须为 Enum 类型", classWithEnumAutowired.getSimpleName())), classWithEnumAutowired.isEnum());
+            Objects.requireTrue(new EnumAutowiredUnsupportedException(StringsUtil.format("The class [{}] marked with [@{}] must be an enum class, please check!", classWithEnumAutowired.getSimpleName(), EnumAutowired.class.getSimpleName())), classWithEnumAutowired.isEnum());
             EnumAutowired enumAutowired = AnnotationsUtil.getAnnotation(classWithEnumAutowired, EnumAutowired.class);
             Class<?> autowiredBeanClass = enumAutowired.autowiredBeanClass();
             String classSimpleNameWithEnumAutowired = classWithEnumAutowired.getSimpleName();
             String autowiredBeanClassSimpleName = autowiredBeanClass.getSimpleName();
             Set<String> autowiredBeanChildrenClassSimpleNames = CollectionsUtil.toSet(ClassesUtil.scanPackagesBySuper(packageNamesToFindEnumAutowired, autowiredBeanClass), Class::getSimpleName);
-            Assert.INSTANCE.set(new EnumAutowiredBeanImplNotFoundException(StringsUtil.format("在 “{}” 中绑定的接口 “{}” 没有实现类，请检查！", classSimpleNameWithEnumAutowired, autowiredBeanClassSimpleName))).throwsIfEmpty(autowiredBeanChildrenClassSimpleNames);
+            Assert.INSTANCE.set(new EnumAutowiredBeanImplNotFoundException(StringsUtil.format("The class [{}] marked with [@{}] bound interface [{}] has no implementation class, please check!", classSimpleNameWithEnumAutowired, EnumAutowired.class.getSimpleName(), autowiredBeanClassSimpleName)));
 
             FindBeanNamesMayAutowiredRule findBeanNamesMayAutowiredRule = ReflectsUtil.newInstance(enumAutowired.findBeanNamesMayAutowiredRule());
             FindBeanNameToAutowiredRule findBeanNameToAutowiredRule = ReflectsUtil.newInstance(enumAutowired.findBeanNameToAutowiredRule());
@@ -63,22 +70,24 @@ public class EnumAutowiredSupport {
                         String fieldNameToAutowired = enumAutowired.autowiredFiledName();
                         if (Objects.isBlank(fieldNameToAutowired)) {
                             List<Field> matchFields = CollectionsUtil.filtersToList(ClassesUtil.getDeclaredFields(internalEnumWithEnumAutowired.getClass()), enumField -> Objects.equals(enumField.getType(), enumAutowired.autowiredBeanClass()));
-                            Assert.INSTANCE.set(new EnumAutowiredUnmatchedFieldException(StringsUtil.format("在 “{}” 中无法找到与 “{}” 相匹配的字段，无法注入，请检查！", classSimpleNameWithEnumAutowired, autowiredBeanClassSimpleName))).throwsIfEmpty(matchFields);
-                            Assert.INSTANCE.set(new EnumAutowiredMultiMatchedFieldException(StringsUtil.format("在 “{}” 中找到多个与 “{}” 相匹配的字段，无法注入，请检查！", classSimpleNameWithEnumAutowired, autowiredBeanClassSimpleName))).throwsIfTrue(matchFields.size() > 1);
+                            Assert.INSTANCE.set(new EnumAutowiredUnmatchedFieldException(StringsUtil.format("The class [{}] marked with [@{}] has no field match [{}], cannot autowired, please specify one!", classSimpleNameWithEnumAutowired, EnumAutowired.class.getSimpleName(), autowiredBeanClassSimpleName))).throwsIfEmpty(matchFields);
+                            Assert.INSTANCE.set(new EnumAutowiredMultiMatchedFieldException(StringsUtil.format("The class [{}] marked with [@{}] has multi fields match [{}], cannot autowired, please specify one!", classSimpleNameWithEnumAutowired, EnumAutowired.class.getSimpleName(), autowiredBeanClassSimpleName))).throwsIfTrue(matchFields.size() > 1);
                             fieldNameToAutowired = CollectionsUtil.getFirst(matchFields).getName();
                         }
 
                         // 可能要注入的实现类
                         List<String> beanNamesMayAutowired = findBeanNamesMayAutowiredRule.getBeanNamesMayAutowired(internalEnumWithEnumAutowired, autowiredBeanChildrenClassSimpleNames);
-                        Assert.INSTANCE.set(new EnumAutowiredMayAutowiredBeansNotFoundException(StringsUtil.format("在 “{}” 中无法找到实现了 “{}” 并且允许匹配的实现类，无法注入，请检查！", classSimpleNameWithEnumAutowired, autowiredBeanClassSimpleName))).throwsIfEmpty(beanNamesMayAutowired);
+                        Assert.INSTANCE.set(new EnumAutowiredMayAutowiredBeansNotFoundException(StringsUtil.format("The class [{}] marked with [@{}] bound interface [{}] has no implementation class that allow matching, please check!", classSimpleNameWithEnumAutowired, EnumAutowired.class.getSimpleName(), autowiredBeanClassSimpleName))).throwsIfEmpty(beanNamesMayAutowired);
                         // 最终要注入的实现类
                         String beanNameToAutowired = findBeanNameToAutowiredRule.getBeanNameToAutowired(beanNamesMayAutowired);
-                        Assert.INSTANCE.set(new EnumAutowiredFinallyAutowiredBeanNotFoundException(StringsUtil.format("在 “{}” 中无法找到实现了 “{}” 并且允许注入的实现类，无法注入，请检查！", classSimpleNameWithEnumAutowired, autowiredBeanClassSimpleName))).throwsIfBlank(beanNameToAutowired);
+                        Assert.INSTANCE.set(new EnumAutowiredFinallyAutowiredBeanNotFoundException(StringsUtil.format("The class [{}] marked with [@{}] bound interface [{}] has no implementation class that allow autowired, please check!", classSimpleNameWithEnumAutowired, EnumAutowired.class.getSimpleName(), autowiredBeanClassSimpleName))).throwsIfBlank(beanNameToAutowired);
 
                         ReflectsUtil.setFieldValue(internalEnumWithEnumAutowired, fieldNameToAutowired, SpringsUtil.getBean(beanNameToAutowired));
+                        log.debug("Find class [{}] and autowired it into class [{}] filed [{}]", beanNameToAutowired, classSimpleNameWithEnumAutowired, fieldNameToAutowired);
                     }
             );
         }
+        log.debug("Enum Autowired finish, exit.");
     }
 
 }
