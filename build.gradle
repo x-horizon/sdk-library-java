@@ -71,12 +71,6 @@ allprojects {
 //        downloadSources = true
 //    }
 
-    tasks.withType(JavaCompile).tap {
-        configureEach {
-            options.encoding = projectCharset
-        }
-    }
-
     //  编译、打包时跳过测试(TODO 未解决，要实现打包时不测试，但能手动测试，加了这个不能手动测试了)
     gradle.taskGraph.whenReady {
         tasks.each { task ->
@@ -84,5 +78,30 @@ allprojects {
                 task.enabled = false
             }
         }
+    }
+
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            options.encoding = projectCharset
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = projectCharset
+    }
+
+    task cleanAll(type: Delete) {
+        delete "${projectDir}/build"
+        delete "${projectDir}/out"
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        archiveClassifier.set("sources")
+        from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        archiveClassifier.set("javadoc")
+        from javadoc.destinationDir
     }
 }

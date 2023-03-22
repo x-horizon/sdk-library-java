@@ -14,20 +14,6 @@ dependencies {
     api("$easyexcel")
 }
 
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = projectCharset
-}
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-    archiveClassifier.set("sources")
-    from sourceSets.main.allSource
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    archiveClassifier.set("javadoc")
-    from javadoc.destinationDir
-}
-
 javadoc {
     options {
         encoding projectCharset
