@@ -10,8 +10,9 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 import org.locationtech.jts.geom.Geometry;
 
 import java.io.Serial;
@@ -24,7 +25,8 @@ import java.io.Serializable;
  * @since 2023-03-14 15:39:11
  */
 @Data
-@Accessors(chain = true)
+@AllArgsConstructor
+@SuperBuilder(toBuilder = true)
 @TableName(value = "geometry_test", autoResultMap = true)
 public class GeometryTestPO implements Serializable {
 

@@ -2,8 +2,9 @@ package cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.metadata.b
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 
 /**
  * (pg_class) 持久化模型
@@ -12,7 +13,8 @@ import lombok.experimental.Accessors;
  * @since 2022-07-18 17:59:54
  */
 @Data
-@Accessors(chain = true)
+@AllArgsConstructor
+@SuperBuilder(toBuilder = true)
 @TableName(value = "pg_class", autoResultMap = true)
 public class PostgresqlClassPO {
 

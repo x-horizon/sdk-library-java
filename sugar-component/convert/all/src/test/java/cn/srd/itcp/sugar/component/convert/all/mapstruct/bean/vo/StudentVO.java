@@ -2,9 +2,9 @@ package cn.srd.itcp.sugar.component.convert.all.mapstruct.bean.vo;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.srd.itcp.sugar.component.convert.all.mapstruct.bean.domain.StudentDO;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@Accessors(chain = true)
+@AllArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class StudentVO implements Serializable {
 
     @Serial
@@ -26,16 +26,17 @@ public class StudentVO implements Serializable {
     private String studentSexName;
 
     public static StudentVO newVO() {
-        return new StudentVO()
-                .setStudentId(RandomUtil.randomInt(99))
-                .setStudentName("name" + RandomUtil.randomNumbers(2))
-                .setStudentAge(RandomUtil.randomInt(15, 20))
-                .setStudentSexName(StudentDO.Sex.GIRL.name())
-                .setStudentSexNumber(StudentDO.Sex.GIRL.getNumber());
+        return StudentVO.builder()
+                .studentId(RandomUtil.randomInt(99))
+                .studentName("name" + RandomUtil.randomNumbers(2))
+                .studentAge(RandomUtil.randomInt(15, 20))
+                .studentSexName(StudentDO.Sex.GIRL.name())
+                .studentSexNumber(StudentDO.Sex.GIRL.getNumber())
+                .build();
     }
 
     public static List<StudentVO> newVOs() {
-        return new ArrayList<StudentVO>() {{
+        return new ArrayList<>() {{
             add(newVO());
             add(newVO());
             add(newVO());

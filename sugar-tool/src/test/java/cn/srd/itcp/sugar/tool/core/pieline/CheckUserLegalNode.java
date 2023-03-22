@@ -2,11 +2,13 @@ package cn.srd.itcp.sugar.tool.core.pieline;
 
 import cn.srd.itcp.sugar.tool.core.asserts.Assert;
 import cn.srd.itcp.sugar.tool.core.pipeline.NodeConsumer1;
+import lombok.AllArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 
 @Setter
-@Accessors(chain = true)
+@AllArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class CheckUserLegalNode implements NodeConsumer1<UserVO> {
 
     private static final class SingleTonHolder {

@@ -1,9 +1,9 @@
 package cn.srd.itcp.sugar.framework.hsweb.curd.page;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -16,8 +16,8 @@ import java.util.List;
  * @since 2022/6/18 19:17
  */
 @Data
-@NoArgsConstructor
-@Accessors(chain = true)
+@AllArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class PageResult<T> implements Serializable {
 
     @Serial

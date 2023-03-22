@@ -1,9 +1,9 @@
 package cn.srd.itcp.sugar.component.convert.all.mapstruct.bean.vo;
 
 import cn.hutool.core.util.RandomUtil;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@Accessors(chain = true)
+@AllArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class StudentUnsupportedMapstructConvertVO implements Serializable {
 
     @Serial
@@ -24,18 +24,19 @@ public class StudentUnsupportedMapstructConvertVO implements Serializable {
     private String sex;
 
     public static StudentUnsupportedMapstructConvertVO newVO() {
-        return new StudentUnsupportedMapstructConvertVO()
-                .setId(RandomUtil.randomInt(99))
-                .setName("name" + RandomUtil.randomNumbers(2))
-                .setAge(RandomUtil.randomInt(15, 20))
-                .setSex("GIRL");
+        return StudentUnsupportedMapstructConvertVO.builder()
+                .id(RandomUtil.randomInt(99))
+                .name("name" + RandomUtil.randomNumbers(2))
+                .age(RandomUtil.randomInt(15, 20))
+                .sex("GIRL")
+                .build();
     }
 
     public static List<StudentUnsupportedMapstructConvertVO> newVOs() {
-        return new ArrayList<StudentUnsupportedMapstructConvertVO>() {{
-            add(new StudentUnsupportedMapstructConvertVO());
-            add(new StudentUnsupportedMapstructConvertVO());
-            add(new StudentUnsupportedMapstructConvertVO());
+        return new ArrayList<>() {{
+            add(StudentUnsupportedMapstructConvertVO.builder().build());
+            add(StudentUnsupportedMapstructConvertVO.builder().build());
+            add(StudentUnsupportedMapstructConvertVO.builder().build());
         }};
     }
 

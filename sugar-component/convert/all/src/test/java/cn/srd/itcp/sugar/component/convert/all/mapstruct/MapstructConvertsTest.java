@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class MapstructConvertsTest {
 
     private static final StudentVO DEFAULT_STUDENT_VO = StudentVO.newVO();
-    private static final StudentUnsupportedMapstructConvertDO DEFAULT_STUDENT_UNSUPPORTED_CONVERT_DO = new StudentUnsupportedMapstructConvertDO();
+    private static final StudentUnsupportedMapstructConvertDO DEFAULT_STUDENT_UNSUPPORTED_CONVERT_DO = StudentUnsupportedMapstructConvertDO.builder().build();
 
     @Test
     public void testMapstructConverts() {

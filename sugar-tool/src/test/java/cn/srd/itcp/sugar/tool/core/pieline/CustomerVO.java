@@ -1,15 +1,15 @@
 package cn.srd.itcp.sugar.tool.core.pieline;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 @Data
-@NoArgsConstructor
-@Accessors(chain = true)
+@AllArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class CustomerVO implements Serializable {
 
     @Serial
@@ -20,31 +20,35 @@ public class CustomerVO implements Serializable {
     private Boolean authorizationPass;
 
     public static CustomerVO ofLegalPass() {
-        return new CustomerVO()
-                .setLegalPass(true)
-                .setLoginPass(false)
-                .setAuthorizationPass(false);
+        return CustomerVO.builder()
+                .legalPass(true)
+                .loginPass(false)
+                .authorizationPass(false)
+                .build();
     }
 
     public static CustomerVO ofLoginPass() {
-        return new CustomerVO()
-                .setLegalPass(false)
-                .setLoginPass(true)
-                .setAuthorizationPass(false);
+        return CustomerVO.builder()
+                .legalPass(false)
+                .loginPass(true)
+                .authorizationPass(false)
+                .build();
     }
 
     public static CustomerVO ofAuthorizationPass() {
-        return new CustomerVO()
-                .setLegalPass(false)
-                .setLoginPass(false)
-                .setAuthorizationPass(true);
+        return CustomerVO.builder()
+                .legalPass(false)
+                .loginPass(false)
+                .authorizationPass(true)
+                .build();
     }
 
     public static CustomerVO ofAllPass() {
-        return new CustomerVO()
-                .setLegalPass(true)
-                .setLoginPass(true)
-                .setAuthorizationPass(true);
+        return CustomerVO.builder()
+                .legalPass(true)
+                .loginPass(true)
+                .authorizationPass(true)
+                .build();
     }
 
 }

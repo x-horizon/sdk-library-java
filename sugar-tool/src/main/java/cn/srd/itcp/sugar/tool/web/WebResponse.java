@@ -1,7 +1,8 @@
 package cn.srd.itcp.sugar.tool.web;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -14,7 +15,8 @@ import java.io.Serializable;
  * @since 2020/01/05 13:45
  */
 @Data
-@Accessors(chain = true)
+@AllArgsConstructor
+@SuperBuilder(toBuilder = true)
 public final class WebResponse<T> implements ResponseModel<T>, Serializable {
 
     @Serial
@@ -167,11 +169,11 @@ public final class WebResponse<T> implements ResponseModel<T>, Serializable {
      * @return 响应实例
      */
     public static <T> WebResponse<T> response(HttpStatusEnum httpStatusEnum, T data) {
-        WebResponse<T> response = new WebResponse<>();
-        response.status = httpStatusEnum.getCode();
-        response.message = httpStatusEnum.getDescription();
-        response.data = data;
-        return response;
+        return WebResponse.<T>builder()
+                .status(httpStatusEnum.getCode())
+                .message(httpStatusEnum.getDescription())
+                .data(data)
+                .build();
     }
 
     /**
@@ -184,11 +186,11 @@ public final class WebResponse<T> implements ResponseModel<T>, Serializable {
      * @return 响应实例
      */
     public static <T> WebResponse<T> response(Integer status, String message, T data) {
-        WebResponse<T> response = new WebResponse<>();
-        response.status = status;
-        response.message = message;
-        response.data = data;
-        return response;
+        return WebResponse.<T>builder()
+                .status(status)
+                .message(message)
+                .data(data)
+                .build();
     }
 
 }

@@ -1,15 +1,15 @@
 package cn.srd.itcp.sugar.tool.core.pieline;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 @Data
-@NoArgsConstructor
-@Accessors(chain = true)
+@AllArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class TenantVO implements Serializable {
 
     @Serial
@@ -20,31 +20,35 @@ public class TenantVO implements Serializable {
     private Boolean authorizationPass;
 
     public static TenantVO ofLegalPass() {
-        return new TenantVO()
-                .setLegalPass(true)
-                .setLoginPass(false)
-                .setAuthorizationPass(false);
+        return TenantVO.builder()
+                .legalPass(true)
+                .loginPass(false)
+                .authorizationPass(false)
+                .build();
     }
 
     public static TenantVO ofLoginPass() {
-        return new TenantVO()
-                .setLegalPass(false)
-                .setLoginPass(true)
-                .setAuthorizationPass(false);
+        return TenantVO.builder()
+                .legalPass(false)
+                .loginPass(true)
+                .authorizationPass(false)
+                .build();
     }
 
     public static TenantVO ofAuthorizationPass() {
-        return new TenantVO()
-                .setLegalPass(false)
-                .setLoginPass(false)
-                .setAuthorizationPass(true);
+        return TenantVO.builder()
+                .legalPass(false)
+                .loginPass(false)
+                .authorizationPass(true)
+                .build();
     }
 
     public static TenantVO ofAllPass() {
-        return new TenantVO()
-                .setLegalPass(true)
-                .setLoginPass(true)
-                .setAuthorizationPass(true);
+        return TenantVO.builder()
+                .legalPass(true)
+                .loginPass(true)
+                .authorizationPass(true)
+                .build();
     }
 
 }

@@ -2,11 +2,13 @@ package cn.srd.itcp.sugar.tool.core.pieline;
 
 import cn.srd.itcp.sugar.tool.core.asserts.Assert;
 import cn.srd.itcp.sugar.tool.core.pipeline.NodeConsumer2;
+import lombok.AllArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 
 @Setter
-@Accessors(chain = true)
+@AllArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class CheckTenantAndUserAuthorizationNode implements NodeConsumer2<TenantVO, UserVO> {
 
     private static final class SingleTonHolder {

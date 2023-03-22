@@ -4,8 +4,7 @@ import cn.hutool.core.util.RandomUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -13,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@Accessors(chain = true)
+@AllArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class StudentDO implements Serializable {
 
     @Serial
@@ -34,15 +33,16 @@ public class StudentDO implements Serializable {
     }
 
     public static StudentDO newDO() {
-        return new StudentDO()
-                .setId(RandomUtil.randomInt(99))
-                .setName("name" + RandomUtil.randomNumbers(2))
-                .setAge(RandomUtil.randomInt(15, 20))
-                .setSex(Sex.GIRL);
+        return StudentDO.builder()
+                .id(RandomUtil.randomInt(99))
+                .name("name" + RandomUtil.randomNumbers(2))
+                .age(RandomUtil.randomInt(15, 20))
+                .sex(Sex.GIRL)
+                .build();
     }
 
     public static List<StudentDO> newDOs() {
-        return new ArrayList<StudentDO>() {{
+        return new ArrayList<>() {{
             add(newDO());
             add(newDO());
             add(newDO());

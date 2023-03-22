@@ -1,15 +1,15 @@
 package cn.srd.itcp.sugar.tool.core.pieline;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 @Data
-@NoArgsConstructor
-@Accessors(chain = true)
+@AllArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class UserVO implements Serializable {
 
     @Serial
@@ -20,31 +20,35 @@ public class UserVO implements Serializable {
     private Boolean authorizationPass;
 
     public static UserVO ofLegalPass() {
-        return new UserVO()
-                .setLegalPass(true)
-                .setLoginPass(false)
-                .setAuthorizationPass(false);
+        return UserVO.builder()
+                .legalPass(true)
+                .loginPass(false)
+                .authorizationPass(false)
+                .build();
     }
 
     public static UserVO ofLoginPass() {
-        return new UserVO()
-                .setLegalPass(false)
-                .setLoginPass(true)
-                .setAuthorizationPass(false);
+        return UserVO.builder()
+                .legalPass(false)
+                .loginPass(true)
+                .authorizationPass(false)
+                .build();
     }
 
     public static UserVO ofAuthorizationPass() {
-        return new UserVO()
-                .setLegalPass(false)
-                .setLoginPass(false)
-                .setAuthorizationPass(true);
+        return UserVO.builder()
+                .legalPass(false)
+                .loginPass(false)
+                .authorizationPass(true)
+                .build();
     }
 
     public static UserVO ofAllPass() {
-        return new UserVO()
-                .setLegalPass(true)
-                .setLoginPass(true)
-                .setAuthorizationPass(true);
+        return UserVO.builder()
+                .legalPass(true)
+                .loginPass(true)
+                .authorizationPass(true)
+                .build();
     }
 
 }

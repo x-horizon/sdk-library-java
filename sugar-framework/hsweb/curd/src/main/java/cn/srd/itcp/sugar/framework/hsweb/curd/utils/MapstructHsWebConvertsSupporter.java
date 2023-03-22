@@ -55,20 +55,20 @@ public class MapstructHsWebConvertsSupporter implements MapstructConvertsSupport
     public <T> Object getDefaultValue(@Nullable T defaultValue) {
         return Objects.isNull(defaultValue)
                 ?
-                new PageResult<>()
-                        .setPageIndex(0L)
-                        .setPages(0L)
-                        .setPageSize(0L)
-                        .setTotal(0L)
-                        .setData(new ArrayList<>())
+                PageResult.builder()
+                        .pageIndex(0L)
+                        .pages(0L)
+                        .pageSize(0L)
+                        .total(0L)
+                        .data(new ArrayList<>())
                 :
                 // TODO wjm 关于分页参数未优化，应该不会有这种需求
-                new PageResult<>()
-                        .setPageIndex(1L)
-                        .setPages(1L)
-                        .setPageSize(1L)
-                        .setTotal(1L)
-                        .setData(CollectionsUtil.newArrayList(defaultValue));
+                PageResult.builder()
+                        .pageIndex(1L)
+                        .pages(1L)
+                        .pageSize(1L)
+                        .total(1L)
+                        .data(CollectionsUtil.newArrayList(defaultValue));
     }
 
 }
