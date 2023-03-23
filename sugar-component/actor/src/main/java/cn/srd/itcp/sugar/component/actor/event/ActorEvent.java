@@ -24,7 +24,7 @@ public interface ActorEvent<T> extends Serializable {
      *
      * @return 事件类型
      */
-    ActorEventType getEventType();
+    ActorEventType<T> getEventType();
 
     /**
      * Executed when the target TbActor is stopped or destroyed.

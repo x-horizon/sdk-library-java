@@ -6,8 +6,8 @@ package cn.srd.itcp.sugar.component.actor.event;
  * @author wjm
  * @since 2023-03-20 16:45:11
  */
-public interface ActorEventType {
+public interface ActorEventType<T> {
 
-    ActorEventTypeStrategy getStrategy();
+    ActorEventTypeStrategy<T> getStrategy();
 
 }
