@@ -27,6 +27,17 @@ public class StringsUtil extends StrUtil {
     }
 
     /**
+     * see {@link #contains(CharSequence, CharSequence)}
+     *
+     * @param str       字符串
+     * @param searchStr 被查找的字符串
+     * @return 是否不包含
+     */
+    public static boolean notContains(CharSequence str, CharSequence searchStr) {
+        return !contains(str, searchStr);
+    }
+
+    /**
      * 替换字符串中的指定字符串
      *
      * @param str         被替换的字符串
