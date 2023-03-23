@@ -5,7 +5,7 @@ import cn.srd.itcp.sugar.component.actor.core.ActorStopReason;
 import java.io.Serializable;
 
 /**
- * actor event processor
+ * actor event
  *
  * @author wjm
  * @since 2023-03-20 16:45:11
