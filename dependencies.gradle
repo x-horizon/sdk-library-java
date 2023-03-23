@@ -25,6 +25,7 @@ ext {
     lombok_version = "1.18.22"
     lombok_mapstruct_binding_version = "0.2.0"
     mapstruct_version = "1.5.2.Final"
+    generic_enums_version = "0.4"
     vavr_version = "0.10.4"
     guava_version = "31.1-jre"
     hutool_version = "5.8.14"
@@ -149,6 +150,8 @@ ext {
     lombok_mapstruct_binding = "org.projectlombok:lombok-mapstruct-binding:${lombok_mapstruct_binding_version}" as GStringImpl
     mapstruct = "org.mapstruct:mapstruct:${mapstruct_version}" as GStringImpl
     mapstruct_processor = "org.mapstruct:mapstruct-processor:${mapstruct_version}" as GStringImpl
+    generic_enums_annotations = "io.github.cmoine:generic-enums-annotations:${generic_enums_version}" as GStringImpl
+    generic_enums_processor = "io.github.cmoine:generic-enums-processor:${generic_enums_version}" as GStringImpl
     vavr = "io.vavr:vavr:${vavr_version}" as GStringImpl
     guava = "com.google.guava:guava:${guava_version}" as GStringImpl
     hutool = "cn.hutool:hutool-all:${hutool_version}" as GStringImpl
