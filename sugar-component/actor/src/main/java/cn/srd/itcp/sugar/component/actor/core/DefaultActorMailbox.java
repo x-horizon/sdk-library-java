@@ -14,6 +14,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+/**
+ * @author wjm
+ * @since 2023-03-23 20:09:17
+ */
 @Slf4j
 @Data
 public final class DefaultActorMailbox implements ActorMailbox {

@@ -4,6 +4,10 @@ import lombok.experimental.StandardException;
 
 import java.io.Serial;
 
+/**
+ * @author wjm
+ * @since 2023-03-23 20:09:17
+ */
 @StandardException
 public class ActorException extends Exception {
 

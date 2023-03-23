@@ -2,6 +2,10 @@ package cn.srd.itcp.sugar.component.actor.core;
 
 import lombok.Data;
 
+/**
+ * @author wjm
+ * @since 2023-03-23 20:09:17
+ */
 @Data
 public class ActorSystemSettings {
 

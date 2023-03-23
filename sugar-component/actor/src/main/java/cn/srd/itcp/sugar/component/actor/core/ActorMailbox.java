@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+/**
+ * @author wjm
+ * @since 2023-03-23 20:09:17
+ */
 public interface ActorMailbox {
 
     ActorId getSelfActorId();

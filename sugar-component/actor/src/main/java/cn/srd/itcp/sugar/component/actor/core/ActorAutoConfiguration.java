@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutorService;
  * {@link EnableAutoConfiguration AutoConfiguration} for Sugar Actor
  *
  * @author wjm
- * @since 2020/12/12 18:06
+ * @since 2023-03-23 20:09:17
  */
 @Slf4j
 @Order

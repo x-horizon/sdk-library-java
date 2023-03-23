@@ -4,6 +4,10 @@ import lombok.Data;
 
 import java.util.concurrent.ExecutorService;
 
+/**
+ * @author wjm
+ * @since 2023-03-23 20:09:17
+ */
 @Data
 class Dispatcher {
 
