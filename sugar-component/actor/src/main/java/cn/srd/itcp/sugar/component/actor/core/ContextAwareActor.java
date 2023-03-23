@@ -16,21 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class ContextAwareActor extends DefaultActor {
 
     /**
-     * actor system context
-     */
-    protected final ActorSystemContext actorSystemContext;
-
-    /**
-     * constructor
-     *
-     * @param context {@link ActorSystemContext}
-     */
-    protected ContextAwareActor(ActorSystemContext context) {
-        super();
-        this.actorSystemContext = context;
-    }
-
-    /**
      * 获取 {@link ActorType}
      *
      * @return {@link ActorType}
