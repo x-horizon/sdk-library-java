@@ -7,6 +7,8 @@ import cn.srd.itcp.sugar.tool.core.asserts.Assert;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.Set;
  * @since 2021/9/8 16:07
  */
 @Slf4j
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class EnumAutowiredSupport {
 
     /**
