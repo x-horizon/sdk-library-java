@@ -4,13 +4,11 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.srd.itcp.sugar.tool.core.asserts.Assert;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import cn.srd.itcp.sugar.tool.web.HttpStatus;
-import lombok.SneakyThrows;
 
 import java.io.ObjectStreamClass;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -2588,37 +2586,7 @@ public class Objects {
 
     // ============================================= modify value end
 
-    // ============================================= do predicate start
-
-    /**
-     * 若执行条件为真，执行动作
-     *
-     * @param condition   执行条件
-     * @param doAction    执行动作
-     * @param actionParam 执行动作参数
-     * @param <T>         执行动作参数类型
-     */
-    public static <T> void doIfTrue(boolean condition, Consumer<T> doAction, T actionParam) {
-        if (condition) {
-            doAction.accept(actionParam);
-        }
-    }
-
-    /**
-     * 若执行条件为真，抛出异常
-     *
-     * @param condition 执行条件
-     * @param throwable 异常
-     * @param <T>       异常类型
-     */
-    @SneakyThrows
-    public static <T extends Throwable> void throwsIfTrue(boolean condition, T throwable) {
-        if (condition) {
-            throw throwable;
-        }
-    }
-
-    // ============================================= do predicate end
+    // ============================================= 未整理
 
     /**
      * 获取实际的值 TODO 场景未够完善
