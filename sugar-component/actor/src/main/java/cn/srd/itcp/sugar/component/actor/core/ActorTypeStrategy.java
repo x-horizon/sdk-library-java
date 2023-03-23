@@ -1,7 +1,4 @@
-package cn.srd.itcp.sugar.component.actor.strategy;
-
-import cn.srd.itcp.sugar.component.actor.core.ActorCreator;
-import cn.srd.itcp.sugar.component.actor.core.ActorMailbox;
+package cn.srd.itcp.sugar.component.actor.core;
 
 /**
  * actor type strategy

@@ -1,6 +1,5 @@
 package cn.srd.itcp.sugar.component.actor.core;
 
-import cn.srd.itcp.sugar.component.actor.strategy.ActorTypeStrategy;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.core.*;
 import jakarta.annotation.PostConstruct;

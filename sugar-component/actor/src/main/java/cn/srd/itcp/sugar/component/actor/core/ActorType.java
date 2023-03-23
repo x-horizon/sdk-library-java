@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.component.actor.strategy;
+package cn.srd.itcp.sugar.component.actor.core;
 
 import cn.srd.itcp.sugar.tool.core.standard.CodeAndDescriptionStandard;
 

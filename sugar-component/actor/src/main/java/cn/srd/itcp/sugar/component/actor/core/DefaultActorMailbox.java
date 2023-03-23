@@ -2,8 +2,6 @@ package cn.srd.itcp.sugar.component.actor.core;
 
 import cn.srd.itcp.sugar.component.actor.event.ActorEvent;
 import cn.srd.itcp.sugar.component.actor.id.ActorId;
-import cn.srd.itcp.sugar.component.actor.strategy.InitFailureStrategy;
-import cn.srd.itcp.sugar.component.actor.strategy.ProcessFailureStrategy;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 

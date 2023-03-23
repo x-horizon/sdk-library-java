@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.component.actor.id;
 
-import cn.srd.itcp.sugar.component.actor.strategy.ActorType;
+import cn.srd.itcp.sugar.component.actor.core.ActorType;
 
 import java.io.Serializable;
 import java.util.UUID;
