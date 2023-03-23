@@ -9,7 +9,6 @@ ext {
     docker_bom_version = "3.3.0"
     protobuf_bom_version = "3.22.0"
     jackson_bom_version = "2.14.2"
-    thingsboard_version = "3.2.2"
     hsweb_version = "4.0.14"
     druid_version = "1.2.8"
     mysql_version = "8.0.32"
@@ -52,7 +51,7 @@ ext {
     itcp_sugar_component_convert_jackson_geometry = ":sugar-component:convert:jackson-geometry"
     itcp_sugar_component_convert_mapstruct = ":sugar-component:convert:mapstruct"
     itcp_sugar_component_convert_spring = ":sugar-component:convert:spring"
-    itcp_sugar_component_actor_thingsboard = ":sugar-component:actor:thingsboard"
+    itcp_sugar_component_actor = ":sugar-component:actor"
     itcp_sugar_component_docker = ":sugar-component:docker"
     itcp_sugar_component_excel = ":sugar-component:excel"
     itcp_sugar_component_geometry = ":sugar-component:geometry"
@@ -130,7 +129,6 @@ ext {
     sa_token_jakata_servlet = "cn.dev33:sa-token-jakarta-servlet"
 
     // component
-    thingsboard_actor = "org.thingsboard.common:actor:${thingsboard_version}" as GStringImpl
     easyexcel = "com.alibaba:easyexcel:${easyexcel_version}" as GStringImpl
     yitter_id_generator = "com.github.yitter:yitter-idgenerator:${yitter_id_generator_version}" as GStringImpl
     docker_bom = "com.github.docker-java:docker-java-bom:${docker_bom_version}" as GStringImpl
