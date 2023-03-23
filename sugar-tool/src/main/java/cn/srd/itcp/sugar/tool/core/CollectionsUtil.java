@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.tool.core;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
+import cn.srd.itcp.sugar.tool.constant.CharPool;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import lombok.NonNull;
@@ -943,6 +944,46 @@ public class CollectionsUtil extends CollUtil {
         }
         from.add(object);
         return from;
+    }
+
+    /**
+     * 是否为 JSONObject，首尾都为大括号判定为 JSONObject
+     *
+     * @param from 输入参数
+     * @return 是否为 JsonObject
+     */
+    public static boolean isJsonObject(String from) {
+        return StringsUtil.startAndEndWith(from, CharPool.DELIM_START);
+    }
+
+    /**
+     * 是否不为 JSONObject，首尾都为大括号判定为 JSONObject
+     *
+     * @param from 输入参数
+     * @return 是否不为 JsonObject
+     */
+    public static boolean isNotJsonObject(String from) {
+        return !isJsonObject(from);
+    }
+
+    /**
+     * 是否为 JsonArray，首尾都为中括号判定为 JSONArray
+     *
+     * @param from 输入参数
+     * @return 是否为 JsonArray
+     */
+    public static boolean isJsonArray(String from) {
+        return StringsUtil.startAndEndWith(from, CharPool.BRACKET_START);
+    }
+
+    /**
+     * 是否不为 JSONArray，首尾都为中括号判定为 JSONArray
+     *
+     * @param from 输入参数
+     * @return 是否不为 JsonArray
+     */
+    public static boolean isNotJsonArray(String from) {
+        return !isJsonArray(from);
     }
 
     /**

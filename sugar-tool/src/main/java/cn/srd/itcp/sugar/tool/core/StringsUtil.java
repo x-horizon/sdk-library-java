@@ -72,6 +72,33 @@ public class StringsUtil extends StrUtil {
     }
 
     /**
+     * 是否以指定的字符开头与结尾
+     *
+     * @param from  输入参数
+     * @param match 指定的字符
+     * @return 是否以指定的字符开头与结尾
+     */
+    public static boolean startAndEndWith(String from, char match) {
+        if (Objects.isBlank(from)) {
+            return false;
+        }
+
+        CharSequence str = from.trim();
+        return str.charAt(0) == match && str.charAt(str.length() - 1) == match;
+    }
+
+    /**
+     * 是否不以指定的字符开头与结尾
+     *
+     * @param from  输入参数
+     * @param match 指定的字符
+     * @return 是否不以指定的字符开头与结尾
+     */
+    public static boolean startAndEndNotWith(String from, char match) {
+        return !startAndEndWith(from, match);
+    }
+
+    /**
      * 是否以指定字符串集结尾，如果有一个字符串结尾集中的字符串匹配，返回true
      *
      * @param str      被监测字符串
@@ -80,7 +107,6 @@ public class StringsUtil extends StrUtil {
      */
     public static boolean endWith(CharSequence str, String... suffixes) {
         return endWith(str, Arrays.asList(suffixes));
-
     }
 
     /**

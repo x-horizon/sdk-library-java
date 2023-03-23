@@ -1,7 +1,6 @@
 package cn.srd.itcp.sugar.tool.core;
 
 import cn.hutool.core.util.ArrayUtil;
-import cn.srd.itcp.sugar.tool.constant.CharPool;
 import cn.srd.itcp.sugar.tool.core.asserts.Assert;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import cn.srd.itcp.sugar.tool.web.HttpStatus;
@@ -2620,56 +2619,6 @@ public class Objects {
     }
 
     // ============================================= do predicate end
-
-    /**
-     * 是否为 JSONObject，首尾都为大括号判定为 JSONObject
-     *
-     * @param object 待判定对象
-     * @return 判定是否成功
-     */
-    public static boolean doesStringLikeJson(String object) {
-        if (isBlank(object)) {
-            return false;
-        }
-
-        CharSequence str = object.trim();
-        return str.charAt(0) == CharPool.DELIM_START && str.charAt(str.length() - 1) == CharPool.DELIM_END;
-    }
-
-    /**
-     * 是否为 JSONArray，首尾都为中括号判定为 JSONArray
-     *
-     * @param object 待判定对象
-     * @return 判定是否成功
-     */
-    public static boolean doesStringLikeJsonArray(String object) {
-        if (isBlank(object)) {
-            return false;
-        }
-
-        CharSequence str = object.trim();
-        return str.charAt(0) == CharPool.BRACKET_START && str.charAt(str.length() - 1) == CharPool.BRACKET_END;
-    }
-
-    /**
-     * 是否不为 JSONObject，首尾都为大括号判定为 JSONObject
-     *
-     * @param object 待判定对象
-     * @return 判定是否成功
-     */
-    public static boolean doesStringNotLikeJson(String object) {
-        return !doesStringLikeJson(object);
-    }
-
-    /**
-     * 是否不为 JSONArray，首尾都为中括号判定为 JSONArray
-     *
-     * @param object 待判定对象
-     * @return 判定是否成功
-     */
-    public static boolean doesStringNotLikeJsonArray(String object) {
-        return !doesStringLikeJsonArray(object);
-    }
 
     /**
      * 获取实际的值 TODO 场景未够完善
