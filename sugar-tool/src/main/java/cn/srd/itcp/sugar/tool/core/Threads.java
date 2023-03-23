@@ -81,6 +81,17 @@ public class Threads {
     }
 
     /**
+     * create schedule thread pool with name
+     *
+     * @param corePoolSize see {@link Executors#newScheduledThreadPool(int, ThreadFactory)}
+     * @param name         thread pool name
+     * @return {@link ScheduledExecutorService}
+     */
+    public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize, String name) {
+        return Executors.newScheduledThreadPool(corePoolSize, newThreadFactory(name));
+    }
+
+    /**
      * create {@link ForkJoinPool} with name
      *
      * @param parallelism see {@link ForkJoinPool#ForkJoinPool(int, ForkJoinPool.ForkJoinWorkerThreadFactory, Thread.UncaughtExceptionHandler, boolean)}
