@@ -94,13 +94,13 @@ public final class DefaultActorMailbox implements ActorMailbox {
                 if (busy.compareAndSet(FREE, BUSY)) {
                     dispatcher.getExecutor().execute(this::processMailbox);
                 } else {
-                    log.trace("[{}] MessageBox is busy, has new event or not: {}", selfId, hasNewEvent);
+                    log.trace("[{}] is busy, has new event or not: {}", selfId, hasNewEvent);
                 }
             } else {
-                log.trace("[{}] MessageBox is empty, has new event or not: {}", selfId, hasNewEvent);
+                log.trace("[{}] is empty, has new event or not: {}", selfId, hasNewEvent);
             }
         } else {
-            log.trace("[{}] MessageBox is not ready, has new event or not: {}", selfId, hasNewEvent);
+            log.trace("[{}] is not ready, has new event or not: {}", selfId, hasNewEvent);
         }
     }
 
@@ -113,10 +113,10 @@ public final class DefaultActorMailbox implements ActorMailbox {
             }
             if (event != null) {
                 try {
-                    log.debug("[{}] Going to process message: {}", selfId, event);
+                    log.debug("[{}] Going to process event: {}", selfId, event);
                     actor.process(event);
                 } catch (Throwable throwable) {
-                    log.error("[{}] Failed to process message: {}", selfId, event, throwable);
+                    log.error("[{}] Failed to process event: {}", selfId, event, throwable);
                     ProcessFailureStrategy strategy = actor.onProcessFailure(throwable);
                     if (strategy.isStop()) {
                         system.stop(selfId);
