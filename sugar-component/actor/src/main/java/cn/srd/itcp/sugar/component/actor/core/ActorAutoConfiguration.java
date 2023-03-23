@@ -4,6 +4,7 @@ import cn.srd.itcp.sugar.component.actor.strategy.ActorTypeStrategy;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.core.*;
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -29,6 +30,8 @@ public class ActorAutoConfiguration {
     @Autowired
     private ActorSystemProperties actorSystemProperties;
 
+    private ActorSystem actorSystem;
+
     /**
      * single concurrency count
      */
@@ -39,7 +42,7 @@ public class ActorAutoConfiguration {
         log.debug("Initializing Actor System.");
 
         ActorSystemSettings settings = new ActorSystemSettings(actorSystemProperties.getActorProcessThroughput(), actorSystemProperties.getSchedulerPoolSize(), actorSystemProperties.getMaxInitActorRetryCount());
-        ActorSystem actorSystem = new DefaultActorSystem(settings);
+        actorSystem = new DefaultActorSystem(settings);
 
         // 获取顶级 actor 类型策略的所有实现类，但排除掉包含顶级策略名字的实现类，原因是为了让业务方可以定义自己的顶级策略
         Set<Class<? extends ActorTypeStrategy>> actorTypeStrategyClasses = CollectionsUtil.filter(ClassesUtil.scanPackagesBySuper(new String[]{SpringsUtil.getRootPackagePath()}, ActorTypeStrategy.class), item -> StringsUtil.notContains(item.getSimpleName(), ActorTypeStrategy.class.getSimpleName()));
@@ -51,6 +54,15 @@ public class ActorAutoConfiguration {
         });
 
         log.debug("Actor System Initialized.");
+    }
+
+    @PreDestroy
+    public void destroyActorSystem() {
+        if (actorSystem != null) {
+            log.debug("Stopping Actor System.");
+            actorSystem.stop();
+            log.debug("Actor System Stopped.");
+        }
     }
 
     /**
