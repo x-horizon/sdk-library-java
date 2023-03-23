@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.metadata.b
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -12,6 +13,7 @@ import lombok.experimental.SuperBuilder;
  */
 @Data
 @NoArgsConstructor
+@Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 public class PostgresqlTableDTO {
 

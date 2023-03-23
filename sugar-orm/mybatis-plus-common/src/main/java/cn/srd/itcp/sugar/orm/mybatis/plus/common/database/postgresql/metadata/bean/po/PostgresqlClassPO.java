@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -14,6 +15,7 @@ import lombok.experimental.SuperBuilder;
  */
 @Data
 @NoArgsConstructor
+@Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @TableName(value = "pg_class", autoResultMap = true)
 public class PostgresqlClassPO {

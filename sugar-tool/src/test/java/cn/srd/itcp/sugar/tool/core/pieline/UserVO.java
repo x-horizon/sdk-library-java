@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.tool.core.pieline;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
+@Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 public class UserVO implements Serializable {
 

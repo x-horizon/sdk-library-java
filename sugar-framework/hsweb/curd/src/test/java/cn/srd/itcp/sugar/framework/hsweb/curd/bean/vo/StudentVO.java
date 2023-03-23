@@ -4,6 +4,7 @@ import cn.hutool.core.util.RandomUtil;
 import cn.srd.itcp.sugar.framework.hsweb.curd.bean.domain.StudentDO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 public class StudentVO implements Serializable {
 

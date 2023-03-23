@@ -3,6 +3,7 @@ package cn.srd.itcp.sugar.framework.spring.tool.common.core.page;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
@@ -18,6 +19,7 @@ import java.util.List;
 @Schema(description = "分页结果模型")
 @Data
 @NoArgsConstructor
+@Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 public class PageResult<T> implements Serializable {
 

@@ -3,6 +3,7 @@ package cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.metadata.b
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -13,6 +14,7 @@ import lombok.experimental.SuperBuilder;
  */
 @Data
 @NoArgsConstructor
+@Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @TableName(value = "pg_tables", autoResultMap = true)
 public class PostgresqlTablePO {

@@ -3,6 +3,7 @@ package cn.srd.itcp.sugar.cache.redisson.common;
 import cn.srd.itcp.sugar.cache.redisson.common.core.cache.RedissonCacheHandler;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,6 +40,7 @@ public class RedissonCacheTest {
 
 @Data
 @NoArgsConstructor
+@Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 class Student {
     private Integer id;

@@ -3,6 +3,7 @@ package cn.srd.itcp.sugar.framework.hsweb.curd.page;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
+@Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 public class PageResult<T> implements Serializable {
 

@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.locationtech.jts.geom.Geometry;
 
@@ -26,6 +27,7 @@ import java.io.Serializable;
  */
 @Data
 @NoArgsConstructor
+@Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @TableName(value = "geometry_test", autoResultMap = true)
 public class GeometryTestPO implements Serializable {

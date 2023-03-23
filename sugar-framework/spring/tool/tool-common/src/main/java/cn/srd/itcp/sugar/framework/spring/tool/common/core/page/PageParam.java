@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Range;
 
@@ -20,6 +21,7 @@ import java.io.Serializable;
 @Schema(description = "分页参数模型")
 @Data
 @NoArgsConstructor
+@Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 public class PageParam implements Serializable {
 

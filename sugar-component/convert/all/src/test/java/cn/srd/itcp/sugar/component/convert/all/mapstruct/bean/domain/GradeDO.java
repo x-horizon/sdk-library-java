@@ -3,6 +3,7 @@ package cn.srd.itcp.sugar.component.convert.all.mapstruct.bean.domain;
 import cn.hutool.core.util.RandomUtil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 public class GradeDO implements Serializable {
 

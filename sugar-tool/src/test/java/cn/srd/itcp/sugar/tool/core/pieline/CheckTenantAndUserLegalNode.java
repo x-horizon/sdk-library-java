@@ -4,10 +4,12 @@ import cn.srd.itcp.sugar.tool.core.asserts.Assert;
 import cn.srd.itcp.sugar.tool.core.pipeline.NodeConsumer2;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 @Setter
 @NoArgsConstructor
+@Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 public class CheckTenantAndUserLegalNode implements NodeConsumer2<TenantVO, UserVO> {
 
