@@ -4,6 +4,7 @@ import cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.metadata.ha
 import cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.metadata.handler.PostgresqlTableHandler;
 import com.baomidou.mybatisplus.annotation.DbType;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -13,6 +14,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2022-07-18 17:59:54
  */
 @Getter
+@Setter
 @ConfigurationProperties(prefix = "sugar.orm.mybatis-plus")
 public class SugarMybatisPlusProperties {
 
