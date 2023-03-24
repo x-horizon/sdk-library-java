@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.component.actor.event;
 
 import cn.srd.itcp.sugar.component.actor.core.ActorStopReason;
+import cn.srd.itcp.sugar.component.actor.core.ActorType;
 
 import java.io.Serializable;
 
@@ -25,6 +26,13 @@ public interface ActorEvent<T> extends Serializable {
      * @return 事件类型
      */
     ActorEventType<T> getEventType();
+
+    /**
+     * 获取事件绑定的 actor
+     *
+     * @return 绑定的 actor
+     */
+    ActorType getBindActorType();
 
     /**
      * Executed when the target TbActor is stopped or destroyed.
