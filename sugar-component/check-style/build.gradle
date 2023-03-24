@@ -1,0 +1,47 @@
+def projectName = 'itcp-sugar-component-check-style'
+
+version = projectVersion
+
+dependencies {
+    // framework
+    implementation("$spring_boot")
+    implementation("$spring_boot_aop")
+    implementation("$spring_boot_configuration_processor")
+
+    // tool
+    implementation(project("$itcp_sugar_tool"))
+    implementation(project("$itcp_sugar_framework_spring_tool_common"))
+    implementation("$auto_service")
+    annotationProcessor("$auto_service_annotations")
+}
+
+javadoc {
+    options {
+        encoding projectCharset
+        version true
+        title projectName
+    }
+}
+
+publishing {
+    publications {
+        publishApp(MavenPublication) {
+            groupId group
+            artifactId projectName
+            version project.version
+            from components.java
+            artifact sourcesJar
+//            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username projectNexusUsername
+                password projectNexusPassword
+            }
+            url = projectNexusUrl
+            allowInsecureProtocol = true
+        }
+    }
+}

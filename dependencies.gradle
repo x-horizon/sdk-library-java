@@ -26,6 +26,7 @@ ext {
     lombok_mapstruct_binding_version = "0.2.0"
     mapstruct_version = "1.5.2.Final"
     generic_enums_version = "0.4"
+    auto_service_version = "1.0.1"
     vavr_version = "0.10.4"
     guava_version = "31.1-jre"
     hutool_version = "5.8.14"
@@ -46,13 +47,14 @@ ext {
     itcp_sugar_cache_caffeine = ":sugar-cache:caffeine"
     itcp_sugar_cache_redisson_common = ":sugar-cache:redisson:redisson-common"
     itcp_sugar_cache_redisson_webmvc = ":sugar-cache:redisson:redisson-webmvc"
+    itcp_sugar_component_actor = ":sugar-component:actor"
+    itcp_sugar_component_check_style = ":sugar-component:check-style"
     itcp_sugar_component_convert_all = ":sugar-component:convert:all"
     itcp_sugar_component_convert_fastjson = ":sugar-component:convert:fastjson"
     itcp_sugar_component_convert_jackson = ":sugar-component:convert:jackson"
     itcp_sugar_component_convert_jackson_geometry = ":sugar-component:convert:jackson-geometry"
     itcp_sugar_component_convert_mapstruct = ":sugar-component:convert:mapstruct"
     itcp_sugar_component_convert_spring = ":sugar-component:convert:spring"
-    itcp_sugar_component_actor = ":sugar-component:actor"
     itcp_sugar_component_docker = ":sugar-component:docker"
     itcp_sugar_component_excel = ":sugar-component:excel"
     itcp_sugar_component_geometry = ":sugar-component:geometry"
@@ -152,6 +154,8 @@ ext {
     mapstruct_processor = "org.mapstruct:mapstruct-processor:${mapstruct_version}" as GStringImpl
     generic_enums_annotations = "io.github.cmoine:generic-enums-annotations:${generic_enums_version}" as GStringImpl
     generic_enums_processor = "io.github.cmoine:generic-enums-processor:${generic_enums_version}" as GStringImpl
+    auto_service = "com.google.auto.service:auto-service:${auto_service_version}" as GStringImpl
+    auto_service_annotations = "com.google.auto.service:auto-service-annotations:${auto_service_version}" as GStringImpl
     vavr = "io.vavr:vavr:${vavr_version}" as GStringImpl
     guava = "com.google.guava:guava:${guava_version}" as GStringImpl
     hutool = "cn.hutool:hutool-all:${hutool_version}" as GStringImpl

@@ -12,13 +12,14 @@ apply from: getRootDir().getAbsolutePath() + "/dependencies.gradle"
 
 rootProject.name = 'itcp-sugar-java'
 
+include("$itcp_sugar_component_actor")
+include("$itcp_sugar_component_check_style")
 include("$itcp_sugar_component_convert_all")
 include("$itcp_sugar_component_convert_fastjson")
 include("$itcp_sugar_component_convert_jackson")
 include("$itcp_sugar_component_convert_jackson_geometry")
 include("$itcp_sugar_component_convert_mapstruct")
 include("$itcp_sugar_component_convert_spring")
-include("$itcp_sugar_component_actor")
 include("$itcp_sugar_component_docker")
 include("$itcp_sugar_component_excel")
 include("$itcp_sugar_component_geometry")
