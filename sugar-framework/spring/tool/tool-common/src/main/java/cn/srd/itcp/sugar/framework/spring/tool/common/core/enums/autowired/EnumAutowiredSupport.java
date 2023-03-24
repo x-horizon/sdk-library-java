@@ -82,9 +82,12 @@ public class EnumAutowiredSupport {
                         String beanNameToAutowired = findBeanNameToAutowiredRule.getBeanNameToAutowired(beanNamesMayAutowired);
                         Assert.INSTANCE.set(new EnumAutowiredFinallyAutowiredBeanNotFoundException(StringsUtil.format("The class [{}] marked with [@{}] bound interface [{}] has no implementation class that allow autowired, please check!", classSimpleNameWithEnumAutowired, EnumAutowired.class.getSimpleName(), autowiredBeanClassSimpleName))).throwsIfBlank(beanNameToAutowired);
 
-                        ReflectsUtil.setFieldValue(internalEnumWithEnumAutowired, fieldNameToAutowired, SpringsUtil.getBean(beanNameToAutowired));
-                        if (log.isDebugEnabled()) {
+                        Object beanToAutowired = SpringsUtil.getBean(beanNameToAutowired);
+                        ReflectsUtil.setFieldValue(internalEnumWithEnumAutowired, fieldNameToAutowired, beanToAutowired);
+                        if (Objects.isNotNull(beanToAutowired)) {
                             log.debug("Find class [{}] and autowired it into class [{}] filed [{}]", beanNameToAutowired, classSimpleNameWithEnumAutowired, fieldNameToAutowired);
+                        } else {
+                            log.warn("Find class [{}] and autowired it into class [{}] filed [{}], but [{}] instance is null, you need to consider adding it to Spring IOC", beanNameToAutowired, classSimpleNameWithEnumAutowired, fieldNameToAutowired, beanNameToAutowired);
                         }
                     }
             );
