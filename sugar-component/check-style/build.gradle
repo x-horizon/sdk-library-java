@@ -6,7 +6,7 @@ dependencies {
     // framework
     implementation("$spring_boot")
     implementation("$spring_boot_aop")
-    implementation("$spring_boot_configuration_processor")
+    annotationProcessor("$spring_boot_configuration_processor")
 
     // tool
     implementation(project("$itcp_sugar_tool"))
