@@ -6,7 +6,6 @@ dependencies {
     // framework
     implementation("$spring_boot_webmvc")
     api("$spring_cloud_stream_kafka")
-    api("org.springframework.cloud:spring-cloud-stream")
     annotationProcessor("$spring_boot_configuration_processor")
 
     // tool
