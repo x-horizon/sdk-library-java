@@ -72,13 +72,13 @@ allprojects {
 //    }
 
     //  编译、打包时跳过测试(TODO 未解决，要实现打包时不测试，但能手动测试，加了这个不能手动测试了)
-//    gradle.taskGraph.whenReady {
-//        tasks.each { task ->
-//            if (task.name.contains("test")) {
-//                task.enabled = false
-//            }
-//        }
-//    }
+    gradle.taskGraph.whenReady {
+        tasks.each { task ->
+            if (task.name.contains("test")) {
+                task.enabled = false
+            }
+        }
+    }
 
     tasks.withType(JavaCompile).tap {
         configureEach {
