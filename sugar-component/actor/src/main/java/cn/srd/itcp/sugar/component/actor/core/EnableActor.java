@@ -13,6 +13,6 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import({ActorAutoConfiguration.class})
+@Import({SugarActorAutoConfiguration.class})
 public @interface EnableActor {
 }

@@ -22,7 +22,7 @@ import java.util.concurrent.ExecutorService;
 @Slf4j
 @AutoConfiguration
 @EnableConfigurationProperties(ActorSystemProperties.class)
-public class ActorAutoConfiguration {
+public class SugarActorAutoConfiguration {
 
     @Autowired
     private ActorSystemProperties actorSystemProperties;
