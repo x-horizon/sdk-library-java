@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.tool.core.convert;
 
 import cn.hutool.core.convert.Convert;
+import cn.srd.itcp.sugar.tool.core.Objects;
 
 import java.util.function.*;
 
@@ -22,6 +23,19 @@ public class Converts extends Convert {
      * 是否静默转换，即报错不抛出异常，只打印日志，默认不静默转换
      */
     public static final boolean DEFAULT_CONVERT_QUIETLY = false;
+
+    /**
+     * byte[] =&gt; {@link String}
+     *
+     * @param from 转换源
+     * @return 结果集
+     */
+    public static String toString(byte[] from) {
+        if (Objects.isNull(from)) {
+            return null;
+        }
+        return new String(from);
+    }
 
     /**
      * {@link Supplier} =&gt; {@link Function}
