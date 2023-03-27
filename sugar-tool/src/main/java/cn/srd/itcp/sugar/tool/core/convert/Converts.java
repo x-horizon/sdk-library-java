@@ -2,10 +2,7 @@ package cn.srd.itcp.sugar.tool.core.convert;
 
 import cn.hutool.core.convert.Convert;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 /**
  * All in one 转换器
@@ -27,41 +24,54 @@ public class Converts extends Convert {
     public static final boolean DEFAULT_CONVERT_QUIETLY = false;
 
     /**
-     * Supplier =&gt; Function
+     * {@link Supplier} =&gt; {@link Function}
      *
-     * @param supplier 转换源
-     * @param <T>      转换源参数类型
+     * @param from 转换源
+     * @param <T>  转换源出参类型
      * @return 结果集
      */
-    public static <T> Function<Void, T> toFunction(Supplier<T> supplier) {
-        return t -> supplier.get();
+    public static <T> Function<Void, T> toFunction(Supplier<T> from) {
+        return t -> from.get();
     }
 
     /**
-     * Consumer =&gt; Function
+     * {@link Consumer} =&gt; {@link Function}
      *
-     * @param param    消费参数
-     * @param consumer 转换源
-     * @param <T>      转换源参数类型
+     * @param param 参数
+     * @param from  转换源
+     * @param <T>   转换源形参类型
      * @return 结果集
      */
-    public static <T> Function<T, Void> toFunction(T param, Consumer<T> consumer) {
+    public static <T> Function<T, Void> toFunction(T param, Consumer<T> from) {
         return t -> {
-            consumer.accept(param);
+            from.accept(param);
             return null;
         };
     }
 
     /**
-     * Predicate =&gt; Function
+     * {@link Predicate} =&gt; {@link Function}
      *
-     * @param param     断言参数
-     * @param predicate 转换源
-     * @param <T>       转换源参数类型
+     * @param param 参数
+     * @param from  转换源
+     * @param <T>   转换源形参类型
      * @return 结果集
      */
-    public static <T> Function<T, Boolean> toFunction(T param, Predicate<T> predicate) {
-        return t -> predicate.test(param);
+    public static <T> Function<T, Boolean> toFunction(T param, Predicate<T> from) {
+        return t -> from.test(param);
+    }
+
+    /**
+     * {@link Function} =&gt; {@link BiFunction}
+     *
+     * @param param 参数
+     * @param from  转换源
+     * @param <T>   转换源形参类型
+     * @param <R>   转换源出参类型
+     * @return 结果集
+     */
+    public static <T, R> BiFunction<T, Void, R> toBiFunction(T param, Function<T, R> from) {
+        return (t, r) -> from.apply(param);
     }
 
 }
