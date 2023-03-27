@@ -130,8 +130,17 @@ public class ClassesUtil extends ClassUtil {
      * @return 字段
      */
     public static Field getDeclaredField(Class<?> clazz, String fieldName) {
-        Field currentClassField = ClassUtil.getDeclaredField(clazz, fieldName);
-        return Objects.isNull(currentClassField) ? ClassUtil.getDeclaredField(clazz.getSuperclass(), fieldName) : currentClassField;
+        if (Objects.isNull(clazz) || Objects.isBlank(fieldName)) {
+            return null;
+        }
+        Field field = ClassUtil.getDeclaredField(clazz, fieldName);
+        if (Objects.isNull(field)) {
+            Class<?> superClass = clazz.getSuperclass();
+            if (Objects.isNotNull(superClass)) {
+                return getDeclaredField(superClass, fieldName);
+            }
+        }
+        return field;
     }
 
 }
