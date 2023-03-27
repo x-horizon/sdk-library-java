@@ -185,7 +185,8 @@ public class TypesUtil {
      * @return 字段类型
      */
     public static Class<?> getTypeClass(Class<?> fieldOfClass, String fieldName) {
-        return ClassesUtil.getDeclaredField(fieldOfClass, fieldName).getType();
+        Field field = ClassesUtil.getDeclaredField(fieldOfClass, fieldName);
+        return Objects.isNull(field) ? null : field.getType();
     }
 
     /**
