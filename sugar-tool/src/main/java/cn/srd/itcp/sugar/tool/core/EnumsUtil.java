@@ -24,6 +24,19 @@ public class EnumsUtil extends EnumUtil {
     }
 
     /**
+     * see {@link EnumUtil#isEnum(Class)} ，去除非空校验
+     *
+     * @param clazz 指定类
+     * @return 是否为 Enum 类
+     */
+    public static boolean isEnum(Class<?> clazz) {
+        if (Objects.isNull(clazz)) {
+            return false;
+        }
+        return clazz.isEnum();
+    }
+
+    /**
      * 指定类是否不为 Enum 类
      *
      * @param clazz 指定类
@@ -31,6 +44,19 @@ public class EnumsUtil extends EnumUtil {
      */
     public static boolean isNotEnum(Class<?> clazz) {
         return !isEnum(clazz);
+    }
+
+    /**
+     * see {@link EnumUtil#isEnum(Object)}，去除非空校验
+     *
+     * @param obj 指定对象
+     * @return 是否为 Enum 类
+     */
+    public static boolean isEnum(Object obj) {
+        if (Objects.isNull(obj)) {
+            return false;
+        }
+        return obj.getClass().isEnum();
     }
 
     /**
