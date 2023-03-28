@@ -16,7 +16,11 @@ import java.lang.annotation.*;
 public @interface SnowflakeIdConfigScan {
 
     /**
-     * 指定在哪些包下扫描 {@link SnowflakeIdConfig} 的实现类，若不指定，默认在 {@link SpringBootApplication} 所在的包路径下扫描
+     * <pre>
+     * 指定在哪些包下扫描 {@link SnowflakeIdConfig} 的实现类；
+     * 若不指定，默认在 {@link SpringBootApplication} 所在的包路径下扫描；
+     * 若指定，则在 {@link SpringBootApplication} 所在的包路径 + 指定的路径下扫描；
+     * </pre>
      *
      * @return 待扫描的包路径集合
      */
