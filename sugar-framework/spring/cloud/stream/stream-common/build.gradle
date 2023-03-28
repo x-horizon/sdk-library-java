@@ -1,17 +1,17 @@
-def projectName = 'itcp-sugar-framework-spring-cloud-stream-kafka'
+def projectName = 'itcp-sugar-framework-spring-cloud-stream-common'
 
 version = projectVersion
 
 dependencies {
     // framework
     implementation("$spring_boot")
-    api("$spring_cloud_stream_kafka")
-    api(project("$itcp_sugar_framework_spring_cloud_stream_common"))
+    api("$spring_cloud_stream")
     annotationProcessor("$spring_boot_configuration_processor")
 
     // tool
     implementation(project("$itcp_sugar_tool"))
     implementation(project("$itcp_sugar_framework_spring_tool_common"))
+    implementation(project("$itcp_sugar_component_convert_all"))
 }
 
 javadoc {
