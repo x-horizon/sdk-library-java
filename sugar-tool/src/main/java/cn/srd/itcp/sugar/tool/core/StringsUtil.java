@@ -73,6 +73,16 @@ public class StringsUtil extends StrUtil {
     }
 
     /**
+     * 小写
+     *
+     * @param str 原字符串
+     * @return 被改变后的字符串
+     */
+    public static String lowerCase(final String str) {
+        return StringUtils.lowerCase(str);
+    }
+
+    /**
      * 驼峰命名并大写首字母
      *
      * @param str 原字符串
