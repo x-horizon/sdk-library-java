@@ -43,6 +43,14 @@ public class JacksonConvertsTest {
     private static final Map<List<StudentDO>, List<GradeDO>> STUDENT_DOS_MAPPING_GRADE_DOS_MAP = ImmutableMap.of(STUDENT_DOS, GRADE_DOS);
 
     @Test
+    public void testJacksonConvertsToByte() {
+        byte[] gradeDOJson = Converts.withJackson().toBytes(GRADE_DO);
+        Converts.withJackson().toBean(gradeDOJson, GradeDO.class);
+        byte[] gradeDOsJsonArray = Converts.withJackson().toBytes(GRADE_DOS);
+        Converts.withJackson().toBeans(gradeDOsJsonArray, GradeDO.class);
+    }
+
+    @Test
     @SneakyThrows
     public void testJacksonConverts() {
         String gradeDOJson = Converts.withJackson().toString(GRADE_DO);

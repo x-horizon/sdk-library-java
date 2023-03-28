@@ -197,7 +197,18 @@ public class JacksonConverts {
     }
 
     /**
-     * 转换为 Json Format String
+     * 转换为 byte[]
+     *
+     * @param object 待转换对象
+     * @return 转换后对象
+     */
+    @SneakyThrows
+    public byte[] toBytes(Object object) {
+        return defaultJacksonMapper.writeValueAsBytes(object);
+    }
+
+    /**
+     * 转换为 {@link String}
      *
      * @param object 待转换对象
      * @return 转换后对象
@@ -216,6 +227,37 @@ public class JacksonConverts {
     @SneakyThrows
     public JsonNode toJsonNode(String json) {
         return defaultJacksonMapper.readTree(json);
+    }
+
+    /**
+     * 转换为实体对象
+     *
+     * @param json        待转换对象
+     * @param targetClass 目标转换对象类
+     * @param <T>         待转换对象类型
+     * @return 转换后对象
+     */
+    @SneakyThrows
+    public <T> T toBean(byte[] json, Class<T> targetClass) {
+        return toBean(json, targetClass, DEFAULT_VALIDATE_ENABLE);
+    }
+
+    /**
+     * 转换为实体对象
+     *
+     * @param json           待转换对象
+     * @param targetClass    目标转换对象类
+     * @param enableValidate 是否开启 Jackson 相关注解校验
+     * @param <T>            待转换对象类型
+     * @return 转换后对象
+     */
+    @SneakyThrows
+    public <T> T toBean(byte[] json, Class<T> targetClass, boolean enableValidate) {
+        return validateIfNeed(
+                defaultJacksonMapper.readValue(json, targetClass),
+                this::validate,
+                enableValidate
+        );
     }
 
     /**
@@ -307,6 +349,37 @@ public class JacksonConverts {
         return validateIfNeed(
                 defaultJacksonMapper.readValue(url, targetClass),
                 this::validate,
+                enableValidate
+        );
+    }
+
+    /**
+     * 转换为实体对象集合
+     *
+     * @param jsonArray   待转换对象
+     * @param targetClass 目标转换对象类
+     * @param <T>         待转换对象类型
+     * @return 转换后对象
+     */
+    @SneakyThrows
+    public <T> List<T> toBeans(byte[] jsonArray, Class<T> targetClass) {
+        return toBeans(jsonArray, targetClass, DEFAULT_VALIDATE_ENABLE);
+    }
+
+    /**
+     * 转换为实体对象集合
+     *
+     * @param jsonArray      待转换对象
+     * @param targetClass    目标转换对象类
+     * @param enableValidate 是否开启 Jackson 相关注解校验
+     * @param <T>            待转换对象类型
+     * @return 转换后对象
+     */
+    @SneakyThrows
+    public <T> List<T> toBeans(byte[] jsonArray, Class<T> targetClass, boolean enableValidate) {
+        return validateIfNeed(
+                defaultJacksonMapper.readValue(jsonArray, TypeFactory.defaultInstance().constructCollectionType(List.class, targetClass)),
+                targets -> targets.forEach(this::validate),
                 enableValidate
         );
     }
