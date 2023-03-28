@@ -20,6 +20,6 @@ public @interface SnowflakeIdConfigScan {
      *
      * @return 待扫描的包路径集合
      */
-    String[] value();
+    String[] value() default {};
 
 }
