@@ -1,5 +1,8 @@
 package cn.srd.itcp.sugar.component.id.generator.snowflake.core;
 
+import cn.srd.itcp.sugar.component.id.generator.snowflake.support.SugarSnowflakeIdAutoConfiguration;
+import org.springframework.context.annotation.Import;
+
 import java.lang.annotation.*;
 
 /**
@@ -11,6 +14,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
+@Import({SugarSnowflakeIdAutoConfiguration.class})
 public @interface EnableSnowflakeId {
 
 }
