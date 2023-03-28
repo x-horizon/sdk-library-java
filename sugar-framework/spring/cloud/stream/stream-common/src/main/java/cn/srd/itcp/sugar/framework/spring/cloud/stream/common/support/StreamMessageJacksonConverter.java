@@ -58,9 +58,7 @@ public class StreamMessageJacksonConverter extends AbstractMessageConverter {
         List<Class<?>> supportedClasses = new ArrayList<>();
 
         Set<Class<? extends StreamMessageConvertWithJacksonSupporter>> supporters = SpringsUtil.scanPackagesBySuper(StreamMessageConvertWithJacksonSupporter.class);
-        supporters.forEach(supporter -> {
-            supportedClasses.addAll(ReflectsUtil.newInstance(supporter).getSupportedClasses());
-        });
+        supporters.forEach(supporter -> supportedClasses.addAll(ReflectsUtil.newInstance(supporter).getSupportedClasses()));
 
         Set<Class<?>> classesWithEnableStreamMessageJacksonConverter = SpringsUtil.scanPackageByAnnotation(EnableStreamMessageJacksonConverter.class);
         classesWithEnableStreamMessageJacksonConverter.forEach(classWithEnableStreamMessageJacksonConverter -> {
