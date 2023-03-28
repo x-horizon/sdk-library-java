@@ -19,8 +19,8 @@ public class JacksonListLongToListStringSerializer extends JsonSerializer<List<L
 
     @Override
     @SneakyThrows
-    public void serialize(List<Long> params, JsonGenerator jsonGenerator, SerializerProvider serializers) {
-        List<String> strings = CollectionsUtil.map(params, param -> Long.toString(param), true);
+    public void serialize(List<Long> from, JsonGenerator jsonGenerator, SerializerProvider serializers) {
+        List<String> strings = CollectionsUtil.map(from, param -> Long.toString(param), true);
         jsonGenerator.writeArray(ArraysUtil.toArray(strings, String.class), 0, strings.size());
     }
 

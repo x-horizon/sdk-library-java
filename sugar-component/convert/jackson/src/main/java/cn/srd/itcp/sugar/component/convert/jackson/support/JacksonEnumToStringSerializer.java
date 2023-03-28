@@ -16,8 +16,8 @@ public class JacksonEnumToStringSerializer extends JsonSerializer<Enum<?>> {
 
     @Override
     @SneakyThrows
-    public void serialize(Enum<?> prepareToSerializerEnum, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
-        jsonGenerator.writeObject(EnumsUtil.getEnumValue(prepareToSerializerEnum, String.class));
+    public void serialize(Enum<?> from, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
+        jsonGenerator.writeObject(EnumsUtil.getEnumValue(from, String.class));
     }
 
 }

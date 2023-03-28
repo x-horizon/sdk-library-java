@@ -15,8 +15,8 @@ public class JacksonLongToStringSerializer extends JsonSerializer<Long> {
 
     @Override
     @SneakyThrows
-    public void serialize(Long prepareToSerializerLong, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
-        jsonGenerator.writeObject(String.valueOf(prepareToSerializerLong));
+    public void serialize(Long from, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
+        jsonGenerator.writeObject(String.valueOf(from));
     }
 
 }

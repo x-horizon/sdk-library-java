@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 public class JacksonLongToLocalDateTimeDeserializer extends StdConverter<Long, LocalDateTime> {
 
     @Override
-    public LocalDateTime convert(Long value) {
-        return TimeUtil.toLocalDateTime(value);
+    public LocalDateTime convert(Long from) {
+        return TimeUtil.toLocalDateTime(from);
     }
 
 }

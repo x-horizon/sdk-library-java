@@ -16,8 +16,8 @@ public class JacksonEnumToIntegerSerializer extends JsonSerializer<Enum<?>> {
 
     @Override
     @SneakyThrows
-    public void serialize(Enum<?> prepareToSerializerEnum, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
-        jsonGenerator.writeObject(EnumsUtil.getEnumValue(prepareToSerializerEnum, Integer.class));
+    public void serialize(Enum<?> from, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
+        jsonGenerator.writeObject(EnumsUtil.getEnumValue(from, Integer.class));
     }
 
 }

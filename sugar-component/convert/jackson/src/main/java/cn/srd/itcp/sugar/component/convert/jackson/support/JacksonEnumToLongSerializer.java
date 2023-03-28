@@ -16,8 +16,8 @@ public class JacksonEnumToLongSerializer extends JsonSerializer<Enum<?>> {
 
     @Override
     @SneakyThrows
-    public void serialize(Enum<?> prepareToSerializerEnum, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
-        jsonGenerator.writeObject(EnumsUtil.getEnumValue(prepareToSerializerEnum, Long.class));
+    public void serialize(Enum<?> from, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
+        jsonGenerator.writeObject(EnumsUtil.getEnumValue(from, Long.class));
     }
 
 }

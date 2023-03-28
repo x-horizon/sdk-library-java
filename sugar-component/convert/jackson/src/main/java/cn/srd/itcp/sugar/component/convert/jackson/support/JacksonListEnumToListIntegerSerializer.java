@@ -19,9 +19,9 @@ public class JacksonListEnumToListIntegerSerializer extends JsonSerializer<List<
 
     @Override
     @SneakyThrows
-    public void serialize(List<Enum<?>> prepareToSerializerEnums, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
+    public void serialize(List<Enum<?>> from, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
         List<Integer> prepareToSerializerValues = new ArrayList<>();
-        prepareToSerializerEnums.forEach(prepareToSerializerEnum -> prepareToSerializerValues.add(EnumsUtil.getEnumValue(prepareToSerializerEnum, Integer.class)));
+        from.forEach(prepareToSerializerEnum -> prepareToSerializerValues.add(EnumsUtil.getEnumValue(prepareToSerializerEnum, Integer.class)));
         jsonGenerator.writeObject(prepareToSerializerValues);
     }
 
