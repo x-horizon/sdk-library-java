@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.tool.core.time;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.LocalDateTimeUtil;
+import cn.srd.itcp.sugar.tool.constant.TimePool;
 import cn.srd.itcp.sugar.tool.constant.TimeUnitPool;
 import cn.srd.itcp.sugar.tool.core.EnumsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
@@ -58,6 +59,36 @@ public class TimeUtil extends LocalDateTimeUtil {
      */
     public static String getCurrentTimeString(@Nullable String format) {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern(format == null ? DatePattern.NORM_DATETIME_PATTERN : format));
+    }
+
+    /**
+     * LocalDateTime =&gt; String，如：2011-12-03 10:15:30
+     *
+     * @param input 输入时间对象
+     * @return 时间字符串
+     */
+    public static String toStringWithDateTime(@Nullable LocalDateTime input) {
+        return Objects.isNull(input) ? null : StringsUtil.replace(toStringWithDateTimeAndT(input), "T", " ");
+    }
+
+    /**
+     * LocalDateTime =&gt; String，如：2011-12-03T10:15:30
+     *
+     * @param input 输入时间对象
+     * @return 时间字符串
+     */
+    public static String toStringWithDateTimeAndT(@Nullable LocalDateTime input) {
+        return Objects.isNull(input) ? null : DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(input);
+    }
+
+    /**
+     * LocalDateTime =&gt; String，遵循 RFC3339 标准，如：2006-01-02T15:04:05Z07:00
+     *
+     * @param input 输入时间对象
+     * @return 时间字符串
+     */
+    public static String toStringWithRFC3339DateTime(@Nullable LocalDateTime input) {
+        return Objects.isNull(input) ? null : TimePool.DATETIME_FORMATTER_RFC3339.format(input);
     }
 
     /**
