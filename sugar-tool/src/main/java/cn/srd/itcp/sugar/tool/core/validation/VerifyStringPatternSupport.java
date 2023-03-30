@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.tool.core.validation;
 
 import cn.srd.itcp.sugar.tool.core.Objects;
+import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -24,12 +25,10 @@ public class VerifyStringPatternSupport implements ConstraintValidator<VerifyStr
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-
-        if (Objects.isNotBlank(value) && value.length() < max) {
-            String regex = "^\\w+$";
-            return value.matches(regex);
+        if (value.length() > max || Objects.isBlank(value)) {
+            return false;
         }
-        return false;
+        return !StringsUtil.isChineseIncluded(value);
     }
 
 }

@@ -6,7 +6,7 @@ import jakarta.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * 验证字符串的格式，只能由数字、字符、下划线构成
+ * 验证字符串的格式，不能为中文，且长度有限制
  *
  * @author xiongjing
  * @since 2023-03-11 09:15:16
