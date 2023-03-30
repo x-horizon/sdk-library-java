@@ -242,6 +242,17 @@
         </root>
     </springProfile>
 
+    <springProfile name="environment-production">
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="DEBUG_FILE"/>
+            <appender-ref ref="INFO_FILE"/>
+            <appender-ref ref="WARN_FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+            <appender-ref ref="ALL_LOG_FILE"/>
+        </root>
+    </springProfile>
+
     <!-- TODO wjm localhost 和 development 在后续日志没有问题后，配置不写到文件 -->
 
     <!-- TODO wjm 配置异步输出 -->
