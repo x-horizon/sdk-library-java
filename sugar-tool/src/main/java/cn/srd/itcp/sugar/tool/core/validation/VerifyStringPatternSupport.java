@@ -6,7 +6,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 /**
- * 验证字符串的格式，数字、字母、下划线三种随机组合，头尾不能为空格，字符串中间可夹空格，但不能输入换行符。
+ * 验证字符串的格式不能有中文，可以为空字符串
  *
  * @author xiongjing
  * @since 2023-03-11 09:19:45
@@ -25,10 +25,14 @@ public class VerifyStringPatternSupport implements ConstraintValidator<VerifyStr
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (value.length() > max || Objects.isBlank(value)) {
-            return false;
+        if (Objects.isBlank(value)) {
+            return true;
+        } else {
+            if (value.length() > max) {
+                return false;
+            }
+            return !StringsUtil.isChineseIncluded(value);
         }
-        return !StringsUtil.isChineseIncluded(value);
     }
 
 }
