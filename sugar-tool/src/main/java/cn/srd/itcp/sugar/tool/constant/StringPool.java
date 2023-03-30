@@ -177,4 +177,9 @@ public interface StringPool {
      */
     String PLUS_SIGN = "+";
 
+    /**
+     * 双斜杆 //
+     */
+    String DOUBLE_SLASH = "//";
+
 }
