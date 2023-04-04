@@ -1,5 +1,15 @@
 def projectName = 'itcp-sugar-cache-redisson-webmvc'
 
+def projectNexusUrl
+
+if (active == "development") {
+    projectNexusUrl = projectDevelopmentNexusUrl
+}
+
+if (active == "production") {
+    projectNexusUrl = projectProductionNexusUrl
+}
+
 version = projectVersion
 
 dependencies {
