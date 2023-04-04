@@ -2,7 +2,7 @@ import org.codehaus.groovy.runtime.GStringImpl
 
 ext {
     // version
-    spring_cloud_bom_version = "2022.0.1"
+    spring_cloud_bom_version = "2022.0.2"
     openfeign_bom_version = "12.2"
     reactor_bom_version = "2022.0.4"
     sa_token_bom_version = "1.34.0"
