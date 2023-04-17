@@ -51,6 +51,15 @@ public interface ResponseModel<T> {
     }
 
     /**
+     * 必须响应成功
+     */
+    default void requireSuccess() {
+        if (errorIs()) {
+            throw this.buildRunningException();
+        }
+    }
+
+    /**
      * 构造 {@link RunningException}
      *
      * @return {@link RunningException}
