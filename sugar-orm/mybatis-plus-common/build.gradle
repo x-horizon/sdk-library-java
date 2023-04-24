@@ -17,6 +17,9 @@ dependencies {
     implementation("$spring_boot")
     annotationProcessor("$spring_boot_configuration_processor")
 
+    // doc
+    implementation(project("$itcp_sugar_doc_knife4j"))
+
     // database
     implementation("$mysql")
     implementation("$postgresql")

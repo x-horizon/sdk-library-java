@@ -17,9 +17,6 @@ dependencies {
     implementation("$spring_boot")
     implementation("$spring_boot_aop")
 
-    // doc
-    implementation(project("$itcp_sugar_doc_knife4j"))
-
     // tool
     implementation(project("$itcp_sugar_tool"))
 }

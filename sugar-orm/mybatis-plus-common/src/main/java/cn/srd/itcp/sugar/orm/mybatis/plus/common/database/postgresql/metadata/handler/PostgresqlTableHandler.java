@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.metadata.handler;
 
-import cn.srd.itcp.sugar.framework.spring.tool.common.core.page.PageParam;
-import cn.srd.itcp.sugar.framework.spring.tool.common.core.page.PageResult;
+import cn.itcp.sugar.doc.knife4j.model.PageParam;
+import cn.itcp.sugar.doc.knife4j.model.PageResult;
 import cn.srd.itcp.sugar.orm.mybatis.plus.common.core.GenericCurdService;
 import cn.srd.itcp.sugar.orm.mybatis.plus.common.core.MpWrappers;
 import cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.metadata.bean.convert.PostgresqlTableConverter;

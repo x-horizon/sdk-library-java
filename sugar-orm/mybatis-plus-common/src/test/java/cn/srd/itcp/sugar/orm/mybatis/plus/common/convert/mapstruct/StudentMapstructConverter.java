@@ -1,8 +1,8 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.common.convert.mapstruct;
 
+import cn.itcp.sugar.doc.knife4j.model.PageResult;
 import cn.srd.itcp.sugar.component.convert.mapstruct.core.BindMapstruct;
 import cn.srd.itcp.sugar.component.convert.mapstruct.utils.MapstructMappingManager;
-import cn.srd.itcp.sugar.framework.spring.tool.common.core.page.PageResult;
 import cn.srd.itcp.sugar.orm.mybatis.plus.common.convert.bean.domain.StudentDO;
 import cn.srd.itcp.sugar.orm.mybatis.plus.common.convert.bean.vo.StudentVO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
