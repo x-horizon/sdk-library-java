@@ -1,4 +1,4 @@
-package cn.itcp.sugar.doc.knife4j;
+package cn.srd.itcp.sugar.doc.knife4j;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

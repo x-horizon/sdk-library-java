@@ -1,8 +1,8 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.metadata.bean.convert;
 
-import cn.itcp.sugar.doc.knife4j.model.PageResult;
 import cn.srd.itcp.sugar.component.convert.mapstruct.utils.IgnoreUnmappedMapperConfigurator;
 import cn.srd.itcp.sugar.component.convert.mapstruct.utils.MapstructMappingManager;
+import cn.srd.itcp.sugar.doc.knife4j.model.PageResult;
 import cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.metadata.bean.dto.PostgresqlTableDTO;
 import cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.metadata.bean.vo.PostgresqlTableVO;
 import com.baomidou.mybatisplus.core.metadata.IPage;

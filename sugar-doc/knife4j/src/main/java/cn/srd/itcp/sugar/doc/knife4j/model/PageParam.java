@@ -1,4 +1,4 @@
-package cn.itcp.sugar.doc.knife4j.model;
+package cn.srd.itcp.sugar.doc.knife4j.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
