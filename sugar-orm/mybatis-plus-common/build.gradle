@@ -1,11 +1,24 @@
 def projectName = 'itcp-sugar-orm-mybatis-plus-common'
 
+def projectNexusUrl
+
+if (active == "development") {
+    projectNexusUrl = projectDevelopmentNexusUrl
+}
+
+if (active == "production") {
+    projectNexusUrl = projectProductionNexusUrl
+}
+
 version = projectVersion
 
 dependencies {
     // framework
     implementation("$spring_boot")
     annotationProcessor("$spring_boot_configuration_processor")
+
+    // doc
+    implementation(project("$itcp_sugar_doc_knife4j"))
 
     // database
     implementation("$mysql")

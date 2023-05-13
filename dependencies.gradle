@@ -2,7 +2,7 @@ import org.codehaus.groovy.runtime.GStringImpl
 
 ext {
     // version
-    spring_cloud_bom_version = "2022.0.1"
+    spring_cloud_bom_version = "2022.0.2"
     openfeign_bom_version = "12.2"
     reactor_bom_version = "2022.0.4"
     sa_token_bom_version = "1.34.0"
@@ -131,6 +131,7 @@ ext {
     sa_token = "cn.dev33:sa-token-spring-boot-starter"
     sa_token_reactor = "cn.dev33:sa-token-reactor-spring-boot-starter"
     sa_token_jwt = "cn.dev33:sa-token-jwt"
+    sa_token_temp_jwt = "cn.dev33:sa-token-temp-jwt"
     sa_token_dao_redis_jackson = "cn.dev33:sa-token-dao-redis-jackson"
     sa_token_alone_redis = "cn.dev33:sa-token-alone-redis"
     sa_token_jakata_servlet = "cn.dev33:sa-token-jakarta-servlet"

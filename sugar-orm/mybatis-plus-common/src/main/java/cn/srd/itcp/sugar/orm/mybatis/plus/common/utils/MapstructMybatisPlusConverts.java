@@ -2,7 +2,7 @@ package cn.srd.itcp.sugar.orm.mybatis.plus.common.utils;
 
 import cn.srd.itcp.sugar.component.convert.mapstruct.core.MapstructConverts;
 import cn.srd.itcp.sugar.component.convert.mapstruct.support.MapstructConvertsSupporterManager;
-import cn.srd.itcp.sugar.framework.spring.tool.common.core.page.PageResult;
+import cn.srd.itcp.sugar.doc.knife4j.model.PageResult;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import com.baomidou.mybatisplus.core.metadata.IPage;

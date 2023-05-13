@@ -1,14 +1,21 @@
 def projectName = 'itcp-sugar-framework-spring-tool-common'
 
+def projectNexusUrl
+
+if (active == "development") {
+    projectNexusUrl = projectDevelopmentNexusUrl
+}
+
+if (active == "production") {
+    projectNexusUrl = projectProductionNexusUrl
+}
+
 version = projectVersion
 
 dependencies {
     // framework
     implementation("$spring_boot")
     implementation("$spring_boot_aop")
-
-    // doc
-    implementation(project("$itcp_sugar_doc_knife4j"))
 
     // tool
     implementation(project("$itcp_sugar_tool"))

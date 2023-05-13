@@ -1,5 +1,15 @@
 def projectName = 'itcp-sugar-security-sa-token-common'
 
+def projectNexusUrl
+
+if (active == "development") {
+    projectNexusUrl = projectDevelopmentNexusUrl
+}
+
+if (active == "production") {
+    projectNexusUrl = projectProductionNexusUrl
+}
+
 version = projectVersion
 
 dependencies {
@@ -14,7 +24,9 @@ dependencies {
 
     // security
     api("$sa_token_jwt")
+    api("$sa_token_temp_jwt")
     api("$sa_token_dao_redis_jackson")
+    api("$sa_token_alone_redis")
     api("$sa_token_alone_redis")
 
     // tool

@@ -1,5 +1,15 @@
 def projectName = 'itcp-sugar-protocol-protobuf'
 
+def projectNexusUrl
+
+if (active == "development") {
+    projectNexusUrl = projectDevelopmentNexusUrl
+}
+
+if (active == "production") {
+    projectNexusUrl = projectProductionNexusUrl
+}
+
 version = projectVersion
 
 apply plugin: 'com.google.protobuf'
