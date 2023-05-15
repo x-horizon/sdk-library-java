@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.handler;
 
 import cn.srd.itcp.sugar.component.convert.all.core.Converts;
+import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -74,7 +75,10 @@ public interface JsonbHandler<T> {
      * @return 转换结果集
      */
     default List<T> convertJsonbStringToList(String jsonbString) {
-        return Objects.isBlank(jsonbString) ? new ArrayList<>() : Converts.withJackson().toBeans(jsonbString, getTargetClass());
+        if (Objects.equals(jsonbString, StringPool.EMPTY, StringPool.BRACKET_START + StringPool.BRACKET_END)) {
+            return new ArrayList<>();
+        }
+        return Converts.withJackson().toBeans(jsonbString, getTargetClass());
     }
 
     /**
@@ -85,7 +89,10 @@ public interface JsonbHandler<T> {
      */
     @SneakyThrows
     default T convertJsonbStringToObject(String jsonbString) {
-        return Objects.isBlank(jsonbString) ? getTargetClass().getDeclaredConstructor().newInstance() : Converts.withJackson().toBean(jsonbString, getTargetClass());
+        if (Objects.equals(jsonbString, StringPool.EMPTY, StringPool.DELIM_START + StringPool.DELIM_END)) {
+            return null;
+        }
+        return Converts.withJackson().toBean(jsonbString, getTargetClass());
     }
 
 }
