@@ -27,12 +27,8 @@ public class VerifyStringPatternSupport implements ConstraintValidator<VerifyStr
     public boolean isValid(String value, ConstraintValidatorContext context) {
         if (Objects.isBlank(value)) {
             return true;
-        } else {
-            if (value.length() > max) {
-                return false;
-            }
-            return !StringsUtil.isChineseIncluded(value);
         }
+        return value.length() <= max && !StringsUtil.isChineseIncluded(value);
     }
 
 }
