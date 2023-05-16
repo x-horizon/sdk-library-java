@@ -11,15 +11,15 @@ import jakarta.validation.ConstraintValidatorContext;
  * @author xiongjing
  * @since 2023-03-11 09:19:45
  */
-public class VerifyStringPatternSupport implements ConstraintValidator<VerifyStringPattern, String> {
+public class NullableAndNotChineseIncludedSupport implements ConstraintValidator<NullableAndNotChineseIncluded, String> {
 
     /**
      * 字符串长度的最大值
      */
-    private int max = 0;
+    private int max;
 
     @Override
-    public void initialize(VerifyStringPattern constraintAnnotation) {
+    public void initialize(NullableAndNotChineseIncluded constraintAnnotation) {
         this.max = constraintAnnotation.max();
     }
 

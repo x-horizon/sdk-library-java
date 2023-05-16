@@ -13,9 +13,9 @@ import java.lang.annotation.*;
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {VerifyStringPatternSupport.class})
+@Constraint(validatedBy = {NullableAndNotChineseIncludedSupport.class})
 @Documented
-public @interface VerifyStringPattern {
+public @interface NullableAndNotChineseIncluded {
 
     /**
      * 默认校验失败的信息
