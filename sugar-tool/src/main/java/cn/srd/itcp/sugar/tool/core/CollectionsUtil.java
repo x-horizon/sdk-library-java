@@ -957,6 +957,16 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
+     * 是否为 {}
+     *
+     * @param from 输入参数
+     * @return 是否为 {}
+     */
+    public static boolean isEmptyJsonObject(String from) {
+        return isJsonObject(from) && from.length() == 2;
+    }
+
+    /**
      * 是否不为 JSONObject，首尾都为大括号判定为 JSONObject
      *
      * @param from 输入参数
@@ -974,6 +984,16 @@ public class CollectionsUtil extends CollUtil {
      */
     public static boolean isJsonArray(String from) {
         return StringsUtil.startAndEndWith(from, CharPool.BRACKET_START);
+    }
+
+    /**
+     * 是否为 []
+     *
+     * @param from 输入参数
+     * @return 是否为 []
+     */
+    public static boolean isEmptyJsonArray(String from) {
+        return isJsonArray(from) && from.length() == 2;
     }
 
     /**
