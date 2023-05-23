@@ -294,6 +294,21 @@ public class JacksonConverts {
     /**
      * 转换为实体对象
      *
+     * @param input          待转换对象
+     * @param targetClass    目标转换对象类
+     * @param enableValidate 是否开启 Jackson 相关注解校验
+     * @param <T>            待转换对象类型
+     * @param <K>            Map Key
+     * @param <V>            Map Value
+     * @return 转换后对象
+     */
+    public <T, K, V> T toBean(Map<K, V> input, Class<T> targetClass, boolean enableValidate) {
+        return toBean(toString(input), targetClass, enableValidate);
+    }
+
+    /**
+     * 转换为实体对象
+     *
      * @param file        待转换对象
      * @param targetClass 目标转换对象类
      * @param <T>         待转换对象类型
