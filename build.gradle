@@ -9,6 +9,10 @@ plugins {
 
 def projectNexusUrl
 
+if (active == "localhost") {
+    projectNexusUrl = projectLocalhostNexusUrl
+}
+
 if (active == "development") {
     projectNexusUrl = projectDevelopmentNexusUrl
 }
