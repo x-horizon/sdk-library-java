@@ -2,6 +2,10 @@ def projectName = 'itcp-sugar-cache-redisson-common'
 
 def projectNexusUrl
 
+if (active == "localhost") {
+    projectNexusUrl = projectLocalhostNexusUrl
+}
+
 if (active == "development") {
     projectNexusUrl = projectDevelopmentNexusUrl
 }

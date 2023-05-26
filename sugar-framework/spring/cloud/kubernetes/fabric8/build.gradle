@@ -2,6 +2,10 @@ def projectName = 'itcp-sugar-framework-spring-cloud-kubernetes-fabric8'
 
 def projectNexusUrl
 
+if (active == "localhost") {
+    projectNexusUrl = projectLocalhostNexusUrl
+}
+
 if (active == "development") {
     projectNexusUrl = projectDevelopmentNexusUrl
 }

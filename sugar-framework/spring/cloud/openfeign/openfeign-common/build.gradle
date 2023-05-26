@@ -2,6 +2,10 @@ def projectName = 'itcp-sugar-framework-spring-cloud-openfeign-common'
 
 def projectNexusUrl
 
+if (active == "localhost") {
+    projectNexusUrl = projectLocalhostNexusUrl
+}
+
 if (active == "development") {
     projectNexusUrl = projectDevelopmentNexusUrl
 }
