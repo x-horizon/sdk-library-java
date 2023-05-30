@@ -953,7 +953,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 是否为 JsonObject
      */
     public static boolean isJsonObject(String from) {
-        return StringsUtil.startAndEndWith(from, CharPool.DELIM_START);
+        return StringsUtil.startWith(from, CharPool.DELIM_START) && StringsUtil.endWith(from, CharPool.DELIM_END);
     }
 
     /**
@@ -983,7 +983,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 是否为 JsonArray
      */
     public static boolean isJsonArray(String from) {
-        return StringsUtil.startAndEndWith(from, CharPool.BRACKET_START);
+        return StringsUtil.startWith(from, CharPool.BRACKET_START) && StringsUtil.endWith(from, CharPool.BRACKET_END);
     }
 
     /**
