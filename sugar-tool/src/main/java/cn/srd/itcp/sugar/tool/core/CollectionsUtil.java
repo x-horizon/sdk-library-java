@@ -947,7 +947,7 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
-     * 是否为 JSONObject，首尾都为大括号判定为 JSONObject
+     * 是否为 {...}
      *
      * @param from 输入参数
      * @return 是否为 JsonObject
@@ -967,7 +967,7 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
-     * 是否为 null、{}或空白
+     * 是否为 空白 或 {}
      *
      * @param from 输入参数
      * @return 是否为 null、{}或空白
@@ -977,7 +977,7 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
-     * 是否不为 JSONObject，首尾都为大括号判定为 JSONObject
+     * 是否不为 {...}
      *
      * @param from 输入参数
      * @return 是否不为 JsonObject
@@ -987,7 +987,7 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
-     * 是否为 JsonArray，首尾都为中括号判定为 JSONArray
+     * 是否为 [...]
      *
      * @param from 输入参数
      * @return 是否为 JsonArray
@@ -1007,7 +1007,7 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
-     * 是否为 null、[]或空白
+     * 是否为 空白 或 []
      *
      * @param from 输入参数
      * @return 是否为 null、[]或空白
@@ -1017,7 +1017,7 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
-     * 是否不为 JSONArray，首尾都为中括号判定为 JSONArray
+     * 是否不为 []
      *
      * @param from 输入参数
      * @return 是否不为 JsonArray
