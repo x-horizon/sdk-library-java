@@ -967,6 +967,16 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
+     * 是否为 null、{}或空白
+     *
+     * @param from 输入参数
+     * @return 是否为 null、{}或空白
+     */
+    public static boolean isBlankOrEmptyJsonObject(String from) {
+        return Objects.isBlank(from) || CollectionsUtil.isEmptyJsonObject(from);
+    }
+
+    /**
      * 是否不为 JSONObject，首尾都为大括号判定为 JSONObject
      *
      * @param from 输入参数
@@ -994,6 +1004,16 @@ public class CollectionsUtil extends CollUtil {
      */
     public static boolean isEmptyJsonArray(String from) {
         return isJsonArray(from) && from.length() == 2;
+    }
+
+    /**
+     * 是否为 null、[]或空白
+     *
+     * @param from 输入参数
+     * @return 是否为 null、[]或空白
+     */
+    public static boolean isBlankOrEmptyJsonArray(String from) {
+        return Objects.isBlank(from) || isEmptyJsonArray(from);
     }
 
     /**
