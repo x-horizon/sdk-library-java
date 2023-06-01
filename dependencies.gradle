@@ -44,6 +44,7 @@ ext {
     jmh_version = "1.35"
 
     // project name
+    itcp_sugar_cache_all = ":sugar-cache:cache-all"
     itcp_sugar_cache_caffeine = ":sugar-cache:caffeine"
     itcp_sugar_cache_redisson_common = ":sugar-cache:redisson:redisson-common"
     itcp_sugar_cache_redisson_webmvc = ":sugar-cache:redisson:redisson-webmvc"

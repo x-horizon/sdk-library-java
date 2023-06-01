@@ -27,6 +27,7 @@ include("$itcp_sugar_component_id_generator_snowflake")
 include("$itcp_sugar_component_jdk")
 include("$itcp_sugar_component_log")
 
+include("$itcp_sugar_cache_all")
 include("$itcp_sugar_cache_caffeine")
 include("$itcp_sugar_cache_redisson_common")
 include("$itcp_sugar_cache_redisson_webmvc")
