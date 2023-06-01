@@ -517,7 +517,7 @@ public class StringsUtil extends StrUtil {
      */
     public static <E extends Enum<E>> List<E> splitToListEnum(String input, String separator, Class<E> enumClass) {
         List<E> result = new ArrayList<>();
-        if (Objects.isBlank(input)) {
+        if (Objects.isBlank(input) || CollectionsUtil.isEmptyJsonArray(input)) {
             return result;
         }
         StringsUtil.splitToListInteger(input, separator).forEach(item -> result.add(EnumsUtil.capableToEnum(item, enumClass)));
