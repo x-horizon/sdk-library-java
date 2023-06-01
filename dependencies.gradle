@@ -50,7 +50,7 @@ ext {
     itcp_sugar_cache_redisson_webmvc = ":sugar-cache:redisson:redisson-webmvc"
     itcp_sugar_component_actor = ":sugar-component:actor"
     itcp_sugar_component_check_style = ":sugar-component:check-style"
-    itcp_sugar_component_convert_all = ":sugar-component:convert:all"
+    itcp_sugar_component_convert_all = ":sugar-component:convert:convert-all"
     itcp_sugar_component_convert_fastjson = ":sugar-component:convert:fastjson"
     itcp_sugar_component_convert_jackson = ":sugar-component:convert:jackson"
     itcp_sugar_component_convert_jackson_geometry = ":sugar-component:convert:jackson-geometry"

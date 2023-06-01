@@ -143,19 +143,6 @@ public class SpringsUtil extends SpringUtil {
 
     /**
      * 向 IOC 注册 bean，并返回注册后的 bean，使用类名首字母小写作为 bean name
-     * <pre>
-     * 该方法支持注册带有特定注解功能的 bean，例如如下 bean 未被 spring 扫描到，使用该方法注册后该 bean 将具备 {@link org.springframework.web.bind.annotation.RestControllerAdvice RestControllerAdvice} 的功能
-     * &#064;{@link org.springframework.web.bind.annotation.RestControllerAdvice RestControllerAdvice}
-     * public class WebExceptionHandler {
-     *
-     * }
-     *
-     * 记录需要使用该函数注册才能生效的注解有：
-     * {@link org.springframework.web.bind.annotation.RestControllerAdvice RestControllerAdvice}
-     *
-     * 不需要使用该函数注册，直接通过 new 来返回给 &#064;Bean 的有：
-     * {@link org.springframework.boot.context.properties.ConfigurationProperties ConfigurationProperties}
-     * </pre>
      *
      * @param clazz 要注册的 bean
      * @param <T>   要注册的 bean 类型
