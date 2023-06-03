@@ -45,6 +45,7 @@ ext {
 
     // project name
     itcp_sugar_cache_all = ":sugar-cache:cache-all"
+    itcp_sugar_cache_contract = ":sugar-cache:cache-contract"
     itcp_sugar_cache_caffeine = ":sugar-cache:caffeine"
     itcp_sugar_cache_redisson_common = ":sugar-cache:redisson:redisson-common"
     itcp_sugar_cache_redisson_webmvc = ":sugar-cache:redisson:redisson-webmvc"
@@ -83,6 +84,7 @@ ext {
     itcp_sugar_tool = ":sugar-tool"
 
     // framework
+    spring_web = "org.springframework:spring-web"
     spring_data_commons = "org.springframework.data:spring-data-commons"
     spring_boot = "org.springframework.boot:spring-boot-starter"
     spring_boot_webmvc = "org.springframework.boot:spring-boot-starter-web"
@@ -90,6 +92,7 @@ ext {
     spring_boot_aop = "org.springframework.boot:spring-boot-starter-aop"
     spring_boot_logging = "org.springframework.boot:spring-boot-starter-logging"
     spring_boot_configuration_processor = "org.springframework.boot:spring-boot-configuration-processor"
+    spring_boot_actuator = "org.springframework.boot:spring-boot-starter-actuator"
     spring_cloud_bom = "org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_bom_version}" as GStringImpl
     spring_cloud_gateway = "org.springframework.cloud:spring-cloud-starter-gateway"
     spring_cloud_openfeign = "org.springframework.cloud:spring-cloud-starter-openfeign"
@@ -111,8 +114,8 @@ ext {
     postgresql = "org.postgresql:postgresql:${postgresql_version}" as GStringImpl
 
     // cache
-    caffeine = "com.github.ben-manes.caffeine:caffeine:${caffeine_version}" as GStringImpl
     lettuce = "io.lettuce:lettuce-core:${lettuce_version}" as GStringImpl
+    caffeine = "com.github.ben-manes.caffeine:caffeine:${caffeine_version}" as GStringImpl
     redisson = "org.redisson:redisson-spring-boot-starter:${redisson_version}" as GStringImpl
 
     // pool
