@@ -19,6 +19,7 @@ version = projectVersion
 dependencies {
     // cache
     api("$caffeine")
+    api(project("$itcp_sugar_cache_contract"))
 }
 
 javadoc {
