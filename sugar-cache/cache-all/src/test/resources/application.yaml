@@ -1,0 +1,12 @@
+spring:
+  data:
+    redis:
+      database: 14
+      host: 192.168.10.91
+      port: 32533
+      #    password:
+      timeout: 60000
+
+logging:
+  level:
+    cn.srd.itcp.sugar: debug
