@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 /**
  * 时间单位处理器
@@ -26,17 +26,17 @@ public abstract class TimeUnitHandler {
     /**
      * {@link TimeUnit} 与 {@link TimeUnitHandler} 的映射
      */
-    protected static final Map<TimeUnit, TimeUnitHandler> TIME_UNIT_MAPPING_HANDLER_MAP = new HashMap<>();
+    protected static final Map<TimeUnit, TimeUnitHandler> TIME_UNIT_MAPPING_HANDLER_MAP = new EnumMap<>(TimeUnit.class);
 
     /**
      * {@link TimeUnitPool} 与 {@link TimeUnitHandler} 的映射
      */
-    protected static final Map<TimeUnitPool, TimeUnitHandler> TIME_UNIT_POOL_MAPPING_HANDLER_MAP = new HashMap<>();
+    protected static final Map<TimeUnitPool, TimeUnitHandler> TIME_UNIT_POOL_MAPPING_HANDLER_MAP = new EnumMap<>(TimeUnitPool.class);
 
     /**
      * 定义如何将 时间字符串 转换为 时间单位，如 “2s” 如何转换为 “s”
      */
-    protected static final List<Function<String, String>> CONVERT_TO_TIME_UNIT_FUNCTIONS = new ArrayList<>();
+    protected static final List<UnaryOperator<String>> CONVERT_TO_TIME_UNIT_FUNCTIONS = new ArrayList<>();
 
     /**
      * 时间，如 “2s” 中的 “2”
@@ -102,7 +102,7 @@ public abstract class TimeUnitHandler {
      * @param convertToTimeUnitFunctions 时间字符串 转换为 时间单位 的处理逻辑
      */
     @SafeVarargs
-    public static void addConvertToTimeUnitFunction(Function<String, String>... convertToTimeUnitFunctions) {
+    public static void addConvertToTimeUnitFunction(UnaryOperator<String>... convertToTimeUnitFunctions) {
         CONVERT_TO_TIME_UNIT_FUNCTIONS.addAll(Arrays.asList(convertToTimeUnitFunctions));
     }
 

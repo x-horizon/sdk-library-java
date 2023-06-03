@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 /**
@@ -174,7 +174,7 @@ public class TimeUtil extends LocalDateTimeUtil {
      * @return {@link TimeUnitHandler}
      */
     public static TimeUnitHandler wrapper(String timeFormat) {
-        for (Function<String, String> convertToTimeUnitFunction : TimeUnitHandler.CONVERT_TO_TIME_UNIT_FUNCTIONS) {
+        for (UnaryOperator<String> convertToTimeUnitFunction : TimeUnitHandler.CONVERT_TO_TIME_UNIT_FUNCTIONS) {
             String timeUnit = convertToTimeUnitFunction.apply(timeFormat);
             TimeUnitPool timeUnitPool = EnumsUtil.capableToEnum(timeUnit, TimeUnitPool.class);
             if (Objects.isNotNull(timeUnitPool)) {
