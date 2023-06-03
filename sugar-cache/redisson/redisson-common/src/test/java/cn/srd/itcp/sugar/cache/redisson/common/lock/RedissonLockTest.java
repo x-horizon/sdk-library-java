@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.cache.redisson.common;
+package cn.srd.itcp.sugar.cache.redisson.common.lock;
 
 import cn.srd.itcp.sugar.cache.redisson.common.core.lock.RedissonFairLockHandler;
 import cn.srd.itcp.sugar.tool.core.StringsUtil;
