@@ -356,6 +356,28 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
+     * Map value =&gt; List （若为 null 或指定类型，则忽略）
+     *
+     * @param from           输入参数
+     * @param specifiedClass 指定类型
+     * @param <K>            Key 类型
+     * @param <V>            Value 类型
+     * @return 提取 value 形成的集合
+     */
+    public static <K, V> List<V> toListIgnoreNullAndSpecifiedClass(@Nullable Map<K, V> from, @NonNull Class<?> specifiedClass) {
+        if (Objects.isEmpty(from)) {
+            return new ArrayList<>();
+        }
+        List<V> output = new ArrayList<>();
+        from.values().forEach(value -> {
+            if (Objects.isNotNull(value) && Objects.notEquals(specifiedClass, value.getClass())) {
+                output.add(value);
+            }
+        });
+        return output;
+    }
+
+    /**
      * 嵌套 List =&gt;  Set
      *
      * @param from 输入参数
