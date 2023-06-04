@@ -28,9 +28,7 @@ import java.util.function.Function;
 @Slf4j
 @Getter
 public class RedisCaffeineCache extends AbstractValueAdaptingCache implements Cache<Object, Object> {
-
-    private static final String FUZZY = "*";
-
+    
     private final String name;
 
     private final Cache<Object, Object> caffeineCache;
