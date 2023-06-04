@@ -113,11 +113,11 @@ public class ClassesUtil extends ClassUtil {
      *
      * @param packageNames 包路径集合
      * @param superClass   父类或接口
-     * @param <Parent>     父类类型
+     * @param <PARENT>     父类类型
      * @return 类集合
      */
-    public static <Parent> Set<Class<? extends Parent>> scanPackagesBySuper(String[] packageNames, final Class<Parent> superClass) {
-        Set<Class<? extends Parent>> subClasses = new HashSet<>();
+    public static <PARENT> Set<Class<? extends PARENT>> scanPackagesBySuper(String[] packageNames, final Class<PARENT> superClass) {
+        Set<Class<? extends PARENT>> subClasses = new HashSet<>();
         Arrays.stream(packageNames).forEach(packageName -> CollectionsUtil.addAll(subClasses, scanPackageBySuper(packageName, superClass)));
         return subClasses;
     }

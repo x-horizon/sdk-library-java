@@ -6,7 +6,6 @@ import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.counting;
@@ -261,7 +260,6 @@ public class StringsUtil extends StrUtil {
         for (char charStr : specifiedStr.toCharArray()) {
             // 使用中文的编码区间来判断
             if (charStr >= 0x4E00 && charStr <= 0x9FA5) {
-                // System.out.println("中文字符：" + charStr);
                 return true;
             }
         }
@@ -416,7 +414,7 @@ public class StringsUtil extends StrUtil {
      */
     public static String toWholeIgnoreNull(Collection<String> collection, @Nullable String tag) {
         tag = Objects.isNull(tag) ? COMMA : tag;
-        return join(tag, collection.stream().filter(Objects::isNotNull).collect(Collectors.toList()));
+        return join(tag, collection.stream().filter(Objects::isNotNull).toList());
     }
 
     /**
@@ -491,7 +489,7 @@ public class StringsUtil extends StrUtil {
      * @return 转换后集合
      */
     public static List<Integer> splitToListInteger(String input, String separator) {
-        return Objects.isNotBlank(input) ? CollectionsUtil.toList(input, separator).stream().map(Integer::valueOf).collect(Collectors.toList()) : new ArrayList<>();
+        return Objects.isNotBlank(input) ? CollectionsUtil.toList(input, separator).stream().map(Integer::valueOf).toList() : new ArrayList<>();
     }
 
     /**

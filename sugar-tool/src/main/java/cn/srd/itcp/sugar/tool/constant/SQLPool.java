@@ -9,6 +9,12 @@ package cn.srd.itcp.sugar.tool.constant;
 public class SQLPool {
 
     /**
+     * private block constructor
+     */
+    private SQLPool() {
+    }
+
+    /**
      * SELECT
      */
     public static final String SELECT = "SELECT";

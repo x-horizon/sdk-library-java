@@ -28,6 +28,12 @@ import java.util.concurrent.*;
 public class Threads {
 
     /**
+     * private block constructor
+     */
+    private Threads() {
+    }
+
+    /**
      * 获取线程 id
      *
      * @return 线程 id

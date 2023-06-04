@@ -94,10 +94,7 @@ public class EnumsUtil extends EnumUtil {
             fieldType = field.getType();
 
             // 跳过特殊字段、name、enum 类型的字段；只寻找 Enum 类中为对应类型且除特殊字段外的字段
-            if (isEnum(fieldType) || Objects.equals("name", fieldName) || isEnumSpecialField(field)) {
-                continue;
-            }
-            if (!ClassesUtil.isAssignable(fieldType, clazz)) {
+            if (isEnum(fieldType) || Objects.equals("name", fieldName) || isEnumSpecialField(field) || !ClassesUtil.isAssignable(fieldType, clazz)) {
                 continue;
             }
             for (Enum<?> enumObj : enums) {

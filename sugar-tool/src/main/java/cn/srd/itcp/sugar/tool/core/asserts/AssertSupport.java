@@ -10,6 +10,7 @@ import cn.srd.itcp.sugar.tool.web.HttpStatus;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -727,7 +728,7 @@ public interface AssertSupport extends ExceptionTemplate {
      *
      * @param object 待断言对象
      */
-    default void throwsIfTrue(Supplier<Boolean> object) {
+    default void throwsIfTrue(BooleanSupplier object) {
         if (Objects.isTrue(object)) {
             throwsNow();
         }
@@ -771,7 +772,7 @@ public interface AssertSupport extends ExceptionTemplate {
      *
      * @param object 待断言对象
      */
-    default void throwsIfFalse(Supplier<Boolean> object) {
+    default void throwsIfFalse(BooleanSupplier object) {
         if (Objects.isFalse(object)) {
             throwsNow();
         }

@@ -9,9 +9,21 @@ package cn.srd.itcp.sugar.tool.constant;
 public class DataType {
 
     /**
+     * private block constructor
+     */
+    private DataType() {
+    }
+
+    /**
      * lower case all
      */
     public static class LowerCaseAll {
+
+        /**
+         * private block constructor
+         */
+        private LowerCaseAll() {
+        }
 
         /**
          * BYTE
@@ -81,6 +93,12 @@ public class DataType {
     public static class UpperCaseFirst {
 
         /**
+         * private block constructor
+         */
+        private UpperCaseFirst() {
+        }
+
+        /**
          * BYTE
          */
         public static final String BYTE = "Byte";
@@ -146,6 +164,12 @@ public class DataType {
      * upper case all
      */
     public static class UpperCaseAll {
+
+        /**
+         * private block constructor
+         */
+        private UpperCaseAll() {
+        }
 
         /**
          * BYTE

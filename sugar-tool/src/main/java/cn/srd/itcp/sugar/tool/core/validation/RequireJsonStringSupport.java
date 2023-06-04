@@ -15,7 +15,7 @@ public class RequireJsonStringSupport implements ConstraintValidator<RequireJson
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
-        return value instanceof String && JSONUtil.isTypeJSONObject((String) value);
+        return value instanceof String check && JSONUtil.isTypeJSONObject(check);
     }
 
 }

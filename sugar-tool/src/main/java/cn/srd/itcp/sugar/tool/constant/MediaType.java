@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.tool.constant;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,12 @@ import java.util.List;
  * @since 2022-08-26 16:52:18
  */
 public class MediaType {
+
+    /**
+     * private block constructor
+     */
+    private MediaType() {
+    }
 
     /**
      * 媒体类型：image/png
@@ -56,12 +63,16 @@ public class MediaType {
     /**
      * 图片类型
      */
-    public static final List<String> IMAGE_TYPE = new ArrayList<>() {{
-        add("bmp");
-        add("gif");
-        add("jpg");
-        add("jpeg");
-        add("png");
-    }};
+    public static final List<String> IMAGE_TYPE = new ArrayList<>() {
+        @Serial private static final long serialVersionUID = -4524320491600249834L;
+
+        {
+            add("bmp");
+            add("gif");
+            add("jpg");
+            add("jpeg");
+            add("png");
+        }
+    };
 
 }

@@ -326,7 +326,7 @@ public class CollectionsUtil extends CollUtil {
         if (Objects.isEmpty(from)) {
             return new ArrayList<>();
         }
-        return from.stream().flatMap(Collection::stream).collect(Collectors.toList());
+        return from.stream().flatMap(Collection::stream).toList();
     }
 
     /**
@@ -339,7 +339,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 提取结果
      */
     public static <T, U> List<U> toList(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
-        return from.stream().map(function).collect(Collectors.toList());
+        return from.stream().map(function).toList();
     }
 
     /**
@@ -352,7 +352,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 提取结果
      */
     public static <T, U> List<U> toListIgnoreNull(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
-        return from.stream().map(function).filter(Objects::isNotNull).collect(Collectors.toList());
+        return from.stream().map(function).filter(Objects::isNotNull).toList();
     }
 
     /**
@@ -538,7 +538,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 过滤结果
      */
     public static <T extends E, E> List<T> filtersToList(@NonNull Collection<T> from, @NonNull Predicate<E> predicate) {
-        return from.stream().filter(predicate).collect(Collectors.toList());
+        return from.stream().filter(predicate).toList();
     }
 
     /**
@@ -564,7 +564,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 过滤结果
      */
     public static <T extends E, E> List<T> filtersToList(@NonNull T[] from, @NonNull Predicate<E> predicate) {
-        return Arrays.stream(from).filter(predicate).collect(Collectors.toList());
+        return Arrays.stream(from).filter(predicate).toList();
     }
 
     /**
@@ -695,7 +695,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 去重结果
      */
     public static <T, U> List<T> distinct(@NonNull Collection<T> from, @NonNull Function<? super T, U> function) {
-        return from.stream().filter(distinctSupporter(function)).collect(Collectors.toList());
+        return from.stream().filter(distinctSupporter(function)).toList();
     }
 
     /**
@@ -716,7 +716,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 去重结果
      */
     public static <T, U> List<U> distinctDuplicatedKey(@NonNull Collection<T> from, @NonNull Function<? super T, U> function) {
-        return from.stream().map(function).distinct().collect(Collectors.toList());
+        return from.stream().map(function).distinct().toList();
     }
 
     /**
@@ -740,7 +740,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 去重结果
      */
     public static <T, U> List<T> capableDistinct(@NonNull Collection<T> from, @NonNull Predicate<? super T> predicate, @NonNull Function<? super T, U> function) {
-        return from.stream().filter(predicate).filter(distinctSupporter(function)).collect(Collectors.toList());
+        return from.stream().filter(predicate).filter(distinctSupporter(function)).toList();
     }
 
     /**
@@ -816,7 +816,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 排序结果
      */
     public static <T, U extends Comparable<? super U>> List<T> asc(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
-        return from.stream().sorted(Comparator.comparing(function)).collect(Collectors.toList());
+        return from.stream().sorted(Comparator.comparing(function)).toList();
     }
 
     /**
@@ -844,7 +844,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 排序结果
      */
     public static <T, U extends Comparable<? super U>> List<T> desc(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
-        return from.stream().sorted(Comparator.comparing(function).reversed()).collect(Collectors.toList());
+        return from.stream().sorted(Comparator.comparing(function).reversed()).toList();
     }
 
     // ==================================== 集合计算 ====================================

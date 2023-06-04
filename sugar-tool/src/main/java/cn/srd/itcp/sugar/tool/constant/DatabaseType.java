@@ -9,6 +9,12 @@ package cn.srd.itcp.sugar.tool.constant;
 public class DatabaseType {
 
     /**
+     * private block constructor
+     */
+    private DatabaseType() {
+    }
+
+    /**
      * postgresql
      */
     public static final String POSTGRE_SQL = "postgresql";

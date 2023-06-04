@@ -16,7 +16,7 @@ public interface CharPool {
     /**
      * 制表符 {@code '\t'}
      */
-    char TAB = '	';
+    char TAB = '\t';
 
     /**
      * 点 {@code '.'}

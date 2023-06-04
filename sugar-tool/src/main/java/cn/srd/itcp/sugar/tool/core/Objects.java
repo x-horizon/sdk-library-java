@@ -9,6 +9,7 @@ import java.io.ObjectStreamClass;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.BooleanSupplier;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -268,14 +269,14 @@ public class Objects {
             return true;
         }
 
-        if (object instanceof CharSequence) {
-            return isBlank((CharSequence) object);
-        } else if (object instanceof Map) {
-            return isEmpty(((Map) object));
-        } else if (object instanceof Iterable) {
-            return isEmpty(((Iterable) object));
-        } else if (object instanceof Iterator) {
-            return isEmpty(((Iterator) object));
+        if (object instanceof CharSequence check) {
+            return isBlank(check);
+        } else if (object instanceof Map check) {
+            return isEmpty(check);
+        } else if (object instanceof Iterable check) {
+            return isEmpty(check);
+        } else if (object instanceof Iterator check) {
+            return isEmpty(check);
         } else if (object.getClass().isArray()) {
             return Array.getLength(object) == 0;
         }
@@ -880,8 +881,8 @@ public class Objects {
      * @param object 待判断对象
      * @return 是否为 true
      */
-    public static boolean isTrue(Supplier<Boolean> object) {
-        return isTrue(object.get());
+    public static boolean isTrue(BooleanSupplier object) {
+        return isTrue(object.getAsBoolean());
     }
 
     /**
@@ -905,7 +906,7 @@ public class Objects {
             return false;
         }
         for (Boolean isTrue : objects) {
-            if (isTrue) {
+            if (Boolean.TRUE.equals(isTrue)) {
                 return true;
             }
         }
@@ -923,7 +924,7 @@ public class Objects {
             return false;
         }
         for (Boolean isTrue : objects) {
-            if (!isTrue) {
+            if (Boolean.FALSE.equals(isTrue)) {
                 return false;
             }
         }
@@ -946,8 +947,8 @@ public class Objects {
      * @param object 待判断对象
      * @return 是否为 false
      */
-    public static boolean isFalse(Supplier<Boolean> object) {
-        return isFalse(object.get());
+    public static boolean isFalse(BooleanSupplier object) {
+        return isFalse(object.getAsBoolean());
     }
 
     /**
@@ -973,7 +974,7 @@ public class Objects {
             return false;
         }
         for (Boolean isFalse : objects) {
-            if (!isFalse) {
+            if (Boolean.FALSE.equals(isFalse)) {
                 return true;
             }
         }
@@ -991,7 +992,7 @@ public class Objects {
             return false;
         }
         for (Boolean isFalse : objects) {
-            if (isFalse) {
+            if (Boolean.TRUE.equals(isFalse)) {
                 return false;
             }
         }
@@ -1024,8 +1025,8 @@ public class Objects {
         if (obj1.equals(obj2)) {
             return true;
         }
-        if (obj1 instanceof BigDecimal && obj2 instanceof BigDecimal) {
-            return 0 == ((BigDecimal) obj1).compareTo((BigDecimal) obj2);
+        if (obj1 instanceof BigDecimal check1 && obj2 instanceof BigDecimal check2) {
+            return 0 == (check1).compareTo(check2);
         }
         if (obj1.getClass().isArray() && obj2.getClass().isArray()) {
             return ArrayUtil.equals(obj1, obj2);
@@ -1039,27 +1040,27 @@ public class Objects {
      * 比较规则：{@link #equals(Object, Object)}
      * </pre>
      *
-     * @param obj1 待比较对象
+     * @param obj  待比较对象
      * @param objs 待比较对象
      * @return 是否相同
      * @see Objects#equals(Object, Object)
      */
-    public static boolean equals(@Nullable Object obj1, @Nullable Object... objs) {
-        if (obj1 == objs) {
+    public static boolean equals(@Nullable Object obj, @Nullable Object... objs) {
+        if (obj == objs) {
             return true;
         }
-        if (null == obj1 || null == objs) {
+        if (null == obj || null == objs) {
             return false;
         }
         for (Object objToCompare : objs) {
-            if (obj1.equals(objToCompare)) {
+            if (obj.equals(objToCompare)) {
                 return true;
             }
-            if (obj1 instanceof BigDecimal && objToCompare instanceof BigDecimal) {
-                return 0 == ((BigDecimal) obj1).compareTo((BigDecimal) objToCompare);
+            if (obj instanceof BigDecimal check && objToCompare instanceof BigDecimal checked) {
+                return 0 == check.compareTo(checked);
             }
-            if (obj1.getClass().isArray() && objToCompare.getClass().isArray()) {
-                return ArrayUtil.equals(obj1, objToCompare);
+            if (obj.getClass().isArray() && objToCompare.getClass().isArray()) {
+                return ArrayUtil.equals(obj, objToCompare);
             }
         }
         return false;
@@ -1071,26 +1072,26 @@ public class Objects {
      * 比较规则：{@link #equals(Object, Object)}
      * </pre>
      *
-     * @param obj1 待比较对象
+     * @param obj  待比较对象
      * @param objs 待比较对象
      * @return 是否相同
      * @see Objects#equals(Object, Object)
      */
-    public static boolean allEquals(@Nullable Object obj1, @Nullable Object... objs) {
-        if (obj1 == objs) {
+    public static boolean allEquals(@Nullable Object obj, @Nullable Object... objs) {
+        if (obj == objs) {
             return true;
         }
-        if (null == obj1 || null == objs) {
+        if (null == obj || null == objs) {
             return false;
         }
         for (Object objToCompare : objs) {
-            if (!obj1.equals(objToCompare)) {
+            if (!obj.equals(objToCompare)) {
                 return false;
             }
-            if (obj1 instanceof BigDecimal && objToCompare instanceof BigDecimal && (0 != ((BigDecimal) obj1).compareTo((BigDecimal) objToCompare))) {
+            if (obj instanceof BigDecimal check && objToCompare instanceof BigDecimal checked && (0 != (check).compareTo(checked))) {
                 return false;
             }
-            if (obj1.getClass().isArray() && objToCompare.getClass().isArray() && (!ArrayUtil.equals(obj1, objToCompare))) {
+            if (obj.getClass().isArray() && objToCompare.getClass().isArray() && (!ArrayUtil.equals(obj, objToCompare))) {
                 return false;
             }
         }
@@ -2641,7 +2642,7 @@ public class Objects {
             return false;
         }
 
-        if (input1.size() == 0 && input2.size() == 0) {
+        if (input1.isEmpty() && input2.isEmpty()) {
             return true;
         }
 
