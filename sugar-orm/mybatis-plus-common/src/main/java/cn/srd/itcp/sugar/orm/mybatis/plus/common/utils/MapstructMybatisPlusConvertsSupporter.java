@@ -61,6 +61,7 @@ public class MapstructMybatisPlusConvertsSupporter implements MapstructConvertsS
                         .pageSize(0L)
                         .total(0L)
                         .data(new ArrayList<>())
+                        .build()
                 :
                 // TODO wjm 关于分页参数未优化，应该不会有这种需求
                 PageResult.builder()
@@ -68,7 +69,8 @@ public class MapstructMybatisPlusConvertsSupporter implements MapstructConvertsS
                         .totalPages(1L)
                         .pageSize(1L)
                         .total(1L)
-                        .data(CollectionsUtil.newArrayList(defaultValue));
+                        .data(CollectionsUtil.newArrayList(defaultValue))
+                        .build();
     }
 
 }
