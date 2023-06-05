@@ -10,12 +10,12 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "sugar.cache")
-public class CacheAllProperties {
+public class CacheProperties {
 
     /**
      * instance
      */
-    private static CacheAllProperties instance = null;
+    private static CacheProperties instance = null;
 
     /**
      * instance init
@@ -30,7 +30,7 @@ public class CacheAllProperties {
      *
      * @return instance
      */
-    public static CacheAllProperties getInstance() {
+    public static CacheProperties getInstance() {
         return instance;
     }
 
