@@ -30,8 +30,19 @@ public class CaffeineCacheBuilder {
      * @return {@link Cache}
      */
     public static <K, V> Cache<K, V> build() {
+        return build(CaffeineCacheProperties.getInstance());
+    }
+
+    /**
+     * build {@link Cache} by {@link CaffeineCacheProperties}
+     *
+     * @param caffeineCacheProperties {@link CaffeineCacheProperties}
+     * @param <K>                     key 类型
+     * @param <V>                     value 类型
+     * @return {@link Cache}
+     */
+    public static <K, V> Cache<K, V> build(CaffeineCacheProperties caffeineCacheProperties) {
         Caffeine<Object, Object> cacheBuilder = Caffeine.newBuilder();
-        CaffeineCacheProperties caffeineCacheProperties = CaffeineCacheProperties.getInstance();
         LambdasUtil.acceptIfNeed(Objects.isNull(caffeineCacheProperties.getExpireAfterAccess()) ? null : TimeUtil.wrapper(caffeineCacheProperties.getExpireAfterAccess()).toMillisecond(), TimeUtil::isPositive, cacheBuilder::expireAfterAccess);
         LambdasUtil.acceptIfNeed(Objects.isNull(caffeineCacheProperties.getExpireAfterWrite()) ? null : TimeUtil.wrapper(caffeineCacheProperties.getExpireAfterWrite()).toMillisecond(), TimeUtil::isPositive, cacheBuilder::expireAfterWrite);
         LambdasUtil.acceptIfNeed(Objects.isNull(caffeineCacheProperties.getRefreshAfterWrite()) ? null : TimeUtil.wrapper(caffeineCacheProperties.getRefreshAfterWrite()).toMillisecond(), TimeUtil::isPositive, cacheBuilder::refreshAfterWrite);

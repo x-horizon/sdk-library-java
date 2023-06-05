@@ -10,4 +10,9 @@ import cn.srd.itcp.sugar.cache.contract.core.CacheTemplate;
  */
 public interface CaffeineCacheTemplate extends CacheTemplate {
 
+    /**
+     * 删除所有缓存对象
+     */
+    void deleteAll();
+
 }
