@@ -28,7 +28,7 @@ import java.util.function.Function;
 @Slf4j
 @Getter
 public class RedisCaffeineCache extends AbstractValueAdaptingCache implements Cache<Object, Object> {
-    
+
     private final String name;
 
     private final Cache<Object, Object> caffeineCache;
@@ -133,7 +133,7 @@ public class RedisCaffeineCache extends AbstractValueAdaptingCache implements Ca
     public void evict(Object key) {
         // 先清除redis中缓存数据，然后清除caffeine中的缓存，避免短时间内如果先清除caffeine缓存后其他请求会再从redis里加载到caffeine中
         // stringKeyRedisTemplate.delete(getKey(key));
-        Caches.withRedisson().withBucket().delete(key.toString());
+        Caches.withRedisson().withBucket().delete(getKey(key).toString());
 
         push(key);
 
@@ -148,7 +148,7 @@ public class RedisCaffeineCache extends AbstractValueAdaptingCache implements Ca
         //     stringKeyRedisTemplate.delete(keys);
         // }
 
-        Caches.withRedisson().withBucket().deleteByPattern(this.name.concat(":*"));
+        Caches.withRedisson().withBucket().deleteByNamespace(this.name);
 
         push((Object) null);
 

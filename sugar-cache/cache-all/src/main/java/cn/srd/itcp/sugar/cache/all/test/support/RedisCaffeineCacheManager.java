@@ -2,19 +2,17 @@ package cn.srd.itcp.sugar.cache.all.test.support;
 
 import cn.srd.itcp.sugar.cache.all.test.enums.CacheOperation;
 import cn.srd.itcp.sugar.cache.all.test.properties.CacheConfigProperties;
-import com.github.benmanes.caffeine.cache.Caffeine;
+import cn.srd.itcp.sugar.cache.caffeine.core.CacheCaffeineBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
-import java.time.Duration;
 import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.function.Consumer;
 
 @Slf4j
 @Getter
@@ -60,43 +58,7 @@ public class RedisCaffeineCacheManager implements CacheManager {
     }
 
     public com.github.benmanes.caffeine.cache.Cache<Object, Object> caffeineCache() {
-        return caffeineCacheBuilder().build();
-    }
-
-    public Caffeine<Object, Object> caffeineCacheBuilder() {
-        Caffeine<Object, Object> cacheBuilder = Caffeine.newBuilder();
-        doIfPresent(cacheConfigProperties.getCaffeine().getExpireAfterAccess(), cacheBuilder::expireAfterAccess);
-        doIfPresent(cacheConfigProperties.getCaffeine().getExpireAfterWrite(), cacheBuilder::expireAfterWrite);
-        doIfPresent(cacheConfigProperties.getCaffeine().getRefreshAfterWrite(), cacheBuilder::refreshAfterWrite);
-        if (cacheConfigProperties.getCaffeine().getInitialCapacity() > 0) {
-            cacheBuilder.initialCapacity(cacheConfigProperties.getCaffeine().getInitialCapacity());
-        }
-        if (cacheConfigProperties.getCaffeine().getMaximumSize() > 0) {
-            cacheBuilder.maximumSize(cacheConfigProperties.getCaffeine().getMaximumSize());
-        }
-        if (cacheConfigProperties.getCaffeine().getKeyStrength() != null) {
-            switch (cacheConfigProperties.getCaffeine().getKeyStrength()) {
-                case WEAK -> cacheBuilder.weakKeys();
-                case SOFT -> throw new UnsupportedOperationException("caffeine 不支持 key 软引用");
-                default -> {
-                }
-            }
-        }
-        if (cacheConfigProperties.getCaffeine().getValueStrength() != null) {
-            switch (cacheConfigProperties.getCaffeine().getValueStrength()) {
-                case WEAK -> cacheBuilder.weakValues();
-                case SOFT -> cacheBuilder.softValues();
-                default -> {
-                }
-            }
-        }
-        return cacheBuilder;
-    }
-
-    protected static void doIfPresent(Duration duration, Consumer<Duration> consumer) {
-        if (duration != null && !duration.isNegative()) {
-            consumer.accept(duration);
-        }
+        return CacheCaffeineBuilder.build();
     }
 
     @Override

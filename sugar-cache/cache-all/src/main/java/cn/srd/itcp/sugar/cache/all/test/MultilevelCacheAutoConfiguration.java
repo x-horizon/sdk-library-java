@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.cache.all.test;
 
+import cn.srd.itcp.sugar.cache.all.config.properties.CacheAllProperties;
 import cn.srd.itcp.sugar.cache.all.test.properties.CacheConfigProperties;
 import cn.srd.itcp.sugar.cache.all.test.support.*;
 import cn.srd.itcp.sugar.cache.redisson.common.core.topic.RedissonTopics;
@@ -18,7 +19,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 @AutoConfiguration
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(RedisAutoConfiguration.class)
-@EnableConfigurationProperties(CacheConfigProperties.class)
+@EnableConfigurationProperties({CacheConfigProperties.class, CacheAllProperties.class})
 public class MultilevelCacheAutoConfiguration {
 
     @Bean
