@@ -42,7 +42,7 @@ public class LambdasUtil {
      * @param logic 应用逻辑
      * @param <T>   受检对象类型
      * @param <R>   返回结果类型
-     * @return
+     * @return 返回结果
      */
     @CanIgnoreReturnValue
     public static <T, R> R applyIfNeed(T input, Predicate<T> check, Function<T, R> logic) {
