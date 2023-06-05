@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.topic.redisson.core;
 
 import cn.srd.itcp.sugar.context.redisson.core.RedissonManager;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.redisson.api.listener.MessageListener;
 
 /**
@@ -24,6 +25,7 @@ public class RedissonTopics {
      * @param message   消息
      * @return 收到消息的客户端数量
      */
+    @CanIgnoreReturnValue
     public static long publish(String topicName, Object message) {
         return RedissonManager.getClient().getTopic(topicName).publish(message);
     }
@@ -37,6 +39,7 @@ public class RedissonTopics {
      * @param <T>       消息类型
      * @return 订阅者唯一 id
      */
+    @CanIgnoreReturnValue
     public static <T> int addListener(String topicName, Class<T> type, MessageListener<? extends T> listener) {
         return RedissonManager.getClient().getTopic(topicName).addListener(type, listener);
     }
