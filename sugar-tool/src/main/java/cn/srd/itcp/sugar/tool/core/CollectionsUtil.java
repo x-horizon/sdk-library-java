@@ -675,6 +675,28 @@ public class CollectionsUtil extends CollUtil {
         return from.stream().filter(predicate).collect(Collectors.toSet());
     }
 
+    /**
+     * 过滤掉 Map 中 value 为 null 或指定类型的元素
+     *
+     * @param from           输入参数
+     * @param specifiedClass 指定类型
+     * @param <K>            Key 类型
+     * @param <V>            Value 类型
+     * @return 过滤后集合
+     */
+    public static <K, V> Map<K, V> filterNullAndSpecifiedClass(@Nullable Map<K, V> from, @NonNull Class<?> specifiedClass) {
+        if (Objects.isEmpty(from)) {
+            return new HashMap<>();
+        }
+        Map<K, V> output = new HashMap<>();
+        from.forEach((key, value) -> {
+            if (Objects.isNotNull(value) && Objects.notEquals(specifiedClass, value.getClass())) {
+                output.put(key, value);
+            }
+        });
+        return output;
+    }
+
     // ==================================== 集合去重 ====================================
 
     /**
