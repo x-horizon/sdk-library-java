@@ -1,4 +1,4 @@
-def projectName = 'itcp-sugar-lock-redisson-webmvc'
+def projectName = 'itcp-sugar-component-lock-redisson-webmvc'
 
 def projectNexusUrl
 
