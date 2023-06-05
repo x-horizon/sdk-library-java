@@ -85,6 +85,11 @@ public class RedissonHashCaches implements RedissonCacheTemplate {
     }
 
     @Override
+    public int deleteByNamespace(String namespace) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public int deleteByPattern(String pattern) {
         throw new UnsupportedOperationException();
     }

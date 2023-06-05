@@ -124,6 +124,11 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
     }
 
     @Override
+    public int deleteByNamespace(String namespace) {
+        return deleteByPattern(namespace + ":*");
+    }
+
+    @Override
     public int deleteByPattern(String pattern) {
         RBatch pipeline = RedissonManager.getClient().createBatch();
         pipeline.getKeys().deleteByPatternAsync(pattern);
