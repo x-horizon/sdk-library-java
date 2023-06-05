@@ -2,21 +2,20 @@ package cn.srd.itcp.sugar.cache.caffeine.config.properties;
 
 import cn.srd.itcp.sugar.tool.constant.JavaObjectReferenceLevel;
 import cn.srd.itcp.sugar.tool.core.time.TimeUnitHandler;
-import com.github.benmanes.caffeine.cache.Cache;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * {@link Cache} Builder
+ * Properties for Sugar Cache Caffeine
  *
  * @author wjm
  * @since 2023-06-05 17:01:12
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "sugar.component.cache.caffeine")
+@ConfigurationProperties(prefix = "sugar.cache.caffeine")
 public class CacheCaffeineProperties {
 
     /**

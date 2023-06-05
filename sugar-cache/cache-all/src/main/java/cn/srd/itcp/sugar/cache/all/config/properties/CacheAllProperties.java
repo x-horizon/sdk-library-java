@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "sugar.component.cache")
+@ConfigurationProperties(prefix = "sugar.cache")
 public class CacheAllProperties {
 
     /**
