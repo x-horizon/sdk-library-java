@@ -1,7 +1,5 @@
 package cn.srd.itcp.sugar.cache.redisson.common.core;
 
-import cn.srd.itcp.sugar.cache.contract.core.CacheTemplate;
-
 /**
  * Redisson 缓存操作
  *
@@ -35,7 +33,7 @@ public class RedissonCaches {
      *
      * @return 缓存操作实例
      */
-    public CacheTemplate withBucket() {
+    public RedissonCacheTemplate withBucket() {
         return RedissonBucketCaches.INSTANCE;
     }
 
@@ -44,7 +42,7 @@ public class RedissonCaches {
      *
      * @return 缓存操作实例
      */
-    public CacheTemplate withHash() {
+    public RedissonCacheTemplate withHash() {
         return RedissonHashCaches.INSTANCE;
     }
 
@@ -53,7 +51,7 @@ public class RedissonCaches {
      *
      * @return 缓存操作实例
      */
-    public CacheTemplate withList() {
+    public RedissonCacheTemplate withList() {
         return RedissonListCaches.INSTANCE;
     }
 
@@ -62,7 +60,7 @@ public class RedissonCaches {
      *
      * @return 缓存操作实例
      */
-    public CacheTemplate withSet() {
+    public RedissonCacheTemplate withSet() {
         return RedissonSetCaches.INSTANCE;
     }
 
@@ -71,7 +69,7 @@ public class RedissonCaches {
      *
      * @return 缓存操作实例
      */
-    public CacheTemplate withSortedSet() {
+    public RedissonCacheTemplate withSortedSet() {
         return RedissonSortedSetCaches.INSTANCE;
     }
 

@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.cache.redisson.common.core;
 
-import cn.srd.itcp.sugar.cache.contract.core.CacheTemplate;
+import cn.srd.itcp.sugar.cache.contract.core.CapableExpirationCacheTemplate;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import org.springframework.cache.support.NullValue;
 
@@ -8,9 +8,9 @@ import org.springframework.cache.support.NullValue;
  * Redisson 缓存模板
  *
  * @author wjm
- * @since 2023-06-12 16:41:28
+ * @since 2023-06-05 16:41:28
  */
-public interface RedissonCacheTemplate extends CacheTemplate {
+public interface RedissonCacheTemplate extends CapableExpirationCacheTemplate {
 
     /**
      * 是否为 {@link NullValue}
