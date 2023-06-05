@@ -8,7 +8,7 @@ import org.redisson.api.listener.MessageListener;
  * Redisson topic
  *
  * @author wjm
- * @since 2023-06-12 16:41:28
+ * @since 2023-06-05 16:41:28
  */
 public class RedissonTopics {
 
