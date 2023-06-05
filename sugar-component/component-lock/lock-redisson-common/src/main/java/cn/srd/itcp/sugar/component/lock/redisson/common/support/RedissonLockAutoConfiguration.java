@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
  * @since 2020/12/12 18:06
  */
 @AutoConfiguration
-public class LockRedissonAutoConfiguration {
+public class RedissonLockAutoConfiguration {
 
     /**
      * 装配 {@link RedissonFairLockHandler}
