@@ -9,7 +9,9 @@ import org.springframework.data.redis.core.TimeoutUtils;
 import org.springframework.data.redis.core.ValueOperations;
 
 import java.time.Duration;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -81,7 +83,17 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
 
     @Override
     public <T> List<T> get(String... keys) {
-        return CollectionsUtil.toListIgnoreNullAndSpecifiedClass(RedissonManager.getClient().getBuckets().get(keys), NullValue.class);
+        return CollectionsUtil.toList(getMap(keys));
+    }
+
+    @Override
+    public <T> List<T> get(Collection<String> keys) {
+        return get(CollectionsUtil.toArray(keys, String.class));
+    }
+
+    @Override
+    public <T> List<T> getByNamespace(String namespace) {
+        return getByPattern(namespace + NAMESPACE_KEY_WORD);
     }
 
     @Override
@@ -89,10 +101,22 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
         return get(CollectionsUtil.toArray(RedissonManager.getClient().getKeys().getKeysByPattern(pattern), String.class));
     }
 
+    @Override
+    public <V> Map<String, V> getMap(String... keys) {
+        return CollectionsUtil.filterNullAndSpecifiedClass(RedissonManager.getClient().getBuckets().get(keys), NullValue.class);
+    }
+
+    @Override
+    public <V> Map<String, V> getMap(Collection<String> keys) {
+        return getMap(CollectionsUtil.toArray(keys, String.class));
+    }
+
+    @Override
     public Object getAndSet(String key, Object value) {
         return convertWithNullValue(RedissonManager.getClient().getBucket(key).getAndSet(value));
     }
 
+    @Override
     public <T> T getAndSet(String key, T value, Class<T> oldClazz, Duration expiration) {
         if (Objects.equals(Duration.ZERO, expiration)) {
             return getAndSet(key, value, oldClazz);
@@ -107,8 +131,8 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
     }
 
     @Override
-    public <T> T getAndDelete(String key, Class<T> clazz) {
-        return clazz.cast(convertWithNullValue(RedissonManager.getClient().getBucket(key).getAndDelete()));
+    public Object getAndDelete(String key) {
+        return convertWithNullValue(RedissonManager.getClient().getBucket(key).getAndDelete());
     }
 
     @Override
@@ -124,8 +148,13 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
     }
 
     @Override
+    public int delete(Collection<String> keys) {
+        return delete(CollectionsUtil.toArray(keys, String.class));
+    }
+
+    @Override
     public int deleteByNamespace(String namespace) {
-        return deleteByPattern(namespace + ":*");
+        return deleteByPattern(namespace + NAMESPACE_KEY_WORD);
     }
 
     @Override

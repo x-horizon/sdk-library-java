@@ -13,6 +13,11 @@ import org.springframework.cache.support.NullValue;
 public interface RedissonCacheTemplate extends CapableExpirationCacheTemplate {
 
     /**
+     * 模糊查询某个命名空间的关键字
+     */
+    String NAMESPACE_KEY_WORD = ":*";
+
+    /**
      * 是否为 {@link NullValue}
      *
      * @param input 输入对象

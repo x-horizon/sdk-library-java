@@ -1,9 +1,10 @@
 package cn.srd.itcp.sugar.cache.contract.core;
 
-import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 缓存模板
@@ -30,6 +31,7 @@ public interface CacheTemplate {
      * @param <T>   要缓存对象的类型
      * @return true 代表设置成功，false 代表未设置
      */
+    @CanIgnoreReturnValue
     <T> boolean setIfExists(String key, T value);
 
     /**
@@ -40,6 +42,7 @@ public interface CacheTemplate {
      * @param <T>   要缓存对象的类型
      * @return true 代表设置成功，false 代表未设置
      */
+    @CanIgnoreReturnValue
     <T> boolean setIfAbsent(String key, T value);
 
     /**
@@ -78,18 +81,25 @@ public interface CacheTemplate {
      * @param <T>  缓存对象的类型
      * @return 缓存对象
      */
-    default <T> List<T> get(Collection<String> keys) {
-        return get(CollectionsUtil.toArray(keys, String.class));
-    }
+    <T> List<T> get(Collection<String> keys);
 
     /**
-     * 模糊查询缓存
+     * 获取多个缓存
      *
-     * @param pattern key 表达式，如 cache:*
-     * @param <T>     缓存对象的类型
-     * @return 缓存对象
+     * @param keys 缓存 key 名
+     * @param <V>  缓存对象的类型
+     * @return 缓存 key Mapping 缓存对象
      */
-    <T> List<T> getByPattern(String pattern);
+    <V> Map<String, V> getMap(String... keys);
+
+    /**
+     * 获取多个缓存
+     *
+     * @param keys 缓存 key 名
+     * @param <V>  缓存对象的类型
+     * @return 缓存 key Mapping 缓存对象
+     */
+    <V> Map<String, V> getMap(Collection<String> keys);
 
     /**
      * 获取旧的缓存对象，并将新的缓存对象设置进去
@@ -116,12 +126,22 @@ public interface CacheTemplate {
     /**
      * 获取缓存对象，并将其删除
      *
+     * @param key 缓存 key 名
+     * @return 缓存对象
+     */
+    Object getAndDelete(String key);
+
+    /**
+     * 获取缓存对象，并将其删除
+     *
      * @param key   缓存 key 名
      * @param clazz 缓存对象的类对象
      * @param <T>   缓存对象的类型
      * @return 缓存对象
      */
-    <T> T getAndDelete(String key, Class<T> clazz);
+    default <T> T getAndDelete(String key, Class<T> clazz) {
+        return clazz.cast(getAndDelete(key));
+    }
 
     /**
      * 删除缓存对象
@@ -136,6 +156,7 @@ public interface CacheTemplate {
      * @param keys 缓存 key 名
      * @return 受影响个数
      */
+    @CanIgnoreReturnValue
     int delete(String... keys);
 
     /**
@@ -144,24 +165,7 @@ public interface CacheTemplate {
      * @param keys 缓存 key 名
      * @return 受影响个数
      */
-    default int delete(Collection<String> keys) {
-        return delete(CollectionsUtil.toArray(keys, String.class));
-    }
-
-    /**
-     * 删除指定命名空间下的所有缓存对象
-     *
-     * @param namespace 命名空间
-     * @return 受影响个数
-     */
-    int deleteByNamespace(String namespace);
-
-    /**
-     * 删除缓存对象
-     *
-     * @param pattern key 表达式，如 cache:*
-     * @return 受影响个数
-     */
-    int deleteByPattern(String pattern);
+    @CanIgnoreReturnValue
+    int delete(Collection<String> keys);
 
 }
