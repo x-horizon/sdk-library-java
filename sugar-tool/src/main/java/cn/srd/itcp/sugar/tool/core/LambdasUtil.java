@@ -1,6 +1,9 @@
 package cn.srd.itcp.sugar.tool.core;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -18,17 +21,35 @@ public class LambdasUtil {
     }
 
     /**
-     * 若对受检对象检查通过，执行指定逻辑
+     * 若对受检对象检查通过，消费指定逻辑
      *
      * @param input 受检对象
      * @param check 检查逻辑
-     * @param apply 执行逻辑
+     * @param logic 消费逻辑
      * @param <T>   受检对象类型
      */
-    public static <T> void applyIfNeed(T input, Predicate<T> check, Consumer<T> apply) {
+    public static <T> void acceptIfNeed(T input, Predicate<T> check, Consumer<T> logic) {
         if (check.test(input)) {
-            apply.accept(input);
+            logic.accept(input);
         }
+    }
+
+    /**
+     * 若对受检对象检查通过，应用指定逻辑
+     *
+     * @param input 受检对象
+     * @param check 检查逻辑
+     * @param logic 应用逻辑
+     * @param <T>   受检对象类型
+     * @param <R>   返回结果类型
+     * @return
+     */
+    @CanIgnoreReturnValue
+    public static <T, R> R applyIfNeed(T input, Predicate<T> check, Function<T, R> logic) {
+        if (check.test(input)) {
+            return logic.apply(input);
+        }
+        return null;
     }
 
 }
