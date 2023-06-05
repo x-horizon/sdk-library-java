@@ -1,11 +1,12 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.common.support;
 
+import cn.srd.itcp.sugar.orm.mybatis.plus.common.config.properties.OrmMybatisPlusProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
 import java.lang.annotation.*;
 
 /**
- * Conditional For {@link SugarMybatisPlusProperties#enableMetadata} Is True
+ * Conditional For {@link OrmMybatisPlusProperties#enableMetadata} Is True
  *
  * @author wjm
  * @since 2023-02-18 10:14:51

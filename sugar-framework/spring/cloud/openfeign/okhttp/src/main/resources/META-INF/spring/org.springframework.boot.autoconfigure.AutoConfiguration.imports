@@ -1,1 +1,1 @@
-cn.srd.itcp.sugar.framework.spring.cloud.openfeign.okhttp.support.SugarOpenFeignOkHttpAutoConfiguration
+cn.srd.itcp.sugar.framework.spring.cloud.openfeign.okhttp.support.FrameworkOpenFeignOkHttpAutoConfiguration

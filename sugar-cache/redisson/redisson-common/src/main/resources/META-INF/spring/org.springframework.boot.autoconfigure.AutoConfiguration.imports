@@ -1,1 +1,1 @@
-cn.srd.itcp.sugar.cache.redisson.common.support.SugarRedissonAutoConfiguration
+cn.srd.itcp.sugar.cache.redisson.common.support.CacheRedissonAutoConfiguration

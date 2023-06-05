@@ -48,7 +48,7 @@ public class ConvertAllBenchmarkTest {
 
     @Setup(Level.Trial)
     public void init() {
-        applicationContext = SpringApplication.run(SugarConvertAllApplication.class);
+        applicationContext = SpringApplication.run(ComponentConvertAllApplication.class);
     }
 
     @TearDown(Level.Trial)

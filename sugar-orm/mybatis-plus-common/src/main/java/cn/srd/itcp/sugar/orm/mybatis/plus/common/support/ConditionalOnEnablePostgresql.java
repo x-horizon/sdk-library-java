@@ -1,12 +1,13 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.common.support;
 
+import cn.srd.itcp.sugar.orm.mybatis.plus.common.config.properties.OrmMybatisPlusProperties;
 import cn.srd.itcp.sugar.tool.constant.DatabaseType;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
 import java.lang.annotation.*;
 
 /**
- * Conditional For {@link SugarMybatisPlusProperties#database} Is {@link DatabaseType#POSTGRE_SQL}
+ * Conditional For {@link OrmMybatisPlusProperties#database} Is {@link DatabaseType#POSTGRE_SQL}
  *
  * @author wjm
  * @since 2023-02-18 10:14:51

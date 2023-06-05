@@ -1,17 +1,18 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.common.support;
 
+import cn.srd.itcp.sugar.orm.mybatis.plus.common.config.properties.OrmMybatisPlusProperties;
 import cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.metadata.handler.PostgresqlTableColumnHandler;
 import cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.metadata.handler.PostgresqlTableHandler;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
 /**
- * Autowired Metadata Bean If {@link SugarMybatisPlusProperties#enableMetadata} Is True
+ * Autowired Metadata Bean If {@link OrmMybatisPlusProperties#enableMetadata} Is True
  *
  * @author wjm
  * @since 2023-02-15 09:34:12
  */
-@AutoConfiguration(after = SugarMybatisPlusCommonAutoConfiguration.class)
+@AutoConfiguration(after = OrmMybatisPlusCommonAutoConfiguration.class)
 @ConditionalOnEnablePostgresqlMetadata
 public class PostgresqlMetadataInjector {
 

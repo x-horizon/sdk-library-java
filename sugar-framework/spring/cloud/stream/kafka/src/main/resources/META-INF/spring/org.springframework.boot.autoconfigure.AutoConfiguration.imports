@@ -1,1 +1,1 @@
-cn.srd.itcp.sugar.framework.spring.cloud.stream.kafka.support.SugarSpringCloudStreamKafkaAutoConfiguration
+cn.srd.itcp.sugar.framework.spring.cloud.stream.kafka.support.FrameworkSpringCloudStreamKafkaAutoConfiguration
