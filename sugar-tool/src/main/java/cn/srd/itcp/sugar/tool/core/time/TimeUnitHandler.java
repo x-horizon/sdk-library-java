@@ -109,7 +109,7 @@ public abstract class TimeUnitHandler {
     /**
      * 创建实例
      *
-     * @return 实例
+     * @return instance
      */
     protected abstract TimeUnitHandler newInstance();
 

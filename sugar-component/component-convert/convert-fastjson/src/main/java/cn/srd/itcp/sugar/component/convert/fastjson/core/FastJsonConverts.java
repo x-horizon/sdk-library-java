@@ -22,7 +22,7 @@ public class FastJsonConverts {
     /**
      * get singleton instance
      *
-     * @return 实例
+     * @return instance
      */
     public static FastJsonConverts getInstance() {
         return INSTANCE;

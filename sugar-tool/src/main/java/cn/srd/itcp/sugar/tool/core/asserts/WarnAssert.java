@@ -52,7 +52,7 @@ public class WarnAssert implements AssertSupport {
      * 构造实例
      *
      * @param exceptionMessageTemplate 异常模板信息
-     * @return 实例
+     * @return instance
      */
     private static WarnAssert of(ExceptionMessageTemplate exceptionMessageTemplate) {
         return (WarnAssert) of().set(exceptionMessageTemplate);

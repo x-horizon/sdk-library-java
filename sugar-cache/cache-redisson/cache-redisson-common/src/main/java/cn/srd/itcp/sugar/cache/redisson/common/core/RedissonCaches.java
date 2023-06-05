@@ -24,7 +24,7 @@ public class RedissonCaches {
     /**
      * get singleton instance
      *
-     * @return 实例
+     * @return instance
      */
     public static RedissonCaches getInstance() {
         return INSTANCE;

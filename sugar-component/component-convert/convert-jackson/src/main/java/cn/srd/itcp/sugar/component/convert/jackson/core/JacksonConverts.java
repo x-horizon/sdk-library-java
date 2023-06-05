@@ -72,7 +72,7 @@ public class JacksonConverts {
     /**
      * get singleton instance
      *
-     * @return 实例
+     * @return instance
      */
     public static JacksonConverts getInstance() {
         return INSTANCE;
