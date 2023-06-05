@@ -2,7 +2,7 @@ package cn.srd.itcp.sugar.cache.all.test.support;
 
 import cn.srd.itcp.sugar.cache.all.test.enums.CacheOperation;
 import cn.srd.itcp.sugar.cache.all.test.properties.CacheConfigProperties;
-import cn.srd.itcp.sugar.cache.caffeine.core.CacheCaffeineBuilder;
+import cn.srd.itcp.sugar.cache.caffeine.core.CaffeineCacheBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +58,7 @@ public class RedisCaffeineCacheManager implements CacheManager {
     }
 
     public com.github.benmanes.caffeine.cache.Cache<Object, Object> caffeineCache() {
-        return CacheCaffeineBuilder.build();
+        return CaffeineCacheBuilder.build();
     }
 
     @Override

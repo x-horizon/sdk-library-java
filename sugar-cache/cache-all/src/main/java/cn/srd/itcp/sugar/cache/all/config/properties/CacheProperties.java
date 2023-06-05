@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.cache.all.config.properties;
 
-import cn.srd.itcp.sugar.cache.caffeine.config.properties.CacheCaffeineProperties;
+import cn.srd.itcp.sugar.cache.caffeine.config.properties.CaffeineCacheProperties;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +35,6 @@ public class CacheProperties {
     }
 
     @NestedConfigurationProperty
-    private CacheCaffeineProperties caffeine = new CacheCaffeineProperties();
+    private CaffeineCacheProperties caffeine = new CaffeineCacheProperties();
 
 }

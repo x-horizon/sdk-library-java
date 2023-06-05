@@ -16,12 +16,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "sugar.cache.caffeine")
-public class CacheCaffeineProperties {
+public class CaffeineCacheProperties {
 
     /**
      * instance
      */
-    private static CacheCaffeineProperties instance = null;
+    private static CaffeineCacheProperties instance = null;
 
     /**
      * instance init
@@ -36,7 +36,7 @@ public class CacheCaffeineProperties {
      *
      * @return instance
      */
-    public static CacheCaffeineProperties getInstance() {
+    public static CaffeineCacheProperties getInstance() {
         return instance;
     }
 
