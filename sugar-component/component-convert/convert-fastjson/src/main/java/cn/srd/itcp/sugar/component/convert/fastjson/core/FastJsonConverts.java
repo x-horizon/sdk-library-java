@@ -20,7 +20,7 @@ public class FastJsonConverts {
     private static final FastJsonConverts INSTANCE = new FastJsonConverts();
 
     /**
-     * 获取实例
+     * get singleton instance
      *
      * @return 实例
      */

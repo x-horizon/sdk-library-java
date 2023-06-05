@@ -32,7 +32,7 @@ public class MapstructMybatisPlusConverts {
     }
 
     /**
-     * 获取实例
+     * get singleton instance
      *
      * @return 实例
      */

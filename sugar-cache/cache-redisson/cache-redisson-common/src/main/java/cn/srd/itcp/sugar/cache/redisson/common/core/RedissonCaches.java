@@ -22,7 +22,7 @@ public class RedissonCaches {
     private static final RedissonCaches INSTANCE = new RedissonCaches();
 
     /**
-     * 获取实例
+     * get singleton instance
      *
      * @return 实例
      */

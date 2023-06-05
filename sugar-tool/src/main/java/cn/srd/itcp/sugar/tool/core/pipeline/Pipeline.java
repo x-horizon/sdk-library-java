@@ -16,7 +16,7 @@ public class Pipeline {
     }
 
     /**
-     * 获取实例
+     * get singleton instance
      *
      * @return this
      */

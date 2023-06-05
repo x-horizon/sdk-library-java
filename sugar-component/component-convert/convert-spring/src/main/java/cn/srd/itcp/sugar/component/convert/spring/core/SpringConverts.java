@@ -20,7 +20,7 @@ public class SpringConverts {
     private static final SpringConverts INSTANCE = new SpringConverts();
 
     /**
-     * 获取实例
+     * get singleton instance
      *
      * @return 实例
      */

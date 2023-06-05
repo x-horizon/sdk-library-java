@@ -24,7 +24,7 @@ import java.util.List;
 public interface PostgresqlTableConverter {
 
     /**
-     * 获取实例
+     * get singleton instance
      */
     PostgresqlTableConverter INSTANCE = Mappers.getMapper(PostgresqlTableConverter.class);
 

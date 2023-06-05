@@ -70,7 +70,7 @@ public class JacksonConverts {
     private static final JacksonConverts INSTANCE = new JacksonConverts();
 
     /**
-     * 获取实例
+     * get singleton instance
      *
      * @return 实例
      */
