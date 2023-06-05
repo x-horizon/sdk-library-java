@@ -10,10 +10,7 @@ import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import io.vavr.control.Try;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Date;
@@ -42,6 +39,36 @@ public class TimeUtil extends LocalDateTimeUtil {
      * private block constructor
      */
     private TimeUtil() {
+    }
+
+    /**
+     * 持续时间是否为正数，不包括 0
+     *
+     * @param input 输入参数
+     * @return 持续时间是否为 0 或正数
+     */
+    public static boolean isPositive(Duration input) {
+        return Objects.isNotNull(input) && !input.isNegative() && !input.isZero();
+    }
+
+    /**
+     * 持续时间是否为负数，不包括 0
+     *
+     * @param input 输入参数
+     * @return 持续时间是否为负数，不包括 0
+     */
+    public static boolean isNegative(Duration input) {
+        return Objects.isNotNull(input) && input.isNegative();
+    }
+
+    /**
+     * 持续时间是否为 0
+     *
+     * @param input 输入参数
+     * @return 持续时间是否为 0
+     */
+    public static boolean isZero(Duration input) {
+        return Objects.isNotNull(input) && input.isZero();
     }
 
     /**
