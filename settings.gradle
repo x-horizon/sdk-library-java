@@ -25,7 +25,10 @@ include("$itcp_sugar_component_excel")
 include("$itcp_sugar_component_geometry")
 include("$itcp_sugar_component_id_generator_snowflake")
 include("$itcp_sugar_component_jdk")
+include("$itcp_sugar_component_lock_redisson")
 include("$itcp_sugar_component_log")
+
+include("$itcp_sugar_context_redisson")
 
 include("$itcp_sugar_cache_all")
 include("$itcp_sugar_cache_contract")
@@ -57,3 +60,5 @@ include("$itcp_sugar_security_sa_token_webmvc")
 include("$itcp_sugar_security_sa_token_webflux")
 
 include("$itcp_sugar_tool")
+
+include("$itcp_sugar_topic_redisson")

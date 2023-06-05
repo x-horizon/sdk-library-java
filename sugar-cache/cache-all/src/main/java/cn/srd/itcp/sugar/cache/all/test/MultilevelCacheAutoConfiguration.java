@@ -3,7 +3,7 @@ package cn.srd.itcp.sugar.cache.all.test;
 import cn.srd.itcp.sugar.cache.all.config.properties.CacheAllProperties;
 import cn.srd.itcp.sugar.cache.all.test.properties.CacheConfigProperties;
 import cn.srd.itcp.sugar.cache.all.test.support.*;
-import cn.srd.itcp.sugar.cache.redisson.common.core.topic.RedissonTopics;
+import cn.srd.itcp.sugar.topic.redisson.core.RedissonTopics;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;

@@ -46,9 +46,9 @@ ext {
     // project name
     itcp_sugar_cache_all = ":sugar-cache:cache-all"
     itcp_sugar_cache_contract = ":sugar-cache:cache-contract"
-    itcp_sugar_cache_caffeine = ":sugar-cache:caffeine"
-    itcp_sugar_cache_redisson_common = ":sugar-cache:redisson:redisson-common"
-    itcp_sugar_cache_redisson_webmvc = ":sugar-cache:redisson:redisson-webmvc"
+    itcp_sugar_cache_caffeine = ":sugar-cache:cache-caffeine"
+    itcp_sugar_cache_redisson_common = ":sugar-cache:cache-redisson:cache-redisson-common"
+    itcp_sugar_cache_redisson_webmvc = ":sugar-cache:cache-redisson:cache-redisson-webmvc"
     itcp_sugar_component_actor = ":sugar-component:actor"
     itcp_sugar_component_check_style = ":sugar-component:check-style"
     itcp_sugar_component_convert_all = ":sugar-component:convert:convert-all"
@@ -62,7 +62,9 @@ ext {
     itcp_sugar_component_geometry = ":sugar-component:geometry"
     itcp_sugar_component_id_generator_snowflake = ":sugar-component:id-generator:snowflake"
     itcp_sugar_component_jdk = ":sugar-component:jdk"
+    itcp_sugar_component_lock_redisson = ":sugar-component:lock:lock-redisson"
     itcp_sugar_component_log = ":sugar-component:log"
+    itcp_sugar_context_redisson = ":sugar-context:context-redisson"
     itcp_sugar_doc_knife4j = ":sugar-doc:knife4j"
     itcp_sugar_framework_hsweb_authorize = ":sugar-framework:hsweb:authorize"
     itcp_sugar_framework_hsweb_curd = ":sugar-framework:hsweb:curd"
@@ -82,6 +84,7 @@ ext {
     itcp_sugar_security_sa_token_webmvc = ":sugar-security:sa-token:sa-token-webmvc"
     itcp_sugar_security_sa_token_webflux = ":sugar-security:sa-token:sa-token-webflux"
     itcp_sugar_tool = ":sugar-tool"
+    itcp_sugar_topic_redisson = ":sugar-topic:topic-redisson"
 
     // framework
     spring_web = "org.springframework:spring-web"
