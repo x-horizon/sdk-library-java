@@ -13,7 +13,6 @@ import lombok.SneakyThrows;
 
 import java.lang.reflect.Field;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -33,8 +32,8 @@ public class JacksonEnumValueToEnumCapableDeserializer<E extends Enum<E>> extend
         // 字段所在的类
         Class<?> fieldOfClass = jsonParser.getCurrentValue().getClass();
         // 根据 json 中该字段的字段名 与 该字段所在类的所有字段名进行匹配后，可能匹配上的字段
-        List<Field> mayMatchFields = Stream.of(fieldOfClass.getDeclaredFields()).filter(declaredFiled -> StringsUtil.containsAnyIgnoreCase(declaredFiled.getName(), jsonFieldName)).collect(Collectors.toList());
-        if (mayMatchFields.size() == 0) {
+        List<Field> mayMatchFields = Stream.of(fieldOfClass.getDeclaredFields()).filter(declaredFiled -> StringsUtil.containsAnyIgnoreCase(declaredFiled.getName(), jsonFieldName)).toList();
+        if (mayMatchFields.isEmpty()) {
             throw new JacksonDeserializerException(StringsUtil.format("反序列化失败：无法匹配要反序列化的字段，字段名：{} 无法找到其对应匹配的字段，请检查!", jsonFieldName));
         }
         if (mayMatchFields.size() > 1) {

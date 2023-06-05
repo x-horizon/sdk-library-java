@@ -12,6 +12,12 @@ import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 public class SQLParser {
 
     /**
+     * private block constructor
+     */
+    private SQLParser() {
+    }
+
+    /**
      * Function: PostgreSQL Geometry ==&gt; TEXT
      */
     private static final String GEOMETRY_TO_STRING_FUNCTION = "ST_ASTEXT";

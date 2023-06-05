@@ -23,6 +23,12 @@ import java.util.List;
 public class MapstructMappingManager {
 
     /**
+     * private block constructor
+     */
+    private MapstructMappingManager() {
+    }
+
+    /**
      * List =&gt; String
      *
      * @param value 待转换对象

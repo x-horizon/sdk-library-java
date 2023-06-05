@@ -14,7 +14,6 @@ import java.util.concurrent.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
  * default actor system
@@ -156,7 +155,7 @@ public class DefaultActorSystem implements ActorSystem {
     public List<ActorId> filterChildren(ActorId parentId, Predicate<ActorId> childFilter) {
         Set<ActorId> children = parentChildMap.get(parentId);
         if (children != null) {
-            return children.stream().filter(childFilter).collect(Collectors.toList());
+            return children.stream().filter(childFilter).toList();
         } else {
             return Collections.emptyList();
         }

@@ -150,14 +150,14 @@ public class TypesUtil {
      */
     public static Class<?> getClass(@Nullable Type type) {
         if (null != type) {
-            if (type instanceof Class) {
-                return (Class<?>) type;
-            } else if (type instanceof ParameterizedType) {
-                return (Class<?>) ((ParameterizedType) type).getRawType();
-            } else if (type instanceof TypeVariable) {
-                return (Class<?>) ((TypeVariable<?>) type).getBounds()[0];
-            } else if (type instanceof WildcardType) {
-                final Type[] upperBounds = ((WildcardType) type).getUpperBounds();
+            if (type instanceof Class<?> check) {
+                return check;
+            } else if (type instanceof ParameterizedType check) {
+                return (Class<?>) check.getRawType();
+            } else if (type instanceof TypeVariable<?> check) {
+                return (Class<?>) check.getBounds()[0];
+            } else if (type instanceof WildcardType check) {
+                final Type[] upperBounds = check.getUpperBounds();
                 if (upperBounds.length == 1) {
                     return getClass(upperBounds[0]);
                 }

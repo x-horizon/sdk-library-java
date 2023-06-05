@@ -13,6 +13,12 @@ import org.springframework.cloud.stream.function.StreamBridge;
 public class StreamBridgeManager {
 
     /**
+     * private block constructor
+     */
+    private StreamBridgeManager() {
+    }
+
+    /**
      * see {@link StreamBridge}
      */
     private static StreamBridge streamBridge;

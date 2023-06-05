@@ -26,7 +26,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 /**
  * Mapstruct 转换器
@@ -241,7 +240,7 @@ public class MapstructConverts {
          */
         Set<Class<?>> classesWithMapstructScan = SpringsUtil.scanPackageByAnnotation(MapstructScan.class);
         Set<Class<?>> classesWithBindMapstruct;
-        Assert.INSTANCE.set(StringsUtil.format("found multi @{} in {}, please just specifies one", MapstructScan.class.getSimpleName(), classesWithMapstructScan.stream().map(Class::getName).collect(Collectors.toList()))).throwsIfTrue(classesWithMapstructScan.size() > 1);
+        Assert.INSTANCE.set(StringsUtil.format("found multi @{} in {}, please just specifies one", MapstructScan.class.getSimpleName(), classesWithMapstructScan.stream().map(Class::getName).toList())).throwsIfTrue(classesWithMapstructScan.size() > 1);
         if (Objects.isNotEmpty(classesWithMapstructScan)) {
             String[] packageNamesToFindMapstruct = AnnotationsUtil.getAnnotationValue(CollectionsUtil.getFirst(classesWithMapstructScan), MapstructScan.class);
             classesWithBindMapstruct = ClassesUtil.scanPackageByAnnotation(packageNamesToFindMapstruct, BindMapstruct.class);
@@ -271,7 +270,7 @@ public class MapstructConverts {
                 .stream()
                 .map(mapstructObjectClass -> Arrays.asList(ReflectsUtil.getMethods(mapstructObjectClass)))
                 .flatMap(Collection::stream)
-                .collect(Collectors.toList())
+                .toList()
         );
     }
 

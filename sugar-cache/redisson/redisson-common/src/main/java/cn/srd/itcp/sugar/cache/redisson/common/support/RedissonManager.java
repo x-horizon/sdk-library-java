@@ -12,6 +12,12 @@ import org.redisson.api.RedissonClient;
 public class RedissonManager {
 
     /**
+     * private block constructor
+     */
+    private RedissonManager() {
+    }
+
+    /**
      * singleton pattern
      */
     private static final class RedissonClientSingleTonHolder {

@@ -724,7 +724,7 @@ public interface AssertSupport extends ExceptionTemplate {
     }
 
     /**
-     * 断言，see {@link Objects#isTrue(Supplier)}
+     * 断言，see {@link Objects#isTrue(BooleanSupplier)}
      *
      * @param object 待断言对象
      */
@@ -768,7 +768,7 @@ public interface AssertSupport extends ExceptionTemplate {
     }
 
     /**
-     * 断言，see {@link Objects#isFalse(Supplier)}
+     * 断言，see {@link Objects#isFalse(BooleanSupplier)}
      *
      * @param object 待断言对象
      */

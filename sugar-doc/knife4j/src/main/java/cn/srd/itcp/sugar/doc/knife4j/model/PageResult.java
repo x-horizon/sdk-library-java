@@ -59,7 +59,7 @@ public class PageResult<T> implements Serializable {
     /**
      * 对象数据
      */
-    @Schema(description = "对象数据", required = false)
+    @Schema(description = "对象数据", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private Object datum;
 
 }

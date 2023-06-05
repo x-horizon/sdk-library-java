@@ -6,7 +6,10 @@ import cn.srd.itcp.sugar.doc.knife4j.model.PageResult;
 import cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.metadata.bean.dto.PostgresqlTableDTO;
 import cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.metadata.bean.vo.PostgresqlTableVO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.mapstruct.*;
+import org.mapstruct.IterableMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -49,13 +52,11 @@ public interface PostgresqlTableConverter {
      * @param page 待转换对象
      * @return 转换结果
      */
-    @Mappings({
-            @Mapping(source = "pages", target = "totalPages"),
-            @Mapping(source = "current", target = "currentPage"),
-            @Mapping(source = "size", target = "pageSize"),
-            @Mapping(source = "records", target = "data", qualifiedByName = "toVOs1"),
-            @Mapping(target = "datum", ignore = true),
-    })
+    @Mapping(source = "pages", target = "totalPages")
+    @Mapping(source = "current", target = "currentPage")
+    @Mapping(source = "size", target = "pageSize")
+    @Mapping(source = "records", target = "data", qualifiedByName = "toVOs1")
+    @Mapping(target = "datum", ignore = true)
     PageResult<PostgresqlTableVO> toPostgresqlTablePageResultVO(IPage<PostgresqlTableDTO> page);
 
 }

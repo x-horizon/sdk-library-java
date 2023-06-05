@@ -13,6 +13,12 @@ import java.io.Serializable;
 public class SQL {
 
     /**
+     * private block constructor
+     */
+    private SQL() {
+    }
+
+    /**
      * SQL：将字节数组类型的主键解码为十六进制字符串
      *
      * @param poClass    表映射的实体类

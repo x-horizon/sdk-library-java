@@ -15,6 +15,12 @@ import java.util.function.Supplier;
 public class MybatisPlusInnerInterceptorsConfigurer {
 
     /**
+     * private block constructor
+     */
+    private MybatisPlusInnerInterceptorsConfigurer() {
+    }
+
+    /**
      * 存放 mybatis-plus 拦截器的集合
      */
     private static final List<Supplier<InnerInterceptor>> INNER_INTERCEPTOR_SUPPLIERS = new ArrayList<>();

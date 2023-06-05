@@ -20,6 +20,12 @@ import com.github.yulichang.wrapper.MPJLambdaWrapper;
 public class MpWrappers {
 
     /**
+     * private block constructor
+     */
+    private MpWrappers() {
+    }
+
+    /**
      * 获取用于查询的无条件 Wrapper
      *
      * @param <T> 模型类型

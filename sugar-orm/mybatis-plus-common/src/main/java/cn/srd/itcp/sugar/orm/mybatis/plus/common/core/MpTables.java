@@ -8,7 +8,6 @@ import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 
 import java.io.Serializable;
-import java.util.stream.Collectors;
 
 /**
  * 实体类与表的映射信息辅助工具
@@ -51,7 +50,7 @@ public class MpTables extends TableInfoHelper {
         return StringsUtil.pretty(StringsUtil.split(getSqlSelectWithoutPrimaryKey(clazz), ",")
                 .stream()
                 .map(column -> "t." + column)
-                .collect(Collectors.toList())
+                .toList()
         );
     }
 

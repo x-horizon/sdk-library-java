@@ -16,6 +16,12 @@ import java.util.function.Function;
 public class MapstructConvertsSupporterManager {
 
     /**
+     * private block constructor
+     */
+    private MapstructConvertsSupporterManager() {
+    }
+
+    /**
      * Mapstruct 转换器支持
      */
     private static final List<Function<Object, MapstructConvertsSupporter>> CONVERT_SUPPORTERS = new ArrayList<>();
