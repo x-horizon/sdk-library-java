@@ -17,9 +17,20 @@ if (active == "production") {
 version = projectVersion
 
 dependencies {
+    // framework
+    implementation("$spring_boot")
+    implementation("$spring_boot_aop")
+    annotationProcessor("$spring_boot_configuration_processor")
+
     // cache
     api("$caffeine")
     api(project("$itcp_sugar_cache_contract"))
+
+    // tool
+    implementation(project("$itcp_sugar_tool"))
+
+    // test
+    testAnnotationProcessor("$spring_boot_configuration_processor")
 }
 
 javadoc {
