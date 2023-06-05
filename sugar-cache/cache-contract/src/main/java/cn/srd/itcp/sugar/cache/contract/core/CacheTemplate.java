@@ -322,6 +322,14 @@ public interface CacheTemplate {
     }
 
     /**
+     * 删除指定命名空间下的所有缓存对象
+     *
+     * @param namespace 命名空间
+     * @return 受影响个数
+     */
+    int deleteByNamespace(String namespace);
+
+    /**
      * 删除缓存对象
      *
      * @param pattern key 表达式，如 cache:*
