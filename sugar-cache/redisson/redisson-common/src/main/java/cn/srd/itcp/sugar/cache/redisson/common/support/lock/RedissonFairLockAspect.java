@@ -18,12 +18,12 @@ import org.aspectj.lang.reflect.MethodSignature;
 public class RedissonFairLockAspect extends RedissonLockAspectSupporter {
 
     /**
-     * 实例
+     * instance
      */
     private static RedissonFairLockAspect instance = null;
 
     /**
-     * 实例初始化
+     * instance init
      */
     @PostConstruct
     public void init() {
@@ -31,9 +31,9 @@ public class RedissonFairLockAspect extends RedissonLockAspectSupporter {
     }
 
     /**
-     * 获取实例
+     * get singleton instance
      *
-     * @return 实例
+     * @return instance
      */
     public static RedissonFairLockAspect getInstance() {
         return instance;

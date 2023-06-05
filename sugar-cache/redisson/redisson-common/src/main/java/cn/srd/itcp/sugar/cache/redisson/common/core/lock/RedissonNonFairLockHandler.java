@@ -13,12 +13,12 @@ import org.redisson.api.RLock;
 public class RedissonNonFairLockHandler implements RedissonLockTemplate {
 
     /**
-     * 实例
+     * instance
      */
     public static RedissonNonFairLockHandler instance = null;
 
     /**
-     * 实例初始化
+     * instance init
      */
     @PostConstruct
     public void init() {
@@ -26,9 +26,9 @@ public class RedissonNonFairLockHandler implements RedissonLockTemplate {
     }
 
     /**
-     * 获取实例
+     * get singleton instance
      *
-     * @return 实例
+     * @return instance
      */
     public static RedissonNonFairLockHandler getInstance() {
         return instance;

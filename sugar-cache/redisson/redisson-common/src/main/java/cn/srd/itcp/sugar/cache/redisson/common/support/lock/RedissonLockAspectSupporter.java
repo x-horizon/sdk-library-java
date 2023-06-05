@@ -27,12 +27,12 @@ import java.util.concurrent.TimeUnit;
 public class RedissonLockAspectSupporter {
 
     /**
-     * 实例
+     * instance
      */
     private static RedissonLockAspectSupporter instance = null;
 
     /**
-     * 实例初始化
+     * instance init
      */
     @PostConstruct
     public void init() {
@@ -40,9 +40,9 @@ public class RedissonLockAspectSupporter {
     }
 
     /**
-     * 获取实例
+     * get singleton instance
      *
-     * @return 实例
+     * @return instance
      */
     public static RedissonLockAspectSupporter getInstance() {
         return instance;
