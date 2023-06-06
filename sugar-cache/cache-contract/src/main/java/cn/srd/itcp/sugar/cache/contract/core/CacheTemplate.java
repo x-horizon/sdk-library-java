@@ -75,6 +75,7 @@ public interface CacheTemplate<K> {
      * @param <V>  cache value type
      * @return cache values
      */
+    @SuppressWarnings("unchecked")
     <V> List<V> get(K... keys);
 
     /**
@@ -93,6 +94,7 @@ public interface CacheTemplate<K> {
      * @param <V>  cache value type
      * @return cache key mapping cache value map
      */
+    @SuppressWarnings("unchecked")
     <V> Map<K, V> getMap(K... keys);
 
     /**
@@ -160,6 +162,7 @@ public interface CacheTemplate<K> {
      * @return affected number
      */
     @CanIgnoreReturnValue
+    @SuppressWarnings("unchecked")
     int delete(K... keys);
 
     /**

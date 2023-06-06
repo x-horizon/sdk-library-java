@@ -75,6 +75,7 @@ public class CaffeineCaches<K> implements CaffeineCacheTemplate<K> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <V> List<V> get(K... keys) {
         return get(List.of(keys));
     }
@@ -85,6 +86,7 @@ public class CaffeineCaches<K> implements CaffeineCacheTemplate<K> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <V> Map<K, V> getMap(K... keys) {
         return getMap(List.of(keys));
     }
@@ -125,6 +127,7 @@ public class CaffeineCaches<K> implements CaffeineCacheTemplate<K> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public int delete(K... keys) {
         delete(List.of(keys));
         return -1;
