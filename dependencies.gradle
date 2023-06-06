@@ -14,7 +14,7 @@ ext {
     mysql_version = "8.0.32"
     postgresql_version = "42.5.1"
     lettuce_version = "6.2.4.RELEASE"
-    redisson_version = "3.19.1"
+    redisson_version = "3.19.0"
     mybatis_plus_version = "3.5.3.1"
     mybatis_plus_join_version = "1.4.2.2"
     knife4j_version = "4.0.0"
@@ -45,8 +45,9 @@ ext {
 
     // project name
     itcp_sugar_cache_all = ":sugar-cache:cache-all"
-    itcp_sugar_cache_contract = ":sugar-cache:cache-contract"
     itcp_sugar_cache_caffeine = ":sugar-cache:cache-caffeine"
+    itcp_sugar_cache_contract = ":sugar-cache:cache-contract"
+    itcp_sugar_cache_map = ":sugar-cache:cache-map"
     itcp_sugar_cache_redisson_common = ":sugar-cache:cache-redisson:cache-redisson-common"
     itcp_sugar_component_actor = ":sugar-component:component-actor"
     itcp_sugar_component_check_style = ":sugar-component:component-check-style"

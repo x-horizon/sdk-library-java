@@ -32,8 +32,9 @@ include("$itcp_sugar_component_log")
 include("$itcp_sugar_context_redisson")
 
 include("$itcp_sugar_cache_all")
-include("$itcp_sugar_cache_contract")
 include("$itcp_sugar_cache_caffeine")
+include("$itcp_sugar_cache_contract")
+include("$itcp_sugar_cache_map")
 include("$itcp_sugar_cache_redisson_common")
 
 include("$itcp_sugar_doc_knife4j")
