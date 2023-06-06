@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.cache.caffeine.core;
 
+import cn.srd.itcp.sugar.cache.caffeine.config.properties.CaffeineCacheProperties;
 import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import com.github.benmanes.caffeine.cache.Cache;
@@ -19,7 +20,7 @@ import java.util.Map;
  * @since 2023-06-05 17:01:12
  */
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class CaffeineCaches implements CaffeineCacheTemplate {
+public class CaffeineCaches<K> implements CaffeineCacheTemplate<K> {
 
     /**
      * combine {@link Cache}
@@ -27,21 +28,31 @@ public class CaffeineCaches implements CaffeineCacheTemplate {
     private Cache<Object, Object> cache;
 
     /**
-     * get instance - create new instance every time
+     * get instance
      *
      * @return instance
      */
-    public static CaffeineCaches getInstance() {
-        return new CaffeineCaches(CaffeineCacheBuilder.build());
+    public static <K> CaffeineCaches<K> newInstance() {
+        return newInstance(CaffeineCacheProperties.getInstance());
+    }
+
+    /**
+     * get instance
+     *
+     * @param caffeineCacheProperties {@link CaffeineCacheProperties}
+     * @return instance
+     */
+    public static <K> CaffeineCaches<K> newInstance(CaffeineCacheProperties caffeineCacheProperties) {
+        return new CaffeineCaches<>(CaffeineCacheBuilder.build(caffeineCacheProperties));
     }
 
     @Override
-    public <V> void set(Object key, V value) {
+    public <V> void set(K key, V value) {
         cache.put(key, value);
     }
 
     @Override
-    public <V> boolean setIfExists(Object key, V value) {
+    public <V> boolean setIfExists(K key, V value) {
         if (Objects.isNotNull(get(key))) {
             set(key, value);
             return true;
@@ -50,7 +61,7 @@ public class CaffeineCaches implements CaffeineCacheTemplate {
     }
 
     @Override
-    public <V> boolean setIfAbsent(Object key, V value) {
+    public <V> boolean setIfAbsent(K key, V value) {
         if (Objects.isNull(get(key))) {
             set(key, value);
             return true;
@@ -59,68 +70,68 @@ public class CaffeineCaches implements CaffeineCacheTemplate {
     }
 
     @Override
-    public Object get(Object key) {
-        return cache.getIfPresent(key);
+    public Object get(K key) {
+        return convertWithNullValue(cache.getIfPresent(key));
     }
 
     @Override
-    public <V> List<V> get(Object... keys) {
+    public <V> List<V> get(K... keys) {
         return get(List.of(keys));
     }
 
     @Override
-    public <V> List<V> get(Collection<Object> keys) {
+    public <V> List<V> get(Collection<K> keys) {
         return CollectionsUtil.toList(getMap(keys));
     }
 
     @Override
-    public <V> Map<Object, V> getMap(Object... keys) {
+    public <V> Map<K, V> getMap(K... keys) {
         return getMap(List.of(keys));
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <V> Map<Object, V> getMap(Collection<Object> keys) {
+    public <V> Map<K, V> getMap(Collection<K> keys) {
         Map<Object, Object> result = cache.getAllPresent(keys);
         if (Objects.isEmpty(result)) {
             return new HashMap<>();
         }
-        Map<Object, V> output = new HashMap<>();
+        Map<K, V> output = new HashMap<>();
         result.forEach((key, value) -> {
             if (Objects.isNotNull(value) && Objects.notEquals(NullValue.class, value.getClass())) {
-                output.put(key.toString(), (V) value);
+                output.put((K) key, (V) value);
             }
         });
         return output;
     }
 
     @Override
-    public Object getAndSet(Object key, Object value) {
+    public Object getAndSet(K key, Object value) {
         Object output = get(key);
         set(key, value);
         return output;
     }
 
     @Override
-    public Object getAndDelete(Object key) {
+    public Object getAndDelete(K key) {
         Object output = get(key);
         delete(key);
         return output;
     }
 
     @Override
-    public void delete(Object key) {
+    public void delete(K key) {
         cache.invalidate(key);
     }
 
     @Override
-    public int delete(Object... keys) {
+    public int delete(K... keys) {
         delete(List.of(keys));
         return -1;
     }
 
     @Override
-    public int delete(Collection<Object> keys) {
+    public int delete(Collection<K> keys) {
         cache.invalidateAll(keys);
         return -1;
     }
