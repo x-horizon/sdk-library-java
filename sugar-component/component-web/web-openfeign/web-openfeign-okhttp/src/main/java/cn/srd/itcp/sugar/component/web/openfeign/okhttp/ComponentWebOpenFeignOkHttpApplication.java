@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.framework.spring.cloud.gateway;
+package cn.srd.itcp.sugar.component.web.openfeign.okhttp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * boot
  */
 @SpringBootApplication
-public class ComponentGatewaySpringCloudApplication {
+public class ComponentWebOpenFeignOkHttpApplication {
 
     /**
      * main
@@ -15,7 +15,7 @@ public class ComponentGatewaySpringCloudApplication {
      * @param args main argument
      */
     public static void main(String[] args) {
-        SpringApplication.run(ComponentGatewaySpringCloudApplication.class, args);
+        SpringApplication.run(ComponentWebOpenFeignOkHttpApplication.class, args);
     }
 
 }

@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.framework.spring.cloud.openfeign.common.support;
+package cn.srd.itcp.sugar.component.web.openfeign.common.support;
 
 import cn.srd.itcp.sugar.framework.spring.tool.webmvc.core.SpringsWebMVCUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;

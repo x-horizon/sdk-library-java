@@ -1,7 +1,7 @@
-package cn.srd.itcp.sugar.framework.spring.cloud.openfeign.okhttp.support;
+package cn.srd.itcp.sugar.component.web.openfeign.okhttp.support;
 
 import cn.srd.itcp.sugar.component.convert.all.core.Converts;
-import cn.srd.itcp.sugar.framework.spring.cloud.openfeign.okhttp.core.EnableOpenFeignOkHttpHandleResponseInterceptor;
+import cn.srd.itcp.sugar.component.web.openfeign.okhttp.core.EnableOpenFeignOkHttpHandleResponseInterceptor;
 import cn.srd.itcp.sugar.tool.core.ClassesUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.core.StringsUtil;
@@ -33,7 +33,7 @@ public class OpenFeignOkHttpHandleRepsonseInterceptor implements Interceptor {
     @SneakyThrows
     public String parse(String responseBody) {
         ResponseModel<?> responseModel = null;
-        for (Class<? extends ResponseModel<?>> responseModelClass : OpenFeignOkHttpConfigurator.RESPONSE_MODELS_TO_PARSE) {
+        for (Class<? extends ResponseModel> responseModelClass : OpenFeignOkHttpConfigurator.RESPONSE_MODELS_TO_PARSE) {
             responseModel = Try.of(() -> Converts.withJackson().toBean(responseBody, responseModelClass)).getOrNull();
             if (Objects.isNotNull(responseModel)) {
                 break;

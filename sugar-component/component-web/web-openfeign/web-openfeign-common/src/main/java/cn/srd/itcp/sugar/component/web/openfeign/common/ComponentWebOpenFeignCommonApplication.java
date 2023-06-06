@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.framework.spring.cloud.kubernetes.fabric8;
+package cn.srd.itcp.sugar.component.web.openfeign.common;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * boot
  */
 @SpringBootApplication
-public class ComponentKubernetesFabric8Application {
+public class ComponentWebOpenFeignCommonApplication {
 
     /**
      * main
@@ -15,7 +15,7 @@ public class ComponentKubernetesFabric8Application {
      * @param args main argument
      */
     public static void main(String[] args) {
-        SpringApplication.run(ComponentKubernetesFabric8Application.class, args);
+        SpringApplication.run(ComponentWebOpenFeignCommonApplication.class, args);
     }
 
 }

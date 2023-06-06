@@ -1,6 +1,6 @@
-package cn.srd.itcp.sugar.framework.spring.cloud.openfeign.okhttp.core;
+package cn.srd.itcp.sugar.component.web.openfeign.okhttp.core;
 
-import cn.srd.itcp.sugar.framework.spring.cloud.openfeign.okhttp.support.OpenFeignOkHttpHandleRepsonseInterceptor;
+import cn.srd.itcp.sugar.component.web.openfeign.okhttp.support.OpenFeignOkHttpHandleRepsonseInterceptor;
 import cn.srd.itcp.sugar.tool.web.ResponseModel;
 
 import java.lang.annotation.*;
@@ -21,6 +21,6 @@ public @interface EnableOpenFeignOkHttpHandleResponseInterceptor {
      *
      * @return response model 集合
      */
-    Class<? extends ResponseModel<?>>[] models();
+    Class<? extends ResponseModel>[] models();
 
 }

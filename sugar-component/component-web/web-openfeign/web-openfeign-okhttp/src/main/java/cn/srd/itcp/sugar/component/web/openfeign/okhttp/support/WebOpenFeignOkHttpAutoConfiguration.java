@@ -1,6 +1,6 @@
-package cn.srd.itcp.sugar.framework.spring.cloud.openfeign.okhttp.support;
+package cn.srd.itcp.sugar.component.web.openfeign.okhttp.support;
 
-import cn.srd.itcp.sugar.framework.spring.cloud.openfeign.okhttp.core.EnableOpenFeignOkHttpHandleResponseInterceptor;
+import cn.srd.itcp.sugar.component.web.openfeign.okhttp.core.EnableOpenFeignOkHttpHandleResponseInterceptor;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.core.AnnotationsUtil;
