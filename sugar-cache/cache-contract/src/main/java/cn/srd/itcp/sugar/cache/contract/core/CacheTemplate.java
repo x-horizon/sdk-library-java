@@ -1,6 +1,8 @@
 package cn.srd.itcp.sugar.cache.contract.core;
 
+import cn.srd.itcp.sugar.tool.core.Objects;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import org.springframework.cache.support.NullValue;
 
 import java.util.Collection;
 import java.util.List;
@@ -168,5 +170,35 @@ public interface CacheTemplate<K> {
      */
     @CanIgnoreReturnValue
     int delete(Collection<K> keys);
+
+    /**
+     * is it {@link NullValue}
+     *
+     * @param input checked object
+     * @return is it {@link NullValue}
+     */
+    default boolean isNullValue(Object input) {
+        return Objects.isNotNull(input) && Objects.equals(NullValue.class, input.getClass());
+    }
+
+    /**
+     * is not {@link NullValue}
+     *
+     * @param input checked object
+     * @return is not {@link NullValue}
+     */
+    default boolean isNotNullValue(Object input) {
+        return !isNullValue(input);
+    }
+
+    /**
+     * convert with {@link NullValue}
+     *
+     * @param input checked object
+     * @return null if it is {@link NullValue}, or do not convert
+     */
+    default <V> V convertWithNullValue(V input) {
+        return isNullValue(input) ? null : input;
+    }
 
 }

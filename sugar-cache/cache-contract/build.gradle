@@ -17,6 +17,9 @@ if (active == "production") {
 version = projectVersion
 
 dependencies {
+    // framework
+    implementation("$spring_context")
+
     // tool
     implementation(project("$itcp_sugar_tool"))
 }
