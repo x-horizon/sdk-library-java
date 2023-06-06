@@ -4,6 +4,7 @@ import cn.srd.itcp.sugar.context.redisson.core.RedissonManager;
 import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import org.redisson.api.RBatch;
+import org.redisson.api.RBucket;
 import org.springframework.cache.support.NullValue;
 import org.springframework.data.redis.core.TimeoutUtils;
 
@@ -34,36 +35,35 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
 
     @Override
     public <V> void set(String key, V value, Duration expiration) {
+        RBucket<V> cache = RedissonManager.getClient().getBucket(key);
         if (Objects.equals(Duration.ZERO, expiration)) {
-            RedissonManager.getClient().getBucket(key).set(value);
-            return;
+            cache.set(value);
+        } else if (TimeoutUtils.hasMillis(expiration)) {
+            cache.set(value, expiration.toMillis(), TimeUnit.MILLISECONDS);
+        } else {
+            cache.set(value, expiration.getSeconds(), TimeUnit.SECONDS);
         }
-        // 实现参考：{@link ValueOperations#set(Object, Object, Duration)}
-        if (TimeoutUtils.hasMillis(expiration)) {
-            RedissonManager.getClient().getBucket(key).set(value, expiration.toMillis(), TimeUnit.MILLISECONDS);
-            return;
-        }
-        RedissonManager.getClient().getBucket(key).set(value, expiration.getSeconds(), TimeUnit.SECONDS);
     }
 
     @Override
     public <V> boolean setIfExists(String key, V value, Duration expiration) {
+        RBucket<V> cache = RedissonManager.getClient().getBucket(key);
         if (Objects.equals(Duration.ZERO, expiration)) {
-            return RedissonManager.getClient().getBucket(key).setIfExists(value);
+            return cache.setIfExists(value);
         }
-        // 实现参考：{@link ValueOperations#set(Object, Object, Duration)}
         if (TimeoutUtils.hasMillis(expiration)) {
-            return RedissonManager.getClient().getBucket(key).setIfExists(value, expiration.toMillis(), TimeUnit.MILLISECONDS);
+            return cache.setIfExists(value, expiration.toMillis(), TimeUnit.MILLISECONDS);
         }
-        return RedissonManager.getClient().getBucket(key).setIfExists(value, expiration.getSeconds(), TimeUnit.SECONDS);
+        return cache.setIfExists(value, expiration.getSeconds(), TimeUnit.SECONDS);
     }
 
     @Override
     public <V> boolean setIfAbsent(String key, V value, Duration expiration) {
+        RBucket<V> cache = RedissonManager.getClient().getBucket(key);
         if (Objects.equals(Duration.ZERO, expiration)) {
-            return RedissonManager.getClient().getBucket(key).setIfAbsent(value);
+            return cache.setIfAbsent(value);
         }
-        return RedissonManager.getClient().getBucket(key).setIfAbsent(value, expiration);
+        return cache.setIfAbsent(value, expiration);
     }
 
     @Override
@@ -73,19 +73,23 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
 
     @Override
     public Object getAndSet(String key, Object value) {
-        return convertWithNullValue(RedissonManager.getClient().getBucket(key).getAndSet(value));
+        Object output = get(key);
+        set(key, value);
+        return output;
     }
 
     @Override
     public <V> V getAndSet(String key, V value, Class<V> oldClazz, Duration expiration) {
+        V output = get(key, oldClazz);
         if (Objects.equals(Duration.ZERO, expiration)) {
-            return getAndSet(key, value, oldClazz);
+            set(key, value);
+        } else if (TimeoutUtils.hasMillis(expiration)) {
+            // 实现参考：{@link ValueOperations#set(Object, Object, Duration)}
+            set(key, value, expiration.toMillis(), TimeUnit.MILLISECONDS);
+        } else {
+            set(key, value, expiration.getSeconds(), TimeUnit.SECONDS);
         }
-        // 实现参考：{@link ValueOperations#set(Object, Object, Duration)}
-        if (TimeoutUtils.hasMillis(expiration)) {
-            return oldClazz.cast(convertWithNullValue(RedissonManager.getClient().getBucket(key).getAndSet(value, expiration.toMillis(), TimeUnit.MILLISECONDS)));
-        }
-        return oldClazz.cast(convertWithNullValue(RedissonManager.getClient().getBucket(key).getAndSet(value, expiration.getSeconds(), TimeUnit.SECONDS)));
+        return output;
     }
 
     @Override
@@ -191,5 +195,11 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
     // public <T, V> void set(List<T> values, Function<T, String> getKeyFunction, Function<T, V> getValueFunction) {
     //     RedissonManager.getClient().getBuckets().set(CollectionsUtil.toMap(values, getKeyFunction, getValueFunction));
     // }
+
+    // cache.set(CACHE_NAME1, CACHE_OBJECT1);
+    // boolean result21 = cache.compareAndSet(CACHE_NAME1, CACHE_OBJECT2, CACHE_OBJECT2);
+    // boolean result22 = cache.compareAndSet(CACHE_NAME1, CACHE_OBJECT1, CACHE_OBJECT2);
+    //
+    // cache.deleteAll();
 
 }
