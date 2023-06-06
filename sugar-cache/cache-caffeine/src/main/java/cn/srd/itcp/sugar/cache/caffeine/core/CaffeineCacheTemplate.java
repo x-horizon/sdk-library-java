@@ -3,7 +3,7 @@ package cn.srd.itcp.sugar.cache.caffeine.core;
 import cn.srd.itcp.sugar.cache.contract.core.CacheTemplate;
 
 /**
- * Caffeine 缓存模板
+ * Caffeine Cache Template
  *
  * @author wjm
  * @since 2023-06-05 17:01:12
@@ -11,7 +11,7 @@ import cn.srd.itcp.sugar.cache.contract.core.CacheTemplate;
 public interface CaffeineCacheTemplate extends CacheTemplate<Object> {
 
     /**
-     * 删除所有缓存对象
+     * delete all cache
      */
     void deleteAll();
 

@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.cache.redisson.common.cache;
+package cn.srd.itcp.sugar.cache.redisson.common;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

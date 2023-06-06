@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.cache.redisson.common.cache;
+package cn.srd.itcp.sugar.cache.redisson.common;
 
 import cn.srd.itcp.sugar.cache.redisson.common.core.RedissonCaches;
 import org.junit.Test;
