@@ -87,6 +87,7 @@ ext {
     itcp_sugar_topic_redisson = ":sugar-topic:topic-redisson"
 
     // framework
+    spring_context = "org.springframework:spring-context"
     spring_web = "org.springframework:spring-web"
     spring_data_commons = "org.springframework.data:spring-data-commons"
     spring_boot = "org.springframework.boot:spring-boot-starter"
