@@ -6,7 +6,6 @@ import cn.srd.itcp.sugar.tool.core.Objects;
 import com.github.benmanes.caffeine.cache.Cache;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import org.springframework.cache.support.NullValue;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -97,14 +96,11 @@ public class CaffeineCaches<K> implements CaffeineCacheTemplate<K> {
     @Override
     @SuppressWarnings("unchecked")
     public <V> Map<K, V> getMap(Collection<K> keys) {
-        Map<Object, Object> result = cache.getAllPresent(keys);
-        if (Objects.isEmpty(result)) {
-            return new HashMap<>();
-        }
         Map<K, V> output = new HashMap<>();
-        result.forEach((key, value) -> {
-            if (Objects.isNotNull(value) && Objects.notEquals(NullValue.class, value.getClass())) {
-                output.put((K) key, (V) value);
+        keys.forEach(key -> {
+            V value = (V) get(key);
+            if (Objects.isNotNull(value)) {
+                output.put(key, value);
             }
         });
         return output;
