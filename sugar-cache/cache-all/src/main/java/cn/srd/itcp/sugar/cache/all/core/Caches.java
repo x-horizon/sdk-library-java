@@ -2,7 +2,7 @@ package cn.srd.itcp.sugar.cache.all.core;
 
 import cn.srd.itcp.sugar.cache.caffeine.core.CaffeineCacheTemplate;
 import cn.srd.itcp.sugar.cache.caffeine.core.CaffeineCaches;
-import cn.srd.itcp.sugar.cache.redisson.common.core.RedissonCaches;
+import cn.srd.itcp.sugar.cache.redisson.core.RedissonCaches;
 
 public class Caches {
 

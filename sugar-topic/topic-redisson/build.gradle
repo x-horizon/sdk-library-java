@@ -25,6 +25,9 @@ dependencies {
     // context
     api(project("$itcp_sugar_context_redisson"))
 
+    // topic
+    api(project("$itcp_sugar_topic_contract"))
+
     // tool
     implementation(project("$itcp_sugar_tool"))
     implementation(project("$itcp_sugar_framework_spring_tool_common"))
