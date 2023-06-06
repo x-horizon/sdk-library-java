@@ -16,6 +16,7 @@ import java.util.Map;
 /**
  * Redisson 缓存操作
  *
+ * @param <K> cache key type
  * @author wjm
  * @since 2023-06-05 17:01:12
  */
@@ -30,6 +31,7 @@ public class CaffeineCaches<K> implements CaffeineCacheTemplate<K> {
     /**
      * get instance
      *
+     * @param <K> cache key type
      * @return instance
      */
     public static <K> CaffeineCaches<K> newInstance() {
@@ -40,6 +42,7 @@ public class CaffeineCaches<K> implements CaffeineCacheTemplate<K> {
      * get instance
      *
      * @param caffeineCacheProperties {@link CaffeineCacheProperties}
+     * @param <K>                     cache key type
      * @return instance
      */
     public static <K> CaffeineCaches<K> newInstance(CaffeineCacheProperties caffeineCacheProperties) {

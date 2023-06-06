@@ -198,9 +198,10 @@ public interface CacheTemplate<K> {
      * convert with {@link NullValue}
      *
      * @param input checked object
+     * @param <T>   checked object type
      * @return null if it is {@link NullValue}, or do not convert
      */
-    default <V> V convertWithNullValue(V input) {
+    default <T> T convertWithNullValue(T input) {
         return isNullValue(input) ? null : input;
     }
 
