@@ -8,7 +8,7 @@ import cn.srd.itcp.sugar.cache.contract.core.CacheTemplate;
  * @author wjm
  * @since 2023-06-05 17:01:12
  */
-public interface CaffeineCacheTemplate extends CacheTemplate {
+public interface CaffeineCacheTemplate extends CacheTemplate<Object> {
 
     /**
      * 删除所有缓存对象

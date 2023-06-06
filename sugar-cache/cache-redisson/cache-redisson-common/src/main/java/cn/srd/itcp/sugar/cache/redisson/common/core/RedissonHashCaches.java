@@ -27,17 +27,47 @@ public class RedissonHashCaches implements RedissonCacheTemplate {
     protected static final RedissonHashCaches INSTANCE = new RedissonHashCaches();
 
     @Override
+    public <V> void set(String key, V value, Duration expiration) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <V> boolean setIfExists(String key, V value, Duration expiration) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <V> boolean setIfAbsent(String key, V value, Duration expiration) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <V> boolean compareAndSet(String key, V expectedValue, V updateValue) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Object getAndSet(String key, Object value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <V> V getAndSet(String key, V value, Class<V> oldClazz, Duration expiration) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Object get(String key) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> List<T> get(String... keys) {
+    public <V> List<V> get(String... keys) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> List<T> get(Collection<String> keys) {
+    public <V> List<V> get(Collection<String> keys) {
         throw new UnsupportedOperationException();
     }
 
@@ -52,7 +82,12 @@ public class RedissonHashCaches implements RedissonCacheTemplate {
     }
 
     @Override
-    public Object getAndSet(String key, Object value) {
+    public <V> List<V> getByNamespace(String namespace) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <V> List<V> getByPattern(String pattern) {
         throw new UnsupportedOperationException();
     }
 
@@ -77,47 +112,12 @@ public class RedissonHashCaches implements RedissonCacheTemplate {
     }
 
     @Override
-    public <T> boolean compareAndSet(String key, T expectedValue, T updateValue) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> List<T> getByNamespace(String namespace) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> List<T> getByPattern(String pattern) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public int deleteByNamespace(String namespace) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public int deleteByPattern(String pattern) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> void set(String key, T value, Duration expiration) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> boolean setIfExists(String key, T value, Duration expiration) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> boolean setIfAbsent(String key, T value, Duration expiration) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> T getAndSet(String key, T value, Class<T> oldClazz, Duration expiration) {
         throw new UnsupportedOperationException();
     }
 

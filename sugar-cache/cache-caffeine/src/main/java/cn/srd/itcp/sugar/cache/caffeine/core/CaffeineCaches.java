@@ -27,7 +27,7 @@ public class CaffeineCaches implements CaffeineCacheTemplate {
     private Cache<Object, Object> cache;
 
     /**
-     * get multiple instance
+     * get instance - create new instance every time
      *
      * @return instance
      */
@@ -36,12 +36,12 @@ public class CaffeineCaches implements CaffeineCacheTemplate {
     }
 
     @Override
-    public <T> void set(String key, T value) {
+    public <V> void set(Object key, V value) {
         cache.put(key, value);
     }
 
     @Override
-    public <T> boolean setIfExists(String key, T value) {
+    public <V> boolean setIfExists(Object key, V value) {
         if (Objects.isNotNull(get(key))) {
             set(key, value);
             return true;
@@ -50,7 +50,7 @@ public class CaffeineCaches implements CaffeineCacheTemplate {
     }
 
     @Override
-    public <T> boolean setIfAbsent(String key, T value) {
+    public <V> boolean setIfAbsent(Object key, V value) {
         if (Objects.isNull(get(key))) {
             set(key, value);
             return true;
@@ -59,33 +59,33 @@ public class CaffeineCaches implements CaffeineCacheTemplate {
     }
 
     @Override
-    public Object get(String key) {
+    public Object get(Object key) {
         return cache.getIfPresent(key);
     }
 
     @Override
-    public <T> List<T> get(String... keys) {
+    public <V> List<V> get(Object... keys) {
         return get(List.of(keys));
     }
 
     @Override
-    public <T> List<T> get(Collection<String> keys) {
+    public <V> List<V> get(Collection<Object> keys) {
         return CollectionsUtil.toList(getMap(keys));
     }
 
     @Override
-    public <V> Map<String, V> getMap(String... keys) {
+    public <V> Map<Object, V> getMap(Object... keys) {
         return getMap(List.of(keys));
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <V> Map<String, V> getMap(Collection<String> keys) {
+    public <V> Map<Object, V> getMap(Collection<Object> keys) {
         Map<Object, Object> result = cache.getAllPresent(keys);
         if (Objects.isEmpty(result)) {
             return new HashMap<>();
         }
-        Map<String, V> output = new HashMap<>();
+        Map<Object, V> output = new HashMap<>();
         result.forEach((key, value) -> {
             if (Objects.isNotNull(value) && Objects.notEquals(NullValue.class, value.getClass())) {
                 output.put(key.toString(), (V) value);
@@ -95,32 +95,32 @@ public class CaffeineCaches implements CaffeineCacheTemplate {
     }
 
     @Override
-    public Object getAndSet(String key, Object value) {
+    public Object getAndSet(Object key, Object value) {
         Object output = get(key);
         set(key, value);
         return output;
     }
 
     @Override
-    public Object getAndDelete(String key) {
+    public Object getAndDelete(Object key) {
         Object output = get(key);
         delete(key);
         return output;
     }
 
     @Override
-    public void delete(String key) {
+    public void delete(Object key) {
         cache.invalidate(key);
     }
 
     @Override
-    public int delete(String... keys) {
+    public int delete(Object... keys) {
         delete(List.of(keys));
         return -1;
     }
 
     @Override
-    public int delete(Collection<String> keys) {
+    public int delete(Collection<Object> keys) {
         cache.invalidateAll(keys);
         return -1;
     }

@@ -7,217 +7,218 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 缓存模板（支持过期时间）
+ * Cache Template - Support expiration
  *
+ * @param <K> cache key type
  * @author wjm
  * @since 2023-06-05 16:41:28
  */
-public interface ExpirationCacheTemplate extends CacheTemplate {
+public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
 
     /**
-     * 设置缓存
+     * set cache
      *
-     * @param key   缓存 key 名
-     * @param value 要缓存的对象
-     * @param <T>   要缓存对象的类型
+     * @param key   cache key
+     * @param value cache value
+     * @param <V>   cache value type
      */
     @Override
-    default <T> void set(String key, T value) {
+    default <V> void set(K key, V value) {
         set(key, value, Duration.ZERO);
     }
 
     /**
-     * see {@link #set(String, Object)}
+     * see {@link #set(Object, Object)}
      *
-     * @param key        缓存 key 名
-     * @param value      要缓存的对象
-     * @param expiration 过期时间，如 “2s”、“200ms” 等，see {@link TimeUnitHandler}
-     * @param <T>        要缓存对象的类型
+     * @param key        cache key
+     * @param value      cache value
+     * @param expiration the expiration time，example: "2s"、"200ms"... , see {@link TimeUnitHandler}
+     * @param <V>        cache value type
      */
-    default <T> void set(String key, T value, String expiration) {
+    default <V> void set(K key, V value, String expiration) {
         set(key, value, TimeUtil.wrapper(expiration).toMillisecond());
     }
 
     /**
-     * see {@link #set(String, Object)}
+     * see {@link #set(Object, Object)}
      *
-     * @param key        缓存 key 名
-     * @param value      要缓存的对象
-     * @param expiration 过期时间
-     * @param timeUnit   过期时间单位
-     * @param <T>        要缓存对象的类型
+     * @param key        cache key
+     * @param value      cache value
+     * @param expiration expiration time
+     * @param timeUnit   expiration time unit
+     * @param <V>        cache value type
      */
-    default <T> void set(String key, T value, long expiration, TimeUnit timeUnit) {
+    default <V> void set(K key, V value, long expiration, TimeUnit timeUnit) {
         set(key, value, TimeUtil.wrapper(expiration, timeUnit).toMillisecond());
     }
 
     /**
-     * see {@link #set(String, Object)}
+     * see {@link #set(Object, Object)}
      *
-     * @param key        缓存 key 名
-     * @param value      要缓存的对象
-     * @param expiration 过期时间
-     * @param <T>        要缓存对象的类型
+     * @param key        cache key
+     * @param value      cache value
+     * @param expiration expiration time
+     * @param <V>        cache value type
      */
-    <T> void set(String key, T value, Duration expiration);
+    <V> void set(K key, V value, Duration expiration);
 
     /**
-     * 如果已存在缓存，将其覆盖，如果不存在缓存，不进行设置
+     * cover cache if already exist and do nothing if not exist
      *
-     * @param key   缓存 key 名
-     * @param value 要缓存的对象
-     * @param <T>   要缓存对象的类型
-     * @return true 代表设置成功，false 代表未设置
+     * @param key   cache key
+     * @param value cache value
+     * @param <V>   cache value type
+     * @return true if successful, or false if element wasn't set
      */
     @Override
-    default <T> boolean setIfExists(String key, T value) {
+    default <V> boolean setIfExists(K key, V value) {
         return setIfExists(key, value, Duration.ZERO);
     }
 
     /**
-     * see {@link #setIfExists(String, Object)}
+     * see {@link #setIfExists(Object, Object)}
      *
-     * @param key        缓存 key 名
-     * @param value      要缓存的对象
-     * @param expiration 过期时间，如 “2s”、“200ms” 等，see {@link TimeUnitHandler}
-     * @param <T>        要缓存对象的类型
-     * @return true 代表设置成功，false 代表未设置
+     * @param key        cache key
+     * @param value      cache value
+     * @param expiration the expiration time，example: "2s"、"200ms"... , see {@link TimeUnitHandler}
+     * @param <V>        cache value type
+     * @return true if successful, or false if element wasn't set
      */
-    default <T> boolean setIfExists(String key, T value, String expiration) {
+    default <V> boolean setIfExists(K key, V value, String expiration) {
         return setIfExists(key, value, TimeUtil.wrapper(expiration).toMillisecond());
     }
 
     /**
-     * see {@link #setIfExists(String, Object)}
+     * see {@link #setIfExists(Object, Object)}
      *
-     * @param key        缓存 key 名
-     * @param value      要缓存的对象
-     * @param expiration 过期时间
-     * @param timeUnit   过期时间单位
-     * @param <T>        要缓存对象的类型
-     * @return true 代表设置成功，false 代表未设置
+     * @param key        cache key
+     * @param value      cache value
+     * @param expiration expiration time
+     * @param timeUnit   expiration time unit
+     * @param <V>        cache value type
+     * @return true if successful, or false if element wasn't set
      */
-    default <T> boolean setIfExists(String key, T value, long expiration, TimeUnit timeUnit) {
+    default <V> boolean setIfExists(K key, V value, long expiration, TimeUnit timeUnit) {
         return setIfExists(key, value, TimeUtil.wrapper(expiration, timeUnit).toMillisecond());
     }
 
     /**
-     * see {@link #setIfExists(String, Object)}
+     * see {@link #setIfExists(Object, Object)}
      *
-     * @param key        缓存 key 名
-     * @param value      要缓存的对象
-     * @param expiration 过期时间
-     * @param <T>        要缓存对象的类型
-     * @return true 代表设置成功，false 代表未设置
+     * @param key        cache key
+     * @param value      cache value
+     * @param expiration expiration time
+     * @param <V>        cache value type
+     * @return true if successful, or false if element wasn't set
      */
-    <T> boolean setIfExists(String key, T value, Duration expiration);
+    <V> boolean setIfExists(K key, V value, Duration expiration);
 
     /**
-     * 如果不存在缓存，则设置进去，否则不进行设置
+     * set cache if not exist and do nothing if already exist
      *
-     * @param key   缓存 key 名
-     * @param value 要缓存的对象
-     * @param <T>   要缓存对象的类型
-     * @return true 代表设置成功，false 代表未设置
+     * @param key   cache key
+     * @param value cache value
+     * @param <V>   cache value type
+     * @return true if successful, or false if element wasn't set
      */
     @Override
-    default <T> boolean setIfAbsent(String key, T value) {
+    default <V> boolean setIfAbsent(K key, V value) {
         return setIfAbsent(key, value, Duration.ZERO);
     }
 
     /**
-     * see {@link #setIfAbsent(String, Object)}
+     * see {@link #setIfAbsent(Object, Object)}
      *
-     * @param key        缓存 key 名
-     * @param value      要缓存的对象
-     * @param expiration 过期时间，如 “2s”、“200ms” 等，see {@link TimeUnitHandler}
-     * @param <T>        要缓存对象的类型
-     * @return true 代表设置成功，false 代表未设置
+     * @param key        cache key
+     * @param value      cache value
+     * @param expiration the expiration time，example: "2s"、"200ms"... , see {@link TimeUnitHandler}
+     * @param <V>        cache value type
+     * @return true if successful, or false if element wasn't set
      */
-    default <T> boolean setIfAbsent(String key, T value, String expiration) {
+    default <V> boolean setIfAbsent(K key, V value, String expiration) {
         return setIfAbsent(key, value, TimeUtil.wrapper(expiration).toMillisecond());
     }
 
     /**
-     * see {@link #setIfAbsent(String, Object)}
+     * see {@link #setIfAbsent(Object, Object)}
      *
-     * @param key        缓存 key 名
-     * @param value      要缓存的对象
-     * @param expiration 过期时间
-     * @param timeUnit   过期时间单位
-     * @param <T>        要缓存对象的类型
-     * @return true 代表设置成功，false 代表未设置
+     * @param key        cache key
+     * @param value      cache value
+     * @param expiration expiration time
+     * @param timeUnit   expiration time unit
+     * @param <V>        cache value type
+     * @return true if successful, or false if element wasn't set
      */
-    default <T> boolean setIfAbsent(String key, T value, long expiration, TimeUnit timeUnit) {
+    default <V> boolean setIfAbsent(K key, V value, long expiration, TimeUnit timeUnit) {
         return setIfAbsent(key, value, TimeUtil.wrapper(expiration, timeUnit).toMillisecond());
     }
 
     /**
-     * see {@link #setIfAbsent(String, Object)}
+     * see {@link #setIfAbsent(Object, Object)}
      *
-     * @param key        缓存 key 名
-     * @param value      要缓存的对象
-     * @param expiration 过期时间
-     * @param <T>        要缓存对象的类型
-     * @return true 代表设置成功，false 代表未设置
+     * @param key        cache key
+     * @param value      cache value
+     * @param expiration expiration time
+     * @param <V>        cache value type
+     * @return true if successful, or false if element wasn't set
      */
-    <T> boolean setIfAbsent(String key, T value, Duration expiration);
+    <V> boolean setIfAbsent(K key, V value, Duration expiration);
 
     /**
-     * see {@link #getAndSet(String, Object)}
+     * see {@link #getAndSet(Object, Object)}
      *
-     * @param key        缓存 key 名
-     * @param value      要缓存的对象
-     * @param oldClazz   旧缓存对象的类对象
-     * @param expiration 过期时间，如 “2s”、“200ms” 等，see {@link TimeUnitHandler}
-     * @param <T>        要缓存对象的类型
-     * @return true 代表设置成功，false 代表未设置
+     * @param key        cache key
+     * @param value      cache value
+     * @param oldClazz   old cache value class
+     * @param expiration the expiration time，example: "2s"、"200ms"... , see {@link TimeUnitHandler}
+     * @param <V>        cache value type
+     * @return old cache
      */
-    default <T> T getAndSet(String key, T value, Class<T> oldClazz, String expiration) {
+    default <V> V getAndSet(K key, V value, Class<V> oldClazz, String expiration) {
         return getAndSet(key, value, oldClazz, TimeUtil.wrapper(expiration).toMillisecond());
     }
 
     /**
-     * see {@link #getAndSet(String, Object, Class)}
+     * see {@link #getAndSet(Object, Object, Class)}
      *
-     * @param key        缓存 key 名
-     * @param value      要缓存的对象
-     * @param oldClazz   旧缓存对象的类对象
-     * @param expiration 过期时间
-     * @param timeUnit   过期时间单位
-     * @param <T>        要缓存对象的类型
-     * @return 旧缓存对象
+     * @param key        cache key
+     * @param value      cache value
+     * @param oldClazz   old cache value class
+     * @param expiration expiration time
+     * @param timeUnit   expiration time unit
+     * @param <V>        cache value type
+     * @return old cache
      */
-    default <T> T getAndSet(String key, T value, Class<T> oldClazz, long expiration, TimeUnit timeUnit) {
+    default <V> V getAndSet(K key, V value, Class<V> oldClazz, long expiration, TimeUnit timeUnit) {
         return getAndSet(key, value, oldClazz, TimeUtil.wrapper(expiration, timeUnit).toMillisecond());
     }
 
     /**
-     * see {@link #getAndSet(String, Object, Class)}
+     * see {@link #getAndSet(Object, Object, Class)}
      *
-     * @param key        缓存 key 名
-     * @param value      要缓存的对象
-     * @param oldClazz   旧缓存对象的类对象
-     * @param expiration 过期时间
-     * @param <T>        要缓存对象的类型
-     * @return 旧缓存对象
+     * @param key        cache key
+     * @param value      cache value
+     * @param oldClazz   old cache value class
+     * @param expiration expiration time
+     * @param <V>        cache value type
+     * @return old cache
      */
-    <T> T getAndSet(String key, T value, Class<T> oldClazz, Duration expiration);
+    <V> V getAndSet(K key, V value, Class<V> oldClazz, Duration expiration);
 
     /**
-     * 获取过期时间
+     * get specified key expiration time
      *
-     * @param key 缓存 key 名
-     * @return 过期时间
+     * @param key cache key
+     * @return expiration time
      */
-    long getExpirationTime(String key);
+    long getExpirationTime(K key);
 
     /**
-     * 获取存活时间
+     * get specified key time to live
      *
-     * @param key 缓存 key 名
-     * @return 存活时间
+     * @param key cache key
+     * @return time to live
      */
-    long getTimeToLive(String key);
+    long getTimeToLive(K key);
 
 }

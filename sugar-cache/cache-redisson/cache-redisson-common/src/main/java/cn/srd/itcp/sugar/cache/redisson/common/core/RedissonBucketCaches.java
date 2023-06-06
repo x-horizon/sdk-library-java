@@ -6,7 +6,6 @@ import cn.srd.itcp.sugar.tool.core.Objects;
 import org.redisson.api.RBatch;
 import org.springframework.cache.support.NullValue;
 import org.springframework.data.redis.core.TimeoutUtils;
-import org.springframework.data.redis.core.ValueOperations;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -34,14 +33,12 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
     protected static final RedissonBucketCaches INSTANCE = new RedissonBucketCaches();
 
     @Override
-    public <T> void set(String key, T value, Duration expiration) {
+    public <V> void set(String key, V value, Duration expiration) {
         if (Objects.equals(Duration.ZERO, expiration)) {
             RedissonManager.getClient().getBucket(key).set(value);
             return;
         }
-        /**
-         * 实现参考：{@link ValueOperations#set(Object, Object, Duration)}
-         */
+        // 实现参考：{@link ValueOperations#set(Object, Object, Duration)}
         if (TimeoutUtils.hasMillis(expiration)) {
             RedissonManager.getClient().getBucket(key).set(value, expiration.toMillis(), TimeUnit.MILLISECONDS);
             return;
@@ -50,13 +47,11 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
     }
 
     @Override
-    public <T> boolean setIfExists(String key, T value, Duration expiration) {
+    public <V> boolean setIfExists(String key, V value, Duration expiration) {
         if (Objects.equals(Duration.ZERO, expiration)) {
             return RedissonManager.getClient().getBucket(key).setIfExists(value);
         }
-        /**
-         * 实现参考：{@link ValueOperations#set(Object, Object, Duration)}
-         */
+        // 实现参考：{@link ValueOperations#set(Object, Object, Duration)}
         if (TimeoutUtils.hasMillis(expiration)) {
             return RedissonManager.getClient().getBucket(key).setIfExists(value, expiration.toMillis(), TimeUnit.MILLISECONDS);
         }
@@ -64,7 +59,7 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
     }
 
     @Override
-    public <T> boolean setIfAbsent(String key, T value, Duration expiration) {
+    public <V> boolean setIfAbsent(String key, V value, Duration expiration) {
         if (Objects.equals(Duration.ZERO, expiration)) {
             return RedissonManager.getClient().getBucket(key).setIfAbsent(value);
         }
@@ -72,8 +67,25 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
     }
 
     @Override
-    public <T> boolean compareAndSet(String key, T expectedValue, T updateValue) {
+    public <V> boolean compareAndSet(String key, V expectedValue, V updateValue) {
         return RedissonManager.getClient().getBucket(key).compareAndSet(expectedValue, updateValue);
+    }
+
+    @Override
+    public Object getAndSet(String key, Object value) {
+        return convertWithNullValue(RedissonManager.getClient().getBucket(key).getAndSet(value));
+    }
+
+    @Override
+    public <V> V getAndSet(String key, V value, Class<V> oldClazz, Duration expiration) {
+        if (Objects.equals(Duration.ZERO, expiration)) {
+            return getAndSet(key, value, oldClazz);
+        }
+        // 实现参考：{@link ValueOperations#set(Object, Object, Duration)}
+        if (TimeoutUtils.hasMillis(expiration)) {
+            return oldClazz.cast(convertWithNullValue(RedissonManager.getClient().getBucket(key).getAndSet(value, expiration.toMillis(), TimeUnit.MILLISECONDS)));
+        }
+        return oldClazz.cast(convertWithNullValue(RedissonManager.getClient().getBucket(key).getAndSet(value, expiration.getSeconds(), TimeUnit.SECONDS)));
     }
 
     @Override
@@ -82,23 +94,13 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
     }
 
     @Override
-    public <T> List<T> get(String... keys) {
+    public <V> List<V> get(String... keys) {
         return CollectionsUtil.toList(getMap(keys));
     }
 
     @Override
-    public <T> List<T> get(Collection<String> keys) {
+    public <V> List<V> get(Collection<String> keys) {
         return get(CollectionsUtil.toArray(keys, String.class));
-    }
-
-    @Override
-    public <T> List<T> getByNamespace(String namespace) {
-        return getByPattern(namespace + NAMESPACE_KEY_WORD);
-    }
-
-    @Override
-    public <T> List<T> getByPattern(String pattern) {
-        return get(CollectionsUtil.toArray(RedissonManager.getClient().getKeys().getKeysByPattern(pattern), String.class));
     }
 
     @Override
@@ -112,22 +114,13 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
     }
 
     @Override
-    public Object getAndSet(String key, Object value) {
-        return convertWithNullValue(RedissonManager.getClient().getBucket(key).getAndSet(value));
+    public <V> List<V> getByNamespace(String namespace) {
+        return getByPattern(namespace + NAMESPACE_KEY_WORD);
     }
 
     @Override
-    public <T> T getAndSet(String key, T value, Class<T> oldClazz, Duration expiration) {
-        if (Objects.equals(Duration.ZERO, expiration)) {
-            return getAndSet(key, value, oldClazz);
-        }
-        /**
-         * 实现参考：{@link ValueOperations#set(Object, Object, Duration)}
-         */
-        if (TimeoutUtils.hasMillis(expiration)) {
-            return oldClazz.cast(convertWithNullValue(RedissonManager.getClient().getBucket(key).getAndSet(value, expiration.toMillis(), TimeUnit.MILLISECONDS)));
-        }
-        return oldClazz.cast(convertWithNullValue(RedissonManager.getClient().getBucket(key).getAndSet(value, expiration.getSeconds(), TimeUnit.SECONDS)));
+    public <V> List<V> getByPattern(String pattern) {
+        return get(CollectionsUtil.toArray(RedissonManager.getClient().getKeys().getKeysByPattern(pattern), String.class));
     }
 
     @Override

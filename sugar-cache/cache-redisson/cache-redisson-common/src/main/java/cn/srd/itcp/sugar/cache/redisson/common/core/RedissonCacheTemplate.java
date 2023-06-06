@@ -10,7 +10,7 @@ import org.springframework.cache.support.NullValue;
  * @author wjm
  * @since 2023-06-05 16:41:28
  */
-public interface RedissonCacheTemplate extends CapableExpirationCacheTemplate {
+public interface RedissonCacheTemplate extends CapableExpirationCacheTemplate<String> {
 
     /**
      * 模糊查询某个命名空间的关键字
@@ -43,7 +43,7 @@ public interface RedissonCacheTemplate extends CapableExpirationCacheTemplate {
      * @param input 输入对象
      * @return 根据是否为 {@link NullValue} 进行转换
      */
-    default Object convertWithNullValue(Object input) {
+    default <V> V convertWithNullValue(V input) {
         return isNullValue(input) ? null : input;
     }
 

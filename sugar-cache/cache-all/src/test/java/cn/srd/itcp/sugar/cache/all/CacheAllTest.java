@@ -19,8 +19,8 @@ public class CacheAllTest {
 
     @SneakyThrows
     @Test
-    public void cacheTest() {
-        bookService.deleteAll();
+    public void testCache() {
+        // bookService.deleteAll();
         BookPO bookPOAfterDelete11 = bookService.getById(1L);
         BookPO bookPOAfterDelete22 = bookService.getById(2L);
         BookPO bookPOAfterDelete33 = bookService.getById(3L);

@@ -5,57 +5,58 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.util.List;
 
 /**
- * 缓存模板（更多缓存操作）
+ * Cache Template - More operation
  *
+ * @param <K> cache key type
  * @author wjm
  * @since 2023-06-05 16:41:28
  */
-public interface CapableCacheTemplate extends CacheTemplate {
+public interface CapableCacheTemplate<K> extends CacheTemplate<K> {
 
     /**
-     * 若旧缓存为 <code>expectedValue</code>，则将其更新为 <code>updateValue</code>，否则不进行操作
+     * update old cache to <code>updateValue</code> if old cache is <code>expectedValue</code> and do nothing in other cases
      *
-     * @param key           缓存 key 名
-     * @param expectedValue 期望值
-     * @param updateValue   更新至
-     * @param <T>           要缓存对象的类型
-     * @return true 代表设置成功，false 代表未设置
+     * @param key           cache key
+     * @param expectedValue the expected value
+     * @param updateValue   the new value
+     * @param <V>           cache value type
+     * @return true if successful, or false if element wasn't set
      */
     @CanIgnoreReturnValue
-    <T> boolean compareAndSet(String key, T expectedValue, T updateValue);
+    <V> boolean compareAndSet(K key, V expectedValue, V updateValue);
 
     /**
-     * 获取指定命名空间下的所有缓存对象
+     * get all cache in specified namespace
      *
-     * @param namespace 命名空间
-     * @param <T>       缓存对象的类型
-     * @return 缓存对象
+     * @param namespace the specified namespace
+     * @param <V>       cache value type
+     * @return cache value
      */
-    <T> List<T> getByNamespace(String namespace);
+    <V> List<V> getByNamespace(String namespace);
 
     /**
-     * 模糊查询缓存
+     * get cache in fuzzy namespace
      *
-     * @param pattern key 表达式，如 cache:*
-     * @param <T>     缓存对象的类型
-     * @return 缓存对象
+     * @param pattern fuzzy expression, example: cache:*
+     * @param <V>     cache value type
+     * @return cache value
      */
-    <T> List<T> getByPattern(String pattern);
+    <V> List<V> getByPattern(String pattern);
 
     /**
-     * 删除指定命名空间下的所有缓存对象
+     * delete all cache in specified namespace
      *
-     * @param namespace 命名空间
-     * @return 受影响个数
+     * @param namespace the specified namespace
+     * @return affected number
      */
     @CanIgnoreReturnValue
     int deleteByNamespace(String namespace);
 
     /**
-     * 删除缓存对象
+     * delete cache in fuzzy namespace
      *
-     * @param pattern key 表达式，如 cache:*
-     * @return 受影响个数
+     * @param pattern fuzzy expression, example: cache:*
+     * @return affected number
      */
     @CanIgnoreReturnValue
     int deleteByPattern(String pattern);

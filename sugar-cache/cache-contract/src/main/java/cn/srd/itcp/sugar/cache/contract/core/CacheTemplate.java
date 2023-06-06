@@ -7,165 +7,166 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 缓存模板
+ * Cache Template
  *
+ * @param <K> cache key type
  * @author wjm
  * @since 2023-06-05 16:41:28
  */
-public interface CacheTemplate {
+public interface CacheTemplate<K> {
 
     /**
-     * 设置缓存
+     * set cache
      *
-     * @param key   缓存 key 名
-     * @param value 要缓存的对象
-     * @param <T>   要缓存对象的类型
+     * @param key   cache key
+     * @param value cache value
+     * @param <V>   cache value type
      */
-    <T> void set(String key, T value);
+    <V> void set(K key, V value);
 
     /**
-     * 如果已存在缓存，将其覆盖，如果不存在缓存，不进行设置
+     * cover cache if already exist and do nothing if not exist
      *
-     * @param key   缓存 key 名
-     * @param value 要缓存的对象
-     * @param <T>   要缓存对象的类型
-     * @return true 代表设置成功，false 代表未设置
-     */
-    @CanIgnoreReturnValue
-    <T> boolean setIfExists(String key, T value);
-
-    /**
-     * 如果不存在缓存，则设置进去，否则不进行设置
-     *
-     * @param key   缓存 key 名
-     * @param value 要缓存的对象
-     * @param <T>   要缓存对象的类型
-     * @return true 代表设置成功，false 代表未设置
+     * @param key   cache key
+     * @param value cache value
+     * @param <V>   cache value type
+     * @return true if successful, or false if element wasn't set
      */
     @CanIgnoreReturnValue
-    <T> boolean setIfAbsent(String key, T value);
+    <V> boolean setIfExists(K key, V value);
 
     /**
-     * 获取缓存
+     * set cache if not exist and do nothing if already exist
      *
-     * @param key 缓存 key 名
-     * @return 缓存对象
+     * @param key   cache key
+     * @param value cache value
+     * @param <V>   cache value type
+     * @return true if successful, or false if element wasn't set
      */
-    Object get(String key);
+    @CanIgnoreReturnValue
+    <V> boolean setIfAbsent(K key, V value);
 
     /**
-     * 获取缓存
+     * get cache
      *
-     * @param key   缓存 key 名
+     * @param key cache key
+     * @return cache value
+     */
+    Object get(K key);
+
+    /**
+     * see {@link #get(Object)}
+     *
+     * @param key   cache key
      * @param clazz 缓存对象的类对象
-     * @param <T>   缓存对象的类型
-     * @return 缓存对象
+     * @param <V>   cache value type
+     * @return cache value
      */
-    default <T> T get(String key, Class<T> clazz) {
+    default <V> V get(K key, Class<V> clazz) {
         return clazz.cast(get(key));
     }
 
     /**
-     * 获取多个缓存
+     * get caches
      *
-     * @param keys 缓存 key 名
-     * @param <T>  缓存对象的类型
-     * @return 缓存对象
+     * @param keys cache key
+     * @param <V>  cache value type
+     * @return cache values
      */
-    <T> List<T> get(String... keys);
+    <V> List<V> get(K... keys);
 
     /**
-     * 获取多个缓存
+     * see {@link #get(Object[])}
      *
-     * @param keys 缓存 key 名
-     * @param <T>  缓存对象的类型
-     * @return 缓存对象
+     * @param keys cache key
+     * @param <V>  cache value type
+     * @return cache values
      */
-    <T> List<T> get(Collection<String> keys);
+    <V> List<V> get(Collection<K> keys);
 
     /**
-     * 获取多个缓存
+     * see {@link #get(Object[])}
      *
-     * @param keys 缓存 key 名
-     * @param <V>  缓存对象的类型
-     * @return 缓存 key Mapping 缓存对象
+     * @param keys cache key
+     * @param <V>  cache value type
+     * @return cache key mapping cache value map
      */
-    <V> Map<String, V> getMap(String... keys);
+    <V> Map<K, V> getMap(K... keys);
 
     /**
-     * 获取多个缓存
+     * see {@link #get(Object[])}
      *
-     * @param keys 缓存 key 名
-     * @param <V>  缓存对象的类型
-     * @return 缓存 key Mapping 缓存对象
+     * @param keys cache key
+     * @param <V>  cache value type
+     * @return cache key mapping cache value map
      */
-    <V> Map<String, V> getMap(Collection<String> keys);
+    <V> Map<K, V> getMap(Collection<K> keys);
 
     /**
-     * 获取旧的缓存对象，并将新的缓存对象设置进去
+     * get old cache and set cache
      *
-     * @param key   缓存 key 名
-     * @param value 要缓存的对象
-     * @return 旧缓存对象
+     * @param key   cache key
+     * @param value cache value
+     * @return old cache
      */
-    Object getAndSet(String key, Object value);
+    Object getAndSet(K key, Object value);
 
     /**
-     * 获取旧的缓存对象，并将新的缓存对象设置进去
+     * see {@link #getAndSet(Object, Object)}
      *
-     * @param key      缓存 key 名
-     * @param value    要缓存的对象
-     * @param oldClazz 旧缓存对象的类对象
-     * @param <T>      要缓存对象的类型
-     * @return 旧缓存对象
+     * @param key      cache key
+     * @param value    cache value
+     * @param oldClazz old cache value class
+     * @param <V>      cache value type
+     * @return old cache
      */
-    default <T> T getAndSet(String key, T value, Class<T> oldClazz) {
+    default <V> V getAndSet(K key, V value, Class<V> oldClazz) {
         return oldClazz.cast(getAndSet(key, value));
     }
 
     /**
-     * 获取缓存对象，并将其删除
+     * get old cache and delete cache
      *
-     * @param key 缓存 key 名
-     * @return 缓存对象
+     * @param key cache key
+     * @return old cache
      */
-    Object getAndDelete(String key);
+    Object getAndDelete(K key);
 
     /**
-     * 获取缓存对象，并将其删除
+     * see {@link #getAndDelete(Object)}
      *
-     * @param key   缓存 key 名
-     * @param clazz 缓存对象的类对象
-     * @param <T>   缓存对象的类型
-     * @return 缓存对象
+     * @param key   cache key
+     * @param clazz cache value class
+     * @param <V>   cache value type
+     * @return old cache
      */
-    default <T> T getAndDelete(String key, Class<T> clazz) {
+    default <V> V getAndDelete(K key, Class<V> clazz) {
         return clazz.cast(getAndDelete(key));
     }
 
     /**
-     * 删除缓存对象
+     * delete cache
      *
-     * @param key 缓存 key 名
+     * @param key cache key
      */
-    void delete(String key);
+    void delete(K key);
 
     /**
-     * 删除缓存对象
+     * see {@link #delete(Object)}
      *
-     * @param keys 缓存 key 名
-     * @return 受影响个数
+     * @param keys cache key
+     * @return affected number
      */
     @CanIgnoreReturnValue
-    int delete(String... keys);
+    int delete(K... keys);
 
     /**
-     * 删除缓存对象
+     * see {@link #delete(Object[])}
      *
-     * @param keys 缓存 key 名
-     * @return 受影响个数
+     * @param keys cache key
+     * @return affected number
      */
     @CanIgnoreReturnValue
-    int delete(Collection<String> keys);
+    int delete(Collection<K> keys);
 
 }
