@@ -29,6 +29,7 @@ dependencies {
 
     // cache
     api(project("$itcp_sugar_cache_contract"))
+    api(project("$itcp_sugar_cache_map"))
     api(project("$itcp_sugar_cache_caffeine"))
     api(project("$itcp_sugar_cache_redisson_common"))
 
