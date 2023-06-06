@@ -17,8 +17,8 @@ public class Caches {
      *
      * @return redisson
      */
-    public static CaffeineCacheTemplate withCaffeine() {
-        return CaffeineCaches.getInstance();
+    public static <K> CaffeineCacheTemplate<K> withCaffeine() {
+        return CaffeineCaches.newInstance();
     }
 
     /**
