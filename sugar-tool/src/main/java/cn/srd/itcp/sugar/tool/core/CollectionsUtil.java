@@ -384,12 +384,26 @@ public class CollectionsUtil extends CollUtil {
      * @param <T>  元素类型
      * @return 嵌套集合转换后的单层集合
      */
-    @NonNull
     public static <T> Set<T> toSet(@Nullable List<List<T>> from) {
         if (Objects.isEmpty(from)) {
             return new HashSet<>();
         }
         return from.stream().flatMap(Collection::stream).collect(Collectors.toSet());
+    }
+
+    /**
+     * Array =&gt; Set
+     *
+     * @param from 输入参数
+     * @param <T>  元素类型
+     * @return Set 集合
+     */
+    @SuppressWarnings("all")
+    public static <T> Set<T> toSet(@Nullable T[] from) {
+        if (Objects.isEmpty(from)) {
+            return new HashSet<>();
+        }
+        return ArraysUtil.mapToSet(from, item -> item);
     }
 
     /**
