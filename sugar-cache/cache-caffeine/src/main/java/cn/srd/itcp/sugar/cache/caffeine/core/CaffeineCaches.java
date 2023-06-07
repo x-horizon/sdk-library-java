@@ -115,12 +115,14 @@ public class CaffeineCaches<K> implements CaffeineCacheTemplate<K> {
     @SuppressWarnings("unchecked")
     public long delete(K... keys) {
         delete(List.of(keys));
+        // not implement affected number, ignore the return value
         return -1;
     }
 
     @Override
     public long delete(Collection<K> keys) {
         cache.invalidateAll(keys);
+        // not implement affected number, ignore the return value
         return -1;
     }
 

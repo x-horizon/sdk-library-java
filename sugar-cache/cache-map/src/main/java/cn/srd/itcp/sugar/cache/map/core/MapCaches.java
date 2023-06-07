@@ -122,12 +122,14 @@ public class MapCaches<K> implements MapCacheTemplate<K> {
     @Override
     @SuppressWarnings("unchecked")
     public long delete(K... keys) {
+        // not implement affected number, ignore the return value
         return delete(List.of(keys));
     }
 
     @Override
     public long delete(Collection<K> keys) {
         keys.forEach(key -> delete(keys));
+        // not implement affected number, ignore the return value
         return -1;
     }
 
