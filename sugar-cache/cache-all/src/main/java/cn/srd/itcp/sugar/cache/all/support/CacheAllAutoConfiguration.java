@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.cache.all.support;
 
 import cn.srd.itcp.sugar.cache.all.config.properties.CacheProperties;
 import cn.srd.itcp.sugar.cache.all.core.EnableMultilevelCaching;
+import cn.srd.itcp.sugar.cache.caffeine.config.properties.CaffeineCacheProperties;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.core.AnnotationsUtil;
 import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
@@ -22,7 +23,8 @@ import org.springframework.context.annotation.Bean;
  */
 @AutoConfiguration
 @AutoConfigureAfter(RedissonAutoConfiguration.class)
-@EnableConfigurationProperties(CacheProperties.class)
+@EnableConfigurationProperties({CaffeineCacheProperties.class, CacheProperties.class})
+@EnableMultilevelCaching(cacheTypes = {CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS}, preventCachePenetrate = true)
 public class CacheAllAutoConfiguration {
 
     @Bean

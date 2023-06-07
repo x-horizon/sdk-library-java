@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.cache.all.support;
 
+import cn.srd.itcp.sugar.tool.core.Objects;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Policy;
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
@@ -28,20 +29,32 @@ public class MultilevelCache<K, V> extends AbstractValueAdaptingCache implements
 
     private List<CacheType> cacheTypes;
 
+
     public MultilevelCache(String namespace, List<CacheType> cacheTypes, boolean allowNullValues) {
         super(allowNullValues);
+        this.namespace = namespace;
         this.cacheTypes = cacheTypes;
     }
 
     @Override
     protected Object lookup(@NonNull Object key) {
-        // Object value;
-        // for (CacheType cacheType : cacheTypes) {
-        //     value = cacheType.getTemplate().get(key);
-        //     if (Objects.isNull(value)) {
-        //         continue;
-        //     }
-        // }
+        Object value = null;
+        int findIndex = 0;
+        for (int i = 0; i < cacheTypes.size(); i++) {
+            CacheType cacheType = cacheTypes.get(i);
+            value = cacheType.getTemplate().get(key);
+            if (Objects.isNotNull(value)) {
+                findIndex = i;
+                break;
+            }
+        }
+        if (Objects.isNotNull(value)) {
+            for (int i = findIndex - 1; i >= 0; i--) {
+                CacheType cacheType = cacheTypes.get(i);
+                cacheType.getTemplate().set(key, value);
+            }
+        }
+
         // Object value = getCaffeineValue(key);
         // if (value != null) {
         //     log.debug("get cache from caffeine, the key is : {}", key);
@@ -55,7 +68,7 @@ public class MultilevelCache<K, V> extends AbstractValueAdaptingCache implements
         //     setCaffeineValue(key, value);
         // }
         // return value;
-        return null;
+        return value;
     }
 
     @Override

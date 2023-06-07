@@ -1,1 +1,2 @@
 cn.srd.itcp.sugar.cache.all.test.MultilevelCacheAutoConfiguration
+#cn.srd.itcp.sugar.cache.all.support.CacheAllAutoConfiguration
