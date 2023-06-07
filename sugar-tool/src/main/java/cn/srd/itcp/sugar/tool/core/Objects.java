@@ -1053,14 +1053,20 @@ public class Objects {
             return false;
         }
         for (Object objToCompare : objs) {
+            if (obj == objToCompare) {
+                return true;
+            }
             if (obj.equals(objToCompare)) {
                 return true;
             }
-            if (obj instanceof BigDecimal check && objToCompare instanceof BigDecimal checked) {
-                return 0 == check.compareTo(checked);
+            if (obj instanceof BigDecimal check && objToCompare instanceof BigDecimal checked && 0 == check.compareTo(checked)) {
+                return true;
             }
-            if (obj.getClass().isArray() && objToCompare.getClass().isArray()) {
-                return ArrayUtil.equals(obj, objToCompare);
+            if (obj instanceof Number check && objToCompare instanceof Number checked && check.longValue() == checked.longValue()) {
+                return true;
+            }
+            if (obj.getClass().isArray() && objToCompare.getClass().isArray() && ArrayUtil.equals(obj, objToCompare)) {
+                return true;
             }
         }
         return false;
