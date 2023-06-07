@@ -4,7 +4,8 @@ import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,7 +20,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author wjm
  * @since 2023-06-06 16:14:13
  */
-@Builder
+@Accessors(chain = true)
+@SuperBuilder(toBuilder = true)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class MapCaches<K> implements MapCacheTemplate<K> {
 

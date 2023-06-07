@@ -3,16 +3,16 @@ package cn.srd.itcp.sugar.cache.redisson.core;
 import cn.srd.itcp.sugar.context.redisson.core.RedissonManager;
 import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
+import cn.srd.itcp.sugar.tool.core.time.DurationWrapper;
+import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
 import org.redisson.api.RBatch;
 import org.redisson.api.RBucket;
 import org.springframework.cache.support.NullValue;
-import org.springframework.data.redis.core.TimeoutUtils;
 
 import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Redisson 缓存操作（桶）
@@ -38,10 +38,9 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
         RBucket<V> cache = RedissonManager.getClient().getBucket(key);
         if (Objects.equals(Duration.ZERO, expiration)) {
             cache.set(value);
-        } else if (TimeoutUtils.hasMillis(expiration)) {
-            cache.set(value, expiration.toMillis(), TimeUnit.MILLISECONDS);
         } else {
-            cache.set(value, expiration.getSeconds(), TimeUnit.SECONDS);
+            DurationWrapper durationWrapper = TimeUtil.toDurationWrapper(expiration);
+            cache.set(value, durationWrapper.getTime(), durationWrapper.getTimeUnit());
         }
     }
 
@@ -51,10 +50,8 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
         if (Objects.equals(Duration.ZERO, expiration)) {
             return cache.setIfExists(value);
         }
-        if (TimeoutUtils.hasMillis(expiration)) {
-            return cache.setIfExists(value, expiration.toMillis(), TimeUnit.MILLISECONDS);
-        }
-        return cache.setIfExists(value, expiration.getSeconds(), TimeUnit.SECONDS);
+        DurationWrapper durationWrapper = TimeUtil.toDurationWrapper(expiration);
+        return cache.setIfExists(value, durationWrapper.getTime(), durationWrapper.getTimeUnit());
     }
 
     @Override
@@ -69,27 +66,6 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
     @Override
     public <V> boolean compareAndSet(String key, V expectedValue, V updateValue) {
         return RedissonManager.getClient().getBucket(key).compareAndSet(expectedValue, updateValue);
-    }
-
-    @Override
-    public Object getAndSet(String key, Object value) {
-        Object output = get(key);
-        set(key, value);
-        return output;
-    }
-
-    @Override
-    public <V> V getAndSet(String key, V value, Class<V> oldClazz, Duration expiration) {
-        V output = get(key, oldClazz);
-        if (Objects.equals(Duration.ZERO, expiration)) {
-            set(key, value);
-        } else if (TimeoutUtils.hasMillis(expiration)) {
-            // 实现参考：{@link ValueOperations#set(Object, Object, Duration)}
-            set(key, value, expiration.toMillis(), TimeUnit.MILLISECONDS);
-        } else {
-            set(key, value, expiration.getSeconds(), TimeUnit.SECONDS);
-        }
-        return output;
     }
 
     @Override
@@ -128,8 +104,17 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
     }
 
     @Override
+    public Object getAndSet(String key, Object value) {
+        Object output = get(key);
+        set(key, value);
+        return output;
+    }
+
+    @Override
     public Object getAndDelete(String key) {
-        return convertWithNullValue(RedissonManager.getClient().getBucket(key).getAndDelete());
+        Object output = get(key);
+        delete(key);
+        return output;
     }
 
     @Override

@@ -203,7 +203,9 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
      * @param <V>        cache value type
      * @return old cache
      */
-    <V> V getAndSet(K key, V value, Class<V> oldClazz, Duration expiration);
+    default <V> V getAndSet(K key, V value, Class<V> oldClazz, Duration expiration) {
+        return oldClazz.cast(getAndSet(key, value));
+    }
 
     /**
      * get specified key expiration time

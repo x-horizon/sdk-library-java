@@ -47,16 +47,6 @@ public class RedissonListCaches implements RedissonCacheTemplate {
     }
 
     @Override
-    public Object getAndSet(String key, Object value) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <V> V getAndSet(String key, V value, Class<V> oldClazz, Duration expiration) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public Object get(String key) {
         throw new UnsupportedOperationException();
     }
@@ -88,6 +78,11 @@ public class RedissonListCaches implements RedissonCacheTemplate {
 
     @Override
     public <V> List<V> getByPattern(String pattern) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Object getAndSet(String key, Object value) {
         throw new UnsupportedOperationException();
     }
 
