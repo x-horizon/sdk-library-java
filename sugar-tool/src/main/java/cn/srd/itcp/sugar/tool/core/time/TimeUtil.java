@@ -9,6 +9,7 @@ import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import io.vavr.control.Try;
+import lombok.NonNull;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -156,6 +157,29 @@ public class TimeUtil extends LocalDateTimeUtil {
      */
     public static LocalDate toLocalDate(@Nullable Long input) {
         return Objects.isNull(input) ? null : LocalDate.ofInstant(Instant.ofEpochMilli(input), ZoneId.systemDefault());
+    }
+
+    /**
+     * Duration =&gt; {@link DurationWrapper}
+     *
+     * @param duration the actual duration to convert
+     * @return {@link DurationWrapper}
+     */
+    public static DurationWrapper toDurationWrapper(@NonNull Duration duration) {
+        if (hasMillisecond(duration)) {
+            return DurationWrapper.builder().time(duration.toMillis()).timeUnit(TimeUnit.MILLISECONDS).build();
+        }
+        return DurationWrapper.builder().time(duration.getSeconds()).timeUnit(TimeUnit.SECONDS).build();
+    }
+
+    /**
+     * copy from {@link TimeoutUtils#hasMillis(Duration)}
+     *
+     * @param duration the actual duration to inspect. Never null.
+     * @return true if the duration contains millisecond information.
+     */
+    public static boolean hasMillisecond(Duration duration) {
+        return duration.toMillis() % 1000 != 0;
     }
 
     /**
