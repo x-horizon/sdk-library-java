@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.cache.all.core;
 
+import cn.srd.itcp.sugar.cache.caffeine.config.properties.CaffeineCacheProperties;
 import cn.srd.itcp.sugar.cache.caffeine.core.CaffeineCacheTemplate;
 import cn.srd.itcp.sugar.cache.caffeine.core.CaffeineCaches;
 import cn.srd.itcp.sugar.cache.map.core.MapCacheTemplate;
@@ -29,6 +30,17 @@ public class Caches {
     }
 
     /**
+     * map implement
+     *
+     * @param initialCapacity initial capacity
+     * @param <K>             cache key type
+     * @return cache operation object
+     */
+    public static <K> MapCacheTemplate<K> withMap(int initialCapacity) {
+        return MapCaches.newInstance(initialCapacity);
+    }
+
+    /**
      * caffeine implement
      *
      * @param <K> cache key type
@@ -36,6 +48,17 @@ public class Caches {
      */
     public static <K> CaffeineCacheTemplate<K> withCaffeine() {
         return CaffeineCaches.newInstance();
+    }
+
+    /**
+     * caffeine implement
+     *
+     * @param caffeineCacheProperties {@link CaffeineCacheProperties}
+     * @param <K>                     cache key type
+     * @return cache operation object
+     */
+    public static <K> CaffeineCacheTemplate<K> withCaffeine(CaffeineCacheProperties caffeineCacheProperties) {
+        return CaffeineCaches.newInstance(caffeineCacheProperties);
     }
 
     /**
