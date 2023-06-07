@@ -167,9 +167,9 @@ public class TimeUtil extends LocalDateTimeUtil {
      */
     public static DurationWrapper toDurationWrapper(@NonNull Duration duration) {
         if (hasMillisecond(duration)) {
-            return DurationWrapper.builder().time(duration.toMillis()).timeUnit(TimeUnit.MILLISECONDS).build();
+            return DurationWrapper.builder().negativeIs(isNegative(duration)).time(duration.toMillis()).timeUnit(TimeUnit.MILLISECONDS).build();
         }
-        return DurationWrapper.builder().time(duration.getSeconds()).timeUnit(TimeUnit.SECONDS).build();
+        return DurationWrapper.builder().negativeIs(isNegative(duration)).time(duration.getSeconds()).timeUnit(TimeUnit.SECONDS).build();
     }
 
     /**

@@ -18,9 +18,14 @@ import java.util.concurrent.TimeUnit;
 public class DurationWrapper {
 
     /**
+     * is it negative
+     */
+    private Boolean negativeIs;
+
+    /**
      * duration wrap to time
      */
-    private long time;
+    private Long time;
 
     /**
      * duration wrap tp time unit
