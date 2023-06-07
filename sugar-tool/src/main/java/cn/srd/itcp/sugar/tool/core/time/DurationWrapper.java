@@ -7,7 +7,7 @@ import lombok.experimental.SuperBuilder;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Duration =&gt long time and timeunit
+ * Duration =&gt; long time and timeunit
  *
  * @author wjm
  * @since 2023-06-07 10:18:29

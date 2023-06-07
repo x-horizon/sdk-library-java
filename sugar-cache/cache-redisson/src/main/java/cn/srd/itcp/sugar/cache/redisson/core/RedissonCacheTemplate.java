@@ -20,7 +20,7 @@ public interface RedissonCacheTemplate extends CapableExpirationCacheTemplate<St
     String NAMESPACE_KEY_WORD = ":*";
 
     /**
-     * redisson expire time or ttl =&gt {@link DurationWrapper}
+     * redisson expire time or ttl =&gt; {@link DurationWrapper}
      *
      * @param time redisson expire time or ttl
      * @return {@link DurationWrapper}

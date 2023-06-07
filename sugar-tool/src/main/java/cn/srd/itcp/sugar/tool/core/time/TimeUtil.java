@@ -173,7 +173,7 @@ public class TimeUtil extends LocalDateTimeUtil {
     }
 
     /**
-     * copy from {@link TimeoutUtils#hasMillis(Duration)}
+     * copy from TimeoutUtils#hasMillis(Duration)
      *
      * @param duration the actual duration to inspect. Never null.
      * @return true if the duration contains millisecond information.
