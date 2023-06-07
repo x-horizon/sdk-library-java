@@ -1,8 +1,7 @@
 package cn.srd.itcp.sugar.cache.all.support;
 
-import cn.srd.itcp.sugar.cache.all.core.Caches;
 import cn.srd.itcp.sugar.cache.contract.core.CacheTemplate;
-import lombok.AllArgsConstructor;
+import cn.srd.itcp.sugar.framework.spring.tool.common.core.enums.autowired.EnumAutowired;
 import lombok.Getter;
 
 /**
@@ -10,16 +9,19 @@ import lombok.Getter;
  * @since 2023-06-06 16:14:13
  */
 @Getter
-@AllArgsConstructor
+@EnumAutowired(autowiredBeanClass = CacheTemplate.class)
 public enum CacheType {
 
-    MAP(Caches.withMap()),
-    CAFFEINE(Caches.withCaffeine()),
-    REDIS(Caches.withCaffeine()),
+    MAP,
+    CAFFEINE,
+    REDIS,
 
     ;
 
-    private final CacheTemplate<Object> template;
+    CacheType() {
+    }
+
+    private CacheTemplate<Object> template;
 
 }
 

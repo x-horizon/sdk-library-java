@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.cache.all;
 
+import cn.srd.itcp.sugar.framework.spring.tool.common.core.enums.autowired.EnableEnumAutowired;
 import lombok.SneakyThrows;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.concurrent.TimeUnit;
 
+@EnableEnumAutowired
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CacheAllTest {
