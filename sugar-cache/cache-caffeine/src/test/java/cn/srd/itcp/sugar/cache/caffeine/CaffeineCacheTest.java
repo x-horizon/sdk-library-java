@@ -23,6 +23,7 @@ public class CaffeineCacheTest {
     private static final String CACHE_STRING = "test";
 
     private static final Student CACHE_OBJECT1 = Student.builder().id(1).name("test1").build();
+    
     private static final Student CACHE_OBJECT2 = Student.builder().id(2).name("test2").build();
 
     @Test
