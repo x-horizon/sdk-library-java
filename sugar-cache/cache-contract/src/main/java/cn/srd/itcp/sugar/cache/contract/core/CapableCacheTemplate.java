@@ -2,6 +2,8 @@ package cn.srd.itcp.sugar.cache.contract.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -28,37 +30,151 @@ public interface CapableCacheTemplate<K> extends CacheTemplate<K> {
     /**
      * get all cache in specified namespace
      *
-     * @param namespace the specified namespace
+     * @param namespace the specified namespace, example: cache
      * @param <V>       cache value type
      * @return cache value
      */
     <V> List<V> getByNamespace(String namespace);
 
     /**
-     * get cache in fuzzy namespace
+     * see {@link #getByNamespace(String)}
      *
-     * @param pattern fuzzy expression, example: cache:*
+     * @param namespaces the specified namespace, example: cache1、cache2
+     * @param <V>        cache value type
+     * @return cache value
+     */
+    default <V> List<V> getByNamespace(String... namespaces) {
+        return getByNamespace(List.of(namespaces));
+    }
+
+    /**
+     * see {@link #getByNamespace(String)}
+     *
+     * @param namespaces the specified namespace, example: cache1、cache2
+     * @param <V>        cache value type
+     * @return cache value
+     */
+    default <V> List<V> getByNamespace(Collection<String> namespaces) {
+        List<V> output = new ArrayList<>();
+        for (String namespace : namespaces) {
+            output.addAll(getByNamespace(namespace));
+        }
+        return output;
+    }
+
+    /**
+     * get cache in fuzzy expression, example:
+     * <pre>
+     *     h?llo subscribes to hello, hallo and hxllo
+     *     h*llo subscribes to hllo and heeeello
+     *     h[ae]llo subscribes to hello and hallo, but not hillo
+     * </pre>
+     *
+     * @param pattern fuzzy expression
      * @param <V>     cache value type
      * @return cache value
      */
     <V> List<V> getByPattern(String pattern);
 
     /**
-     * delete all cache in specified namespace
+     * see {@link #getByPattern(String)}
      *
-     * @param namespace the specified namespace
-     * @return affected number
+     * @param patterns fuzzy expression
+     * @param <V>      cache value type
+     * @return cache value
      */
-    @CanIgnoreReturnValue
-    int deleteByNamespace(String namespace);
+    default <V> List<V> getByPattern(String... patterns) {
+        return getByPattern(List.of(patterns));
+    }
 
     /**
-     * delete cache in fuzzy namespace
+     * see {@link #getByPattern(String)}
      *
-     * @param pattern fuzzy expression, example: cache:*
+     * @param patterns fuzzy expression
+     * @param <V>      cache value type
+     * @return cache value
+     */
+    default <V> List<V> getByPattern(Collection<String> patterns) {
+        List<V> output = new ArrayList<>();
+        for (String pattern : patterns) {
+            output.addAll(getByPattern(pattern));
+        }
+        return output;
+    }
+
+    /**
+     * delete all cache in specified namespace
+     *
+     * @param namespace the specified namespace, example: cache
      * @return affected number
      */
     @CanIgnoreReturnValue
-    int deleteByPattern(String pattern);
+    long deleteByNamespace(String namespace);
+
+    /**
+     * see {@link #deleteByNamespace(String)}
+     *
+     * @param namespaces the specified namespaces, example: cache1、cache2
+     * @return affected number
+     */
+    @CanIgnoreReturnValue
+    default long deleteByNamespace(String... namespaces) {
+        return deleteByNamespace(List.of(namespaces));
+    }
+
+    /**
+     * see {@link #deleteByNamespace(String)}
+     *
+     * @param namespaces the specified namespaces, example: cache1、cache2
+     * @return affected number
+     */
+    @CanIgnoreReturnValue
+    default long deleteByNamespace(Collection<String> namespaces) {
+        long affectedNumber = 0;
+        for (String namespace : namespaces) {
+            affectedNumber = affectedNumber + deleteByNamespace(namespace);
+        }
+        return affectedNumber;
+    }
+
+    /**
+     * delete cache in fuzzy expression
+     * <pre>
+     *     h?llo subscribes to hello, hallo and hxllo
+     *     h*llo subscribes to hllo and heeeello
+     *     h[ae]llo subscribes to hello and hallo, but not hillo
+     * </pre>
+     *
+     * @param pattern fuzzy expression
+     * @return affected number
+     */
+    @CanIgnoreReturnValue
+    long deleteByPattern(String pattern);
+
+    /**
+     * see {@link #deleteByPattern(String)}
+     *
+     * @param patterns fuzzy expression
+     * @return affected number
+     */
+    @CanIgnoreReturnValue
+    default long deleteByPattern(String... patterns) {
+        return deleteByPattern(List.of(patterns));
+    }
+
+    /**
+     * see {@link #deleteByPattern(String)}
+     *
+     * @param patterns fuzzy expression
+     * @return affected number
+     */
+    @CanIgnoreReturnValue
+    default long deleteByPattern(Collection<String> patterns) {
+        long affectedNumber = 0;
+        for (String pattern : patterns) {
+            affectedNumber = affectedNumber + deleteByPattern(pattern);
+        }
+        return affectedNumber;
+    }
 
 }

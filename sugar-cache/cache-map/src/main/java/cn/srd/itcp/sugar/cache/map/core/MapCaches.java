@@ -115,32 +115,18 @@ public class MapCaches<K> implements MapCacheTemplate<K> {
     }
 
     @Override
-    public Object getAndSet(K key, Object value) {
-        Object output = get(key);
-        set(key, value);
-        return output;
-    }
-
-    @Override
-    public Object getAndDelete(K key) {
-        Object output = get(key);
-        delete(key);
-        return output;
-    }
-
-    @Override
     public void delete(K key) {
         cache.remove(key);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public int delete(K... keys) {
+    public long delete(K... keys) {
         return delete(List.of(keys));
     }
 
     @Override
-    public int delete(Collection<K> keys) {
+    public long delete(Collection<K> keys) {
         keys.forEach(key -> delete(keys));
         return -1;
     }

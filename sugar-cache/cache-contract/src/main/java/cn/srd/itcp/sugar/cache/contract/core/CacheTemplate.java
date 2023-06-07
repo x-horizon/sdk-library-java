@@ -113,7 +113,11 @@ public interface CacheTemplate<K> {
      * @param value cache value
      * @return old cache
      */
-    Object getAndSet(K key, Object value);
+    default Object getAndSet(K key, Object value) {
+        Object output = get(key);
+        set(key, value);
+        return output;
+    }
 
     /**
      * see {@link #getAndSet(Object, Object)}
@@ -134,7 +138,11 @@ public interface CacheTemplate<K> {
      * @param key cache key
      * @return old cache
      */
-    Object getAndDelete(K key);
+    default Object getAndDelete(K key) {
+        Object output = get(key);
+        delete(key);
+        return output;
+    }
 
     /**
      * see {@link #getAndDelete(Object)}
@@ -163,7 +171,7 @@ public interface CacheTemplate<K> {
      */
     @CanIgnoreReturnValue
     @SuppressWarnings("unchecked")
-    int delete(K... keys);
+    long delete(K... keys);
 
     /**
      * see {@link #delete(Object[])}
@@ -172,7 +180,7 @@ public interface CacheTemplate<K> {
      * @return affected number
      */
     @CanIgnoreReturnValue
-    int delete(Collection<K> keys);
+    long delete(Collection<K> keys);
 
     /**
      * is it {@link NullValue}

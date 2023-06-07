@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.cache.contract.core;
 
+import cn.srd.itcp.sugar.tool.core.time.DurationWrapper;
 import cn.srd.itcp.sugar.tool.core.time.TimeUnitHandler;
 import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
 
@@ -32,7 +33,7 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
      *
      * @param key        cache key
      * @param value      cache value
-     * @param expiration the expiration time，example: "2s"、"200ms"... , see {@link TimeUnitHandler}
+     * @param expiration expire time，example: "2s"、"200ms"... , see {@link TimeUnitHandler}
      * @param <V>        cache value type
      */
     default <V> void set(K key, V value, String expiration) {
@@ -44,8 +45,8 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
      *
      * @param key        cache key
      * @param value      cache value
-     * @param expiration expiration time
-     * @param timeUnit   expiration time unit
+     * @param expiration expire time
+     * @param timeUnit   expire time unit
      * @param <V>        cache value type
      */
     default <V> void set(K key, V value, long expiration, TimeUnit timeUnit) {
@@ -57,7 +58,7 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
      *
      * @param key        cache key
      * @param value      cache value
-     * @param expiration expiration time
+     * @param expiration expire time
      * @param <V>        cache value type
      */
     <V> void set(K key, V value, Duration expiration);
@@ -80,7 +81,7 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
      *
      * @param key        cache key
      * @param value      cache value
-     * @param expiration the expiration time，example: "2s"、"200ms"... , see {@link TimeUnitHandler}
+     * @param expiration expire time，example: "2s"、"200ms"... , see {@link TimeUnitHandler}
      * @param <V>        cache value type
      * @return true if successful, or false if element wasn't set
      */
@@ -93,8 +94,8 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
      *
      * @param key        cache key
      * @param value      cache value
-     * @param expiration expiration time
-     * @param timeUnit   expiration time unit
+     * @param expiration expire time
+     * @param timeUnit   expire time unit
      * @param <V>        cache value type
      * @return true if successful, or false if element wasn't set
      */
@@ -107,7 +108,7 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
      *
      * @param key        cache key
      * @param value      cache value
-     * @param expiration expiration time
+     * @param expiration expire time
      * @param <V>        cache value type
      * @return true if successful, or false if element wasn't set
      */
@@ -131,7 +132,7 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
      *
      * @param key        cache key
      * @param value      cache value
-     * @param expiration the expiration time，example: "2s"、"200ms"... , see {@link TimeUnitHandler}
+     * @param expiration expire time，example: "2s"、"200ms"... , see {@link TimeUnitHandler}
      * @param <V>        cache value type
      * @return true if successful, or false if element wasn't set
      */
@@ -144,8 +145,8 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
      *
      * @param key        cache key
      * @param value      cache value
-     * @param expiration expiration time
-     * @param timeUnit   expiration time unit
+     * @param expiration expire time
+     * @param timeUnit   expire time unit
      * @param <V>        cache value type
      * @return true if successful, or false if element wasn't set
      */
@@ -158,7 +159,7 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
      *
      * @param key        cache key
      * @param value      cache value
-     * @param expiration expiration time
+     * @param expiration expire time
      * @param <V>        cache value type
      * @return true if successful, or false if element wasn't set
      */
@@ -170,7 +171,7 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
      * @param key        cache key
      * @param value      cache value
      * @param oldClazz   old cache value class
-     * @param expiration the expiration time，example: "2s"、"200ms"... , see {@link TimeUnitHandler}
+     * @param expiration expire time，example: "2s"、"200ms"... , see {@link TimeUnitHandler}
      * @param <V>        cache value type
      * @return old cache
      */
@@ -184,8 +185,8 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
      * @param key        cache key
      * @param value      cache value
      * @param oldClazz   old cache value class
-     * @param expiration expiration time
-     * @param timeUnit   expiration time unit
+     * @param expiration expire time
+     * @param timeUnit   expire time unit
      * @param <V>        cache value type
      * @return old cache
      */
@@ -199,21 +200,23 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
      * @param key        cache key
      * @param value      cache value
      * @param oldClazz   old cache value class
-     * @param expiration expiration time
+     * @param expiration expire time
      * @param <V>        cache value type
      * @return old cache
      */
     default <V> V getAndSet(K key, V value, Class<V> oldClazz, Duration expiration) {
-        return oldClazz.cast(getAndSet(key, value));
+        V output = get(key, oldClazz);
+        set(key, value, expiration);
+        return output;
     }
 
     /**
-     * get specified key expiration time
+     * get specified key expire time
      *
      * @param key cache key
-     * @return expiration time
+     * @return expire time
      */
-    long getExpirationTime(K key);
+    DurationWrapper getExpirationTime(K key);
 
     /**
      * get specified key time to live
@@ -221,6 +224,6 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
      * @param key cache key
      * @return time to live
      */
-    long getTimeToLive(K key);
+    DurationWrapper getTimeToLive(K key);
 
 }

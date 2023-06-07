@@ -107,33 +107,19 @@ public class CaffeineCaches<K> implements CaffeineCacheTemplate<K> {
     }
 
     @Override
-    public Object getAndSet(K key, Object value) {
-        Object output = get(key);
-        set(key, value);
-        return output;
-    }
-
-    @Override
-    public Object getAndDelete(K key) {
-        Object output = get(key);
-        delete(key);
-        return output;
-    }
-
-    @Override
     public void delete(K key) {
         cache.invalidate(key);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public int delete(K... keys) {
+    public long delete(K... keys) {
         delete(List.of(keys));
         return -1;
     }
 
     @Override
-    public int delete(Collection<K> keys) {
+    public long delete(Collection<K> keys) {
         cache.invalidateAll(keys);
         return -1;
     }

@@ -5,8 +5,10 @@ import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.core.time.DurationWrapper;
 import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
+import lombok.SneakyThrows;
 import org.redisson.api.RBatch;
 import org.redisson.api.RBucket;
+import org.redisson.api.RFuture;
 import org.springframework.cache.support.NullValue;
 
 import java.time.Duration;
@@ -104,56 +106,46 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
     }
 
     @Override
-    public Object getAndSet(String key, Object value) {
-        Object output = get(key);
-        set(key, value);
-        return output;
-    }
-
-    @Override
-    public Object getAndDelete(String key) {
-        Object output = get(key);
-        delete(key);
-        return output;
-    }
-
-    @Override
     public void delete(String key) {
         RedissonManager.getClient().getBucket(key).getAndDelete();
     }
 
+    @SneakyThrows
     @Override
-    public int delete(String... keys) {
+    public long delete(String... keys) {
         RBatch pipeline = RedissonManager.getClient().createBatch();
-        pipeline.getKeys().deleteAsync(keys);
-        return pipeline.execute().getResponses().size();
+        RFuture<Long> future = pipeline.getKeys().deleteAsync(keys);
+        pipeline.execute();
+        return future.get();
     }
 
     @Override
-    public int delete(Collection<String> keys) {
+    public long delete(Collection<String> keys) {
         return delete(CollectionsUtil.toArray(keys, String.class));
     }
 
     @Override
-    public int deleteByNamespace(String namespace) {
+    public long deleteByNamespace(String namespace) {
         return deleteByPattern(namespace + NAMESPACE_KEY_WORD);
     }
 
+    @SneakyThrows
     @Override
-    public int deleteByPattern(String pattern) {
+    public long deleteByPattern(String pattern) {
         RBatch pipeline = RedissonManager.getClient().createBatch();
-        pipeline.getKeys().deleteByPatternAsync(pattern);
-        return pipeline.execute().getResponses().size();
+        RFuture<Long> future = pipeline.getKeys().deleteByPatternAsync(pattern);
+        pipeline.execute();
+        return future.get();
     }
 
     @Override
-    public long getExpirationTime(String key) {
-        return RedissonManager.getClient().getBucket(key).getExpireTime();
+    public DurationWrapper getExpirationTime(String key) {
+        return toDurationWrapper(RedissonManager.getClient().getBucket(key).getExpireTime());
     }
 
     @Override
-    public long getTimeToLive(String key) {
-        return RedissonManager.getClient().getBucket(key).remainTimeToLive();
+    public DurationWrapper getTimeToLive(String key) {
+        return toDurationWrapper(RedissonManager.getClient().getBucket(key).remainTimeToLive());
     }
 
     // TODO wjm 这两个函数应放到 RedissonListCacheHandler 或 其他 Handler 中，包括 get list 的也是在那边实现

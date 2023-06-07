@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.cache.redisson.core;
 
+import cn.srd.itcp.sugar.tool.core.time.DurationWrapper;
 import cn.srd.itcp.sugar.tool.exceptions.UnsupportedOperationException;
 
 import java.time.Duration;
@@ -82,47 +83,37 @@ public class RedissonSetCaches implements RedissonCacheTemplate {
     }
 
     @Override
-    public Object getAndSet(String key, Object value) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Object getAndDelete(String key) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void delete(String key) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public int delete(String... keys) {
+    public long delete(String... keys) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public int delete(Collection<String> keys) {
+    public long delete(Collection<String> keys) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public int deleteByNamespace(String namespace) {
+    public long deleteByNamespace(String namespace) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public int deleteByPattern(String pattern) {
+    public long deleteByPattern(String pattern) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public long getExpirationTime(String key) {
+    public DurationWrapper getExpirationTime(String key) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public long getTimeToLive(String key) {
+    public DurationWrapper getTimeToLive(String key) {
         throw new UnsupportedOperationException();
     }
 
