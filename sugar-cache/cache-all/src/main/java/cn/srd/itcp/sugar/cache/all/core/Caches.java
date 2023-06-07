@@ -6,6 +6,10 @@ import cn.srd.itcp.sugar.cache.map.core.MapCacheTemplate;
 import cn.srd.itcp.sugar.cache.map.core.MapCaches;
 import cn.srd.itcp.sugar.cache.redisson.core.RedissonCaches;
 
+/**
+ * @author wjm
+ * @since 2023-06-07 16:48:52
+ */
 public class Caches {
 
     /**

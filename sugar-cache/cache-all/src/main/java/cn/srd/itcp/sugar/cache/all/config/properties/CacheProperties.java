@@ -7,6 +7,10 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
+/**
+ * @author wjm
+ * @since 2023-06-07 16:48:52
+ */
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "sugar.cache")

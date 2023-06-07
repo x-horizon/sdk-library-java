@@ -1,16 +1,17 @@
 package cn.srd.itcp.sugar.cache.all;
 
+import cn.srd.itcp.sugar.cache.all.core.EnableMultilevelCaching;
+import cn.srd.itcp.sugar.cache.all.support.CacheType;
 import lombok.SneakyThrows;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.concurrent.TimeUnit;
 
-@EnableCaching
+@EnableMultilevelCaching(cacheTypes = {CacheType.CAFFEINE, CacheType.REDIS}, preventCachePenetrate = true)
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CacheAllTest {

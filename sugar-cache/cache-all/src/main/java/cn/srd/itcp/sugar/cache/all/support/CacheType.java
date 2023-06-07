@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.cache.all.enums;
+package cn.srd.itcp.sugar.cache.all.support;
 
 import cn.srd.itcp.sugar.cache.all.core.Caches;
 import cn.srd.itcp.sugar.cache.contract.core.CacheTemplate;
@@ -13,13 +13,13 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum CacheType {
 
-    MAP(Caches.withCaffeine()),
+    MAP(Caches.withMap()),
     CAFFEINE(Caches.withCaffeine()),
     REDIS(Caches.withCaffeine()),
 
     ;
 
-    private final CacheTemplate<?> template;
+    private final CacheTemplate<Object> template;
 
 }
 
