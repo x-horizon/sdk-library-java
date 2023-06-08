@@ -23,12 +23,14 @@ public class MapCacheTest {
     private static final String CACHE_STRING = "test";
 
     private static final Student CACHE_OBJECT1 = Student.builder().id(1).name("test1").build();
-    
+
     private static final Student CACHE_OBJECT2 = Student.builder().id(2).name("test2").build();
 
     @Test
     public void testCache() {
         MapCaches<String> cache = MapCaches.newInstance();
+
+        // =================== no handle NullValue ===================
 
         cache.set(CACHE_NAME1, CACHE_NUMBER);
         Integer result1 = cache.get(CACHE_NAME1, Integer.class);
@@ -52,7 +54,7 @@ public class MapCacheTest {
 
         cache.deleteAll();
 
-        cache.set(CACHE_NAME1, NullValue.INSTANCE);
+        cache.set(CACHE_NAME1, CACHE_OBJECT1);
         cache.set(CACHE_NAME2, CACHE_OBJECT2);
         Student result10 = cache.get(CACHE_NAME1, Student.class);
         Student result11 = cache.get(CACHE_NAME2, Student.class);
@@ -68,6 +70,38 @@ public class MapCacheTest {
         Student result18 = cache.get(CACHE_NAME1, Student.class);
         Student result19 = cache.getAndDelete(CACHE_NAME1, Student.class);
         Student result20 = cache.getAndDelete(CACHE_NAME1, Student.class);
+
+        cache.deleteAll();
+
+        // =================== handle NullValue ===================
+
+        cache.set(CACHE_NAME1, CACHE_NUMBER);
+        Integer result21 = cache.getWithoutNullValue(CACHE_NAME1, Integer.class);
+
+        cache.set(CACHE_NAME1, CACHE_STRING);
+        String result22 = cache.getWithoutNullValue(CACHE_NAME1, String.class);
+
+        cache.set(CACHE_NAME1, CACHE_OBJECT1);
+        Student result23 = cache.getWithoutNullValue(CACHE_NAME1, Student.class);
+
+        cache.deleteAll();
+
+        cache.set(CACHE_NAME1, NullValue.INSTANCE);
+        cache.set(CACHE_NAME2, CACHE_OBJECT2);
+        Student result24 = cache.getWithoutNullValue(CACHE_NAME1, Student.class);
+        Student result25 = cache.getWithoutNullValue(CACHE_NAME2, Student.class);
+        List<Student> result26 = cache.getWithoutNullValue(CACHE_NAME1, CACHE_NAME2);
+        List<Student> result27 = cache.getWithoutNullValue(List.of(CACHE_NAME1, CACHE_NAME2));
+        Map<String, Student> result28 = cache.getMapWithoutNullValue(CACHE_NAME1, CACHE_NAME2);
+        Map<String, Student> result29 = cache.getMapWithoutNullValue(List.of(CACHE_NAME1, CACHE_NAME2));
+
+        cache.deleteAll();
+
+        Student result30 = cache.getAndSetWithoutNullValue(CACHE_NAME1, CACHE_OBJECT1, Student.class);
+        Student result31 = cache.getAndSetWithoutNullValue(CACHE_NAME1, CACHE_OBJECT2, Student.class);
+        Student result32 = cache.getWithoutNullValue(CACHE_NAME1, Student.class);
+        Student result33 = cache.getAndDeleteWithoutNullValue(CACHE_NAME1, Student.class);
+        Student result34 = cache.getAndDeleteWithoutNullValue(CACHE_NAME1, Student.class);
 
         cache.deleteAll();
     }
