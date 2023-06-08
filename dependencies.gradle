@@ -59,6 +59,9 @@ ext {
     itcp_sugar_component_convert_spring = ":sugar-component:component-convert:convert-spring"
     itcp_sugar_component_docker = ":sugar-component:component-docker"
     itcp_sugar_component_excel = ":sugar-component:component-excel"
+    itcp_sugar_component_expression_contract = ":sugar-component:component-expression:expression-contract"
+    itcp_sugar_component_expression_spring = ":sugar-component:component-expression:expression-spring"
+    itcp_sugar_component_expression_all = ":sugar-component:component-expression:expression-all"
     itcp_sugar_component_gateway_spring_cloud = ":sugar-component:component-gateway:gateway-spring-cloud"
     itcp_sugar_component_geometry = ":sugar-component:component-geometry"
     itcp_sugar_component_id_generator_snowflake = ":sugar-component:component-id-generator:id-generator-snowflake"
@@ -186,6 +189,7 @@ ext {
     javax_el_api = "javax.el:javax.el-api:${javax_el_api_version}" as GStringImpl
     apache_commons_lang3 = "org.apache.commons:commons-lang3:${apache_commons_lang3_version}" as GStringImpl
     apache_commons_io = "commons-io:commons-io:${apache_commons_io_version}" as GStringImpl
+    spring_expression = "org.springframework:spring-expression"
 
     // test
     junit = "junit:junit:${junit_version}" as GStringImpl
