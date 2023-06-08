@@ -1,8 +1,10 @@
 package cn.srd.itcp.sugar.cache.contract.core;
 
+import cn.srd.itcp.sugar.framework.spring.tool.common.core.NullValueUtil;
 import cn.srd.itcp.sugar.tool.core.time.DurationWrapper;
 import cn.srd.itcp.sugar.tool.core.time.TimeUnitHandler;
 import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
+import org.springframework.cache.support.NullValue;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
@@ -208,6 +210,49 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
         V output = get(key, oldClazz);
         set(key, value, expiration);
         return output;
+    }
+
+    /**
+     * convert {@link #getAndSet(Object, Object, Class, String)} to null if it is {@link NullValue}
+     *
+     * @param key        cache key
+     * @param value      cache value
+     * @param oldClazz   old cache value class
+     * @param expiration expire time，example: "2s"、"200ms"... , see {@link TimeUnitHandler}
+     * @param <V>        cache value type
+     * @return old cache
+     */
+    default <V> V getAndSetWithoutNullValue(K key, V value, Class<V> oldClazz, String expiration) {
+        return NullValueUtil.convertNullValueToNullIfNeed(getAndSet(key, value, oldClazz, expiration));
+    }
+
+    /**
+     * convert {@link #getAndSet(Object, Object, Class, long, TimeUnit)} to null if it is {@link NullValue}
+     *
+     * @param key        cache key
+     * @param value      cache value
+     * @param oldClazz   old cache value class
+     * @param expiration expire time
+     * @param timeUnit   expire time unit
+     * @param <V>        cache value type
+     * @return old cache
+     */
+    default <V> V getAndSetWithoutNullValue(K key, V value, Class<V> oldClazz, long expiration, TimeUnit timeUnit) {
+        return NullValueUtil.convertNullValueToNullIfNeed(getAndSet(key, value, oldClazz, expiration, timeUnit));
+    }
+
+    /**
+     * convert {@link #getAndSet(Object, Object, Class, Duration)} to null if it is {@link NullValue}
+     *
+     * @param key        cache key
+     * @param value      cache value
+     * @param oldClazz   old cache value class
+     * @param expiration expire time
+     * @param <V>        cache value type
+     * @return old cache
+     */
+    default <V> V getAndSetWithoutNullValue(K key, V value, Class<V> oldClazz, Duration expiration) {
+        return NullValueUtil.convertNullValueToNullIfNeed(getAndSet(key, value, oldClazz, expiration));
     }
 
     /**

@@ -38,6 +38,8 @@ public class RedissonCacheTest {
     public void testCache() {
         RedissonCacheTemplate cache = RedissonCaches.getInstance().withBucket();
 
+        // =================== no handle NullValue ===================
+
         cache.set(CACHE_NAME1, CACHE_NUMBER);
         Integer result1 = cache.get(CACHE_NAME1, Integer.class);
 
@@ -60,7 +62,7 @@ public class RedissonCacheTest {
 
         long affectedNumber3 = cache.deleteByNamespace(CACHE_NAMESPACE_NAME1);
 
-        cache.set(CACHE_NAME1, NullValue.INSTANCE);
+        cache.set(CACHE_NAME1, CACHE_OBJECT1);
         cache.set(CACHE_NAME2, CACHE_OBJECT2);
         Student result10 = cache.get(CACHE_NAME1, Student.class);
         Student result11 = cache.get(CACHE_NAME2, Student.class);
@@ -85,7 +87,7 @@ public class RedissonCacheTest {
 
         long affectedNumber6 = cache.deleteByNamespace(CACHE_NAMESPACE_NAME1);
 
-        cache.set(CACHE_NAME1, NullValue.INSTANCE);
+        cache.set(CACHE_NAME1, CACHE_OBJECT1);
         cache.set(CACHE_NAME2, CACHE_OBJECT2);
         List<Student> result23 = cache.getByNamespace(CACHE_NAMESPACE_NAME1, CACHE_NAMESPACE_NAME2);
         List<Student> result24 = cache.getByPattern(CACHE_NAMESPACE_NAME1 + ":*", CACHE_NAMESPACE_NAME2 + ":*");
@@ -148,6 +150,59 @@ public class RedissonCacheTest {
         DurationWrapper result54 = cache.getTimeToLive(CACHE_NAME1);
 
         long affectedNumber14 = cache.deleteByNamespace(CACHE_NAMESPACE_NAME1);
+
+        // =================== handle NullValue ===================
+
+        cache.set(CACHE_NAME1, CACHE_NUMBER);
+        Integer result55 = cache.getWithoutNullValue(CACHE_NAME1, Integer.class);
+
+        cache.set(CACHE_NAME1, CACHE_STRING);
+        String result56 = cache.getWithoutNullValue(CACHE_NAME1, String.class);
+
+        cache.set(CACHE_NAME1, CACHE_OBJECT1);
+        Student result57 = cache.getWithoutNullValue(CACHE_NAME1, Student.class);
+
+        long affectedNumber15 = cache.deleteByNamespace(CACHE_NAMESPACE_NAME1);
+
+        cache.set(CACHE_NAME1, NullValue.INSTANCE);
+        cache.set(CACHE_NAME2, CACHE_OBJECT2);
+        Student result58 = cache.getWithoutNullValue(CACHE_NAME1, Student.class);
+        Student result59 = cache.getWithoutNullValue(CACHE_NAME2, Student.class);
+        List<Student> result60 = cache.getWithoutNullValue(CACHE_NAME1, CACHE_NAME2);
+        List<Student> result61 = cache.getWithoutNullValue(List.of(CACHE_NAME1, CACHE_NAME2));
+        Map<String, Student> result62 = cache.getMapWithoutNullValue(CACHE_NAME1, CACHE_NAME2);
+        Map<String, Student> result63 = cache.getMapWithoutNullValue(List.of(CACHE_NAME1, CACHE_NAME2));
+
+        long affectedNumber16 = cache.deleteByNamespace(CACHE_NAMESPACE_NAME1, CACHE_NAMESPACE_NAME2);
+
+        Student result64 = cache.getAndSetWithoutNullValue(CACHE_NAME1, CACHE_OBJECT1, Student.class);
+        Student result65 = cache.getAndSetWithoutNullValue(CACHE_NAME1, CACHE_OBJECT2, Student.class);
+        Student result66 = cache.getWithoutNullValue(CACHE_NAME1, Student.class);
+        Student result67 = cache.getAndDeleteWithoutNullValue(CACHE_NAME1, Student.class);
+        Student result68 = cache.getAndDeleteWithoutNullValue(CACHE_NAME1, Student.class);
+
+        long affectedNumber17 = cache.deleteByNamespace(CACHE_NAMESPACE_NAME1);
+
+        cache.set(CACHE_NAME1, NullValue.INSTANCE);
+        cache.set(CACHE_NAME2, CACHE_OBJECT2);
+        List<Student> result69 = cache.getByNamespaceWithoutNullValue(CACHE_NAMESPACE_NAME1, CACHE_NAMESPACE_NAME2);
+        List<Student> result70 = cache.getByPatternWithoutNullValue(CACHE_NAMESPACE_NAME1 + ":*", CACHE_NAMESPACE_NAME2 + ":*");
+
+        long affectedNumber18 = cache.deleteByPattern(CACHE_NAMESPACE_NAME1 + ":*", CACHE_NAMESPACE_NAME2 + ":*");
+
+        cache.set(CACHE_NAME1, CACHE_OBJECT2);
+        Student result71 = cache.getAndSetWithoutNullValue(CACHE_NAME1, CACHE_OBJECT1, Student.class, Duration.ofSeconds(10));
+        DurationWrapper result72 = cache.getExpirationTime(CACHE_NAME1);
+        DurationWrapper result73 = cache.getTimeToLive(CACHE_NAME1);
+
+        long affectedNumber19 = cache.deleteByNamespace(CACHE_NAMESPACE_NAME1);
+
+        cache.set(CACHE_NAME1, CACHE_OBJECT2);
+        Student result74 = cache.getAndSetWithoutNullValue(CACHE_NAME1, CACHE_OBJECT1, Student.class, 10, TimeUnit.SECONDS);
+        DurationWrapper result75 = cache.getExpirationTime(CACHE_NAME1);
+        DurationWrapper result76 = cache.getTimeToLive(CACHE_NAME1);
+
+        long affectedNumber20 = cache.deleteByNamespace(CACHE_NAMESPACE_NAME1);
     }
 
 }

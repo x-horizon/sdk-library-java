@@ -1,16 +1,10 @@
 package cn.srd.itcp.sugar.cache.map.core;
 
-import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
-import cn.srd.itcp.sugar.tool.core.Objects;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -62,75 +56,13 @@ public class MapCaches<K> implements MapCacheTemplate<K> {
     }
 
     @Override
-    public <V> boolean setIfExists(K key, V value) {
-        if (Objects.isNotNull(get(key))) {
-            set(key, value);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public <V> boolean setIfAbsent(K key, V value) {
-        if (Objects.isNull(get(key))) {
-            set(key, value);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public Object get(K key) {
-        return convertWithNullValue(cache.get(key));
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <V> List<V> get(K... keys) {
-        return get(List.of(keys));
-    }
-
-    @Override
-    public <V> List<V> get(Collection<K> keys) {
-        return CollectionsUtil.toList(getMap(keys));
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <V> Map<K, V> getMap(K... keys) {
-        return getMap(List.of(keys));
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <V> Map<K, V> getMap(Collection<K> keys) {
-        Map<K, V> output = new HashMap<>();
-        keys.forEach(key -> {
-            V value = (V) get(key);
-            if (Objects.isNotNull(value)) {
-                output.put(key, value);
-            }
-        });
-        return output;
+        return cache.get(key);
     }
 
     @Override
     public void delete(K key) {
         cache.remove(key);
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public long delete(K... keys) {
-        // not implement affected number, ignore the return value
-        return delete(List.of(keys));
-    }
-
-    @Override
-    public long delete(Collection<K> keys) {
-        keys.forEach(key -> delete(keys));
-        // not implement affected number, ignore the return value
-        return -1;
     }
 
     @Override

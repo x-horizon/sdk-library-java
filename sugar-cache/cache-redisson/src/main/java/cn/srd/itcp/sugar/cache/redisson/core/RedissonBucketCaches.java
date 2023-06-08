@@ -9,7 +9,6 @@ import lombok.SneakyThrows;
 import org.redisson.api.RBatch;
 import org.redisson.api.RBucket;
 import org.redisson.api.RFuture;
-import org.springframework.cache.support.NullValue;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -72,7 +71,7 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
 
     @Override
     public Object get(String key) {
-        return convertWithNullValue(RedissonManager.getClient().getBucket(key).get());
+        return RedissonManager.getClient().getBucket(key).get();
     }
 
     @Override
@@ -87,7 +86,7 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
 
     @Override
     public <V> Map<String, V> getMap(String... keys) {
-        return CollectionsUtil.filterNullAndSpecifiedClass(RedissonManager.getClient().getBuckets().get(keys), NullValue.class);
+        return RedissonManager.getClient().getBuckets().get(keys);
     }
 
     @Override
@@ -103,6 +102,16 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
     @Override
     public <V> List<V> getByPattern(String pattern) {
         return get(CollectionsUtil.toArray(RedissonManager.getClient().getKeys().getKeysByPattern(pattern), String.class));
+    }
+
+    @Override
+    public <V> List<V> getByNamespaceWithoutNullValue(String namespace) {
+        return getByPatternWithoutNullValue(namespace + NAMESPACE_KEY_WORD);
+    }
+
+    @Override
+    public <V> List<V> getByPatternWithoutNullValue(String pattern) {
+        return getWithoutNullValue(CollectionsUtil.toArray(RedissonManager.getClient().getKeys().getKeysByPattern(pattern), String.class));
     }
 
     @Override

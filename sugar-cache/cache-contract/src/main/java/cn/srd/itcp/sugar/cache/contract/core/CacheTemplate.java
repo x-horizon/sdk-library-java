@@ -1,10 +1,13 @@
 package cn.srd.itcp.sugar.cache.contract.core;
 
+import cn.srd.itcp.sugar.framework.spring.tool.common.core.NullValueUtil;
+import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.springframework.cache.support.NullValue;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +19,17 @@ import java.util.Map;
  * @since 2023-06-05 16:41:28
  */
 public interface CacheTemplate<K> {
+
+    /**
+     * provide an extension point to modify cache key
+     *
+     * @param key          cache key
+     * @param extensionKey extension key
+     * @return cache key
+     */
+    default K resolveKey(K key, K extensionKey) {
+        return key;
+    }
 
     /**
      * set cache
@@ -35,7 +49,13 @@ public interface CacheTemplate<K> {
      * @return true if successful, or false if element wasn't set
      */
     @CanIgnoreReturnValue
-    <V> boolean setIfExists(K key, V value);
+    default <V> boolean setIfExists(K key, V value) {
+        if (Objects.isNotNull(get(key))) {
+            set(key, value);
+            return true;
+        }
+        return false;
+    }
 
     /**
      * set cache if not exist and do nothing if already exist
@@ -46,7 +66,13 @@ public interface CacheTemplate<K> {
      * @return true if successful, or false if element wasn't set
      */
     @CanIgnoreReturnValue
-    <V> boolean setIfAbsent(K key, V value);
+    default <V> boolean setIfAbsent(K key, V value) {
+        if (Objects.isNull(get(key))) {
+            set(key, value);
+            return true;
+        }
+        return false;
+    }
 
     /**
      * get cache
@@ -60,7 +86,7 @@ public interface CacheTemplate<K> {
      * see {@link #get(Object)}
      *
      * @param key   cache key
-     * @param clazz 缓存对象的类对象
+     * @param clazz cache value class
      * @param <V>   cache value type
      * @return cache value
      */
@@ -76,7 +102,9 @@ public interface CacheTemplate<K> {
      * @return cache values
      */
     @SuppressWarnings("unchecked")
-    <V> List<V> get(K... keys);
+    default <V> List<V> get(K... keys) {
+        return get(List.of(keys));
+    }
 
     /**
      * see {@link #get(Object[])}
@@ -85,7 +113,9 @@ public interface CacheTemplate<K> {
      * @param <V>  cache value type
      * @return cache values
      */
-    <V> List<V> get(Collection<K> keys);
+    default <V> List<V> get(Collection<K> keys) {
+        return CollectionsUtil.toList(getMap(keys));
+    }
 
     /**
      * see {@link #get(Object[])}
@@ -95,7 +125,9 @@ public interface CacheTemplate<K> {
      * @return cache key mapping cache value map
      */
     @SuppressWarnings("unchecked")
-    <V> Map<K, V> getMap(K... keys);
+    default <V> Map<K, V> getMap(K... keys) {
+        return getMap(List.of(keys));
+    }
 
     /**
      * see {@link #get(Object[])}
@@ -104,7 +136,17 @@ public interface CacheTemplate<K> {
      * @param <V>  cache value type
      * @return cache key mapping cache value map
      */
-    <V> Map<K, V> getMap(Collection<K> keys);
+    @SuppressWarnings("unchecked")
+    default <V> Map<K, V> getMap(Collection<K> keys) {
+        Map<K, V> output = new HashMap<>();
+        keys.forEach(key -> {
+            V value = (V) get(key);
+            if (Objects.isNotNull(value)) {
+                output.put(key, value);
+            }
+        });
+        return output;
+    }
 
     /**
      * get old cache and set cache
@@ -157,6 +199,128 @@ public interface CacheTemplate<K> {
     }
 
     /**
+     * convert {@link #get(Object)} to null if it is {@link NullValue}
+     *
+     * @param key cache key
+     * @return cache value
+     */
+    default Object getWithoutNullValue(K key) {
+        return NullValueUtil.convertNullValueToNullIfNeed(get(key));
+    }
+
+    /**
+     * convert {@link #get(Object, Class)} to null if it is {@link NullValue}
+     *
+     * @param key   cache key
+     * @param clazz cache value class
+     * @param <V>   cache value type
+     * @return cache value
+     */
+    default <V> V getWithoutNullValue(K key, Class<V> clazz) {
+        return clazz.cast(getWithoutNullValue(key));
+    }
+
+    /**
+     * filter {@link #get(Object[])} if it is {@link NullValue}
+     *
+     * @param keys cache key
+     * @param <V>  cache value type
+     * @return cache values
+     */
+    @SuppressWarnings("unchecked")
+    default <V> List<V> getWithoutNullValue(K... keys) {
+        return getWithoutNullValue(List.of(keys));
+    }
+
+    /**
+     * filter {@link #get(Collection)} if it is {@link NullValue}
+     *
+     * @param keys cache key
+     * @param <V>  cache value type
+     * @return cache values
+     */
+    default <V> List<V> getWithoutNullValue(Collection<K> keys) {
+        return CollectionsUtil.toList(getMapWithoutNullValue(keys));
+    }
+
+    /**
+     * filter {@link #getMap(Object[])} if it is {@link NullValue}
+     *
+     * @param keys cache key
+     * @param <V>  cache value type
+     * @return cache key mapping cache value map
+     */
+    @SuppressWarnings("unchecked")
+    default <V> Map<K, V> getMapWithoutNullValue(K... keys) {
+        return getMapWithoutNullValue(List.of(keys));
+    }
+
+    /**
+     * filter {@link #getMap(Collection)} if it is {@link NullValue}
+     *
+     * @param keys cache key
+     * @param <V>  cache value type
+     * @return cache key mapping cache value map
+     */
+    @SuppressWarnings("unchecked")
+    default <V> Map<K, V> getMapWithoutNullValue(Collection<K> keys) {
+        Map<K, V> output = new HashMap<>();
+        keys.forEach(key -> {
+            V value = (V) getWithoutNullValue(key);
+            if (Objects.isNotNull(value)) {
+                output.put(key, value);
+            }
+        });
+        return output;
+    }
+
+    /**
+     * convert {@link #getAndSet(Object, Object)} to null if it is {@link NullValue}
+     *
+     * @param key   cache key
+     * @param value cache value
+     * @return old cache
+     */
+    default Object getAndSetWithoutNullValue(K key, Object value) {
+        return NullValueUtil.convertNullValueToNullIfNeed(getAndSet(key, value));
+    }
+
+    /**
+     * convert {@link #getAndSet(Object, Object, Class)} to null if it is {@link NullValue}
+     *
+     * @param key      cache key
+     * @param value    cache value
+     * @param oldClazz old cache value class
+     * @param <V>      cache value type
+     * @return old cache
+     */
+    default <V> V getAndSetWithoutNullValue(K key, V value, Class<V> oldClazz) {
+        return oldClazz.cast(getAndSetWithoutNullValue(key, value));
+    }
+
+    /**
+     * convert {@link #getAndDelete(Object)} to null if it is {@link NullValue}
+     *
+     * @param key cache key
+     * @return old cache
+     */
+    default Object getAndDeleteWithoutNullValue(K key) {
+        return NullValueUtil.convertNullValueToNullIfNeed(getAndDelete(key));
+    }
+
+    /**
+     * convert {@link #getAndDelete(Object, Class)} to null if it is {@link NullValue}
+     *
+     * @param key   cache key
+     * @param clazz cache value class
+     * @param <V>   cache value type
+     * @return old cache
+     */
+    default <V> V getAndDeleteWithoutNullValue(K key, Class<V> clazz) {
+        return clazz.cast(getAndDeleteWithoutNullValue(key));
+    }
+
+    /**
      * delete cache
      *
      * @param key cache key
@@ -171,7 +335,9 @@ public interface CacheTemplate<K> {
      */
     @CanIgnoreReturnValue
     @SuppressWarnings("unchecked")
-    long delete(K... keys);
+    default long delete(K... keys) {
+        return delete(List.of(keys));
+    }
 
     /**
      * see {@link #delete(Object[])}
@@ -180,37 +346,10 @@ public interface CacheTemplate<K> {
      * @return affected number
      */
     @CanIgnoreReturnValue
-    long delete(Collection<K> keys);
-
-    /**
-     * is it {@link NullValue}
-     *
-     * @param input checked object
-     * @return is it {@link NullValue}
-     */
-    default boolean isNullValue(Object input) {
-        return Objects.isNotNull(input) && Objects.equals(NullValue.class, input.getClass());
-    }
-
-    /**
-     * is not {@link NullValue}
-     *
-     * @param input checked object
-     * @return is not {@link NullValue}
-     */
-    default boolean isNotNullValue(Object input) {
-        return !isNullValue(input);
-    }
-
-    /**
-     * convert with {@link NullValue}
-     *
-     * @param input checked object
-     * @param <T>   checked object type
-     * @return null if it is {@link NullValue}, or do not convert
-     */
-    default <T> T convertWithNullValue(T input) {
-        return isNullValue(input) ? null : input;
+    default long delete(Collection<K> keys) {
+        keys.forEach(key -> delete(keys));
+        // by default, not implement affected number, ignore the return value
+        return -1;
     }
 
 }

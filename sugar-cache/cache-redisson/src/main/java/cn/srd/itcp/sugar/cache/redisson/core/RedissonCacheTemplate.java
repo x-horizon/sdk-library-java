@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.cache.redisson.core;
 
 import cn.srd.itcp.sugar.cache.contract.core.CapableExpirationCacheTemplate;
+import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.core.time.DurationWrapper;
 import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
 
@@ -18,6 +19,11 @@ public interface RedissonCacheTemplate extends CapableExpirationCacheTemplate<St
      * 模糊查询某个命名空间的关键字
      */
     String NAMESPACE_KEY_WORD = ":*";
+
+    @Override
+    default String resolveKey(String key, String extensionKey) {
+        return extensionKey + StringPool.COLON + key;
+    }
 
     /**
      * redisson expire time or ttl =&gt; {@link DurationWrapper}

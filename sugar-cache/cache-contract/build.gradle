@@ -22,6 +22,7 @@ dependencies {
 
     // tool
     implementation(project("$itcp_sugar_tool"))
+    implementation(project("$itcp_sugar_framework_spring_tool_common"))
 }
 
 javadoc {

@@ -83,6 +83,16 @@ public class RedissonHashCaches implements RedissonCacheTemplate {
     }
 
     @Override
+    public <V> List<V> getByNamespaceWithoutNullValue(String namespace) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <V> List<V> getByPatternWithoutNullValue(String pattern) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void delete(String key) {
         throw new UnsupportedOperationException();
     }

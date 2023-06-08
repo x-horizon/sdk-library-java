@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.cache.contract.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import org.springframework.cache.support.NullValue;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -98,6 +99,76 @@ public interface CapableCacheTemplate<K> extends CacheTemplate<K> {
         List<V> output = new ArrayList<>();
         for (String pattern : patterns) {
             output.addAll(getByPattern(pattern));
+        }
+        return output;
+    }
+
+    /**
+     * filter {@link #getByNamespace(String)} if it is {@link NullValue}
+     *
+     * @param namespace the specified namespace, example: cache
+     * @param <V>       cache value type
+     * @return cache value
+     */
+    <V> List<V> getByNamespaceWithoutNullValue(String namespace);
+
+    /**
+     * filter {@link #getByNamespace(String...)} if it is {@link NullValue}
+     *
+     * @param namespaces the specified namespace, example: cache1、cache2
+     * @param <V>        cache value type
+     * @return cache value
+     */
+    default <V> List<V> getByNamespaceWithoutNullValue(String... namespaces) {
+        return getByNamespaceWithoutNullValue(List.of(namespaces));
+    }
+
+    /**
+     * filter {@link #getByNamespace(Collection)} if it is {@link NullValue}
+     *
+     * @param namespaces the specified namespace, example: cache1、cache2
+     * @param <V>        cache value type
+     * @return cache value
+     */
+    default <V> List<V> getByNamespaceWithoutNullValue(Collection<String> namespaces) {
+        List<V> output = new ArrayList<>();
+        for (String namespace : namespaces) {
+            output.addAll(getByNamespaceWithoutNullValue(namespace));
+        }
+        return output;
+    }
+
+    /**
+     * filter {@link #getByPattern(String)} if it is {@link NullValue}
+     *
+     * @param pattern fuzzy expression
+     * @param <V>     cache value type
+     * @return cache value
+     */
+    <V> List<V> getByPatternWithoutNullValue(String pattern);
+
+    /**
+     * filter {@link #getByPattern(String...)} if it is {@link NullValue}
+     *
+     * @param patterns fuzzy expression
+     * @param <V>      cache value type
+     * @return cache value
+     */
+    default <V> List<V> getByPatternWithoutNullValue(String... patterns) {
+        return getByPatternWithoutNullValue(List.of(patterns));
+    }
+
+    /**
+     * filter {@link #getByPattern(Collection)} if it is {@link NullValue}
+     *
+     * @param patterns fuzzy expression
+     * @param <V>      cache value type
+     * @return cache value
+     */
+    default <V> List<V> getByPatternWithoutNullValue(Collection<String> patterns) {
+        List<V> output = new ArrayList<>();
+        for (String pattern : patterns) {
+            output.addAll(getByPatternWithoutNullValue(pattern));
         }
         return output;
     }
