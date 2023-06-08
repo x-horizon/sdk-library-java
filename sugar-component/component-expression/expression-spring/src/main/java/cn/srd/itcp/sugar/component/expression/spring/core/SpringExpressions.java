@@ -45,18 +45,18 @@ public class SpringExpressions implements SpringExpressionTemplate {
     }
 
     @Override
-    public <R> R parse(String expression, Class<R> resultType) {
-        return getExpressionInstance().parseExpression(expression).getValue(resultType);
+    public Object parse(String expression) {
+        return getExpressionInstance().parseExpression(expression).getValue();
     }
 
     @Override
-    public <T, R> R parse(T object, String expression, Class<R> resultType) {
-        return getExpressionInstance().parseExpression(expression).getValue(object, resultType);
+    public <T> Object parse(T object, String expression) {
+        return getExpressionInstance().parseExpression(expression).getValue(object);
     }
 
     @Override
-    public <R> R parse(StandardEvaluationContext context, String expression, Class<R> resultType) {
-        return getExpressionInstance().parseExpression(expression).getValue(context, resultType);
+    public Object parse(StandardEvaluationContext context, String expression) {
+        return getExpressionInstance().parseExpression(expression).getValue(context);
     }
 
 }
