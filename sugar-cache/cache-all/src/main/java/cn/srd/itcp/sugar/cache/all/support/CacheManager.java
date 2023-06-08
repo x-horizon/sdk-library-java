@@ -18,14 +18,14 @@ public class CacheManager {
 
     private static final CacheManager INSTANCE = new CacheManager();
 
-    private static final ConcurrentHashMap<String, Cache> CACHE_MAP = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, Cache> cacheMap = new ConcurrentHashMap<>();
 
     public static CacheManager getInstance() {
         return INSTANCE;
     }
 
     public Cache getCache(String namespace, List<CacheType> cacheTypes, boolean enablePreventCachePenetrate) {
-        Cache cache = CACHE_MAP.get(namespace);
+        Cache cache = cacheMap.get(namespace);
         if (Objects.isNotNull(cache)) {
             return cache;
         }
@@ -39,7 +39,7 @@ public class CacheManager {
                 .enablePreventCachePenetrate(enablePreventCachePenetrate)
                 .build();
 
-        Cache oldCache = CACHE_MAP.putIfAbsent(namespace, cache);
+        Cache oldCache = cacheMap.putIfAbsent(namespace, cache);
 
         return Objects.isNull(oldCache) ? cache : oldCache;
     }
