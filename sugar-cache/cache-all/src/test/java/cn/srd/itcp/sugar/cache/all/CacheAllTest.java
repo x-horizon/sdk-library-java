@@ -6,22 +6,28 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.concurrent.TimeUnit;
 
+@EnableCaching
 @EnableEnumAutowired
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CacheAllTest {
 
     @Autowired private BookService bookService;
+    @Autowired private BookService2 bookService2;
 
     @SneakyThrows
     @Test
     public void testCache() {
         // bookService.deleteAll();
-        BookPO bookPOAfterDelete11 = bookService.getById(1L);
+        // BookPO bookPOAfterDelete11 = bookService.getById(1L);
+        BookPO s1 = bookService2.getByI2(bookService2.buildBook(3L));
+        BookPO s2 = bookService2.getByI2(bookService2.buildBook(3L));
+        // BookPO s = bookService.getByI2(bookService.buildBook(3L));
         BookPO bookPOAfterDelete22 = bookService.getById(2L);
         BookPO bookPOAfterDelete33 = bookService.getById(3L);
         BookPO bookPOAfterDelete44 = bookService.getById(4L);

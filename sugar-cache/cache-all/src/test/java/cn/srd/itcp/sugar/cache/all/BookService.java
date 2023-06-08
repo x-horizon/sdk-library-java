@@ -7,7 +7,7 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
-@CacheConfig(cacheNames = {"myCache"})
+@CacheConfig(cacheNames = {"myCache1", "myCache2"})
 @Component
 public class BookService {
 
