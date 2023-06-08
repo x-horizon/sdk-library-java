@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookService2 {
 
-    @CacheRead(key = "#bookPO.name")
+    @CacheRead(key = "#bookPO.id")
     public BookPO getByI2(BookPO bookPO) {
         return null;
     }
