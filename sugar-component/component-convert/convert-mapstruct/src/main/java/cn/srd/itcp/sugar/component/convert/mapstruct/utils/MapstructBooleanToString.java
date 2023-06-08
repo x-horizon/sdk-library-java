@@ -2,10 +2,7 @@ package cn.srd.itcp.sugar.component.convert.mapstruct.utils;
 
 import org.mapstruct.Qualifier;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Mapstruct 属性映射转换器注解，Boolean =&gt; String
@@ -16,5 +13,6 @@ import java.lang.annotation.Target;
 @Qualifier
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
+@Documented
 public @interface MapstructBooleanToString {
 }

@@ -2,10 +2,7 @@ package cn.srd.itcp.sugar.component.convert.mapstruct.utils;
 
 import org.mapstruct.Qualifier;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Mapstruct 属性映射注解标记，标记了该注解的类可以作为 Mapstruct 中的转换方法
@@ -16,5 +13,6 @@ import java.lang.annotation.Target;
 @Qualifier
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.CLASS)
+@Documented
 public @interface MapstructMappingQualify {
 }

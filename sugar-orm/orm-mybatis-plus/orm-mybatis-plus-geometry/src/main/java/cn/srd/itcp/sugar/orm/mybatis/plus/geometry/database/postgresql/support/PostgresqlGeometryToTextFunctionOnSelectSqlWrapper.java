@@ -3,10 +3,7 @@ package cn.srd.itcp.sugar.orm.mybatis.plus.geometry.database.postgresql.support;
 import com.baomidou.mybatisplus.annotation.TableName;
 import org.locationtech.jts.geom.Geometry;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * <pre>
@@ -21,6 +18,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
+@Documented
 public @interface PostgresqlGeometryToTextFunctionOnSelectSqlWrapper {
 
 }
