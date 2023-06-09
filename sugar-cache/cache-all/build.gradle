@@ -18,7 +18,6 @@ version = projectVersion
 
 dependencies {
     // framework
-    implementation("$spring_web")
     implementation("$spring_boot")
     implementation("$spring_boot_aop")
     implementation("$spring_boot_actuator")
