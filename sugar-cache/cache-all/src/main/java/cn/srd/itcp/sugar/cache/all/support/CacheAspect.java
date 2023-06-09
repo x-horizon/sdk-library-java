@@ -31,7 +31,6 @@ public interface CacheAspect extends AopCaptor {
         return cacheConfigAnnotation.namespaces();
     }
 
-    @SuppressWarnings("all")
     default List<CacheType> getCacheTypes(CacheConfig cacheConfigAnnotation, CacheType[] highestPriorityCacheTypes) {
         if (ArraysUtil.isNotEmpty(highestPriorityCacheTypes)) {
             return CollectionsUtil.toList(highestPriorityCacheTypes);
