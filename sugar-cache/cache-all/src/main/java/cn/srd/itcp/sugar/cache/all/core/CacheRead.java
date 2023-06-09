@@ -5,6 +5,8 @@ import cn.srd.itcp.sugar.cache.all.support.CacheType;
 import java.lang.annotation.*;
 
 /**
+ * TODO wjm 待实现：keyGenerator、condition、unless
+ *
  * @author wjm
  * @since 2023-06-08 10:14:52
  */
@@ -14,11 +16,11 @@ import java.lang.annotation.*;
 @Inherited
 public @interface CacheRead {
 
-    String key() default "";
-
     String[] namespaces() default {};
 
-    CacheType[] cacheTypes() default {CacheType.MAP};
+    String key() default "";
+
+    CacheType[] cacheTypes() default {};
 
     boolean enablePreventCachePenetrate() default false;
 

@@ -1,18 +1,16 @@
 package cn.srd.itcp.sugar.cache.all;
 
-import cn.srd.itcp.sugar.framework.spring.tool.common.core.enums.autowired.EnableEnumAutowired;
+import cn.srd.itcp.sugar.cache.all.core.EnableCache;
 import lombok.SneakyThrows;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.concurrent.TimeUnit;
 
-@EnableCaching
-@EnableEnumAutowired
+@EnableCache
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CacheAllTest {
@@ -25,8 +23,10 @@ public class CacheAllTest {
     public void testCache() {
         // bookService.deleteAll();
         // BookPO bookPOAfterDelete11 = bookService.getById(1L);
-        BookPO s1 = bookService2.getByI2(bookService2.buildBook(3L));
-        BookPO s2 = bookService2.getByI2(bookService2.buildBook(3L));
+        BookPO s1 = bookService2.getById1(bookService2.buildBook(3L));
+        BookPO s2 = bookService2.getById1(bookService2.buildBook(3L));
+        BookPO s3 = bookService2.getById2(bookService2.buildBook(3L));
+        BookPO s4 = bookService2.getById2(bookService2.buildBook(3L));
         // BookPO s = bookService.getByI2(bookService.buildBook(3L));
         BookPO bookPOAfterDelete22 = bookService.getById(2L);
         BookPO bookPOAfterDelete33 = bookService.getById(3L);

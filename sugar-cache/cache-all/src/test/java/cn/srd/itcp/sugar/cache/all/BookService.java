@@ -23,6 +23,7 @@ public class BookService {
 
     @CacheEvict(key = "#id")
     public void deleteById(Long id) {
+        System.out.println();
     }
 
     @CacheEvict(allEntries = true)

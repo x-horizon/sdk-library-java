@@ -5,24 +5,23 @@ import cn.srd.itcp.sugar.cache.all.support.CacheType;
 import java.lang.annotation.*;
 
 /**
+ * TODO wjm 待实现：keyGenerator、condition、unless
+ *
  * @author wjm
- * @since 2023-06-08 10:14:52
+ * @since 2023-06-09 15:06:14
  */
-@Target(ElementType.TYPE)
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-public @interface CacheConfig {
+public @interface CacheWrite {
 
     String[] namespaces() default {};
 
+    String key() default "";
+
     CacheType[] cacheTypes() default {};
 
-    /**
-     * NullValue 失真的问题，且对于同一个 namespace，不能一会开启，一会关闭穿透（因为同一个 namespace 在第一次初始化时，enablePreventCachePenetrate 就已经被固化下来了）
-     *
-     * @return
-     */
     boolean enablePreventCachePenetrate() default false;
 
 }

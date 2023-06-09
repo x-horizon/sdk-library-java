@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.cache.all.support;
 
-import cn.srd.itcp.sugar.cache.all.core.CacheRead;
+import cn.srd.itcp.sugar.cache.all.core.CacheEvict;
 import lombok.SneakyThrows;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -9,21 +9,21 @@ import org.aspectj.lang.annotation.Pointcut;
 
 /**
  * @author wjm
- * @since 2023-06-08 10:14:52
+ * @since 2023-06-09 15:06:14
  */
 @Aspect
-public class CacheReadAspect implements CacheAspect {
+public class CacheEvictAspect implements CacheAspect {
 
-    @Pointcut("@annotation(cn.srd.itcp.sugar.cache.all.core.CacheRead)")
+    @Pointcut("@annotation(cn.srd.itcp.sugar.cache.all.core.CacheWrite)")
     public void pointcut() {
     }
 
     @SneakyThrows
     @Around("pointcut()")
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
-        CacheRead annotation = getAnnotationMarkedOnMethod(joinPoint, CacheRead.class);
+        CacheEvict annotation = getAnnotationMarkedOnMethod(joinPoint, CacheEvict.class);
         CacheAspectContext context = buildContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.key(), annotation.enablePreventCachePenetrate());
-        return doRead(joinPoint, context);
+        return doEvict(joinPoint, context);
     }
 
 }

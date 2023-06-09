@@ -11,7 +11,12 @@ import org.springframework.stereotype.Component;
 public class BookService2 {
 
     @CacheRead(key = "#bookPO.id")
-    public BookPO getByI2(BookPO bookPO) {
+    public BookPO getById1(BookPO bookPO) {
+        return null;
+    }
+
+    @CacheRead(namespaces = {"myCache3"}, cacheTypes = {CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS, CacheType.CAFFEINE, CacheType.REDIS, CacheType.REDIS}, key = "#bookPO.id")
+    public BookPO getById2(BookPO bookPO) {
         return null;
     }
 

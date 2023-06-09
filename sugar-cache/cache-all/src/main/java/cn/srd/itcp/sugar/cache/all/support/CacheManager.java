@@ -32,10 +32,9 @@ public class CacheManager {
 
         log.debug("cache system: create multilevel cache instance, the namespace is: [{}]", namespace);
 
-        cacheTypes.forEach(CacheType::init);
         cache = Cache.builder()
                 .namespace(namespace)
-                .cacheTypes(cacheTypes)
+                .cacheDataManager(CacheDataManager.build(cacheTypes))
                 .enablePreventCachePenetrate(enablePreventCachePenetrate)
                 .build();
 

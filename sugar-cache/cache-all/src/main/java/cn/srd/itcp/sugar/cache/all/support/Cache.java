@@ -25,7 +25,7 @@ public class Cache implements CacheTemplate<String> {
 
     private String namespace;
 
-    private List<CacheType> cacheTypes;
+    private CacheDataManager cacheDataManager;
 
     private boolean enablePreventCachePenetrate;
 
@@ -33,9 +33,10 @@ public class Cache implements CacheTemplate<String> {
     public <V> void set(String key, V value) {
         Object doValue = NullValueUtil.convertNullToNullValueIfNeed(value, enablePreventCachePenetrate);
         if (Objects.isNotNull(value)) {
-            for (int i = cacheTypes.size() - 1; i >= 0; i--) {
-                CacheTemplate<String> cacheTemplate = cacheTypes.get(i).getTemplate();
-                cacheTemplate.set(key, doValue);
+            List<String> cacheTypeNames = cacheDataManager.getCacheTypeNames();
+            for (int index = cacheTypeNames.size() - 1; index >= 0; index--) {
+                CacheTemplate<String> cacheTemplate = cacheDataManager.getTemplate(cacheTypeNames.get(index));
+                cacheTemplate.set(cacheTemplate.resolveKey(key, namespace), doValue);
             }
         }
     }
@@ -43,19 +44,22 @@ public class Cache implements CacheTemplate<String> {
     @Override
     public Object get(String key) {
         Object value = null;
-        int findIndex = cacheTypes.size();
-        for (int i = 0; i < cacheTypes.size(); i++) {
-            CacheTemplate<String> cacheTemplate = cacheTypes.get(i).getTemplate();
+        List<String> cacheTypeNames = cacheDataManager.getCacheTypeNames();
+        int findIndex = cacheTypeNames.size();
+        int cacheTypeSize = cacheTypeNames.size();
+        for (int index = 0; index < cacheTypeSize; index++) {
+            CacheTemplate<String> cacheTemplate = cacheDataManager.getTemplate(cacheTypeNames.get(index));
             value = cacheTemplate.get(cacheTemplate.resolveKey(key, namespace));
             if (Objects.isNotNull(value)) {
-                findIndex = i;
+                findIndex = index;
                 break;
             }
         }
+        value = NullValueUtil.convertToNullIfNullValue(value);
         value = NullValueUtil.convertNullToNullValueIfNeed(value, enablePreventCachePenetrate);
         if (Objects.isNotNull(value)) {
-            for (int i = findIndex - 1; i >= 0; i--) {
-                CacheTemplate<String> cacheTemplate = cacheTypes.get(i).getTemplate();
+            for (int index = findIndex - 1; index >= 0; index--) {
+                CacheTemplate<String> cacheTemplate = cacheDataManager.getTemplate(cacheTypeNames.get(index));
                 cacheTemplate.set(cacheTemplate.resolveKey(key, namespace), value);
             }
         }
@@ -64,9 +68,10 @@ public class Cache implements CacheTemplate<String> {
 
     @Override
     public void delete(String key) {
-        for (int i = cacheTypes.size() - 1; i >= 0; i--) {
-            CacheTemplate<String> cacheTemplate = cacheTypes.get(i).getTemplate();
-            cacheTemplate.delete(key);
+        List<String> cacheTypeNames = cacheDataManager.getCacheTypeNames();
+        for (int index = cacheTypeNames.size() - 1; index >= 0; index--) {
+            CacheTemplate<String> cacheTemplate = cacheDataManager.getTemplate(cacheTypeNames.get(index));
+            cacheTemplate.delete(cacheTemplate.resolveKey(key, namespace));
         }
     }
 
