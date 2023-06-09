@@ -34,7 +34,7 @@ public class CacheManager {
 
         cache = Cache.builder()
                 .namespace(namespace)
-                .cacheDataManager(CacheDataManager.build(cacheTypes))
+                .dataManager(CacheDataManager.build(cacheTypes))
                 .enablePreventCachePenetrate(enablePreventCachePenetrate)
                 .build();
 
