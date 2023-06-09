@@ -1,7 +1,6 @@
 package cn.srd.itcp.sugar.cache.all.support;
 
 import cn.srd.itcp.sugar.cache.all.core.CacheWrite;
-import lombok.SneakyThrows;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,7 +17,6 @@ public class CacheWriteAspect implements CacheAspect {
     public void pointcut() {
     }
 
-    @SneakyThrows
     @Around("pointcut()")
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
         CacheWrite annotation = getAnnotationMarkedOnMethod(joinPoint, CacheWrite.class);
