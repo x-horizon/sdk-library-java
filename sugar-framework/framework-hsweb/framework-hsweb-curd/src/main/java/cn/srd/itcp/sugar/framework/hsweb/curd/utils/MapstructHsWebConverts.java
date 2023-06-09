@@ -5,6 +5,8 @@ import cn.srd.itcp.sugar.component.convert.mapstruct.support.MapstructConvertsSu
 import cn.srd.itcp.sugar.framework.hsweb.curd.page.PageResult;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.hswebframework.web.api.crud.entity.PagerResult;
 
@@ -14,15 +16,9 @@ import org.hswebframework.web.api.crud.entity.PagerResult;
  * @author wjm
  * @since 2022/6/18 19:17
  */
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Deprecated
 public class MapstructHsWebConverts {
-
-    /**
-     * protected block constructor
-     */
-    protected MapstructHsWebConverts() {
-        super();
-    }
 
     /**
      * singleton pattern

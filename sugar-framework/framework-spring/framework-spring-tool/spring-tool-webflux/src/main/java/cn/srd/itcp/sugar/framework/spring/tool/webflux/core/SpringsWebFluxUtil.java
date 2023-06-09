@@ -1,6 +1,8 @@
 package cn.srd.itcp.sugar.framework.spring.tool.webflux.core;
 
 import cn.srd.itcp.sugar.framework.spring.tool.webflux.support.ReactiveRequestContextFilter;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import reactor.core.publisher.Mono;
 
@@ -10,13 +12,8 @@ import reactor.core.publisher.Mono;
  * @author wjm
  * @since 2023-02-04 17:49:16
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SpringsWebFluxUtil {
-
-    /**
-     * private block constructor
-     */
-    private SpringsWebFluxUtil() {
-    }
 
     /**
      * 获取请求对象

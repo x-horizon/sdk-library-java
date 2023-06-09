@@ -1,18 +1,16 @@
 package cn.srd.itcp.sugar.component.convert.spring.core;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * Spring 转换器
  *
  * @author wjm
  * @since 2021/5/1 14:13
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SpringConverts {
-
-    /**
-     * private block constructor
-     */
-    private SpringConverts() {
-    }
 
     /**
      * singleton pattern

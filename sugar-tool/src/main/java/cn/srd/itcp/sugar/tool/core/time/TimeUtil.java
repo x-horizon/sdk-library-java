@@ -9,6 +9,8 @@ import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import io.vavr.control.Try;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.time.*;
@@ -34,13 +36,8 @@ import java.util.stream.Stream;
  * @author wjm
  * @since 2020/8/11 15:27
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TimeUtil extends LocalDateTimeUtil {
-
-    /**
-     * private block constructor
-     */
-    private TimeUtil() {
-    }
 
     /**
      * 持续时间是否为正数，不包括 0

@@ -1,6 +1,8 @@
 package cn.srd.itcp.sugar.tool.core;
 
 import cn.hutool.core.util.BooleanUtil;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * Boolean 工具
@@ -8,12 +10,7 @@ import cn.hutool.core.util.BooleanUtil;
  * @author wjm
  * @since 2022-08-11 10:59:16
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BooleansUtil extends BooleanUtil {
-
-    /**
-     * private block constructor
-     */
-    private BooleansUtil() {
-    }
 
 }

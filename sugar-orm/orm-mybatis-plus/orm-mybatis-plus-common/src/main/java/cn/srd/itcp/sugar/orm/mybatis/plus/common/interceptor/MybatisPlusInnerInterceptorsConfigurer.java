@@ -1,6 +1,8 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.common.interceptor;
 
 import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +14,8 @@ import java.util.function.Supplier;
  * @author wjm
  * @since 2022-07-25 21:51:19
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MybatisPlusInnerInterceptorsConfigurer {
-
-    /**
-     * private block constructor
-     */
-    private MybatisPlusInnerInterceptorsConfigurer() {
-    }
 
     /**
      * 存放 mybatis-plus 拦截器的集合

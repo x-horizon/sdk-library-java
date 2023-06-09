@@ -2,6 +2,8 @@ package cn.srd.itcp.sugar.topic.kafka.core;
 
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.cloud.stream.function.StreamBridge;
 
 /**
@@ -10,13 +12,8 @@ import org.springframework.cloud.stream.function.StreamBridge;
  * @author wjm
  * @since 2023-03-25 16:53:22
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StreamBridgeManager {
-
-    /**
-     * private block constructor
-     */
-    private StreamBridgeManager() {
-    }
 
     /**
      * see {@link StreamBridge}

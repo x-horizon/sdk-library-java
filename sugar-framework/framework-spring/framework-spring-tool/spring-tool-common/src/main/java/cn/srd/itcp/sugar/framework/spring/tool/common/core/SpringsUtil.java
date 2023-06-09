@@ -8,6 +8,8 @@ import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
@@ -24,13 +26,8 @@ import java.util.Set;
  * @author wjm
  * @since 2020/8/9 11:12
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SpringsUtil extends SpringUtil {
-
-    /**
-     * private block constructor
-     */
-    private SpringsUtil() {
-    }
 
     /**
      * {@link SpringBootApplication} 启动类所在的包路径

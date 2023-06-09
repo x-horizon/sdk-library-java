@@ -7,6 +7,8 @@ import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.time.LocalDateTime;
@@ -19,14 +21,9 @@ import java.util.List;
  * @author wjm
  * @since 2021/3/11 10:25
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @MapstructMappingQualify
 public class MapstructMappingManager {
-
-    /**
-     * private block constructor
-     */
-    private MapstructMappingManager() {
-    }
 
     /**
      * List =&gt; String

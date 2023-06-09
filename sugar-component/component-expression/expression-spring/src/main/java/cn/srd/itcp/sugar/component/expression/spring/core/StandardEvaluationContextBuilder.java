@@ -1,5 +1,8 @@
 package cn.srd.itcp.sugar.component.expression.spring.core;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.lang.Nullable;
 
@@ -11,22 +14,9 @@ import java.lang.reflect.Method;
  * @author wjm
  * @since 2023-06-08 10:14:52
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class StandardEvaluationContextBuilder {
-
-    /**
-     * private block constructor
-     */
-    private StandardEvaluationContextBuilder() {
-    }
-
-    /**
-     * private block constructor
-     *
-     * @param context {@link StandardEvaluationContext}
-     */
-    private StandardEvaluationContextBuilder(StandardEvaluationContext context) {
-        this.context = context;
-    }
 
     /**
      * internal {@link StandardEvaluationContext} instance

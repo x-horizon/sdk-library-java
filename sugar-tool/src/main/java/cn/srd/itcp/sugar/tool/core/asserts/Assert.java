@@ -5,7 +5,9 @@ import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import cn.srd.itcp.sugar.tool.exceptions.ExceptionMessageTemplate;
 import cn.srd.itcp.sugar.tool.exceptions.RunningException;
 import cn.srd.itcp.sugar.tool.web.HttpStatusEnum;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 
 /**
@@ -51,13 +53,8 @@ import lombok.SneakyThrows;
  * @since 2020/6/13 20:05
  */
 @Getter
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Assert implements AssertSupport {
-
-    /**
-     * private block constructor
-     */
-    private Assert() {
-    }
 
     /**
      * 空实例构造

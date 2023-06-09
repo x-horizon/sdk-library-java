@@ -1,5 +1,8 @@
 package cn.srd.itcp.sugar.tool.core.time;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.time.Duration;
 
 /**
@@ -8,13 +11,8 @@ import java.time.Duration;
  * @author wjm
  * @since 2023-02-13 22:09:11
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TimeUnitYearHandler extends TimeUnitHandler {
-
-    /**
-     * private block constructor
-     */
-    private TimeUnitYearHandler() {
-    }
 
     /**
      * singleton pattern

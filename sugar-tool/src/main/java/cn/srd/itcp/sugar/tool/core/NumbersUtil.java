@@ -1,6 +1,8 @@
 package cn.srd.itcp.sugar.tool.core;
 
 import cn.hutool.core.util.NumberUtil;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * 数字工具
@@ -8,13 +10,8 @@ import cn.hutool.core.util.NumberUtil;
  * @author wjm
  * @since 2020/8/20 17:42
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class NumbersUtil extends NumberUtil {
-
-    /**
-     * private block constructor
-     */
-    private NumbersUtil() {
-    }
 
     /**
      * 是否是奇数

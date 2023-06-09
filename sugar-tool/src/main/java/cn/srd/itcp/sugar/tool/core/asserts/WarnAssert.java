@@ -5,7 +5,9 @@ import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import cn.srd.itcp.sugar.tool.exceptions.ExceptionMessageTemplate;
 import cn.srd.itcp.sugar.tool.exceptions.WarnOperationException;
 import cn.srd.itcp.sugar.tool.web.HttpStatusEnum;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * 断言工具，与 {@link Assert} 区别在于
@@ -20,13 +22,8 @@ import lombok.Getter;
  * @since 2021/5/6 17:27
  */
 @Getter
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WarnAssert implements AssertSupport {
-
-    /**
-     * private block constructor
-     */
-    private WarnAssert() {
-    }
 
     /**
      * 空实例构造

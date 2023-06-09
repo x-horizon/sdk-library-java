@@ -4,6 +4,8 @@ import cn.srd.itcp.sugar.component.convert.fastjson.core.FastJsonConverts;
 import cn.srd.itcp.sugar.component.convert.jackson.core.JacksonConverts;
 import cn.srd.itcp.sugar.component.convert.mapstruct.core.MapstructConverts;
 import cn.srd.itcp.sugar.component.convert.spring.core.SpringConverts;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * All in one 转换器
@@ -11,13 +13,8 @@ import cn.srd.itcp.sugar.component.convert.spring.core.SpringConverts;
  * @author wjm
  * @since 2021/5/1 14:13
  */
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Converts extends cn.srd.itcp.sugar.tool.core.convert.Converts {
-
-    /**
-     * protected block constructor
-     */
-    protected Converts() {
-    }
 
     /**
      * 应用 Spring 转换器

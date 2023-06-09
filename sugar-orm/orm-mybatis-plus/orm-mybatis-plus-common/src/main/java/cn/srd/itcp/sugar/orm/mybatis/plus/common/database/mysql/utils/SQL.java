@@ -1,6 +1,8 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.common.database.mysql.utils;
 
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -10,13 +12,8 @@ import java.io.Serializable;
  * @author wjm
  * @since 2022-07-06
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SQL {
-
-    /**
-     * private block constructor
-     */
-    private SQL() {
-    }
 
     /**
      * SQL：将字节数组类型的主键解码为十六进制字符串

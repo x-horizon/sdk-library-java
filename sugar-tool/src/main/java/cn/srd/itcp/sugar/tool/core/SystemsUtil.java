@@ -1,6 +1,8 @@
 package cn.srd.itcp.sugar.tool.core;
 
 import cn.hutool.system.SystemUtil;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * System工具
@@ -8,13 +10,8 @@ import cn.hutool.system.SystemUtil;
  * @author wjm
  * @since 2020/1/15 11:02
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SystemsUtil extends SystemUtil {
-
-    /**
-     * private block constructor
-     */
-    private SystemsUtil() {
-    }
 
     /**
      * 获取项目所在绝对路径，如: /Users/user/Documents/IDE/WorkSpace/project

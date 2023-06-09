@@ -3,6 +3,8 @@ package cn.srd.itcp.sugar.tool.core;
 import cn.hutool.core.util.EnumUtil;
 import cn.hutool.core.util.ReflectUtil;
 import io.vavr.control.Try;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.lang.reflect.Field;
@@ -15,13 +17,8 @@ import java.util.List;
  * @author wjm
  * @since 2021/5/10 17:46
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EnumsUtil extends EnumUtil {
-
-    /**
-     * private block constructor
-     */
-    private EnumsUtil() {
-    }
 
     /**
      * see {@link EnumUtil#isEnum(Class)} ，去除非空校验

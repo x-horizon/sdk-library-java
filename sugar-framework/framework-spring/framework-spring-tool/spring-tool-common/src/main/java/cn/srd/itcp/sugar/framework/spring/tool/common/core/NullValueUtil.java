@@ -1,6 +1,8 @@
 package cn.srd.itcp.sugar.framework.spring.tool.common.core;
 
 import cn.srd.itcp.sugar.tool.core.Objects;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.cache.support.NullValue;
 
 /**
@@ -9,13 +11,8 @@ import org.springframework.cache.support.NullValue;
  * @author wjm
  * @since 2023-06-08 10:14:52
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class NullValueUtil {
-
-    /**
-     * private block constructor
-     */
-    private NullValueUtil() {
-    }
 
     /**
      * is it {@link NullValue}

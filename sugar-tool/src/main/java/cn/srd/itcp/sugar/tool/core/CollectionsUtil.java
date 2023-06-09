@@ -5,6 +5,8 @@ import cn.hutool.core.collection.CollUtil;
 import cn.srd.itcp.sugar.tool.constant.CharPool;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,13 +25,8 @@ import java.util.stream.StreamSupport;
  * @author wjm
  * @since 2020/12/15 12:40
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CollectionsUtil extends CollUtil {
-
-    /**
-     * private block constructor
-     */
-    private CollectionsUtil() {
-    }
 
     // ==================================== get function ====================================
 

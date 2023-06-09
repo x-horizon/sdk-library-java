@@ -1,19 +1,16 @@
 package cn.srd.itcp.sugar.tool.constant;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * 字符集
  *
  * @author wjm
  * @since 2022-08-08 17:59:12
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Charset {
-
-    /**
-     * private block constructor
-     */
-    private Charset() {
-
-    }
 
     /**
      * 字符集：UTF-8

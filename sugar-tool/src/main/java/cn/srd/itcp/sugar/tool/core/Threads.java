@@ -16,6 +16,8 @@
 package cn.srd.itcp.sugar.tool.core;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.concurrent.*;
 
@@ -25,13 +27,8 @@ import java.util.concurrent.*;
  * @author wjm
  * @since 2023-03-16 18:57:12
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Threads {
-
-    /**
-     * private block constructor
-     */
-    private Threads() {
-    }
 
     /**
      * 获取线程 id

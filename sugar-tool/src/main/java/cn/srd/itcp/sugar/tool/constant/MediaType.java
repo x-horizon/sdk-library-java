@@ -1,5 +1,8 @@
 package cn.srd.itcp.sugar.tool.constant;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +13,8 @@ import java.util.List;
  * @author wjm
  * @since 2022-08-26 16:52:18
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MediaType {
-
-    /**
-     * private block constructor
-     */
-    private MediaType() {
-    }
 
     /**
      * 媒体类型：image/png

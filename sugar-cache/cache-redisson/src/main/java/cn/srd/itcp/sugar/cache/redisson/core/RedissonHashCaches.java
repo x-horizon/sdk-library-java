@@ -2,6 +2,8 @@ package cn.srd.itcp.sugar.cache.redisson.core;
 
 import cn.srd.itcp.sugar.tool.core.time.DurationWrapper;
 import cn.srd.itcp.sugar.tool.exceptions.UnsupportedOperationException;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -14,13 +16,8 @@ import java.util.Map;
  * @author wjm
  * @since 2023-01-12 10:37:12
  */
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RedissonHashCaches implements RedissonCacheTemplate {
-
-    /**
-     * protected block constructor
-     */
-    protected RedissonHashCaches() {
-    }
 
     /**
      * singleton pattern

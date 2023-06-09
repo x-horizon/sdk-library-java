@@ -4,6 +4,8 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.srd.itcp.sugar.tool.core.asserts.Assert;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import cn.srd.itcp.sugar.tool.web.HttpStatus;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.io.ObjectStreamClass;
 import java.lang.reflect.Array;
@@ -20,13 +22,8 @@ import java.util.function.Supplier;
  * @author wjm
  * @since 2020/7/8 16:11
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Objects {
-
-    /**
-     * private block constructor
-     */
-    private Objects() {
-    }
 
     // ============================================= null、empty、blank、positive、boolean、equals start
 

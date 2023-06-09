@@ -2,6 +2,8 @@ package cn.srd.itcp.sugar.tool.core;
 
 import cn.hutool.core.util.ClassUtil;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 
 import java.lang.annotation.Annotation;
@@ -20,13 +22,8 @@ import java.util.stream.Stream;
  * @author wjm
  * @since 2021/5/10 17:46
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ClassesUtil extends ClassUtil {
-
-    /**
-     * private block constructor
-     */
-    private ClassesUtil() {
-    }
 
     /**
      * 根据全限定类名获取类

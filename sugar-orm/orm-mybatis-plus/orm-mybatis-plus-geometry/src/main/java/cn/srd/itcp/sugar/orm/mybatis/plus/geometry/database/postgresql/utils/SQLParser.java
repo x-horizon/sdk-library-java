@@ -2,6 +2,8 @@ package cn.srd.itcp.sugar.orm.mybatis.plus.geometry.database.postgresql.utils;
 
 import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * SQL 解析器
@@ -9,13 +11,8 @@ import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
  * @author wjm
  * @since 2023-03-14 15:39:11
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SQLParser {
-
-    /**
-     * private block constructor
-     */
-    private SQLParser() {
-    }
 
     /**
      * Function: PostgreSQL Geometry ==&gt; TEXT

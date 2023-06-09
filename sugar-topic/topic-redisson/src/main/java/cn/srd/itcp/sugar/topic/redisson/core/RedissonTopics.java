@@ -2,6 +2,8 @@ package cn.srd.itcp.sugar.topic.redisson.core;
 
 import cn.srd.itcp.sugar.context.redisson.core.RedissonManager;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.redisson.api.listener.MessageListener;
 
 /**
@@ -10,13 +12,8 @@ import org.redisson.api.listener.MessageListener;
  * @author wjm
  * @since 2023-06-05 16:41:28
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RedissonTopics {
-
-    /**
-     * private block constructor
-     */
-    private RedissonTopics() {
-    }
 
     /**
      * 发布消息

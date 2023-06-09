@@ -11,6 +11,8 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 
 import java.io.File;
@@ -56,13 +58,9 @@ import java.util.function.Consumer;
  * @author wjm
  * @since 2021/5/1 14:13
  */
-public class JacksonConverts {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 
-    /**
-     * private block constructor
-     */
-    private JacksonConverts() {
-    }
+public class JacksonConverts {
 
     /**
      * singleton pattern

@@ -2,6 +2,8 @@ package cn.srd.itcp.sugar.framework.spring.tool.webmvc.core;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -12,13 +14,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @author wjm
  * @since 2022-08-05 22:53:11
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SpringsWebMVCUtil {
-
-    /**
-     * private block constructor
-     */
-    private SpringsWebMVCUtil() {
-    }
 
     /**
      * 获取请求属性

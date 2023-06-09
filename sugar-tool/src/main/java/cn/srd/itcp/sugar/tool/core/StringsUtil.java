@@ -3,6 +3,8 @@ package cn.srd.itcp.sugar.tool.core;
 import cn.hutool.core.util.StrUtil;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
@@ -17,13 +19,8 @@ import static java.util.stream.Collectors.groupingBy;
  * @author wjm
  * @since 2020/5/19 17:12
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StringsUtil extends StrUtil {
-
-    /**
-     * private block constructor
-     */
-    private StringsUtil() {
-    }
 
     /**
      * see {@link #contains(CharSequence, CharSequence)}

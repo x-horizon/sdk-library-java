@@ -1,5 +1,8 @@
 package cn.srd.itcp.sugar.tool.core.time;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.time.Duration;
 
 /**
@@ -8,13 +11,8 @@ import java.time.Duration;
  * @author wjm
  * @since 2023-03-21 10:15:36
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TimeUnitNanosecondHandler extends TimeUnitHandler {
-
-    /**
-     * private block constructor
-     */
-    private TimeUnitNanosecondHandler() {
-    }
 
     /**
      * singleton pattern

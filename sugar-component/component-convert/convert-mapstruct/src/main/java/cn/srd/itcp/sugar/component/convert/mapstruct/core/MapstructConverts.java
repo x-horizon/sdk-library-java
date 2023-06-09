@@ -15,10 +15,7 @@ import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import com.esotericsoftware.reflectasm.MethodAccess;
 import com.google.common.collect.ImmutableMap;
 import jakarta.annotation.PostConstruct;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -36,15 +33,10 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 @Getter(AccessLevel.PACKAGE)
 @Setter(AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SuppressWarnings("unchecked")
 @Deprecated
 public class MapstructConverts {
-
-    /**
-     * protected block constructor
-     */
-    protected MapstructConverts() {
-    }
 
     /**
      * singleton pattern

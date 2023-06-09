@@ -1,6 +1,8 @@
 package cn.srd.itcp.sugar.tool.core;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -12,13 +14,8 @@ import java.util.function.Predicate;
  * @author wjm
  * @since 2023-06-05 15:57:19
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LambdasUtil {
-
-    /**
-     * private block constructor
-     */
-    private LambdasUtil() {
-    }
 
     /**
      * 若对受检对象检查通过，消费指定逻辑

@@ -1,6 +1,8 @@
 package cn.srd.itcp.sugar.tool.core;
 
 import cn.hutool.core.util.HexUtil;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * 十六进制工具
@@ -8,13 +10,8 @@ import cn.hutool.core.util.HexUtil;
  * @author wjm
  * @since 2022-07-06
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HexsUtil extends HexUtil {
-
-    /**
-     * private block constructor
-     */
-    private HexsUtil() {
-    }
 
     /**
      * 将字节数组转换为十六进制字符串

@@ -5,6 +5,8 @@ import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.core.time.DurationWrapper;
 import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.redisson.api.RBatch;
 import org.redisson.api.RBucket;
@@ -21,13 +23,8 @@ import java.util.Map;
  * @author wjm
  * @since 2023-01-12 10:37:12
  */
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RedissonBucketCaches implements RedissonCacheTemplate {
-
-    /**
-     * protected block constructor
-     */
-    protected RedissonBucketCaches() {
-    }
 
     /**
      * singleton pattern

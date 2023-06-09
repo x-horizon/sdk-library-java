@@ -1,18 +1,16 @@
 package cn.srd.itcp.sugar.tool.core;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * Web 工具
  *
  * @author wjm
  * @since 2022-12-15 15:51:11
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WebUtil {
-
-    /**
-     * private block constructor
-     */
-    private WebUtil() {
-    }
 
     // public static void main(String[] args) {
     //     String baseUrl = "http://demo:demo@127.0.0.1:8083";

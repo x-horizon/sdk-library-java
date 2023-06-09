@@ -2,6 +2,8 @@ package cn.srd.itcp.sugar.tool.core;
 
 import cn.hutool.core.util.ReflectUtil;
 import io.vavr.control.Try;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.lang.reflect.Field;
 
@@ -11,13 +13,8 @@ import java.lang.reflect.Field;
  * @author wjm
  * @since 2021/6/3 11:54
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ReflectsUtil extends ReflectUtil {
-
-    /**
-     * private block constructor
-     */
-    private ReflectsUtil() {
-    }
 
     /**
      * <pre>

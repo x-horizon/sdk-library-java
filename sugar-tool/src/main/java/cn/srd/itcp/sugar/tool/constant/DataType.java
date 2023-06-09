@@ -1,29 +1,22 @@
 package cn.srd.itcp.sugar.tool.constant;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * 数据类型常量
  *
  * @author wjm
  * @since 2023-02-11 11:36:22
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DataType {
-
-    /**
-     * private block constructor
-     */
-    private DataType() {
-    }
 
     /**
      * lower case all
      */
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static class LowerCaseAll {
-
-        /**
-         * private block constructor
-         */
-        private LowerCaseAll() {
-        }
 
         /**
          * BYTE
@@ -90,13 +83,8 @@ public class DataType {
     /**
      * upper case first
      */
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static class UpperCaseFirst {
-
-        /**
-         * private block constructor
-         */
-        private UpperCaseFirst() {
-        }
 
         /**
          * BYTE
@@ -163,13 +151,8 @@ public class DataType {
     /**
      * upper case all
      */
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static class UpperCaseAll {
-
-        /**
-         * private block constructor
-         */
-        private UpperCaseAll() {
-        }
 
         /**
          * BYTE

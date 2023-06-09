@@ -2,6 +2,8 @@ package cn.srd.itcp.sugar.tool.core.convert;
 
 import cn.hutool.core.convert.Convert;
 import cn.srd.itcp.sugar.tool.core.Objects;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.function.*;
 
@@ -11,13 +13,8 @@ import java.util.function.*;
  * @author wjm
  * @since 2021/5/1 14:13
  */
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Converts extends Convert {
-
-    /**
-     * protected block constructor
-     */
-    protected Converts() {
-    }
 
     /**
      * 是否静默转换，即报错不抛出异常，只打印日志，默认不静默转换

@@ -2,6 +2,8 @@ package cn.srd.itcp.sugar.tool.core;
 
 import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 
@@ -15,13 +17,8 @@ import java.util.List;
  * @author wjm
  * @since 2021/5/10 17:46
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TypesUtil {
-
-    /**
-     * private block constructor
-     */
-    private TypesUtil() {
-    }
 
     /**
      * 获取方法的第一个入参类型

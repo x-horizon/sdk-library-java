@@ -6,6 +6,8 @@ import cn.srd.itcp.sugar.doc.knife4j.model.PageResult;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
@@ -14,15 +16,9 @@ import lombok.NonNull;
  * @author wjm
  * @since 2021/5/1 14:13
  */
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Deprecated
 public class MapstructMybatisPlusConverts {
-
-    /**
-     * protected block constructor
-     */
-    protected MapstructMybatisPlusConverts() {
-        super();
-    }
 
     /**
      * singleton pattern

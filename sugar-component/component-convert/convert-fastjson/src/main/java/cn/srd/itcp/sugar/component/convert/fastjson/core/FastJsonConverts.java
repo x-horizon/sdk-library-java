@@ -1,18 +1,16 @@
 package cn.srd.itcp.sugar.component.convert.fastjson.core;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * FastJson 转换器
  *
  * @author wjm
  * @since 2021/5/1 14:13
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FastJsonConverts {
-
-    /**
-     * private block constructor
-     */
-    private FastJsonConverts() {
-    }
 
     /**
      * singleton pattern

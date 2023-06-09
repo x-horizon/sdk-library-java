@@ -1,18 +1,16 @@
 package cn.srd.itcp.sugar.cache.redisson.core;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * Redisson Cache Operation
  *
  * @author wjm
  * @since 2023-01-12 10:37:12
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RedissonCaches {
-
-    /**
-     * private block constructor
-     */
-    private RedissonCaches() {
-    }
 
     /**
      * singleton pattern

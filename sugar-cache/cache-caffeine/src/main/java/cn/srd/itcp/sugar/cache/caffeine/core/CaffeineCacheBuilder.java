@@ -7,6 +7,8 @@ import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
 import cn.srd.itcp.sugar.tool.exceptions.UnsupportedOperationException;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * {@link Cache} Builder
@@ -14,13 +16,8 @@ import com.github.benmanes.caffeine.cache.Caffeine;
  * @author wjm
  * @since 2023-06-05 17:01:12
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CaffeineCacheBuilder {
-
-    /**
-     * private block constructor
-     */
-    private CaffeineCacheBuilder() {
-    }
 
     /**
      * build {@link Cache} by {@link CaffeineCacheProperties}

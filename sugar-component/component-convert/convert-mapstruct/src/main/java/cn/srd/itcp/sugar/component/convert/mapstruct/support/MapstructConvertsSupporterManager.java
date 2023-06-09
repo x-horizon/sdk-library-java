@@ -1,6 +1,8 @@
 package cn.srd.itcp.sugar.component.convert.mapstruct.support;
 
 import cn.srd.itcp.sugar.tool.core.Objects;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.util.ArrayList;
@@ -13,13 +15,8 @@ import java.util.function.Function;
  * @author wjm
  * @since 2021/5/1 14:13
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MapstructConvertsSupporterManager {
-
-    /**
-     * private block constructor
-     */
-    private MapstructConvertsSupporterManager() {
-    }
 
     /**
      * Mapstruct 转换器支持

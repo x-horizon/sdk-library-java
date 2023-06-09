@@ -1,18 +1,16 @@
 package cn.srd.itcp.sugar.tool.constant;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * 数据库常量
  *
  * @author wjm
  * @since 2023-02-11 11:36:22
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DatabaseType {
-
-    /**
-     * private block constructor
-     */
-    private DatabaseType() {
-    }
 
     /**
      * postgresql

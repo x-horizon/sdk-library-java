@@ -1,5 +1,7 @@
 package cn.srd.itcp.sugar.component.expression.spring.core;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
@@ -10,13 +12,8 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
  * @author wjm
  * @since 2023-06-08 10:14:52
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SpringExpressions implements SpringExpressionTemplate {
-
-    /**
-     * private block constructor
-     */
-    private SpringExpressions() {
-    }
 
     /**
      * singleton pattern

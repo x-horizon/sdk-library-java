@@ -10,6 +10,8 @@ import com.github.yulichang.base.MPJBaseServiceImpl;
 import com.github.yulichang.interfaces.MPJBaseJoin;
 import com.github.yulichang.query.MPJQueryWrapper;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * Mybatis Plus 使用入口
@@ -17,13 +19,8 @@ import com.github.yulichang.wrapper.MPJLambdaWrapper;
  * @author wjm
  * @since 2022-07-18 17:59:54
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MpWrappers {
-
-    /**
-     * private block constructor
-     */
-    private MpWrappers() {
-    }
 
     /**
      * 获取用于查询的无条件 Wrapper

@@ -6,18 +6,15 @@ import cn.srd.itcp.sugar.cache.caffeine.core.CaffeineCaches;
 import cn.srd.itcp.sugar.cache.map.core.MapCacheTemplate;
 import cn.srd.itcp.sugar.cache.map.core.MapCaches;
 import cn.srd.itcp.sugar.cache.redisson.core.RedissonCaches;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * @author wjm
  * @since 2023-06-07 16:48:52
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Caches {
-
-    /**
-     * private block constructor
-     */
-    private Caches() {
-    }
 
     /**
      * map implement
