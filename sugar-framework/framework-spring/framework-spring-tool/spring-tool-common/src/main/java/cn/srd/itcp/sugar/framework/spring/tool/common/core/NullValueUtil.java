@@ -44,7 +44,7 @@ public class NullValueUtil {
      * @param <T>   checked object type
      * @return null if it is {@link NullValue}, or do not convert
      */
-    public static <T> T convertNullValueToNullIfNeed(T input) {
+    public static <T> T convertToNullIfNullValue(T input) {
         return isNullValue(input) ? null : input;
     }
 
