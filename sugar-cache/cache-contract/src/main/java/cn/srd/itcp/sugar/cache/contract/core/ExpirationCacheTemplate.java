@@ -223,7 +223,7 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
      * @return old cache
      */
     default <V> V getAndSetWithoutNullValue(K key, V value, Class<V> oldClazz, String expiration) {
-        return NullValueUtil.convertNullValueToNullIfNeed(getAndSet(key, value, oldClazz, expiration));
+        return NullValueUtil.convertToNullIfNullValue(getAndSet(key, value, oldClazz, expiration));
     }
 
     /**
@@ -238,7 +238,7 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
      * @return old cache
      */
     default <V> V getAndSetWithoutNullValue(K key, V value, Class<V> oldClazz, long expiration, TimeUnit timeUnit) {
-        return NullValueUtil.convertNullValueToNullIfNeed(getAndSet(key, value, oldClazz, expiration, timeUnit));
+        return NullValueUtil.convertToNullIfNullValue(getAndSet(key, value, oldClazz, expiration, timeUnit));
     }
 
     /**
@@ -252,7 +252,7 @@ public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
      * @return old cache
      */
     default <V> V getAndSetWithoutNullValue(K key, V value, Class<V> oldClazz, Duration expiration) {
-        return NullValueUtil.convertNullValueToNullIfNeed(getAndSet(key, value, oldClazz, expiration));
+        return NullValueUtil.convertToNullIfNullValue(getAndSet(key, value, oldClazz, expiration));
     }
 
     /**

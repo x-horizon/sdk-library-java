@@ -205,7 +205,7 @@ public interface CacheTemplate<K> {
      * @return cache value
      */
     default Object getWithoutNullValue(K key) {
-        return NullValueUtil.convertNullValueToNullIfNeed(get(key));
+        return NullValueUtil.convertToNullIfNullValue(get(key));
     }
 
     /**
@@ -282,7 +282,7 @@ public interface CacheTemplate<K> {
      * @return old cache
      */
     default Object getAndSetWithoutNullValue(K key, Object value) {
-        return NullValueUtil.convertNullValueToNullIfNeed(getAndSet(key, value));
+        return NullValueUtil.convertToNullIfNullValue(getAndSet(key, value));
     }
 
     /**
@@ -305,7 +305,7 @@ public interface CacheTemplate<K> {
      * @return old cache
      */
     default Object getAndDeleteWithoutNullValue(K key) {
-        return NullValueUtil.convertNullValueToNullIfNeed(getAndDelete(key));
+        return NullValueUtil.convertToNullIfNullValue(getAndDelete(key));
     }
 
     /**
