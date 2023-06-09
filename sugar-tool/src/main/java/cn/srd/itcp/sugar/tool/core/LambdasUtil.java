@@ -35,6 +35,23 @@ public class LambdasUtil {
     }
 
     /**
+     * 若对受检对象检查通过，消费指定逻辑
+     *
+     * @param input             受检对象
+     * @param check             检查逻辑
+     * @param checkSuccessLogic 检查成功逻辑
+     * @param checkFailedLogic  检查失败逻辑
+     * @param <T>               受检对象类型
+     */
+    public static <T> void acceptIfNeed(T input, Predicate<T> check, Consumer<T> checkSuccessLogic, Consumer<T> checkFailedLogic) {
+        if (check.test(input)) {
+            checkSuccessLogic.accept(input);
+        } else {
+            checkFailedLogic.accept(input);
+        }
+    }
+
+    /**
      * 若对受检对象检查通过，应用指定逻辑
      *
      * @param input 受检对象
