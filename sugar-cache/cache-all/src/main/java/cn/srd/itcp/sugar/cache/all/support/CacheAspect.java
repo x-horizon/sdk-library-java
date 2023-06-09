@@ -4,6 +4,7 @@ import cn.srd.itcp.sugar.cache.all.core.CacheConfig;
 import cn.srd.itcp.sugar.component.expression.all.core.Expressions;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.AopCaptor;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.NullValueUtil;
+import cn.srd.itcp.sugar.tool.core.ArraysUtil;
 import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import lombok.SneakyThrows;
@@ -32,10 +33,10 @@ public interface CacheAspect extends AopCaptor {
 
     @SuppressWarnings("all")
     default List<CacheType> getCacheTypes(CacheConfig cacheConfigAnnotation, CacheType[] highestPriorityCacheTypes) {
-        if (Objects.isNotEmpty(highestPriorityCacheTypes)) {
+        if (ArraysUtil.isNotEmpty(highestPriorityCacheTypes)) {
             return CollectionsUtil.toList(highestPriorityCacheTypes);
         }
-        Objects.requireFalse(() -> "cache system: could not find cache type to cache, please specify at least one", Objects.isNull(cacheConfigAnnotation) || Objects.isEmpty(cacheConfigAnnotation.cacheTypes()));
+        Objects.requireFalse(() -> "cache system: could not find cache type to cache, please specify at least one", Objects.isNull(cacheConfigAnnotation) || ArraysUtil.isEmpty(cacheConfigAnnotation.cacheTypes()));
         return CollectionsUtil.toList(cacheConfigAnnotation.cacheTypes());
     }
 
