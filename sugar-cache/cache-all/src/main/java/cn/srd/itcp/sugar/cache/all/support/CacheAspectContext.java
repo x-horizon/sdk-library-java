@@ -18,9 +18,9 @@ public class CacheAspectContext {
 
     private CacheConfig cacheConfigAnnotation;
 
-    private String[] originalNamespaces;
+    private List<String> originalNamespaces;
 
-    private String[] namespaces;
+    private List<String> namespaces;
 
     private List<CacheType> originalCacheTypes;
 
@@ -30,10 +30,16 @@ public class CacheAspectContext {
 
     private String key;
 
+    Class<? extends CacheKeyGenerator> keyGenerator;
+
+    private Object value;
+
     private Boolean originalEnablePreventCachePenetrate;
 
     private Boolean enablePreventCachePenetrate;
 
-    private Object value;
+    private Boolean needEvictBeforeProceed;
+
+    private Boolean needEvictAllInNamespaces;
 
 }

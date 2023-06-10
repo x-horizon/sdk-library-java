@@ -75,4 +75,15 @@ public class Cache implements CacheTemplate<String> {
         }
     }
 
+    @Override
+    public long deleteAll(String namespace) {
+        List<String> cacheTypeNames = dataManager.getCacheTypeNames();
+        for (int index = cacheTypeNames.size() - 1; index >= 0; index--) {
+            CacheTemplate<String> cacheTemplate = dataManager.getTemplate(cacheTypeNames.get(index));
+            cacheTemplate.deleteAll(namespace);
+        }
+        // not implement affected number, ignore the return value
+        return -1;
+    }
+
 }

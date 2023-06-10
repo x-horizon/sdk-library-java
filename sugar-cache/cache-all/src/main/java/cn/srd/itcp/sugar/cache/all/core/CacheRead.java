@@ -1,11 +1,12 @@
 package cn.srd.itcp.sugar.cache.all.core;
 
+import cn.srd.itcp.sugar.cache.all.support.CacheKeyGenerator;
 import cn.srd.itcp.sugar.cache.all.support.CacheType;
 
 import java.lang.annotation.*;
 
 /**
- * TODO wjm 待实现：keyGenerator、condition、unless
+ * TODO wjm 待实现：condition、unless
  *
  * @author wjm
  * @since 2023-06-08 10:14:52
@@ -18,9 +19,11 @@ public @interface CacheRead {
 
     String[] namespaces() default {};
 
+    CacheType[] cacheTypes() default {};
+
     String key() default "";
 
-    CacheType[] cacheTypes() default {};
+    Class<? extends CacheKeyGenerator> keyGenerator() default CacheKeyGenerator.DEFAULT_KEY_GENERATOR;
 
     boolean enablePreventCachePenetrate() default false;
 

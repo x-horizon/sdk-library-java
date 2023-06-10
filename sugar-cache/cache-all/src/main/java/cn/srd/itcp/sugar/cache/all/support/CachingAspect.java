@@ -27,16 +27,16 @@ public class CachingAspect implements CacheAspect {
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
         Caching cachingAnnotation = getAnnotationMarkedOnMethod(joinPoint, Caching.class);
         // handle read
-        List<CacheAspectContext> readContexts = CollectionsUtil.toList(cachingAnnotation.read(), annotation -> buildContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.key(), annotation.enablePreventCachePenetrate()));
+        List<CacheAspectContext> readContexts = CollectionsUtil.toList(cachingAnnotation.read(), annotation -> buildContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.key(), annotation.keyGenerator(), annotation.enablePreventCachePenetrate(), null, null));
         Object value = doRead(joinPoint, readContexts);
         // handle write
-        for (CacheWrite cacheWriteAnnotation : cachingAnnotation.write()) {
-            CacheAspectContext context = buildContext(joinPoint, cacheWriteAnnotation.namespaces(), cacheWriteAnnotation.cacheTypes(), cacheWriteAnnotation.key(), cacheWriteAnnotation.enablePreventCachePenetrate());
+        for (CacheWrite annotation : cachingAnnotation.write()) {
+            CacheAspectContext context = buildContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.key(), annotation.keyGenerator(), annotation.enablePreventCachePenetrate(), null, null);
             doWrite(joinPoint, context, useless -> value);
         }
         // handle evict
-        for (CacheEvict cacheEvictAnnotation : cachingAnnotation.evict()) {
-            CacheAspectContext context = buildContext(joinPoint, cacheEvictAnnotation.namespaces(), cacheEvictAnnotation.cacheTypes(), cacheEvictAnnotation.key(), cacheEvictAnnotation.enablePreventCachePenetrate());
+        for (CacheEvict annotation : cachingAnnotation.evict()) {
+            CacheAspectContext context = buildContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.key(), annotation.keyGenerator(), annotation.enablePreventCachePenetrate(), annotation.needEvictBeforeProceed(), annotation.needEvictAllInNamespaces());
             doEvict(joinPoint, context, useless -> value);
         }
         return NullValueUtil.convertToNullIfNullValue(value);

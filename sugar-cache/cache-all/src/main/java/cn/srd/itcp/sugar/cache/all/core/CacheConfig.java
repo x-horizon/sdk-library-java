@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.cache.all.core;
 
+import cn.srd.itcp.sugar.cache.all.support.CacheKeyGenerator;
 import cn.srd.itcp.sugar.cache.all.support.CacheType;
 
 import java.lang.annotation.*;
@@ -17,6 +18,8 @@ public @interface CacheConfig {
     String[] namespaces() default {};
 
     CacheType[] cacheTypes() default {};
+
+    Class<? extends CacheKeyGenerator> keyGenerator() default CacheKeyGenerator.DEFAULT_KEY_GENERATOR;
 
     /**
      * NullValue 失真的问题，且对于同一个 namespace，不能一会开启，一会关闭穿透（因为同一个 namespace 在第一次初始化时，enablePreventCachePenetrate 就已经被固化下来了）
