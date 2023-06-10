@@ -30,7 +30,7 @@ public interface CacheAspect extends AopCaptor {
         if (Objects.isNotEmpty(namespacesOnMethod)) {
             return namespacesOnMethod;
         }
-        Objects.requireFalse(() -> "cache system: could not find cache name, please specify at least one!", Objects.isNull(cacheConfigAnnotation) || Objects.isEmpty(cacheConfigAnnotation.namespaces()));
+        Objects.requireFalse(() -> "cache system: could not find namespace, please specify at least one!", Objects.isNull(cacheConfigAnnotation) || Objects.isEmpty(cacheConfigAnnotation.namespaces()));
         return cacheConfigAnnotation.namespaces();
     }
 
@@ -43,8 +43,14 @@ public interface CacheAspect extends AopCaptor {
     }
 
     default String parseKey(CacheConfig cacheConfigAnnotation, Parameter[] parameters, Object[] parameterValues, String keyExpression, Class<? extends CacheKeyGenerator> keyGeneratorOnMethod) {
-        String key = Objects.isBlank(keyExpression) ? ReflectsUtil.newInstance(parseKeyGenerator(cacheConfigAnnotation, keyGeneratorOnMethod)).generate(parameters, parameterValues) : Expressions.withSpring().parse(parameters, parameterValues, keyExpression).toString();
-        Objects.requireNotBlank(() -> StringsUtil.format("cache system: could not generate key by keyExpression [{}] or keyGenerator [{}], please check!", keyExpression, keyGeneratorOnMethod.getSimpleName()), key);
+        String key;
+        if (Objects.isBlank(keyExpression)) {
+            key = ReflectsUtil.newInstance(parseKeyGenerator(cacheConfigAnnotation, keyGeneratorOnMethod)).generate(parameters, parameterValues);
+            Objects.requireNotBlank(() -> StringsUtil.format("cache system: could not generate cache key by keyGenerator [{}], please check!", keyGeneratorOnMethod.getSimpleName()), key);
+        } else {
+            key = Expressions.withSpring().parse(parameters, parameterValues, keyExpression, String.class);
+            Objects.requireNotBlank(() -> StringsUtil.format("cache system: could not generate cache key by keyExpression [{}], please check!", keyExpression), key);
+        }
         return key;
     }
 
