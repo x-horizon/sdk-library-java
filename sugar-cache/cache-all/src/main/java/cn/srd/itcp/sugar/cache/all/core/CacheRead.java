@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.cache.all.core;
 
+import cn.srd.itcp.sugar.cache.all.support.CacheDefaultKeyGenerator;
 import cn.srd.itcp.sugar.cache.all.support.CacheKeyGenerator;
 import cn.srd.itcp.sugar.cache.all.support.CacheType;
 
@@ -23,7 +24,7 @@ public @interface CacheRead {
 
     String key() default "";
 
-    Class<? extends CacheKeyGenerator> keyGenerator() default CacheKeyGenerator.DEFAULT_KEY_GENERATOR;
+    Class<? extends CacheKeyGenerator> keyGenerator() default CacheDefaultKeyGenerator.class;
 
     boolean enablePreventCachePenetrate() default false;
 
