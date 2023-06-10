@@ -174,7 +174,7 @@ public interface CapableCacheTemplate<K> extends CacheTemplate<K> {
     }
 
     /**
-     * delete all cache in specified namespace
+     * delete all cache in specified namespace, it is the same as {@link #deleteAll(String)}
      *
      * @param namespace the specified namespace, example: cache
      * @return affected number

@@ -13,7 +13,9 @@ public interface MapCacheTemplate<K> extends CacheTemplate<K> {
 
     /**
      * delete all cache
+     *
+     * @return affected number
      */
-    void deleteAll();
+    long deleteAll();
 
 }

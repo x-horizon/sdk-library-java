@@ -66,8 +66,15 @@ public class CaffeineCaches<K> implements CaffeineCacheTemplate<K> {
     }
 
     @Override
-    public void deleteAll() {
+    public long deleteAll(String namespace) {
+        return deleteAll();
+    }
+
+    @Override
+    public long deleteAll() {
         cache.invalidateAll();
+        // not implement affected number, ignore the return value
+        return -1;
     }
 
 }

@@ -105,6 +105,11 @@ public class RedissonListCaches implements RedissonCacheTemplate {
     }
 
     @Override
+    public long deleteAll(String namespace) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public long deleteByNamespace(String namespace) {
         throw new UnsupportedOperationException();
     }

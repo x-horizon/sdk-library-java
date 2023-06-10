@@ -352,4 +352,13 @@ public interface CacheTemplate<K> {
         return -1;
     }
 
+    /**
+     * delete all cache in specified namespace
+     *
+     * @param namespace the specified namespace
+     * @return affected number
+     */
+    @CanIgnoreReturnValue
+    long deleteAll(String namespace);
+
 }

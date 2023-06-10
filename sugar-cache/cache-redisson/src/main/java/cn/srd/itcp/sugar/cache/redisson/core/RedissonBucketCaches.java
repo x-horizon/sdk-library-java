@@ -131,6 +131,11 @@ public class RedissonBucketCaches implements RedissonCacheTemplate {
     }
 
     @Override
+    public long deleteAll(String namespace) {
+        return deleteByNamespace(namespace);
+    }
+
+    @Override
     public long deleteByNamespace(String namespace) {
         return deleteByPattern(namespace + NAMESPACE_KEY_WORD);
     }

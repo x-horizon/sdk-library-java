@@ -66,8 +66,14 @@ public class MapCaches<K> implements MapCacheTemplate<K> {
     }
 
     @Override
-    public void deleteAll() {
-        cache.clear();
+    public long deleteAll(String namespace) {
+        return deleteAll();
     }
 
+    @Override
+    public long deleteAll() {
+        cache.clear();
+        // not implement affected number, ignore the return value
+        return -1;
+    }
 }
