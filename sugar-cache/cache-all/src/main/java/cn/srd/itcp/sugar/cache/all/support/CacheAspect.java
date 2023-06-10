@@ -7,7 +7,6 @@ import cn.srd.itcp.sugar.framework.spring.tool.common.core.NullValueUtil;
 import cn.srd.itcp.sugar.tool.core.ArraysUtil;
 import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
-import lombok.SneakyThrows;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.cache.support.NullValue;
 
@@ -92,25 +91,41 @@ public interface CacheAspect extends AopCaptor {
     }
 
     default Cache getCache(CacheAspectContext context, String namespace) {
-        return CacheManager.getInstance().getCache(namespace, context.getCacheTypes(), context.isEnablePreventCachePenetrate());
+        return CacheManager.getInstance().getCache(namespace, context.getCacheTypes(), context.getEnablePreventCachePenetrate());
     }
 
-    @SneakyThrows
     default Object doRead(ProceedingJoinPoint joinPoint, CacheAspectContext context) {
         Object value = getCacheValue(context);
         if (Objects.isNull(value)) {
             value = doProceed(joinPoint);
+        }
+        if (Objects.isNotNull(value)) {
             setCacheValue(context.setValue(value));
         }
         return NullValueUtil.convertToNullIfNullValue(value);
     }
 
-    @SneakyThrows
+    default Object doRead(ProceedingJoinPoint joinPoint, List<CacheAspectContext> contexts) {
+        Object value = null;
+        for (CacheAspectContext context : contexts) {
+            value = getCacheValue(context);
+        }
+        if (Objects.isNull(value)) {
+            value = doProceed(joinPoint);
+        }
+        if (Objects.isNotNull(value)) {
+            for (CacheAspectContext context : contexts) {
+                setCacheValue(context.setValue(value));
+            }
+        }
+        return NullValueUtil.convertToNullIfNullValue(value);
+    }
+
     default Object doWrite(ProceedingJoinPoint joinPoint, CacheAspectContext context, Function<ProceedingJoinPoint, Object> proceedPointCutLogic) {
         initCache(context);
         Object value = proceedPointCutLogic.apply(joinPoint);
         if (Objects.isNull(value)) {
-            if (context.isEnablePreventCachePenetrate()) {
+            if (context.getEnablePreventCachePenetrate()) {
                 setCacheValue(context.setValue(NullValue.INSTANCE));
             } else {
                 deleteCacheValue(context);
@@ -121,11 +136,10 @@ public interface CacheAspect extends AopCaptor {
         return NullValueUtil.convertToNullIfNullValue(value);
     }
 
-    @SneakyThrows
     default Object doEvict(ProceedingJoinPoint joinPoint, CacheAspectContext context, Function<ProceedingJoinPoint, Object> proceedPointCutLogic) {
         initCache(context);
         Object value = proceedPointCutLogic.apply(joinPoint);
-        if (context.isEnablePreventCachePenetrate()) {
+        if (context.getEnablePreventCachePenetrate()) {
             setCacheValue(context.setValue(NullValue.INSTANCE));
         } else {
             deleteCacheValue(context);
