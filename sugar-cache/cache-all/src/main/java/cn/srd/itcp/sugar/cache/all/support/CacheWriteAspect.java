@@ -21,7 +21,7 @@ public class CacheWriteAspect implements CacheAspect {
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
         CacheWrite annotation = getAnnotationMarkedOnMethod(joinPoint, CacheWrite.class);
         CacheAspectContext context = buildContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.key(), annotation.enablePreventCachePenetrate());
-        return doWrite(joinPoint, context);
+        return doWrite(joinPoint, context, this::doProceed);
     }
 
 }

@@ -21,7 +21,7 @@ public class CacheEvictAspect implements CacheAspect {
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
         CacheEvict annotation = getAnnotationMarkedOnMethod(joinPoint, CacheEvict.class);
         CacheAspectContext context = buildContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.key(), annotation.enablePreventCachePenetrate());
-        return doEvict(joinPoint, context);
+        return doEvict(joinPoint, context, this::doProceed);
     }
 
 }

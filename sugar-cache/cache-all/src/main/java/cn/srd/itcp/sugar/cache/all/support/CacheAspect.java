@@ -12,6 +12,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.cache.support.NullValue;
 
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * @author wjm
@@ -96,7 +97,6 @@ public interface CacheAspect extends AopCaptor {
 
     @SneakyThrows
     default Object doRead(ProceedingJoinPoint joinPoint, CacheAspectContext context) {
-        initCache(context);
         Object value = getCacheValue(context);
         if (Objects.isNull(value)) {
             value = doProceed(joinPoint);
@@ -106,9 +106,9 @@ public interface CacheAspect extends AopCaptor {
     }
 
     @SneakyThrows
-    default Object doWrite(ProceedingJoinPoint joinPoint, CacheAspectContext context) {
+    default Object doWrite(ProceedingJoinPoint joinPoint, CacheAspectContext context, Function<ProceedingJoinPoint, Object> proceedPointCutLogic) {
         initCache(context);
-        Object value = doProceed(joinPoint);
+        Object value = proceedPointCutLogic.apply(joinPoint);
         if (Objects.isNull(value)) {
             if (context.isEnablePreventCachePenetrate()) {
                 setCacheValue(context.setValue(NullValue.INSTANCE));
@@ -122,9 +122,9 @@ public interface CacheAspect extends AopCaptor {
     }
 
     @SneakyThrows
-    default Object doEvict(ProceedingJoinPoint joinPoint, CacheAspectContext context) {
+    default Object doEvict(ProceedingJoinPoint joinPoint, CacheAspectContext context, Function<ProceedingJoinPoint, Object> proceedPointCutLogic) {
         initCache(context);
-        Object value = doProceed(joinPoint);
+        Object value = proceedPointCutLogic.apply(joinPoint);
         if (context.isEnablePreventCachePenetrate()) {
             setCacheValue(context.setValue(NullValue.INSTANCE));
         } else {
