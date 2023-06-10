@@ -1,5 +1,6 @@
-package cn.srd.itcp.sugar.cache.all;
+package cn.srd.itcp.sugar.cache.all.support;
 
+import cn.srd.itcp.sugar.tool.core.RandomsUtil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -19,5 +20,14 @@ public class BookPO implements Serializable {
     private Long id;
 
     private String name;
+
+    private String author;
+
+    public static BookPO build(Long id) {
+        return BookPO.builder()
+                .id(id)
+                .name("bookName" + RandomsUtil.randomNumber())
+                .build();
+    }
 
 }

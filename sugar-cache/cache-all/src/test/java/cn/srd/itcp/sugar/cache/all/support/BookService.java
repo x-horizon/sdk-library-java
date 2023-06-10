@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.cache.all;
+package cn.srd.itcp.sugar.cache.all.support;
 
 import cn.srd.itcp.sugar.tool.core.RandomsUtil;
 import org.springframework.cache.annotation.CacheConfig;
