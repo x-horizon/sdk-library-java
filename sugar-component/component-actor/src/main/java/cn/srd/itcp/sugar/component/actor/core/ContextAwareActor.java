@@ -48,7 +48,7 @@ public abstract class ContextAwareActor extends DefaultActor {
      */
     @Override
     public ProcessFailureStrategy onProcessFailure(Throwable throwable) {
-        log.error("[{}] process event exception: {}", getActorId(), throwable);
+        log.error("[{}] process event exception: ", getActorId(), throwable);
         return doProcessFailure(throwable);
     }
 
