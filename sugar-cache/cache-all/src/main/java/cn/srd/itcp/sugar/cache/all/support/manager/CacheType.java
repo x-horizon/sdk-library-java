@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.cache.all.support;
+package cn.srd.itcp.sugar.cache.all.support.manager;
 
 import cn.srd.itcp.sugar.cache.all.core.Caches;
 import cn.srd.itcp.sugar.cache.contract.core.CacheTemplate;

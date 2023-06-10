@@ -1,6 +1,6 @@
 // package cn.srd.itcp.sugar.cache.all.core;
 //
-// import cn.srd.itcp.sugar.cache.all.support.CacheType;
+// import cn.srd.itcp.sugar.cache.all.support.manager.CacheType;
 // import org.springframework.cache.annotation.CacheEvict;
 // import org.springframework.cache.annotation.CachePut;
 // import org.springframework.cache.annotation.Caching;

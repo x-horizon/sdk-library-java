@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.cache.all.support;
+package cn.srd.itcp.sugar.cache.all.support.aspect;
 
 import cn.srd.itcp.sugar.cache.all.core.CacheEvict;
 import cn.srd.itcp.sugar.cache.all.core.CacheWrite;

@@ -18,6 +18,10 @@ public class CacheAllTest {
     @Autowired private BookService bookService;
     @Autowired private BookService2 bookService2;
 
+    public void testCacheContextBuilding() {
+
+    }
+
     @SneakyThrows
     @Test
     public void testCache() {

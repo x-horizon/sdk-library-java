@@ -1,6 +1,10 @@
-package cn.srd.itcp.sugar.cache.all.support;
+package cn.srd.itcp.sugar.cache.all.support.aspect;
 
 import cn.srd.itcp.sugar.cache.all.core.CacheConfig;
+import cn.srd.itcp.sugar.cache.all.support.manager.Cache;
+import cn.srd.itcp.sugar.cache.all.support.manager.CacheManager;
+import cn.srd.itcp.sugar.cache.all.support.manager.CacheType;
+import cn.srd.itcp.sugar.cache.all.support.strategy.CacheKeyGenerator;
 import cn.srd.itcp.sugar.component.expression.all.core.Expressions;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.AopCaptor;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.NullValueUtil;

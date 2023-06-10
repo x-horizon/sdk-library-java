@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.cache.all.support;
+package cn.srd.itcp.sugar.cache.all.support.strategy;
 
 import java.lang.reflect.Parameter;
 

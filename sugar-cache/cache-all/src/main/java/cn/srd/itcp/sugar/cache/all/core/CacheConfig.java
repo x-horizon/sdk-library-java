@@ -1,8 +1,8 @@
 package cn.srd.itcp.sugar.cache.all.core;
 
-import cn.srd.itcp.sugar.cache.all.support.CacheDefaultKeyGenerator;
-import cn.srd.itcp.sugar.cache.all.support.CacheKeyGenerator;
-import cn.srd.itcp.sugar.cache.all.support.CacheType;
+import cn.srd.itcp.sugar.cache.all.support.manager.CacheType;
+import cn.srd.itcp.sugar.cache.all.support.strategy.CacheDefaultKeyGenerator;
+import cn.srd.itcp.sugar.cache.all.support.strategy.CacheKeyGenerator;
 
 import java.lang.annotation.*;
 

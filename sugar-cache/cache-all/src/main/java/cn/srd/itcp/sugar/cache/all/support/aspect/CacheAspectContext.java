@@ -1,6 +1,8 @@
-package cn.srd.itcp.sugar.cache.all.support;
+package cn.srd.itcp.sugar.cache.all.support.aspect;
 
 import cn.srd.itcp.sugar.cache.all.core.CacheConfig;
+import cn.srd.itcp.sugar.cache.all.support.manager.CacheType;
+import cn.srd.itcp.sugar.cache.all.support.strategy.CacheKeyGenerator;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;

@@ -2,7 +2,7 @@ package cn.srd.itcp.sugar.cache.all;
 
 import cn.srd.itcp.sugar.cache.all.core.CacheConfig;
 import cn.srd.itcp.sugar.cache.all.core.CacheRead;
-import cn.srd.itcp.sugar.cache.all.support.CacheType;
+import cn.srd.itcp.sugar.cache.all.support.manager.CacheType;
 import cn.srd.itcp.sugar.tool.core.RandomsUtil;
 import org.springframework.stereotype.Component;
 
