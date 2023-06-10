@@ -30,9 +30,9 @@ public class CacheAspectContext {
 
     private String key;
 
-    private boolean originalEnablePreventCachePenetrate;
-    
-    private boolean enablePreventCachePenetrate;
+    private Boolean originalEnablePreventCachePenetrate;
+
+    private Boolean enablePreventCachePenetrate;
 
     private Object value;
 
