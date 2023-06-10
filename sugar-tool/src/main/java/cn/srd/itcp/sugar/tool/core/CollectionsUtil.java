@@ -17,6 +17,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 /**
@@ -337,6 +338,19 @@ public class CollectionsUtil extends CollUtil {
      */
     public static <T, U> List<U> toList(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
         return from.stream().map(function).toList();
+    }
+
+    /**
+     * 转换集合中元素的某个字段，并将该字段构造为新的 List
+     *
+     * @param from     输入参数
+     * @param function 提取逻辑
+     * @param <T>      元素类型
+     * @param <U>      需要转换的属性数据类型
+     * @return 转换结果
+     */
+    public static <T, U> List<U> toList(@NonNull T[] from, @NonNull Function<T, U> function) {
+        return Stream.of(from).map(function).toList();
     }
 
     /**
