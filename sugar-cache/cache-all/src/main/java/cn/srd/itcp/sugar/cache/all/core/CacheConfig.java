@@ -44,7 +44,7 @@ public @interface CacheConfig {
     /**
      * <pre>
      * you can save multilevel cache by use this field, it will do cache in asc order, example:
-     *  if you set cacheType to {{@link CacheType.CacheModule#MAP}, {@link CacheType.CacheModule#REDIS}}:
+     *  if you set cacheType to {{@link CacheType#MAP}, {@link CacheType#REDIS}}:
      *    when use @{@link CacheRead}:
      *     first read from cache, the read order is: map -> redis -> method, once read, will not continue reading;
      *     then write cache if not miss from cache, the write order is: redis -> map;
@@ -58,7 +58,7 @@ public @interface CacheConfig {
      *
      * @return the cache type
      */
-    CacheType.CacheModule[] cacheTypes() default {};
+    CacheType[] cacheTypes() default {};
 
     /**
      * <pre>

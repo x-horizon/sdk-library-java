@@ -42,11 +42,11 @@ public class CacheManager {
      * get {@link Cache}
      *
      * @param namespace             the cache namespace, one namespace represents one {@link Cache} instance;
-     * @param cacheTypes            see {@link CacheType.CacheModule}
+     * @param cacheTypes            see {@link CacheType}
      * @param allowNullValueInCache allow or not to set a {@link NullValue} in cache
      * @return {@link Cache} instance
      */
-    public Cache getCache(String namespace, List<CacheType.CacheModule> cacheTypes, boolean allowNullValueInCache) {
+    public Cache getCache(String namespace, List<CacheType> cacheTypes, boolean allowNullValueInCache) {
         Cache cache = cacheMap.get(namespace);
         if (Objects.isNotNull(cache)) {
             return cache;

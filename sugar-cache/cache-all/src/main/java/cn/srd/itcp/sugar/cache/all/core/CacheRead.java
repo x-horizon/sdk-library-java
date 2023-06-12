@@ -32,7 +32,7 @@ public @interface CacheRead {
      *
      * @return the cache type
      */
-    CacheType.CacheModule[] cacheTypes() default {};
+    CacheType[] cacheTypes() default {};
 
     /**
      * <pre>

@@ -35,7 +35,7 @@ public class CacheDataManager {
      * build {@link CacheDataManager}
      * <pre>
      * for same cache type, it will use the cache type name and duplicate count and increase from 1,
-     * for example: the cache type is {@link CacheType.CacheModule#MAP}, {@link CacheType.CacheModule#CAFFEINE}, {@link CacheType.CacheModule#CAFFEINE}, {@link CacheType.CacheModule#MAP}, {@link CacheType.CacheModule#CAFFEINE}, {@link CacheType.CacheModule#MAP}, {@link CacheType.CacheModule#REDIS},
+     * for example: the cache type is {@link CacheType#MAP}, {@link CacheType#CAFFEINE}, {@link CacheType#CAFFEINE}, {@link CacheType#MAP}, {@link CacheType#CAFFEINE}, {@link CacheType#MAP}, {@link CacheType#REDIS},
      * it will generate following cache type names:
      * MAP1
      * CAFFEINE1
@@ -49,10 +49,10 @@ public class CacheDataManager {
      * @param cacheTypes see {@link CacheType}
      * @return {@link CacheDataManager} instance
      */
-    public static CacheDataManager build(List<CacheType.CacheModule> cacheTypes) {
+    public static CacheDataManager build(List<CacheType> cacheTypes) {
         CacheDataManager cacheDataManager = new CacheDataManager();
         Map<String, List<Integer>> duplicateCacheTypeMap = CollectionsUtil.toMap(
-                CollectionsUtil.groupBy(cacheTypes, CacheType.CacheModule::name).entrySet(),
+                CollectionsUtil.groupBy(cacheTypes, CacheType::name).entrySet(),
                 Map.Entry::getKey,
                 entry -> {
                     List<Integer> allocatedCounts = new ArrayList<>();
@@ -62,7 +62,7 @@ public class CacheDataManager {
                     return allocatedCounts;
                 }
         );
-        for (CacheType.CacheModule cacheType : cacheTypes) {
+        for (CacheType cacheType : cacheTypes) {
             List<Integer> allocatedCounts = duplicateCacheTypeMap.get(cacheType.name());
             String cacheTypeName = cacheType.name() + CollectionsUtil.getFirst(allocatedCounts);
             allocatedCounts.remove(0);

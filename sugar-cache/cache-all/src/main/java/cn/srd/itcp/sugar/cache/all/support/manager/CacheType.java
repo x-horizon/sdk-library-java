@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.cache.all.support.manager;
 
 import cn.srd.itcp.sugar.cache.all.core.Caches;
 import cn.srd.itcp.sugar.cache.contract.core.CacheTemplate;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Map;
@@ -14,63 +15,42 @@ import java.util.function.Supplier;
  * @since 2023-06-06 16:14:13
  */
 @Getter
+@AllArgsConstructor
 public enum CacheType {
 
     /**
-     * cache in local
+     * use cache by map
      */
-    LOCAL(CacheModule.MAP, CacheModule.CAFFEINE),
+    MAP(CacheMode.LOCAL),
 
     /**
-     * distributed cache
+     * use cache by caffeine
      */
-    DISTRIBUTED(CacheModule.REDIS),
+    CAFFEINE(CacheMode.LOCAL),
+
+    /**
+     * use cache by redis
+     */
+    REDIS(CacheMode.DISTRIBUTED),
 
     ;
 
-    /**
-     * the cache module
-     */
-    public enum CacheModule {
+    public enum CacheMode {
+        LOCAL,
+        DISTRIBUTED,
 
-        /**
-         * use cache by map
-         */
-        MAP,
-
-        /**
-         * use cache by caffeine
-         */
-        CAFFEINE,
-
-        /**
-         * use cache by redis
-         */
-        REDIS,
         ;
     }
 
-    /**
-     * the constructor
-     *
-     * @param modules see {@link CacheModule}
-     */
-    CacheType(CacheModule... modules) {
-        this.modules = modules;
-    }
-
-    /**
-     * the cache modules
-     */
-    private final CacheModule[] modules;
+    private final CacheMode mode;
 
     /**
      * the cache template init
      */
-    public static final Map<CacheType.CacheModule, Supplier<CacheTemplate<String>>> CACHE_TEMPLATE_SUPPLIER = Map.of(
-            CacheModule.MAP, Caches::withMap,
-            CacheModule.CAFFEINE, Caches::withCaffeine,
-            CacheModule.REDIS, () -> Caches.withRedisson().withBucket()
+    public static final Map<CacheType, Supplier<CacheTemplate<String>>> CACHE_TEMPLATE_SUPPLIER = Map.of(
+            MAP, Caches::withMap,
+            CAFFEINE, Caches::withCaffeine,
+            REDIS, () -> Caches.withRedisson().withBucket()
     );
 
 }

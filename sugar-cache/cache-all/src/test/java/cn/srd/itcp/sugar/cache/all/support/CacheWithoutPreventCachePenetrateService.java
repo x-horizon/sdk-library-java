@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@CacheConfig(namespaces = {"myCache5", "myCache6"}, cacheTypes = {CacheType.CacheModule.MAP, CacheType.CacheModule.CAFFEINE, CacheType.CacheModule.MAP, CacheType.CacheModule.MAP, CacheType.CacheModule.CAFFEINE, CacheType.CacheModule.MAP, CacheType.CacheModule.REDIS})
+@CacheConfig(namespaces = {"myCache5", "myCache6"}, cacheTypes = {CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS})
 @Component
 public class CacheWithoutPreventCachePenetrateService {
 
