@@ -82,7 +82,7 @@ public class CacheAspectContext {
     private Boolean needEvictBeforeProceed;
 
     /**
-     * need or not to evict all data in specify namespaces
+     * need or not to evict all data in specified namespaces
      */
     private Boolean needEvictAllInNamespaces;
 

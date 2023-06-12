@@ -35,7 +35,7 @@ public class CacheDataManager {
      * build {@link CacheDataManager}
      * <pre>
      * for same cache type, it will use the cache type name and duplicate count and increase from 1,
-     * for example: the cache type is {@link CacheType#MAP}, {@link CacheType#CAFFEINE}, {@link CacheType#CAFFEINE}, {@link CacheType#MAP}, {@link CacheType#CAFFEINE}, {@link CacheType#MAP}, {@link CacheType#REDIS},
+     * for example: the cache type is {@link CacheType.CacheModule#MAP}, {@link CacheType.CacheModule#CAFFEINE}, {@link CacheType.CacheModule#CAFFEINE}, {@link CacheType.CacheModule#MAP}, {@link CacheType.CacheModule#CAFFEINE}, {@link CacheType.CacheModule#MAP}, {@link CacheType.CacheModule#REDIS},
      * it will generate following cache type names:
      * MAP1
      * CAFFEINE1

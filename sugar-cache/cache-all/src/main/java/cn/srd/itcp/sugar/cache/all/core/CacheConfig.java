@@ -44,7 +44,7 @@ public @interface CacheConfig {
     /**
      * <pre>
      * you can save multilevel cache by use this field, it will do cache in asc order, example:
-     *  if you set cacheType to {CacheType.CacheModule.MAP, CacheType.CacheModule.REDIS}):
+     *  if you set cacheType to {{@link CacheType.CacheModule#MAP}, {@link CacheType.CacheModule#REDIS}}:
      *    when use @{@link CacheRead}:
      *     first read from cache, the read order is: map -> redis -> method, once read, will not continue reading;
      *     then write cache if not miss from cache, the write order is: redis -> map;
@@ -79,13 +79,13 @@ public @interface CacheConfig {
      * if set it true: it will set a {@link NullValue} to cache in the following case:
      * 1. when use {@link CacheWrite} method return null;
      * 2. when use {@link CacheEvict} to delete some cache;
-     * 3. if set {@link CacheEvict#needEvictAllInNamespaces()} to true, it will delete all cache in specify namespaces instead of set {@link NullValue};
+     * 3. if set {@link CacheEvict#needEvictAllInNamespaces()} to true, it will delete all cache in specified namespaces instead of set {@link NullValue};
      *
      * this field can prevent cache penetrate, when hit a null value, it can read from cache and never execute method;
      *
-     * <h1>the most important you need to focus:</h1>
-     * <h1>for the same namespace, only true or false can be set,</h1>
-     * <h1>once the namespace's {@link Cache} instance init, allow or not {@link NullValue} will be fixed and never change in the future,</h1>
+     * the most important you need to focus:
+     * for the same namespace, only true or false can be set,
+     * once the namespace's {@link Cache} instance init, allow or not {@link NullValue} will be fixed and never change in the future,
      *
      * it will take effect on all methods under the class which marked {@link CacheConfig}, please ensure set the same value for the same namespace;
      * </pre>

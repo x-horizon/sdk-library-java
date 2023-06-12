@@ -19,15 +19,30 @@ import java.util.List;
 import java.util.function.Function;
 
 /**
+ * the cache aspect common action
+ *
  * @author wjm
  * @since 2023-06-09 15:06:14
  */
 public interface CacheAspect extends AopCaptor {
 
+    /**
+     * get {@link CacheConfig}
+     *
+     * @param joinPoint pointcut
+     * @return see {@link CacheConfig}
+     */
     default CacheConfig getCacheConfigAnnotation(ProceedingJoinPoint joinPoint) {
         return getAnnotationMarkedOnClass(joinPoint, CacheConfig.class);
     }
 
+    /**
+     * select which namespaces to use
+     *
+     * @param cacheConfigAnnotation see {@link CacheConfig}
+     * @param namespacesOnMethod    the specified namespaces on method annotation
+     * @return namespaces to use
+     */
     default String[] parseNamespaces(CacheConfig cacheConfigAnnotation, String[] namespacesOnMethod) {
         if (Objects.isNotEmpty(namespacesOnMethod)) {
             return namespacesOnMethod;
@@ -36,6 +51,13 @@ public interface CacheAspect extends AopCaptor {
         return cacheConfigAnnotation.namespaces();
     }
 
+    /**
+     * select which cache types to use
+     *
+     * @param cacheConfigAnnotation see {@link CacheConfig}
+     * @param cacheTypesOnMethod    the specified cache types on method annotation
+     * @return cache types to use
+     */
     default List<CacheType.CacheModule> parseCacheTypes(CacheConfig cacheConfigAnnotation, CacheType.CacheModule[] cacheTypesOnMethod) {
         if (ArraysUtil.isNotEmpty(cacheTypesOnMethod)) {
             return CollectionsUtil.toList(cacheTypesOnMethod);
@@ -44,6 +66,17 @@ public interface CacheAspect extends AopCaptor {
         return CollectionsUtil.toList(cacheConfigAnnotation.cacheTypes());
     }
 
+    /**
+     * select which cache key to use
+     *
+     * @param cacheConfigAnnotation    see {@link CacheConfig}
+     * @param parameters               the pointcut method parameters
+     * @param parameterValues          the pointcut method parameter values
+     * @param keyExpression            the spring expression language (SpEL) expression
+     * @param keyGeneratorOnMethod     the specified cache key generator on method annotation
+     * @param needEvictAllInNamespaces need or not to evict all data in specified namespaces
+     * @return cache key to use
+     */
     default String parseKey(CacheConfig cacheConfigAnnotation, Parameter[] parameters, Object[] parameterValues, String keyExpression, Class<? extends CacheKeyGenerator> keyGeneratorOnMethod, Boolean needEvictAllInNamespaces) {
         if (Boolean.TRUE.equals(needEvictAllInNamespaces)) {
             return StringPool.EMPTY;
@@ -59,6 +92,13 @@ public interface CacheAspect extends AopCaptor {
         return key;
     }
 
+    /**
+     * select which key generator to use
+     *
+     * @param cacheConfigAnnotation see {@link CacheConfig}
+     * @param keyGeneratorOnMethod  the specified cache key generator on method annotation
+     * @return cache key generator to use
+     */
     default Class<? extends CacheKeyGenerator> parseKeyGenerator(CacheConfig cacheConfigAnnotation, Class<? extends CacheKeyGenerator> keyGeneratorOnMethod) {
         Class<? extends CacheKeyGenerator> finalCacheKeyGenerator;
         if (Objects.isNull(cacheConfigAnnotation)) {
@@ -69,6 +109,13 @@ public interface CacheAspect extends AopCaptor {
         return finalCacheKeyGenerator;
     }
 
+    /**
+     * select which allow or not to set a {@link NullValue} in cache to use
+     *
+     * @param cacheConfigAnnotation         see {@link CacheConfig}
+     * @param allowNullValueInCacheOnMethod the specified allow or not to set a {@link NullValue} in cache on method annotation
+     * @return allow or not to set a {@link NullValue} in cache to use
+     */
     default boolean parseAllowNullValueInCache(CacheConfig cacheConfigAnnotation, boolean allowNullValueInCacheOnMethod) {
         if (allowNullValueInCacheOnMethod) {
             return true;
@@ -79,6 +126,19 @@ public interface CacheAspect extends AopCaptor {
         return false;
     }
 
+    /**
+     * build {@link CacheAspectContext}
+     *
+     * @param joinPoint                     pointcut
+     * @param originalNamespaces            the original namespaces
+     * @param originalCacheTypes            the original cache type
+     * @param originalKey                   the original cache key
+     * @param keyGenerator                  the key generator
+     * @param originalAllowNullValueInCache the original allow or not to set {@link NullValue} to cache
+     * @param needEvictBeforeProceed        need or not evict before execute method
+     * @param needEvictAllInNamespaces      need or not to evict all data in specified namespaces
+     * @return {@link CacheAspectContext} instance
+     */
     default CacheAspectContext buildContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType.CacheModule[] originalCacheTypes, String originalKey, Class<? extends CacheKeyGenerator> keyGenerator, Boolean originalAllowNullValueInCache, Boolean needEvictBeforeProceed, Boolean needEvictAllInNamespaces) {
         CacheConfig cacheConfigAnnotation = getCacheConfigAnnotation(joinPoint);
         return CacheAspectContext.builder()
@@ -97,11 +157,21 @@ public interface CacheAspect extends AopCaptor {
                 .build();
     }
 
+    /**
+     * get cache value
+     *
+     * @param context see {@link CacheAspectContext}
+     * @return cache value
+     */
     default Object getCacheValue(CacheAspectContext context) {
         Object value = null;
         for (String namespace : context.getNamespaces()) {
             value = getCache(context, namespace).get(context.getKey());
-            // TODO wjm 懒写入：例如从第一个命名空间取到了数据，则第二个命名空间的数据可能是残缺的，从哪里拿到就同步哪个
+            // lazy write cache:
+            // there may be different data in different namespace,
+            // for example: get nonnull data from some namespace, the all cache in this namespace will sync, but other namespace cache may refresh,
+            // it is unnecessary to make all namespace sync cache data,
+            // just need namespace that hit a nonnull data and sync all cache in this namespace.
             if (Objects.isNotNull(value)) {
                 break;
             }
@@ -109,6 +179,11 @@ public interface CacheAspect extends AopCaptor {
         return value;
     }
 
+    /**
+     * set cache value
+     *
+     * @param context see {@link CacheAspectContext}
+     */
     default void setCacheValue(CacheAspectContext context) {
         if (Objects.isNull(context.getValue())) {
             deleteCacheValue(context);
@@ -117,10 +192,20 @@ public interface CacheAspect extends AopCaptor {
         }
     }
 
+    /**
+     * set {@link NullValue} to cache
+     *
+     * @param context see {@link CacheAspectContext}
+     */
     default void setCacheNullValue(CacheAspectContext context) {
         context.getNamespaces().forEach(namespace -> getCache(context, namespace).set(context.getKey(), NullValue.INSTANCE));
     }
 
+    /**
+     * delete cache value
+     *
+     * @param context see {@link CacheAspectContext}
+     */
     default void deleteCacheValue(CacheAspectContext context) {
         if (Boolean.TRUE.equals(context.getAllowNullValueInCache())) {
             setCacheNullValue(context);
@@ -129,21 +214,45 @@ public interface CacheAspect extends AopCaptor {
         }
     }
 
+    /**
+     * delete all cache
+     *
+     * @param context see {@link CacheAspectContext}
+     */
     default void deleteAllCacheValue(CacheAspectContext context) {
-        // TODO wjm 删除全部，不对 getAllowNullValueInCache 字段生效
+        // ignore allow or not to set {@link NullValue} to cache, delete all cache in all cases
         context.getNamespaces().forEach(namespace -> getCache(context, namespace).deleteAll(namespace));
     }
 
+    /**
+     * init {@link Cache}
+     *
+     * @param context see {@link CacheAspectContext}
+     */
     default void initCache(CacheAspectContext context) {
         for (String namespace : context.getNamespaces()) {
             getCache(context, namespace);
         }
     }
 
+    /**
+     * get {@link Cache}
+     *
+     * @param context   see {@link CacheAspectContext}
+     * @param namespace see {@link CacheConfig#namespaces()}
+     * @return {@link Cache} instance
+     */
     default Cache getCache(CacheAspectContext context, String namespace) {
         return CacheManager.getInstance().getCache(namespace, context.getCacheTypes(), context.getAllowNullValueInCache());
     }
 
+    /**
+     * read cache
+     *
+     * @param joinPoint pointcut
+     * @param context   see {@link CacheAspectContext}
+     * @return the cache value
+     */
     default Object doRead(ProceedingJoinPoint joinPoint, CacheAspectContext context) {
         Object value = getCacheValue(context);
         if (Objects.isNull(value)) {
@@ -155,6 +264,13 @@ public interface CacheAspect extends AopCaptor {
         return NullValueUtil.convertToNullIfNullValue(value);
     }
 
+    /**
+     * read cache
+     *
+     * @param joinPoint pointcut
+     * @param contexts  see {@link CacheAspectContext}
+     * @return the cache value
+     */
     default Object doRead(ProceedingJoinPoint joinPoint, List<CacheAspectContext> contexts) {
         Object value = null;
         for (CacheAspectContext context : contexts) {
@@ -174,6 +290,14 @@ public interface CacheAspect extends AopCaptor {
         return NullValueUtil.convertToNullIfNullValue(value);
     }
 
+    /**
+     * write cache
+     *
+     * @param joinPoint            pointcut
+     * @param context              see {@link CacheAspectContext}
+     * @param proceedPointCutLogic the proceed pointcut logic
+     * @return the cache value
+     */
     default Object doWrite(ProceedingJoinPoint joinPoint, CacheAspectContext context, Function<ProceedingJoinPoint, Object> proceedPointCutLogic) {
         initCache(context);
         Object value = proceedPointCutLogic.apply(joinPoint);
@@ -181,6 +305,14 @@ public interface CacheAspect extends AopCaptor {
         return NullValueUtil.convertToNullIfNullValue(value);
     }
 
+    /**
+     * evict cache
+     *
+     * @param joinPoint            pointcut
+     * @param context              see {@link CacheAspectContext}
+     * @param proceedPointCutLogic the proceed pointcut logic
+     * @return the cache value
+     */
     default Object doEvict(ProceedingJoinPoint joinPoint, CacheAspectContext context, Function<ProceedingJoinPoint, Object> proceedPointCutLogic) {
         Object value;
         if (Boolean.TRUE.equals(context.getNeedEvictBeforeProceed())) {

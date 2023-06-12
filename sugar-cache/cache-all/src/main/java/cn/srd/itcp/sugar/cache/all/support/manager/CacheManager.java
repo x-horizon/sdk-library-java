@@ -4,6 +4,7 @@ import cn.srd.itcp.sugar.tool.core.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.support.NullValue;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -40,9 +41,9 @@ public class CacheManager {
     /**
      * get {@link Cache}
      *
-     * @param namespace             see {@link Cache#getNamespace()}
-     * @param cacheTypes            all cache in {@link Cache#getNamespace()}
-     * @param allowNullValueInCache see {@link Cache#isAllowNullValueInCache()}
+     * @param namespace             the cache namespace, one namespace represents one {@link Cache} instance;
+     * @param cacheTypes            see {@link CacheType.CacheModule}
+     * @param allowNullValueInCache allow or not to set a {@link NullValue} in cache
      * @return {@link Cache} instance
      */
     public Cache getCache(String namespace, List<CacheType.CacheModule> cacheTypes, boolean allowNullValueInCache) {
