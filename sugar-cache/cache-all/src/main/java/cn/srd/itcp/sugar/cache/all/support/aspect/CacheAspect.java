@@ -36,7 +36,7 @@ public interface CacheAspect extends AopCaptor {
         return cacheConfigAnnotation.namespaces();
     }
 
-    default List<CacheType> parseCacheTypes(CacheConfig cacheConfigAnnotation, CacheType[] cacheTypesOnMethod) {
+    default List<CacheType.CacheModule> parseCacheTypes(CacheConfig cacheConfigAnnotation, CacheType.CacheModule[] cacheTypesOnMethod) {
         if (ArraysUtil.isNotEmpty(cacheTypesOnMethod)) {
             return CollectionsUtil.toList(cacheTypesOnMethod);
         }
@@ -79,7 +79,7 @@ public interface CacheAspect extends AopCaptor {
         return false;
     }
 
-    default CacheAspectContext buildContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, String originalKey, Class<? extends CacheKeyGenerator> keyGenerator, Boolean originalAllowNullValueInCache, Boolean needEvictBeforeProceed, Boolean needEvictAllInNamespaces) {
+    default CacheAspectContext buildContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType.CacheModule[] originalCacheTypes, String originalKey, Class<? extends CacheKeyGenerator> keyGenerator, Boolean originalAllowNullValueInCache, Boolean needEvictBeforeProceed, Boolean needEvictAllInNamespaces) {
         CacheConfig cacheConfigAnnotation = getCacheConfigAnnotation(joinPoint);
         return CacheAspectContext.builder()
                 .cacheConfigAnnotation(getCacheConfigAnnotation(joinPoint))

@@ -49,10 +49,10 @@ public class CacheDataManager {
      * @param cacheTypes see {@link CacheType}
      * @return {@link CacheDataManager} instance
      */
-    public static CacheDataManager build(List<CacheType> cacheTypes) {
+    public static CacheDataManager build(List<CacheType.CacheModule> cacheTypes) {
         CacheDataManager cacheDataManager = new CacheDataManager();
         Map<String, List<Integer>> duplicateCacheTypeMap = CollectionsUtil.toMap(
-                CollectionsUtil.groupBy(cacheTypes, CacheType::name).entrySet(),
+                CollectionsUtil.groupBy(cacheTypes, CacheType.CacheModule::name).entrySet(),
                 Map.Entry::getKey,
                 entry -> {
                     List<Integer> allocatedCounts = new ArrayList<>();
@@ -62,7 +62,7 @@ public class CacheDataManager {
                     return allocatedCounts;
                 }
         );
-        for (CacheType cacheType : cacheTypes) {
+        for (CacheType.CacheModule cacheType : cacheTypes) {
             List<Integer> allocatedCounts = duplicateCacheTypeMap.get(cacheType.name());
             String cacheTypeName = cacheType.name() + CollectionsUtil.getFirst(allocatedCounts);
             allocatedCounts.remove(0);

@@ -32,7 +32,7 @@ public @interface CacheWrite {
      *
      * @return the cache type
      */
-    CacheType[] cacheTypes() default {};
+    CacheType.CacheModule[] cacheTypes() default {};
 
     /**
      * see {@link CacheRead#key()}

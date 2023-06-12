@@ -45,7 +45,7 @@ public class CacheManager {
      * @param allowNullValueInCache see {@link Cache#isAllowNullValueInCache()}
      * @return {@link Cache} instance
      */
-    public Cache getCache(String namespace, List<CacheType> cacheTypes, boolean allowNullValueInCache) {
+    public Cache getCache(String namespace, List<CacheType.CacheModule> cacheTypes, boolean allowNullValueInCache) {
         Cache cache = cacheMap.get(namespace);
         if (Objects.isNotNull(cache)) {
             return cache;

@@ -39,12 +39,12 @@ public class CacheAspectContext {
     /**
      * the original cache type
      */
-    private List<CacheType> originalCacheTypes;
+    private List<CacheType.CacheModule> originalCacheTypes;
 
     /**
      * the cache type to be used
      */
-    private List<CacheType> cacheTypes;
+    private List<CacheType.CacheModule> cacheTypes;
 
     /**
      * the original cache key
