@@ -9,6 +9,7 @@ import cn.srd.itcp.sugar.component.expression.all.core.Expressions;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.AopCaptor;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.NullValueUtil;
 import cn.srd.itcp.sugar.tool.core.*;
+import io.vavr.control.Option;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.cache.support.NullValue;
 
@@ -48,7 +49,7 @@ public interface CacheAspect extends AopCaptor {
             key = ReflectsUtil.newInstance(parseKeyGenerator(cacheConfigAnnotation, keyGeneratorOnMethod)).generate(parameters, parameterValues);
             Objects.requireNotBlank(() -> StringsUtil.format("cache system: could not generate cache key by keyGenerator [{}], please check!", keyGeneratorOnMethod.getSimpleName()), key);
         } else {
-            key = Expressions.withSpring().parse(parameters, parameterValues, keyExpression, String.class);
+            key = Option.of(Expressions.withSpring().parse(parameters, parameterValues, keyExpression)).map(Object::toString).getOrNull();
             Objects.requireNotBlank(() -> StringsUtil.format("cache system: could not generate cache key by keyExpression [{}], please check!", keyExpression), key);
         }
         return key;

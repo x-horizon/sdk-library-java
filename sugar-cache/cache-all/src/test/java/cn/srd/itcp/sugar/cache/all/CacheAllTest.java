@@ -64,23 +64,23 @@ public class CacheAllTest {
         cacheContextWithCacheConfigBuildingService.getById3(BOOK_PO1);
         cacheContextWithCacheConfigBuildingService.getById4(BOOK_PO1);
         cacheContextWithCacheConfigBuildingService.getById5(BOOK_PO1);
-        cacheContextWithCacheConfigBuildingService.getById6(BOOK_PO1);
+        Throwable result14 = Assert.assertThrows(RuntimeException.class, () -> cacheContextWithCacheConfigBuildingService.getById6(BOOK_PO1));
         cacheContextWithCacheConfigBuildingService.getById7(BOOK_PO1);
         // cache write
         cacheContextWithCacheConfigBuildingService.getById8(BOOK_PO1);
-        Throwable result14 = Assert.assertThrows(RuntimeException.class, () -> cacheContextWithCacheConfigBuildingService.getById9(BOOK_PO1));
+        Throwable result15 = Assert.assertThrows(RuntimeException.class, () -> cacheContextWithCacheConfigBuildingService.getById9(BOOK_PO1));
         cacheContextWithCacheConfigBuildingService.getById10(BOOK_PO1);
         cacheContextWithCacheConfigBuildingService.getById11(BOOK_PO1);
         cacheContextWithCacheConfigBuildingService.getById12(BOOK_PO1);
-        cacheContextWithCacheConfigBuildingService.getById13(BOOK_PO1);
+        Throwable result16 = Assert.assertThrows(RuntimeException.class, () -> cacheContextWithCacheConfigBuildingService.getById13(BOOK_PO1));
         cacheContextWithCacheConfigBuildingService.getById14(BOOK_PO1);
         // cache evict
         cacheContextWithCacheConfigBuildingService.getById15(BOOK_PO1);
-        Throwable result15 = Assert.assertThrows(RuntimeException.class, () -> cacheContextWithCacheConfigBuildingService.getById16(BOOK_PO1));
+        Throwable result17 = Assert.assertThrows(RuntimeException.class, () -> cacheContextWithCacheConfigBuildingService.getById16(BOOK_PO1));
         cacheContextWithCacheConfigBuildingService.getById17(BOOK_PO1);
         cacheContextWithCacheConfigBuildingService.getById18(BOOK_PO1);
         cacheContextWithCacheConfigBuildingService.getById19(BOOK_PO1);
-        cacheContextWithCacheConfigBuildingService.getById20(BOOK_PO1);
+        Throwable result18 = Assert.assertThrows(RuntimeException.class, () -> cacheContextWithCacheConfigBuildingService.getById20(BOOK_PO1));
         cacheContextWithCacheConfigBuildingService.getById21(BOOK_PO1);
         cacheContextWithCacheConfigBuildingService.getById22(BOOK_PO1);
     }

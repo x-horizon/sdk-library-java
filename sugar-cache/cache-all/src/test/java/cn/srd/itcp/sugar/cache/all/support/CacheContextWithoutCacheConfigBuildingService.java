@@ -63,7 +63,7 @@ public class CacheContextWithoutCacheConfigBuildingService {
         return null;
     }
 
-    @CacheWrite(namespaces = {"myCache1"}, cacheTypes = CacheType.MAP)
+    @CacheWrite(namespaces = {"myCache1"}, cacheTypes = CacheType.MAP, keyGenerator = CacheTestKeyGenerator.class)
     public BookPO getById11(BookPO bookPO) {
         return null;
     }
@@ -105,7 +105,7 @@ public class CacheContextWithoutCacheConfigBuildingService {
         return null;
     }
 
-    @CacheEvict(namespaces = {"myCache1"}, cacheTypes = CacheType.MAP)
+    @CacheEvict(namespaces = {"myCache1"}, cacheTypes = CacheType.MAP, keyGenerator = CacheTestKeyGenerator.class)
     public BookPO getById19(BookPO bookPO) {
         return null;
     }

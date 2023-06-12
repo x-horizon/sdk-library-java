@@ -13,7 +13,7 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class CacheEvictAspect implements CacheAspect {
 
-    @Pointcut("@annotation(cn.srd.itcp.sugar.cache.all.core.CacheWrite)")
+    @Pointcut("@annotation(cn.srd.itcp.sugar.cache.all.core.CacheEvict)")
     public void pointcut() {
     }
 
