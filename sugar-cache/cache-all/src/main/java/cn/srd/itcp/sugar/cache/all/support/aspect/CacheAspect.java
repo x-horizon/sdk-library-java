@@ -69,17 +69,17 @@ public interface CacheAspect extends AopCaptor {
         return finalCacheKeyGenerator;
     }
 
-    default boolean parseEnablePreventCachePenetrate(CacheConfig cacheConfigAnnotation, boolean enablePreventCachePenetrateOnMethod) {
-        if (enablePreventCachePenetrateOnMethod) {
+    default boolean parseAllowNullValueInCache(CacheConfig cacheConfigAnnotation, boolean allowNullValueInCacheOnMethod) {
+        if (allowNullValueInCacheOnMethod) {
             return true;
         }
         if (Objects.isNotNull(cacheConfigAnnotation)) {
-            return cacheConfigAnnotation.enablePreventCachePenetrate();
+            return cacheConfigAnnotation.allowNullValueInCache();
         }
         return false;
     }
 
-    default CacheAspectContext buildContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, String originalKey, Class<? extends CacheKeyGenerator> keyGenerator, Boolean originalEnablePreventCachePenetrate, Boolean needEvictBeforeProceed, Boolean needEvictAllInNamespaces) {
+    default CacheAspectContext buildContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, String originalKey, Class<? extends CacheKeyGenerator> keyGenerator, Boolean originalAllowNullValueInCache, Boolean needEvictBeforeProceed, Boolean needEvictAllInNamespaces) {
         CacheConfig cacheConfigAnnotation = getCacheConfigAnnotation(joinPoint);
         return CacheAspectContext.builder()
                 .cacheConfigAnnotation(getCacheConfigAnnotation(joinPoint))
@@ -90,8 +90,8 @@ public interface CacheAspect extends AopCaptor {
                 .originalKey(originalKey)
                 .key(parseKey(cacheConfigAnnotation, getMethodParameters(joinPoint), joinPoint.getArgs(), originalKey, keyGenerator, needEvictAllInNamespaces))
                 .keyGenerator(keyGenerator)
-                .originalEnablePreventCachePenetrate(originalEnablePreventCachePenetrate)
-                .enablePreventCachePenetrate(parseEnablePreventCachePenetrate(cacheConfigAnnotation, originalEnablePreventCachePenetrate))
+                .originalAllowNullValueInCache(originalAllowNullValueInCache)
+                .allowNullValueInCache(parseAllowNullValueInCache(cacheConfigAnnotation, originalAllowNullValueInCache))
                 .needEvictBeforeProceed(needEvictBeforeProceed)
                 .needEvictAllInNamespaces(needEvictAllInNamespaces)
                 .build();
@@ -122,7 +122,7 @@ public interface CacheAspect extends AopCaptor {
     }
 
     default void deleteCacheValue(CacheAspectContext context) {
-        if (Boolean.TRUE.equals(context.getEnablePreventCachePenetrate())) {
+        if (Boolean.TRUE.equals(context.getAllowNullValueInCache())) {
             setCacheNullValue(context);
         } else {
             context.getNamespaces().forEach(namespace -> getCache(context, namespace).delete(context.getKey()));
@@ -130,7 +130,7 @@ public interface CacheAspect extends AopCaptor {
     }
 
     default void deleteAllCacheValue(CacheAspectContext context) {
-        // TODO wjm 删除全部，不对 getEnablePreventCachePenetrate 字段生效
+        // TODO wjm 删除全部，不对 getAllowNullValueInCache 字段生效
         context.getNamespaces().forEach(namespace -> getCache(context, namespace).deleteAll(namespace));
     }
 
@@ -141,7 +141,7 @@ public interface CacheAspect extends AopCaptor {
     }
 
     default Cache getCache(CacheAspectContext context, String namespace) {
-        return CacheManager.getInstance().getCache(namespace, context.getCacheTypes(), context.getEnablePreventCachePenetrate());
+        return CacheManager.getInstance().getCache(namespace, context.getCacheTypes(), context.getAllowNullValueInCache());
     }
 
     default Object doRead(ProceedingJoinPoint joinPoint, CacheAspectContext context) {

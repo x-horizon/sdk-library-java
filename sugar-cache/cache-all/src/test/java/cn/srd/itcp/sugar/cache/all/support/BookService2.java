@@ -6,7 +6,7 @@ import cn.srd.itcp.sugar.cache.all.support.manager.CacheType;
 import cn.srd.itcp.sugar.tool.core.RandomsUtil;
 import org.springframework.stereotype.Component;
 
-@CacheConfig(namespaces = {"myCache1", "myCache2"}, cacheTypes = {CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS}, enablePreventCachePenetrate = true)
+@CacheConfig(namespaces = {"myCache1", "myCache2"}, cacheTypes = {CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS}, allowNullValueInCache = true)
 @Component
 public class BookService2 {
 

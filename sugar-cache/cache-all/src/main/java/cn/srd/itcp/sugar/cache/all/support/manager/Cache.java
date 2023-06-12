@@ -9,10 +9,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.support.NullValue;
 
 import java.util.List;
 
 /**
+ * cache implement {@link CacheTemplate}, support multilevel cache operation
+ *
  * @author wjm
  * @since 2023-06-07 16:48:52
  */
@@ -23,15 +26,24 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Cache implements CacheTemplate<String> {
 
+    /**
+     * the cache namespace, one namespace represents one {@link Cache} instance;
+     */
     private String namespace;
 
+    /**
+     * the actual cache data manager
+     */
     private CacheDataManager dataManager;
 
-    private boolean enablePreventCachePenetrate;
+    /**
+     * allow or not to set a {@link NullValue} in cache
+     */
+    private boolean allowNullValueInCache;
 
     @Override
     public <V> void set(String key, V value) {
-        Object doValue = NullValueUtil.convertNullToNullValueIfNeed(value, enablePreventCachePenetrate);
+        Object doValue = NullValueUtil.convertNullToNullValueIfNeed(value, allowNullValueInCache);
         if (Objects.isNotNull(value)) {
             List<String> cacheTypeNames = dataManager.getCacheTypeNames();
             for (int index = cacheTypeNames.size() - 1; index >= 0; index--) {

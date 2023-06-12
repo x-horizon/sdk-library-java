@@ -7,20 +7,31 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
 /**
+ * Aspect for {@link CacheEvict}
+ *
  * @author wjm
  * @since 2023-06-09 15:06:14
  */
 @Aspect
 public class CacheEvictAspect implements CacheAspect {
 
+    /**
+     * the pointcut for {@link CacheEvict}
+     */
     @Pointcut("@annotation(cn.srd.itcp.sugar.cache.all.core.CacheEvict)")
     public void pointcut() {
     }
 
+    /**
+     * the around logic for pointcut
+     *
+     * @param joinPoint pointcut
+     * @return logic return
+     */
     @Around("pointcut()")
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
         CacheEvict annotation = getAnnotationMarkedOnMethod(joinPoint, CacheEvict.class);
-        CacheAspectContext context = buildContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.key(), annotation.keyGenerator(), annotation.enablePreventCachePenetrate(), annotation.needEvictBeforeProceed(), annotation.needEvictAllInNamespaces());
+        CacheAspectContext context = buildContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.key(), annotation.keyGenerator(), annotation.allowNullValueInCache(), annotation.needEvictBeforeProceed(), annotation.needEvictAllInNamespaces());
         return doEvict(joinPoint, context, this::doProceed);
     }
 

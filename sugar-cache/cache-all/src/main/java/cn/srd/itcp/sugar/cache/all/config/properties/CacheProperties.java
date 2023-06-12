@@ -8,6 +8,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 /**
+ * properties for cache
+ *
  * @author wjm
  * @since 2023-06-07 16:48:52
  */
@@ -38,6 +40,9 @@ public class CacheProperties {
         return instance;
     }
 
+    /**
+     * see {@link CaffeineCacheProperties}
+     */
     @NestedConfigurationProperty
     private CaffeineCacheProperties caffeine = new CaffeineCacheProperties();
 

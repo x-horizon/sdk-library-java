@@ -10,6 +10,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
+ * all cache can be used
+ *
  * @author wjm
  * @since 2023-06-07 16:48:52
  */
