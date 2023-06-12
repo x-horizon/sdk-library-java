@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.cache.caffeine.config.properties;
 
 import cn.srd.itcp.sugar.tool.constant.JavaObjectReferenceLevel;
 import cn.srd.itcp.sugar.tool.core.time.TimeUnitHandler;
+import com.github.benmanes.caffeine.cache.CaffeineSpec;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * Properties for Sugar Cache Caffeine
+ * TODO wjm optimize the prefix path like {@link CaffeineSpec#configure(String, String)}
  *
  * @author wjm
  * @since 2023-06-05 17:01:12
