@@ -1,6 +1,9 @@
 package cn.srd.itcp.sugar.cache.all.support.manager;
 
 import cn.srd.itcp.sugar.cache.all.core.Caches;
+import cn.srd.itcp.sugar.cache.all.support.strategy.CacheModeDistributedStrategy;
+import cn.srd.itcp.sugar.cache.all.support.strategy.CacheModeLocalStrategy;
+import cn.srd.itcp.sugar.cache.all.support.strategy.CacheModeStrategy;
 import cn.srd.itcp.sugar.cache.contract.core.CacheTemplate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,28 +24,24 @@ public enum CacheType {
     /**
      * use cache by map
      */
-    MAP(CacheMode.LOCAL),
+    MAP(CacheModeLocalStrategy.getInstance()),
 
     /**
      * use cache by caffeine
      */
-    CAFFEINE(CacheMode.LOCAL),
+    CAFFEINE(CacheModeLocalStrategy.getInstance()),
 
     /**
      * use cache by redis
      */
-    REDIS(CacheMode.DISTRIBUTED),
+    REDIS(CacheModeDistributedStrategy.getInstance()),
 
     ;
 
-    public enum CacheMode {
-        LOCAL,
-        DISTRIBUTED,
-
-        ;
-    }
-
-    private final CacheMode mode;
+    /**
+     * the cache mode strategy
+     */
+    private final CacheModeStrategy strategy;
 
     /**
      * the cache template init
