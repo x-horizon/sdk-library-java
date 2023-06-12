@@ -2,11 +2,9 @@ package cn.srd.itcp.sugar.cache.all.support.manager;
 
 import cn.srd.itcp.sugar.cache.contract.core.CacheTemplate;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.NullValueUtil;
+import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.support.NullValue;
@@ -22,24 +20,22 @@ import java.util.List;
 @Slf4j
 @Data
 @SuperBuilder(toBuilder = true)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Cache implements CacheTemplate<String> {
 
     /**
      * the cache namespace, one namespace represents one {@link Cache} instance;
      */
-    private String namespace;
+    private final String namespace;
 
     /**
      * the actual cache data manager
      */
-    private CacheDataManager dataManager;
+    private final CacheDataManager dataManager;
 
     /**
      * allow or not to set a {@link NullValue} in cache
      */
-    private boolean allowNullValueInCache;
+    private final boolean allowNullValueInCache;
 
     @Override
     public <V> void set(String key, V value) {
@@ -57,20 +53,30 @@ public class Cache implements CacheTemplate<String> {
     public Object get(String key) {
         Object value = null;
         List<String> cacheTypeNames = dataManager.getCacheTypeNames();
-        int findIndex = cacheTypeNames.size();
         int cacheTypeSize = cacheTypeNames.size();
-        for (int index = 0; index < cacheTypeSize; index++) {
-            CacheTemplate<String> cacheTemplate = dataManager.getTemplate(cacheTypeNames.get(index));
-            value = cacheTemplate.get(cacheTemplate.resolveKey(key, namespace));
-            if (Objects.isNotNull(value)) {
-                findIndex = index;
-                break;
-            }
+        if (cacheTypeSize == 1) {
+            CacheTemplate<String> cacheTemplate = dataManager.getTemplate(CollectionsUtil.getFirst(cacheTypeNames));
+            return cacheTemplate.get(cacheTemplate.resolveKey(key, namespace));
         }
-        if (Objects.isNotNull(value)) {
-            for (int index = findIndex - 1; index >= 0; index--) {
-                CacheTemplate<String> cacheTemplate = dataManager.getTemplate(cacheTypeNames.get(index));
-                cacheTemplate.set(cacheTemplate.resolveKey(key, namespace), value);
+
+        for (int getIndex = 0; getIndex < cacheTypeSize; getIndex++) {
+            if (getIndex == 0) {
+                CacheTemplate<String> cacheTemplate = dataManager.getTemplate(CollectionsUtil.getFirst(cacheTypeNames));
+                value = cacheTemplate.get(cacheTemplate.resolveKey(key, namespace));
+                if (Objects.isNotNull(value)) {
+                    return value;
+                }
+            }
+            synchronized (dataManager) {
+                CacheTemplate<String> cacheTemplate = dataManager.getTemplate(cacheTypeNames.get(getIndex));
+                value = cacheTemplate.get(cacheTemplate.resolveKey(key, namespace));
+                if (Objects.isNotNull(value)) {
+                    for (int setIndex = getIndex - 1; setIndex >= 0; setIndex--) {
+                        cacheTemplate = dataManager.getTemplate(cacheTypeNames.get(setIndex));
+                        cacheTemplate.set(cacheTemplate.resolveKey(key, namespace), value);
+                    }
+                    break;
+                }
             }
         }
         return value;
