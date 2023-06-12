@@ -55,8 +55,6 @@ public class Cache implements CacheTemplate<String> {
                 break;
             }
         }
-        value = NullValueUtil.convertToNullIfNullValue(value);
-        value = NullValueUtil.convertNullToNullValueIfNeed(value, enablePreventCachePenetrate);
         if (Objects.isNotNull(value)) {
             for (int index = findIndex - 1; index >= 0; index--) {
                 CacheTemplate<String> cacheTemplate = dataManager.getTemplate(cacheTypeNames.get(index));
