@@ -20,7 +20,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @since 2023-06-07 16:48:52
  */
 @AutoConfiguration
-@EnableConfigurationProperties({CaffeineCacheProperties.class, CacheProperties.class})
+@EnableConfigurationProperties({CacheProperties.class, CaffeineCacheProperties.class})
 public class CacheAllAutoConfiguration {
 
 }
