@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.cache.all.support.strategy;
 
+import cn.srd.itcp.sugar.cache.all.support.manager.CacheDataManager;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -26,6 +27,12 @@ public class CacheModeLocalStrategy implements CacheModeStrategy {
         return INSTANCE;
     }
 
+
+    @Override
+    public Object getAndSet(CacheDataManager dataManager, String key) {
+        return null;
+    }
+    
 }
 
 

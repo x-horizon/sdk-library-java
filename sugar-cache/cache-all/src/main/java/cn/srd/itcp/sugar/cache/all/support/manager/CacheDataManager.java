@@ -22,12 +22,17 @@ import java.util.Map;
 public class CacheDataManager {
 
     /**
-     * all cache types in a {@link Cache#getNamespace()}
+     * all cache type names in a {@link Cache#getNamespace()}
      */
     private final List<String> cacheTypeNames = new ArrayList<>();
 
     /**
-     * the cache type mapping {@link CacheTemplate} map
+     * the cache type name mapping {@link CacheType} map
+     */
+    private final Map<String, CacheType> cacheTypeMap = new HashMap<>();
+
+    /**
+     * the cache type name mapping {@link CacheTemplate} map
      */
     private final Map<String, CacheTemplate<String>> cacheTemplateMap = new HashMap<>();
 
@@ -68,6 +73,7 @@ public class CacheDataManager {
             allocatedCounts.remove(0);
             duplicateCacheTypeMap.put(cacheType.name(), allocatedCounts);
             cacheDataManager.cacheTypeNames.add(cacheTypeName);
+            cacheDataManager.cacheTypeMap.put(cacheTypeName, cacheType);
             cacheDataManager.cacheTemplateMap.put(cacheTypeName, CacheType.CACHE_TEMPLATE_SUPPLIER.get(cacheType).get());
         }
         return cacheDataManager;

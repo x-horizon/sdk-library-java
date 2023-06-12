@@ -51,24 +51,19 @@ public class Cache implements CacheTemplate<String> {
 
     @Override
     public Object get(String key) {
-        Object value = null;
         List<String> cacheTypeNames = dataManager.getCacheTypeNames();
-        int cacheTypeSize = cacheTypeNames.size();
-        if (cacheTypeSize == 1) {
-            CacheTemplate<String> cacheTemplate = dataManager.getTemplate(CollectionsUtil.getFirst(cacheTypeNames));
-            return cacheTemplate.get(cacheTemplate.resolveKey(key, namespace));
+        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(CollectionsUtil.getFirst(cacheTypeNames));
+        Object value = cacheTemplate.get(cacheTemplate.resolveKey(key, namespace));
+        int cacheTypeNameSize = cacheTypeNames.size();
+        if (cacheTypeNameSize == 1 || Objects.isNotNull(value)) {
+            return value;
         }
-
-        for (int getIndex = 0; getIndex < cacheTypeSize; getIndex++) {
-            if (getIndex == 0) {
-                CacheTemplate<String> cacheTemplate = dataManager.getTemplate(CollectionsUtil.getFirst(cacheTypeNames));
-                value = cacheTemplate.get(cacheTemplate.resolveKey(key, namespace));
-                if (Objects.isNotNull(value)) {
-                    return value;
-                }
-            }
-            synchronized (dataManager) {
-                CacheTemplate<String> cacheTemplate = dataManager.getTemplate(cacheTypeNames.get(getIndex));
+        synchronized (dataManager) {
+            for (int getIndex = 1; getIndex < cacheTypeNameSize; getIndex++) {
+                String cacheTypeName = cacheTypeNames.get(getIndex);
+                CacheType cacheType = dataManager.getCacheTypeMap().get(cacheTypeName);
+//                value = cacheType.getStrategy().getAndSet(dataManager, cacheTemplate.resolveKey(key, namespace));
+                cacheTemplate = dataManager.getTemplate(cacheTypeName);
                 value = cacheTemplate.get(cacheTemplate.resolveKey(key, namespace));
                 if (Objects.isNotNull(value)) {
                     for (int setIndex = getIndex - 1; setIndex >= 0; setIndex--) {
