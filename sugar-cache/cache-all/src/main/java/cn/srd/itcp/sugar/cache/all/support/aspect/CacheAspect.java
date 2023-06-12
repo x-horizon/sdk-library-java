@@ -159,6 +159,9 @@ public interface CacheAspect extends AopCaptor {
         Object value = null;
         for (CacheAspectContext context : contexts) {
             value = getCacheValue(context);
+            if (Objects.isNotNull(value)) {
+                break;
+            }
         }
         if (Objects.isNull(value)) {
             value = doProceed(joinPoint);
