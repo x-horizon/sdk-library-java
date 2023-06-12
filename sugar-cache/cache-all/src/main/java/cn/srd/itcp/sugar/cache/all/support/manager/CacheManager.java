@@ -52,7 +52,7 @@ public class CacheManager {
             return cache;
         }
 
-        log.debug("cache system: create multilevel cache instance, the namespace is: [{}]", namespace);
+        log.debug("cache system: create cache instance, the namespace is: [{}]", namespace);
 
         cache = Cache.builder()
                 .namespace(namespace)
@@ -60,8 +60,8 @@ public class CacheManager {
                 .allowNullValueInCache(allowNullValueInCache)
                 .build();
 
+        // keep thread safe: other thread may create a cache instance and put in map earlier, so use putIfAbsent to avoid this situation.
         Cache oldCache = cacheMap.putIfAbsent(namespace, cache);
-
         return Objects.isNull(oldCache) ? cache : oldCache;
     }
 
