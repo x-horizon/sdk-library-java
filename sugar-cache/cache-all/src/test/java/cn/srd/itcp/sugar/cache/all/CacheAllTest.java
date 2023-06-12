@@ -102,27 +102,31 @@ public class CacheAllTest {
         BookPO result16 = cacheWithoutPreventCachePenetrateService.deleteBeforeProceedById(1L);
         BookPO result17 = cacheWithoutPreventCachePenetrateService.deleteBeforeProceedAll(1L);
         BookPO result18 = cacheWithoutPreventCachePenetrateService.deleteBeforeProceedAll(1L);
+        BookPO result19 = cacheWithoutPreventCachePenetrateService.multi(BookPO.build(200L));
+        BookPO result20 = cacheWithoutPreventCachePenetrateService.multi(BookPO.build(200L));
 
-        BookPO result19 = cacheWithPreventCachePenetrateService.getById(1L);
-        BookPO result20 = cacheWithPreventCachePenetrateService.getById(1L);
+        BookPO result22 = cacheWithPreventCachePenetrateService.getById(1L);
+        BookPO result23 = cacheWithPreventCachePenetrateService.getById(1L);
+        BookPO result24 = cacheWithPreventCachePenetrateService.saveNull(BookPO.build(103L));
         BookPO result25 = cacheWithPreventCachePenetrateService.saveNull(BookPO.build(103L));
-        BookPO result26 = cacheWithPreventCachePenetrateService.saveNull(BookPO.build(103L));
+        BookPO result26 = cacheWithPreventCachePenetrateService.getById(103L);
         BookPO result27 = cacheWithPreventCachePenetrateService.getById(103L);
-        BookPO result28 = cacheWithPreventCachePenetrateService.getById(103L);
+        BookPO result28 = cacheWithPreventCachePenetrateService.getNull(8L);
         BookPO result29 = cacheWithPreventCachePenetrateService.getNull(8L);
-        BookPO result30 = cacheWithPreventCachePenetrateService.getNull(8L);
-        BookPO result31 = cacheWithPreventCachePenetrateService.save(BookPO.build(102L));
-        BookPO result32 = cacheWithPreventCachePenetrateService.save(BookPO.build(103L));
+        BookPO result30 = cacheWithPreventCachePenetrateService.save(BookPO.build(102L));
+        BookPO result31 = cacheWithPreventCachePenetrateService.save(BookPO.build(103L));
+        BookPO result32 = cacheWithPreventCachePenetrateService.deleteById(1L);
         BookPO result33 = cacheWithPreventCachePenetrateService.deleteById(1L);
-        BookPO result34 = cacheWithPreventCachePenetrateService.deleteById(1L);
+        BookPO result34 = cacheWithPreventCachePenetrateService.deleteAll1(1L);
         BookPO result35 = cacheWithPreventCachePenetrateService.deleteAll1(1L);
-        BookPO result36 = cacheWithPreventCachePenetrateService.deleteAll1(1L);
+        BookPO result36 = cacheWithPreventCachePenetrateService.deleteAll2(1L);
         BookPO result37 = cacheWithPreventCachePenetrateService.deleteAll2(1L);
-        BookPO result38 = cacheWithPreventCachePenetrateService.deleteAll2(1L);
+        BookPO result38 = cacheWithPreventCachePenetrateService.deleteBeforeProceedById(1L);
         BookPO result39 = cacheWithPreventCachePenetrateService.deleteBeforeProceedById(1L);
-        BookPO result40 = cacheWithPreventCachePenetrateService.deleteBeforeProceedById(1L);
+        BookPO result40 = cacheWithPreventCachePenetrateService.deleteBeforeProceedAll(1L);
         BookPO result41 = cacheWithPreventCachePenetrateService.deleteBeforeProceedAll(1L);
-        BookPO result42 = cacheWithPreventCachePenetrateService.deleteBeforeProceedAll(1L);
+        BookPO result42 = cacheWithPreventCachePenetrateService.multi(BookPO.build(200L));
+        BookPO result43 = cacheWithPreventCachePenetrateService.multi(BookPO.build(200L));
     }
 
 }

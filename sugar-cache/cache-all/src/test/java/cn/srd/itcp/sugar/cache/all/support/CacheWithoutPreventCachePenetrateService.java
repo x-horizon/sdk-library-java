@@ -1,9 +1,6 @@
 package cn.srd.itcp.sugar.cache.all.support;
 
-import cn.srd.itcp.sugar.cache.all.core.CacheConfig;
-import cn.srd.itcp.sugar.cache.all.core.CacheEvict;
-import cn.srd.itcp.sugar.cache.all.core.CacheRead;
-import cn.srd.itcp.sugar.cache.all.core.CacheWrite;
+import cn.srd.itcp.sugar.cache.all.core.*;
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheType;
 import org.springframework.stereotype.Component;
 
@@ -67,6 +64,27 @@ public class CacheWithoutPreventCachePenetrateService {
     @CacheEvict(key = "#id", needEvictBeforeProceed = true, needEvictAllInNamespaces = true)
     public BookPO deleteBeforeProceedAll(Long id) {
         return BOOK_CACHE.remove(id);
+    }
+
+    @Caching(
+            read = {
+                    @CacheRead(namespaces = "myCache10", key = "#bookPO.id"),
+                    @CacheRead(namespaces = "myCache11", key = "#bookPO.id")
+            },
+            write = {
+                    @CacheWrite(namespaces = {"myCache12"}, key = "#bookPO.id"),
+                    @CacheWrite(namespaces = {"myCache12", "myCache13"}, key = "#bookPO.name")
+            },
+            evict = {
+                    @CacheEvict(namespaces = {"myCache12"}, key = "#bookPO.id"),
+                    @CacheEvict(namespaces = {"myCache13"}, needEvictAllInNamespaces = true),
+                    @CacheEvict(namespaces = {"myCache12"}, needEvictAllInNamespaces = true),
+                    @CacheEvict(namespaces = {"myCache10"}, needEvictAllInNamespaces = true),
+                    @CacheEvict(namespaces = {"myCache11"}, needEvictAllInNamespaces = true)
+            }
+    )
+    public BookPO multi(BookPO bookPO) {
+        return bookPO;
     }
 
 }
