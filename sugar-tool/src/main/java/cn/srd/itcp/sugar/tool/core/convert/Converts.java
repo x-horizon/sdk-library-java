@@ -2,6 +2,8 @@ package cn.srd.itcp.sugar.tool.core.convert;
 
 import cn.hutool.core.convert.Convert;
 import cn.srd.itcp.sugar.tool.core.Objects;
+import io.vavr.Function3;
+import io.vavr.Function4;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -83,6 +85,55 @@ public class Converts extends Convert {
      */
     public static <T, R> BiFunction<T, Void, R> toBiFunction(T param, Function<T, R> from) {
         return (t, r) -> from.apply(param);
+    }
+
+    /**
+     * {@link Function} =&gt; {@link Function3}
+     *
+     * @param param 参数
+     * @param from  转换源
+     * @param <T1>  转换源形参类型1
+     * @param <T2>  转换源形参类型2
+     * @param <T3>  转换源形参类型3
+     * @param <R>   转换源出参类型
+     * @return 结果集
+     */
+    public static <T1, T2, T3, R> Function3<T1, T2, T3, R> toFunction3(T1 param, Function<T1, R> from) {
+        return (t1, t2, t3) -> from.apply(param);
+    }
+
+    /**
+     * {@link Function} =&gt; {@link Function4}
+     *
+     * @param param 参数
+     * @param from  转换源
+     * @param <T1>  转换源形参类型1
+     * @param <T2>  转换源形参类型2
+     * @param <T3>  转换源形参类型3
+     * @param <T4>  转换源形参类型4
+     * @param <R>   转换源出参类型
+     * @return 结果集
+     */
+    public static <T1, T2, T3, T4, R> Function4<T1, T2, T3, T4, R> toFunction4(T1 param, Function<T1, R> from) {
+        return (t1, t2, t3, t4) -> from.apply(param);
+    }
+
+    /**
+     * {@link Function3} =&gt; {@link Function4}
+     *
+     * @param param1 参数1
+     * @param param2 参数2
+     * @param param3 参数3
+     * @param from   转换源
+     * @param <T1>   转换源形参类型1
+     * @param <T2>   转换源形参类型2
+     * @param <T3>   转换源形参类型3
+     * @param <T4>   转换源形参类型4
+     * @param <R>    转换源出参类型
+     * @return 结果集
+     */
+    public static <T1, T2, T3, T4, R> Function4<T1, T2, T3, T4, R> toFunction4(T1 param1, T2 param2, T3 param3, Function3<T1, T2, T3, R> from) {
+        return (t1, t2, t3, t4) -> from.apply(param1, param2, param3);
     }
 
 }

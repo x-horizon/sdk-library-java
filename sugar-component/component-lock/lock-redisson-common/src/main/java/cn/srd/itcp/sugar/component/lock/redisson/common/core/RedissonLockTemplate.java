@@ -5,6 +5,8 @@ import cn.srd.itcp.sugar.component.lock.redisson.common.support.RedissonLockAspe
 import cn.srd.itcp.sugar.component.lock.redisson.common.support.RedissonNonFairLockAspect;
 import cn.srd.itcp.sugar.tool.core.convert.Converts;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
+import io.vavr.Function3;
+import io.vavr.Function4;
 import io.vavr.control.Try;
 import lombok.NonNull;
 import org.redisson.api.RLock;
@@ -392,17 +394,60 @@ public interface RedissonLockTemplate {
      * @return 临界区响应值
      */
     default <T, R> R tryLock(@Nullable T param, @NonNull Function<T, R> function, @NonNull String lockName, long waitTime, long leaseTime, @NonNull TimeUnit timeUnit) {
-        RLock rLock = getRLock(lockName);
+        return tryLock(param, null, null, Converts.toFunction3(param, function), lockName, waitTime, leaseTime, timeUnit);
+    }
 
+    /**
+     * 对临界区完成添加和释放分布式锁的操作
+     *
+     * @param param1    临界区用到的参数1
+     * @param param2    临界区用到的参数2
+     * @param param3    临界区用到的参数3
+     * @param function  临界区
+     * @param lockName  参考 {@link RedissonFairLock#lockName()}
+     * @param waitTime  参考 {@link RedissonFairLock#waitTime()}
+     * @param leaseTime 参考 {@link RedissonFairLock#leaseTime()}
+     * @param timeUnit  参考 {@link RedissonFairLock#timeUnit()}
+     * @param <T1>      临界区类型
+     * @param <T2>      临界区类型
+     * @param <T3>      临界区类型
+     * @param <R>       临界区类型
+     * @return 临界区响应值
+     */
+    default <T1, T2, T3, R> R tryLock(@Nullable T1 param1, @Nullable T2 param2, @Nullable T3 param3, @NonNull Function3<T1, T2, T3, R> function, @NonNull String lockName, long waitTime, long leaseTime, @NonNull TimeUnit timeUnit) {
+        return tryLock(param1, param2, param3, null, Converts.toFunction4(param1, param2, param3, function), lockName, waitTime, leaseTime, timeUnit);
+    }
+
+    /**
+     * 对临界区完成添加和释放分布式锁的操作
+     *
+     * @param param1    临界区用到的参数1
+     * @param param2    临界区用到的参数2
+     * @param param3    临界区用到的参数3
+     * @param param4    临界区用到的参数4
+     * @param function  临界区
+     * @param lockName  参考 {@link RedissonFairLock#lockName()}
+     * @param waitTime  参考 {@link RedissonFairLock#waitTime()}
+     * @param leaseTime 参考 {@link RedissonFairLock#leaseTime()}
+     * @param timeUnit  参考 {@link RedissonFairLock#timeUnit()}
+     * @param <T1>      临界区类型
+     * @param <T2>      临界区类型
+     * @param <T3>      临界区类型
+     * @param <T4>      临界区类型
+     * @param <R>       临界区类型
+     * @return 临界区响应值
+     */
+    default <T1, T2, T3, T4, R> R tryLock(@Nullable T1 param1, @Nullable T2 param2, @Nullable T3 param3, @Nullable T4 param4, @NonNull Function4<T1, T2, T3, T4, R> function, @NonNull String lockName, long waitTime, long leaseTime, @NonNull TimeUnit timeUnit) {
+        RLock rLock = getRLock(lockName);
         return Try.of(() -> {
                     R result = null;
                     if (waitTime > DEFAULT_WAIT_TIME) {
                         if (rLock.tryLock(waitTime, leaseTime, timeUnit)) {
-                            result = function.apply(param);
+                            result = function.apply(param1, param2, param3, param4);
                         }
                     } else {
                         rLock.lock(leaseTime, timeUnit);
-                        result = function.apply(param);
+                        result = function.apply(param1, param2, param3, param4);
                     }
                     return result;
                 })
