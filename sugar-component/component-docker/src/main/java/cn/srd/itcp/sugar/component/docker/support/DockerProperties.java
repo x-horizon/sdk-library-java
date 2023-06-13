@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * Properties For Redisson
+ * Properties For Redis
  *
  * @author wjm
  * @since 2020/12/12 18:06

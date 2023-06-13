@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.cache.caffeine;
 
-import cn.srd.itcp.sugar.cache.caffeine.core.CacheCaffeines;
+import cn.srd.itcp.sugar.cache.caffeine.core.CaffeineCache;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,7 +28,7 @@ public class CacheCaffeineTest {
 
     @Test
     public void testCache() {
-        CacheCaffeines<String> cache = CacheCaffeines.newInstance();
+        CaffeineCache<String> cache = CaffeineCache.newInstance();
 
         // =================== no handle NullValue ===================
 

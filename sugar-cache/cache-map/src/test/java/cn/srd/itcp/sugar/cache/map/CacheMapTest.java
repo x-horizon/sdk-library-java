@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.cache.map;
 
-import cn.srd.itcp.sugar.cache.map.core.CacheMaps;
+import cn.srd.itcp.sugar.cache.map.core.MapCache;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,7 +28,7 @@ public class CacheMapTest {
 
     @Test
     public void testCache() {
-        CacheMaps<String> cache = CacheMaps.newInstance();
+        MapCache<String> cache = MapCache.newInstance();
 
         // =================== no handle NullValue ===================
 

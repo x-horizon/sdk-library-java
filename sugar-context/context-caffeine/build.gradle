@@ -1,4 +1,4 @@
-def projectName = 'itcp-sugar-context-redisson'
+def projectName = 'itcp-sugar-context-redis'
 
 def projectNexusUrl
 

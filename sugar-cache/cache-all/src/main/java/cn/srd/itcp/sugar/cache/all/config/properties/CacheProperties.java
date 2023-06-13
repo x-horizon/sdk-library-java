@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.cache.all.config.properties;
 
-import cn.srd.itcp.sugar.context.caffeine.config.properties.CacheCaffeineProperties;
-import cn.srd.itcp.sugar.context.redisson.config.properties.CacheRedissonProperties;
+import cn.srd.itcp.sugar.context.caffeine.config.properties.CaffeineCacheProperties;
+import cn.srd.itcp.sugar.context.redis.config.properties.RedisCacheProperties;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
@@ -28,14 +28,14 @@ public class CacheProperties {
     /**
      * instance init
      */
-    @DependsOn({"cacheCaffeineProperties", "cacheRedissonProperties", "cacheMultilevelProperties"})
+    @DependsOn({"caffeineCacheProperties", "redisCacheProperties", "multilevelCacheProperties"})
     @PostConstruct
     public void init() {
         // do not use @NestedConfigurationProperty to inject,
         // because it will cause internally calculated fields being null.
-        setCaffeine(SpringsUtil.getBean(CacheCaffeineProperties.class));
-        setRedisson(SpringsUtil.getBean(CacheRedissonProperties.class));
-        setMultilevel(SpringsUtil.getBean(CacheMultilevelProperties.class));
+        setCaffeine(SpringsUtil.getBean(CaffeineCacheProperties.class));
+        setRedis(SpringsUtil.getBean(RedisCacheProperties.class));
+        setMultilevel(SpringsUtil.getBean(MultilevelCacheProperties.class));
         instance = this;
     }
 
@@ -49,18 +49,18 @@ public class CacheProperties {
     }
 
     /**
-     * see {@link CacheCaffeineProperties}
+     * see {@link CaffeineCacheProperties}
      */
-    private CacheCaffeineProperties caffeine = new CacheCaffeineProperties();
+    private CaffeineCacheProperties caffeine = new CaffeineCacheProperties();
 
     /**
-     * see {@link CacheRedissonProperties}
+     * see {@link RedisCacheProperties}
      */
-    private CacheRedissonProperties redisson = new CacheRedissonProperties();
+    private RedisCacheProperties redis = new RedisCacheProperties();
 
     /**
-     * see {@link CacheMultilevelProperties}
+     * see {@link MultilevelCacheProperties}
      */
-    private CacheMultilevelProperties multilevel = new CacheMultilevelProperties();
+    private MultilevelCacheProperties multilevel = new MultilevelCacheProperties();
 
 }

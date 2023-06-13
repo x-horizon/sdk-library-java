@@ -3,7 +3,7 @@ package cn.srd.itcp.sugar.cache.all.support.strategy;
 import cn.srd.itcp.sugar.cache.all.config.properties.CacheProperties;
 import cn.srd.itcp.sugar.cache.all.core.Caches;
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheDataManager;
-import cn.srd.itcp.sugar.component.lock.redisson.common.core.RedissonNonFairLockHandler;
+import cn.srd.itcp.sugar.component.lock.redis.common.core.RedisNonFairLockHandler;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -39,10 +39,10 @@ public class CacheModeDistributedStrategy implements CacheModeStrategy {
 
     @Override
     public Object get(CacheDataManager dataManager, String namespace, String key, int findCacheTypeNameIndex) {
-        return RedissonNonFairLockHandler.getInstance().tryLock(
+        return RedisNonFairLockHandler.getInstance().tryLock(
                 dataManager, namespace, key, findCacheTypeNameIndex,
                 (t1, t2, t3, t4) -> CacheModeLocalStrategy.getInstance().get(dataManager, namespace, key, findCacheTypeNameIndex),
-                LOCK_NAME_PREFIX + Caches.withRedisson().withBucket().resolveKey(key, namespace),
+                LOCK_NAME_PREFIX + Caches.withRedis().withBucket().resolveKey(key, namespace),
                 CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheWaitTime(),
                 CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheLeaseTime(),
                 TimeUnit.MILLISECONDS

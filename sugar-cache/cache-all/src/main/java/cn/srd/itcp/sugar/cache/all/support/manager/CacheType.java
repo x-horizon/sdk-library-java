@@ -49,7 +49,7 @@ public enum CacheType {
     public static final Map<CacheType, Supplier<CacheTemplate<String>>> CACHE_TEMPLATE_SUPPLIER = Map.of(
             MAP, Caches::withMap,
             CAFFEINE, Caches::withCaffeine,
-            REDIS, () -> Caches.withRedisson().withBucket()
+            REDIS, () -> Caches.withRedis().withBucket()
     );
 
 }
