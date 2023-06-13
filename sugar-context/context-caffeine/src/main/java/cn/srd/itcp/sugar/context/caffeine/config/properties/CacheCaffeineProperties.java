@@ -1,4 +1,4 @@
-package cn.srd.itcp.sugar.cache.caffeine.config.properties;
+package cn.srd.itcp.sugar.context.caffeine.config.properties;
 
 import cn.srd.itcp.sugar.tool.constant.JavaObjectReferenceLevel;
 import cn.srd.itcp.sugar.tool.core.time.TimeUnitHandler;
@@ -18,12 +18,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "sugar.cache.caffeine")
-public class CaffeineCacheProperties {
+public class CacheCaffeineProperties {
 
     /**
      * instance
      */
-    private static CaffeineCacheProperties instance = null;
+    private static CacheCaffeineProperties instance = null;
 
     /**
      * instance init
@@ -38,7 +38,7 @@ public class CaffeineCacheProperties {
      *
      * @return instance
      */
-    public static CaffeineCacheProperties getInstance() {
+    public static CacheCaffeineProperties getInstance() {
         return instance;
     }
 

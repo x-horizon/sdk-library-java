@@ -11,18 +11,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Redisson 缓存操作（Set）
+ * Redisson 缓存操作（List）
  *
  * @author wjm
  * @since 2023-01-12 10:37:12
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RedissonSetCaches implements RedissonCacheTemplate {
+public class CacheRedissonList implements CacheRedissonTemplate {
 
     /**
      * singleton pattern
      */
-    public static final RedissonSetCaches INSTANCE = new RedissonSetCaches();
+    protected static final CacheRedissonList INSTANCE = new CacheRedissonList();
 
     @Override
     public <V> void set(String key, V value, Duration expiration) {

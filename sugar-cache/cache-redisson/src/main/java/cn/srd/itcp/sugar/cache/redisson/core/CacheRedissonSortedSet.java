@@ -17,12 +17,12 @@ import java.util.Map;
  * @since 2023-01-12 10:37:12
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RedissonSortedSetCaches implements RedissonCacheTemplate {
+public class CacheRedissonSortedSet implements CacheRedissonTemplate {
 
     /**
      * singleton pattern
      */
-    public static final RedissonSortedSetCaches INSTANCE = new RedissonSortedSetCaches();
+    public static final CacheRedissonSortedSet INSTANCE = new CacheRedissonSortedSet();
 
     @Override
     public <V> void set(String key, V value, Duration expiration) {

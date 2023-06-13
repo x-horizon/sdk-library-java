@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.cache.redisson;
 
-import cn.srd.itcp.sugar.cache.redisson.core.RedissonCacheTemplate;
-import cn.srd.itcp.sugar.cache.redisson.core.RedissonCaches;
+import cn.srd.itcp.sugar.cache.redisson.core.CacheRedissonTemplate;
+import cn.srd.itcp.sugar.cache.redisson.core.CacheRedissons;
 import cn.srd.itcp.sugar.tool.core.time.DurationWrapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RedissonCacheTest {
+public class CacheRedissonTest {
 
     private static final String CACHE_NAMESPACE_NAME1 = "cache1";
 
@@ -36,7 +36,7 @@ public class RedissonCacheTest {
 
     @Test
     public void testCache() {
-        RedissonCacheTemplate cache = RedissonCaches.getInstance().withBucket();
+        CacheRedissonTemplate cache = CacheRedissons.getInstance().withBucket();
 
         // =================== no handle NullValue ===================
 

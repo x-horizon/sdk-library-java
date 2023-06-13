@@ -24,12 +24,12 @@ import java.util.Map;
  * @since 2023-01-12 10:37:12
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RedissonBucketCaches implements RedissonCacheTemplate {
+public class CacheRedissonBucket implements CacheRedissonTemplate {
 
     /**
      * singleton pattern
      */
-    protected static final RedissonBucketCaches INSTANCE = new RedissonBucketCaches();
+    protected static final CacheRedissonBucket INSTANCE = new CacheRedissonBucket();
 
     @Override
     public <V> void set(String key, V value, Duration expiration) {

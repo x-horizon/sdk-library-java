@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * @author wjm
  * @since 2023-06-05 16:41:28
  */
-public interface RedissonCacheTemplate extends CapableExpirationCacheTemplate<String> {
+public interface CacheRedissonTemplate extends CapableExpirationCacheTemplate<String> {
 
     /**
      * 模糊查询某个命名空间的关键字

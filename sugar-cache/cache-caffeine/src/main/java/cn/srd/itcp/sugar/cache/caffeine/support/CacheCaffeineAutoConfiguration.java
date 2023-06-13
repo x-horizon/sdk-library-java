@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.cache.caffeine.support;
 
-import cn.srd.itcp.sugar.cache.caffeine.config.properties.CaffeineCacheProperties;
+import cn.srd.itcp.sugar.context.caffeine.config.properties.CacheCaffeineProperties;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -12,7 +12,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @since 2023-06-05 17:01:12
  */
 @AutoConfiguration
-@EnableConfigurationProperties(CaffeineCacheProperties.class)
+@EnableConfigurationProperties(CacheCaffeineProperties.class)
 public class CacheCaffeineAutoConfiguration {
 
 }

@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.cache.caffeine.core;
 
-import cn.srd.itcp.sugar.cache.caffeine.config.properties.CaffeineCacheProperties;
+import cn.srd.itcp.sugar.context.caffeine.config.properties.CacheCaffeineProperties;
 import cn.srd.itcp.sugar.tool.core.LambdasUtil;
 import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
@@ -17,35 +17,35 @@ import lombok.NoArgsConstructor;
  * @since 2023-06-05 17:01:12
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class CaffeineCacheBuilder {
+public class CacheCaffeineBuilder {
 
     /**
-     * build {@link Cache} by {@link CaffeineCacheProperties}
+     * build {@link Cache} by {@link CacheCaffeineProperties}
      *
      * @param <K> key 类型
      * @param <V> value 类型
      * @return {@link Cache}
      */
     public static <K, V> Cache<K, V> build() {
-        return build(CaffeineCacheProperties.getInstance());
+        return build(CacheCaffeineProperties.getInstance());
     }
 
     /**
-     * build {@link Cache} by {@link CaffeineCacheProperties}
+     * build {@link Cache} by {@link CacheCaffeineProperties}
      *
-     * @param caffeineCacheProperties {@link CaffeineCacheProperties}
+     * @param cacheCaffeineProperties {@link CacheCaffeineProperties}
      * @param <K>                     key 类型
      * @param <V>                     value 类型
      * @return {@link Cache}
      */
-    public static <K, V> Cache<K, V> build(CaffeineCacheProperties caffeineCacheProperties) {
+    public static <K, V> Cache<K, V> build(CacheCaffeineProperties cacheCaffeineProperties) {
         Caffeine<Object, Object> cacheBuilder = Caffeine.newBuilder();
-        LambdasUtil.acceptIfNeed(Objects.isNull(caffeineCacheProperties.getExpireAfterAccess()) ? null : TimeUtil.wrapper(caffeineCacheProperties.getExpireAfterAccess()).toMillisecond(), TimeUtil::isPositive, cacheBuilder::expireAfterAccess);
-        LambdasUtil.acceptIfNeed(Objects.isNull(caffeineCacheProperties.getExpireAfterWrite()) ? null : TimeUtil.wrapper(caffeineCacheProperties.getExpireAfterWrite()).toMillisecond(), TimeUtil::isPositive, cacheBuilder::expireAfterWrite);
-        LambdasUtil.acceptIfNeed(Objects.isNull(caffeineCacheProperties.getRefreshAfterWrite()) ? null : TimeUtil.wrapper(caffeineCacheProperties.getRefreshAfterWrite()).toMillisecond(), TimeUtil::isPositive, cacheBuilder::refreshAfterWrite);
-        LambdasUtil.acceptIfNeed(caffeineCacheProperties.getInitialCapacity(), Objects::isPositive, cacheBuilder::initialCapacity);
-        LambdasUtil.acceptIfNeed(caffeineCacheProperties.getMaximumSize(), Objects::isPositive, cacheBuilder::maximumSize);
-        LambdasUtil.acceptIfNeed(caffeineCacheProperties.getKeyReferenceLevel(), Objects::isNotNull, referenceLevel -> {
+        LambdasUtil.acceptIfNeed(Objects.isNull(cacheCaffeineProperties.getExpireAfterAccess()) ? null : TimeUtil.wrapper(cacheCaffeineProperties.getExpireAfterAccess()).toMillisecond(), TimeUtil::isPositive, cacheBuilder::expireAfterAccess);
+        LambdasUtil.acceptIfNeed(Objects.isNull(cacheCaffeineProperties.getExpireAfterWrite()) ? null : TimeUtil.wrapper(cacheCaffeineProperties.getExpireAfterWrite()).toMillisecond(), TimeUtil::isPositive, cacheBuilder::expireAfterWrite);
+        LambdasUtil.acceptIfNeed(Objects.isNull(cacheCaffeineProperties.getRefreshAfterWrite()) ? null : TimeUtil.wrapper(cacheCaffeineProperties.getRefreshAfterWrite()).toMillisecond(), TimeUtil::isPositive, cacheBuilder::refreshAfterWrite);
+        LambdasUtil.acceptIfNeed(cacheCaffeineProperties.getInitialCapacity(), Objects::isPositive, cacheBuilder::initialCapacity);
+        LambdasUtil.acceptIfNeed(cacheCaffeineProperties.getMaximumSize(), Objects::isPositive, cacheBuilder::maximumSize);
+        LambdasUtil.acceptIfNeed(cacheCaffeineProperties.getKeyReferenceLevel(), Objects::isNotNull, referenceLevel -> {
             switch (referenceLevel) {
                 case SOFT -> throw new UnsupportedOperationException("unsupported [soft] reference type with caffeine key");
                 case WEAK -> cacheBuilder.weakKeys();
@@ -54,7 +54,7 @@ public class CaffeineCacheBuilder {
                 }
             }
         });
-        LambdasUtil.acceptIfNeed(caffeineCacheProperties.getValueReferenceLevel(), Objects::isNotNull, referenceLevel -> {
+        LambdasUtil.acceptIfNeed(cacheCaffeineProperties.getValueReferenceLevel(), Objects::isNotNull, referenceLevel -> {
             switch (referenceLevel) {
                 case SOFT -> cacheBuilder.softValues();
                 case WEAK -> cacheBuilder.weakValues();

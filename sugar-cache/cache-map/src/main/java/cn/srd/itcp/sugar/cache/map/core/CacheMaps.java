@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class MapCaches<K> implements MapCacheTemplate<K> {
+public class CacheMaps<K> implements CacheMapTemplate<K> {
 
     /**
      * default initial capacity
@@ -35,7 +35,7 @@ public class MapCaches<K> implements MapCacheTemplate<K> {
      * @param <K> cache key type
      * @return instance
      */
-    public static <K> MapCaches<K> newInstance() {
+    public static <K> CacheMaps<K> newInstance() {
         return newInstance(DEFAULT_INITIAL_CAPACITY);
     }
 
@@ -46,8 +46,8 @@ public class MapCaches<K> implements MapCacheTemplate<K> {
      * @param <K>             cache key type
      * @return instance
      */
-    public static <K> MapCaches<K> newInstance(int initialCapacity) {
-        return MapCaches.<K>builder().cache(new ConcurrentHashMap<>(initialCapacity)).build();
+    public static <K> CacheMaps<K> newInstance(int initialCapacity) {
+        return CacheMaps.<K>builder().cache(new ConcurrentHashMap<>(initialCapacity)).build();
     }
 
     @Override

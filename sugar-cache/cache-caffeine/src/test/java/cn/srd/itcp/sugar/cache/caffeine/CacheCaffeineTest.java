@@ -1,6 +1,6 @@
-package cn.srd.itcp.sugar.cache.map;
+package cn.srd.itcp.sugar.cache.caffeine;
 
-import cn.srd.itcp.sugar.cache.map.core.MapCaches;
+import cn.srd.itcp.sugar.cache.caffeine.core.CacheCaffeines;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MapCacheTest {
+public class CacheCaffeineTest {
 
     private static final String CACHE_NAME1 = "cache1";
 
@@ -28,7 +28,7 @@ public class MapCacheTest {
 
     @Test
     public void testCache() {
-        MapCaches<String> cache = MapCaches.newInstance();
+        CacheCaffeines<String> cache = CacheCaffeines.newInstance();
 
         // =================== no handle NullValue ===================
 

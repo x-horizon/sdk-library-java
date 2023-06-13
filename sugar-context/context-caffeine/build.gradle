@@ -1,4 +1,4 @@
-def projectName = 'itcp-sugar-context-caffeine'
+def projectName = 'itcp-sugar-context-redisson'
 
 def projectNexusUrl
 
@@ -23,7 +23,7 @@ dependencies {
     annotationProcessor("$spring_boot_configuration_processor")
 
     // cache
-    api("$redisson")
+    api("$caffeine")
 
     // tool
     implementation(project("$itcp_sugar_tool"))

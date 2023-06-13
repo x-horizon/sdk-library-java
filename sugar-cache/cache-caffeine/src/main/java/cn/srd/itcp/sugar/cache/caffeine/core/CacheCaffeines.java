@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.cache.caffeine.core;
 
-import cn.srd.itcp.sugar.cache.caffeine.config.properties.CaffeineCacheProperties;
+import cn.srd.itcp.sugar.context.caffeine.config.properties.CacheCaffeineProperties;
 import com.github.benmanes.caffeine.cache.Cache;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.Collection;
  * @since 2023-06-05 17:01:12
  */
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class CaffeineCaches<K> implements CaffeineCacheTemplate<K> {
+public class CacheCaffeines<K> implements CacheCaffeineTemplate<K> {
 
     /**
      * combine {@link Cache}
@@ -28,19 +28,19 @@ public class CaffeineCaches<K> implements CaffeineCacheTemplate<K> {
      * @param <K> cache key type
      * @return instance
      */
-    public static <K> CaffeineCaches<K> newInstance() {
-        return newInstance(CaffeineCacheProperties.getInstance());
+    public static <K> CacheCaffeines<K> newInstance() {
+        return newInstance(CacheCaffeineProperties.getInstance());
     }
 
     /**
      * get instance
      *
-     * @param caffeineCacheProperties {@link CaffeineCacheProperties}
+     * @param cacheCaffeineProperties {@link CacheCaffeineProperties}
      * @param <K>                     cache key type
      * @return instance
      */
-    public static <K> CaffeineCaches<K> newInstance(CaffeineCacheProperties caffeineCacheProperties) {
-        return new CaffeineCaches<>(CaffeineCacheBuilder.build(caffeineCacheProperties));
+    public static <K> CacheCaffeines<K> newInstance(CacheCaffeineProperties cacheCaffeineProperties) {
+        return new CacheCaffeines<>(CacheCaffeineBuilder.build(cacheCaffeineProperties));
     }
 
     @Override

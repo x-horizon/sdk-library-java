@@ -10,19 +10,19 @@ import lombok.NoArgsConstructor;
  * @since 2023-01-12 10:37:12
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class RedissonCaches {
+public class CacheRedissons {
 
     /**
      * singleton pattern
      */
-    private static final RedissonCaches INSTANCE = new RedissonCaches();
+    private static final CacheRedissons INSTANCE = new CacheRedissons();
 
     /**
      * get singleton instance
      *
      * @return instance
      */
-    public static RedissonCaches getInstance() {
+    public static CacheRedissons getInstance() {
         return INSTANCE;
     }
 
@@ -31,8 +31,8 @@ public class RedissonCaches {
      *
      * @return 缓存操作实例
      */
-    public RedissonCacheTemplate withBucket() {
-        return RedissonBucketCaches.INSTANCE;
+    public CacheRedissonTemplate withBucket() {
+        return CacheRedissonBucket.INSTANCE;
     }
 
     /**
@@ -40,8 +40,8 @@ public class RedissonCaches {
      *
      * @return 缓存操作实例
      */
-    public RedissonCacheTemplate withHash() {
-        return RedissonHashCaches.INSTANCE;
+    public CacheRedissonTemplate withHash() {
+        return CacheRedissonHash.INSTANCE;
     }
 
     /**
@@ -49,8 +49,8 @@ public class RedissonCaches {
      *
      * @return 缓存操作实例
      */
-    public RedissonCacheTemplate withList() {
-        return RedissonListCaches.INSTANCE;
+    public CacheRedissonTemplate withList() {
+        return CacheRedissonList.INSTANCE;
     }
 
     /**
@@ -58,8 +58,8 @@ public class RedissonCaches {
      *
      * @return 缓存操作实例
      */
-    public RedissonCacheTemplate withSet() {
-        return RedissonSetCaches.INSTANCE;
+    public CacheRedissonTemplate withSet() {
+        return CacheRedissonSet.INSTANCE;
     }
 
     /**
@@ -67,8 +67,8 @@ public class RedissonCaches {
      *
      * @return 缓存操作实例
      */
-    public RedissonCacheTemplate withSortedSet() {
-        return RedissonSortedSetCaches.INSTANCE;
+    public CacheRedissonTemplate withSortedSet() {
+        return CacheRedissonSortedSet.INSTANCE;
     }
 
 }
