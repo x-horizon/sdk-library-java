@@ -23,7 +23,6 @@ dependencies {
     implementation("$spring_boot_actuator")
     // TODO wjm 之所以指定该版本而不是使用 bom 来管理，是因为sa token bom 接管版本后，里面的 lettuce 包使用到的 reactor-core 包版本过低导致不兼容，io.lettuce.core.resource.DefaultClientResources 214 行使用的是 reactor-core-3.1.4 的，但实际上要使用 3.5.3 的才行
     api("$reactor_core")
-    api("io.micrometer:micrometer-core")
     annotationProcessor("$spring_boot_configuration_processor")
 
     // cache
