@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.cache.all.config.properties;
 
 import cn.srd.itcp.sugar.component.lock.redisson.common.core.RedissonFairLock;
+import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
@@ -28,8 +29,10 @@ public class CacheMultilevelProperties {
      */
     @PostConstruct
     public void init() {
-        setInternalBlockToHitDistributedCacheWaitTime(TimeUtil.wrapper(getBlockToHitDistributedCacheWaitTime()).toMillisecond().toMillis());
-        setInternalBlockToHitDistributedCacheLeaseTime(TimeUtil.wrapper(getBlockToHitDistributedCacheLeaseTime()).toMillisecond().toMillis());
+        if (Objects.isNotBlank(getBlockToHitDistributedCacheWaitTime(), getBlockToHitDistributedCacheLeaseTime())) {
+            setInternalBlockToHitDistributedCacheWaitTime(TimeUtil.wrapper(getBlockToHitDistributedCacheWaitTime()).toMillisecond().toMillis());
+            setInternalBlockToHitDistributedCacheLeaseTime(TimeUtil.wrapper(getBlockToHitDistributedCacheLeaseTime()).toMillisecond().toMillis());
+        }
         instance = this;
     }
 
