@@ -1,11 +1,13 @@
 package cn.srd.itcp.sugar.cache.all.config.properties;
 
-import cn.srd.itcp.sugar.cache.caffeine.config.properties.CaffeineCacheProperties;
+import cn.srd.itcp.sugar.context.caffeine.config.properties.CacheCaffeineProperties;
+import cn.srd.itcp.sugar.context.redisson.config.properties.CacheRedissonProperties;
+import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.NestedConfigurationProperty;
+import org.springframework.context.annotation.DependsOn;
 
 /**
  * properties for cache
@@ -26,8 +28,14 @@ public class CacheProperties {
     /**
      * instance init
      */
+    @DependsOn({"cacheCaffeineProperties", "cacheRedissonProperties", "cacheMultilevelProperties"})
     @PostConstruct
     public void init() {
+        // do not use @NestedConfigurationProperty to inject,
+        // because it will cause internally calculated fields being null.
+        setCaffeine(SpringsUtil.getBean(CacheCaffeineProperties.class));
+        setRedisson(SpringsUtil.getBean(CacheRedissonProperties.class));
+        setMultilevel(SpringsUtil.getBean(CacheMultilevelProperties.class));
         instance = this;
     }
 
@@ -41,9 +49,18 @@ public class CacheProperties {
     }
 
     /**
-     * see {@link CaffeineCacheProperties}
+     * see {@link CacheCaffeineProperties}
      */
-    @NestedConfigurationProperty
-    private CaffeineCacheProperties caffeine = new CaffeineCacheProperties();
+    private CacheCaffeineProperties caffeine = new CacheCaffeineProperties();
+
+    /**
+     * see {@link CacheRedissonProperties}
+     */
+    private CacheRedissonProperties redisson = new CacheRedissonProperties();
+
+    /**
+     * see {@link CacheMultilevelProperties}
+     */
+    private CacheMultilevelProperties multilevel = new CacheMultilevelProperties();
 
 }

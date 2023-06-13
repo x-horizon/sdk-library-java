@@ -1,8 +1,13 @@
 package cn.srd.itcp.sugar.cache.all.support.strategy;
 
+import cn.srd.itcp.sugar.cache.all.config.properties.CacheProperties;
+import cn.srd.itcp.sugar.cache.all.core.Caches;
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheDataManager;
+import cn.srd.itcp.sugar.component.lock.redisson.common.core.RedissonNonFairLockHandler;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * the distributed cache mode strategy implement
@@ -18,6 +23,11 @@ public class CacheModeDistributedStrategy implements CacheModeStrategy {
      */
     private static final CacheModeDistributedStrategy INSTANCE = new CacheModeDistributedStrategy();
 
+    /*
+     * the lock name prefix
+     */
+    private static final String LOCK_NAME_PREFIX = "lock:";
+
     /**
      * get singleton instance
      *
@@ -27,12 +37,18 @@ public class CacheModeDistributedStrategy implements CacheModeStrategy {
         return INSTANCE;
     }
 
-
     @Override
-    public Object getAndSet(CacheDataManager dataManager, String key) {
-        return null;
+    public Object get(CacheDataManager dataManager, String namespace, String key, int findCacheTypeNameIndex) {
+        return RedissonNonFairLockHandler.getInstance().tryLock(
+                dataManager, namespace, key, findCacheTypeNameIndex,
+                (t1, t2, t3, t4) -> CacheModeLocalStrategy.getInstance().get(dataManager, namespace, key, findCacheTypeNameIndex),
+                LOCK_NAME_PREFIX + Caches.withRedisson().withBucket().resolveKey(key, namespace),
+                CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheWaitTime(),
+                CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheLeaseTime(),
+                TimeUnit.MILLISECONDS
+        );
     }
-    
+
 }
 
 

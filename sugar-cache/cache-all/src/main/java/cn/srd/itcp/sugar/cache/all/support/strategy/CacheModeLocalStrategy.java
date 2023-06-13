@@ -1,6 +1,8 @@
 package cn.srd.itcp.sugar.cache.all.support.strategy;
 
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheDataManager;
+import cn.srd.itcp.sugar.cache.contract.core.CacheTemplate;
+import cn.srd.itcp.sugar.tool.core.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -27,12 +29,20 @@ public class CacheModeLocalStrategy implements CacheModeStrategy {
         return INSTANCE;
     }
 
-
     @Override
-    public Object getAndSet(CacheDataManager dataManager, String key) {
-        return null;
+    public Object get(CacheDataManager dataManager, String namespace, String key, int findCacheTypeNameIndex) {
+        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(dataManager.getCacheTypeNames().get(findCacheTypeNameIndex));
+        String finalKey = cacheTemplate.resolveKey(key, namespace);
+        Object value = cacheTemplate.get(finalKey);
+        if (Objects.isNotNull(value)) {
+            for (int writeIndex = findCacheTypeNameIndex - 1; writeIndex >= 0; writeIndex--) {
+                cacheTemplate = dataManager.getTemplate(dataManager.getCacheTypeNames().get(writeIndex));
+                cacheTemplate.set(finalKey, value);
+            }
+        }
+        return value;
     }
-    
+
 }
 
 

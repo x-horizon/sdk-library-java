@@ -185,20 +185,7 @@ public interface CacheAspect extends AopCaptor {
      * @param context see {@link CacheAspectContext}
      */
     default void setCacheValue(CacheAspectContext context) {
-        if (Objects.isNull(context.getValue())) {
-            deleteCacheValue(context);
-        } else {
-            context.getNamespaces().forEach(namespace -> getCache(context, namespace).set(context.getKey(), context.getValue()));
-        }
-    }
-
-    /**
-     * set {@link NullValue} to cache
-     *
-     * @param context see {@link CacheAspectContext}
-     */
-    default void setCacheNullValue(CacheAspectContext context) {
-        context.getNamespaces().forEach(namespace -> getCache(context, namespace).set(context.getKey(), NullValue.INSTANCE));
+        context.getNamespaces().forEach(namespace -> getCache(context, namespace).set(context.getKey(), context.getValue()));
     }
 
     /**
@@ -207,11 +194,7 @@ public interface CacheAspect extends AopCaptor {
      * @param context see {@link CacheAspectContext}
      */
     default void deleteCacheValue(CacheAspectContext context) {
-        if (Boolean.TRUE.equals(context.getAllowNullValueInCache())) {
-            setCacheNullValue(context);
-        } else {
-            context.getNamespaces().forEach(namespace -> getCache(context, namespace).delete(context.getKey()));
-        }
+        context.getNamespaces().forEach(namespace -> getCache(context, namespace).delete(context.getKey()));
     }
 
     /**
@@ -220,7 +203,6 @@ public interface CacheAspect extends AopCaptor {
      * @param context see {@link CacheAspectContext}
      */
     default void deleteAllCacheValue(CacheAspectContext context) {
-        // ignore allow or not to set {@link NullValue} to cache, delete all cache in all cases
         context.getNamespaces().forEach(namespace -> getCache(context, namespace).deleteAll(namespace));
     }
 
@@ -257,7 +239,7 @@ public interface CacheAspect extends AopCaptor {
         Object value = getCacheValue(context);
         if (Objects.isNull(value)) {
             value = doProceed(joinPoint);
-            if (Objects.isNotNull(value)) {
+            if (Boolean.TRUE.equals(context.getAllowNullValueInCache()) || Objects.isNotNull(value)) {
                 setCacheValue(context.setValue(value));
             }
         }
@@ -272,19 +254,23 @@ public interface CacheAspect extends AopCaptor {
      * @return the cache value
      */
     default Object doRead(ProceedingJoinPoint joinPoint, List<CacheAspectContext> contexts) {
-        Object value = null;
+        Object value;
         for (CacheAspectContext context : contexts) {
             value = getCacheValue(context);
+            // lazy write cache:
+            // there may be different data in different namespace,
+            // for example: get nonnull data from some namespace, the all cache in this namespace will sync, but other namespace cache may refresh,
+            // it is unnecessary to make all namespace sync cache data,
+            // just need namespace that hit a nonnull data and sync all cache in this namespace.
             if (Objects.isNotNull(value)) {
-                break;
+                return NullValueUtil.convertToNullIfNullValue(value);
             }
         }
-        if (Objects.isNull(value)) {
-            value = doProceed(joinPoint);
-            if (Objects.isNotNull(value)) {
-                for (CacheAspectContext context : contexts) {
-                    setCacheValue(context.setValue(value));
-                }
+
+        value = doProceed(joinPoint);
+        for (CacheAspectContext context : contexts) {
+            if (Boolean.TRUE.equals(context.getAllowNullValueInCache()) || Objects.isNotNull(value)) {
+                setCacheValue(context.setValue(value));
             }
         }
         return NullValueUtil.convertToNullIfNullValue(value);
@@ -301,7 +287,7 @@ public interface CacheAspect extends AopCaptor {
     default Object doWrite(ProceedingJoinPoint joinPoint, CacheAspectContext context, Function<ProceedingJoinPoint, Object> proceedPointCutLogic) {
         initCache(context);
         Object value = proceedPointCutLogic.apply(joinPoint);
-        setCacheValue(context.setValue(value));
+        deleteCacheValue(context);
         return NullValueUtil.convertToNullIfNullValue(value);
     }
 
@@ -331,7 +317,6 @@ public interface CacheAspect extends AopCaptor {
                 deleteCacheValue(context);
             }
         }
-
         return NullValueUtil.convertToNullIfNullValue(value);
     }
 

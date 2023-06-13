@@ -16,6 +16,30 @@ import java.lang.annotation.*;
  * {@link CacheWrite}
  * {@link CacheEvict}
  * {@link Caching}
+ *
+ * 1. when use {@link CacheRead}:
+ *      get cache in {@link #cacheTypes()} declared order,
+ *      if {@link #cacheTypes()} size is 1 or hit the first level cache,
+ *      then return the cache value, it may be null or {@link NullValue} or actual value,
+ *      cannot hit first level cache and {@link #cacheTypes()} size > 1,
+ *      then use local or distributed lock based on the current cache type to continue get cache in {@link #cacheTypes()} declared order,
+ *      once get a not null value, then set it to all cache and release lock, pointcut will not be executed,
+ *      if all cache have not value, then execute pointcut and get the value return from pointcut,
+ *      if it is null and {@link #allowNullValueInCache()} is true, will set {@link NullValue} to all cache,
+ *      otherwise return null to caller,
+ *      whether it is null or {@link NullValue}, received by the caller is null,
+ *      for cache level order, please refer to {@link #cacheTypes()}.
+ *
+ * 2. when use {@link CacheWrite}:
+ *      execute pointcut, then delete all cache.
+ *
+ * 3. when use {@link CacheEvict}:
+ *      execute pointcut, then delete all cache.
+ *
+ * 4. when use {@link Caching}:
+ *      according to the above definition,
+ *      first execute batch {@link CacheRead}, then execute batch {@link CacheWrite}, final execute batch {@link CacheEvict}.
+ *
  * </pre>
  *
  * @author wjm
@@ -49,7 +73,7 @@ public @interface CacheConfig {
      *     first read from cache, the read order is: map -> redis -> method, once read, will not continue reading;
      *     then write cache if not miss from cache, the write order is: redis -> map;
      *    when use @{@link CacheWrite}:
-     *     it will write cache when get a not null result from method return, the write order is: redis -> map;
+     *     will delete all cache, the delete order is: redis -> map;
      *    when use @{@link CacheEvict}:
      *     the evict order is: redis -> map, clear the cache data in lowest cache level first, and then clear higher level cache to avoid loading other requests from lowest cache into higher cache in a short period of time;
      *
@@ -77,11 +101,9 @@ public @interface CacheConfig {
      * <pre>
      * allow or not to set a {@link NullValue} in cache,
      * if set it true: it will set a {@link NullValue} to cache in the following case:
-     * 1. when use {@link CacheWrite} method return null;
-     * 2. when use {@link CacheEvict} to delete some cache;
-     * 3. if set {@link CacheEvict#needEvictAllInNamespaces()} to true, it will delete all cache in specified namespaces instead of set {@link NullValue};
+     * 1. when use {@link CacheRead} method return null;
      *
-     * this field can prevent cache penetrate, when hit a null value, it can read from cache and never execute method;
+     * this field can prevent cache penetrate, when hit null, it can read from cache and never execute method;
      *
      * the most important you need to focus:
      * for the same namespace, only true or false can be set,

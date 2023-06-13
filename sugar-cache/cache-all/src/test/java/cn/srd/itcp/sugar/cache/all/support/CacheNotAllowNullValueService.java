@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @CacheConfig(namespaces = {"myCache5", "myCache6"}, cacheTypes = {CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS})
 @Component
-public class CacheWithoutPreventCachePenetrateService {
+public class CacheNotAllowNullValueService {
 
     private static final Map<Long, BookPO> BOOK_CACHE = new ConcurrentHashMap<>(Map.of(
             1L, BookPO.build(1L),

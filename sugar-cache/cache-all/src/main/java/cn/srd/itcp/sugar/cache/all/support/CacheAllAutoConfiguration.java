@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.cache.all.support;
 
+import cn.srd.itcp.sugar.cache.all.config.properties.CacheMultilevelProperties;
 import cn.srd.itcp.sugar.cache.all.config.properties.CacheProperties;
-import cn.srd.itcp.sugar.cache.caffeine.config.properties.CaffeineCacheProperties;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -20,7 +20,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @since 2023-06-07 16:48:52
  */
 @AutoConfiguration
-@EnableConfigurationProperties({CacheProperties.class, CaffeineCacheProperties.class})
+@EnableConfigurationProperties({CacheProperties.class, CacheMultilevelProperties.class})
 public class CacheAllAutoConfiguration {
 
 }

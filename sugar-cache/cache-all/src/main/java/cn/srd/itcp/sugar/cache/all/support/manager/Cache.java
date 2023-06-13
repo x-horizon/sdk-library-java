@@ -39,12 +39,12 @@ public class Cache implements CacheTemplate<String> {
 
     @Override
     public <V> void set(String key, V value) {
-        Object doValue = NullValueUtil.convertNullToNullValueIfNeed(value, allowNullValueInCache);
-        if (Objects.isNotNull(value)) {
+        Object finalValue = NullValueUtil.convertNullToNullValueIfNeed(value, allowNullValueInCache);
+        if (Objects.isNotNull(finalValue)) {
             List<String> cacheTypeNames = dataManager.getCacheTypeNames();
             for (int index = cacheTypeNames.size() - 1; index >= 0; index--) {
                 CacheTemplate<String> cacheTemplate = dataManager.getTemplate(cacheTypeNames.get(index));
-                cacheTemplate.set(cacheTemplate.resolveKey(key, namespace), doValue);
+                cacheTemplate.set(cacheTemplate.resolveKey(key, namespace), finalValue);
             }
         }
     }
@@ -54,24 +54,15 @@ public class Cache implements CacheTemplate<String> {
         List<String> cacheTypeNames = dataManager.getCacheTypeNames();
         CacheTemplate<String> cacheTemplate = dataManager.getTemplate(CollectionsUtil.getFirst(cacheTypeNames));
         Object value = cacheTemplate.get(cacheTemplate.resolveKey(key, namespace));
-        int cacheTypeNameSize = cacheTypeNames.size();
-        if (cacheTypeNameSize == 1 || Objects.isNotNull(value)) {
+        if (cacheTypeNames.size() == 1 || Objects.isNotNull(value)) {
             return value;
         }
         synchronized (dataManager) {
-            for (int getIndex = 1; getIndex < cacheTypeNameSize; getIndex++) {
-                String cacheTypeName = cacheTypeNames.get(getIndex);
-                CacheType cacheType = dataManager.getCacheTypeMap().get(cacheTypeName);
-//                value = cacheType.getStrategy().getAndSet(dataManager, cacheTemplate.resolveKey(key, namespace));
-                cacheTemplate = dataManager.getTemplate(cacheTypeName);
-                value = cacheTemplate.get(cacheTemplate.resolveKey(key, namespace));
-                if (Objects.isNotNull(value)) {
-                    for (int setIndex = getIndex - 1; setIndex >= 0; setIndex--) {
-                        cacheTemplate = dataManager.getTemplate(cacheTypeNames.get(setIndex));
-                        cacheTemplate.set(cacheTemplate.resolveKey(key, namespace), value);
-                    }
-                    break;
-                }
+            for (int findCacheTypeNameIndex = 1; findCacheTypeNameIndex < cacheTypeNames.size(); findCacheTypeNameIndex++) {
+                value = dataManager.getCacheTypeMap()
+                        .get(cacheTypeNames.get(findCacheTypeNameIndex))
+                        .getStrategy()
+                        .get(dataManager, namespace, key, findCacheTypeNameIndex);
             }
         }
         return value;

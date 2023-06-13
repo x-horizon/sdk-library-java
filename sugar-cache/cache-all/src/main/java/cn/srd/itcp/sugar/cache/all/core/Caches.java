@@ -1,11 +1,11 @@
 package cn.srd.itcp.sugar.cache.all.core;
 
-import cn.srd.itcp.sugar.cache.caffeine.config.properties.CaffeineCacheProperties;
-import cn.srd.itcp.sugar.cache.caffeine.core.CaffeineCacheTemplate;
-import cn.srd.itcp.sugar.cache.caffeine.core.CaffeineCaches;
-import cn.srd.itcp.sugar.cache.map.core.MapCacheTemplate;
-import cn.srd.itcp.sugar.cache.map.core.MapCaches;
-import cn.srd.itcp.sugar.cache.redisson.core.RedissonCaches;
+import cn.srd.itcp.sugar.cache.caffeine.core.CacheCaffeineTemplate;
+import cn.srd.itcp.sugar.cache.caffeine.core.CacheCaffeines;
+import cn.srd.itcp.sugar.cache.map.core.CacheMapTemplate;
+import cn.srd.itcp.sugar.cache.map.core.CacheMaps;
+import cn.srd.itcp.sugar.cache.redisson.core.CacheRedissons;
+import cn.srd.itcp.sugar.context.caffeine.config.properties.CacheCaffeineProperties;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -24,8 +24,8 @@ public class Caches {
      * @param <K> cache key type
      * @return cache operation object
      */
-    public static <K> MapCacheTemplate<K> withMap() {
-        return MapCaches.newInstance();
+    public static <K> CacheMapTemplate<K> withMap() {
+        return CacheMaps.newInstance();
     }
 
     /**
@@ -35,8 +35,8 @@ public class Caches {
      * @param <K>             cache key type
      * @return cache operation object
      */
-    public static <K> MapCacheTemplate<K> withMap(int initialCapacity) {
-        return MapCaches.newInstance(initialCapacity);
+    public static <K> CacheMapTemplate<K> withMap(int initialCapacity) {
+        return CacheMaps.newInstance(initialCapacity);
     }
 
     /**
@@ -45,19 +45,19 @@ public class Caches {
      * @param <K> cache key type
      * @return cache operation object
      */
-    public static <K> CaffeineCacheTemplate<K> withCaffeine() {
-        return CaffeineCaches.newInstance();
+    public static <K> CacheCaffeineTemplate<K> withCaffeine() {
+        return CacheCaffeines.newInstance();
     }
 
     /**
      * caffeine implement
      *
-     * @param caffeineCacheProperties {@link CaffeineCacheProperties}
+     * @param cacheCaffeineProperties {@link CacheCaffeineProperties}
      * @param <K>                     cache key type
      * @return cache operation object
      */
-    public static <K> CaffeineCacheTemplate<K> withCaffeine(CaffeineCacheProperties caffeineCacheProperties) {
-        return CaffeineCaches.newInstance(caffeineCacheProperties);
+    public static <K> CacheCaffeineTemplate<K> withCaffeine(CacheCaffeineProperties cacheCaffeineProperties) {
+        return CacheCaffeines.newInstance(cacheCaffeineProperties);
     }
 
     /**
@@ -65,8 +65,8 @@ public class Caches {
      *
      * @return cache operation object
      */
-    public static RedissonCaches withRedisson() {
-        return RedissonCaches.getInstance();
+    public static CacheRedissons withRedisson() {
+        return CacheRedissons.getInstance();
     }
 
 }
