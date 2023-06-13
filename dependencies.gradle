@@ -155,6 +155,7 @@ ext {
     docker_bom = "com.github.docker-java:docker-java-bom:${docker_bom_version}" as GStringImpl
     docker_java_core = "com.github.docker-java:docker-java-core"
     docker_java_transport_httpclient5 = "com.github.docker-java:docker-java-transport-httpclient5"
+    docker_compose = "org.springframework.boot:spring-boot-docker-compose"
 
     // protocol
     protobuf_bom = "com.google.protobuf:protobuf-bom:${protobuf_bom_version}" as GStringImpl

@@ -24,6 +24,7 @@ dependencies {
     // component
     api("$docker_java_core")
     api("$docker_java_transport_httpclient5")
+    developmentOnly("$docker_compose")
 
     // tool
     implementation(project("$itcp_sugar_tool"))
