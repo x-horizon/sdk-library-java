@@ -50,7 +50,7 @@ public interface ActorEvent<T> extends Serializable {
      *
      * @return TODO wjm 待定义
      */
-    default boolean processSelf() {
+    default boolean processBySelf() {
         getBindActorTypes().forEach(actorType -> actorType.getStrategy().getMailbox().tell(this));
         return true;
     }
