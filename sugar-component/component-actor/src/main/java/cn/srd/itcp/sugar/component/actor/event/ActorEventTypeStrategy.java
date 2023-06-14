@@ -8,6 +8,6 @@ package cn.srd.itcp.sugar.component.actor.event;
  */
 public interface ActorEventTypeStrategy<T> {
 
-    void processEvent(ActorEvent<T> event);
+    void process(ActorEvent<T> event);
 
 }
