@@ -1,5 +1,7 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.handler;
 
+import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
+import cn.srd.itcp.sugar.tool.core.object.NullableObject;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
 import lombok.SneakyThrows;
 import org.apache.ibatis.type.BaseTypeHandler;
@@ -67,7 +69,7 @@ import java.util.List;
  * @author wjm
  * @since 2022-09-07 10:35:42
  */
-public abstract class ListObjectMappingJsonbTypeHandler<T> extends BaseTypeHandler<List<T>> implements JsonbHandler<T> {
+public abstract class ListObjectMappingJsonbTypeHandler<T extends NullableObject> extends BaseTypeHandler<List<T>> implements JsonbHandler<T> {
 
     /**
      * see {@link JsonbHandler#getTargetClass()}
@@ -81,14 +83,14 @@ public abstract class ListObjectMappingJsonbTypeHandler<T> extends BaseTypeHandl
      *
      * @param preparedStatement SQL 预编译对象
      * @param columnIndex       字段索引
-     * @param parameter         自定义参数
+     * @param parameters        自定义参数
      * @param jdbcType          JDBC 数据类型
      */
     @Override
     @SneakyThrows
-    public void setNonNullParameter(PreparedStatement preparedStatement, int columnIndex, List<T> parameter, JdbcType jdbcType) {
-        if (Objects.isNotNull(parameter)) {
-            preparedStatement.setObject(columnIndex, convertObjectToJsonb(parameter));
+    public void setNonNullParameter(PreparedStatement preparedStatement, int columnIndex, List<T> parameters, JdbcType jdbcType) {
+        if (Objects.isNotNull(parameters)) {
+            preparedStatement.setObject(columnIndex, convertObjectToJsonb(CollectionsUtil.filter(parameters, NullableObject::isNotNull).stream().toList()));
         }
     }
 
