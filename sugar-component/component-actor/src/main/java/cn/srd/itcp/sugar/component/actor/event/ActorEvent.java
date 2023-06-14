@@ -36,6 +36,16 @@ public interface ActorEvent<T> extends Serializable {
     List<ActorType> getBindActorTypes();
 
     /**
+     * 事件自治
+     *
+     * @return TODO wjm 待定义
+     */
+    default boolean processSelf() {
+        getBindActorTypes().forEach(actorType -> actorType.getStrategy().getMailbox().tell(this));
+        return true;
+    }
+
+    /**
      * Executed when the target TbActor is stopped or destroyed.
      * For example, rule node failed to initialize or removed from rule chain.
      * Implementation should cleanup the resources.
