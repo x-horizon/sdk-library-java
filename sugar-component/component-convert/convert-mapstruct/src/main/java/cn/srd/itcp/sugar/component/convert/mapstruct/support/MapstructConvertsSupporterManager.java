@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.component.convert.mapstruct.support;
 
-import cn.srd.itcp.sugar.tool.core.Objects;
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;

@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.common.handler;
 
-import cn.srd.itcp.sugar.tool.core.Objects;
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 

@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.tool.core.validation;
 
-import cn.srd.itcp.sugar.tool.core.Objects;
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

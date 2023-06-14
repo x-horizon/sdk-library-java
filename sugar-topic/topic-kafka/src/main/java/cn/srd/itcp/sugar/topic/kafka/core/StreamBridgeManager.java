@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.topic.kafka.core;
 
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
-import cn.srd.itcp.sugar.tool.core.Objects;
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.cloud.stream.function.StreamBridge;

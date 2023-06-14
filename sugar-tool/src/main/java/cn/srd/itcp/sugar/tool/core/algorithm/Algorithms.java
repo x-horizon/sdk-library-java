@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.tool.core.algorithm;
 
-import cn.srd.itcp.sugar.tool.core.Objects;
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 
 import java.util.ArrayList;
 import java.util.List;

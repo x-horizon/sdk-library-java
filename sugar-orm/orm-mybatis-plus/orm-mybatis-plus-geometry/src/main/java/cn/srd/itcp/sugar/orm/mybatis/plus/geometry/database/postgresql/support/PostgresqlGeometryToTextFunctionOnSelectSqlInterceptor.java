@@ -4,8 +4,8 @@ import cn.srd.itcp.sugar.orm.mybatis.plus.geometry.database.postgresql.core.Enab
 import cn.srd.itcp.sugar.orm.mybatis.plus.geometry.database.postgresql.utils.SQLParser;
 import cn.srd.itcp.sugar.tool.constant.SQLPool;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
-import cn.srd.itcp.sugar.tool.core.Objects;
 import cn.srd.itcp.sugar.tool.core.StringsUtil;
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;

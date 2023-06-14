@@ -5,6 +5,7 @@ import cn.srd.itcp.sugar.component.id.generator.snowflake.core.SnowflakeIdConfig
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.core.*;
 import cn.srd.itcp.sugar.tool.core.asserts.Assert;
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 import com.github.yitter.contract.IdGeneratorOptions;
 import com.github.yitter.idgen.YitIdHelper;
 import jakarta.annotation.PostConstruct;

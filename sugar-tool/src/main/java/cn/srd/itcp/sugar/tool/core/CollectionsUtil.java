@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.srd.itcp.sugar.tool.constant.CharPool;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -39,7 +40,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 大小
      */
     public static <T> int getSize(@Nullable Collection<T> from) {
-        return Objects.isNull(from) ? 0 : from.size();
+        return cn.srd.itcp.sugar.tool.core.object.Objects.isNull(from) ? 0 : from.size();
     }
 
     /**
@@ -50,7 +51,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 大小
      */
     public static <T> int getSize(@Nullable T[] from) {
-        return Objects.isNull(from) ? 0 : Array.getLength(from);
+        return cn.srd.itcp.sugar.tool.core.object.Objects.isNull(from) ? 0 : Array.getLength(from);
     }
 
     /**
@@ -79,7 +80,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 输入参数的第 2 个元素
      */
     public static <T> T getSecond(@Nullable List<T> from) {
-        return Objects.isNotEmpty(from) && from.size() >= 2 ? from.get(1) : null;
+        return cn.srd.itcp.sugar.tool.core.object.Objects.isNotEmpty(from) && from.size() >= 2 ? from.get(1) : null;
     }
 
     /**
@@ -90,7 +91,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 输入参数的第 3 个元素
      */
     public static <T> T getThird(@Nullable List<T> from) {
-        return Objects.isNotEmpty(from) && from.size() >= 3 ? from.get(2) : null;
+        return cn.srd.itcp.sugar.tool.core.object.Objects.isNotEmpty(from) && from.size() >= 3 ? from.get(2) : null;
     }
 
     /**
@@ -102,7 +103,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 第一个桶的 Key 值
      */
     public static <K, V> K getFirstKey(@Nullable Map<K, V> from) {
-        return Objects.isNotEmpty(from) ? getFirst(from.keySet()) : null;
+        return cn.srd.itcp.sugar.tool.core.object.Objects.isNotEmpty(from) ? getFirst(from.keySet()) : null;
     }
 
     /**
@@ -114,7 +115,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 第一个桶的 Value 值
      */
     public static <K, V> V getFirstValue(@Nullable Map<K, V> from) {
-        return Objects.isNotEmpty(from) ? from.get(getFirstKey(from)) : null;
+        return cn.srd.itcp.sugar.tool.core.object.Objects.isNotEmpty(from) ? from.get(getFirstKey(from)) : null;
     }
 
     /**
@@ -150,7 +151,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 最大长度字符串
      */
     public static String getMax(@NonNull Collection<String> from) {
-        return from.stream().filter(Objects::isNotNull).max(Comparator.comparing(String::length)).orElse(null);
+        return from.stream().filter(cn.srd.itcp.sugar.tool.core.object.Objects::isNotNull).max(Comparator.comparing(String::length)).orElse(null);
     }
 
     /**
@@ -172,7 +173,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 获取到的最大比较规则的元素
      */
     public static <T> T getMax(@NonNull Collection<T> from, @NonNull Comparator<? super T> comparator) {
-        return from.stream().filter(Objects::isNotNull).max(comparator).orElse(null);
+        return from.stream().filter(cn.srd.itcp.sugar.tool.core.object.Objects::isNotNull).max(comparator).orElse(null);
     }
 
     /**
@@ -182,7 +183,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 最小长度的字符串
      */
     public static String getMin(@NonNull Collection<String> from) {
-        return from.stream().filter(Objects::isNotNull).min(Comparator.comparing(String::length)).orElse(null);
+        return from.stream().filter(cn.srd.itcp.sugar.tool.core.object.Objects::isNotNull).min(Comparator.comparing(String::length)).orElse(null);
     }
 
     /**
@@ -194,7 +195,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 根据比较规则获取到的最小比较规则元素
      */
     public static <T> T getMin(@NonNull Collection<T> from, @NonNull Comparator<? super T> comparator) {
-        return from.stream().filter(Objects::isNotNull).min(comparator).orElse(null);
+        return from.stream().filter(cn.srd.itcp.sugar.tool.core.object.Objects::isNotNull).min(comparator).orElse(null);
     }
 
     // ==================================== move item ====================================
@@ -290,7 +291,7 @@ public class CollectionsUtil extends CollUtil {
      */
     @NonNull
     public static List<String> toList(@Nullable String from, @NonNull String splitSymbol) {
-        if (Objects.isBlank(from)) {
+        if (cn.srd.itcp.sugar.tool.core.object.Objects.isBlank(from)) {
             return new ArrayList<>();
         }
         return new ArrayList<>(Arrays.asList(StringUtils.strip(from, "[]").replaceAll(StringPool.SPACE, "").split(splitSymbol)));
@@ -306,7 +307,7 @@ public class CollectionsUtil extends CollUtil {
      */
     @NonNull
     public static <K, V> List<V> toList(@Nullable Map<K, V> from) {
-        if (Objects.isEmpty(from)) {
+        if (cn.srd.itcp.sugar.tool.core.object.Objects.isEmpty(from)) {
             return new ArrayList<>();
         }
         return new ArrayList<>(from.values());
@@ -321,7 +322,7 @@ public class CollectionsUtil extends CollUtil {
      */
     @NonNull
     public static <T> List<T> toList(@Nullable List<List<T>> from) {
-        if (Objects.isEmpty(from)) {
+        if (cn.srd.itcp.sugar.tool.core.object.Objects.isEmpty(from)) {
             return new ArrayList<>();
         }
         return from.stream().flatMap(Collection::stream).toList();
@@ -363,7 +364,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 提取结果
      */
     public static <T, U> List<U> toListIgnoreNull(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
-        return from.stream().map(function).filter(Objects::isNotNull).toList();
+        return from.stream().map(function).filter(cn.srd.itcp.sugar.tool.core.object.Objects::isNotNull).toList();
     }
 
     /**
@@ -376,12 +377,12 @@ public class CollectionsUtil extends CollUtil {
      * @return 提取 value 形成的集合
      */
     public static <K, V> List<V> toListIgnoreNullAndSpecifiedClass(@Nullable Map<K, V> from, @NonNull Class<?> specifiedClass) {
-        if (Objects.isEmpty(from)) {
+        if (cn.srd.itcp.sugar.tool.core.object.Objects.isEmpty(from)) {
             return new ArrayList<>();
         }
         List<V> output = new ArrayList<>();
         from.values().forEach(value -> {
-            if (Objects.isNotNull(value) && Objects.notEquals(specifiedClass, value.getClass())) {
+            if (cn.srd.itcp.sugar.tool.core.object.Objects.isNotNull(value) && cn.srd.itcp.sugar.tool.core.object.Objects.notEquals(specifiedClass, value.getClass())) {
                 output.add(value);
             }
         });
@@ -396,7 +397,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 嵌套集合转换后的单层集合
      */
     public static <T> Set<T> toSet(@Nullable List<List<T>> from) {
-        if (Objects.isEmpty(from)) {
+        if (cn.srd.itcp.sugar.tool.core.object.Objects.isEmpty(from)) {
             return new HashSet<>();
         }
         return from.stream().flatMap(Collection::stream).collect(Collectors.toSet());
@@ -411,7 +412,7 @@ public class CollectionsUtil extends CollUtil {
      */
     @SuppressWarnings("all")
     public static <T> Set<T> toSet(@Nullable T[] from) {
-        if (Objects.isEmpty(from)) {
+        if (cn.srd.itcp.sugar.tool.core.object.Objects.isEmpty(from)) {
             return new HashSet<>();
         }
         return ArraysUtil.mapToSet(from, item -> item);
@@ -440,7 +441,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 提取结果
      */
     public static <T, U> Set<U> toSetIgnoreNull(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
-        return from.stream().map(function).filter(Objects::isNotNull).collect(Collectors.toSet());
+        return from.stream().map(function).filter(cn.srd.itcp.sugar.tool.core.object.Objects::isNotNull).collect(Collectors.toSet());
     }
 
     /**
@@ -709,11 +710,11 @@ public class CollectionsUtil extends CollUtil {
      * @return 过滤后集合
      */
     public static <T> List<T> filterNullAndSpecifiedClass(@Nullable Collection<T> from, @NonNull Class<?> specifiedClass) {
-        if (Objects.isEmpty(from)) {
+        if (cn.srd.itcp.sugar.tool.core.object.Objects.isEmpty(from)) {
             return new ArrayList<>();
         }
         return from.stream()
-                .filter(item -> Objects.isNotNull(item) && Objects.notEquals(specifiedClass, item.getClass()))
+                .filter(item -> cn.srd.itcp.sugar.tool.core.object.Objects.isNotNull(item) && cn.srd.itcp.sugar.tool.core.object.Objects.notEquals(specifiedClass, item.getClass()))
                 .toList();
     }
 
@@ -727,11 +728,11 @@ public class CollectionsUtil extends CollUtil {
      * @return 过滤后集合
      */
     public static <K, V> Map<K, V> filterNullAndSpecifiedClass(@Nullable Map<K, V> from, @NonNull Class<?> specifiedClass) {
-        if (Objects.isEmpty(from)) {
+        if (cn.srd.itcp.sugar.tool.core.object.Objects.isEmpty(from)) {
             return new HashMap<>();
         }
         return from.entrySet().stream()
-                .filter(entry -> Objects.isNotNull(entry.getValue()) && Objects.notEquals(specifiedClass, entry.getValue().getClass()))
+                .filter(entry -> cn.srd.itcp.sugar.tool.core.object.Objects.isNotNull(entry.getValue()) && cn.srd.itcp.sugar.tool.core.object.Objects.notEquals(specifiedClass, entry.getValue().getClass()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
@@ -842,10 +843,10 @@ public class CollectionsUtil extends CollUtil {
         Map<Object, Boolean> seen = new ConcurrentHashMap<>();
         return t -> {
             U r = function.apply(t);
-            if (Objects.isNull(r)) {
+            if (cn.srd.itcp.sugar.tool.core.object.Objects.isNull(r)) {
                 return false;
             }
-            return Objects.isNull(seen.putIfAbsent(r, true));
+            return cn.srd.itcp.sugar.tool.core.object.Objects.isNull(seen.putIfAbsent(r, true));
         };
     }
 
@@ -1021,7 +1022,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 加入后的集合
      */
     public static <T> List<T> add(@Nullable List<T> from, @Nullable T object) {
-        if (Objects.isNull(from)) {
+        if (cn.srd.itcp.sugar.tool.core.object.Objects.isNull(from)) {
             return new ArrayList<>();
         }
         from.add(object);
@@ -1055,7 +1056,7 @@ public class CollectionsUtil extends CollUtil {
      * @return 是否为 null、{}或空白
      */
     public static boolean isBlankOrEmptyJsonObject(String from) {
-        return Objects.isBlank(from) || CollectionsUtil.isEmptyJsonObject(from);
+        return cn.srd.itcp.sugar.tool.core.object.Objects.isBlank(from) || CollectionsUtil.isEmptyJsonObject(from);
     }
 
     /**

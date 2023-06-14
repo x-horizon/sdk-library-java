@@ -2,7 +2,7 @@ package cn.itcp.sugar.component.jdk.support;
 
 import cn.itcp.sugar.component.jdk.core.EnableExportAllModuleWithJDK16;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
-import cn.srd.itcp.sugar.tool.core.Objects;
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 import jakarta.annotation.PostConstruct;
 import org.burningwave.core.assembler.StaticComponentContainer;
 import org.springframework.boot.autoconfigure.AutoConfiguration;

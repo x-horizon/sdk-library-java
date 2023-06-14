@@ -4,6 +4,7 @@ import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.enums.autowired.exception.*;
 import cn.srd.itcp.sugar.tool.core.*;
 import cn.srd.itcp.sugar.tool.core.asserts.Assert;
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

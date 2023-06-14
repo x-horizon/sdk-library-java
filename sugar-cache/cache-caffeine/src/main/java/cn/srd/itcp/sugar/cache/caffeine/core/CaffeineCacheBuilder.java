@@ -2,7 +2,7 @@ package cn.srd.itcp.sugar.cache.caffeine.core;
 
 import cn.srd.itcp.sugar.context.caffeine.config.properties.CaffeineCacheProperties;
 import cn.srd.itcp.sugar.tool.core.LambdasUtil;
-import cn.srd.itcp.sugar.tool.core.Objects;
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
 import cn.srd.itcp.sugar.tool.exceptions.UnsupportedOperationException;
 import com.github.benmanes.caffeine.cache.Cache;

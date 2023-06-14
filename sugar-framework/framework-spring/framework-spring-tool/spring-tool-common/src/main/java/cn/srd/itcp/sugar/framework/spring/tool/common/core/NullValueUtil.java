@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.framework.spring.tool.common.core;
 
-import cn.srd.itcp.sugar.tool.core.Objects;
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.cache.support.NullValue;

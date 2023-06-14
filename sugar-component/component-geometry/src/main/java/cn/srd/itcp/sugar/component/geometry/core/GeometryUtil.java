@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.component.geometry.core;
 
-import cn.srd.itcp.sugar.tool.core.Objects;
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 import lombok.SneakyThrows;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.WKTReader;

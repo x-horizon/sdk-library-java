@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.tool.core.convert;
 
 import cn.hutool.core.convert.Convert;
-import cn.srd.itcp.sugar.tool.core.Objects;
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 import io.vavr.Function3;
 import io.vavr.Function4;
 import lombok.AccessLevel;

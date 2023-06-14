@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.security.sa.token.webmvc.support;
 
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
-import cn.srd.itcp.sugar.tool.core.Objects;
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
