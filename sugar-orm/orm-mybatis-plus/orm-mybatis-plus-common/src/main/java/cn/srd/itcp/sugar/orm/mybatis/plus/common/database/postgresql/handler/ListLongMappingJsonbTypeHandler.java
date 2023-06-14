@@ -16,7 +16,7 @@ import java.util.List;
  * @author wjm
  * @since 2023-06-14 09:20:17
  */
-public abstract class ListLongMappingJsonbTypeHandler extends BaseTypeHandler<List<Long>> implements JsonbHandler<Long> {
+public class ListLongMappingJsonbTypeHandler extends BaseTypeHandler<List<Long>> implements JsonbHandler<Long> {
 
     /**
      * 定义如何把 Java 类型的参数转换为指定的数据库类型
