@@ -68,6 +68,7 @@ public abstract class ContextAwareActor extends DefaultActor {
 
     /**
      * 获取 actor id
+     * // TODO wjm 与 ActorCreator 的 createActorId() （因为使用是通过内部类使用，看该类的子类即可看到）重复，待优化
      *
      * @return actor id
      */
