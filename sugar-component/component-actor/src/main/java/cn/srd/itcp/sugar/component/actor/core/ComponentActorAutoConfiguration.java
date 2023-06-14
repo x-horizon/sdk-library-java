@@ -48,7 +48,7 @@ public class ComponentActorAutoConfiguration {
             ActorTypeStrategy actorTypeStrategy = Objects.requireNotNull(() -> StringsUtil.format("Actor System init failed, Class [{}] that implements class [{}] is null, it may be not added to Spring IOC, please check!", actorTypeStrategyClass.getSimpleName(), ActorTypeStrategy.class.getSimpleName()), SpringsUtil.getBean(actorTypeStrategyClass));
             String dispatcherName = actorTypeStrategy.getDispatcherName();
             actorSystem.createDispatcher(dispatcherName, newDispatcherExecutor(dispatcherName, actorTypeStrategy.getDispatcherCount()));
-            actorTypeStrategy.setActor(actorSystem.createRootActor(dispatcherName, actorTypeStrategy.newActorCreator()));
+            actorTypeStrategy.setMailbox(actorSystem.createRootActor(dispatcherName, actorTypeStrategy.newActorCreator()));
         });
 
         log.debug("Actor System initialized.");

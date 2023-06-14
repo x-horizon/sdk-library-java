@@ -12,9 +12,9 @@ public interface ActorTypeStrategy {
 
     int getDispatcherCount();
 
-    ActorMailbox getActor();
+    ActorMailbox getMailbox();
 
-    void setActor(ActorMailbox actorMailbox);
+    void setMailbox(ActorMailbox actorMailbox);
 
     ActorCreator newActorCreator();
 
