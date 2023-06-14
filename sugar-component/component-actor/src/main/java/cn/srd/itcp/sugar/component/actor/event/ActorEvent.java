@@ -36,21 +36,21 @@ public interface ActorEvent<T> extends Serializable {
     List<ActorType> getBindActorTypes();
 
     /**
-     * 事件分发
-     *
-     * @return TODO wjm 待定义
-     */
-    default boolean processByOtherActors() {
-        getBindActorTypes().forEach(actorType -> actorType.getStrategy().getMailbox().tell(this));
-        return true;
-    }
-
-    /**
      * 事件自治
      *
      * @return TODO wjm 待定义
      */
     default boolean processBySelf() {
+        getEventType().getStrategy().process(this);
+        return true;
+    }
+
+    /**
+     * 事件分发
+     *
+     * @return TODO wjm 待定义
+     */
+    default boolean processByOtherActors() {
         getBindActorTypes().forEach(actorType -> actorType.getStrategy().getMailbox().tell(this));
         return true;
     }
