@@ -58,6 +58,11 @@ public interface StringPool {
     String DELIM_END = String.valueOf(CharPool.DELIM_END);
 
     /**
+     * 花括号 {}
+     */
+    String DELIM_ALL = DELIM_START + DELIM_END;
+
+    /**
      * 中括号（左） [
      */
     String BRACKET_START = String.valueOf(CharPool.BRACKET_START);
@@ -66,6 +71,11 @@ public interface StringPool {
      * 中括号（右） ]
      */
     String BRACKET_END = String.valueOf(CharPool.BRACKET_END);
+
+    /**
+     * 中括号 []
+     */
+    String BRACKET_ALL = BRACKET_START + BRACKET_END;
 
     /**
      * 双引号 "
