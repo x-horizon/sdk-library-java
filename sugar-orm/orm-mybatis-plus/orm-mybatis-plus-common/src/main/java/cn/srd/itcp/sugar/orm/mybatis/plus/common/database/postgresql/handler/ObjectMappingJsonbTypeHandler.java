@@ -1,6 +1,5 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.handler;
 
-import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.core.object.NullableObject;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
 import lombok.SneakyThrows;
@@ -10,6 +9,7 @@ import org.apache.ibatis.type.JdbcType;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Map;
 
 /**
  * <pre>
@@ -90,7 +90,7 @@ public abstract class ObjectMappingJsonbTypeHandler<T extends NullableObject> ex
     @SneakyThrows
     public void setNonNullParameter(PreparedStatement preparedStatement, int columnIndex, T parameter, JdbcType jdbcType) {
         if (Objects.isNotNull(parameter)) {
-            preparedStatement.setObject(columnIndex, convertObjectToJsonb(parameter.isNull() ? StringPool.DELIM_ALL : parameter));
+            preparedStatement.setObject(columnIndex, convertObjectToJsonb(parameter.isNull() ? Map.of() : parameter));
         }
     }
 
