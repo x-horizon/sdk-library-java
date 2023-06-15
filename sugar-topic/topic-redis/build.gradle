@@ -25,8 +25,8 @@ dependencies {
     // context
     api(project("$itcp_sugar_context_redis"))
 
-    // topic
-    api(project("$itcp_sugar_topic_contract"))
+    // topic TODO wjm 不可引入 topic contract，spring cloud stream 会强制需要使用对应的消费者
+    // api(project("$itcp_sugar_topic_contract"))
 
     // tool
     implementation(project("$itcp_sugar_tool"))
