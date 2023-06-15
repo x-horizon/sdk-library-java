@@ -40,7 +40,7 @@ public interface ActorEvent<T> extends Serializable {
      *
      * @return TODO wjm 待定义
      */
-    default boolean processBySelf() {
+    default boolean process() {
         getEventType().getStrategy().process(this);
         return true;
     }
