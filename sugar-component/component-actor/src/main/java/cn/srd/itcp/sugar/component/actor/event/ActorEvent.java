@@ -22,28 +22,11 @@ public interface ActorEvent<T> extends Serializable {
     T getData();
 
     /**
-     * 获取事件类型
-     *
-     * @return 事件类型
-     */
-    ActorEventType<T> getEventType();
-
-    /**
      * 获取事件绑定的 actor
      *
      * @return 绑定的 actor
      */
     List<? extends ActorType> getBindActorTypes();
-
-    /**
-     * 事件自治
-     *
-     * @return TODO wjm 待定义
-     */
-    default boolean process() {
-        getEventType().getStrategy().process(this);
-        return true;
-    }
 
     /**
      * 事件分发
