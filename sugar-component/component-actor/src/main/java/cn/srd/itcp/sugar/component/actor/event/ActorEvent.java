@@ -33,7 +33,7 @@ public interface ActorEvent<T> extends Serializable {
      *
      * @return 绑定的 actor
      */
-    List<ActorType> getBindActorTypes();
+    List<? extends ActorType> getBindActorTypes();
 
     /**
      * 事件自治
