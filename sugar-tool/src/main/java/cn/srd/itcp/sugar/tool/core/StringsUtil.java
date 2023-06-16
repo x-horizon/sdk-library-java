@@ -279,6 +279,22 @@ public class StringsUtil extends StrUtil {
     }
 
     /**
+     * 比较两个字符串与某个字符串的相似度
+     *
+     * @param originalStr 原字符串
+     * @param compareStr1 与原字符串进行比较的字符串 1
+     * @param compareStr2 与原字符串进行比较的字符串 2
+     * @return 如果 字符串 1 相对于 字符串 2 与 原字符串 更相似，返回 true，否则返回 false
+     */
+    public static boolean similarCompare(String originalStr, String compareStr1, String compareStr2) {
+        return similar(originalStr, compareStr1) > similar(originalStr, compareStr2);
+    }
+
+    // public static boolean getMostSimilar(String originalStr, String... compareStrs) {
+    //
+    // }
+
+    /**
      * 连接多个字符串为一个，如果是 null ，转为 "null"
      *
      * @param strs 字符串数组
