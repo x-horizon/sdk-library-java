@@ -26,19 +26,19 @@ public class JacksonListEnumValueToListEnumDeserializer<E extends Enum<E>> exten
     @Override
     @SuppressWarnings("unchecked")
     public List<E> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) {
-        // 字段名
-        String fieldName = jsonParser.getCurrentName();
+        // json 中该字段的字段名
+        String jsonFieldName = jsonParser.getCurrentName();
         // 字段所在的类
         Class<?> fieldOfClass = jsonParser.getParsingContext().getParent().getCurrentValue().getClass();
         // 字段类型
-        Class<?> fieldType = TypesUtil.getTypeClass(fieldOfClass, fieldName);
+        Class<?> fieldType = TypesUtil.getTypeClass(fieldOfClass, jsonFieldName);
         if (Objects.notEquals(fieldType, List.class)) {
-            throw new JacksonDeserializerException(StringsUtil.format(" 该类 “{}” 中的 “{}” 字段不是 List 类型, 无法反序列化，请检查！", fieldOfClass.getName(), fieldName));
+            throw new JacksonDeserializerException(StringsUtil.format(" 该类 “{}” 中的 “{}” 字段不是 List 类型, 无法反序列化，请检查！", fieldOfClass.getName(), jsonFieldName));
         }
         // 字段类型中的泛型类型
-        Class<?> fieldGenericType = TypesUtil.getEmbedGenericTypeClass(fieldOfClass, fieldName);
+        Class<?> fieldGenericType = TypesUtil.getEmbedGenericTypeClass(fieldOfClass, jsonFieldName);
         if (EnumsUtil.isNotEnum(fieldGenericType)) {
-            throw new JacksonDeserializerException(StringsUtil.format(" 该类 “{}” 中的 “{}” 字段类型 List 中的泛型类型不是枚举类型, 无法反序列化，请检查！", fieldOfClass.getName(), fieldName));
+            throw new JacksonDeserializerException(StringsUtil.format(" 该类 “{}” 中的 “{}” 字段类型 List 中的泛型类型不是枚举类型, 无法反序列化，请检查！", fieldOfClass.getName(), jsonFieldName));
         }
         // 字段值
         List<?> filedValues = jsonParser.readValuesAs(new TypeReference<List<?>>() {
