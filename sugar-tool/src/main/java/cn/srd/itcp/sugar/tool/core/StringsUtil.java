@@ -97,7 +97,7 @@ public class StringsUtil extends StrUtil {
      * @return 是否以指定的字符开头与结尾
      */
     public static boolean startAndEndWith(String from, char match) {
-        if (cn.srd.itcp.sugar.tool.core.object.Objects.isBlank(from)) {
+        if (Objects.isBlank(from)) {
             return false;
         }
 
@@ -178,7 +178,7 @@ public class StringsUtil extends StrUtil {
      * @return 移除数字后的字符串
      */
     public static String removeAllDigit(@Nullable String input) {
-        if (cn.srd.itcp.sugar.tool.core.object.Objects.isNull(input)) {
+        if (Objects.isNull(input)) {
             return StringPool.EMPTY;
         }
         int length = input.length();
@@ -219,7 +219,7 @@ public class StringsUtil extends StrUtil {
      * @return 出现次数
      */
     public static Map<Character, Long> charsCount(final String specifiedStr) {
-        if (cn.srd.itcp.sugar.tool.core.object.Objects.isEmpty(specifiedStr)) {
+        if (Objects.isEmpty(specifiedStr)) {
             return new HashMap<>();
         }
         return specifiedStr.chars().mapToObj(c -> (char) c).collect(groupingBy(identity(), counting()));
@@ -252,7 +252,7 @@ public class StringsUtil extends StrUtil {
      * @return 是否包含中文字符
      */
     public static boolean isChineseIncluded(final String specifiedStr) {
-        if (cn.srd.itcp.sugar.tool.core.object.Objects.isEmpty(specifiedStr)) {
+        if (Objects.isEmpty(specifiedStr)) {
             return false;
         }
         for (char charStr : specifiedStr.toCharArray()) {
@@ -271,7 +271,7 @@ public class StringsUtil extends StrUtil {
      * @return 是否全部是中文
      */
     public static boolean isAllChinese(final String specifiedStr) {
-        if (cn.srd.itcp.sugar.tool.core.object.Objects.isEmpty(specifiedStr)) {
+        if (Objects.isEmpty(specifiedStr)) {
             return false;
         }
         String rule = "[\\u4e00-\\u9fa5]+";
@@ -307,7 +307,7 @@ public class StringsUtil extends StrUtil {
     public static String toPrettyString(Collection<String> collection) {
         List<String> prettyList = new ArrayList<>(collection.size());
         collection.forEach(str -> {
-            if (cn.srd.itcp.sugar.tool.core.object.Objects.isNotNull(str)) {
+            if (Objects.isNotNull(str)) {
                 prettyList.add("\"" + str + "\"");
             }
         });
@@ -332,10 +332,10 @@ public class StringsUtil extends StrUtil {
      * @return 格式化后的 String
      */
     public static String pretty(Collection<String> collection, @Nullable String tag) {
-        if (cn.srd.itcp.sugar.tool.core.object.Objects.isEmpty(collection)) {
+        if (Objects.isEmpty(collection)) {
             return StringPool.EMPTY;
         }
-        if (cn.srd.itcp.sugar.tool.core.object.Objects.isNull(tag)) {
+        if (Objects.isNull(tag)) {
             return join(StringPool.COMMA, collection);
         }
         return join(tag, collection);
@@ -359,13 +359,13 @@ public class StringsUtil extends StrUtil {
      * @return 格式化后的 String
      */
     public static String prettyIgnoreNull(Collection<String> collection, @Nullable String tag) {
-        if (cn.srd.itcp.sugar.tool.core.object.Objects.isEmpty(collection)) {
+        if (Objects.isEmpty(collection)) {
             return StringsUtil.EMPTY;
         }
         List<String> prettyList = new ArrayList<>(collection.size());
         collection.forEach(str -> {
-            if (cn.srd.itcp.sugar.tool.core.object.Objects.isNotNull(str)) {
-                prettyList.add("'" + str + "'" + (cn.srd.itcp.sugar.tool.core.object.Objects.isEmpty(tag) ? "" : tag));
+            if (Objects.isNotNull(str)) {
+                prettyList.add("'" + str + "'" + (Objects.isEmpty(tag) ? "" : tag));
             }
         });
         return String.join(",", prettyList);
@@ -389,7 +389,7 @@ public class StringsUtil extends StrUtil {
      * @return 格式化后的 String
      */
     public static String toWhole(Collection<String> collection, @Nullable String tag) {
-        tag = cn.srd.itcp.sugar.tool.core.object.Objects.isNull(tag) ? COMMA : tag;
+        tag = Objects.isNull(tag) ? COMMA : tag;
         return join(tag, collection);
     }
 
@@ -411,8 +411,8 @@ public class StringsUtil extends StrUtil {
      * @return 格式化后的 String
      */
     public static String toWholeIgnoreNull(Collection<String> collection, @Nullable String tag) {
-        tag = cn.srd.itcp.sugar.tool.core.object.Objects.isNull(tag) ? COMMA : tag;
-        return join(tag, collection.stream().filter(cn.srd.itcp.sugar.tool.core.object.Objects::isNotNull).toList());
+        tag = Objects.isNull(tag) ? COMMA : tag;
+        return join(tag, collection.stream().filter(Objects::isNotNull).toList());
     }
 
     /**
