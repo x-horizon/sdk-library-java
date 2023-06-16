@@ -9,9 +9,9 @@ import cn.srd.itcp.sugar.component.actor.exception.ActorException;
  * @author wjm
  * @since 2023-03-20 11:04:19
  */
-public interface Actor {
+public interface Actor<T> {
 
-    <T> boolean process(ActorEvent<T> event);
+    boolean process(ActorEvent<T> event);
 
     ActorMailbox getMailbox();
 
