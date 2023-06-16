@@ -3,6 +3,8 @@ package cn.srd.itcp.sugar.tool.web;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
 import cn.srd.itcp.sugar.tool.exceptions.RunningException;
 
+import java.util.function.Consumer;
+
 /**
  * root response model
  *
@@ -57,6 +59,18 @@ public interface ResponseModel<T> {
         if (errorIs()) {
             throw this.buildRunningException();
         }
+    }
+
+    /**
+     * after {@link #requireSuccess()} then do something
+     *
+     * @param model the model extend {@link ResponseModel}
+     * @param logic the logic
+     * @param <M>   {@link ResponseModel} extension
+     */
+    default <M extends ResponseModel<T>> void requireSuccessAndThen(M model, Consumer<M> logic) {
+        requireSuccess();
+        logic.accept(model);
     }
 
     /**
