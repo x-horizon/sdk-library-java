@@ -10,10 +10,7 @@ import lombok.SneakyThrows;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -121,24 +118,67 @@ public class ClassesUtil extends ClassUtil {
     }
 
     /**
-     * 查找指定类及其父类中的所有字段（包括非public字段），先匹配指定类，若指定类不存在再到父类寻找，字段不存在则返回 null
+     * 查找指定类中的字段（包括非public字段）
      *
      * @param clazz     被查找字段的类
      * @param fieldName 字段名
      * @return 字段
      */
-    public static Field getDeclaredField(Class<?> clazz, String fieldName) {
+    public static Field findField(Class<?> clazz, String fieldName) {
+        return ClassUtil.getDeclaredField(clazz, fieldName);
+    }
+
+    /**
+     * 查找指定类及其父类（不包括 {@link Object}）中的字段（包括非public字段）
+     *
+     * @param clazz     被查找字段的类
+     * @param fieldName 字段名
+     * @return 字段
+     */
+    public static Field findFieldContainSuper(Class<?> clazz, String fieldName) {
         if (Objects.isNull(clazz) || Objects.isBlank(fieldName)) {
             return null;
         }
-        Field field = ClassUtil.getDeclaredField(clazz, fieldName);
+        Field field = findField(clazz, fieldName);
         if (Objects.isNull(field)) {
             Class<?> superClass = clazz.getSuperclass();
             if (Objects.isNotNull(superClass)) {
-                return getDeclaredField(superClass, fieldName);
+                return findFieldContainSuper(superClass, fieldName);
             }
         }
         return field;
+    }
+
+    /**
+     * 获取指定类的所有字段（包括非public字段）
+     *
+     * @param clazz 指定类
+     * @return 字段
+     */
+    public static Field[] getAllFields(Class<?> clazz) {
+        if (Objects.isNull(clazz)) {
+            return new Field[0];
+        }
+        return clazz.getDeclaredFields();
+    }
+
+    /**
+     * 获取指定类及其父类（不包括 {@link Object}）中的所有字段（包括非public字段）
+     *
+     * @param clazz 指定类
+     * @return 字段
+     */
+    public static Field[] getAllFieldsContainSuper(Class<?> clazz) {
+        if (Objects.isNull(clazz)) {
+            return new Field[0];
+        }
+        Class<?> findClass = clazz;
+        List<Field> fields = new ArrayList<>();
+        while (Objects.isNotNull(findClass)) {
+            fields.addAll(Arrays.stream(findClass.getDeclaredFields()).toList());
+            findClass = findClass.getSuperclass();
+        }
+        return fields.toArray(Field[]::new);
     }
 
 }
