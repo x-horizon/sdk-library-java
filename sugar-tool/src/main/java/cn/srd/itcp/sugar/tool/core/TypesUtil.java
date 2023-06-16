@@ -183,7 +183,7 @@ public class TypesUtil {
      * @return 字段类型
      */
     public static Class<?> getTypeClass(Class<?> fieldOfClass, String fieldName) {
-        Field field = ClassesUtil.getDeclaredField(fieldOfClass, fieldName);
+        Field field = ClassesUtil.findFieldContainSuper(fieldOfClass, fieldName);
         return Objects.isNull(field) ? null : field.getType();
     }
 
@@ -217,7 +217,7 @@ public class TypesUtil {
      */
     @SneakyThrows
     public static Type[] getEmbedGenericTypes(Class<?> fieldOfClass, String fieldName) {
-        return ((ParameterizedType) ClassesUtil.getDeclaredField(fieldOfClass, fieldName).getGenericType()).getActualTypeArguments();
+        return ((ParameterizedType) ClassesUtil.findFieldContainSuper(fieldOfClass, fieldName).getGenericType()).getActualTypeArguments();
     }
 
 }

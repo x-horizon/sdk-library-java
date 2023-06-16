@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.component.convert.jackson.support;
 
 import cn.srd.itcp.sugar.component.convert.jackson.exception.JacksonDeserializerException;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
+import cn.srd.itcp.sugar.tool.core.ClassesUtil;
 import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tool.core.EnumsUtil;
 import cn.srd.itcp.sugar.tool.core.StringsUtil;
@@ -31,13 +32,13 @@ public class JacksonEnumValueToEnumCapableDeserializer<E extends Enum<E>> extend
         String jsonFieldName = jsonParser.getCurrentName();
         // 字段所在的类
         Class<?> fieldOfClass = jsonParser.getCurrentValue().getClass();
-        // 根据 json 中该字段的字段名 与 该字段所在类的所有字段名进行匹配后，可能匹配上的字段
-        List<Field> mayMatchFields = Stream.of(fieldOfClass.getDeclaredFields()).filter(declaredFiled -> StringsUtil.containsAnyIgnoreCase(declaredFiled.getName(), jsonFieldName)).toList();
+        // 根据 json 中该字段的字段名 与 该字段所在类（包括父类）的所有字段名进行匹配后，可能匹配上的字段（json 字段名包含类字段名 或 类字段名包含 json 字段名）
+        List<Field> mayMatchFields = Stream.of(ClassesUtil.getAllFieldsContainSuper(fieldOfClass)).filter(declaredFiled -> StringsUtil.containsAnyIgnoreCase(declaredFiled.getName(), jsonFieldName) || StringsUtil.containsAnyIgnoreCase(jsonFieldName, declaredFiled.getName())).toList();
         if (mayMatchFields.isEmpty()) {
-            throw new JacksonDeserializerException(StringsUtil.format("反序列化失败：无法匹配要反序列化的字段，字段名：{} 无法找到其对应匹配的字段，请检查!", jsonFieldName));
+            throw new JacksonDeserializerException(StringsUtil.format("反序列化失败：无法匹配要反序列化的字段，该类 “{}” 中的字段名：{} 无法找到其对应匹配的字段，请检查!", fieldOfClass.getName(), jsonFieldName));
         }
         if (mayMatchFields.size() > 1) {
-            throw new JacksonDeserializerException(StringsUtil.format("反序列化失败：无法匹配要反序列化的字段，字段名：{} 对应匹配的字段有多个：{}，请检查!", jsonFieldName, StringsUtil.join(StringPool.COMMA, mayMatchFields)));
+            throw new JacksonDeserializerException(StringsUtil.format("反序列化失败：无法匹配要反序列化的字段，该类 “{}” 中的字段名：{} 对应匹配的字段有多个：{}，请检查!", fieldOfClass.getName(), jsonFieldName, StringsUtil.join(StringPool.COMMA, mayMatchFields)));
         }
         // 字段类型
         Class<?> fieldType = CollectionsUtil.getFirst(mayMatchFields).getType();
