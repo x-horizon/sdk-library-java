@@ -108,77 +108,99 @@ public class ClassesUtil extends ClassUtil {
      *
      * @param packageNames 包路径集合
      * @param superClass   父类或接口
-     * @param <PARENT>     父类类型
+     * @param <S>          父类类型
      * @return 类集合
      */
-    public static <PARENT> Set<Class<? extends PARENT>> scanPackagesBySuper(String[] packageNames, final Class<PARENT> superClass) {
-        Set<Class<? extends PARENT>> subClasses = new HashSet<>();
+    public static <S> Set<Class<? extends S>> scanPackagesBySuper(String[] packageNames, final Class<S> superClass) {
+        Set<Class<? extends S>> subClasses = new HashSet<>();
         Arrays.stream(packageNames).forEach(packageName -> CollectionsUtil.addAll(subClasses, scanPackageBySuper(packageName, superClass)));
         return subClasses;
     }
 
     /**
-     * 查找指定类中的字段（包括非public字段）
+     * 获取指定类的所有字段
      *
-     * @param clazz     被查找字段的类
-     * @param fieldName 字段名
+     * @param clazz 指定类
      * @return 字段
      */
-    public static Field findField(Class<?> clazz, String fieldName) {
-        return ClassUtil.getDeclaredField(clazz, fieldName);
+    public static List<Field> getFields(Class<?> clazz) {
+        if (Objects.isNull(clazz)) {
+            return new ArrayList<>();
+        }
+        return Arrays.stream(clazz.getDeclaredFields()).toList();
     }
 
     /**
-     * 查找指定类及其父类（不包括 {@link Object}）中的字段（包括非public字段）
+     * 获取指定类及其父类（不包括 {@link Object}）中的所有字段
+     *
+     * @param clazz 指定类
+     * @return 字段
+     */
+    public static List<Field> getFieldsDeep(Class<?> clazz) {
+        if (Objects.isNull(clazz)) {
+            return new ArrayList<>();
+        }
+        Class<?> findClass = clazz;
+        List<Field> fields = new ArrayList<>();
+        while (Objects.isNotNull(findClass)) {
+            fields.addAll(getFields(findClass));
+            findClass = findClass.getSuperclass();
+        }
+        return fields;
+    }
+
+    /**
+     * 查找指定类中的字段
      *
      * @param clazz     被查找字段的类
      * @param fieldName 字段名
      * @return 字段
      */
-    public static Field findFieldContainSuper(Class<?> clazz, String fieldName) {
+    public static Field getField(Class<?> clazz, String fieldName) {
+        return getDeclaredField(clazz, fieldName);
+    }
+
+    /**
+     * 查找指定类及其父类（不包括 {@link Object}）中的字段
+     *
+     * @param clazz     被查找字段的类
+     * @param fieldName 字段名
+     * @return 字段
+     */
+    public static Field getFieldDeep(Class<?> clazz, String fieldName) {
         if (Objects.isNull(clazz) || Objects.isBlank(fieldName)) {
             return null;
         }
-        Field field = findField(clazz, fieldName);
+        Field field = getField(clazz, fieldName);
         if (Objects.isNull(field)) {
             Class<?> superClass = clazz.getSuperclass();
             if (Objects.isNotNull(superClass)) {
-                return findFieldContainSuper(superClass, fieldName);
+                return getFieldDeep(superClass, fieldName);
             }
         }
         return field;
     }
 
     /**
-     * 获取指定类的所有字段（包括非public字段）
+     * <pre>
+     * 模糊查找指定类及其父类（不包括 {@link Object}）中的字段
+     * 模糊查找定义：根据字段名与类中的所有字段名进行比较，返回相似度最高的字段
+     * 相似度：see {@link StringsUtil#getMostSimilar(String, List)}
+     * </pre>
      *
-     * @param clazz 指定类
+     * @param clazz     被查找字段的类
+     * @param fieldName 字段名
      * @return 字段
      */
-    public static Field[] getAllFields(Class<?> clazz) {
-        if (Objects.isNull(clazz)) {
-            return new Field[0];
-        }
-        return clazz.getDeclaredFields();
-    }
-
-    /**
-     * 获取指定类及其父类（不包括 {@link Object}）中的所有字段（包括非public字段）
-     *
-     * @param clazz 指定类
-     * @return 字段
-     */
-    public static Field[] getAllFieldsContainSuper(Class<?> clazz) {
-        if (Objects.isNull(clazz)) {
-            return new Field[0];
-        }
-        Class<?> findClass = clazz;
-        List<Field> fields = new ArrayList<>();
-        while (Objects.isNotNull(findClass)) {
-            fields.addAll(Arrays.stream(findClass.getDeclaredFields()).toList());
-            findClass = findClass.getSuperclass();
-        }
-        return fields.toArray(Field[]::new);
+    public static Field getFieldFuzzy(Class<?> clazz, String fieldName) {
+        List<Field> fields = getFieldsDeep(clazz);
+        List<String> fieldNames = new ArrayList<>();
+        Map<String, Field> fieldNameMappingFieldMap = new HashMap<>();
+        fields.forEach(field -> {
+            fieldNames.add(field.getName());
+            fieldNameMappingFieldMap.put(field.getName(), field);
+        });
+        return fieldNameMappingFieldMap.get(StringsUtil.getMostSimilar(fieldName, fieldNames));
     }
 
 }
