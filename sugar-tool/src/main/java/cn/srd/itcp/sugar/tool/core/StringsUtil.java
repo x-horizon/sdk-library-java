@@ -279,20 +279,93 @@ public class StringsUtil extends StrUtil {
     }
 
     /**
-     * 比较两个字符串与某个字符串的相似度
+     * see {@link #getMostSimilar(String, List)}
      *
-     * @param originalStr 原字符串
-     * @param compareStr1 与原字符串进行比较的字符串 1
-     * @param compareStr2 与原字符串进行比较的字符串 2
-     * @return 如果 字符串 1 相对于 字符串 2 与 原字符串 更相似，返回 true，否则返回 false
+     * @param originalInput original string
+     * @param compareInputs the strings to compare
+     * @return the most similar string
      */
-    public static boolean similarCompare(String originalStr, String compareStr1, String compareStr2) {
-        return similar(originalStr, compareStr1) > similar(originalStr, compareStr2);
+    public static String getMostSimilar(String originalInput, String... compareInputs) {
+        return getMostSimilar(originalInput, Arrays.stream(compareInputs).toList());
     }
 
-    // public static boolean getMostSimilar(String originalStr, String... compareStrs) {
-    //
-    // }
+    /**
+     * <pre>
+     * get the most similar string compare with original string
+     * similar define:
+     *   the length of the longest common substring as the similarity,
+     *   the longer the public substring, the higher the similarity.
+     *
+     * note: ignore case.
+     * see {@link #getLongestCommonSubstringLength(String, String)}
+     * </pre>
+     *
+     * @param originalInput original string
+     * @param compareInputs the strings to compare
+     * @return the most similar string
+     */
+    public static String getMostSimilar(String originalInput, List<String> compareInputs) {
+        Map<Integer, String> similarityMappingStringMap = new HashMap<>(compareInputs.size());
+        List<Integer> similarities = new ArrayList<>(compareInputs.size());
+        compareInputs.forEach(compareInput -> {
+            int similarity = getLongestCommonSubstringLength(originalInput, compareInput);
+            similarities.add(similarity);
+            similarityMappingStringMap.put(similarity, compareInput);
+        });
+        return similarityMappingStringMap.get(CollectionsUtil.max(similarities));
+    }
+
+    /**
+     * get the longest common substring length in two string, see {@link #getLongestCommonSubstring(String, String)}
+     *
+     * @param input1 the string to compare
+     * @param input2 the string to compare
+     * @return the longest common substring length in two string
+     */
+    public static int getLongestCommonSubstringLength(String input1, String input2) {
+        return getLongestCommonSubstring(input1, input2).length();
+    }
+
+    /**
+     * <pre>
+     * get the longest common substring in two string.
+     * implement by dynamic programming algorithm.
+     * the time complexity is O(mn).
+     *
+     * note:
+     * 1. ignore case.
+     * 2. if there are multiple longest common substrings, will return the last one.
+     * </pre>
+     *
+     * @param input1 the string to compare
+     * @param input2 the string to compare
+     * @return the longest common substring in two string
+     */
+    public static String getLongestCommonSubstring(String input1, String input2) {
+        if (Objects.isEmpty(input1, input2)) {
+            return StringPool.EMPTY;
+        }
+        String lowerCaseInput1 = input1.toLowerCase();
+        String lowerCaseInput2 = input2.toLowerCase();
+
+        int[][] dp = new int[lowerCaseInput1.length() + 1][lowerCaseInput2.length() + 1];
+        int maxLength = 0;
+        int endIndex = 0;
+
+        for (int i = 1; i <= lowerCaseInput1.length(); i++) {
+            for (int j = 1; j <= lowerCaseInput2.length(); j++) {
+                if (lowerCaseInput1.charAt(i - 1) == lowerCaseInput2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                    if (dp[i][j] > maxLength) {
+                        maxLength = dp[i][j];
+                        endIndex = i;
+                    }
+                }
+            }
+        }
+
+        return input1.substring(endIndex - maxLength, endIndex);
+    }
 
     /**
      * 连接多个字符串为一个，如果是 null ，转为 "null"
