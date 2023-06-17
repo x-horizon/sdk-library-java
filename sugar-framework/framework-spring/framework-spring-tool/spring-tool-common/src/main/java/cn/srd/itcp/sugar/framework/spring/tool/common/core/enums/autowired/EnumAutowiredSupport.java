@@ -70,7 +70,7 @@ public class EnumAutowiredSupport {
                         // 要注入的字段名
                         String fieldNameToAutowired = enumAutowired.autowiredFiledName();
                         if (Objects.isBlank(fieldNameToAutowired)) {
-                            List<Field> matchFields = CollectionsUtil.filtersToList(ClassesUtil.getAllFields(internalEnumWithEnumAutowired.getClass()), enumField -> Objects.equals(enumField.getType(), enumAutowired.autowiredBeanClass()));
+                            List<Field> matchFields = CollectionsUtil.filtersToList(ClassesUtil.getFields(internalEnumWithEnumAutowired.getClass()), enumField -> Objects.equals(enumField.getType(), enumAutowired.autowiredBeanClass()));
                             Assert.INSTANCE.set(new EnumAutowiredUnmatchedFieldException(StringsUtil.format("The class [{}] marked with [@{}] has no field match [{}], cannot autowired, please specify one!", classSimpleNameWithEnumAutowired, EnumAutowired.class.getSimpleName(), autowiredBeanClassSimpleName))).throwsIfEmpty(matchFields);
                             Assert.INSTANCE.set(new EnumAutowiredMultiMatchedFieldException(StringsUtil.format("The class [{}] marked with [@{}] has multi fields match [{}], cannot autowired, please specify one!", classSimpleNameWithEnumAutowired, EnumAutowired.class.getSimpleName(), autowiredBeanClassSimpleName))).throwsIfTrue(matchFields.size() > 1);
                             fieldNameToAutowired = CollectionsUtil.getFirst(matchFields).getName();
