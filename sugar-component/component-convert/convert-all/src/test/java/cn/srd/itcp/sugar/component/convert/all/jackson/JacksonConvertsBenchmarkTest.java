@@ -3,7 +3,7 @@ package cn.srd.itcp.sugar.component.convert.all.jackson;
 import cn.srd.itcp.sugar.component.convert.all.core.Converts;
 import cn.srd.itcp.sugar.component.convert.all.mapstruct.bean.domain.GradeDO;
 import cn.srd.itcp.sugar.component.convert.all.mapstruct.bean.domain.StudentDO;
-import com.fasterxml.jackson.core.type.TypeReference;
+import cn.srd.itcp.sugar.component.convert.jackson.core.Jacksons;
 import com.google.common.collect.ImmutableMap;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
@@ -94,8 +94,7 @@ public class JacksonConvertsBenchmarkTest {
     @Benchmark
     public void testStringToBeanWithToAnything() {
         for (int i = 1; i <= dataSize; ++i) {
-            Converts.withJackson().toAnything(GRADE_DO_JSON, new TypeReference<GradeDO>() {
-            });
+            Converts.withJackson().toAnything(GRADE_DO_JSON, Jacksons.<GradeDO>newTypeReference());
         }
     }
 
@@ -109,8 +108,7 @@ public class JacksonConvertsBenchmarkTest {
     @Benchmark
     public void testStringToBeansWithToAnything() {
         for (int i = 1; i <= dataSize; ++i) {
-            Converts.withJackson().toAnything(GRADE_DOS_JSON_ARRAY, new TypeReference<List<GradeDO>>() {
-            });
+            Converts.withJackson().toAnything(GRADE_DOS_JSON_ARRAY, Jacksons.<List<GradeDO>>newTypeReference());
         }
     }
 
@@ -124,8 +122,7 @@ public class JacksonConvertsBenchmarkTest {
     @Benchmark
     public void testStringToMapWithToAnything() {
         for (int i = 1; i <= dataSize; ++i) {
-            Converts.withJackson().toAnything(STRING_MAPPING_GRADE_DO_MAP_JSON, new TypeReference<Map<String, GradeDO>>() {
-            });
+            Converts.withJackson().toAnything(STRING_MAPPING_GRADE_DO_MAP_JSON, Jacksons.<Map<String, GradeDO>>newTypeReference());
         }
     }
 
@@ -139,8 +136,7 @@ public class JacksonConvertsBenchmarkTest {
     @Benchmark
     public void testStringToMapsWithToAnything() {
         for (int i = 1; i <= dataSize; ++i) {
-            Converts.withJackson().toAnything(STRING_MAPPING_GRADE_DOS_MAP_JSON, new TypeReference<Map<String, List<GradeDO>>>() {
-            });
+            Converts.withJackson().toAnything(STRING_MAPPING_GRADE_DOS_MAP_JSON, Jacksons.<Map<String, List<GradeDO>>>newTypeReference());
         }
     }
 

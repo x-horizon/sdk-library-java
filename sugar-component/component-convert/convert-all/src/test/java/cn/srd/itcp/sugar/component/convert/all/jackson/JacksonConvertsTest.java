@@ -4,11 +4,11 @@ import cn.srd.itcp.sugar.component.convert.all.core.Converts;
 import cn.srd.itcp.sugar.component.convert.all.jackson.bean.GradeDO;
 import cn.srd.itcp.sugar.component.convert.all.jackson.bean.StudentDO;
 import cn.srd.itcp.sugar.component.convert.jackson.core.JacksonConverts;
+import cn.srd.itcp.sugar.component.convert.jackson.core.Jacksons;
 import cn.srd.itcp.sugar.tool.core.FilesUtil;
 import cn.srd.itcp.sugar.tool.core.ReflectsUtil;
 import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.collect.ImmutableMap;
 import jakarta.validation.ConstraintViolationException;
@@ -68,14 +68,10 @@ public class JacksonConvertsTest {
 
         Assert.assertTrue(Objects.isNotBlank(Converts.withJackson().toJsonNode(gradeDOJson).get("name").asText()));
 
-        Assert.assertNotNull(Converts.withJackson().toAnything(gradeDOJson, new TypeReference<GradeDO>() {
-        }));
-        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(gradeDOsJsonArray, new TypeReference<List<GradeDO>>() {
-        })));
-        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(stringMappingGradeDOMapJson, new TypeReference<Map<String, GradeDO>>() {
-        })));
-        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(stringMappingGradeDOsMapJson, new TypeReference<Map<String, List<GradeDO>>>() {
-        })));
+        Assert.assertNotNull(Converts.withJackson().toAnything(gradeDOJson, Jacksons.<GradeDO>newTypeReference()));
+        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(gradeDOsJsonArray, Jacksons.<List<GradeDO>>newTypeReference())));
+        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(stringMappingGradeDOMapJson, Jacksons.<Map<String, GradeDO>>newTypeReference())));
+        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(stringMappingGradeDOsMapJson, Jacksons.<Map<String, List<GradeDO>>>newTypeReference())));
 
         Assert.assertNotNull(Converts.withJackson().toBean(gradeDOJson, GradeDO.class));
         Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toBeans(gradeDOsJsonArray, GradeDO.class)));
@@ -95,40 +91,32 @@ public class JacksonConvertsTest {
         Assert.assertTrue(FilesUtil.exist(file));
         Assert.assertNotNull(Converts.withJackson().toBean(file, GradeDO.class));
         Assert.assertNotNull(Converts.withJackson().toBean(url, GradeDO.class));
-        Assert.assertNotNull(Converts.withJackson().toAnything(file, new TypeReference<GradeDO>() {
-        }));
-        Assert.assertNotNull(Converts.withJackson().toAnything(url, new TypeReference<GradeDO>() {
-        }));
+        Assert.assertNotNull(Converts.withJackson().toAnything(file, Jacksons.<GradeDO>newTypeReference()));
+        Assert.assertNotNull(Converts.withJackson().toAnything(url, Jacksons.<GradeDO>newTypeReference()));
         FilesUtil.del(file);
 
         Converts.withJackson().writeToFile(file, GRADE_DOS);
         Assert.assertTrue(FilesUtil.exist(file));
         Assert.assertNotNull(Converts.withJackson().toBeans(file, GradeDO.class));
         Assert.assertNotNull(Converts.withJackson().toBeans(url, GradeDO.class));
-        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(file, new TypeReference<List<GradeDO>>() {
-        })));
-        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(url, new TypeReference<List<GradeDO>>() {
-        })));
+        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(file, Jacksons.<List<GradeDO>>newTypeReference())));
+        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(url, Jacksons.<List<GradeDO>>newTypeReference())));
         FilesUtil.del(file);
 
         Converts.withJackson().writeToFile(file, STRING_MAPPING_GRADE_DO_MAP);
         Assert.assertTrue(FilesUtil.exist(file));
         Assert.assertNotNull(Converts.withJackson().toMap(file, GradeDO.class));
         Assert.assertNotNull(Converts.withJackson().toMap(url, GradeDO.class));
-        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(file, new TypeReference<Map<String, GradeDO>>() {
-        })));
-        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(url, new TypeReference<Map<String, GradeDO>>() {
-        })));
+        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(file, Jacksons.<Map<String, GradeDO>>newTypeReference())));
+        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(url, Jacksons.<Map<String, GradeDO>>newTypeReference())));
         FilesUtil.del(file);
 
         Converts.withJackson().writeToFile(file, STRING_MAPPING_GRADE_DOS_MAP);
         Assert.assertTrue(FilesUtil.exist(file));
         Assert.assertNotNull(Converts.withJackson().toMaps(file, GradeDO.class));
         Assert.assertNotNull(Converts.withJackson().toMaps(url, GradeDO.class));
-        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(file, new TypeReference<Map<String, List<GradeDO>>>() {
-        })));
-        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(url, new TypeReference<Map<String, List<GradeDO>>>() {
-        })));
+        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(file, Jacksons.<Map<String, List<GradeDO>>>newTypeReference())));
+        Assert.assertTrue(Objects.isNotEmpty(Converts.withJackson().toAnything(url, Jacksons.<Map<String, List<GradeDO>>>newTypeReference())));
         FilesUtil.del(file);
     }
 
