@@ -22,18 +22,13 @@ public class JacksonEnumValueToEnumDeserializer<E extends Enum<E>> extends JsonD
     @Override
     @SuppressWarnings("unchecked")
     public E deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) {
-        // 字段名
-        String fieldName = jsonParser.getCurrentName();
-        // 字段所在的类
+        String jsonFieldName = jsonParser.getCurrentName();
         Class<?> fieldOfClass = jsonParser.getCurrentValue().getClass();
-        // 字段类型
-        Class<?> fieldType = TypesUtil.getTypeClass(fieldOfClass, fieldName);
+        Class<?> fieldType = TypesUtil.getTypeClass(fieldOfClass, jsonFieldName);
         if (EnumsUtil.isNotEnum(fieldType)) {
-            throw new JacksonDeserializerException(StringsUtil.format(" 该类 “{}” 中的 “{}” 字段不是枚举类型, 无法反序列化，请检查！", fieldOfClass.getName(), fieldName));
+            throw new JacksonDeserializerException(StringsUtil.format("jackson deserializer: cannot deserializer field [{}] on class [{}] because the generic type in List.class is not Enum, please check!", jsonFieldName, fieldOfClass.getSimpleName()));
         }
-        // 字段值
-        String fieldValue = jsonParser.getText();
-        return EnumsUtil.capableToEnum(Objects.getActualValue(fieldValue), (Class<E>) fieldType);
+        return EnumsUtil.capableToEnum(Objects.getActualValue(jsonParser.getText()), (Class<E>) fieldType);
     }
 
 }
