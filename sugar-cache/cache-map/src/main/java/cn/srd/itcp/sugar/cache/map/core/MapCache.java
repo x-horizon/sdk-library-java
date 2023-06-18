@@ -23,7 +23,7 @@ public class MapCache<K> implements MapCacheTemplate<K> {
     /**
      * default initial capacity
      */
-    private static final int DEFAULT_INITIAL_CAPACITY = 16;
+    private static final int DEFAULT_INITIAL_CAPACITY = 256;
 
     /**
      * combine {@link ConcurrentHashMap}
