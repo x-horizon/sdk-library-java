@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 @EnableCache
 @EnableRedisLock
 @RunWith(SpringRunner.class)
@@ -133,6 +135,9 @@ public class CacheAllTest {
         BookPO result44 = cacheAllowNullValueService.deleteBeforeProceedAll(1L);
         BookPO result45 = cacheAllowNullValueService.multi(BookPO.build(200L));
         BookPO result46 = cacheAllowNullValueService.multi(BookPO.build(200L));
+
+        List<BookPO> result101 = cacheNotAllowNullValueService.getAll();
+        List<BookPO> result102 = cacheAllowNullValueService.getAll();
     }
 
 }

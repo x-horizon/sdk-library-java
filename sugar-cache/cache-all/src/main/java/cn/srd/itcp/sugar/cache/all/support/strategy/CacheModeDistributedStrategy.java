@@ -7,6 +7,7 @@ import cn.srd.itcp.sugar.component.lock.redis.common.core.RedisNonFairLockHandle
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -43,6 +44,18 @@ public class CacheModeDistributedStrategy implements CacheModeStrategy {
                 dataManager, namespace, key, findCacheTypeNameIndex,
                 (t1, t2, t3, t4) -> CacheModeLocalStrategy.getInstance().get(dataManager, namespace, key, findCacheTypeNameIndex),
                 LOCK_NAME_PREFIX + Caches.withRedis().withBucket().resolveKey(key, namespace),
+                CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheWaitTime(),
+                CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheLeaseTime(),
+                TimeUnit.MILLISECONDS
+        );
+    }
+
+    @Override
+    public <V> Map<String, V> getMapByNamespace(CacheDataManager dataManager, String namespace, int findCacheTypeNameIndex) {
+        return RedisNonFairLockHandler.getInstance().tryLock(
+                dataManager, namespace, findCacheTypeNameIndex,
+                (t1, t2, t3) -> CacheModeLocalStrategy.getInstance().getMapByNamespace(dataManager, namespace, findCacheTypeNameIndex),
+                LOCK_NAME_PREFIX + namespace,
                 CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheWaitTime(),
                 CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheLeaseTime(),
                 TimeUnit.MILLISECONDS

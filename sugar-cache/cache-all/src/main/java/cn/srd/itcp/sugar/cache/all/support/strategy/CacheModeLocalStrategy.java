@@ -6,6 +6,8 @@ import cn.srd.itcp.sugar.tool.core.object.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
+
 /**
  * the local cache mode strategy implement
  *
@@ -41,6 +43,21 @@ public class CacheModeLocalStrategy implements CacheModeStrategy {
             }
         }
         return value;
+    }
+
+    @Override
+    public <V> Map<String, V> getMapByNamespace(CacheDataManager dataManager, String namespace, int findCacheTypeNameIndex) {
+        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(dataManager.getCacheTypeNames().get(findCacheTypeNameIndex));
+        Map<String, V> values = cacheTemplate.getMapByNamespace(namespace);
+        if (Objects.isNotEmpty(values)) {
+            for (int writeIndex = findCacheTypeNameIndex - 1; writeIndex >= 0; writeIndex--) {
+                cacheTemplate = dataManager.getTemplate(dataManager.getCacheTypeNames().get(writeIndex));
+                for (Map.Entry<String, V> value : values.entrySet()) {
+                    cacheTemplate.set(value.getKey(), value.getValue());
+                }
+            }
+        }
+        return values;
     }
 
 }

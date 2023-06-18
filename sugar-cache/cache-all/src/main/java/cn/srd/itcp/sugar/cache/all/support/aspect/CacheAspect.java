@@ -19,6 +19,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.cache.support.NullValue;
 
 import java.lang.reflect.Parameter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -98,6 +99,7 @@ public interface CacheAspect extends AopCaptor {
 
     /**
      * select which key generator to use
+     * TODO wjm optimize to singleton instance, do not initialize every time
      *
      * @param cacheConfigAnnotation see {@link CacheConfig}
      * @param keyGeneratorOnMethod  the specified cache key generator on method annotation
@@ -152,7 +154,7 @@ public interface CacheAspect extends AopCaptor {
                 .originalCacheTypes(CollectionsUtil.toList(originalCacheTypes))
                 .cacheTypes(parseCacheTypes(cacheConfigAnnotation, originalCacheTypes))
                 .originalKey(originalKey)
-                .key(parseKey(cacheConfigAnnotation, getMethodParameters(joinPoint), joinPoint.getArgs(), originalKey, keyGenerator, needEvictAllInNamespaces))
+                .key(Objects.isNull(originalKey) ? null : parseKey(cacheConfigAnnotation, getMethodParameters(joinPoint), joinPoint.getArgs(), originalKey, keyGenerator, needEvictAllInNamespaces))
                 .keyGenerator(keyGenerator)
                 .originalAllowNullValueInCache(originalAllowNullValueInCache)
                 .allowNullValueInCache(parseAllowNullValueInCache(cacheConfigAnnotation, originalAllowNullValueInCache))
@@ -181,6 +183,29 @@ public interface CacheAspect extends AopCaptor {
             }
         }
         return value;
+    }
+
+    /**
+     * get all cache values
+     *
+     * @param context see {@link CacheAspectContext}
+     * @param <V>     the cache value type
+     * @return cache value
+     */
+    default <V> List<V> getAllCacheValues(CacheAspectContext context) {
+        List<V> values = new ArrayList<>();
+        for (String namespace : context.getNamespaces()) {
+            values = getCache(context, namespace).getByNamespace(namespace);
+            // lazy write cache:
+            // there may be different data in different namespace,
+            // for example: get nonnull data from some namespace, the all cache in this namespace will sync, but other namespace cache may refresh,
+            // it is unnecessary to make all namespace sync cache data,
+            // just need namespace that hit a nonnull data and sync all cache in this namespace.
+            if (Objects.isNotNull(values)) {
+                break;
+            }
+        }
+        return values;
     }
 
     /**
@@ -278,6 +303,28 @@ public interface CacheAspect extends AopCaptor {
             }
         }
         return NullValueUtil.convertToNullIfNullValue(value);
+    }
+
+    /**
+     * read caches
+     *
+     * @param joinPoint pointcut
+     * @param context   see {@link CacheAspectContext}
+     * @param <V>       the cache value type
+     * @return the cache values
+     */
+    @SuppressWarnings("unchecked")
+    default <V> List<V> doReadAll(ProceedingJoinPoint joinPoint, CacheAspectContext context) {
+        List<V> values = getAllCacheValues(context);
+        if (Objects.isEmpty(values)) {
+            values = (List<V>) doProceed(joinPoint);
+            if (Boolean.TRUE.equals(context.getAllowNullValueInCache()) || Objects.isNotEmpty(values)) {
+                for (V value : values) {
+                    setCacheValue(context.setValue(value));
+                }
+            }
+        }
+        return NullValueUtil.convertToNullIfNullValue(values);
     }
 
     /**
