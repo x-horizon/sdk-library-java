@@ -92,23 +92,13 @@ public class RedisCacheBucket implements RedisCacheTemplate {
     }
 
     @Override
-    public <V> List<V> getByNamespace(String namespace) {
-        return getByPattern(namespace + NAMESPACE_KEY_WORD);
+    public <V> Map<String, V> getMapByNamespace(String namespace) {
+        return getMapByPattern(namespace + NAMESPACE_KEY_WORD);
     }
 
     @Override
-    public <V> List<V> getByPattern(String pattern) {
-        return get(CollectionsUtil.toArray(RedisManager.getClient().getKeys().getKeysByPattern(pattern), String.class));
-    }
-
-    @Override
-    public <V> List<V> getByNamespaceWithoutNullValue(String namespace) {
-        return getByPatternWithoutNullValue(namespace + NAMESPACE_KEY_WORD);
-    }
-
-    @Override
-    public <V> List<V> getByPatternWithoutNullValue(String pattern) {
-        return getWithoutNullValue(CollectionsUtil.toArray(RedisManager.getClient().getKeys().getKeysByPattern(pattern), String.class));
+    public <V> Map<String, V> getMapByPattern(String pattern) {
+        return getMap(CollectionsUtil.toArray(RedisManager.getClient().getKeys().getKeysByPattern(pattern), String.class));
     }
 
     @Override

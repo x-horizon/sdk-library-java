@@ -6,8 +6,6 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.time.Duration;
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,6 +23,46 @@ public class RedisCacheList implements RedisCacheTemplate {
     protected static final RedisCacheList INSTANCE = new RedisCacheList();
 
     @Override
+    public Object get(String key) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <V> Map<String, V> getMapByNamespace(String namespace) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void delete(String key) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public long deleteAll(String namespace) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <V> boolean compareAndSet(String key, V expectedValue, V updateValue) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <V> Map<String, V> getMapByPattern(String pattern) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public long deleteByNamespace(String namespace) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public long deleteByPattern(String pattern) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public <V> void set(String key, V value, Duration expiration) {
         throw new UnsupportedOperationException();
     }
@@ -36,86 +74,6 @@ public class RedisCacheList implements RedisCacheTemplate {
 
     @Override
     public <V> boolean setIfAbsent(String key, V value, Duration expiration) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <V> boolean compareAndSet(String key, V expectedValue, V updateValue) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Object get(String key) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <V> List<V> get(String... keys) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <V> List<V> get(Collection<String> keys) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <V> Map<String, V> getMap(String... keys) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <V> Map<String, V> getMap(Collection<String> keys) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <V> List<V> getByNamespace(String namespace) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <V> List<V> getByPattern(String pattern) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <V> List<V> getByNamespaceWithoutNullValue(String namespace) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <V> List<V> getByPatternWithoutNullValue(String pattern) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void delete(String key) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public long delete(String... keys) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public long delete(Collection<String> keys) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public long deleteAll(String namespace) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public long deleteByNamespace(String namespace) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public long deleteByPattern(String pattern) {
         throw new UnsupportedOperationException();
     }
 

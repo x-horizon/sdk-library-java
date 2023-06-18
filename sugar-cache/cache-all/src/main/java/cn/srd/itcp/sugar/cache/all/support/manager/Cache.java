@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.support.NullValue;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * cache implement {@link CacheTemplate}, support multilevel cache operation
@@ -66,6 +67,25 @@ public class Cache implements CacheTemplate<String> {
             }
         }
         return value;
+    }
+
+    @Override
+    public <V> Map<String, V> getMapByNamespace(String namespace) {
+        List<String> cacheTypeNames = dataManager.getCacheTypeNames();
+        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(CollectionsUtil.getFirst(cacheTypeNames));
+        Map<String, V> values = cacheTemplate.getMapByNamespace(namespace);
+        if (cacheTypeNames.size() == 1 || Objects.isNotEmpty(values)) {
+            return values;
+        }
+        synchronized (dataManager) {
+            for (int findCacheTypeNameIndex = 1; findCacheTypeNameIndex < cacheTypeNames.size(); findCacheTypeNameIndex++) {
+                values = dataManager.getCacheTypeMap()
+                        .get(cacheTypeNames.get(findCacheTypeNameIndex))
+                        .getStrategy()
+                        .getMapByNamespace(dataManager, namespace, findCacheTypeNameIndex);
+            }
+        }
+        return values;
     }
 
     @Override

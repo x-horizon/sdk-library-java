@@ -1,11 +1,12 @@
 package cn.srd.itcp.sugar.cache.contract.core;
 
+import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.springframework.cache.support.NullValue;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Cache Template - More operation
@@ -29,41 +30,6 @@ public interface CapableCacheTemplate<K> extends CacheTemplate<K> {
     <V> boolean compareAndSet(K key, V expectedValue, V updateValue);
 
     /**
-     * get all cache in specified namespace
-     *
-     * @param namespace the specified namespace, example: cache
-     * @param <V>       cache value type
-     * @return cache value
-     */
-    <V> List<V> getByNamespace(String namespace);
-
-    /**
-     * see {@link #getByNamespace(String)}
-     *
-     * @param namespaces the specified namespace, example: cache1、cache2
-     * @param <V>        cache value type
-     * @return cache value
-     */
-    default <V> List<V> getByNamespace(String... namespaces) {
-        return getByNamespace(List.of(namespaces));
-    }
-
-    /**
-     * see {@link #getByNamespace(String)}
-     *
-     * @param namespaces the specified namespace, example: cache1、cache2
-     * @param <V>        cache value type
-     * @return cache value
-     */
-    default <V> List<V> getByNamespace(Collection<String> namespaces) {
-        List<V> output = new ArrayList<>();
-        for (String namespace : namespaces) {
-            output.addAll(getByNamespace(namespace));
-        }
-        return output;
-    }
-
-    /**
      * get cache in fuzzy expression, example:
      * <pre>
      *     h?llo subscribes to hello, hallo and hxllo
@@ -75,7 +41,9 @@ public interface CapableCacheTemplate<K> extends CacheTemplate<K> {
      * @param <V>     cache value type
      * @return cache value
      */
-    <V> List<V> getByPattern(String pattern);
+    default <V> List<V> getByPattern(String pattern) {
+        return CollectionsUtil.toList(getMapByPattern(pattern));
+    }
 
     /**
      * see {@link #getByPattern(String)}
@@ -104,36 +72,36 @@ public interface CapableCacheTemplate<K> extends CacheTemplate<K> {
     }
 
     /**
-     * filter {@link #getByNamespace(String)} if it is {@link NullValue}
+     * see {@link #getByPattern(String)}
      *
-     * @param namespace the specified namespace, example: cache
-     * @param <V>       cache value type
+     * @param pattern fuzzy expression
+     * @param <V>     cache value type
      * @return cache value
      */
-    <V> List<V> getByNamespaceWithoutNullValue(String namespace);
+    <V> Map<K, V> getMapByPattern(String pattern);
 
     /**
-     * filter {@link #getByNamespace(String...)} if it is {@link NullValue}
+     * see {@link #getByPattern(String)}
      *
-     * @param namespaces the specified namespace, example: cache1、cache2
-     * @param <V>        cache value type
+     * @param patterns fuzzy expression
+     * @param <V>      cache value type
      * @return cache value
      */
-    default <V> List<V> getByNamespaceWithoutNullValue(String... namespaces) {
-        return getByNamespaceWithoutNullValue(List.of(namespaces));
+    default <V> Map<K, V> getMapByPattern(String... patterns) {
+        return getMapByPattern(List.of(patterns));
     }
 
     /**
-     * filter {@link #getByNamespace(Collection)} if it is {@link NullValue}
+     * see {@link #getByPattern(String)}
      *
-     * @param namespaces the specified namespace, example: cache1、cache2
-     * @param <V>        cache value type
+     * @param patterns fuzzy expression
+     * @param <V>      cache value type
      * @return cache value
      */
-    default <V> List<V> getByNamespaceWithoutNullValue(Collection<String> namespaces) {
-        List<V> output = new ArrayList<>();
-        for (String namespace : namespaces) {
-            output.addAll(getByNamespaceWithoutNullValue(namespace));
+    default <V> Map<K, V> getMapByPattern(Collection<String> patterns) {
+        Map<K, V> output = new HashMap<>();
+        for (String pattern : patterns) {
+            output.putAll(getMapByPattern(pattern));
         }
         return output;
     }
@@ -145,7 +113,9 @@ public interface CapableCacheTemplate<K> extends CacheTemplate<K> {
      * @param <V>     cache value type
      * @return cache value
      */
-    <V> List<V> getByPatternWithoutNullValue(String pattern);
+    default <V> List<V> getByPatternWithoutNullValue(String pattern) {
+        return CollectionsUtil.toList(getMapByPatternWithoutNullValue(pattern));
+    }
 
     /**
      * filter {@link #getByPattern(String...)} if it is {@link NullValue}
@@ -169,6 +139,48 @@ public interface CapableCacheTemplate<K> extends CacheTemplate<K> {
         List<V> output = new ArrayList<>();
         for (String pattern : patterns) {
             output.addAll(getByPatternWithoutNullValue(pattern));
+        }
+        return output;
+    }
+
+    /**
+     * filter {@link #getByPattern(String)} if it is {@link NullValue}
+     *
+     * @param pattern fuzzy expression
+     * @param <V>     cache value type
+     * @return cache value
+     */
+    @SuppressWarnings("unchecked")
+    default <V> Map<K, V> getMapByPatternWithoutNullValue(String pattern) {
+        return getMapByPattern(pattern)
+                .entrySet()
+                .stream()
+                .filter(entry -> Objects.notEquals(NullValue.INSTANCE, entry.getValue()))
+                .collect(Collectors.toMap(Map.Entry::getKey, entry -> (V) entry.getValue()));
+    }
+
+    /**
+     * filter {@link #getByPattern(String...)} if it is {@link NullValue}
+     *
+     * @param patterns fuzzy expression
+     * @param <V>      cache value type
+     * @return cache value
+     */
+    default <V> Map<K, V> getMapByPatternWithoutNullValue(String... patterns) {
+        return getMapByPatternWithoutNullValue(List.of(patterns));
+    }
+
+    /**
+     * filter {@link #getByPattern(Collection)} if it is {@link NullValue}
+     *
+     * @param patterns fuzzy expression
+     * @param <V>      cache value type
+     * @return cache value
+     */
+    default <V> Map<K, V> getMapByPatternWithoutNullValue(Collection<String> patterns) {
+        Map<K, V> output = new HashMap<>();
+        for (String pattern : patterns) {
+            output.putAll(getMapByPatternWithoutNullValue(pattern));
         }
         return output;
     }

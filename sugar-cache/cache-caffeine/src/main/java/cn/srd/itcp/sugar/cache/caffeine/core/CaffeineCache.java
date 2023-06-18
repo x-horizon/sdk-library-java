@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * Caffeine Cache Operation
@@ -51,6 +52,12 @@ public class CaffeineCache<K> implements CaffeineCacheTemplate<K> {
     @Override
     public Object get(K key) {
         return cache.getIfPresent(key);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <V> Map<K, V> getMapByNamespace(String namespace) {
+        return (Map<K, V>) cache.asMap();
     }
 
     @Override

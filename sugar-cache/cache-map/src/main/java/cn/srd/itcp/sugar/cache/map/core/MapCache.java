@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -61,6 +62,12 @@ public class MapCache<K> implements MapCacheTemplate<K> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
+    public <V> Map<K, V> getMapByNamespace(String namespace) {
+        return (Map<K, V>) cache.values();
+    }
+
+    @Override
     public void delete(K key) {
         cache.remove(key);
     }
@@ -76,4 +83,5 @@ public class MapCache<K> implements MapCacheTemplate<K> {
         // not implement affected number, ignore the return value
         return -1;
     }
+
 }

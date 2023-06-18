@@ -6,10 +6,8 @@ import cn.srd.itcp.sugar.tool.core.object.Objects;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.springframework.cache.support.NullValue;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Cache Template
@@ -149,6 +147,78 @@ public interface CacheTemplate<K> {
     }
 
     /**
+     * get all cache in specified namespace.
+     *
+     * @param namespace the specified namespace, example: cache
+     * @param <V>       cache value type
+     * @return cache value
+     */
+    default <V> List<V> getByNamespace(String namespace) {
+        return CollectionsUtil.toList(getMapByNamespace(namespace));
+    }
+
+    /**
+     * see {@link #getByNamespace(String)}
+     *
+     * @param namespaces the specified namespace, example: cache1、cache2
+     * @param <V>        cache value type
+     * @return cache value
+     */
+    default <V> List<V> getByNamespace(String... namespaces) {
+        return getByNamespace(List.of(namespaces));
+    }
+
+    /**
+     * see {@link #getByNamespace(String)}
+     *
+     * @param namespaces the specified namespace, example: cache1、cache2
+     * @param <V>        cache value type
+     * @return cache value
+     */
+    default <V> List<V> getByNamespace(Collection<String> namespaces) {
+        List<V> output = new ArrayList<>();
+        for (String namespace : namespaces) {
+            output.addAll(getByNamespace(namespace));
+        }
+        return output;
+    }
+
+    /**
+     * see {@link #getByNamespace(String)}
+     *
+     * @param namespace the specified namespace, example: cache
+     * @param <V>       cache value type
+     * @return cache value
+     */
+    <V> Map<K, V> getMapByNamespace(String namespace);
+
+    /**
+     * see {@link #getByNamespace(String)}
+     *
+     * @param namespaces the specified namespace, example: cache1、cache2
+     * @param <V>        cache value type
+     * @return cache value
+     */
+    default <V> Map<K, V> getMapByNamespace(String... namespaces) {
+        return getMapByNamespace(List.of(namespaces));
+    }
+
+    /**
+     * see {@link #getByNamespace(String)}
+     *
+     * @param namespaces the specified namespace, example: cache1、cache2
+     * @param <V>        cache value type
+     * @return cache value
+     */
+    default <V> Map<K, V> getMapByNamespace(Collection<String> namespaces) {
+        Map<K, V> output = new HashMap<>();
+        for (String namespace : namespaces) {
+            output.putAll(getMapByNamespace(namespace));
+        }
+        return output;
+    }
+
+    /**
      * get old cache and set cache
      *
      * @param key   cache key
@@ -271,6 +341,85 @@ public interface CacheTemplate<K> {
                 output.put(key, value);
             }
         });
+        return output;
+    }
+
+    /**
+     * filter {@link #getByNamespace(String)} if it is {@link NullValue}
+     *
+     * @param namespace the specified namespace, example: cache
+     * @param <V>       cache value type
+     * @return cache value
+     */
+    default <V> List<V> getByNamespaceWithoutNullValue(String namespace) {
+        return CollectionsUtil.toList(getMapByNamespaceWithoutNullValue(namespace));
+    }
+
+    /**
+     * filter {@link #getByNamespace(String...)} if it is {@link NullValue}
+     *
+     * @param namespaces the specified namespace, example: cache1、cache2
+     * @param <V>        cache value type
+     * @return cache value
+     */
+    default <V> List<V> getByNamespaceWithoutNullValue(String... namespaces) {
+        return getByNamespaceWithoutNullValue(List.of(namespaces));
+    }
+
+    /**
+     * filter {@link #getByNamespace(Collection)} if it is {@link NullValue}
+     *
+     * @param namespaces the specified namespace, example: cache1、cache2
+     * @param <V>        cache value type
+     * @return cache value
+     */
+    default <V> List<V> getByNamespaceWithoutNullValue(Collection<String> namespaces) {
+        List<V> output = new ArrayList<>();
+        for (String namespace : namespaces) {
+            output.addAll(getByNamespaceWithoutNullValue(namespace));
+        }
+        return output;
+    }
+
+    /**
+     * filter {@link #getByNamespace(String)} if it is {@link NullValue}
+     *
+     * @param namespace the specified namespace, example: cache
+     * @param <V>       cache value type
+     * @return cache value
+     */
+    @SuppressWarnings("unchecked")
+    default <V> Map<K, V> getMapByNamespaceWithoutNullValue(String namespace) {
+        return getMapByNamespace(namespace)
+                .entrySet()
+                .stream()
+                .filter(entry -> Objects.notEquals(NullValue.INSTANCE, entry.getValue()))
+                .collect(Collectors.toMap(Map.Entry::getKey, entry -> (V) entry.getValue()));
+    }
+
+    /**
+     * filter {@link #getByNamespace(String...)} if it is {@link NullValue}
+     *
+     * @param namespaces the specified namespace, example: cache1、cache2
+     * @param <V>        cache value type
+     * @return cache value
+     */
+    default <V> Map<K, V> getMapByNamespaceWithoutNullValue(String... namespaces) {
+        return getMapByNamespaceWithoutNullValue(List.of(namespaces));
+    }
+
+    /**
+     * filter {@link #getByNamespace(Collection)} if it is {@link NullValue}
+     *
+     * @param namespaces the specified namespace, example: cache1、cache2
+     * @param <V>        cache value type
+     * @return cache value
+     */
+    default <V> Map<K, V> getMapByNamespaceWithoutNullValue(Collection<String> namespaces) {
+        Map<K, V> output = new HashMap<>();
+        for (String namespace : namespaces) {
+            output.putAll(getMapByNamespaceWithoutNullValue(namespace));
+        }
         return output;
     }
 
