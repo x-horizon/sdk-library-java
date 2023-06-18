@@ -118,16 +118,16 @@ public interface CacheAspect extends AopCaptor {
     /**
      * select which allow or not to set a {@link NullValue} in cache to use
      *
-     * @param cacheConfigAnnotation         see {@link CacheConfig}
-     * @param allowNullValueInCacheOnMethod the specified allow or not to set a {@link NullValue} in cache on method annotation
+     * @param cacheConfigAnnotation  see {@link CacheConfig}
+     * @param allowNullValueOnMethod the specified allow or not to set a {@link NullValue} in cache on method annotation
      * @return allow or not to set a {@link NullValue} in cache to use
      */
-    default boolean parseAllowNullValueInCache(CacheConfig cacheConfigAnnotation, boolean allowNullValueInCacheOnMethod) {
-        if (allowNullValueInCacheOnMethod) {
+    default boolean parseAllowNullValueInCache(CacheConfig cacheConfigAnnotation, boolean allowNullValueOnMethod) {
+        if (allowNullValueOnMethod) {
             return true;
         }
         if (Objects.isNotNull(cacheConfigAnnotation)) {
-            return cacheConfigAnnotation.allowNullValueInCache();
+            return cacheConfigAnnotation.allowNullValue();
         }
         return false;
     }
@@ -157,7 +157,7 @@ public interface CacheAspect extends AopCaptor {
                 .key(Objects.isNull(originalKey) ? null : parseKey(cacheConfigAnnotation, getMethodParameters(joinPoint), joinPoint.getArgs(), originalKey, keyGenerator, needEvictAllInNamespaces))
                 .keyGenerator(keyGenerator)
                 .originalAllowNullValueInCache(originalAllowNullValueInCache)
-                .allowNullValueInCache(parseAllowNullValueInCache(cacheConfigAnnotation, originalAllowNullValueInCache))
+                .allowNullValue(parseAllowNullValueInCache(cacheConfigAnnotation, originalAllowNullValueInCache))
                 .needEvictBeforeProceed(needEvictBeforeProceed)
                 .needEvictAllInNamespaces(needEvictAllInNamespaces)
                 .build();
@@ -254,7 +254,7 @@ public interface CacheAspect extends AopCaptor {
      * @return {@link Cache} instance
      */
     default Cache getCache(CacheAspectContext context, String namespace) {
-        return CacheManager.getInstance().getCache(namespace, context.getCacheTypes(), context.getAllowNullValueInCache());
+        return CacheManager.getInstance().getCache(namespace, context.getCacheTypes(), context.getAllowNullValue());
     }
 
     /**
@@ -268,7 +268,7 @@ public interface CacheAspect extends AopCaptor {
         Object value = getCacheValue(context);
         if (Objects.isNull(value)) {
             value = doProceed(joinPoint);
-            if (Boolean.TRUE.equals(context.getAllowNullValueInCache()) || Objects.isNotNull(value)) {
+            if (Boolean.TRUE.equals(context.getAllowNullValue()) || Objects.isNotNull(value)) {
                 setCacheValue(context.setValue(value));
             }
         }
@@ -298,7 +298,7 @@ public interface CacheAspect extends AopCaptor {
 
         value = doProceed(joinPoint);
         for (CacheAspectContext context : contexts) {
-            if (Boolean.TRUE.equals(context.getAllowNullValueInCache()) || Objects.isNotNull(value)) {
+            if (Boolean.TRUE.equals(context.getAllowNullValue()) || Objects.isNotNull(value)) {
                 setCacheValue(context.setValue(value));
             }
         }
@@ -318,7 +318,7 @@ public interface CacheAspect extends AopCaptor {
         List<V> values = getAllCacheValues(context);
         if (Objects.isEmpty(values)) {
             values = (List<V>) doProceed(joinPoint);
-            if (Boolean.TRUE.equals(context.getAllowNullValueInCache()) || Objects.isNotEmpty(values)) {
+            if (Boolean.TRUE.equals(context.getAllowNullValue()) || Objects.isNotEmpty(values)) {
                 for (V value : values) {
                     setCacheValue(context.setValue(value));
                 }

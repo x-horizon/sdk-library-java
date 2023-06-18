@@ -46,7 +46,7 @@ public class CacheContextWithoutCacheConfigBuildingService {
         return null;
     }
 
-    @CacheRead(namespaces = {"myCache1"}, cacheTypes = CacheType.MAP, key = "1", allowNullValueInCache = true)
+    @CacheRead(namespaces = {"myCache1"}, cacheTypes = CacheType.MAP, key = "1", allowNullValue = true)
     public BookPO getById8(BookPO bookPO) {
         return null;
     }
@@ -88,7 +88,7 @@ public class CacheContextWithoutCacheConfigBuildingService {
         return null;
     }
 
-    @CacheWrite(namespaces = {"myCache1"}, cacheTypes = CacheType.MAP, key = "1", allowNullValueInCache = true)
+    @CacheWrite(namespaces = {"myCache1"}, cacheTypes = CacheType.MAP, key = "1", allowNullValue = true)
     public BookPO getById16(BookPO bookPO) {
         return null;
     }
@@ -130,17 +130,17 @@ public class CacheContextWithoutCacheConfigBuildingService {
         return null;
     }
 
-    @CacheEvict(namespaces = {"myCache1"}, cacheTypes = CacheType.MAP, key = "1", allowNullValueInCache = true)
+    @CacheEvict(namespaces = {"myCache1"}, cacheTypes = CacheType.MAP, key = "1", allowNullValue = true)
     public BookPO getById24(BookPO bookPO) {
         return null;
     }
 
-    @CacheEvict(namespaces = {"myCache1"}, cacheTypes = CacheType.MAP, key = "1", allowNullValueInCache = true, needEvictBeforeProceed = true)
+    @CacheEvict(namespaces = {"myCache1"}, cacheTypes = CacheType.MAP, key = "1", allowNullValue = true, needEvictBeforeProceed = true)
     public BookPO getById25(BookPO bookPO) {
         return null;
     }
 
-    @CacheEvict(namespaces = {"myCache1"}, cacheTypes = CacheType.MAP, key = "1", allowNullValueInCache = true, needEvictBeforeProceed = true, needEvictAllInNamespaces = true)
+    @CacheEvict(namespaces = {"myCache1"}, cacheTypes = CacheType.MAP, key = "1", allowNullValue = true, needEvictBeforeProceed = true, needEvictAllInNamespaces = true)
     public BookPO getById26(BookPO bookPO) {
         return null;
     }

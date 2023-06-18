@@ -74,7 +74,7 @@ public class CacheAspectContext {
     /**
      * allow or not to set {@link NullValue} to cache to be used
      */
-    private Boolean allowNullValueInCache;
+    private Boolean allowNullValue;
 
     /**
      * need or not evict before execute method

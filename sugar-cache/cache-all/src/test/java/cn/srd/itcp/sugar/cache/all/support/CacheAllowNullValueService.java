@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@CacheConfig(namespaces = {"myCache7", "myCache8"}, cacheTypes = {CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS}, allowNullValueInCache = true)
+@CacheConfig(namespaces = {"myCache7", "myCache8"}, cacheTypes = {CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS}, allowNullValue = true)
 @Component
 public class CacheAllowNullValueService {
 

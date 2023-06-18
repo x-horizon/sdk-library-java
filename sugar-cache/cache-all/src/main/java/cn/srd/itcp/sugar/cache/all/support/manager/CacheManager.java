@@ -41,12 +41,12 @@ public class CacheManager {
     /**
      * get {@link Cache}
      *
-     * @param namespace             the cache namespace, one namespace represents one {@link Cache} instance;
-     * @param cacheTypes            see {@link CacheType}
-     * @param allowNullValueInCache allow or not to set a {@link NullValue} in cache
+     * @param namespace      the cache namespace, one namespace represents one {@link Cache} instance;
+     * @param cacheTypes     see {@link CacheType}
+     * @param allowNullValue allow or not to set a {@link NullValue} in cache
      * @return {@link Cache} instance
      */
-    public Cache getCache(String namespace, List<CacheType> cacheTypes, boolean allowNullValueInCache) {
+    public Cache getCache(String namespace, List<CacheType> cacheTypes, boolean allowNullValue) {
         Cache cache = cacheMap.get(namespace);
         if (Objects.isNotNull(cache)) {
             return cache;
@@ -57,7 +57,7 @@ public class CacheManager {
         cache = Cache.builder()
                 .namespace(namespace)
                 .dataManager(CacheDataManager.build(cacheTypes))
-                .allowNullValueInCache(allowNullValueInCache)
+                .allowNullValue(allowNullValue)
                 .build();
 
         // keep thread safe: other thread may create a cache instance and put in map earlier, so use putIfAbsent to avoid this situation.

@@ -53,10 +53,10 @@ public @interface CacheRead {
     Class<? extends CacheKeyGenerator> keyGenerator() default CacheDefaultKeyGenerator.class;
 
     /**
-     * see {@link CacheConfig#allowNullValueInCache()}
+     * see {@link CacheConfig#allowNullValue()}
      *
      * @return allow or not to set a {@link NullValue} in cache
      */
-    boolean allowNullValueInCache() default false;
+    boolean allowNullValue() default false;
 
 }
