@@ -432,10 +432,9 @@ public interface CacheAspect extends AopCaptor {
             values = (List<V>) doProceed(joinPoint);
             if (Objects.isNotEmpty(values)) {
                 for (V value : values) {
-                    setCacheValue(context
-                            .setKey(Option.of(Expressions.withSpring().parse(value, context.getOriginalKey())).map(Object::toString).getOrNull())
-                            .setValue(value)
-                    );
+                    String key = Option.of(Expressions.withSpring().parse(value, context.getOriginalKey())).map(Object::toString).getOrNull();
+                    Objects.requireNotBlank(() -> "cache system: could not parse the cache key when read all cache, please check!", key);
+                    setCacheValue(context.setKey(key).setValue(value));
                 }
             }
         }
@@ -454,6 +453,8 @@ public interface CacheAspect extends AopCaptor {
         initCache(context);
         Object value = proceedPointCutLogic.apply(joinPoint);
         if (Objects.isNotNull(value)) {
+            String key = Option.of(Expressions.withSpring().parse(value, context.getOriginalKey())).map(Object::toString).getOrNull();
+            Objects.requireNotBlank(() -> "cache system: could not parse the cache key when write cache, please check!", key);
             deleteCacheValue(context.setKey(Option.of(Expressions.withSpring().parse(value, context.getOriginalKey())).map(Object::toString).getOrNull()));
         }
         return NullValueUtil.convertToNullIfNullValue(value);
