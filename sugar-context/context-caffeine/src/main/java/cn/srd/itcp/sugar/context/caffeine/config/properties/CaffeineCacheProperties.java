@@ -45,7 +45,7 @@ public class CaffeineCacheProperties {
     /**
      * 初始缓存空间大小
      */
-    private int initialCapacity = 16;
+    private int initialCapacity = 256;
 
     /**
      * 用于限制缓存大小的参数：缓存最大条数，超过则失效之前放入的缓存，与 {@link #maximumWeight} 不可同时配置
