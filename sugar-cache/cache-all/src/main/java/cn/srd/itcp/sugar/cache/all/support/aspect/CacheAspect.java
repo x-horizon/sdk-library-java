@@ -60,6 +60,7 @@ public interface CacheAspect extends AopCaptor {
         if (Objects.isNotEmpty(namespacesOnMethod)) {
             return doParseNamespaces(namespacesOnMethod);
         }
+        Objects.requireNotNull(() -> "cache system: could not find namespace on method annotation and unspecified namespace on annotation [{}], please specify at least one!", CacheConfig.class.getSimpleName(), cacheConfigAnnotation);
         return doParseNamespaces(cacheConfigAnnotation.namespaces());
     }
 
