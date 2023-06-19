@@ -34,12 +34,11 @@ public class CacheTypeLocalStrategy implements CacheTypeStrategy {
     @Override
     public Object get(CacheDataManager dataManager, String namespace, String key, int findCacheComponentTypeNameIndex) {
         CacheTemplate<String> cacheTemplate = dataManager.getTemplate(dataManager.getCacheComponentTypeNames().get(findCacheComponentTypeNameIndex));
-        String finalKey = cacheTemplate.resolveKey(key, namespace);
-        Object value = cacheTemplate.get(finalKey);
+        Object value = cacheTemplate.get(cacheTemplate.resolveKey(key, namespace));
         if (Objects.isNotNull(value)) {
             for (int writeIndex = findCacheComponentTypeNameIndex - 1; writeIndex >= 0; writeIndex--) {
                 cacheTemplate = dataManager.getTemplate(dataManager.getCacheComponentTypeNames().get(writeIndex));
-                cacheTemplate.set(finalKey, value);
+                cacheTemplate.set(cacheTemplate.resolveKey(key, namespace), value);
             }
         }
         return value;
