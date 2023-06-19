@@ -1,14 +1,14 @@
 package cn.srd.itcp.sugar.cache.all.support;
 
 import cn.srd.itcp.sugar.cache.all.core.*;
-import cn.srd.itcp.sugar.cache.all.support.manager.CacheType;
+import cn.srd.itcp.sugar.cache.all.support.manager.CacheComponentType;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@CacheConfig(namespaces = {"myCache7", "myCache8"}, cacheTypes = {CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS}, allowNullValue = true)
+@CacheConfig(namespaces = {"myCache7", "myCache8"}, cacheComponentTypes = {CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.REDIS}, allowNullValue = true)
 @Component
 public class CacheAllowNullValueService {
 

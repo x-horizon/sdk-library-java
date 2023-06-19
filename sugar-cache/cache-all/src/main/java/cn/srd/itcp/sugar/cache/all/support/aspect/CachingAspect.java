@@ -38,16 +38,16 @@ public class CachingAspect implements CacheAspect {
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
         Caching cachingAnnotation = getAnnotationMarkedOnMethod(joinPoint, Caching.class);
         // handle read
-        List<CacheAspectContext> readContexts = CollectionsUtil.toList(cachingAnnotation.read(), annotation -> buildCacheReadContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.keyGenerator(), annotation.key(), annotation.allowNullValue()));
+        List<CacheAspectContext> readContexts = CollectionsUtil.toList(cachingAnnotation.read(), annotation -> buildCacheReadContext(joinPoint, annotation.namespaces(), annotation.cacheComponentTypes(), annotation.keyGenerator(), annotation.key(), annotation.allowNullValue()));
         Object value = doRead(joinPoint, readContexts);
         // handle write
         for (CacheWrite annotation : cachingAnnotation.write()) {
-            CacheAspectContext context = buildCacheWriteContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.key(), annotation.allowNullValue());
+            CacheAspectContext context = buildCacheWriteContext(joinPoint, annotation.namespaces(), annotation.cacheComponentTypes(), annotation.key(), annotation.allowNullValue());
             doWrite(joinPoint, context, useless -> value);
         }
         // handle evict
         for (CacheEvict annotation : cachingAnnotation.evict()) {
-            CacheAspectContext context = buildCacheEvictContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.keyGenerator(), annotation.key(), annotation.allowNullValue(), annotation.needEvictBeforeProceed(), annotation.needEvictAllInNamespaces());
+            CacheAspectContext context = buildCacheEvictContext(joinPoint, annotation.namespaces(), annotation.cacheComponentTypes(), annotation.keyGenerator(), annotation.key(), annotation.allowNullValue(), annotation.needEvictBeforeProceed(), annotation.needEvictAllInNamespaces());
             doEvict(joinPoint, context, useless -> value);
         }
         return NullValueUtil.convertToNullIfNullValue(value);

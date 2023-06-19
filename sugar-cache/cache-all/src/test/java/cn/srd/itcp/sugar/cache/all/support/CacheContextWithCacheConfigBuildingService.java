@@ -4,10 +4,10 @@ import cn.srd.itcp.sugar.cache.all.core.CacheConfig;
 import cn.srd.itcp.sugar.cache.all.core.CacheEvict;
 import cn.srd.itcp.sugar.cache.all.core.CacheRead;
 import cn.srd.itcp.sugar.cache.all.core.CacheWrite;
-import cn.srd.itcp.sugar.cache.all.support.manager.CacheType;
+import cn.srd.itcp.sugar.cache.all.support.manager.CacheComponentType;
 import org.springframework.stereotype.Component;
 
-@CacheConfig(namespaces = {"myCache2", "myCache3"}, cacheTypes = {CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS}, allowNullValue = true)
+@CacheConfig(namespaces = {"myCache2", "myCache3"}, cacheComponentTypes = {CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.REDIS}, allowNullValue = true)
 @Component
 public class CacheContextWithCacheConfigBuildingService {
 
@@ -33,17 +33,17 @@ public class CacheContextWithCacheConfigBuildingService {
         return null;
     }
 
-    @CacheRead(namespaces = {"myCache4"}, cacheTypes = {CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS, CacheType.CAFFEINE, CacheType.REDIS, CacheType.REDIS})
+    @CacheRead(namespaces = {"myCache4"}, cacheComponentTypes = {CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.REDIS, CacheComponentType.MAP, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.REDIS})
     public BookPO getById5(BookPO bookPO) {
         return null;
     }
 
-    @CacheRead(namespaces = {"myCache4"}, cacheTypes = {CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS, CacheType.CAFFEINE, CacheType.REDIS, CacheType.REDIS}, keyGenerator = CacheTestKeyGenerator.class)
+    @CacheRead(namespaces = {"myCache4"}, cacheComponentTypes = {CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.REDIS, CacheComponentType.MAP, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.REDIS}, keyGenerator = CacheTestKeyGenerator.class)
     public BookPO getById6(BookPO bookPO) {
         return null;
     }
 
-    @CacheRead(namespaces = {"myCache4"}, cacheTypes = {CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS, CacheType.CAFFEINE, CacheType.REDIS, CacheType.REDIS}, key = "#bookPO.id")
+    @CacheRead(namespaces = {"myCache4"}, cacheComponentTypes = {CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.REDIS, CacheComponentType.MAP, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.REDIS}, key = "#bookPO.id")
     public BookPO getById7(BookPO bookPO) {
         return null;
     }
@@ -70,12 +70,12 @@ public class CacheContextWithCacheConfigBuildingService {
         return null;
     }
 
-    @CacheWrite(namespaces = {"myCache4"}, cacheTypes = {CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS, CacheType.CAFFEINE, CacheType.REDIS, CacheType.REDIS})
+    @CacheWrite(namespaces = {"myCache4"}, cacheComponentTypes = {CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.REDIS, CacheComponentType.MAP, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.REDIS})
     public BookPO getById12(BookPO bookPO) {
         return null;
     }
 
-    @CacheWrite(namespaces = {"myCache4"}, cacheTypes = {CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS, CacheType.CAFFEINE, CacheType.REDIS, CacheType.REDIS}, key = "#bookPO.id")
+    @CacheWrite(namespaces = {"myCache4"}, cacheComponentTypes = {CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.REDIS, CacheComponentType.MAP, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.REDIS}, key = "#bookPO.id")
     public BookPO getById14(BookPO bookPO) {
         return null;
     }
@@ -102,22 +102,22 @@ public class CacheContextWithCacheConfigBuildingService {
         return null;
     }
 
-    @CacheEvict(namespaces = {"myCache4"}, cacheTypes = {CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS, CacheType.CAFFEINE, CacheType.REDIS, CacheType.REDIS})
+    @CacheEvict(namespaces = {"myCache4"}, cacheComponentTypes = {CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.REDIS, CacheComponentType.MAP, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.REDIS})
     public BookPO getById19(BookPO bookPO) {
         return null;
     }
 
-    @CacheEvict(namespaces = {"myCache4"}, cacheTypes = {CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS, CacheType.CAFFEINE, CacheType.REDIS, CacheType.REDIS}, keyGenerator = CacheTestKeyGenerator.class)
+    @CacheEvict(namespaces = {"myCache4"}, cacheComponentTypes = {CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.REDIS, CacheComponentType.MAP, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.REDIS}, keyGenerator = CacheTestKeyGenerator.class)
     public BookPO getById20(BookPO bookPO) {
         return null;
     }
 
-    @CacheEvict(namespaces = {"myCache4"}, cacheTypes = {CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS, CacheType.CAFFEINE, CacheType.REDIS, CacheType.REDIS}, key = "#bookPO.id")
+    @CacheEvict(namespaces = {"myCache4"}, cacheComponentTypes = {CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.REDIS, CacheComponentType.MAP, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.REDIS}, key = "#bookPO.id")
     public BookPO getById21(BookPO bookPO) {
         return null;
     }
 
-    @CacheEvict(namespaces = {"myCache4"}, cacheTypes = {CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS, CacheType.CAFFEINE, CacheType.REDIS, CacheType.REDIS}, key = "#bookPO.id", needEvictBeforeProceed = true, needEvictAllInNamespaces = true)
+    @CacheEvict(namespaces = {"myCache4"}, cacheComponentTypes = {CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.REDIS, CacheComponentType.MAP, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.MAP, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.CAFFEINE, CacheComponentType.REDIS, CacheComponentType.REDIS}, key = "#bookPO.id", needEvictBeforeProceed = true, needEvictAllInNamespaces = true)
     public BookPO getById22(BookPO bookPO) {
         return null;
     }

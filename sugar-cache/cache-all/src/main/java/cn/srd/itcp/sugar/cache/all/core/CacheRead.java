@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.cache.all.core;
 
-import cn.srd.itcp.sugar.cache.all.support.manager.CacheType;
+import cn.srd.itcp.sugar.cache.all.support.manager.CacheComponentType;
 import cn.srd.itcp.sugar.cache.all.support.strategy.CacheDefaultKeyGenerator;
 import cn.srd.itcp.sugar.cache.all.support.strategy.CacheKeyGenerator;
 import org.springframework.cache.support.NullValue;
@@ -28,11 +28,11 @@ public @interface CacheRead {
     String[] namespaces() default {};
 
     /**
-     * see {@link CacheConfig#cacheTypes()}
+     * see {@link CacheConfig#cacheComponentTypes()}
      *
      * @return the cache type
      */
-    CacheType[] cacheTypes() default {};
+    CacheComponentType[] cacheComponentTypes() default {};
 
     /**
      * <pre>

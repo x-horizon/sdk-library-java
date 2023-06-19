@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.cache.all.core;
 
 import cn.srd.itcp.sugar.cache.all.support.manager.Cache;
-import cn.srd.itcp.sugar.cache.all.support.manager.CacheType;
+import cn.srd.itcp.sugar.cache.all.support.manager.CacheComponentType;
 import cn.srd.itcp.sugar.cache.all.support.strategy.CacheDefaultKeyGenerator;
 import cn.srd.itcp.sugar.cache.all.support.strategy.CacheKeyGenerator;
 import org.springframework.cache.support.NullValue;
@@ -18,17 +18,17 @@ import java.lang.annotation.*;
  * {@link Caching}
  *
  * 1. when use {@link CacheRead}:
- *      get cache in {@link #cacheTypes()} declared order,
- *      if {@link #cacheTypes()} size is 1 or hit the first level cache,
+ *      get cache in {@link #cacheComponentTypes()} declared order,
+ *      if {@link #cacheComponentTypes()} size is 1 or hit the first level cache,
  *      then return the cache value, it may be null or {@link NullValue} or actual value,
- *      cannot hit first level cache and {@link #cacheTypes()} size > 1,
- *      then use local or distributed lock based on the current cache type to continue get cache in {@link #cacheTypes()} declared order,
+ *      cannot hit first level cache and {@link #cacheComponentTypes()} size > 1,
+ *      then use local or distributed lock based on the current cache type to continue get cache in {@link #cacheComponentTypes()} declared order,
  *      once get a not null value, then set it to all cache and release lock, pointcut will not be executed,
  *      if all cache have not value, then execute pointcut and get the value return from pointcut,
  *      if it is null and {@link #allowNullValue()} is true, will set {@link NullValue} to all cache,
  *      otherwise return null to caller,
  *      whether it is null or {@link NullValue}, received by the caller is null,
- *      for cache level order, please refer to {@link #cacheTypes()}.
+ *      for cache level order, please refer to {@link #cacheComponentTypes()}.
  *
  * 2. when use {@link CacheWrite}:
  *      execute pointcut, then delete all cache.
@@ -68,7 +68,7 @@ public @interface CacheConfig {
     /**
      * <pre>
      * you can save multilevel cache by use this field, it will do cache in asc order, example:
-     *  if you set cacheType to {{@link CacheType#MAP}, {@link CacheType#REDIS}}:
+     *  if you set cacheComponentType to {{@link CacheComponentType#MAP}, {@link CacheComponentType#REDIS}}:
      *    when use @{@link CacheRead}:
      *     first read from cache, the read order is: map -> redis -> method, once read, will not continue reading;
      *     then write cache if not miss from cache, the write order is: redis -> map;
@@ -82,7 +82,7 @@ public @interface CacheConfig {
      *
      * @return the cache type
      */
-    CacheType[] cacheTypes() default {};
+    CacheComponentType[] cacheComponentTypes() default {};
 
     /**
      * <pre>

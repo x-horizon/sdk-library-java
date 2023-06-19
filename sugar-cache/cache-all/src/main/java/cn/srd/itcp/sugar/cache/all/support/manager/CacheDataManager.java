@@ -24,12 +24,12 @@ public class CacheDataManager {
     /**
      * all cache type names in a {@link Cache#getNamespace()}
      */
-    private final List<String> cacheTypeNames = new ArrayList<>();
+    private final List<String> cacheComponentTypeNames = new ArrayList<>();
 
     /**
-     * the cache type name mapping {@link CacheType} map
+     * the cache type name mapping {@link CacheComponentType} map
      */
-    private final Map<String, CacheType> cacheTypeMap = new HashMap<>();
+    private final Map<String, CacheComponentType> cacheComponentTypeMap = new HashMap<>();
 
     /**
      * the cache type name mapping {@link CacheTemplate} map
@@ -40,7 +40,7 @@ public class CacheDataManager {
      * build {@link CacheDataManager}
      * <pre>
      * for same cache type, it will use the cache type name and duplicate count and increase from 1,
-     * for example: the cache type is {@link CacheType#MAP}, {@link CacheType#CAFFEINE}, {@link CacheType#CAFFEINE}, {@link CacheType#MAP}, {@link CacheType#CAFFEINE}, {@link CacheType#MAP}, {@link CacheType#REDIS},
+     * for example: the cache type is {@link CacheComponentType#MAP}, {@link CacheComponentType#CAFFEINE}, {@link CacheComponentType#CAFFEINE}, {@link CacheComponentType#MAP}, {@link CacheComponentType#CAFFEINE}, {@link CacheComponentType#MAP}, {@link CacheComponentType#REDIS},
      * it will generate following cache type names:
      * MAP1
      * CAFFEINE1
@@ -51,13 +51,13 @@ public class CacheDataManager {
      * REDIS1
      * </pre>
      *
-     * @param cacheTypes see {@link CacheType}
+     * @param cacheComponentTypes see {@link CacheComponentType}
      * @return {@link CacheDataManager} instance
      */
-    public static CacheDataManager build(List<CacheType> cacheTypes) {
+    public static CacheDataManager build(List<CacheComponentType> cacheComponentTypes) {
         CacheDataManager cacheDataManager = new CacheDataManager();
-        Map<String, List<Integer>> duplicateCacheTypeMap = CollectionsUtil.toMap(
-                CollectionsUtil.groupBy(cacheTypes, CacheType::name).entrySet(),
+        Map<String, List<Integer>> duplicateCacheComponentTypeMap = CollectionsUtil.toMap(
+                CollectionsUtil.groupBy(cacheComponentTypes, CacheComponentType::name).entrySet(),
                 Map.Entry::getKey,
                 entry -> {
                     List<Integer> allocatedCounts = new ArrayList<>();
@@ -67,26 +67,26 @@ public class CacheDataManager {
                     return allocatedCounts;
                 }
         );
-        for (CacheType cacheType : cacheTypes) {
-            List<Integer> allocatedCounts = duplicateCacheTypeMap.get(cacheType.name());
-            String cacheTypeName = cacheType.name() + CollectionsUtil.getFirst(allocatedCounts);
+        for (CacheComponentType cacheComponentType : cacheComponentTypes) {
+            List<Integer> allocatedCounts = duplicateCacheComponentTypeMap.get(cacheComponentType.name());
+            String cacheComponentTypeName = cacheComponentType.name() + CollectionsUtil.getFirst(allocatedCounts);
             allocatedCounts.remove(0);
-            duplicateCacheTypeMap.put(cacheType.name(), allocatedCounts);
-            cacheDataManager.cacheTypeNames.add(cacheTypeName);
-            cacheDataManager.cacheTypeMap.put(cacheTypeName, cacheType);
-            cacheDataManager.cacheTemplateMap.put(cacheTypeName, CacheType.CACHE_TEMPLATE_SUPPLIER.get(cacheType).get());
+            duplicateCacheComponentTypeMap.put(cacheComponentType.name(), allocatedCounts);
+            cacheDataManager.cacheComponentTypeNames.add(cacheComponentTypeName);
+            cacheDataManager.cacheComponentTypeMap.put(cacheComponentTypeName, cacheComponentType);
+            cacheDataManager.cacheTemplateMap.put(cacheComponentTypeName, CacheComponentType.CACHE_TEMPLATE_SUPPLIER.get(cacheComponentType).get());
         }
         return cacheDataManager;
     }
 
     /**
-     * get {@link CacheTemplate} by {@link CacheType} name
+     * get {@link CacheTemplate} by {@link CacheComponentType} name
      *
-     * @param cacheTypeName {@link CacheType} name
+     * @param cacheComponentTypeName {@link CacheComponentType} name
      * @return {@link CacheTemplate} instance
      */
-    public CacheTemplate<String> getTemplate(String cacheTypeName) {
-        return cacheTemplateMap.get(cacheTypeName);
+    public CacheTemplate<String> getTemplate(String cacheComponentTypeName) {
+        return cacheTemplateMap.get(cacheComponentTypeName);
     }
 
 }

@@ -43,9 +43,9 @@ public class Cache implements CacheTemplate<String> {
     public <V> void set(String key, V value) {
         Object finalValue = NullValueUtil.convertNullToNullValueIfNeed(value, allowNullValue);
         if (Objects.isNotNull(finalValue)) {
-            List<String> cacheTypeNames = dataManager.getCacheTypeNames();
-            for (int index = cacheTypeNames.size() - 1; index >= 0; index--) {
-                CacheTemplate<String> cacheTemplate = dataManager.getTemplate(cacheTypeNames.get(index));
+            List<String> cacheComponentTypeNames = dataManager.getCacheComponentTypeNames();
+            for (int index = cacheComponentTypeNames.size() - 1; index >= 0; index--) {
+                CacheTemplate<String> cacheTemplate = dataManager.getTemplate(cacheComponentTypeNames.get(index));
                 cacheTemplate.set(cacheTemplate.resolveKey(key, namespace), finalValue);
             }
         }
@@ -53,18 +53,18 @@ public class Cache implements CacheTemplate<String> {
 
     @Override
     public Object get(String key) {
-        List<String> cacheTypeNames = dataManager.getCacheTypeNames();
-        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(CollectionsUtil.getFirst(cacheTypeNames));
+        List<String> cacheComponentTypeNames = dataManager.getCacheComponentTypeNames();
+        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(CollectionsUtil.getFirst(cacheComponentTypeNames));
         Object value = cacheTemplate.get(cacheTemplate.resolveKey(key, namespace));
-        if (cacheTypeNames.size() == 1 || Objects.isNotNull(value)) {
+        if (cacheComponentTypeNames.size() == 1 || Objects.isNotNull(value)) {
             return value;
         }
         synchronized (dataManager) {
-            for (int findCacheTypeNameIndex = 1; findCacheTypeNameIndex < cacheTypeNames.size(); findCacheTypeNameIndex++) {
-                value = dataManager.getCacheTypeMap()
-                        .get(cacheTypeNames.get(findCacheTypeNameIndex))
+            for (int findCacheComponentTypeNameIndex = 1; findCacheComponentTypeNameIndex < cacheComponentTypeNames.size(); findCacheComponentTypeNameIndex++) {
+                value = dataManager.getCacheComponentTypeMap()
+                        .get(cacheComponentTypeNames.get(findCacheComponentTypeNameIndex))
                         .getStrategy()
-                        .get(dataManager, namespace, key, findCacheTypeNameIndex);
+                        .get(dataManager, namespace, key, findCacheComponentTypeNameIndex);
             }
         }
         return value;
@@ -72,18 +72,18 @@ public class Cache implements CacheTemplate<String> {
 
     @Override
     public <V> Map<String, V> getMapByNamespace(String namespace) {
-        List<String> cacheTypeNames = dataManager.getCacheTypeNames();
-        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(CollectionsUtil.getFirst(cacheTypeNames));
+        List<String> cacheComponentTypeNames = dataManager.getCacheComponentTypeNames();
+        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(CollectionsUtil.getFirst(cacheComponentTypeNames));
         Map<String, V> values = cacheTemplate.getMapByNamespace(namespace);
-        if (cacheTypeNames.size() == 1 || Objects.isNotEmpty(values)) {
+        if (cacheComponentTypeNames.size() == 1 || Objects.isNotEmpty(values)) {
             return filterNullValueIfNeed(values);
         }
         synchronized (dataManager) {
-            for (int findCacheTypeNameIndex = 1; findCacheTypeNameIndex < cacheTypeNames.size(); findCacheTypeNameIndex++) {
-                values = dataManager.getCacheTypeMap()
-                        .get(cacheTypeNames.get(findCacheTypeNameIndex))
+            for (int findCacheComponentTypeNameIndex = 1; findCacheComponentTypeNameIndex < cacheComponentTypeNames.size(); findCacheComponentTypeNameIndex++) {
+                values = dataManager.getCacheComponentTypeMap()
+                        .get(cacheComponentTypeNames.get(findCacheComponentTypeNameIndex))
                         .getStrategy()
-                        .getMapByNamespace(dataManager, namespace, findCacheTypeNameIndex);
+                        .getMapByNamespace(dataManager, namespace, findCacheComponentTypeNameIndex);
             }
         }
         return filterNullValueIfNeed(values);
@@ -91,18 +91,18 @@ public class Cache implements CacheTemplate<String> {
 
     @Override
     public void delete(String key) {
-        List<String> cacheTypeNames = dataManager.getCacheTypeNames();
-        for (int index = cacheTypeNames.size() - 1; index >= 0; index--) {
-            CacheTemplate<String> cacheTemplate = dataManager.getTemplate(cacheTypeNames.get(index));
+        List<String> cacheComponentTypeNames = dataManager.getCacheComponentTypeNames();
+        for (int index = cacheComponentTypeNames.size() - 1; index >= 0; index--) {
+            CacheTemplate<String> cacheTemplate = dataManager.getTemplate(cacheComponentTypeNames.get(index));
             cacheTemplate.delete(cacheTemplate.resolveKey(key, namespace));
         }
     }
 
     @Override
     public long deleteAll(String namespace) {
-        List<String> cacheTypeNames = dataManager.getCacheTypeNames();
-        for (int index = cacheTypeNames.size() - 1; index >= 0; index--) {
-            CacheTemplate<String> cacheTemplate = dataManager.getTemplate(cacheTypeNames.get(index));
+        List<String> cacheComponentTypeNames = dataManager.getCacheComponentTypeNames();
+        for (int index = cacheComponentTypeNames.size() - 1; index >= 0; index--) {
+            CacheTemplate<String> cacheTemplate = dataManager.getTemplate(cacheComponentTypeNames.get(index));
             cacheTemplate.deleteAll(namespace);
         }
         // not implement affected number, ignore the return value
