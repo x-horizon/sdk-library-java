@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.cache.all.support.aspect;
 
 import cn.srd.itcp.sugar.cache.all.core.CacheConfig;
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheComponentType;
+import cn.srd.itcp.sugar.cache.all.support.manager.CacheMode;
 import cn.srd.itcp.sugar.cache.all.support.strategy.CacheKeyGenerator;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -45,6 +46,11 @@ public class CacheAspectContext {
      * the cache type to be used
      */
     private List<CacheComponentType> cacheComponentTypes;
+
+    /**
+     * the cache mode
+     */
+    private CacheMode cacheMode;
 
     /**
      * the original cache key

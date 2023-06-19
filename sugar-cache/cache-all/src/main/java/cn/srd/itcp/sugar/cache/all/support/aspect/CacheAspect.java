@@ -4,6 +4,7 @@ import cn.srd.itcp.sugar.cache.all.core.CacheConfig;
 import cn.srd.itcp.sugar.cache.all.support.manager.Cache;
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheComponentType;
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheManager;
+import cn.srd.itcp.sugar.cache.all.support.manager.CacheMode;
 import cn.srd.itcp.sugar.cache.all.support.strategy.CacheKeyGenerator;
 import cn.srd.itcp.sugar.component.expression.all.core.Expressions;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.AopCaptor;
@@ -187,6 +188,7 @@ public interface CacheAspect extends AopCaptor {
             ProceedingJoinPoint joinPoint,
             String[] originalNamespaces,
             CacheComponentType[] originalCacheComponentTypes,
+            CacheMode cacheMode,
             Class<? extends CacheKeyGenerator> keyGenerator,
             String originalKey,
             boolean needParseKey,
@@ -201,6 +203,7 @@ public interface CacheAspect extends AopCaptor {
                 .namespaces(CollectionsUtil.toList(parseNamespaces(cacheConfigAnnotation, originalNamespaces)))
                 .originalCacheComponentTypes(CollectionsUtil.toList(originalCacheComponentTypes))
                 .cacheComponentTypes(parseCacheComponentTypes(cacheConfigAnnotation, originalCacheComponentTypes))
+                .cacheMode(cacheMode)
                 .originalKey(originalKey)
                 .key(needParseKey ? parseKey(cacheConfigAnnotation, getMethodParameters(joinPoint), joinPoint.getArgs(), originalKey, keyGenerator, needEvictAllInNamespaces) : null)
                 .keyGenerator(keyGenerator)
@@ -223,7 +226,7 @@ public interface CacheAspect extends AopCaptor {
      * @return {@link CacheAspectContext} instance
      */
     default CacheAspectContext buildCacheReadContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheComponentType[] originalCacheComponentTypes, Class<? extends CacheKeyGenerator> keyGenerator, String originalKey, Boolean originalAllowNullValue) {
-        return buildContext(joinPoint, originalNamespaces, originalCacheComponentTypes, keyGenerator, originalKey, true, originalAllowNullValue, null, null);
+        return buildContext(joinPoint, originalNamespaces, originalCacheComponentTypes, null, keyGenerator, originalKey, true, originalAllowNullValue, null, null);
     }
 
     /**
@@ -237,7 +240,7 @@ public interface CacheAspect extends AopCaptor {
      * @return {@link CacheAspectContext} instance
      */
     default CacheAspectContext buildCacheReadAllContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheComponentType[] originalCacheComponentTypes, String originalKey, Boolean originalAllowNullValue) {
-        return buildContext(joinPoint, originalNamespaces, originalCacheComponentTypes, null, originalKey, false, originalAllowNullValue, null, null);
+        return buildContext(joinPoint, originalNamespaces, originalCacheComponentTypes, null, null, originalKey, false, originalAllowNullValue, null, null);
     }
 
     /**
@@ -250,8 +253,8 @@ public interface CacheAspect extends AopCaptor {
      * @param originalAllowNullValue      the original allow or not to set {@link NullValue} to cache
      * @return {@link CacheAspectContext} instance
      */
-    default CacheAspectContext buildCacheWriteContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheComponentType[] originalCacheComponentTypes, String originalKey, Boolean originalAllowNullValue) {
-        return buildContext(joinPoint, originalNamespaces, originalCacheComponentTypes, null, originalKey, false, originalAllowNullValue, null, null);
+    default CacheAspectContext buildCacheWriteContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheComponentType[] originalCacheComponentTypes, CacheMode cacheMode, String originalKey, Boolean originalAllowNullValue) {
+        return buildContext(joinPoint, originalNamespaces, originalCacheComponentTypes, cacheMode, null, originalKey, false, originalAllowNullValue, null, null);
     }
 
     /**
@@ -268,7 +271,7 @@ public interface CacheAspect extends AopCaptor {
      * @return {@link CacheAspectContext} instance
      */
     default CacheAspectContext buildCacheEvictContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheComponentType[] originalCacheComponentTypes, Class<? extends CacheKeyGenerator> keyGenerator, String originalKey, Boolean originalAllowNullValue, Boolean needEvictBeforeProceed, Boolean needEvictAllInNamespaces) {
-        return buildContext(joinPoint, originalNamespaces, originalCacheComponentTypes, keyGenerator, originalKey, true, originalAllowNullValue, needEvictBeforeProceed, needEvictAllInNamespaces);
+        return buildContext(joinPoint, originalNamespaces, originalCacheComponentTypes, null, keyGenerator, originalKey, true, originalAllowNullValue, needEvictBeforeProceed, needEvictAllInNamespaces);
     }
 
     /**
@@ -455,7 +458,14 @@ public interface CacheAspect extends AopCaptor {
         if (Objects.isNotNull(value)) {
             String key = Option.of(Expressions.withSpring().parse(value, context.getOriginalKey())).map(Object::toString).getOrNull();
             Objects.requireNotBlank(() -> "cache system: could not parse the cache key when write cache, please check!", key);
-            deleteCacheValue(context.setKey(Option.of(Expressions.withSpring().parse(value, context.getOriginalKey())).map(Object::toString).getOrNull()));
+            /**
+             * TODO wjm need optimize to use strategy
+             */
+            if (Objects.equals(CacheMode.READ_ONLY, context.getCacheMode())) {
+                deleteCacheValue(context.setKey(key));
+            } else if (Objects.equals(CacheMode.READ_WRITE, context.getCacheMode())) {
+                setCacheValue(context.setKey(key).setValue(value));
+            }
         }
         return NullValueUtil.convertToNullIfNullValue(value);
     }

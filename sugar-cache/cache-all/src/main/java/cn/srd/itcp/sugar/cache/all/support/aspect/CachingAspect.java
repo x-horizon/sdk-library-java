@@ -42,7 +42,7 @@ public class CachingAspect implements CacheAspect {
         Object value = doRead(joinPoint, readContexts);
         // handle write
         for (CacheWrite annotation : cachingAnnotation.write()) {
-            CacheAspectContext context = buildCacheWriteContext(joinPoint, annotation.namespaces(), annotation.cacheComponentTypes(), annotation.key(), annotation.allowNullValue());
+            CacheAspectContext context = buildCacheWriteContext(joinPoint, annotation.namespaces(), annotation.cacheComponentTypes(), annotation.cacheMode(), annotation.key(), annotation.allowNullValue());
             doWrite(joinPoint, context, useless -> value);
         }
         // handle evict
