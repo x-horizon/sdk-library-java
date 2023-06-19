@@ -144,6 +144,17 @@ public class StringsUtil extends StrUtil {
     }
 
     /**
+     * 若以 str 开头，则移除 str
+     *
+     * @param specifiedStr 字符串
+     * @param str          指定开头字符串
+     * @return 移除后的结果
+     */
+    public static String removeIfStartWith(@Nullable String specifiedStr, @Nullable final String str) {
+        return removePrefix(specifiedStr, str);
+    }
+
+    /**
      * 若以 str 结尾，则移除 str
      *
      * @param specifiedStr 字符串
@@ -155,14 +166,15 @@ public class StringsUtil extends StrUtil {
     }
 
     /**
-     * 若以 str 开头，则移除 str
+     * instead of {@link #removeIfStartWith(String, String)} + {@link #removeIfEndWith(String, String)}
      *
      * @param specifiedStr 字符串
-     * @param str          指定开头字符串
+     * @param prefix       指定开头字符串
+     * @param suffix       指定结尾字符串
      * @return 移除后的结果
      */
-    public static String removeIfStartWith(@Nullable String specifiedStr, @Nullable final String str) {
-        return removePrefix(specifiedStr, str);
+    public static String removeIfStartAndEndWith(@Nullable String specifiedStr, @Nullable final String prefix, @Nullable final String suffix) {
+        return removeSuffix(removePrefix(specifiedStr, prefix), suffix);
     }
 
     /**
