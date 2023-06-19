@@ -71,10 +71,10 @@ public interface CacheAspect extends AopCaptor {
      * @return namespaces after parse
      */
     default String[] doParseNamespaces(String[] namespaces) {
-        int namespaceLength = namespaces.length;
-        String[] namespacesAfterParse = new String[namespaceLength];
-        for (int index = 0; index < namespaceLength; index++) {
-            String originalNamespace = namespaces[index];
+        // do not use the namespaces length as the initial capacity of the list,
+        // because it may cause a null element and throw exception when use this null namespace as the key to find this key mapping cache instance from a concurrent hashmap
+        List<String> namespacesAfterParse = new ArrayList<>();
+        for (String originalNamespace : namespaces) {
             String namespace = originalNamespace;
             if (StringsUtil.startWith(originalNamespace, StringPool.DOLLAR_AND_DELIM_START) && StringsUtil.endWith(originalNamespace, StringPool.DELIM_END)) {
                 namespace = NAMESPACE_EXPRESSION_MAPPING_NAMESPACE_VALUE_MAP.get(originalNamespace);
@@ -86,11 +86,11 @@ public interface CacheAspect extends AopCaptor {
                 }
             }
             if (Objects.isNotBlank(namespace)) {
-                namespacesAfterParse[index] = namespace;
+                namespacesAfterParse.add(namespace);
             }
         }
         Objects.requireNotEmpty(() -> "cache system: could not find namespace, please specify at least one!", namespacesAfterParse);
-        return namespacesAfterParse;
+        return ArraysUtil.toArray(namespacesAfterParse, String.class);
     }
 
     /**
