@@ -26,3 +26,7 @@ sugar:
     multilevel:
       block-to-hit-distributed-cache-wait-time: "3s"
       block-to-hit-distributed-cache-lease-time: "5s"
+
+project:
+  cache:
+    test-cache-key: "my-cache:"

@@ -26,6 +26,11 @@ public class CacheAllowNullValueService {
         return BOOK_CACHE.get(id);
     }
 
+    @CacheRead(namespaces = "${project.cache.test-cache-key}", key = "#id")
+    public BookPO getById2(Long id) {
+        return BOOK_CACHE.get(id);
+    }
+
     @CacheRead(key = "#id")
     public BookPO getNull(Long id) {
         return null;

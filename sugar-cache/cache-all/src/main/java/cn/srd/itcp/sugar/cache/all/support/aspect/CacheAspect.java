@@ -8,6 +8,7 @@ import cn.srd.itcp.sugar.cache.all.support.strategy.CacheKeyGenerator;
 import cn.srd.itcp.sugar.component.expression.all.core.Expressions;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.AopCaptor;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.NullValueUtil;
+import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.core.ArraysUtil;
 import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
@@ -50,10 +51,31 @@ public interface CacheAspect extends AopCaptor {
      */
     default String[] parseNamespaces(CacheConfig cacheConfigAnnotation, String[] namespacesOnMethod) {
         if (Objects.isNotEmpty(namespacesOnMethod)) {
-            return namespacesOnMethod;
+            return doParseNamespaces(namespacesOnMethod);
         }
         Objects.requireFalse(() -> "cache system: could not find namespace, please specify at least one!", Objects.isNull(cacheConfigAnnotation) || Objects.isEmpty(cacheConfigAnnotation.namespaces()));
-        return cacheConfigAnnotation.namespaces();
+        return doParseNamespaces(cacheConfigAnnotation.namespaces());
+    }
+
+    /**
+     * do parse namespace, support find value in config file
+     *
+     * @param namespaces the specified namespaces
+     * @return namespaces after parse
+     */
+    default String[] doParseNamespaces(String[] namespaces) {
+        int namespaceLength = namespaces.length;
+        String[] namespacesAfterParse = new String[namespaceLength];
+        for (int index = 0; index < namespaceLength; index++) {
+            String namespace = namespaces[index];
+            if (StringsUtil.startWith(namespace, StringPool.DOLLAR_AND_DELIM_START) && StringsUtil.endWith(namespace, StringPool.DELIM_END)) {
+                namespace = StringsUtil.removeIfStartWith(namespace, StringPool.DOLLAR_AND_DELIM_START);
+                namespace = StringsUtil.removeIfEndWith(namespace, StringPool.DELIM_END);
+                namespace = SpringsUtil.getProperty(namespace);
+            }
+            namespacesAfterParse[index] = namespace;
+        }
+        return namespacesAfterParse;
     }
 
     /**
