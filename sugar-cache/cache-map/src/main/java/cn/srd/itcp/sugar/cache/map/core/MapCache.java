@@ -64,7 +64,7 @@ public class MapCache<K> implements MapCacheTemplate<K> {
     @Override
     @SuppressWarnings("unchecked")
     public <V> Map<K, V> getMapByNamespace(String namespace) {
-        return (Map<K, V>) cache.values();
+        return (Map<K, V>) cache;
     }
 
     @Override
