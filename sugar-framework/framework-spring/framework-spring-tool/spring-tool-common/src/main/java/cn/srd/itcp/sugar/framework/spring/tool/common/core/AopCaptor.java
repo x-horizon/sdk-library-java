@@ -81,4 +81,16 @@ public interface AopCaptor {
         return joinPoint.proceed();
     }
 
+    /**
+     * support convert a specified class type from {@link #doProceed(ProceedingJoinPoint)}
+     *
+     * @param joinPoint {@link ProceedingJoinPoint}
+     * @param classType the class type
+     * @param <T>       the class type
+     * @return {@link ProceedingJoinPoint#proceed()} return
+     */
+    default <T> T doProceed(ProceedingJoinPoint joinPoint, Class<T> classType) {
+        return classType.cast(doProceed(joinPoint));
+    }
+
 }
