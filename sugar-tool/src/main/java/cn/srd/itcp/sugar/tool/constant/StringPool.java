@@ -192,4 +192,14 @@ public interface StringPool {
      */
     String DOUBLE_SLASH = "//";
 
+    /**
+     * 美元符 $
+     */
+    String DOLLAR = "$";
+
+    /**
+     * 美元符 + 花括号（左） ${
+     */
+    String DOLLAR_AND_DELIM_START = DOLLAR + DELIM_START;
+
 }
