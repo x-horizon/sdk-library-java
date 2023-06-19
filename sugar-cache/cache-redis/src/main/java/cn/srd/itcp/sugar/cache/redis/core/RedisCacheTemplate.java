@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.cache.redis.core;
 
 import cn.srd.itcp.sugar.cache.contract.core.CapableExpirationCacheTemplate;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
+import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import cn.srd.itcp.sugar.tool.core.time.DurationWrapper;
 import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
 
@@ -22,6 +23,9 @@ public interface RedisCacheTemplate extends CapableExpirationCacheTemplate<Strin
 
     @Override
     default String resolveKey(String key, String extensionKey) {
+        if (StringsUtil.endWith(extensionKey, StringPool.COLON)) {
+            return extensionKey + key;
+        }
         return extensionKey + StringPool.COLON + key;
     }
 
