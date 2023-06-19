@@ -6,6 +6,7 @@ import cn.srd.itcp.sugar.cache.all.support.manager.CacheComponentType;
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheManager;
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheMode;
 import cn.srd.itcp.sugar.cache.all.support.strategy.CacheKeyGenerator;
+import cn.srd.itcp.sugar.cache.all.support.strategy.CacheModeStrategy;
 import cn.srd.itcp.sugar.component.expression.all.core.Expressions;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.AopCaptor;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.NullValueUtil;
@@ -154,6 +155,23 @@ public interface CacheAspect extends AopCaptor {
     }
 
     /**
+     * select which cache mode to use
+     *
+     * @param cacheConfigAnnotation see {@link CacheConfig}
+     * @param cacheModeOnMethod     the specified cache mode on method annotation
+     * @return cache mode to use
+     */
+    default CacheMode parseCacheMode(CacheConfig cacheConfigAnnotation, CacheMode cacheModeOnMethod) {
+        CacheMode finalCacheMode;
+        if (Objects.isNull(cacheConfigAnnotation)) {
+            finalCacheMode = cacheModeOnMethod;
+        } else {
+            finalCacheMode = Objects.equals(cacheModeOnMethod, CacheModeStrategy.DEFAULT_CACHE_MODE) ? cacheConfigAnnotation.cacheMode() : cacheModeOnMethod;
+        }
+        return finalCacheMode;
+    }
+
+    /**
      * select which allow or not to set a {@link NullValue} in cache to use
      *
      * @param cacheConfigAnnotation  see {@link CacheConfig}
@@ -203,7 +221,8 @@ public interface CacheAspect extends AopCaptor {
                 .namespaces(CollectionsUtil.toList(parseNamespaces(cacheConfigAnnotation, originalNamespaces)))
                 .originalCacheComponentTypes(CollectionsUtil.toList(originalCacheComponentTypes))
                 .cacheComponentTypes(parseCacheComponentTypes(cacheConfigAnnotation, originalCacheComponentTypes))
-                .cacheMode(cacheMode)
+                .originalCacheMode(cacheMode)
+                .cacheMode(parseCacheMode(cacheConfigAnnotation, cacheMode))
                 .originalKey(originalKey)
                 .key(needParseKey ? parseKey(cacheConfigAnnotation, getMethodParameters(joinPoint), joinPoint.getArgs(), originalKey, keyGenerator, needEvictAllInNamespaces) : null)
                 .keyGenerator(keyGenerator)

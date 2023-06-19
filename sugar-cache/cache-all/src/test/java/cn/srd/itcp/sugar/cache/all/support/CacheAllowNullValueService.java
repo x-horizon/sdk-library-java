@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.cache.all.support;
 
 import cn.srd.itcp.sugar.cache.all.core.*;
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheComponentType;
+import cn.srd.itcp.sugar.cache.all.support.manager.CacheMode;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -43,6 +44,12 @@ public class CacheAllowNullValueService {
 
     @CacheWrite(key = "#this.id")
     public BookPO save(BookPO bookPO) {
+        BOOK_CACHE.put(bookPO.getId(), bookPO);
+        return bookPO;
+    }
+
+    @CacheWrite(cacheMode = CacheMode.READ_WRITE, key = "#this.id")
+    public BookPO save2(BookPO bookPO) {
         BOOK_CACHE.put(bookPO.getId(), bookPO);
         return bookPO;
     }

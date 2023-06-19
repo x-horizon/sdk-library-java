@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.cache.all.core;
 
 import cn.srd.itcp.sugar.cache.all.support.manager.Cache;
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheComponentType;
+import cn.srd.itcp.sugar.cache.all.support.manager.CacheMode;
 import cn.srd.itcp.sugar.cache.all.support.strategy.CacheDefaultKeyGenerator;
 import cn.srd.itcp.sugar.cache.all.support.strategy.CacheKeyGenerator;
 import org.springframework.cache.support.NullValue;
@@ -83,6 +84,20 @@ public @interface CacheConfig {
      * @return the cache type
      */
     CacheComponentType[] cacheComponentTypes() default {};
+
+    /**
+     * <pre>
+     * see {@link CacheMode}.
+     * if you need to use {@link CacheReadAll}, ensure set the cache mode to read write mode,
+     * because it will delete cache value in read only mode when update cache,
+     * the next time read cache may be wrong.
+     *
+     * it will take effect on all methods under the class which marked {@link CacheConfig}, if not specify cache mode on method, will use this cache mode, or else use cache mode on method;
+     * </pre>
+     *
+     * @return the cache mode
+     */
+    CacheMode cacheMode() default CacheMode.READ_ONLY;
 
     /**
      * <pre>

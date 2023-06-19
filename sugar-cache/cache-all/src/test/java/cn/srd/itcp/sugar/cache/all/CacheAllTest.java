@@ -127,6 +127,7 @@ public class CacheAllTest {
         BookPO result99 = cacheAllowNullValueService.getById(106L);
         BookPO result31 = cacheAllowNullValueService.getNull(8L);
         BookPO result32 = cacheAllowNullValueService.getNull(8L);
+        BookPO result119 = cacheAllowNullValueService.save2(BookPO.build(1L).setAuthor("author"));
         BookPO result33 = cacheAllowNullValueService.save(BookPO.build(102L));
         BookPO result34 = cacheAllowNullValueService.save(BookPO.build(103L));
         cacheAllowNullValueService.deleteByIds(List.of(105L, 106L));

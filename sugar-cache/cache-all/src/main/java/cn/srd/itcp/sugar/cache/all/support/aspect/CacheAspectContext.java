@@ -48,6 +48,11 @@ public class CacheAspectContext {
     private List<CacheComponentType> cacheComponentTypes;
 
     /**
+     * the original cache mode
+     */
+    private CacheMode originalCacheMode;
+
+    /**
      * the cache mode
      */
     private CacheMode cacheMode;
