@@ -140,6 +140,7 @@ public interface CacheAspect extends AopCaptor {
      * @param originalCacheTypes            the original cache type
      * @param keyGenerator                  the key generator
      * @param originalKey                   the original cache key
+     * @param needParseKey                  need to parse key or not
      * @param originalAllowNullValueInCache the original allow or not to set {@link NullValue} to cache
      * @param needEvictBeforeProceed        need or not evict before execute method
      * @param needEvictAllInNamespaces      need or not to evict all data in specified namespaces
