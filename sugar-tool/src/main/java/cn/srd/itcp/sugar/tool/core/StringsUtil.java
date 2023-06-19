@@ -151,10 +151,7 @@ public class StringsUtil extends StrUtil {
      * @return 移除后的结果
      */
     public static String removeIfEndWith(@Nullable String specifiedStr, @Nullable final String str) {
-        if (endWith(specifiedStr, str)) {
-            return removeSuffix(specifiedStr, str);
-        }
-        return specifiedStr;
+        return removeSuffix(specifiedStr, str);
     }
 
     /**
@@ -165,10 +162,7 @@ public class StringsUtil extends StrUtil {
      * @return 移除后的结果
      */
     public static String removeIfStartWith(@Nullable String specifiedStr, @Nullable final String str) {
-        if (startWith(specifiedStr, str)) {
-            return removePrefix(specifiedStr, str);
-        }
-        return specifiedStr;
+        return removePrefix(specifiedStr, str);
     }
 
     /**
