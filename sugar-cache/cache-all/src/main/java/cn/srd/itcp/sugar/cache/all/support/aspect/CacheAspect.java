@@ -194,6 +194,7 @@ public interface CacheAspect extends AopCaptor {
      * @param joinPoint                   pointcut
      * @param originalNamespaces          the original namespaces
      * @param originalCacheComponentTypes the original cache type
+     * @param cacheMode                   the cache mode
      * @param keyGenerator                the key generator
      * @param originalKey                 the original cache key
      * @param needParseKey                need to parse key or not
@@ -268,6 +269,7 @@ public interface CacheAspect extends AopCaptor {
      * @param joinPoint                   pointcut
      * @param originalNamespaces          the original namespaces
      * @param originalCacheComponentTypes the original cache type
+     * @param cacheMode                   the cache mode
      * @param originalKey                 the original cache key
      * @param originalAllowNullValue      the original allow or not to set {@link NullValue} to cache
      * @return {@link CacheAspectContext} instance
