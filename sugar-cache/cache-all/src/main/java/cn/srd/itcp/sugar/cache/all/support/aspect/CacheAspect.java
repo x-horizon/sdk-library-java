@@ -22,6 +22,8 @@ import org.springframework.cache.support.NullValue;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 /**
@@ -31,6 +33,11 @@ import java.util.function.Function;
  * @since 2023-06-09 15:06:14
  */
 public interface CacheAspect extends AopCaptor {
+
+    /**
+     * the namespace expression mapping the namespace value map
+     */
+    Map<String, String> NAMESPACE_EXPRESSION_MAPPING_NAMESPACE_VALUE_MAP = new ConcurrentHashMap<>(256);
 
     /**
      * get {@link CacheConfig}
@@ -53,7 +60,6 @@ public interface CacheAspect extends AopCaptor {
         if (Objects.isNotEmpty(namespacesOnMethod)) {
             return doParseNamespaces(namespacesOnMethod);
         }
-        Objects.requireFalse(() -> "cache system: could not find namespace, please specify at least one!", Objects.isNull(cacheConfigAnnotation) || Objects.isEmpty(cacheConfigAnnotation.namespaces()));
         return doParseNamespaces(cacheConfigAnnotation.namespaces());
     }
 
@@ -67,14 +73,22 @@ public interface CacheAspect extends AopCaptor {
         int namespaceLength = namespaces.length;
         String[] namespacesAfterParse = new String[namespaceLength];
         for (int index = 0; index < namespaceLength; index++) {
-            String namespace = namespaces[index];
-            if (StringsUtil.startWith(namespace, StringPool.DOLLAR_AND_DELIM_START) && StringsUtil.endWith(namespace, StringPool.DELIM_END)) {
-                namespace = StringsUtil.removeIfStartWith(namespace, StringPool.DOLLAR_AND_DELIM_START);
-                namespace = StringsUtil.removeIfEndWith(namespace, StringPool.DELIM_END);
-                namespace = SpringsUtil.getProperty(namespace);
+            String originalNamespace = namespaces[index];
+            String namespace = originalNamespace;
+            if (StringsUtil.startWith(originalNamespace, StringPool.DOLLAR_AND_DELIM_START) && StringsUtil.endWith(originalNamespace, StringPool.DELIM_END)) {
+                namespace = NAMESPACE_EXPRESSION_MAPPING_NAMESPACE_VALUE_MAP.get(originalNamespace);
+                if (Objects.isBlank(namespace)) {
+                    namespace = SpringsUtil.getProperty(StringsUtil.removeIfStartAndEndWith(originalNamespace, StringPool.DOLLAR_AND_DELIM_START, StringPool.DELIM_END));
+                    if (Objects.isNotBlank(namespace)) {
+                        NAMESPACE_EXPRESSION_MAPPING_NAMESPACE_VALUE_MAP.put(originalNamespace, namespace);
+                    }
+                }
             }
-            namespacesAfterParse[index] = namespace;
+            if (Objects.isNotBlank(namespace)) {
+                namespacesAfterParse[index] = namespace;
+            }
         }
+        Objects.requireNotEmpty(() -> "cache system: could not find namespace, please specify at least one!", namespacesAfterParse);
         return namespacesAfterParse;
     }
 
