@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.framework.spring.tool.common.core;
 
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 import lombok.SneakyThrows;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -27,6 +28,16 @@ public interface AopCaptor {
     }
 
     /**
+     * get class where method marked on aop annotation located
+     *
+     * @param joinPoint {@link ProceedingJoinPoint}
+     * @return {@link Class} where method marked on aop annotation located
+     */
+    default Class<?> getClass(ProceedingJoinPoint joinPoint) {
+        return joinPoint.getTarget().getClass();
+    }
+
+    /**
      * get method parameters marked on aop annotation
      *
      * @param joinPoint {@link ProceedingJoinPoint}
@@ -49,16 +60,6 @@ public interface AopCaptor {
     }
 
     /**
-     * get class where method marked on aop annotation located
-     *
-     * @param joinPoint {@link ProceedingJoinPoint}
-     * @return {@link Class} where method marked on aop annotation located
-     */
-    default Class<?> getClass(ProceedingJoinPoint joinPoint) {
-        return joinPoint.getTarget().getClass();
-    }
-
-    /**
      * get aop annotation where method marked on aop annotation located
      *
      * @param joinPoint       {@link ProceedingJoinPoint}
@@ -67,7 +68,24 @@ public interface AopCaptor {
      * @return aop annotation where method marked on aop annotation located
      */
     default <T extends Annotation> T getAnnotationMarkedOnClass(ProceedingJoinPoint joinPoint, Class<T> annotationClass) {
-        return getClass(joinPoint).getAnnotation(annotationClass);
+        Class<?> joinPointClass = getClass(joinPoint);
+        // first find the annotation in current class
+        T annotation = joinPointClass.getAnnotation(annotationClass);
+        // then find the annotation from parent interface of current class if it could not be found annotation in current class.
+        // once found, then break.
+        if (Objects.isNull(annotation)) {
+            for (Class<?> superJoinPointClass : joinPointClass.getInterfaces()) {
+                annotation = superJoinPointClass.getAnnotation(annotationClass);
+                if (Objects.isNotNull(annotation)) {
+                    break;
+                }
+            }
+        }
+        // final find the annotation from parent class of current class if it could not be found annotation in all parent interfaces.
+        if (Objects.isNull(annotation)) {
+            annotation = joinPointClass.getSuperclass().getAnnotation(annotationClass);
+        }
+        return annotation;
     }
 
     /**
