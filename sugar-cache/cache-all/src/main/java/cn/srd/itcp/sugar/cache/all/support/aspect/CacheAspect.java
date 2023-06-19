@@ -144,7 +144,7 @@ public interface CacheAspect extends AopCaptor {
      * @param allowNullValueOnMethod the specified allow or not to set a {@link NullValue} in cache on method annotation
      * @return allow or not to set a {@link NullValue} in cache to use
      */
-    default boolean parseAllowNullValueInCache(CacheConfig cacheConfigAnnotation, boolean allowNullValueOnMethod) {
+    default boolean parseAllowNullValue(CacheConfig cacheConfigAnnotation, boolean allowNullValueOnMethod) {
         if (allowNullValueOnMethod) {
             return true;
         }
@@ -157,15 +157,15 @@ public interface CacheAspect extends AopCaptor {
     /**
      * build {@link CacheAspectContext}
      *
-     * @param joinPoint                     pointcut
-     * @param originalNamespaces            the original namespaces
-     * @param originalCacheTypes            the original cache type
-     * @param keyGenerator                  the key generator
-     * @param originalKey                   the original cache key
-     * @param needParseKey                  need to parse key or not
-     * @param originalAllowNullValueInCache the original allow or not to set {@link NullValue} to cache
-     * @param needEvictBeforeProceed        need or not evict before execute method
-     * @param needEvictAllInNamespaces      need or not to evict all data in specified namespaces
+     * @param joinPoint                pointcut
+     * @param originalNamespaces       the original namespaces
+     * @param originalCacheTypes       the original cache type
+     * @param keyGenerator             the key generator
+     * @param originalKey              the original cache key
+     * @param needParseKey             need to parse key or not
+     * @param originalAllowNullValue   the original allow or not to set {@link NullValue} to cache
+     * @param needEvictBeforeProceed   need or not evict before execute method
+     * @param needEvictAllInNamespaces need or not to evict all data in specified namespaces
      * @return {@link CacheAspectContext} instance
      */
     default CacheAspectContext buildContext(
@@ -175,7 +175,7 @@ public interface CacheAspect extends AopCaptor {
             Class<? extends CacheKeyGenerator> keyGenerator,
             String originalKey,
             boolean needParseKey,
-            Boolean originalAllowNullValueInCache,
+            Boolean originalAllowNullValue,
             Boolean needEvictBeforeProceed,
             Boolean needEvictAllInNamespaces
     ) {
@@ -189,11 +189,71 @@ public interface CacheAspect extends AopCaptor {
                 .originalKey(originalKey)
                 .key(needParseKey ? parseKey(cacheConfigAnnotation, getMethodParameters(joinPoint), joinPoint.getArgs(), originalKey, keyGenerator, needEvictAllInNamespaces) : null)
                 .keyGenerator(keyGenerator)
-                .originalAllowNullValueInCache(originalAllowNullValueInCache)
-                .allowNullValue(parseAllowNullValueInCache(cacheConfigAnnotation, originalAllowNullValueInCache))
+                .originalAllowNullValue(originalAllowNullValue)
+                .allowNullValue(parseAllowNullValue(cacheConfigAnnotation, originalAllowNullValue))
                 .needEvictBeforeProceed(needEvictBeforeProceed)
                 .needEvictAllInNamespaces(needEvictAllInNamespaces)
                 .build();
+    }
+
+    /**
+     * build {@link CacheAspectContext} for {@link CacheReadAspect}
+     *
+     * @param joinPoint              pointcut
+     * @param originalNamespaces     the original namespaces
+     * @param originalCacheTypes     the original cache type
+     * @param keyGenerator           the key generator
+     * @param originalKey            the original cache key
+     * @param originalAllowNullValue the original allow or not to set {@link NullValue} to cache
+     * @return {@link CacheAspectContext} instance
+     */
+    default CacheAspectContext buildCacheReadContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, Class<? extends CacheKeyGenerator> keyGenerator, String originalKey, Boolean originalAllowNullValue) {
+        return buildContext(joinPoint, originalNamespaces, originalCacheTypes, keyGenerator, originalKey, true, originalAllowNullValue, null, null);
+    }
+
+    /**
+     * build {@link CacheAspectContext} for {@link CacheReadAllAspect}
+     *
+     * @param joinPoint              pointcut
+     * @param originalNamespaces     the original namespaces
+     * @param originalCacheTypes     the original cache type
+     * @param originalKey            the original cache key
+     * @param originalAllowNullValue the original allow or not to set {@link NullValue} to cache
+     * @return {@link CacheAspectContext} instance
+     */
+    default CacheAspectContext buildCacheReadAllContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, String originalKey, Boolean originalAllowNullValue) {
+        return buildContext(joinPoint, originalNamespaces, originalCacheTypes, null, originalKey, false, originalAllowNullValue, null, null);
+    }
+
+    /**
+     * build {@link CacheAspectContext} for {@link CacheWriteAspect}
+     *
+     * @param joinPoint              pointcut
+     * @param originalNamespaces     the original namespaces
+     * @param originalCacheTypes     the original cache type
+     * @param originalKey            the original cache key
+     * @param originalAllowNullValue the original allow or not to set {@link NullValue} to cache
+     * @return {@link CacheAspectContext} instance
+     */
+    default CacheAspectContext buildCacheWriteContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, String originalKey, Boolean originalAllowNullValue) {
+        return buildContext(joinPoint, originalNamespaces, originalCacheTypes, null, originalKey, false, originalAllowNullValue, null, null);
+    }
+
+    /**
+     * build {@link CacheAspectContext} for {@link CacheEvictAspect}
+     *
+     * @param joinPoint                pointcut
+     * @param originalNamespaces       the original namespaces
+     * @param originalCacheTypes       the original cache type
+     * @param keyGenerator             the key generator
+     * @param originalKey              the original cache key
+     * @param originalAllowNullValue   the original allow or not to set {@link NullValue} to cache
+     * @param needEvictBeforeProceed   need or not evict before execute method
+     * @param needEvictAllInNamespaces need or not to evict all data in specified namespaces
+     * @return {@link CacheAspectContext} instance
+     */
+    default CacheAspectContext buildCacheEvictContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, Class<? extends CacheKeyGenerator> keyGenerator, String originalKey, Boolean originalAllowNullValue, Boolean needEvictBeforeProceed, Boolean needEvictAllInNamespaces) {
+        return buildContext(joinPoint, originalNamespaces, originalCacheTypes, keyGenerator, originalKey, true, originalAllowNullValue, needEvictBeforeProceed, needEvictAllInNamespaces);
     }
 
     /**

@@ -69,7 +69,7 @@ public class CacheAspectContext {
     /**
      * the original allow or not to set {@link NullValue} to cache
      */
-    private Boolean originalAllowNullValueInCache;
+    private Boolean originalAllowNullValue;
 
     /**
      * allow or not to set {@link NullValue} to cache to be used
