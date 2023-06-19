@@ -33,6 +33,16 @@ public @interface CacheReadAll {
     CacheType[] cacheTypes() default {};
 
     /**
+     * <pre>
+     * see {@link CacheRead#key()}.
+     * when cannot find value in cache, it will execute pointcut and use this field to generate a key and set to cache.
+     * </pre>
+     *
+     * @return the cache key
+     */
+    String key() default "";
+
+    /**
      * see {@link CacheConfig#allowNullValue()}
      *
      * @return allow or not to set a {@link NullValue} in cache

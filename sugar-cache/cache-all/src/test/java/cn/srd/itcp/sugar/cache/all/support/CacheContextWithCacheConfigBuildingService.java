@@ -75,11 +75,6 @@ public class CacheContextWithCacheConfigBuildingService {
         return null;
     }
 
-    @CacheWrite(namespaces = {"myCache4"}, cacheTypes = {CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS, CacheType.CAFFEINE, CacheType.REDIS, CacheType.REDIS}, keyGenerator = CacheTestKeyGenerator.class)
-    public BookPO getById13(BookPO bookPO) {
-        return null;
-    }
-
     @CacheWrite(namespaces = {"myCache4"}, cacheTypes = {CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS, CacheType.CAFFEINE, CacheType.REDIS, CacheType.REDIS}, key = "#bookPO.id")
     public BookPO getById14(BookPO bookPO) {
         return null;

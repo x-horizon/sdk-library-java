@@ -40,7 +40,6 @@ public class CacheAllTest {
         // cache write
         Throwable result5 = Assert.assertThrows(RuntimeException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById9(BOOK_PO1));
         Throwable result6 = Assert.assertThrows(RuntimeException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById10(BOOK_PO1));
-        Throwable result7 = Assert.assertThrows(RuntimeException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById11(BOOK_PO1));
         Throwable result8 = Assert.assertThrows(RuntimeException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById12(BOOK_PO1));
         cacheContextWithoutCacheConfigBuildingService.getById13(BOOK_PO1);
         cacheContextWithoutCacheConfigBuildingService.getById14(BOOK_PO1);
@@ -73,7 +72,6 @@ public class CacheAllTest {
         cacheContextWithCacheConfigBuildingService.getById10(BOOK_PO1);
         cacheContextWithCacheConfigBuildingService.getById11(BOOK_PO1);
         cacheContextWithCacheConfigBuildingService.getById12(BOOK_PO1);
-        Throwable result16 = Assert.assertThrows(RuntimeException.class, () -> cacheContextWithCacheConfigBuildingService.getById13(BOOK_PO1));
         cacheContextWithCacheConfigBuildingService.getById14(BOOK_PO1);
         // cache evict
         cacheContextWithCacheConfigBuildingService.getById15(BOOK_PO1);
@@ -112,6 +110,7 @@ public class CacheAllTest {
         BookPO result22 = cacheNotAllowNullValueService.deleteBeforeProceedAll(1L);
         BookPO result23 = cacheNotAllowNullValueService.multi(BookPO.build(200L));
         BookPO result24 = cacheNotAllowNullValueService.multi(BookPO.build(200L));
+        List<BookPO> result101 = cacheNotAllowNullValueService.getAll();
 
         BookPO result25 = cacheAllowNullValueService.getById(1L);
         BookPO result26 = cacheAllowNullValueService.getById(1L);
@@ -135,8 +134,6 @@ public class CacheAllTest {
         BookPO result44 = cacheAllowNullValueService.deleteBeforeProceedAll(1L);
         BookPO result45 = cacheAllowNullValueService.multi(BookPO.build(200L));
         BookPO result46 = cacheAllowNullValueService.multi(BookPO.build(200L));
-
-        List<BookPO> result101 = cacheNotAllowNullValueService.getAll();
         List<BookPO> result102 = cacheAllowNullValueService.getAll();
     }
 

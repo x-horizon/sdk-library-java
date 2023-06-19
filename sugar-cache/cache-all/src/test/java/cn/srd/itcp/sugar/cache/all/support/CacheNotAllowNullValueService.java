@@ -31,18 +31,18 @@ public class CacheNotAllowNullValueService {
         return null;
     }
 
-    @CacheReadAll
+    @CacheReadAll(key = "#this.id")
     public List<BookPO> getAll() {
         return BOOK_CACHE.values().stream().toList();
     }
 
-    @CacheWrite(key = "#bookPO.id")
+    @CacheWrite(key = "#this.id")
     public BookPO save(BookPO bookPO) {
         BOOK_CACHE.put(bookPO.getId(), bookPO);
         return bookPO;
     }
 
-    @CacheWrite(key = "#bookPO.id")
+    @CacheWrite(key = "#this.id")
     public BookPO saveNull(BookPO bookPO) {
         return null;
     }
@@ -78,8 +78,8 @@ public class CacheNotAllowNullValueService {
                     @CacheRead(namespaces = "myCache11", key = "#bookPO.id")
             },
             write = {
-                    @CacheWrite(namespaces = {"myCache12"}, key = "#bookPO.id"),
-                    @CacheWrite(namespaces = {"myCache12", "myCache13"}, key = "#bookPO.name")
+                    @CacheWrite(namespaces = {"myCache12"}, key = "#this.id"),
+                    @CacheWrite(namespaces = {"myCache12", "myCache13"}, key = "#this.name")
             },
             evict = {
                     @CacheEvict(namespaces = {"myCache12"}, key = "#bookPO.id"),

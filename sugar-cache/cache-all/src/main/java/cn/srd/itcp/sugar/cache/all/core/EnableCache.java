@@ -1,9 +1,6 @@
 package cn.srd.itcp.sugar.cache.all.core;
 
-import cn.srd.itcp.sugar.cache.all.support.aspect.CacheEvictAspect;
-import cn.srd.itcp.sugar.cache.all.support.aspect.CacheReadAspect;
-import cn.srd.itcp.sugar.cache.all.support.aspect.CacheWriteAspect;
-import cn.srd.itcp.sugar.cache.all.support.aspect.CachingAspect;
+import cn.srd.itcp.sugar.cache.all.support.aspect.*;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -17,7 +14,7 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import({CacheReadAspect.class, CacheWriteAspect.class, CacheEvictAspect.class, CachingAspect.class})
+@Import({CacheReadAspect.class, CacheReadAllAspect.class, CacheWriteAspect.class, CacheEvictAspect.class, CachingAspect.class})
 public @interface EnableCache {
 
 }

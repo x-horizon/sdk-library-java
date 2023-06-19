@@ -63,11 +63,6 @@ public class CacheContextWithoutCacheConfigBuildingService {
         return null;
     }
 
-    @CacheWrite(namespaces = {"myCache1"}, cacheTypes = CacheType.MAP, keyGenerator = CacheTestKeyGenerator.class)
-    public BookPO getById11(BookPO bookPO) {
-        return null;
-    }
-
     @CacheWrite(namespaces = {"myCache1"}, cacheTypes = CacheType.MAP, key = "#bookPO.author")
     public BookPO getById12(BookPO bookPO) {
         return null;

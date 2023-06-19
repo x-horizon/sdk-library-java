@@ -11,6 +11,7 @@ import org.springframework.cache.support.NullValue;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * cache implement {@link CacheTemplate}, support multilevel cache operation
@@ -75,7 +76,7 @@ public class Cache implements CacheTemplate<String> {
         CacheTemplate<String> cacheTemplate = dataManager.getTemplate(CollectionsUtil.getFirst(cacheTypeNames));
         Map<String, V> values = cacheTemplate.getMapByNamespace(namespace);
         if (cacheTypeNames.size() == 1 || Objects.isNotEmpty(values)) {
-            return values;
+            return filterNullValueIfNeed(values);
         }
         synchronized (dataManager) {
             for (int findCacheTypeNameIndex = 1; findCacheTypeNameIndex < cacheTypeNames.size(); findCacheTypeNameIndex++) {
@@ -85,7 +86,7 @@ public class Cache implements CacheTemplate<String> {
                         .getMapByNamespace(dataManager, namespace, findCacheTypeNameIndex);
             }
         }
-        return values;
+        return filterNullValueIfNeed(values);
     }
 
     @Override
@@ -106,6 +107,20 @@ public class Cache implements CacheTemplate<String> {
         }
         // not implement affected number, ignore the return value
         return -1;
+    }
+
+    /**
+     * remove the value is {@link NullValue} in map if allow null value
+     *
+     * @param values the cache value
+     * @param <V>    the cache value type
+     * @return after remove the value is {@link NullValue} in map if allow null value
+     */
+    public <V> Map<String, V> filterNullValueIfNeed(Map<String, V> values) {
+        if (allowNullValue) {
+            return values.entrySet().stream().filter(entry -> NullValueUtil.isNotNullValue(entry.getValue())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        }
+        return values;
     }
 
 }
