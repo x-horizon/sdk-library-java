@@ -53,28 +53,33 @@ public class CacheAllowNullValueService {
     }
 
     @CacheEvict(key = "#id")
-    public BookPO deleteById(Long id) {
-        return BOOK_CACHE.remove(id);
+    public void deleteById(Long id) {
+        BOOK_CACHE.remove(id);
+    }
+
+    @CacheEvict(key = "#ids")
+    public void deleteByIds(List<Long> ids) {
+        ids.forEach(BOOK_CACHE::remove);
     }
 
     @CacheEvict(key = "#id", needEvictAllInNamespaces = true)
-    public BookPO deleteAll1(Long id) {
-        return BOOK_CACHE.remove(id);
+    public void deleteAll1(Long id) {
+        BOOK_CACHE.remove(id);
     }
 
     @CacheEvict(needEvictAllInNamespaces = true)
-    public BookPO deleteAll2(Long id) {
-        return BOOK_CACHE.remove(id);
+    public void deleteAll2(Long id) {
+        BOOK_CACHE.remove(id);
     }
 
     @CacheEvict(key = "#id", needEvictBeforeProceed = true)
-    public BookPO deleteBeforeProceedById(Long id) {
-        return BOOK_CACHE.remove(id);
+    public void deleteBeforeProceedById(Long id) {
+        BOOK_CACHE.remove(id);
     }
 
     @CacheEvict(key = "#id", needEvictBeforeProceed = true, needEvictAllInNamespaces = true)
-    public BookPO deleteBeforeProceedAll(Long id) {
-        return BOOK_CACHE.remove(id);
+    public void deleteBeforeProceedAll(Long id) {
+        BOOK_CACHE.remove(id);
     }
 
     @Caching(

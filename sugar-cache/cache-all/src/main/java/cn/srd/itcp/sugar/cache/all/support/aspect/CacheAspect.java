@@ -256,7 +256,11 @@ public interface CacheAspect extends AopCaptor {
      * @param context see {@link CacheAspectContext}
      */
     default void deleteCacheValue(CacheAspectContext context) {
-        context.getNamespaces().forEach(namespace -> getCache(context, namespace).delete(context.getKey()));
+        if (CollectionsUtil.isJsonArray(context.getKey())) {
+            CollectionsUtil.toList(context.getKey()).forEach(key -> context.getNamespaces().forEach(namespace -> getCache(context, namespace).delete(key)));
+        } else {
+            context.getNamespaces().forEach(namespace -> getCache(context, namespace).delete(context.getKey()));
+        }
     }
 
     /**
