@@ -11,18 +11,18 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- * the distributed cache mode strategy implement
+ * the distributed cache type strategy implement
  *
  * @author wjm
  * @since 2023-06-12 20:49:21
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class CacheModeDistributedStrategy implements CacheModeStrategy {
+public class CacheTypeDistributedStrategy implements CacheTypeStrategy {
 
     /**
      * the singleton instance
      */
-    private static final CacheModeDistributedStrategy INSTANCE = new CacheModeDistributedStrategy();
+    private static final CacheTypeDistributedStrategy INSTANCE = new CacheTypeDistributedStrategy();
 
     /*
      * the lock name prefix
@@ -34,7 +34,7 @@ public class CacheModeDistributedStrategy implements CacheModeStrategy {
      *
      * @return singleton instance
      */
-    public static CacheModeDistributedStrategy getInstance() {
+    public static CacheTypeDistributedStrategy getInstance() {
         return INSTANCE;
     }
 
@@ -42,7 +42,7 @@ public class CacheModeDistributedStrategy implements CacheModeStrategy {
     public Object get(CacheDataManager dataManager, String namespace, String key, int findCacheComponentTypeNameIndex) {
         return RedisNonFairLockHandler.getInstance().tryLock(
                 dataManager, namespace, key, findCacheComponentTypeNameIndex,
-                (t1, t2, t3, t4) -> CacheModeLocalStrategy.getInstance().get(dataManager, namespace, key, findCacheComponentTypeNameIndex),
+                (t1, t2, t3, t4) -> CacheTypeLocalStrategy.getInstance().get(dataManager, namespace, key, findCacheComponentTypeNameIndex),
                 LOCK_NAME_PREFIX + Caches.withRedis().withBucket().resolveKey(key, namespace),
                 CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheWaitTime(),
                 CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheLeaseTime(),
@@ -54,7 +54,7 @@ public class CacheModeDistributedStrategy implements CacheModeStrategy {
     public <V> Map<String, V> getMapByNamespace(CacheDataManager dataManager, String namespace, int findCacheComponentTypeNameIndex) {
         return RedisNonFairLockHandler.getInstance().tryLock(
                 dataManager, namespace, findCacheComponentTypeNameIndex,
-                (t1, t2, t3) -> CacheModeLocalStrategy.getInstance().getMapByNamespace(dataManager, namespace, findCacheComponentTypeNameIndex),
+                (t1, t2, t3) -> CacheTypeLocalStrategy.getInstance().getMapByNamespace(dataManager, namespace, findCacheComponentTypeNameIndex),
                 LOCK_NAME_PREFIX + namespace,
                 CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheWaitTime(),
                 CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheLeaseTime(),

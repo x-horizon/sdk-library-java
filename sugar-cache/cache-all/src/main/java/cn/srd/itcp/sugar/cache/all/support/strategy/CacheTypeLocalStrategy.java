@@ -9,25 +9,25 @@ import lombok.NoArgsConstructor;
 import java.util.Map;
 
 /**
- * the local cache mode strategy implement
+ * the local cache type strategy implement
  *
  * @author wjm
  * @since 2023-06-12 20:49:21
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class CacheModeLocalStrategy implements CacheModeStrategy {
+public class CacheTypeLocalStrategy implements CacheTypeStrategy {
 
     /**
      * the singleton instance
      */
-    private static final CacheModeLocalStrategy INSTANCE = new CacheModeLocalStrategy();
+    private static final CacheTypeLocalStrategy INSTANCE = new CacheTypeLocalStrategy();
 
     /**
      * get singleton instance
      *
      * @return singleton instance
      */
-    public static CacheModeLocalStrategy getInstance() {
+    public static CacheTypeLocalStrategy getInstance() {
         return INSTANCE;
     }
 

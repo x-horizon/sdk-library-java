@@ -5,12 +5,12 @@ import cn.srd.itcp.sugar.cache.all.support.manager.CacheDataManager;
 import java.util.Map;
 
 /**
- * the cache mode strategy
+ * the cache type strategy
  *
  * @author wjm
  * @since 2023-06-12 20:49:21
  */
-public interface CacheModeStrategy {
+public interface CacheTypeStrategy {
 
     /**
      * get cache value by key
