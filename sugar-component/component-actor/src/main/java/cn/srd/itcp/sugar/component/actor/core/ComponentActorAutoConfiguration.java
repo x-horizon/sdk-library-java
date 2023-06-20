@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.core.annotation.Order;
 
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
@@ -21,6 +22,7 @@ import java.util.concurrent.ExecutorService;
  * @since 2023-03-23 20:09:17
  */
 @Slf4j
+@Order
 @AutoConfiguration
 @EnableConfigurationProperties(ActorSystemProperties.class)
 public class ComponentActorAutoConfiguration {
