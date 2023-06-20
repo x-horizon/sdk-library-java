@@ -7,7 +7,6 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.springframework.cache.support.NullValue;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Cache Template
@@ -388,13 +387,8 @@ public interface CacheTemplate<K> {
      * @param <V>       cache value type
      * @return cache value
      */
-    @SuppressWarnings("unchecked")
     default <V> Map<K, V> getMapByNamespaceWithoutNullValue(String namespace) {
-        return getMapByNamespace(namespace)
-                .entrySet()
-                .stream()
-                .filter(entry -> Objects.notEquals(NullValue.INSTANCE, entry.getValue()))
-                .collect(Collectors.toMap(Map.Entry::getKey, entry -> (V) entry.getValue()));
+        return NullValueUtil.filterNullValue(getMapByNamespace(namespace));
     }
 
     /**
