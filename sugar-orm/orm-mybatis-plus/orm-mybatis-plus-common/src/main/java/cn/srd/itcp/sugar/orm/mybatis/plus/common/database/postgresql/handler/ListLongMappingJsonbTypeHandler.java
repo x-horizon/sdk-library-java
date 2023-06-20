@@ -1,7 +1,5 @@
 package cn.srd.itcp.sugar.orm.mybatis.plus.common.database.postgresql.handler;
 
-import cn.srd.itcp.sugar.component.convert.all.core.Converts;
-import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
 import lombok.SneakyThrows;
 import org.apache.ibatis.type.BaseTypeHandler;
@@ -10,7 +8,6 @@ import org.apache.ibatis.type.JdbcType;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +17,11 @@ import java.util.List;
  * @since 2023-06-14 09:20:17
  */
 public class ListLongMappingJsonbTypeHandler extends BaseTypeHandler<List<Long>> implements JsonbHandler<Long> {
+
+    @Override
+    public Class<Long> getTargetClass() {
+        return Long.class;
+    }
 
     /**
      * 定义如何把 Java 类型的参数转换为指定的数据库类型
@@ -74,17 +76,6 @@ public class ListLongMappingJsonbTypeHandler extends BaseTypeHandler<List<Long>>
     @Override
     public List<Long> getNullableResult(CallableStatement callableStatement, int columnIndex) {
         return convertJsonbStringToList(callableStatement.getString(columnIndex));
-    }
-
-    /**
-     * 将 postgresql 中 JSONB 类型的数据转换为 java 的 {@link List<Long>} 类型
-     *
-     * @param jsonbString postgresql 中 JSONB 类型的数据
-     * @return 转换结果集
-     */
-    @Override
-    public List<Long> convertJsonbStringToList(String jsonbString) {
-        return CollectionsUtil.isBlankOrEmptyJsonArray(jsonbString) ? new ArrayList<>() : Converts.withJackson().toBeans(jsonbString, Long.class);
     }
 
 }
