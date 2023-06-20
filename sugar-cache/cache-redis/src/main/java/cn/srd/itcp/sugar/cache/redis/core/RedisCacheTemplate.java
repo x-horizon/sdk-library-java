@@ -19,7 +19,7 @@ public interface RedisCacheTemplate extends CapableExpirationCacheTemplate<Strin
     /**
      * 模糊查询某个命名空间的关键字
      */
-    String NAMESPACE_KEY_WORD = ":*";
+    String NAMESPACE_KEY_WORD = "*";
 
     @Override
     default String resolveKey(String key, String extensionKey) {
