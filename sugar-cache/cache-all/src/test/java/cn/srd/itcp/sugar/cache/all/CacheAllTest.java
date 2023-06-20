@@ -86,6 +86,14 @@ public class CacheAllTest {
 
     @Test
     public void testCache() {
+        List<BookPO> result109 = cacheAllowNullValueService.getAll2();
+        List<BookPO> result121 = cacheAllowNullValueService.getAll2();
+        List<BookPO> result122 = cacheAllowNullValueService.getAll2();
+
+        List<BookPO> result131 = cacheNotAllowNullValueService.getAll2();
+        List<BookPO> result132 = cacheNotAllowNullValueService.getAll2();
+        List<BookPO> result133 = cacheNotAllowNullValueService.getAll2();
+
         BookPO result1 = cacheNotAllowNullValueService.getById(1L);
         BookPO result2 = cacheNotAllowNullValueService.getById(1L);
         BookPO result3 = cacheNotAllowNullValueService.getNull(8L);

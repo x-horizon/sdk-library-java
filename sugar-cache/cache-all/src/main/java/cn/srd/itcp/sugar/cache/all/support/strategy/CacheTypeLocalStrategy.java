@@ -49,15 +49,35 @@ public class CacheTypeLocalStrategy implements CacheTypeStrategy {
     public <V> Map<String, V> getMapByNamespace(CacheDataManager dataManager, String namespace, int findCacheTypeNameIndex) {
         CacheTemplate<String> cacheTemplate = dataManager.getTemplate(dataManager.getCacheTypeNames().get(findCacheTypeNameIndex));
         Map<String, V> values = cacheTemplate.getMapByNamespace(namespace);
+        fillCache(dataManager, findCacheTypeNameIndex, values);
+        return values;
+    }
+
+    @Override
+    public <V> Map<String, V> getMapByNamespaceWithoutNullValue(CacheDataManager dataManager, String namespace, int findCacheTypeNameIndex) {
+        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(dataManager.getCacheTypeNames().get(findCacheTypeNameIndex));
+        Map<String, V> values = cacheTemplate.getMapByNamespaceWithoutNullValue(namespace);
+        fillCache(dataManager, findCacheTypeNameIndex, values);
+        return values;
+    }
+
+    /**
+     * fill cache
+     *
+     * @param dataManager            see {@link CacheDataManager}
+     * @param findCacheTypeNameIndex current find cache type name index
+     * @param values                 the data source
+     * @param <V>                    the cache value type
+     */
+    public <V> void fillCache(CacheDataManager dataManager, int findCacheTypeNameIndex, Map<String, V> values) {
         if (Objects.isNotEmpty(values)) {
             for (int writeIndex = findCacheTypeNameIndex - 1; writeIndex >= 0; writeIndex--) {
-                cacheTemplate = dataManager.getTemplate(dataManager.getCacheTypeNames().get(writeIndex));
+                CacheTemplate<String> cacheTemplate = dataManager.getTemplate(dataManager.getCacheTypeNames().get(writeIndex));
                 for (Map.Entry<String, V> value : values.entrySet()) {
                     cacheTemplate.set(resolveKey(value.getKey()), value.getValue());
                 }
             }
         }
-        return values;
     }
 
     /**

@@ -4,6 +4,7 @@ import cn.srd.itcp.sugar.cache.all.core.*;
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheType;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -34,6 +35,11 @@ public class CacheNotAllowNullValueService {
     @CacheReadAll(key = "#this.id")
     public List<BookPO> getAll() {
         return BOOK_CACHE.values().stream().toList();
+    }
+
+    @CacheReadAll(key = "#this.id")
+    public List<BookPO> getAll2() {
+        return new ArrayList<>();
     }
 
     @CacheWrite(key = "#this.id")

@@ -327,7 +327,9 @@ public interface CacheAspect extends AopCaptor {
     default <V> List<V> getAllCacheValues(CacheAspectContext context) {
         List<V> values = new ArrayList<>();
         for (String namespace : context.getNamespaces()) {
-            values = getCache(context, namespace).getByNamespace(namespace);
+            values = Boolean.TRUE.equals(context.getAllowNullValue()) ?
+                    getCache(context, namespace).getByNamespace(namespace) :
+                    getCache(context, namespace).getByNamespaceWithoutNullValue(namespace);
             // lazy write cache:
             // there may be different data in different namespace,
             // for example: get nonnull data from some namespace, the all cache in this namespace will sync, but other namespace cache may refresh,
@@ -404,7 +406,7 @@ public interface CacheAspect extends AopCaptor {
         Object value = getCacheValue(context);
         if (Objects.isNull(value)) {
             value = doProceed(joinPoint);
-            if (Boolean.TRUE.equals(context.getAllowNullValue()) || Objects.isNotNull(value)) {
+            if (Objects.isNotNull(value) || Boolean.TRUE.equals(context.getAllowNullValue())) {
                 setCacheValue(context.setValue(value));
             }
         }
@@ -434,7 +436,7 @@ public interface CacheAspect extends AopCaptor {
 
         value = doProceed(joinPoint);
         for (CacheAspectContext context : contexts) {
-            if (Boolean.TRUE.equals(context.getAllowNullValue()) || Objects.isNotNull(value)) {
+            if (Objects.isNotNull(value) || Boolean.TRUE.equals(context.getAllowNullValue())) {
                 setCacheValue(context.setValue(value));
             }
         }
@@ -454,7 +456,9 @@ public interface CacheAspect extends AopCaptor {
         List<V> values = getAllCacheValues(context);
         if (Objects.isEmpty(values)) {
             values = (List<V>) doProceed(joinPoint);
-            if (Objects.isNotEmpty(values)) {
+            if (Objects.isEmpty(values) && Boolean.TRUE.equals(context.getAllowNullValue())) {
+                setCacheValue(context.setKey(NullValueUtil.getName()).setValue(null));
+            } else {
                 for (V value : values) {
                     String key = Option.of(Expressions.withSpring().parse(value, context.getOriginalKey())).map(Object::toString).getOrNull();
                     Objects.requireNotBlank(() -> "cache system: could not parse the cache key when read all cache, please check!", key);
@@ -462,7 +466,7 @@ public interface CacheAspect extends AopCaptor {
                 }
             }
         }
-        return values;
+        return NullValueUtil.filterNullValue(values);
     }
 
     /**

@@ -62,6 +62,18 @@ public class CacheTypeDistributedStrategy implements CacheTypeStrategy {
         );
     }
 
+    @Override
+    public <V> Map<String, V> getMapByNamespaceWithoutNullValue(CacheDataManager dataManager, String namespace, int findCacheTypeNameIndex) {
+        return RedisNonFairLockHandler.getInstance().tryLock(
+                dataManager, namespace, findCacheTypeNameIndex,
+                (t1, t2, t3) -> CacheTypeLocalStrategy.getInstance().getMapByNamespaceWithoutNullValue(dataManager, namespace, findCacheTypeNameIndex),
+                LOCK_NAME_PREFIX + Caches.withRedis().withBucket().resolveFuzzyKey(namespace),
+                CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheWaitTime(),
+                CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheLeaseTime(),
+                TimeUnit.MILLISECONDS
+        );
+    }
+
 }
 
 

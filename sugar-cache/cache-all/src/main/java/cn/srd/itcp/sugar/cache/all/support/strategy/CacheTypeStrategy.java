@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.cache.all.support.strategy;
 
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheDataManager;
 import cn.srd.itcp.sugar.tool.constant.CharPool;
+import org.springframework.cache.support.NullValue;
 
 import java.util.Map;
 
@@ -39,6 +40,17 @@ public interface CacheTypeStrategy {
      * @return cache value
      */
     <V> Map<String, V> getMapByNamespace(CacheDataManager dataManager, String namespace, int findCacheTypeNameIndex);
+
+    /**
+     * get cache value by namespace, the value is {@link NullValue} in map will be filtered
+     *
+     * @param dataManager            see {@link CacheDataManager}
+     * @param namespace              the cache namespace
+     * @param findCacheTypeNameIndex current find cache type name index
+     * @param <V>                    the cache value type
+     * @return cache value
+     */
+    <V> Map<String, V> getMapByNamespaceWithoutNullValue(CacheDataManager dataManager, String namespace, int findCacheTypeNameIndex);
 
 }
 
