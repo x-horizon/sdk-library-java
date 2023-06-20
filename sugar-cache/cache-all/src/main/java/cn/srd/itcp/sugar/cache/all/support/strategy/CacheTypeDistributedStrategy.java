@@ -39,10 +39,10 @@ public class CacheTypeDistributedStrategy implements CacheTypeStrategy {
     }
 
     @Override
-    public Object get(CacheDataManager dataManager, String namespace, String key, int findCacheComponentTypeNameIndex) {
+    public Object get(CacheDataManager dataManager, String namespace, String key, int findCacheTypeNameIndex) {
         return RedisNonFairLockHandler.getInstance().tryLock(
-                dataManager, namespace, key, findCacheComponentTypeNameIndex,
-                (t1, t2, t3, t4) -> CacheTypeLocalStrategy.getInstance().get(dataManager, namespace, key, findCacheComponentTypeNameIndex),
+                dataManager, namespace, key, findCacheTypeNameIndex,
+                (t1, t2, t3, t4) -> CacheTypeLocalStrategy.getInstance().get(dataManager, namespace, key, findCacheTypeNameIndex),
                 LOCK_NAME_PREFIX + Caches.withRedis().withBucket().resolveKey(key, namespace),
                 CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheWaitTime(),
                 CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheLeaseTime(),
@@ -51,10 +51,10 @@ public class CacheTypeDistributedStrategy implements CacheTypeStrategy {
     }
 
     @Override
-    public <V> Map<String, V> getMapByNamespace(CacheDataManager dataManager, String namespace, int findCacheComponentTypeNameIndex) {
+    public <V> Map<String, V> getMapByNamespace(CacheDataManager dataManager, String namespace, int findCacheTypeNameIndex) {
         return RedisNonFairLockHandler.getInstance().tryLock(
-                dataManager, namespace, findCacheComponentTypeNameIndex,
-                (t1, t2, t3) -> CacheTypeLocalStrategy.getInstance().getMapByNamespace(dataManager, namespace, findCacheComponentTypeNameIndex),
+                dataManager, namespace, findCacheTypeNameIndex,
+                (t1, t2, t3) -> CacheTypeLocalStrategy.getInstance().getMapByNamespace(dataManager, namespace, findCacheTypeNameIndex),
                 LOCK_NAME_PREFIX + namespace,
                 CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheWaitTime(),
                 CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheLeaseTime(),

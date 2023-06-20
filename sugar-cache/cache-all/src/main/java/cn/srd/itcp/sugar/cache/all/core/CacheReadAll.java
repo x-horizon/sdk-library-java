@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.cache.all.core;
 
-import cn.srd.itcp.sugar.cache.all.support.manager.CacheComponentType;
+import cn.srd.itcp.sugar.cache.all.support.manager.CacheType;
 import org.springframework.cache.support.NullValue;
 
 import java.lang.annotation.*;
@@ -26,11 +26,11 @@ public @interface CacheReadAll {
     String[] namespaces() default {};
 
     /**
-     * see {@link CacheConfig#cacheComponentTypes()}
+     * see {@link CacheConfig#cacheTypes()}
      *
      * @return the cache type
      */
-    CacheComponentType[] cacheComponentTypes() default {};
+    CacheType[] cacheTypes() default {};
 
     /**
      * <pre>

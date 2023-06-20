@@ -2,9 +2,9 @@ package cn.srd.itcp.sugar.cache.all.support.aspect;
 
 import cn.srd.itcp.sugar.cache.all.core.CacheConfig;
 import cn.srd.itcp.sugar.cache.all.support.manager.Cache;
-import cn.srd.itcp.sugar.cache.all.support.manager.CacheComponentType;
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheManager;
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheMode;
+import cn.srd.itcp.sugar.cache.all.support.manager.CacheType;
 import cn.srd.itcp.sugar.cache.all.support.strategy.CacheKeyGenerator;
 import cn.srd.itcp.sugar.cache.all.support.strategy.CacheModeStrategy;
 import cn.srd.itcp.sugar.component.expression.all.core.Expressions;
@@ -98,16 +98,16 @@ public interface CacheAspect extends AopCaptor {
     /**
      * select which cache types to use
      *
-     * @param cacheConfigAnnotation       see {@link CacheConfig}
-     * @param cacheComponentTypesOnMethod the specified cache types on method annotation
+     * @param cacheConfigAnnotation see {@link CacheConfig}
+     * @param cacheTypesOnMethod    the specified cache types on method annotation
      * @return cache types to use
      */
-    default List<CacheComponentType> parseCacheComponentTypes(CacheConfig cacheConfigAnnotation, CacheComponentType[] cacheComponentTypesOnMethod) {
-        if (ArraysUtil.isNotEmpty(cacheComponentTypesOnMethod)) {
-            return CollectionsUtil.toList(cacheComponentTypesOnMethod);
+    default List<CacheType> parseCacheTypes(CacheConfig cacheConfigAnnotation, CacheType[] cacheTypesOnMethod) {
+        if (ArraysUtil.isNotEmpty(cacheTypesOnMethod)) {
+            return CollectionsUtil.toList(cacheTypesOnMethod);
         }
-        Objects.requireFalse(() -> "cache system: could not find cache type to cache, please specify at least one!", Objects.isNull(cacheConfigAnnotation) || ArraysUtil.isEmpty(cacheConfigAnnotation.cacheComponentTypes()));
-        return CollectionsUtil.toList(cacheConfigAnnotation.cacheComponentTypes());
+        Objects.requireFalse(() -> "cache system: could not find cache type to cache, please specify at least one!", Objects.isNull(cacheConfigAnnotation) || ArraysUtil.isEmpty(cacheConfigAnnotation.cacheTypes()));
+        return CollectionsUtil.toList(cacheConfigAnnotation.cacheTypes());
     }
 
     /**
@@ -191,22 +191,22 @@ public interface CacheAspect extends AopCaptor {
     /**
      * build {@link CacheAspectContext}
      *
-     * @param joinPoint                   pointcut
-     * @param originalNamespaces          the original namespaces
-     * @param originalCacheComponentTypes the original cache type
-     * @param cacheMode                   the cache mode
-     * @param keyGenerator                the key generator
-     * @param originalKey                 the original cache key
-     * @param needParseKey                need to parse key or not
-     * @param originalAllowNullValue      the original allow or not to set {@link NullValue} to cache
-     * @param needEvictBeforeProceed      need or not evict before execute method
-     * @param needEvictAllInNamespaces    need or not to evict all data in specified namespaces
+     * @param joinPoint                pointcut
+     * @param originalNamespaces       the original namespaces
+     * @param originalCacheTypes       the original cache type
+     * @param cacheMode                the cache mode
+     * @param keyGenerator             the key generator
+     * @param originalKey              the original cache key
+     * @param needParseKey             need to parse key or not
+     * @param originalAllowNullValue   the original allow or not to set {@link NullValue} to cache
+     * @param needEvictBeforeProceed   need or not evict before execute method
+     * @param needEvictAllInNamespaces need or not to evict all data in specified namespaces
      * @return {@link CacheAspectContext} instance
      */
     default CacheAspectContext buildContext(
             ProceedingJoinPoint joinPoint,
             String[] originalNamespaces,
-            CacheComponentType[] originalCacheComponentTypes,
+            CacheType[] originalCacheTypes,
             CacheMode cacheMode,
             Class<? extends CacheKeyGenerator> keyGenerator,
             String originalKey,
@@ -220,8 +220,8 @@ public interface CacheAspect extends AopCaptor {
                 .cacheConfigAnnotation(getCacheConfigAnnotation(joinPoint))
                 .originalNamespaces(CollectionsUtil.toList(originalNamespaces))
                 .namespaces(CollectionsUtil.toList(parseNamespaces(cacheConfigAnnotation, originalNamespaces)))
-                .originalCacheComponentTypes(CollectionsUtil.toList(originalCacheComponentTypes))
-                .cacheComponentTypes(parseCacheComponentTypes(cacheConfigAnnotation, originalCacheComponentTypes))
+                .originalCacheTypes(CollectionsUtil.toList(originalCacheTypes))
+                .cacheTypes(parseCacheTypes(cacheConfigAnnotation, originalCacheTypes))
                 .originalCacheMode(cacheMode)
                 .cacheMode(parseCacheMode(cacheConfigAnnotation, cacheMode))
                 .originalKey(originalKey)
@@ -237,62 +237,62 @@ public interface CacheAspect extends AopCaptor {
     /**
      * build {@link CacheAspectContext} for {@link CacheReadAspect}
      *
-     * @param joinPoint                   pointcut
-     * @param originalNamespaces          the original namespaces
-     * @param originalCacheComponentTypes the original cache type
-     * @param keyGenerator                the key generator
-     * @param originalKey                 the original cache key
-     * @param originalAllowNullValue      the original allow or not to set {@link NullValue} to cache
+     * @param joinPoint              pointcut
+     * @param originalNamespaces     the original namespaces
+     * @param originalCacheTypes     the original cache type
+     * @param keyGenerator           the key generator
+     * @param originalKey            the original cache key
+     * @param originalAllowNullValue the original allow or not to set {@link NullValue} to cache
      * @return {@link CacheAspectContext} instance
      */
-    default CacheAspectContext buildCacheReadContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheComponentType[] originalCacheComponentTypes, Class<? extends CacheKeyGenerator> keyGenerator, String originalKey, Boolean originalAllowNullValue) {
-        return buildContext(joinPoint, originalNamespaces, originalCacheComponentTypes, null, keyGenerator, originalKey, true, originalAllowNullValue, null, null);
+    default CacheAspectContext buildCacheReadContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, Class<? extends CacheKeyGenerator> keyGenerator, String originalKey, Boolean originalAllowNullValue) {
+        return buildContext(joinPoint, originalNamespaces, originalCacheTypes, null, keyGenerator, originalKey, true, originalAllowNullValue, null, null);
     }
 
     /**
      * build {@link CacheAspectContext} for {@link CacheReadAllAspect}
      *
-     * @param joinPoint                   pointcut
-     * @param originalNamespaces          the original namespaces
-     * @param originalCacheComponentTypes the original cache type
-     * @param originalKey                 the original cache key
-     * @param originalAllowNullValue      the original allow or not to set {@link NullValue} to cache
+     * @param joinPoint              pointcut
+     * @param originalNamespaces     the original namespaces
+     * @param originalCacheTypes     the original cache type
+     * @param originalKey            the original cache key
+     * @param originalAllowNullValue the original allow or not to set {@link NullValue} to cache
      * @return {@link CacheAspectContext} instance
      */
-    default CacheAspectContext buildCacheReadAllContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheComponentType[] originalCacheComponentTypes, String originalKey, Boolean originalAllowNullValue) {
-        return buildContext(joinPoint, originalNamespaces, originalCacheComponentTypes, null, null, originalKey, false, originalAllowNullValue, null, null);
+    default CacheAspectContext buildCacheReadAllContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, String originalKey, Boolean originalAllowNullValue) {
+        return buildContext(joinPoint, originalNamespaces, originalCacheTypes, null, null, originalKey, false, originalAllowNullValue, null, null);
     }
 
     /**
      * build {@link CacheAspectContext} for {@link CacheWriteAspect}
      *
-     * @param joinPoint                   pointcut
-     * @param originalNamespaces          the original namespaces
-     * @param originalCacheComponentTypes the original cache type
-     * @param cacheMode                   the cache mode
-     * @param originalKey                 the original cache key
-     * @param originalAllowNullValue      the original allow or not to set {@link NullValue} to cache
+     * @param joinPoint              pointcut
+     * @param originalNamespaces     the original namespaces
+     * @param originalCacheTypes     the original cache type
+     * @param cacheMode              the cache mode
+     * @param originalKey            the original cache key
+     * @param originalAllowNullValue the original allow or not to set {@link NullValue} to cache
      * @return {@link CacheAspectContext} instance
      */
-    default CacheAspectContext buildCacheWriteContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheComponentType[] originalCacheComponentTypes, CacheMode cacheMode, String originalKey, Boolean originalAllowNullValue) {
-        return buildContext(joinPoint, originalNamespaces, originalCacheComponentTypes, cacheMode, null, originalKey, false, originalAllowNullValue, null, null);
+    default CacheAspectContext buildCacheWriteContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, CacheMode cacheMode, String originalKey, Boolean originalAllowNullValue) {
+        return buildContext(joinPoint, originalNamespaces, originalCacheTypes, cacheMode, null, originalKey, false, originalAllowNullValue, null, null);
     }
 
     /**
      * build {@link CacheAspectContext} for {@link CacheEvictAspect}
      *
-     * @param joinPoint                   pointcut
-     * @param originalNamespaces          the original namespaces
-     * @param originalCacheComponentTypes the original cache type
-     * @param keyGenerator                the key generator
-     * @param originalKey                 the original cache key
-     * @param originalAllowNullValue      the original allow or not to set {@link NullValue} to cache
-     * @param needEvictBeforeProceed      need or not evict before execute method
-     * @param needEvictAllInNamespaces    need or not to evict all data in specified namespaces
+     * @param joinPoint                pointcut
+     * @param originalNamespaces       the original namespaces
+     * @param originalCacheTypes       the original cache type
+     * @param keyGenerator             the key generator
+     * @param originalKey              the original cache key
+     * @param originalAllowNullValue   the original allow or not to set {@link NullValue} to cache
+     * @param needEvictBeforeProceed   need or not evict before execute method
+     * @param needEvictAllInNamespaces need or not to evict all data in specified namespaces
      * @return {@link CacheAspectContext} instance
      */
-    default CacheAspectContext buildCacheEvictContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheComponentType[] originalCacheComponentTypes, Class<? extends CacheKeyGenerator> keyGenerator, String originalKey, Boolean originalAllowNullValue, Boolean needEvictBeforeProceed, Boolean needEvictAllInNamespaces) {
-        return buildContext(joinPoint, originalNamespaces, originalCacheComponentTypes, null, keyGenerator, originalKey, true, originalAllowNullValue, needEvictBeforeProceed, needEvictAllInNamespaces);
+    default CacheAspectContext buildCacheEvictContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, Class<? extends CacheKeyGenerator> keyGenerator, String originalKey, Boolean originalAllowNullValue, Boolean needEvictBeforeProceed, Boolean needEvictAllInNamespaces) {
+        return buildContext(joinPoint, originalNamespaces, originalCacheTypes, null, keyGenerator, originalKey, true, originalAllowNullValue, needEvictBeforeProceed, needEvictAllInNamespaces);
     }
 
     /**
@@ -390,7 +390,7 @@ public interface CacheAspect extends AopCaptor {
      * @return {@link Cache} instance
      */
     default Cache getCache(CacheAspectContext context, String namespace) {
-        return CacheManager.getInstance().getCache(namespace, context.getCacheComponentTypes(), context.getAllowNullValue());
+        return CacheManager.getInstance().getCache(namespace, context.getCacheTypes(), context.getAllowNullValue());
     }
 
     /**

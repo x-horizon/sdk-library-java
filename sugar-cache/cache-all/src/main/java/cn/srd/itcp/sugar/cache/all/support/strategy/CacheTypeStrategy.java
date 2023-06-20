@@ -15,24 +15,24 @@ public interface CacheTypeStrategy {
     /**
      * get cache value by key
      *
-     * @param dataManager                     see {@link CacheDataManager}
-     * @param namespace                       the cache namespace
-     * @param key                             the cache key
-     * @param findCacheComponentTypeNameIndex current find cache type name index
+     * @param dataManager            see {@link CacheDataManager}
+     * @param namespace              the cache namespace
+     * @param key                    the cache key
+     * @param findCacheTypeNameIndex current find cache type name index
      * @return cache value
      */
-    Object get(CacheDataManager dataManager, String namespace, String key, int findCacheComponentTypeNameIndex);
+    Object get(CacheDataManager dataManager, String namespace, String key, int findCacheTypeNameIndex);
 
     /**
      * get cache value by namespace
      *
-     * @param dataManager                     see {@link CacheDataManager}
-     * @param namespace                       the cache namespace
-     * @param findCacheComponentTypeNameIndex current find cache type name index
-     * @param <V>                             the cache value type
+     * @param dataManager            see {@link CacheDataManager}
+     * @param namespace              the cache namespace
+     * @param findCacheTypeNameIndex current find cache type name index
+     * @param <V>                    the cache value type
      * @return cache value
      */
-    <V> Map<String, V> getMapByNamespace(CacheDataManager dataManager, String namespace, int findCacheComponentTypeNameIndex);
+    <V> Map<String, V> getMapByNamespace(CacheDataManager dataManager, String namespace, int findCacheTypeNameIndex);
 
 }
 

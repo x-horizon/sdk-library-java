@@ -19,7 +19,7 @@ import java.util.function.Supplier;
  */
 @Getter
 @AllArgsConstructor
-public enum CacheComponentType {
+public enum CacheType {
 
     /**
      * use cache by map
@@ -46,7 +46,7 @@ public enum CacheComponentType {
     /**
      * the cache template init
      */
-    public static final Map<CacheComponentType, Supplier<CacheTemplate<String>>> CACHE_TEMPLATE_SUPPLIER = Map.of(
+    public static final Map<CacheType, Supplier<CacheTemplate<String>>> CACHE_TEMPLATE_SUPPLIER = Map.of(
             MAP, Caches::withMap,
             CAFFEINE, Caches::withCaffeine,
             REDIS, () -> Caches.withRedis().withBucket()

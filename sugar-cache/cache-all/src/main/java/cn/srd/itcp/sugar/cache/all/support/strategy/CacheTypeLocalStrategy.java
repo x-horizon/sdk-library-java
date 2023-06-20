@@ -32,12 +32,12 @@ public class CacheTypeLocalStrategy implements CacheTypeStrategy {
     }
 
     @Override
-    public Object get(CacheDataManager dataManager, String namespace, String key, int findCacheComponentTypeNameIndex) {
-        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(dataManager.getCacheComponentTypeNames().get(findCacheComponentTypeNameIndex));
+    public Object get(CacheDataManager dataManager, String namespace, String key, int findCacheTypeNameIndex) {
+        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(dataManager.getCacheTypeNames().get(findCacheTypeNameIndex));
         Object value = cacheTemplate.get(cacheTemplate.resolveKey(key, namespace));
         if (Objects.isNotNull(value)) {
-            for (int writeIndex = findCacheComponentTypeNameIndex - 1; writeIndex >= 0; writeIndex--) {
-                cacheTemplate = dataManager.getTemplate(dataManager.getCacheComponentTypeNames().get(writeIndex));
+            for (int writeIndex = findCacheTypeNameIndex - 1; writeIndex >= 0; writeIndex--) {
+                cacheTemplate = dataManager.getTemplate(dataManager.getCacheTypeNames().get(writeIndex));
                 cacheTemplate.set(cacheTemplate.resolveKey(key, namespace), value);
             }
         }
@@ -45,12 +45,12 @@ public class CacheTypeLocalStrategy implements CacheTypeStrategy {
     }
 
     @Override
-    public <V> Map<String, V> getMapByNamespace(CacheDataManager dataManager, String namespace, int findCacheComponentTypeNameIndex) {
-        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(dataManager.getCacheComponentTypeNames().get(findCacheComponentTypeNameIndex));
+    public <V> Map<String, V> getMapByNamespace(CacheDataManager dataManager, String namespace, int findCacheTypeNameIndex) {
+        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(dataManager.getCacheTypeNames().get(findCacheTypeNameIndex));
         Map<String, V> values = cacheTemplate.getMapByNamespace(namespace);
         if (Objects.isNotEmpty(values)) {
-            for (int writeIndex = findCacheComponentTypeNameIndex - 1; writeIndex >= 0; writeIndex--) {
-                cacheTemplate = dataManager.getTemplate(dataManager.getCacheComponentTypeNames().get(writeIndex));
+            for (int writeIndex = findCacheTypeNameIndex - 1; writeIndex >= 0; writeIndex--) {
+                cacheTemplate = dataManager.getTemplate(dataManager.getCacheTypeNames().get(writeIndex));
                 for (Map.Entry<String, V> value : values.entrySet()) {
                     cacheTemplate.set(value.getKey(), value.getValue());
                 }
