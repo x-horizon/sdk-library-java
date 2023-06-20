@@ -93,7 +93,7 @@ public class RedisCacheBucket implements RedisCacheTemplate {
 
     @Override
     public <V> Map<String, V> getMapByNamespace(String namespace) {
-        return getMapByPattern(namespace + NAMESPACE_KEY_WORD);
+        return getMapByPattern(resolveFuzzyKey(namespace));
     }
 
     @Override
@@ -127,7 +127,7 @@ public class RedisCacheBucket implements RedisCacheTemplate {
 
     @Override
     public long deleteByNamespace(String namespace) {
-        return deleteByPattern(namespace + NAMESPACE_KEY_WORD);
+        return deleteByPattern(resolveFuzzyKey(namespace));
     }
 
     @SneakyThrows

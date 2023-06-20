@@ -30,6 +30,19 @@ public interface RedisCacheTemplate extends CapableExpirationCacheTemplate<Strin
     }
 
     /**
+     * resolve fuzzy find, example: my-cache:*
+     *
+     * @param namespace the namespace
+     * @return the fuzzy key
+     */
+    default String resolveFuzzyKey(String namespace) {
+        if (StringsUtil.endWith(namespace, StringPool.COLON)) {
+            return namespace + NAMESPACE_KEY_WORD;
+        }
+        return namespace + StringPool.COLON + NAMESPACE_KEY_WORD;
+    }
+
+    /**
      * redis expire time or ttl =&gt; {@link DurationWrapper}
      *
      * @param time redis expire time or ttl
