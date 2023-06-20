@@ -5,6 +5,10 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.cache.support.NullValue;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 /**
  * {@link NullValue} tool
  *
@@ -13,6 +17,15 @@ import org.springframework.cache.support.NullValue;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class NullValueUtil {
+
+    /**
+     * get {@link NullValue} class name
+     *
+     * @return {@link NullValue} class name
+     */
+    public static String getName() {
+        return NullValue.class.getSimpleName();
+    }
 
     /**
      * is it {@link NullValue}
@@ -54,6 +67,31 @@ public class NullValueUtil {
      */
     public static Object convertNullToNullValueIfNeed(Object input, boolean allowNullValue) {
         return allowNullValue && Objects.isNull(input) ? NullValue.INSTANCE : input;
+    }
+
+    /**
+     * remove the value is {@link NullValue} in map
+     *
+     * @param values the input
+     * @param <K>    the map key type
+     * @param <V>    the map value type
+     * @return after remove the value is {@link NullValue} in map
+     */
+    public static <K, V> Map<K, V> filterNullValue(Map<K, V> values) {
+        return values.entrySet().stream()
+                .filter(entry -> isNotNullValue(entry.getValue()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    /**
+     * remove the value is {@link NullValue} in collection
+     *
+     * @param values the input
+     * @param <T>    the value type
+     * @return after remove the value is {@link NullValue} in collection
+     */
+    public static <T> List<T> filterNullValue(List<T> values) {
+        return values.stream().filter(NullValueUtil::isNotNullValue).toList();
     }
 
 }
