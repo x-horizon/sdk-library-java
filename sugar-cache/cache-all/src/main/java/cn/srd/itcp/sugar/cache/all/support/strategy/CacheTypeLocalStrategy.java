@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.cache.all.support.strategy;
 
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheDataManager;
 import cn.srd.itcp.sugar.cache.contract.core.CacheTemplate;
+import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -52,11 +53,21 @@ public class CacheTypeLocalStrategy implements CacheTypeStrategy {
             for (int writeIndex = findCacheTypeNameIndex - 1; writeIndex >= 0; writeIndex--) {
                 cacheTemplate = dataManager.getTemplate(dataManager.getCacheTypeNames().get(writeIndex));
                 for (Map.Entry<String, V> value : values.entrySet()) {
-                    cacheTemplate.set(value.getKey(), value.getValue());
+                    cacheTemplate.set(resolveKey(value.getKey()), value.getValue());
                 }
             }
         }
         return values;
+    }
+
+    /**
+     * resolve the key in local cache, example: "my-cache:test:1" =&gt; "1"
+     *
+     * @param key the cache key
+     * @return the cache key after resolve
+     */
+    public String resolveKey(String key) {
+        return StringsUtil.contains(key, FOLDER_SYMBOL_IN_CACHE) ? StringsUtil.subAfter(key, FOLDER_SYMBOL_IN_CACHE, true) : key;
     }
 
 }

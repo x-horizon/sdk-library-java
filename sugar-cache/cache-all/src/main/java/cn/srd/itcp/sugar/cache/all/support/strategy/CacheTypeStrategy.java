@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.cache.all.support.strategy;
 
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheDataManager;
+import cn.srd.itcp.sugar.tool.constant.CharPool;
 
 import java.util.Map;
 
@@ -11,6 +12,11 @@ import java.util.Map;
  * @since 2023-06-12 20:49:21
  */
 public interface CacheTypeStrategy {
+
+    /**
+     * the folder name represent in cache
+     */
+    char FOLDER_SYMBOL_IN_CACHE = CharPool.COLON;
 
     /**
      * get cache value by key
