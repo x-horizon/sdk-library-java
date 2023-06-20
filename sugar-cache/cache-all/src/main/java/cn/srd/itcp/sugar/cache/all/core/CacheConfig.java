@@ -14,6 +14,7 @@ import java.lang.annotation.*;
  * global configuration for following:
  *
  * {@link CacheRead}
+ * {@link CacheReadAll}
  * {@link CacheWrite}
  * {@link CacheEvict}
  * {@link Caching}
