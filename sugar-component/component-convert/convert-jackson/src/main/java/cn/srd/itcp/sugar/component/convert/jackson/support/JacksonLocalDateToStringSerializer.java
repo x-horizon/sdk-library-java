@@ -9,10 +9,10 @@ import lombok.SneakyThrows;
 import java.time.LocalDate;
 
 /**
- * Jackson 序列化处理器：Enum =&gt; Enum 内部 Integer 类型的值
+ * Jackson 序列化处理器：LocalDate =&gt; String
  *
  * @author wjm
- * @since 2020/12/15 17:02
+ * @since 2023-06-21 12:01:01
  */
 public class JacksonLocalDateToStringSerializer extends JsonSerializer<LocalDate> {
 
