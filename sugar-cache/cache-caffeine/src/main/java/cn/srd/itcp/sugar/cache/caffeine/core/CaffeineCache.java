@@ -26,7 +26,7 @@ public class CaffeineCache<K> implements CaffeineCacheTemplate<K> {
     /**
      * get instance
      *
-     * @param <K> cache key type
+     * @param <K> the cache key type
      * @return instance
      */
     public static <K> CaffeineCache<K> newInstance() {
