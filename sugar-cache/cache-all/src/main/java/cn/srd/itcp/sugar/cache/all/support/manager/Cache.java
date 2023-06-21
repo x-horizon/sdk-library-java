@@ -36,11 +36,11 @@ public class Cache implements CacheTemplate<String> {
     /**
      * allow or not to set a {@link NullValue} in cache
      */
-    private final boolean allowNullValue;
+    private final boolean allowEmptyValue;
 
     @Override
     public <V> void set(String key, V value) {
-        Object finalValue = NullValueUtil.convertNullToNullValueIfNeed(value, allowNullValue);
+        Object finalValue = NullValueUtil.convertNullToNullValueIfNeed(value, allowEmptyValue);
         if (Objects.isNotNull(finalValue)) {
             List<String> cacheTypeNames = dataManager.getCacheTypeNames();
             for (int index = cacheTypeNames.size() - 1; index >= 0; index--) {

@@ -174,16 +174,16 @@ public interface CacheAspect extends AopCaptor {
     /**
      * select which allow or not to set a {@link NullValue} in cache to use
      *
-     * @param cacheConfigAnnotation  see {@link CacheConfig}
-     * @param allowNullValueOnMethod the specified allow or not to set a {@link NullValue} in cache on method annotation
+     * @param cacheConfigAnnotation   see {@link CacheConfig}
+     * @param allowEmptyValueOnMethod the specified allow or not to set a {@link NullValue} in cache on method annotation
      * @return allow or not to set a {@link NullValue} in cache to use
      */
-    default boolean parseAllowNullValue(CacheConfig cacheConfigAnnotation, boolean allowNullValueOnMethod) {
-        if (allowNullValueOnMethod) {
+    default boolean parseAllowEmptyValue(CacheConfig cacheConfigAnnotation, boolean allowEmptyValueOnMethod) {
+        if (allowEmptyValueOnMethod) {
             return true;
         }
         if (Objects.isNotNull(cacheConfigAnnotation)) {
-            return cacheConfigAnnotation.allowNullValue();
+            return cacheConfigAnnotation.allowEmptyValue();
         }
         return false;
     }
@@ -198,7 +198,7 @@ public interface CacheAspect extends AopCaptor {
      * @param keyGenerator             the key generator
      * @param originalKey              the original cache key
      * @param needParseKey             need to parse key or not
-     * @param originalAllowNullValue   the original allow or not to set {@link NullValue} to cache
+     * @param originalAllowEmptyValue  the original allow or not to set {@link NullValue} to cache
      * @param needEvictBeforeProceed   need or not evict before execute method
      * @param needEvictAllInNamespaces need or not to evict all data in specified namespaces
      * @return {@link CacheAspectContext} instance
@@ -211,7 +211,7 @@ public interface CacheAspect extends AopCaptor {
             Class<? extends CacheKeyGenerator> keyGenerator,
             String originalKey,
             boolean needParseKey,
-            Boolean originalAllowNullValue,
+            Boolean originalAllowEmptyValue,
             Boolean needEvictBeforeProceed,
             Boolean needEvictAllInNamespaces
     ) {
@@ -227,8 +227,8 @@ public interface CacheAspect extends AopCaptor {
                 .originalKey(originalKey)
                 .key(needParseKey ? parseKey(cacheConfigAnnotation, getMethodParameters(joinPoint), joinPoint.getArgs(), originalKey, keyGenerator, needEvictAllInNamespaces) : null)
                 .keyGenerator(keyGenerator)
-                .originalAllowNullValue(originalAllowNullValue)
-                .allowNullValue(parseAllowNullValue(cacheConfigAnnotation, originalAllowNullValue))
+                .originalAllowEmptyValue(originalAllowEmptyValue)
+                .allowEmptyValue(parseAllowEmptyValue(cacheConfigAnnotation, originalAllowEmptyValue))
                 .needEvictBeforeProceed(needEvictBeforeProceed)
                 .needEvictAllInNamespaces(needEvictAllInNamespaces)
                 .build();
@@ -237,45 +237,45 @@ public interface CacheAspect extends AopCaptor {
     /**
      * build {@link CacheAspectContext} for {@link CacheReadAspect}
      *
-     * @param joinPoint              pointcut
-     * @param originalNamespaces     the original namespaces
-     * @param originalCacheTypes     the original cache type
-     * @param keyGenerator           the key generator
-     * @param originalKey            the original cache key
-     * @param originalAllowNullValue the original allow or not to set {@link NullValue} to cache
+     * @param joinPoint               pointcut
+     * @param originalNamespaces      the original namespaces
+     * @param originalCacheTypes      the original cache type
+     * @param keyGenerator            the key generator
+     * @param originalKey             the original cache key
+     * @param originalAllowEmptyValue the original allow or not to set {@link NullValue} to cache
      * @return {@link CacheAspectContext} instance
      */
-    default CacheAspectContext buildCacheReadContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, Class<? extends CacheKeyGenerator> keyGenerator, String originalKey, Boolean originalAllowNullValue) {
-        return buildContext(joinPoint, originalNamespaces, originalCacheTypes, null, keyGenerator, originalKey, true, originalAllowNullValue, null, null);
+    default CacheAspectContext buildCacheReadContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, Class<? extends CacheKeyGenerator> keyGenerator, String originalKey, Boolean originalAllowEmptyValue) {
+        return buildContext(joinPoint, originalNamespaces, originalCacheTypes, null, keyGenerator, originalKey, true, originalAllowEmptyValue, null, null);
     }
 
     /**
      * build {@link CacheAspectContext} for {@link CacheReadAllAspect}
      *
-     * @param joinPoint              pointcut
-     * @param originalNamespaces     the original namespaces
-     * @param originalCacheTypes     the original cache type
-     * @param originalKey            the original cache key
-     * @param originalAllowNullValue the original allow or not to set {@link NullValue} to cache
+     * @param joinPoint               pointcut
+     * @param originalNamespaces      the original namespaces
+     * @param originalCacheTypes      the original cache type
+     * @param originalKey             the original cache key
+     * @param originalAllowEmptyValue the original allow or not to set {@link NullValue} to cache
      * @return {@link CacheAspectContext} instance
      */
-    default CacheAspectContext buildCacheReadAllContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, String originalKey, Boolean originalAllowNullValue) {
-        return buildContext(joinPoint, originalNamespaces, originalCacheTypes, null, null, originalKey, false, originalAllowNullValue, null, null);
+    default CacheAspectContext buildCacheReadAllContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, String originalKey, Boolean originalAllowEmptyValue) {
+        return buildContext(joinPoint, originalNamespaces, originalCacheTypes, null, null, originalKey, false, originalAllowEmptyValue, null, null);
     }
 
     /**
      * build {@link CacheAspectContext} for {@link CacheWriteAspect}
      *
-     * @param joinPoint              pointcut
-     * @param originalNamespaces     the original namespaces
-     * @param originalCacheTypes     the original cache type
-     * @param cacheMode              the cache mode
-     * @param originalKey            the original cache key
-     * @param originalAllowNullValue the original allow or not to set {@link NullValue} to cache
+     * @param joinPoint               pointcut
+     * @param originalNamespaces      the original namespaces
+     * @param originalCacheTypes      the original cache type
+     * @param cacheMode               the cache mode
+     * @param originalKey             the original cache key
+     * @param originalAllowEmptyValue the original allow or not to set {@link NullValue} to cache
      * @return {@link CacheAspectContext} instance
      */
-    default CacheAspectContext buildCacheWriteContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, CacheMode cacheMode, String originalKey, Boolean originalAllowNullValue) {
-        return buildContext(joinPoint, originalNamespaces, originalCacheTypes, cacheMode, null, originalKey, false, originalAllowNullValue, null, null);
+    default CacheAspectContext buildCacheWriteContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, CacheMode cacheMode, String originalKey, Boolean originalAllowEmptyValue) {
+        return buildContext(joinPoint, originalNamespaces, originalCacheTypes, cacheMode, null, originalKey, false, originalAllowEmptyValue, null, null);
     }
 
     /**
@@ -286,13 +286,13 @@ public interface CacheAspect extends AopCaptor {
      * @param originalCacheTypes       the original cache type
      * @param keyGenerator             the key generator
      * @param originalKey              the original cache key
-     * @param originalAllowNullValue   the original allow or not to set {@link NullValue} to cache
+     * @param originalAllowEmptyValue  the original allow or not to set {@link NullValue} to cache
      * @param needEvictBeforeProceed   need or not evict before execute method
      * @param needEvictAllInNamespaces need or not to evict all data in specified namespaces
      * @return {@link CacheAspectContext} instance
      */
-    default CacheAspectContext buildCacheEvictContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, Class<? extends CacheKeyGenerator> keyGenerator, String originalKey, Boolean originalAllowNullValue, Boolean needEvictBeforeProceed, Boolean needEvictAllInNamespaces) {
-        return buildContext(joinPoint, originalNamespaces, originalCacheTypes, null, keyGenerator, originalKey, true, originalAllowNullValue, needEvictBeforeProceed, needEvictAllInNamespaces);
+    default CacheAspectContext buildCacheEvictContext(ProceedingJoinPoint joinPoint, String[] originalNamespaces, CacheType[] originalCacheTypes, Class<? extends CacheKeyGenerator> keyGenerator, String originalKey, Boolean originalAllowEmptyValue, Boolean needEvictBeforeProceed, Boolean needEvictAllInNamespaces) {
+        return buildContext(joinPoint, originalNamespaces, originalCacheTypes, null, keyGenerator, originalKey, true, originalAllowEmptyValue, needEvictBeforeProceed, needEvictAllInNamespaces);
     }
 
     /**
@@ -327,7 +327,7 @@ public interface CacheAspect extends AopCaptor {
     default <V> List<V> getAllCacheValues(CacheAspectContext context) {
         List<V> values = new ArrayList<>();
         for (String namespace : context.getNamespaces()) {
-            values = Boolean.TRUE.equals(context.getAllowNullValue()) ?
+            values = Boolean.TRUE.equals(context.getAllowEmptyValue()) ?
                     getCache(context, namespace).getByNamespace(namespace) :
                     getCache(context, namespace).getByNamespaceWithoutNullValue(namespace);
             // lazy write cache:
@@ -392,7 +392,7 @@ public interface CacheAspect extends AopCaptor {
      * @return {@link Cache} instance
      */
     default Cache getCache(CacheAspectContext context, String namespace) {
-        return CacheManager.getInstance().getCache(namespace, context.getCacheTypes(), context.getAllowNullValue());
+        return CacheManager.getInstance().getCache(namespace, context.getCacheTypes(), context.getAllowEmptyValue());
     }
 
     /**
@@ -406,7 +406,7 @@ public interface CacheAspect extends AopCaptor {
         Object value = getCacheValue(context);
         if (Objects.isNull(value)) {
             value = doProceed(joinPoint);
-            if (Objects.isNotNull(value) || Boolean.TRUE.equals(context.getAllowNullValue())) {
+            if (Objects.isNotNull(value) || Boolean.TRUE.equals(context.getAllowEmptyValue())) {
                 setCacheValue(context.setValue(value));
             }
         }
@@ -436,7 +436,7 @@ public interface CacheAspect extends AopCaptor {
 
         value = doProceed(joinPoint);
         for (CacheAspectContext context : contexts) {
-            if (Objects.isNotNull(value) || Boolean.TRUE.equals(context.getAllowNullValue())) {
+            if (Objects.isNotNull(value) || Boolean.TRUE.equals(context.getAllowEmptyValue())) {
                 setCacheValue(context.setValue(value));
             }
         }
@@ -456,7 +456,7 @@ public interface CacheAspect extends AopCaptor {
         List<V> values = getAllCacheValues(context);
         if (Objects.isEmpty(values)) {
             values = (List<V>) doProceed(joinPoint);
-            if (Objects.isEmpty(values) && Boolean.TRUE.equals(context.getAllowNullValue())) {
+            if (Objects.isEmpty(values) && Boolean.TRUE.equals(context.getAllowEmptyValue())) {
                 setCacheValue(context.setKey(NullValueUtil.getName()).setValue(null));
             } else {
                 for (V value : values) {

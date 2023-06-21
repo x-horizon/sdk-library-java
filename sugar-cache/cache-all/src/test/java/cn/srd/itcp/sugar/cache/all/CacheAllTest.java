@@ -20,8 +20,8 @@ public class CacheAllTest {
 
     @Autowired private CacheContextWithoutCacheConfigBuildingService cacheContextWithoutCacheConfigBuildingService;
     @Autowired private CacheContextWithCacheConfigBuildingService cacheContextWithCacheConfigBuildingService;
-    @Autowired private CacheNotAllowNullValueService cacheNotAllowNullValueService;
-    @Autowired private CacheAllowNullValueService cacheAllowNullValueService;
+    @Autowired private CacheNotAllowEmptyValueService cacheNotAllowEmptyValueService;
+    @Autowired private CacheAllowEmptyValueService cacheAllowEmptyValueService;
 
     private static final BookPO BOOK_PO1 = BookPO.build(1L);
 
@@ -86,72 +86,72 @@ public class CacheAllTest {
 
     @Test
     public void testCache() {
-        List<BookPO> result109 = cacheAllowNullValueService.getAll2();
-        List<BookPO> result121 = cacheAllowNullValueService.getAll2();
-        List<BookPO> result122 = cacheAllowNullValueService.getAll2();
+        List<BookPO> result109 = cacheAllowEmptyValueService.getAll2();
+        List<BookPO> result121 = cacheAllowEmptyValueService.getAll2();
+        List<BookPO> result122 = cacheAllowEmptyValueService.getAll2();
 
-        List<BookPO> result131 = cacheNotAllowNullValueService.getAll2();
-        List<BookPO> result132 = cacheNotAllowNullValueService.getAll2();
-        List<BookPO> result133 = cacheNotAllowNullValueService.getAll2();
+        List<BookPO> result131 = cacheNotAllowEmptyValueService.getAll2();
+        List<BookPO> result132 = cacheNotAllowEmptyValueService.getAll2();
+        List<BookPO> result133 = cacheNotAllowEmptyValueService.getAll2();
 
-        BookPO result1 = cacheNotAllowNullValueService.getById(1L);
-        BookPO result2 = cacheNotAllowNullValueService.getById(1L);
-        BookPO result3 = cacheNotAllowNullValueService.getNull(8L);
-        BookPO result4 = cacheNotAllowNullValueService.getNull(8L);
-        BookPO result5 = cacheNotAllowNullValueService.save(BookPO.build(1L));
-        BookPO result6 = cacheNotAllowNullValueService.getById(1L);
-        BookPO result7 = cacheNotAllowNullValueService.save(BookPO.build(102L));
-        BookPO result8 = cacheNotAllowNullValueService.save(BookPO.build(103L));
-        BookPO result9 = cacheNotAllowNullValueService.saveNull(BookPO.build(103L));
-        BookPO result10 = cacheNotAllowNullValueService.saveNull(BookPO.build(103L));
-        BookPO result11 = cacheNotAllowNullValueService.getById(102L);
-        BookPO result12 = cacheNotAllowNullValueService.getById(103L);
-        BookPO result111 = cacheNotAllowNullValueService.getById(105L);
-        BookPO result112 = cacheNotAllowNullValueService.getById(106L);
-        cacheNotAllowNullValueService.deleteByIds(List.of(105L, 106L));
-        cacheNotAllowNullValueService.deleteById(1L);
-        cacheNotAllowNullValueService.deleteById(1L);
-        cacheNotAllowNullValueService.deleteAll1(1L);
-        cacheNotAllowNullValueService.deleteAll1(1L);
-        cacheNotAllowNullValueService.deleteAll2(1L);
-        cacheNotAllowNullValueService.deleteAll2(1L);
-        cacheNotAllowNullValueService.deleteBeforeProceedById(1L);
-        cacheNotAllowNullValueService.deleteBeforeProceedById(1L);
-        cacheNotAllowNullValueService.deleteBeforeProceedAll(1L);
-        cacheNotAllowNullValueService.deleteBeforeProceedAll(1L);
-        BookPO result23 = cacheNotAllowNullValueService.multi(BookPO.build(200L));
-        BookPO result24 = cacheNotAllowNullValueService.multi(BookPO.build(200L));
-        List<BookPO> result101 = cacheNotAllowNullValueService.getAll();
+        BookPO result1 = cacheNotAllowEmptyValueService.getById(1L);
+        BookPO result2 = cacheNotAllowEmptyValueService.getById(1L);
+        BookPO result3 = cacheNotAllowEmptyValueService.getNull(8L);
+        BookPO result4 = cacheNotAllowEmptyValueService.getNull(8L);
+        BookPO result5 = cacheNotAllowEmptyValueService.save(BookPO.build(1L));
+        BookPO result6 = cacheNotAllowEmptyValueService.getById(1L);
+        BookPO result7 = cacheNotAllowEmptyValueService.save(BookPO.build(102L));
+        BookPO result8 = cacheNotAllowEmptyValueService.save(BookPO.build(103L));
+        BookPO result9 = cacheNotAllowEmptyValueService.saveNull(BookPO.build(103L));
+        BookPO result10 = cacheNotAllowEmptyValueService.saveNull(BookPO.build(103L));
+        BookPO result11 = cacheNotAllowEmptyValueService.getById(102L);
+        BookPO result12 = cacheNotAllowEmptyValueService.getById(103L);
+        BookPO result111 = cacheNotAllowEmptyValueService.getById(105L);
+        BookPO result112 = cacheNotAllowEmptyValueService.getById(106L);
+        cacheNotAllowEmptyValueService.deleteByIds(List.of(105L, 106L));
+        cacheNotAllowEmptyValueService.deleteById(1L);
+        cacheNotAllowEmptyValueService.deleteById(1L);
+        cacheNotAllowEmptyValueService.deleteAll1(1L);
+        cacheNotAllowEmptyValueService.deleteAll1(1L);
+        cacheNotAllowEmptyValueService.deleteAll2(1L);
+        cacheNotAllowEmptyValueService.deleteAll2(1L);
+        cacheNotAllowEmptyValueService.deleteBeforeProceedById(1L);
+        cacheNotAllowEmptyValueService.deleteBeforeProceedById(1L);
+        cacheNotAllowEmptyValueService.deleteBeforeProceedAll(1L);
+        cacheNotAllowEmptyValueService.deleteBeforeProceedAll(1L);
+        BookPO result23 = cacheNotAllowEmptyValueService.multi(BookPO.build(200L));
+        BookPO result24 = cacheNotAllowEmptyValueService.multi(BookPO.build(200L));
+        List<BookPO> result101 = cacheNotAllowEmptyValueService.getAll();
 
-        BookPO result25 = cacheAllowNullValueService.getById(1L);
-        BookPO result103 = cacheAllowNullValueService.getById2(1L);
-        BookPO result104 = cacheAllowNullValueService.getById2(1L);
-        BookPO result26 = cacheAllowNullValueService.getById(1L);
-        BookPO result27 = cacheAllowNullValueService.saveNull(BookPO.build(103L));
-        BookPO result28 = cacheAllowNullValueService.saveNull(BookPO.build(103L));
-        BookPO result29 = cacheAllowNullValueService.getById(103L);
-        BookPO result30 = cacheAllowNullValueService.getById(103L);
-        BookPO result98 = cacheAllowNullValueService.getById(105L);
-        BookPO result99 = cacheAllowNullValueService.getById(106L);
-        BookPO result31 = cacheAllowNullValueService.getNull(8L);
-        BookPO result32 = cacheAllowNullValueService.getNull(8L);
-        BookPO result119 = cacheAllowNullValueService.save2(BookPO.build(1L).setAuthor("author"));
-        BookPO result33 = cacheAllowNullValueService.save(BookPO.build(102L));
-        BookPO result34 = cacheAllowNullValueService.save(BookPO.build(103L));
-        cacheAllowNullValueService.deleteByIds(List.of(105L, 106L));
-        cacheAllowNullValueService.deleteById(1L);
-        cacheAllowNullValueService.deleteById(1L);
-        cacheAllowNullValueService.deleteAll1(1L);
-        cacheAllowNullValueService.deleteAll1(1L);
-        cacheAllowNullValueService.deleteAll2(1L);
-        cacheAllowNullValueService.deleteAll2(1L);
-        cacheAllowNullValueService.deleteBeforeProceedById(1L);
-        cacheAllowNullValueService.deleteBeforeProceedById(1L);
-        cacheAllowNullValueService.deleteBeforeProceedAll(1L);
-        cacheAllowNullValueService.deleteBeforeProceedAll(1L);
-        BookPO result45 = cacheAllowNullValueService.multi(BookPO.build(200L));
-        BookPO result46 = cacheAllowNullValueService.multi(BookPO.build(200L));
-        List<BookPO> result102 = cacheAllowNullValueService.getAll();
+        BookPO result25 = cacheAllowEmptyValueService.getById(1L);
+        BookPO result103 = cacheAllowEmptyValueService.getById2(1L);
+        BookPO result104 = cacheAllowEmptyValueService.getById2(1L);
+        BookPO result26 = cacheAllowEmptyValueService.getById(1L);
+        BookPO result27 = cacheAllowEmptyValueService.saveNull(BookPO.build(103L));
+        BookPO result28 = cacheAllowEmptyValueService.saveNull(BookPO.build(103L));
+        BookPO result29 = cacheAllowEmptyValueService.getById(103L);
+        BookPO result30 = cacheAllowEmptyValueService.getById(103L);
+        BookPO result98 = cacheAllowEmptyValueService.getById(105L);
+        BookPO result99 = cacheAllowEmptyValueService.getById(106L);
+        BookPO result31 = cacheAllowEmptyValueService.getNull(8L);
+        BookPO result32 = cacheAllowEmptyValueService.getNull(8L);
+        BookPO result119 = cacheAllowEmptyValueService.save2(BookPO.build(1L).setAuthor("author"));
+        BookPO result33 = cacheAllowEmptyValueService.save(BookPO.build(102L));
+        BookPO result34 = cacheAllowEmptyValueService.save(BookPO.build(103L));
+        cacheAllowEmptyValueService.deleteByIds(List.of(105L, 106L));
+        cacheAllowEmptyValueService.deleteById(1L);
+        cacheAllowEmptyValueService.deleteById(1L);
+        cacheAllowEmptyValueService.deleteAll1(1L);
+        cacheAllowEmptyValueService.deleteAll1(1L);
+        cacheAllowEmptyValueService.deleteAll2(1L);
+        cacheAllowEmptyValueService.deleteAll2(1L);
+        cacheAllowEmptyValueService.deleteBeforeProceedById(1L);
+        cacheAllowEmptyValueService.deleteBeforeProceedById(1L);
+        cacheAllowEmptyValueService.deleteBeforeProceedAll(1L);
+        cacheAllowEmptyValueService.deleteBeforeProceedAll(1L);
+        BookPO result45 = cacheAllowEmptyValueService.multi(BookPO.build(200L));
+        BookPO result46 = cacheAllowEmptyValueService.multi(BookPO.build(200L));
+        List<BookPO> result102 = cacheAllowEmptyValueService.getAll();
     }
 
 }

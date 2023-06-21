@@ -49,11 +49,11 @@ public @interface CacheEvict {
     Class<? extends CacheKeyGenerator> keyGenerator() default CacheDefaultKeyGenerator.class;
 
     /**
-     * see {@link CacheConfig#allowNullValue()}
+     * see {@link CacheConfig#allowEmptyValue()}
      *
      * @return allow or not to set a {@link NullValue} in cache
      */
-    boolean allowNullValue() default false;
+    boolean allowEmptyValue() default false;
 
     /**
      * <pre>
@@ -69,7 +69,7 @@ public @interface CacheEvict {
     /**
      * <pre>
      * if set it to true, all data in {@link #namespaces()} or {@link CacheConfig#namespaces()} will be evict,
-     * in this case, {@link #key()} or {@link #keyGenerator()} or {@link CacheConfig#keyGenerator()} or {@link #allowNullValue()} or {@link CacheConfig#allowNullValue()} will not work.
+     * in this case, {@link #key()} or {@link #keyGenerator()} or {@link CacheConfig#keyGenerator()} or {@link #allowEmptyValue()} or {@link CacheConfig#allowEmptyValue()} will not work.
      * </pre>
      *
      * @return need to evict all data in {@link #namespaces()} or {@link CacheConfig#namespaces()}

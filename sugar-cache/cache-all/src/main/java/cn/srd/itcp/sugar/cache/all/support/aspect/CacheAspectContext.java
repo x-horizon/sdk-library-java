@@ -80,12 +80,12 @@ public class CacheAspectContext {
     /**
      * the original allow or not to set {@link NullValue} to cache
      */
-    private Boolean originalAllowNullValue;
+    private Boolean originalAllowEmptyValue;
 
     /**
      * allow or not to set {@link NullValue} to cache to be used
      */
-    private Boolean allowNullValue;
+    private Boolean allowEmptyValue;
 
     /**
      * need or not evict before execute method

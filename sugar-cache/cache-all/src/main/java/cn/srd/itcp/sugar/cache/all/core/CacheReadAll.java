@@ -43,10 +43,10 @@ public @interface CacheReadAll {
     String key() default "";
 
     /**
-     * see {@link CacheConfig#allowNullValue()}
+     * see {@link CacheConfig#allowEmptyValue()}
      *
      * @return allow or not to set a {@link NullValue} in cache
      */
-    boolean allowNullValue() default false;
+    boolean allowEmptyValue() default false;
 
 }

@@ -27,7 +27,7 @@ import java.lang.annotation.*;
  *      then use local or distributed lock based on the current cache type to continue get cache in {@link #cacheTypes()} declared order,
  *      once get a not null value, then set it to all cache and release lock, pointcut will not be executed,
  *      if all cache have not value, then execute pointcut and get the value return from pointcut,
- *      if it is null and {@link #allowNullValue()} is true, will set {@link NullValue} to all cache,
+ *      if it is null and {@link #allowEmptyValue()} is true, will set {@link NullValue} to all cache,
  *      otherwise return null to caller,
  *      whether it is null or {@link NullValue}, received by the caller is null,
  *      for cache level order, please refer to {@link #cacheTypes()}.
@@ -130,6 +130,6 @@ public @interface CacheConfig {
      *
      * @return allow or not to set a {@link NullValue} in cache
      */
-    boolean allowNullValue() default false;
+    boolean allowEmptyValue() default false;
 
 }

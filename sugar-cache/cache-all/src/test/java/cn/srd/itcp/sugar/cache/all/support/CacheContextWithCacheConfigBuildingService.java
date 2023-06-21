@@ -7,7 +7,7 @@ import cn.srd.itcp.sugar.cache.all.core.CacheWrite;
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheType;
 import org.springframework.stereotype.Component;
 
-@CacheConfig(namespaces = {"myCache2", "myCache3"}, cacheTypes = {CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS}, allowNullValue = true)
+@CacheConfig(namespaces = {"myCache2", "myCache3"}, cacheTypes = {CacheType.MAP, CacheType.CAFFEINE, CacheType.REDIS}, allowEmptyValue = true)
 @Component
 public class CacheContextWithCacheConfigBuildingService {
 

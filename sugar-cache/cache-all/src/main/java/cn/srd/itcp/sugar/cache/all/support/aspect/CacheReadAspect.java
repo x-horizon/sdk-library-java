@@ -31,7 +31,7 @@ public class CacheReadAspect implements CacheAspect {
     @Around("pointcut()")
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
         CacheRead annotation = getAnnotationMarkedOnMethod(joinPoint, CacheRead.class);
-        CacheAspectContext context = buildCacheReadContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.keyGenerator(), annotation.key(), annotation.allowNullValue());
+        CacheAspectContext context = buildCacheReadContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.keyGenerator(), annotation.key(), annotation.allowEmptyValue());
         return doRead(joinPoint, context);
     }
 

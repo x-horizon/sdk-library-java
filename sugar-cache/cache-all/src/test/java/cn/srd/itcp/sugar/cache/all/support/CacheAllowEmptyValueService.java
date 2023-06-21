@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@CacheConfig(namespaces = {"myCache7", "myCache8"}, cacheTypes = {CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS}, allowNullValue = true)
+@CacheConfig(namespaces = {"myCache7", "myCache8"}, cacheTypes = {CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.MAP, CacheType.CAFFEINE, CacheType.MAP, CacheType.REDIS}, allowEmptyValue = true)
 @Component
-public class CacheAllowNullValueService {
+public class CacheAllowEmptyValueService {
 
     private static final Map<Long, BookPO> BOOK_CACHE = new ConcurrentHashMap<>(Map.of(
             1L, BookPO.build(1L),

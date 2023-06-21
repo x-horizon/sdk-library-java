@@ -61,12 +61,12 @@ public class NullValueUtil {
     /**
      * convert {@link NullValue} to null if need
      *
-     * @param input          checked object
-     * @param allowNullValue is allow {@link NullValue}
+     * @param input           checked object
+     * @param allowEmptyValue is allow {@link NullValue}
      * @return allow {@link NullValue} and checked object is null then return {@link NullValue}, or do not convert
      */
-    public static Object convertNullToNullValueIfNeed(Object input, boolean allowNullValue) {
-        return allowNullValue && Objects.isNull(input) ? NullValue.INSTANCE : input;
+    public static Object convertNullToNullValueIfNeed(Object input, boolean allowEmptyValue) {
+        return allowEmptyValue && Objects.isNull(input) ? NullValue.INSTANCE : input;
     }
 
     /**
