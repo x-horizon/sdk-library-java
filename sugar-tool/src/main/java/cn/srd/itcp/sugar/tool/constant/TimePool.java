@@ -29,6 +29,16 @@ public class TimePool extends DatePattern {
     public static final String EAST_EIGHTH_TIMEZONE_PATTERN_2 = "+08:00";
 
     /**
+     * 时间格式 HH:mm
+     */
+    public static final String TIME_HOUR_MINUTE_PATTERN = "HH:mm";
+
+    /**
+     * 时间格式 HH:mm:ss
+     */
+    public static final String TIME_HOUR_MINUTE_SECOND_PATTERN = "HH:mm:ss";
+
+    /**
      * 时间格式 yyyy-MM-dd HH:mm:ss
      */
     public static final String DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";

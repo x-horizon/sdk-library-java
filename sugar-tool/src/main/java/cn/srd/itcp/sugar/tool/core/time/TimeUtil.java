@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.tool.core.time;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.LocalDateTimeUtil;
+import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.constant.TimePool;
 import cn.srd.itcp.sugar.tool.constant.TimeUnitPool;
 import cn.srd.itcp.sugar.tool.core.EnumsUtil;
@@ -87,13 +88,33 @@ public class TimeUtil extends LocalDateTimeUtil {
     }
 
     /**
+     * LocalTime =&gt; String，如：14:12
+     *
+     * @param input 输入时间对象
+     * @return 时间字符串
+     */
+    public static String toStringHourMinute(@Nullable LocalTime input) {
+        return Objects.isNull(input) ? StringPool.EMPTY : input.format(DateTimeFormatter.ofPattern(TimePool.TIME_HOUR_MINUTE_PATTERN));
+    }
+
+    /**
+     * LocalTime =&gt; String，如：14:12:11
+     *
+     * @param input 输入时间对象
+     * @return 时间字符串
+     */
+    public static String toStringHourMinuteSecond(@Nullable LocalTime input) {
+        return Objects.isNull(input) ? StringPool.EMPTY : input.format(DateTimeFormatter.ofPattern(TimePool.TIME_HOUR_MINUTE_SECOND_PATTERN));
+    }
+
+    /**
      * LocalDateTime =&gt; String，如：2011-12-03 10:15:30
      *
      * @param input 输入时间对象
      * @return 时间字符串
      */
     public static String toStringWithDateTime(@Nullable LocalDateTime input) {
-        return Objects.isNull(input) ? null : StringsUtil.replace(toStringWithDateTimeAndT(input), "T", " ");
+        return Objects.isNull(input) ? StringPool.EMPTY : StringsUtil.replace(toStringWithDateTimeAndT(input), "T", " ");
     }
 
     /**
@@ -103,7 +124,7 @@ public class TimeUtil extends LocalDateTimeUtil {
      * @return 时间字符串
      */
     public static String toStringWithDateTimeAndT(@Nullable LocalDateTime input) {
-        return Objects.isNull(input) ? null : DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(input);
+        return Objects.isNull(input) ? StringPool.EMPTY : DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(input);
     }
 
     /**
@@ -113,7 +134,7 @@ public class TimeUtil extends LocalDateTimeUtil {
      * @return 时间字符串
      */
     public static String toStringWithRFC3339DateTime(@Nullable LocalDateTime input) {
-        return Objects.isNull(input) ? null : TimePool.DATETIME_FORMATTER_RFC3339.format(input);
+        return Objects.isNull(input) ? StringPool.EMPTY : TimePool.DATETIME_FORMATTER_RFC3339.format(input);
     }
 
     /**
@@ -154,6 +175,16 @@ public class TimeUtil extends LocalDateTimeUtil {
      */
     public static LocalDate toLocalDate(@Nullable Long input) {
         return Objects.isNull(input) ? null : LocalDate.ofInstant(Instant.ofEpochMilli(input), ZoneId.systemDefault());
+    }
+
+    /**
+     * String =&gt; LocalTime
+     *
+     * @param input 输入时间字符串
+     * @return 时间对象
+     */
+    public static LocalTime toLocalTime(@Nullable String input) {
+        return Objects.isNull(input) ? null : LocalTime.parse(input);
     }
 
     /**
