@@ -1014,7 +1014,7 @@ public class CollectionsUtil extends CollUtil {
     // ============================ 其他操作 ============================
 
     /**
-     * 将元素加入集合，并返回加入元素后的集合，若入参集合为空，则创建一个新集合并返回
+     * 将元素加入集合，并返回加入元素后的集合，若入参集合为空，则创建一个新集合并返回加入元素后的集合
      *
      * @param from   输入参数
      * @param object 待加入集合的元素
@@ -1023,7 +1023,7 @@ public class CollectionsUtil extends CollUtil {
      */
     public static <T> List<T> add(@Nullable List<T> from, @Nullable T object) {
         if (Objects.isNull(from)) {
-            return new ArrayList<>();
+            from = new ArrayList<>();
         }
         from.add(object);
         return from;
