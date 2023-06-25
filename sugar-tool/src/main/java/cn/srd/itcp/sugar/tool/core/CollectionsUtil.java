@@ -1030,6 +1030,22 @@ public class CollectionsUtil extends CollUtil {
     }
 
     /**
+     * 将元素加入集合，并返回加入元素后的集合，若入参集合为空，则创建一个新集合并返回加入元素后的集合
+     *
+     * @param from   输入参数
+     * @param object 待加入集合的元素
+     * @param <T>    元素类型
+     * @return 加入后的集合
+     */
+    public static <T> Set<T> add(@Nullable Set<T> from, @Nullable T object) {
+        if (Objects.isNull(from)) {
+            from = new HashSet<>();
+        }
+        from.add(object);
+        return from;
+    }
+
+    /**
      * 是否为 {...}
      *
      * @param from 输入参数
