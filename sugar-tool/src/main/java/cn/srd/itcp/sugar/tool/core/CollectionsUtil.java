@@ -1136,4 +1136,16 @@ public class CollectionsUtil extends CollUtil {
         return !contains(from, object);
     }
 
+    /**
+     * see {@link #contains(Collection, Predicate)}
+     *
+     * @param from         输入参数
+     * @param containLogic 需要查找的值
+     * @param <T>          集合元素类型
+     * @return 是否不存在
+     */
+    public static <T> boolean notContains(Collection<T> from, Predicate<? super T> containLogic) {
+        return !contains(from, containLogic);
+    }
+
 }
