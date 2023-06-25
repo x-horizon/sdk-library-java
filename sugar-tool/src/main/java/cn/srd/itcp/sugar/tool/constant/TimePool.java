@@ -14,6 +14,16 @@ import java.time.format.DateTimeFormatter;
 public class TimePool extends DatePattern {
 
     /**
+     * 最早的日期
+     */
+    public static final String EARLIEST_DATE = "1970-01-01";
+
+    /**
+     * 最晚的日期
+     */
+    public static final String LATEST_DATE = "9999-12-31";
+
+    /**
      * 上海时区 格式1
      */
     public static final String SHANG_HAI_TIMEZONE_PATTERN_1 = "Asia/Shanghai";

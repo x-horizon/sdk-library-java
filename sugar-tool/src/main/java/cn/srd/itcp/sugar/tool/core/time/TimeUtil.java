@@ -88,6 +88,24 @@ public class TimeUtil extends LocalDateTimeUtil {
     }
 
     /**
+     * 获取最早的日期，see {@link TimePool#EARLIEST_DATE}
+     *
+     * @return 最早的日期
+     */
+    public static LocalDate getEarliestDate() {
+        return toLocalDate(TimePool.EARLIEST_DATE);
+    }
+
+    /**
+     * 获取最晚的日期，see {@link TimePool#LATEST_DATE}
+     *
+     * @return 最晚的日期
+     */
+    public static LocalDate getLatestDate() {
+        return toLocalDate(TimePool.LATEST_DATE);
+    }
+
+    /**
      * LocalTime =&gt; String，如：14:12
      *
      * @param input 输入时间对象
@@ -175,6 +193,16 @@ public class TimeUtil extends LocalDateTimeUtil {
      */
     public static LocalDate toLocalDate(@Nullable Long input) {
         return Objects.isNull(input) ? null : LocalDate.ofInstant(Instant.ofEpochMilli(input), ZoneId.systemDefault());
+    }
+
+    /**
+     * String =&gt; LocalDate
+     *
+     * @param input 输入时间字符串
+     * @return 时间对象
+     */
+    public static LocalDate toLocalDate(@Nullable String input) {
+        return Objects.isNull(input) ? null : LocalDate.parse(input);
     }
 
     /**
