@@ -47,7 +47,7 @@ public interface BTree {
      * @param <T>  the children element type
      * @return all the BTree paths
      */
-    default <T extends BTree> List<List<T>> getAllPath(T root) {
+    default <T extends BTree> List<List<T>> getAllPaths(T root) {
         List<List<T>> paths = new ArrayList<>();
         if (Objects.isNull(root)) {
             return paths;
