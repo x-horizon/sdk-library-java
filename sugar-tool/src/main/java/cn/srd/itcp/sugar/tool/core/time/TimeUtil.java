@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.tool.core.time;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.LocalDateTimeUtil;
+import cn.hutool.core.date.TemporalAccessorUtil;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.constant.TimePool;
 import cn.srd.itcp.sugar.tool.constant.TimeUnitPool;
@@ -16,6 +17,7 @@ import lombok.NonNull;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -236,6 +238,58 @@ public class TimeUtil extends LocalDateTimeUtil {
      */
     public static boolean hasMillisecond(Duration duration) {
         return duration.toMillis() % 1000 != 0;
+    }
+
+    /**
+     * see {@link TemporalAccessorUtil#isIn(TemporalAccessor, TemporalAccessor, TemporalAccessor)}
+     *
+     * @param checkedTime the time will be checked
+     * @param beginTime   the start time
+     * @param endTime     the end time
+     * @return is the checked time between the start time and the end time
+     */
+    public static boolean isIn(TemporalAccessor checkedTime, TemporalAccessor beginTime, TemporalAccessor endTime) {
+        return TemporalAccessorUtil.isIn(checkedTime, beginTime, endTime);
+    }
+
+    /**
+     * see {@link TemporalAccessorUtil#isIn(TemporalAccessor, TemporalAccessor, TemporalAccessor, boolean, boolean)}
+     *
+     * @param checkedTime      the time will be checked
+     * @param beginTime        the start time
+     * @param endTime          the end time
+     * @param includeBeginTime is the checked time range include the start time
+     * @param includeEndTime   is the checked time range include the end time
+     * @return is the checked time between the start time and the end time
+     */
+    public static boolean isIn(TemporalAccessor checkedTime, TemporalAccessor beginTime, TemporalAccessor endTime, boolean includeBeginTime, boolean includeEndTime) {
+        return TemporalAccessorUtil.isIn(checkedTime, beginTime, endTime, includeBeginTime, includeEndTime);
+    }
+
+    /**
+     * see {@link #isIn(TemporalAccessor, TemporalAccessor, TemporalAccessor)}
+     *
+     * @param checkedTime the time will be checked
+     * @param beginTime   the start time
+     * @param endTime     the end time
+     * @return is the checked time between the start time and the end time
+     */
+    public static boolean isNotIn(TemporalAccessor checkedTime, TemporalAccessor beginTime, TemporalAccessor endTime) {
+        return !isIn(checkedTime, beginTime, endTime);
+    }
+
+    /**
+     * see {@link #isIn(TemporalAccessor, TemporalAccessor, TemporalAccessor, boolean, boolean)}
+     *
+     * @param checkedTime      the time will be checked
+     * @param beginTime        the start time
+     * @param endTime          the end time
+     * @param includeBeginTime is the checked time range include the start time
+     * @param includeEndTime   is the checked time range include the end time
+     * @return is the checked time between the start time and the end time
+     */
+    public static boolean isNotIn(TemporalAccessor checkedTime, TemporalAccessor beginTime, TemporalAccessor endTime, boolean includeBeginTime, boolean includeEndTime) {
+        return !isIn(checkedTime, beginTime, endTime, includeBeginTime, includeEndTime);
     }
 
     /**
