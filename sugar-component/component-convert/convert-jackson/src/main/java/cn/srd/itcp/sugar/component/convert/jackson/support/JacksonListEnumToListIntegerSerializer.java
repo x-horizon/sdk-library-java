@@ -2,8 +2,11 @@ package cn.srd.itcp.sugar.component.convert.jackson.support;
 
 import cn.srd.itcp.sugar.tool.core.EnumsUtil;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.core.type.WritableTypeId;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import lombok.SneakyThrows;
 
 import java.util.ArrayList;
@@ -23,6 +26,14 @@ public class JacksonListEnumToListIntegerSerializer extends JsonSerializer<List<
         List<Integer> prepareToSerializerValues = new ArrayList<>();
         from.forEach(prepareToSerializerEnum -> prepareToSerializerValues.add(EnumsUtil.getEnumValue(prepareToSerializerEnum, Integer.class)));
         jsonGenerator.writeObject(prepareToSerializerValues);
+    }
+
+    @Override
+    @SneakyThrows
+    public void serializeWithType(List<Enum<?>> value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) {
+        WritableTypeId typeIdDef = typeSerializer.writeTypePrefix(jsonGenerator, typeSerializer.typeId(value, JsonToken.START_ARRAY));
+        serialize(value, jsonGenerator, serializerProvider);
+        typeSerializer.writeTypeSuffix(jsonGenerator, typeIdDef);
     }
 
 }
