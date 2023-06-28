@@ -493,6 +493,7 @@ public interface CacheAspect extends AopCaptor {
      * @param joinPoint            pointcut
      * @param context              see {@link CacheAspectContext}
      * @param proceedPointCutLogic the proceed pointcut logic
+     * @param <T>                  the cache value element type
      * @return the cache value
      */
     @SuppressWarnings("unchecked")
