@@ -3,6 +3,7 @@ package cn.srd.itcp.sugar.tool.core.time;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.date.TemporalAccessorUtil;
+import cn.hutool.core.date.Week;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.constant.TimePool;
 import cn.srd.itcp.sugar.tool.constant.TimeUnitPool;
@@ -73,6 +74,15 @@ public class TimeUtil extends LocalDateTimeUtil {
     }
 
     /**
+     * get {@link LocalDateTime} now
+     *
+     * @return the {@link LocalDateTime} now
+     */
+    public static LocalDateTime getCurrentDateTime() {
+        return LocalDateTime.now();
+    }
+
+    /**
      * 获取当前时间 String，支持所有的日期格式，默认格式：yyyy-MM-dd HH:mm:ss
      * <pre>
      * 示例：
@@ -85,8 +95,35 @@ public class TimeUtil extends LocalDateTimeUtil {
      * @return 当前时间对象
      * @see DatePattern#NORM_DATETIME_PATTERN
      */
-    public static String getCurrentTimeString(@Nullable String format) {
+    public static String getCurrentDateTime(@Nullable String format) {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern(format == null ? DatePattern.NORM_DATETIME_PATTERN : format));
+    }
+
+    /**
+     * get {@link LocalDate} now
+     *
+     * @return the {@link LocalDate} now
+     */
+    public static LocalDate getCurrentDate() {
+        return LocalDate.now();
+    }
+
+    /**
+     * get {@link LocalTime} now
+     *
+     * @return the {@link LocalTime} now
+     */
+    public static LocalTime getCurrentTime() {
+        return LocalTime.now();
+    }
+
+    /**
+     * get current weekday
+     *
+     * @return current weekday
+     */
+    public static WeekdayTypeEnum getCurrentWeekday() {
+        return WeekdayTypeEnum.convertByHutoolWeek(Week.of(getCurrentDate().getDayOfWeek()));
     }
 
     /**
