@@ -278,38 +278,284 @@ public class TimeUtil extends LocalDateTimeUtil {
     }
 
     /**
-     * see {@link TemporalAccessorUtil#isIn(TemporalAccessor, TemporalAccessor, TemporalAccessor)}
+     * is the current time between the beginning time and the end time
+     *
+     * @param beginTime the beginning time(range include the beginning time)
+     * @param endTime   the end time(range include the end time)
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isIn(LocalDateTime beginTime, LocalDateTime endTime) {
+        return isIn(getCurrentDateTime(), beginTime, endTime, true, true);
+    }
+
+    /**
+     * see {@link #isIn(LocalDateTime, LocalDateTime)}
+     *
+     * @param beginTime        the beginning time
+     * @param endTime          the end time
+     * @param includeBeginTime is the checked time range include the beginning time
+     * @param includeEndTime   is the checked time range include the end time
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isIn(LocalDateTime beginTime, LocalDateTime endTime, boolean includeBeginTime, boolean includeEndTime) {
+        return isIn(getCurrentDateTime(), beginTime, endTime, includeBeginTime, includeEndTime);
+    }
+
+    /**
+     * see {@link #isIn(LocalDateTime, LocalDateTime)}
+     *
+     * @param beginTime the beginning time(range include the beginning time)
+     * @param endTime   the end time(range include the end time)
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isIn(LocalDate beginTime, LocalDate endTime) {
+        return isIn(getCurrentDate(), beginTime, endTime, true, true);
+    }
+
+    /**
+     * see {@link #isIn(LocalDateTime, LocalDateTime)}
+     *
+     * @param beginTime        the beginning time
+     * @param endTime          the end time
+     * @param includeBeginTime is the checked time range include the beginning time
+     * @param includeEndTime   is the checked time range include the end time
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isIn(LocalDate beginTime, LocalDate endTime, boolean includeBeginTime, boolean includeEndTime) {
+        return isIn(getCurrentDate(), beginTime, endTime, includeBeginTime, includeEndTime);
+    }
+
+    /**
+     * see {@link #isIn(LocalDateTime, LocalDateTime)}
+     *
+     * @param beginTime the beginning time(range include the beginning time)
+     * @param endTime   the end time(range include the end time)
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isIn(LocalTime beginTime, LocalTime endTime) {
+        return isIn(getCurrentTime(), beginTime, endTime, true, true);
+    }
+
+    /**
+     * see {@link #isIn(LocalDateTime, LocalDateTime)}
+     *
+     * @param beginTime        the beginning time
+     * @param endTime          the end time
+     * @param includeBeginTime is the checked time range include the beginning time
+     * @param includeEndTime   is the checked time range include the end time
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isIn(LocalTime beginTime, LocalTime endTime, boolean includeBeginTime, boolean includeEndTime) {
+        return isIn(getCurrentTime(), beginTime, endTime, includeBeginTime, includeEndTime);
+    }
+
+    /**
+     * see {@link #isIn(LocalDateTime, LocalDateTime)}
+     *
+     * @param beginTime the beginning time(range include the beginning time)
+     * @param endTime   the end time(range include the end time)
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isIn(WeekdayTypeEnum beginTime, WeekdayTypeEnum endTime) {
+        return isIn(getCurrentWeekday(), beginTime, endTime, true, true);
+    }
+
+    /**
+     * see {@link #isIn(LocalDateTime, LocalDateTime)}
+     *
+     * @param beginTime        the beginning time
+     * @param endTime          the end time
+     * @param includeBeginTime is the checked time range include the beginning time
+     * @param includeEndTime   is the checked time range include the end time
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isIn(WeekdayTypeEnum beginTime, WeekdayTypeEnum endTime, boolean includeBeginTime, boolean includeEndTime) {
+        return isIn(getCurrentWeekday(), beginTime, endTime, includeBeginTime, includeEndTime);
+    }
+
+    /**
+     * is the checked time between the beginning time and the end time
+     *
+     * @param checkedTime the checked time
+     * @param beginTime   the beginning time
+     * @param endTime     the end time
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isIn(WeekdayTypeEnum checkedTime, WeekdayTypeEnum beginTime, WeekdayTypeEnum endTime) {
+        return isIn(checkedTime, beginTime, endTime, true, true);
+    }
+
+    /**
+     * see {@link #isIn(WeekdayTypeEnum, WeekdayTypeEnum, WeekdayTypeEnum)}
+     *
+     * @param checkedTime      the checked time
+     * @param beginTime        the beginning time
+     * @param endTime          the end time
+     * @param includeBeginTime is the checked time range include the beginning time
+     * @param includeEndTime   is the checked time range include the end time
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isIn(WeekdayTypeEnum checkedTime, WeekdayTypeEnum beginTime, WeekdayTypeEnum endTime, boolean includeBeginTime, boolean includeEndTime) {
+        return includeBeginTime ? checkedTime.getCode() >= beginTime.getCode() : checkedTime.getCode() > beginTime.getCode()
+                &&
+                includeEndTime ? checkedTime.getCode() <= endTime.getCode() : checkedTime.getCode() < endTime.getCode();
+    }
+
+    /**
+     * see {@link #isIn(TemporalAccessor, TemporalAccessor, TemporalAccessor, boolean, boolean)}
      *
      * @param checkedTime the time will be checked
-     * @param beginTime   the start time
+     * @param beginTime   the beginning time
      * @param endTime     the end time
-     * @return is the checked time between the start time and the end time
+     * @return is the checked time between the beginning time and the end time
      */
     public static boolean isIn(TemporalAccessor checkedTime, TemporalAccessor beginTime, TemporalAccessor endTime) {
-        return TemporalAccessorUtil.isIn(checkedTime, beginTime, endTime);
+        return isIn(checkedTime, beginTime, endTime, true, true);
     }
 
     /**
      * see {@link TemporalAccessorUtil#isIn(TemporalAccessor, TemporalAccessor, TemporalAccessor, boolean, boolean)}
      *
      * @param checkedTime      the time will be checked
-     * @param beginTime        the start time
+     * @param beginTime        the beginning time
      * @param endTime          the end time
-     * @param includeBeginTime is the checked time range include the start time
+     * @param includeBeginTime is the checked time range include the beginning time
      * @param includeEndTime   is the checked time range include the end time
-     * @return is the checked time between the start time and the end time
+     * @return is the checked time between the beginning time and the end time
      */
     public static boolean isIn(TemporalAccessor checkedTime, TemporalAccessor beginTime, TemporalAccessor endTime, boolean includeBeginTime, boolean includeEndTime) {
         return TemporalAccessorUtil.isIn(checkedTime, beginTime, endTime, includeBeginTime, includeEndTime);
     }
 
     /**
+     * see {@link #isIn(LocalDateTime, LocalDateTime)}
+     *
+     * @param beginTime the beginning time(range include the beginning time)
+     * @param endTime   the end time(range include the end time)
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isNotIn(LocalDateTime beginTime, LocalDateTime endTime) {
+        return !isIn(beginTime, endTime);
+    }
+
+    /**
+     * see {@link #isIn(LocalDateTime, LocalDateTime)}
+     *
+     * @param beginTime        the beginning time
+     * @param endTime          the end time
+     * @param includeBeginTime is the checked time range include the beginning time
+     * @param includeEndTime   is the checked time range include the end time
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isNotIn(LocalDateTime beginTime, LocalDateTime endTime, boolean includeBeginTime, boolean includeEndTime) {
+        return !isIn(beginTime, endTime, includeBeginTime, includeEndTime);
+    }
+
+    /**
+     * see {@link #isIn(LocalDate, LocalDate)}
+     *
+     * @param beginTime the beginning time(range include the beginning time)
+     * @param endTime   the end time(range include the end time)
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isNotIn(LocalDate beginTime, LocalDate endTime) {
+        return !isIn(beginTime, endTime);
+    }
+
+    /**
+     * see {@link #isIn(LocalDate, LocalDate)}
+     *
+     * @param beginTime        the beginning time
+     * @param endTime          the end time
+     * @param includeBeginTime is the checked time range include the beginning time
+     * @param includeEndTime   is the checked time range include the end time
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isNotIn(LocalDate beginTime, LocalDate endTime, boolean includeBeginTime, boolean includeEndTime) {
+        return !isIn(beginTime, endTime, includeBeginTime, includeEndTime);
+    }
+
+    /**
+     * see {@link #isIn(LocalTime, LocalTime)}
+     *
+     * @param beginTime the beginning time(range include the beginning time)
+     * @param endTime   the end time(range include the end time)
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isNotIn(LocalTime beginTime, LocalTime endTime) {
+        return !isIn(beginTime, endTime);
+    }
+
+    /**
+     * see {@link #isIn(LocalTime, LocalTime)}
+     *
+     * @param beginTime        the beginning time
+     * @param endTime          the end time
+     * @param includeBeginTime is the checked time range include the beginning time
+     * @param includeEndTime   is the checked time range include the end time
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isNotIn(LocalTime beginTime, LocalTime endTime, boolean includeBeginTime, boolean includeEndTime) {
+        return !isIn(beginTime, endTime, includeBeginTime, includeEndTime);
+    }
+
+    /**
+     * see {@link #isIn(WeekdayTypeEnum, WeekdayTypeEnum)}
+     *
+     * @param beginTime the beginning time(range include the beginning time)
+     * @param endTime   the end time(range include the end time)
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isNotIn(WeekdayTypeEnum beginTime, WeekdayTypeEnum endTime) {
+        return !isIn(beginTime, endTime);
+    }
+
+    /**
+     * see {@link #isIn(WeekdayTypeEnum, WeekdayTypeEnum)}
+     *
+     * @param beginTime        the beginning time
+     * @param endTime          the end time
+     * @param includeBeginTime is the checked time range include the beginning time
+     * @param includeEndTime   is the checked time range include the end time
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isNotIn(WeekdayTypeEnum beginTime, WeekdayTypeEnum endTime, boolean includeBeginTime, boolean includeEndTime) {
+        return !isIn(beginTime, endTime, includeBeginTime, includeEndTime);
+    }
+
+    /**
+     * see {@link #isIn(WeekdayTypeEnum, WeekdayTypeEnum, WeekdayTypeEnum)}
+     *
+     * @param checkedTime the checked time
+     * @param beginTime   the beginning time
+     * @param endTime     the end time
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isNotIn(WeekdayTypeEnum checkedTime, WeekdayTypeEnum beginTime, WeekdayTypeEnum endTime) {
+        return !isIn(checkedTime, beginTime, endTime);
+    }
+
+    /**
+     * see {@link #isIn(WeekdayTypeEnum, WeekdayTypeEnum, WeekdayTypeEnum, boolean, boolean)}
+     *
+     * @param checkedTime      the checked time
+     * @param beginTime        the beginning time
+     * @param endTime          the end time
+     * @param includeBeginTime is the checked time range include the beginning time
+     * @param includeEndTime   is the checked time range include the end time
+     * @return between the beginning time and the end time or not
+     */
+    public static boolean isNotIn(WeekdayTypeEnum checkedTime, WeekdayTypeEnum beginTime, WeekdayTypeEnum endTime, boolean includeBeginTime, boolean includeEndTime) {
+        return !isIn(checkedTime, beginTime, endTime, includeBeginTime, includeEndTime);
+    }
+
+    /**
      * see {@link #isIn(TemporalAccessor, TemporalAccessor, TemporalAccessor)}
      *
      * @param checkedTime the time will be checked
-     * @param beginTime   the start time
+     * @param beginTime   the beginning time
      * @param endTime     the end time
-     * @return is the checked time between the start time and the end time
+     * @return is the checked time between the beginning time and the end time
      */
     public static boolean isNotIn(TemporalAccessor checkedTime, TemporalAccessor beginTime, TemporalAccessor endTime) {
         return !isIn(checkedTime, beginTime, endTime);
@@ -319,11 +565,11 @@ public class TimeUtil extends LocalDateTimeUtil {
      * see {@link #isIn(TemporalAccessor, TemporalAccessor, TemporalAccessor, boolean, boolean)}
      *
      * @param checkedTime      the time will be checked
-     * @param beginTime        the start time
+     * @param beginTime        the beginning time
      * @param endTime          the end time
-     * @param includeBeginTime is the checked time range include the start time
+     * @param includeBeginTime is the checked time range include the beginning time
      * @param includeEndTime   is the checked time range include the end time
-     * @return is the checked time between the start time and the end time
+     * @return is the checked time between the beginning time and the end time
      */
     public static boolean isNotIn(TemporalAccessor checkedTime, TemporalAccessor beginTime, TemporalAccessor endTime, boolean includeBeginTime, boolean includeEndTime) {
         return !isIn(checkedTime, beginTime, endTime, includeBeginTime, includeEndTime);
