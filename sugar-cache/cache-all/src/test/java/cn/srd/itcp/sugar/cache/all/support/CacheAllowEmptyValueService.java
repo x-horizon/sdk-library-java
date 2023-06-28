@@ -60,6 +60,11 @@ public class CacheAllowEmptyValueService {
         return bookPO;
     }
 
+    @CacheWriteBatch(cacheMode = CacheMode.READ_WRITE, key = "#this.id")
+    public List<BookPO> saveBatch(List<BookPO> bookPOs) {
+        return bookPOs;
+    }
+
     @CacheWrite(key = "#this.id")
     public BookPO saveNull(BookPO bookPO) {
         return null;

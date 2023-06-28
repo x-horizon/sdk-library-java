@@ -86,6 +86,8 @@ public class CacheAllTest {
 
     @Test
     public void testCache() {
+        cacheAllowEmptyValueService.saveBatch(List.of(BookPO.builder().id(200L).build(), BookPO.builder().id(201L).build()));
+        
         List<BookPO> result109 = cacheAllowEmptyValueService.getAll2();
         List<BookPO> result121 = cacheAllowEmptyValueService.getAll2();
         List<BookPO> result122 = cacheAllowEmptyValueService.getAll2();

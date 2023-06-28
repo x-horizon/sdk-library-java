@@ -14,7 +14,14 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import({CacheReadAspect.class, CacheReadAllAspect.class, CacheWriteAspect.class, CacheEvictAspect.class, CachingAspect.class})
+@Import({
+        CacheReadAspect.class,
+        CacheReadAllAspect.class,
+        CacheWriteAspect.class,
+        CacheWriteBatchAspect.class,
+        CacheEvictAspect.class,
+        CachingAspect.class,
+})
 public @interface EnableCache {
 
 }

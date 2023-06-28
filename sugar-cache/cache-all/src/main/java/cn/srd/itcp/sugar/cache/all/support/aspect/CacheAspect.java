@@ -23,6 +23,7 @@ import org.springframework.cache.support.NullValue;
 
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -481,18 +482,46 @@ public interface CacheAspect extends AopCaptor {
         initCache(context);
         Object value = proceedPointCutLogic.apply(joinPoint);
         if (Objects.isNotNull(value)) {
-            String key = Option.of(Expressions.withSpring().parse(value, context.getOriginalKey())).map(Object::toString).getOrNull();
-            Objects.requireNotBlank(() -> "cache system: could not parse the cache key when write cache, please check!", key);
-            /**
-             * TODO wjm need optimize to use strategy
-             */
-            if (Objects.equals(CacheMode.READ_ONLY, context.getCacheMode())) {
-                deleteCacheValue(context.setKey(key));
-            } else if (Objects.equals(CacheMode.READ_WRITE, context.getCacheMode())) {
-                setCacheValue(context.setKey(key).setValue(value));
-            }
+            doWrite(context, value);
         }
-        return NullValueUtil.convertToNullIfNullValue(value);
+        return value;
+    }
+
+    /**
+     * write cache batch
+     *
+     * @param joinPoint            pointcut
+     * @param context              see {@link CacheAspectContext}
+     * @param proceedPointCutLogic the proceed pointcut logic
+     * @return the cache value
+     */
+    @SuppressWarnings("unchecked")
+    default <T> Collection<T> doWriteBatch(ProceedingJoinPoint joinPoint, CacheAspectContext context, Function<ProceedingJoinPoint, Object> proceedPointCutLogic) {
+        initCache(context);
+        Collection<T> values = (Collection<T>) proceedPointCutLogic.apply(joinPoint);
+        if (Objects.isNotEmpty(values)) {
+            values.forEach(value -> doWrite(context, value));
+        }
+        return values;
+    }
+
+    /**
+     * the actual handle write cache
+     *
+     * @param context see {@link CacheAspectContext}
+     * @param value   the cache value
+     */
+    default void doWrite(CacheAspectContext context, Object value) {
+        String key = Option.of(Expressions.withSpring().parse(value, context.getOriginalKey())).map(Object::toString).getOrNull();
+        Objects.requireNotBlank(() -> "cache system: could not parse the cache key when write cache, please check!", key);
+        /**
+         * TODO wjm need optimize to use strategy
+         */
+        if (Objects.equals(CacheMode.READ_ONLY, context.getCacheMode())) {
+            deleteCacheValue(context.setKey(key));
+        } else if (Objects.equals(CacheMode.READ_WRITE, context.getCacheMode())) {
+            setCacheValue(context.setKey(key).setValue(value));
+        }
     }
 
     /**
