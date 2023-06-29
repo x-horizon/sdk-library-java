@@ -57,7 +57,34 @@ public interface BTree {
     }
 
     /**
-     * find tree all paths, use depth-first traversal algorithm
+     * <pre>
+     * flatten the BTree.
+     *
+     * example:
+     *
+     * the BTree defined is:
+     *       1
+     *     / | \
+     *    2  3  4
+     *   / \
+     *  5   6
+     *
+     * after flatten:
+     * [1, 2, 3, 4, 5, 6]
+     * </pre>
+     *
+     * @param root the root node
+     * @param <T>  the children element type
+     * @return after flatten result
+     */
+    default <T extends BTree> List<T> flatten(T root) {
+        List<T> output = new ArrayList<>();
+        dfs(root, output);
+        return output;
+    }
+
+    /**
+     * find BTree all paths support: use depth-first traversal algorithm, the time complexity is O(mn)
      *
      * @param node  the tree node
      * @param path  one path
@@ -65,7 +92,7 @@ public interface BTree {
      * @param <T>   the children element type
      */
     @SuppressWarnings("unchecked")
-    default <T extends BTree> void dfs(T node, List<T> path, List<List<T>> paths) {
+    private <T extends BTree> void dfs(T node, List<T> path, List<List<T>> paths) {
         path.add(node);
         if (Objects.isEmpty(node.getChildren())) {
             paths.add(new ArrayList<>(path));
@@ -73,6 +100,22 @@ public interface BTree {
             node.getChildren().forEach(child -> dfs((T) child, path, paths));
         }
         path.remove(path.size() - 1);
+    }
+
+    /**
+     * flatten BTree support: use depth-first traversal algorithm, the time complexity is O(n)
+     *
+     * @param node   the tree node
+     * @param output after flatten
+     * @param <T>    the children element type
+     */
+    @SuppressWarnings("unchecked")
+    private <T extends BTree> void dfs(T node, List<T> output) {
+        if (Objects.isNull(node)) {
+            return;
+        }
+        output.add(node);
+        node.getChildren().forEach(child -> dfs((T) child, output));
     }
 
 }
