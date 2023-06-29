@@ -72,6 +72,7 @@ ext {
     itcp_sugar_component_log = ":sugar-component:component-log"
     itcp_sugar_component_web_openfeign_common = ":sugar-component:component-web:web-openfeign:web-openfeign-common"
     itcp_sugar_component_web_openfeign_okhttp = ":sugar-component:component-web:web-openfeign:web-openfeign-okhttp"
+    itcp_sugar_context_constant = ":sugar-context:context-constant"
     itcp_sugar_context_caffeine = ":sugar-context:context-caffeine"
     itcp_sugar_context_redis = ":sugar-context:context-redis"
     itcp_sugar_doc_knife4j = ":sugar-doc:doc-knife4j"

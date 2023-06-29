@@ -36,6 +36,7 @@ include("$itcp_sugar_component_log")
 include("$itcp_sugar_component_web_openfeign_common")
 include("$itcp_sugar_component_web_openfeign_okhttp")
 
+include("$itcp_sugar_context_constant")
 include("$itcp_sugar_context_caffeine")
 include("$itcp_sugar_context_redis")
 
