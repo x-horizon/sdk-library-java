@@ -22,6 +22,9 @@ dependencies {
     implementation("$spring_boot_aop")
     annotationProcessor("$spring_boot_configuration_processor")
 
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // cache
     api("$caffeine")
 

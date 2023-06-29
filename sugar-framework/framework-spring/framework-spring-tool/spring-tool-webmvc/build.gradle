@@ -21,6 +21,9 @@ dependencies {
     implementation("$spring_boot_webmvc")
     implementation("$spring_boot_aop")
 
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // tool
     implementation(project("$itcp_sugar_tool"))
     api(project("$itcp_sugar_framework_spring_tool_common"))

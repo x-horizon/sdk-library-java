@@ -19,6 +19,9 @@ version = projectVersion
 dependencies {
     // framework
     implementation("$spring_boot")
+    
+    // context
+    api(project("$itcp_sugar_context_constant"))
 
     // tool
     implementation(project("$itcp_sugar_tool"))

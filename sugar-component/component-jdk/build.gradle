@@ -21,6 +21,9 @@ dependencies {
     implementation("$spring_boot")
     implementation("$spring_boot_aop")
 
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // hack
     api("$burningwave_core")
 

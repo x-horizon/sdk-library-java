@@ -30,6 +30,9 @@ dependencies {
     // orm
     api(project("$itcp_sugar_orm_mybatis_plus_common"))
 
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // tool
     implementation(project("$itcp_sugar_tool"))
     implementation(project("$itcp_sugar_framework_spring_tool_common"))

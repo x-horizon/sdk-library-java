@@ -20,6 +20,9 @@ dependencies {
     // framework
     api("$spring_cloud_gateway")
 
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // tool
     implementation(project("$itcp_sugar_tool"))
 }

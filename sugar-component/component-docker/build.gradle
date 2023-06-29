@@ -21,6 +21,9 @@ dependencies {
     implementation("$spring_boot")
     annotationProcessor("$spring_boot_configuration_processor")
 
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // component
     api("$docker_java_core")
     api("$docker_java_transport_httpclient5")

@@ -20,6 +20,9 @@ dependencies {
     // doc
     api("$knife4j")
 
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // tool
     implementation(project("$itcp_sugar_tool"))
 }

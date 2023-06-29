@@ -25,6 +25,9 @@ dependencies {
     api("$reactor_core")
     annotationProcessor("$spring_boot_configuration_processor")
 
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // cache
     api(project("$itcp_sugar_cache_contract"))
     api(project("$itcp_sugar_cache_map"))

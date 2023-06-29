@@ -23,6 +23,9 @@ dependencies {
     api("$reactor_core")
     annotationProcessor("$spring_boot_configuration_processor")
 
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // security
     api("$sa_token_reactor")
     api(project("$itcp_sugar_security_sa_token_common"))

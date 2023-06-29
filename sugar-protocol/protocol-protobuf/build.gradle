@@ -22,6 +22,9 @@ dependencies {
     // protocol
     api("$protobuf_java")
 
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // tool
     implementation(project("$itcp_sugar_tool"))
 }

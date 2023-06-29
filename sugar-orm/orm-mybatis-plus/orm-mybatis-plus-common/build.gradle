@@ -31,6 +31,9 @@ dependencies {
     // pool
     testImplementation("$druid")
 
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // orm
     api("$mybatis_plus")
     api("$mybatis_plus_join")

@@ -21,6 +21,9 @@ dependencies {
     implementation("$spring_boot")
     api("$hsweb_authorization_basic")
 
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // tool
     implementation(project("$itcp_sugar_tool"))
 }

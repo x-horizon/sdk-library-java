@@ -20,6 +20,9 @@ dependencies {
     // pool
     api("$apache_commons_pool")
 
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // tool
     api("$vavr")
     api("$guava")

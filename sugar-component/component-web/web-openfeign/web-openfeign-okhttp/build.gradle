@@ -26,6 +26,9 @@ dependencies {
     api(project("$itcp_sugar_component_web_openfeign_common"))
     api("$openfeign_okhttp")
 
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // tool
     implementation(project("$itcp_sugar_tool"))
     implementation(project("$itcp_sugar_component_convert_all"))

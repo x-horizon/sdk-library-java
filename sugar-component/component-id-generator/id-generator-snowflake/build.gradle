@@ -20,6 +20,9 @@ dependencies {
     // framework
     implementation("$spring_boot")
 
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // component
     api("$yitter_id_generator")
 

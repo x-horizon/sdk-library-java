@@ -20,6 +20,9 @@ dependencies {
     // framework
     implementation("$spring_boot")
 
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // tool
     api(project("$itcp_sugar_component_expression_contract"))
     api("$spring_expression")

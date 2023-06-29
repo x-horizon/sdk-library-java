@@ -21,6 +21,9 @@ dependencies {
     implementation("$spring_boot")
     annotationProcessor("$spring_boot_configuration_processor")
 
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // topic
     api("$spring_cloud_stream_kafka")
     api(project("$itcp_sugar_topic_contract"))

@@ -17,6 +17,9 @@ if (active == "production") {
 version = projectVersion
 
 dependencies {
+    // context
+    api(project("$itcp_sugar_context_constant"))
+
     // tool
     api("$locationtech_jts_core")
     implementation(project("$itcp_sugar_tool"))

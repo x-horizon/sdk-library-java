@@ -24,6 +24,7 @@ dependencies {
 
     // context
     api(project("$itcp_sugar_context_caffeine"))
+    api(project("$itcp_sugar_context_constant"))
 
     // cache
     api(project("$itcp_sugar_cache_contract"))
