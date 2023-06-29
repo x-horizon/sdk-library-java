@@ -3,6 +3,7 @@ package cn.srd.itcp.sugar.component.actor.core;
 import cn.srd.itcp.sugar.component.actor.event.ActorEvent;
 import cn.srd.itcp.sugar.component.actor.exception.ActorNotRegisteredException;
 import cn.srd.itcp.sugar.component.actor.id.ActorId;
+import cn.srd.itcp.sugar.context.constant.core.ModuleConstant;
 import cn.srd.itcp.sugar.tool.core.Threads;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -75,21 +76,21 @@ public class DefaultActorSystem implements ActorSystem {
     private ActorMailbox createActor(String dispatcherId, ActorCreator creator, ActorId parentId) {
         Dispatcher dispatcher = dispatchers.get(dispatcherId);
         if (dispatcher == null) {
-            log.warn("Dispatcher with id [{}] is not registered!", dispatcherId);
+            log.warn("{}Dispatcher with id [{}] is not registered!", ModuleConstant.ACTOR_SYSTEM, dispatcherId);
             throw new RuntimeException("Dispatcher with id [" + dispatcherId + "] is not registered!");
         }
 
         ActorId actorId = creator.createActorId();
         DefaultActorMailbox actorMailbox = actors.get(actorId);
         if (actorMailbox != null) {
-            log.debug("Actor with id [{}] is already registered!", actorId);
+            log.warn("{}Actor with id [{}] is already registered!", ModuleConstant.ACTOR_SYSTEM, actorId);
         } else {
             Lock actorCreationLock = actorCreationLocks.computeIfAbsent(actorId, id -> new ReentrantLock());
             actorCreationLock.lock();
             try {
                 actorMailbox = actors.get(actorId);
                 if (actorMailbox == null) {
-                    log.debug("Creating actor with id [{}]!", actorId);
+                    log.debug("{}Creating actor with id [{}]!", ModuleConstant.ACTOR_SYSTEM, actorId);
                     Actor actor = creator.createActor();
                     ActorMailbox parentMailbox = null;
                     if (parentId != null) {
@@ -106,7 +107,7 @@ public class DefaultActorSystem implements ActorSystem {
                         parentChildMap.computeIfAbsent(parentId, id -> ConcurrentHashMap.newKeySet()).add(actorId);
                     }
                 } else {
-                    log.debug("Actor with id [{}] is already registered!", actorId);
+                    log.debug("{}Actor with id [{}] is already registered!", ModuleConstant.ACTOR_SYSTEM, actorId);
                 }
             } finally {
                 actorCreationLock.unlock();
@@ -187,7 +188,7 @@ public class DefaultActorSystem implements ActorSystem {
             try {
                 dispatcher.getExecutor().awaitTermination(3, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
-                log.warn("[{}] Failed to stop dispatcher", dispatcher.getDispatcherId(), e);
+                log.warn("{}[{}] Failed to stop dispatcher", ModuleConstant.ACTOR_SYSTEM, dispatcher.getDispatcherId(), e);
             }
         });
         if (scheduler != null) {

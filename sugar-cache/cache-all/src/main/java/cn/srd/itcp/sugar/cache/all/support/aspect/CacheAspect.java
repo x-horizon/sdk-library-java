@@ -8,6 +8,7 @@ import cn.srd.itcp.sugar.cache.all.support.manager.CacheType;
 import cn.srd.itcp.sugar.cache.all.support.strategy.CacheKeyGenerator;
 import cn.srd.itcp.sugar.cache.all.support.strategy.CacheModeStrategy;
 import cn.srd.itcp.sugar.component.expression.all.core.Expressions;
+import cn.srd.itcp.sugar.context.constant.core.ModuleConstant;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.AopCaptor;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.NullValueUtil;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
@@ -63,7 +64,7 @@ public interface CacheAspect extends AopCaptor {
         if (Objects.isNotEmpty(namespacesOnMethod)) {
             return doParseNamespaces(namespacesOnMethod);
         }
-        Objects.requireNotNull(() -> "cache system: could not find namespace on method annotation and unspecified namespace on annotation [{}], please specify at least one!", CacheConfig.class.getSimpleName(), cacheConfigAnnotation);
+        Objects.requireNotNull(() -> ModuleConstant.CACHE_SYSTEM + "could not find namespace on method annotation and unspecified namespace on annotation [{}], please specify at least one!", CacheConfig.class.getSimpleName(), cacheConfigAnnotation);
         return doParseNamespaces(cacheConfigAnnotation.namespaces());
     }
 
@@ -92,7 +93,7 @@ public interface CacheAspect extends AopCaptor {
                 namespacesAfterParse.add(namespace);
             }
         }
-        Objects.requireNotEmpty(() -> "cache system: could not find namespace, please specify at least one!", namespacesAfterParse);
+        Objects.requireNotEmpty(() -> ModuleConstant.CACHE_SYSTEM + "could not find namespace, please specify at least one!", namespacesAfterParse);
         return ArraysUtil.toArray(namespacesAfterParse, String.class);
     }
 
@@ -107,7 +108,7 @@ public interface CacheAspect extends AopCaptor {
         if (ArraysUtil.isNotEmpty(cacheTypesOnMethod)) {
             return CollectionsUtil.toList(cacheTypesOnMethod);
         }
-        Objects.requireFalse(() -> "cache system: could not find cache type to cache, please specify at least one!", Objects.isNull(cacheConfigAnnotation) || ArraysUtil.isEmpty(cacheConfigAnnotation.cacheTypes()));
+        Objects.requireFalse(() -> ModuleConstant.CACHE_SYSTEM + "could not find cache type to cache, please specify at least one!", Objects.isNull(cacheConfigAnnotation) || ArraysUtil.isEmpty(cacheConfigAnnotation.cacheTypes()));
         return CollectionsUtil.toList(cacheConfigAnnotation.cacheTypes());
     }
 
@@ -129,10 +130,10 @@ public interface CacheAspect extends AopCaptor {
         String key;
         if (Objects.isBlank(keyExpression)) {
             key = ReflectsUtil.newInstance(parseKeyGenerator(cacheConfigAnnotation, keyGeneratorOnMethod)).generate(parameters, parameterValues);
-            Objects.requireNotBlank(() -> StringsUtil.format("cache system: could not generate cache key by keyGenerator [{}], please check!", keyGeneratorOnMethod.getSimpleName()), key);
+            Objects.requireNotBlank(() -> StringsUtil.format("{}could not generate cache key by keyGenerator [{}], please check!", ModuleConstant.CACHE_SYSTEM, keyGeneratorOnMethod.getSimpleName()), key);
         } else {
             key = Option.of(Expressions.withSpring().parse(parameters, parameterValues, keyExpression)).map(Object::toString).getOrNull();
-            Objects.requireNotBlank(() -> StringsUtil.format("cache system: could not generate cache key by keyExpression [{}], please check!", keyExpression), key);
+            Objects.requireNotBlank(() -> StringsUtil.format("{}could not generate cache key by keyExpression [{}], please check!", ModuleConstant.CACHE_SYSTEM, keyExpression), key);
         }
         return key;
     }
@@ -462,7 +463,7 @@ public interface CacheAspect extends AopCaptor {
             } else {
                 for (V value : values) {
                     String key = Option.of(Expressions.withSpring().parse(value, context.getOriginalKey())).map(Object::toString).getOrNull();
-                    Objects.requireNotBlank(() -> "cache system: could not parse the cache key when read all cache, please check!", key);
+                    Objects.requireNotBlank(() -> ModuleConstant.CACHE_SYSTEM + "could not parse the cache key when read all cache, please check!", key);
                     setCacheValue(context.setKey(key).setValue(value));
                 }
             }
@@ -514,7 +515,7 @@ public interface CacheAspect extends AopCaptor {
      */
     default void doWrite(CacheAspectContext context, Object value) {
         String key = Option.of(Expressions.withSpring().parse(value, context.getOriginalKey())).map(Object::toString).getOrNull();
-        Objects.requireNotBlank(() -> "cache system: could not parse the cache key when write cache, please check!", key);
+        Objects.requireNotBlank(() -> ModuleConstant.CACHE_SYSTEM + "could not parse the cache key when write cache, please check!", key);
         /**
          * TODO wjm need optimize to use strategy
          */

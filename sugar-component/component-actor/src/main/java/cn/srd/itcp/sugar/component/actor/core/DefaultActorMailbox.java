@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.component.actor.core;
 
 import cn.srd.itcp.sugar.component.actor.event.ActorEvent;
 import cn.srd.itcp.sugar.component.actor.id.ActorId;
+import cn.srd.itcp.sugar.context.constant.core.ModuleConstant;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,7 +48,7 @@ public final class DefaultActorMailbox implements ActorMailbox {
 
     private void tryInit(int attempt) {
         try {
-            log.debug("[{}] Trying to init actor, attempt: {}", selfId, attempt);
+            log.debug("{}[{}] Trying to init actor, attempt: {}", ModuleConstant.ACTOR_SYSTEM, selfId, attempt);
             if (!destroyInProgress.get()) {
                 actor.init(this);
                 if (!destroyInProgress.get()) {
@@ -56,20 +57,20 @@ public final class DefaultActorMailbox implements ActorMailbox {
                 }
             }
         } catch (Throwable throwable) {
-            log.debug("[{}] Failed to init actor, attempt: {}", selfId, attempt, throwable);
+            log.debug("{}[{}] Failed to init actor, attempt: {}", ModuleConstant.ACTOR_SYSTEM, selfId, attempt, throwable);
             int attemptIdx = attempt + 1;
             InitFailureStrategy strategy = actor.onInitFailure(attempt, throwable);
             if (strategy.isStop() || (systemSettings.getMaxActorInitAttempts() > 0 && attemptIdx > systemSettings.getMaxActorInitAttempts())) {
-                log.info("[{}] Failed to init actor, attempt {}, going to stop attempts.", selfId, attempt, throwable);
+                log.info("{}[{}] Failed to init actor, attempt {}, going to stop attempts.", ModuleConstant.ACTOR_SYSTEM, selfId, attempt, throwable);
                 stopReason = ActorStopReason.INIT_FAILED;
                 destroy();
             } else if (strategy.getRetryDelay() > 0) {
-                log.info("[{}] Failed to init actor, attempt {}, going to retry in attempts in {}ms", selfId, attempt, strategy.getRetryDelay());
-                log.debug("[{}] Error", selfId, throwable);
+                log.info("{}[{}] Failed to init actor, attempt {}, going to retry in attempts in {}ms", ModuleConstant.ACTOR_SYSTEM, selfId, attempt, strategy.getRetryDelay());
+                log.debug("{}[{}] Error", ModuleConstant.ACTOR_SYSTEM, selfId, throwable);
                 system.getScheduler().schedule(() -> dispatcher.getExecutor().execute(() -> tryInit(attemptIdx)), strategy.getRetryDelay(), TimeUnit.MILLISECONDS);
             } else {
-                log.info("[{}] Failed to init actor, attempt {}, going to retry immediately", selfId, attempt);
-                log.debug("[{}] Error", selfId, throwable);
+                log.info("{}[{}] Failed to init actor, attempt {}, going to retry immediately", ModuleConstant.ACTOR_SYSTEM, selfId, attempt);
+                log.debug("{}[{}] Error", ModuleConstant.ACTOR_SYSTEM, selfId, throwable);
                 dispatcher.getExecutor().execute(() -> tryInit(attemptIdx));
             }
         }
@@ -92,13 +93,13 @@ public final class DefaultActorMailbox implements ActorMailbox {
                 if (busy.compareAndSet(FREE, BUSY)) {
                     dispatcher.getExecutor().execute(this::processMailbox);
                 } else {
-                    log.trace("[{}] is busy, has new event or not: {}", selfId, hasNewEvent);
+                    log.debug("{}[{}] is busy, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
                 }
             } else {
-                log.trace("[{}] is empty, has new event or not: {}", selfId, hasNewEvent);
+                log.debug("{}[{}] is empty, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
             }
         } else {
-            log.trace("[{}] is not ready, has new event or not: {}", selfId, hasNewEvent);
+            log.debug("{}[{}] is not ready, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
         }
     }
 
@@ -111,10 +112,12 @@ public final class DefaultActorMailbox implements ActorMailbox {
             }
             if (event != null) {
                 try {
-                    log.debug("[{}] Going to process event: {}", selfId, event);
+                    if (log.isTraceEnabled()) {
+                        log.trace("{}[{}] Going to process event: {}", ModuleConstant.ACTOR_SYSTEM, selfId, event);
+                    }
                     actor.process(event);
                 } catch (Throwable throwable) {
-                    log.error("[{}] Failed to process event: {}", selfId, event, throwable);
+                    log.error("{}[{}] Failed to process event: {}", ModuleConstant.ACTOR_SYSTEM, selfId, event, throwable);
                     ProcessFailureStrategy strategy = actor.onProcessFailure(throwable);
                     if (strategy.isStop()) {
                         system.stop(selfId);
@@ -185,7 +188,7 @@ public final class DefaultActorMailbox implements ActorMailbox {
                 highPriorityActorEventQueue.forEach(event -> event.onActorStopped(stopReason));
                 normalPriorityActorEventQueue.forEach(event -> event.onActorStopped(stopReason));
             } catch (Throwable throwable) {
-                log.warn("[{}] Failed to destroy actor: {}", selfId, throwable);
+                log.error("{}[{}] Failed to destroy actor: {}", ModuleConstant.ACTOR_SYSTEM, selfId, throwable);
             }
         });
     }

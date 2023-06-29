@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.component.actor.core;
 
+import cn.srd.itcp.sugar.context.constant.core.ModuleConstant;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.core.*;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
@@ -39,7 +40,7 @@ public class ComponentActorAutoConfiguration {
 
     @PostConstruct
     public void initActorSystem() {
-        log.debug("Actor System enable, starting initializing.");
+        log.debug("{}starting initializing...", ModuleConstant.ACTOR_SYSTEM);
 
         ActorSystemSettings settings = new ActorSystemSettings(actorSystemProperties.getActorProcessThroughput(), actorSystemProperties.getSchedulerPoolSize(), actorSystemProperties.getMaxInitActorRetryCount());
         actorSystem = new DefaultActorSystem(settings);
@@ -53,15 +54,15 @@ public class ComponentActorAutoConfiguration {
             actorTypeStrategy.setMailbox(actorSystem.createRootActor(dispatcherName, actorTypeStrategy.newActorCreator()));
         });
 
-        log.debug("Actor System initialized.");
+        log.debug("{}initialized.", ModuleConstant.ACTOR_SYSTEM);
     }
 
     @PreDestroy
     public void destroyActorSystem() {
         if (actorSystem != null) {
-            log.debug("Stopping Actor System.");
+            log.debug("{}Stopping...", ModuleConstant.ACTOR_SYSTEM);
             actorSystem.stop();
-            log.debug("Actor System Stopped.");
+            log.debug("{}Stopped.", ModuleConstant.ACTOR_SYSTEM);
         }
     }
 
