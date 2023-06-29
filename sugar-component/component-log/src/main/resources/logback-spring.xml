@@ -57,6 +57,8 @@
     <springProperty scope="context" name="logPattern" source="sugar.component.log.pattern" defaultValue="%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level - %-50.50(%logger{50}) - [%thread]: %message%n"/>
     <!--  日志字符集，可选配置，默认：UTF-8  -->
     <springProperty scope="context" name="logCharset" source="sugar.component.log.charset" defaultValue="UTF-8"/>
+    <!--  记录 TRACE 级别的日志文件名，可选配置，默认：trace.log  -->
+    <springProperty scope="context" name="logTraceFileName" source="sugar.component.log.file-name.trace" defaultValue="trace.log"/>
     <!--  记录 DEBUG 级别的日志文件名，可选配置，默认：debug.log  -->
     <springProperty scope="context" name="logDebugFileName" source="sugar.component.log.file-name.debug" defaultValue="debug.log"/>
     <!--  记录 INFO 级别的日志文件名，可选配置，默认：info.log  -->
@@ -69,10 +71,12 @@
     <springProperty scope="context" name="logAllLogFileName" source="sugar.component.log.file-name.all" defaultValue="all.log"/>
     <!--  日志轮动配置：当日志文件达到指定的大小时，轮动一次，可选配置，默认：30MB  -->
     <springProperty scope="context" name="logRollingMaxFileSize" source="sugar.component.log.rolling.max-file-size" defaultValue="30MB"/>
-    <!--  日志轮动配置：日志文件保留的时间，超过该时间的日志将被物理删除，单位：天，可选配置，默认：365 天  -->
-    <springProperty scope="context" name="logRollingMaxHistoryDay" source="sugar.component.log.rolling.max-history-day" defaultValue="365"/>
+    <!--  日志轮动配置：日志文件保留的时间，超过该时间的日志将被物理删除，单位：天，可选配置，默认：30 天  -->
+    <springProperty scope="context" name="logRollingMaxHistoryDay" source="sugar.component.log.rolling.max-history-day" defaultValue="30"/>
     <!--  日志轮动配置：轮动日志的存放路径，可选配置，默认：项目根路径/log/年/月/日/  -->
     <springProperty scope="context" name="logRollingFolderPath" source="sugar.component.log.rolling.folder-path" defaultValue="%d{yyyy,aux}/%d{MM,aux}/%d{dd,aux}"/>
+    <!--  日志轮动配置：记录 TRACE 级别的轮动日志文件名，可选配置，默认：trace-yyyy-MM-dd.轮动次数.log，按天记录，若需要其他级别记录，例如按小时记录，可设置为：trace-%d{yyyy-MM-dd;HH}.%i.log  -->
+    <springProperty scope="context" name="logRollingTraceFileNamePattern" source="sugar.component.log.rolling.file-name-pattern.trace" defaultValue="trace-%d{yyyy-MM-dd}.%i.log"/>
     <!--  日志轮动配置：记录 DEBUG 级别的轮动日志文件名，可选配置，默认：debug-yyyy-MM-dd.轮动次数.log，按天记录，若需要其他级别记录，例如按小时记录，可设置为：debug-%d{yyyy-MM-dd;HH}.%i.log  -->
     <springProperty scope="context" name="logRollingDebugFileNamePattern" source="sugar.component.log.rolling.file-name-pattern.debug" defaultValue="debug-%d{yyyy-MM-dd}.%i.log"/>
     <!--  日志轮动配置：记录 INFO 级别的轮动日志文件名，可选配置，默认：info-yyyy-MM-dd.轮动次数.log，按天记录，若需要其他级别记录，例如按小时记录，可设置为：info-%d{yyyy-MM-dd;HH}.%i.log  -->
@@ -87,12 +91,33 @@
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>debug</level>
+            <level>trace</level>
         </filter>
         <encoder>
             <pattern>${logPattern}</pattern>
             <charset>${logCharset}</charset>
         </encoder>
+    </appender>
+
+    <appender name="TRACE_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logPath}/${logTraceFileName}</file>
+        <append>true</append>
+        <encoder>
+            <pattern>${logPattern}</pattern>
+            <charset>${logCharset}</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>trace</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}/${logRollingFolderPath}/${logRollingTraceFileNamePattern}</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${logRollingMaxFileSize}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>${logRollingMaxHistoryDay}</maxHistory>
+        </rollingPolicy>
     </appender>
 
     <appender name="DEBUG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -212,6 +237,7 @@
     <springProfile name="environment-localhost">
         <root level="info">
             <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="TRACE_FILE"/>
             <appender-ref ref="DEBUG_FILE"/>
             <appender-ref ref="INFO_FILE"/>
             <appender-ref ref="WARN_FILE"/>
@@ -223,6 +249,7 @@
     <springProfile name="environment-development">
         <root level="info">
             <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="TRACE_FILE"/>
             <appender-ref ref="DEBUG_FILE"/>
             <appender-ref ref="INFO_FILE"/>
             <appender-ref ref="WARN_FILE"/>
@@ -234,6 +261,7 @@
     <springProfile name="environment-kubernetes">
         <root level="info">
             <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="TRACE_FILE"/>
             <appender-ref ref="DEBUG_FILE"/>
             <appender-ref ref="INFO_FILE"/>
             <appender-ref ref="WARN_FILE"/>
@@ -245,6 +273,7 @@
     <springProfile name="environment-production">
         <root level="info">
             <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="TRACE_FILE"/>
             <appender-ref ref="DEBUG_FILE"/>
             <appender-ref ref="INFO_FILE"/>
             <appender-ref ref="WARN_FILE"/>
