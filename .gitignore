@@ -3,6 +3,7 @@ HELP.md
 target/
 build/
 log/
+!sugar-component/component-log/src/main/java/cn/itcp/sugar/component/log
 !gradle/wrapper/gradle-wrapper.jar
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/build/
