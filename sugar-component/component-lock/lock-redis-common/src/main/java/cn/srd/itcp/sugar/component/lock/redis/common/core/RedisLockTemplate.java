@@ -56,6 +56,16 @@ public interface RedisLockTemplate {
     RLock getLock(String lockName);
 
     /**
+     * see {@link RLock#isLocked()}
+     *
+     * @param lockName the lock name
+     * @return true if locked otherwise false
+     */
+    default boolean isLocked(String lockName) {
+        return getLock(lockName).isLocked();
+    }
+
+    /**
      * 对临界区完成添加和释放分布式锁的操作
      *
      * @param supplier 临界区
