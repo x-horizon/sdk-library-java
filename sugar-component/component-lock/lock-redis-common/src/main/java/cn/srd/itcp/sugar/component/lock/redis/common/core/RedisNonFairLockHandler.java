@@ -35,7 +35,7 @@ public class RedisNonFairLockHandler implements RedisLockTemplate {
     }
 
     @Override
-    public RLock getRLock(String lockName) {
+    public RLock getLock(String lockName) {
         return RedisManager.getClient().getLock(lockName);
     }
 

@@ -53,7 +53,7 @@ public interface RedisLockTemplate {
      * @param lockName 锁名
      * @return Redis Based Reentrant Lock
      */
-    RLock getRLock(String lockName);
+    RLock getLock(String lockName);
 
     /**
      * 对临界区完成添加和释放分布式锁的操作
@@ -438,7 +438,7 @@ public interface RedisLockTemplate {
      * @return 临界区响应值
      */
     default <T1, T2, T3, T4, R> R tryLock(@Nullable T1 param1, @Nullable T2 param2, @Nullable T3 param3, @Nullable T4 param4, @NonNull Function4<T1, T2, T3, T4, R> function, @NonNull String lockName, long waitTime, long leaseTime, @NonNull TimeUnit timeUnit) {
-        RLock rLock = getRLock(lockName);
+        RLock rLock = getLock(lockName);
         return Try.of(() -> {
                     R result = null;
                     if (waitTime > DEFAULT_WAIT_TIME) {
