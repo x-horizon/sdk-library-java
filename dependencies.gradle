@@ -9,6 +9,8 @@ ext {
     docker_bom_version = "3.3.0"
     protobuf_bom_version = "3.22.0"
     jackson_bom_version = "2.15.0"
+    okhttps_version = "4.0.1"
+    okhttp_version = "3.0.0"
     hsweb_version = "4.0.14"
     druid_version = "1.2.8"
     mysql_version = "8.0.32"
@@ -70,6 +72,7 @@ ext {
     itcp_sugar_component_lock_redis_common = ":sugar-component:component-lock:lock-redis-common"
     itcp_sugar_component_lock_redis_webmvc = ":sugar-component:component-lock:lock-redis-webmvc"
     itcp_sugar_component_log = ":sugar-component:component-log"
+    itcp_sugar_component_web_okhttps = ":sugar-component:component-web:web-okhttps"
     itcp_sugar_component_web_openfeign_common = ":sugar-component:component-web:web-openfeign:web-openfeign-common"
     itcp_sugar_component_web_openfeign_okhttp = ":sugar-component:component-web:web-openfeign:web-openfeign-okhttp"
     itcp_sugar_context_constant = ":sugar-context:context-constant"
@@ -118,6 +121,9 @@ ext {
     // network
     openfeign_bom = "io.github.openfeign:feign-bom:${openfeign_bom_version}" as GStringImpl
     openfeign_okhttp = "io.github.openfeign:feign-okhttp"
+    okhttps_jackson = "cn.zhxu:okhttps-jackson:${okhttps_version}" as GStringImpl
+    // required dependencies for okHttps
+    okhttp_okio = "com.squareup.okio:okio:${okhttp_version}" as GStringImpl
 
     // database
     mysql = "com.mysql:mysql-connector-j:${mysql_version}" as GStringImpl
