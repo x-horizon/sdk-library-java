@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.tool.core.object;
 
 import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.srd.itcp.sugar.tool.core.NumbersUtil;
 import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import cn.srd.itcp.sugar.tool.core.asserts.Assert;
@@ -2591,6 +2592,21 @@ public class Objects {
     }
 
     // ============================================= modify value end
+
+    // ============================================= clone start
+
+    /**
+     * see {@link ObjectUtil#clone(Object)}
+     *
+     * @param input the cloned object
+     * @param <T>   the cloned object type
+     * @return object after clone
+     */
+    public static <T> T clone(T input) {
+        return ObjectUtil.clone(input);
+    }
+
+    // ============================================= clone end
 
     // ============================================= 未整理
 
