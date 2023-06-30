@@ -27,6 +27,10 @@ public interface ActorMailbox {
 
     <T> void tellWithHighPriority(ActorEvent<T> event);
 
+    <T> void tellSync(ActorEvent<T> event);
+
+    <T> void tellSyncWithHighPriority(ActorEvent<T> event);
+
     <T> void broadcastToChildren(ActorEvent<T> event);
 
     <T> void broadcastToChildren(ActorEvent<T> event, Predicate<ActorId> childFilter);

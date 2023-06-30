@@ -4,12 +4,14 @@ import cn.srd.itcp.sugar.component.actor.event.ActorEvent;
 import cn.srd.itcp.sugar.component.actor.id.ActorId;
 import cn.srd.itcp.sugar.context.constant.core.ModuleConstant;
 import lombok.Data;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -53,7 +55,7 @@ public final class DefaultActorMailbox implements ActorMailbox {
                 actor.init(this);
                 if (!destroyInProgress.get()) {
                     ready.set(READY);
-                    tryProcessQueue(false);
+                    tryProcessQueueAsync(false);
                 }
             }
         } catch (Throwable throwable) {
@@ -76,30 +78,56 @@ public final class DefaultActorMailbox implements ActorMailbox {
         }
     }
 
-    private <T> void enqueue(ActorEvent<T> event, boolean isHighPriority) {
+    private <T> void enqueueAndProcessAsync(ActorEvent<T> event, boolean isHighPriority) {
+        enqueue(event, isHighPriority, this::tryProcessQueueAsync);
+    }
+
+    private <T> void enqueueAndProcessSync(ActorEvent<T> event, boolean isHighPriority) {
+        enqueue(event, isHighPriority, this::tryProcessQueueSync);
+    }
+
+    private <T> void enqueue(ActorEvent<T> event, boolean isHighPriority, Consumer<Boolean> process) {
         if (!destroyInProgress.get()) {
             if (isHighPriority) {
                 highPriorityActorEventQueue.add(event);
             } else {
                 normalPriorityActorEventQueue.add(event);
             }
-            tryProcessQueue(true);
+            process.accept(true);
         }
     }
 
-    private void tryProcessQueue(boolean hasNewEvent) {
+    private void tryProcessQueueAsync(boolean hasNewEvent) {
         if (ready.get() == READY) {
             if (hasNewEvent || !highPriorityActorEventQueue.isEmpty() || !normalPriorityActorEventQueue.isEmpty()) {
                 if (busy.compareAndSet(FREE, BUSY)) {
                     dispatcher.getExecutor().execute(this::processMailbox);
                 } else {
-                    log.debug("{}[{}] is busy, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
+                    log.debug("{}process queue async - [{}] is busy, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
                 }
             } else {
-                log.debug("{}[{}] is empty, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
+                log.debug("{}process queue async - [{}] is empty, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
             }
         } else {
-            log.debug("{}[{}] is not ready, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
+            log.debug("{}process queue async - [{}] is not ready, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
+        }
+    }
+
+    // TODO wjm 未测试
+    @SneakyThrows
+    private void tryProcessQueueSync(boolean hasNewEvent) {
+        if (ready.get() == READY) {
+            if (hasNewEvent || !highPriorityActorEventQueue.isEmpty() || !normalPriorityActorEventQueue.isEmpty()) {
+                if (busy.compareAndSet(FREE, BUSY)) {
+                    dispatcher.getExecutor().submit(this::processMailbox).get();
+                } else {
+                    log.debug("{}process queue sync - [{}] is busy, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
+                }
+            } else {
+                log.debug("{}process queue sync - [{}] is empty, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
+            }
+        } else {
+            log.debug("{}process queue sync - [{}] is not ready, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
         }
     }
 
@@ -130,7 +158,7 @@ public final class DefaultActorMailbox implements ActorMailbox {
         }
         if (noMoreElements) {
             busy.set(FREE);
-            dispatcher.getExecutor().execute(() -> tryProcessQueue(false));
+            dispatcher.getExecutor().execute(() -> tryProcessQueueAsync(false));
         } else {
             dispatcher.getExecutor().execute(this::processMailbox);
         }
@@ -195,12 +223,22 @@ public final class DefaultActorMailbox implements ActorMailbox {
 
     @Override
     public <T> void tell(ActorEvent<T> event) {
-        enqueue(event, NORMAL_PRIORITY);
+        enqueueAndProcessAsync(event, NORMAL_PRIORITY);
     }
 
     @Override
     public <T> void tellWithHighPriority(ActorEvent<T> event) {
-        enqueue(event, HIGH_PRIORITY);
+        enqueueAndProcessAsync(event, HIGH_PRIORITY);
+    }
+
+    @Override
+    public <T> void tellSync(ActorEvent<T> event) {
+        enqueueAndProcessSync(event, NORMAL_PRIORITY);
+    }
+
+    @Override
+    public <T> void tellSyncWithHighPriority(ActorEvent<T> event) {
+        enqueueAndProcessSync(event, HIGH_PRIORITY);
     }
 
 }
