@@ -57,20 +57,20 @@ public final class DefaultActorMailbox implements ActorMailbox {
                 }
             }
         } catch (Throwable throwable) {
-            log.debug("{}[{}] Failed to init actor, attempt: {}", ModuleConstant.ACTOR_SYSTEM, selfId, attempt, throwable);
+            log.error("{}[{}] Failed to init actor, attempt: {}", ModuleConstant.ACTOR_SYSTEM, selfId, attempt, throwable);
             int attemptIdx = attempt + 1;
             InitFailureStrategy strategy = actor.onInitFailure(attempt, throwable);
             if (strategy.isStop() || (systemSettings.getMaxActorInitAttempts() > 0 && attemptIdx > systemSettings.getMaxActorInitAttempts())) {
-                log.info("{}[{}] Failed to init actor, attempt {}, going to stop attempts.", ModuleConstant.ACTOR_SYSTEM, selfId, attempt, throwable);
+                log.error("{}[{}] Failed to init actor, attempt {}, going to stop attempts.", ModuleConstant.ACTOR_SYSTEM, selfId, attempt, throwable);
                 stopReason = ActorStopReason.INIT_FAILED;
                 destroy();
             } else if (strategy.getRetryDelay() > 0) {
-                log.info("{}[{}] Failed to init actor, attempt {}, going to retry in attempts in {}ms", ModuleConstant.ACTOR_SYSTEM, selfId, attempt, strategy.getRetryDelay());
-                log.debug("{}[{}] Error", ModuleConstant.ACTOR_SYSTEM, selfId, throwable);
+                log.error("{}[{}] Failed to init actor, attempt {}, going to retry in attempts in {}ms", ModuleConstant.ACTOR_SYSTEM, selfId, attempt, strategy.getRetryDelay());
+                log.error("{}[{}] Error", ModuleConstant.ACTOR_SYSTEM, selfId, throwable);
                 system.getScheduler().schedule(() -> dispatcher.getExecutor().execute(() -> tryInit(attemptIdx)), strategy.getRetryDelay(), TimeUnit.MILLISECONDS);
             } else {
-                log.info("{}[{}] Failed to init actor, attempt {}, going to retry immediately", ModuleConstant.ACTOR_SYSTEM, selfId, attempt);
-                log.debug("{}[{}] Error", ModuleConstant.ACTOR_SYSTEM, selfId, throwable);
+                log.error("{}[{}] Failed to init actor, attempt {}, going to retry immediately", ModuleConstant.ACTOR_SYSTEM, selfId, attempt);
+                log.error("{}[{}] Error", ModuleConstant.ACTOR_SYSTEM, selfId, throwable);
                 dispatcher.getExecutor().execute(() -> tryInit(attemptIdx));
             }
         }
