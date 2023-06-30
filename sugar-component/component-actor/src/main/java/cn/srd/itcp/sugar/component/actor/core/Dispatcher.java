@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutorService;
  * @since 2023-03-23 20:09:17
  */
 @Data
-class Dispatcher {
+public class Dispatcher {
 
     private final String dispatcherId;
     private final ExecutorService executor;
