@@ -18,7 +18,7 @@ version = projectVersion
 
 dependencies {
     // framework
-    implementation("$spring_boot_webmvc")
+    implementation("$spring_boot")
     implementation("$spring_boot_aop")
 
     // network
@@ -30,6 +30,10 @@ dependencies {
 
     // tool
     implementation(project("$itcp_sugar_tool"))
+
+    // test
+    testImplementation("$spring_boot_webmvc")
+    testImplementation(project("$itcp_sugar_framework_spring_tool_webmvc"))
 }
 
 javadoc {
