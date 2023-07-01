@@ -1,8 +1,11 @@
 package cn.srd.itcp.sugar.tool.web;
 
 import cn.srd.itcp.sugar.tool.constant.HttpInfo;
+import cn.srd.itcp.sugar.tool.core.ReflectsUtil;
+import cn.srd.itcp.sugar.tool.core.object.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.SneakyThrows;
 
 /**
  * 响应码 + 响应码对应的描述
@@ -147,7 +150,82 @@ public enum HttpStatusEnum implements HttpStatus {
      */
     GATEWAY_TIMEOUT(HttpInfo.HTTP_GATEWAY_TIMEOUT, "server error - gateway timeout");
 
+    /**
+     * the code
+     */
     private final int code;
+
+    /**
+     * the description
+     */
     private final String description;
+
+    /**
+     * see {@link #isSuccess(int)}
+     *
+     * @param status the http status
+     * @return is the http status success
+     */
+    public static boolean isSuccess(HttpStatusEnum status) {
+        return isSuccess(status.getCode());
+    }
+
+    /**
+     * is the http status success
+     *
+     * @param status the http status
+     * @return is the http status success
+     */
+    public static boolean isSuccess(int status) {
+        return Objects.equals(HttpStatusEnum.SUCCESS.getCode(), status);
+    }
+
+    /**
+     * {@link #isSuccess(HttpStatusEnum)}
+     *
+     * @param status the http status
+     * @return is the http status not success
+     */
+    public static boolean isNotSuccess(HttpStatusEnum status) {
+        return !isSuccess(status);
+    }
+
+    /**
+     * {@link #isSuccess(int)}
+     *
+     * @param status the http status
+     * @return is the http status not success
+     */
+    public static boolean isNotSuccess(int status) {
+        return !isSuccess(status);
+    }
+
+    /**
+     * throw exception if {@link #isNotSuccess(HttpStatusEnum)}
+     *
+     * @param status       the {@link HttpStatusEnum}
+     * @param errorMessage the specified message to throw if {@link #isNotSuccess(HttpStatusEnum)}
+     * @param throwable    the specified exception to throw if {@link #isNotSuccess(HttpStatusEnum)}
+     */
+    @SneakyThrows
+    public static void requiredSuccess(HttpStatusEnum status, String errorMessage, Class<? extends Throwable> throwable) {
+        if (isNotSuccess(status)) {
+            throw ReflectsUtil.newInstance(throwable, errorMessage);
+        }
+    }
+
+    /**
+     * throw exception if {@link #isNotSuccess(HttpStatusEnum)}
+     *
+     * @param status       the {@link HttpStatusEnum#code}
+     * @param errorMessage the specified message to throw if {@link #isNotSuccess(HttpStatusEnum)}
+     * @param throwable    the specified exception to throw if {@link #isNotSuccess(HttpStatusEnum)}
+     */
+    @SneakyThrows
+    public static void requiredSuccess(int status, String errorMessage, Class<? extends Throwable> throwable) {
+        if (isNotSuccess(status)) {
+            throw ReflectsUtil.newInstance(throwable, errorMessage);
+        }
+    }
 
 }
