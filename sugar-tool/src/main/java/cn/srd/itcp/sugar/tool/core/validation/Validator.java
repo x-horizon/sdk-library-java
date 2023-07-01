@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.tool.core.validation;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
+import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
 /**
@@ -70,20 +71,6 @@ public interface Validator<T> {
     }
 
     /**
-     * do something when validate failed on any validator node
-     *
-     * @param failLogic the fail logic
-     * @return current validator
-     */
-    @CanIgnoreReturnValue
-    default Validator<T> failAndThen(UnaryOperator<T> failLogic) {
-        if (isFailed()) {
-            set(failLogic.apply(get()));
-        }
-        return this;
-    }
-
-    /**
      * do something when validate success on all validator node
      *
      * @param successLogic the success logic
@@ -98,6 +85,52 @@ public interface Validator<T> {
     }
 
     /**
+     * see {@link #successAndThen(UnaryOperator)}
+     *
+     * @param object       the logic param
+     * @param successLogic the success logic
+     * @param <K>          the logic param type
+     * @return current validator
+     */
+    @CanIgnoreReturnValue
+    default <K> Validator<T> successAndThen(K object, Consumer<K> successLogic) {
+        if (isSuccess()) {
+            successLogic.accept(object);
+        }
+        return this;
+    }
+
+    /**
+     * do something when validate failed on any validator node
+     *
+     * @param failLogic the fail logic
+     * @return current validator
+     */
+    @CanIgnoreReturnValue
+    default Validator<T> failAndThen(UnaryOperator<T> failLogic) {
+        if (isFailed()) {
+            set(failLogic.apply(get()));
+        }
+        return this;
+    }
+
+    /**
+     * see {@link #failAndThen(UnaryOperator)}
+     *
+     * @param object    the logic param
+     * @param failLogic the fail logic
+     * @param <K>       the logic param type
+     * @return current validator
+     */
+    @CanIgnoreReturnValue
+    default <K> Validator<T> failAndThen(K object, Consumer<K> failLogic) {
+        if (isFailed()) {
+            failLogic.accept(object);
+        }
+        return this;
+    }
+
+    /**
      * do something whether validate success or fail
      *
      * @param logic the logic
@@ -106,6 +139,20 @@ public interface Validator<T> {
     @CanIgnoreReturnValue
     default Validator<T> finallyAndThen(UnaryOperator<T> logic) {
         set(logic.apply(get()));
+        return this;
+    }
+
+    /**
+     * see {@link #finallyAndThen(UnaryOperator)}
+     *
+     * @param object the logic param
+     * @param logic  the  logic
+     * @param <K>    the logic param type
+     * @return current validator
+     */
+    @CanIgnoreReturnValue
+    default <K> Validator<T> finallyAndThen(K object, Consumer<K> logic) {
+        logic.accept(object);
         return this;
     }
 
