@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.tool.core.validation;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
@@ -101,6 +102,24 @@ public interface Validator<T> {
     }
 
     /**
+     * see {@link #onSuccess(UnaryOperator)}
+     *
+     * @param object1      the logic param1
+     * @param object2      the logic param2
+     * @param successLogic the success logic
+     * @param <A>          the logic param1 type
+     * @param <B>          the logic param2 type
+     * @return current validator
+     */
+    @CanIgnoreReturnValue
+    default <A, B> Validator<T> onSuccess(A object1, B object2, BiConsumer<A, B> successLogic) {
+        if (isSuccess()) {
+            successLogic.accept(object1, object2);
+        }
+        return this;
+    }
+
+    /**
      * do something when validate failed on any validator node
      *
      * @param failLogic the fail logic
@@ -131,6 +150,24 @@ public interface Validator<T> {
     }
 
     /**
+     * see {@link #onFail(UnaryOperator)}
+     *
+     * @param object1   the logic param1
+     * @param object2   the logic param2
+     * @param failLogic the fail logic
+     * @param <A>       the logic param1 type
+     * @param <B>       the logic param2 type
+     * @return current validator
+     */
+    @CanIgnoreReturnValue
+    default <A, B> Validator<T> onFail(A object1, B object2, BiConsumer<A, B> failLogic) {
+        if (isFailed()) {
+            failLogic.accept(object1, object2);
+        }
+        return this;
+    }
+
+    /**
      * do something whether validate success or fail
      *
      * @param logic the logic
@@ -146,13 +183,29 @@ public interface Validator<T> {
      * see {@link #onFinally(UnaryOperator)}
      *
      * @param object the logic param
-     * @param logic  the  logic
+     * @param logic  the logic
      * @param <A>    the logic param type
      * @return current validator
      */
     @CanIgnoreReturnValue
     default <A> Validator<T> onFinally(A object, Consumer<A> logic) {
         logic.accept(object);
+        return this;
+    }
+
+    /**
+     * see {@link #onFinally(UnaryOperator)}
+     *
+     * @param object1 the logic param1
+     * @param object2 the logic param2
+     * @param logic   the logic
+     * @param <A>     the logic param1 type
+     * @param <B>     the logic param2 type
+     * @return current validator
+     */
+    @CanIgnoreReturnValue
+    default <A, B> Validator<T> onFinally(A object1, B object2, BiConsumer<A, B> logic) {
+        logic.accept(object1, object2);
         return this;
     }
 
