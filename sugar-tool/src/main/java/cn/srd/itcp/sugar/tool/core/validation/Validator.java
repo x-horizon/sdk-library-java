@@ -89,11 +89,11 @@ public interface Validator<T> {
      *
      * @param object       the logic param
      * @param successLogic the success logic
-     * @param <K>          the logic param type
+     * @param <A>          the logic param type
      * @return current validator
      */
     @CanIgnoreReturnValue
-    default <K> Validator<T> onSuccess(K object, Consumer<K> successLogic) {
+    default <A> Validator<T> onSuccess(A object, Consumer<A> successLogic) {
         if (isSuccess()) {
             successLogic.accept(object);
         }
@@ -119,11 +119,11 @@ public interface Validator<T> {
      *
      * @param object    the logic param
      * @param failLogic the fail logic
-     * @param <K>       the logic param type
+     * @param <A>       the logic param type
      * @return current validator
      */
     @CanIgnoreReturnValue
-    default <K> Validator<T> onFail(K object, Consumer<K> failLogic) {
+    default <A> Validator<T> onFail(A object, Consumer<A> failLogic) {
         if (isFailed()) {
             failLogic.accept(object);
         }
@@ -147,11 +147,11 @@ public interface Validator<T> {
      *
      * @param object the logic param
      * @param logic  the  logic
-     * @param <K>    the logic param type
+     * @param <A>    the logic param type
      * @return current validator
      */
     @CanIgnoreReturnValue
-    default <K> Validator<T> onFinally(K object, Consumer<K> logic) {
+    default <A> Validator<T> onFinally(A object, Consumer<A> logic) {
         logic.accept(object);
         return this;
     }
