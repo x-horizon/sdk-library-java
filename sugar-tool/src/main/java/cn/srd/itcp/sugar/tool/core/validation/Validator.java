@@ -77,7 +77,7 @@ public interface Validator<T> {
      * @return current validator
      */
     @CanIgnoreReturnValue
-    default Validator<T> successAndThen(UnaryOperator<T> successLogic) {
+    default Validator<T> onSuccess(UnaryOperator<T> successLogic) {
         if (isSuccess()) {
             set(successLogic.apply(get()));
         }
@@ -85,7 +85,7 @@ public interface Validator<T> {
     }
 
     /**
-     * see {@link #successAndThen(UnaryOperator)}
+     * see {@link #onSuccess(UnaryOperator)}
      *
      * @param object       the logic param
      * @param successLogic the success logic
@@ -93,7 +93,7 @@ public interface Validator<T> {
      * @return current validator
      */
     @CanIgnoreReturnValue
-    default <K> Validator<T> successAndThen(K object, Consumer<K> successLogic) {
+    default <K> Validator<T> onSuccess(K object, Consumer<K> successLogic) {
         if (isSuccess()) {
             successLogic.accept(object);
         }
@@ -107,7 +107,7 @@ public interface Validator<T> {
      * @return current validator
      */
     @CanIgnoreReturnValue
-    default Validator<T> failAndThen(UnaryOperator<T> failLogic) {
+    default Validator<T> onFail(UnaryOperator<T> failLogic) {
         if (isFailed()) {
             set(failLogic.apply(get()));
         }
@@ -115,7 +115,7 @@ public interface Validator<T> {
     }
 
     /**
-     * see {@link #failAndThen(UnaryOperator)}
+     * see {@link #onFail(UnaryOperator)}
      *
      * @param object    the logic param
      * @param failLogic the fail logic
@@ -123,7 +123,7 @@ public interface Validator<T> {
      * @return current validator
      */
     @CanIgnoreReturnValue
-    default <K> Validator<T> failAndThen(K object, Consumer<K> failLogic) {
+    default <K> Validator<T> onFail(K object, Consumer<K> failLogic) {
         if (isFailed()) {
             failLogic.accept(object);
         }
@@ -137,13 +137,13 @@ public interface Validator<T> {
      * @return current validator
      */
     @CanIgnoreReturnValue
-    default Validator<T> finallyAndThen(UnaryOperator<T> logic) {
+    default Validator<T> onFinally(UnaryOperator<T> logic) {
         set(logic.apply(get()));
         return this;
     }
 
     /**
-     * see {@link #finallyAndThen(UnaryOperator)}
+     * see {@link #onFinally(UnaryOperator)}
      *
      * @param object the logic param
      * @param logic  the  logic
@@ -151,7 +151,7 @@ public interface Validator<T> {
      * @return current validator
      */
     @CanIgnoreReturnValue
-    default <K> Validator<T> finallyAndThen(K object, Consumer<K> logic) {
+    default <K> Validator<T> onFinally(K object, Consumer<K> logic) {
         logic.accept(object);
         return this;
     }
