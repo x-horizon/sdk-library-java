@@ -4,7 +4,7 @@ import cn.srd.itcp.sugar.component.actor.event.ActorEvent;
 import cn.srd.itcp.sugar.component.actor.exception.ActorNotRegisteredException;
 import cn.srd.itcp.sugar.component.actor.id.ActorId;
 import cn.srd.itcp.sugar.context.constant.core.ModuleConstant;
-import cn.srd.itcp.sugar.tool.core.Threads;
+import cn.srd.itcp.sugar.tool.core.ThreadsUtil;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,7 +37,7 @@ public class DefaultActorSystem implements ActorSystem {
 
     public DefaultActorSystem(ActorSystemSettings settings) {
         this.settings = settings;
-        this.scheduler = Threads.newScheduledThreadPool(settings.getSchedulerPoolSize(), "actor-system-scheduler");
+        this.scheduler = ThreadsUtil.newScheduledThreadPool(settings.getSchedulerPoolSize(), "actor-system-scheduler");
     }
 
     @Override

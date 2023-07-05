@@ -78,9 +78,9 @@ public class ComponentActorAutoConfiguration {
             parallelism = Math.max(SINGLE_CONCURRENCY_COUNT, SystemsUtil.getAvailableProcessors() / 2);
         }
         if (parallelism == SINGLE_CONCURRENCY_COUNT) {
-            return Threads.newSingleThreadPool(dispatcherName);
+            return ThreadsUtil.newSingleThreadPool(dispatcherName);
         } else {
-            return Threads.newWorkStealingThreadPool(parallelism, dispatcherName);
+            return ThreadsUtil.newWorkStealingThreadPool(parallelism, dispatcherName);
         }
     }
 

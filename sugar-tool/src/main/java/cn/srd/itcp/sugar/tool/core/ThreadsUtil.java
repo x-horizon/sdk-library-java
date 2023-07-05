@@ -28,7 +28,7 @@ import java.util.concurrent.*;
  * @since 2023-03-16 18:57:12
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Threads {
+public class ThreadsUtil {
 
     /**
      * 获取线程 id
