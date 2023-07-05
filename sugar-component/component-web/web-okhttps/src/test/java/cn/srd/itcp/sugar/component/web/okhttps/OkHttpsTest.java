@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.component.web.okhttps;
 
 import cn.srd.itcp.sugar.component.web.okhttps.core.OkHttpsUtil;
-import cn.srd.itcp.sugar.tool.core.Threads;
+import cn.srd.itcp.sugar.tool.core.thread.ThreadsUtil;
 import cn.srd.itcp.sugar.tool.web.HttpStatusEnum;
 import cn.srd.itcp.sugar.tool.web.WebResponse;
 import cn.zhxu.okhttps.HttpCall;
@@ -34,7 +34,7 @@ public class OkHttpsTest {
                                 HttpResult.Body body = httpResult.getBody().cache();
                                 HttpStatusEnum.requiredSuccess(httpResult.getStatus(), body.toString(), RuntimeException.class);
                                 WebResponse<?> webResponse = body.toBean(WebResponse.class);
-                                log.info("{}-{}", Threads.getId(), webResponse);
+                                log.info("{}-{}", ThreadsUtil.getId(), webResponse);
                             })
                             // .setOnException((IOException exception) -> {
                             //     // 异常回调
