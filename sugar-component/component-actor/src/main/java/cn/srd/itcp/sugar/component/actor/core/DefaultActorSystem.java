@@ -4,7 +4,7 @@ import cn.srd.itcp.sugar.component.actor.event.ActorEvent;
 import cn.srd.itcp.sugar.component.actor.exception.ActorNotRegisteredException;
 import cn.srd.itcp.sugar.component.actor.id.ActorId;
 import cn.srd.itcp.sugar.context.constant.core.ModuleConstant;
-import cn.srd.itcp.sugar.tool.core.ThreadsUtil;
+import cn.srd.itcp.sugar.tool.core.thread.ThreadsUtil;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 

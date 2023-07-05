@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.srd.itcp.sugar.tool.core;
+package cn.srd.itcp.sugar.tool.core.thread;
 
+import cn.hutool.core.thread.ThreadUtil;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -28,7 +29,7 @@ import java.util.concurrent.*;
  * @since 2023-03-16 18:57:12
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ThreadsUtil {
+public class ThreadsUtil extends ThreadUtil {
 
     /**
      * 获取线程 id
