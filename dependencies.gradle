@@ -32,6 +32,7 @@ ext {
     vavr_version = "0.10.4"
     guava_version = "31.1-jre"
     hutool_version = "5.8.14"
+    vjtools_vjkit_version = "1.0.8"
     fastjson_version = "1.2.79"
     json_path_version = "2.7.0"
     reflectasm_version = "1.11.9"
@@ -185,6 +186,7 @@ ext {
     vavr = "io.vavr:vavr:${vavr_version}" as GStringImpl
     guava = "com.google.guava:guava:${guava_version}" as GStringImpl
     hutool = "cn.hutool:hutool-all:${hutool_version}" as GStringImpl
+    vjtools = "com.vip.vjtools:vjkit:${vjtools_vjkit_version}" as GStringImpl
     fastjson = "com.alibaba:fastjson:${fastjson_version}" as GStringImpl
     jackson_bom = "com.fasterxml.jackson:jackson-bom:${jackson_bom_version}" as GStringImpl
     jackson_core = "com.fasterxml.jackson.core:jackson-core"

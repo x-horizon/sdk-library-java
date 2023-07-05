@@ -27,6 +27,7 @@ dependencies {
     api("$vavr")
     api("$guava")
     api("$hutool")
+    api("$vjtools")
     api("$fastjson")
     api("$jackson_core")
     api("$jackson_databind")
