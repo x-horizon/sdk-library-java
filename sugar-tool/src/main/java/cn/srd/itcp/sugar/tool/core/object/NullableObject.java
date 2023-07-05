@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * an object to define what is null
  *
  * @author wjm
- * @since 2023-06-14 8:49:19
+ * @since 2023-06-14 08:49:19
  */
 public interface NullableObject {
 
