@@ -14,6 +14,11 @@ import java.time.format.DateTimeFormatter;
 public class TimePool extends DatePattern {
 
     /**
+     * 每小时的秒数
+     */
+    public static final int ONE_HOUR_SECOND = 3600;
+
+    /**
      * 最早的日期
      */
     public static final String EARLIEST_DATE = "1970-01-01";
