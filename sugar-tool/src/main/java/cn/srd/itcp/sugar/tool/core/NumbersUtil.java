@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.tool.core;
 
 import cn.hutool.core.util.NumberUtil;
+import cn.srd.itcp.sugar.tool.constant.TimePool;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +22,16 @@ public class NumbersUtil extends NumberUtil {
     private static final int ZERO_SCALE = 0;
 
     /**
+     * one hundred
+     */
+    private static final int ONE_HUNDRED = 100;
+
+    /**
+     * one thousand
+     */
+    private static final int ONE_THOUSAND = 1000;
+
+    /**
      * 是否是奇数
      *
      * @param number 检查参数
@@ -38,6 +49,36 @@ public class NumbersUtil extends NumberUtil {
      */
     public static boolean isEven(int number) {
         return !isOdd(number);
+    }
+
+    /**
+     * kilometer per hour to meter per second
+     *
+     * @param input kilometer per hour
+     * @return meter per second
+     */
+    public static double kilometersPerHourToMeterPerSecond(long input) {
+        return div(mul(input, ONE_THOUSAND), TimePool.ONE_HOUR_SECOND);
+    }
+
+    /**
+     * get percent
+     *
+     * @param input original number
+     * @return number after percent
+     */
+    public static double getPercent(short input) {
+        return NumbersUtil.div(input, ONE_HUNDRED);
+    }
+
+    /**
+     * see {@link #getPercent(short)}
+     *
+     * @param input original number
+     * @return number after percent
+     */
+    public static double getPercent(double input) {
+        return NumbersUtil.div(input, ONE_HUNDRED);
     }
 
     /**
