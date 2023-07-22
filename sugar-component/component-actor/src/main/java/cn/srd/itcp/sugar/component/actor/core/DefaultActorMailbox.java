@@ -103,13 +103,13 @@ public final class DefaultActorMailbox implements ActorMailbox {
                 if (busy.compareAndSet(FREE, BUSY)) {
                     dispatcher.getExecutor().execute(this::processMailbox);
                 } else {
-                    log.debug("{}process queue async - [{}] is busy, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
+                    log.trace("{}process queue async - [{}] is busy, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
                 }
             } else {
-                log.debug("{}process queue async - [{}] is empty, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
+                log.trace("{}process queue async - [{}] is empty, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
             }
         } else {
-            log.debug("{}process queue async - [{}] is not ready, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
+            log.trace("{}process queue async - [{}] is not ready, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
         }
     }
 
@@ -121,13 +121,13 @@ public final class DefaultActorMailbox implements ActorMailbox {
                 if (busy.compareAndSet(FREE, BUSY)) {
                     dispatcher.getExecutor().submit(this::processMailbox).get();
                 } else {
-                    log.debug("{}process queue sync - [{}] is busy, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
+                    log.trace("{}process queue sync - [{}] is busy, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
                 }
             } else {
-                log.debug("{}process queue sync - [{}] is empty, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
+                log.trace("{}process queue sync - [{}] is empty, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
             }
         } else {
-            log.debug("{}process queue sync - [{}] is not ready, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
+            log.trace("{}process queue sync - [{}] is not ready, has new event or not: {}", ModuleConstant.ACTOR_SYSTEM, selfId, hasNewEvent);
         }
     }
 
