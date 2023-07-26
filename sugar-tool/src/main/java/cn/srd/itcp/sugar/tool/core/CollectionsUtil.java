@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.tool.core;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.map.MapUtil;
 import cn.srd.itcp.sugar.tool.constant.CharPool;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
@@ -30,6 +31,19 @@ import java.util.stream.StreamSupport;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CollectionsUtil extends CollUtil {
+
+    // ==================================== instance function ====================================
+
+    /**
+     * see {@link MapUtil#newConcurrentHashMap()}
+     *
+     * @param <K> the key type
+     * @param <V> the value type
+     * @return {@link ConcurrentHashMap} with {@link MapUtil#DEFAULT_INITIAL_CAPACITY} capacity
+     */
+    public static <K, V> ConcurrentHashMap<K, V> newConcurrentHashMap() {
+        return MapUtil.newConcurrentHashMap();
+    }
 
     // ==================================== get function ====================================
 
