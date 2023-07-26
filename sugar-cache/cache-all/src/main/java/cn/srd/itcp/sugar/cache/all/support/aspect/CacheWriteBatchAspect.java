@@ -7,6 +7,8 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
+import java.util.List;
+
 /**
  * Aspect for {@link CacheWrite}
  *
@@ -27,10 +29,11 @@ public class CacheWriteBatchAspect implements CacheAspect {
      * the around logic for pointcut
      *
      * @param joinPoint pointcut
+     * @param <T>       the cache value type
      * @return logic return
      */
     @Around("pointcut()")
-    public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
+    public <T> List<T> aroundPointcut(ProceedingJoinPoint joinPoint) {
         CacheWriteBatch annotation = getAnnotationMarkedOnMethod(joinPoint, CacheWriteBatch.class);
         CacheAspectContext context = buildCacheWriteContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.cacheMode(), annotation.key(), annotation.allowEmptyValue());
         return doWriteBatch(joinPoint, context, this::doProceed);

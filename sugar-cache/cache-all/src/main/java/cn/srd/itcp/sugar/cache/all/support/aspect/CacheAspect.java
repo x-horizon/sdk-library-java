@@ -24,7 +24,6 @@ import org.springframework.cache.support.NullValue;
 
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -450,18 +449,18 @@ public interface CacheAspect extends AopCaptor {
      *
      * @param joinPoint pointcut
      * @param context   see {@link CacheAspectContext}
-     * @param <V>       the cache value type
+     * @param <T>       the cache value type
      * @return the cache values
      */
     @SuppressWarnings("unchecked")
-    default <V> List<V> doReadAll(ProceedingJoinPoint joinPoint, CacheAspectContext context) {
-        List<V> values = getAllCacheValues(context);
+    default <T> List<T> doReadAll(ProceedingJoinPoint joinPoint, CacheAspectContext context) {
+        List<T> values = getAllCacheValues(context);
         if (Objects.isEmpty(values)) {
-            values = (List<V>) doProceed(joinPoint);
+            values = (List<T>) doProceed(joinPoint);
             if (Objects.isEmpty(values) && Boolean.TRUE.equals(context.getAllowEmptyValue())) {
                 setCacheValue(context.setKey(NullValueUtil.getName()).setValue(null));
             } else {
-                for (V value : values) {
+                for (T value : values) {
                     String key = Option.of(Expressions.withSpring().parse(value, context.getOriginalKey())).map(Object::toString).getOrNull();
                     Objects.requireNotBlank(() -> ModuleConstant.CACHE_SYSTEM + "could not parse the cache key when read all cache, please check!", key);
                     setCacheValue(context.setKey(key).setValue(value));
@@ -498,9 +497,9 @@ public interface CacheAspect extends AopCaptor {
      * @return the cache value
      */
     @SuppressWarnings("unchecked")
-    default <T> Collection<T> doWriteBatch(ProceedingJoinPoint joinPoint, CacheAspectContext context, Function<ProceedingJoinPoint, Object> proceedPointCutLogic) {
+    default <T> List<T> doWriteBatch(ProceedingJoinPoint joinPoint, CacheAspectContext context, Function<ProceedingJoinPoint, Object> proceedPointCutLogic) {
         initCache(context);
-        Collection<T> values = (Collection<T>) proceedPointCutLogic.apply(joinPoint);
+        List<T> values = (List<T>) proceedPointCutLogic.apply(joinPoint);
         if (Objects.isNotEmpty(values)) {
             values.forEach(value -> doWrite(context, value));
         }
