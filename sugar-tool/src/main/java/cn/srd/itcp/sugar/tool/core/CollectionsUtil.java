@@ -6,6 +6,7 @@ import cn.srd.itcp.sugar.tool.constant.CharPool;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
+import io.vavr.control.Option;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -196,6 +197,144 @@ public class CollectionsUtil extends CollUtil {
      */
     public static <T> T getMin(@NonNull Collection<T> from, @NonNull Comparator<? super T> comparator) {
         return from.stream().filter(Objects::isNotNull).min(comparator).orElse(null);
+    }
+
+    /**
+     * see {@link #getFirst(Iterable)}
+     *
+     * @param from 输入参数
+     * @param <T>  元素类型
+     * @return 集合第 1 个元素
+     */
+    public static <T> Option<T> getOptionalFirst(Iterator<T> from) {
+        return Option.of(getFirst(from));
+    }
+
+    /**
+     * see {@link #getSecond(List)}
+     *
+     * @param from 输入参数
+     * @param <T>  元素类型
+     * @return 集合第 2 个元素
+     */
+    public static <T> Option<T> getOptionalSecond(@Nullable List<T> from) {
+        return Option.of(getSecond(from));
+    }
+
+    /**
+     * see {@link #getThird(List)}
+     *
+     * @param from 输入参数
+     * @param <T>  元素类型
+     * @return 输入参数的第 3 个元素
+     */
+    public static <T> Option<T> getOptionalThird(@Nullable List<T> from) {
+        return Option.of(getThird(from));
+    }
+
+    /**
+     * see {@link #getFirstKey(Map)}
+     *
+     * @param from 输入参数
+     * @param <K>  Key 类型
+     * @param <V>  Value 类型
+     * @return 第一个桶的 Key 值
+     */
+    public static <K, V> Option<K> getOptionalFirstKey(@Nullable Map<K, V> from) {
+        return Option.of(getFirstKey(from));
+    }
+
+    /**
+     * see {@link #getFirstValue(Map)}
+     *
+     * @param from 输入参数
+     * @param <K>  Key 类型
+     * @param <V>  Value 类型
+     * @return 第一个桶的 Value 值
+     */
+    public static <K, V> Option<V> getOptionalFirstValue(@Nullable Map<K, V> from) {
+        return Option.of(getFirstValue(from));
+    }
+
+    /**
+     * see {@link #getLast(Collection)}
+     *
+     * @param from 输入参数
+     * @param <T>  元素类型
+     * @return 集合最后一个元素
+     */
+    public static <T> Option<T> getOptionalLast(Collection<T> from) {
+        return Option.of(getLast(from));
+    }
+
+    /**
+     * see {@link #getAscFirst(Collection, Function)}
+     *
+     * @param from     输入参数
+     * @param function 获取逻辑
+     * @param <T>      元素类型
+     * @param <U>      获取结果的类型
+     * @return 根据获取逻辑获取到的第一个元素
+     */
+    public static <T, U extends Comparable<? super U>> Option<T> getOptionalAscFirst(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
+        return Option.of(getAscFirst(from, function));
+    }
+
+    /**
+     * see {@link #getDescFirst(Collection, Function)}
+     *
+     * @param from     输入参数
+     * @param function 获取逻辑
+     * @param <T>      元素类型
+     * @param <U>      获取结果的类型
+     * @return 根据获取逻辑获取到的第一个元素
+     */
+    public static <T, U extends Comparable<? super U>> Option<T> getOptionalDescFirst(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
+        return Option.of(getDescFirst(from, function));
+    }
+
+    /**
+     * see {@link #getMax(Collection)}
+     *
+     * @param from 输入参数
+     * @return 最大长度字符串
+     */
+    public static Option<String> getOptionalMax(@NonNull Collection<String> from) {
+        return Option.of(getMax(from));
+    }
+
+    /**
+     * see {@link #getMax(Collection, Comparator)}
+     *
+     * @param from       输入参数
+     * @param comparator 比较逻辑
+     * @param <T>        元素类型
+     * @return 获取到的最大比较规则的元素
+     */
+    public static <T> Option<T> getOptionalMax(@NonNull Collection<T> from, @NonNull Comparator<? super T> comparator) {
+        return Option.of(getMax(from, comparator));
+    }
+
+    /**
+     * see {@link #getMin(Collection)}
+     *
+     * @param from 输入参数
+     * @return 最小长度的字符串
+     */
+    public static Option<String> getOptionalMin(@NonNull Collection<String> from) {
+        return Option.of(getMin(from));
+    }
+
+    /**
+     * see {@link #getMin(Collection, Comparator)}
+     *
+     * @param from       输入参数
+     * @param comparator 比较规则
+     * @param <T>        元素类型
+     * @return 根据比较规则获取到的最小比较规则元素
+     */
+    public static <T> Option<T> getOptionalMin(@NonNull Collection<T> from, @NonNull Comparator<? super T> comparator) {
+        return Option.of(getMin(from, comparator));
     }
 
     // ==================================== move item ====================================
