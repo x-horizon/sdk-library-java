@@ -1,5 +1,6 @@
 package cn.srd.itcp.sugar.component.convert.jackson.support;
 
+import cn.srd.itcp.sugar.tool.constant.TimePool;
 import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonToken;
@@ -12,17 +13,17 @@ import lombok.SneakyThrows;
 import java.time.LocalDateTime;
 
 /**
- * Jackson 序列化处理器：LocalDateTime =&gt; String，如：2011-12-03 10:15:30
+ * Jackson 序列化处理器：LocalDateTime =&gt; String，遵循 ISO 标准，如：2011-12-03T10:15:30
  *
  * @author wjm
- * @since 2023-03-28 10:00:01
+ * @since 2022-11-14 21:16:51
  */
-public class JacksonLocalDateTimeToStringWithoutTSerializer extends JsonSerializer<LocalDateTime> {
+public class JacksonLocalDateTimeToStringISOSerializer extends JsonSerializer<LocalDateTime> {
 
     @Override
     @SneakyThrows
     public void serialize(LocalDateTime from, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
-        jsonGenerator.writeObject(TimeUtil.toStringWithDateTime(from));
+        jsonGenerator.writeObject(TimeUtil.toStringWithDateTime(from, TimePool.DATETIME_PATTERN));
     }
 
     @Override

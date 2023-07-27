@@ -12,17 +12,17 @@ import lombok.SneakyThrows;
 import java.time.LocalDateTime;
 
 /**
- * Jackson 序列化处理器：LocalDateTime =&gt; String，如：2011-12-03T10:15:30
+ * Jackson 序列化处理器：LocalDateTime =&gt; String，如：2011-12-03 10:15:30.9
  *
  * @author wjm
- * @since 2022-11-14 21:16:51
+ * @since 2023-07-27 21:50:19
  */
-public class JacksonLocalDateTimeToStringWithTSerializer extends JsonSerializer<LocalDateTime> {
+public class JacksonLocalDateTimeToStringMS1Serializer extends JsonSerializer<LocalDateTime> {
 
     @Override
     @SneakyThrows
     public void serialize(LocalDateTime from, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
-        jsonGenerator.writeObject(TimeUtil.toStringWithDateTimeAndT(from));
+        jsonGenerator.writeObject(TimeUtil.toStringWithDateTimeMS1(from));
     }
 
     @Override

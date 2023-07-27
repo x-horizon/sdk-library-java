@@ -165,22 +165,93 @@ public class TimeUtil extends LocalDateTimeUtil {
     }
 
     /**
+     * LocalDateTime =&gt; String，自定义时间格式；
+     *
+     * @param input  输入时间对象
+     * @param format 格式化，see {@link TimePool}
+     * @return 时间字符串
+     */
+    public static String toStringWithDateTime(@Nullable LocalDateTime input, String format) {
+        return Objects.isNull(input) ? StringPool.EMPTY : DateTimeFormatter.ofPattern(format).format(input);
+    }
+
+    /**
      * LocalDateTime =&gt; String，如：2011-12-03 10:15:30
      *
      * @param input 输入时间对象
      * @return 时间字符串
      */
-    public static String toStringWithDateTime(@Nullable LocalDateTime input) {
-        return Objects.isNull(input) ? StringPool.EMPTY : StringsUtil.replace(toStringWithDateTimeAndT(input), "T", " ");
+    public static String toStringWithDateTimeMS0(@Nullable LocalDateTime input) {
+        return Objects.isNull(input) ? StringPool.EMPTY : DateTimeFormatter.ofPattern(TimePool.DATETIME_PATTERN).format(input);
     }
 
     /**
-     * LocalDateTime =&gt; String，如：2011-12-03T10:15:30
+     * LocalDateTime =&gt; String，如：2011-12-03 10:15:30.9
      *
      * @param input 输入时间对象
      * @return 时间字符串
      */
-    public static String toStringWithDateTimeAndT(@Nullable LocalDateTime input) {
+    public static String toStringWithDateTimeMS1(@Nullable LocalDateTime input) {
+        return Objects.isNull(input) ? StringPool.EMPTY : DateTimeFormatter.ofPattern(TimePool.DATETIME_MS1_PATTERN).format(input);
+    }
+
+    /**
+     * LocalDateTime =&gt; String，如：2011-12-03 10:15:30.97
+     *
+     * @param input 输入时间对象
+     * @return 时间字符串
+     */
+    public static String toStringWithDateTimeMS2(@Nullable LocalDateTime input) {
+        return Objects.isNull(input) ? StringPool.EMPTY : DateTimeFormatter.ofPattern(TimePool.DATETIME_MS2_PATTERN).format(input);
+    }
+
+    /**
+     * LocalDateTime =&gt; String，如：2011-12-03 10:15:30.974
+     *
+     * @param input 输入时间对象
+     * @return 时间字符串
+     */
+    public static String toStringWithDateTimeMS3(@Nullable LocalDateTime input) {
+        return Objects.isNull(input) ? StringPool.EMPTY : DateTimeFormatter.ofPattern(TimePool.DATETIME_MS3_PATTERN).format(input);
+    }
+
+    /**
+     * LocalDateTime =&gt; String，如：2011-12-03 10:15:30.9745
+     *
+     * @param input 输入时间对象
+     * @return 时间字符串
+     */
+    public static String toStringWithDateTimeMS4(@Nullable LocalDateTime input) {
+        return Objects.isNull(input) ? StringPool.EMPTY : DateTimeFormatter.ofPattern(TimePool.DATETIME_MS4_PATTERN).format(input);
+    }
+
+    /**
+     * LocalDateTime =&gt; String，如：2011-12-03 10:15:30.97451
+     *
+     * @param input 输入时间对象
+     * @return 时间字符串
+     */
+    public static String toStringWithDateTimeMS5(@Nullable LocalDateTime input) {
+        return Objects.isNull(input) ? StringPool.EMPTY : DateTimeFormatter.ofPattern(TimePool.DATETIME_MS5_PATTERN).format(input);
+    }
+
+    /**
+     * LocalDateTime =&gt; String，如：2011-12-03 10:15:30.974515
+     *
+     * @param input 输入时间对象
+     * @return 时间字符串
+     */
+    public static String toStringWithDateTimeMS6(@Nullable LocalDateTime input) {
+        return Objects.isNull(input) ? StringPool.EMPTY : DateTimeFormatter.ofPattern(TimePool.DATETIME_MS6_PATTERN).format(input);
+    }
+
+    /**
+     * LocalDateTime =&gt; String，如：2011-12-03T10:15:30.974515（如果纳秒后面为 0，则省略，如：2011-12-03T10:15:30.97451）
+     *
+     * @param input 输入时间对象
+     * @return 时间字符串
+     */
+    public static String toStringWithISODateTime(@Nullable LocalDateTime input) {
         return Objects.isNull(input) ? StringPool.EMPTY : DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(input);
     }
 
