@@ -18,7 +18,6 @@ import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tool.core.ReflectsUtil;
 import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
-import io.vavr.control.Option;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.cache.support.NullValue;
 
@@ -26,6 +25,7 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
@@ -131,7 +131,7 @@ public interface CacheAspect extends AopCaptor {
             key = ReflectsUtil.newInstance(parseKeyGenerator(cacheConfigAnnotation, keyGeneratorOnMethod)).generate(parameters, parameterValues);
             Objects.requireNotBlank(() -> StringsUtil.format("{}could not generate cache key by keyGenerator [{}], please check!", ModuleConstant.CACHE_SYSTEM, keyGeneratorOnMethod.getSimpleName()), key);
         } else {
-            key = Option.of(Expressions.withSpring().parse(parameters, parameterValues, keyExpression)).map(Object::toString).getOrNull();
+            key = Optional.ofNullable(Expressions.withSpring().parse(parameters, parameterValues, keyExpression)).map(Object::toString).orElse(null);
             Objects.requireNotBlank(() -> StringsUtil.format("{}could not generate cache key by keyExpression [{}], please check!", ModuleConstant.CACHE_SYSTEM, keyExpression), key);
         }
         return key;
@@ -461,7 +461,7 @@ public interface CacheAspect extends AopCaptor {
                 setCacheValue(context.setKey(NullValueUtil.getName()).setValue(null));
             } else {
                 for (T value : values) {
-                    String key = Option.of(Expressions.withSpring().parse(value, context.getOriginalKey())).map(Object::toString).getOrNull();
+                    String key = Optional.ofNullable(Expressions.withSpring().parse(value, context.getOriginalKey())).map(Object::toString).orElse(null);
                     Objects.requireNotBlank(() -> ModuleConstant.CACHE_SYSTEM + "could not parse the cache key when read all cache, please check!", key);
                     setCacheValue(context.setKey(key).setValue(value));
                 }
@@ -513,7 +513,7 @@ public interface CacheAspect extends AopCaptor {
      * @param value   the cache value
      */
     default void doWrite(CacheAspectContext context, Object value) {
-        String key = Option.of(Expressions.withSpring().parse(value, context.getOriginalKey())).map(Object::toString).getOrNull();
+        String key = Optional.ofNullable(Expressions.withSpring().parse(value, context.getOriginalKey())).map(Object::toString).orElse(null);
         Objects.requireNotBlank(() -> ModuleConstant.CACHE_SYSTEM + "could not parse the cache key when write cache, please check!", key);
         /**
          * TODO wjm need optimize to use strategy

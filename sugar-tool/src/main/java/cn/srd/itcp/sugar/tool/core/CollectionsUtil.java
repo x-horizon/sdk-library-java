@@ -7,7 +7,6 @@ import cn.srd.itcp.sugar.tool.constant.CharPool;
 import cn.srd.itcp.sugar.tool.constant.StringPool;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
 import cn.srd.itcp.sugar.tool.core.validation.Nullable;
-import io.vavr.control.Option;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -220,8 +219,8 @@ public class CollectionsUtil extends CollUtil {
      * @param <T>  元素类型
      * @return 集合第 1 个元素
      */
-    public static <T> Option<T> getOptionalFirst(Iterator<T> from) {
-        return Option.of(getFirst(from));
+    public static <T> Optional<T> getOptionalFirst(Iterator<T> from) {
+        return Optional.ofNullable(getFirst(from));
     }
 
     /**
@@ -231,8 +230,8 @@ public class CollectionsUtil extends CollUtil {
      * @param <T>  元素类型
      * @return 集合第 2 个元素
      */
-    public static <T> Option<T> getOptionalSecond(@Nullable List<T> from) {
-        return Option.of(getSecond(from));
+    public static <T> Optional<T> getOptionalSecond(@Nullable List<T> from) {
+        return Optional.ofNullable(getSecond(from));
     }
 
     /**
@@ -242,8 +241,8 @@ public class CollectionsUtil extends CollUtil {
      * @param <T>  元素类型
      * @return 输入参数的第 3 个元素
      */
-    public static <T> Option<T> getOptionalThird(@Nullable List<T> from) {
-        return Option.of(getThird(from));
+    public static <T> Optional<T> getOptionalThird(@Nullable List<T> from) {
+        return Optional.ofNullable(getThird(from));
     }
 
     /**
@@ -254,8 +253,8 @@ public class CollectionsUtil extends CollUtil {
      * @param <V>  Value 类型
      * @return 第一个桶的 Key 值
      */
-    public static <K, V> Option<K> getOptionalFirstKey(@Nullable Map<K, V> from) {
-        return Option.of(getFirstKey(from));
+    public static <K, V> Optional<K> getOptionalFirstKey(@Nullable Map<K, V> from) {
+        return Optional.ofNullable(getFirstKey(from));
     }
 
     /**
@@ -266,8 +265,8 @@ public class CollectionsUtil extends CollUtil {
      * @param <V>  Value 类型
      * @return 第一个桶的 Value 值
      */
-    public static <K, V> Option<V> getOptionalFirstValue(@Nullable Map<K, V> from) {
-        return Option.of(getFirstValue(from));
+    public static <K, V> Optional<V> getOptionalFirstValue(@Nullable Map<K, V> from) {
+        return Optional.ofNullable(getFirstValue(from));
     }
 
     /**
@@ -277,8 +276,8 @@ public class CollectionsUtil extends CollUtil {
      * @param <T>  元素类型
      * @return 集合最后一个元素
      */
-    public static <T> Option<T> getOptionalLast(Collection<T> from) {
-        return Option.of(getLast(from));
+    public static <T> Optional<T> getOptionalLast(Collection<T> from) {
+        return Optional.ofNullable(getLast(from));
     }
 
     /**
@@ -290,8 +289,8 @@ public class CollectionsUtil extends CollUtil {
      * @param <U>      获取结果的类型
      * @return 根据获取逻辑获取到的第一个元素
      */
-    public static <T, U extends Comparable<? super U>> Option<T> getOptionalAscFirst(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
-        return Option.of(getAscFirst(from, function));
+    public static <T, U extends Comparable<? super U>> Optional<T> getOptionalAscFirst(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
+        return Optional.ofNullable(getAscFirst(from, function));
     }
 
     /**
@@ -303,8 +302,8 @@ public class CollectionsUtil extends CollUtil {
      * @param <U>      获取结果的类型
      * @return 根据获取逻辑获取到的第一个元素
      */
-    public static <T, U extends Comparable<? super U>> Option<T> getOptionalDescFirst(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
-        return Option.of(getDescFirst(from, function));
+    public static <T, U extends Comparable<? super U>> Optional<T> getOptionalDescFirst(@NonNull Collection<T> from, @NonNull Function<T, U> function) {
+        return Optional.ofNullable(getDescFirst(from, function));
     }
 
     /**
@@ -313,8 +312,8 @@ public class CollectionsUtil extends CollUtil {
      * @param from 输入参数
      * @return 最大长度字符串
      */
-    public static Option<String> getOptionalMax(@NonNull Collection<String> from) {
-        return Option.of(getMax(from));
+    public static Optional<String> getOptionalMax(@NonNull Collection<String> from) {
+        return Optional.ofNullable(getMax(from));
     }
 
     /**
@@ -325,8 +324,8 @@ public class CollectionsUtil extends CollUtil {
      * @param <T>        元素类型
      * @return 获取到的最大比较规则的元素
      */
-    public static <T> Option<T> getOptionalMax(@NonNull Collection<T> from, @NonNull Comparator<? super T> comparator) {
-        return Option.of(getMax(from, comparator));
+    public static <T> Optional<T> getOptionalMax(@NonNull Collection<T> from, @NonNull Comparator<? super T> comparator) {
+        return Optional.ofNullable(getMax(from, comparator));
     }
 
     /**
@@ -335,8 +334,8 @@ public class CollectionsUtil extends CollUtil {
      * @param from 输入参数
      * @return 最小长度的字符串
      */
-    public static Option<String> getOptionalMin(@NonNull Collection<String> from) {
-        return Option.of(getMin(from));
+    public static Optional<String> getOptionalMin(@NonNull Collection<String> from) {
+        return Optional.ofNullable(getMin(from));
     }
 
     /**
@@ -347,8 +346,8 @@ public class CollectionsUtil extends CollUtil {
      * @param <T>        元素类型
      * @return 根据比较规则获取到的最小比较规则元素
      */
-    public static <T> Option<T> getOptionalMin(@NonNull Collection<T> from, @NonNull Comparator<? super T> comparator) {
-        return Option.of(getMin(from, comparator));
+    public static <T> Optional<T> getOptionalMin(@NonNull Collection<T> from, @NonNull Comparator<? super T> comparator) {
+        return Optional.ofNullable(getMin(from, comparator));
     }
 
     // ==================================== move item ====================================

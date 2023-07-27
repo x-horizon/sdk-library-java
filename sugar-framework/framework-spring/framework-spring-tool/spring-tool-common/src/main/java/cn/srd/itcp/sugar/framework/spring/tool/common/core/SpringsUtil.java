@@ -6,7 +6,6 @@ import cn.srd.itcp.sugar.tool.core.ClassesUtil;
 import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
-import io.vavr.control.Option;
 import io.vavr.control.Try;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -18,6 +17,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import java.lang.annotation.Annotation;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -41,9 +41,8 @@ public class SpringsUtil extends SpringUtil {
      * @return bean 对象
      */
     public static Object getBean(String beanName) {
-        return Option.of(Try.of(() -> SpringUtil.getBean(StringsUtil.lowerFirst(beanName))).getOrNull())
-                .orElse(() -> Option.of(Try.of(() -> SpringUtil.getConfigurableBeanFactory().getBean(beanName)).getOrNull()))
-                .getOrNull();
+        return Optional.ofNullable(Try.of(() -> SpringUtil.getBean(StringsUtil.lowerFirst(beanName))).getOrNull())
+                .orElseGet(() -> Optional.ofNullable(Try.of(() -> SpringUtil.getConfigurableBeanFactory().getBean(beanName)).getOrNull()));
     }
 
     /**
