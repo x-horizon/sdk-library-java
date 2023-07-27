@@ -23,7 +23,7 @@ public class CaffeineCacheProperties {
     /**
      * instance
      */
-    private static CaffeineCacheProperties instance = null;
+    @Getter private static CaffeineCacheProperties instance = null;
 
     /**
      * instance init
@@ -31,15 +31,6 @@ public class CaffeineCacheProperties {
     @PostConstruct
     public void init() {
         instance = this;
-    }
-
-    /**
-     * get singleton instance
-     *
-     * @return instance
-     */
-    public static CaffeineCacheProperties getInstance() {
-        return instance;
     }
 
     /**

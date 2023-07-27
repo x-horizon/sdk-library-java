@@ -22,7 +22,7 @@ public class MultilevelCacheProperties {
     /**
      * instance
      */
-    private static MultilevelCacheProperties instance = null;
+    @Getter private static MultilevelCacheProperties instance = null;
 
     /**
      * instance init
@@ -34,15 +34,6 @@ public class MultilevelCacheProperties {
             setInternalBlockToHitDistributedCacheLeaseTime(TimeUtil.wrapper(getBlockToHitDistributedCacheLeaseTime()).toMillisecond().toMillis());
         }
         instance = this;
-    }
-
-    /**
-     * get singleton instance
-     *
-     * @return instance
-     */
-    public static MultilevelCacheProperties getInstance() {
-        return instance;
     }
 
     /**

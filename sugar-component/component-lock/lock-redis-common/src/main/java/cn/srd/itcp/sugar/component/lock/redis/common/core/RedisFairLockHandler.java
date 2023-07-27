@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.component.lock.redis.common.core;
 
 import cn.srd.itcp.sugar.context.redis.core.RedisManager;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
 import org.redisson.api.RLock;
 
 /**
@@ -15,7 +16,7 @@ public class RedisFairLockHandler implements RedisLockTemplate {
     /**
      * instance
      */
-    private static RedisFairLockHandler instance = null;
+    @Getter private static RedisFairLockHandler instance = null;
 
     /**
      * instance init
@@ -23,15 +24,6 @@ public class RedisFairLockHandler implements RedisLockTemplate {
     @PostConstruct
     public void init() {
         instance = this;
-    }
-
-    /**
-     * get singleton instance
-     *
-     * @return instance
-     */
-    public static RedisFairLockHandler getInstance() {
-        return instance;
     }
 
     @Override

@@ -2,6 +2,7 @@ package cn.srd.itcp.sugar.component.lock.redis.common.support;
 
 import cn.srd.itcp.sugar.component.lock.redis.common.core.RedisNonFairLock;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -20,7 +21,7 @@ public class RedisNonFairLockAspect extends RedisLockAspectSupporter {
     /**
      * instance
      */
-    private static RedisNonFairLockAspect instance = null;
+    @Getter private static RedisNonFairLockAspect instance = null;
 
     /**
      * instance init
@@ -28,15 +29,6 @@ public class RedisNonFairLockAspect extends RedisLockAspectSupporter {
     @PostConstruct
     public void init() {
         instance = this;
-    }
-
-    /**
-     * get singleton instance
-     *
-     * @return instance
-     */
-    public static RedisNonFairLockAspect getInstance() {
-        return instance;
     }
 
     /**

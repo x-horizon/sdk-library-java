@@ -22,7 +22,7 @@ public class RedisCacheProperties {
     /**
      * instance
      */
-    private static RedisCacheProperties instance = null;
+    @Getter private static RedisCacheProperties instance = null;
 
     /**
      * instance init
@@ -32,15 +32,6 @@ public class RedisCacheProperties {
     public void init() {
         this.baseInfo = (RedisProperties) SpringsUtil.getBean("spring.data.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties");
         instance = this;
-    }
-
-    /**
-     * get singleton instance
-     *
-     * @return instance
-     */
-    public static RedisCacheProperties getInstance() {
-        return instance;
     }
 
     /**

@@ -11,6 +11,7 @@ import cn.srd.itcp.sugar.tool.core.asserts.Assert;
 import cn.srd.itcp.sugar.tool.core.convert.Converts;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
 import lombok.SneakyThrows;
 import org.aspectj.lang.ProceedingJoinPoint;
 
@@ -29,7 +30,7 @@ public class RedisLockAspectSupporter {
     /**
      * instance
      */
-    private static RedisLockAspectSupporter instance = null;
+    @Getter private static RedisLockAspectSupporter instance = null;
 
     /**
      * instance init
@@ -37,15 +38,6 @@ public class RedisLockAspectSupporter {
     @PostConstruct
     public void init() {
         instance = this;
-    }
-
-    /**
-     * get singleton instance
-     *
-     * @return instance
-     */
-    public static RedisLockAspectSupporter getInstance() {
-        return instance;
     }
 
     /**

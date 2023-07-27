@@ -23,7 +23,7 @@ public class CacheProperties {
     /**
      * instance
      */
-    private static CacheProperties instance = null;
+    @Getter private static CacheProperties instance = null;
 
     /**
      * instance init
@@ -37,15 +37,6 @@ public class CacheProperties {
         setRedis(SpringsUtil.getBean(RedisCacheProperties.class));
         setMultilevel(SpringsUtil.getBean(MultilevelCacheProperties.class));
         instance = this;
-    }
-
-    /**
-     * get singleton instance
-     *
-     * @return instance
-     */
-    public static CacheProperties getInstance() {
-        return instance;
     }
 
     /**
