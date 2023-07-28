@@ -23,7 +23,7 @@ public interface BTree {
 
     /**
      * <pre>
-     * find all path by the BTree.
+     * find all path from the BTree.
      *
      * example:
      *
@@ -52,7 +52,7 @@ public interface BTree {
         if (Objects.isNull(root)) {
             return paths;
         }
-        dfs(root, new ArrayList<>(), paths);
+        dfsSupportGetAllPaths(root, new ArrayList<>(), paths);
         return paths;
     }
 
@@ -79,7 +79,7 @@ public interface BTree {
      */
     default <T extends BTree> List<T> flatten(T root) {
         List<T> output = new ArrayList<>();
-        dfs(root, output);
+        dfsSupportFlatten(root, output);
         return output;
     }
 
@@ -92,30 +92,30 @@ public interface BTree {
      * @param <T>   the children element type
      */
     @SuppressWarnings("unchecked")
-    private <T extends BTree> void dfs(T node, List<T> path, List<List<T>> paths) {
+    private <T extends BTree> void dfsSupportGetAllPaths(T node, List<T> path, List<List<T>> paths) {
         path.add(node);
         if (Objects.isEmpty(node.getChildren())) {
             paths.add(new ArrayList<>(path));
         } else {
-            node.getChildren().forEach(child -> dfs((T) child, path, paths));
+            node.getChildren().forEach(child -> dfsSupportGetAllPaths((T) child, path, paths));
         }
         path.remove(path.size() - 1);
     }
 
     /**
-     * flatten BTree support: use depth-first traversal algorithm, the time complexity is O(n)
+     * flatten BTree support: use depth-first traversal algorithm, the time complexity is O(mn)
      *
      * @param node   the tree node
      * @param output after flatten
      * @param <T>    the children element type
      */
     @SuppressWarnings("unchecked")
-    private <T extends BTree> void dfs(T node, List<T> output) {
+    private <T extends BTree> void dfsSupportFlatten(T node, List<T> output) {
         if (Objects.isNull(node)) {
             return;
         }
         output.add(node);
-        node.getChildren().forEach(child -> dfs((T) child, output));
+        node.getChildren().forEach(child -> dfsSupportFlatten((T) child, output));
     }
 
 }
