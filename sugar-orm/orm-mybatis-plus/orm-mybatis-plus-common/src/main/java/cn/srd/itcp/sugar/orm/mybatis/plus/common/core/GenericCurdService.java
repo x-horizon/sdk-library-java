@@ -37,6 +37,14 @@ public class GenericCurdService<Dao extends GenericCurdDao<PO>, PO> extends MPJB
         return getOne(MpWrappers.<PO>withLambdaJoinQuery().apply(SQL.getDecodeHexPrimaryKey(poClass, primaryKey)));
     }
 
+    @Override
+    public List<PO> listByIds(Collection<? extends Serializable> ids) {
+        if (Objects.isEmpty(ids)) {
+            return new ArrayList<>();
+        }
+        return super.listByIds(ids);
+    }
+
     /**
      * 校验唯一性，该函数只适合与新增数据时不存在主键的唯一性校验，若存在主键的唯一性校验，使用 {@link #isUnique(Class, Serializable, SFunction, Object)}
      *
