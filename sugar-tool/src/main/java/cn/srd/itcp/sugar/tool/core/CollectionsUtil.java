@@ -350,6 +350,33 @@ public class CollectionsUtil extends CollUtil {
         return Optional.ofNullable(getMin(from, comparator));
     }
 
+    /**
+     * 获取指定元素的下一个元素（指定元素的下一个元素是否有序取决于输入集合是否有序）
+     *
+     * @param from             输入参数
+     * @param specifiedElement 指定元素
+     * @param <T>              元素类型
+     * @return 指定元素的下一个元素（指定元素的下一个元素是否有序取决于输入集合是否有序）
+     */
+    public static <T> Optional<T> getNext(@NonNull Iterable<T> from, Predicate<T> specifiedElement) {
+        return getNext(from.iterator(), specifiedElement);
+    }
+
+    /**
+     * 获取指定元素的下一个元素（指定元素的下一个元素是否有序取决于输入集合是否有序）
+     *
+     * @param from             输入参数
+     * @param specifiedElement 指定元素
+     * @param <T>              元素类型
+     * @return 指定元素的下一个元素（指定元素的下一个元素是否有序取决于输入集合是否有序）
+     */
+    public static <T> Optional<T> getNext(@NonNull Iterator<T> from, Predicate<T> specifiedElement) {
+        return StreamSupport
+                .stream(Spliterators.spliteratorUnknownSize(from, Spliterator.ORDERED), false)
+                .dropWhile(element -> !specifiedElement.test(element)).skip(1)
+                .findFirst();
+    }
+
     // ==================================== move item ====================================
 
     /**
