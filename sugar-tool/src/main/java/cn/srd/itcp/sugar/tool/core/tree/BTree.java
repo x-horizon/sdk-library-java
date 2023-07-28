@@ -84,6 +84,50 @@ public interface BTree {
     }
 
     /**
+     * <pre>
+     * find all node and child from the BTree.
+     *
+     * example:
+     *
+     * the BTree defined is:
+     *             1
+     *           / | \
+     *          2  3  4
+     *         / \
+     *        5   6
+     *       / \
+     *      7   8
+     *     /   /
+     *    9   10
+     *   /
+     *  11
+     *
+     * all node and child are:
+     * [
+     *   [1, 2],
+     *   [2, 5],
+     *   [5, 7],
+     *   [7, 9],
+     *   [9, 11],
+     *   [5, 8],
+     *   [8, 10],
+     *   [2, 6],
+     *   [1, 3],
+     *   [1, 4],
+     * ]
+     * </pre>
+     *
+     * @param root the root node
+     * @param <T>  the children element type
+     * @return all node and child
+     */
+    default <T extends BTree> List<List<T>> getAllNodeAndChild(T root) {
+        List<List<T>> result = new ArrayList<>();
+        dfsSupportGetAllNodeAndChild(root, result);
+        return result;
+    }
+
+    /**
      * find BTree all paths support: use depth-first traversal algorithm, the time complexity is O(mn)
      *
      * @param node  the tree node
@@ -116,6 +160,27 @@ public interface BTree {
         }
         output.add(node);
         node.getChildren().forEach(child -> dfsSupportFlatten((T) child, output));
+    }
+
+    /**
+     * find BTree all node and child support: use depth-first traversal algorithm, the time complexity is O(mn)
+     *
+     * @param node   the tree node
+     * @param output all node and child
+     * @param <T>    the children element type
+     */
+    @SuppressWarnings("unchecked")
+    private <T extends BTree> void dfsSupportGetAllNodeAndChild(T node, List<List<T>> output) {
+        if (Objects.isNull(node)) {
+            return;
+        }
+        node.getChildren().forEach(child -> {
+            List<T> list = new ArrayList<>();
+            list.add(node);
+            list.add((T) child);
+            output.add(list);
+            dfsSupportGetAllNodeAndChild((T) child, output);
+        });
     }
 
 }
