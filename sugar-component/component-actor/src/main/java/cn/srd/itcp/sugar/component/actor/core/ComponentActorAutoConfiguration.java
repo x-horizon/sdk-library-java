@@ -54,7 +54,9 @@ public class ComponentActorAutoConfiguration {
         actorTypeStrategyClasses.forEach(actorTypeStrategyClass -> {
             ActorTypeStrategy actorTypeStrategy = Objects.requireNotNull(() -> StringsUtil.format("Actor System init failed, Class [{}] that implements class [{}] is null, it may be not added to Spring IOC, please check!", actorTypeStrategyClass.getSimpleName(), ActorTypeStrategy.class.getSimpleName()), SpringsUtil.getBean(actorTypeStrategyClass));
             String dispatcherName = actorTypeStrategy.getDispatcherName();
-            actorSystem.createDispatcher(dispatcherName, newDispatcherExecutor(dispatcherName, actorTypeStrategy.getDispatcherCount()));
+            int dispatcherCount = actorTypeStrategy.getDispatcherCount();
+            log.debug("{}Prepare to create actor dispatcher, name is [{}], count is [{}]", ModuleConstant.ACTOR_SYSTEM, dispatcherName, dispatcherCount);
+            actorSystem.createDispatcher(dispatcherName, newDispatcherExecutor(dispatcherName, dispatcherCount));
             actorTypeStrategy.setMailbox(actorSystem.createRootActor(dispatcherName, actorTypeStrategy.newActorCreator()));
         });
 
