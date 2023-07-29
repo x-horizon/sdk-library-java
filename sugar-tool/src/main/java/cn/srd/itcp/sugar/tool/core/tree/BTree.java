@@ -58,33 +58,6 @@ public interface BTree {
 
     /**
      * <pre>
-     * flatten the BTree.
-     *
-     * example:
-     *
-     * the BTree defined is:
-     *       1
-     *     / | \
-     *    2  3  4
-     *   / \
-     *  5   6
-     *
-     * after flatten:
-     * [1, 2, 3, 4, 5, 6]
-     * </pre>
-     *
-     * @param root the root node
-     * @param <T>  the children element type
-     * @return after flatten result
-     */
-    default <T extends BTree> List<T> flatten(T root) {
-        List<T> output = new ArrayList<>();
-        dfsSupportFlatten(root, output);
-        return output;
-    }
-
-    /**
-     * <pre>
      * find all node and child from the BTree.
      *
      * example:
@@ -128,6 +101,33 @@ public interface BTree {
     }
 
     /**
+     * <pre>
+     * flatten the BTree.
+     *
+     * example:
+     *
+     * the BTree defined is:
+     *       1
+     *     / | \
+     *    2  3  4
+     *   / \
+     *  5   6
+     *
+     * after flatten:
+     * [1, 2, 3, 4, 5, 6]
+     * </pre>
+     *
+     * @param root the root node
+     * @param <T>  the children element type
+     * @return after flatten result
+     */
+    default <T extends BTree> List<T> flatten(T root) {
+        List<T> output = new ArrayList<>();
+        dfsSupportFlatten(root, output);
+        return output;
+    }
+
+    /**
      * find BTree all paths support: use depth-first traversal algorithm, the time complexity is O(mn)
      *
      * @param node  the tree node
@@ -147,6 +147,27 @@ public interface BTree {
     }
 
     /**
+     * find BTree all node and child support: use depth-first traversal algorithm, the time complexity is O(mn)
+     *
+     * @param node   the tree node
+     * @param output all node and child
+     * @param <T>    the children element type
+     */
+    @SuppressWarnings("unchecked")
+    private <T extends BTree> void dfsSupportGetAllNodeAndChild(T node, List<List<T>> output) {
+        if (Objects.isNull(node)) {
+            return;
+        }
+        node.getChildren().forEach(child -> {
+            List<T> nodeAndChild = new ArrayList<>();
+            nodeAndChild.add(node);
+            nodeAndChild.add((T) child);
+            output.add(nodeAndChild);
+            dfsSupportGetAllNodeAndChild((T) child, output);
+        });
+    }
+
+    /**
      * flatten BTree support: use depth-first traversal algorithm, the time complexity is O(mn)
      *
      * @param node   the tree node
@@ -160,27 +181,6 @@ public interface BTree {
         }
         output.add(node);
         node.getChildren().forEach(child -> dfsSupportFlatten((T) child, output));
-    }
-
-    /**
-     * find BTree all node and child support: use depth-first traversal algorithm, the time complexity is O(mn)
-     *
-     * @param node   the tree node
-     * @param output all node and child
-     * @param <T>    the children element type
-     */
-    @SuppressWarnings("unchecked")
-    private <T extends BTree> void dfsSupportGetAllNodeAndChild(T node, List<List<T>> output) {
-        if (Objects.isNull(node)) {
-            return;
-        }
-        node.getChildren().forEach(child -> {
-            List<T> list = new ArrayList<>();
-            list.add(node);
-            list.add((T) child);
-            output.add(list);
-            dfsSupportGetAllNodeAndChild((T) child, output);
-        });
     }
 
 }
