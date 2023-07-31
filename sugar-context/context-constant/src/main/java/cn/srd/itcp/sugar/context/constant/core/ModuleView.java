@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
  * @since 2023-06-29 20:25:44
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ModuleConstant {
+public class ModuleView {
 
     /**
      * the enum autowired module name

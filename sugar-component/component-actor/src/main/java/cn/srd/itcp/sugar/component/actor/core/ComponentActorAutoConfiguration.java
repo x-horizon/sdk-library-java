@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.component.actor.core;
 
-import cn.srd.itcp.sugar.context.constant.core.ModuleConstant;
+import cn.srd.itcp.sugar.context.constant.core.ModuleView;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.tool.core.ClassesUtil;
 import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
@@ -44,7 +44,7 @@ public class ComponentActorAutoConfiguration {
 
     @PostConstruct
     public void initActorSystem() {
-        log.debug("{}starting initializing...", ModuleConstant.ACTOR_SYSTEM);
+        log.debug("{}starting initializing...", ModuleView.ACTOR_SYSTEM);
 
         ActorSystemSettings settings = new ActorSystemSettings(actorSystemProperties.getActorProcessThroughput(), actorSystemProperties.getSchedulerPoolSize(), actorSystemProperties.getMaxInitActorRetryCount());
         actorSystem = new DefaultActorSystem(settings);
@@ -55,20 +55,20 @@ public class ComponentActorAutoConfiguration {
             ActorTypeStrategy actorTypeStrategy = Objects.requireNotNull(() -> StringsUtil.format("Actor System init failed, Class [{}] that implements class [{}] is null, it may be not added to Spring IOC, please check!", actorTypeStrategyClass.getSimpleName(), ActorTypeStrategy.class.getSimpleName()), SpringsUtil.getBean(actorTypeStrategyClass));
             String dispatcherName = actorTypeStrategy.getDispatcherName();
             int dispatcherCount = actorTypeStrategy.getDispatcherCount();
-            log.debug("{}Prepare to create actor dispatcher, name is [{}], count is [{}]", ModuleConstant.ACTOR_SYSTEM, dispatcherName, dispatcherCount);
+            log.debug("{}Prepare to create actor dispatcher, name is [{}], count is [{}]", ModuleView.ACTOR_SYSTEM, dispatcherName, dispatcherCount);
             actorSystem.createDispatcher(dispatcherName, newDispatcherExecutor(dispatcherName, dispatcherCount));
             actorTypeStrategy.setMailbox(actorSystem.createRootActor(dispatcherName, actorTypeStrategy.newActorCreator()));
         });
 
-        log.debug("{}initialized.", ModuleConstant.ACTOR_SYSTEM);
+        log.debug("{}initialized.", ModuleView.ACTOR_SYSTEM);
     }
 
     @PreDestroy
     public void destroyActorSystem() {
         if (actorSystem != null) {
-            log.debug("{}Stopping...", ModuleConstant.ACTOR_SYSTEM);
+            log.debug("{}Stopping...", ModuleView.ACTOR_SYSTEM);
             actorSystem.stop();
-            log.debug("{}Stopped.", ModuleConstant.ACTOR_SYSTEM);
+            log.debug("{}Stopped.", ModuleView.ACTOR_SYSTEM);
         }
     }
 

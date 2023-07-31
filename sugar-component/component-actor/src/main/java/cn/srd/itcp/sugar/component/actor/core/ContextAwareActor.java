@@ -2,7 +2,7 @@ package cn.srd.itcp.sugar.component.actor.core;
 
 import cn.srd.itcp.sugar.component.actor.event.ActorEvent;
 import cn.srd.itcp.sugar.component.actor.id.ActorId;
-import cn.srd.itcp.sugar.context.constant.core.ModuleConstant;
+import cn.srd.itcp.sugar.context.constant.core.ModuleView;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -32,11 +32,11 @@ public abstract class ContextAwareActor<T> extends DefaultActor<T> {
     @Override
     public boolean process(ActorEvent<T> event) {
         if (log.isTraceEnabled()) {
-            log.trace("{}}[{}] is processing event: {}", ModuleConstant.ACTOR_SYSTEM, getActorId(), event);
+            log.trace("{}}[{}] is processing event: {}", ModuleView.ACTOR_SYSTEM, getActorId(), event);
         }
         boolean success = doProcess(event);
         if (!success) {
-            log.warn("{}[{}] process event failed: {}", ModuleConstant.ACTOR_SYSTEM, getActorId(), event);
+            log.warn("{}[{}] process event failed: {}", ModuleView.ACTOR_SYSTEM, getActorId(), event);
         }
         return success;
     }
@@ -49,7 +49,7 @@ public abstract class ContextAwareActor<T> extends DefaultActor<T> {
      */
     @Override
     public ProcessFailureStrategy onProcessFailure(Throwable throwable) {
-        log.error("{}[{}] process event exception: ", ModuleConstant.ACTOR_SYSTEM, getActorId(), throwable);
+        log.error("{}[{}] process event exception: ", ModuleView.ACTOR_SYSTEM, getActorId(), throwable);
         return doProcessFailure(throwable);
     }
 

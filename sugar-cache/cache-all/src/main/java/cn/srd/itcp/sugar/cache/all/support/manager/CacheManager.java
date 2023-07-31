@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.cache.all.support.manager;
 
-import cn.srd.itcp.sugar.context.constant.core.ModuleConstant;
+import cn.srd.itcp.sugar.context.constant.core.ModuleView;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -53,7 +53,7 @@ public class CacheManager {
             return cache;
         }
 
-        log.debug("{}create cache instance, the namespace is: [{}]", ModuleConstant.CACHE_SYSTEM, namespace);
+        log.debug("{}create cache instance, the namespace is: [{}]", ModuleView.CACHE_SYSTEM, namespace);
 
         cache = Cache.builder()
                 .namespace(namespace)

@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.framework.spring.tool.common.core.enums.autowired;
 
-import cn.srd.itcp.sugar.context.constant.core.ModuleConstant;
+import cn.srd.itcp.sugar.context.constant.core.ModuleView;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
 import cn.srd.itcp.sugar.framework.spring.tool.common.core.enums.autowired.exception.*;
 import cn.srd.itcp.sugar.tool.core.*;
@@ -38,7 +38,7 @@ public class EnumAutowiredSupport {
     @PostConstruct
     @SuppressWarnings("unchecked")
     public <E extends Enum<E>> void autowired() {
-        log.debug("{}starting matching...", ModuleConstant.ENUM_AUTOWIRED_SYSTEM);
+        log.debug("{}starting matching...", ModuleView.ENUM_AUTOWIRED_SYSTEM);
         String[] packageNamesToFindEnumAutowired = new String[]{SpringsUtil.getRootPackagePath()};
         Set<Class<?>> classesWithEnumAutowiredScan = SpringsUtil.scanPackageByAnnotation(EnumAutowiredScan.class);
         Set<Class<?>> classesWithEnumAutowired;
@@ -51,7 +51,7 @@ public class EnumAutowiredSupport {
         }
 
         if (Objects.isEmpty(classesWithEnumAutowired)) {
-            log.debug("{}No classes with [@{}] found to autowired.", ModuleConstant.ENUM_AUTOWIRED_SYSTEM, EnumAutowired.class.getSimpleName());
+            log.debug("{}No classes with [@{}] found to autowired.", ModuleView.ENUM_AUTOWIRED_SYSTEM, EnumAutowired.class.getSimpleName());
         }
 
         for (Class<?> classWithEnumAutowired : classesWithEnumAutowired) {
@@ -87,14 +87,14 @@ public class EnumAutowiredSupport {
                         Object beanToAutowired = SpringsUtil.getBean(beanNameToAutowired);
                         ReflectsUtil.setFieldValue(internalEnumWithEnumAutowired, fieldNameToAutowired, beanToAutowired);
                         if (Objects.isNotNull(beanToAutowired)) {
-                            log.debug("{}Find class [{}] and autowired it into class [{}] filed [{}]", ModuleConstant.ENUM_AUTOWIRED_SYSTEM, beanNameToAutowired, classSimpleNameWithEnumAutowired, fieldNameToAutowired);
+                            log.debug("{}Find class [{}] and autowired it into class [{}] filed [{}]", ModuleView.ENUM_AUTOWIRED_SYSTEM, beanNameToAutowired, classSimpleNameWithEnumAutowired, fieldNameToAutowired);
                         } else {
-                            log.warn("{}Find class [{}] and autowired it into class [{}] filed [{}], but [{}] instance is null, you need to consider adding it to Spring IOC", ModuleConstant.ENUM_AUTOWIRED_SYSTEM, beanNameToAutowired, classSimpleNameWithEnumAutowired, fieldNameToAutowired, beanNameToAutowired);
+                            log.warn("{}Find class [{}] and autowired it into class [{}] filed [{}], but [{}] instance is null, you need to consider adding it to Spring IOC", ModuleView.ENUM_AUTOWIRED_SYSTEM, beanNameToAutowired, classSimpleNameWithEnumAutowired, fieldNameToAutowired, beanNameToAutowired);
                         }
                     }
             );
         }
-        log.debug("{}autowired finish, exit.", ModuleConstant.ENUM_AUTOWIRED_SYSTEM);
+        log.debug("{}autowired finish, exit.", ModuleView.ENUM_AUTOWIRED_SYSTEM);
     }
 
 }
