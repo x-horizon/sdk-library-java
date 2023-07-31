@@ -182,7 +182,7 @@ public class TimeUtil extends LocalDateTimeUtil {
      * @return 时间字符串
      */
     public static String toStringWithDateTimeMS0(@Nullable LocalDateTime input) {
-        return Objects.isNull(input) ? StringPool.EMPTY : DateTimeFormatter.ofPattern(TimePool.DATETIME_PATTERN).format(input);
+        return Objects.isNull(input) ? StringPool.EMPTY : DateTimeFormatter.ofPattern(TimePool.DATETIME_MS0_PATTERN).format(input);
     }
 
     /**

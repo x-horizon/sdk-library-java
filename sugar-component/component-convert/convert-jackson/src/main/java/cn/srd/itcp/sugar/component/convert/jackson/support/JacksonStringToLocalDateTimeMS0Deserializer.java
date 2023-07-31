@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
  * @author wjm
  * @since 2023-03-28 10:00:01
  */
-public class JacksonStringToLocalDateTimeDeserializer extends StdConverter<String, LocalDateTime> {
+public class JacksonStringToLocalDateTimeMS0Deserializer extends StdConverter<String, LocalDateTime> {
 
     @Override
     public LocalDateTime convert(String from) {
-        return TimeUtil.parse(from, TimePool.DATETIME_PATTERN);
+        return TimeUtil.parse(from, TimePool.DATETIME_MS0_PATTERN);
     }
 
 }

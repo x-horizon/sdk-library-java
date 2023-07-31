@@ -56,7 +56,7 @@ public class TimePool extends DatePattern {
     /**
      * 时间格式 yyyy-MM-dd HH:mm:ss
      */
-    public static final String DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATETIME_MS0_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     /**
      * 时间格式 yyyy-MM-dd HH:mm:ss.S

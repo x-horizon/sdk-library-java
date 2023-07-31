@@ -23,7 +23,7 @@ public class JacksonLocalDateTimeToStringISOSerializer extends JsonSerializer<Lo
     @Override
     @SneakyThrows
     public void serialize(LocalDateTime from, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
-        jsonGenerator.writeObject(TimeUtil.toStringWithDateTime(from, TimePool.DATETIME_PATTERN));
+        jsonGenerator.writeObject(TimeUtil.toStringWithDateTime(from, TimePool.DATETIME_MS0_PATTERN));
     }
 
     @Override
