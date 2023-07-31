@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
  * @author wjm
  * @since 2023-06-29 20:25:44
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ModuleView {
 
     /**
