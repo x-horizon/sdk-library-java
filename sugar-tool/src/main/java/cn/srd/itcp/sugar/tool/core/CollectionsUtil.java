@@ -388,6 +388,45 @@ public class CollectionsUtil extends CollUtil {
                 .findFirst();
     }
 
+    /**
+     * <pre>
+     * 获取两个集合的差异集合：
+     * null      and null         => []
+     *
+     * null      and [1,2,3]      => [1,2,3]
+     * []        and [1,2,3]      => [1,2,3]
+     *
+     * [1,2,3]   and null         => [1,2,3]
+     * [1,2,3]   and []           => [1,2,3]
+     *
+     * [1]       and [1,2,3,4]    => [2,3,4]
+     * [1,2,3,4] and [1]          => [2,3,4]
+     *
+     * [1,2,3,4] and [1,5]        => [2,3,4,5]
+     * [1,5]     and [1,2,3,4]    => [2,3,4,5]
+     * </pre>
+     *
+     * @param compare  比较集合
+     * @param compared 被比较集合
+     * @param <T>      集合元素类型
+     * @return 差异集合
+     */
+    public static <T> List<T> getDifference(@Nullable List<T> compare, @Nullable List<T> compared) {
+        if (Objects.isAllNull(compare, compared)) {
+            return new ArrayList<>();
+        }
+        if (Objects.isEmpty(compare)) {
+            return compared;
+        }
+        if (Objects.isEmpty(compared)) {
+            return compare;
+        }
+        return Stream.concat(compare.stream(), compared.stream())
+                .distinct()
+                .filter(element -> !(compare.contains(element) && compared.contains(element)))
+                .toList();
+    }
+
     // ==================================== equals ====================================
 
     /**
@@ -395,19 +434,19 @@ public class CollectionsUtil extends CollUtil {
      *
      * @param input1 待比较对象
      * @param input2 待比较对象
-     * @param <E>    对象类型
+     * @param <T>    对象类型
      * @return 是否相等
      */
-    public static <E> boolean equalsEasily(Collection<E> input1, Collection<E> input2) {
+    public static <T> boolean equalsEasily(Collection<T> input1, Collection<T> input2) {
         if (input1 == input2) {
             return true;
         }
 
-        if (input2 != null && input1 == null) {
+        if (null != input2 && null == input1) {
             return false;
         }
 
-        if (input2 == null) {
+        if (null == input2) {
             return false;
         }
 
@@ -415,8 +454,8 @@ public class CollectionsUtil extends CollUtil {
             return true;
         }
 
-        Set<E> duplicateRemovalInput1 = new HashSet<>(input1);
-        Set<E> duplicateRemovalInput2 = new HashSet<>(input2);
+        Set<T> duplicateRemovalInput1 = new HashSet<>(input1);
+        Set<T> duplicateRemovalInput2 = new HashSet<>(input2);
 
         if (duplicateRemovalInput1.size() != duplicateRemovalInput2.size()) {
             return false;
