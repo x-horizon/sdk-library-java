@@ -219,6 +219,17 @@ public class CollectionsUtil extends CollUtil {
      * @param <T>  元素类型
      * @return 集合第 1 个元素
      */
+    public static <T> Optional<T> getOptionalFirst(Iterable<T> from) {
+        return Optional.ofNullable(getFirst(from));
+    }
+
+    /**
+     * see {@link #getFirst(Iterable)}
+     *
+     * @param from 输入参数
+     * @param <T>  元素类型
+     * @return 集合第 1 个元素
+     */
     public static <T> Optional<T> getOptionalFirst(Iterator<T> from) {
         return Optional.ofNullable(getFirst(from));
     }
@@ -375,6 +386,43 @@ public class CollectionsUtil extends CollUtil {
                 .stream(Spliterators.spliteratorUnknownSize(from, Spliterator.ORDERED), false)
                 .dropWhile(element -> !specifiedElement.test(element)).skip(1)
                 .findFirst();
+    }
+
+    // ==================================== equals ====================================
+
+    /**
+     * 比较两个集合的值是否相等
+     *
+     * @param input1 待比较对象
+     * @param input2 待比较对象
+     * @param <E>    对象类型
+     * @return 是否相等
+     */
+    public static <E> boolean equalsEasily(Collection<E> input1, Collection<E> input2) {
+        if (input1 == input2) {
+            return true;
+        }
+
+        if (input2 != null && input1 == null) {
+            return false;
+        }
+
+        if (input2 == null) {
+            return false;
+        }
+
+        if (input1.isEmpty() && input2.isEmpty()) {
+            return true;
+        }
+
+        Set<E> duplicateRemovalInput1 = new HashSet<>(input1);
+        Set<E> duplicateRemovalInput2 = new HashSet<>(input2);
+
+        if (duplicateRemovalInput1.size() != duplicateRemovalInput2.size()) {
+            return false;
+        }
+
+        return duplicateRemovalInput1.containsAll(duplicateRemovalInput2);
     }
 
     // ==================================== move item ====================================
