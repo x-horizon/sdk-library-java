@@ -5,6 +5,7 @@ import cn.srd.itcp.sugar.tool.constant.TimePool;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 /**
@@ -82,7 +83,29 @@ public class NumbersUtil extends NumberUtil {
     }
 
     /**
-     * see {@link #add(String...)}, this function will return an int value after half adjust
+     * see {@link #addHalfToBigDecimal(double, double)}
+     *
+     * @param input1 addend1
+     * @param input2 addend2
+     * @return number after half adjust
+     */
+    public static int addHalfToShort(double input1, double input2) {
+        return addHalfToBigDecimal(input1, input2).shortValue();
+    }
+
+    /**
+     * see {@link #addHalfToBigDecimal(double, double)}
+     *
+     * @param input1 addend1
+     * @param input2 addend2
+     * @return number after half adjust
+     */
+    public static int addHalfToInt(double input1, double input2) {
+        return addHalfToBigDecimal(input1, input2).intValue();
+    }
+
+    /**
+     * see {@link #addHalfToBigDecimal(double, double)}
      * <pre>
      * example:
      * 10 + 0.1 = 10.1         => 10
@@ -92,14 +115,14 @@ public class NumbersUtil extends NumberUtil {
      *
      * @param input1 addend1
      * @param input2 addend2
-     * @return an int value after half adjust
+     * @return number after half adjust
      */
-    public static int addInt(double input1, double input2) {
-        return add(Double.toString(input1), Double.toString(input2)).setScale(ZERO_SCALE, RoundingMode.HALF_UP).intValue();
+    public static long addHalfToLong(double input1, double input2) {
+        return addHalfToBigDecimal(input1, input2).longValue();
     }
 
     /**
-     * see {@link #addInt(double, double)}
+     * see {@link #add(String...)}, this function will return number after half adjust
      * <pre>
      * example:
      * 10 + 0.1 = 10.1         => 10
@@ -109,14 +132,47 @@ public class NumbersUtil extends NumberUtil {
      *
      * @param input1 addend1
      * @param input2 addend2
-     * @return an long value after half adjust
+     * @return number after half adjust
      */
-    public static long addLong(double input1, double input2) {
-        return add(Double.toString(input1), Double.toString(input2)).setScale(ZERO_SCALE, RoundingMode.HALF_UP).longValue();
+    public static BigDecimal addHalfToBigDecimal(double input1, double input2) {
+        return add(Double.toString(input1), Double.toString(input2)).setScale(ZERO_SCALE, RoundingMode.HALF_UP);
     }
 
     /**
-     * see {@link #sub(String...)}, this function will return an int value after half adjust
+     * see {@link #subHalfToBigDecimal(double, double)}
+     *
+     * @param input1 subtract1
+     * @param input2 subtract2
+     * @return number after half adjust
+     */
+    public static int subHalfToShort(double input1, double input2) {
+        return subHalfToBigDecimal(input1, input2).shortValue();
+    }
+
+    /**
+     * see {@link #subHalfToBigDecimal(double, double)}
+     *
+     * @param input1 subtract1
+     * @param input2 subtract2
+     * @return number after half adjust
+     */
+    public static int subHalfToInt(double input1, double input2) {
+        return subHalfToBigDecimal(input1, input2).intValue();
+    }
+
+    /**
+     * see {@link #subHalfToBigDecimal(double, double)}
+     *
+     * @param input1 subtract1
+     * @param input2 subtract2
+     * @return number after half adjust
+     */
+    public static long subHalfToLong(double input1, double input2) {
+        return subHalfToBigDecimal(input1, input2).longValue();
+    }
+
+    /**
+     * see {@link #sub(String...)}, this function will return number after half adjust
      * <pre>
      * example:
      * 10 - 0.1 = 9.9          => 10
@@ -126,25 +182,47 @@ public class NumbersUtil extends NumberUtil {
      *
      * @param input1 subtract1
      * @param input2 subtract2
-     * @return an int value after half adjust
+     * @return number after half adjust
      */
-    public static int subInt(double input1, double input2) {
-        return sub(Double.toString(input1), Double.toString(input2)).setScale(ZERO_SCALE, RoundingMode.HALF_UP).intValue();
+    public static BigDecimal subHalfToBigDecimal(double input1, double input2) {
+        return sub(Double.toString(input1), Double.toString(input2)).setScale(ZERO_SCALE, RoundingMode.HALF_UP);
     }
 
     /**
-     * see {@link #subInt(double, double)}
+     * see {@link #mulHalfToBigDecimal(float, double)}
      *
-     * @param input1 subtract1
-     * @param input2 subtract2
-     * @return an long value after half adjust
+     * @param input1 multiplier1
+     * @param input2 multiplier2
+     * @return number after half adjust
      */
-    public static long subLong(double input1, double input2) {
-        return sub(Double.toString(input1), Double.toString(input2)).setScale(ZERO_SCALE, RoundingMode.HALF_UP).longValue();
+    public static int mulHalfToShort(float input1, double input2) {
+        return mulHalfToBigDecimal(input1, input2).shortValue();
     }
 
     /**
-     * see {@link #mul(String, String)}, this function will return an int value after half adjust
+     * see {@link #mulHalfToBigDecimal(float, double)}
+     *
+     * @param input1 multiplier1
+     * @param input2 multiplier2
+     * @return number after half adjust
+     */
+    public static int mulHalfToInt(float input1, double input2) {
+        return mulHalfToBigDecimal(input1, input2).intValue();
+    }
+
+    /**
+     * see {@link #mulHalfToBigDecimal(float, double)}
+     *
+     * @param input1 multiplier1
+     * @param input2 multiplier2
+     * @return number after half adjust
+     */
+    public static long mulHalfToLong(float input1, double input2) {
+        return mulHalfToBigDecimal(input1, input2).longValue();
+    }
+
+    /**
+     * see {@link #mul(String, String)}, this function will return number after half adjust
      * <pre>
      * example:
      * 10     * 0.8 = 8        => 8
@@ -155,25 +233,47 @@ public class NumbersUtil extends NumberUtil {
      *
      * @param input1 multiplier1
      * @param input2 multiplier2
-     * @return an int value after half adjust
+     * @return number after half adjust
      */
-    public static int mulInt(float input1, double input2) {
-        return mul(Float.toString(input1), Double.toString(input2)).setScale(ZERO_SCALE, RoundingMode.HALF_UP).intValue();
+    public static BigDecimal mulHalfToBigDecimal(float input1, double input2) {
+        return mul(Float.toString(input1), Double.toString(input2)).setScale(ZERO_SCALE, RoundingMode.HALF_UP);
     }
 
     /**
-     * see {@link #mulInt(float, double)}
+     * see {@link #divHalfToBigDecimal(double, double)}
      *
-     * @param input1 multiplier1
-     * @param input2 multiplier2
-     * @return a long value after half adjust
+     * @param input1 divisor1
+     * @param input2 divisor2
+     * @return number after half adjust
      */
-    public static long mulLong(float input1, double input2) {
-        return mul(Float.toString(input1), Double.toString(input2)).setScale(ZERO_SCALE, RoundingMode.HALF_UP).longValue();
+    public static int divHalfToShort(double input1, double input2) {
+        return divHalfToBigDecimal(input1, input2).shortValue();
     }
 
     /**
-     * see {@link #div(String, String)}, this function will return an int value after half adjust
+     * see {@link #divHalfToBigDecimal(double, double)}
+     *
+     * @param input1 divisor1
+     * @param input2 divisor2
+     * @return number after half adjust
+     */
+    public static int divHalfToInt(double input1, double input2) {
+        return divHalfToBigDecimal(input1, input2).intValue();
+    }
+
+    /**
+     * see {@link #divHalfToBigDecimal(double, double)}
+     *
+     * @param input1 divisor1
+     * @param input2 divisor2
+     * @return number after half adjust
+     */
+    public static long divHalfToLong(double input1, double input2) {
+        return divHalfToBigDecimal(input1, input2).longValue();
+    }
+
+    /**
+     * see {@link #div(String, String)}, this function will return number after half adjust
      * <pre>
      * example:
      * 100 / 10  = 10          => 10
@@ -184,21 +284,10 @@ public class NumbersUtil extends NumberUtil {
      *
      * @param input1 divisor1
      * @param input2 divisor2
-     * @return an int value after half adjust
+     * @return number after half adjust
      */
-    public static int divInt(double input1, double input2) {
-        return div(Double.toString(input1), Double.toString(input2)).setScale(ZERO_SCALE, RoundingMode.HALF_UP).intValue();
-    }
-
-    /**
-     * see {@link #divInt(double, double)}
-     *
-     * @param input1 divisor1
-     * @param input2 divisor2
-     * @return an int value after half adjust
-     */
-    public static long divLong(double input1, double input2) {
-        return div(Double.toString(input1), Double.toString(input2)).setScale(ZERO_SCALE, RoundingMode.HALF_UP).longValue();
+    public static BigDecimal divHalfToBigDecimal(double input1, double input2) {
+        return div(Double.toString(input1), Double.toString(input2)).setScale(ZERO_SCALE, RoundingMode.HALF_UP);
     }
 
 }
