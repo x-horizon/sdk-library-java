@@ -83,6 +83,53 @@ public class NumbersUtil extends NumberUtil {
     }
 
     /**
+     * see {@link #roundWithScale0ToBigDecimal(double)}
+     *
+     * @param input input number
+     * @return number after half adjust with 0 scale
+     */
+    public static short roundWithScale0ToShort(double input) {
+        return roundWithScale0ToBigDecimal(input).shortValue();
+    }
+
+    /**
+     * see {@link #roundWithScale0ToBigDecimal(double)}
+     *
+     * @param input input number
+     * @return number after half adjust with 0 scale
+     */
+    public static int roundWithScale0ToInt(double input) {
+        return roundWithScale0ToBigDecimal(input).intValue();
+    }
+
+    /**
+     * see {@link #roundWithScale0ToBigDecimal(double)}
+     *
+     * @param input input number
+     * @return number after half adjust with 0 scale
+     */
+    public static long roundWithScale0ToLong(double input) {
+        return roundWithScale0ToBigDecimal(input).longValue();
+    }
+
+    /**
+     * this function will return number after half adjust with 0 scale
+     * <pre>
+     * example:
+     * 10           => 10
+     * 10.1         => 10
+     * 10.5         => 11
+     * 10.6         => 11
+     * </pre>
+     *
+     * @param input input number
+     * @return number after half adjust with 0 scale
+     */
+    public static BigDecimal roundWithScale0ToBigDecimal(double input) {
+        return round(input, ZERO_SCALE);
+    }
+
+    /**
      * see {@link #addRoundWithScale0ToBigDecimal(double, double)}
      *
      * @param input1 addend1
