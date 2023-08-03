@@ -8,6 +8,6 @@ import cn.dev33.satoken.context.SaHolder;
  * @author wjm
  * @since 2022-07-07
  */
-public class SaContextUtil extends SaHolder {
+public class SaTokenContextUtil extends SaHolder {
 
 }

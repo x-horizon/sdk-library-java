@@ -8,6 +8,6 @@ import cn.dev33.satoken.secure.BCrypt;
  * @author wjm
  * @since 2022-07-07
  */
-public class SaBCryptUtil extends BCrypt {
+public class SaTokenBCryptUtil extends BCrypt {
 
 }
