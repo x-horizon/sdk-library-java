@@ -14,28 +14,28 @@ import java.util.function.Consumer;
 public interface ResponseModel<T> {
 
     /**
-     * 获取状态码
+     * get status
      *
      * @return 状态码
      */
     Integer getStatus();
 
     /**
-     * 获取响应数据
+     * get data
      *
      * @return 响应数据
      */
     T getData();
 
     /**
-     * 获取响应信息
+     * get message
      *
      * @return 响应信息
      */
     String getMessage();
 
     /**
-     * 是否响应成功
+     * return true if {@link HttpStatusEnum#SUCCESS}
      *
      * @return 是否响应成功
      */
@@ -44,7 +44,7 @@ public interface ResponseModel<T> {
     }
 
     /**
-     * 是否响应失败
+     * return true if not {@link HttpStatusEnum#SUCCESS}
      *
      * @return 是否响应失败
      */
@@ -53,16 +53,25 @@ public interface ResponseModel<T> {
     }
 
     /**
-     * 必须响应成功
+     * throw a {@link RunningException} if not success
      */
     default void requireSuccess() {
-        if (errorIs()) {
+        notSuccessAndThen(value -> {
             throw this.buildRunningException();
-        }
+        });
     }
 
     /**
-     * after {@link #requireSuccess()} then do something
+     * do something after {@link #requireSuccess()}
+     *
+     * @param logic the logic
+     */
+    default void requireSuccessAndThen(Consumer<ResponseModel<T>> logic) {
+        requireSuccessAndThen(this, logic);
+    }
+
+    /**
+     * do something after {@link #requireSuccess()}
      *
      * @param model the model extend {@link ResponseModel}
      * @param logic the logic
@@ -74,7 +83,18 @@ public interface ResponseModel<T> {
     }
 
     /**
-     * 构造 {@link RunningException}
+     * do something after {@link #errorIs()}
+     *
+     * @param logic the logic
+     */
+    default void notSuccessAndThen(Consumer<ResponseModel<T>> logic) {
+        if (errorIs()) {
+            logic.accept(this);
+        }
+    }
+
+    /**
+     * build {@link RunningException}
      *
      * @return {@link RunningException}
      */
