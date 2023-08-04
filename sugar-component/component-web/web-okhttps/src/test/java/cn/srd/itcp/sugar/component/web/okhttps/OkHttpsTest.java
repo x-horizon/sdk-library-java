@@ -29,6 +29,10 @@ public class OkHttpsTest {
         for (int index = 1; index < 10; index++) {
             httpCalls.add(
                     OkHttps.async("http://127.0.0.1:8080/sugar/okHttps/test")
+                            .setOnComplete((HttpResult.State state) -> {
+                                // 完成回调，无论成功失败都会执行，并且在 响应|异常回调 之前执行
+                                OkHttpsUtil.requiredHttpStateHealthy(state, "your message", RuntimeException.class);
+                            })
                             .setOnResponse((HttpResult httpResult) -> {
                                 // 响应回调
                                 HttpResult.Body body = httpResult.getBody().cache();
@@ -39,10 +43,6 @@ public class OkHttpsTest {
                             // .setOnException((IOException exception) -> {
                             //     // 异常回调
                             // })
-                            .setOnComplete((HttpResult.State state) -> {
-                                // 完成回调，无论成功失败都会执行，并且在 响应|异常回调 之前执行
-                                OkHttpsUtil.requiredHttpStateHealthy(state, "your message", RuntimeException.class);
-                            })
                             .post()
             );
         }
