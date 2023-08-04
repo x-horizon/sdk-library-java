@@ -1,6 +1,7 @@
 package cn.srd.itcp.sugar.component.web.okhttps.core;
 
 import cn.srd.itcp.sugar.tool.core.ReflectsUtil;
+import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
 import cn.srd.itcp.sugar.tool.web.HttpStatusEnum;
 import cn.zhxu.okhttps.HttpResult;
@@ -8,6 +9,8 @@ import cn.zhxu.okhttps.OkHttps;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
+
+import java.util.function.Consumer;
 
 /**
  * the util of {@link OkHttps}
@@ -75,6 +78,29 @@ public class OkHttpsUtil {
     /**
      * throw exception if {@link #isHttpStateNotHealthy(HttpResult.State)}
      *
+     * @param state the {@link HttpResult.State}
+     */
+    public static void requiredHttpStateHealthy(HttpResult.State state) {
+        if (isHttpStateNotHealthy(state)) {
+            throw new RuntimeException(StringsUtil.format("okhttps failed because of the http state is [{}]", state.name()));
+        }
+    }
+
+    /**
+     * throw exception if {@link #isHttpStateNotHealthy(HttpResult.State)}
+     *
+     * @param state        the {@link HttpResult.State}
+     * @param errorMessage the specified message to throw if {@link #isHttpStateNotHealthy(HttpResult.State)}
+     */
+    public static void requiredHttpStateHealthy(HttpResult.State state, String errorMessage) {
+        if (isHttpStateNotHealthy(state)) {
+            throw new RuntimeException(errorMessage);
+        }
+    }
+
+    /**
+     * throw exception if {@link #isHttpStateNotHealthy(HttpResult.State)}
+     *
      * @param state        the {@link HttpResult.State}
      * @param errorMessage the specified message to throw if {@link #isHttpStateNotHealthy(HttpResult.State)}
      * @param throwable    the specified exception to throw if {@link #isHttpStateNotHealthy(HttpResult.State)}
@@ -83,6 +109,18 @@ public class OkHttpsUtil {
     public static void requiredHttpStateHealthy(HttpResult.State state, String errorMessage, Class<? extends Throwable> throwable) {
         if (isHttpStateNotHealthy(state)) {
             throw ReflectsUtil.newInstance(throwable, errorMessage);
+        }
+    }
+
+    /**
+     * do something after {@link #isHttpStateNotHealthy(HttpResult.State)}
+     *
+     * @param state the {@link HttpResult.State}
+     * @param logic the logic
+     */
+    public static void httpStateNotHealthyAndThen(HttpResult.State state, Consumer<HttpResult.State> logic) {
+        if (isHttpStateNotHealthy(state)) {
+            logic.accept(state);
         }
     }
 
