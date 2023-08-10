@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.cache.all.support.strategy;
 
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheDataManager;
-import cn.srd.itcp.sugar.tool.constant.CharPool;
+import cn.srd.sugar.tool.constant.core.CharPool;
 import org.springframework.cache.support.NullValue;
 
 import java.util.Map;

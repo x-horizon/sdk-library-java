@@ -14,8 +14,7 @@ import java.io.Serializable;
 @SuperBuilder(toBuilder = true)
 public class Student implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 2515268244821714169L;
+    @Serial private static final long serialVersionUID = 2515268244821714169L;
 
     private Integer id;
     private String name;

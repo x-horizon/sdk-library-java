@@ -1,0 +1,67 @@
+def projectName = 'sugar-web-openfeign-okhttp'
+
+def projectNexusUrl
+
+if (active == "localhost") {
+    projectNexusUrl = projectLocalhostNexusUrl
+}
+
+if (active == "development") {
+    projectNexusUrl = projectDevelopmentNexusUrl
+}
+
+if (active == "production") {
+    projectNexusUrl = projectProductionNexusUrl
+}
+
+version = projectVersion
+
+dependencies {
+    // framework
+    implementation("$spring_data_commons")
+    implementation("$spring_boot")
+    api("$spring_cloud_openfeign")
+
+    // network
+    api(project("$sugar_web_openfeign_common"))
+    api("$openfeign_okhttp")
+
+    // context
+    api(project("$sugar_context_constant"))
+
+    // tool
+    implementation(project("$sugar_tool_lang"))
+    implementation(project("$sugar_tool_convert_all"))
+    implementation(project("$sugar_tool_spring_common"))
+}
+
+javadoc {
+    options {
+        encoding projectCharset
+        version true
+        title projectName
+    }
+}
+
+publishing {
+    publications {
+        publishApp(MavenPublication) {
+            groupId group
+            artifactId projectName
+            version project.version
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username projectNexusUsername
+                password projectNexusPassword
+            }
+            url = projectNexusUrl
+            allowInsecureProtocol = true
+        }
+    }
+}

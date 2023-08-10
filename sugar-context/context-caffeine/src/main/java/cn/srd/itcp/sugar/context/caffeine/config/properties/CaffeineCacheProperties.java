@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.context.caffeine.config.properties;
 
-import cn.srd.itcp.sugar.tool.constant.JavaObjectReferenceLevel;
 import cn.srd.itcp.sugar.tool.core.time.TimeUnitHandler;
+import cn.srd.sugar.tool.constant.core.JavaObjectReferenceLevel;
 import com.github.benmanes.caffeine.cache.CaffeineSpec;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;

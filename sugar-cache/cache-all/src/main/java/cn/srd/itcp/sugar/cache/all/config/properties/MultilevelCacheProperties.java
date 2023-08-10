@@ -1,8 +1,8 @@
 package cn.srd.itcp.sugar.cache.all.config.properties;
 
-import cn.srd.itcp.sugar.component.lock.redis.common.core.RedisFairLock;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
 import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
+import cn.srd.sugar.concurrent.redisson.core.RedisFairLock;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;

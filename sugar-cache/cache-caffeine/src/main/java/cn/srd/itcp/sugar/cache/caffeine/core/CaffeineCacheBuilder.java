@@ -4,7 +4,7 @@ import cn.srd.itcp.sugar.context.caffeine.config.properties.CaffeineCachePropert
 import cn.srd.itcp.sugar.tool.core.LambdasUtil;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
 import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
-import cn.srd.itcp.sugar.tool.exceptions.UnsupportedOperationException;
+import cn.srd.sugar.contract.throwable.core.UnsupportedOperationException;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import lombok.AccessLevel;
@@ -47,9 +47,11 @@ public class CaffeineCacheBuilder {
         LambdasUtil.acceptIfNeed(caffeineCacheProperties.getMaximumSize(), Objects::isPositive, cacheBuilder::maximumSize);
         LambdasUtil.acceptIfNeed(caffeineCacheProperties.getKeyReferenceLevel(), Objects::isNotNull, referenceLevel -> {
             switch (referenceLevel) {
-                case SOFT -> throw new UnsupportedOperationException("unsupported [soft] reference type with caffeine key");
+                case SOFT ->
+                        throw new UnsupportedOperationException("unsupported [soft] reference type with caffeine key");
                 case WEAK -> cacheBuilder.weakKeys();
-                case PHANTOM -> throw new UnsupportedOperationException("unsupported [phantom] reference type with caffeine key");
+                case PHANTOM ->
+                        throw new UnsupportedOperationException("unsupported [phantom] reference type with caffeine key");
                 default -> {
                 }
             }
@@ -58,7 +60,8 @@ public class CaffeineCacheBuilder {
             switch (referenceLevel) {
                 case SOFT -> cacheBuilder.softValues();
                 case WEAK -> cacheBuilder.weakValues();
-                case PHANTOM -> throw new UnsupportedOperationException("unsupported [phantom] reference type with caffeine value");
+                case PHANTOM ->
+                        throw new UnsupportedOperationException("unsupported [phantom] reference type with caffeine value");
                 default -> {
                 }
             }

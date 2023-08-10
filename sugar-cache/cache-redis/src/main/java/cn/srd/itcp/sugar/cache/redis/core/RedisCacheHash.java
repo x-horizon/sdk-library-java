@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.cache.redis.core;
 
 import cn.srd.itcp.sugar.tool.core.time.DurationWrapper;
-import cn.srd.itcp.sugar.tool.exceptions.UnsupportedOperationException;
+import cn.srd.sugar.contract.throwable.core.UnsupportedOperationException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -86,5 +86,5 @@ public class RedisCacheHash implements RedisCacheTemplate {
     public DurationWrapper getTimeToLive(String key) {
         throw new UnsupportedOperationException();
     }
-    
+
 }

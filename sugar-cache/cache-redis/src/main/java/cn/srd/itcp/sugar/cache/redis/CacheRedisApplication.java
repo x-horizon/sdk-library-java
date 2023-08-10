@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.cache.redis;
 
-import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
+import cn.srd.sugar.tool.spring.common.core.SpringsUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;

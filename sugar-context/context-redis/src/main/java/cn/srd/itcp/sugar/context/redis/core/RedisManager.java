@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.context.redis.core;
 
-import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
+import cn.srd.sugar.tool.spring.common.core.SpringsUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.redisson.api.RedissonClient;

@@ -1,0 +1,70 @@
+def projectName = 'sugar-security-sa-token-spring-webflux'
+
+def projectNexusUrl
+
+if (active == "localhost") {
+    projectNexusUrl = projectLocalhostNexusUrl
+}
+
+if (active == "development") {
+    projectNexusUrl = projectDevelopmentNexusUrl
+}
+
+if (active == "production") {
+    projectNexusUrl = projectProductionNexusUrl
+}
+
+version = projectVersion
+
+dependencies {
+    // framework
+    implementation("$spring_boot_webflux")
+    // TODO wjm 之所以指定该版本而不是使用 bom 来管理，是因为sa token bom 接管版本后，里面的 lettuce 包使用到的 reactor-core 包版本过低导致不兼容，后续升级 sa token 版本后看看是否可以解决
+    api("$reactor_core")
+    annotationProcessor("$spring_boot_configuration_processor")
+
+    // context
+    api(project("$sugar_context_constant"))
+
+    // security
+    api("$sa_token_reactor")
+    api(project("$sugar_security_sa_token"))
+
+    // tool
+    implementation(project("$sugar_tool_lang"))
+    implementation(project("$sugar_tool_spring_webflux"))
+
+    // test
+    testAnnotationProcessor("$spring_boot_configuration_processor")
+}
+
+javadoc {
+    options {
+        encoding projectCharset
+        version true
+        title projectName
+    }
+}
+
+publishing {
+    publications {
+        publishApp(MavenPublication) {
+            groupId group
+            artifactId projectName
+            version project.version
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username projectNexusUsername
+                password projectNexusPassword
+            }
+            url = projectNexusUrl
+            allowInsecureProtocol = true
+        }
+    }
+}

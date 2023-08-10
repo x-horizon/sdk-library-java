@@ -1,9 +1,9 @@
 package cn.srd.itcp.sugar.cache.all.support.manager;
 
 import cn.srd.itcp.sugar.cache.contract.core.CacheTemplate;
-import cn.srd.itcp.sugar.framework.spring.tool.common.core.NullValueUtil;
 import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.itcp.sugar.tool.core.object.Objects;
+import cn.srd.sugar.tool.spring.common.core.NullValueUtil;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;

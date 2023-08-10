@@ -1,4 +1,4 @@
-def projectName = 'itcp-sugar-cache-contract'
+def projectName = 'sugar-cache-contract'
 
 def projectNexusUrl
 
@@ -21,11 +21,11 @@ dependencies {
     implementation("$spring_context")
 
     // context
-    api(project("$itcp_sugar_context_constant"))
+    api(project("$sugar_context_constant"))
 
     // tool
-    implementation(project("$itcp_sugar_tool"))
-    implementation(project("$itcp_sugar_framework_spring_tool_common"))
+    implementation(project("$sugar_tool_lang"))
+    implementation(project("$sugar_tool_spring_common"))
 }
 
 javadoc {

@@ -2,7 +2,7 @@ package cn.srd.itcp.sugar.cache.all;
 
 import cn.srd.itcp.sugar.cache.all.core.EnableCache;
 import cn.srd.itcp.sugar.cache.all.support.*;
-import cn.srd.itcp.sugar.component.lock.redis.common.core.EnableRedisLock;
+import cn.srd.sugar.concurrent.redisson.core.EnableRedisLock;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -87,7 +87,7 @@ public class CacheAllTest {
     @Test
     public void testCache() {
         cacheAllowEmptyValueService.saveBatch(List.of(BookPO.builder().id(200L).build(), BookPO.builder().id(201L).build()));
-        
+
         List<BookPO> result109 = cacheAllowEmptyValueService.getAll2();
         List<BookPO> result121 = cacheAllowEmptyValueService.getAll2();
         List<BookPO> result122 = cacheAllowEmptyValueService.getAll2();

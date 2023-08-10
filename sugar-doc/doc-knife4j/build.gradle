@@ -1,4 +1,4 @@
-def projectName = 'itcp-sugar-doc-knife4j'
+def projectName = 'sugar-doc-knife4j'
 
 def projectNexusUrl
 
@@ -21,10 +21,10 @@ dependencies {
     api("$knife4j")
 
     // context
-    api(project("$itcp_sugar_context_constant"))
+    api(project("$sugar_context_constant"))
 
     // tool
-    implementation(project("$itcp_sugar_tool"))
+    implementation(project("$sugar_tool_lang"))
 }
 
 javadoc {

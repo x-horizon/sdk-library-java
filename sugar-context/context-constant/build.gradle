@@ -1,4 +1,4 @@
-def projectName = 'itcp-sugar-context-constant'
+def projectName = 'sugar-context-constant'
 
 def projectNexusUrl
 

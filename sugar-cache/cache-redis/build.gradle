@@ -1,4 +1,4 @@
-def projectName = 'itcp-sugar-cache-redis'
+def projectName = 'sugar-cache-redis'
 
 def projectNexusUrl
 
@@ -23,15 +23,15 @@ dependencies {
     annotationProcessor("$spring_boot_configuration_processor")
 
     // context
-    api(project("$itcp_sugar_context_redis"))
-    api(project("$itcp_sugar_context_constant"))
+    api(project("$sugar_context_redis"))
+    api(project("$sugar_context_constant"))
 
     // cache
-    api(project("$itcp_sugar_cache_contract"))
+    api(project("$sugar_cache_contract"))
 
     // tool
-    implementation(project("$itcp_sugar_tool"))
-    implementation(project("$itcp_sugar_framework_spring_tool_common"))
+    implementation(project("$sugar_tool_lang"))
+    implementation(project("$sugar_tool_spring_common"))
 
     // test
     testAnnotationProcessor("$spring_boot_configuration_processor")

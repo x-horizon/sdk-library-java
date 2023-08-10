@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.context.redis.config.properties;
 
-import cn.srd.itcp.sugar.framework.spring.tool.common.core.SpringsUtil;
+import cn.srd.sugar.tool.spring.common.core.SpringsUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;

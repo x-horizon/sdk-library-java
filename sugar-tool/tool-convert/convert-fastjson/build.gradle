@@ -1,0 +1,59 @@
+def projectName = 'sugar-tool-convert-fastjson'
+
+def projectNexusUrl
+
+if (active == "localhost") {
+    projectNexusUrl = projectLocalhostNexusUrl
+}
+
+if (active == "development") {
+    projectNexusUrl = projectDevelopmentNexusUrl
+}
+
+if (active == "production") {
+    projectNexusUrl = projectProductionNexusUrl
+}
+
+version = projectVersion
+
+dependencies {
+    // framework
+    implementation("$spring_boot")
+
+    // context
+    api(project("$sugar_context_constant"))
+
+    // tool
+    implementation(project("$sugar_tool_lang"))
+}
+
+javadoc {
+    options {
+        encoding projectCharset
+        version true
+        title projectName
+    }
+}
+
+publishing {
+    publications {
+        publishApp(MavenPublication) {
+            groupId group
+            artifactId projectName
+            version project.version
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username projectNexusUsername
+                password projectNexusPassword
+            }
+            url = projectNexusUrl
+            allowInsecureProtocol = true
+        }
+    }
+}

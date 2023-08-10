@@ -25,8 +25,7 @@ import java.io.Serializable;
 @SuperBuilder(toBuilder = true)
 public class PageParam implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = -2956893884714618641L;
+    @Serial private static final long serialVersionUID = -2956893884714618641L;
 
     /**
      * 页码

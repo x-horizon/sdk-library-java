@@ -3,7 +3,7 @@ package cn.srd.itcp.sugar.cache.all.support.strategy;
 import cn.srd.itcp.sugar.cache.all.config.properties.CacheProperties;
 import cn.srd.itcp.sugar.cache.all.core.Caches;
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheDataManager;
-import cn.srd.itcp.sugar.component.lock.redis.common.core.RedisNonFairLockHandler;
+import cn.srd.sugar.concurrent.redisson.core.RedisNonFairLockHandler;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

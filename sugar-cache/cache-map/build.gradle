@@ -1,4 +1,4 @@
-def projectName = 'itcp-sugar-cache-map'
+def projectName = 'sugar-cache-map'
 
 def projectNexusUrl
 
@@ -21,13 +21,13 @@ dependencies {
     implementation("$spring_boot")
 
     // context
-    api(project("$itcp_sugar_context_constant"))
+    api(project("$sugar_context_constant"))
 
     // cache
-    api(project("$itcp_sugar_cache_contract"))
+    api(project("$sugar_cache_contract"))
 
     // tool
-    implementation(project("$itcp_sugar_tool"))
+    implementation(project("$sugar_tool_lang"))
 }
 
 javadoc {

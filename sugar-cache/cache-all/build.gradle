@@ -1,4 +1,4 @@
-def projectName = 'itcp-sugar-cache-all'
+def projectName = 'sugar-cache-all'
 
 def projectNexusUrl
 
@@ -26,27 +26,27 @@ dependencies {
     annotationProcessor("$spring_boot_configuration_processor")
 
     // context
-    api(project("$itcp_sugar_context_constant"))
+    api(project("$sugar_context_constant"))
 
     // cache
-    api(project("$itcp_sugar_cache_contract"))
-    api(project("$itcp_sugar_cache_map"))
-    api(project("$itcp_sugar_cache_caffeine"))
-    api(project("$itcp_sugar_cache_redis"))
+    api(project("$sugar_cache_contract"))
+    api(project("$sugar_cache_map"))
+    api(project("$sugar_cache_caffeine"))
+    api(project("$sugar_cache_redis"))
 
     // topic
-    implementation(project("$itcp_sugar_topic_redis"))
+    implementation(project("$sugar_message_bus_redis"))
 
     // component
-    implementation(project("$itcp_sugar_component_lock_redis_common"))
+    implementation(project("$sugar_concurrent_redisson"))
 
     // tool
     // TODO wjm 待解决:查看依赖树会看到该包自动降级为 2.5.0,所以这里要强制用 2.11.1 版本的,主要是 spring-data-redis 要这样用(要找出是哪个包降级为 2.5.0 的，在 signal 那边也是被自动降级了)
     api("$apache_commons_pool")
-    implementation(project("$itcp_sugar_component_expression_all"))
-    implementation(project("$itcp_sugar_tool"))
-    implementation(project("$itcp_sugar_framework_spring_tool_common"))
-    implementation(project("$itcp_sugar_component_convert_all"))
+    implementation(project("$sugar_tool_expression_all"))
+    implementation(project("$sugar_tool_lang"))
+    implementation(project("$sugar_tool_spring_common"))
+    implementation(project("$sugar_tool_convert_all"))
 }
 
 javadoc {
