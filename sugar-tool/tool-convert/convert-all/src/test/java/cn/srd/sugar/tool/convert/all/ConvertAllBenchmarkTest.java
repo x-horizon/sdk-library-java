@@ -2,8 +2,8 @@ package cn.srd.sugar.tool.convert.all;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ReflectUtil;
-import cn.srd.itcp.sugar.component.convert.all.mapstruct.mapstruct.StudentMapstructConverterImpl;
 import cn.srd.sugar.tool.convert.all.core.Converts;
+import cn.srd.sugar.tool.convert.all.mapstruct.StudentMapstructConverterImpl;
 import cn.srd.sugar.tool.convert.all.mapstruct.bean.domain.GradeDO;
 import cn.srd.sugar.tool.convert.all.mapstruct.bean.domain.StudentDO;
 import cn.srd.sugar.tool.convert.all.mapstruct.bean.vo.GradeVO;

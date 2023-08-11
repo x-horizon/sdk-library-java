@@ -1,6 +1,6 @@
 package cn.srd.sugar.orm.mybatis.plus.database.postgresql.metadata.bean.convert;
 
-import cn.srd.itcp.sugar.doc.knife4j.model.PageResult;
+import cn.srd.sugar.doc.knife4j.model.PageResult;
 import cn.srd.sugar.orm.mybatis.plus.database.postgresql.metadata.bean.dto.PostgresqlTableDTO;
 import cn.srd.sugar.orm.mybatis.plus.database.postgresql.metadata.bean.vo.PostgresqlTableVO;
 import cn.srd.sugar.tool.convert.mapstruct.utils.IgnoreUnmappedMapperConfigurator;

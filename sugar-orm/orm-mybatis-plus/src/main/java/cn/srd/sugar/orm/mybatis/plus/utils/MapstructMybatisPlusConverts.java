@@ -1,6 +1,6 @@
 package cn.srd.sugar.orm.mybatis.plus.utils;
 
-import cn.srd.itcp.sugar.doc.knife4j.model.PageResult;
+import cn.srd.sugar.doc.knife4j.model.PageResult;
 import cn.srd.sugar.tool.convert.mapstruct.core.MapstructConverts;
 import cn.srd.sugar.tool.convert.mapstruct.support.MapstructConvertsSupporterManager;
 import cn.srd.sugar.tool.lang.core.object.Objects;

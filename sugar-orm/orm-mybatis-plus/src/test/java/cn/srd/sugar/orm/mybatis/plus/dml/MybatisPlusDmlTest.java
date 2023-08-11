@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@MapperScan({"cn.srd.itcp.sugar.orm.mybatis.plus.metadata"})
+@MapperScan({"cn.srd.sugar.orm.mybatis.plus.database.postgresql.metadata.dao"})
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MybatisPlusDmlTest {

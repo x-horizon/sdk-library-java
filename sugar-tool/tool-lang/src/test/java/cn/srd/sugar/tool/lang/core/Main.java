@@ -1,4 +1,4 @@
-// package cn.srd.itcp.sugar.tool.core;
+// package cn.srd.sugar.tool.lang.core;
 //
 // /**
 //  * generic enum example, copy from <a href="https://github.com/cmoine/generic-enums">generic-enums</a>

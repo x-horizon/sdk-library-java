@@ -1,4 +1,4 @@
-// package cn.srd.itcp.sugar.tool.core;
+// package cn.srd.sugar.tool.lang.core;
 //
 // import org.cmoine.genericEnums.GenericEnum;
 // import org.cmoine.genericEnums.GenericEnumParam;

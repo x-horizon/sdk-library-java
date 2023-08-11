@@ -1,6 +1,6 @@
 package cn.srd.sugar.orm.mybatis.plus.convert.mapstruct;
 
-import cn.srd.itcp.sugar.doc.knife4j.model.PageResult;
+import cn.srd.sugar.doc.knife4j.model.PageResult;
 import cn.srd.sugar.orm.mybatis.plus.convert.bean.domain.StudentDO;
 import cn.srd.sugar.orm.mybatis.plus.convert.bean.vo.StudentVO;
 import cn.srd.sugar.tool.convert.mapstruct.core.BindMapstruct;

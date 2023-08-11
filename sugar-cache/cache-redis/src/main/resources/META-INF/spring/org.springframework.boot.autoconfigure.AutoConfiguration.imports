@@ -1,1 +1,1 @@
-cn.srd.itcp.sugar.cache.redis.support.RedisCacheAutoConfiguration
+cn.srd.sugar.cache.redis.support.RedisCacheAutoConfiguration

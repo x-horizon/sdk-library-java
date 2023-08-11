@@ -1,34 +1,34 @@
 def projectName = 'sugar-protocol-protobuf'
-
-def projectNexusUrl
-
-if (active == "localhost") {
-    projectNexusUrl = projectLocalhostNexusUrl
-}
-
-if (active == "development") {
-    projectNexusUrl = projectDevelopmentNexusUrl
-}
-
-if (active == "production") {
-    projectNexusUrl = projectProductionNexusUrl
-}
-
-version = projectVersion
-
+//
+//def projectNexusUrl
+//
+//if (active == "localhost") {
+//    projectNexusUrl = projectLocalhostNexusUrl
+//}
+//
+//if (active == "development") {
+//    projectNexusUrl = projectDevelopmentNexusUrl
+//}
+//
+//if (active == "production") {
+//    projectNexusUrl = projectProductionNexusUrl
+//}
+//
+//version = projectVersion
+//
 //apply plugin: 'com.google.protobuf'
-
-dependencies {
-    // protocol
+//
+//dependencies {
+//    // protocol
 //    api("$protobuf_java")
-
-    // context
-    api(project("$sugar_contract_constant"))
-
-    // tool
-    implementation(project("$sugar_tool_lang"))
-}
-
+//
+//    // context
+//    api(project("$sugar_contract_constant"))
+//
+//    // tool
+//    implementation(project("$sugar_tool_lang"))
+//}
+//
 //protobuf {
 //    protoc {
 //        artifact = "$protobuf_protoc"
@@ -46,34 +46,34 @@ dependencies {
 //        }
 //    }
 //}
-
-javadoc {
-    options {
-        encoding projectCharset
-        version true
-        title projectName
-    }
-}
-
-publishing {
-    publications {
-        publishApp(MavenPublication) {
-            groupId group
-            artifactId projectName
-            version project.version
-            from components.java
-            artifact sourcesJar
-//            artifact javadocJar
-        }
-    }
-    repositories {
-        maven {
-            credentials {
-                username projectNexusUsername
-                password projectNexusPassword
-            }
-            url = projectNexusUrl
-            allowInsecureProtocol = true
-        }
-    }
-}
+//
+//javadoc {
+//    options {
+//        encoding projectCharset
+//        version true
+//        title projectName
+//    }
+//}
+//
+//publishing {
+//    publications {
+//        publishApp(MavenPublication) {
+//            groupId group
+//            artifactId projectName
+//            version project.version
+//            from components.java
+//            artifact sourcesJar
+////            artifact javadocJar
+//        }
+//    }
+//    repositories {
+//        maven {
+//            credentials {
+//                username projectNexusUsername
+//                password projectNexusPassword
+//            }
+//            url = projectNexusUrl
+//            allowInsecureProtocol = true
+//        }
+//    }
+//}
