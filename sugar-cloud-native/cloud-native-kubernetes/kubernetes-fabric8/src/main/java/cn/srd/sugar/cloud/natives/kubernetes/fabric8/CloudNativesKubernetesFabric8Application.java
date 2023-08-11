@@ -3,7 +3,7 @@ package cn.srd.sugar.cloud.natives.kubernetes.fabric8;
 /**
  * boot
  */
-public class CloudNativeKubernetesFabric8Application {
+public class CloudNativesKubernetesFabric8Application {
 
     /**
      * main

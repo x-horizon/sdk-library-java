@@ -1,4 +1,4 @@
-package cn.srd.sugar.tool.convert.all.mapstruct.mapstruct;
+package cn.srd.sugar.tool.convert.all.mapstruct.converter;
 
 import cn.srd.sugar.tool.convert.all.mapstruct.bean.domain.GradeDO;
 import cn.srd.sugar.tool.convert.all.mapstruct.bean.domain.StudentDO;

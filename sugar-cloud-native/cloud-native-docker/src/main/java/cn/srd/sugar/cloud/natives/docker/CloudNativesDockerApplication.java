@@ -3,7 +3,7 @@ package cn.srd.sugar.cloud.natives.docker;
 /**
  * boot
  */
-public class CloudNativeDockerApplication {
+public class CloudNativesDockerApplication {
 
     /**
      * main
