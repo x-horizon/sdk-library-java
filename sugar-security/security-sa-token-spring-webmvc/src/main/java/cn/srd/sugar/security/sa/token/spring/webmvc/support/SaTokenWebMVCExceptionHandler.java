@@ -3,8 +3,8 @@ package cn.srd.sugar.security.sa.token.spring.webmvc.support;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotPermissionException;
 import cn.dev33.satoken.exception.NotRoleException;
-import cn.srd.sugar.contract.model.core.HttpStatusEnum;
-import cn.srd.sugar.contract.model.core.WebResponse;
+import cn.srd.sugar.tool.lang.web.HttpStatusEnum;
+import cn.srd.sugar.tool.lang.web.WebResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
@@ -12,7 +12,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import static cn.srd.sugar.contract.model.core.WebResponse.error;
+import static cn.srd.sugar.tool.lang.web.WebResponse.error;
 
 /**
  * spring web mvc sa-token global exception handler

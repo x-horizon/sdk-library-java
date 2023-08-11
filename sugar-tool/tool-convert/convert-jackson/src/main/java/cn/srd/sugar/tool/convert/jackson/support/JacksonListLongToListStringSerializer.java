@@ -1,7 +1,7 @@
 package cn.srd.sugar.tool.convert.jackson.support;
 
-import cn.srd.itcp.sugar.tool.core.ArraysUtil;
-import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
+import cn.srd.sugar.tool.lang.core.ArraysUtil;
+import cn.srd.sugar.tool.lang.core.CollectionsUtil;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.core.type.WritableTypeId;

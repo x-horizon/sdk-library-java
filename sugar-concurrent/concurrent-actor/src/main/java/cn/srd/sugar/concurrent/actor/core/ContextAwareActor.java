@@ -1,8 +1,8 @@
 package cn.srd.sugar.concurrent.actor.core;
 
-import cn.srd.itcp.sugar.context.constant.core.ModuleView;
 import cn.srd.sugar.concurrent.actor.event.ActorEvent;
 import cn.srd.sugar.concurrent.actor.id.ActorId;
+import cn.srd.sugar.context.constant.core.ModuleView;
 import lombok.extern.slf4j.Slf4j;
 
 /**

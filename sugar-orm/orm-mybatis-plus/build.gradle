@@ -32,7 +32,7 @@ dependencies {
     testImplementation("$druid")
 
     // context
-    api(project("$sugar_context_constant"))
+    api(project("$sugar_contract_constant"))
 
     // orm
     api("$mybatis_plus")

@@ -1,11 +1,11 @@
 package cn.srd.sugar.tool.geometry.mybatis.plus.database.postgresql.support;
 
-import cn.srd.itcp.sugar.tool.core.StringsUtil;
-import cn.srd.itcp.sugar.tool.core.object.Objects;
 import cn.srd.sugar.tool.constant.core.SQLPool;
 import cn.srd.sugar.tool.constant.core.StringPool;
 import cn.srd.sugar.tool.geometry.mybatis.plus.database.postgresql.core.EnableMybatisPlusPostgresqlGeometryInterceptor;
 import cn.srd.sugar.tool.geometry.mybatis.plus.database.postgresql.utils.SQLParser;
+import cn.srd.sugar.tool.lang.core.StringsUtil;
+import cn.srd.sugar.tool.lang.core.object.Objects;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;

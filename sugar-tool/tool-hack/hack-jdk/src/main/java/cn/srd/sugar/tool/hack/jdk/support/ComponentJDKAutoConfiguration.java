@@ -1,6 +1,6 @@
 package cn.srd.sugar.tool.hack.jdk.support;
 
-import cn.srd.itcp.sugar.tool.core.object.Objects;
+import cn.srd.sugar.tool.lang.core.object.Objects;
 import cn.srd.sugar.tool.hack.jdk.core.EnableExportAllModuleWithJDK16;
 import cn.srd.sugar.tool.spring.common.core.SpringsUtil;
 import jakarta.annotation.PostConstruct;

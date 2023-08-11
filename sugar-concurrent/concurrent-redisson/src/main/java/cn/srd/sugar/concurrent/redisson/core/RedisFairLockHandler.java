@@ -1,6 +1,6 @@
 package cn.srd.sugar.concurrent.redisson.core;
 
-import cn.srd.itcp.sugar.context.redis.core.RedisManager;
+import cn.srd.sugar.context.redis.core.RedisManager;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.redisson.api.RLock;

@@ -1,6 +1,6 @@
 package cn.srd.sugar.orm.mybatis.plus.core;
 
-import cn.srd.itcp.sugar.tool.core.StringsUtil;
+import cn.srd.sugar.tool.lang.core.StringsUtil;
 import cn.srd.sugar.tool.constant.core.StringPool;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import lombok.SneakyThrows;

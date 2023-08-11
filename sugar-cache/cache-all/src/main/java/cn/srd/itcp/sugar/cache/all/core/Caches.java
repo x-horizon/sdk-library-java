@@ -5,7 +5,7 @@ import cn.srd.itcp.sugar.cache.caffeine.core.CaffeineCacheTemplate;
 import cn.srd.itcp.sugar.cache.map.core.MapCache;
 import cn.srd.itcp.sugar.cache.map.core.MapCacheTemplate;
 import cn.srd.itcp.sugar.cache.redis.core.RedisCache;
-import cn.srd.itcp.sugar.context.caffeine.config.properties.CaffeineCacheProperties;
+import cn.srd.sugar.context.caffeine.config.properties.CaffeineCacheProperties;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

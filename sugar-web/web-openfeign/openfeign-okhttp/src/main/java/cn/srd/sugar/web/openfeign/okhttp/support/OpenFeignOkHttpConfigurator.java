@@ -1,6 +1,6 @@
 package cn.srd.sugar.web.openfeign.okhttp.support;
 
-import cn.srd.sugar.contract.model.core.ResponseModel;
+import cn.srd.sugar.tool.lang.web.ResponseModel;
 import okhttp3.OkHttpClient;
 
 import java.util.ArrayList;

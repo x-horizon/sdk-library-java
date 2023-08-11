@@ -44,7 +44,7 @@ allprojects {
             mavenBom "${reactor_bom}"
             mavenBom "${sa_token_bom}"
             mavenBom "${docker_bom}"
-            mavenBom "${protobuf_bom}"
+//            mavenBom "${protobuf_bom}"
             mavenBom "${jackson_bom}"
         }
     }

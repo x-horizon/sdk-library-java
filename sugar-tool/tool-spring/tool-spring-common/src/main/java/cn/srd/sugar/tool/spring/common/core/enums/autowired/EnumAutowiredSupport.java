@@ -1,8 +1,9 @@
 package cn.srd.sugar.tool.spring.common.core.enums.autowired;
 
-import cn.srd.itcp.sugar.context.constant.core.ModuleView;
-import cn.srd.itcp.sugar.tool.core.asserts.Assert;
-import cn.srd.itcp.sugar.tool.core.object.Objects;
+import cn.srd.sugar.context.constant.core.ModuleView;
+import cn.srd.sugar.tool.lang.core.*;
+import cn.srd.sugar.tool.lang.core.asserts.Assert;
+import cn.srd.sugar.tool.lang.core.object.Objects;
 import cn.srd.sugar.tool.spring.common.core.SpringsUtil;
 import cn.srd.sugar.tool.spring.common.core.enums.autowired.exception.*;
 import jakarta.annotation.PostConstruct;

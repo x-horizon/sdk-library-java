@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.cache.caffeine.core;
 
-import cn.srd.itcp.sugar.context.caffeine.config.properties.CaffeineCacheProperties;
+import cn.srd.sugar.context.caffeine.config.properties.CaffeineCacheProperties;
 import com.github.benmanes.caffeine.cache.Cache;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

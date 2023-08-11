@@ -1,6 +1,6 @@
 package cn.srd.sugar.orm.hsweb;
 
-import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
+import cn.srd.sugar.tool.lang.core.CollectionsUtil;
 import cn.srd.sugar.orm.hsweb.bean.domain.StudentDO;
 import cn.srd.sugar.orm.hsweb.bean.vo.StudentVO;
 import cn.srd.sugar.orm.hsweb.utils.Converts;

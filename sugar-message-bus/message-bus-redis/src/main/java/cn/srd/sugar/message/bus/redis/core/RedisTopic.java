@@ -1,6 +1,6 @@
 package cn.srd.sugar.message.bus.redis.core;
 
-import cn.srd.itcp.sugar.context.redis.core.RedisManager;
+import cn.srd.sugar.context.redis.core.RedisManager;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

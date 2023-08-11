@@ -22,7 +22,7 @@ dependencies {
     annotationProcessor("$spring_boot_configuration_processor")
 
     // context
-    api(project("$sugar_context_constant"))
+    api(project("$sugar_contract_constant"))
 
     // topic
     api("$spring_cloud_stream_kafka")

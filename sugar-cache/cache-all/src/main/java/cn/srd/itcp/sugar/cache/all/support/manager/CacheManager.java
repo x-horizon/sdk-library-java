@@ -1,7 +1,7 @@
 package cn.srd.itcp.sugar.cache.all.support.manager;
 
-import cn.srd.itcp.sugar.context.constant.core.ModuleView;
-import cn.srd.itcp.sugar.tool.core.object.Objects;
+import cn.srd.sugar.context.constant.core.ModuleView;
+import cn.srd.sugar.tool.lang.core.object.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -31,7 +31,7 @@ dependencies {
     api(project("$sugar_orm_mybatis_plus"))
 
     // context
-    api(project("$sugar_context_constant"))
+    api(project("$sugar_contract_constant"))
 
     // tool
     implementation(project("$sugar_tool_lang"))

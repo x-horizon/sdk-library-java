@@ -1,10 +1,10 @@
 package cn.srd.sugar.web.openfeign.okhttp.support;
 
-import cn.srd.itcp.sugar.tool.core.AnnotationsUtil;
-import cn.srd.itcp.sugar.tool.core.ClassesUtil;
-import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
-import cn.srd.itcp.sugar.tool.core.object.Objects;
 import cn.srd.sugar.tool.constant.core.StringPool;
+import cn.srd.sugar.tool.lang.core.AnnotationsUtil;
+import cn.srd.sugar.tool.lang.core.ClassesUtil;
+import cn.srd.sugar.tool.lang.core.CollectionsUtil;
+import cn.srd.sugar.tool.lang.core.object.Objects;
 import cn.srd.sugar.tool.spring.common.core.SpringsUtil;
 import cn.srd.sugar.web.openfeign.okhttp.core.EnableOpenFeignOkHttpHandleResponseInterceptor;
 import okhttp3.OkHttpClient;

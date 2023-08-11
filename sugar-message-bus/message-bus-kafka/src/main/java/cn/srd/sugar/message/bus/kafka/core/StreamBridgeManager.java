@@ -1,6 +1,6 @@
 package cn.srd.sugar.message.bus.kafka.core;
 
-import cn.srd.itcp.sugar.tool.core.object.Objects;
+import cn.srd.sugar.tool.lang.core.object.Objects;
 import cn.srd.sugar.tool.spring.common.core.SpringsUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

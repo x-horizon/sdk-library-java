@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
  * @since 2021/5/1 14:13
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Converts extends cn.srd.itcp.sugar.tool.core.convert.Converts {
+public class Converts extends cn.srd.sugar.tool.lang.core.convert.Converts {
 
     /**
      * 应用 Spring 转换器

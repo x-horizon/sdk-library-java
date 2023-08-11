@@ -1,6 +1,6 @@
 package cn.srd.sugar.orm.mybatis.plus.database.postgresql.handler;
 
-import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
+import cn.srd.sugar.tool.lang.core.CollectionsUtil;
 import cn.srd.sugar.tool.convert.all.core.Converts;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;

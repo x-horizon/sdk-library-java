@@ -1,6 +1,6 @@
 package cn.srd.sugar.orm.mybatis.plus.convert;
 
-import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
+import cn.srd.sugar.tool.lang.core.CollectionsUtil;
 import cn.srd.sugar.orm.mybatis.plus.convert.bean.domain.StudentDO;
 import cn.srd.sugar.orm.mybatis.plus.convert.bean.vo.StudentVO;
 import cn.srd.sugar.orm.mybatis.plus.utils.Converts;

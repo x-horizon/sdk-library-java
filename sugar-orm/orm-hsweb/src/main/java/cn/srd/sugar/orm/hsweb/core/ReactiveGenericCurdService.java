@@ -1,6 +1,6 @@
 package cn.srd.sugar.orm.hsweb.core;
 
-import cn.srd.itcp.sugar.tool.core.object.Objects;
+import cn.srd.sugar.tool.lang.core.object.Objects;
 import cn.srd.sugar.orm.hsweb.page.PageResult;
 import cn.srd.sugar.orm.hsweb.utils.Converts;
 import org.hswebframework.ezorm.rdb.mapping.defaults.SaveResult;

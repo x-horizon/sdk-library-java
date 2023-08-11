@@ -1,6 +1,5 @@
 package cn.srd.sugar.tool.convert.all.mapstruct;
 
-import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.sugar.tool.convert.all.core.Converts;
 import cn.srd.sugar.tool.convert.all.mapstruct.bean.domain.GradeDO;
 import cn.srd.sugar.tool.convert.all.mapstruct.bean.domain.StudentDO;
@@ -10,6 +9,7 @@ import cn.srd.sugar.tool.convert.all.mapstruct.bean.vo.StudentUnsupportedMapstru
 import cn.srd.sugar.tool.convert.all.mapstruct.bean.vo.StudentVO;
 import cn.srd.sugar.tool.convert.mapstruct.exception.MapstructConvertMethodNotFoundException;
 import cn.srd.sugar.tool.convert.mapstruct.exception.MapstructConvertMethodUnsupportedException;
+import cn.srd.sugar.tool.lang.core.CollectionsUtil;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

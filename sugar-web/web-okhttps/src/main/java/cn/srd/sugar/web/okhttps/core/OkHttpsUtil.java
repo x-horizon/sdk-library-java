@@ -1,9 +1,9 @@
 package cn.srd.sugar.web.okhttps.core;
 
-import cn.srd.itcp.sugar.tool.core.ReflectsUtil;
-import cn.srd.itcp.sugar.tool.core.StringsUtil;
-import cn.srd.itcp.sugar.tool.core.object.Objects;
-import cn.srd.sugar.contract.model.core.HttpStatusEnum;
+import cn.srd.sugar.tool.lang.core.ReflectsUtil;
+import cn.srd.sugar.tool.lang.core.StringsUtil;
+import cn.srd.sugar.tool.lang.core.object.Objects;
+import cn.srd.sugar.tool.lang.web.HttpStatusEnum;
 import cn.zhxu.okhttps.HttpResult;
 import cn.zhxu.okhttps.OkHttps;
 import lombok.AccessLevel;

@@ -1,13 +1,13 @@
 package cn.srd.sugar.orm.mybatis.plus.database.postgresql.metadata.handler;
 
-import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
-import cn.srd.itcp.sugar.tool.core.object.Objects;
 import cn.srd.sugar.orm.mybatis.plus.core.GenericCurdService;
 import cn.srd.sugar.orm.mybatis.plus.core.MpWrappers;
 import cn.srd.sugar.orm.mybatis.plus.database.postgresql.metadata.bean.dto.PostgresqlTableColumnDTO;
 import cn.srd.sugar.orm.mybatis.plus.database.postgresql.metadata.bean.dto.PostgresqlTablePrimaryKeyDTO;
 import cn.srd.sugar.orm.mybatis.plus.database.postgresql.metadata.bean.po.*;
 import cn.srd.sugar.orm.mybatis.plus.database.postgresql.metadata.dao.PostgresqlClassDao;
+import cn.srd.sugar.tool.lang.core.CollectionsUtil;
+import cn.srd.sugar.tool.lang.core.object.Objects;
 
 import java.util.Collection;
 import java.util.List;

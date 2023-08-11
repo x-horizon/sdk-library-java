@@ -3,7 +3,7 @@ package cn.srd.itcp.sugar.cache.all.support.aspect;
 import cn.srd.itcp.sugar.cache.all.core.CacheEvict;
 import cn.srd.itcp.sugar.cache.all.core.CacheWrite;
 import cn.srd.itcp.sugar.cache.all.core.Caching;
-import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
+import cn.srd.sugar.tool.lang.core.CollectionsUtil;
 import cn.srd.sugar.tool.spring.common.core.NullValueUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

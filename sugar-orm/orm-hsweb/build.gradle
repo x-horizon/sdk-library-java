@@ -24,7 +24,7 @@ dependencies {
     api("$reactor_core")
 
     // context
-    api(project("$sugar_context_constant"))
+    api(project("$sugar_contract_constant"))
 
     // orm
     implementation("$data_r2dbc")

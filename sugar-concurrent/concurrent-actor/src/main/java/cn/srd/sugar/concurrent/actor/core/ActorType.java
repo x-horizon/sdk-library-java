@@ -1,6 +1,6 @@
 package cn.srd.sugar.concurrent.actor.core;
 
-import cn.srd.itcp.sugar.tool.core.standard.CodeAndDescriptionStandard;
+import cn.srd.sugar.tool.lang.core.standard.CodeAndDescriptionStandard;
 
 /**
  * actor type

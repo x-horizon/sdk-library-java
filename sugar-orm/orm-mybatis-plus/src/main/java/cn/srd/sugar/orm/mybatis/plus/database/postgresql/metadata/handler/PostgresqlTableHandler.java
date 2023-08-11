@@ -2,7 +2,6 @@ package cn.srd.sugar.orm.mybatis.plus.database.postgresql.metadata.handler;
 
 import cn.srd.itcp.sugar.doc.knife4j.model.PageParam;
 import cn.srd.itcp.sugar.doc.knife4j.model.PageResult;
-import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
 import cn.srd.sugar.orm.mybatis.plus.core.GenericCurdService;
 import cn.srd.sugar.orm.mybatis.plus.core.MpWrappers;
 import cn.srd.sugar.orm.mybatis.plus.database.postgresql.metadata.bean.convert.PostgresqlTableConverter;
@@ -10,6 +9,7 @@ import cn.srd.sugar.orm.mybatis.plus.database.postgresql.metadata.bean.dto.Postg
 import cn.srd.sugar.orm.mybatis.plus.database.postgresql.metadata.bean.po.PostgresqlTablePO;
 import cn.srd.sugar.orm.mybatis.plus.database.postgresql.metadata.bean.vo.PostgresqlTableVO;
 import cn.srd.sugar.orm.mybatis.plus.database.postgresql.metadata.dao.PostgresqlTableDao;
+import cn.srd.sugar.tool.lang.core.CollectionsUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import java.util.Collection;

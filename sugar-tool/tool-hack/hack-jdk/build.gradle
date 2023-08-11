@@ -22,7 +22,7 @@ dependencies {
     implementation("$spring_boot_aop")
 
     // context
-    api(project("$sugar_context_constant"))
+    api(project("$sugar_contract_constant"))
 
     // hack
     api("$burningwave_core")

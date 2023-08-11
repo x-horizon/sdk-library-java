@@ -87,13 +87,13 @@ public enum WeekdayTypeEnum {
      */
     public static WeekdayTypeEnum convertByHutoolWeek(Week week) {
         return switch (week) {
-            case Week.MONDAY -> WeekdayTypeEnum.MONDAY;
-            case Week.TUESDAY -> WeekdayTypeEnum.TUESDAY;
-            case Week.WEDNESDAY -> WeekdayTypeEnum.WEDNESDAY;
-            case Week.THURSDAY -> WeekdayTypeEnum.THURSDAY;
-            case Week.FRIDAY -> WeekdayTypeEnum.FRIDAY;
-            case Week.SATURDAY -> WeekdayTypeEnum.SATURDAY;
-            case Week.SUNDAY -> WeekdayTypeEnum.SUNDAY;
+            case MONDAY -> WeekdayTypeEnum.MONDAY;
+            case TUESDAY -> WeekdayTypeEnum.TUESDAY;
+            case WEDNESDAY -> WeekdayTypeEnum.WEDNESDAY;
+            case THURSDAY -> WeekdayTypeEnum.THURSDAY;
+            case FRIDAY -> WeekdayTypeEnum.FRIDAY;
+            case SATURDAY -> WeekdayTypeEnum.SATURDAY;
+            case SUNDAY -> WeekdayTypeEnum.SUNDAY;
         };
     }
 

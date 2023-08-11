@@ -1,7 +1,7 @@
 package cn.srd.sugar.web.okhttps;
 
 import cn.hutool.core.lang.Console;
-import cn.srd.sugar.contract.model.core.WebResponse;
+import cn.srd.sugar.tool.lang.web.WebResponse;
 import cn.srd.sugar.web.okhttps.core.OkHttpsUtil;
 import cn.zhxu.okhttps.HttpResult;
 import cn.zhxu.okhttps.OkHttps;

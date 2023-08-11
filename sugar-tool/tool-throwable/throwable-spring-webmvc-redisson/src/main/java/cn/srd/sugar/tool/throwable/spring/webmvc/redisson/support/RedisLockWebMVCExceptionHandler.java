@@ -2,8 +2,8 @@ package cn.srd.sugar.tool.throwable.spring.webmvc.redisson.support;
 
 import cn.srd.sugar.concurrent.redisson.exception.RedisGenerateLockNameFailedException;
 import cn.srd.sugar.concurrent.redisson.exception.RedisLockIllegalArgumentException;
-import cn.srd.sugar.contract.model.core.WebResponse;
 import cn.srd.sugar.tool.constant.core.HttpInfo;
+import cn.srd.sugar.tool.lang.web.WebResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
@@ -11,7 +11,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import static cn.srd.sugar.contract.model.core.WebResponse.error;
+import static cn.srd.sugar.tool.lang.web.WebResponse.error;
 
 /**
  * spring web mvc redis global exception handler

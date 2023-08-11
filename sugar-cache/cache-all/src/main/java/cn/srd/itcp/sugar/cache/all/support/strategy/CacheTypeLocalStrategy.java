@@ -2,8 +2,8 @@ package cn.srd.itcp.sugar.cache.all.support.strategy;
 
 import cn.srd.itcp.sugar.cache.all.support.manager.CacheDataManager;
 import cn.srd.itcp.sugar.cache.contract.core.CacheTemplate;
-import cn.srd.itcp.sugar.tool.core.StringsUtil;
-import cn.srd.itcp.sugar.tool.core.object.Objects;
+import cn.srd.sugar.tool.lang.core.StringsUtil;
+import cn.srd.sugar.tool.lang.core.object.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

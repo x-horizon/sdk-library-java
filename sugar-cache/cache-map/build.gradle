@@ -21,7 +21,7 @@ dependencies {
     implementation("$spring_boot")
 
     // context
-    api(project("$sugar_context_constant"))
+    api(project("$sugar_contract_constant"))
 
     // cache
     api(project("$sugar_cache_contract"))

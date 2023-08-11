@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.cache.redis.core;
 
-import cn.srd.itcp.sugar.tool.core.time.DurationWrapper;
+import cn.srd.sugar.tool.lang.core.time.DurationWrapper;
 import cn.srd.sugar.contract.throwable.core.UnsupportedOperationException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

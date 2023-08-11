@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.cache.all.support;
 
-import cn.srd.itcp.sugar.tool.core.RandomsUtil;
+import cn.srd.sugar.tool.lang.core.RandomsUtil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;

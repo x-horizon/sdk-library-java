@@ -1,11 +1,11 @@
 package cn.srd.sugar.tool.spring.webmvc.support;
 
-import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
-import cn.srd.itcp.sugar.tool.core.StringsUtil;
-import cn.srd.sugar.contract.model.core.HttpStatusEnum;
-import cn.srd.sugar.contract.model.core.WebResponse;
 import cn.srd.sugar.contract.throwable.core.RunningException;
 import cn.srd.sugar.contract.throwable.core.WarnOperationException;
+import cn.srd.sugar.tool.lang.core.CollectionsUtil;
+import cn.srd.sugar.tool.lang.core.StringsUtil;
+import cn.srd.sugar.tool.lang.web.HttpStatusEnum;
+import cn.srd.sugar.tool.lang.web.WebResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -24,7 +24,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import java.util.stream.Collectors;
 
-import static cn.srd.sugar.contract.model.core.WebResponse.error;
+import static cn.srd.sugar.tool.lang.web.WebResponse.error;
 
 /**
  * spring web mvc global exception handler

@@ -1,5 +1,7 @@
 package cn.srd.sugar.tool.lang.core.pipeline;
 
+import io.vavr.*;
+
 import java.util.LinkedList;
 import java.util.List;
 

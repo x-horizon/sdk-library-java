@@ -1,9 +1,9 @@
 package cn.srd.sugar.id.snowflake.support;
 
-import cn.srd.itcp.sugar.tool.core.asserts.Assert;
-import cn.srd.itcp.sugar.tool.core.object.Objects;
 import cn.srd.sugar.id.snowflake.core.SnowflakeIdConfig;
 import cn.srd.sugar.id.snowflake.core.SnowflakeIdConfigScan;
+import cn.srd.sugar.tool.lang.core.asserts.Assert;
+import cn.srd.sugar.tool.lang.core.object.Objects;
 import cn.srd.sugar.tool.spring.common.core.SpringsUtil;
 import com.github.yitter.contract.IdGeneratorOptions;
 import com.github.yitter.idgen.YitIdHelper;

@@ -1,7 +1,7 @@
 package cn.srd.sugar.tool.spring.webmvc.support;
 
-import cn.srd.itcp.sugar.tool.core.object.Objects;
-import cn.srd.sugar.contract.model.core.WebResponse;
+import cn.srd.sugar.tool.lang.core.object.Objects;
+import cn.srd.sugar.tool.lang.web.WebResponse;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;

@@ -12,8 +12,8 @@ apply from: getRootDir().getAbsolutePath() + "/dependencies.gradle"
 
 rootProject.name = 'sugar-java'
 
-include("$sugar_cloud_natives_docker")
-include("$sugar_cloud_natives_kubernetes_fabric8")
+include("$sugar_cloud_native_docker")
+include("$sugar_cloud_native_kubernetes_fabric8")
 
 include("$sugar_concurrent_actor")
 include("$sugar_concurrent_redisson")
@@ -25,6 +25,9 @@ include("$sugar_security_sa_token")
 include("$sugar_security_sa_token_spring_webmvc")
 include("$sugar_security_sa_token_spring_webflux")
 
+include("$sugar_contract_cache_caffeine")
+include("$sugar_contract_cache_redis")
+include("$sugar_contract_constant")
 include("$sugar_contract_message_bus")
 include("$sugar_contract_model")
 include("$sugar_contract_throwable")
@@ -63,10 +66,6 @@ include("$sugar_tool_throwable_spring_webmvc_sa_token")
 include("$sugar_web_okhttps")
 include("$sugar_web_openfeign_common")
 include("$sugar_web_openfeign_okhttp")
-
-include("$sugar_context_constant")
-include("$sugar_context_caffeine")
-include("$sugar_context_redis")
 
 include("$sugar_cache_all")
 include("$sugar_cache_caffeine")

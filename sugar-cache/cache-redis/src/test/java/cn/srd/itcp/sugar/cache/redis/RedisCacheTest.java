@@ -2,7 +2,7 @@ package cn.srd.itcp.sugar.cache.redis;
 
 import cn.srd.itcp.sugar.cache.redis.core.RedisCache;
 import cn.srd.itcp.sugar.cache.redis.core.RedisCacheTemplate;
-import cn.srd.itcp.sugar.tool.core.time.DurationWrapper;
+import cn.srd.sugar.tool.lang.core.time.DurationWrapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,10 +1,10 @@
 package cn.srd.sugar.orm.mybatis.plus.utils;
 
 import cn.srd.itcp.sugar.doc.knife4j.model.PageResult;
-import cn.srd.itcp.sugar.tool.core.object.Objects;
-import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import cn.srd.sugar.tool.convert.mapstruct.core.MapstructConverts;
 import cn.srd.sugar.tool.convert.mapstruct.support.MapstructConvertsSupporterManager;
+import cn.srd.sugar.tool.lang.core.object.Objects;
+import cn.srd.sugar.tool.lang.core.validation.Nullable;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

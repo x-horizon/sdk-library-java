@@ -1,6 +1,6 @@
 package cn.srd.itcp.sugar.cache.redis.support;
 
-import cn.srd.itcp.sugar.context.redis.config.properties.RedisCacheProperties;
+import cn.srd.sugar.context.redis.config.properties.RedisCacheProperties;
 import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

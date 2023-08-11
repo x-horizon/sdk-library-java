@@ -21,7 +21,7 @@ dependencies {
     api("$apache_commons_pool")
 
     // context
-    api(project("$sugar_context_constant"))
+    api(project("$sugar_contract_constant"))
     api(project("$sugar_tool_constant"))
 
     // contract

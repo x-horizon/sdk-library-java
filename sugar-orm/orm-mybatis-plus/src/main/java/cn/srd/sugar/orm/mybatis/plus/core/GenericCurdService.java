@@ -1,9 +1,9 @@
 package cn.srd.sugar.orm.mybatis.plus.core;
 
-import cn.srd.itcp.sugar.tool.core.ReflectsUtil;
-import cn.srd.itcp.sugar.tool.core.object.Objects;
-import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import cn.srd.sugar.orm.mybatis.plus.database.mysql.utils.SQL;
+import cn.srd.sugar.tool.lang.core.ReflectsUtil;
+import cn.srd.sugar.tool.lang.core.object.Objects;
+import cn.srd.sugar.tool.lang.core.validation.Nullable;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.github.yulichang.base.MPJBaseServiceImpl;
 

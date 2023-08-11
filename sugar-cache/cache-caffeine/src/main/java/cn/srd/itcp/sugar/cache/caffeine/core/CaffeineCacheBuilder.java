@@ -1,10 +1,10 @@
 package cn.srd.itcp.sugar.cache.caffeine.core;
 
-import cn.srd.itcp.sugar.context.caffeine.config.properties.CaffeineCacheProperties;
-import cn.srd.itcp.sugar.tool.core.LambdasUtil;
-import cn.srd.itcp.sugar.tool.core.object.Objects;
-import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
+import cn.srd.sugar.context.caffeine.config.properties.CaffeineCacheProperties;
 import cn.srd.sugar.contract.throwable.core.UnsupportedOperationException;
+import cn.srd.sugar.tool.lang.core.LambdasUtil;
+import cn.srd.sugar.tool.lang.core.object.Objects;
+import cn.srd.sugar.tool.lang.core.time.TimeUtil;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import lombok.AccessLevel;
@@ -47,11 +47,9 @@ public class CaffeineCacheBuilder {
         LambdasUtil.acceptIfNeed(caffeineCacheProperties.getMaximumSize(), Objects::isPositive, cacheBuilder::maximumSize);
         LambdasUtil.acceptIfNeed(caffeineCacheProperties.getKeyReferenceLevel(), Objects::isNotNull, referenceLevel -> {
             switch (referenceLevel) {
-                case SOFT ->
-                        throw new UnsupportedOperationException("unsupported [soft] reference type with caffeine key");
+                case SOFT -> throw new UnsupportedOperationException("unsupported [soft] reference type with caffeine key");
                 case WEAK -> cacheBuilder.weakKeys();
-                case PHANTOM ->
-                        throw new UnsupportedOperationException("unsupported [phantom] reference type with caffeine key");
+                case PHANTOM -> throw new UnsupportedOperationException("unsupported [phantom] reference type with caffeine key");
                 default -> {
                 }
             }
@@ -60,8 +58,7 @@ public class CaffeineCacheBuilder {
             switch (referenceLevel) {
                 case SOFT -> cacheBuilder.softValues();
                 case WEAK -> cacheBuilder.weakValues();
-                case PHANTOM ->
-                        throw new UnsupportedOperationException("unsupported [phantom] reference type with caffeine value");
+                case PHANTOM -> throw new UnsupportedOperationException("unsupported [phantom] reference type with caffeine value");
                 default -> {
                 }
             }

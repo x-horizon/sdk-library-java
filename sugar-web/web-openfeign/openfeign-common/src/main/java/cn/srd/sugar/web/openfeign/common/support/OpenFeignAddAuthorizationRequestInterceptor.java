@@ -1,6 +1,6 @@
 package cn.srd.sugar.web.openfeign.common.support;
 
-import cn.srd.itcp.sugar.tool.core.object.Objects;
+import cn.srd.sugar.tool.lang.core.object.Objects;
 import cn.srd.sugar.tool.spring.webmvc.core.SpringsWebMVCUtil;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

@@ -1,10 +1,10 @@
 package cn.srd.sugar.concurrent.actor.core;
 
-import cn.srd.itcp.sugar.context.constant.core.ModuleView;
-import cn.srd.itcp.sugar.tool.core.thread.ThreadsUtil;
 import cn.srd.sugar.concurrent.actor.event.ActorEvent;
 import cn.srd.sugar.concurrent.actor.exception.ActorNotRegisteredException;
 import cn.srd.sugar.concurrent.actor.id.ActorId;
+import cn.srd.sugar.context.constant.core.ModuleView;
+import cn.srd.sugar.tool.lang.core.thread.ThreadsUtil;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 

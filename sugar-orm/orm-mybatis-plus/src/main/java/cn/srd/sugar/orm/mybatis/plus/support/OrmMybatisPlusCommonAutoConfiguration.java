@@ -1,9 +1,9 @@
 package cn.srd.sugar.orm.mybatis.plus.support;
 
-import cn.srd.itcp.sugar.tool.core.ReflectsUtil;
 import cn.srd.sugar.orm.mybatis.plus.config.properties.OrmMybatisPlusProperties;
 import cn.srd.sugar.orm.mybatis.plus.interceptor.MybatisPlusInnerInterceptorsConfigurer;
 import cn.srd.sugar.orm.mybatis.plus.interceptor.MybatisPlusInterceptors;
+import cn.srd.sugar.tool.lang.core.ReflectsUtil;
 import cn.srd.sugar.tool.spring.common.core.SpringsUtil;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;

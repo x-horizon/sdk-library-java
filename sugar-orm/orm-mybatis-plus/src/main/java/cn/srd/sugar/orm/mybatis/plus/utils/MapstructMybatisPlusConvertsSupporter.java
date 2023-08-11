@@ -1,8 +1,8 @@
 package cn.srd.sugar.orm.mybatis.plus.utils;
 
 import cn.srd.itcp.sugar.doc.knife4j.model.PageResult;
-import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
-import cn.srd.itcp.sugar.tool.core.validation.Nullable;
+import cn.srd.sugar.tool.lang.core.CollectionsUtil;
+import cn.srd.sugar.tool.lang.core.validation.Nullable;
 import cn.srd.sugar.tool.constant.core.StringPool;
 import cn.srd.sugar.tool.convert.mapstruct.exception.MapstructConvertMethodUnsupportedException;
 import cn.srd.sugar.tool.convert.mapstruct.support.MapstructConvertsSupporter;

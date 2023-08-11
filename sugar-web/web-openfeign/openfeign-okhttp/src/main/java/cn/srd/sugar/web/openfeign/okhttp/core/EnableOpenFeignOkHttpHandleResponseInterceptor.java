@@ -1,6 +1,6 @@
 package cn.srd.sugar.web.openfeign.okhttp.core;
 
-import cn.srd.sugar.contract.model.core.ResponseModel;
+import cn.srd.sugar.tool.lang.web.ResponseModel;
 import cn.srd.sugar.web.openfeign.okhttp.support.OpenFeignOkHttpHandleRepsonseInterceptor;
 
 import java.lang.annotation.*;

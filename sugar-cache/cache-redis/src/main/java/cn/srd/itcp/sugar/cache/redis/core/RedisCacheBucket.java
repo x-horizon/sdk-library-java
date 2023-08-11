@@ -1,10 +1,10 @@
 package cn.srd.itcp.sugar.cache.redis.core;
 
-import cn.srd.itcp.sugar.context.redis.core.RedisManager;
-import cn.srd.itcp.sugar.tool.core.CollectionsUtil;
-import cn.srd.itcp.sugar.tool.core.object.Objects;
-import cn.srd.itcp.sugar.tool.core.time.DurationWrapper;
-import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
+import cn.srd.sugar.context.redis.core.RedisManager;
+import cn.srd.sugar.tool.lang.core.CollectionsUtil;
+import cn.srd.sugar.tool.lang.core.object.Objects;
+import cn.srd.sugar.tool.lang.core.time.DurationWrapper;
+import cn.srd.sugar.tool.lang.core.time.TimeUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;

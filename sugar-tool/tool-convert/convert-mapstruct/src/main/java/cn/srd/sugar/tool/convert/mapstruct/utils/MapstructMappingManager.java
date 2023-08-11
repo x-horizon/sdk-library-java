@@ -1,10 +1,11 @@
 package cn.srd.sugar.tool.convert.mapstruct.utils;
 
-import cn.srd.itcp.sugar.tool.core.algorithm.AlgorithmsUtil;
-import cn.srd.itcp.sugar.tool.core.object.Objects;
-import cn.srd.itcp.sugar.tool.core.time.TimeUtil;
-import cn.srd.itcp.sugar.tool.core.validation.Nullable;
 import cn.srd.sugar.tool.constant.core.StringPool;
+import cn.srd.sugar.tool.lang.core.*;
+import cn.srd.sugar.tool.lang.core.algorithm.AlgorithmsUtil;
+import cn.srd.sugar.tool.lang.core.object.Objects;
+import cn.srd.sugar.tool.lang.core.time.TimeUtil;
+import cn.srd.sugar.tool.lang.core.validation.Nullable;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import lombok.AccessLevel;

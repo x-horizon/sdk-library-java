@@ -64,7 +64,7 @@ public class ClassesUtil extends ClassUtil {
      */
     @Nullable
     public static Class<?> getDeclaringClass(@Nullable Method method) {
-        if (cn.srd.sugar.tool.lang.core.object.Objects.isNull(method)) {
+        if (Objects.isNull(method)) {
             return null;
         }
         return method.getDeclaringClass();
@@ -78,7 +78,7 @@ public class ClassesUtil extends ClassUtil {
      * @return 是否存在同类型
      */
     public static boolean isAssignable(@Nullable Class<?> sourceType, @Nullable Class<?>... targetTypes) {
-        if (cn.srd.sugar.tool.lang.core.object.Objects.isNull((Object) targetTypes)) {
+        if (Objects.isNull((Object) targetTypes)) {
             return false;
         }
         for (Class<?> targetType : targetTypes) {
@@ -97,7 +97,7 @@ public class ClassesUtil extends ClassUtil {
      * @return 类集合
      */
     public static Set<Class<?>> scanPackageByAnnotation(String[] packageNames, Class<? extends Annotation> annotationClass) {
-        return Stream.of(cn.srd.sugar.tool.lang.core.object.Objects.setIfEmpty(packageNames, new String[]{}))
+        return Stream.of(Objects.setIfEmpty(packageNames, new String[]{}))
                 .map(path -> ClassUtil.scanPackageByAnnotation(path, annotationClass))
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet());
@@ -124,7 +124,7 @@ public class ClassesUtil extends ClassUtil {
      * @return 字段
      */
     public static List<Field> getFields(Class<?> clazz) {
-        if (cn.srd.sugar.tool.lang.core.object.Objects.isNull(clazz)) {
+        if (Objects.isNull(clazz)) {
             return new ArrayList<>();
         }
         return Arrays.stream(clazz.getDeclaredFields()).toList();
@@ -137,12 +137,12 @@ public class ClassesUtil extends ClassUtil {
      * @return 字段
      */
     public static List<Field> getFieldsDeep(Class<?> clazz) {
-        if (cn.srd.sugar.tool.lang.core.object.Objects.isNull(clazz)) {
+        if (Objects.isNull(clazz)) {
             return new ArrayList<>();
         }
         Class<?> findClass = clazz;
         List<Field> fields = new ArrayList<>();
-        while (cn.srd.sugar.tool.lang.core.object.Objects.isNotNull(findClass)) {
+        while (Objects.isNotNull(findClass)) {
             fields.addAll(getFields(findClass));
             findClass = findClass.getSuperclass();
         }
@@ -168,11 +168,11 @@ public class ClassesUtil extends ClassUtil {
      * @return 字段
      */
     public static Field getFieldDeep(Class<?> clazz, String fieldName) {
-        if (cn.srd.sugar.tool.lang.core.object.Objects.isNull(clazz) || cn.srd.sugar.tool.lang.core.object.Objects.isBlank(fieldName)) {
+        if (Objects.isNull(clazz) || Objects.isBlank(fieldName)) {
             return null;
         }
         Field field = getField(clazz, fieldName);
-        if (cn.srd.sugar.tool.lang.core.object.Objects.isNull(field)) {
+        if (Objects.isNull(field)) {
             Class<?> superClass = clazz.getSuperclass();
             if (Objects.isNotNull(superClass)) {
                 return getFieldDeep(superClass, fieldName);

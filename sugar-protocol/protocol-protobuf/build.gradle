@@ -16,36 +16,36 @@ if (active == "production") {
 
 version = projectVersion
 
-apply plugin: 'com.google.protobuf'
+//apply plugin: 'com.google.protobuf'
 
 dependencies {
     // protocol
-    api("$protobuf_java")
+//    api("$protobuf_java")
 
     // context
-    api(project("$sugar_context_constant"))
+    api(project("$sugar_contract_constant"))
 
     // tool
     implementation(project("$sugar_tool_lang"))
 }
 
-protobuf {
-    protoc {
-        artifact = "$protobuf_protoc"
-    }
-    plugins {
-        grpc {
-            artifact = "$grpc_protoc_gen_grpc_java"
-        }
-    }
-    generateProtoTasks {
-        ofSourceSet('main').configureEach {
-            plugins {
-                grpc {}
-            }
-        }
-    }
-}
+//protobuf {
+//    protoc {
+//        artifact = "$protobuf_protoc"
+//    }
+//    plugins {
+//        grpc {
+//            artifact = "$grpc_protoc_gen_grpc_java"
+//        }
+//    }
+//    generateProtoTasks {
+//        ofSourceSet('main').configureEach {
+//            plugins {
+//                grpc {}
+//            }
+//        }
+//    }
+//}
 
 javadoc {
     options {

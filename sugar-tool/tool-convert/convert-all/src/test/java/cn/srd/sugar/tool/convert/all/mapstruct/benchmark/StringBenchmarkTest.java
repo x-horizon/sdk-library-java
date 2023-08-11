@@ -1,8 +1,8 @@
 package cn.srd.sugar.tool.convert.all.mapstruct.benchmark;
 
 import cn.hutool.core.text.StrBuilder;
-import cn.srd.itcp.sugar.tool.core.StringsUtil;
 import cn.srd.sugar.tool.constant.core.StringPool;
+import cn.srd.sugar.tool.lang.core.StringsUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

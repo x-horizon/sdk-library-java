@@ -47,8 +47,8 @@ ext {
     jmh_version = "1.35"
 
     // project name
-    sugar_cloud_natives_docker = ":sugar-cloud-natives:cloud-natives-docker"
-    sugar_cloud_natives_kubernetes_fabric8 = ":sugar-cloud-natives:cloud-natives-kubernetes:kubernetes-fabric8"
+    sugar_cloud_native_docker = ":sugar-cloud-native:cloud-native-docker"
+    sugar_cloud_native_kubernetes_fabric8 = ":sugar-cloud-native:cloud-native-kubernetes:kubernetes-fabric8"
 
     sugar_concurrent_actor = ":sugar-concurrent:concurrent-actor"
     sugar_concurrent_redisson = ":sugar-concurrent:concurrent-redisson"
@@ -60,6 +60,9 @@ ext {
     sugar_security_sa_token_spring_webmvc = ":sugar-security:security-sa-token-spring-webmvc"
     sugar_security_sa_token_spring_webflux = ":sugar-security:security-sa-token-spring-webflux"
 
+    sugar_contract_cache_caffeine = ":sugar-contract:contract-cache-caffeine"
+    sugar_contract_cache_redis = ":sugar-contract:contract-cache-redis"
+    sugar_contract_constant = ":sugar-contract:contract-constant"
     sugar_contract_message_bus = ":sugar-contract:contract-message-bus"
     sugar_contract_model = ":sugar-contract:contract-model"
     sugar_contract_throwable = ":sugar-contract:contract-throwable"
@@ -95,7 +98,7 @@ ext {
     sugar_tool_throwable_spring_webmvc_redisson = ":sugar-tool:tool-throwable:throwable-spring-webmvc-redisson"
     sugar_tool_throwable_spring_webmvc_sa_token = ":sugar-tool:tool-throwable:throwable-spring-webmvc-sa-token"
 
-    sugar_web_okhttps = ":sugar-web:web-okhttps:web-okhttps"
+    sugar_web_okhttps = ":sugar-web:web-okhttps"
     sugar_web_openfeign_common = ":sugar-web:web-openfeign:openfeign-common"
     sugar_web_openfeign_okhttp = ":sugar-web:web-openfeign:openfeign-okhttp"
 
@@ -104,9 +107,6 @@ ext {
     sugar_cache_contract = ":sugar-cache:cache-contract"
     sugar_cache_map = ":sugar-cache:cache-map"
     sugar_cache_redis = ":sugar-cache:cache-redis"
-    sugar_context_constant = ":sugar-context:context-constant"
-    sugar_context_caffeine = ":sugar-context:context-caffeine"
-    sugar_context_redis = ":sugar-context:context-redis"
     sugar_doc_knife4j = ":sugar-doc:doc-knife4j"
     sugar_protocol_protobuf = ":sugar-protocol:protocol-protobuf"
 
@@ -180,10 +180,10 @@ ext {
     docker_compose = "org.springframework.boot:spring-boot-docker-compose"
 
     // protocol
-    protobuf_bom = "com.google.protobuf:protobuf-bom:${protobuf_bom_version}" as GStringImpl
-    protobuf_java = "com.google.protobuf:protobuf-java"
-    protobuf_protoc = "com.google.protobuf:protoc:${protobuf_bom_version}" as GStringImpl
-    grpc_protoc_gen_grpc_java = "io.grpc:protoc-gen-grpc-java:${grpc_protoc_gen_grpc_java_version}" as GStringImpl
+//    protobuf_bom = "com.google.protobuf:protobuf-bom:${protobuf_bom_version}" as GStringImpl
+//    protobuf_java = "com.google.protobuf:protobuf-java"
+//    protobuf_protoc = "com.google.protobuf:protoc:${protobuf_bom_version}" as GStringImpl
+//    grpc_protoc_gen_grpc_java = "io.grpc:protoc-gen-grpc-java:${grpc_protoc_gen_grpc_java_version}" as GStringImpl
 
     // hack
     burningwave_core = "org.burningwave:core:${burningwave_version}" as GStringImpl

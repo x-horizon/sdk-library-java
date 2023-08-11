@@ -23,7 +23,7 @@ dependencies {
     annotationProcessor("$spring_boot_configuration_processor")
 
     // context
-    api(project("$sugar_context_constant"))
+    api(project("$sugar_contract_constant"))
 
     // cache
     api(project("$sugar_concurrent_redisson"))

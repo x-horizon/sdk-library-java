@@ -1,9 +1,9 @@
 package cn.srd.sugar.tool.spring.webflux.support;
 
-import cn.srd.itcp.sugar.tool.core.object.Objects;
-import cn.srd.sugar.contract.model.core.HttpStatusEnum;
-import cn.srd.sugar.contract.model.core.WebResponse;
 import cn.srd.sugar.contract.throwable.core.RunningException;
+import cn.srd.sugar.tool.lang.core.object.Objects;
+import cn.srd.sugar.tool.lang.web.HttpStatusEnum;
+import cn.srd.sugar.tool.lang.web.WebResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
@@ -22,7 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-import static cn.srd.sugar.contract.model.core.WebResponse.error;
+import static cn.srd.sugar.tool.lang.web.WebResponse.error;
 
 /**
  * spring web flux global exception handler

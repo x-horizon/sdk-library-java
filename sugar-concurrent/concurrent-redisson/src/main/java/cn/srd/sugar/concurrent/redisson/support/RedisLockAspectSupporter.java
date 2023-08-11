@@ -1,14 +1,14 @@
 package cn.srd.sugar.concurrent.redisson.support;
 
 import cn.hutool.core.util.IdUtil;
-import cn.srd.itcp.sugar.tool.core.ReflectsUtil;
-import cn.srd.itcp.sugar.tool.core.asserts.Assert;
-import cn.srd.itcp.sugar.tool.core.convert.Converts;
-import cn.srd.itcp.sugar.tool.core.object.Objects;
 import cn.srd.sugar.concurrent.redisson.core.RedisFairLock;
 import cn.srd.sugar.concurrent.redisson.core.RedisLockTemplate;
 import cn.srd.sugar.concurrent.redisson.exception.RedisGenerateLockNameFailedException;
 import cn.srd.sugar.concurrent.redisson.exception.RedisLockIllegalArgumentException;
+import cn.srd.sugar.tool.lang.core.ReflectsUtil;
+import cn.srd.sugar.tool.lang.core.asserts.Assert;
+import cn.srd.sugar.tool.lang.core.convert.Converts;
+import cn.srd.sugar.tool.lang.core.object.Objects;
 import cn.srd.sugar.tool.spring.common.core.SpringsUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;

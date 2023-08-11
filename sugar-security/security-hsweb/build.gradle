@@ -22,7 +22,7 @@ dependencies {
     api("$hsweb_authorization_basic")
 
     // context
-    api(project("$sugar_context_constant"))
+    api(project("$sugar_contract_constant"))
 
     // tool
     implementation(project("$sugar_tool_lang"))
