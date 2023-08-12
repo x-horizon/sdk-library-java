@@ -1,4 +1,4 @@
-def projectName = 'sugar-contract-tool-expression'
+def projectName = 'library-contract-tool-expression'
 
 def projectNexusUrl
 
@@ -18,7 +18,7 @@ version = projectVersion
 
 dependencies {
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 }
 
 javadoc {

@@ -1,4 +1,4 @@
-def projectName = 'sugar-tool-excel-alibaba-easy-excel'
+def projectName = 'library-tool-excel-alibaba-easy-excel'
 
 def projectNexusUrl
 
@@ -21,11 +21,11 @@ dependencies {
     implementation("$spring_boot_webmvc")
 
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // tool
-    implementation(project("$sugar_tool_lang"))
-    implementation(project("$sugar_tool_spring_webmvc"))
+    implementation(project("$library_tool_lang"))
+    implementation(project("$library_tool_spring_webmvc"))
 
     // component
     api("$easyexcel")

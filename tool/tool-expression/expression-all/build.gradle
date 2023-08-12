@@ -1,4 +1,4 @@
-def projectName = 'sugar-tool-expression-all'
+def projectName = 'library-tool-expression-all'
 
 def projectNexusUrl
 
@@ -18,12 +18,12 @@ version = projectVersion
 
 dependencies {
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // tool
-    api(project("$sugar_contract_tool_expression"))
-    api(project("$sugar_tool_expression_spring"))
-    implementation(project("$sugar_tool_lang"))
+    api(project("$library_contract_tool_expression"))
+    api(project("$library_tool_expression_spring"))
+    implementation(project("$library_tool_lang"))
 }
 
 javadoc {

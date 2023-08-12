@@ -9,7 +9,7 @@ spring:
 
 logging:
   level:
-    cn.srd.itcp.sugar: debug
+    cn.srd.library: debug
 
 library:
   cache:

@@ -1,4 +1,4 @@
-def projectName = 'sugar-tool-spring-webmvc'
+def projectName = 'library-tool-spring-webmvc'
 
 def projectNexusUrl
 
@@ -22,11 +22,11 @@ dependencies {
     implementation("$spring_boot_aop")
 
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // tool
-    implementation(project("$sugar_tool_lang"))
-    api(project("$sugar_tool_spring_common"))
+    implementation(project("$library_tool_lang"))
+    api(project("$library_tool_spring_common"))
 }
 
 javadoc {

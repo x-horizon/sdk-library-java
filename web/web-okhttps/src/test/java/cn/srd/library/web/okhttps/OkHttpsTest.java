@@ -20,7 +20,7 @@ import java.util.stream.IntStream;
 @SpringBootTest
 public class OkHttpsTest {
 
-    private static final String URL = "http://127.0.0.1:8080/sugar/okHttps/test";
+    private static final String URL = "http://127.0.0.1:8080/library/okHttps/test";
 
     @Test
     public void testOkHttps() {

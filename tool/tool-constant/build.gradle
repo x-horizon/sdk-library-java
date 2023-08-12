@@ -1,4 +1,4 @@
-def projectName = 'sugar-tools'
+def projectName = 'library-tools'
 
 def projectNexusUrl
 

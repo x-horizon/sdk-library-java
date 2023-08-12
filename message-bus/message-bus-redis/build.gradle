@@ -1,4 +1,4 @@
-def projectName = 'sugar-message-bus-redis'
+def projectName = 'library-message-bus-redis'
 
 def projectNexusUrl
 
@@ -23,15 +23,15 @@ dependencies {
     annotationProcessor("$spring_boot_configuration_processor")
 
     // context
-    api(project("$sugar_contract_cache_redis"))
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_cache_redis"))
+    api(project("$library_contract_constant"))
 
     // topic TODO wjm 不可引入 topic contract，spring cloud stream 会强制需要使用对应的消费者
-    // api(project("$sugar_contract_message_bus"))
+    // api(project("$library_contract_message_bus"))
 
     // tool
-    implementation(project("$sugar_tool_lang"))
-    implementation(project("$sugar_tool_spring_common"))
+    implementation(project("$library_tool_lang"))
+    implementation(project("$library_tool_spring_common"))
 
     // test
     testAnnotationProcessor("$spring_boot_configuration_processor")

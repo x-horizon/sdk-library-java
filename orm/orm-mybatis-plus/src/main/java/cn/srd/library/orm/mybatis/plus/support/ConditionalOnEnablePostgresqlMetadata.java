@@ -16,7 +16,7 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @ConditionalOnEnablePostgresql
-@ConditionalOnProperty(name = "sugar.orm.mybatis-plus.enableMetadata", havingValue = "true")
+@ConditionalOnProperty(name = "library.orm.mybatis-plus.enableMetadata", havingValue = "true")
 public @interface ConditionalOnEnablePostgresqlMetadata {
 
 }

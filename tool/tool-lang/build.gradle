@@ -1,4 +1,4 @@
-def projectName = 'sugar-tool-lang'
+def projectName = 'library-tool-lang'
 
 def projectNexusUrl
 
@@ -21,12 +21,12 @@ dependencies {
     api("$apache_commons_pool")
 
     // context
-    api(project("$sugar_contract_constant"))
-    api(project("$sugar_tool_constant"))
+    api(project("$library_contract_constant"))
+    api(project("$library_tool_constant"))
 
     // contract
-    api(project("$sugar_contract_model"))
-    api(project("$sugar_contract_throwable"))
+    api(project("$library_contract_model"))
+    api(project("$library_contract_throwable"))
 
     // tool
     api("$vavr")

@@ -1,4 +1,4 @@
-def projectName = 'sugar-contract-cache-caffeine'
+def projectName = 'library-contract-cache-caffeine'
 
 def projectNexusUrl
 
@@ -23,14 +23,14 @@ dependencies {
     annotationProcessor("$spring_boot_configuration_processor")
 
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // cache
     api("$caffeine")
 
     // tool
-    implementation(project("$sugar_tool_lang"))
-    implementation(project("$sugar_tool_spring_common"))
+    implementation(project("$library_tool_lang"))
+    implementation(project("$library_tool_spring_common"))
 
     // test
     testAnnotationProcessor("$spring_boot_configuration_processor")

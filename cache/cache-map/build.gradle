@@ -1,4 +1,4 @@
-def projectName = 'sugar-cache-map'
+def projectName = 'library-cache-map'
 
 def projectNexusUrl
 
@@ -21,13 +21,13 @@ dependencies {
     implementation("$spring_boot")
 
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // cache
-    api(project("$sugar_cache_contract"))
+    api(project("$library_cache_contract"))
 
     // tool
-    implementation(project("$sugar_tool_lang"))
+    implementation(project("$library_tool_lang"))
 }
 
 javadoc {

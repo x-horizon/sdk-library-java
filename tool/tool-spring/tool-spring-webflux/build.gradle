@@ -1,4 +1,4 @@
-def projectName = 'sugar-tool-spring-webflux'
+def projectName = 'library-tool-spring-webflux'
 
 def projectNexusUrl
 
@@ -23,11 +23,11 @@ dependencies {
     api("$reactor_core")
 
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // tool
-    implementation(project("$sugar_tool_lang"))
-    api(project("$sugar_tool_spring_common"))
+    implementation(project("$library_tool_lang"))
+    api(project("$library_tool_spring_common"))
 }
 
 javadoc {

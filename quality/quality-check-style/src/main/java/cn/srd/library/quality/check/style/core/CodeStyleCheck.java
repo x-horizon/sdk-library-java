@@ -1,4 +1,4 @@
-// package cn.srd.itcp.sugar.component.check.style.core;
+// package cn.srd.library.quality.check.style.core;
 //
 // import java.lang.annotation.ElementType;
 // import java.lang.annotation.Retention;

@@ -1,4 +1,4 @@
-def projectName = 'sugar-tool-log'
+def projectName = 'library-tool-log'
 
 def projectNexusUrl
 
@@ -21,10 +21,10 @@ dependencies {
     implementation("$spring_boot_logging")
 
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // tool
-    implementation(project("$sugar_tool_lang"))
+    implementation(project("$library_tool_lang"))
 }
 
 javadoc {

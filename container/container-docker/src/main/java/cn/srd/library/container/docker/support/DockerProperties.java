@@ -1,4 +1,4 @@
-// package cn.srd.sugar.cloud.natives.docker.support;
+// package cn.srd.library.cloud.natives.docker.support;
 //
 // import lombok.Data;
 // import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -12,7 +12,7 @@
 //  */
 // @Data
 // @Component
-// @ConfigurationProperties(prefix = "sugar.component.docker")
+// @ConfigurationProperties(prefix = "library.component.docker")
 // public class DockerProperties {
 //
 //     /**

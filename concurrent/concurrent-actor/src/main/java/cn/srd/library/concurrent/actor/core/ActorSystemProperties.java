@@ -14,7 +14,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "sugar.actor.system")
+@ConfigurationProperties(prefix = "library.actor.system")
 public class ActorSystemProperties {
 
     /**

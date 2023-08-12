@@ -8,7 +8,7 @@ import cn.srd.library.tool.convert.all.mapstruct.bean.domain.StudentDO;
 import cn.srd.library.tool.convert.all.mapstruct.bean.vo.GradeVO;
 import cn.srd.library.tool.convert.all.mapstruct.bean.vo.StudentVO;
 import cn.srd.library.tool.convert.all.mapstruct.converter.StudentMapstructConverter;
-import cn.srd.sugar.tool.convert.all.mapstruct.converter.StudentMapstructConverterImpl;
+import cn.srd.library.tool.convert.all.mapstruct.converter.StudentMapstructConverterImpl;
 import com.esotericsoftware.reflectasm.MethodAccess;
 import lombok.SneakyThrows;
 import org.openjdk.jmh.annotations.*;

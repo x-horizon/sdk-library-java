@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://192.168.10.91:30567/itcp-iot
+    url: jdbc:postgresql://127.0.0.1:5432/library-java-test
     username: postgres
     password: postgres
     type: com.alibaba.druid.pool.DruidDataSource
@@ -11,7 +11,7 @@ spring:
       min-idle: 5
       max-wait: 6000
 
-sugar:
+library:
   orm:
     mybatis-plus:
       database: postgresql

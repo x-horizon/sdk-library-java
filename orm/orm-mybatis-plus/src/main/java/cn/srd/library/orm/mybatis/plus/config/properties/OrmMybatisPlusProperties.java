@@ -15,7 +15,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "sugar.orm.mybatis-plus")
+@ConfigurationProperties(prefix = "library.orm.mybatis-plus")
 public class OrmMybatisPlusProperties {
 
     /**

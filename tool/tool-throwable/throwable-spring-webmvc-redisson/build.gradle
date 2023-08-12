@@ -1,4 +1,4 @@
-def projectName = 'sugar-tool-throwable-spring-webmvc-redisson'
+def projectName = 'library-tool-throwable-spring-webmvc-redisson'
 
 def projectNexusUrl
 
@@ -23,14 +23,14 @@ dependencies {
     annotationProcessor("$spring_boot_configuration_processor")
 
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // cache
-    api(project("$sugar_concurrent_redisson"))
+    api(project("$library_concurrent_redisson"))
 
     // tool
-    implementation(project("$sugar_tool_lang"))
-    implementation(project("$sugar_tool_spring_common"))
+    implementation(project("$library_tool_lang"))
+    implementation(project("$library_tool_spring_common"))
 
     // test
     testAnnotationProcessor("$spring_boot_configuration_processor")

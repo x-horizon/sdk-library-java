@@ -1,7 +1,6 @@
 package cn.srd.library.cache.all.support;
 
 import cn.srd.library.cache.all.core.*;
-import cn.srd.sugar.cache.all.core.*;
 import cn.srd.library.cache.all.support.manager.CacheType;
 import org.springframework.stereotype.Component;
 

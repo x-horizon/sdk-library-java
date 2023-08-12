@@ -1,4 +1,4 @@
-def projectName = 'sugar-tool-geometry-mybatis-plus'
+def projectName = 'library-tool-geometry-mybatis-plus'
 
 def projectNexusUrl
 
@@ -28,17 +28,17 @@ dependencies {
     testImplementation("$druid")
 
     // orm
-    api(project("$sugar_orm_mybatis_plus"))
+    api(project("$library_orm_mybatis_plus"))
 
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // tool
-    implementation(project("$sugar_tool_lang"))
-    implementation(project("$sugar_tool_spring_common"))
-    implementation(project("$sugar_tool_geometry_common"))
-    testImplementation(project("$sugar_tool_convert_all"))
-    testImplementation(project("$sugar_tool_geometry_jackson"))
+    implementation(project("$library_tool_lang"))
+    implementation(project("$library_tool_spring_common"))
+    implementation(project("$library_tool_geometry_common"))
+    testImplementation(project("$library_tool_convert_all"))
+    testImplementation(project("$library_tool_geometry_jackson"))
 }
 
 javadoc {

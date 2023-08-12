@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import static cn.srd.library.tool.lang.web.WebResponse.error;
 
 @RestController
-@RequestMapping("/sugar/okHttps")
+@RequestMapping("/library/okHttps")
 public class TestController {
 
     @SneakyThrows

@@ -1,4 +1,4 @@
-def projectName = 'sugar-protocol-protobuf'
+def projectName = 'library-protocol-protobuf'
 //
 //def projectNexusUrl
 //
@@ -23,10 +23,10 @@ def projectName = 'sugar-protocol-protobuf'
 //    api("$protobuf_java")
 //
 //    // context
-//    api(project("$sugar_contract_constant"))
+//    api(project("$library_contract_constant"))
 //
 //    // tool
-//    implementation(project("$sugar_tool_lang"))
+//    implementation(project("$library_tool_lang"))
 //}
 //
 //protobuf {

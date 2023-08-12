@@ -1,4 +1,4 @@
-def projectName = 'sugar-tool-throwable-spring-webmvc-sa-token'
+def projectName = 'library-tool-throwable-spring-webmvc-sa-token'
 
 def projectNexusUrl
 
@@ -22,16 +22,16 @@ dependencies {
     annotationProcessor("$spring_boot_configuration_processor")
 
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // security
     api("$sa_token")
     api("$sa_token_jakata_servlet")
-    api(project("$sugar_security_sa_token"))
+    api(project("$library_security_sa_token"))
 
     // tool
-    implementation(project("$sugar_tool_lang"))
-    implementation(project("$sugar_tool_spring_common"))
+    implementation(project("$library_tool_lang"))
+    implementation(project("$library_tool_spring_common"))
 
     // test
     testAnnotationProcessor("$spring_boot_configuration_processor")

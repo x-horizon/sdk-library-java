@@ -1,4 +1,4 @@
-def projectName = 'sugar-tool-id-snowflake'
+def projectName = 'library-tool-id-snowflake'
 
 def projectNexusUrl
 
@@ -21,14 +21,14 @@ dependencies {
     implementation("$spring_boot")
 
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // component
     api("$yitter_id_generator")
 
     // tool
-    implementation(project("$sugar_tool_lang"))
-    implementation(project("$sugar_tool_spring_common"))
+    implementation(project("$library_tool_lang"))
+    implementation(project("$library_tool_spring_common"))
 }
 
 javadoc {

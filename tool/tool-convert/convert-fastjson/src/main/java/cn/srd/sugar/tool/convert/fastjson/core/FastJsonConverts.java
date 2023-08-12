@@ -1,4 +1,4 @@
-package cn.srd.sugar.tool.convert.fastjson.core;
+package cn.srd.library.tool.convert.fastjson.core;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

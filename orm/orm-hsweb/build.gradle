@@ -1,4 +1,4 @@
-def projectName = 'sugar-orm-hsweb'
+def projectName = 'library-orm-hsweb'
 
 def projectNexusUrl
 
@@ -24,14 +24,14 @@ dependencies {
     api("$reactor_core")
 
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // orm
     implementation("$data_r2dbc")
 
     // tool
-    implementation(project("$sugar_tool_lang"))
-    implementation(project("$sugar_tool_convert_all"))
+    implementation(project("$library_tool_lang"))
+    implementation(project("$library_tool_convert_all"))
 }
 
 javadoc {

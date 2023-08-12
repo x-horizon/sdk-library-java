@@ -1,4 +1,4 @@
-def projectName = 'sugar-container-kubernetes-fabric8'
+def projectName = 'library-container-kubernetes-fabric8'
 
 def projectNexusUrl
 
@@ -21,10 +21,10 @@ dependencies {
     api("$spring_cloud_kubernetes_fabric8_all")
 
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // tool
-    implementation(project("$sugar_tool_lang"))
+    implementation(project("$library_tool_lang"))
 }
 
 javadoc {

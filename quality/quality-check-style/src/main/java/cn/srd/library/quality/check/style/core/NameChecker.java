@@ -1,4 +1,4 @@
-// package cn.srd.itcp.sugar.component.check.style.core;
+// package cn.srd.library.quality.check.style.core;
 //
 // import javax.annotation.processing.Messager;
 // import javax.annotation.processing.ProcessingEnvironment;

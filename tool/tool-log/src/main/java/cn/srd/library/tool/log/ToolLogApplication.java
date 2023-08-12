@@ -1,9 +1,9 @@
-package cn.srd.library.tool.convert.fastjson;
+package cn.srd.library.tool.log;
 
 /**
  * boot
  */
-public class ToolConvertFastJsonApplication {
+public class ToolLogApplication {
 
     /**
      * main

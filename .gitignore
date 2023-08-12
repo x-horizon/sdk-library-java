@@ -3,7 +3,7 @@ HELP.md
 target/
 build/
 log/
-!tool/tool-log/src/main/java/cn/library/tool/log
+!tool/tool-log/src/main/java/cn/srd/library/tool/log
 !gradle/wrapper/gradle-wrapper.jar
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/build/

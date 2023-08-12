@@ -1,4 +1,4 @@
-def projectName = 'sugar-tool-convert-all'
+def projectName = 'library-tool-convert-all'
 
 def projectNexusUrl
 
@@ -22,22 +22,22 @@ dependencies {
     testImplementation("$spring_boot")
 
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // tool
-    implementation(project("$sugar_tool_lang"))
-    implementation(project("$sugar_tool_spring_common"))
-    api(project("$sugar_tool_convert_spring"))
-    api(project("$sugar_tool_convert_jackson"))
-    api(project("$sugar_tool_convert_fastjson"))
-    api(project("$sugar_tool_convert_mapstruct"))
+    implementation(project("$library_tool_lang"))
+    implementation(project("$library_tool_spring_common"))
+    api(project("$library_tool_convert_spring"))
+    api(project("$library_tool_convert_jackson"))
+    api(project("$library_tool_convert_fastjson"))
+    api(project("$library_tool_convert_mapstruct"))
     annotationProcessor("$mapstruct_processor")
     annotationProcessor("$lombok_mapstruct_binding")
 
     // test
-    testImplementation(project("$sugar_tool_lang"))
-    testImplementation(project("$sugar_tool_convert_jackson"))
-    testImplementation(project("$sugar_tool_convert_mapstruct"))
+    testImplementation(project("$library_tool_lang"))
+    testImplementation(project("$library_tool_convert_jackson"))
+    testImplementation(project("$library_tool_convert_mapstruct"))
     testAnnotationProcessor("$mapstruct_processor")
     testAnnotationProcessor("$lombok_mapstruct_binding")
 }

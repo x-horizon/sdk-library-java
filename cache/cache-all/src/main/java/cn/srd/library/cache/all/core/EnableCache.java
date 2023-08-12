@@ -1,7 +1,6 @@
 package cn.srd.library.cache.all.core;
 
 import cn.srd.library.cache.all.support.aspect.*;
-import cn.srd.sugar.cache.all.support.aspect.*;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

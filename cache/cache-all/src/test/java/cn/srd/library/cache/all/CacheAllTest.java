@@ -2,7 +2,6 @@ package cn.srd.library.cache.all;
 
 import cn.srd.library.cache.all.core.EnableCache;
 import cn.srd.library.cache.all.support.*;
-import cn.srd.sugar.cache.all.support.*;
 import cn.srd.library.concurrent.redisson.core.EnableRedisLock;
 import org.junit.Assert;
 import org.junit.Test;

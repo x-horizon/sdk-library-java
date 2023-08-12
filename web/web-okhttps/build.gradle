@@ -1,4 +1,4 @@
-def projectName = 'sugar-web-okhttps'
+def projectName = 'library-web-okhttps'
 
 def projectNexusUrl
 
@@ -26,14 +26,14 @@ dependencies {
     api("$okhttp_okio")
 
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // tool
-    implementation(project("$sugar_tool_lang"))
+    implementation(project("$library_tool_lang"))
 
     // test
     testImplementation("$spring_boot_webmvc")
-    testImplementation(project("$sugar_tool_spring_webmvc"))
+    testImplementation(project("$library_tool_spring_webmvc"))
 }
 
 javadoc {

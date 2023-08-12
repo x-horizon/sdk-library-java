@@ -1,9 +1,9 @@
 package cn.srd.library.tool.convert.all.core;
 
+import cn.srd.library.tool.convert.fastjson.core.FastJsonConverts;
 import cn.srd.library.tool.convert.jackson.core.JacksonConverts;
 import cn.srd.library.tool.convert.mapstruct.core.MapstructConverts;
-import cn.srd.sugar.tool.convert.fastjson.core.FastJsonConverts;
-import cn.srd.sugar.tool.convert.spring.core.SpringConverts;
+import cn.srd.library.tool.convert.spring.core.SpringConverts;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

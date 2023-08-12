@@ -1,4 +1,4 @@
-def projectName = 'sugar-contract-cache-constant'
+def projectName = 'library-contract-cache-constant'
 
 def projectNexusUrl
 

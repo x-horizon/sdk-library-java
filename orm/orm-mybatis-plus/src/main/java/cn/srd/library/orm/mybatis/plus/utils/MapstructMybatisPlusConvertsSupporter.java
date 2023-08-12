@@ -32,7 +32,7 @@ public class MapstructMybatisPlusConvertsSupporter implements MapstructConvertsS
     private static final String IPAGE_NAME = IPage.class.getName();
 
     /**
-     * cn.sugar.tools.page.PageResult
+     * cn.library.tools.page.PageResult
      */
     private static final String PAGE_RESULT_NAME = PageResult.class.getName();
 

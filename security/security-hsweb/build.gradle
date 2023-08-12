@@ -1,4 +1,4 @@
-def projectName = 'sugar-security-hsweb'
+def projectName = 'library-security-hsweb'
 
 def projectNexusUrl
 
@@ -22,10 +22,10 @@ dependencies {
     api("$hsweb_authorization_basic")
 
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // tool
-    implementation(project("$sugar_tool_lang"))
+    implementation(project("$library_tool_lang"))
 }
 
 javadoc {

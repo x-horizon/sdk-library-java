@@ -1,4 +1,4 @@
-def projectName = 'sugar-gateway-spring-cloud'
+def projectName = 'library-gateway-spring-cloud'
 
 def projectNexusUrl
 
@@ -21,10 +21,10 @@ dependencies {
     api("$spring_cloud_gateway")
 
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // tool
-    implementation(project("$sugar_tool_lang"))
+    implementation(project("$library_tool_lang"))
 }
 
 javadoc {

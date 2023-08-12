@@ -1,4 +1,4 @@
-def projectName = 'sugar-tool-geometry-common'
+def projectName = 'library-tool-geometry-common'
 
 def projectNexusUrl
 
@@ -18,11 +18,11 @@ version = projectVersion
 
 dependencies {
     // context
-    api(project("$sugar_contract_constant"))
+    api(project("$library_contract_constant"))
 
     // tool
     api("$locationtech_jts_core")
-    implementation(project("$sugar_tool_lang"))
+    implementation(project("$library_tool_lang"))
 }
 
 javadoc {
