@@ -12,8 +12,8 @@ apply from: getRootDir().getAbsolutePath() + "/dependencies.gradle"
 
 rootProject.name = 'sugar-java'
 
-include("$sugar_cloud_native_docker")
-include("$sugar_cloud_native_kubernetes_fabric8")
+include("$sugar_container_docker")
+include("$sugar_container_kubernetes_fabric8")
 
 include("$sugar_concurrent_actor")
 include("$sugar_concurrent_redisson")

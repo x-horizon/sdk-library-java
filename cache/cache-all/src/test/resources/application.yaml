@@ -1,0 +1,30 @@
+spring:
+  data:
+    redis:
+      database: 14
+      host: 127.0.0.1
+      port: 6379
+      #    password:
+      timeout: 60000
+
+logging:
+  level:
+    cn.srd.itcp.sugar: debug
+
+library:
+  cache:
+    #    caffeine:
+    #      initial-capacity: 16
+    #      maximum-size: 2500
+    #      expire-after-access: "10m"
+    #      expire-after-write: "10m"
+    #      refresh-after-write: "10m"
+    #      key-reference-level: strong
+    #      value-reference-level: strong
+    multilevel:
+      block-to-hit-distributed-cache-wait-time: "3s"
+      block-to-hit-distributed-cache-lease-time: "5s"
+
+project:
+  cache:
+    test-cache-key: "my-cache:"
