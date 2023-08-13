@@ -1,4 +1,4 @@
-package cn.srd.library.context.constant.core;
+package cn.srd.library.contract.constant.core;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

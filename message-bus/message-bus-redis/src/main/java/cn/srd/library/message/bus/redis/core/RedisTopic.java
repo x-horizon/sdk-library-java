@@ -1,6 +1,6 @@
 package cn.srd.library.message.bus.redis.core;
 
-import cn.srd.library.context.redis.core.RedisManager;
+import cn.srd.library.contract.cache.redis.core.RedisManager;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

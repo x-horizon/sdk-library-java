@@ -1,4 +1,4 @@
-package cn.srd.library.topic.contract.support;
+package cn.srd.library.contract.message.bus.support;
 
 /**
  * 用于在管道中流动数据的转换支持器，使用 Jackson 转换器转换

@@ -1,4 +1,4 @@
-package cn.srd.library.context.constant;
+package cn.srd.library.contract.constant;
 
 /**
  * boot

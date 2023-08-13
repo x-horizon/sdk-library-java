@@ -1,6 +1,6 @@
 package cn.srd.library.cache.redis.core;
 
-import cn.srd.library.context.redis.core.RedisManager;
+import cn.srd.library.contract.cache.redis.core.RedisManager;
 import cn.srd.library.tool.lang.core.CollectionsUtil;
 import cn.srd.library.tool.lang.core.object.Objects;
 import cn.srd.library.tool.lang.core.time.DurationWrapper;

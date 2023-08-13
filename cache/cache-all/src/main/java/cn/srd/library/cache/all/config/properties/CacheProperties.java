@@ -1,7 +1,7 @@
 package cn.srd.library.cache.all.config.properties;
 
-import cn.srd.library.context.caffeine.config.properties.CaffeineCacheProperties;
-import cn.srd.library.context.redis.config.properties.RedisCacheProperties;
+import cn.srd.library.contract.cache.caffeine.config.properties.CaffeineCacheProperties;
+import cn.srd.library.contract.cache.redis.config.properties.RedisCacheProperties;
 import cn.srd.library.tool.spring.common.core.SpringsUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;

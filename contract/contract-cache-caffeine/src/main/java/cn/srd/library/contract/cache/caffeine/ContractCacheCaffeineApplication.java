@@ -1,9 +1,9 @@
-package cn.srd.library.context.redis;
+package cn.srd.library.contract.cache.caffeine;
 
 /**
  * boot
  */
-public class ContractCacheRedisApplication {
+public class ContractCacheCaffeineApplication {
 
     /**
      * main

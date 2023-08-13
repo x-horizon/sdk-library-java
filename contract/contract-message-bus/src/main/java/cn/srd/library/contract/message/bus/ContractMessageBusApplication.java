@@ -1,4 +1,4 @@
-package cn.srd.library.topic.contract;
+package cn.srd.library.contract.message.bus;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * boot
  */
 @SpringBootApplication
-public class TopicContractApplication {
+public class ContractMessageBusApplication {
 
     /**
      * main
@@ -15,7 +15,7 @@ public class TopicContractApplication {
      * @param args main argument
      */
     public static void main(String[] args) {
-        SpringApplication.run(TopicContractApplication.class, args);
+        SpringApplication.run(ContractMessageBusApplication.class, args);
     }
 
 }

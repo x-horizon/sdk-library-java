@@ -1,6 +1,6 @@
 package cn.srd.library.concurrent.actor.core;
 
-import cn.srd.library.context.constant.core.ModuleView;
+import cn.srd.library.contract.constant.core.ModuleView;
 import cn.srd.library.tool.lang.core.ClassesUtil;
 import cn.srd.library.tool.lang.core.CollectionsUtil;
 import cn.srd.library.tool.lang.core.StringsUtil;

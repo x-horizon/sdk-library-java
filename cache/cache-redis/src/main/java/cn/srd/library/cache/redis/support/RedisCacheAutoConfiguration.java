@@ -1,6 +1,6 @@
 package cn.srd.library.cache.redis.support;
 
-import cn.srd.library.context.redis.config.properties.RedisCacheProperties;
+import cn.srd.library.contract.cache.redis.config.properties.RedisCacheProperties;
 import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

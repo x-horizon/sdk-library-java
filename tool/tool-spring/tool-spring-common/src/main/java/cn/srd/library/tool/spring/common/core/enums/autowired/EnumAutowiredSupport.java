@@ -1,6 +1,6 @@
 package cn.srd.library.tool.spring.common.core.enums.autowired;
 
-import cn.srd.library.context.constant.core.ModuleView;
+import cn.srd.library.contract.constant.core.ModuleView;
 import cn.srd.library.tool.lang.core.*;
 import cn.srd.library.tool.lang.core.asserts.Assert;
 import cn.srd.library.tool.lang.core.object.Objects;

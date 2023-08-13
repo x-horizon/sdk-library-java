@@ -1,4 +1,4 @@
-package cn.srd.library.context.caffeine.config.properties;
+package cn.srd.library.contract.cache.caffeine.config.properties;
 
 import cn.srd.library.tool.constant.core.JavaObjectReferenceLevel;
 import cn.srd.library.tool.lang.core.time.TimeUnitHandler;

@@ -1,4 +1,4 @@
-def projectName = 'library-contract-constant'
+def projectName = 'library-contract-model'
 
 def projectNexusUrl
 
@@ -17,6 +17,8 @@ if (active == "production") {
 version = projectVersion
 
 dependencies {
+    // context
+    api(project("$library_contract_constant"))
 }
 
 javadoc {

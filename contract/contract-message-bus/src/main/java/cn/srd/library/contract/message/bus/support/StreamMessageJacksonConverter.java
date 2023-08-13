@@ -1,5 +1,6 @@
-package cn.srd.library.topic.contract.support;
+package cn.srd.library.contract.message.bus.support;
 
+import cn.srd.library.contract.message.bus.core.EnableStreamMessageJacksonConverter;
 import cn.srd.library.tool.convert.all.core.Converts;
 import cn.srd.library.tool.lang.core.AnnotationsUtil;
 import cn.srd.library.tool.lang.core.ClassesUtil;
@@ -7,7 +8,6 @@ import cn.srd.library.tool.lang.core.ReflectsUtil;
 import cn.srd.library.tool.lang.core.StringsUtil;
 import cn.srd.library.tool.lang.core.object.Objects;
 import cn.srd.library.tool.spring.common.core.SpringsUtil;
-import cn.srd.library.topic.contract.core.EnableStreamMessageJacksonConverter;
 import jakarta.annotation.PostConstruct;
 import org.springframework.lang.NonNull;
 import org.springframework.messaging.Message;

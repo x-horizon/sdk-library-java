@@ -1,4 +1,4 @@
-package cn.srd.library.topic.contract.support;
+package cn.srd.library.contract.message.bus.support;
 
 import java.util.List;
 

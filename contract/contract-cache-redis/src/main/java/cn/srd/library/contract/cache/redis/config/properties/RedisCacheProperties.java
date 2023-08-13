@@ -1,4 +1,4 @@
-package cn.srd.library.context.redis.config.properties;
+package cn.srd.library.contract.cache.redis.config.properties;
 
 import cn.srd.library.tool.spring.common.core.SpringsUtil;
 import jakarta.annotation.PostConstruct;

@@ -5,7 +5,7 @@ import cn.srd.library.cache.caffeine.core.CaffeineCacheTemplate;
 import cn.srd.library.cache.map.core.MapCache;
 import cn.srd.library.cache.map.core.MapCacheTemplate;
 import cn.srd.library.cache.redis.core.RedisCache;
-import cn.srd.library.context.caffeine.config.properties.CaffeineCacheProperties;
+import cn.srd.library.contract.cache.caffeine.config.properties.CaffeineCacheProperties;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

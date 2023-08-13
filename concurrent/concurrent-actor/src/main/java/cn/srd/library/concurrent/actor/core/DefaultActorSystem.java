@@ -1,9 +1,9 @@
 package cn.srd.library.concurrent.actor.core;
 
-import cn.srd.library.concurrent.actor.id.ActorId;
 import cn.srd.library.concurrent.actor.event.ActorEvent;
 import cn.srd.library.concurrent.actor.exception.ActorNotRegisteredException;
-import cn.srd.library.context.constant.core.ModuleView;
+import cn.srd.library.concurrent.actor.id.ActorId;
+import cn.srd.library.contract.constant.core.ModuleView;
 import cn.srd.library.tool.lang.core.thread.ThreadsUtil;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

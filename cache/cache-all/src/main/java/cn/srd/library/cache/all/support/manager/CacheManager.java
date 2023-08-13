@@ -1,6 +1,6 @@
 package cn.srd.library.cache.all.support.manager;
 
-import cn.srd.library.context.constant.core.ModuleView;
+import cn.srd.library.contract.constant.core.ModuleView;
 import cn.srd.library.tool.lang.core.object.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
