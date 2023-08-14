@@ -9,7 +9,7 @@ spring:
 
 logging:
   level:
-    cn.srd.library: debug
+    cn.srd.library.java: debug
 
 library:
   cache:

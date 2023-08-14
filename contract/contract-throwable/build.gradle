@@ -1,4 +1,4 @@
-def projectName = 'library-contract-throwable'
+def projectName = 'library-java-contract-throwable'
 
 def projectNexusUrl
 
@@ -18,7 +18,7 @@ version = projectVersion
 
 dependencies {
     // context
-    api(project("$library_contract_constant"))
+    api(project("$library_java_contract_constant"))
 }
 
 javadoc {

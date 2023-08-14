@@ -1,4 +1,4 @@
-def projectName = 'library-security-sa-token'
+def projectName = 'library-java-security-sa-token'
 
 def projectNexusUrl
 
@@ -21,7 +21,7 @@ dependencies {
     annotationProcessor("$spring_boot_configuration_processor")
 
     // context
-    api(project("$library_contract_constant"))
+    api(project("$library_java_contract_constant"))
 
     // cache
     // sa_token_alone_redis 必须依赖包
@@ -37,8 +37,8 @@ dependencies {
     api("$sa_token_alone_redis")
 
     // tool
-    implementation(project("$library_tool_lang"))
-    implementation(project("$library_tool_spring_common"))
+    implementation(project("$library_java_tool_lang"))
+    implementation(project("$library_java_tool_spring_common"))
 
     // test
     testAnnotationProcessor("$spring_boot_configuration_processor")

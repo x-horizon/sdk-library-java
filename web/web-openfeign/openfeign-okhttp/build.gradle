@@ -1,4 +1,4 @@
-def projectName = 'library-web-openfeign-okhttp'
+def projectName = 'library-java-web-openfeign-okhttp'
 
 def projectNexusUrl
 
@@ -23,16 +23,16 @@ dependencies {
     api("$spring_cloud_openfeign")
 
     // network
-    api(project("$library_web_openfeign_common"))
+    api(project("$library_java_web_openfeign_common"))
     api("$openfeign_okhttp")
 
     // context
-    api(project("$library_contract_constant"))
+    api(project("$library_java_contract_constant"))
 
     // tool
-    implementation(project("$library_tool_lang"))
-    implementation(project("$library_tool_convert_all"))
-    implementation(project("$library_tool_spring_common"))
+    implementation(project("$library_java_tool_lang"))
+    implementation(project("$library_java_tool_convert_all"))
+    implementation(project("$library_java_tool_spring_common"))
 }
 
 javadoc {

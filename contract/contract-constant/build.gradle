@@ -1,4 +1,4 @@
-def projectName = 'library-contract-constant'
+def projectName = 'library-java-contract-constant'
 
 def projectNexusUrl
 

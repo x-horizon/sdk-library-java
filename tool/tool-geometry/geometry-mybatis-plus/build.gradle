@@ -1,4 +1,4 @@
-def projectName = 'library-tool-geometry-mybatis-plus'
+def projectName = 'library-java-tool-geometry-mybatis-plus'
 
 def projectNexusUrl
 
@@ -28,17 +28,17 @@ dependencies {
     testImplementation("$druid")
 
     // orm
-    api(project("$library_orm_mybatis_plus"))
+    api(project("$library_java_orm_mybatis_plus"))
 
     // context
-    api(project("$library_contract_constant"))
+    api(project("$library_java_contract_constant"))
 
     // tool
-    implementation(project("$library_tool_lang"))
-    implementation(project("$library_tool_spring_common"))
-    implementation(project("$library_tool_geometry_common"))
-    testImplementation(project("$library_tool_convert_all"))
-    testImplementation(project("$library_tool_geometry_jackson"))
+    implementation(project("$library_java_tool_lang"))
+    implementation(project("$library_java_tool_spring_common"))
+    implementation(project("$library_java_tool_geometry_common"))
+    testImplementation(project("$library_java_tool_convert_all"))
+    testImplementation(project("$library_java_tool_geometry_jackson"))
 }
 
 javadoc {

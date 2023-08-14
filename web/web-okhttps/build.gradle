@@ -1,4 +1,4 @@
-def projectName = 'library-web-okhttps'
+def projectName = 'library-java-web-okhttps'
 
 def projectNexusUrl
 
@@ -26,14 +26,14 @@ dependencies {
     api("$okhttp_okio")
 
     // context
-    api(project("$library_contract_constant"))
+    api(project("$library_java_contract_constant"))
 
     // tool
-    implementation(project("$library_tool_lang"))
+    implementation(project("$library_java_tool_lang"))
 
     // test
     testImplementation("$spring_boot_webmvc")
-    testImplementation(project("$library_tool_spring_webmvc"))
+    testImplementation(project("$library_java_tool_spring_webmvc"))
 }
 
 javadoc {

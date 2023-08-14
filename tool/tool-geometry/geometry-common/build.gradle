@@ -1,4 +1,4 @@
-def projectName = 'library-tool-geometry-common'
+def projectName = 'library-java-tool-geometry-common'
 
 def projectNexusUrl
 
@@ -18,11 +18,11 @@ version = projectVersion
 
 dependencies {
     // context
-    api(project("$library_contract_constant"))
+    api(project("$library_java_contract_constant"))
 
     // tool
     api("$locationtech_jts_core")
-    implementation(project("$library_tool_lang"))
+    implementation(project("$library_java_tool_lang"))
 }
 
 javadoc {

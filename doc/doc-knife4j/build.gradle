@@ -1,4 +1,4 @@
-def projectName = 'library-doc-knife4j'
+def projectName = 'library-java-doc-knife4j'
 
 def projectNexusUrl
 
@@ -21,10 +21,10 @@ dependencies {
     api("$knife4j")
 
     // context
-    api(project("$library_contract_constant"))
+    api(project("$library_java_contract_constant"))
 
     // tool
-    implementation(project("$library_tool_lang"))
+    implementation(project("$library_java_tool_lang"))
 }
 
 javadoc {

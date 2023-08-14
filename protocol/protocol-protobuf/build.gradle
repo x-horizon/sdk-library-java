@@ -1,4 +1,4 @@
-def projectName = 'library-protocol-protobuf'
+def projectName = 'library-java-protocol-protobuf'
 //
 //def projectNexusUrl
 //
@@ -23,10 +23,10 @@ def projectName = 'library-protocol-protobuf'
 //    api("$protobuf_java")
 //
 //    // context
-//    api(project("$library_contract_constant"))
+//    api(project("$library_java_contract_constant"))
 //
 //    // tool
-//    implementation(project("$library_tool_lang"))
+//    implementation(project("$library_java_tool_lang"))
 //}
 //
 //protobuf {

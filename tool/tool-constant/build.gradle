@@ -1,4 +1,4 @@
-def projectName = 'library-tool-constant'
+def projectName = 'library-java-tool-constant'
 
 def projectNexusUrl
 

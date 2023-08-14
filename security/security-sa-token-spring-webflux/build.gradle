@@ -1,4 +1,4 @@
-def projectName = 'library-security-sa-token-spring-webflux'
+def projectName = 'library-java-security-sa-token-spring-webflux'
 
 def projectNexusUrl
 
@@ -24,15 +24,15 @@ dependencies {
     annotationProcessor("$spring_boot_configuration_processor")
 
     // context
-    api(project("$library_contract_constant"))
+    api(project("$library_java_contract_constant"))
 
     // security
     api("$sa_token_reactor")
-    api(project("$library_security_sa_token"))
+    api(project("$library_java_security_sa_token"))
 
     // tool
-    implementation(project("$library_tool_lang"))
-    implementation(project("$library_tool_spring_webflux"))
+    implementation(project("$library_java_tool_lang"))
+    implementation(project("$library_java_tool_spring_webflux"))
 
     // test
     testAnnotationProcessor("$spring_boot_configuration_processor")

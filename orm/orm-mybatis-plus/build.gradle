@@ -1,4 +1,4 @@
-def projectName = 'library-orm-mybatis-plus'
+def projectName = 'library-java-orm-mybatis-plus'
 
 def projectNexusUrl
 
@@ -22,7 +22,7 @@ dependencies {
     annotationProcessor("$spring_boot_configuration_processor")
 
     // doc
-    implementation(project("$library_doc_knife4j"))
+    implementation(project("$library_java_doc_knife4j"))
 
     // database
     implementation("$mysql")
@@ -32,16 +32,16 @@ dependencies {
     testImplementation("$druid")
 
     // context
-    api(project("$library_contract_constant"))
+    api(project("$library_java_contract_constant"))
 
     // orm
     api("$mybatis_plus")
     api("$mybatis_plus_join")
 
     // tool
-    implementation(project("$library_tool_lang"))
-    implementation(project("$library_tool_spring_common"))
-    implementation(project("$library_tool_convert_all"))
+    implementation(project("$library_java_tool_lang"))
+    implementation(project("$library_java_tool_spring_common"))
+    implementation(project("$library_java_tool_convert_all"))
     annotationProcessor("$mapstruct_processor")
     annotationProcessor("$lombok_mapstruct_binding")
 

@@ -1,4 +1,4 @@
-def projectName = 'library-tool-expression-all'
+def projectName = 'library-java-tool-expression-all'
 
 def projectNexusUrl
 
@@ -18,12 +18,12 @@ version = projectVersion
 
 dependencies {
     // context
-    api(project("$library_contract_constant"))
+    api(project("$library_java_contract_constant"))
 
     // tool
-    api(project("$library_contract_tool_expression"))
-    api(project("$library_tool_expression_spring"))
-    implementation(project("$library_tool_lang"))
+    api(project("$library_java_contract_tool_expression"))
+    api(project("$library_java_tool_expression_spring"))
+    implementation(project("$library_java_tool_lang"))
 }
 
 javadoc {

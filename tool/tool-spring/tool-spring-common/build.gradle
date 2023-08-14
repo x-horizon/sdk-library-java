@@ -1,4 +1,4 @@
-def projectName = 'library-tool-spring-common'
+def projectName = 'library-java-tool-spring-common'
 
 def projectNexusUrl
 
@@ -22,10 +22,10 @@ dependencies {
     implementation("$spring_boot_aop")
 
     // context
-    api(project("$library_contract_constant"))
+    api(project("$library_java_contract_constant"))
 
     // tool
-    implementation(project("$library_tool_lang"))
+    implementation(project("$library_java_tool_lang"))
 }
 
 javadoc {
