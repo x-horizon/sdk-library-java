@@ -34,9 +34,9 @@ dependencies {
     api(project("$library_java_contract_constant"))
 
     // tool
+    api(project("$library_java_tool_geometry_common"))
     implementation(project("$library_java_tool_lang"))
     implementation(project("$library_java_tool_spring_common"))
-    implementation(project("$library_java_tool_geometry_common"))
     testImplementation(project("$library_java_tool_convert_all"))
     testImplementation(project("$library_java_tool_geometry_jackson"))
 }
