@@ -1,4 +1,4 @@
-// package cn.srd.library.tool.lang.core;
+// package cn.srd.library.java.tool.lang.core;
 //
 // import org.cmoine.genericEnums.GenericEnum;
 // import org.cmoine.genericEnums.GenericEnumParam;

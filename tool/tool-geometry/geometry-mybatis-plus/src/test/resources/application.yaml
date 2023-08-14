@@ -3,7 +3,7 @@ spring:
     active: postgresql
 
 mybatis-plus:
-  typeAliasesPackage: cn.srd.library.tool.geometry.mybatis.plus
+  typeAliasesPackage: cn.srd.library.java.tool.geometry.mybatis.plus
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:

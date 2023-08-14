@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-@MapperScan({"cn.srd.library.tool.geometry.mybatis.plus.dao"})
+@MapperScan({"cn.srd.library.java.tool.geometry.mybatis.plus.dao"})
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @EnableMybatisPlusPageInterceptor

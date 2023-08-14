@@ -1,4 +1,4 @@
-// package cn.srd.library.quality.check.style.core;
+// package cn.srd.library.java.quality.check.style.core;
 //
 // import javax.annotation.processing.AbstractProcessor;
 // import javax.annotation.processing.ProcessingEnvironment;

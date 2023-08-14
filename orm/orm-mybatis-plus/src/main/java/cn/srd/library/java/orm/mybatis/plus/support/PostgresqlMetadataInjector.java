@@ -18,7 +18,7 @@ public class PostgresqlMetadataInjector {
 
     // /**
     //  * 装配 {@link PostgresqlMetadataMapperScanner}
-    //  * TODO wjm 目前若在配置文件里开启了 library.orm.mybatis-plus.enableMetadata: true 属性，则必须手工扫描：@MapperScan({"cn.srd.library.orm.mybatis.plus.database.postgresql.metadata.dao"})，目前该种方式会扫描不到 dao，后续需要自动化
+    //  * TODO wjm 目前若在配置文件里开启了 library.orm.mybatis-plus.enableMetadata: true 属性，则必须手工扫描：@MapperScan({"cn.srd.library.java.orm.mybatis.plus.database.postgresql.metadata.dao"})，目前该种方式会扫描不到 dao，后续需要自动化
     //  *
     //  * @return 装配对象
     //  */

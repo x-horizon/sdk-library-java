@@ -1,4 +1,4 @@
-// package cn.srd.library.tool.lang.core;
+// package cn.srd.library.java.tool.lang.core;
 //
 // /**
 //  * generic enum example, copy from <a href="https://github.com/cmoine/generic-enums">generic-enums</a>
