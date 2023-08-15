@@ -13,6 +13,7 @@ spring:
       max-wait: 6000
 
 library:
-  orm:
-    mybatis-plus:
-      database: mysql
+  java:
+    orm:
+      mybatis-plus:
+        database: mysql

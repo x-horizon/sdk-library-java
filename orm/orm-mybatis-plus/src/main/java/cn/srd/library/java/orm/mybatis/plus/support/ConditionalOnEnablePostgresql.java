@@ -16,7 +16,7 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Documented
 @Inherited
-@ConditionalOnProperty(name = "library.orm.mybatis-plus.database", havingValue = DatabaseType.POSTGRE_SQL)
+@ConditionalOnProperty(name = "library.java.orm.mybatis-plus.database", havingValue = DatabaseType.POSTGRE_SQL)
 public @interface ConditionalOnEnablePostgresql {
 
 }

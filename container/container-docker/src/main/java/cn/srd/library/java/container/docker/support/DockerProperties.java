@@ -12,7 +12,7 @@
 //  */
 // @Data
 // @Component
-// @ConfigurationProperties(prefix = "library.component.docker")
+// @ConfigurationProperties(prefix = "library.java.component.docker")
 // public class DockerProperties {
 //
 //     /**

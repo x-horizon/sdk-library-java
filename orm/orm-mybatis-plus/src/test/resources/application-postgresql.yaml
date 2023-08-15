@@ -12,7 +12,8 @@ spring:
       max-wait: 6000
 
 library:
-  orm:
-    mybatis-plus:
-      database: postgresql
-      enableMetadata: false
+  java:
+    orm:
+      mybatis-plus:
+        database: postgresql
+        enableMetadata: false

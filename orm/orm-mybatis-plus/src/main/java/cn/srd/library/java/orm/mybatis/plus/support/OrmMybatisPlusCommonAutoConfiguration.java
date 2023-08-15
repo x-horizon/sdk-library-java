@@ -56,7 +56,7 @@ public class OrmMybatisPlusCommonAutoConfiguration {
     //  * @return 装配对象
     //  */
     // @Bean
-    // @DependsOn("libraryMybatisPlusProperties")
+    // @DependsOn("library.javaMybatisPlusProperties")
     // public MysqlBinaryPrimaryKeyGenerator mysqlBinUuidPrimaryKeyGenerator() {
     //     if (Objects.equals(DbType.MYSQL, EnumsUtil.capableToEnum(SpringsUtil.getBean(libraryMybatisPlusProperties.class).getDbType(), DbType.class))) {
     //         return new MysqlBinaryPrimaryKeyGenerator();
