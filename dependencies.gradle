@@ -17,6 +17,7 @@ ext {
     postgresql_version = "42.5.1"
     lettuce_version = "6.2.4.RELEASE"
     redisson_version = "3.19.0"
+    mybatis_flex_version = "1.5.8"
     mybatis_plus_version = "3.5.3.1"
     mybatis_plus_join_version = "1.4.2.2"
     knife4j_version = "4.0.0"
@@ -74,6 +75,7 @@ ext {
     library_java_message_bus_redis = ":message-bus:message-bus-redis"
 
     library_java_orm_hsweb = ":orm:orm-hsweb"
+    library_java_orm_mybatis_flex = ":orm:orm-mybatis-flex"
     library_java_orm_mybatis_plus = ":orm:orm-mybatis-plus"
 
     library_java_tool_constant = ":tool:tool-constant"
@@ -156,6 +158,7 @@ ext {
     apache_commons_pool = "org.apache.commons:commons-pool2:${apache_commons_pool_version}" as GStringImpl
 
     // orm
+    mybatis_flex = "com.mybatis-flex:mybatis-flex-spring-boot-starter:${mybatis_flex_version}" as GStringImpl
     mybatis_plus = "com.baomidou:mybatis-plus-boot-starter:${mybatis_plus_version}" as GStringImpl
     mybatis_plus_join = "com.github.yulichang:mybatis-plus-join:${mybatis_plus_join_version}" as GStringImpl
     data_r2dbc = "org.springframework.boot:spring-boot-starter-data-r2dbc"
@@ -182,10 +185,10 @@ ext {
     docker_compose = "org.springframework.boot:spring-boot-docker-compose"
 
     // protocol
-//    protobuf_bom = "com.google.protobuf:protobuf-bom:${protobuf_bom_version}" as GStringImpl
-//    protobuf_java = "com.google.protobuf:protobuf-java"
-//    protobuf_protoc = "com.google.protobuf:protoc:${protobuf_bom_version}" as GStringImpl
-//    grpc_protoc_gen_grpc_java = "io.grpc:protoc-gen-grpc-java:${grpc_protoc_gen_grpc_java_version}" as GStringImpl
+    // protobuf_bom = "com.google.protobuf:protobuf-bom:${protobuf_bom_version}" as GStringImpl
+    // protobuf_java = "com.google.protobuf:protobuf-java"
+    // protobuf_protoc = "com.google.protobuf:protoc:${protobuf_bom_version}" as GStringImpl
+    // grpc_protoc_gen_grpc_java = "io.grpc:protoc-gen-grpc-java:${grpc_protoc_gen_grpc_java_version}" as GStringImpl
 
     // hack
     burningwave_core = "org.burningwave:core:${burningwave_version}" as GStringImpl

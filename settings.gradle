@@ -39,6 +39,7 @@ include("$library_java_message_bus_kafka")
 include("$library_java_message_bus_redis")
 
 include("$library_java_orm_hsweb")
+include("$library_java_orm_mybatis_flex")
 include("$library_java_orm_mybatis_plus")
 
 include("$library_java_tool_constant")
