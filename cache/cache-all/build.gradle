@@ -14,6 +14,9 @@ if (active == "production") {
     projectNexusUrl = projectProductionNexusUrl
 }
 
+bootJar.enabled = false
+jar.enabled = true
+
 version = projectVersion
 
 dependencies {

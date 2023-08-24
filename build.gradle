@@ -21,10 +21,10 @@ if (active == "production") {
     projectNexusUrl = projectProductionNexusUrl
 }
 
-version = projectVersion
-
 bootJar.enabled = false
 jar.enabled = false
+
+version = projectVersion
 
 allprojects {
     sourceCompatibility = JavaVersion.VERSION_17

@@ -14,6 +14,8 @@ def projectName = 'library-java-protocol-protobuf'
 //    projectNexusUrl = projectProductionNexusUrl
 //}
 //
+//bootJar.enabled = false
+//jar.enabled = true
 //version = projectVersion
 //
 //apply plugin: 'com.google.protobuf'
