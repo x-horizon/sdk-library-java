@@ -17,7 +17,7 @@ ext {
     postgresql_version = "42.5.1"
     lettuce_version = "6.2.4.RELEASE"
     redisson_version = "3.19.0"
-    mybatis_flex_version = "1.5.8"
+    mybatis_flex_version = "1.5.9"
     mybatis_plus_version = "3.5.3.1"
     mybatis_plus_join_version = "1.4.2.2"
     knife4j_version = "4.0.0"
@@ -123,6 +123,7 @@ ext {
     spring_boot_webflux = "org.springframework.boot:spring-boot-starter-webflux"
     spring_boot_aop = "org.springframework.boot:spring-boot-starter-aop"
     spring_boot_logging = "org.springframework.boot:spring-boot-starter-logging"
+    spring_boot_jdbc = "org.springframework.boot:spring-boot-starter-data-jdbc"
     spring_boot_configuration_processor = "org.springframework.boot:spring-boot-configuration-processor"
     spring_boot_actuator = "org.springframework.boot:spring-boot-starter-actuator"
     spring_cloud_bom = "org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_bom_version}" as GStringImpl
@@ -198,6 +199,7 @@ ext {
     lombok_mapstruct_binding = "org.projectlombok:lombok-mapstruct-binding:${lombok_mapstruct_binding_version}" as GStringImpl
     mapstruct = "org.mapstruct:mapstruct:${mapstruct_version}" as GStringImpl
     mapstruct_processor = "org.mapstruct:mapstruct-processor:${mapstruct_version}" as GStringImpl
+    mybatis_flex_processor = "com.mybatis-flex:mybatis-flex-processor:${mybatis_flex_version}" as GStringImpl
     generic_enums_annotations = "io.github.cmoine:generic-enums-annotations:${generic_enums_version}" as GStringImpl
     generic_enums_processor = "io.github.cmoine:generic-enums-processor:${generic_enums_version}" as GStringImpl
     auto_service = "com.google.auto.service:auto-service:${auto_service_version}" as GStringImpl

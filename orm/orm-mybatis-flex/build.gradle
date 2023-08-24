@@ -37,11 +37,14 @@ dependencies {
     api(project("$library_java_tool_lang"))
     api(project("$library_java_tool_spring_common"))
     api(project("$library_java_tool_convert_all"))
+    annotationProcessor("$mybatis_flex_processor")
     annotationProcessor("$mapstruct_processor")
     annotationProcessor("$lombok_mapstruct_binding")
 
     // test
     testImplementation("$postgresql")
+    testImplementation("$spring_boot_jdbc")
+    annotationProcessor("$mybatis_flex_processor")
     testAnnotationProcessor("$spring_boot_configuration_processor")
     testAnnotationProcessor("$mapstruct_processor")
     testAnnotationProcessor("$lombok_mapstruct_binding")
