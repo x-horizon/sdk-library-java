@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * postgresql JSONB 类型处理器
+ * postgresql JSONB 类型处理器 （TODO：错误的依赖 PGobject、后续需要移除 postgresql 依赖）
  *
  * @author wjm
  * @since 2022-09-07 10:35:42

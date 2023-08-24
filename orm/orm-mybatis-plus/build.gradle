@@ -27,12 +27,9 @@ dependencies {
     // doc
     implementation(project("$library_java_doc_knife4j"))
 
+    // （TODO：错误的依赖 PGobject、后续需要移除 postgresql 依赖）
     // database
-    implementation("$mysql")
     implementation("$postgresql")
-
-    // pool
-    testImplementation("$druid")
 
     // context
     api(project("$library_java_contract_constant"))
@@ -49,6 +46,8 @@ dependencies {
     annotationProcessor("$lombok_mapstruct_binding")
 
     // test
+    testImplementation("$mysql")
+    testImplementation("$druid")
     testAnnotationProcessor("$spring_boot_configuration_processor")
     testAnnotationProcessor("$mapstruct_processor")
     testAnnotationProcessor("$lombok_mapstruct_binding")
