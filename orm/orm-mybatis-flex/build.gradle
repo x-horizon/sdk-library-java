@@ -44,6 +44,8 @@ dependencies {
     // test
     testImplementation("$postgresql")
     testImplementation("$spring_boot_jdbc")
+    testImplementation("$locationtech_jts_core")
+    testImplementation(project("$library_java_tool_id_snowflake"))
     annotationProcessor("$mybatis_flex_processor")
     testAnnotationProcessor("$spring_boot_configuration_processor")
     testAnnotationProcessor("$mapstruct_processor")

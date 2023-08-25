@@ -1,12 +1,10 @@
 package cn.srd.library.java.orm.mybatis.flex.model.po;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import cn.srd.library.java.orm.mybatis.flex.model.enums.StudentType;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -15,60 +13,47 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
-@Schema(description = "基础服务平台-用户中心-用户")
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-@Table(value = "uc_oe_user")
+@Table(value = "student")
 public class StudentPO extends BasePO implements Serializable {
 
     @Serial private static final long serialVersionUID = -7680901283684311918L;
 
-    @Id(value = "student_id", keyType = KeyType.Generator)
-    @Column("user_id")
+    @Id(keyType = KeyType.Generator)
+    @Column(value = "student_id")
     private Long id;
 
-    @Schema(description = "头像图片id")
-    @TableId(value = "avatar_file_id")
-    private Long avatarFileId;
+    @Column(value = "detail_info")
+    private StudentDetailPO detailPO;
 
-    @Schema(description = "用户名字")
-    @TableField(value = "user_name")
-    private String name;
+    @Column(value = "class_infos")
+    private List<StudentClassPO> classPOs;
 
-    @Schema(description = "用户账号")
-    @TableField(value = "account")
-    private String account;
+    @Column(value = "student_type")
+    private StudentType type;
 
-    @Schema(description = "用户编号")
-    @TableField(value = "user_code")
-    private String code;
+    public static class StudentDetailPO implements Serializable {
 
-    @Schema(description = "身份证号")
-    @TableField(value = "id_card")
-    private String idCard;
+        @Serial private static final long serialVersionUID = 2742055391867234666L;
 
-    @Schema(description = "性别")
-    @TableField(value = "gender")
-    private String gender;
+        private String name;
 
-    @Schema(description = "邮箱")
-    @TableField(value = "email")
-    private String email;
+    }
 
-    @Schema(description = "手机号码")
-    @TableField(value = "mobile")
-    private String mobile;
+    public static class StudentClassPO implements Serializable {
 
-    @Schema(description = "用户类型")
-    @TableField(value = "user_type")
-    private String type;
+        @Serial private static final long serialVersionUID = 88531220073385451L;
 
-    @Schema(description = "用户状态")
-    @TableField(value = "user_status")
-    private String status;
+        private Long id;
+
+        private String name;
+
+    }
 
 }

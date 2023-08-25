@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:5432/test-mybatis-flex
+    username: postgres
+    password: sp3tmzGpVeD8KwjmJquW
+    hikari:
+      connection-timeout: 3000
+      minimum-idle: 1
+      maximum-pool-size: 100
+      idle-timeout: 10
+      auto-commit: true
+      max-lifetime: 1800000
+      connection-test-query: select 1
