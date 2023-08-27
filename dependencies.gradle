@@ -20,7 +20,7 @@ ext {
     mybatis_flex_version = "1.5.9"
     mybatis_plus_version = "3.5.3.1"
     mybatis_plus_join_version = "1.4.2.2"
-    knife4j_version = "4.0.0"
+    knife4j_version = "4.3.0"
     easyexcel_version = "3.1.5"
     yitter_id_generator_version = "1.0.6"
     grpc_protoc_gen_grpc_java_version = "1.53.0"
