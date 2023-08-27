@@ -107,9 +107,10 @@ public class SpringsUtil extends SpringUtil {
      */
     public static String getRootPackagePath() {
         if (Objects.isBlank(rootPackagePath)) {
-            rootPackagePath = ClassesUtil.getPackage(Objects.requireNotNull(() -> "不存在 @SpringBootApplication，请检查！", CollectionsUtil.getFirstValue(
-                    SpringsUtil.getBeansMapWithAnnotation(SpringBootApplication.class)
-            )).getClass());
+            rootPackagePath = ClassesUtil.getPackage(Objects.requireNotNull(
+                    () -> "不存在 @SpringBootApplication，请检查！",
+                    CollectionsUtil.getFirstValue(getBeansMapWithAnnotation(SpringBootApplication.class))).getClass()
+            );
         }
         return rootPackagePath;
     }

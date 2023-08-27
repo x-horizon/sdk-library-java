@@ -39,10 +39,11 @@ public class EnumAutowiredSupport {
     @SuppressWarnings("unchecked")
     public <E extends Enum<E>> void autowired() {
         log.debug("{}starting matching...", ModuleView.ENUM_AUTOWIRED_SYSTEM);
-        String[] packageNamesToFindEnumAutowired = new String[]{SpringsUtil.getRootPackagePath()};
         Set<Class<?>> classesWithEnumAutowiredScan = SpringsUtil.scanPackageByAnnotation(EnumAutowiredScan.class);
+        Assert.INSTANCE.set(StringsUtil.format("Find multiple [@{}] in {}, please specify one", EnumAutowiredScan.class.getSimpleName(), CollectionsUtil.toList(classesWithEnumAutowiredScan, Class::getName))).throwsIfTrue(classesWithEnumAutowiredScan.size() > 1);
+
+        String[] packageNamesToFindEnumAutowired = new String[]{SpringsUtil.getRootPackagePath()};
         Set<Class<?>> classesWithEnumAutowired;
-        Assert.INSTANCE.set(StringsUtil.format("Find multi [@{}] in [{}], please specify one", EnumAutowiredScan.class.getSimpleName(), CollectionsUtil.toList(classesWithEnumAutowiredScan, Class::getName))).throwsIfTrue(classesWithEnumAutowiredScan.size() > 1);
         if (Objects.isNotEmpty(classesWithEnumAutowiredScan)) {
             packageNamesToFindEnumAutowired = ArraysUtil.append(packageNamesToFindEnumAutowired, AnnotationsUtil.getAnnotationValue(CollectionsUtil.getFirst(classesWithEnumAutowiredScan), EnumAutowiredScan.class));
             classesWithEnumAutowired = ClassesUtil.scanPackageByAnnotation(packageNamesToFindEnumAutowired, EnumAutowired.class);
