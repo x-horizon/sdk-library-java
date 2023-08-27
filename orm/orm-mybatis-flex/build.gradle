@@ -22,7 +22,6 @@ version = projectVersion
 dependencies {
     // framework
     implementation("$spring_boot")
-    annotationProcessor("$spring_boot_configuration_processor")
 
     // doc
     implementation(project("$library_java_doc_knife4j"))
@@ -37,6 +36,7 @@ dependencies {
     api(project("$library_java_tool_lang"))
     api(project("$library_java_tool_spring_common"))
     api(project("$library_java_tool_convert_all"))
+    annotationProcessor("$spring_boot_configuration_processor")
     annotationProcessor("$mybatis_flex_processor")
     annotationProcessor("$mapstruct_processor")
     annotationProcessor("$lombok_mapstruct_binding")
@@ -46,8 +46,8 @@ dependencies {
     testImplementation("$spring_boot_jdbc")
     testImplementation("$locationtech_jts_core")
     testImplementation(project("$library_java_tool_id_snowflake"))
-    annotationProcessor("$mybatis_flex_processor")
     testAnnotationProcessor("$spring_boot_configuration_processor")
+    testAnnotationProcessor("$mybatis_flex_processor")
     testAnnotationProcessor("$mapstruct_processor")
     testAnnotationProcessor("$lombok_mapstruct_binding")
 }

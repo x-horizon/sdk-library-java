@@ -3,7 +3,6 @@ package cn.srd.library.java.orm.mybatis.flex.model.po;
 import cn.srd.library.java.orm.mybatis.flex.model.enums.StudentType;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
-import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,7 +24,8 @@ public class StudentPO extends BasePO implements Serializable {
 
     @Serial private static final long serialVersionUID = -7680901283684311918L;
 
-    @Id(keyType = KeyType.Generator)
+    // @Id(keyType = KeyType.Generator)
+    @Id
     @Column(value = "student_id")
     private Long id;
 
