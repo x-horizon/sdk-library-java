@@ -3,8 +3,6 @@ package cn.srd.library.java.orm.mybatis.flex;
 import cn.srd.library.java.id.snowflake.core.EnableSnowflakeId;
 import cn.srd.library.java.orm.mybatis.flex.model.po.StudentPO;
 import cn.srd.library.java.orm.mybatis.flex.service.StudentService;
-import com.mybatisflex.core.keygen.KeyGeneratorFactory;
-import com.mybatisflex.core.keygen.impl.UUIDKeyGenerator;
 import com.test.EnableMybatisFlexCustomizer;
 import com.test.id.IdGenerateConfig;
 import com.test.id.IdGenerateType;
@@ -26,8 +24,11 @@ public class MybatisFlexTest {
 
     @Test
     public void testl() {
-        KeyGeneratorFactory.register("myUUID", new UUIDKeyGenerator());
-        StudentPO studentPO = studentService.getById(1);
+        StudentPO studentPO = StudentPO.builder()
+                // .type(StudentType.A)
+                .build();
+        studentService.save(studentPO);
+        StudentPO studentPO2 = studentService.getById(1);
     }
 
 }

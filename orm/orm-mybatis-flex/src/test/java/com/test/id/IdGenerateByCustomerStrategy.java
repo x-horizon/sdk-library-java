@@ -21,7 +21,7 @@ public class IdGenerateByCustomerStrategy implements IdGenerateStrategy {
 
     @Override
     public FlexGlobalConfig.KeyConfig buildConfig(IdGenerateConfig idGenerateConfig) {
-        Assert.INSTANCE.set(StringsUtil.format("{}can not build id generate config because of ", ModuleView.ORM_MYBATIS_FLEX_SYSTEM)).throwsIfEquals(IdInvalidGenerator.class, idGenerateConfig.generator());
+        Assert.INSTANCE.set(StringsUtil.format("{}could not build id generate config because of using the id generate type [{}] in [@{}] but no generator was specified!", ModuleView.ORM_MYBATIS_FLEX_SYSTEM, IdGenerateType.CUSTOMER.getClass().getSimpleName(), IdGenerateConfig.class.getSimpleName())).throwsIfEquals(IdInvalidGenerator.class, idGenerateConfig.generator());
         KeyGeneratorFactory.register(getGeneratorName(), ReflectsUtil.newInstance(idGenerateConfig.generator()));
         return IdGenerateStrategy.super.buildConfig(idGenerateConfig);
     }
