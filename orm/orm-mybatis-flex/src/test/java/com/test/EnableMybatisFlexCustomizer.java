@@ -1,5 +1,6 @@
 package com.test;
 
+import com.test.id.IdGenerateConfig;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

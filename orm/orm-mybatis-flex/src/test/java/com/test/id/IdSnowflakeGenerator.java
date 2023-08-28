@@ -6,9 +6,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class SnowflakeIdGenerator implements IKeyGenerator {
+public class IdSnowflakeGenerator implements IKeyGenerator {
 
-    protected static final SnowflakeIdGenerator INSTANCE = new SnowflakeIdGenerator();
+    protected static final IdSnowflakeGenerator INSTANCE = new IdSnowflakeGenerator();
 
     @Override
     public Object generate(Object entity, String keyColumn) {

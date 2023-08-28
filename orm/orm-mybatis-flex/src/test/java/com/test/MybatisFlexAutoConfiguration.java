@@ -7,6 +7,7 @@ import cn.srd.library.java.tool.lang.core.object.Objects;
 import cn.srd.library.java.tool.spring.common.core.SpringsUtil;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.core.FlexGlobalConfig;
+import com.test.id.IdGenerateConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

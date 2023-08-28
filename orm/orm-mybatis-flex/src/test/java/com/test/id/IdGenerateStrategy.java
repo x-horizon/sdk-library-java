@@ -1,12 +1,17 @@
 package com.test.id;
 
 import com.mybatisflex.core.FlexGlobalConfig;
-import com.test.IdGenerateConfig;
 
 public interface IdGenerateStrategy {
 
-    Object generate();
+    String getGeneratorName();
 
-    FlexGlobalConfig.KeyConfig generateNativeIdConfig(IdGenerateConfig idGenerateConfig);
+    default FlexGlobalConfig.KeyConfig buildConfig(IdGenerateConfig idGenerateConfig) {
+        FlexGlobalConfig.KeyConfig keyConfig = new FlexGlobalConfig.KeyConfig();
+        keyConfig.setKeyType(idGenerateConfig.type().getNativeIdType());
+        keyConfig.setValue(getGeneratorName());
+        keyConfig.setBefore(true);
+        return keyConfig;
+    }
 
 }

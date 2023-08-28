@@ -1,27 +1,16 @@
 package com.test.id;
 
-import cn.srd.library.java.contract.throwable.core.UnsupportedOperationException;
-import com.mybatisflex.core.FlexGlobalConfig;
-import com.test.IdGenerateConfig;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class IdGenerateByNoneStrategy implements IdGenerateStrategy {
 
-    protected static final IdGenerateByAutoIncrementStrategy INSTANCE = new IdGenerateByAutoIncrementStrategy();
+    protected static final IdGenerateByNoneStrategy INSTANCE = new IdGenerateByNoneStrategy();
 
     @Override
-    public Object generate() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public FlexGlobalConfig.KeyConfig generateNativeIdConfig(IdGenerateConfig idGenerateConfig) {
-        FlexGlobalConfig.KeyConfig keyConfig = new FlexGlobalConfig.KeyConfig();
-        keyConfig.setKeyType(idGenerateConfig.type().getNativeIdType());
-        keyConfig.setBefore(true);
-        return keyConfig;
+    public String getGeneratorName() {
+        return "mybatis-flex-id-none-generator";
     }
 
 }

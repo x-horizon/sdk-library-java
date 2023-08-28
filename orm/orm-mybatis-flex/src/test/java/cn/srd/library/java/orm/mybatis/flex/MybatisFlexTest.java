@@ -6,7 +6,7 @@ import cn.srd.library.java.orm.mybatis.flex.service.StudentService;
 import com.mybatisflex.core.keygen.KeyGeneratorFactory;
 import com.mybatisflex.core.keygen.impl.UUIDKeyGenerator;
 import com.test.EnableMybatisFlexCustomizer;
-import com.test.IdGenerateConfig;
+import com.test.id.IdGenerateConfig;
 import com.test.id.IdGenerateType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
