@@ -1,4 +1,4 @@
-package cn.srd.library.java.orm.mybatis.flex.model.enums;
+package cn.srd.library.java.orm.mybatis.flex.demo.school.model.enums;
 
 import com.mybatisflex.annotation.EnumValue;
 import lombok.AllArgsConstructor;

@@ -11,6 +11,8 @@ import java.lang.annotation.*;
 @Import(EnableMybatisFlexCustomizerFlag.class)
 public @interface EnableMybatisFlexCustomizer {
 
+    IdGenerateConfig idGenerateConfig() default @IdGenerateConfig;
+
     IdGenerateConfig globalIdGenerateConfig() default @IdGenerateConfig;
 
 }

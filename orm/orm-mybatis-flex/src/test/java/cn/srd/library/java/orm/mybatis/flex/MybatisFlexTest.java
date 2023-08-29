@@ -1,8 +1,10 @@
 package cn.srd.library.java.orm.mybatis.flex;
 
 import cn.srd.library.java.id.snowflake.core.EnableSnowflakeId;
-import cn.srd.library.java.orm.mybatis.flex.model.po.StudentPO;
-import cn.srd.library.java.orm.mybatis.flex.service.StudentService;
+import cn.srd.library.java.orm.mybatis.flex.demo.school.model.po.BookPO;
+import cn.srd.library.java.orm.mybatis.flex.demo.school.model.po.StudentPO;
+import cn.srd.library.java.orm.mybatis.flex.demo.school.service.BookService;
+import cn.srd.library.java.orm.mybatis.flex.demo.school.service.StudentService;
 import com.test.EnableMybatisFlexCustomizer;
 import com.test.id.IdGenerateConfig;
 import com.test.id.IdGenerateType;
@@ -14,13 +16,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @EnableSnowflakeId
-@MapperScan("cn.srd.library.java.orm.mybatis.flex.dao")
-@EnableMybatisFlexCustomizer(globalIdGenerateConfig = @IdGenerateConfig(type = IdGenerateType.SNOWFLAKE))
+@MapperScan("cn.srd.library.java.orm.mybatis.flex.demo.school.dao")
+@EnableMybatisFlexCustomizer(
+        idGenerateConfig = @IdGenerateConfig(type = IdGenerateType.UUID),
+        globalIdGenerateConfig = @IdGenerateConfig(type = IdGenerateType.SNOWFLAKE)
+)
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MybatisFlexTest {
 
     @Autowired private StudentService studentService;
+    @Autowired private BookService bookService;
 
     @Test
     public void testl() {
@@ -28,6 +34,12 @@ public class MybatisFlexTest {
                 // .type(StudentType.A)
                 .build();
         studentService.save(studentPO);
+
+        BookPO bookPO = BookPO.builder()
+                // .type(StudentType.A)
+                .build();
+        bookService.save(bookPO);
+
         StudentPO studentPO2 = studentService.getById(1);
     }
 

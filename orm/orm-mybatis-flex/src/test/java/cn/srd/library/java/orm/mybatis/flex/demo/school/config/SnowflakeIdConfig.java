@@ -1,4 +1,4 @@
-package cn.srd.library.java.orm.mybatis.flex.config;
+package cn.srd.library.java.orm.mybatis.flex.demo.school.config;
 
 import org.springframework.stereotype.Component;
 

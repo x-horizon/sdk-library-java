@@ -1,5 +1,6 @@
 package com.test.id;
 
+import com.mybatisflex.core.keygen.IKeyGenerator;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,12 @@ public class IdGenerateByNoneStrategy implements IdGenerateStrategy {
 
     @Override
     public String getGeneratorName() {
-        return "mybatis-flex-id-none-generator";
+        return IdGenerateType.NONE_GENERATOR_NAME;
+    }
+
+    @Override
+    public Class<? extends IKeyGenerator> getGenerator() {
+        return IdInvalidGenerator.class;
     }
 
 }

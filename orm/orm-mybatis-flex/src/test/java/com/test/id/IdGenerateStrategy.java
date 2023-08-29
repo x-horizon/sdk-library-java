@@ -1,10 +1,13 @@
 package com.test.id;
 
 import com.mybatisflex.core.FlexGlobalConfig;
+import com.mybatisflex.core.keygen.IKeyGenerator;
 
 public interface IdGenerateStrategy {
 
     String getGeneratorName();
+
+    Class<? extends IKeyGenerator> getGenerator();
 
     default FlexGlobalConfig.KeyConfig buildConfig(IdGenerateConfig idGenerateConfig) {
         FlexGlobalConfig.KeyConfig keyConfig = new FlexGlobalConfig.KeyConfig();

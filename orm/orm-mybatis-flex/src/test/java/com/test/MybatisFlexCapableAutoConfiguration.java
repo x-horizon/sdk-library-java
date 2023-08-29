@@ -5,44 +5,41 @@ import cn.srd.library.java.tool.lang.core.*;
 import cn.srd.library.java.tool.lang.core.asserts.Assert;
 import cn.srd.library.java.tool.lang.core.object.Objects;
 import cn.srd.library.java.tool.spring.common.core.SpringsUtil;
+import com.mybatisflex.core.FlexGlobalConfig;
+import com.mybatisflex.core.keygen.KeyGeneratorFactory;
+import com.mybatisflex.core.mybatis.FlexConfiguration;
+import com.mybatisflex.spring.boot.ConfigurationCustomizer;
+import com.mybatisflex.spring.boot.MyBatisFlexCustomizer;
+import com.test.id.IdGenerateConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.context.annotation.Bean;
 
 import java.util.Set;
 
 @Slf4j
+// @Order(Ordered.HIGHEST_PRECEDENCE)
 @AutoConfiguration
 // @Import({PostgresqlMetadataInjector.class})
 // @EnableConfigurationProperties(OrmMybatisPlusProperties.class)
-// @AutoConfigureBefore(RedissonAutoConfiguration.class)
+// @AutoConfigureBefore(MybatisFlexAutoConfiguration.class)
 // @EnableConfigurationProperties(RedisCacheProperties.class)
-public class MybatisFlexAutoConfiguration {
-// public class MybatisFlexAutoConfiguration implements MyBatisFlexCustomizer {
+public class MybatisFlexCapableAutoConfiguration implements ConfigurationCustomizer, MyBatisFlexCustomizer {
 
-    @Bean
-    @ConditionalOnBean(EnableMybatisFlexCustomizerFlag.class)
-    public MybatisFlexGlobalConfig mybatisFlexGlobalConfig() {
-        return new MybatisFlexGlobalConfig();
+    @Override
+    public void customize(FlexConfiguration configuration) {
+
     }
 
-    // @Override
-    // public void customize(FlexGlobalConfig globalConfig) {
-    //     EnableMybatisFlexCustomizer mybatisFlexCustomizer = getEnableMybatisFlexCustomizer();
-    //     IdGenerateConfig globalIdGenerateConfig = mybatisFlexCustomizer.globalIdGenerateConfig();
-    //     // FlexGlobalConfig.KeyConfig keyConfig = globalIdGenerateConfig.type().getStrategy().buildConfig(globalIdGenerateConfig);
-    //     // FlexGlobalConfig.getDefaultConfig().setKeyConfig(keyConfig);
-    //
-    //     KeyGeneratorFactory.register("mybatis-flex-id-snowflake-generator", new IdSnowflakeGenerator());
-    //
-    //     FlexGlobalConfig.KeyConfig keyConfig = new FlexGlobalConfig.KeyConfig();
-    //     keyConfig.setKeyType(globalIdGenerateConfig.type().getNativeIdType());
-    //     keyConfig.setValue("mybatis-flex-id-snowflake-generator");
-    //     keyConfig.setBefore(true);
-    //     // return keyConfig;
-    //     // return IdGenerateStrategy.super.buildConfig(idGenerateConfig);
-    // }
+    @Override
+    public void customize(FlexGlobalConfig globalConfig) {
+        EnableMybatisFlexCustomizer mybatisFlexCustomizer = getEnableMybatisFlexCustomizer();
+
+        IdGenerateConfig idGenerateConfig = mybatisFlexCustomizer.idGenerateConfig();
+        KeyGeneratorFactory.register(idGenerateConfig.type().getStrategy().getGeneratorName(), ReflectsUtil.newInstance(idGenerateConfig.generator()));
+
+        IdGenerateConfig globalIdGenerateConfig = mybatisFlexCustomizer.globalIdGenerateConfig();
+        globalConfig.setKeyConfig(globalIdGenerateConfig.type().getStrategy().buildConfig(globalIdGenerateConfig));
+    }
 
     private EnableMybatisFlexCustomizer getEnableMybatisFlexCustomizer() {
         // TODO wjm 抽象公共的 AnnotationScanner、以及扫描到后的注解

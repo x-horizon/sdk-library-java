@@ -12,7 +12,12 @@ public class IdGenerateBySnowflakeStrategy implements IdGenerateStrategy {
 
     @Override
     public String getGeneratorName() {
-        return "mybatis-flex-id-snowflake-generator";
+        return IdGenerateType.SNOWFLAKE_GENERATOR_NAME;
+    }
+
+    @Override
+    public Class<? extends IdSnowflakeGenerator> getGenerator() {
+        return IdSnowflakeGenerator.class;
     }
 
     @Override

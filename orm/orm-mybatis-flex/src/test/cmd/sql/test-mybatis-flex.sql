@@ -1,4 +1,10 @@
-CREATE TABLE student
+CREATE EXTENSION IF NOT EXISTS postgis;
+CREATE EXTENSION IF NOT EXISTS postgis_topology;
+CREATE EXTENSION IF NOT EXISTS fuzzystrmatch;
+CREATE EXTENSION IF NOT EXISTS postgis_tiger_geocoder;
+CREATE EXTENSION IF NOT EXISTS address_standardizer;
+
+CREATE TABLE school_student
 (
     student_id    BIGINT                                             NOT NULL,
     detail_info   JSONB                          DEFAULT '{}'::JSONB NOT NULL,
@@ -11,7 +17,7 @@ CREATE TABLE student
     PRIMARY KEY (student_id)
 );
 
-CREATE TABLE class
+CREATE TABLE school_class
 (
     class_id      BIGINT                                       NOT NULL,
     class_name    VARCHAR(50)                    DEFAULT ''    NOT NULL,
@@ -23,7 +29,7 @@ CREATE TABLE class
     PRIMARY KEY (class_id)
 );
 
-CREATE TABLE student_class
+CREATE TABLE school_student_class
 (
     relation_id   BIGINT                                       NOT NULL,
     student_id    BIGINT                                       NOT NULL,
@@ -35,9 +41,9 @@ CREATE TABLE student_class
     PRIMARY KEY (relation_id)
 );
 
-CREATE TABLE book
+CREATE TABLE school_book
 (
-    book_id       BIGINT                                       NOT NULL,
+    book_id       VARCHAR                                      NOT NULL,
     student_id    BIGINT                                       NOT NULL,
     book_name     VARCHAR(50)                    DEFAULT ''    NOT NULL,
     version       INT                            DEFAULT 0     NOT NULL,

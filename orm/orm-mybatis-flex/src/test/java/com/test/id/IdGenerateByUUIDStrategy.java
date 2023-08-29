@@ -1,6 +1,7 @@
 package com.test.id;
 
 import com.mybatisflex.core.FlexGlobalConfig;
+import com.mybatisflex.core.keygen.IKeyGenerator;
 import com.mybatisflex.core.keygen.KeyGeneratorFactory;
 import com.mybatisflex.core.keygen.impl.UUIDKeyGenerator;
 import lombok.AccessLevel;
@@ -13,7 +14,12 @@ public class IdGenerateByUUIDStrategy implements IdGenerateStrategy {
 
     @Override
     public String getGeneratorName() {
-        return "mybatis-flex-id-uuid-generator";
+        return IdGenerateType.UUID_GENERATOR_NAME;
+    }
+
+    @Override
+    public Class<? extends IKeyGenerator> getGenerator() {
+        return UUIDKeyGenerator.class;
     }
 
     @Override

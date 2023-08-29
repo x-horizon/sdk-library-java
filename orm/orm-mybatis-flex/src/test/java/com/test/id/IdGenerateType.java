@@ -16,6 +16,14 @@ public enum IdGenerateType {
     NONE(KeyType.None, IdGenerateByNoneStrategy.INSTANCE),
     ;
 
+    private static final String GENERATOR_PREFIX_NAME = "mybatis-flex-id-";
+    public static final String AUTO_INCREMENT_GENERATOR_NAME = GENERATOR_PREFIX_NAME + "auto-increment-generator";
+    public static final String UUID_GENERATOR_NAME = GENERATOR_PREFIX_NAME + "uuid-generator";
+    public static final String SNOWFLAKE_GENERATOR_NAME = GENERATOR_PREFIX_NAME + "snowflake-generator";
+    public static final String SQL_GENERATOR_NAME = GENERATOR_PREFIX_NAME + "sql-generator";
+    public static final String CUSTOMER_GENERATOR_NAME = GENERATOR_PREFIX_NAME + "customer-generator";
+    public static final String NONE_GENERATOR_NAME = GENERATOR_PREFIX_NAME + "none-generator";
+
     private final KeyType nativeIdType;
 
     private final IdGenerateStrategy strategy;

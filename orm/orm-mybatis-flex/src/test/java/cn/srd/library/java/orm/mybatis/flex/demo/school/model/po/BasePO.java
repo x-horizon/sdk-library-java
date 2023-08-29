@@ -1,4 +1,4 @@
-package cn.srd.library.java.orm.mybatis.flex.model.po;
+package cn.srd.library.java.orm.mybatis.flex.demo.school.model.po;
 
 import cn.srd.library.java.tool.convert.jackson.support.JacksonLocalDateTimeToStringRFC3339Serializer;
 import cn.srd.library.java.tool.convert.jackson.support.JacksonStringToLocalDateTimeRFC3339Deserializer;

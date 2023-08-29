@@ -1,6 +1,6 @@
-package cn.srd.library.java.orm.mybatis.flex.model.po;
+package cn.srd.library.java.orm.mybatis.flex.demo.school.model.po;
 
-import cn.srd.library.java.orm.mybatis.flex.model.enums.StudentType;
+import cn.srd.library.java.orm.mybatis.flex.demo.school.model.enums.StudentType;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
@@ -19,12 +19,11 @@ import java.util.List;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-@Table(value = "student")
+@Table(value = "school_student")
 public class StudentPO extends BasePO implements Serializable {
 
     @Serial private static final long serialVersionUID = -7680901283684311918L;
 
-    // @Id(keyType = KeyType.Generator)
     @Id
     @Column(value = "student_id")
     private Long id;
