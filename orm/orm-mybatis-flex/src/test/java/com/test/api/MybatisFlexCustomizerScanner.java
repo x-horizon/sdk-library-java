@@ -1,11 +1,11 @@
-package com.test;
+package com.test.api;
 
 import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-public @interface MybatisFlexCapableCustomizerScanner {
+public @interface MybatisFlexCustomizerScanner {
 
     String[] value() default {};
 

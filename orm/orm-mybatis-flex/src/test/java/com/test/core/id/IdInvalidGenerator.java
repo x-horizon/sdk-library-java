@@ -1,4 +1,4 @@
-package com.test.id;
+package com.test.core.id;
 
 import cn.srd.library.java.contract.constant.core.ModuleView;
 import cn.srd.library.java.contract.throwable.core.RunningException;

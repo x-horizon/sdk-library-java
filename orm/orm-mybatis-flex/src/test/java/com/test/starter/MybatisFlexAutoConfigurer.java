@@ -1,4 +1,4 @@
-package com.test;
+package com.test.starter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -12,12 +12,12 @@ import org.springframework.context.annotation.Bean;
 // @EnableConfigurationProperties(OrmMybatisPlusProperties.class)
 // @AutoConfigureBefore(MybatisFlexAutoConfiguration.class)
 // @EnableConfigurationProperties(RedisCacheProperties.class)
-public class MybatisFlexCapableAutoConfiguration {
+public class MybatisFlexAutoConfigurer {
 
     @Bean
-    @ConditionalOnBean(EnableMybatisFlexCapableCustomizerFlag.class)
-    public MybatisFlexCapableCustomizer mybatisFlexCapableCustomizer() {
-        return new MybatisFlexCapableCustomizer();
+    @ConditionalOnBean(EnableMybatisFlexCustomizerFlag.class)
+    public MybatisFlexCustomizer mybatisFlexCapableCustomizer() {
+        return new MybatisFlexCustomizer();
     }
 
 }

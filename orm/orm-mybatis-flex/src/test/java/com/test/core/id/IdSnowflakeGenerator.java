@@ -1,4 +1,4 @@
-package com.test.id;
+package com.test.core.id;
 
 import cn.srd.library.java.id.snowflake.core.SnowflakeIds;
 import com.mybatisflex.core.keygen.IKeyGenerator;

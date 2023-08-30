@@ -4,10 +4,10 @@ import cn.srd.library.java.id.snowflake.core.EnableSnowflakeId;
 import cn.srd.library.java.orm.mybatis.flex.demo.school.model.po.StudentPO;
 import cn.srd.library.java.orm.mybatis.flex.demo.school.service.BookService;
 import cn.srd.library.java.orm.mybatis.flex.demo.school.service.StudentService;
-import com.test.EnableMybatisFlexCapableCustomizer;
-import com.test.audit.AuditConfig;
-import com.test.id.IdGenerateConfig;
-import com.test.id.IdGenerateType;
+import com.test.api.EnableMybatisFlexCustomizer;
+import com.test.core.audit.AuditConfig;
+import com.test.core.id.IdGenerateConfig;
+import com.test.core.id.IdGenerateType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
@@ -17,9 +17,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @EnableSnowflakeId
 @MapperScan("cn.srd.library.java.orm.mybatis.flex.demo.school.dao")
-@EnableMybatisFlexCapableCustomizer(
-        globalIdGenerateConfig = @IdGenerateConfig(type = IdGenerateType.SNOWFLAKE),
-        auditConfig = @AuditConfig(enableAuditMessage = "${library.java.orm.enable-audit-message}")
+@EnableMybatisFlexCustomizer(
+        globalIdGenerateConfig = @IdGenerateConfig(type = IdGenerateType.AUTO_INCREMENT),
+        auditConfig = @AuditConfig(enableLogSQL = "${library.java.orm.enable-audit-message}")
 )
 @RunWith(SpringRunner.class)
 @SpringBootTest

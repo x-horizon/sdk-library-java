@@ -1,4 +1,4 @@
-package com.test.id;
+package com.test.core.id;
 
 import com.mybatisflex.annotation.KeyType;
 import lombok.AllArgsConstructor;
@@ -14,6 +14,7 @@ public enum IdGenerateType {
     SQL(KeyType.Sequence, IdGenerateBySQLStrategy.INSTANCE),
     CUSTOMER(KeyType.Generator, IdGenerateByCustomerStrategy.INSTANCE),
     NONE(KeyType.None, IdGenerateByNoneStrategy.INSTANCE),
+    UNCONTROLLED(KeyType.None, IdGenerateByUncontrolledStrategy.INSTANCE),
     ;
 
     private static final String GENERATOR_PREFIX_NAME = "mybatis-flex-id-";

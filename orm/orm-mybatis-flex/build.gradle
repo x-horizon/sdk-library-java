@@ -36,6 +36,7 @@ dependencies {
     api(project("$library_java_tool_lang"))
     api(project("$library_java_tool_spring_common"))
     api(project("$library_java_tool_convert_all"))
+    api(project("$library_java_tool_log"))
     annotationProcessor("$spring_boot_configuration_processor")
     annotationProcessor("$mybatis_flex_processor")
     annotationProcessor("$mapstruct_processor")

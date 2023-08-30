@@ -1,7 +1,8 @@
-package com.test;
+package com.test.api;
 
-import com.test.audit.AuditConfig;
-import com.test.id.IdGenerateConfig;
+import com.test.core.audit.AuditConfig;
+import com.test.core.id.IdGenerateConfig;
+import com.test.starter.EnableMybatisFlexCustomizerFlag;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -9,8 +10,8 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(EnableMybatisFlexCapableCustomizerFlag.class)
-public @interface EnableMybatisFlexCapableCustomizer {
+@Import(EnableMybatisFlexCustomizerFlag.class)
+public @interface EnableMybatisFlexCustomizer {
 
     IdGenerateConfig globalIdGenerateConfig() default @IdGenerateConfig;
 

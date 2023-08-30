@@ -1,4 +1,4 @@
-package com.test.id;
+package com.test.core.id;
 
 import com.mybatisflex.core.keygen.IKeyGenerator;
 
@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IdGenerateConfig {
 
-    IdGenerateType type() default IdGenerateType.NONE;
+    IdGenerateType type() default IdGenerateType.UNCONTROLLED;
 
     Class<? extends IKeyGenerator> generator() default IdInvalidGenerator.class;
 
