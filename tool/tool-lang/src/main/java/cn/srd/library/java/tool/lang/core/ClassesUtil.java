@@ -75,7 +75,7 @@ public class ClassesUtil extends ClassUtil {
      *
      * @param sourceType  原类型
      * @param targetTypes 目标类型
-     * @return 是否存在同类型
+     * @return 是否为相同底层类型
      */
     public static boolean isAssignable(@Nullable Class<?> sourceType, @Nullable Class<?>... targetTypes) {
         if (Objects.isNull((Object) targetTypes)) {
@@ -87,6 +87,17 @@ public class ClassesUtil extends ClassUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * see {@link #isAssignable(Class, Class)}
+     *
+     * @param sourceType 原类型
+     * @param targetType 目标类型
+     * @return 是否不为相同底层类型
+     */
+    public static boolean isNotAssignable(@Nullable Class<?> sourceType, @Nullable Class<?> targetType) {
+        return !isAssignable(targetType, sourceType);
     }
 
     /**
