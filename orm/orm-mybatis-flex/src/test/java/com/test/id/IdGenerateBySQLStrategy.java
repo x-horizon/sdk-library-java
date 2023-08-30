@@ -5,6 +5,7 @@ import cn.srd.library.java.tool.lang.core.StringsUtil;
 import cn.srd.library.java.tool.lang.core.asserts.Assert;
 import com.mybatisflex.core.FlexGlobalConfig;
 import com.mybatisflex.core.keygen.IKeyGenerator;
+import com.test.EnableMybatisFlexCapableCustomizer;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -25,7 +26,7 @@ public class IdGenerateBySQLStrategy implements IdGenerateStrategy {
 
     @Override
     public FlexGlobalConfig.KeyConfig buildConfig(IdGenerateConfig idGenerateConfig) {
-        Assert.INSTANCE.set(StringsUtil.format("{}could not build global id generate config because of using the id generate type [{}] in [@{}] but no sql was specified!", ModuleView.ORM_MYBATIS_FLEX_SYSTEM, IdGenerateType.SQL.getClass().getSimpleName(), IdGenerateConfig.class.getSimpleName())).throwsIfBlank(idGenerateConfig.sql());
+        Assert.INSTANCE.set(StringsUtil.format("{}could not build global id generate config because of using the id generate type [{}] in [@{}]-[@{}] but no sql was specified!", ModuleView.ORM_MYBATIS_FLEX_SYSTEM, IdGenerateType.CUSTOMER.getClass().getSimpleName(), EnableMybatisFlexCapableCustomizer.class.getSimpleName(), IdGenerateConfig.class.getSimpleName())).throwsIfEquals(IdInvalidGenerator.class, idGenerateConfig.generator());
         return IdGenerateStrategy.super.buildConfig(idGenerateConfig);
     }
 

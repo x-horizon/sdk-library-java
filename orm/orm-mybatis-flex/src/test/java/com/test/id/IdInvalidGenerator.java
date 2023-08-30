@@ -1,6 +1,8 @@
 package com.test.id;
 
-import cn.srd.library.java.id.snowflake.core.SnowflakeIds;
+import cn.srd.library.java.contract.constant.core.ModuleView;
+import cn.srd.library.java.contract.throwable.core.RunningException;
+import cn.srd.library.java.tool.lang.core.StringsUtil;
 import com.mybatisflex.core.keygen.IKeyGenerator;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -12,7 +14,7 @@ public class IdInvalidGenerator implements IKeyGenerator {
 
     @Override
     public Object generate(Object entity, String keyColumn) {
-        return SnowflakeIds.getId();
+        throw new RunningException(StringsUtil.format("{}could not use invalid id generator to generate id!", ModuleView.ORM_MYBATIS_FLEX_SYSTEM));
     }
 
 }
