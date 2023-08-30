@@ -15,7 +15,13 @@ spring:
       max-lifetime: 1800000
       connection-test-query: select 1
 
+logging:
+  level:
+    com.mybatisflex: debug
+
 library:
   java:
     orm:
       enable-audit-message: true
+      
+      
