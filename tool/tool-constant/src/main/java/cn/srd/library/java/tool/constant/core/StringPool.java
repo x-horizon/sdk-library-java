@@ -202,4 +202,9 @@ public interface StringPool {
      */
     String DOLLAR_AND_DELIM_START = DOLLAR + DELIM_START;
 
+    /**
+     * 分号 ;
+     */
+    String SEMICOLON = ";";
+
 }
