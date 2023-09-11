@@ -207,4 +207,9 @@ public interface StringPool {
      */
     String SEMICOLON = ";";
 
+    /**
+     * 百分号 %
+     */
+    String PERCENTAGE_SIGN = "%";
+
 }
