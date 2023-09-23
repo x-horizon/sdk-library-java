@@ -83,4 +83,9 @@ public class StreamMessageJacksonConverter extends AbstractMessageConverter {
         return Converts.withJackson().toBean((byte[]) message.getPayload(), SUPPORTED_LOWERCASE_NAMING_CLASSES.get(((MimeType) message.getHeaders().get(MessageHeaders.CONTENT_TYPE)).getSubtype()));
     }
 
+    @Override
+    protected Object convertToInternal(Object payload, MessageHeaders headers, Object conversionHint) {
+        return Converts.withJackson().toString(payload);
+    }
+
 }
