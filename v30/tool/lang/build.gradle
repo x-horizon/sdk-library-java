@@ -1,0 +1,72 @@
+def projectName = 'library-java-v30-tool-lang'
+
+def projectNexusUrl
+
+if (active == "localhost") {
+    projectNexusUrl = projectLocalhostNexusUrl
+}
+
+if (active == "development") {
+    projectNexusUrl = projectDevelopmentNexusUrl
+}
+
+if (active == "production") {
+    projectNexusUrl = projectProductionNexusUrl
+}
+
+bootJar.enabled = false
+jar.enabled = true
+
+version = projectVersion
+
+dependencies {
+    api(project(":v30:contract:constant"))
+    api(project(":v30:contract:model"))
+    api("$apache_commons_pool")
+    api("$vavr")
+    api("$guava")
+    api("$hutool")
+    api("$vjtools")
+    api("$fastjson")
+    api("$jackson_core")
+    api("$jackson_databind")
+    api("$jackson_annotation")
+    api("$javax_el")
+    api("$javax_el_api")
+    api("$json_path")
+    api("$reflectasm")
+    api("$hibernate_validator")
+    api("$apache_commons_lang3")
+    api("$apache_commons_io")
+}
+
+javadoc {
+    options {
+        encoding projectCharset
+        version true
+        title projectName
+    }
+}
+
+publishing {
+    publications {
+        publishApp(MavenPublication) {
+            groupId group
+            artifactId projectName
+            version project.version
+            from components.java
+            artifact sourcesJar
+//            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username projectNexusUsername
+                password projectNexusPassword
+            }
+            url = projectNexusUrl
+            allowInsecureProtocol = true
+        }
+    }
+}

@@ -32,7 +32,7 @@ ext {
     auto_service_version = "1.0.1"
     vavr_version = "0.10.4"
     guava_version = "31.1-jre"
-    hutool_version = "5.8.14"
+    hutool_version = "5.8.22"
     vjtools_vjkit_version = "1.0.8"
     fastjson_version = "1.2.79"
     json_path_version = "2.7.0"

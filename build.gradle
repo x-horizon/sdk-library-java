@@ -68,13 +68,13 @@ allprojects {
 //        downloadSources = true
 //    }
 
-    gradle.taskGraph.whenReady {
-        tasks.each { task ->
-            if (task.name.contains("test")) {
-                task.enabled = false
-            }
-        }
-    }
+//    gradle.taskGraph.whenReady {
+//        tasks.each { task ->
+//            if (task.name.contains("test")) {
+//                task.enabled = false
+//            }
+//        }
+//    }
 
     tasks.withType(JavaCompile).tap {
         configureEach {

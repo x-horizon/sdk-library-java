@@ -80,3 +80,10 @@ include("$library_java_protocol_protobuf")
 
 include("$library_java_tool_lang")
 
+include(":v30:contract:constant")
+include(":v30:contract:model")
+include(":v30:tool:enums")
+include(":v30:tool:lang")
+include(":v30:tool:spring:base")
+include(":v30:tool:spring:webmvc")
+
