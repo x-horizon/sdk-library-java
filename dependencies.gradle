@@ -2,7 +2,7 @@ import org.codehaus.groovy.runtime.GStringImpl
 
 ext {
     // version
-    spring_cloud_bom_version = "2022.0.2"
+    spring_cloud_bom_version = "2022.0.4"
     openfeign_bom_version = "12.2"
     reactor_bom_version = "2022.0.7"
     sa_token_bom_version = "1.34.0"
@@ -16,7 +16,7 @@ ext {
     mysql_version = "8.0.32"
     postgresql_version = "42.5.1"
     lettuce_version = "6.2.4.RELEASE"
-    redisson_version = "3.19.0"
+    redisson_version = "3.23.5"
     mybatis_flex_version = "1.5.9"
     mybatis_plus_version = "3.5.3.1"
     mybatis_plus_join_version = "1.4.2.2"
