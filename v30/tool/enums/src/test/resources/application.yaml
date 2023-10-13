@@ -1,3 +1,0 @@
-logging:
-  level:
-    cn.srd.library.java.tool.enums: debug
