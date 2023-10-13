@@ -1,4 +1,4 @@
-def projectName = 'library-java-v30-tool-spring-base'
+def projectName = 'library-java-v30-tool-spring-webmvc'
 
 def projectNexusUrl
 

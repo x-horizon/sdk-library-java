@@ -255,10 +255,44 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
         return parseAntStylePackagePathToPackagePath(Springs.scanByTypeFilter(new AnnotationTypeFilter(annotationType), BasePackagePath.get(Springs.getSpringBootApplicationPackagePath()))
                 .stream()
                 .map(beanDefinition -> ofName(beanDefinition.getBeanClassName()))
-                .map(annotatedClass -> Collections.ofArrayList(Annotations.getAnnotationValue(annotatedClass, annotationType, String[].class, fieldName)))
+                .map(annotatedClass -> getTheLargestRangePackagePath(Collections.add(Collections.ofArrayList(Annotations.getAnnotationValue(annotatedClass, annotationType, String[].class, fieldName)), Springs.getSpringBootApplicationPackagePath())))
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet())
         );
+    }
+
+    /**
+     * <pre>
+     * get the largest range package paths, support ant style package paths.
+     *
+     * for example:
+     *
+     * {@code
+     * // example 1:
+     * // "cn.test"    is contain "cn.test.lang1", "cn.test.lang1",     so keep only "cn.test".
+     * // "cn.library" is contain "cn.library.xxx", "cn.library.ss.xx", so keep only "cn.library".
+     * // "cn.core"    not contain the other package path, so keep it.
+     * // the output is ["cn.test", "cn.library", "cn.core"]
+     * Classes.getTheMostLargerRangePackagePath(List.of("cn.test.lang1", "cn.test.lang1", "cn.test", "cn.library", "cn.library.xxx", "cn.library.ss.xx", "cn.core"));
+     *
+     * // example 2:
+     * // there is a package path like ["cn.test.lang", "cn.test.lang.collection"].
+     * // the output is ["cn.test.lang"]
+     * Classes.getTheMostLargerRangePackagePath(List.of("cn.test.*", "cn.test.lang.collection"));
+     *
+     * // warning: this following is not the expected result:
+     * // all package paths start with "cn.library", and although the second package name is inconsistent, it will also be filtered out.
+     * // the output is ["cn.library"]
+     * Classes.getTheMostLargerRangePackagePath(List.of("cn.library.lang1", "cn.library.lang1", "cn.library", "cn.library2", "cn.library2.xxx", "cn.library2.ss.xx", "cn.library3"));
+     * }
+     * </pre>
+     *
+     * @param packagePaths the package paths
+     * @return the largest range package paths
+     * @see cn.srd.library.java.tool.lang.object.Classes#getTheLargestRangePackagePath(Collection)
+     */
+    public static Set<String> getTheLargestRangePackagePath(Collection<String> packagePaths) {
+        return cn.srd.library.java.tool.lang.object.Classes.getTheLargestRangePackagePath(parseAntStylePackagePathToPackagePath(packagePaths));
     }
 
 }
