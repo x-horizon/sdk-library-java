@@ -35,7 +35,7 @@ import static cn.srd.library.java.tool.lang.web.WebResponse.error;
 @Slf4j
 @Order
 @RestControllerAdvice
-public class WebMVCExceptionHandler {
+public class SpringWebMVCExceptionHandler {
 
     /**
      * 格式错误的处理，如：接收数据的 JSON 格式错误；
