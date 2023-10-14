@@ -13,7 +13,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.converter.AbstractMessageConverter;
-import org.springframework.util.MimeType;
 
 import java.util.*;
 
@@ -80,7 +79,7 @@ public class StreamMessageJacksonConverter extends AbstractMessageConverter {
 
     @Override
     protected Object convertFromInternal(Message<?> message, @NonNull Class<?> targetClass, Object conversionHint) {
-        return Converts.withJackson().toBean((byte[]) message.getPayload(), SUPPORTED_LOWERCASE_NAMING_CLASSES.get(((MimeType) message.getHeaders().get(MessageHeaders.CONTENT_TYPE)).getSubtype()));
+        return Converts.withJackson().toBean((byte[]) message.getPayload(), targetClass);
     }
 
     @Override
