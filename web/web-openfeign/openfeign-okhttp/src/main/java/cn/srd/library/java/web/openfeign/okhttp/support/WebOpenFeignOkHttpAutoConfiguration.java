@@ -10,6 +10,7 @@ import cn.srd.library.java.web.openfeign.okhttp.core.EnableOpenFeignOkHttpHandle
 import okhttp3.OkHttpClient;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 
@@ -23,6 +24,8 @@ import java.util.Set;
  * @since 2023-03-04 16:48:19
  */
 @AutoConfiguration
+// 解决与 3.0 代码共存的冲突问题
+@ConditionalOnMissingClass("cn.srd.library.java.web.openfeign.autoconfigue.OpenFeignAutoConfiguration")
 @ConditionalOnProperty(name = "spring.cloud.openfeign.okhttp.enabled", havingValue = StringPool.TRUE, matchIfMissing = false)
 public class WebOpenFeignOkHttpAutoConfiguration implements OpenFeignOkHttpConfigurator {
 
