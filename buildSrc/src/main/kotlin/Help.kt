@@ -1,0 +1,59 @@
+// Copyright (C) 2021-2023 thinkingto.com Ltd. All rights reserved.
+// Use of this source code is governed by SRD.
+// license that can be found in the LICENSE file.
+
+// ---------------------------- see specified dependency ----------------------------
+// gradle cache:all:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle cache:caffeine:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle cache:contract:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle cache:map:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle cache:redis:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle concurrent:actor:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle concurrent:redis:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle contract:base:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle contract:component:redis:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle contract:component:message:spring:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle contract:constant:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle contract:model:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle data:cassandra:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle data:elasticsearch:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle data:hsqldb:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle data:postgresql:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle doc:knife4j:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle message:azure-service-bus:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle message:coap:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle message:google-pubsub:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle message:kafka:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle message:mqtt:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle message:rabbitmq:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle message:redis:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle metric:spring:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle metric:micrometer:prometheus:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle orm:spring-jdbc:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle orm:spring-jpa:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle orm:mybatis-flex:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle registration:zookeeper:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle script:java-script:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle security:contract:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle security:spring:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle security:sa-token:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle tool:convert:all:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle tool:convert:jackson:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle tool:convert:mapstruct:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle tool:convert:spring:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle tool:enums:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle tool:freemarker:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle tool:id:snowflake:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle tool:lang:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle tool:log:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle tool:serialization:fastjson:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle tool:serialization:fastjson2:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle tool:serialization:fst:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle tool:serialization:gson:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle tool:serialization:jackson:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle tool:spring:contract:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle tool:spring:webflux:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle tool:spring:webmvc:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle transaction:spring:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle web:openfeign:dependencyInsight --dependency org.apache.httpcomponents:httpclient
+// gradle web:websocket:dependencyInsight --dependency org.apache.httpcomponents:httpclient

@@ -1,0 +1,38 @@
+// Copyright (C) 2021-2023 thinkingto.com Ltd. All rights reserved.
+// Use of this source code is governed by SRD.
+// license that can be found in the LICENSE file.
+
+package cn.srd.library.java.tool.convert.jackson.serializer;
+
+import cn.srd.library.java.tool.lang.enums.Enums;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.core.type.WritableTypeId;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
+import lombok.SneakyThrows;
+
+/**
+ * Jackson 序列化处理器：Enum =&gt; Enum 内部 Long 类型的值
+ *
+ * @author wjm
+ * @since 2020/12/15 17:02
+ */
+public class JacksonEnumToLongSerializer extends JsonSerializer<Enum<?>> {
+
+    @Override
+    @SneakyThrows
+    public void serialize(Enum<?> from, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
+        jsonGenerator.writeObject(Enums.getFieldValue(from, Long.class));
+    }
+
+    @Override
+    @SneakyThrows
+    public void serializeWithType(Enum<?> value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) {
+        WritableTypeId typeIdDef = typeSerializer.writeTypePrefix(jsonGenerator, typeSerializer.typeId(value, JsonToken.VALUE_NUMBER_INT));
+        serialize(value, jsonGenerator, serializerProvider);
+        typeSerializer.writeTypeSuffix(jsonGenerator, typeIdDef);
+    }
+
+}

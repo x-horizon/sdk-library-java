@@ -1,4 +1,0 @@
-cn.srd.library.java.security.sa.token.spring.webmvc.support.SecuritySaTokenWebMVCAutoConfiguration
-# TODO wjm 由于 SpringBoot 3.0 对于 spring.factories 的彻底移除，且第三方组件尚未支持，先主动为第三方组件注入
-cn.dev33.satoken.spring.SaTokenContextRegister
-cn.srd.library.java.security.sa.token.spring.webmvc.tmp.SaTokenContextHackerForSpringMVC

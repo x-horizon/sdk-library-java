@@ -1,0 +1,1 @@
+org.springframework.context.ApplicationContextInitializer=cn.srd.library.java.tool.spring.contract.ExportAllModuleOnJDK16
