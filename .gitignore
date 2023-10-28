@@ -2,7 +2,8 @@
 log/
 *.log
 *.log.[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]
-!tool/tool-log/src/main/java/cn/srd/library/java/tool/log
+!tool/log
+!tool/log/src/main/java/cn/srd/library/java/tool/log
 
 ### OS File ###
 .DS_Store
@@ -103,11 +104,3 @@ __pycache__/
 tmp_deb_control/
 tmp_rpm_control/
 tmp_sh/
-
-
-
-
-
-
-
-
