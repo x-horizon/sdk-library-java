@@ -8,7 +8,4 @@ dependencies {
     api(GradleDependency.ORM_MYBATIS_PLUS.withoutVersion)
     api(GradleDependency.ORM_MYBATIS_PLUS_DYNAMIC_DATASOURCE.withoutVersion)
     api(GradleDependency.ORM_MYBATIS_PLUS_GENERATOR.withoutVersion)
-
-    annotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MYBATIS_FLEX)))
-    testAnnotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MYBATIS_FLEX)))
 }
