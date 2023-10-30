@@ -73,6 +73,8 @@ include(":orm:td-engine-jdbc")
 
 include(":oss:minio")
 
+include(":platform:aliyun:contract")
+include(":platform:aliyun:sms")
 include(":platform:wechat:enterprise")
 include(":platform:wechat:mini-app")
 include(":platform:wechat:official")

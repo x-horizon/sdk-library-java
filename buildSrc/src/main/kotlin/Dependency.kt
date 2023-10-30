@@ -88,6 +88,8 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     OSS_MINIO("io.minio:minio", "8.5.6"),
 
+    PLATFORM_ALIYUN_JAVA_SDK("com.aliyun:aliyun-java-sdk-core", "4.6.4"),
+    PLATFORM_ALIYUN_SMS("com.aliyun:aliyun-java-sdk-dysmsapi", "2.2.1"),
     PLATFORM_WECHAT_VERSION("", "4.5.0"),
     PLATFORM_WECHAT_OPEN("com.github.binarywang:wx-java-open-spring-boot-starter", PLATFORM_WECHAT_VERSION.version),
     PLATFORM_WECHAT_ENTERPRISE("com.github.binarywang:wx-java-cp-spring-boot-starter", PLATFORM_WECHAT_VERSION.version),

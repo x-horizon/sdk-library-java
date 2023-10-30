@@ -64,6 +64,8 @@ object GradleModule {
 
     const val OSS_MINIO = "oss-minio"
 
+    const val PLATFORM_ALIYUN_CONTRACT = "platform-aliyun-contract"
+    const val PLATFORM_ALIYUN_SMS = "platform-aliyun-sms"
     const val PLATFORM_WECHAT_ENTERPRISE = "platform-wechat-enterprise"
     const val PLATFORM_WECHAT_MINI_APP = "platform-wechat-mini-app"
     const val PLATFORM_WECHAT_OFFICIAL = "platform-wechat-official"

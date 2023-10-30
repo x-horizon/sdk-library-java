@@ -57,6 +57,8 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.METRIC_BIT_WALKER_USER_AGENT))
         api(GradleDependency.withVersion(GradleDependency.METRIC_OSHI_CORE))
 
+        api(GradleDependency.withVersion(GradleDependency.PLATFORM_ALIYUN_JAVA_SDK))
+        api(GradleDependency.withVersion(GradleDependency.PLATFORM_ALIYUN_SMS))
         api(GradleDependency.withVersion(GradleDependency.PLATFORM_WECHAT_OPEN))
         api(GradleDependency.withVersion(GradleDependency.PLATFORM_WECHAT_ENTERPRISE))
         api(GradleDependency.withVersion(GradleDependency.PLATFORM_WECHAT_MINI_APP))
@@ -169,6 +171,8 @@ dependencies {
 
         api(project(GradleModule.toReferenceName(GradleModule.OSS_MINIO)))
 
+        api(project(GradleModule.toReferenceName(GradleModule.PLATFORM_ALIYUN_CONTRACT)))
+        api(project(GradleModule.toReferenceName(GradleModule.PLATFORM_ALIYUN_SMS)))
         api(project(GradleModule.toReferenceName(GradleModule.PLATFORM_WECHAT_ENTERPRISE)))
         api(project(GradleModule.toReferenceName(GradleModule.PLATFORM_WECHAT_MINI_APP)))
         api(project(GradleModule.toReferenceName(GradleModule.PLATFORM_WECHAT_OFFICIAL)))
