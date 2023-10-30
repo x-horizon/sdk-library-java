@@ -57,6 +57,11 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.METRIC_BIT_WALKER_USER_AGENT))
         api(GradleDependency.withVersion(GradleDependency.METRIC_OSHI_CORE))
 
+        api(GradleDependency.withVersion(GradleDependency.PLATFORM_WECHAT_OPEN))
+        api(GradleDependency.withVersion(GradleDependency.PLATFORM_WECHAT_ENTERPRISE))
+        api(GradleDependency.withVersion(GradleDependency.PLATFORM_WECHAT_MINI_APP))
+        api(GradleDependency.withVersion(GradleDependency.PLATFORM_WECHAT_OFFICIAL))
+
         api(GradleDependency.withVersion(GradleDependency.PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK))
         api(GradleDependency.withVersion(GradleDependency.PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING))
         api(GradleDependency.withVersion(GradleDependency.PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MAPSTRUCT))
@@ -163,6 +168,11 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.ORM_TD_ENGINE_JDBC)))
 
         api(project(GradleModule.toReferenceName(GradleModule.OSS_MINIO)))
+
+        api(project(GradleModule.toReferenceName(GradleModule.PLATFORM_WECHAT_ENTERPRISE)))
+        api(project(GradleModule.toReferenceName(GradleModule.PLATFORM_WECHAT_MINI_APP)))
+        api(project(GradleModule.toReferenceName(GradleModule.PLATFORM_WECHAT_OFFICIAL)))
+        api(project(GradleModule.toReferenceName(GradleModule.PLATFORM_WECHAT_OPEN)))
 
         api(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK)))
         api(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_MICA_AUTO)))

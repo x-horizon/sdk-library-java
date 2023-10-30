@@ -88,6 +88,12 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     OSS_MINIO("io.minio:minio", "8.5.6"),
 
+    PLATFORM_WECHAT_VERSION("", "4.5.0"),
+    PLATFORM_WECHAT_OPEN("com.github.binarywang:wx-java-open-spring-boot-starter", PLATFORM_WECHAT_VERSION.version),
+    PLATFORM_WECHAT_ENTERPRISE("com.github.binarywang:wx-java-cp-spring-boot-starter", PLATFORM_WECHAT_VERSION.version),
+    PLATFORM_WECHAT_MINI_APP("com.github.binarywang:wx-java-miniapp-spring-boot-starter", PLATFORM_WECHAT_VERSION.version),
+    PLATFORM_WECHAT_OFFICIAL("com.github.binarywang:wx-java-mp-spring-boot-starter", PLATFORM_WECHAT_VERSION.version),
+
     PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK("org.projectlombok:lombok", "1.18.28"),
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING("org.projectlombok:lombok-mapstruct-binding", "0.2.0"),
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MAPSTRUCT("org.mapstruct:mapstruct-processor", "1.5.5.Final"),

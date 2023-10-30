@@ -73,6 +73,11 @@ include(":orm:td-engine-jdbc")
 
 include(":oss:minio")
 
+include(":platform:wechat:enterprise")
+include(":platform:wechat:mini-app")
+include(":platform:wechat:official")
+include(":platform:wechat:open")
+
 include(":pluggable-annotation-api:lombok")
 include(":pluggable-annotation-api:mica-auto")
 include(":pluggable-annotation-api:processor:jmh")
