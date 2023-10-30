@@ -5,5 +5,5 @@
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
 
-    api(GradleDependency.ORM_TD_ENGINE_JDBC.withoutVersion)
+    api(GradleDependency.ORM_TD_ENGINE_JDBC.withoutVersion) { exclude(group = "commons-logging", module = "commons-logging") }
 }

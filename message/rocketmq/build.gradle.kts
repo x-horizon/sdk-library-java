@@ -5,5 +5,5 @@
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
 
-    api(GradleDependency.MESSAGE_ROCKETMQ.withoutVersion)
+    api(GradleDependency.MESSAGE_ROCKETMQ.withoutVersion) { exclude(group = "commons-logging", module = "commons-logging") }
 }
