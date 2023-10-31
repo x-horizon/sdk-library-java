@@ -17,6 +17,7 @@ object GradleModule {
     const val CACHE_REDIS = "cache-redis"
 
     const val CLOUD_COMMUNICATION_AMAZON = "cloud-communication-amazon"
+    const val CLOUD_COMMUNICATION_DROMARA_SMS = "cloud-communication-dromara-sms"
     const val CLOUD_COMMUNICATION_JAKARTA = "cloud-communication-jakarta"
     const val CLOUD_COMMUNICATION_TWILIO = "cloud-communication-twilio"
     const val CLOUD_NATIVE_DOCKER = "cloud-native-docker"
@@ -63,13 +64,6 @@ object GradleModule {
     const val ORM_TD_ENGINE_JDBC = "orm-td-engine-jdbc"
 
     const val OSS_MINIO = "oss-minio"
-
-    const val PLATFORM_ALIYUN_CONTRACT = "platform-aliyun-contract"
-    const val PLATFORM_ALIYUN_SMS = "platform-aliyun-sms"
-    const val PLATFORM_WECHAT_ENTERPRISE = "platform-wechat-enterprise"
-    const val PLATFORM_WECHAT_MINI_APP = "platform-wechat-mini-app"
-    const val PLATFORM_WECHAT_OFFICIAL = "platform-wechat-official"
-    const val PLATFORM_WECHAT_OPEN = "platform-wechat-open"
 
     const val PLUGGABLE_ANNOTATION_API_LOMBOK = "pluggable-annotation-api-lombok"
     const val PLUGGABLE_ANNOTATION_API_MICA_AUTO = "pluggable-annotation-api-mica-auto"

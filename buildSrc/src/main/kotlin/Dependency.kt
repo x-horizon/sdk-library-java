@@ -37,6 +37,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     CLOUD_COMMUNICATION_JAKARTA_MAIL("com.sun.mail:jakarta.mail", "2.0.1"),
     CLOUD_COMMUNICATION_AWAZON_AWS_JAVA_SDK_SQS("com.amazonaws:aws-java-sdk-sqs", ""),
     CLOUD_COMMUNICATION_AWAZON_AWS_JAVA_SDK_SNS("com.amazonaws:aws-java-sdk-sns", ""),
+    CLOUD_COMMUNICATION_DROMARA_SMS("org.dromara.sms4j:sms4j-spring-boot-starter", "3.0.3"),
     CLOUD_COMMUNICATION_TWILIO("com.twilio.sdk:twilio", "9.13.1"),
     CLOUD_NATIVE_DOCKER_CORE("com.github.docker-java:docker-java-core", ""),
     CLOUD_NATIVE_DOCKER_TRANSPORT_OKHTTP("com.github.docker-java:docker-java-transport-okhttp", ""),
@@ -87,14 +88,6 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     ORM_TD_ENGINE_JDBC("com.taosdata.jdbc:taos-jdbcdriver", "3.2.5"),
 
     OSS_MINIO("io.minio:minio", "8.5.6"),
-
-    PLATFORM_ALIYUN_JAVA_SDK("com.aliyun:aliyun-java-sdk-core", "4.6.4"),
-    PLATFORM_ALIYUN_SMS("com.aliyun:aliyun-java-sdk-dysmsapi", "2.2.1"),
-    PLATFORM_WECHAT_VERSION("", "4.5.0"),
-    PLATFORM_WECHAT_OPEN("com.github.binarywang:wx-java-open-spring-boot-starter", PLATFORM_WECHAT_VERSION.version),
-    PLATFORM_WECHAT_ENTERPRISE("com.github.binarywang:wx-java-cp-spring-boot-starter", PLATFORM_WECHAT_VERSION.version),
-    PLATFORM_WECHAT_MINI_APP("com.github.binarywang:wx-java-miniapp-spring-boot-starter", PLATFORM_WECHAT_VERSION.version),
-    PLATFORM_WECHAT_OFFICIAL("com.github.binarywang:wx-java-mp-spring-boot-starter", PLATFORM_WECHAT_VERSION.version),
 
     PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK("org.projectlombok:lombok", "1.18.28"),
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING("org.projectlombok:lombok-mapstruct-binding", "0.2.0"),

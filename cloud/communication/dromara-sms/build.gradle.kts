@@ -5,5 +5,5 @@
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
 
-    api(GradleDependency.PLATFORM_WECHAT_ENTERPRISE.withoutVersion)
+    api(GradleDependency.CLOUD_COMMUNICATION_DROMARA_SMS.withoutVersion)
 }

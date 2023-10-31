@@ -26,6 +26,7 @@ include(":cache:map")
 include(":cache:redis")
 
 include(":cloud:communication:amazon")
+include(":cloud:communication:dromara-sms")
 include(":cloud:communication:jakarta")
 include(":cloud:communication:twilio")
 include(":cloud:native:docker")
@@ -72,13 +73,6 @@ include(":orm:spring-jpa")
 include(":orm:td-engine-jdbc")
 
 include(":oss:minio")
-
-include(":platform:aliyun:contract")
-include(":platform:aliyun:sms")
-include(":platform:wechat:enterprise")
-include(":platform:wechat:mini-app")
-include(":platform:wechat:official")
-include(":platform:wechat:open")
 
 include(":pluggable-annotation-api:lombok")
 include(":pluggable-annotation-api:mica-auto")

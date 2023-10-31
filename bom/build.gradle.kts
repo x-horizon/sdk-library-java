@@ -36,6 +36,7 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.CACHE_LETTUCE))
         api(GradleDependency.withVersion(GradleDependency.CACHE_REDISSON))
 
+        api(GradleDependency.withVersion(GradleDependency.CLOUD_COMMUNICATION_DROMARA_SMS))
         api(GradleDependency.withVersion(GradleDependency.CLOUD_COMMUNICATION_JAKARTA_MAIL))
         api(GradleDependency.withVersion(GradleDependency.CLOUD_COMMUNICATION_TWILIO))
 
@@ -56,13 +57,6 @@ dependencies {
 
         api(GradleDependency.withVersion(GradleDependency.METRIC_BIT_WALKER_USER_AGENT))
         api(GradleDependency.withVersion(GradleDependency.METRIC_OSHI_CORE))
-
-        api(GradleDependency.withVersion(GradleDependency.PLATFORM_ALIYUN_JAVA_SDK))
-        api(GradleDependency.withVersion(GradleDependency.PLATFORM_ALIYUN_SMS))
-        api(GradleDependency.withVersion(GradleDependency.PLATFORM_WECHAT_OPEN))
-        api(GradleDependency.withVersion(GradleDependency.PLATFORM_WECHAT_ENTERPRISE))
-        api(GradleDependency.withVersion(GradleDependency.PLATFORM_WECHAT_MINI_APP))
-        api(GradleDependency.withVersion(GradleDependency.PLATFORM_WECHAT_OFFICIAL))
 
         api(GradleDependency.withVersion(GradleDependency.PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK))
         api(GradleDependency.withVersion(GradleDependency.PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING))
@@ -124,6 +118,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.CACHE_REDIS)))
 
         api(project(GradleModule.toReferenceName(GradleModule.CLOUD_COMMUNICATION_AMAZON)))
+        api(project(GradleModule.toReferenceName(GradleModule.CLOUD_COMMUNICATION_DROMARA_SMS)))
         api(project(GradleModule.toReferenceName(GradleModule.CLOUD_COMMUNICATION_JAKARTA)))
         api(project(GradleModule.toReferenceName(GradleModule.CLOUD_COMMUNICATION_TWILIO)))
         api(project(GradleModule.toReferenceName(GradleModule.CLOUD_NATIVE_DOCKER)))
@@ -170,13 +165,6 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.ORM_TD_ENGINE_JDBC)))
 
         api(project(GradleModule.toReferenceName(GradleModule.OSS_MINIO)))
-
-        api(project(GradleModule.toReferenceName(GradleModule.PLATFORM_ALIYUN_CONTRACT)))
-        api(project(GradleModule.toReferenceName(GradleModule.PLATFORM_ALIYUN_SMS)))
-        api(project(GradleModule.toReferenceName(GradleModule.PLATFORM_WECHAT_ENTERPRISE)))
-        api(project(GradleModule.toReferenceName(GradleModule.PLATFORM_WECHAT_MINI_APP)))
-        api(project(GradleModule.toReferenceName(GradleModule.PLATFORM_WECHAT_OFFICIAL)))
-        api(project(GradleModule.toReferenceName(GradleModule.PLATFORM_WECHAT_OPEN)))
 
         api(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK)))
         api(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_MICA_AUTO)))
