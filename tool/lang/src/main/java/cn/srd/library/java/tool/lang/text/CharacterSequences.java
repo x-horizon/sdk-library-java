@@ -329,7 +329,7 @@ public class CharacterSequences extends Characters {
      * @param input the input element
      * @return after split
      */
-    public static List<String> splitByComma(CharSequence input) {
+    public static List<String> split(CharSequence input) {
         return split(input, SymbolConstant.COMMA);
     }
 
