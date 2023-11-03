@@ -628,7 +628,7 @@ public class Collections {
      * @return an unknown size stream of collection
      */
     public static <T> Stream<T> ofUnknownSizeStream(Iterator<T> inputs) {
-        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(inputs, Spliterator.ORDERED), CollectionConstant.DEFAULT_ENABLE_PARALLEL);
+        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(inputs, Spliterator.ORDERED), CollectionConstant.DEFAULT_ENABLE_STREAM_PARALLEL);
     }
 
     /**
@@ -639,7 +639,7 @@ public class Collections {
      * @return an unknown size stream of collection
      */
     public static <T> Stream<T> ofUnknownSizeStream(Iterable<T> inputs) {
-        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(inputs.iterator(), Spliterator.ORDERED), CollectionConstant.DEFAULT_ENABLE_PARALLEL);
+        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(inputs.iterator(), Spliterator.ORDERED), CollectionConstant.DEFAULT_ENABLE_STREAM_PARALLEL);
     }
 
     /**
@@ -1538,7 +1538,7 @@ public class Collections {
     public static <T, N1 extends Iterable<T>, N2 extends Iterable<N1>, N3 extends Iterable<N2>> List<T> flattenNest3(Iterable<N3> inputs) {
         return Action.<List<T>>ifEmpty(inputs)
                 .then(() -> Collections.newArrayList())
-                .otherwise(() -> StreamSupport.stream(inputs.spliterator(), CollectionConstant.DEFAULT_ENABLE_PARALLEL)
+                .otherwise(() -> StreamSupport.stream(inputs.spliterator(), CollectionConstant.DEFAULT_ENABLE_STREAM_PARALLEL)
                         .flatMap(Collections::ofUnknownSizeStream)
                         .flatMap(Collections::ofUnknownSizeStream)
                         .flatMap(Collections::ofUnknownSizeStream)

@@ -59,6 +59,6 @@ public class CollectionConstant {
     /**
      * default enable stream parallel
      */
-    public static final boolean DEFAULT_ENABLE_PARALLEL = false;
+    public static final boolean DEFAULT_ENABLE_STREAM_PARALLEL = false;
 
 }
