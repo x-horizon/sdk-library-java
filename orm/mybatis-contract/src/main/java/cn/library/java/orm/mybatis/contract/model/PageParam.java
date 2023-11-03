@@ -30,7 +30,7 @@ public class PageParam implements Serializable {
     /**
      * 页码
      */
-    @Schema(description = "页码", required = true, example = "1")
+    @Schema(description = "页码", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
     @NotNull(message = "页码不能为空")
     @Min(value = 1, message = "页码最小值为1")
     private Integer pageIndex;
@@ -38,7 +38,7 @@ public class PageParam implements Serializable {
     /**
      * 每页显示条数
      */
-    @Schema(description = "每页显示条数", required = true, example = "10")
+    @Schema(description = "每页显示条数", requiredMode = Schema.RequiredMode.REQUIRED, example = "10")
     @NotNull(message = "每页显示条数不能为空")
     @Range(min = 1, max = 100, message = "每页显示条数范围为[1, 100]")
     private Integer pageSize;
