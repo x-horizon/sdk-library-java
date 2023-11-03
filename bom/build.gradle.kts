@@ -47,6 +47,7 @@ dependencies {
 
         api(GradleDependency.withVersion(GradleDependency.ORM_DATASTAX_OSS_CASSANDRA_JAVA_DRIVER_CORE))
         api(GradleDependency.withVersion(GradleDependency.ORM_DATASTAX_OSS_CASSANDRA_JAVA_DRIVER_QUERY_BUILDER))
+        api(GradleDependency.withVersion(GradleDependency.ORM_MYBATIS))
         api(GradleDependency.withVersion(GradleDependency.ORM_MYBATIS_PLUS_DYNAMIC_DATASOURCE))
         api(GradleDependency.withVersion(GradleDependency.ORM_TD_ENGINE_JDBC))
 
@@ -158,6 +159,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.METRIC_SYSTEM)))
 
         api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_CONTRACT)))
+        api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_DATA_POSTGRESQL)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_FLEX)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_PLUS)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_SPRING_JDBC)))

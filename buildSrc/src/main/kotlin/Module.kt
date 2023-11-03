@@ -57,6 +57,7 @@ object GradleModule {
     const val METRIC_SYSTEM = "metric-system"
 
     const val ORM_MYBATIS_CONTRACT = "orm-mybatis-contract"
+    const val ORM_MYBATIS_DATA_POSTGRESQL = "orm-mybatis-data-postgresql"
     const val ORM_MYBATIS_FLEX = "orm-mybatis-flex"
     const val ORM_MYBATIS_PLUS = "orm-mybatis-plus"
     const val ORM_SPRING_JDBC = "orm-spring-jdbc"

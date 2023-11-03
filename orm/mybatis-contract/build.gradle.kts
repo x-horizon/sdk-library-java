@@ -10,5 +10,6 @@ dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_CONTRACT)))
 
     implementation(GradleDependency.DOC_KNIFE4J.withoutVersion)
+    api(GradleDependency.ORM_MYBATIS.withoutVersion)
     api(GradleDependency.TOOL_VALIDATION_HIBERNATE.withoutVersion)
 }

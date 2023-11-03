@@ -17,7 +17,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_FRAMEWORK_SPRING_CLOUD("org.springframework.cloud:spring-cloud-dependencies", "2022.0.4"),
     BOM_METRIC_MICROMETER("io.micrometer:micrometer-bom", "1.11.5"),
     BOM_METRIC_DROP_WIZARD("io.dropwizard.metrics:metrics-bom", "4.2.19"),
-    BOM_ORM_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-dependencies", "1.7.2"),
+    BOM_ORM_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-dependencies", "1.7.3"),
     BOM_ORM_MYBATIS_PLUS("com.baomidou:mybatis-plus-bom", "3.5.4"),
     BOM_SECURITY_SA_TOKEN("cn.dev33:sa-token-bom", "1.37.0"),
     BOM_TOOL_CONTENT_ANALYSIS_APACHE_TIKA("org.apache.tika:tika-bom", "2.9.1"),
@@ -79,6 +79,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     ORM_DATASTAX_OSS_CASSANDRA("", "4.17.0"), // TODO wjm 后续需要转为 spring 相关模块
     ORM_DATASTAX_OSS_CASSANDRA_JAVA_DRIVER_CORE("com.datastax.oss:java-driver-core", ORM_DATASTAX_OSS_CASSANDRA.version),
     ORM_DATASTAX_OSS_CASSANDRA_JAVA_DRIVER_QUERY_BUILDER("com.datastax.oss:java-driver-query-builder", ORM_DATASTAX_OSS_CASSANDRA.version),
+    ORM_MYBATIS("org.mybatis.spring.boot:mybatis-spring-boot-starter", "3.0.2"),
     ORM_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-spring-boot-starter", ""),
     ORM_MYBATIS_PLUS("com.baomidou:mybatis-plus-boot-starter", ""), // TODO wjm 待升级 mybatis-plus-spring-boot3-starter（因为其相关 springboot 版本太高暂不升级）
     ORM_MYBATIS_PLUS_DYNAMIC_DATASOURCE("com.baomidou:dynamic-datasource-spring-boot-starter", "4.2.0"),

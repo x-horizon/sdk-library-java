@@ -4,8 +4,8 @@
 
 object GradleConfig {
 
-    // internal val activeEnvironment = Environment.LOCALHOST
-    internal val activeEnvironment = Environment.DEVELOPMENT
+    internal val activeEnvironment = Environment.LOCALHOST
+    // internal val activeEnvironment = Environment.DEVELOPMENT
     // internal val activeEnvironment = Environment.PRODUCTION
 
     const val JAVA_VERSION = "17"

@@ -66,6 +66,7 @@ include(":metric:spring")
 include(":metric:system")
 
 include(":orm:mybatis-contract")
+include(":orm:mybatis-data-postgresql")
 include(":orm:mybatis-flex")
 include(":orm:mybatis-plus")
 include(":orm:spring-jdbc")
