@@ -9,7 +9,6 @@ import cn.srd.library.java.tool.lang.number.Numbers;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import java.io.ObjectStreamClass;
 import java.util.function.Supplier;
 
 /**
@@ -35,6 +34,17 @@ public class Objects {
     public static <T> T[] setIfEmpty(T[] checked, T[] valueIfEmpty) {
         if (Nil.isEmpty(checked)) {
             return valueIfEmpty;
+        }
+        return checked;
+    }
+
+    public static String setIfBlank(String checked, String valueIfBlank) {
+        return setIfBlank(checked, () -> valueIfBlank);
+    }
+
+    public static String setIfBlank(String checked, Supplier<String> valueActionIfBlank) {
+        if (Nil.isBlank(checked)) {
+            return valueActionIfBlank.get();
         }
         return checked;
     }
@@ -70,16 +80,6 @@ public class Objects {
         } catch (Exception ignore) {
         }
         return input;
-    }
-
-    /**
-     * get serial version uid in a class implement {@link java.io.Serializable Serializable}
-     *
-     * @param input the class implement {@link java.io.Serializable Serializable}
-     * @return serial version uid
-     */
-    public static long getSerialVersionUID(Class<?> input) {
-        return ObjectStreamClass.lookup(input).getSerialVersionUID();
     }
 
 }
