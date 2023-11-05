@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://127.0.0.1:5432/test_mybatis_flex
+    username: postgres
+    password: sp3tmzGpVeD8KwjmJquW
+    hikari:
+      minimum-idle: 10
+      maximum-pool-size: 20
+      max-lifetime: 1800000
+      idle-timeout: 30000
+      connection-timeout: 3000
+      connection-test-query: SELECT 1
+      auto-commit: true
+
+logging:
+  level:
+    cn.srd.library.java: debug
