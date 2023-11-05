@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author wjm
  * @since 2023-06-14 08:49
  */
-public interface Nullable {
+public interface NullableObject {
 
     /**
      * return true if null

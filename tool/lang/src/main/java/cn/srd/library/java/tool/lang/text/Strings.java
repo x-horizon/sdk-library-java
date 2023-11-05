@@ -77,7 +77,7 @@ public class Strings extends CharacterSequences {
      * @param comparedElements the strings to compare
      * @return the most similar string
      */
-    public static String getMostSimilar(String input, List<String> comparedElements) {
+    public static String getMostSimilar(String input, Collection<String> comparedElements) {
         return Action.<String>infer(Nil.isEmpty(input) || Nil.isEmpty(comparedElements))
                 .then(Functional.emptyStringSupplier())
                 .otherwise(() -> {

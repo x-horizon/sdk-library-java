@@ -1,7 +1,6 @@
 package cn.library.java.orm.mybatis.data.postgresql.handler;
 
-import cn.srd.library.java.tool.lang.collection.Collections;
-import cn.srd.library.java.tool.lang.core.object.NullableObject;
+import cn.srd.library.java.tool.convert.jackson.NullableObject;
 import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.SneakyThrows;
 import org.apache.ibatis.type.BaseTypeHandler;
@@ -71,12 +70,13 @@ import java.util.List;
  */
 public abstract class JavaListObjectMappingJdbcJsonbTypeHandler<T extends NullableObject> extends BaseTypeHandler<List<T>> implements JdbcJsonbTypeHandler<T> {
 
-    /**
-     * see {@link JdbcJsonbTypeHandler#getTargetClass()}
-     *
-     * @return 目标类的类型
-     */
-    public abstract Class<T> getTargetClass();
+    // /**
+    //  * see {@link JdbcJsonbTypeHandler#getTargetClass()}
+    //  *
+    //  * @return 目标类的类型
+    //  */
+    // @Override
+    // public abstract Class<T> getTargetClass();
 
     /**
      * 定义如何把 Java 类型的参数转换为指定的数据库类型
@@ -90,7 +90,8 @@ public abstract class JavaListObjectMappingJdbcJsonbTypeHandler<T extends Nullab
     @SneakyThrows
     public void setNonNullParameter(PreparedStatement preparedStatement, int columnIndex, List<T> parameters, JdbcType jdbcType) {
         if (Nil.isNotNull(parameters)) {
-            preparedStatement.setObject(columnIndex, convertObjectToJsonb(Collections.filter(parameters, NullableObject::isNotNull).stream().toList()));
+            preparedStatement.setObject(columnIndex, convertObjectToJsonb(parameters.stream().filter(NullableObject::isNotNull).toList()));
+
         }
     }
 

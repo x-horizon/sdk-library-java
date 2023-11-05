@@ -150,14 +150,14 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
     /**
      * use default package path to scan bean definition
      *
-     * @param includeFilters the specified {@link TypeFilter}s
+     * @param includeFilter the specified {@link TypeFilter}s
      * @return all {@link BeanDefinition} by the specified {@link TypeFilter}s in default packages paths.
      * @see #scanByTypeFilter(Collection, Collection)
      * @see Springs#getSpringBootApplicationPackagePath()
      * @see BasePackagePath#get()
      */
-    public static Set<BeanDefinition> scanByTypeFilter(TypeFilter includeFilters) {
-        return scanByTypeFilter(Collections.ofImmutableList(includeFilters), BasePackagePath.get(Springs.getSpringBootApplicationPackagePath()));
+    public static Set<BeanDefinition> scanByTypeFilter(TypeFilter includeFilter) {
+        return scanByTypeFilter(Collections.ofImmutableList(includeFilter), BasePackagePath.get(Springs.getSpringBootApplicationPackagePath()));
     }
 
     /**
@@ -262,7 +262,11 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         includeFilters.forEach(scanner::addIncludeFilter);
         // note: all blank package paths must be filtered out, otherwise, it will globally scan all paths, causing the entire program to get stuck.
-        return scanPackagePaths.stream().filter(Nil::isNotBlank).map(scanner::findCandidateComponents).flatMap(Collection::stream).collect(Collectors.toSet());
+        return scanPackagePaths.stream()
+                .filter(Nil::isNotBlank)
+                .map(scanner::findCandidateComponents)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toSet());
     }
 
     /**

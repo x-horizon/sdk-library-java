@@ -1,6 +1,6 @@
 package cn.library.java.orm.mybatis.data.postgresql.handler;
 
-import cn.srd.library.java.tool.lang.core.object.NullableObject;
+import cn.srd.library.java.tool.convert.jackson.NullableObject;
 import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.SneakyThrows;
 import org.apache.ibatis.type.BaseTypeHandler;
@@ -71,12 +71,12 @@ import java.util.Map;
  */
 public abstract class JavaObjectMappingJdbcJsonbTypeHandler<T extends NullableObject> extends BaseTypeHandler<T> implements JdbcJsonbTypeHandler<T> {
 
-    /**
-     * see {@link JdbcJsonbTypeHandler#getTargetClass()}
-     *
-     * @return 目标类的类型
-     */
-    public abstract Class<T> getTargetClass();
+    // /**
+    //  * see {@link JdbcJsonbTypeHandler#getTargetClass()}
+    //  *
+    //  * @return 目标类的类型
+    //  */
+    // public abstract Class<T> getTargetClass();
 
     /**
      * 定义如何把 Java 类型的参数转换为指定的数据库类型
@@ -104,6 +104,11 @@ public abstract class JavaObjectMappingJdbcJsonbTypeHandler<T extends NullableOb
     @Override
     @SneakyThrows
     public T getNullableResult(ResultSet resultSet, String columnName) {
+        // Classes.ofName("studentDetailPO");
+        // Classes.ofName("cn.srd.library.java.orm.mybatis.flex.model.po.StudentPO");
+        // List<String> a = ClassUtil.scanPackage(Springs.getSpringBootApplicationPackagePath()).stream().map(Class::getName).toList();
+        // Strings.getMostSimilar(columnName, a);
+        // ClassUtil.scanPackage(Springs.getSpringBootApplicationPackagePath());
         return convertJsonbStringToObject(resultSet.getString(columnName));
     }
 
