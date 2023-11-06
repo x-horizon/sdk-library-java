@@ -42,6 +42,11 @@ public class ModuleView {
     public static final String ACTOR_SYSTEM = "Actor System - ";
 
     /**
+     * the orm mybatis contract module name
+     */
+    public static final String ORM_MYBATIS_CONTRACT_SYSTEM = "ORM Mybatis Contract System - ";
+
+    /**
      * the orm mybatis flex module name
      */
     public static final String ORM_MYBATIS_FLEX_SYSTEM = "ORM Mybatis Flex System - ";
