@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.contract.model.throwable;
 
+import cn.srd.library.java.contract.constant.web.HttpStatus;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -25,6 +26,6 @@ public abstract class AbstractRuntimeException extends RuntimeException {
 
     @Serial private static final long serialVersionUID = 8499653235633312994L;
 
-    private Integer status;
+    private Integer status = HttpStatus.INTERNAL_ERROR.getStatus();
 
 }
