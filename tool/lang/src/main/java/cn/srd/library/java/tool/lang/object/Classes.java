@@ -271,7 +271,7 @@ public class Classes {
      * @see ClassUtil#scanPackageByAnnotation(String, Class)
      */
     public static Set<Class<?>> scanByAnnotation(Class<? extends Annotation> annotationClass, String... packageNames) {
-        return Arrays.stream(Objects.setIfNull(packageNames, Collections.newArray()))
+        return Arrays.stream(Objects.setIfNull(packageNames, Collections.newArray(String.class)))
                 .map(path -> ClassUtil.scanPackageByAnnotation(path, annotationClass))
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet());
@@ -287,7 +287,7 @@ public class Classes {
      */
     public static <T> Set<Class<? extends T>> scanBySuper(Class<T> rootClass, String... packageNames) {
         Set<Class<? extends T>> subClasses = Collections.newHashSet();
-        Arrays.stream(Objects.setIfNull(packageNames, Collections.newArray())).forEach(packageName -> Collections.add(subClasses, ClassUtil.scanPackageBySuper(packageName, rootClass)));
+        Arrays.stream(Objects.setIfNull(packageNames, Collections.newArray(String.class))).forEach(packageName -> Collections.add(subClasses, ClassUtil.scanPackageBySuper(packageName, rootClass)));
         return subClasses;
     }
 

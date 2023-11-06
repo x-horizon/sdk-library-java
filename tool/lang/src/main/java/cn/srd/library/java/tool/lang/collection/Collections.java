@@ -39,11 +39,24 @@ public class Collections {
     /**
      * create an empty array
      *
-     * @param <T> the output type
+     * @param arrayType the array type
+     * @param <T>       the output type
      * @return an empty array
      */
-    public static <T> T[] newArray() {
-        return ofArray();
+    public static <T> T[] newArray(Class<T> arrayType) {
+        return newArray(arrayType, CollectionConstant.EMPTY_CAPACITY);
+    }
+
+    /**
+     * create a specified init capacity array
+     *
+     * @param arrayType    the array type
+     * @param initCapacity the specified capacity
+     * @param <T>          the output type
+     * @return a specified init capacity array
+     */
+    public static <T> T[] newArray(Class<T> arrayType, int initCapacity) {
+        return ArrayUtil.newArray(arrayType, initCapacity);
     }
 
     /**
@@ -197,14 +210,18 @@ public class Collections {
     }
 
     /**
-     * create a containing the specified elements array
+     * <pre>
+     * create a containing the specified elements array.
+     *
+     * note: low performance to create an array because of the array generic special case.
+     * </pre>
      *
      * @param <T> the output type
      * @return a containing the specified elements array
      */
     @SafeVarargs
-    public static <T> T[] ofArray(T... inputs) {
-        return inputs;
+    public static <T> T[] ofArray(Class<T> arrayType, T... inputs) {
+        return toArray(Arrays.stream(inputs).toList(), arrayType);
     }
 
     /**

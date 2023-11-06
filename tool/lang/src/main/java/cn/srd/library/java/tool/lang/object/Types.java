@@ -187,7 +187,7 @@ public class Types {
     @SneakyThrows
     public static Type[] getEmbedGenericTypes(Class<?> fieldLocatedClass, String fieldName) {
         return Action.<Type[]>infer(Nil.isNull(fieldLocatedClass) || Nil.isBlank(fieldName))
-                .then(Collections::newArray)
+                .then(() -> Collections.newArray(Type.class))
                 .otherwise(() -> ((ParameterizedType) Classes.getFieldDeep(fieldLocatedClass, fieldName).getGenericType()).getActualTypeArguments())
                 .get();
     }
