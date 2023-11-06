@@ -8,6 +8,7 @@ import cn.srd.library.java.contract.constant.time.TimeConstant;
 import cn.srd.library.java.contract.constant.time.TimePatternConstant;
 import cn.srd.library.java.contract.constant.time.TimeUnitType;
 import cn.srd.library.java.contract.constant.time.TimeZoneConstant;
+import cn.srd.library.java.contract.model.throwable.RunningException;
 import cn.srd.library.java.tool.lang.enums.Enums;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
@@ -709,11 +710,11 @@ public class Times {
      * {@link TimeUnitHandler} wrapper
      *
      * @param time         时间
-     * @param TimeUnitType 时间单位
+     * @param timeUnitType 时间单位
      * @return {@link TimeUnitHandler}
      */
-    public static TimeUnitHandler wrapper(long time, TimeUnitType TimeUnitType) {
-        return TimeUnitHandler.TIME_UNIT_POOL_MAPPING_HANDLER_MAP.get(TimeUnitType).newInstance().setTime(time);
+    public static TimeUnitHandler wrapper(long time, TimeUnitType timeUnitType) {
+        return TimeUnitHandler.TIME_UNIT_POOL_MAPPING_HANDLER_MAP.get(timeUnitType).newInstance().setTime(time);
     }
 
     /**
@@ -729,13 +730,13 @@ public class Times {
             if (Nil.isNotNull(timeUnitType)) {
                 long time = Try.of(() -> Long.parseLong(Strings.removeAll(timeFormat, timeUnit)))
                         .onFailure(throwable -> {
-                            throw new RuntimeException(Strings.format("invalid time by remove [{}] from input [{}]", timeUnit, timeFormat), throwable);
+                            throw new RunningException(Strings.format("invalid time by remove [{}] from input [{}]", timeUnit, timeFormat), throwable);
                         })
                         .get();
                 return wrapper(time, timeUnitType);
             }
         }
-        throw new RuntimeException(Strings.format("invalid time format by input [{}]", timeFormat));
+        throw new RunningException(Strings.format("invalid time format by input [{}]", timeFormat));
     }
 
 }

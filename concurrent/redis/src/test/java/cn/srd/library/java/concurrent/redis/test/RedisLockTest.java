@@ -2,6 +2,7 @@ package cn.srd.library.java.concurrent.redis.test;
 
 import cn.srd.library.java.concurrent.redis.EnableRedisLock;
 import cn.srd.library.java.concurrent.redis.RedisFairLockHandler;
+import cn.srd.library.java.contract.model.throwable.RunningException;
 import cn.srd.library.java.tool.lang.text.Strings;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -52,7 +53,7 @@ public class RedisLockTest {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new RunningException(e);
             }
             return null;
         };
@@ -76,7 +77,7 @@ public class RedisLockTest {
                     supplier.get();
                     endSignal.countDown();
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    throw new RunningException(e);
                 }
             }).start();
         }
