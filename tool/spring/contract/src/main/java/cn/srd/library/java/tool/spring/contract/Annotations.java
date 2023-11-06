@@ -14,6 +14,7 @@ import org.springframework.core.type.filter.TypeFilter;
 
 import java.lang.annotation.Annotation;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -228,6 +229,105 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
                 .map(Collections::ofArrayList)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet());
+    }
+
+    /**
+     * get the annotated class mapping annotation default field value in the default package path.
+     *
+     * @param annotationType the annotation class
+     * @param fieldType      the field class in annotation
+     * @param <T>            the field type in annotation
+     * @return the annotated class mapping annotation default field value in the default package path
+     * @see #getAnnotatedClassMappingAnnotationValueMap(Class, Class, String, Collection)
+     * @see AnnotationConstant#DEFAULT_FIELD_NAME
+     * @see Classes#scanByTypeFilter(TypeFilter, Collection)
+     * @see Springs#getSpringBootApplicationPackagePath()
+     * @see BasePackagePath#get()
+     */
+    public static <T> Map<Class<?>, T> getAnnotatedClassMappingAnnotationValueMap(Class<? extends Annotation> annotationType, Class<T> fieldType) {
+        return getAnnotatedClassMappingAnnotationValueMap(annotationType, fieldType, AnnotationConstant.DEFAULT_FIELD_NAME);
+    }
+
+    /**
+     * get the annotated class mapping annotation field value in the default package path.
+     *
+     * @param annotationType the annotation class
+     * @param fieldType      the field class in annotation
+     * @param fieldName      the field name in annotation
+     * @param <T>            the field type in annotation
+     * @return the annotated class mapping annotation field value in the default package path
+     * @see #getAnnotatedClassMappingAnnotationValueMap(Class, Class, String, Collection)
+     * @see Classes#scanByTypeFilter(TypeFilter)
+     * @see Springs#getSpringBootApplicationPackagePath()
+     * @see BasePackagePath#get()
+     */
+    public static <T> Map<Class<?>, T> getAnnotatedClassMappingAnnotationValueMap(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName) {
+        return getAnnotatedClassMappingAnnotationValueMap(annotationType, fieldType, fieldName, BasePackagePath.get(Springs.getSpringBootApplicationPackagePath()));
+    }
+
+    /**
+     * get the annotated class mapping annotation field value in the specified package path.
+     *
+     * @param annotationType the annotation class
+     * @param fieldType      the field class in annotation
+     * @param fieldName      the field name in annotation
+     * @param packagePaths   the package path to be scanned
+     * @param <T>            the field type in annotation
+     * @return the annotation field value in the specified package path
+     * @see #getAnnotatedClassMappingAnnotationValueMap(Class, Class, String, Collection)
+     * @see Classes#scanByTypeFilter(TypeFilter, Collection)
+     */
+    public static <T> Map<Class<?>, T> getAnnotatedClassMappingAnnotationValueMap(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName, String... packagePaths) {
+        return getAnnotatedClassMappingAnnotationValueMap(annotationType, fieldType, fieldName, Collections.ofHashSet(packagePaths));
+    }
+
+    /**
+     * <pre>
+     * get the annotated class mapping annotation field value in the specified package path.
+     *
+     * for example:
+     * {@code
+     *
+     *     // define an annotation
+     *     @Retention(RetentionPolicy.RUNTIME)
+     *     @Target(ElementType.TYPE)
+     *     @Documented
+     *     public @interface CustomerAnnotation {
+     *
+     *        String[] fieldNames() default {};
+     *
+     *     }
+     *
+     *     // mark this annotation and specified the annotation field value
+     *     @CustomerAnnotation(fieldNames = {"test1", "test2"})
+     *     public class Config {
+     *
+     *     }
+     *
+     *     // the unit test
+     *     public class Test {
+     *
+     *         public static void main(String[] args) {
+     *             // the output map is: {Class<CustomerAnnotation>:["test1", "test2"]}
+     *             Annotations.getAnnotatedClassMappingAnnotationValueMap(CustomerAnnotation.class, String[].class, "fieldNames", "cn.library.test");
+     *         }
+     *
+     *     }
+     * }
+     * </pre>
+     *
+     * @param annotationType the annotation class
+     * @param fieldType      the field class in annotation
+     * @param fieldName      the field name in annotation
+     * @param packagePaths   the package path to be scanned
+     * @param <T>            the field type in annotation
+     * @return the annotated class mapping annotation field value in the specified package path
+     */
+    public static <T> Map<Class<?>, T> getAnnotatedClassMappingAnnotationValueMap(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName, Collection<String> packagePaths) {
+        return Classes.scanByTypeFilter(new AnnotationTypeFilter(annotationType), packagePaths)
+                .stream()
+                .map(beanDefinition -> Classes.ofName(beanDefinition.getBeanClassName()))
+                .collect(Collectors.toMap(annotatedClass -> annotatedClass, annotatedClass -> getAnnotationValue(annotatedClass, annotationType, fieldType, fieldName)));
     }
 
 }
