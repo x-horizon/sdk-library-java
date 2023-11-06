@@ -57,8 +57,9 @@ object GradleModule {
     const val METRIC_SYSTEM = "metric-system"
 
     const val ORM_MYBATIS_CONTRACT = "orm-mybatis-contract"
-    const val ORM_MYBATIS_DATA_POSTGRESQL = "orm-mybatis-data-postgresql"
+    const val ORM_MYBATIS_CONTRACT_POSTGRESQL = "orm-mybatis-contract-postgresql"
     const val ORM_MYBATIS_FLEX = "orm-mybatis-flex"
+    const val ORM_MYBATIS_FLEX_POSTGRESQL = "orm-mybatis-flex-postgresql"
     const val ORM_MYBATIS_PLUS = "orm-mybatis-plus"
     const val ORM_SPRING_JDBC = "orm-spring-jdbc"
     const val ORM_SPRING_JPA = "orm-spring-jpa"
@@ -174,6 +175,8 @@ internal object ModuleHelper {
 
     private val moduleNameMappingReferenceModuleNameMap = ConcurrentHashMap<String, String>().apply {
         // cache the special reference module name that cannot parse
+        put(GradleModule.ORM_MYBATIS_CONTRACT_POSTGRESQL, ":orm:mybatis-contract-postgresql")
+        put(GradleModule.ORM_MYBATIS_FLEX_POSTGRESQL, ":orm:mybatis-flex-postgresql")
         put(GradleModule.TEST_DB_UNIT_SPRING, ":test:db-unit-spring")
         put(GradleModule.TOOL_SERIALIZATION_FASTJSON2, ":tool:serialization:fastjson2")
     }

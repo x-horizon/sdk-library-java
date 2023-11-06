@@ -3,11 +3,11 @@
 // license that can be found in the LICENSE file.
 
 dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_CONTRACT)))
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_CONTRACT)))
-
-    api(GradleDependency.ORM_MYBATIS_FLEX.withoutVersion)
+    api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_CONTRACT_POSTGRESQL)))
+    api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_FLEX)))
 
     annotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MYBATIS_FLEX)))
     testAnnotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MYBATIS_FLEX)))
+    testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_ALL)))
+    testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_ID_SNOWFLAKE)))
 }
