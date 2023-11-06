@@ -343,6 +343,33 @@ public class Collections {
     }
 
     /**
+     * create a containing single key and value pair
+     *
+     * @param key   the key
+     * @param value the value
+     * @param <K>   the key type
+     * @param <V>   the value type
+     * @return a containing single key and value pair
+     * @see #ofSimpleEntry(Object, Object)
+     */
+    public static <K, V> AbstractMap.SimpleEntry<K, V> ofPair(K key, V value) {
+        return ofSimpleEntry(key, value);
+    }
+
+    /**
+     * create a containing single key and value entry
+     *
+     * @param key   the key
+     * @param value the value
+     * @param <K>   the key type
+     * @param <V>   the value type
+     * @return a containing single key and value entry
+     */
+    public static <K, V> AbstractMap.SimpleEntry<K, V> ofSimpleEntry(K key, V value) {
+        return new AbstractMap.SimpleEntry<>(key, value);
+    }
+
+    /**
      * create a containing the specified elements hash map
      *
      * @param key   the key of map
