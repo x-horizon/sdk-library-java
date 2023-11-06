@@ -185,7 +185,7 @@ public class Classes {
      * @param fieldName the field name
      * @return the field
      * @see #getFieldDeep(Class, String)
-     * @see Strings#getMostSimilar(String, List)
+     * @see Strings#getMostSimilar(String, Collection)
      */
     public static Field getFieldFuzzy(Class<?> input, String fieldName) {
         List<Field> fields = getFieldsDeep(input);

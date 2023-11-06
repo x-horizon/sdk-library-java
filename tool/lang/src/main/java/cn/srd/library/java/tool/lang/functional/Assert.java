@@ -711,7 +711,7 @@ public class Assert {
      * @param comparedElements the compared elements
      */
     public void throwsIfEquals(Object input, Object... comparedElements) {
-        Action.ifEquals(input, comparedElements).then(() -> {
+        Action.ifEqualsAny(input, comparedElements).then(() -> {
             this.message = Objects.setIfNull(this.message, () -> ExceptionMessage.NOT_EQUAL_CHECKED_MESSAGE);
             return this.doThrows();
         });

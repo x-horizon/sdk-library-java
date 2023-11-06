@@ -111,7 +111,7 @@ public class Comparators {
      * @param comparedElements the compared elements
      * @return return true if the checked element equals any compared element
      */
-    public static boolean equals(Object input, Object... comparedElements) {
+    public static boolean equalsAny(Object input, Object... comparedElements) {
         if (input == comparedElements) {
             return true;
         }
@@ -240,14 +240,14 @@ public class Comparators {
     }
 
     /**
-     * reverse {@link #equals(Object, Object...)}
+     * reverse {@link #equalsAny(Object, Object...)}
      *
      * @param input            the checked element
      * @param comparedElements the compared elements
      * @return return true if the checked element not equals all compared elements
      */
     public static boolean notEquals(Object input, Object... comparedElements) {
-        return !equals(input, comparedElements);
+        return !equalsAny(input, comparedElements);
     }
 
     /**

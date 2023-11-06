@@ -722,8 +722,8 @@ public class Action<V> {
      * @param <T>              the infer value type
      * @return after infer action
      */
-    public static <T> Action<T> ifEquals(Object input, Object... comparedElements) {
-        return infer(Comparators.equals(input, comparedElements));
+    public static <T> Action<T> ifEqualsAny(Object input, Object... comparedElements) {
+        return infer(Comparators.equalsAny(input, comparedElements));
     }
 
     /**
