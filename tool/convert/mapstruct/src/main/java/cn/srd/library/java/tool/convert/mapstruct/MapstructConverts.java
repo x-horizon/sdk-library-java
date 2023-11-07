@@ -248,7 +248,7 @@ public class MapstructConverts {
          */
         Set<Class<?>> classesWithMapstructScan = Classes.scanByAnnotation(EnableMapstructConvertScan.class);
         Set<Class<?>> classesWithBindMapstruct;
-        Assert.of().setMessage(Strings.format("found multi @{} in {}, please just specifies one", EnableMapstructConvertScan.class.getSimpleName(), classesWithMapstructScan.stream().map(Class::getName).toList()))
+        Assert.of().setMessage("found multi @{} in {}, please just specifies one", EnableMapstructConvertScan.class.getSimpleName(), classesWithMapstructScan.stream().map(Class::getName).toList())
                 .throwsIfTrue(classesWithMapstructScan.size() > 1);
         if (Nil.isNotEmpty(classesWithMapstructScan)) {
             String[] packageNamesToFindMapstruct = Annotations.getAnnotationValue(Collections.getFirst(classesWithMapstructScan).get(), EnableMapstructConvertScan.class, String[].class);
@@ -265,7 +265,7 @@ public class MapstructConverts {
          */
         classesWithBindMapstruct.forEach(classWithBindMapstruct -> {
             if (Nil.isNull(Springs.getBean(classWithBindMapstruct))) {
-                Assert.of().setMessage(Strings.format("could not find the class [{}] instance, please check!", classWithBindMapstruct.getName()))
+                Assert.of().setMessage("could not find the class [{}] instance, please check!", classWithBindMapstruct.getName())
                         .throwsIfNull(Mappers.getMapper(classWithBindMapstruct));
                 Springs.registerBean(classWithBindMapstruct);
             }
@@ -435,11 +435,11 @@ public class MapstructConverts {
      */
     private void handleMapstructMethodsNotFound(String key) {
         Assert.of()
-                .setMessage(Strings.format("未能找到匹配的方法，请确保已使用 @{} 标记了 Mapstruct 转换器，且在转换器中定义了以下参数的方法：\n\t 入参:[{}]\n\t 出参:[{}]",
+                .setMessage("未能找到匹配的方法，请确保已使用 @{} 标记了 Mapstruct 转换器，且在转换器中定义了以下参数的方法：\n\t 入参:[{}]\n\t 出参:[{}]",
                         BindMapstruct.class.getSimpleName(),
                         Strings.subBefore(key, SymbolConstant.SLASH),
                         Strings.subAfter(key, SymbolConstant.SLASH)
-                ))
+                )
                 .setThrowable(MapstructConvertMethodNotFoundException.class)
                 .doThrows();
     }

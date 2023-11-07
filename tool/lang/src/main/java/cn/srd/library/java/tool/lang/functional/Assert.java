@@ -57,7 +57,7 @@ public class Assert {
     /**
      * the message of exception
      */
-    private String message;
+    @Setter private String message;
 
     /**
      * the exception extends {@link AbstractRuntimeException}

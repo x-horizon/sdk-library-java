@@ -64,7 +64,7 @@ public interface CacheAspect extends AopCaptor {
         if (Nil.isNotEmpty(namespacesOnMethod)) {
             return doParseNamespaces(namespacesOnMethod);
         }
-        Assert.of().setMessage(Strings.format("{}could not find namespace on method annotation and unspecified namespace on annotation [{}], please specify at least one!", ModuleView.CACHE_SYSTEM, CacheConfig.class.getSimpleName()))
+        Assert.of().setMessage("{}could not find namespace on method annotation and unspecified namespace on annotation [{}], please specify at least one!", ModuleView.CACHE_SYSTEM, CacheConfig.class.getSimpleName())
                 .throwsIfNull(cacheConfigAnnotation);
         return doParseNamespaces(cacheConfigAnnotation.namespaces());
     }
@@ -94,7 +94,7 @@ public interface CacheAspect extends AopCaptor {
                 namespacesAfterParse.add(namespace);
             }
         }
-        Assert.of().setMessage(Strings.format("{}could not find namespace, please specify at least one!", ModuleView.CACHE_SYSTEM))
+        Assert.of().setMessage("{}could not find namespace, please specify at least one!", ModuleView.CACHE_SYSTEM)
                 .throwsIfEmpty(namespacesAfterParse);
         return Collections.toArray(namespacesAfterParse, String.class);
     }
@@ -110,7 +110,7 @@ public interface CacheAspect extends AopCaptor {
         if (Nil.isNotEmpty(cacheTypesOnMethod)) {
             return Collections.ofImmutableList(cacheTypesOnMethod);
         }
-        Assert.of().setMessage(Strings.format("{}could not find cache type to cache, please specify at least one!", ModuleView.CACHE_SYSTEM))
+        Assert.of().setMessage("{}could not find cache type to cache, please specify at least one!", ModuleView.CACHE_SYSTEM)
                 .throwsIfTrue(Nil.isNull(cacheConfigAnnotation) || Nil.isEmpty(cacheConfigAnnotation.cacheTypes()));
         return Collections.ofImmutableList(cacheConfigAnnotation.cacheTypes());
     }
@@ -133,11 +133,11 @@ public interface CacheAspect extends AopCaptor {
         String key;
         if (Nil.isBlank(keyExpression)) {
             key = Reflects.newInstance(parseKeyGenerator(cacheConfigAnnotation, keyGeneratorOnMethod)).generate(parameterNames, parameterValues);
-            Assert.of().setMessage(Strings.format("{}could not generate cache key by keyGenerator [{}], please check!", ModuleView.CACHE_SYSTEM, keyGeneratorOnMethod.getSimpleName()))
+            Assert.of().setMessage("{}could not generate cache key by keyGenerator [{}], please check!", ModuleView.CACHE_SYSTEM, keyGeneratorOnMethod.getSimpleName())
                     .throwsIfBlank(key);
         } else {
             key = Optional.ofNullable(Expressions.getInstance().parse(parameterNames, parameterValues, keyExpression)).map(Object::toString).orElse(null);
-            Assert.of().setMessage(Strings.format("{}could not generate cache key by keyExpression [{}], please check!", ModuleView.CACHE_SYSTEM, keyExpression))
+            Assert.of().setMessage("{}could not generate cache key by keyExpression [{}], please check!", ModuleView.CACHE_SYSTEM, keyExpression)
                     .throwsIfBlank(key);
         }
         return key;
@@ -468,7 +468,7 @@ public interface CacheAspect extends AopCaptor {
             } else {
                 for (T value : values) {
                     String key = Optional.ofNullable(Expressions.getInstance().parse(value, context.getOriginalKey())).map(Object::toString).orElse(null);
-                    Assert.of().setMessage(Strings.format("{}could not parse the cache key when read all cache, please check!", ModuleView.CACHE_SYSTEM))
+                    Assert.of().setMessage("{}could not parse the cache key when read all cache, please check!", ModuleView.CACHE_SYSTEM)
                             .throwsIfBlank(key);
                     setCacheValue(context.setKey(key).setValue(value));
                 }
@@ -521,7 +521,7 @@ public interface CacheAspect extends AopCaptor {
      */
     default void doWrite(CacheAspectContext context, Object value) {
         String key = Optional.ofNullable(Expressions.getInstance().parse(value, context.getOriginalKey())).map(Object::toString).orElse(null);
-        Assert.of().setMessage(Strings.format("{}could not parse the cache key when write cache, please check!", ModuleView.CACHE_SYSTEM))
+        Assert.of().setMessage("{}could not parse the cache key when write cache, please check!", ModuleView.CACHE_SYSTEM)
                 .throwsIfBlank(key);
         /**
          * TODO wjm need optimize to use strategy
