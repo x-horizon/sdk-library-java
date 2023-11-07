@@ -1,4 +1,4 @@
-package cn.library.java.orm.mybatis.contract.handler;
+package cn.library.java.orm.mybatis.contract.base.handler;
 
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.tool.lang.enums.Enums;
@@ -19,7 +19,7 @@ import java.util.List;
  * @author wjm
  * @since 2022-09-07 10:35:42
  */
-public abstract class JavaListEnumIntegerMappingJdbcStringTypeHandler<E extends Enum<E>> extends BaseTypeHandler<List<E>> {
+public abstract class JdbcStringMappingJavaListEnumIntegerTypeHandler<E extends Enum<E>> extends BaseTypeHandler<List<E>> {
 
     /**
      * 目标枚举类

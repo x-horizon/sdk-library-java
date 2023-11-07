@@ -1,4 +1,4 @@
-package cn.library.java.orm.mybatis.contract.handler;
+package cn.library.java.orm.mybatis.contract.base.handler;
 
 import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.SneakyThrows;
@@ -16,7 +16,7 @@ import java.util.UUID;
  * @author wjm
  * @since 2020/12/25 15:36
  */
-public class JavaStringMappingJdbcUuidTypeHandler extends BaseTypeHandler<String> {
+public class JdbcUuidTypeMappingJavaStringHandler extends BaseTypeHandler<String> {
 
     /**
      * 定义如何把 Java 类型的参数转换为指定的数据库类型

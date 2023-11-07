@@ -1,4 +1,4 @@
-package cn.library.java.orm.mybatis.contract.model;
+package cn.library.java.orm.mybatis.contract.base.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
