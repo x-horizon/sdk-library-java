@@ -56,6 +56,17 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
     }
 
     /**
+     * return the base package path in spring project
+     *
+     * @return the base package path in spring project
+     * @see Springs#getSpringBootApplicationPackagePath()
+     * @see BasePackagePath#get()
+     */
+    public static Set<String> getBasePackagePath() {
+        return BasePackagePath.get(Springs.getSpringBootApplicationPackagePath());
+    }
+
+    /**
      * <pre>
      * get resources by ant style class path
      *
@@ -148,13 +159,22 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
     }
 
     /**
+     * scan all classes in the {@link #getBasePackagePath() base package path}
+     *
+     * @return all classes in the {@link #getBasePackagePath() base package path}
+     * @see Classes#getBasePackagePath()
+     */
+    public static Set<Class<?>> scanByBasePackagePath() {
+        return scanByPackagePath(getBasePackagePath());
+    }
+
+    /**
      * use default package path to scan bean definition
      *
      * @param includeFilter the specified {@link TypeFilter}s
      * @return all {@link BeanDefinition} by the specified {@link TypeFilter}s in default packages paths.
      * @see #scanByTypeFilter(Collection, Collection)
-     * @see Springs#getSpringBootApplicationPackagePath()
-     * @see BasePackagePath#get()
+     * @see Classes#getBasePackagePath()
      */
     public static Set<BeanDefinition> scanByTypeFilter(TypeFilter includeFilter) {
         return scanByTypeFilter(Collections.ofImmutableList(includeFilter), BasePackagePath.get(Springs.getSpringBootApplicationPackagePath()));

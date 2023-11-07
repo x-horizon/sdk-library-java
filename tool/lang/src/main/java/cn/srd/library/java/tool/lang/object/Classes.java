@@ -265,13 +265,13 @@ public class Classes {
     /**
      * scan all classes containing the specified annotation in the specified package paths
      *
-     * @param annotationClass the specified annotation class
-     * @param packageNames    the specified packages path
+     * @param annotationClass  the specified annotation class
+     * @param scanPackagePaths the specified packages path
      * @return all classes containing the specified annotation in the specified package paths
      * @see ClassUtil#scanPackageByAnnotation(String, Class)
      */
-    public static Set<Class<?>> scanByAnnotation(Class<? extends Annotation> annotationClass, String... packageNames) {
-        return Arrays.stream(Objects.setIfNull(packageNames, Collections.newArray(String.class)))
+    public static Set<Class<?>> scanByAnnotation(Class<? extends Annotation> annotationClass, String... scanPackagePaths) {
+        return Arrays.stream(Objects.setIfNull(scanPackagePaths, Collections.newArray(String.class)))
                 .map(path -> ClassUtil.scanPackageByAnnotation(path, annotationClass))
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet());
@@ -280,15 +280,48 @@ public class Classes {
     /**
      * scan all subclasses or implementation classes of the specified class or interface in the specified package paths
      *
-     * @param rootClass    the specified class
-     * @param packageNames the specified package paths
-     * @param <T>          the specified class type
+     * @param rootClass        the specified class
+     * @param scanPackagePaths the specified package paths
+     * @param <T>              the specified class type
      * @return all subclasses or implementation classes of the specified class or interface in the specified package paths
      */
-    public static <T> Set<Class<? extends T>> scanBySuper(Class<T> rootClass, String... packageNames) {
+    public static <T> Set<Class<? extends T>> scanBySuper(Class<T> rootClass, String... scanPackagePaths) {
         Set<Class<? extends T>> subClasses = Collections.newHashSet();
-        Arrays.stream(Objects.setIfNull(packageNames, Collections.newArray(String.class))).forEach(packageName -> Collections.add(subClasses, ClassUtil.scanPackageBySuper(packageName, rootClass)));
+        Arrays.stream(Objects.setIfNull(scanPackagePaths, Collections.newArray(String.class))).forEach(packageName -> Collections.add(subClasses, ClassUtil.scanPackageBySuper(packageName, rootClass)));
         return subClasses;
+    }
+
+    /**
+     * see {@link #scanByPackagePath(Collection)}
+     *
+     * @param scanPackagePaths the specified package paths
+     * @return all classes in the specified package paths
+     */
+    public static Set<Class<?>> scanByPackagePath(String... scanPackagePaths) {
+        return scanByPackagePath(Arrays.stream(scanPackagePaths).collect(Collectors.toSet()));
+    }
+
+    /**
+     * scan all classes in the specified package paths
+     *
+     * @param scanPackagePaths the specified package paths
+     * @return all classes in the specified package paths
+     */
+    public static Set<Class<?>> scanByPackagePath(Collection<String> scanPackagePaths) {
+        return Nil.isEmpty(scanPackagePaths) ? scanAll() : scanPackagePaths
+                .stream()
+                .map(ClassUtil::scanPackage)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * scan all classes
+     *
+     * @return all classes
+     */
+    public static Set<Class<?>> scanAll() {
+        return ClassUtil.scanPackage();
     }
 
 }

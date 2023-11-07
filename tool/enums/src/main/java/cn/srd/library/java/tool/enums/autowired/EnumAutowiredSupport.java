@@ -11,7 +11,6 @@ import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.enums.Enums;
 import cn.srd.library.java.tool.lang.functional.Assert;
-import cn.srd.library.java.tool.lang.object.BasePackagePath;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.lang.text.Strings;
@@ -48,7 +47,7 @@ public class EnumAutowiredSupport {
 
         Set<String> scanPackagePaths = Classes.parseAnnotationAntStylePackagePathToPackagePath(EnableEnumAutowired.class, "scanPackagePaths");
         if (Nil.isEmpty(scanPackagePaths)) {
-            log.warn("{}could not found the class marked with [@{}] on these paths {}, exited.", ModuleView.ENUM_AUTOWIRED_SYSTEM, EnableEnumAutowired.class.getSimpleName(), BasePackagePath.get(Springs.getSpringBootApplicationPackagePath()));
+            log.warn("{}could not found the class marked with [@{}] on these paths {}, exited.", ModuleView.ENUM_AUTOWIRED_SYSTEM, EnableEnumAutowired.class.getSimpleName(), Classes.getBasePackagePath());
             return;
         }
 

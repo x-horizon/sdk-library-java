@@ -37,8 +37,7 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationValue(Class, Class, String, Collection)
      * @see AnnotationConstant#DEFAULT_FIELD_NAME
      * @see Classes#scanByTypeFilter(TypeFilter, Collection)
-     * @see Springs#getSpringBootApplicationPackagePath()
-     * @see BasePackagePath#get()
+     * @see Classes#getBasePackagePath()
      */
     public static <T> Set<T> getAnnotationValue(Class<? extends Annotation> annotationType, Class<T> fieldType) {
         return getAnnotationValue(annotationType, fieldType, AnnotationConstant.DEFAULT_FIELD_NAME);
@@ -54,11 +53,10 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @return the annotation field value in the default package path
      * @see #getAnnotationValue(Class, Class, String, Collection)
      * @see Classes#scanByTypeFilter(TypeFilter)
-     * @see Springs#getSpringBootApplicationPackagePath()
-     * @see BasePackagePath#get()
+     * @see Classes#getBasePackagePath()
      */
     public static <T> Set<T> getAnnotationValue(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName) {
-        return getAnnotationValue(annotationType, fieldType, fieldName, BasePackagePath.get(Springs.getSpringBootApplicationPackagePath()));
+        return getAnnotationValue(annotationType, fieldType, fieldName, Classes.getBasePackagePath());
     }
 
     /**
@@ -139,8 +137,7 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationValue(Class, Class, String, Collection)
      * @see AnnotationConstant#DEFAULT_FIELD_NAME
      * @see Classes#scanByTypeFilter(TypeFilter, Collection)
-     * @see Springs#getSpringBootApplicationPackagePath()
-     * @see BasePackagePath#get()
+     * @see Classes#getBasePackagePath()
      */
     public static <T> Set<T> getAnnotationNestValue(Class<? extends Annotation> annotationType, Class<T[]> fieldType) {
         return getAnnotationNestValue(annotationType, fieldType, AnnotationConstant.DEFAULT_FIELD_NAME);
@@ -156,8 +153,7 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationNestValue(Class, Class, String, Collection)
      * @see #getAnnotationValue(Class, Class, String, Collection)
      * @see Classes#scanByTypeFilter(TypeFilter, Collection)
-     * @see Springs#getSpringBootApplicationPackagePath()
-     * @see BasePackagePath#get()
+     * @see Classes#getBasePackagePath()
      */
     public static <T> Set<T> getAnnotationNestValue(Class<? extends Annotation> annotationType, Class<T[]> fieldType, String fieldName) {
         return getAnnotationNestValue(annotationType, fieldType, fieldName, BasePackagePath.get(Springs.getSpringBootApplicationPackagePath()));
@@ -242,8 +238,7 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationValue(Class, Class, String, Collection)
      * @see AnnotationConstant#DEFAULT_FIELD_NAME
      * @see Classes#scanByTypeFilter(TypeFilter, Collection)
-     * @see Springs#getSpringBootApplicationPackagePath()
-     * @see BasePackagePath#get()
+     * @see Classes#getBasePackagePath()
      */
     public static <T> Map<Class<?>, T> getAnnotatedClassMappingAnnotationValueMap(Class<? extends Annotation> annotationType, Class<T> fieldType) {
         return getAnnotatedClassMappingAnnotationValueMap(annotationType, fieldType, AnnotationConstant.DEFAULT_FIELD_NAME);
@@ -260,8 +255,7 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotatedClassMappingAnnotationValueMap(Class, Class, String, Collection)
      * @see #getAnnotationValue(Class, Class, String, Collection)
      * @see Classes#scanByTypeFilter(TypeFilter)
-     * @see Springs#getSpringBootApplicationPackagePath()
-     * @see BasePackagePath#get()
+     * @see Classes#getBasePackagePath()
      */
     public static <T> Map<Class<?>, T> getAnnotatedClassMappingAnnotationValueMap(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName) {
         return getAnnotatedClassMappingAnnotationValueMap(annotationType, fieldType, fieldName, BasePackagePath.get(Springs.getSpringBootApplicationPackagePath()));
@@ -345,8 +339,7 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationValue(Class, Class, String, Collection)
      * @see AnnotationConstant#DEFAULT_FIELD_NAME
      * @see Classes#scanByTypeFilter(TypeFilter, Collection)
-     * @see Springs#getSpringBootApplicationPackagePath()
-     * @see BasePackagePath#get()
+     * @see Classes#getBasePackagePath()
      */
     public static <T> Map<T, Class<?>> getAnnotationValueMappingAnnotatedClassMap(Class<? extends Annotation> annotationType, Class<T> fieldType) {
         return getAnnotationValueMappingAnnotatedClassMap(annotationType, fieldType, AnnotationConstant.DEFAULT_FIELD_NAME);
@@ -363,8 +356,7 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationValueMappingAnnotatedClassMap(Class, Class, String, Collection)
      * @see #getAnnotationValue(Class, Class, String, Collection)
      * @see Classes#scanByTypeFilter(TypeFilter)
-     * @see Springs#getSpringBootApplicationPackagePath()
-     * @see BasePackagePath#get()
+     * @see Classes#getBasePackagePath()
      */
     public static <T> Map<T, Class<?>> getAnnotationValueMappingAnnotatedClassMap(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName) {
         return getAnnotationValueMappingAnnotatedClassMap(annotationType, fieldType, fieldName, BasePackagePath.get(Springs.getSpringBootApplicationPackagePath()));
