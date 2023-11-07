@@ -1,8 +1,10 @@
 package cn.library.java.orm.mybatis.flex.postgresql.model.po;
 
-import cn.library.java.orm.mybatis.flex.postgresql.handler.JdbcJsonbMappingJavaListObjectTypeHandler;
-import cn.library.java.orm.mybatis.flex.postgresql.handler.JdbcJsonbMappingJavaObjectTypeHandler;
-import cn.library.java.orm.mybatis.flex.postgresql.model.enums.StudentType;
+import cn.library.java.orm.mybatis.flex.postgresql.handler.JdbcJsonbMappingJavaEntityTypeHandler;
+import cn.library.java.orm.mybatis.flex.postgresql.handler.JdbcJsonbMappingJavaListEntityTypeHandler;
+import cn.library.java.orm.mybatis.flex.postgresql.handler.JdbcJsonbMappingJavaListEnumIntegerTypeHandler;
+import cn.library.java.orm.mybatis.flex.postgresql.handler.JdbcJsonbMappingJavaListLongTypeHandler;
+import cn.library.java.orm.mybatis.flex.postgresql.model.enums.JobType;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
@@ -13,7 +15,6 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
-import java.io.Serializable;
 import java.util.List;
 
 @Data
@@ -21,23 +22,25 @@ import java.util.List;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-@Table(value = "school_student")
-public class StudentPO extends BasePO implements Serializable {
+@Table(value = "student")
+public class StudentPO extends BasePO {
 
-    @Serial private static final long serialVersionUID = -7680901283684311918L;
+    @Serial private static final long serialVersionUID = 8974991316575686572L;
 
     @Id
-    @Column(value = "student_id")
+    @Column(value = "id")
     private Long id;
 
-    @Column(value = "detail_info", typeHandler = JdbcJsonbMappingJavaObjectTypeHandler.class)
+    @Column(value = "family_ids", typeHandler = JdbcJsonbMappingJavaListLongTypeHandler.class)
+    private List<Long> familyIds;
+
+    @Column(value = "detail_info", typeHandler = JdbcJsonbMappingJavaEntityTypeHandler.class)
     private DetailPO detailPO;
 
-    @Column(value = "class_infos", typeHandler = JdbcJsonbMappingJavaListObjectTypeHandler.class)
-    // @Column(value = "class_infos", typeHandler = ClassPO.ClassPOMappingJsonbTypeHandler.class)
+    @Column(value = "class_infos", typeHandler = JdbcJsonbMappingJavaListEntityTypeHandler.class)
     private List<ClassPO> classPOs;
 
-    @Column(value = "student_type")
-    private StudentType type;
+    @Column(value = "job_types", typeHandler = JdbcJsonbMappingJavaListEnumIntegerTypeHandler.class)
+    private List<JobType> jobTypes;
 
 }

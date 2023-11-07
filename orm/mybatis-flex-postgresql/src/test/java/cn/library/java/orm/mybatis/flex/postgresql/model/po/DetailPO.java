@@ -1,6 +1,5 @@
 package cn.library.java.orm.mybatis.flex.postgresql.model.po;
 
-import cn.library.java.orm.mybatis.contract.postgresql.handler.JavaObjectMappingJdbcJsonbTypeHandler;
 import cn.srd.library.java.tool.convert.jackson.NullableObject;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,20 +17,13 @@ public class DetailPO implements NullableObject, Serializable {
 
     @Serial private static final long serialVersionUID = 2742055391867234666L;
 
-    private String name;
-
     @Override
     public boolean isNull() {
         return false;
     }
 
-    public static class DetailPOMappingJsonbTypeHandler extends JavaObjectMappingJdbcJsonbTypeHandler<DetailPO> {
+    private String name;
 
-        @Override
-        public Class<DetailPO> getTargetClass() {
-            return DetailPO.class;
-        }
-
-    }
+    private Short age;
 
 }

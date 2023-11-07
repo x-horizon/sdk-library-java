@@ -1,15 +1,7 @@
 package cn.library.java.orm.mybatis.flex.postgresql.test;
 
-import cn.library.java.orm.mybatis.flex.postgresql.dao.BookDao;
 import cn.library.java.orm.mybatis.flex.postgresql.dao.StudentDao;
-import cn.library.java.orm.mybatis.flex.postgresql.model.po.StudentClassPO;
 import cn.library.java.orm.mybatis.flex.postgresql.model.po.StudentPO;
-import cn.library.java.orm.mybatis.flex.postgresql.model.po.table.StudentClassPOTableDef;
-import cn.library.java.orm.mybatis.flex.postgresql.model.po.table.StudentPOTableDef;
-import cn.library.java.orm.mybatis.flex.postgresql.service.BookService;
-import cn.library.java.orm.mybatis.flex.postgresql.service.StudentClassService;
-import cn.library.java.orm.mybatis.flex.postgresql.service.StudentService;
-import com.mybatisflex.core.query.QueryWrapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
@@ -29,39 +21,21 @@ import java.util.List;
 @SpringBootTest
 public class MybatisFlexPostgreSQLTest {
 
-    @Autowired private StudentClassService studentClassService;
-
-    @Autowired private StudentService studentService;
-
-    @Autowired private BookService bookService;
-
-    @Autowired private BookDao bookDao;
-
     @Autowired private StudentDao studentDao;
 
     @Test
     public void testGet() {
-        StudentPO studentPO1 = studentDao.selectOneById(2L);
-        StudentPO studentPO11 = studentDao.selectOneById(2L);
-        StudentClassPO studentClassPO1 = studentClassService.getById(1L);
-        StudentClassPO studentClassPO11 = studentClassService.getById(1L);
-        StudentClassPO studentClassPO111 = studentClassService.getById(1L);
-        StudentClassPO studentClassPO1111 = studentClassService.getById(1L);
-        StudentClassPO studentClassPO11111 = studentClassService.getById(1L);
-        StudentClassPO studentClassPO111111 = studentClassService.getById(1L);
-        List<StudentPO> studentPO3 = studentDao.selectAll();
-        List<StudentPO> studentPO31 = studentDao.selectAll();
-        List<StudentPO> studentPO311 = studentDao.selectAll();
-        List<StudentPO> studentPO3111 = studentDao.selectAll();
-        List<StudentPO> studentPO31111 = studentDao.selectAll();
-        List<StudentPO> studentPO311111 = studentDao.selectAll();
+        StudentPO studentPO1 = studentDao.selectOneById(1L);
+        StudentPO studentPO2 = studentDao.selectOneById(2L);
+        StudentPO studentPO3 = studentDao.selectOneById(3L);
+        List<StudentPO> studentPOs1 = studentDao.selectAll();
+        List<StudentPO> studentPOs2 = studentDao.selectAll();
 
-        QueryWrapper wrapper = QueryWrapper.create().select()
-                .from(StudentPOTableDef.STUDENT_P_O)
-                .leftJoin(StudentClassPOTableDef.STUDENT_CLASS_P_O)
-                .on(StudentPOTableDef.STUDENT_P_O.ID.eq(StudentClassPOTableDef.STUDENT_CLASS_P_O.STUDENT_ID));
+        // QueryWrapper wrapper = QueryWrapper.create().select()
+        //         .from(StudentPOTableDef.STUDENT_P_O)
+        //         .leftJoin(StudentClassPOTableDef.STUDENT_CLASS_P_O)
+        //         .on(StudentPOTableDef.STUDENT_P_O.ID.eq(StudentClassPOTableDef.STUDENT_CLASS_P_O.STUDENT_ID));
 
-        studentClassService.list(wrapper);
         System.out.println();
 
         // StudentPO studentPO = StudentPO.builder()

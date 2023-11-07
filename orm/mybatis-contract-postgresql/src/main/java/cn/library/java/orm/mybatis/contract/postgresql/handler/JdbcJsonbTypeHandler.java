@@ -25,6 +25,9 @@ import java.util.Set;
  */
 public abstract class JdbcJsonbTypeHandler<T> extends JdbcComplexTypeHandler<T> {
 
+    @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
+    protected abstract Set<Class> getMappingJavaClass(String columnName);
+
     @SneakyThrows
     protected PGobject toPGobject(Object input) {
         PGobject pgObject = new PGobject();
@@ -36,7 +39,7 @@ public abstract class JdbcJsonbTypeHandler<T> extends JdbcComplexTypeHandler<T> 
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
     protected RunningException whenFailed(String columnName, Set<Class> javaClasses) {
         return new RunningException(Strings.format(
-                "{}could not convert the value of column name [{}] to following classes {}, you need to consider add the specified class to replace those automatic classes.",
+                "{}could not convert the value of column name [{}] to following classes {}, please check!",
                 ModuleView.ORM_MYBATIS_SYSTEM,
                 columnName,
                 javaClasses.stream().map(Class::getName).toList()

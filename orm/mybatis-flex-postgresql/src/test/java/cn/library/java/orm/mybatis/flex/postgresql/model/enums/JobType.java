@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum StudentType {
+public enum JobType {
 
     A(1),
     B(2),

@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * 适用于 Java 字段的数据类型为 {@link List<Enum<E>>} &lt;==&gt; PostgreSQL 字段的数据类型为 String 的相互转换，用法参考：{@link ListObjectMappingJsonbTypeHandler}
  *
+ * @param <E> the java enum data type
  * @author wjm
  * @since 2022-09-07 10:35:42
  */
