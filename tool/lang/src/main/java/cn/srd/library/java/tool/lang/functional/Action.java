@@ -100,10 +100,10 @@ public class Action<V> {
      * @param action to do action
      * @return self
      */
-    public Action<V> otherwise(Supplier<V> action) {
+    public Action<V> otherwise(Consumer<V> action) {
         if (isFailed()) {
             this.isSuccess = false;
-            this.value = action.get();
+            action.accept(this.value);
         }
         return this;
     }
@@ -114,10 +114,10 @@ public class Action<V> {
      * @param action to do action
      * @return self
      */
-    public Action<V> otherwise(Consumer<V> action) {
+    public Action<V> otherwise(Supplier<V> action) {
         if (isFailed()) {
             this.isSuccess = false;
-            action.accept(this.value);
+            this.value = action.get();
         }
         return this;
     }

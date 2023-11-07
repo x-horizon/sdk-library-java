@@ -11,6 +11,7 @@ import cn.srd.library.java.contract.model.throwable.AbstractRuntimeException;
 import cn.srd.library.java.contract.model.throwable.RunningException;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.object.Objects;
+import cn.srd.library.java.tool.lang.text.Strings;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -56,12 +57,17 @@ public class Assert {
     /**
      * the message of exception
      */
-    @Setter private String message;
+    private String message;
 
     /**
      * the exception extends {@link AbstractRuntimeException}
      */
     @Setter private Class<? extends AbstractRuntimeException> throwable;
+
+    public Assert setMessage(CharSequence template, Object... params) {
+        this.message = Strings.format(template, params);
+        return this;
+    }
 
     /**
      * return {@link Assert} instance

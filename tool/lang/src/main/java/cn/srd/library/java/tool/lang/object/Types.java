@@ -29,6 +29,16 @@ import java.util.List;
 public class Types {
 
     /**
+     * return true if the field has generic
+     *
+     * @param input the input element
+     * @return return true if the field has generic
+     */
+    public static boolean hasGeneric(Field input) {
+        return Nil.isNotNull(input) && input.getGenericType() instanceof ParameterizedType;
+    }
+
+    /**
      * return true if the first parameter on method has generic
      *
      * @param input the input element

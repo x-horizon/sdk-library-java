@@ -5,6 +5,7 @@
 package cn.srd.library.java.tool.lang.annotation;
 
 import cn.hutool.core.annotation.AnnotationUtil;
+import cn.srd.library.java.contract.constant.annotation.AnnotationConstant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,17 @@ import java.lang.reflect.AnnotatedElement;
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Annotations {
+
+    /**
+     * see {@link AnnotationUtil#hasAnnotation(AnnotatedElement, Class)}
+     *
+     * @param annotatedElement the annotated element
+     * @param annotationType   the annotation type
+     * @return has the specified annotation
+     */
+    public static boolean hasAnnotation(AnnotatedElement annotatedElement, Class<? extends Annotation> annotationType) {
+        return AnnotationUtil.hasAnnotation(annotatedElement, annotationType);
+    }
 
     /**
      * see {@link #getAnnotationValue(AnnotatedElement, Class, Class, String)}
@@ -39,7 +51,7 @@ public class Annotations {
      * @return the annotation field value
      */
     public static <T> T getAnnotationValue(AnnotatedElement annotatedElement, Class<? extends Annotation> annotationType, Class<T> fieldType) {
-        return fieldType.cast(AnnotationUtil.getAnnotationValue(annotatedElement, annotationType));
+        return getAnnotationValue(annotatedElement, annotationType, fieldType, AnnotationConstant.DEFAULT_FIELD_NAME);
     }
 
     /**
@@ -56,7 +68,7 @@ public class Annotations {
      *        public class Test {
      *            public static void main(String[] args) {
      *                // the output is "myField"
-     *                Annotations.getAnnotationValue(Test.class, TestAnnotation.class, "fieldName");
+     *                Annotations.getAnnotationValue(Test.class, TestAnnotation.class, String.class, "fieldName");
      *            }
      *        }
      *     }
@@ -72,6 +84,33 @@ public class Annotations {
      */
     public static <T> T getAnnotationValue(AnnotatedElement annotatedElement, Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName) {
         return fieldType.cast(AnnotationUtil.getAnnotationValue(annotatedElement, annotationType, fieldName));
+    }
+
+    /**
+     * see {@link #getAnnotationValue(AnnotatedElement, Class, String)}
+     *
+     * @param annotatedElement the annotated element
+     * @param annotationType   the annotation type
+     * @param <T>              the field type
+     * @return the annotation field value
+     * @see #getAnnotationValue(AnnotatedElement, Class, Class, String)
+     */
+    public static <T> T getAnnotationValue(AnnotatedElement annotatedElement, Class<? extends Annotation> annotationType) {
+        return getAnnotationValue(annotatedElement, annotationType, AnnotationConstant.DEFAULT_FIELD_NAME);
+    }
+
+    /**
+     * ignore the annotation field type to get annotation value
+     *
+     * @param annotatedElement the annotated element
+     * @param annotationType   the annotation type
+     * @param fieldName        the annotation field name
+     * @param <T>              the field type
+     * @return the annotation field value
+     * @see #getAnnotationValue(AnnotatedElement, Class, Class, String)
+     */
+    public static <T> T getAnnotationValue(AnnotatedElement annotatedElement, Class<? extends Annotation> annotationType, String fieldName) {
+        return AnnotationUtil.getAnnotationValue(annotatedElement, annotationType, fieldName);
     }
 
     public static void setAnnotationValue(Annotation annotation, String annotationFieldName, Object valueToSet) {
