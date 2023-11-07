@@ -1,7 +1,7 @@
 package cn.library.java.orm.mybatis.flex.postgresql.model.po;
 
-import cn.library.java.orm.mybatis.flex.postgresql.handler.JavaListObjectMappingJdbcJsonbTypeHandler;
-import cn.library.java.orm.mybatis.flex.postgresql.handler.JavaObjectMappingJdbcJsonbTypeHandler;
+import cn.library.java.orm.mybatis.flex.postgresql.handler.JdbcJsonbMappingJavaListObjectTypeHandler;
+import cn.library.java.orm.mybatis.flex.postgresql.handler.JdbcJsonbMappingJavaObjectTypeHandler;
 import cn.library.java.orm.mybatis.flex.postgresql.model.enums.StudentType;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
@@ -30,10 +30,10 @@ public class StudentPO extends BasePO implements Serializable {
     @Column(value = "student_id")
     private Long id;
 
-    @Column(value = "detail_info", typeHandler = JavaObjectMappingJdbcJsonbTypeHandler.class)
+    @Column(value = "detail_info", typeHandler = JdbcJsonbMappingJavaObjectTypeHandler.class)
     private DetailPO detailPO;
 
-    @Column(value = "class_infos", typeHandler = JavaListObjectMappingJdbcJsonbTypeHandler.class)
+    @Column(value = "class_infos", typeHandler = JdbcJsonbMappingJavaListObjectTypeHandler.class)
     // @Column(value = "class_infos", typeHandler = ClassPO.ClassPOMappingJsonbTypeHandler.class)
     private List<ClassPO> classPOs;
 
