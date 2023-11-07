@@ -574,13 +574,35 @@ public class CharacterSequences extends Characters {
     }
 
     /**
-     * see {@link CharSequenceUtil#removeAllLineBreaks(CharSequence)}
+     * remove all numbers from the string
      *
      * @param input the input element
      * @return after remove
      */
-    public static String removeLineBreak(CharSequence input) {
-        return CharSequenceUtil.removeAllLineBreaks(input);
+    public static String removeNumber(CharSequence input) {
+        if (Nil.isNull(input)) {
+            return SymbolConstant.EMPTY;
+        }
+        int length = input.length();
+        StringBuilder output = StrUtil.builder(length);
+        char inputChar;
+        for (int index = 0; index < length; ++index) {
+            inputChar = input.charAt(index);
+            if (isNotNumber(inputChar)) {
+                output.append(inputChar);
+            }
+        }
+        return output.toString();
+    }
+
+    /**
+     * see {@link CharSequenceUtil#cleanBlank(CharSequence)}
+     *
+     * @param input the input element
+     * @return after remove
+     */
+    public static String removeBlank(CharSequence input) {
+        return CharSequenceUtil.cleanBlank(input);
     }
 
     /**
@@ -613,35 +635,29 @@ public class CharacterSequences extends Characters {
     }
 
     /**
-     * remove all numbers from the string
+     * <pre>
+     * remove head tail double quotes.
+     *
+     * example:
+     *   the input is: "[test1, test2, test3]"
+     *   after remove: "test1, test2, test3"
+     * </pre>
      *
      * @param input the input element
      * @return after remove
      */
-    public static String removeNumber(CharSequence input) {
-        if (Nil.isNull(input)) {
-            return SymbolConstant.EMPTY;
-        }
-        int length = input.length();
-        StringBuilder output = StrUtil.builder(length);
-        char inputChar;
-        for (int index = 0; index < length; ++index) {
-            inputChar = input.charAt(index);
-            if (isNotNumber(inputChar)) {
-                output.append(inputChar);
-            }
-        }
-        return output.toString();
+    public static String removeHeadTailBracket(CharSequence input) {
+        return removeIfStartAndEndWith(input, SymbolConstant.BRACKET_START, SymbolConstant.BRACKET_END);
     }
 
     /**
-     * see {@link CharSequenceUtil#cleanBlank(CharSequence)}
+     * see {@link CharSequenceUtil#removeAllLineBreaks(CharSequence)}
      *
      * @param input the input element
      * @return after remove
      */
-    public static String removeBlank(CharSequence input) {
-        return CharSequenceUtil.cleanBlank(input);
+    public static String removeLineBreak(CharSequence input) {
+        return CharSequenceUtil.removeAllLineBreaks(input);
     }
 
     /**
