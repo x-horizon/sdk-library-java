@@ -21,6 +21,7 @@ import java.util.List;
 /**
  * Jackson 反序列化处理器：List&lt;Enum 属性值&gt; =&gt; List&lt;Enum&gt;
  *
+ * @param <E> the data type after deserialize
  * @author wjm
  * @since 2022-09-13 09:45:13
  */

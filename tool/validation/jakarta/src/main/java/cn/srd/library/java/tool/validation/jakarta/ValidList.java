@@ -9,6 +9,7 @@ import java.util.*;
 /**
  * 校验 List，用于支持 Controller @Validated 对 List 的 validation 校验
  *
+ * @param <E> the collection element data type
  * @author wjm
  * @since 2020/12/08 19:45
  */

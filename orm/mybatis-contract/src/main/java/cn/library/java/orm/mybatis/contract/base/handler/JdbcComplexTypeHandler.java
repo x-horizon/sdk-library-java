@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 /**
  * the jdbc complex type handler
  *
+ * @param <T> the java object data type
  * @author wjm
  * @since 2023-11-06 18:29
  */

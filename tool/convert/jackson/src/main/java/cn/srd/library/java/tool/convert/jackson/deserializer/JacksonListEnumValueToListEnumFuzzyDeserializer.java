@@ -27,6 +27,7 @@ import java.util.List;
  * TODO wjm 这些类的实现逻辑高度相似，待优化：{@link JacksonEnumValueToEnumFuzzyDeserializer} {@link JacksonListEnumValueToListEnumFuzzyDeserializer} {@link JacksonEnumValueToEnumDeserializer} {@link JacksonListEnumValueToListEnumDeserializer}
  * TODO wjm 待优化：应支持提前配置好，遇到某个字段名时直接获取对应要匹配的哪个类字段，而不是每次都要匹配，EnumAutowired 这种相关的匹配都可以这样优化
  *
+ * @param <E> the data type after deserialize
  * @author wjm
  * @since 2023-06-16 17:26:48
  */

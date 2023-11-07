@@ -23,6 +23,7 @@ import java.util.function.Supplier;
 /**
  * the action to do something when infer success
  *
+ * @param <V> the value after infer action
  * @author wjm
  * @since 2023-09-23 10:45
  */

@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * 分页结果
  *
+ * @param <T> the page result element data type
  * @author wjm
  * @since 2020/01/05 13:45
  */

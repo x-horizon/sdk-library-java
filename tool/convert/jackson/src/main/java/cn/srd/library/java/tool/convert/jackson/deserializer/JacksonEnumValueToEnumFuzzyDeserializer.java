@@ -22,6 +22,7 @@ import java.lang.reflect.Field;
 /**
  * Jackson 反序列化处理器：Enum 属性值 =&gt; Enum（适用于 json 字段名与类字段名不同时的场景）
  *
+ * @param <E> the data type after deserialize
  * @author wjm
  * @since 2020/12/15 17:02
  */

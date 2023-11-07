@@ -20,6 +20,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
+ * @param <T> the java object data type
  * @author wjm
  * @since 2023-11-06 19:40
  */

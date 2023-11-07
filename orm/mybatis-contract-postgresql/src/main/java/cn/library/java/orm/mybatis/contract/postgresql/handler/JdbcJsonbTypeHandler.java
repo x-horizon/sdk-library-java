@@ -19,6 +19,7 @@ import java.util.Set;
 /**
  * the jdbc jsonb type handler
  *
+ * @param <T> the java object data type
  * @author wjm
  * @since 2023-11-06 18:29
  */
