@@ -10,6 +10,7 @@ import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.convert.jackson.NullableObject;
 import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.object.Nil;
 import io.vavr.control.Try;
 import lombok.SneakyThrows;
 
@@ -26,7 +27,7 @@ public class JdbcJsonbMappingJavaListObjectTypeHandler<T extends NullableObject>
 
     @Override
     protected Object toJdbcObject(List<T> javaObject) {
-        return toPGobject(javaObject.stream().filter(NullableObject::isNotNull).toList());
+        return toPGobject(Nil.isNull(javaObject) ? Collections.newImmutableList() : javaObject.stream().filter(NullableObject::isNotNull).toList());
     }
 
     @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.RAW_TYPE})

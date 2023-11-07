@@ -6,7 +6,6 @@ package cn.library.java.orm.mybatis.contract.base.handler;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.model.throwable.UnsupportedException;
-import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
 import lombok.SneakyThrows;
 import org.apache.ibatis.type.BaseTypeHandler;
@@ -31,9 +30,7 @@ public abstract class JdbcComplexTypeHandler<T> extends BaseTypeHandler<T> {
     @SneakyThrows
     @Override
     public void setNonNullParameter(PreparedStatement preparedStatement, int columnIndex, T parameter, JdbcType jdbcType) {
-        if (Nil.isNotNull(parameter)) {
-            preparedStatement.setObject(columnIndex, toJdbcObject(parameter));
-        }
+        preparedStatement.setObject(columnIndex, toJdbcObject(parameter));
     }
 
     @Override

@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 public abstract class ColumnMappingRelationCache {
 
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
-    private final Map<String, Set<Class>> databaseColumnNameMappingJavaClassMap =
+    private final Map<String, Set<Class>> columnNameMappingJavaClassMap =
             Classes.scanByBasePackagePath()
                     .stream()
                     .map(Classes::getFields)
@@ -44,10 +44,7 @@ public abstract class ColumnMappingRelationCache {
     protected abstract Class<? extends TypeHandler> getTypeHandlerClass();
 
     protected Class<?> getTypeHandlerAnnotatedFieldClass(Field annotatedField) {
-        if (Types.hasGeneric(annotatedField)) {
-            return Types.getEmbedGenericTypeClass(annotatedField.getDeclaringClass(), annotatedField.getName());
-        }
-        return annotatedField.getType();
+        return Types.hasGeneric(annotatedField) ? Types.getEmbedGenericTypeClass(annotatedField.getDeclaringClass(), annotatedField.getName()) : annotatedField.getType();
     }
 
     protected String getTypeHandlerLocatedAnnotationFieldName() {
@@ -56,7 +53,7 @@ public abstract class ColumnMappingRelationCache {
 
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
     public Set<Class> getMappingJavaClass(String columnName) {
-        Set<Class> javaClasses = databaseColumnNameMappingJavaClassMap.get(columnName);
+        Set<Class> javaClasses = columnNameMappingJavaClassMap.get(columnName);
         Assert.of().setMessage("{}could not find column mapping java class by column name [{}], please check!", ModuleView.ORM_MYBATIS_SYSTEM, columnName).throwsIfEmpty(javaClasses);
         return javaClasses;
     }
