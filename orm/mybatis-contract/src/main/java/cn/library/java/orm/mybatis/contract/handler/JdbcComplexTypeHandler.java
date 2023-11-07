@@ -43,12 +43,12 @@ public abstract class JdbcComplexTypeHandler<T> extends BaseTypeHandler<T> {
 
     @Override
     public T getNullableResult(ResultSet resultSet, int columnIndex) {
-        throw new UnsupportedException(Strings.format("{}get result set through column index is not supported!", ModuleView.ORM_MYBATIS_CONTRACT_SYSTEM));
+        throw new UnsupportedException(Strings.format("{}get result set through column index is not supported!", ModuleView.ORM_MYBATIS_SYSTEM));
     }
 
     @Override
     public T getNullableResult(CallableStatement callableStatement, int columnIndex) {
-        throw new UnsupportedException(Strings.format("{}get result set through store procedure is not supported!", ModuleView.ORM_MYBATIS_CONTRACT_SYSTEM));
+        throw new UnsupportedException(Strings.format("{}get result set through store procedure is not supported!", ModuleView.ORM_MYBATIS_SYSTEM));
     }
 
 }

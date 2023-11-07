@@ -11,11 +11,10 @@ import cn.srd.library.java.tool.convert.jackson.NullableObject;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.functional.Assert;
-import cn.srd.library.java.tool.lang.object.Classes;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.spring.contract.Annotations;
+import cn.srd.library.java.tool.spring.contract.Classes;
 import com.mybatisflex.annotation.Column;
-import com.mybatisflex.annotation.Table;
 import lombok.SneakyThrows;
 
 import java.sql.ResultSet;
@@ -56,8 +55,7 @@ public class JavaObjectMappingJdbcJsonbTypeHandler<T extends NullableObject> ext
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     private synchronized void initDatabaseColumnNameMappingJavaClassMap() {
-        databaseColumnNameMappingJavaClassMap = Annotations.getAnnotationValueMappingAnnotatedClassMap(Table.class, String.class)
-                .values()
+        databaseColumnNameMappingJavaClassMap = Classes.scanByBasePackagePath()
                 .stream()
                 .map(Classes::getFields)
                 .flatMap(Collection::stream)

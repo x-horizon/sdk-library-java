@@ -43,23 +43,23 @@ public class EnumAutowiredSupport {
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     @PostConstruct
     public <E extends Enum<E>> void support() {
-        log.debug("{}starting matching...", ModuleView.ENUM_AUTOWIRED_SYSTEM);
+        log.debug("{}starting matching...", ModuleView.ENUM_SYSTEM);
 
         Set<String> scanPackagePaths = Classes.parseAnnotationAntStylePackagePathToPackagePath(EnableEnumAutowired.class, "scanPackagePaths");
         if (Nil.isEmpty(scanPackagePaths)) {
-            log.warn("{}could not found the class marked with [@{}] on these paths {}, exited.", ModuleView.ENUM_AUTOWIRED_SYSTEM, EnableEnumAutowired.class.getSimpleName(), Classes.getBasePackagePath());
+            log.warn("{}could not found the class marked with [@{}] on these paths {}, exited.", ModuleView.ENUM_SYSTEM, EnableEnumAutowired.class.getSimpleName(), Classes.getBasePackagePath());
             return;
         }
 
         Set<String> allScanPackagePaths = Classes.getTheLargestRangePackagePath(Collections.add(scanPackagePaths, Springs.getSpringBootApplicationPackagePath()));
         Set<BeanDefinition> enumAutowiredBeanDefinitions = Classes.scanByTypeFilter(new AnnotationTypeFilter(EnumAutowired.class), allScanPackagePaths);
         if (Nil.isEmpty(enumAutowiredBeanDefinitions)) {
-            log.debug("{}could not found the class marked with [@{}], exited.", ModuleView.ENUM_AUTOWIRED_SYSTEM, EnumAutowired.class.getSimpleName());
+            log.debug("{}could not found the class marked with [@{}], exited.", ModuleView.ENUM_SYSTEM, EnumAutowired.class.getSimpleName());
         }
 
         enumAutowiredBeanDefinitions.forEach(enumAutowiredBeanDefinition -> {
             Class<?> enumAutowiredAnnotatedClass = Classes.ofName(enumAutowiredBeanDefinition.getBeanClassName());
-            Assert.of().setMessage(Strings.format("{}the class [{}] marked with [@{}] must be an enum class, please check!", ModuleView.ENUM_AUTOWIRED_SYSTEM, enumAutowiredAnnotatedClass.getSimpleName(), EnumAutowired.class.getSimpleName()))
+            Assert.of().setMessage(Strings.format("{}the class [{}] marked with [@{}] must be an enum class, please check!", ModuleView.ENUM_SYSTEM, enumAutowiredAnnotatedClass.getSimpleName(), EnumAutowired.class.getSimpleName()))
                     .throwsIfFalse(enumAutowiredAnnotatedClass.isEnum());
 
             EnumAutowired enumAutowired = Annotations.getAnnotation(enumAutowiredAnnotatedClass, EnumAutowired.class);
@@ -67,7 +67,7 @@ public class EnumAutowiredSupport {
             Class<?> enumAutowiredRootClass = enumAutowired.rootClass();
             String enumAutowiredRootClassName = enumAutowiredRootClass.getSimpleName();
             Set<BeanDefinition> enumAutowiredChildrenClassDefinitions = Classes.scanByTypeFilter(new AssignableTypeFilter(enumAutowiredRootClass), allScanPackagePaths);
-            Assert.of().setMessage(Strings.format("{}the class [{}] marked with [@{}] bound interface [{}] has no implementation class, please check!", ModuleView.ENUM_AUTOWIRED_SYSTEM, enumAutowiredAnnotatedClassName, EnumAutowired.class.getSimpleName(), enumAutowiredRootClassName))
+            Assert.of().setMessage(Strings.format("{}the class [{}] marked with [@{}] bound interface [{}] has no implementation class, please check!", ModuleView.ENUM_SYSTEM, enumAutowiredAnnotatedClassName, EnumAutowired.class.getSimpleName(), enumAutowiredRootClassName))
                     .throwsIfEmpty(enumAutowiredChildrenClassDefinitions);
             List<String> enumAutowiredSubclassNames = enumAutowiredChildrenClassDefinitions.stream()
                     .map(enumAutowiredChildrenClassDefinition -> Classes.ofName(enumAutowiredChildrenClassDefinition.getBeanClassName()))
@@ -80,9 +80,9 @@ public class EnumAutowiredSupport {
                         .stream()
                         .filter(enumAutowiredAnnotatedField -> Comparators.equals(enumAutowiredAnnotatedField.getType(), enumAutowired.rootClass()))
                         .toList();
-                Assert.of().setMessage(Strings.format("{}the class [{}] marked with [@{}] has no field to match [{}], cannot autowired, please specified one!", ModuleView.ENUM_AUTOWIRED_SYSTEM, enumAutowiredAnnotatedClassName, EnumAutowired.class.getSimpleName(), enumAutowiredRootClassName))
+                Assert.of().setMessage(Strings.format("{}the class [{}] marked with [@{}] has no field to match [{}], cannot autowired, please specified one!", ModuleView.ENUM_SYSTEM, enumAutowiredAnnotatedClassName, EnumAutowired.class.getSimpleName(), enumAutowiredRootClassName))
                         .throwsIfEmpty(matchFields);
-                Assert.of().setMessage(Strings.format("{}the class [{}] marked with [@{}] has multi fields to match [{}], cannot autowired, please specified one!", ModuleView.ENUM_AUTOWIRED_SYSTEM, enumAutowiredAnnotatedClassName, EnumAutowired.class.getSimpleName(), enumAutowiredRootClassName))
+                Assert.of().setMessage(Strings.format("{}the class [{}] marked with [@{}] has multi fields to match [{}], cannot autowired, please specified one!", ModuleView.ENUM_SYSTEM, enumAutowiredAnnotatedClassName, EnumAutowired.class.getSimpleName(), enumAutowiredRootClassName))
                         .throwsIfTrue(matchFields.size() > 1);
                 autowiredFiledName = Collections.getFirst(matchFields).get().getName();
             }
@@ -91,14 +91,14 @@ public class EnumAutowiredSupport {
                 EnumAutowiredFieldMatchRule enumAutowiredFieldMatchRule = Reflects.newInstance(enumAutowired.matchRule());
                 String theMostSuitableAutowiredClassName = enumAutowiredFieldMatchRule.getMostSuitableAutowiredClassName(enumField, enumAutowiredSubclassNames);
                 Object theMostSuitableAutowiredClass = Springs.getBean(theMostSuitableAutowiredClassName);
-                Assert.of().setMessage(Strings.format("{}find class [{}] and autowired it into class [{}] filed [{}], but [{}] instance is null, you need to consider adding it to Spring IOC", ModuleView.ENUM_AUTOWIRED_SYSTEM, theMostSuitableAutowiredClassName, enumAutowiredAnnotatedClassName, autowiredFiledName, theMostSuitableAutowiredClassName))
+                Assert.of().setMessage(Strings.format("{}find class [{}] and autowired it into class [{}] filed [{}], but [{}] instance is null, you need to consider adding it to Spring IOC", ModuleView.ENUM_SYSTEM, theMostSuitableAutowiredClassName, enumAutowiredAnnotatedClassName, autowiredFiledName, theMostSuitableAutowiredClassName))
                         .throwsIfNull(theMostSuitableAutowiredClass);
                 Reflects.setFieldValue(enumField, autowiredFiledName, theMostSuitableAutowiredClass);
-                log.debug("{}Find class [{}] and autowired it into class [{}] filed [{}]", ModuleView.ENUM_AUTOWIRED_SYSTEM, theMostSuitableAutowiredClassName, enumAutowiredAnnotatedClassName, autowiredFiledName);
+                log.debug("{}Find class [{}] and autowired it into class [{}] filed [{}]", ModuleView.ENUM_SYSTEM, theMostSuitableAutowiredClassName, enumAutowiredAnnotatedClassName, autowiredFiledName);
             }
         });
 
-        log.debug("{}autowired finish, exit.", ModuleView.ENUM_AUTOWIRED_SYSTEM);
+        log.debug("{}autowired finish, exit.", ModuleView.ENUM_SYSTEM);
     }
 
 }

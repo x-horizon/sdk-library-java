@@ -34,7 +34,7 @@ public class ControllerAdvicePackagePathReplacer {
             String[] beforeReplaceBasePackagePaths = restControllerAdvice.basePackages();
             Annotations.setAnnotationValue(restControllerAdvice, SpringFrameworkConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE, Collections.toArray(advicePackagePaths, String[]::new));
             log.debug("{}replace the annotation [@{}] field [{}] value on class [@{}], before replace value {}, after replace value {}.",
-                    ModuleView.WEB_INTERCEPTOR,
+                    ModuleView.WEB_SYSTEM,
                     RestControllerAdvice.class.getSimpleName(),
                     SpringFrameworkConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE,
                     WebMVCResponseBodyAdvice.class.getSimpleName(),

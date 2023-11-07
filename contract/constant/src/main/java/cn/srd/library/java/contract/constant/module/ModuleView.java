@@ -17,19 +17,9 @@ import lombok.NoArgsConstructor;
 public class ModuleView {
 
     /**
-     * the class system name
+     * the actor system module name
      */
-    public static final String CLASS_SYSTEM = "Class System - ";
-
-    /**
-     * the enum autowired module name
-     */
-    public static final String ENUM_AUTOWIRED_SYSTEM = "Enum Autowired System - ";
-
-    /**
-     * the web interceptor module name
-     */
-    public static final String WEB_INTERCEPTOR = "Web Interceptor - ";
+    public static final String ACTOR_SYSTEM = "Actor System - ";
 
     /**
      * the cache system module name
@@ -37,18 +27,23 @@ public class ModuleView {
     public static final String CACHE_SYSTEM = "Cache System - ";
 
     /**
-     * the actor system module name
+     * the class system module name
      */
-    public static final String ACTOR_SYSTEM = "Actor System - ";
+    public static final String CLASS_SYSTEM = "Class System - ";
 
     /**
-     * the orm mybatis contract module name
+     * the enum system module name
      */
-    public static final String ORM_MYBATIS_CONTRACT_SYSTEM = "ORM Mybatis Contract System - ";
+    public static final String ENUM_SYSTEM = "Enum System - ";
 
     /**
-     * the orm mybatis flex module name
+     * the orm mybatis system module name
      */
-    public static final String ORM_MYBATIS_FLEX_SYSTEM = "ORM Mybatis Flex System - ";
+    public static final String ORM_MYBATIS_SYSTEM = "ORM Mybatis System - ";
+
+    /**
+     * the web system module name
+     */
+    public static final String WEB_SYSTEM = "Web System - ";
 
 }
