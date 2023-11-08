@@ -10,10 +10,8 @@ import cn.srd.library.java.tool.lang.annotation.Annotations;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.spring.contract.Classes;
-import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
+import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Set;
@@ -23,11 +21,10 @@ import java.util.Set;
  * @since 2023-10-07 15:23
  */
 @Slf4j
-@Order(Ordered.HIGHEST_PRECEDENCE)
-public class ControllerAdvicePackagePathReplacer {
+public class ControllerAdvicePackagePathReplacer implements SmartInitializingSingleton {
 
-    @PostConstruct
-    public void initialize() {
+    @Override
+    public void afterSingletonsInstantiated() {
         Set<String> advicePackagePaths = Classes.parseAnnotationAntStylePackagePathToPackagePath(EnableWebMVCResponseBodyAdvice.class, "advicePackagePaths");
         if (Nil.isNotEmpty(advicePackagePaths)) {
             RestControllerAdvice restControllerAdvice = Annotations.getAnnotation(WebMVCResponseBodyAdvice.class, RestControllerAdvice.class);
