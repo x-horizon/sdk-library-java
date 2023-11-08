@@ -343,6 +343,32 @@ public class Collections {
     }
 
     /**
+     * create a containing the specified elements immutable set
+     *
+     * @param inputs the specified elements
+     * @param <T>    the specified element type
+     * @return a containing the specified elements immutable set
+     */
+    @SafeVarargs
+    public static <T> Set<T> ofImmutableSet(T... inputs) {
+        return Set.of(inputs);
+    }
+
+    /**
+     * create a containing the specified elements immutable set
+     *
+     * @param inputs the specified elements
+     * @param <T>    the specified element type
+     * @return a containing the specified elements immutable set
+     */
+    public static <T> Set<T> ofImmutableSet(Iterator<T> inputs) {
+        return Action.<Set<T>>ifEmpty(inputs)
+                .then(Collections::newImmutableSet)
+                .otherwise(() -> ofUnknownSizeStream(inputs).collect(Collectors.toUnmodifiableSet()))
+                .get();
+    }
+
+    /**
      * create a containing single key and value pair
      *
      * @param key   the key
@@ -350,7 +376,6 @@ public class Collections {
      * @param <K>   the key type
      * @param <V>   the value type
      * @return a containing single key and value pair
-     * @see #ofSimpleEntry(Object, Object)
      */
     public static <K, V> AbstractMap.SimpleEntry<K, V> ofPair(K key, V value) {
         return new AbstractMap.SimpleEntry<>(key, value);
