@@ -33,7 +33,7 @@ public class RedisCacheProperties {
      */
     @DependsOn("spring.data.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties")
     @PostConstruct
-    public void init() {
+    public void initialize() {
         this.baseInfo = (RedisProperties) Springs.getBean("spring.data.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties");
         instance = this;
     }

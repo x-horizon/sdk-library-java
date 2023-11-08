@@ -22,7 +22,7 @@ public class RedisNonFairLockHandler implements RedisLockTemplate {
      * instance init
      */
     @PostConstruct
-    public void init() {
+    public void initialize() {
         instance = this;
     }
 

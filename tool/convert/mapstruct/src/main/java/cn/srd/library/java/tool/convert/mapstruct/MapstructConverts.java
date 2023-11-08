@@ -208,7 +208,7 @@ public class MapstructConverts {
      * Mapstruct 转换组件初始化
      */
     @PostConstruct
-    private void init() {
+    private void initialize() {
         addConvertSupporter();
         collectMapstructAllMethods();
         collectMapstructAllMethodsInputAndOutputParameterNameMappingMethodsMap();

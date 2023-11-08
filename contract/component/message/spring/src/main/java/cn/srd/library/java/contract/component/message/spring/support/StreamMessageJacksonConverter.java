@@ -60,7 +60,7 @@ public class StreamMessageJacksonConverter extends AbstractMessageConverter {
      */
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
     @PostConstruct
-    public void init() {
+    public void initialize() {
         List<Class> supportedClasses = new ArrayList<>();
         Classes.scanBySuper(StreamMessageConvertWithJacksonSupporter.class).forEach(supporter -> supportedClasses.addAll(Reflects.newInstance(supporter).getSupportedClasses()));
         supportedClasses.addAll(Annotations.getAnnotationNestValue(EnableStreamMessageJacksonConverter.class, Class[].class, "supportedClasses"));

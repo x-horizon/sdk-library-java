@@ -27,7 +27,7 @@ import java.util.Set;
 public class ControllerAdvicePackagePathReplacer {
 
     @PostConstruct
-    public void init() {
+    public void initialize() {
         Set<String> advicePackagePaths = Classes.parseAnnotationAntStylePackagePathToPackagePath(EnableWebMVCResponseBodyAdvice.class, "advicePackagePaths");
         if (Nil.isNotEmpty(advicePackagePaths)) {
             RestControllerAdvice restControllerAdvice = Annotations.getAnnotation(WebMVCResponseBodyAdvice.class, RestControllerAdvice.class);

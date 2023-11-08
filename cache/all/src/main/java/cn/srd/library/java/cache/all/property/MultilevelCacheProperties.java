@@ -28,7 +28,7 @@ public class MultilevelCacheProperties {
      * instance init
      */
     @PostConstruct
-    public void init() {
+    public void initialize() {
         if (Nil.isAllNotBlank(getBlockToHitDistributedCacheWaitTime(), getBlockToHitDistributedCacheLeaseTime())) {
             setInternalBlockToHitDistributedCacheWaitTime(Times.wrapper(getBlockToHitDistributedCacheWaitTime()).toMillisecond().toMillis());
             setInternalBlockToHitDistributedCacheLeaseTime(Times.wrapper(getBlockToHitDistributedCacheLeaseTime()).toMillisecond().toMillis());

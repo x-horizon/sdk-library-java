@@ -57,7 +57,7 @@ public class ConvertAllBenchmarkTest {
     private int dataSize;
 
     @Setup(Level.Trial)
-    public void init() {
+    public void initialize() {
         applicationContext = SpringApplication.run(ToolConvertAllApplication.class);
     }
 

@@ -30,7 +30,7 @@ public class CacheProperties {
      */
     @DependsOn({"caffeineCacheProperties", "redisCacheProperties", "multilevelCacheProperties"})
     @PostConstruct
-    public void init() {
+    public void initialize() {
         // do not use @NestedConfigurationProperty to inject,
         // because it will cause internally calculated fields being null.
         setCaffeine(Springs.getBean(CaffeineCacheProperties.class));

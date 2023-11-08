@@ -29,7 +29,7 @@ public class CaffeineCacheProperties {
      * instance init
      */
     @PostConstruct
-    public void init() {
+    public void initialize() {
         instance = this;
     }
 
