@@ -27,8 +27,8 @@ public class JdbcJsonbMappingJavaListEnumIntegerTypeHandler<E extends Enum<E>> e
 
     @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.RAW_TYPE})
     @Override
-    protected List<E> doConvertToJavaObject(String jsonbString, Class javaType) {
-        return Strings.splitToEnums(Strings.removeHeadTailBracket(jsonbString), javaType);
+    protected List<E> doConvertToJavaObject(String content, Class javaType) {
+        return Strings.splitToEnums(Strings.removeHeadTailBracket(content), javaType);
     }
 
 }

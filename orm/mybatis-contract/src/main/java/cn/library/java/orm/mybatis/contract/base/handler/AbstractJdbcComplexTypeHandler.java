@@ -26,7 +26,7 @@ public abstract class AbstractJdbcComplexTypeHandler<T> extends BaseTypeHandler<
 
     protected abstract Object toJdbcObject(T javaObject);
 
-    protected abstract T toJavaObject(ResultSet resultSet, String columnName);
+    protected abstract T toJavaObject(String content, String columnName);
 
     @SneakyThrows
     @Override
@@ -34,9 +34,10 @@ public abstract class AbstractJdbcComplexTypeHandler<T> extends BaseTypeHandler<
         preparedStatement.setObject(columnIndex, toJdbcObject(parameter));
     }
 
+    @SneakyThrows
     @Override
     public T getNullableResult(ResultSet resultSet, String columnName) {
-        return toJavaObject(resultSet, columnName);
+        return toJavaObject(resultSet.getString(columnName), columnName);
     }
 
     @Override

@@ -16,7 +16,6 @@ import io.vavr.control.Try;
 import lombok.SneakyThrows;
 import org.postgresql.util.PGobject;
 
-import java.sql.ResultSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -29,53 +28,43 @@ import java.util.Set;
  */
 public abstract class AbstractJdbcJsonbTypeHandler<T> extends AbstractJdbcComplexTypeHandler<T> {
 
-    protected abstract boolean isEmptyJsonbContent(String jsonbString);
+    protected abstract boolean isEmptyJsonbContent(String content);
 
     protected abstract T toJavaObjectWhenEmptyJsonbContent();
 
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
-    protected abstract T doConvertToJavaObject(String jsonbString, Class javaType);
+    protected abstract T doConvertToJavaObject(String content, Class javaType);
 
     protected abstract Object doConvertToJdbcObject(T javaObject);
 
+    @SneakyThrows
     @Override
     protected Object toJdbcObject(T javaObject) {
-        return toPGobject(doConvertToJdbcObject(javaObject));
-    }
-
-    @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
-    @SneakyThrows
-    @Override
-    protected T toJavaObject(ResultSet resultSet, String columnName) {
-        String jsonbString = resultSet.getString(columnName);
-        if (isEmptyJsonbContent(jsonbString)) {
-            return toJavaObjectWhenEmptyJsonbContent();
-        }
-        Set<Class> javaTypes = JdbcComplexType.JSON.getColumnMappingRelationCache().getMappingJavaTypes(columnName);
-        return javaTypes.stream()
-                .map(javaType -> Optional.ofNullable(Try.of(() -> doConvertToJavaObject(jsonbString, javaType)).getOrNull()))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .findFirst()
-                .orElseThrow(() -> whenFailed(columnName, javaTypes));
-    }
-
-    @SneakyThrows
-    private PGobject toPGobject(Object input) {
         PGobject pgObject = new PGobject();
         pgObject.setType(PostgreSQLDataType.JSONB.getValue());
-        pgObject.setValue(Converts.withJackson().toString(input));
+        pgObject.setValue(Converts.withJackson().toString(doConvertToJdbcObject(javaObject)));
         return pgObject;
     }
 
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
-    private RunningException whenFailed(String columnName, Set<Class> javaClasses) {
-        return new RunningException(Strings.format(
-                "{}could not convert the value of column name [{}] to following classes {}, please check!",
-                ModuleView.ORM_MYBATIS_SYSTEM,
-                columnName,
-                javaClasses.stream().map(Class::getName).toList()
-        ));
+    @SneakyThrows
+    @Override
+    protected T toJavaObject(String content, String columnName) {
+        if (isEmptyJsonbContent(content)) {
+            return toJavaObjectWhenEmptyJsonbContent();
+        }
+        Set<Class> javaTypes = JdbcComplexType.JSON.getColumnMappingRelationCache().getMappingJavaTypes(columnName);
+        return javaTypes.stream()
+                .map(javaType -> Optional.ofNullable(Try.of(() -> doConvertToJavaObject(content, javaType)).getOrNull()))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .findFirst()
+                .orElseThrow(() -> new RunningException(Strings.format(
+                        "{}could not convert the value of column name [{}] to following classes {}, please check!",
+                        ModuleView.ORM_MYBATIS_SYSTEM,
+                        columnName,
+                        javaTypes.stream().map(Class::getName).toList()
+                )));
     }
 
 }

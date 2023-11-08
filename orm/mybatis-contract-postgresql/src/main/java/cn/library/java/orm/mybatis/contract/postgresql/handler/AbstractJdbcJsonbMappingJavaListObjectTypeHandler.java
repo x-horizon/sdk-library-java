@@ -21,8 +21,8 @@ import java.util.List;
 public abstract class AbstractJdbcJsonbMappingJavaListObjectTypeHandler<T> extends AbstractJdbcJsonbTypeHandler<List<T>> {
 
     @Override
-    protected boolean isEmptyJsonbContent(String jsonbString) {
-        return Collections.isBlankOrEmptyArrayString(jsonbString);
+    protected boolean isEmptyJsonbContent(String content) {
+        return Collections.isBlankOrEmptyArrayString(content);
     }
 
     @Override
@@ -37,8 +37,8 @@ public abstract class AbstractJdbcJsonbMappingJavaListObjectTypeHandler<T> exten
 
     @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.RAW_TYPE})
     @Override
-    protected List<T> doConvertToJavaObject(String jsonbString, Class javaType) {
-        return Converts.withJackson().toBeans(jsonbString, javaType);
+    protected List<T> doConvertToJavaObject(String content, Class javaType) {
+        return Converts.withJackson().toBeans(content, javaType);
     }
 
 }

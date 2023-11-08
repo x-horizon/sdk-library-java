@@ -5,6 +5,7 @@
 package cn.library.java.orm.mybatis.contract.base.autoconfigure;
 
 import cn.srd.library.java.tool.lang.object.BasePackagePath;
+import cn.srd.library.java.tool.lang.object.Packages;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.Ordered;
@@ -20,7 +21,7 @@ public class OrmMybatisContractBasePackagePathAutoConfiguration implements Appli
 
     @Override
     public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {
-        BasePackagePath.register("cn.library.java.orm.mybatis.contract.base.autoconfigure");
+        BasePackagePath.register(Packages.getPackagePath(this.getClass()));
     }
 
 }

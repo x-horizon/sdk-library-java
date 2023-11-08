@@ -21,8 +21,8 @@ import java.util.Map;
 public abstract class AbstractJdbcJsonbMappingJavaObjectTypeHandler<T> extends AbstractJdbcJsonbTypeHandler<T> {
 
     @Override
-    protected boolean isEmptyJsonbContent(String jsonbString) {
-        return Collections.isBlankOrEmptyMapString(jsonbString);
+    protected boolean isEmptyJsonbContent(String content) {
+        return Collections.isBlankOrEmptyMapString(content);
     }
 
     @Override
@@ -37,8 +37,8 @@ public abstract class AbstractJdbcJsonbMappingJavaObjectTypeHandler<T> extends A
 
     @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.RAW_TYPE})
     @Override
-    protected T doConvertToJavaObject(String jsonbString, Class javaType) {
-        return (T) Converts.withJackson().toBean(jsonbString, javaType);
+    protected T doConvertToJavaObject(String content, Class javaType) {
+        return (T) Converts.withJackson().toBean(content, javaType);
     }
 
 }
