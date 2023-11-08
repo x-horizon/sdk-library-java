@@ -4,7 +4,8 @@
 
 package cn.library.java.orm.mybatis.contract.postgresql.handler;
 
-import cn.library.java.orm.mybatis.contract.base.handler.JdbcComplexAbstractTypeHandler;
+import cn.library.java.orm.mybatis.contract.base.handler.AbstractJdbcComplexTypeHandler;
+import cn.library.java.orm.mybatis.contract.base.type.JdbcComplexType;
 import cn.srd.library.java.contract.constant.database.PostgreSQLDataType;
 import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.module.ModuleView;
@@ -26,10 +27,7 @@ import java.util.Set;
  * @author wjm
  * @since 2023-11-06 18:29
  */
-public abstract class JdbcJsonbAbstractTypeHandler<T> extends JdbcComplexAbstractTypeHandler<T> {
-
-    @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
-    protected abstract Set<Class> getMappingJavaTypes(String columnName);
+public abstract class AbstractJdbcJsonbTypeHandler<T> extends AbstractJdbcComplexTypeHandler<T> {
 
     protected abstract boolean isEmptyJsonbContent(String jsonbString);
 
@@ -53,7 +51,7 @@ public abstract class JdbcJsonbAbstractTypeHandler<T> extends JdbcComplexAbstrac
         if (isEmptyJsonbContent(jsonbString)) {
             return toJavaObjectWhenEmptyJsonbContent();
         }
-        Set<Class> javaTypes = getMappingJavaTypes(columnName);
+        Set<Class> javaTypes = JdbcComplexType.JSON.getColumnMappingRelationCache().getMappingJavaTypes(columnName);
         return javaTypes.stream()
                 .map(javaType -> Optional.ofNullable(Try.of(() -> doConvertToJavaObject(jsonbString, javaType)).getOrNull()))
                 .filter(Optional::isPresent)

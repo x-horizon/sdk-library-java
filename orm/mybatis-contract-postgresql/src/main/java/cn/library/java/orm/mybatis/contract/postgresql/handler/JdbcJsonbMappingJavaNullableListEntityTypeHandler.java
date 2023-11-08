@@ -2,17 +2,13 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.library.java.orm.mybatis.flex.postgresql.handler;
+package cn.library.java.orm.mybatis.contract.postgresql.handler;
 
-import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaListObjectAbstractTypeHandler;
-import cn.library.java.orm.mybatis.flex.postgresql.cache.ColumnJsonbMappingRelationCache;
-import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
 import cn.srd.library.java.tool.convert.jackson.NullableObject;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.object.Nil;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * <pre>
@@ -91,13 +87,7 @@ import java.util.Set;
  * @author wjm
  * @since 2022-09-07 10:35
  */
-public class JdbcJsonbMappingJavaNullableListEntityTypeHandler<T extends NullableObject> extends JdbcJsonbMappingJavaListObjectAbstractTypeHandler<T> {
-
-    @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
-    @Override
-    protected Set<Class> getMappingJavaTypes(String columnName) {
-        return ColumnJsonbMappingRelationCache.getInstance().getMappingJavaTypes(columnName);
-    }
+public class JdbcJsonbMappingJavaNullableListEntityTypeHandler<T extends NullableObject> extends AbstractJdbcJsonbMappingJavaListObjectTypeHandler<T> {
 
     @Override
     protected Object doConvertToJdbcObject(List<T> javaObjects) {

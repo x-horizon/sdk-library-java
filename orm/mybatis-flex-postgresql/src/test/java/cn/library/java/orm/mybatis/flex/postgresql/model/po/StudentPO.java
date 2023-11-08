@@ -1,9 +1,9 @@
 package cn.library.java.orm.mybatis.flex.postgresql.model.po;
 
-import cn.library.java.orm.mybatis.flex.postgresql.handler.JdbcJsonbMappingJavaListEnumIntegerTypeHandler;
-import cn.library.java.orm.mybatis.flex.postgresql.handler.JdbcJsonbMappingJavaListLongTypeHandler;
-import cn.library.java.orm.mybatis.flex.postgresql.handler.JdbcJsonbMappingJavaNullableEntityTypeHandler;
-import cn.library.java.orm.mybatis.flex.postgresql.handler.JdbcJsonbMappingJavaNullableListEntityTypeHandler;
+import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaListEnumIntegerTypeHandler;
+import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaListLongTypeHandler;
+import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaNullableEntityTypeHandler;
+import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaNullableListEntityTypeHandler;
 import cn.library.java.orm.mybatis.flex.postgresql.model.enums.JobType;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;

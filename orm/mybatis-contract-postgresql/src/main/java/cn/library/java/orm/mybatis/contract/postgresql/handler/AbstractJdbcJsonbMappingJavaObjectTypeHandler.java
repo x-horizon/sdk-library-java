@@ -9,36 +9,36 @@ import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.object.Nil;
 
-import java.util.List;
+import java.util.Map;
 
 /**
- * the abstract definition of postgresql jdbc jsonb data type and java list object data type mapping relation
+ * the abstract definition of postgresql jdbc jsonb data type and java object data type mapping relation
  *
  * @param <T> the java object data type
  * @author wjm
- * @since 2023-11-07 20:58
+ * @since 2022-09-07 10:35
  */
-public abstract class JdbcJsonbMappingJavaListObjectAbstractTypeHandler<T> extends JdbcJsonbAbstractTypeHandler<List<T>> {
+public abstract class AbstractJdbcJsonbMappingJavaObjectTypeHandler<T> extends AbstractJdbcJsonbTypeHandler<T> {
 
     @Override
     protected boolean isEmptyJsonbContent(String jsonbString) {
-        return Collections.isBlankOrEmptyArrayString(jsonbString);
+        return Collections.isBlankOrEmptyMapString(jsonbString);
     }
 
     @Override
-    protected List<T> toJavaObjectWhenEmptyJsonbContent() {
-        return Collections.newArrayList();
+    protected T toJavaObjectWhenEmptyJsonbContent() {
+        return null;
     }
 
     @Override
-    protected Object doConvertToJdbcObject(List<T> javaObjects) {
-        return Nil.isNull(javaObjects) ? Collections.newImmutableList() : javaObjects;
+    protected Object doConvertToJdbcObject(T javaObject) {
+        return Nil.isNull(javaObject) ? Map.of() : javaObject;
     }
 
     @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.RAW_TYPE})
     @Override
-    protected List<T> doConvertToJavaObject(String jsonbString, Class javaType) {
-        return Converts.withJackson().toBeans(jsonbString, javaType);
+    protected T doConvertToJavaObject(String jsonbString, Class javaType) {
+        return (T) Converts.withJackson().toBean(jsonbString, javaType);
     }
 
 }
