@@ -177,7 +177,7 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
      * @see Classes#getBasePackagePath()
      */
     public static Set<BeanDefinition> scanByTypeFilter(TypeFilter includeFilter) {
-        return scanByTypeFilter(Collections.ofImmutableList(includeFilter), BasePackagePath.get(Springs.getSpringBootApplicationPackagePath()));
+        return scanByTypeFilter(Collections.ofImmutableList(includeFilter), getBasePackagePath());
     }
 
     /**

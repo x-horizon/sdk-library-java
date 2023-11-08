@@ -6,7 +6,6 @@ package cn.srd.library.java.tool.spring.contract;
 
 import cn.srd.library.java.contract.constant.annotation.AnnotationConstant;
 import cn.srd.library.java.tool.lang.collection.Collections;
-import cn.srd.library.java.tool.lang.object.BasePackagePath;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
@@ -156,7 +155,7 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see Classes#getBasePackagePath()
      */
     public static <T> Set<T> getAnnotationNestValue(Class<? extends Annotation> annotationType, Class<T[]> fieldType, String fieldName) {
-        return getAnnotationNestValue(annotationType, fieldType, fieldName, BasePackagePath.get(Springs.getSpringBootApplicationPackagePath()));
+        return getAnnotationNestValue(annotationType, fieldType, fieldName, Classes.getBasePackagePath());
     }
 
     /**
@@ -258,7 +257,7 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see Classes#getBasePackagePath()
      */
     public static <T> Map<Class<?>, T> getAnnotatedClassMappingAnnotationValueMap(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName) {
-        return getAnnotatedClassMappingAnnotationValueMap(annotationType, fieldType, fieldName, BasePackagePath.get(Springs.getSpringBootApplicationPackagePath()));
+        return getAnnotatedClassMappingAnnotationValueMap(annotationType, fieldType, fieldName, Classes.getBasePackagePath());
     }
 
     /**
@@ -359,7 +358,7 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see Classes#getBasePackagePath()
      */
     public static <T> Map<T, Class<?>> getAnnotationValueMappingAnnotatedClassMap(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName) {
-        return getAnnotationValueMappingAnnotatedClassMap(annotationType, fieldType, fieldName, BasePackagePath.get(Springs.getSpringBootApplicationPackagePath()));
+        return getAnnotationValueMappingAnnotatedClassMap(annotationType, fieldType, fieldName, Classes.getBasePackagePath());
     }
 
     /**
