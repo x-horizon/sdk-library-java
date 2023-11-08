@@ -4,7 +4,7 @@
 
 package cn.library.java.orm.mybatis.flex.postgresql.cache;
 
-import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbTypeHandler;
+import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbAbstractTypeHandler;
 import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
 import cn.srd.library.java.orm.mybatis.flex.base.cache.ColumnMappingRelationCache;
 import org.apache.ibatis.type.TypeHandler;
@@ -27,8 +27,8 @@ public class ColumnJsonbMappingRelationCache extends ColumnMappingRelationCache 
 
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
     @Override
-    protected Class<? extends TypeHandler> getTypeHandlerClass() {
-        return JdbcJsonbTypeHandler.class;
+    protected Class<? extends TypeHandler> getJdbcAbstractTypeHandler() {
+        return JdbcJsonbAbstractTypeHandler.class;
     }
 
 }

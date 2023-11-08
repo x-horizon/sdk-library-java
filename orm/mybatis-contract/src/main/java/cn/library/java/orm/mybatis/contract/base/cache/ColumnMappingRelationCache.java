@@ -28,22 +28,22 @@ import java.util.stream.Collectors;
 public abstract class ColumnMappingRelationCache {
 
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
-    private final Map<String, Set<Class>> columnNameMappingJavaClassMap =
+    private final Map<String, Set<Class>> columnNameMappingJavaTypesMap =
             Classes.scanByBasePackagePath()
                     .stream()
                     .map(Classes::getFields)
                     .flatMap(Collection::stream)
                     .filter(field -> Annotations.hasAnnotation(field, getTypeHandlerLocatedAnnotation()))
-                    .filter(field -> Classes.isAssignable(Annotations.getAnnotationValue(field, getTypeHandlerLocatedAnnotation(), getTypeHandlerLocatedAnnotationFieldName()), getTypeHandlerClass()))
-                    .map(field -> Collections.ofPair(Annotations.getAnnotationValue(field, getTypeHandlerLocatedAnnotation(), String.class), (Class) getTypeHandlerAnnotatedFieldClass(field)))
+                    .filter(field -> Classes.isAssignable(Annotations.getAnnotationValue(field, getTypeHandlerLocatedAnnotation(), getTypeHandlerLocatedAnnotationFieldName()), getJdbcAbstractTypeHandler()))
+                    .map(field -> Collections.ofPair(Annotations.getAnnotationValue(field, getTypeHandlerLocatedAnnotation(), String.class), (Class) getTypeHandlerAnnotatedField(field)))
                     .collect(Collectors.groupingBy(AbstractMap.SimpleEntry::getKey, Collectors.mapping(AbstractMap.SimpleEntry::getValue, Collectors.toSet())));
+
+    @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
+    protected abstract Class<? extends TypeHandler> getJdbcAbstractTypeHandler();
 
     protected abstract Class<? extends Annotation> getTypeHandlerLocatedAnnotation();
 
-    @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
-    protected abstract Class<? extends TypeHandler> getTypeHandlerClass();
-
-    protected Class<?> getTypeHandlerAnnotatedFieldClass(Field annotatedField) {
+    protected Class<?> getTypeHandlerAnnotatedField(Field annotatedField) {
         return Types.hasGeneric(annotatedField) ? Types.getEmbedGenericTypeClass(annotatedField.getDeclaringClass(), annotatedField.getName()) : annotatedField.getType();
     }
 
@@ -52,8 +52,8 @@ public abstract class ColumnMappingRelationCache {
     }
 
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
-    public Set<Class> getMappingJavaClass(String columnName) {
-        Set<Class> javaClasses = columnNameMappingJavaClassMap.get(columnName);
+    public Set<Class> getMappingJavaTypes(String columnName) {
+        Set<Class> javaClasses = columnNameMappingJavaTypesMap.get(columnName);
         Assert.of().setMessage("{}could not find column mapping java class by column name [{}], please check!", ModuleView.ORM_MYBATIS_SYSTEM, columnName).throwsIfEmpty(javaClasses);
         return javaClasses;
     }

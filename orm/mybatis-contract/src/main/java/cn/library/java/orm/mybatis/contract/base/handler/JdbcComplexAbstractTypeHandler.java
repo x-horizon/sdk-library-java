@@ -22,7 +22,7 @@ import java.sql.ResultSet;
  * @author wjm
  * @since 2023-11-06 18:29
  */
-public abstract class JdbcComplexTypeHandler<T> extends BaseTypeHandler<T> {
+public abstract class JdbcComplexAbstractTypeHandler<T> extends BaseTypeHandler<T> {
 
     protected abstract Object toJdbcObject(T javaObject);
 

@@ -4,7 +4,7 @@
 
 package cn.library.java.orm.mybatis.flex.postgresql.handler;
 
-import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaListObjectTypeHandler;
+import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaListObjectAbstractTypeHandler;
 import cn.library.java.orm.mybatis.flex.postgresql.cache.ColumnJsonbMappingRelationCache;
 import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
 import cn.srd.library.java.tool.convert.jackson.NullableObject;
@@ -48,12 +48,13 @@ import java.util.Set;
  * }
  * </pre>
  *
- * <strong><em>note: the core of the postgresql jdbc jsonb data type and java list object data type mapping relation is:</em></strong>
- * <br/>
+ * <strong><em>note: the core of the postgresql jdbc jsonb data type and java list object data type mapping relation is:<br/></em></strong>
+ * <p>
  * <strong><em>@Column(value = "detail_info", typeHandler = JdbcJsonbMappingJavaListEntityTypeHandler.class)</em></strong>
- * <p/>
+ * </p>
  *
  * <pre>
+ *
  * 3. the java po object mapping postgresql jdbc jsonb as following:
  * {@code
  *     @Data
@@ -75,33 +76,34 @@ import java.util.Set;
  * </pre>
  *
  * <strong><em>note: about the usage of implement class {@link NullableObject}:</em></strong>
+ * <p>
  * <strong><em>
- * <pre>
- * when storing this class into postgresql,
- * it provides an opportunity to represent the condition that the field in postgresql is empty,
- * when the field detailPOs value in the class ExamplePO is null or empty, it will set "[]" into postgresql.
- * when the field detailPOs value in the class ExamplePO is not empty, but some element detailPOs {@link NullableObject#isNull()} return true,
- * it will be filtered out and not set into postgresql.
- * </pre>
+ * when storing this class into postgresql,<br/>
+ * it provides an opportunity to represent the condition that the field in postgresql is empty,<br/>
+ * when the field detailPOs value in the class ExamplePO is null or empty, it will set "[]" into postgresql.<br/>
+ * when the field detailPOs value in the class ExamplePO is not empty, but some element detailPOs {@link NullableObject#isNull()} return true,<br/>
+ * it will be filtered out and not set into postgresql.<br/>
  * </em></strong>
+ * </p>
+ * <br/>
  *
  * @param <T> the java object data type
  * @author wjm
  * @since 2022-09-07 10:35
  */
-public class JdbcJsonbMappingJavaListEntityTypeHandler<T extends NullableObject> extends JdbcJsonbMappingJavaListObjectTypeHandler<T> {
+public class JdbcJsonbMappingJavaNullableListEntityTypeHandler<T extends NullableObject> extends JdbcJsonbMappingJavaListObjectAbstractTypeHandler<T> {
 
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
     @Override
-    protected Set<Class> getMappingJavaClass(String columnName) {
-        return ColumnJsonbMappingRelationCache.getInstance().getMappingJavaClass(columnName);
+    protected Set<Class> getMappingJavaTypes(String columnName) {
+        return ColumnJsonbMappingRelationCache.getInstance().getMappingJavaTypes(columnName);
     }
 
     @Override
-    protected Object toJdbcObject(List<T> javaObject) {
-        return toPGobject(Nil.isNull(javaObject) ?
+    protected Object doConvertToJdbcObject(List<T> javaObjects) {
+        return Nil.isNull(javaObjects) ?
                 Collections.newImmutableList() :
-                javaObject.stream().filter(NullableObject::isNotNull).toList());
+                javaObjects.stream().filter(NullableObject::isNotNull).toList();
     }
 
 }
