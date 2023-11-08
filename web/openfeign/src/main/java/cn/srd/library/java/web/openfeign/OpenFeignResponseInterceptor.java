@@ -6,7 +6,7 @@ package cn.srd.library.java.web.openfeign;
 
 import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.protocol.TransportModel;
-import cn.srd.library.java.contract.model.throwable.RunningException;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.object.Classes;
@@ -58,7 +58,7 @@ public class OpenFeignResponseInterceptor implements Interceptor {
             }
         }
         if (Nil.isNull(responseModel)) {
-            throw new RunningException(Strings.format(
+            throw new LibraryJavaInternalException(Strings.format(
                     "\ncould not parse feign result to any model defined in class [{}], \ncurrent define models are {}, \nplease check your config! \ncurrent feign result is {}",
                     Classes.getClassFullName(EnableOpenFeignResponseModelResolver.class),
                     Collections.toList(OpenFeignResponseModelCache.get(), Classes::getClassFullName),

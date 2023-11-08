@@ -5,7 +5,7 @@
 package cn.srd.library.java.tool.lang.convert;
 
 import cn.hutool.core.convert.Convert;
-import cn.srd.library.java.contract.model.throwable.RunningException;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.functional.Action;
 import cn.srd.library.java.tool.lang.functional.Functional;
 import cn.srd.library.java.tool.lang.number.NumberType;
@@ -76,7 +76,7 @@ public class Converts {
                 .filter(numberType -> numberType.getHandler().isAssignable(outputClass))
                 .findFirst()
                 .map(numberType -> numberType.getHandler().getValue(toNumber(input)))
-                .orElseThrow(() -> new RunningException(Strings.format("could not convert [{}] to data type [{}.class]", input, outputClass.getSimpleName())))
+                .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("could not convert [{}] to data type [{}.class]", input, outputClass.getSimpleName())))
         );
     }
 

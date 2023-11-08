@@ -8,7 +8,7 @@ import cn.srd.library.java.contract.constant.time.TimeConstant;
 import cn.srd.library.java.contract.constant.time.TimePatternConstant;
 import cn.srd.library.java.contract.constant.time.TimeUnitType;
 import cn.srd.library.java.contract.constant.time.TimeZoneConstant;
-import cn.srd.library.java.contract.model.throwable.RunningException;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.enums.Enums;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
@@ -730,13 +730,13 @@ public class Times {
             if (Nil.isNotNull(timeUnitType)) {
                 long time = Try.of(() -> Long.parseLong(Strings.removeAll(timeFormat, timeUnit)))
                         .onFailure(throwable -> {
-                            throw new RunningException(Strings.format("invalid time by remove [{}] from input [{}]", timeUnit, timeFormat), throwable);
+                            throw new LibraryJavaInternalException(Strings.format("invalid time by remove [{}] from input [{}]", timeUnit, timeFormat), throwable);
                         })
                         .get();
                 return wrapper(time, timeUnitType);
             }
         }
-        throw new RunningException(Strings.format("invalid time format by input [{}]", timeFormat));
+        throw new LibraryJavaInternalException(Strings.format("invalid time format by input [{}]", timeFormat));
     }
 
 }

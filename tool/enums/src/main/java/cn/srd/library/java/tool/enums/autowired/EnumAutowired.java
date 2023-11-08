@@ -9,6 +9,7 @@ import cn.srd.library.java.tool.spring.contract.Classes;
 import org.springframework.core.type.filter.TypeFilter;
 
 import java.lang.annotation.*;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -77,7 +78,7 @@ import java.util.List;
  *
  * @author wjm
  * @see Classes#scanByTypeFilter(TypeFilter, String...)
- * @see Strings#getMostSimilar(String, List)
+ * @see Strings#getMostSimilar(String, Collection)
  * @see EnumAutowiredSupport
  * @see EnumAutowiredFieldMatchByMostSimilarRule#getMostSuitableAutowiredClassName(Enum, List)
  * @since 2021-09-08 16:07
