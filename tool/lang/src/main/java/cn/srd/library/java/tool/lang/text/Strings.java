@@ -52,7 +52,7 @@ public class Strings extends CharacterSequences {
     }
 
     /**
-     * see {@link #getMostSimilar(String, List)}
+     * see {@link #getMostSimilar(String, Collection)}
      *
      * @param input            original string
      * @param comparedElements the strings to compare

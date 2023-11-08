@@ -7,10 +7,11 @@ package cn.srd.library.java.tool.enums.autowired;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.tool.lang.text.Strings;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
- * the rule of {@link EnumAutowiredFieldMatchRule} implemented by {@link Strings#getMostSimilar(String, List)}
+ * the rule of {@link EnumAutowiredFieldMatchRule} implemented by {@link Strings#getMostSimilar(String, Collection)}
  *
  * @author wjm
  * @since 2021-09-08 16:07
