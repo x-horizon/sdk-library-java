@@ -10,6 +10,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
  * @since 2020/12/12 18:06
  */
 @AutoConfiguration
-public class RedisLockAutoConfiguration {
+public class RedisLockAutoConfigurer {
 
 }

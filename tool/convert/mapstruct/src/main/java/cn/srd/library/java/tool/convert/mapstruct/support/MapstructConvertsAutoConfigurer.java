@@ -17,6 +17,6 @@ import org.springframework.context.annotation.Import;
 @AutoConfiguration
 @Import(MapstructConverts.class)
 @Deprecated
-public class MapstructConvertsAutoConfiguration {
+public class MapstructConvertsAutoConfigurer {
 
 }

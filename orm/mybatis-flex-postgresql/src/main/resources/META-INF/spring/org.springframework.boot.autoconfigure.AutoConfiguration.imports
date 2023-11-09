@@ -1,1 +1,1 @@
-cn.library.java.orm.mybatis.flex.postgresql.autoconfigure.OrmMybatisFlexPostgreSQLAutoConfiguration
+cn.library.java.orm.mybatis.flex.postgresql.autoconfigure.MybatisFlexPostgreSQLAutoConfigurer

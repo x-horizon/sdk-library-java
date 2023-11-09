@@ -16,6 +16,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
  */
 @AutoConfiguration
 @EnableEnumAutowired(scanPackagePaths = "cn.library.java.orm.mybatis")
-public class OrmMybatisContractAutoConfiguration {
+public class MybatisContractAutoConfigurer {
 
 }

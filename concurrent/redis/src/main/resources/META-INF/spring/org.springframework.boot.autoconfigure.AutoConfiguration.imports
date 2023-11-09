@@ -1,1 +1,1 @@
-cn.srd.library.java.concurrent.redis.autoconfigue.RedisLockAutoConfiguration
+cn.srd.library.java.concurrent.redis.autoconfigue.RedisLockAutoConfigurer

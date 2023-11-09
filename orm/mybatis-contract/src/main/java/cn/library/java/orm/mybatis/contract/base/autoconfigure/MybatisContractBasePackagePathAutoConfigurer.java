@@ -19,7 +19,7 @@ import org.springframework.lang.NonNull;
  * @since 2023-11-08 17:07
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class OrmMybatisContractBasePackagePathAutoConfiguration implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+public class MybatisContractBasePackagePathAutoConfigurer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     @Override
     public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {

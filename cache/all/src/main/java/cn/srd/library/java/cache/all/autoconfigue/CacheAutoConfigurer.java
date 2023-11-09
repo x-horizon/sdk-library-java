@@ -19,6 +19,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  */
 @AutoConfiguration
 @EnableConfigurationProperties({CacheProperties.class, MultilevelCacheProperties.class})
-public class CacheAllAutoConfiguration {
+public class CacheAutoConfigurer {
 
 }

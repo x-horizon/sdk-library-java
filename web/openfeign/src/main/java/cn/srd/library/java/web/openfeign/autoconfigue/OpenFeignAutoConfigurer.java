@@ -27,7 +27,7 @@ import java.util.Set;
  */
 @AutoConfiguration
 @ConditionalOnProperty(name = "spring.cloud.openfeign.okhttp.enabled", havingValue = BooleanConstant.TRUE)
-public class OpenFeignAutoConfiguration {
+public class OpenFeignAutoConfigurer {
 
     /**
      * get singleton {@link OkHttpClient.Builder}

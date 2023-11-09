@@ -13,6 +13,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  */
 @AutoConfiguration
 @EnableConfigurationProperties(CaffeineCacheProperties.class)
-public class CaffeineCacheAutoConfiguration {
+public class CaffeineCacheAutoConfigurer {
 
 }
