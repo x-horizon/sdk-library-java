@@ -19,7 +19,7 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(EnumAutowiredSupport.class)
+@Import(EnableEnumAutowiredSwitcher.class)
 public @interface EnableEnumAutowired {
 
     /**
