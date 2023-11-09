@@ -4,22 +4,27 @@
 
 package cn.library.java.orm.mybatis.contract.base.type;
 
-import cn.library.java.orm.mybatis.contract.base.cache.ColumnMappingRelationCache;
+import cn.library.java.orm.mybatis.contract.base.cache.ColumnMappingJavaTypeCache;
 import cn.srd.library.java.tool.enums.autowired.EnumAutowired;
 import lombok.Getter;
 
 /**
+ * the jdbc complex type
+ *
  * @author wjm
  * @since 2023-11-08 17:07
  */
 @Getter
-@EnumAutowired(rootClass = ColumnMappingRelationCache.class)
+@EnumAutowired(rootClass = ColumnMappingJavaTypeCache.class)
 public enum JdbcComplexType {
 
     JSON,
 
     ;
 
-    private ColumnMappingRelationCache columnMappingRelationCache;
+    /**
+     * the complex database column data type and java type mapping cache
+     */
+    private ColumnMappingJavaTypeCache columnMappingJavaTypeCache;
 
 }

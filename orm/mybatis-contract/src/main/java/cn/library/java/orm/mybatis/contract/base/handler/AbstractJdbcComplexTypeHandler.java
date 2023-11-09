@@ -16,7 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * the jdbc complex type handler
+ * the jdbc complex abstract type handler
  *
  * @param <T> the java object data type
  * @author wjm
@@ -24,9 +24,22 @@ import java.sql.ResultSet;
  */
 public abstract class AbstractJdbcComplexTypeHandler<T> extends BaseTypeHandler<T> {
 
+    /**
+     * convert java object to jdbc object
+     *
+     * @param javaObject java object
+     * @return jdbc object
+     */
     protected abstract Object toJdbcObject(T javaObject);
 
-    protected abstract T toJavaObject(String content, String columnName);
+    /**
+     * convert column value to java object
+     *
+     * @param columnName  the column name
+     * @param columnValue the column value
+     * @return java object
+     */
+    protected abstract T toJavaObject(String columnName, String columnValue);
 
     @SneakyThrows
     @Override
@@ -37,7 +50,7 @@ public abstract class AbstractJdbcComplexTypeHandler<T> extends BaseTypeHandler<
     @SneakyThrows
     @Override
     public T getNullableResult(ResultSet resultSet, String columnName) {
-        return toJavaObject(resultSet.getString(columnName), columnName);
+        return toJavaObject(columnName, resultSet.getString(columnName));
     }
 
     @Override

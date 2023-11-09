@@ -6,13 +6,16 @@ package cn.library.java.orm.mybatis.contract.base.autoconfigure;
 
 import cn.srd.library.java.tool.enums.autowired.EnableEnumAutowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 /**
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Orm Mybatis Contract
+ *
  * @author wjm
  * @since 2023-11-08 17:07
  */
 @AutoConfiguration
-@EnableEnumAutowired(scanPackagePaths = "cn.library.java.orm.mybatis.contract.base.type")
+@EnableEnumAutowired(scanPackagePaths = "cn.library.java.orm.mybatis")
 public class OrmMybatisContractAutoConfiguration {
 
 }

@@ -12,46 +12,41 @@ import java.util.List;
 
 /**
  * <pre>
- * the postgresql jdbc jsonb data type and java list object data type mapping relation type handler.
+ * the postgresql jdbc jsonb data type and java list nullable entity mapping relation type handler.
  *
  * 1. the postgresql sql contain jsonb like array [] as following:
  * {@code
  *     CREATE TABLE example
  *     (
- *         id          BIGINT                      NOT NULL,
+ *         id           BIGINT                     NOT NULL,
  *         detail_infos JSONB  DEFAULT '[]'::JSONB NOT NULL, -- the value like [{"name": "myName1", "age": 18}, {"name": "myName2", "age": 18}]
  *         PRIMARY KEY (id)
  *     );
  * }
  *
- * 2. the java po object as following:
+ * 2. the java object as following:
  * {@code
  *     @Data
- *     @Table(value = "example")
+ *     // need to replace this annotation from the specified orm framework
+ *     @OrmFrameworkTableMarkedDemo(tableName = "example")
  *     public class ExamplePO implements Serializable {
  *
  *         @Serial private static final long serialVersionUID = -7680901283684311918L;
  *
- *         @Id
- *         @Column(value = "id")
+ *         // need to replace this annotation from the specified orm framework
+ *         @OrmFrameworkIdMarkedDemo
+ *         @OrmFrameworkColumnMarkedDemo(columnName = "id")
  *         private Long id;
  *
+ *         // need to replace this annotation from the specified orm framework
  *         // add the type handler
- *         @Column(value = "detail_info", typeHandler = JdbcJsonbMappingJavaListEntityTypeHandler.class)
+ *         @OrmFrameworkColumnMarkedDemo(columnName = "detail_infos", typeHandler = JdbcJsonbMappingJavaNullableListEntityTypeHandler.class)
  *         private List<DetailPO> detailPOs;
  *
  *     }
  * }
- * </pre>
  *
- * <strong><em>note: the core of the postgresql jdbc jsonb data type and java list object data type mapping relation is:<br/></em></strong>
- * <p>
- * <strong><em>@Column(value = "detail_info", typeHandler = JdbcJsonbMappingJavaListEntityTypeHandler.class)</em></strong>
- * </p>
- *
- * <pre>
- *
- * 3. the java po object mapping postgresql jdbc jsonb as following:
+ * 3. the java object mapping postgresql jdbc jsonb as following:
  * {@code
  *     @Data
  *     public class DetailPO implements NullableObject, Serializable {
@@ -71,8 +66,10 @@ import java.util.List;
  * }
  * </pre>
  *
- * <strong><em>note: about the usage of implement class {@link NullableObject}:</em></strong>
- * <p>
+ * <h2>note1: the core of the postgresql jdbc jsonb data type and java list nullable entity mapping relation is:</h2>
+ * <strong><em>@OrmFrameworkColumnMarkedDemo(columnName = "detail_infos", typeHandler = JdbcJsonbMappingJavaNullableListEntityTypeHandler.class)</em></strong>
+ * <p/>
+ * <h2>note2: about the usage of implement class {@link NullableObject}:</h2>
  * <strong><em>
  * when storing this class into postgresql,<br/>
  * it provides an opportunity to represent the condition that the field in postgresql is empty,<br/>
@@ -80,7 +77,6 @@ import java.util.List;
  * when the field detailPOs value in the class ExamplePO is not empty, but some element detailPOs {@link NullableObject#isNull()} return true,<br/>
  * it will be filtered out and not set into postgresql.<br/>
  * </em></strong>
- * </p>
  * <br/>
  *
  * @param <T> the java object data type

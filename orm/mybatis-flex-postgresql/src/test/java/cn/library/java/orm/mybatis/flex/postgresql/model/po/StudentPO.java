@@ -1,5 +1,7 @@
 package cn.library.java.orm.mybatis.flex.postgresql.model.po;
 
+import cn.library.java.orm.mybatis.contract.base.handler.JdbcStringMappingJavaUUIDTypeHandler;
+import cn.library.java.orm.mybatis.contract.base.handler.JdbcUUIDMappingJavaStringTypeHandler;
 import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaListEnumIntegerTypeHandler;
 import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaListLongTypeHandler;
 import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaNullableEntityTypeHandler;
@@ -16,6 +18,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -30,6 +33,12 @@ public class StudentPO extends BasePO {
     @Id
     @Column(value = "id")
     private Long id;
+
+    @Column(value = "teacher_id", typeHandler = JdbcStringMappingJavaUUIDTypeHandler.class)
+    private UUID teacherId;
+
+    @Column(value = "class_id", typeHandler = JdbcUUIDMappingJavaStringTypeHandler.class)
+    private String classId;
 
     @Column(value = "family_ids", typeHandler = JdbcJsonbMappingJavaListLongTypeHandler.class)
     private List<Long> familyIds;

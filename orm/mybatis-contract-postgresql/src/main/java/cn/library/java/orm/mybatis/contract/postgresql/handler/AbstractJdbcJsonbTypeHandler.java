@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * the jdbc jsonb type handler
+ * the postgresql jdbc jsonb abstract type handler
  *
  * @param <T> the java object data type
  * @author wjm
@@ -28,13 +28,37 @@ import java.util.Set;
  */
 public abstract class AbstractJdbcJsonbTypeHandler<T> extends AbstractJdbcComplexTypeHandler<T> {
 
-    protected abstract boolean isEmptyJsonbContent(String content);
+    /**
+     * return true if the postgresql jdbc jsonb column value is empty
+     *
+     * @param columnValue the postgresql jdbc jsonb column value
+     * @return return true if the postgresql jdbc jsonb column value is empty
+     */
+    protected abstract boolean isEmptyJsonbColumnValue(String columnValue);
 
-    protected abstract T toJavaObjectWhenEmptyJsonbContent();
+    /**
+     * convert to java object when the postgresql jdbc jsonb column value is empty
+     *
+     * @return java object
+     */
+    protected abstract T toJavaObjectWhenEmptyJsonbColumnValue();
 
+    /**
+     * convert to java object by column value and java type
+     *
+     * @param columnValue the column value
+     * @param javaType    the java type
+     * @return java object
+     */
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
-    protected abstract T doConvertToJavaObject(String content, Class javaType);
+    protected abstract T doConvertToJavaObject(String columnValue, Class javaType);
 
+    /**
+     * convert to postgresql jdbc jsonb object
+     *
+     * @param javaObject the java object
+     * @return postgresql jdbc jsonb object
+     */
     protected abstract Object doConvertToJdbcObject(T javaObject);
 
     @SneakyThrows
@@ -49,13 +73,13 @@ public abstract class AbstractJdbcJsonbTypeHandler<T> extends AbstractJdbcComple
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
     @SneakyThrows
     @Override
-    protected T toJavaObject(String content, String columnName) {
-        if (isEmptyJsonbContent(content)) {
-            return toJavaObjectWhenEmptyJsonbContent();
+    protected T toJavaObject(String columnName, String columnValue) {
+        if (isEmptyJsonbColumnValue(columnValue)) {
+            return toJavaObjectWhenEmptyJsonbColumnValue();
         }
-        Set<Class> javaTypes = JdbcComplexType.JSON.getColumnMappingRelationCache().getMappingJavaTypes(columnName);
+        Set<Class> javaTypes = JdbcComplexType.JSON.getColumnMappingJavaTypeCache().getMappingJavaTypes(columnName);
         return javaTypes.stream()
-                .map(javaType -> Optional.ofNullable(Try.of(() -> doConvertToJavaObject(content, javaType)).getOrNull()))
+                .map(javaType -> Optional.ofNullable(Try.of(() -> doConvertToJavaObject(columnValue, javaType)).getOrNull()))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .findFirst()

@@ -708,7 +708,7 @@ public class CharacterSequences extends Characters {
      * @param input the input element
      * @return after upper first
      */
-    public static String upperFirst(CharSequence input) {
+    public static String toFirstUpper(CharSequence input) {
         return CharSequenceUtil.upperFirst(input);
     }
 
@@ -718,7 +718,7 @@ public class CharacterSequences extends Characters {
      * @param input the input element
      * @return after lower first
      */
-    public static String lowerFirst(CharSequence input) {
+    public static String toFirstLower(CharSequence input) {
         return CharSequenceUtil.lowerFirst(input);
     }
 
@@ -728,7 +728,7 @@ public class CharacterSequences extends Characters {
      * @param input the input element
      * @return after underline case
      */
-    public static String underlineCase(CharSequence input) {
+    public static String toUnderlineCase(CharSequence input) {
         return CharSequenceUtil.toUnderlineCase(input);
     }
 
@@ -739,7 +739,7 @@ public class CharacterSequences extends Characters {
      * @param symbol the symbol
      * @return after symbol case
      */
-    public static String symbolCase(CharSequence input, char symbol) {
+    public static String toSymbolCase(CharSequence input, char symbol) {
         return CharSequenceUtil.toSymbolCase(input, symbol);
     }
 
@@ -749,7 +749,7 @@ public class CharacterSequences extends Characters {
      * @param input the input element
      * @return after camel case
      */
-    public static String camelCase(CharSequence input) {
+    public static String toCamelCase(CharSequence input) {
         return CharSequenceUtil.toCamelCase(input);
     }
 

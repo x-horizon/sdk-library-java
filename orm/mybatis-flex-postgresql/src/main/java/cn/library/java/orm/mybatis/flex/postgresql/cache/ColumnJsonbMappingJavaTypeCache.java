@@ -9,10 +9,12 @@ import com.mybatisflex.annotation.Column;
 import java.lang.annotation.Annotation;
 
 /**
+ * the mybatis flex postgresql jdbc jsonb type and java type mapping cache
+ *
  * @author wjm
  * @since 2023-11-07 15:57
  */
-public class ColumnJsonbMappingRelationCache extends cn.library.java.orm.mybatis.contract.postgresql.cache.ColumnJsonbMappingRelationCache {
+public class ColumnJsonbMappingJavaTypeCache extends cn.library.java.orm.mybatis.contract.postgresql.cache.ColumnJsonbMappingJavaTypeCache {
 
     @Override
     protected Class<? extends Annotation> getTypeHandlerLocatedAnnotation() {

@@ -1,3 +1,7 @@
+// Copyright (C) 2021-2023 thinkingto.com Ltd. All rights reserved.
+// Use of this source code is governed by SRD.
+// license that can be found in the LICENSE file.
+
 package cn.library.java.orm.mybatis.contract.base.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -13,12 +17,12 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 分页参数
+ * the page param model
  *
  * @author wjm
- * @since 2020/01/05 13:45
+ * @since 2020-01-05 13:45
  */
-@Schema(description = "分页参数模型")
+@Schema(description = "page param model")
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
@@ -27,20 +31,14 @@ public class PageParam implements Serializable {
 
     @Serial private static final long serialVersionUID = -2956893884714618641L;
 
-    /**
-     * 页码
-     */
-    @Schema(description = "页码", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
-    @NotNull(message = "页码不能为空")
-    @Min(value = 1, message = "页码最小值为1")
+    @Schema(description = "page number", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
+    @NotNull(message = "page number is required")
+    @Min(value = 1, message = "the minimum page number is 1")
     private Integer pageIndex;
 
-    /**
-     * 每页显示条数
-     */
-    @Schema(description = "每页显示条数", requiredMode = Schema.RequiredMode.REQUIRED, example = "10")
-    @NotNull(message = "每页显示条数不能为空")
-    @Range(min = 1, max = 100, message = "每页显示条数范围为[1, 100]")
+    @Schema(description = "record number per page", requiredMode = Schema.RequiredMode.REQUIRED, example = "10")
+    @NotNull(message = "record number per page is required")
+    @Range(min = 1, max = 100, message = "the range of record number per page is [1, 100]")
     private Integer pageSize;
 
 }

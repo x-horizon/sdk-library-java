@@ -37,13 +37,9 @@ public class EnumAutowiredSupport<E extends Enum<E>> implements SmartInitializin
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     @Override
     public void afterSingletonsInstantiated() {
-        log.debug("{}starting matching...", ModuleView.ENUM_SYSTEM);
+        log.debug("{} enum autowired starting matching...", ModuleView.ENUM_SYSTEM);
 
         Set<String> scanPackagePaths = Classes.parseAnnotationAntStylePackagePathToPackagePath(EnableEnumAutowired.class, "scanPackagePaths");
-        if (Nil.isEmpty(scanPackagePaths)) {
-            scanPackagePaths = Classes.getBasePackagePath();
-        }
-
         Set<String> allScanPackagePaths = Classes.getTheLargestRangePackagePath(Collections.add(scanPackagePaths, Springs.getSpringBootApplicationPackagePath()));
         Set<BeanDefinition> enumAutowiredBeanDefinitions = Classes.scanByTypeFilter(new AnnotationTypeFilter(EnumAutowired.class), allScanPackagePaths);
         if (Nil.isEmpty(enumAutowiredBeanDefinitions)) {
@@ -91,7 +87,7 @@ public class EnumAutowiredSupport<E extends Enum<E>> implements SmartInitializin
             }
         });
 
-        log.debug("{}autowired finish, exit.", ModuleView.ENUM_SYSTEM);
+        log.debug("{}enum autowired finish, exit.", ModuleView.ENUM_SYSTEM);
     }
 
 }

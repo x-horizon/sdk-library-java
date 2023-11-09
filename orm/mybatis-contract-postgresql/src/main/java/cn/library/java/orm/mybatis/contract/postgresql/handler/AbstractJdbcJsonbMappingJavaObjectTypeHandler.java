@@ -12,21 +12,21 @@ import cn.srd.library.java.tool.lang.object.Nil;
 import java.util.Map;
 
 /**
- * the abstract definition of postgresql jdbc jsonb data type and java object data type mapping relation
+ * the postgresql jdbc jsonb data type and java object data type mapping relation abstract type handler
  *
  * @param <T> the java object data type
  * @author wjm
- * @since 2022-09-07 10:35
+ * @since 2023-11-07 20:58
  */
 public abstract class AbstractJdbcJsonbMappingJavaObjectTypeHandler<T> extends AbstractJdbcJsonbTypeHandler<T> {
 
     @Override
-    protected boolean isEmptyJsonbContent(String content) {
-        return Collections.isBlankOrEmptyMapString(content);
+    protected boolean isEmptyJsonbColumnValue(String columnValue) {
+        return Collections.isBlankOrEmptyMapString(columnValue);
     }
 
     @Override
-    protected T toJavaObjectWhenEmptyJsonbContent() {
+    protected T toJavaObjectWhenEmptyJsonbColumnValue() {
         return null;
     }
 
@@ -37,8 +37,8 @@ public abstract class AbstractJdbcJsonbMappingJavaObjectTypeHandler<T> extends A
 
     @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.RAW_TYPE})
     @Override
-    protected T doConvertToJavaObject(String content, Class javaType) {
-        return (T) Converts.withJackson().toBean(content, javaType);
+    protected T doConvertToJavaObject(String columnValue, Class javaType) {
+        return (T) Converts.withJackson().toBean(columnValue, javaType);
     }
 
 }

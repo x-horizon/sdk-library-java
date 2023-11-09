@@ -12,7 +12,7 @@ import cn.srd.library.java.tool.lang.object.Nil;
 import java.util.List;
 
 /**
- * the abstract definition of postgresql jdbc jsonb data type and java list object data type mapping relation
+ * the postgresql jdbc jsonb data type and java list object data type mapping relation abstract type handler
  *
  * @param <T> the java object data type
  * @author wjm
@@ -21,12 +21,12 @@ import java.util.List;
 public abstract class AbstractJdbcJsonbMappingJavaListObjectTypeHandler<T> extends AbstractJdbcJsonbTypeHandler<List<T>> {
 
     @Override
-    protected boolean isEmptyJsonbContent(String content) {
-        return Collections.isBlankOrEmptyArrayString(content);
+    protected boolean isEmptyJsonbColumnValue(String columnValue) {
+        return Collections.isBlankOrEmptyArrayString(columnValue);
     }
 
     @Override
-    protected List<T> toJavaObjectWhenEmptyJsonbContent() {
+    protected List<T> toJavaObjectWhenEmptyJsonbColumnValue() {
         return Collections.newArrayList();
     }
 
@@ -37,8 +37,8 @@ public abstract class AbstractJdbcJsonbMappingJavaListObjectTypeHandler<T> exten
 
     @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.RAW_TYPE})
     @Override
-    protected List<T> doConvertToJavaObject(String content, Class javaType) {
-        return Converts.withJackson().toBeans(content, javaType);
+    protected List<T> doConvertToJavaObject(String columnValue, Class javaType) {
+        return Converts.withJackson().toBeans(columnValue, javaType);
     }
 
 }

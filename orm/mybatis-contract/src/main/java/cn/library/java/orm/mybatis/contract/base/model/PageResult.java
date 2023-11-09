@@ -1,3 +1,7 @@
+// Copyright (C) 2021-2023 thinkingto.com Ltd. All rights reserved.
+// Use of this source code is governed by SRD.
+// license that can be found in the LICENSE file.
+
 package cn.library.java.orm.mybatis.contract.base.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -11,13 +15,13 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 分页结果
+ * the page result model
  *
  * @param <T> the page result element data type
  * @author wjm
- * @since 2020/01/05 13:45
+ * @since 2020-01-05 13:45
  */
-@Schema(description = "分页结果模型")
+@Schema(description = "page result model")
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
@@ -26,40 +30,22 @@ public class PageResult<T> implements Serializable {
 
     @Serial private static final long serialVersionUID = -6490851620278359181L;
 
-    /**
-     * 总条数
-     */
-    @Schema(description = "总条数", required = true, example = "1000")
+    @Schema(description = "total record number", requiredMode = Schema.RequiredMode.REQUIRED, example = "1000")
     private Long total;
 
-    /**
-     * 总页数
-     */
-    @Schema(description = "总页数", required = true, example = "100")
+    @Schema(description = "total page number", requiredMode = Schema.RequiredMode.REQUIRED, example = "100")
     private Long totalPages;
 
-    /**
-     * 当前页码
-     */
-    @Schema(description = "当前页码", required = true, example = "1")
+    @Schema(description = "current page number", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
     private Long currentPage;
 
-    /**
-     * 每页显示条数
-     */
-    @Schema(description = "每页显示条数", required = true, example = "10")
+    @Schema(description = "record number per page", requiredMode = Schema.RequiredMode.REQUIRED, example = "10")
     private Long pageSize;
 
-    /**
-     * 集合数据
-     */
-    @Schema(description = "集合数据", required = true)
+    @Schema(description = "collection record", requiredMode = Schema.RequiredMode.REQUIRED)
     private List<T> data;
 
-    /**
-     * 对象数据
-     */
-    @Schema(description = "对象数据")
+    @Schema(description = "object record")
     private Object datum;
 
 }
