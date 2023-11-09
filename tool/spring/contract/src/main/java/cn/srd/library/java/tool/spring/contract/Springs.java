@@ -75,7 +75,7 @@ public class Springs {
      * @return the bean
      */
     public static Object getBean(String input) {
-        String beanName = Strings.lowerFirst(input);
+        String beanName = Strings.toFirstLower(input);
         return Optional.ofNullable(Try.of(() -> SpringUtil.getBean(beanName)).getOrNull())
                 .orElse(Try.of(() -> ANNOTATION_CONFIG_APPLICATION_CONTEXT.getBean(beanName)).getOrNull());
     }
@@ -89,7 +89,7 @@ public class Springs {
      * @return the bean
      */
     public static <T> T getBean(String input, Class<T> beanClass) {
-        String beanName = Strings.lowerFirst(input);
+        String beanName = Strings.toFirstLower(input);
         return Optional.ofNullable(Try.of(() -> SpringUtil.getBean(beanName, beanClass)).getOrNull())
                 .orElse(Try.of(() -> ANNOTATION_CONFIG_APPLICATION_CONTEXT.getBean(beanName, beanClass)).getOrNull());
     }
@@ -149,7 +149,7 @@ public class Springs {
      * @param <T>   the class type
      */
     public static <T> void registerBean(Class<T> input) {
-        registerBean(Strings.lowerFirst(input.getSimpleName()), input);
+        registerBean(Strings.toFirstLower(input.getSimpleName()), input);
     }
 
     /**
