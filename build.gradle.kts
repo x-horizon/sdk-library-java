@@ -9,7 +9,6 @@ plugins {
 }
 
 allprojects {
-
     apply(plugin = GradlePlugin.MAVEN_PUBLISH)
     apply(plugin = GradlePlugin.CHECK_STYLE)
 
@@ -40,11 +39,9 @@ allprojects {
     tasks.withType<GenerateModuleMetadata> {
         suppressedValidationErrors.add("enforced-platform")
     }
-
 }
 
 subprojects {
-
     if (GradleModule.toModuleName(project.toString()) != GradleModule.BOM) {
         apply(plugin = GradlePlugin.JAVA_LIBRARY)
 
@@ -95,7 +92,6 @@ subprojects {
             }
         }
     }
-
 }
 
 
