@@ -35,7 +35,7 @@ import java.util.UUID;
  *
  *         // need to replace this annotation from the specified orm framework
  *         // add the type handler
- *         @OrmFrameworkColumnMarkedDemo(columnName = "family_id", typeHandler = JdbcStringMappingJavaUUIDTypeHandler.class)
+ *         @OrmFrameworkColumnMarkedDemo(columnName = "family_id", typeHandler = JdbcCharMappingJavaUUIDTypeHandler.class)
  *         private UUID familyId;
  *
  *     }
@@ -43,13 +43,13 @@ import java.util.UUID;
  * </pre>
  *
  * <h2>note: the core of the postgresql jdbc string and java {@link UUID uuid} mapping relation is:</h2>
- * <strong><em>@OrmFrameworkColumnMarkedDemo(columnName = "family_id", typeHandler = JdbcStringMappingJavaUUIDTypeHandler.class)</em></strong>
+ * <strong><em>@OrmFrameworkColumnMarkedDemo(columnName = "family_id", typeHandler = JdbcCharMappingJavaUUIDTypeHandler.class)</em></strong>
  * <p/>
  *
  * @author wjm
  * @since 2022-07-12 18:42
  */
-public class JdbcStringMappingJavaUUIDTypeHandler extends AbstractJdbcComplexTypeHandler<UUID> {
+public class JdbcCharMappingJavaUUIDTypeHandler extends AbstractJdbcComplexTypeHandler<UUID> {
 
     @Override
     protected Object toJdbcObject(UUID javaObject) {

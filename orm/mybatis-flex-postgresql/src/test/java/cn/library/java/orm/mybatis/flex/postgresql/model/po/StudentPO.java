@@ -1,6 +1,6 @@
 package cn.library.java.orm.mybatis.flex.postgresql.model.po;
 
-import cn.library.java.orm.mybatis.contract.base.handler.JdbcStringMappingJavaUUIDTypeHandler;
+import cn.library.java.orm.mybatis.contract.base.handler.JdbcCharMappingJavaUUIDTypeHandler;
 import cn.library.java.orm.mybatis.contract.base.handler.JdbcUUIDMappingJavaStringTypeHandler;
 import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaListEnumIntegerTypeHandler;
 import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaListLongTypeHandler;
@@ -37,7 +37,7 @@ public class StudentPO extends BasePO {
     @Column(value = "teacher_id", typeHandler = JdbcUUIDMappingJavaStringTypeHandler.class)
     private String teacherId;
 
-    @Column(value = "class_id", typeHandler = JdbcStringMappingJavaUUIDTypeHandler.class)
+    @Column(value = "class_id", typeHandler = JdbcCharMappingJavaUUIDTypeHandler.class)
     private UUID classId;
 
     @Column(value = "family_ids", typeHandler = JdbcJsonbMappingJavaListLongTypeHandler.class)
