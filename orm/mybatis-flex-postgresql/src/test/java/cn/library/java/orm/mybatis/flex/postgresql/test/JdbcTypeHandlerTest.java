@@ -1,6 +1,10 @@
-package cn.library.java.orm.mybatis.flex.postgresql.handler.test;
+package cn.library.java.orm.mybatis.flex.postgresql.test;
 
-import cn.library.java.orm.mybatis.flex.postgresql.handler.data.*;
+import cn.library.java.orm.mybatis.flex.postgresql.dao.StudentDao;
+import cn.library.java.orm.mybatis.flex.postgresql.model.enums.JobType;
+import cn.library.java.orm.mybatis.flex.postgresql.model.po.ClassPO;
+import cn.library.java.orm.mybatis.flex.postgresql.model.po.DetailPO;
+import cn.library.java.orm.mybatis.flex.postgresql.model.po.StudentPO;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.time.Times;
 import org.junit.Test;
@@ -13,15 +17,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 import java.util.UUID;
 
-// @EnableSnowflakeId
 @MapperScan("cn.library.java.orm.mybatis.flex.postgresql.dao")
-// @EnableMybatisFlexCustomizer(
-//         globalIdGenerateConfig = @IdGenerateConfig(type = IdGenerateType.AUTO_INCREMENT),
-//         auditConfig = @AuditConfig(enableLogSQL = "${library.java.orm.enable-audit-message}")
-// )
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MybatisFlexPostgresqlHandlerTest {
+public class JdbcTypeHandlerTest {
 
     @Autowired private StudentDao studentDao;
 
@@ -34,7 +33,7 @@ public class MybatisFlexPostgresqlHandlerTest {
         List<StudentPO> studentPOs2 = studentDao.selectAll();
 
         studentDao.insertSelective(StudentPO.builder()
-                .id(93L)
+                .id(94L)
                 .classId(UUID.fromString("2af3acfd-5d1d-414c-b72f-5815c595fb6e"))
                 .teacherId("2af3acfd-5d1d-414c-b72f-5815c595fb6e")
                 .familyIds(Collections.ofImmutableList(1L, 2L, 3L))

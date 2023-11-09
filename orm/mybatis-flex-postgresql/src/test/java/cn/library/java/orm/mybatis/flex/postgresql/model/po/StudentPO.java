@@ -1,4 +1,4 @@
-package cn.library.java.orm.mybatis.flex.postgresql.handler.data;
+package cn.library.java.orm.mybatis.flex.postgresql.model.po;
 
 import cn.library.java.orm.mybatis.contract.base.handler.JdbcCharMappingJavaUUIDTypeHandler;
 import cn.library.java.orm.mybatis.contract.base.handler.JdbcUUIDMappingJavaStringTypeHandler;
@@ -6,6 +6,7 @@ import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJ
 import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaListLongTypeHandler;
 import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaNullableEntityTypeHandler;
 import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaNullableListEntityTypeHandler;
+import cn.library.java.orm.mybatis.flex.postgresql.model.enums.JobType;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;

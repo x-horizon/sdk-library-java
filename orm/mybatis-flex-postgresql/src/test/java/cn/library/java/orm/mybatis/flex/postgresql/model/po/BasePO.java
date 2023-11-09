@@ -1,4 +1,4 @@
-package cn.library.java.orm.mybatis.flex.postgresql.handler.data;
+package cn.library.java.orm.mybatis.flex.postgresql.model.po;
 
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonLongToLocalDateTimeDeserializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonLocalDateTimeToLongSerializer;
