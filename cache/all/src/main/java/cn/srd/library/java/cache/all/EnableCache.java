@@ -1,6 +1,5 @@
 package cn.srd.library.java.cache.all;
 
-import cn.srd.library.java.cache.all.support.aspect.*;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -14,14 +13,7 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import({
-        CacheReadAspect.class,
-        CacheReadAllAspect.class,
-        CacheWriteAspect.class,
-        CacheWriteBatchAspect.class,
-        CacheEvictAspect.class,
-        CachingAspect.class,
-})
+@Import(CacheSwitcher.class)
 public @interface EnableCache {
 
 }

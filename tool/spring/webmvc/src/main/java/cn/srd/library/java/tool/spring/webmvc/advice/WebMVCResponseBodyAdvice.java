@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.tool.spring.webmvc;
+package cn.srd.library.java.tool.spring.webmvc.advice;
 
 import cn.srd.library.java.contract.constant.web.HttpStatus;
 import cn.srd.library.java.contract.model.protocol.WebResponse;
@@ -14,8 +14,6 @@ import cn.srd.library.java.tool.lang.text.Strings;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.core.MethodParameter;
@@ -52,7 +50,6 @@ import static cn.srd.library.java.contract.model.protocol.WebResponse.success;
 @Slf4j
 @Order
 @RestControllerAdvice
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WebMVCResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Override

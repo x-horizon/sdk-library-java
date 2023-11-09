@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.tool.spring.webmvc;
+package cn.srd.library.java.tool.spring.webmvc.advice;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.spring.SpringFrameworkConstant;

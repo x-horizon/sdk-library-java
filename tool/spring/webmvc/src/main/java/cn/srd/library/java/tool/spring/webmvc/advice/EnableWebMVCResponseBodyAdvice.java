@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.tool.spring.webmvc;
+package cn.srd.library.java.tool.spring.webmvc.advice;
 
 import org.springframework.context.annotation.Import;
 
@@ -17,7 +17,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import({WebMVCResponseBodyAdvice.class, ControllerAdvicePackagePathReplacer.class})
+@Import(WebMVCResponseBodyAdviceSwitcher.class)
 public @interface EnableWebMVCResponseBodyAdvice {
 
     String[] advicePackagePaths() default {};

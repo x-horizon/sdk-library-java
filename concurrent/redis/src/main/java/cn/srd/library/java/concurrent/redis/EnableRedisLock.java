@@ -1,7 +1,5 @@
 package cn.srd.library.java.concurrent.redis;
 
-import cn.srd.library.java.concurrent.redis.support.RedisFairLockAspect;
-import cn.srd.library.java.concurrent.redis.support.RedisNonFairLockAspect;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -15,12 +13,7 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import({
-        RedisFairLockHandler.class,
-        RedisFairLockAspect.class,
-        RedisNonFairLockHandler.class,
-        RedisNonFairLockAspect.class,
-})
+@Import(RedisLockSwitcher.class)
 public @interface EnableRedisLock {
 
 }
