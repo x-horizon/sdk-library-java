@@ -13,13 +13,13 @@ import java.lang.annotation.*;
  *
  * @author wjm
  * @see EnumAutowired
- * @see EnumAutowiredSupport
+ * @see EnumAutowiredHandler
  * @since 2021-09-08 16:07
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(EnableEnumAutowiredSwitcher.class)
+@Import(EnumAutowiredSwitcher.class)
 public @interface EnableEnumAutowired {
 
     /**

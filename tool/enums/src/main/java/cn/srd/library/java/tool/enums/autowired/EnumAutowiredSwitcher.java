@@ -10,6 +10,6 @@ package cn.srd.library.java.tool.enums.autowired;
  * @author wjm
  * @since 2023-11-09 21:01
  */
-public class EnableEnumAutowiredSwitcher {
+public class EnumAutowiredSwitcher {
 
 }

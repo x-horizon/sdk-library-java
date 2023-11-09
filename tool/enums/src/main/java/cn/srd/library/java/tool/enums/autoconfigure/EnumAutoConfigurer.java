@@ -4,8 +4,8 @@
 
 package cn.srd.library.java.tool.enums.autoconfigure;
 
-import cn.srd.library.java.tool.enums.autowired.EnableEnumAutowiredSwitcher;
-import cn.srd.library.java.tool.enums.autowired.EnumAutowiredSupport;
+import cn.srd.library.java.tool.enums.autowired.EnumAutowiredHandler;
+import cn.srd.library.java.tool.enums.autowired.EnumAutowiredSwitcher;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -21,9 +21,9 @@ import org.springframework.context.annotation.Bean;
 public class EnumAutoConfigurer {
 
     @Bean
-    @ConditionalOnBean(EnableEnumAutowiredSwitcher.class)
-    public <E extends Enum<E>> EnumAutowiredSupport<E> enumAutowiredSupport() {
-        return new EnumAutowiredSupport<>();
+    @ConditionalOnBean(EnumAutowiredSwitcher.class)
+    public <E extends Enum<E>> EnumAutowiredHandler<E> enumAutowiredHandler() {
+        return new EnumAutowiredHandler<>();
     }
 
 }

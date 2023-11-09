@@ -32,7 +32,7 @@ import java.util.Set;
  * @since 2021-09-08 16:07
  */
 @Slf4j
-public class EnumAutowiredSupport<E extends Enum<E>> implements SmartInitializingSingleton {
+public class EnumAutowiredHandler<E extends Enum<E>> implements SmartInitializingSingleton {
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     @Override

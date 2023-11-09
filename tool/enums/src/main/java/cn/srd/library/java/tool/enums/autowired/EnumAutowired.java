@@ -79,7 +79,7 @@ import java.util.List;
  * @author wjm
  * @see Classes#scanByTypeFilter(TypeFilter, String...)
  * @see Strings#getMostSimilar(String, Collection)
- * @see EnumAutowiredSupport
+ * @see EnumAutowiredHandler
  * @see EnumAutowiredFieldMatchByMostSimilarRule#getMostSuitableAutowiredClassName(Enum, List)
  * @since 2021-09-08 16:07
  */
