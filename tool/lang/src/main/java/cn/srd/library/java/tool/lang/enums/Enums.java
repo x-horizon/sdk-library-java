@@ -25,7 +25,6 @@ import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * toolkit for enum
@@ -544,7 +543,7 @@ public class Enums {
                         }
                         for (E enumObj : enumClass.getEnumConstants()) {
                             Object fieldValue = Reflects.getFieldValueIgnoreThrowable(enumObj, field);
-                            if (Objects.equals(fieldValue, enumFiledValue)) {
+                            if (Comparators.equals(fieldValue, enumFiledValue)) {
                                 return enumObj;
                             }
                             // handle varargs condition
