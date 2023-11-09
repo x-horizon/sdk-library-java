@@ -1,4 +1,4 @@
-package cn.library.java.orm.mybatis.flex.postgresql.model.enums;
+package cn.library.java.orm.mybatis.flex.postgresql.handler.data;
 
 import com.mybatisflex.annotation.EnumValue;
 import lombok.AllArgsConstructor;

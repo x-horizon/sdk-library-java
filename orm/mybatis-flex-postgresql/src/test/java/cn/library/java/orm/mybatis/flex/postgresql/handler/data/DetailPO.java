@@ -1,4 +1,4 @@
-package cn.library.java.orm.mybatis.flex.postgresql.model.po;
+package cn.library.java.orm.mybatis.flex.postgresql.handler.data;
 
 import cn.srd.library.java.tool.convert.jackson.NullableObject;
 import lombok.Data;

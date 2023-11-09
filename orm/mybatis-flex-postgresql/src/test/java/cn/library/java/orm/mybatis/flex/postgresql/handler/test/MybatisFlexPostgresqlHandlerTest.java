@@ -1,7 +1,7 @@
-package cn.library.java.orm.mybatis.flex.postgresql.test;
+package cn.library.java.orm.mybatis.flex.postgresql.handler.test;
 
-import cn.library.java.orm.mybatis.flex.postgresql.dao.StudentDao;
-import cn.library.java.orm.mybatis.flex.postgresql.model.po.StudentPO;
+import cn.library.java.orm.mybatis.flex.postgresql.handler.data.*;
+import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.time.Times;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.UUID;
 
 // @EnableSnowflakeId
 @MapperScan("cn.library.java.orm.mybatis.flex.postgresql.dao")
@@ -20,7 +21,7 @@ import java.util.List;
 // )
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MybatisFlexPostgreSQLTest {
+public class MybatisFlexPostgresqlHandlerTest {
 
     @Autowired private StudentDao studentDao;
 
@@ -33,13 +34,13 @@ public class MybatisFlexPostgreSQLTest {
         List<StudentPO> studentPOs2 = studentDao.selectAll();
 
         studentDao.insertSelective(StudentPO.builder()
-                .id(92L)
-                // .classId(UUID.fromString("2af3acfd-5d1d-414c-b72f-5815c595fb6e"))
-                // .teacherId("2af3acfd-5d1d-414c-b72f-5815c595fb6e")
-                // .familyIds(Collections.ofImmutableList(1L, 2L, 3L))
-                // .jobTypes(Collections.ofImmutableList(JobType.A, JobType.B, JobType.A))
-                // .classPOs(Collections.ofImmutableList(ClassPO.builder().id(1L).name("mmm").build(), ClassPO.builder().id(2L).name("mmm1").build()))
-                // .detailPO(DetailPO.builder().name("vvv").age((short) 19).build())
+                .id(93L)
+                .classId(UUID.fromString("2af3acfd-5d1d-414c-b72f-5815c595fb6e"))
+                .teacherId("2af3acfd-5d1d-414c-b72f-5815c595fb6e")
+                .familyIds(Collections.ofImmutableList(1L, 2L, 3L))
+                .jobTypes(Collections.ofImmutableList(JobType.A, JobType.B, JobType.A))
+                .classPOs(Collections.ofImmutableList(ClassPO.builder().id(1L).name("mmm").build(), ClassPO.builder().id(2L).name("mmm1").build()))
+                .detailPO(DetailPO.builder().name("vvv").age((short) 19).build())
                 .version(1L)
                 .creatorId(1L)
                 .createTime(Times.getCurrentDateTime())
