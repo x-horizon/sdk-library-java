@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
  * @since 2023-11-08 15:42
  */
 @AutoConfiguration
-public class MybatisFlexPostgreSQLAutoConfigurer {
+public class MybatisFlexPostgresqlAutoConfigurer {
 
     /**
      * register {@link ColumnJsonbMappingJavaTypeCache}

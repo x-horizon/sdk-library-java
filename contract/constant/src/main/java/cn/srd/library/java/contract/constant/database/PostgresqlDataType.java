@@ -15,12 +15,12 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum PostgreSQLDataType {
+public enum PostgresqlDataType {
 
     JSONB("jsonb"),
 
     ;
-    
+
     private final String value;
 
 }

@@ -6,7 +6,7 @@ package cn.library.java.orm.mybatis.contract.postgresql.handler;
 
 import cn.library.java.orm.mybatis.contract.base.handler.AbstractJdbcComplexTypeHandler;
 import cn.library.java.orm.mybatis.contract.base.type.JdbcComplexType;
-import cn.srd.library.java.contract.constant.database.PostgreSQLDataType;
+import cn.srd.library.java.contract.constant.database.PostgresqlDataType;
 import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.model.throwable.RunningException;
@@ -67,7 +67,7 @@ public abstract class AbstractJdbcJsonbTypeHandler<T> extends AbstractJdbcComple
     @Override
     protected Object toJdbcObject(T javaObject) {
         PGobject pgObject = new PGobject();
-        pgObject.setType(PostgreSQLDataType.JSONB.getValue());
+        pgObject.setType(PostgresqlDataType.JSONB.getValue());
         pgObject.setValue(Converts.withJackson().toString(doConvertToJdbcObject(javaObject)));
         return pgObject;
     }
