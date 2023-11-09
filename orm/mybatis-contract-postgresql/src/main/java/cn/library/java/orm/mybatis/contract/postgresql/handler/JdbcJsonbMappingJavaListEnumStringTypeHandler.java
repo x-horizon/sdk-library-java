@@ -6,14 +6,14 @@ package cn.library.java.orm.mybatis.contract.postgresql.handler;
 
 /**
  * <pre>
- * the postgresql jdbc jsonb data type and java list enum integer value mapping relation type handler.
+ * the postgresql jdbc jsonb data type and java list enum string value mapping relation type handler.
  *
  * 1. the postgresql sql contain jsonb like array [] as following:
  * {@code
  *     CREATE TABLE example
  *     (
  *         id    BIGINT                     NOT NULL,
- *         types JSONB  DEFAULT '[]'::JSONB NOT NULL, -- the value like [1, 2, 3]
+ *         types JSONB  DEFAULT '[]'::JSONB NOT NULL, -- the value like ["a", "b", "c"]
  *         PRIMARY KEY (id)
  *     );
  * }
@@ -34,7 +34,7 @@ package cn.library.java.orm.mybatis.contract.postgresql.handler;
  *
  *         // need to replace this annotation from the specified orm framework
  *         // add the type handler
- *         @OrmFrameworkColumnMarkedDemo(columnName = "types", typeHandler = JdbcJsonbMappingJavaListEnumIntegerTypeHandler.class)
+ *         @OrmFrameworkColumnMarkedDemo(columnName = "types", typeHandler = JdbcJsonbMappingJavaListEnumStringTypeHandler.class)
  *         private List<TypeEnum> types;
  *
  *     }
@@ -46,9 +46,9 @@ package cn.library.java.orm.mybatis.contract.postgresql.handler;
  *     @AllArgsConstructor
  *     public class TypeEnum {
  *
- *         A(1),
- *         B(2),
- *         C(3),
+ *         A("a"),
+ *         B("b"),
+ *         C("c"),
  *
  *         ;
  *
@@ -59,19 +59,19 @@ package cn.library.java.orm.mybatis.contract.postgresql.handler;
  * }
  * </pre>
  *
- * <h2>note: the core of the postgresql jdbc jsonb data type and java list enum integer value mapping relation is:</h2>
- * <strong><em>@OrmFrameworkColumnMarkedDemo(columnName = "types", typeHandler = JdbcJsonbMappingJavaListEnumIntegerTypeHandler.class)</em></strong>
+ * <h2>note: the core of the postgresql jdbc jsonb data type and java list enum string value mapping relation is:</h2>
+ * <strong><em>@OrmFrameworkColumnMarkedDemo(columnName = "types", typeHandler = JdbcJsonbMappingJavaListEnumStringTypeHandler.class)</em></strong>
  * <p/>
  *
  * @param <E> the enum data type
- * @author xiongjing
- * @since 2023-05-09 10:35
+ * @author wjm
+ * @since 2023-11-09 18:45
  */
-public class JdbcJsonbMappingJavaListEnumIntegerTypeHandler<E extends Enum<E>> extends AbstractJdbcJsonbMappingJavaListEnumTypeHandler<E> {
+public class JdbcJsonbMappingJavaListEnumStringTypeHandler<E extends Enum<E>> extends AbstractJdbcJsonbMappingJavaListEnumTypeHandler<E> {
 
     @Override
     protected Class<?> selectEnumFieldType() {
-        return Integer.class;
+        return String.class;
     }
 
 }

@@ -11,6 +11,8 @@ import cn.srd.library.java.tool.lang.text.Strings;
 import java.util.List;
 
 /**
+ * the postgresql jdbc jsonb data type and java list enum mapping relation abstract type handler
+ *
  * @param <E> the enum data type
  * @author wjm
  * @since 2023-11-09 18:45
