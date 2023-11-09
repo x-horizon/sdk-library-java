@@ -25,7 +25,11 @@ import java.sql.ResultSet;
 public abstract class AbstractJdbcComplexTypeHandler<T> extends BaseTypeHandler<T> {
 
     /**
+     * <pre>
      * convert java object to jdbc object
+     *
+     * note: the java object instance will never be null
+     * </pre>
      *
      * @param javaObject java object
      * @return jdbc object
@@ -43,8 +47,8 @@ public abstract class AbstractJdbcComplexTypeHandler<T> extends BaseTypeHandler<
 
     @SneakyThrows
     @Override
-    public void setNonNullParameter(PreparedStatement preparedStatement, int columnIndex, T parameter, JdbcType jdbcType) {
-        preparedStatement.setObject(columnIndex, toJdbcObject(parameter));
+    public void setNonNullParameter(PreparedStatement preparedStatement, int columnIndex, T javaObject, JdbcType jdbcType) {
+        preparedStatement.setObject(columnIndex, toJdbcObject(javaObject));
     }
 
     @SneakyThrows

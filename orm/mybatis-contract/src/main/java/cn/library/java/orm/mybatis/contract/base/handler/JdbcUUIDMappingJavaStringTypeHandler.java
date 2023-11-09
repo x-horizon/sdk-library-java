@@ -1,6 +1,5 @@
 package cn.library.java.orm.mybatis.contract.base.handler;
 
-import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.SneakyThrows;
 
 import java.util.UUID;
@@ -53,7 +52,7 @@ public class JdbcUUIDMappingJavaStringTypeHandler extends AbstractJdbcComplexTyp
 
     @Override
     protected Object toJdbcObject(String javaObject) {
-        return Nil.isBlank(javaObject) ? null : UUID.fromString(javaObject);
+        return UUID.fromString(javaObject);
     }
 
     @SneakyThrows

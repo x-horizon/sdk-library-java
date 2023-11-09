@@ -59,7 +59,9 @@ public abstract class AbstractJdbcJsonbTypeHandler<T> extends AbstractJdbcComple
      * @param javaObject the java object
      * @return postgresql jdbc jsonb object
      */
-    protected abstract Object doConvertToJdbcObject(T javaObject);
+    protected Object doConvertToJdbcObject(T javaObject) {
+        return javaObject;
+    }
 
     @SneakyThrows
     @Override

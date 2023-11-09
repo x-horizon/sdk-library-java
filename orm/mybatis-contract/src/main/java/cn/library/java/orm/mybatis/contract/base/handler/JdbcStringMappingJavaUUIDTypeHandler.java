@@ -1,6 +1,5 @@
 package cn.library.java.orm.mybatis.contract.base.handler;
 
-import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.SneakyThrows;
 
@@ -54,7 +53,7 @@ public class JdbcStringMappingJavaUUIDTypeHandler extends AbstractJdbcComplexTyp
 
     @Override
     protected Object toJdbcObject(UUID javaObject) {
-        return Nil.isNull(javaObject) ? SymbolConstant.EMPTY : javaObject.toString();
+        return javaObject.toString();
     }
 
     @SneakyThrows

@@ -7,9 +7,6 @@ package cn.library.java.orm.mybatis.contract.postgresql.handler;
 import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.collection.Collections;
-import cn.srd.library.java.tool.lang.object.Nil;
-
-import java.util.Map;
 
 /**
  * the postgresql jdbc jsonb data type and java object data type mapping relation abstract type handler
@@ -28,11 +25,6 @@ public abstract class AbstractJdbcJsonbMappingJavaObjectTypeHandler<T> extends A
     @Override
     protected T toJavaObjectWhenEmptyJsonbColumnValue() {
         return null;
-    }
-
-    @Override
-    protected Object doConvertToJdbcObject(T javaObject) {
-        return Nil.isNull(javaObject) ? Map.of() : javaObject;
     }
 
     @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.RAW_TYPE})

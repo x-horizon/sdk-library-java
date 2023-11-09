@@ -5,7 +5,6 @@
 package cn.library.java.orm.mybatis.contract.postgresql.handler;
 
 import cn.srd.library.java.tool.convert.jackson.NullableObject;
-import cn.srd.library.java.tool.lang.object.Nil;
 
 import java.util.Map;
 
@@ -81,7 +80,7 @@ public class JdbcJsonbMappingJavaNullableEntityTypeHandler<T extends NullableObj
 
     @Override
     protected Object doConvertToJdbcObject(T javaObject) {
-        return Nil.isNull(javaObject) || javaObject.isNull() ? Map.of() : javaObject;
+        return javaObject.isNull() ? Map.of() : javaObject;
     }
 
 }

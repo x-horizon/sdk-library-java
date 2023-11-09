@@ -7,7 +7,6 @@ package cn.library.java.orm.mybatis.contract.postgresql.handler;
 import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.collection.Collections;
-import cn.srd.library.java.tool.lang.object.Nil;
 
 import java.util.List;
 
@@ -28,11 +27,6 @@ public abstract class AbstractJdbcJsonbMappingJavaListObjectTypeHandler<T> exten
     @Override
     protected List<T> toJavaObjectWhenEmptyJsonbColumnValue() {
         return Collections.newArrayList();
-    }
-
-    @Override
-    protected Object doConvertToJdbcObject(List<T> javaObjects) {
-        return Nil.isNull(javaObjects) ? Collections.newImmutableList() : javaObjects;
     }
 
     @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.RAW_TYPE})

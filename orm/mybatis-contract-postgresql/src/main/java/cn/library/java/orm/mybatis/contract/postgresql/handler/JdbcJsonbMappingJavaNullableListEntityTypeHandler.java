@@ -5,8 +5,6 @@
 package cn.library.java.orm.mybatis.contract.postgresql.handler;
 
 import cn.srd.library.java.tool.convert.jackson.NullableObject;
-import cn.srd.library.java.tool.lang.collection.Collections;
-import cn.srd.library.java.tool.lang.object.Nil;
 
 import java.util.List;
 
@@ -87,9 +85,7 @@ public class JdbcJsonbMappingJavaNullableListEntityTypeHandler<T extends Nullabl
 
     @Override
     protected Object doConvertToJdbcObject(List<T> javaObjects) {
-        return Nil.isNull(javaObjects) ?
-                Collections.newImmutableList() :
-                javaObjects.stream().filter(NullableObject::isNotNull).toList();
+        return javaObjects.stream().filter(NullableObject::isNotNull).toList();
     }
 
 }

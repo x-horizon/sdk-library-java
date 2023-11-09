@@ -34,11 +34,11 @@ public class StudentPO extends BasePO {
     @Column(value = "id")
     private Long id;
 
-    @Column(value = "teacher_id", typeHandler = JdbcStringMappingJavaUUIDTypeHandler.class)
-    private UUID teacherId;
+    @Column(value = "teacher_id", typeHandler = JdbcUUIDMappingJavaStringTypeHandler.class)
+    private String teacherId;
 
-    @Column(value = "class_id", typeHandler = JdbcUUIDMappingJavaStringTypeHandler.class)
-    private String classId;
+    @Column(value = "class_id", typeHandler = JdbcStringMappingJavaUUIDTypeHandler.class)
+    private UUID classId;
 
     @Column(value = "family_ids", typeHandler = JdbcJsonbMappingJavaListLongTypeHandler.class)
     private List<Long> familyIds;
