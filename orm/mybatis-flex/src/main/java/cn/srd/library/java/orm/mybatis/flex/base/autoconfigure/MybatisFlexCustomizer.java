@@ -1,7 +1,6 @@
 package cn.srd.library.java.orm.mybatis.flex.base.autoconfigure;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.tool.spring.contract.Annotations;
 import com.mybatisflex.core.FlexGlobalConfig;
 import com.mybatisflex.core.mybatis.FlexConfiguration;
 import com.mybatisflex.spring.boot.ConfigurationCustomizer;
@@ -20,8 +19,8 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
     public void customize(FlexGlobalConfig globalConfig) {
         log.debug("{}mybatis flex customizer is enabled, starting initializing...", ModuleView.ORM_MYBATIS_SYSTEM);
 
-        EnableMybatisFlexCustomizer mybatisFlexCustomizer = Annotations.getAnnotation(EnableMybatisFlexCustomizer.class);
-        globalConfig.setKeyConfig(mybatisFlexCustomizer.globalIdGenerateConfig().type().getStrategy().build(mybatisFlexCustomizer.globalIdGenerateConfig()));
+        // EnableMybatisFlexCustomizer mybatisFlexCustomizer = Annotations.getAnnotation(EnableMybatisFlexCustomizer.class);
+        // globalConfig.setKeyConfig(mybatisFlexCustomizer.globalIdGenerateConfig().type().getStrategy().build(mybatisFlexCustomizer.globalIdGenerateConfig()));
 
         // handleAuditConfig(mybatisFlexCustomizer.auditConfig());
 

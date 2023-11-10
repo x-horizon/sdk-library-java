@@ -1,7 +1,9 @@
 package cn.srd.library.java.orm.mybatis.flex.base.autoconfigure;
 
+import com.mybatisflex.spring.boot.MybatisFlexAutoConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 
@@ -10,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 @AutoConfiguration
 // @Import({PostgresqlMetadataInjector.class})
 // @EnableConfigurationProperties(OrmMybatisPlusProperties.class)
-// @AutoConfigureBefore(MybatisFlexAutoConfiguration.class)
+@AutoConfigureBefore(MybatisFlexAutoConfiguration.class)
 // @EnableConfigurationProperties(RedisCacheProperties.class)
 public class MybatisFlexAutoConfigurer {
 

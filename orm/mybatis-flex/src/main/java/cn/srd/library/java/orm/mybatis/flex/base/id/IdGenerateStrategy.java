@@ -50,7 +50,7 @@ public interface IdGenerateStrategy {
     private FlexGlobalConfig.KeyConfig doBuild(IdConfig idConfig) {
         FlexGlobalConfig.KeyConfig keyConfig = new FlexGlobalConfig.KeyConfig();
         keyConfig.setKeyType(idConfig.type().getMybatisFlexIdType());
-        keyConfig.setValue(getGeneratorName());
+        // keyConfig.setValue(getGeneratorName());
         keyConfig.setBefore(true);
         return keyConfig;
     }
