@@ -52,15 +52,15 @@ import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
  */
 public class JdbcJsonbMappingJavaStringTypeHandler extends AbstractJdbcJsonbMappingJavaObjectTypeHandler<String> {
 
+    @Override
+    protected Object toJdbcObject(String javaObject) {
+        return toPostgresqlObject(javaObject);
+    }
+
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
     @Override
     protected String doConvertToJavaObject(String columnValue, Class javaType) {
         return columnValue;
-    }
-
-    @Override
-    protected Object toJdbcObject(String javaObject) {
-        return toPostgresqlObject(javaObject);
     }
 
 }
