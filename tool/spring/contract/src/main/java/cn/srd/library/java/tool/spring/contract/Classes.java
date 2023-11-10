@@ -21,6 +21,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.type.filter.AnnotationTypeFilter;
+import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.springframework.core.type.filter.TypeFilter;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.ClassUtils;
@@ -162,7 +164,7 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
      * scan all classes in the {@link #getBasePackagePath() base package path}
      *
      * @return all classes in the {@link #getBasePackagePath() base package path}
-     * @see Classes#getBasePackagePath()
+     * @see #getBasePackagePath()
      */
     public static Set<Class<?>> scanByBasePackagePath() {
         return scanByPackagePath(getBasePackagePath());
@@ -171,10 +173,82 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
     /**
      * use default package path to scan bean definition
      *
-     * @param includeFilter the specified {@link TypeFilter}s
-     * @return all {@link BeanDefinition} by the specified {@link TypeFilter}s in default packages paths.
+     * @param annotationType the specified annotation to match
+     * @return all {@link BeanDefinition}s by the specified {@link AnnotationTypeFilter} in default packages paths.
+     * @see #scanByAnnotationTypeFilter(Class, Collection)
+     * @see #getBasePackagePath()
+     */
+    public static Set<BeanDefinition> scanByAnnotationTypeFilter(Class<? extends Annotation> annotationType) {
+        return scanByAnnotationTypeFilter(annotationType, getBasePackagePath());
+    }
+
+    /**
+     * see {@link #scanByAnnotationTypeFilter(Class, Collection)}
+     *
+     * @param annotationType   the specified annotation to match
+     * @param scanPackagePaths the specified package paths
+     * @return all {@link BeanDefinition}s by the specified {@link AnnotationTypeFilter} in the specified packages paths.
+     * @see #scanByAnnotationTypeFilter(Class, Collection)
+     */
+    public static Set<BeanDefinition> scanByAnnotationTypeFilter(Class<? extends Annotation> annotationType, String... scanPackagePaths) {
+        return scanByAnnotationTypeFilter(annotationType, Collections.ofHashSet(scanPackagePaths));
+    }
+
+    /**
+     * use {@link AnnotationTypeFilter} to {@link #scanByTypeFilter(TypeFilter, Collection)}
+     *
+     * @param annotationType   the specified annotation to match
+     * @param scanPackagePaths the specified package paths
+     * @return all {@link BeanDefinition}s by the specified {@link AnnotationTypeFilter} in the specified packages paths.
      * @see #scanByTypeFilter(Collection, Collection)
-     * @see Classes#getBasePackagePath()
+     */
+    public static Set<BeanDefinition> scanByAnnotationTypeFilter(Class<? extends Annotation> annotationType, Collection<String> scanPackagePaths) {
+        return scanByTypeFilter(new AnnotationTypeFilter(annotationType), scanPackagePaths);
+    }
+
+    /**
+     * use default package path to scan bean definition
+     *
+     * @param targetType the specified class to match
+     * @return all {@link BeanDefinition}s by the specified {@link AssignableTypeFilter} in default packages paths.
+     * @see #scanByAssignableTypeFilter(Class, Collection)
+     * @see #getBasePackagePath()
+     */
+    public static Set<BeanDefinition> scanByAssignableTypeFilter(Class<?> targetType) {
+        return scanByAssignableTypeFilter(targetType, getBasePackagePath());
+    }
+
+    /**
+     * see {@link #scanByAssignableTypeFilter(Class, Collection)}
+     *
+     * @param targetType       the specified class to match
+     * @param scanPackagePaths the specified package paths
+     * @return all {@link BeanDefinition}s by the specified {@link AssignableTypeFilter} in the specified packages paths.
+     * @see #scanByAssignableTypeFilter(Class, Collection)
+     */
+    public static Set<BeanDefinition> scanByAssignableTypeFilter(Class<?> targetType, String... scanPackagePaths) {
+        return scanByAssignableTypeFilter(targetType, Collections.ofHashSet(scanPackagePaths));
+    }
+
+    /**
+     * use {@link AssignableTypeFilter} to {@link #scanByTypeFilter(TypeFilter, Collection)}
+     *
+     * @param targetType       the specified class to match
+     * @param scanPackagePaths the specified package paths
+     * @return all {@link BeanDefinition}s by the specified {@link AssignableTypeFilter} in the specified packages paths.
+     * @see #scanByTypeFilter(Collection, Collection)
+     */
+    public static Set<BeanDefinition> scanByAssignableTypeFilter(Class<?> targetType, Collection<String> scanPackagePaths) {
+        return scanByTypeFilter(new AssignableTypeFilter(targetType), scanPackagePaths);
+    }
+
+    /**
+     * use default package path to scan bean definition
+     *
+     * @param includeFilter the specified {@link TypeFilter}s
+     * @return all {@link BeanDefinition}s by the specified {@link TypeFilter} in default packages paths.
+     * @see #scanByTypeFilter(Collection, Collection)
+     * @see #getBasePackagePath()
      */
     public static Set<BeanDefinition> scanByTypeFilter(TypeFilter includeFilter) {
         return scanByTypeFilter(Collections.ofImmutableList(includeFilter), getBasePackagePath());
@@ -185,7 +259,8 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
      *
      * @param includeFilter    the specified {@link TypeFilter}
      * @param scanPackagePaths the specified package paths
-     * @return see {@link #scanByTypeFilter(Collection, Collection)}
+     * @return all {@link BeanDefinition}s by the specified {@link TypeFilter}s in the specified packages paths.
+     * @see #scanByTypeFilter(Collection, Collection)
      */
     public static Set<BeanDefinition> scanByTypeFilter(TypeFilter includeFilter, String... scanPackagePaths) {
         return scanByTypeFilter(includeFilter, Collections.ofHashSet(scanPackagePaths));
@@ -196,7 +271,8 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
      *
      * @param includeFilter    the specified {@link TypeFilter}
      * @param scanPackagePaths the specified package paths
-     * @return see {@link #scanByTypeFilter(Collection, Collection)}
+     * @return all {@link BeanDefinition}s by the specified {@link TypeFilter}s in the specified packages paths.
+     * @see #scanByTypeFilter(Collection, Collection)
      */
     public static Set<BeanDefinition> scanByTypeFilter(TypeFilter includeFilter, Collection<String> scanPackagePaths) {
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
@@ -210,7 +286,8 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
      *
      * @param includeFilters   the specified {@link TypeFilter}s
      * @param scanPackagePaths the specified package paths
-     * @return see {@link #scanByTypeFilter(Collection, Collection)}
+     * @return all {@link BeanDefinition}s by the specified {@link TypeFilter}s in the specified packages paths.
+     * @see #scanByTypeFilter(Collection, Collection)
      */
     public static Set<BeanDefinition> scanByTypeFilter(Collection<TypeFilter> includeFilters, String... scanPackagePaths) {
         return scanByTypeFilter(includeFilters, Collections.ofHashSet(scanPackagePaths));
@@ -218,7 +295,7 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
 
     /**
      * <pre>
-     * scan all {@link BeanDefinition} by the specified {@link TypeFilter}s in the specified packages paths.
+     * scan all {@link BeanDefinition}s by the specified {@link TypeFilter}s in the specified packages paths.
      *
      * example code:
      * {@code
@@ -276,7 +353,7 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
      *
      * @param includeFilters   the specified {@link TypeFilter}s
      * @param scanPackagePaths the specified package paths
-     * @return all {@link BeanDefinition} by the specified {@link TypeFilter}s in the specified packages paths.
+     * @return all {@link BeanDefinition}s by the specified {@link TypeFilter}s in the specified packages paths.
      */
     public static Set<BeanDefinition> scanByTypeFilter(Collection<TypeFilter> includeFilters, Collection<String> scanPackagePaths) {
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
@@ -474,7 +551,7 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
 
     /**
      * <pre>
-     * parse ant style package paths specified in some annotation classes to package paths.
+     * parse ant style package paths specified in annotation class to package paths.
      * the ant style see {@link AntPathMatcher}.
      *
      * example code:
@@ -510,6 +587,37 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
      */
     public static Set<String> parseAnnotationAntStylePackagePathToPackagePath(Class<? extends Annotation> annotationType, String fieldName) {
         return parseAntStylePackagePathToPackagePath(Annotations.getAnnotationNestValue(annotationType, String[].class, fieldName));
+    }
+
+    /**
+     * use {@link AnnotationConstant#DEFAULT_FIELD_NAME} to {@link #optimizeAnnotationAntStylePackagePath(Class, String)}
+     *
+     * @param annotationType the annotation class
+     * @return package paths
+     * @see #optimizeAnnotationAntStylePackagePath(Class, String)
+     */
+    public static Set<String> optimizeAnnotationAntStylePackagePath(Class<? extends Annotation> annotationType) {
+        return optimizeAnnotationAntStylePackagePath(annotationType, AnnotationConstant.DEFAULT_FIELD_NAME);
+    }
+
+    /**
+     * <pre>
+     * use {@link #parseAnnotationAntStylePackagePathToPackagePath(Class, String)} to parse ant style package paths specified in annotation class,
+     * then {@link #getTheLargestRangePackagePath(Collection)} by the package paths specified in annotation class and {@link Springs#getSpringBootApplicationPackagePath()}.
+     * </pre>
+     *
+     * @param annotationType the annotation class
+     * @param fieldName      the field name in annotation class
+     * @return the optimal package paths
+     * @see #parseAnnotationAntStylePackagePathToPackagePath(Class, String)
+     * @see #getTheLargestRangePackagePath(Collection)
+     * @see Springs#getSpringBootApplicationPackagePath()
+     */
+    public static Set<String> optimizeAnnotationAntStylePackagePath(Class<? extends Annotation> annotationType, String fieldName) {
+        return getTheLargestRangePackagePath(Collections.add(
+                parseAnnotationAntStylePackagePathToPackagePath(annotationType, fieldName),
+                Springs.getSpringBootApplicationPackagePath()
+        ));
     }
 
 }
