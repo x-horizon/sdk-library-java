@@ -105,7 +105,7 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
     public static <T extends Annotation> T getAnnotation(Class<T> annotationType, Collection<String> packagePaths) {
         Set<BeanDefinition> beanDefinitions = Classes.scanByAnnotationTypeFilter(annotationType, packagePaths);
         if (Collections.hasMoreThanOneElement(beanDefinitions)) {
-            throw new LibraryJavaInternalException(Strings.format("{}found more than one annotations {} in package paths {}, please check!", ModuleView.ANNOTATION_SYSTEM, beanDefinitions.stream().map(BeanDefinition::getBeanClassName).toList(), packagePaths));
+            throw new LibraryJavaInternalException(Strings.format("{}found more than one annotations {} in package paths {}, please check!", ModuleView.TOOL_ANNOTATION_SYSTEM, beanDefinitions.stream().map(BeanDefinition::getBeanClassName).toList(), packagePaths));
         }
         return beanDefinitions.stream()
                 .findFirst()
@@ -211,7 +211,7 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
     public static <T> T getAnnotationValue(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName, Collection<String> packagePaths) {
         Set<BeanDefinition> beanDefinitions = Classes.scanByAnnotationTypeFilter(annotationType, packagePaths);
         if (Collections.hasMoreThanOneElement(beanDefinitions)) {
-            throw new LibraryJavaInternalException(Strings.format("{}found more than one annotations {} in package paths {}, please check!", ModuleView.ANNOTATION_SYSTEM, beanDefinitions.stream().map(BeanDefinition::getBeanClassName).toList(), packagePaths));
+            throw new LibraryJavaInternalException(Strings.format("{}found more than one annotations {} in package paths {}, please check!", ModuleView.TOOL_ANNOTATION_SYSTEM, beanDefinitions.stream().map(BeanDefinition::getBeanClassName).toList(), packagePaths));
         }
         return beanDefinitions.stream()
                 .findFirst()

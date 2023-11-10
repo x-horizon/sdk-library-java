@@ -13,7 +13,7 @@ public class IdGenerateBySQLStrategy implements IdGenerateStrategy {
     @Override
     public void validateIdConfig(IdConfig idConfig) {
         warningIfNotDefaultIdGenerateType(idConfig.type());
-        Assert.of().setMessage("{}id generator config - current id generate strategy is [{}] but no generate sql was specified!", ModuleView.ORM_MYBATIS_SYSTEM, this.getClass().getName())
+        Assert.of().setMessage("{}id generator config - current id generate strategy is [{}] but no generated sql specified in [{}]!", ModuleView.ORM_MYBATIS_SYSTEM, this.getClass().getName(), IdConfig.class.getName())
                 .throwsIfBlank(idConfig.generateSQL());
     }
 

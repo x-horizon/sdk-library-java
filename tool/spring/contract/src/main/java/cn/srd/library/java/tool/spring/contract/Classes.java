@@ -497,7 +497,7 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
                         // if the resource path like "file:/absolutePath/xxx.jar!/cn/test/lang/", then parse it to "cn/test/lang/"
                         relativeResourcePath = Strings.subAfter(resourcePath, ClassConstant.REFERENCE_JAR_PATH);
                     } else {
-                        throw new RuntimeException(Strings.format("{}parse ant style class path to package path failed because of the unsupported resource path [{}]", ModuleView.CLASS_SYSTEM, resourcePath));
+                        throw new RuntimeException(Strings.format("{}parse ant style class path to package path failed because of the unsupported resource path [{}]", ModuleView.TOOL_CLASS_SYSTEM, resourcePath));
                     }
                     return Strings.removeIfEndWith(convertResourcePathToClassName(relativeResourcePath), SymbolConstant.DOT);
                 })

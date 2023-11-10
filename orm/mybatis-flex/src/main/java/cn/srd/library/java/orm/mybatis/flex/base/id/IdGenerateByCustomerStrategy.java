@@ -15,7 +15,7 @@ public class IdGenerateByCustomerStrategy implements IdGenerateStrategy {
     @Override
     public void validateIdConfig(IdConfig idConfig) {
         warningIfNotDefaultIdGenerateSQL(idConfig.generateSQL());
-        Assert.of().setMessage("{}id generator config - current id generate strategy is [{}] but no generator was specified!", ModuleView.ORM_MYBATIS_SYSTEM, this.getClass().getName())
+        Assert.of().setMessage("{}id generator config - current id generate strategy is [{}] but no generator specified in [{}]!", ModuleView.ORM_MYBATIS_SYSTEM, this.getClass().getName(), IdConfig.class.getName())
                 .throwsIfEquals(IdInvalidGenerator.class, idConfig.generator());
     }
 

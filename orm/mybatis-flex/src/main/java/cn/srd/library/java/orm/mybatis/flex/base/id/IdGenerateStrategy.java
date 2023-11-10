@@ -17,7 +17,7 @@ public interface IdGenerateStrategy {
 
     default void warningIfNotDefaultIdGenerateType(IdGenerateType idGenerateType) {
         if (Comparators.notEquals(IdGenerateType.UNCONTROLLED, idGenerateType)) {
-            log.warn("{}id generator config - current id generate strategy is [{}], the specified id generate type [{}] will not take effect!", ModuleView.ORM_MYBATIS_SYSTEM, this.getClass().getName(), idGenerateType.name());
+            log.warn("{}id generator config - current id generate strategy is [{}], the specified id generated type [{}] will not take effect!", ModuleView.ORM_MYBATIS_SYSTEM, this.getClass().getName(), idGenerateType.name());
         }
     }
 
@@ -29,7 +29,7 @@ public interface IdGenerateStrategy {
 
     default void warningIfNotDefaultIdGenerateSQL(String idGenerateSQL) {
         if (Nil.isNotBlank(idGenerateSQL)) {
-            log.warn("{}id generator config - current id generate strategy is [{}], the specified generate sql [{}] will not take effect!", ModuleView.ORM_MYBATIS_SYSTEM, this.getClass().getName(), idGenerateSQL);
+            log.warn("{}id generator config - current id generate strategy is [{}], the specified generated sql [{}] will not take effect!", ModuleView.ORM_MYBATIS_SYSTEM, this.getClass().getName(), idGenerateSQL);
         }
     }
 

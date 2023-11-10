@@ -35,17 +35,17 @@ public class EnumAutowiredHandler<E extends Enum<E>> implements SmartInitializin
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     @Override
     public void afterSingletonsInstantiated() {
-        log.debug("{} enum autowired starting matching...", ModuleView.ENUM_SYSTEM);
+        log.debug("{} enum autowired starting matching...", ModuleView.TOOL_ENUM_SYSTEM);
 
         Set<String> scanPackagePaths = Classes.optimizeAnnotationAntStylePackagePaths(EnableEnumAutowired.class, "scanPackagePaths");
         Set<BeanDefinition> enumAutowiredBeanDefinitions = Classes.scanByAnnotationTypeFilter(EnumAutowired.class, scanPackagePaths);
         if (Nil.isEmpty(enumAutowiredBeanDefinitions)) {
-            log.debug("{}could not found the class marked with [@{}], exited.", ModuleView.ENUM_SYSTEM, EnumAutowired.class.getName());
+            log.debug("{}could not found the class marked with [@{}], exited.", ModuleView.TOOL_ENUM_SYSTEM, EnumAutowired.class.getName());
         }
 
         enumAutowiredBeanDefinitions.forEach(enumAutowiredBeanDefinition -> {
             Class<?> enumAutowiredAnnotatedClass = Classes.ofName(enumAutowiredBeanDefinition.getBeanClassName());
-            Assert.of().setMessage("{}the class [{}] marked with [@{}] must be an enum class, please check!", ModuleView.ENUM_SYSTEM, enumAutowiredAnnotatedClass.getName(), EnumAutowired.class.getName())
+            Assert.of().setMessage("{}the class [{}] marked with [@{}] must be an enum class, please check!", ModuleView.TOOL_ENUM_SYSTEM, enumAutowiredAnnotatedClass.getName(), EnumAutowired.class.getName())
                     .throwsIfFalse(enumAutowiredAnnotatedClass.isEnum());
 
             EnumAutowired enumAutowired = Annotations.getAnnotation(enumAutowiredAnnotatedClass, EnumAutowired.class);
@@ -53,7 +53,7 @@ public class EnumAutowiredHandler<E extends Enum<E>> implements SmartInitializin
             Class<?> enumAutowiredRootClass = enumAutowired.rootClass();
             String enumAutowiredRootClassName = enumAutowiredRootClass.getName();
             Set<BeanDefinition> enumAutowiredChildrenClassDefinitions = Classes.scanByAssignableTypeFilter(enumAutowiredRootClass, scanPackagePaths);
-            Assert.of().setMessage("{}the class [{}] marked with [@{}] bound interface [{}] has no implementation class, please check!", ModuleView.ENUM_SYSTEM, enumAutowiredAnnotatedClassName, EnumAutowired.class.getName(), enumAutowiredRootClassName)
+            Assert.of().setMessage("{}the class [{}] marked with [@{}] bound interface [{}] has no implementation class, please check!", ModuleView.TOOL_ENUM_SYSTEM, enumAutowiredAnnotatedClassName, EnumAutowired.class.getName(), enumAutowiredRootClassName)
                     .throwsIfEmpty(enumAutowiredChildrenClassDefinitions);
             List<String> enumAutowiredSubclassNames = enumAutowiredChildrenClassDefinitions.stream()
                     .map(enumAutowiredChildrenClassDefinition -> Classes.ofName(enumAutowiredChildrenClassDefinition.getBeanClassName()))
@@ -66,9 +66,9 @@ public class EnumAutowiredHandler<E extends Enum<E>> implements SmartInitializin
                         .stream()
                         .filter(enumAutowiredAnnotatedField -> Comparators.equals(enumAutowiredAnnotatedField.getType(), enumAutowired.rootClass()))
                         .toList();
-                Assert.of().setMessage("{}the class [{}] marked with [@{}] has no field to match [{}], cannot autowired, please specified one!", ModuleView.ENUM_SYSTEM, enumAutowiredAnnotatedClassName, EnumAutowired.class.getName(), enumAutowiredRootClassName)
+                Assert.of().setMessage("{}the class [{}] marked with [@{}] has no field to match [{}], cannot autowired, please specified one!", ModuleView.TOOL_ENUM_SYSTEM, enumAutowiredAnnotatedClassName, EnumAutowired.class.getName(), enumAutowiredRootClassName)
                         .throwsIfEmpty(matchFields);
-                Assert.of().setMessage("{}the class [{}] marked with [@{}] has multi fields to match [{}], cannot autowired, please specified one!", ModuleView.ENUM_SYSTEM, enumAutowiredAnnotatedClassName, EnumAutowired.class.getName(), enumAutowiredRootClassName)
+                Assert.of().setMessage("{}the class [{}] marked with [@{}] has multi fields to match [{}], cannot autowired, please specified one!", ModuleView.TOOL_ENUM_SYSTEM, enumAutowiredAnnotatedClassName, EnumAutowired.class.getName(), enumAutowiredRootClassName)
                         .throwsIfTrue(matchFields.size() > 1);
                 autowiredFiledName = Collections.getFirst(matchFields).orElseThrow().getName();
             }
@@ -77,14 +77,14 @@ public class EnumAutowiredHandler<E extends Enum<E>> implements SmartInitializin
                 EnumAutowiredFieldMatchRule enumAutowiredFieldMatchRule = Reflects.newInstance(enumAutowired.matchRule());
                 String theMostSuitableAutowiredClassName = enumAutowiredFieldMatchRule.getMostSuitableAutowiredClassName(enumField, enumAutowiredSubclassNames);
                 Object theMostSuitableAutowiredClass = Springs.getBean(Classes.ofName(theMostSuitableAutowiredClassName));
-                Assert.of().setMessage("{}find class [{}] and autowired it into enum [{}]-[{}] filed [{}], but the [{}] instance is null, you need to consider adding it to Spring IOC", ModuleView.ENUM_SYSTEM, theMostSuitableAutowiredClassName, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName, theMostSuitableAutowiredClassName)
+                Assert.of().setMessage("{}find class [{}] and autowired it into enum [{}]-[{}] filed [{}], but the [{}] instance is null, you need to consider adding it to Spring IOC", ModuleView.TOOL_ENUM_SYSTEM, theMostSuitableAutowiredClassName, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName, theMostSuitableAutowiredClassName)
                         .throwsIfNull(theMostSuitableAutowiredClass);
                 Reflects.setFieldValue(enumField, autowiredFiledName, theMostSuitableAutowiredClass);
-                log.debug("{}find class [{}] and autowired it into enum [{}]-[{}] filed [{}]", ModuleView.ENUM_SYSTEM, theMostSuitableAutowiredClassName, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName);
+                log.debug("{}find class [{}] and autowired it into enum [{}]-[{}] filed [{}]", ModuleView.TOOL_ENUM_SYSTEM, theMostSuitableAutowiredClassName, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName);
             }
         });
 
-        log.debug("{}enum autowired finish, exit.", ModuleView.ENUM_SYSTEM);
+        log.debug("{}enum autowired finish, exit.", ModuleView.TOOL_ENUM_SYSTEM);
     }
 
 }

@@ -17,34 +17,34 @@ import lombok.NoArgsConstructor;
 public class ModuleView {
 
     /**
-     * the actor system module name
-     */
-    public static final String ACTOR_SYSTEM = "Actor System - ";
-
-    /**
-     * the annotation system module name
-     */
-    public static final String ANNOTATION_SYSTEM = "Annotation System - ";
-
-    /**
      * the cache system module name
      */
     public static final String CACHE_SYSTEM = "Cache System - ";
 
     /**
-     * the class system module name
+     * the actor system module name
      */
-    public static final String CLASS_SYSTEM = "Class System - ";
-
-    /**
-     * the enum system module name
-     */
-    public static final String ENUM_SYSTEM = "Enum System - ";
+    public static final String CONCURRENT_ACTOR_SYSTEM = "Concurrent Actor System - ";
 
     /**
      * the orm mybatis system module name
      */
     public static final String ORM_MYBATIS_SYSTEM = "ORM Mybatis System - ";
+
+    /**
+     * the annotation system module name
+     */
+    public static final String TOOL_ANNOTATION_SYSTEM = "Tool Annotation System - ";
+
+    /**
+     * the class system module name
+     */
+    public static final String TOOL_CLASS_SYSTEM = "Tool Class System - ";
+
+    /**
+     * the enum system module name
+     */
+    public static final String TOOL_ENUM_SYSTEM = "Tool Enum System - ";
 
     /**
      * the web system module name
