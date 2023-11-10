@@ -84,19 +84,15 @@ public class Reflects {
     }
 
     /**
-     * <pre>
      * see {@link ReflectUtil#getFieldValue(Object, Field)}
-     *
-     * note:
-     *  used to tolerate all exceptions,
-     *  mainly due to the modularity impact after JDK16,
-     *  which prevents reflection of private final scoped fields.
-     *  please confirm if necessary before calling this function.
-     * </pre>
      *
      * @param input the input element
      * @param field the field
      * @return the field value
+     * @apiNote used to tolerate all exceptions,
+     * mainly due to the modularity impact after JDK16,
+     * which prevents reflection of private final scoped fields.
+     * please confirm if necessary before calling this function.
      */
     public static Object getFieldValueIgnoreThrowable(Object input, Field field) {
         return Try.of(() -> ReflectUtil.getFieldValue(input, field)).getOrNull();

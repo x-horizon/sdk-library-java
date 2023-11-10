@@ -25,14 +25,11 @@ import java.sql.ResultSet;
 public abstract class AbstractJdbcComplexTypeHandler<T> extends BaseTypeHandler<T> {
 
     /**
-     * <pre>
      * convert java object to jdbc object
-     *
-     * note: the java object instance will never be null
-     * </pre>
      *
      * @param javaObject java object
      * @return jdbc object
+     * @apiNote the java object instance will never be null
      */
     protected abstract Object toJdbcObject(T javaObject);
 

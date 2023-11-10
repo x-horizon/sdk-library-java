@@ -69,18 +69,14 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
     }
 
     /**
-     * <pre>
      * get resources by ant style class path
-     *
-     * note:
-     *   if the resource url is a jar url,
-     *   then call the method {@link PathMatchingResourcePatternResolver#doFindPathMatchingJarResources(Resource, URL, String) doFindPathMatchingJarResources} to {@link AntPathMatcher#match(String, String) match} two paths like "&#42;/xx1/xx2", "test/xx1/xx2/",
-     *   it will always match failed because only match success by two paths like "&#42;/xx1/xx2/", "test/xx1/xx2/",
-     *   so in this way, will add prefix "/" to the ant style class path and {@link PathMatchingResourcePatternResolver#getResources(String) get resource} again to avoid this case.
-     * </pre>
      *
      * @param antStyleClassPath the ant style class path
      * @return the set of {@link Resource}
+     * @apiNote if the resource url is a jar url,
+     * then call the method {@link PathMatchingResourcePatternResolver#doFindPathMatchingJarResources(Resource, URL, String) doFindPathMatchingJarResources} to {@link AntPathMatcher#match(String, String) match} two paths like "&#42;/xx1/xx2", "test/xx1/xx2/",
+     * it will always match failed because only match success by two paths like "&#42;/xx1/xx2/", "test/xx1/xx2/",
+     * so in this way, will add prefix "/" to the ant style class path and {@link PathMatchingResourcePatternResolver#getResources(String) get resource} again to avoid this case.
      * @see AntPathMatcher
      * @see PathMatchingResourcePatternResolver#getResources(String)
      */
@@ -126,16 +122,11 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
     }
 
     /**
-     * <pre>
      * scan all classes containing the specified annotation in the package path of class marked {@link SpringBootApplication}.
-     *
-     * note:
-     * this function scans every time and has poor performance.
-     * recommended to use {@link #scanByTypeFilter(Collection, Collection)} function.
-     * </pre>
      *
      * @param annotationClass the specified annotation class
      * @return all classes containing the specified annotation in the package path of class marked {@link SpringBootApplication}
+     * @apiNote this function scans every time and has poor performance, recommended to use {@link #scanByTypeFilter(Collection, Collection)} function.
      * @see cn.srd.library.java.tool.lang.object.Classes#scanByAnnotation(Class, String...)
      */
     public static Set<Class<?>> scanByAnnotation(Class<? extends Annotation> annotationClass) {
@@ -143,17 +134,12 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
     }
 
     /**
-     * <pre>
      * scan all subclasses or implementation classes of the specified class or interface in the package path of class marked {@link SpringBootApplication}.
-     *
-     * note:
-     * this function scans every time and has poor performance.
-     * recommended to use {@link #scanByTypeFilter(Collection, Collection)} function.
-     * </pre>
      *
      * @param rootClass the specified class
      * @param <T>       the specified class type
      * @return all subclasses or implementation classes of the specified class or interface in the package path of class marked {@link SpringBootApplication}
+     * @apiNote this function scans every time and has poor performance, recommended to use {@link #scanByTypeFilter(Collection, Collection)} function.
      * @see cn.srd.library.java.tool.lang.object.Classes#scanBySuper(Class, String...)
      */
     public static <T> Set<Class<? extends T>> scanBySuper(Class<T> rootClass) {

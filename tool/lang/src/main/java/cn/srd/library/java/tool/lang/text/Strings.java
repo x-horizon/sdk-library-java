@@ -64,12 +64,11 @@ public class Strings extends CharacterSequences {
 
     /**
      * <pre>
-     * get the most similar string compare with original string
+     * get the most similar string compare with original string ignore case.
      * similar define:
      *   the length of the longest common substring as the similarity,
      *   the longer the public substring, the higher the similarity.
      *
-     * note: ignore case.
      * see {@link #getLongestCommonSubstringLength(String, String)}
      * </pre>
      *

@@ -210,14 +210,11 @@ public class Collections {
     }
 
     /**
-     * <pre>
      * create a containing the specified elements array.
-     *
-     * note: low performance to create an array because of the array generic special case.
-     * </pre>
      *
      * @param <T> the output type
      * @return a containing the specified elements array
+     * @apiNote low performance to create an array because of the array generic special case.
      */
     @SafeVarargs
     public static <T> T[] ofArray(Class<T> arrayType, T... inputs) {

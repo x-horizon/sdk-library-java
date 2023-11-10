@@ -106,14 +106,12 @@ public class Springs {
     }
 
     /**
-     * <pre>
      * see {@link AopContext#currentProxy()}.
-     * note: need enable @{@link EnableAspectJAutoProxy}(exposeProxy = true).
-     * </pre>
      *
      * @param input the specified class to get AOP proxy
      * @param <T>   the specified class type
      * @return the current AOP proxy
+     * @apiNote need enable @{@link EnableAspectJAutoProxy}(exposeProxy = true).
      */
     public static <T> T getProxy(Class<T> input) {
         return input.cast(AopContext.currentProxy());
