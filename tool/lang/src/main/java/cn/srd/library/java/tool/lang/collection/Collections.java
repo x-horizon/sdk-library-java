@@ -826,6 +826,66 @@ public class Collections {
     }
 
     /**
+     * return true if the checked element length is 1
+     *
+     * @param input the checked element
+     * @return return true if the checked element length is 1
+     */
+    public static boolean hasOneElement(Iterable<?> input) {
+        return hasOneElement(getIterator(input));
+    }
+
+    /**
+     * return true if the checked element length is 1
+     *
+     * @param input the checked element
+     * @return return true if the checked element length is 1
+     */
+    public static boolean hasOneElement(Iterator<?> input) {
+        return getLength(input) == CollectionConstant.LENGTH_ONE;
+    }
+
+    /**
+     * return true if the checked element length is 1
+     *
+     * @param input the checked element
+     * @return return true if the checked element length is 1
+     */
+    public static boolean hasOneElement(Collection<?> input) {
+        return getLength(input) == CollectionConstant.LENGTH_ONE;
+    }
+
+    /**
+     * return true if the checked element length > 1
+     *
+     * @param input the checked element
+     * @return return true if the checked element length > 1
+     */
+    public static boolean hasMoreThanOneElement(Iterable<?> input) {
+        return hasMoreThanOneElement(getIterator(input));
+    }
+
+    /**
+     * return true if the checked element length > 1
+     *
+     * @param input the checked element
+     * @return return true if the checked element length > 1
+     */
+    public static boolean hasMoreThanOneElement(Iterator<?> input) {
+        return getLength(input) > CollectionConstant.LENGTH_ONE;
+    }
+
+    /**
+     * return true if the checked element length > 1
+     *
+     * @param input the checked element
+     * @return return true if the checked element length > 1
+     */
+    public static boolean hasMoreThanOneElement(Collection<?> input) {
+        return getLength(input) > CollectionConstant.LENGTH_ONE;
+    }
+
+    /**
      * see {@link ArrayUtil#append(Object[], Object[])}
      *
      * @param inputs         the input element
@@ -931,10 +991,40 @@ public class Collections {
     }
 
     /**
+     * return the input element length
+     *
+     * @param input the input element
+     * @return the length of input element
+     */
+    public static int getLength(Collection<?> input) {
+        return Nil.isNull(input) ? CollectionConstant.LENGTH_ZERO : input.size();
+    }
+
+    /**
+     * return the input element length
+     *
+     * @param input the input element
+     * @return the length of input element
+     */
+    public static int getLength(Iterable<?> input) {
+        return IterUtil.size(input);
+    }
+
+    /**
+     * return the input element length
+     *
+     * @param input the input element
+     * @return the length of input element
+     */
+    public static int getLength(Iterator<?> input) {
+        return IterUtil.size(input);
+    }
+
+    /**
      * see {@link CollectionUtil#size(Object)}
      *
      * @param input the input element
-     * @return length of input element
+     * @return the length of input element
      */
     public static int getLength(Object input) {
         return CollectionUtil.size(input);
