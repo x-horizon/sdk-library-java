@@ -6,13 +6,13 @@ package cn.srd.library.java.tool.enums.autowired;
 
 import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.tool.lang.annotation.Annotations;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.enums.Enums;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
+import cn.srd.library.java.tool.spring.contract.Annotations;
 import cn.srd.library.java.tool.spring.contract.Classes;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ public class EnumAutowiredHandler<E extends Enum<E>> implements SmartInitializin
     public void afterSingletonsInstantiated() {
         log.debug("{} enum autowired starting matching...", ModuleView.ENUM_SYSTEM);
 
-        Set<String> scanPackagePaths = Classes.optimizeAnnotationAntStylePackagePath(EnableEnumAutowired.class, "scanPackagePaths");
+        Set<String> scanPackagePaths = Classes.optimizeAnnotationAntStylePackagePaths(EnableEnumAutowired.class, "scanPackagePaths");
         Set<BeanDefinition> enumAutowiredBeanDefinitions = Classes.scanByAnnotationTypeFilter(EnumAutowired.class, scanPackagePaths);
         if (Nil.isEmpty(enumAutowiredBeanDefinitions)) {
             log.debug("{}could not found the class marked with [@{}], exited.", ModuleView.ENUM_SYSTEM, EnumAutowired.class.getName());
@@ -70,7 +70,7 @@ public class EnumAutowiredHandler<E extends Enum<E>> implements SmartInitializin
                         .throwsIfEmpty(matchFields);
                 Assert.of().setMessage("{}the class [{}] marked with [@{}] has multi fields to match [{}], cannot autowired, please specified one!", ModuleView.ENUM_SYSTEM, enumAutowiredAnnotatedClassName, EnumAutowired.class.getName(), enumAutowiredRootClassName)
                         .throwsIfTrue(matchFields.size() > 1);
-                autowiredFiledName = Collections.getFirst(matchFields).get().getName();
+                autowiredFiledName = Collections.getFirst(matchFields).orElseThrow().getName();
             }
 
             for (E enumField : Enums.getAllInstances((Class<E>) enumAutowiredAnnotatedClass)) {

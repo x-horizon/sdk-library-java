@@ -22,6 +22,11 @@ public class ModuleView {
     public static final String ACTOR_SYSTEM = "Actor System - ";
 
     /**
+     * the annotation system module name
+     */
+    public static final String ANNOTATION_SYSTEM = "Annotation System - ";
+
+    /**
      * the cache system module name
      */
     public static final String CACHE_SYSTEM = "Cache System - ";

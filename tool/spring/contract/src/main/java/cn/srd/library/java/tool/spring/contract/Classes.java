@@ -122,7 +122,7 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
      * @see cn.srd.library.java.tool.lang.object.Classes#getTheLargestRangePackagePath(Collection)
      */
     public static Set<String> getTheLargestRangePackagePath(Collection<String> packagePaths) {
-        return cn.srd.library.java.tool.lang.object.Classes.getTheLargestRangePackagePath(parseAntStylePackagePathToPackagePath(packagePaths));
+        return cn.srd.library.java.tool.lang.object.Classes.getTheLargestRangePackagePath(parseAntStylePackagePathsToPackagePaths(packagePaths));
     }
 
     /**
@@ -417,13 +417,13 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
     }
 
     /**
-     * see {@link #parseAntStylePackagePathToPackagePath(Collection)}
+     * see {@link #parseAntStylePackagePathsToPackagePaths(Collection)}
      *
      * @param antStylePackagePaths the ant style package paths
      * @return package paths
      */
-    public static Set<String> parseAntStylePackagePathToPackagePath(String... antStylePackagePaths) {
-        return parseAntStylePackagePathToPackagePath(Collections.ofHashSet(antStylePackagePaths));
+    public static Set<String> parseAntStylePackagePathsToPackagePaths(String... antStylePackagePaths) {
+        return parseAntStylePackagePathsToPackagePaths(Collections.ofHashSet(antStylePackagePaths));
     }
 
     /**
@@ -441,22 +441,22 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
      * @see AntPathMatcher
      * @see PathMatchingResourcePatternResolver
      */
-    public static Set<String> parseAntStylePackagePathToPackagePath(Collection<String> antStylePackagePaths) {
+    public static Set<String> parseAntStylePackagePathsToPackagePaths(Collection<String> antStylePackagePaths) {
         return antStylePackagePaths.stream()
                 .map(Classes::convertClassNameToClassPath)
-                .map(Classes::parseAntStyleClassPathToPackagePath)
+                .map(Classes::parseAntStyleClassPathsToPackagePaths)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet());
     }
 
     /**
-     * see {@link #parseAntStyleClassPathToPackagePath(Collection)}
+     * see {@link #parseAntStyleClassPathsToPackagePaths(Collection)}
      *
      * @param antStyleClassPaths the ant style class paths
      * @return package paths
      */
-    public static Set<String> parseAntStyleClassPathToPackagePath(String... antStyleClassPaths) {
-        return parseAntStyleClassPathToPackagePath(Collections.ofHashSet(antStyleClassPaths));
+    public static Set<String> parseAntStyleClassPathsToPackagePaths(String... antStyleClassPaths) {
+        return parseAntStyleClassPathsToPackagePaths(Collections.ofHashSet(antStyleClassPaths));
     }
 
     /**
@@ -474,8 +474,8 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
      * @see AntPathMatcher
      * @see PathMatchingResourcePatternResolver
      */
-    public static Set<String> parseAntStyleClassPathToPackagePath(Collection<String> antStyleClassPaths) {
-        return parseAntStyleClassPathToResourcePath(antStyleClassPaths)
+    public static Set<String> parseAntStyleClassPathsToPackagePaths(Collection<String> antStyleClassPaths) {
+        return parseAntStyleClassPathsToResourcePaths(antStyleClassPaths)
                 .stream()
                 .filter(resourcePath -> Strings.notContains(resourcePath, ClassConstant.JAVA_TEST_PATH))
                 .map(resourcePath -> {
@@ -505,13 +505,13 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
     }
 
     /**
-     * see {@link #parseAntStyleClassPathToResourcePath(Collection)}
+     * see {@link #parseAntStyleClassPathsToResourcePaths(Collection)}
      *
      * @param antStyleClassPaths the ant style class paths
      * @return resource paths
      */
-    public static Set<String> parseAntStyleClassPathToResourcePath(String... antStyleClassPaths) {
-        return parseAntStyleClassPathToResourcePath(Collections.ofHashSet(antStyleClassPaths));
+    public static Set<String> parseAntStyleClassPathsToResourcePaths(String... antStyleClassPaths) {
+        return parseAntStyleClassPathsToResourcePaths(Collections.ofHashSet(antStyleClassPaths));
     }
 
     /**
@@ -530,7 +530,7 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
      * @see PathMatchingResourcePatternResolver#getResources(String)
      * @see #getResourceByAntStyleClassPath(String)
      */
-    public static Set<String> parseAntStyleClassPathToResourcePath(Collection<String> antStyleClassPaths) {
+    public static Set<String> parseAntStyleClassPathsToResourcePaths(Collection<String> antStyleClassPaths) {
         return antStyleClassPaths.stream()
                 .map(Classes::getResourceByAntStyleClassPath)
                 .flatMap(Collection::stream)
@@ -539,14 +539,14 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
     }
 
     /**
-     * use {@link AnnotationConstant#DEFAULT_FIELD_NAME} to {@link #parseAnnotationAntStylePackagePathToPackagePath(Class, String)}
+     * use {@link AnnotationConstant#DEFAULT_FIELD_NAME} to {@link #parseAnnotationAntStylePackagePathsToPackagePaths(Class, String)}
      *
      * @param annotationType the annotation class
      * @return package paths
-     * @see #parseAnnotationAntStylePackagePathToPackagePath(Class, String)
+     * @see #parseAnnotationAntStylePackagePathsToPackagePaths(Class, String)
      */
-    public static Set<String> parseAnnotationAntStylePackagePathToPackagePath(Class<? extends Annotation> annotationType) {
-        return parseAnnotationAntStylePackagePathToPackagePath(annotationType, AnnotationConstant.DEFAULT_FIELD_NAME);
+    public static Set<String> parseAnnotationAntStylePackagePathsToPackagePaths(Class<? extends Annotation> annotationType) {
+        return parseAnnotationAntStylePackagePathsToPackagePaths(annotationType, AnnotationConstant.DEFAULT_FIELD_NAME);
     }
 
     /**
@@ -583,39 +583,39 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
      * @return package paths
      * @see AntPathMatcher
      * @see PathMatchingResourcePatternResolver
-     * @see #parseAntStylePackagePathToPackagePath(Collection)
+     * @see #parseAntStylePackagePathsToPackagePaths(Collection)
      */
-    public static Set<String> parseAnnotationAntStylePackagePathToPackagePath(Class<? extends Annotation> annotationType, String fieldName) {
-        return parseAntStylePackagePathToPackagePath(Annotations.getAnnotationNestValue(annotationType, String[].class, fieldName));
+    public static Set<String> parseAnnotationAntStylePackagePathsToPackagePaths(Class<? extends Annotation> annotationType, String fieldName) {
+        return parseAntStylePackagePathsToPackagePaths(Annotations.getAnnotationNestValues(annotationType, String[].class, fieldName));
     }
 
     /**
-     * use {@link AnnotationConstant#DEFAULT_FIELD_NAME} to {@link #optimizeAnnotationAntStylePackagePath(Class, String)}
+     * use {@link AnnotationConstant#DEFAULT_FIELD_NAME} to {@link #optimizeAnnotationAntStylePackagePaths(Class, String)}
      *
      * @param annotationType the annotation class
      * @return package paths
-     * @see #optimizeAnnotationAntStylePackagePath(Class, String)
+     * @see #optimizeAnnotationAntStylePackagePaths(Class, String)
      */
-    public static Set<String> optimizeAnnotationAntStylePackagePath(Class<? extends Annotation> annotationType) {
-        return optimizeAnnotationAntStylePackagePath(annotationType, AnnotationConstant.DEFAULT_FIELD_NAME);
+    public static Set<String> optimizeAnnotationAntStylePackagePaths(Class<? extends Annotation> annotationType) {
+        return optimizeAnnotationAntStylePackagePaths(annotationType, AnnotationConstant.DEFAULT_FIELD_NAME);
     }
 
     /**
      * <pre>
-     * use {@link #parseAnnotationAntStylePackagePathToPackagePath(Class, String)} to parse ant style package paths specified in annotation class,
+     * use {@link #parseAnnotationAntStylePackagePathsToPackagePaths(Class, String)} to parse ant style package paths specified in annotation class,
      * then {@link #getTheLargestRangePackagePath(Collection)} by the package paths specified in annotation class and {@link Springs#getSpringBootApplicationPackagePath()}.
      * </pre>
      *
      * @param annotationType the annotation class
      * @param fieldName      the field name in annotation class
      * @return the optimal package paths
-     * @see #parseAnnotationAntStylePackagePathToPackagePath(Class, String)
+     * @see #parseAnnotationAntStylePackagePathsToPackagePaths(Class, String)
      * @see #getTheLargestRangePackagePath(Collection)
      * @see Springs#getSpringBootApplicationPackagePath()
      */
-    public static Set<String> optimizeAnnotationAntStylePackagePath(Class<? extends Annotation> annotationType, String fieldName) {
+    public static Set<String> optimizeAnnotationAntStylePackagePaths(Class<? extends Annotation> annotationType, String fieldName) {
         return getTheLargestRangePackagePath(Collections.add(
-                parseAnnotationAntStylePackagePathToPackagePath(annotationType, fieldName),
+                parseAnnotationAntStylePackagePathsToPackagePaths(annotationType, fieldName),
                 Springs.getSpringBootApplicationPackagePath()
         ));
     }

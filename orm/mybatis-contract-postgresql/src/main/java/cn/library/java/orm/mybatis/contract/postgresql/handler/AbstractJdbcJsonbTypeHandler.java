@@ -9,7 +9,7 @@ import cn.library.java.orm.mybatis.contract.base.type.JdbcComplexType;
 import cn.srd.library.java.contract.constant.database.PostgresqlDataType;
 import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.contract.model.throwable.RunningException;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.text.Strings;
 import io.vavr.control.Try;
@@ -85,7 +85,7 @@ public abstract class AbstractJdbcJsonbTypeHandler<T> extends AbstractJdbcComple
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .findFirst()
-                .orElseThrow(() -> new RunningException(Strings.format(
+                .orElseThrow(() -> new LibraryJavaInternalException(Strings.format(
                         "{}could not convert the value of column name [{}] to following classes {}, please check!",
                         ModuleView.ORM_MYBATIS_SYSTEM,
                         columnName,

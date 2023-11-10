@@ -88,7 +88,7 @@ public class Strings extends CharacterSequences {
                         similarities.add(similarity);
                         similarityMappingStringMap.put(similarity, compareInput);
                     });
-                    return similarityMappingStringMap.get(Collections.getMax(similarities).get());
+                    return similarityMappingStringMap.get(Collections.getMax(similarities).orElseThrow());
                 })
                 .get();
     }

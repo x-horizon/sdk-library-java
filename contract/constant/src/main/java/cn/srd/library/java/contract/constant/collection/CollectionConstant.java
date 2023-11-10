@@ -17,6 +17,16 @@ import lombok.NoArgsConstructor;
 public class CollectionConstant {
 
     /**
+     * the length zero: {@code 0}
+     */
+    public static final int LENGTH_ZERO = 0;
+
+    /**
+     * the length one: {@code 1}
+     */
+    public static final int LENGTH_ONE = 1;
+
+    /**
      * the first index: {@code 0}
      */
     public static final int FIRST_INDEX = 0;
@@ -29,7 +39,7 @@ public class CollectionConstant {
     /**
      * the third index: {@code 2}
      */
-    public static final int THIRD_INDEX = 1;
+    public static final int THIRD_INDEX = 2;
 
     /**
      * not found index: {@code -1}

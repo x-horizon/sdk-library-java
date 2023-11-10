@@ -25,7 +25,7 @@ public class ControllerAdvicePackagePathReplacer implements SmartInitializingSin
 
     @Override
     public void afterSingletonsInstantiated() {
-        Set<String> advicePackagePaths = Classes.parseAnnotationAntStylePackagePathToPackagePath(EnableWebMVCResponseBodyAdvice.class, "advicePackagePaths");
+        Set<String> advicePackagePaths = Classes.parseAnnotationAntStylePackagePathsToPackagePaths(EnableWebMVCResponseBodyAdvice.class, "advicePackagePaths");
         if (Nil.isNotEmpty(advicePackagePaths)) {
             RestControllerAdvice restControllerAdvice = Annotations.getAnnotation(WebMVCResponseBodyAdvice.class, RestControllerAdvice.class);
             String[] beforeReplaceBasePackagePaths = restControllerAdvice.basePackages();

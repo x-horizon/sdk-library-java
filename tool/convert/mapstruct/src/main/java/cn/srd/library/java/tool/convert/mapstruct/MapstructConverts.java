@@ -251,7 +251,7 @@ public class MapstructConverts {
         Assert.of().setMessage("found multi @{} in {}, please just specifies one", EnableMapstructConvertScan.class.getSimpleName(), classesWithMapstructScan.stream().map(Class::getName).toList())
                 .throwsIfTrue(classesWithMapstructScan.size() > 1);
         if (Nil.isNotEmpty(classesWithMapstructScan)) {
-            String[] packageNamesToFindMapstruct = Annotations.getAnnotationValue(Collections.getFirst(classesWithMapstructScan).get(), EnableMapstructConvertScan.class, String[].class);
+            String[] packageNamesToFindMapstruct = Annotations.getAnnotationValue(Collections.getFirst(classesWithMapstructScan).orElseThrow(), EnableMapstructConvertScan.class, String[].class);
             classesWithBindMapstruct = Classes.scanByAnnotation(BindMapstruct.class, packageNamesToFindMapstruct);
         } else {
             classesWithBindMapstruct = Classes.scanByAnnotation(BindMapstruct.class);
@@ -458,7 +458,7 @@ public class MapstructConverts {
         mapstructUnsupportedMethodParameterNameMappingMethodsMap.forEach((name, methods) -> {
             StringBuilder unsupportedReason = new StringBuilder().append("\t 位置[类名#方法名]: ");
             methods.forEach(method -> unsupportedReason.append(Strings.format("[{}#{}]", method.getDeclaringClass().getName(), method.getName())));
-            Method methodToGetParameter = Collections.getFirst(methods).get();
+            Method methodToGetParameter = Collections.getFirst(methods).orElseThrow();
             unsupportedLocations.add(Strings.format(
                     "{}, 入参:[{}], 出参:[{}]",
                     unsupportedReason.toString(),

@@ -42,7 +42,7 @@ public class OpenFeignAutoConfigurer {
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
     @Bean
     public OkHttpClient.Builder okHttpClientBuilder() {
-        Set<Class> resolvedModels = Annotations.getAnnotationNestValue(EnableOpenFeignResponseModelResolver.class, Class[].class);
+        Set<Class> resolvedModels = Annotations.getAnnotationNestValues(EnableOpenFeignResponseModelResolver.class, Class[].class);
         if (Nil.isNotEmpty(resolvedModels)) {
             OpenFeignResponseModelCache.set(resolvedModels);
             OKHTTP_CLIENT_BUILDER_INSTANCE.addInterceptor(new OpenFeignResponseInterceptor());

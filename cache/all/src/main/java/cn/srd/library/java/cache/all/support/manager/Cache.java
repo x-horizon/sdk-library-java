@@ -53,7 +53,7 @@ public class Cache implements CacheTemplate<String> {
     @Override
     public Object get(String key) {
         List<String> cacheTypeNames = dataManager.getCacheTypeNames();
-        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(Collections.getFirst(cacheTypeNames).get());
+        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(Collections.getFirst(cacheTypeNames).orElseThrow());
         Object value = cacheTemplate.get(cacheTemplate.resolveKey(key, namespace));
         if (cacheTypeNames.size() == 1 || Nil.isNotNull(value)) {
             return value;
@@ -72,7 +72,7 @@ public class Cache implements CacheTemplate<String> {
     @Override
     public <V> Map<String, V> getMapByNamespace(String namespace) {
         List<String> cacheTypeNames = dataManager.getCacheTypeNames();
-        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(Collections.getFirst(cacheTypeNames).get());
+        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(Collections.getFirst(cacheTypeNames).orElseThrow());
         Map<String, V> values = cacheTemplate.getMapByNamespace(namespace);
         if (cacheTypeNames.size() == 1 || Nil.isNotEmpty(values)) {
             return values;
@@ -91,7 +91,7 @@ public class Cache implements CacheTemplate<String> {
     @Override
     public <V> Map<String, V> getMapByNamespaceWithoutNullValue(String namespace) {
         List<String> cacheTypeNames = dataManager.getCacheTypeNames();
-        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(Collections.getFirst(cacheTypeNames).get());
+        CacheTemplate<String> cacheTemplate = dataManager.getTemplate(Collections.getFirst(cacheTypeNames).orElseThrow());
         Map<String, V> values = cacheTemplate.getMapByNamespaceWithoutNullValue(namespace);
         if (cacheTypeNames.size() == 1 || Nil.isNotEmpty(values)) {
             return values;
