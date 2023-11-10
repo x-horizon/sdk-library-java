@@ -1,11 +1,8 @@
 package cn.srd.library.java.orm.mybatis.flex.base.id;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.orm.mybatis.flex.base.autoconfigure.EnableMybatisFlexCustomizer;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
-import com.mybatisflex.core.FlexGlobalConfig;
-import com.mybatisflex.core.keygen.IKeyGenerator;
 import com.mybatisflex.core.keygen.KeyGeneratorFactory;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -16,21 +13,15 @@ public class IdGenerateByCustomerStrategy implements IdGenerateStrategy {
     protected static final IdGenerateByCustomerStrategy INSTANCE = new IdGenerateByCustomerStrategy();
 
     @Override
-    public String getGeneratorName() {
-        return IdGenerateType.CUSTOMER_GENERATOR_NAME;
+    public void validateIdConfig(IdConfig idConfig) {
+        warningIfNotDefaultIdGenerateSQL(idConfig.generateSQL());
+        Assert.of().setMessage("{}id generator config - current id generate strategy is [{}] but no generator was specified!", ModuleView.ORM_MYBATIS_SYSTEM, this.getClass().getName())
+                .throwsIfEquals(IdInvalidGenerator.class, idConfig.generator());
     }
 
     @Override
-    public Class<? extends IKeyGenerator> getGenerator() {
-        return IdInvalidGenerator.class;
-    }
-
-    @Override
-    public FlexGlobalConfig.KeyConfig buildConfig(IdGenerateConfig idGenerateConfig) {
-        Assert.of().setMessage("{}could not build global id generate config because of using the id generate type [{}] in [@{}]-[@{}] but no generator was specified!", ModuleView.ORM_MYBATIS_SYSTEM, IdGenerateType.CUSTOMER.getClass().getSimpleName(), EnableMybatisFlexCustomizer.class.getSimpleName(), IdGenerateConfig.class.getSimpleName())
-                .throwsIfEquals(IdInvalidGenerator.class, idGenerateConfig.generator());
-        KeyGeneratorFactory.register(getGeneratorName(), Reflects.newInstance(idGenerateConfig.generator()));
-        return IdGenerateStrategy.super.buildConfig(idGenerateConfig);
+    public void registerIdGenerator(IdConfig idConfig) {
+        KeyGeneratorFactory.register(getGeneratorName(), Reflects.newInstance(idConfig.generator()));
     }
 
 }
