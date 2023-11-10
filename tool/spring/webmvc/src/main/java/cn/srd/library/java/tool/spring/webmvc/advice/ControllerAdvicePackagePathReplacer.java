@@ -5,10 +5,10 @@
 package cn.srd.library.java.tool.spring.webmvc.advice;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.contract.constant.spring.SpringFrameworkConstant;
-import cn.srd.library.java.tool.lang.annotation.Annotations;
+import cn.srd.library.java.contract.constant.spring.SpringWebMVCConstant;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.object.Nil;
+import cn.srd.library.java.tool.spring.contract.Annotations;
 import cn.srd.library.java.tool.spring.contract.Classes;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.SmartInitializingSingleton;
@@ -29,11 +29,11 @@ public class ControllerAdvicePackagePathReplacer implements SmartInitializingSin
         if (Nil.isNotEmpty(advicePackagePaths)) {
             RestControllerAdvice restControllerAdvice = Annotations.getAnnotation(WebMVCResponseBodyAdvice.class, RestControllerAdvice.class);
             String[] beforeReplaceBasePackagePaths = restControllerAdvice.basePackages();
-            Annotations.setAnnotationValue(restControllerAdvice, SpringFrameworkConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE, Collections.toArray(advicePackagePaths, String[]::new));
+            Annotations.setAnnotationValue(restControllerAdvice, SpringWebMVCConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE, Collections.toArray(advicePackagePaths, String[]::new));
             log.debug("{}replace the annotation [@{}] field [{}] value on class [@{}], before replace value {}, after replace value {}.",
                     ModuleView.WEB_SYSTEM,
                     RestControllerAdvice.class.getSimpleName(),
-                    SpringFrameworkConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE,
+                    SpringWebMVCConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE,
                     WebMVCResponseBodyAdvice.class.getSimpleName(),
                     beforeReplaceBasePackagePaths,
                     advicePackagePaths

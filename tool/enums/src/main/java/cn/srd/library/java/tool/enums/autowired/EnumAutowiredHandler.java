@@ -18,8 +18,6 @@ import cn.srd.library.java.tool.spring.contract.Springs;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.core.type.filter.AnnotationTypeFilter;
-import org.springframework.core.type.filter.AssignableTypeFilter;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -39,9 +37,8 @@ public class EnumAutowiredHandler<E extends Enum<E>> implements SmartInitializin
     public void afterSingletonsInstantiated() {
         log.debug("{} enum autowired starting matching...", ModuleView.ENUM_SYSTEM);
 
-        Set<String> scanPackagePaths = Classes.parseAnnotationAntStylePackagePathToPackagePath(EnableEnumAutowired.class, "scanPackagePaths");
-        Set<String> allScanPackagePaths = Classes.getTheLargestRangePackagePath(Collections.add(scanPackagePaths, Springs.getSpringBootApplicationPackagePath()));
-        Set<BeanDefinition> enumAutowiredBeanDefinitions = Classes.scanByTypeFilter(new AnnotationTypeFilter(EnumAutowired.class), allScanPackagePaths);
+        Set<String> scanPackagePaths = Classes.optimizeAnnotationAntStylePackagePath(EnableEnumAutowired.class, "scanPackagePaths");
+        Set<BeanDefinition> enumAutowiredBeanDefinitions = Classes.scanByAnnotationTypeFilter(EnumAutowired.class, scanPackagePaths);
         if (Nil.isEmpty(enumAutowiredBeanDefinitions)) {
             log.debug("{}could not found the class marked with [@{}], exited.", ModuleView.ENUM_SYSTEM, EnumAutowired.class.getName());
         }
@@ -55,7 +52,7 @@ public class EnumAutowiredHandler<E extends Enum<E>> implements SmartInitializin
             String enumAutowiredAnnotatedClassName = enumAutowiredAnnotatedClass.getName();
             Class<?> enumAutowiredRootClass = enumAutowired.rootClass();
             String enumAutowiredRootClassName = enumAutowiredRootClass.getName();
-            Set<BeanDefinition> enumAutowiredChildrenClassDefinitions = Classes.scanByTypeFilter(new AssignableTypeFilter(enumAutowiredRootClass), allScanPackagePaths);
+            Set<BeanDefinition> enumAutowiredChildrenClassDefinitions = Classes.scanByAssignableTypeFilter(enumAutowiredRootClass, scanPackagePaths);
             Assert.of().setMessage("{}the class [{}] marked with [@{}] bound interface [{}] has no implementation class, please check!", ModuleView.ENUM_SYSTEM, enumAutowiredAnnotatedClassName, EnumAutowired.class.getName(), enumAutowiredRootClassName)
                     .throwsIfEmpty(enumAutowiredChildrenClassDefinitions);
             List<String> enumAutowiredSubclassNames = enumAutowiredChildrenClassDefinitions.stream()

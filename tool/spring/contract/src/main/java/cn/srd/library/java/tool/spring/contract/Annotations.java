@@ -8,7 +8,6 @@ import cn.srd.library.java.contract.constant.annotation.AnnotationConstant;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.TypeFilter;
 
 import java.lang.annotation.Annotation;
@@ -118,7 +117,7 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see Classes#scanByTypeFilter(TypeFilter, Collection)
      */
     public static <T> Set<T> getAnnotationValue(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName, Collection<String> packagePaths) {
-        return Classes.scanByTypeFilter(new AnnotationTypeFilter(annotationType), packagePaths)
+        return Classes.scanByAnnotationTypeFilter(annotationType, packagePaths)
                 .stream()
                 .map(beanDefinition -> Classes.ofName(beanDefinition.getBeanClassName()))
                 .map(annotatedClass -> getAnnotationValue(annotatedClass, annotationType, fieldType, fieldName))
@@ -321,7 +320,7 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationValue(Class, Class, String, Collection)
      */
     public static <T> Map<Class<?>, T> getAnnotatedClassMappingAnnotationValueMap(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName, Collection<String> packagePaths) {
-        return Classes.scanByTypeFilter(new AnnotationTypeFilter(annotationType), packagePaths)
+        return Classes.scanByAnnotationTypeFilter(annotationType, packagePaths)
                 .stream()
                 .map(beanDefinition -> Classes.ofName(beanDefinition.getBeanClassName()))
                 .collect(Collectors.toMap(annotatedClass -> annotatedClass, annotatedClass -> getAnnotationValue(annotatedClass, annotationType, fieldType, fieldName)));
@@ -422,7 +421,7 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationValue(Class, Class, String, Collection)
      */
     public static <T> Map<T, Class<?>> getAnnotationValueMappingAnnotatedClassMap(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName, Collection<String> packagePaths) {
-        return Classes.scanByTypeFilter(new AnnotationTypeFilter(annotationType), packagePaths)
+        return Classes.scanByAnnotationTypeFilter(annotationType, packagePaths)
                 .stream()
                 .map(beanDefinition -> Classes.ofName(beanDefinition.getBeanClassName()))
                 .collect(Collectors.toMap(annotatedClass -> getAnnotationValue(annotatedClass, annotationType, fieldType, fieldName), annotatedClass -> annotatedClass));
