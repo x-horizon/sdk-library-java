@@ -39,6 +39,7 @@ public class JdbcTypeHandlerTest {
                 .familyIds(Collections.ofImmutableList(1L, 2L, 3L))
                 .jobTypes(Collections.ofImmutableList(JobType.A, JobType.B, JobType.A))
                 .classPOs(Collections.ofImmutableList(ClassPO.builder().id(1L).name("mmm").build(), ClassPO.builder().id(2L).name("mmm1").build()))
+                .bookInfos("[{\"id\": 1, \"name\": \"myBook1\"}, {\"id\": 2, \"name\": \"myBook2\"}]")
                 .detailPO(DetailPO.builder().name("vvv").age((short) 19).build())
                 .version(1L)
                 .creatorId(1L)

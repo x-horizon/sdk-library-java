@@ -2,10 +2,7 @@ package cn.library.java.orm.mybatis.flex.postgresql.model.po;
 
 import cn.library.java.orm.mybatis.contract.base.handler.JdbcCharMappingJavaUUIDTypeHandler;
 import cn.library.java.orm.mybatis.contract.base.handler.JdbcUUIDMappingJavaStringTypeHandler;
-import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaListEnumIntegerTypeHandler;
-import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaListLongTypeHandler;
-import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaNullableEntityTypeHandler;
-import cn.library.java.orm.mybatis.contract.postgresql.handler.JdbcJsonbMappingJavaNullableListEntityTypeHandler;
+import cn.library.java.orm.mybatis.contract.postgresql.handler.*;
 import cn.library.java.orm.mybatis.flex.postgresql.model.enums.JobType;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
@@ -48,6 +45,9 @@ public class StudentPO extends BasePO {
 
     @Column(value = "class_infos", typeHandler = JdbcJsonbMappingJavaNullableListEntityTypeHandler.class)
     private List<ClassPO> classPOs;
+
+    @Column(value = "book_infos", typeHandler = JdbcJsonbMappingJavaStringTypeHandler.class)
+    private String bookInfos;
 
     @Column(value = "job_types", typeHandler = JdbcJsonbMappingJavaListEnumIntegerTypeHandler.class)
     private List<JobType> jobTypes;

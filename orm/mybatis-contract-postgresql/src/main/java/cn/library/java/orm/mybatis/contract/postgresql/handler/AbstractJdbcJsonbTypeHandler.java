@@ -66,10 +66,7 @@ public abstract class AbstractJdbcJsonbTypeHandler<T> extends AbstractJdbcComple
     @SneakyThrows
     @Override
     protected Object toJdbcObject(T javaObject) {
-        PGobject pgObject = new PGobject();
-        pgObject.setType(PostgresqlDataType.JSONB.getValue());
-        pgObject.setValue(Converts.withJackson().toString(doConvertToJdbcObject(javaObject)));
-        return pgObject;
+        return toPostgresqlObject(Converts.withJackson().toString(doConvertToJdbcObject(javaObject)));
     }
 
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
@@ -91,6 +88,20 @@ public abstract class AbstractJdbcJsonbTypeHandler<T> extends AbstractJdbcComple
                         columnName,
                         javaTypes.stream().map(Class::getName).toList()
                 )));
+    }
+
+    /**
+     * convert to postgresql object
+     *
+     * @param content the content
+     * @return postgresql object
+     */
+    @SneakyThrows
+    protected PGobject toPostgresqlObject(String content) {
+        PGobject pgObject = new PGobject();
+        pgObject.setType(PostgresqlDataType.JSONB.getValue());
+        pgObject.setValue(content);
+        return pgObject;
     }
 
 }
