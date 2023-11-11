@@ -1,6 +1,10 @@
 package cn.srd.library.java.orm.mybatis.flex.base.autoconfigure;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
+import cn.srd.library.java.orm.mybatis.flex.base.id.IdConfig;
+import cn.srd.library.java.orm.mybatis.flex.base.lock.OptimisticLockConfig;
+import cn.srd.library.java.tool.lang.object.Objects;
+import cn.srd.library.java.tool.spring.contract.Annotations;
 import com.mybatisflex.core.FlexGlobalConfig;
 import com.mybatisflex.core.mybatis.FlexConfiguration;
 import com.mybatisflex.spring.boot.ConfigurationCustomizer;
@@ -12,19 +16,26 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
 
     @Override
     public void customize(FlexConfiguration configuration) {
-
     }
 
     @Override
     public void customize(FlexGlobalConfig globalConfig) {
         log.debug("{}mybatis flex customizer is enabled, starting initializing...", ModuleView.ORM_MYBATIS_SYSTEM);
 
-        // EnableMybatisFlexCustomizer mybatisFlexCustomizer = Annotations.getAnnotation(EnableMybatisFlexCustomizer.class);
-        // globalConfig.setKeyConfig(mybatisFlexCustomizer.globalIdGenerateConfig().type().getStrategy().build(mybatisFlexCustomizer.globalIdGenerateConfig()));
-
+        EnableMybatisFlexCustomizer mybatisFlexCustomizer = Annotations.getAnnotation(EnableMybatisFlexCustomizer.class);
+        setIdGenerateConfig(globalConfig, mybatisFlexCustomizer.globalIdGenerateConfig());
+        setOptimisticLockConfig(globalConfig, mybatisFlexCustomizer.globalOptimisticLockConfig());
         // handleAuditConfig(mybatisFlexCustomizer.auditConfig());
 
         log.debug("{}mybatis flex customizer initialized.", ModuleView.ORM_MYBATIS_SYSTEM);
+    }
+
+    private void setIdGenerateConfig(FlexGlobalConfig globalConfig, IdConfig idConfig) {
+        globalConfig.setKeyConfig(idConfig.type().getStrategy().build(idConfig));
+    }
+
+    private void setOptimisticLockConfig(FlexGlobalConfig globalConfig, OptimisticLockConfig optimisticLockConfig) {
+        Objects.setIfNotBlank(optimisticLockConfig.columnName(), globalConfig::setVersionColumn);
     }
 
     // private void handleAuditConfig(AuditConfig auditConfig) {

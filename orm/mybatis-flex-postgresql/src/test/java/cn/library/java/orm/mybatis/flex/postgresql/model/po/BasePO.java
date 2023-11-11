@@ -22,7 +22,7 @@ public class BasePO implements Serializable {
 
     @Serial private static final long serialVersionUID = 2152316212528302390L;
 
-    @Column(value = "version")
+    @Column(value = "version", version = true)
     private Long version;
 
     @Column(value = "creator_id")

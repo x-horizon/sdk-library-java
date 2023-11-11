@@ -1,7 +1,6 @@
 package cn.srd.library.java.orm.mybatis.flex.base.id;
 
 import com.mybatisflex.core.keygen.KeyGeneratorFactory;
-import com.mybatisflex.core.keygen.impl.UUIDKeyGenerator;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +11,7 @@ public class IdGenerateByUUIDStrategy implements IdGenerateStrategy {
 
     @Override
     public void registerIdGenerator(IdConfig idConfig) {
-        KeyGeneratorFactory.register(getGeneratorName(), new UUIDKeyGenerator());
+        KeyGeneratorFactory.register(getGeneratorName(), IdUUIDGenerator.getInstance());
     }
 
 }

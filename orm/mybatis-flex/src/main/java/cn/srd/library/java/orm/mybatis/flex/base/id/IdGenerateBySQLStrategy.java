@@ -12,9 +12,14 @@ public class IdGenerateBySQLStrategy implements IdGenerateStrategy {
 
     @Override
     public void validateIdConfig(IdConfig idConfig) {
-        warningIfNotDefaultIdGenerateType(idConfig.type());
+        warningIfNotDefaultIdGenerator(idConfig.generator());
         Assert.of().setMessage("{}id generator config - current id generate strategy is [{}] but no generated sql specified in [{}]!", ModuleView.ORM_MYBATIS_SYSTEM, this.getClass().getName(), IdConfig.class.getName())
                 .throwsIfBlank(idConfig.generateSQL());
+    }
+
+    @Override
+    public String buildMybatisFlexKeyConfigValue(IdConfig idConfig) {
+        return idConfig.generateSQL();
     }
 
 }

@@ -1,10 +1,10 @@
 package cn.library.java.orm.mybatis.flex.postgresql.test;
 
-import cn.library.java.orm.mybatis.flex.postgresql.dao.StudentDao;
+import cn.library.java.orm.mybatis.flex.postgresql.dao.StudentTestTypeHandlerDao;
 import cn.library.java.orm.mybatis.flex.postgresql.model.enums.JobType;
 import cn.library.java.orm.mybatis.flex.postgresql.model.po.ClassPO;
 import cn.library.java.orm.mybatis.flex.postgresql.model.po.DetailPO;
-import cn.library.java.orm.mybatis.flex.postgresql.model.po.StudentPO;
+import cn.library.java.orm.mybatis.flex.postgresql.model.po.StudentTestTypeHandlerPO;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.time.Times;
 import org.junit.Test;
@@ -22,20 +22,21 @@ import java.util.UUID;
 @SpringBootTest
 public class JdbcTypeHandlerTest {
 
-    @Autowired private StudentDao studentDao;
+    @Autowired private StudentTestTypeHandlerDao studentTestTypeHandlerDao;
 
     @Test
     public void testGet() {
-        StudentPO studentPO1 = studentDao.selectOneById(1L);
-        StudentPO studentPO2 = studentDao.selectOneById(2L);
-        StudentPO studentPO3 = studentDao.selectOneById(3L);
-        List<StudentPO> studentPOs1 = studentDao.selectAll();
-        List<StudentPO> studentPOs2 = studentDao.selectAll();
+        StudentTestTypeHandlerPO studentTestTypeHandlerPO1 = studentTestTypeHandlerDao.selectOneById(1L);
+        StudentTestTypeHandlerPO studentTestTypeHandlerPO2 = studentTestTypeHandlerDao.selectOneById(2L);
+        StudentTestTypeHandlerPO studentTestTypeHandlerPO3 = studentTestTypeHandlerDao.selectOneById(3L);
+        List<StudentTestTypeHandlerPO> studentTestTypeHandlerPOs1 = studentTestTypeHandlerDao.selectAll();
+        List<StudentTestTypeHandlerPO> studentTestTypeHandlerPOs2 = studentTestTypeHandlerDao.selectAll();
 
-        studentDao.insertSelective(StudentPO.builder()
+        studentTestTypeHandlerDao.insertSelective(StudentTestTypeHandlerPO.builder()
                 .id(94L)
                 .classId(UUID.fromString("2af3acfd-5d1d-414c-b72f-5815c595fb6e"))
                 .teacherId("2af3acfd-5d1d-414c-b72f-5815c595fb6e")
+                .phoneId(UUID.fromString("2af3acfd-5d1d-414c-b72f-5815c595fb6e"))
                 .familyIds(Collections.ofImmutableList(1L, 2L, 3L))
                 .jobTypes(Collections.ofImmutableList(JobType.A, JobType.B, JobType.A))
                 .classPOs(Collections.ofImmutableList(ClassPO.builder().id(1L).name("mmm").build(), ClassPO.builder().id(2L).name("mmm1").build()))

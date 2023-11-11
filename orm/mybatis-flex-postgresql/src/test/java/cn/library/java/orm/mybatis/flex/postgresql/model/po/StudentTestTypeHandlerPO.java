@@ -2,6 +2,7 @@ package cn.library.java.orm.mybatis.flex.postgresql.model.po;
 
 import cn.library.java.orm.mybatis.contract.base.handler.JdbcCharMappingJavaUUIDTypeHandler;
 import cn.library.java.orm.mybatis.contract.base.handler.JdbcUUIDMappingJavaStringTypeHandler;
+import cn.library.java.orm.mybatis.contract.base.handler.JdbcUUIDMappingJavaUUIDTypeHandler;
 import cn.library.java.orm.mybatis.contract.postgresql.handler.*;
 import cn.library.java.orm.mybatis.flex.postgresql.model.enums.JobType;
 import com.mybatisflex.annotation.Column;
@@ -22,10 +23,10 @@ import java.util.UUID;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-@Table(value = "student")
-public class StudentPO extends BasePO {
+@Table(value = "student_test_type_handler")
+public class StudentTestTypeHandlerPO extends BasePO {
 
-    @Serial private static final long serialVersionUID = 8974991316575686572L;
+    @Serial private static final long serialVersionUID = -4846541461580942831L;
 
     @Id
     @Column(value = "id")
@@ -36,6 +37,9 @@ public class StudentPO extends BasePO {
 
     @Column(value = "class_id", typeHandler = JdbcCharMappingJavaUUIDTypeHandler.class)
     private UUID classId;
+
+    @Column(value = "phone_id", typeHandler = JdbcUUIDMappingJavaUUIDTypeHandler.class)
+    private UUID phoneId;
 
     @Column(value = "family_ids", typeHandler = JdbcJsonbMappingJavaListLongTypeHandler.class)
     private List<Long> familyIds;
