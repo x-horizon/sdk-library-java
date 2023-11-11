@@ -110,6 +110,7 @@ object GradleModule {
     const val TOOL_FREEMARKER = "tool-freemarker"
     const val TOOL_GEOMETRY = "tool-geometry"
     const val TOOL_ID_SNOWFLAKE = "tool-id-snowflake"
+    const val TOOL_JNA = "tool-jna"
     const val TOOL_JOB_QUARTZ = "tool-job-quartz"
     const val TOOL_LANG = "tool-lang"
     const val TOOL_LOG = "tool-log"
