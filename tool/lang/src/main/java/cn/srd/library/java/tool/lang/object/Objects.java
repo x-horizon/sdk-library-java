@@ -9,6 +9,7 @@ import cn.srd.library.java.tool.lang.number.Numbers;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
@@ -47,6 +48,18 @@ public class Objects {
             return valueActionIfBlank.get();
         }
         return checked;
+    }
+
+    public static void setIfBlank(String checked, Consumer<String> valueActionIfBlank) {
+        if (Nil.isBlank(checked)) {
+            valueActionIfBlank.accept(checked);
+        }
+    }
+
+    public static void setIfNotBlank(String checked, Consumer<String> valueActionIfBlank) {
+        if (Nil.isNotBlank(checked)) {
+            valueActionIfBlank.accept(checked);
+        }
     }
 
     /**

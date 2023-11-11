@@ -26,4 +26,13 @@ public class Randoms {
         return RandomUtil.randomNumber();
     }
 
+    /**
+     * see {@link RandomUtil#randomString(int)}
+     *
+     * @return random string
+     */
+    public static String randomString(int length) {
+        return RandomUtil.randomString(length);
+    }
+
 }
