@@ -13,8 +13,8 @@ import com.sun.jna.Native;
  */
 public interface WorkerIds extends Library {
 
-    WorkerIds INSTANCE = Native.load("yitter-worker-id-generate", WorkerIds.class);
+    WorkerIds INSTANCE = Native.load("worker-id-generate", WorkerIds.class);
 
-    int RegisterOne(String address, String password, long db, String sentinelMasterName, int minWorkerId, int maxWorkerId, int lifeTimeSeconds);
+    int getWorkerId(String address, String password, long db, String sentinelMasterName, int minWorkerId, int maxWorkerId, int lifeTimeSeconds);
 
 }

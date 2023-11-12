@@ -12,11 +12,12 @@ public class SnowflakeIdAutoConfigurer implements SmartInitializingSingleton {
 
     @Override
     public void afterSingletonsInstantiated() {
-        IdGeneratorOptions options = new IdGeneratorOptions((short) WorkerIds.INSTANCE.RegisterOne("127.0.0.1:6379", "", 1L, "", 1, (1 << 6) - 1, 60));
+        IdGeneratorOptions options = new IdGeneratorOptions((short) WorkerIds.INSTANCE.getWorkerId("127.0.0.1:6379", "", 1L, "", 1, (1 << 6) - 1, 60));
         YitIdHelper.setIdGenerator(options);
     }
 
     public static void main(String[] args) {
+        WorkerIds.INSTANCE.getWorkerId("127.0.0.1:6379", "", 1L, "", 1, (1 << 6) - 1, 60);
         Console.log((1 << 6) - 1);
     }
 
