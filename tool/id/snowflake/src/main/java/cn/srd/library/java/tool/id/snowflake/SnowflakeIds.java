@@ -1,8 +1,6 @@
 package cn.srd.library.java.tool.id.snowflake;
 
 import com.github.yitter.idgen.YitIdHelper;
-import com.sun.jna.Library;
-import com.sun.jna.Native;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -29,20 +27,6 @@ public class SnowflakeIds {
      */
     public static long getId() {
         return YitIdHelper.nextId();
-    }
-
-    public interface Clibrary extends Library {
-
-        Clibrary instance = Native.load("yitter-worker-id-generate", Clibrary.class);
-        // Clibrary instance = Native.load("/Users/jimmy/Documents/Workspace/work/srd/itcp-library/library-java-v30/tool/id/snowflake/src/main/resources/linux-x86-64/workeridgo-linux.dll", Clibrary.class);
-
-        // 与动态库中的函数相对应
-        int RegisterOne(String address, String password, long db, String sentinelMasterName, int minWorkerId, int maxWorkerId, int lifeTimeSeconds);
-
-    }
-
-    public static void main(String[] args) {
-        int a = Clibrary.instance.RegisterOne("192.168.10.91:30570", "", 1L, "", 1, 3000, 60);
     }
 
 }
