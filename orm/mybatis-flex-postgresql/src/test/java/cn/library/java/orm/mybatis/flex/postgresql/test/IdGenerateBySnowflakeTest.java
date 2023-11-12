@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @MapperScan("cn.library.java.orm.mybatis.flex.postgresql.dao")
-@EnableMybatisFlexCustomizer(globalIdGenerateConfig = @IdConfig(type = IdGenerateType.SNOWFLAKE))
+@EnableMybatisFlexCustomizer(globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SNOWFLAKE))
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class IdGenerateBySnowflakeTest {

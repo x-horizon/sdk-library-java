@@ -1,3 +1,7 @@
+// Copyright (C) 2021-2023 thinkingto.com Ltd. All rights reserved.
+// Use of this source code is governed by SRD.
+// license that can be found in the LICENSE file.
+
 package cn.srd.library.java.orm.mybatis.flex.base.id;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
@@ -7,6 +11,13 @@ import com.mybatisflex.core.FlexGlobalConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * the root id generate strategy
+ *
+ * @author wjm
+ * @see IdConfig
+ * @since 2023-11-12 21:06
+ */
 public interface IdGenerateStrategy {
 
     Logger log = LoggerFactory.getLogger(IdGenerateStrategy.class);
@@ -53,7 +64,7 @@ public interface IdGenerateStrategy {
 
     private FlexGlobalConfig.KeyConfig doBuild(IdConfig idConfig) {
         FlexGlobalConfig.KeyConfig keyConfig = new FlexGlobalConfig.KeyConfig();
-        keyConfig.setKeyType(idConfig.type().getMybatisFlexIdType());
+        keyConfig.setKeyType(idConfig.generateType().getMybatisFlexIdType());
         keyConfig.setValue(buildMybatisFlexKeyConfigValue(idConfig));
         keyConfig.setBefore(true);
         return keyConfig;

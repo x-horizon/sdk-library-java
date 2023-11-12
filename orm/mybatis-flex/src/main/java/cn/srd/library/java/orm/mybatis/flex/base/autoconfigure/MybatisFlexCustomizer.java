@@ -1,3 +1,7 @@
+// Copyright (C) 2021-2023 thinkingto.com Ltd. All rights reserved.
+// Use of this source code is governed by SRD.
+// license that can be found in the LICENSE file.
+
 package cn.srd.library.java.orm.mybatis.flex.base.autoconfigure;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
@@ -11,6 +15,12 @@ import com.mybatisflex.spring.boot.ConfigurationCustomizer;
 import com.mybatisflex.spring.boot.MyBatisFlexCustomizer;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * the global mybatis flex customizer
+ *
+ * @author wjm
+ * @since 2023-11-12 21:06
+ */
 @Slf4j
 public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFlexCustomizer {
 
@@ -30,10 +40,22 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
         log.debug("{}mybatis flex customizer initialized.", ModuleView.ORM_MYBATIS_SYSTEM);
     }
 
+    /**
+     * handle the global id config
+     *
+     * @param globalConfig the mybatis flex global config
+     * @param idConfig     the global id config
+     */
     private void setIdGenerateConfig(FlexGlobalConfig globalConfig, IdConfig idConfig) {
-        globalConfig.setKeyConfig(idConfig.type().getStrategy().build(idConfig));
+        globalConfig.setKeyConfig(idConfig.generateType().getStrategy().build(idConfig));
     }
 
+    /**
+     * handle the global optimistic lock config
+     *
+     * @param globalConfig         the mybatis flex global config
+     * @param optimisticLockConfig the global id config
+     */
     private void setOptimisticLockConfig(FlexGlobalConfig globalConfig, OptimisticLockConfig optimisticLockConfig) {
         Objects.setIfNotBlank(optimisticLockConfig.columnName(), globalConfig::setVersionColumn);
     }
