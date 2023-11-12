@@ -8,6 +8,8 @@ import com.mybatisflex.core.keygen.KeyGeneratorFactory;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 /**
  * the uuid type id generate strategy
  *
@@ -20,7 +22,7 @@ public class IdGenerateByUUIDStrategy implements IdGenerateStrategy {
 
     @Override
     public void registerIdGenerator(IdConfig idConfig) {
-        KeyGeneratorFactory.register(getGeneratorName(), new IdUUIDGenerator());
+        KeyGeneratorFactory.register(getGeneratorName(), (IdGenerator) (entity, keyColumn) -> UUID.randomUUID().toString());
     }
 
 }

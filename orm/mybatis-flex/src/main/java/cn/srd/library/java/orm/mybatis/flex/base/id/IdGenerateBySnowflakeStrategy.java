@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.id;
 
+import cn.srd.library.java.tool.id.snowflake.SnowflakeIds;
 import com.mybatisflex.core.keygen.KeyGeneratorFactory;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,7 @@ public class IdGenerateBySnowflakeStrategy implements IdGenerateStrategy {
 
     @Override
     public void registerIdGenerator(IdConfig idConfig) {
-        KeyGeneratorFactory.register(getGeneratorName(), new IdSnowflakeGenerator());
+        KeyGeneratorFactory.register(getGeneratorName(), (IdGenerator) (entity, keyColumn) -> SnowflakeIds.getId());
     }
 
 }

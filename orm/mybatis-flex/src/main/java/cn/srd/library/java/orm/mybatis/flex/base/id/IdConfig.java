@@ -10,6 +10,7 @@ import cn.srd.library.java.tool.id.snowflake.WorkerIds;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.UUID;
 
 /**
  * the global mybatis flex id config
@@ -28,10 +29,10 @@ public @interface IdConfig {
      * 1. when use {@link IdGenerateType#AUTO_INCREMENT}, make sure the primary key in database has already set the autoincrement action,
      *    and it is not necessary to set {@link #generator()}, {@link #generateSQL()}.
      *
-     * 2. when use {@link IdGenerateType#UUID}, it will generate the id by {@link IdUUIDGenerator#generate(Object, String)} automatically before insert to database,
+     * 2. when use {@link IdGenerateType#UUID}, it will generate the id by {@link UUID#randomUUID()} automatically before insert to database,
      *    and it is not necessary to set {@link #generator()}, {@link #generateSQL()}.
      *
-     * 3. when use {@link IdGenerateType#SNOWFLAKE}, it will generate the id by {@link IdSnowflakeGenerator#generate(Object, String)} automatically before insert to database,
+     * 3. when use {@link IdGenerateType#SNOWFLAKE}, it will generate the id by {@link SnowflakeIds#getId()} automatically before insert to database,
      *    and it is not necessary to set {@link #generator()}, {@link #generateSQL()},
      *    about the algorithm of snowflake id, you can see the following:
      *    <ul>
