@@ -14,16 +14,6 @@ import java.util.UUID;
  */
 public class IdUUIDGenerator implements IdGenerator {
 
-    private static final class SingleTonHolder {
-
-        private static final IdUUIDGenerator INSTANCE = new IdUUIDGenerator();
-
-    }
-
-    public static IdUUIDGenerator getInstance() {
-        return SingleTonHolder.INSTANCE;
-    }
-
     @Override
     public Object generate(Object entity, String keyColumn) {
         return UUID.randomUUID().toString();

@@ -16,12 +16,12 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum IdGenerateType {
 
-    AUTO_INCREMENT(KeyType.Auto, IdGenerateByAutoIncrementStrategy.INSTANCE),
-    UUID(KeyType.Generator, IdGenerateByUUIDStrategy.INSTANCE),
-    SNOWFLAKE(KeyType.Generator, IdGenerateBySnowflakeStrategy.INSTANCE),
-    CUSTOMER(KeyType.Generator, IdGenerateByCustomerStrategy.INSTANCE),
-    SQL(KeyType.Sequence, IdGenerateBySQLStrategy.INSTANCE),
-    UNCONTROLLED(KeyType.None, IdGenerateByUncontrolledStrategy.INSTANCE),
+    AUTO_INCREMENT(KeyType.Auto, new IdGenerateByAutoIncrementStrategy()),
+    UUID(KeyType.Generator, new IdGenerateByUUIDStrategy()),
+    SNOWFLAKE(KeyType.Generator, new IdGenerateBySnowflakeStrategy()),
+    CUSTOMER(KeyType.Generator, new IdGenerateByCustomerStrategy()),
+    SQL(KeyType.Sequence, new IdGenerateBySQLStrategy()),
+    UNCONTROLLED(KeyType.None, new IdGenerateByUncontrolledStrategy()),
 
     ;
 

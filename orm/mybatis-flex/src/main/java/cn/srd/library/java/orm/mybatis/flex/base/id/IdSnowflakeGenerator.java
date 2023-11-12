@@ -14,16 +14,6 @@ import cn.srd.library.java.tool.id.snowflake.SnowflakeIds;
  */
 public class IdSnowflakeGenerator implements IdGenerator {
 
-    private static final class SingleTonHolder {
-
-        private static final IdSnowflakeGenerator INSTANCE = new IdSnowflakeGenerator();
-
-    }
-
-    public static IdSnowflakeGenerator getInstance() {
-        return SingleTonHolder.INSTANCE;
-    }
-
     @Override
     public Object generate(Object entity, String keyColumn) {
         return SnowflakeIds.getId();

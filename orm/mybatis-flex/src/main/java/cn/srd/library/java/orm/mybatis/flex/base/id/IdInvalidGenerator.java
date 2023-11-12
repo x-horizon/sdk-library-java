@@ -19,16 +19,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class IdInvalidGenerator implements IdGenerator {
 
-    private static final class SingleTonHolder {
-
-        private static final IdInvalidGenerator INSTANCE = new IdInvalidGenerator();
-
-    }
-
-    public static IdInvalidGenerator getInstance() {
-        return SingleTonHolder.INSTANCE;
-    }
-
     @Override
     public Object generate(Object entity, String keyColumn) {
         throw new LibraryJavaInternalException(Strings.format("{}could not use invalid id generator to generate id!", ModuleView.ORM_MYBATIS_SYSTEM));

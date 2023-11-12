@@ -14,9 +14,7 @@ import lombok.NoArgsConstructor;
  * @see IdConfig
  * @since 2023-11-12 21:06
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class IdGenerateByUncontrolledStrategy implements IdGenerateStrategy {
-
-    protected static final IdGenerateByUncontrolledStrategy INSTANCE = new IdGenerateByUncontrolledStrategy();
 
 }

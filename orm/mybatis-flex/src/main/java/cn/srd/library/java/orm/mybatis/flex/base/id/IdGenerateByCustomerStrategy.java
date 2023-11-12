@@ -18,10 +18,8 @@ import lombok.NoArgsConstructor;
  * @see IdConfig
  * @since 2023-11-12 21:06
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class IdGenerateByCustomerStrategy implements IdGenerateStrategy {
-
-    protected static final IdGenerateByCustomerStrategy INSTANCE = new IdGenerateByCustomerStrategy();
 
     @Override
     public void validateIdConfig(IdConfig idConfig) {

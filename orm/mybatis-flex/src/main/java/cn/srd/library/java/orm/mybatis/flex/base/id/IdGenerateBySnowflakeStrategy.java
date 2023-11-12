@@ -15,14 +15,12 @@ import lombok.NoArgsConstructor;
  * @see IdConfig
  * @since 2023-11-12 21:06
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class IdGenerateBySnowflakeStrategy implements IdGenerateStrategy {
-
-    protected static final IdGenerateBySnowflakeStrategy INSTANCE = new IdGenerateBySnowflakeStrategy();
 
     @Override
     public void registerIdGenerator(IdConfig idConfig) {
-        KeyGeneratorFactory.register(getGeneratorName(), IdSnowflakeGenerator.getInstance());
+        KeyGeneratorFactory.register(getGeneratorName(), new IdSnowflakeGenerator());
     }
 
 }
