@@ -35,7 +35,6 @@ include(":cloud:native:kubernetes")
 include(":concurrent:actor")
 include(":concurrent:redis")
 
-include(":contract:base")
 include(":contract:component:redis")
 include(":contract:component:message:spring")
 include(":contract:constant")

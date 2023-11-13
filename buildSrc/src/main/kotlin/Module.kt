@@ -26,7 +26,6 @@ object GradleModule {
     const val CONCURRENT_ACTOR = "concurrent-actor"
     const val CONCURRENT_REDIS = "concurrent-redis"
 
-    const val CONTRACT_BASE = "contract-base"
     const val CONTRACT_COMPONENT_MESSAGE_SPRING = "contract-component-message-spring"
     const val CONTRACT_COMPONENT_REDIS = "contract-component-redis"
     const val CONTRACT_CONSTANT = "contract-constant"

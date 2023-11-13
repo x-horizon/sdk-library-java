@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_BASE)))
+    api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_MODEL)))
 
     api(GradleDependency.TOOL_ALIBABA_TRANSMITTABLE_THREAD_LOCAL.withoutVersion)
     api(GradleDependency.TOOL_BURNING_WAVE_CORE.withoutVersion)
