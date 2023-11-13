@@ -5,7 +5,6 @@
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.POOL_DATABASE_HIKARICP)))
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_ENUMS)))
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_ID_SNOWFLAKE)))
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_CONTRACT)))
 
