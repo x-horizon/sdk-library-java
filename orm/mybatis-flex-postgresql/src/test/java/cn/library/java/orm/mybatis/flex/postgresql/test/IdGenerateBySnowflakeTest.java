@@ -1,10 +1,15 @@
 package cn.library.java.orm.mybatis.flex.postgresql.test;
 
+import cn.library.java.orm.mybatis.flex.postgresql.config.TestInsertListener;
+import cn.library.java.orm.mybatis.flex.postgresql.config.TestUpdateListener;
 import cn.library.java.orm.mybatis.flex.postgresql.dao.StudentTestIdSnowflakeDao;
 import cn.library.java.orm.mybatis.flex.postgresql.model.po.StudentTestIdSnowflakePO;
+import cn.srd.library.java.contract.constant.booleans.BooleanConstant;
 import cn.srd.library.java.orm.mybatis.flex.base.autoconfigure.EnableMybatisFlexCustomizer;
 import cn.srd.library.java.orm.mybatis.flex.base.id.IdConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.id.IdGenerateType;
+import cn.srd.library.java.orm.mybatis.flex.base.listener.ListenerConfig;
+import cn.srd.library.java.orm.mybatis.flex.base.logic.DeleteLogicConfig;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
 import org.junit.Test;
@@ -15,8 +20,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @MapperScan("cn.library.java.orm.mybatis.flex.postgresql.dao")
-@EnableSnowflakeId(environment = SnowflakeIdEnvironment.STAND_ALONE_MULTIPLE_INSTANCE, workerIdBitLength = 13, sequenceBitLength = 21)
-@EnableMybatisFlexCustomizer(globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SNOWFLAKE))
+@EnableSnowflakeId(environment = SnowflakeIdEnvironment.STAND_ALONE_MULTIPLE_INSTANCE)
+@EnableMybatisFlexCustomizer(
+        globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SNOWFLAKE),
+        globalDeleteLogicConfig = @DeleteLogicConfig(normalValue = BooleanConstant.FALSE, deletedValue = BooleanConstant.TRUE),
+        globalListenerConfig = @ListenerConfig(whenInsert = TestInsertListener.class, whenUpdate = TestUpdateListener.class)
+)
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class IdGenerateBySnowflakeTest {
@@ -25,8 +34,8 @@ public class IdGenerateBySnowflakeTest {
 
     @Test
     public void testIt() {
-        // studentTestIdSnowflakeDao.insert(StudentTestIdSnowflakePO.builder().build());
-        studentTestIdSnowflakeDao.insertSelective(StudentTestIdSnowflakePO.builder().build());
+        studentTestIdSnowflakeDao.insert(StudentTestIdSnowflakePO.builder().build());
+        // studentTestIdSnowflakeDao.insertSelective(StudentTestIdSnowflakePO.builder().build());
 
         System.out.println();
     }

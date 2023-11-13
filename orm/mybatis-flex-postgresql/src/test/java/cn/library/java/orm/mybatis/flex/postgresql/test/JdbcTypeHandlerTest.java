@@ -6,7 +6,6 @@ import cn.library.java.orm.mybatis.flex.postgresql.model.po.ClassPO;
 import cn.library.java.orm.mybatis.flex.postgresql.model.po.DetailPO;
 import cn.library.java.orm.mybatis.flex.postgresql.model.po.StudentTestTypeHandlerPO;
 import cn.srd.library.java.tool.lang.collection.Collections;
-import cn.srd.library.java.tool.lang.time.Times;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
@@ -32,7 +31,7 @@ public class JdbcTypeHandlerTest {
         List<StudentTestTypeHandlerPO> studentTestTypeHandlerPOs1 = studentTestTypeHandlerDao.selectAll();
         List<StudentTestTypeHandlerPO> studentTestTypeHandlerPOs2 = studentTestTypeHandlerDao.selectAll();
 
-        studentTestTypeHandlerDao.insertSelective(StudentTestTypeHandlerPO.builder()
+        studentTestTypeHandlerDao.insert(StudentTestTypeHandlerPO.builder()
                 .id(94L)
                 .classId(UUID.fromString("2af3acfd-5d1d-414c-b72f-5815c595fb6e"))
                 .teacherId("2af3acfd-5d1d-414c-b72f-5815c595fb6e")
@@ -42,10 +41,6 @@ public class JdbcTypeHandlerTest {
                 .classPOs(Collections.ofImmutableList(ClassPO.builder().id(1L).name("mmm").build(), ClassPO.builder().id(2L).name("mmm1").build()))
                 .bookInfos("[{\"id\": 1, \"name\": \"myBook1\"}, {\"id\": 2, \"name\": \"myBook2\"}]")
                 .detailPO(DetailPO.builder().name("vvv").age((short) 19).build())
-                .version(1L)
-                .creatorId(1L)
-                .createTime(Times.getCurrentDateTime())
-                .rowIsDeleted(false)
                 .build()
         );
 

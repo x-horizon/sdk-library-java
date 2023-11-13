@@ -6,8 +6,15 @@ package cn.srd.library.java.orm.mybatis.flex.base.autoconfigure;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.orm.mybatis.flex.base.id.IdConfig;
+import cn.srd.library.java.orm.mybatis.flex.base.listener.*;
 import cn.srd.library.java.orm.mybatis.flex.base.lock.OptimisticLockConfig;
+import cn.srd.library.java.orm.mybatis.flex.base.logic.DeleteLogicConfig;
+import cn.srd.library.java.tool.lang.compare.Comparators;
+import cn.srd.library.java.tool.lang.convert.Converts;
+import cn.srd.library.java.tool.lang.functional.Assert;
+import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.object.Objects;
+import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.spring.contract.Annotations;
 import com.mybatisflex.core.FlexGlobalConfig;
 import com.mybatisflex.core.mybatis.FlexConfiguration;
@@ -34,6 +41,8 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
 
         EnableMybatisFlexCustomizer mybatisFlexCustomizer = Annotations.getAnnotation(EnableMybatisFlexCustomizer.class);
         setIdGenerateConfig(globalConfig, mybatisFlexCustomizer.globalIdGenerateConfig());
+        setDeleteLogicConfig(globalConfig, mybatisFlexCustomizer.globalDeleteLogicConfig());
+        setListenerConfig(globalConfig, mybatisFlexCustomizer.globalListenerConfig());
         setOptimisticLockConfig(globalConfig, mybatisFlexCustomizer.globalOptimisticLockConfig());
         // handleAuditConfig(mybatisFlexCustomizer.auditConfig());
 
@@ -48,6 +57,43 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
      */
     private void setIdGenerateConfig(FlexGlobalConfig globalConfig, IdConfig idConfig) {
         globalConfig.setKeyConfig(idConfig.generateType().getStrategy().build(idConfig));
+    }
+
+    private void setDeleteLogicConfig(FlexGlobalConfig globalConfig, DeleteLogicConfig deleteLogicConfig) {
+        String normalValue = deleteLogicConfig.normalValue();
+        String deletedValue = deleteLogicConfig.deletedValue();
+
+        Object actualNormalValue = Converts.toBoolean(normalValue);
+        if (Nil.isNull(actualNormalValue)) {
+            actualNormalValue = Converts.toNumber(normalValue);
+            if (Nil.isNull(actualNormalValue)) {
+                actualNormalValue = Converts.toString(normalValue);
+            }
+        }
+
+        Object actualDeletedValue = Converts.toBoolean(deletedValue);
+        if (Nil.isNull(actualDeletedValue)) {
+            actualDeletedValue = Converts.toNumber(deletedValue);
+            if (Nil.isNull(actualDeletedValue)) {
+                actualDeletedValue = Converts.toString(deletedValue);
+            }
+        }
+
+        Assert.of().setMessage("").throwsIfAnyNull(actualNormalValue, actualDeletedValue);
+
+        globalConfig.setNormalValueOfLogicDelete(actualNormalValue);
+        globalConfig.setDeletedValueOfLogicDelete(actualDeletedValue);
+    }
+
+    private void setListenerConfig(FlexGlobalConfig globalConfig, ListenerConfig listenerConfig) {
+        InsertListener<?> insertListener = Reflects.newInstance(listenerConfig.whenInsert());
+        UpdateListener<?> updateListener = Reflects.newInstance(listenerConfig.whenUpdate());
+        if (Comparators.notEquals(NoneInsertListener.class, listenerConfig.whenInsert())) {
+            globalConfig.registerInsertListener(insertListener, insertListener.getEntityType());
+        }
+        if (Comparators.notEquals(NoneUpdateListener.class, listenerConfig.whenUpdate())) {
+            globalConfig.registerUpdateListener(updateListener, updateListener.getEntityType());
+        }
     }
 
     /**
