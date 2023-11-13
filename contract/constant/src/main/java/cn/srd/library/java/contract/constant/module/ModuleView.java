@@ -47,6 +47,11 @@ public class ModuleView {
     public static final String TOOL_ENUM_SYSTEM = "Tool Enum System - ";
 
     /**
+     * the snowflake id system module name
+     */
+    public static final String TOOL_SNOWFLAKE_ID_SYSTEM = "Tool Snowflake ID System - ";
+
+    /**
      * the web system module name
      */
     public static final String WEB_SYSTEM = "Web System - ";
