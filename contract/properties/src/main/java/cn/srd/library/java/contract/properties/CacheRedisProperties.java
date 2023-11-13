@@ -24,6 +24,11 @@ import org.springframework.context.annotation.DependsOn;
 public class CacheRedisProperties {
 
     /**
+     * TODO wjm need to be removed
+     */
+    public static final String SPRING_REDIS_PROPERTIES_REFERENCE_PATH = "spring.data.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties";
+
+    /**
      * instance
      */
     @Getter private static CacheRedisProperties instance = null;
@@ -31,10 +36,10 @@ public class CacheRedisProperties {
     /**
      * instance init
      */
-    @DependsOn("spring.data.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties")
+    @DependsOn(SPRING_REDIS_PROPERTIES_REFERENCE_PATH)
     @PostConstruct
     public void initialize() {
-        this.baseInfo = (RedisProperties) Springs.getBean("spring.data.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties");
+        this.baseInfo = (RedisProperties) Springs.getBean(SPRING_REDIS_PROPERTIES_REFERENCE_PATH);
         instance = this;
     }
 

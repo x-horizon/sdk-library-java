@@ -36,12 +36,12 @@ public class CacheMultilevelProperties {
     }
 
     /**
-     * the max wait time to hit distributed cache, see {@link RedisFairLock#waitTime()}
+     * the max wait time to hit distributed cache, see {@link cn.srd.library.java.concurrent.redis.RedisFairLock#waitTime()}
      */
     private String blockToHitDistributedCacheWaitTime;
 
     /**
-     * the max lease time to hit distributed cache, see {@link RedisFairLock#leaseTime()} ()}
+     * the max lease time to hit distributed cache, see {@link cn.srd.library.java.concurrent.redis.RedisFairLock#leaseTime()} ()}
      */
     private String blockToHitDistributedCacheLeaseTime;
 

@@ -14,10 +14,8 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.converter.AbstractMessageConverter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 用于在管道中流动数据的 Jackson 转换器
@@ -63,7 +61,7 @@ public class StreamMessageJacksonConverter extends AbstractMessageConverter {
     public void initialize() {
         List<Class> supportedClasses = new ArrayList<>();
         Classes.scanBySuper(StreamMessageConvertWithJacksonSupporter.class).forEach(supporter -> supportedClasses.addAll(Reflects.newInstance(supporter).getSupportedClasses()));
-        supportedClasses.addAll(Annotations.getAnnotationNestValues(EnableStreamMessageJacksonConverter.class, Class[].class, "supportedClasses"));
+        supportedClasses.addAll(Arrays.stream(Annotations.getAnnotation(EnableStreamMessageJacksonConverter.class).supportedClasses()).collect(Collectors.toSet()));
         supportedClasses.forEach(supportedClass -> SUPPORTED_NAMING_CLASSES.put(Classes.getClassSimpleName(supportedClass), supportedClass));
         supportedClasses.forEach(supportedClass -> SUPPORTED_LOWERCASE_NAMING_CLASSES.put(Strings.lowerCase(Classes.getClassSimpleName(supportedClass)), supportedClass));
     }
