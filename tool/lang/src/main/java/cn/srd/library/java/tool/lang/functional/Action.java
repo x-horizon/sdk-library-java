@@ -16,7 +16,6 @@ import java.math.BigDecimal;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -81,33 +80,35 @@ public class Action<V> {
         return this;
     }
 
-    /**
-     * do something if infer success
-     *
-     * @param action to do action
-     * @return self
-     */
-    public Action<V> then(Consumer<V> action) {
-        if (isSuccess()) {
-            this.isSuccess = true;
-            action.accept(this.value);
-        }
-        return this;
-    }
+    // TODO wjm bug: value is always null
+    // /**
+    //  * do something if infer success
+    //  *
+    //  * @param action to do action
+    //  * @return self
+    //  */
+    // public Action<V> then(Consumer<V> action) {
+    //     if (isSuccess()) {
+    //         this.isSuccess = true;
+    //         action.accept(this.value);
+    //     }
+    //     return this;
+    // }
 
-    /**
-     * do something if infer failed
-     *
-     * @param action to do action
-     * @return self
-     */
-    public Action<V> otherwise(Consumer<V> action) {
-        if (isFailed()) {
-            this.isSuccess = false;
-            action.accept(this.value);
-        }
-        return this;
-    }
+    // TODO wjm bug: value is always null
+    // /**
+    //  * do something if infer failed
+    //  *
+    //  * @param action to do action
+    //  * @return self
+    //  */
+    // public Action<V> otherwise(Consumer<V> action) {
+    //     if (isFailed()) {
+    //         this.isSuccess = false;
+    //         action.accept(this.value);
+    //     }
+    //     return this;
+    // }
 
     /**
      * do something if infer failed

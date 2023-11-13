@@ -54,6 +54,17 @@ public class Converts {
     }
 
     /**
+     * convert object to boolean
+     *
+     * @param input the input element
+     * @return after convert
+     * @see Convert#toBool(Object)
+     */
+    public static Boolean toBoolean(Object input) {
+        return Convert.toBool(input);
+    }
+
+    /**
      * convert an object to number
      *
      * @param input the input element
