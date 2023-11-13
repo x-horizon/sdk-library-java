@@ -16,6 +16,14 @@ spring:
       connection-timeout: 3000
       connection-test-query: SELECT 1
       auto-commit: true
+  data:
+    redis:
+      database: 0
+      # host: 127.0.0.1
+      # port: 6379
+      host: 192.168.10.91
+      port: 30570
+      timeout: 60000
 
 logging:
   level:
