@@ -34,12 +34,11 @@ public @interface IdConfig {
      *
      * 3. when use {@link IdGenerateType#SNOWFLAKE}, it will generate the id by {@link SnowflakeIds#get()} automatically before insert to database,
      *    and it is not necessary to set {@link #generator()}, {@link #generateSQL()},
-     *    you must mark {@link EnableSnowflakeId enable snowfake id} on your class path before using this id generate strategy,
+     *    you must specified the annotation {@link EnableSnowflakeId} on your class path before using this id generate strategy,
      *    about the algorithm of snowflake id as following:
      *    <ul>
      *      <li>{@link EnableSnowflakeId}</li>
      *      <li>{@link SnowflakeIds}</li>
-     *      <li>{@link WorkerIds}</li>
      *      <li><a href="https://github.com/yitter/IdGenerator">the yitter snowflake id generator</a></li>
      *    </ul>
      * </pre>
