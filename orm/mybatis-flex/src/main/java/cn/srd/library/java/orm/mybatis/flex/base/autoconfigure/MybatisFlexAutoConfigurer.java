@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Bean;
  * @since 2023-11-12 21:06
  */
 @AutoConfigureBefore(MybatisFlexAutoConfiguration.class)
+@ConditionalOnBean(MybatisFlexCustomizerSwitcher.class)
 public class MybatisFlexAutoConfigurer {
 
     /**
@@ -25,7 +26,6 @@ public class MybatisFlexAutoConfigurer {
      * @return the mybatis flex customer bean
      */
     @Bean
-    @ConditionalOnBean(MybatisFlexCustomizerSwitcher.class)
     public MybatisFlexCustomizer mybatisFlexCapableCustomizer() {
         return new MybatisFlexCustomizer();
     }
