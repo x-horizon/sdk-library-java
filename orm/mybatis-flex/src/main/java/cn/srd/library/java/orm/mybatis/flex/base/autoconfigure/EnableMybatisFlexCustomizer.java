@@ -14,8 +14,9 @@ import java.lang.annotation.*;
  * enable the global config of orm mybatis flex system
  *
  * @author wjm
- * @see MybatisFlexAutoConfigurer
+ * @see MybatisFlexCustomizerSwitcher
  * @see MybatisFlexCustomizer
+ * @see MybatisFlexAutoConfigurer
  * @since 2023-11-12 21:06
  */
 @Target({ElementType.TYPE})

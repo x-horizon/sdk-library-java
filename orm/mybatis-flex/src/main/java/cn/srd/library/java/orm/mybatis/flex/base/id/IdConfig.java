@@ -6,7 +6,6 @@ package cn.srd.library.java.orm.mybatis.flex.base.id;
 
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIds;
-import cn.srd.library.java.tool.id.snowflake.WorkerIds;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -33,7 +32,7 @@ public @interface IdConfig {
      * 2. when use {@link IdGenerateType#UUID}, it will generate the id by {@link UUID#randomUUID()} automatically before insert to database,
      *    and it is not necessary to set {@link #generator()}, {@link #generateSQL()}.
      *
-     * 3. when use {@link IdGenerateType#SNOWFLAKE}, it will generate the id by {@link SnowflakeIds#getId()} automatically before insert to database,
+     * 3. when use {@link IdGenerateType#SNOWFLAKE}, it will generate the id by {@link SnowflakeIds#get()} automatically before insert to database,
      *    and it is not necessary to set {@link #generator()}, {@link #generateSQL()},
      *    you must mark {@link EnableSnowflakeId enable snowfake id} on your class path before using this id generate strategy,
      *    about the algorithm of snowflake id as following:

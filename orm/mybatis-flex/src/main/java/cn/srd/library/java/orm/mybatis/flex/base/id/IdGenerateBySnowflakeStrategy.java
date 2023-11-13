@@ -21,7 +21,7 @@ public class IdGenerateBySnowflakeStrategy implements IdGenerateStrategy {
 
     @Override
     public void registerIdGenerator(IdConfig idConfig) {
-        KeyGeneratorFactory.register(getGeneratorName(), (IdGenerator) (entity, keyColumn) -> SnowflakeIds.getId());
+        KeyGeneratorFactory.register(getGeneratorName(), (IdGenerator) (entity, keyColumn) -> SnowflakeIds.get());
     }
 
 }

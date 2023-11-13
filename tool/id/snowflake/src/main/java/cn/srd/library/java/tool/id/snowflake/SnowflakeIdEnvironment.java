@@ -8,7 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
+ * current node instance environment
+ *
  * @author wjm
+ * @see EnableSnowflakeId
  * @since 2023-11-13 10:37
  */
 @Getter

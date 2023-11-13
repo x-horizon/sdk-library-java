@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.tool.spring.webmvc.advice;
 
+import cn.srd.library.java.tool.spring.webmvc.autoconfigure.SpringWebMVCResponseBodyAdviceAutoConfigurer;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -12,6 +13,8 @@ import java.lang.annotation.*;
  * enable web mvc response body advice
  *
  * @author wjm
+ * @see WebMVCResponseBodyAdviceSwitcher
+ * @see SpringWebMVCResponseBodyAdviceAutoConfigurer
  * @since 2022-07-16 18:16
  */
 @Retention(RetentionPolicy.RUNTIME)

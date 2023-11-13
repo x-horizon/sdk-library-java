@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @MapperScan("cn.library.java.orm.mybatis.flex.postgresql.dao")
-@EnableSnowflakeId(environment = SnowflakeIdEnvironment.STAND_ALONE_MULTIPLE_INSTANCE)
+@EnableSnowflakeId(environment = SnowflakeIdEnvironment.STAND_ALONE_MULTIPLE_INSTANCE, workerIdBitLength = 13, sequenceBitLength = 21)
 @EnableMybatisFlexCustomizer(globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SNOWFLAKE))
 @RunWith(SpringRunner.class)
 @SpringBootTest

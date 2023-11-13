@@ -4,10 +4,13 @@
 
 package cn.srd.library.java.concurrent.redis;
 
+import cn.srd.library.java.concurrent.redis.autoconfigue.RedisLockAutoConfigurer;
+
 /**
  * the {@link EnableRedisLock redis lock system} switcher
  *
  * @author wjm
+ * @see RedisLockAutoConfigurer
  * @since 2023-11-09 21:01
  */
 public class RedisLockSwitcher {

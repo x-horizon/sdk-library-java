@@ -4,10 +4,13 @@
 
 package cn.srd.library.java.cache.all;
 
+import cn.srd.library.java.cache.all.autoconfigue.CacheAutoConfigurer;
+
 /**
  * the {@link EnableCache cache system} switcher
  *
  * @author wjm
+ * @see CacheAutoConfigurer
  * @since 2023-11-09 21:01
  */
 public class CacheSwitcher {

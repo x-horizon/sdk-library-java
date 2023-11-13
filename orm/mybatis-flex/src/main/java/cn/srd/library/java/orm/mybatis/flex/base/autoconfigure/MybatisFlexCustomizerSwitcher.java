@@ -8,6 +8,7 @@ package cn.srd.library.java.orm.mybatis.flex.base.autoconfigure;
  * the {@link EnableMybatisFlexCustomizer mybatis flex customizer system} switcher
  *
  * @author wjm
+ * @see MybatisFlexAutoConfigurer
  * @since 2023-11-10 10:12
  */
 public class MybatisFlexCustomizerSwitcher {

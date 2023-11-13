@@ -1,6 +1,10 @@
+// Copyright (C) 2021-2023 thinkingto.com Ltd. All rights reserved.
+// Use of this source code is governed by SRD.
+// license that can be found in the LICENSE file.
+
 package cn.srd.library.java.tool.id.snowflake.autoconfigure;
 
-import cn.hutool.core.lang.Console;
+import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdSwitcher;
 import cn.srd.library.java.tool.lang.functional.Assert;
@@ -10,20 +14,43 @@ import com.github.yitter.idgen.YitIdHelper;
 import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
+/**
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Tool Snowflake ID
+ *
+ * @author wjm
+ * @see EnableSnowflakeId
+ * @since 2023-11-13 10:26
+ */
 @AutoConfigureAfter(RedissonAutoConfiguration.class)
 @ConditionalOnBean(SnowflakeIdSwitcher.class)
 public class SnowflakeIdAutoConfigurer implements SmartInitializingSingleton {
 
+    /**
+     * the min value of worker id bit length
+     */
     private static final byte MIN_WORKER_ID_BIT_LENGTH = 1;
 
+    /**
+     * the max value of worker id bit length
+     */
     private static final byte MAX_WORKER_ID_BIT_LENGTH = 15;
 
+    /**
+     * the min value of the sequence bit length
+     */
     private static final byte MIN_SEQUENCE_BIT_LENGTH = 4;
 
+    /**
+     * the max value of the sequence bit length
+     */
     private static final byte MAX_SEQUENCE_BIT_LENGTH = 21;
 
+    /**
+     * the max value of the sum of {@link EnableSnowflakeId#workerIdBitLength()} and {@link EnableSnowflakeId#sequenceBitLength()}
+     */
     private static final byte MAX_SUM_OF_WORKER_ID_BIT_LENGTH_AND_SEQUENCE_BIT_LENGTH = 22;
 
     @Override
@@ -31,19 +58,18 @@ public class SnowflakeIdAutoConfigurer implements SmartInitializingSingleton {
         EnableSnowflakeId snowflakeIdConfig = Annotations.getAnnotation(EnableSnowflakeId.class);
         byte workerIdBitLength = snowflakeIdConfig.workerIdBitLength();
         byte sequenceBitLength = snowflakeIdConfig.sequenceBitLength();
-        Assert.of().setMessage("").throwsIfTrue(workerIdBitLength < MIN_WORKER_ID_BIT_LENGTH || workerIdBitLength > MAX_WORKER_ID_BIT_LENGTH);
-        Assert.of().setMessage("").throwsIfTrue(sequenceBitLength < MIN_SEQUENCE_BIT_LENGTH || sequenceBitLength > MAX_SEQUENCE_BIT_LENGTH);
-        Assert.of().setMessage("").throwsIfTrue(workerIdBitLength + sequenceBitLength > MAX_SUM_OF_WORKER_ID_BIT_LENGTH_AND_SEQUENCE_BIT_LENGTH);
-        short workedId = snowflakeIdConfig.environment().getStrategy().getWorkerId(snowflakeIdConfig);
+        Assert.of().setMessage("{}found illegal work id bit length in [{}], the range of work id bit length is [{},{}], current work id bit length is [{}], please check!", ModuleView.TOOL_SNOWFLAKE_ID_SYSTEM, EnableSnowflakeId.class.getName(), MIN_WORKER_ID_BIT_LENGTH, MAX_WORKER_ID_BIT_LENGTH, workerIdBitLength)
+                .throwsIfTrue(workerIdBitLength < MIN_WORKER_ID_BIT_LENGTH || workerIdBitLength > MAX_WORKER_ID_BIT_LENGTH);
+        Assert.of().setMessage("{}found illegal sequence bit length in [{}], the range of sequence bit length is [{},{}], current sequence bit length is [{}], please check!", ModuleView.TOOL_SNOWFLAKE_ID_SYSTEM, EnableSnowflakeId.class.getName(), MIN_SEQUENCE_BIT_LENGTH, MAX_SEQUENCE_BIT_LENGTH, sequenceBitLength)
+                .throwsIfTrue(sequenceBitLength < MIN_SEQUENCE_BIT_LENGTH || sequenceBitLength > MAX_SEQUENCE_BIT_LENGTH);
+        Assert.of().setMessage("{}found illegal sum of work id bit length and sequence bit length in [{}], the max sum of work id bit length and sequence bit length is [{}], current work id bit length is [{}], current sequence bit length is [{}], please check!", ModuleView.TOOL_SNOWFLAKE_ID_SYSTEM, EnableSnowflakeId.class.getName(), MAX_SUM_OF_WORKER_ID_BIT_LENGTH_AND_SEQUENCE_BIT_LENGTH, workerIdBitLength, sequenceBitLength)
+                .throwsIfTrue(workerIdBitLength + sequenceBitLength > MAX_SUM_OF_WORKER_ID_BIT_LENGTH_AND_SEQUENCE_BIT_LENGTH);
+
         IdGeneratorOptions idGeneratorOptions = new IdGeneratorOptions();
         idGeneratorOptions.WorkerIdBitLength = workerIdBitLength;
         idGeneratorOptions.SeqBitLength = sequenceBitLength;
-        idGeneratorOptions.WorkerId = workedId;
+        idGeneratorOptions.WorkerId = snowflakeIdConfig.environment().getStrategy().getWorkerId(snowflakeIdConfig);
         YitIdHelper.setIdGenerator(idGeneratorOptions);
-    }
-
-    public static void main(String[] args) {
-        Console.log((1 << 6) - 1);
     }
 
 }

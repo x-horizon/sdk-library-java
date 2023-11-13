@@ -108,10 +108,11 @@ public class Types {
      *
      * @param input the input element
      * @return all parameter type names on method
-     * @apiNote if the method parameter has a generic type, the generic name will also be output,
-     * for example:
-     * the method parameter is List&lt;TestBean&gt;, then output is: java.util.List&lt;cn.test.bean.TestBean&gt;.
-     * the method parameter is List,                 then output is: java.util.List.
+     * @apiNote if the method parameter has a generic type, the generic name will also be output, for example:
+     * <ul>
+     *   <li>the method parameter is List&lt;TestBean&gt;, then output is: java.util.List&lt;cn.test.bean.TestBean&gt;.</li>
+     *   <li>the method parameter is List,                 then output is: java.util.List.</li>
+     * </ul>
      */
     public static List<String> getParameterTypeNames(Method input) {
         return Collections.toList(getParameterTypes(input), Type::getTypeName);
@@ -132,10 +133,11 @@ public class Types {
      *
      * @param input the input element
      * @return return type name on method
-     * @apiNote if the method return parameter has a generic type, the generic name will also be output,
-     * for example:
-     * the method parameter is List&lt;TestBean&gt;, then output is: java.util.List&lt;cn.test.bean.TestBean&gt;.
-     * the method parameter is List,                 then output is: java.util.List.
+     * @apiNote if the method return parameter has a generic type, the generic name will also be output, for example:
+     * <ul>
+     *   <li>the method parameter is List&lt;TestBean&gt;, then output is: java.util.List&lt;cn.test.bean.TestBean&gt;.</li>
+     *   <li>the method parameter is List,                 then output is: java.util.List.</li>
+     * </ul>
      */
     public static String getReturnTypeName(Method input) {
         return Action.<String>ifNull(input)

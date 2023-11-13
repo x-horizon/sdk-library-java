@@ -8,23 +8,30 @@ import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.properties.CacheRedisProperties;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
+import com.github.yitter.contract.IdGeneratorOptions;
+import com.github.yitter.idgen.DefaultIdGenerator;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 
 /**
+ * stand alone multiple node instance strategy
+ *
  * @author wjm
  * @since 2023-11-13 10:42
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SnowflakeIdOnStandAloneMultipleInstanceStrategy implements SnowflakeIdEnvironmentStrategy {
 
+    /**
+     * the min worker id
+     */
     private static final byte MIN_WORKER_ID = 1;
 
     @Override
     public short getWorkerId(EnableSnowflakeId snowflakeIdConfig) {
         RedisProperties redisProperties = CacheRedisProperties.getInstance().getBaseInfo();
-        return (short) WorkerIds.INSTANCE.getWorkerId(
+        return (short) SnowflakeIds.WorkerId.INSTANCE.getWorkerId(
                 Nil.isBlank(redisProperties.getUrl()) ? Strings.format("{}:{}", redisProperties.getHost(), redisProperties.getPort()) : redisProperties.getUrl(),
                 redisProperties.getPassword(),
                 redisProperties.getDatabase(),
@@ -35,12 +42,20 @@ public class SnowflakeIdOnStandAloneMultipleInstanceStrategy implements Snowflak
         );
     }
 
+    /**
+     * <pre>
+     * compute the max worker id based on {@link EnableSnowflakeId#workerIdBitLength()}, it is the same as {@link DefaultIdGenerator#DefaultIdGenerator(IdGeneratorOptions) 3.WorkerId}.
+     * the max worker id calculation: 2 ^ workerIdBitLength - 1;
+     * </pre>
+     *
+     * @param workerIdBitLength the worker id bir length
+     * @return the max worker id
+     */
     private int computeMaxWorkedId(byte workerIdBitLength) {
-        // 2 ^ workerIdBitLength - 1
         // for example:
-        //  default worker id bit length: 2 ^ 6 - 1 = 63
-        //  min worked id bit length:     2 ^ 1 - 1 = 1
-        //  max worked id bit length:     2 ^ 15 - 1 = 32767
+        //  compute max worker id by default worker id bit length: 2 ^ 6 - 1 = 63
+        //  compute max worker id by min worked id bit length:     2 ^ 1 - 1 = 1
+        //  compute max worker id by max worked id bit length:     2 ^ 15 - 1 = 32767
         int maxWorkerId = (1 << workerIdBitLength) - 1;
         if (maxWorkerId == 0) {
             maxWorkerId = 63;
