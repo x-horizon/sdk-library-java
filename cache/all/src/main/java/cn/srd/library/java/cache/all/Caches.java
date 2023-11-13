@@ -2,10 +2,10 @@ package cn.srd.library.java.cache.all;
 
 import cn.srd.library.java.cache.caffeine.CaffeineCache;
 import cn.srd.library.java.cache.caffeine.CaffeineCacheTemplate;
-import cn.srd.library.java.cache.caffeine.property.CaffeineCacheProperties;
 import cn.srd.library.java.cache.map.MapCache;
 import cn.srd.library.java.cache.map.MapCacheTemplate;
 import cn.srd.library.java.cache.redis.RedisCache;
+import cn.srd.library.java.contract.properties.CacheCaffeineProperties;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -52,12 +52,12 @@ public class Caches {
     /**
      * caffeine implement
      *
-     * @param caffeineCacheProperties {@link CaffeineCacheProperties}
+     * @param cacheCaffeineProperties {@link CacheCaffeineProperties}
      * @param <K>                     cache key type
      * @return cache operation object
      */
-    public static <K> CaffeineCacheTemplate<K> withCaffeine(CaffeineCacheProperties caffeineCacheProperties) {
-        return CaffeineCache.newInstance(caffeineCacheProperties);
+    public static <K> CaffeineCacheTemplate<K> withCaffeine(CacheCaffeineProperties cacheCaffeineProperties) {
+        return CaffeineCache.newInstance(cacheCaffeineProperties);
     }
 
     /**

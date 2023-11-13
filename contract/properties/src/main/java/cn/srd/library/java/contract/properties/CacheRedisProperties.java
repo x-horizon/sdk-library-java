@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.cache.redis.property;
+package cn.srd.library.java.contract.properties;
 
 import cn.srd.library.java.tool.spring.contract.Springs;
 import jakarta.annotation.PostConstruct;
@@ -21,12 +21,12 @@ import org.springframework.context.annotation.DependsOn;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "library.java.cache.redis")
-public class RedisCacheProperties {
+public class CacheRedisProperties {
 
     /**
      * instance
      */
-    @Getter private static RedisCacheProperties instance = null;
+    @Getter private static CacheRedisProperties instance = null;
 
     /**
      * instance init

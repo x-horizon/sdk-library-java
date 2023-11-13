@@ -39,6 +39,7 @@ include(":contract:component:redis")
 include(":contract:component:message:spring")
 include(":contract:constant")
 include(":contract:model")
+include(":contract:properties")
 
 include(":data:cassandra")
 include(":data:elasticsearch")

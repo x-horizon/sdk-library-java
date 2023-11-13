@@ -134,6 +134,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_REDIS)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_CONSTANT)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_MODEL)))
+        api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_PROPERTIES)))
 
         api(project(GradleModule.toReferenceName(GradleModule.DATA_CASSANDRA)))
         api(project(GradleModule.toReferenceName(GradleModule.DATA_ELASTICSEARCH)))

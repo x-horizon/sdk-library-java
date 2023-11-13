@@ -1,6 +1,6 @@
 package cn.srd.library.java.cache.caffeine;
 
-import cn.srd.library.java.cache.caffeine.property.CaffeineCacheProperties;
+import cn.srd.library.java.contract.properties.CacheCaffeineProperties;
 import com.github.benmanes.caffeine.cache.Cache;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -30,18 +30,18 @@ public class CaffeineCache<K> implements CaffeineCacheTemplate<K> {
      * @return instance
      */
     public static <K> CaffeineCache<K> newInstance() {
-        return newInstance(CaffeineCacheProperties.getInstance());
+        return newInstance(CacheCaffeineProperties.getInstance());
     }
 
     /**
      * get instance
      *
-     * @param caffeineCacheProperties {@link CaffeineCacheProperties}
+     * @param cacheCaffeineProperties {@link CacheCaffeineProperties}
      * @param <K>                     cache key type
      * @return instance
      */
-    public static <K> CaffeineCache<K> newInstance(CaffeineCacheProperties caffeineCacheProperties) {
-        return new CaffeineCache<>(CaffeineCacheBuilder.build(caffeineCacheProperties));
+    public static <K> CaffeineCache<K> newInstance(CacheCaffeineProperties cacheCaffeineProperties) {
+        return new CaffeineCache<>(CaffeineCacheBuilder.build(cacheCaffeineProperties));
     }
 
     @Override

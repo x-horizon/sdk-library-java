@@ -30,6 +30,7 @@ object GradleModule {
     const val CONTRACT_COMPONENT_REDIS = "contract-component-redis"
     const val CONTRACT_CONSTANT = "contract-constant"
     const val CONTRACT_MODEL = "contract-model"
+    const val CONTRACT_PROPERTIES = "contract-properties"
 
     const val DATA_CASSANDRA = "data-cassandra"
     const val DATA_ELASTICSEARCH = "data-elasticsearch"

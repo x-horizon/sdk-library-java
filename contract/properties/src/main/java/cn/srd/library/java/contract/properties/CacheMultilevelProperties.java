@@ -1,6 +1,5 @@
-package cn.srd.library.java.cache.all.property;
+package cn.srd.library.java.contract.properties;
 
-import cn.srd.library.java.concurrent.redis.RedisFairLock;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.time.Times;
 import jakarta.annotation.PostConstruct;
@@ -17,12 +16,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "library.java.cache.multilevel")
-public class MultilevelCacheProperties {
+public class CacheMultilevelProperties {
 
     /**
      * instance
      */
-    @Getter private static MultilevelCacheProperties instance = null;
+    @Getter private static CacheMultilevelProperties instance = null;
 
     /**
      * instance init

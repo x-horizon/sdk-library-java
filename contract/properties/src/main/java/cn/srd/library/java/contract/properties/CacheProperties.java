@@ -1,7 +1,5 @@
-package cn.srd.library.java.cache.all.property;
+package cn.srd.library.java.contract.properties;
 
-import cn.srd.library.java.cache.caffeine.property.CaffeineCacheProperties;
-import cn.srd.library.java.cache.redis.property.RedisCacheProperties;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
@@ -33,25 +31,25 @@ public class CacheProperties {
     public void initialize() {
         // do not use @NestedConfigurationProperty to inject,
         // because it will cause internally calculated fields being null.
-        setCaffeine(Springs.getBean(CaffeineCacheProperties.class));
-        setRedis(Springs.getBean(RedisCacheProperties.class));
-        setMultilevel(Springs.getBean(MultilevelCacheProperties.class));
+        setCaffeine(Springs.getBean(CacheCaffeineProperties.class));
+        setRedis(Springs.getBean(CacheRedisProperties.class));
+        setMultilevel(Springs.getBean(CacheMultilevelProperties.class));
         instance = this;
     }
 
     /**
-     * see {@link CaffeineCacheProperties}
+     * see {@link CacheCaffeineProperties}
      */
-    private CaffeineCacheProperties caffeine = new CaffeineCacheProperties();
+    private CacheCaffeineProperties caffeine = new CacheCaffeineProperties();
 
     /**
-     * see {@link RedisCacheProperties}
+     * see {@link CacheRedisProperties}
      */
-    private RedisCacheProperties redis = new RedisCacheProperties();
+    private CacheRedisProperties redis = new CacheRedisProperties();
 
     /**
-     * see {@link MultilevelCacheProperties}
+     * see {@link CacheMultilevelProperties}
      */
-    private MultilevelCacheProperties multilevel = new MultilevelCacheProperties();
+    private CacheMultilevelProperties multilevel = new CacheMultilevelProperties();
 
 }

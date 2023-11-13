@@ -1,8 +1,7 @@
-package cn.srd.library.java.cache.caffeine.property;
+package cn.srd.library.java.contract.properties;
 
 import cn.srd.library.java.contract.constant.text.JavaObjectReferenceLevel;
 import cn.srd.library.java.tool.lang.time.TimeUnitHandler;
-import com.github.benmanes.caffeine.cache.CaffeineSpec;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,12 +17,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "library.java.cache.caffeine")
-public class CaffeineCacheProperties {
+public class CacheCaffeineProperties {
 
     /**
      * instance
      */
-    @Getter private static CaffeineCacheProperties instance = null;
+    @Getter private static CacheCaffeineProperties instance = null;
 
     /**
      * instance init
