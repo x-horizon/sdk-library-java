@@ -97,7 +97,7 @@ public class Nil {
      * @param inputs the checked elements
      * @return return true if the checked element is null or zero size
      */
-    public static boolean isEmpty(char[] inputs) {
+    public static boolean isEmpty(boolean[] inputs) {
         return Nil.isNull(inputs) || inputs.length == 0;
     }
 
@@ -107,7 +107,7 @@ public class Nil {
      * @param inputs the checked elements
      * @return return true if the checked element is null or zero size
      */
-    public static boolean isEmpty(boolean[] inputs) {
+    public static boolean isEmpty(char[] inputs) {
         return Nil.isNull(inputs) || inputs.length == 0;
     }
 
@@ -580,22 +580,22 @@ public class Nil {
     }
 
     /**
-     * reverse {@link Nil#isEmpty(char[])}
-     *
-     * @param inputs the checked elements
-     * @return return true if the checked element is not null and at least one size
-     */
-    public static boolean isNotEmpty(char[] inputs) {
-        return !isEmpty(inputs);
-    }
-
-    /**
      * reverse {@link Nil#isEmpty(boolean[])}
      *
      * @param inputs the checked elements
      * @return return true if the checked element is not null and at least one size
      */
     public static boolean isNotEmpty(boolean[] inputs) {
+        return !isEmpty(inputs);
+    }
+
+    /**
+     * reverse {@link Nil#isEmpty(char[])}
+     *
+     * @param inputs the checked elements
+     * @return return true if the checked element is not null and at least one size
+     */
+    public static boolean isNotEmpty(char[] inputs) {
         return !isEmpty(inputs);
     }
 

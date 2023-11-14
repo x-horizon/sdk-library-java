@@ -95,6 +95,16 @@ public class Springs {
     }
 
     /**
+     * get bean name by bean class from spring ioc.
+     *
+     * @param beanClass bean class
+     * @return bean name
+     */
+    public static String[] getBeanName(Class<?> beanClass) {
+        return SpringUtil.getBeanNamesForType(beanClass);
+    }
+
+    /**
      * return all beans which are annotated with the supplied annotation class.
      *
      * @param annotationClass the specified annotation class
@@ -126,6 +136,18 @@ public class Springs {
      */
     public static String getProperty(String key) {
         return SpringUtil.getProperty(key);
+    }
+
+    /**
+     * get config item value from project config file, like application.yaml, application.properties
+     *
+     * @param key       config item key
+     * @param valueType value class
+     * @param <T>       value class type
+     * @return config item value
+     */
+    public static <T> T getProperty(String key, Class<T> valueType) {
+        return getApplicationContext().getEnvironment().getProperty(key, valueType);
     }
 
     /**

@@ -277,6 +277,18 @@ public class CharacterSequences extends Characters {
     }
 
     /**
+     * see {@link #join(Iterable, CharSequence)}
+     *
+     * @param inputs      the input elements
+     * @param conjunction the conjunction
+     * @param <T>         the input element type
+     * @return after join
+     */
+    public static <T> String join(T[] inputs, CharSequence conjunction) {
+        return join(Collections.ofArrayList(inputs), conjunction);
+    }
+
+    /**
      * <pre>
      * convert multiple Nil to strings using conjunction as a separator.
      *
@@ -293,6 +305,17 @@ public class CharacterSequences extends Characters {
      */
     public static <T> String join(Iterable<T> inputs, CharSequence conjunction) {
         return CharSequenceUtil.join(conjunction, inputs);
+    }
+
+    /**
+     * see {@link #joinWithComma(Iterable)}
+     *
+     * @param inputs the input elements
+     * @param <T>    the input element type
+     * @return after join
+     */
+    public static <T> String joinWithComma(T[] inputs) {
+        return joinWithComma(Collections.ofArrayList(inputs));
     }
 
     /**

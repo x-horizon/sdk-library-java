@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 /**
  * compare toolkit
@@ -85,6 +86,177 @@ public class Comparators {
      */
     public static boolean equals(CharSequence input, CharSequence... comparedElements) {
         return CharSequenceUtil.equalsAny(input, comparedElements);
+    }
+
+    /**
+     * return true if two arrays are equal.
+     * <p>
+     * the equal conditions as following:
+     * <ol>
+     *   <li>is all null.</li>
+     *   <li>the length of array is equal.</li>
+     *   <li>the element of array is equal.</li>
+     * </ol>
+     * </p>
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are equal
+     */
+    public static boolean equals(byte[] input, byte[] comparedElement) {
+        return Arrays.equals(input, comparedElement);
+    }
+
+    /**
+     * return true if two arrays are equal.
+     * <p>
+     * the equal conditions as following:
+     * <ol>
+     *   <li>is all null.</li>
+     *   <li>the length of array is equal.</li>
+     *   <li>the element of array is equal.</li>
+     * </ol>
+     * </p>
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are equal
+     */
+    public static boolean equals(short[] input, short[] comparedElement) {
+        return Arrays.equals(input, comparedElement);
+    }
+
+    /**
+     * return true if two arrays are equal.
+     * <p>
+     * the equal conditions as following:
+     * <ol>
+     *   <li>is all null.</li>
+     *   <li>the length of array is equal.</li>
+     *   <li>the element of array is equal.</li>
+     * </ol>
+     * </p>
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are equal
+     */
+    public static boolean equals(int[] input, int[] comparedElement) {
+        return Arrays.equals(input, comparedElement);
+    }
+
+    /**
+     * return true if two arrays are equal.
+     * <p>
+     * the equal conditions as following:
+     * <ol>
+     *   <li>is all null.</li>
+     *   <li>the length of array is equal.</li>
+     *   <li>the element of array is equal.</li>
+     * </ol>
+     * </p>
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are equal
+     */
+    public static boolean equals(long[] input, long[] comparedElement) {
+        return Arrays.equals(input, comparedElement);
+    }
+
+    /**
+     * return true if two arrays are equal.
+     * <p>
+     * the equal conditions as following:
+     * <ol>
+     *   <li>is all null.</li>
+     *   <li>the length of array is equal.</li>
+     *   <li>the element of array is equal.</li>
+     * </ol>
+     * </p>
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are equal
+     */
+    public static boolean equals(float[] input, float[] comparedElement) {
+        return Arrays.equals(input, comparedElement);
+    }
+
+    /**
+     * return true if two arrays are equal.
+     * <p>
+     * the equal conditions as following:
+     * <ol>
+     *   <li>is all null.</li>
+     *   <li>the length of array is equal.</li>
+     *   <li>the element of array is equal.</li>
+     * </ol>
+     * </p>
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are equal
+     */
+    public static boolean equals(double[] input, double[] comparedElement) {
+        return Arrays.equals(input, comparedElement);
+    }
+
+    /**
+     * return true if two arrays are equal.
+     * <p>
+     * the equal conditions as following:
+     * <ol>
+     *   <li>is all null.</li>
+     *   <li>the length of array is equal.</li>
+     *   <li>the element of array is equal.</li>
+     * </ol>
+     * </p>
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are equal
+     */
+    public static boolean equals(boolean[] input, boolean[] comparedElement) {
+        return Arrays.equals(input, comparedElement);
+    }
+
+    /**
+     * return true if two arrays are equal.
+     * <p>
+     * the equal conditions as following:
+     * <ol>
+     *   <li>is all null.</li>
+     *   <li>the length of array is equal.</li>
+     *   <li>the element of array is equal.</li>
+     * </ol>
+     * </p>
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are equal
+     */
+    public static boolean equals(char[] input, char[] comparedElement) {
+        return Arrays.equals(input, comparedElement);
+    }
+
+    /**
+     * return true if two arrays are equal.
+     * <p>
+     * the equal conditions as following:
+     * <ol>
+     *   <li>is all null.</li>
+     *   <li>the length of array is equal.</li>
+     *   <li>the element of array is equal.</li>
+     * </ol>
+     * </p>
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are equal
+     */
+    public static boolean equals(Object[] input, Object[] comparedElement) {
+        return Arrays.deepEquals(input, comparedElement);
     }
 
     /**
@@ -226,6 +398,105 @@ public class Comparators {
      */
     public static boolean notEquals(CharSequence input, CharSequence... comparedElements) {
         return !equals(input, comparedElements);
+    }
+
+    /**
+     * reverse {@link #equals(byte[], byte[])}
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are not equal
+     */
+    public static boolean notEquals(byte[] input, byte[] comparedElement) {
+        return !equals(input, comparedElement);
+    }
+
+    /**
+     * reverse {@link #equals(short[], short[])}
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are not equal
+     */
+    public static boolean notEquals(short[] input, short[] comparedElement) {
+        return !equals(input, comparedElement);
+    }
+
+    /**
+     * reverse {@link #equals(int[], int[])}
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are not equal
+     */
+    public static boolean notEquals(int[] input, int[] comparedElement) {
+        return !equals(input, comparedElement);
+    }
+
+    /**
+     * reverse {@link #equals(long[], long[])}
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are not equal
+     */
+    public static boolean notEquals(long[] input, long[] comparedElement) {
+        return !equals(input, comparedElement);
+    }
+
+    /**
+     * reverse {@link #equals(float[], float[])}
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are not equal
+     */
+    public static boolean notEquals(float[] input, float[] comparedElement) {
+        return !equals(input, comparedElement);
+    }
+
+    /**
+     * reverse {@link #equals(double[], double[])}
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are not equal
+     */
+    public static boolean notEquals(double[] input, double[] comparedElement) {
+        return !equals(input, comparedElement);
+    }
+
+    /**
+     * reverse {@link #equals(boolean[], boolean[])}
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are not equal
+     */
+    public static boolean notEquals(boolean[] input, boolean[] comparedElement) {
+        return !equals(input, comparedElement);
+    }
+
+    /**
+     * reverse {@link #equals(char[], char[])}
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are not equal
+     */
+    public static boolean notEquals(char[] input, char[] comparedElement) {
+        return !equals(input, comparedElement);
+    }
+
+    /**
+     * reverse {@link #equals(Object[], Object[])}
+     *
+     * @param input           the checked element
+     * @param comparedElement the compared elements
+     * @return return true if two arrays are not equal
+     */
+    public static boolean notEquals(Object[] input, Object[] comparedElement) {
+        return !equals(input, comparedElement);
     }
 
     /**
