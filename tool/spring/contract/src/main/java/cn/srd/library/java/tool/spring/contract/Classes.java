@@ -66,7 +66,7 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
      * @see BasePackagePath#get()
      */
     public static Set<String> getBasePackagePath() {
-        return BasePackagePath.get(Springs.getSpringBootApplicationPackagePath());
+        return BasePackagePath.register(Springs.getSpringBootApplicationPackagePath());
     }
 
     /**

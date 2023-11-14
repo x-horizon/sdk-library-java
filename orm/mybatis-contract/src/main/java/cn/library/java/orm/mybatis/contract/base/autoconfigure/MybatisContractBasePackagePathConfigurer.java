@@ -4,11 +4,11 @@
 
 package cn.library.java.orm.mybatis.contract.base.autoconfigure;
 
+import cn.srd.library.java.contract.constant.spring.SpringInitializeConstant;
 import cn.srd.library.java.tool.lang.object.BasePackagePath;
 import cn.srd.library.java.tool.spring.contract.Classes;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
 
@@ -18,7 +18,7 @@ import org.springframework.lang.NonNull;
  * @author wjm
  * @since 2023-11-08 17:07
  */
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(SpringInitializeConstant.HIGHER_INITIALIZE_PRIORITY)
 public class MybatisContractBasePackagePathConfigurer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     @Override

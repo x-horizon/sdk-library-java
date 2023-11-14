@@ -4,10 +4,10 @@
 
 package cn.srd.library.java.tool.spring.contract;
 
+import cn.srd.library.java.contract.constant.spring.SpringInitializeConstant;
 import org.burningwave.core.assembler.StaticComponentContainer;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
 
@@ -15,7 +15,7 @@ import org.springframework.lang.NonNull;
  * @author wjm
  * @since 2023-10-14 17:05
  */
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(SpringInitializeConstant.HIGHEST_INITIALIZE_PRIORITY)
 public class ExportAllModuleOnJDK16 implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     @Override

@@ -20,6 +20,7 @@ import lombok.NonNull;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
@@ -140,6 +141,16 @@ public class Collections {
      */
     public static <T> Set<T> newLinkedHashSet(int initCapacity) {
         return new LinkedHashSet<>(initCapacity);
+    }
+
+    /**
+     * create an empty {@link CopyOnWriteArraySet}
+     *
+     * @param <T> the output type
+     * @return an empty linked {@link CopyOnWriteArraySet}
+     */
+    public static <T> Set<T> newCopyOnWriteArraySet() {
+        return new CopyOnWriteArraySet<>();
     }
 
     /**
@@ -693,6 +704,17 @@ public class Collections {
      */
     public static <T> Stream<T> ofUnknownSizeStream(Iterable<T> inputs) {
         return StreamSupport.stream(Spliterators.spliteratorUnknownSize(inputs.iterator(), Spliterator.ORDERED), CollectionConstant.DEFAULT_ENABLE_STREAM_PARALLEL);
+    }
+
+    /**
+     * return {@link #newImmutableList()} if the provide collection is null
+     *
+     * @param inputs the specified elements
+     * @param <T>    the specified element type
+     * @return return {@link #newImmutableList()} if the provide collection is null
+     */
+    public static <T> Collection<T> emptyIfNull(Collection<T> inputs) {
+        return Nil.isNull(inputs) ? newImmutableList() : inputs;
     }
 
     /**

@@ -17,6 +17,16 @@ import lombok.NoArgsConstructor;
 public class NumberConstant {
 
     /**
+     * the max integer value
+     */
+    public static final int MAX_INTEGER_VALUE = Integer.MAX_VALUE;
+
+    /**
+     * the min integer value
+     */
+    public static final int MIN_INTEGER_VALUE = Integer.MIN_VALUE;
+
+    /**
      * the number when two big decimal are equal
      */
     public static final int EQUAL_BIG_DECIMAL = 0;

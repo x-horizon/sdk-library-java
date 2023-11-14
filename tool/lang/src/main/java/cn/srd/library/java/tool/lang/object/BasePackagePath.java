@@ -4,13 +4,11 @@
 
 package cn.srd.library.java.tool.lang.object;
 
-import cn.srd.library.java.tool.lang.functional.Functional;
+import cn.srd.library.java.tool.lang.collection.Collections;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -20,34 +18,28 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BasePackagePath {
 
-    private static final Set<String> BASE_PACKAGE_PATHS = new HashSet<>();
+    private static Set<String> basePackagePaths = Collections.newCopyOnWriteArraySet();
 
-    public static void register(String basePackagePath) {
-        BASE_PACKAGE_PATHS.add(basePackagePath);
+    public static Set<String> register(String specifiedBasePackagePath) {
+        return register(Collections.ofArray(String.class, specifiedBasePackagePath));
     }
 
-    public static void register(String... basePackagePaths) {
-        BASE_PACKAGE_PATHS.addAll(Arrays.asList(basePackagePaths));
+    public static Set<String> register(String... specifiedBasePackagePaths) {
+        return register(Collections.ofArrayList(specifiedBasePackagePaths));
     }
 
-    public static void register(List<String> basePackagePath) {
-        BASE_PACKAGE_PATHS.addAll(basePackagePath);
-    }
-
-    public static void register(Set<String> basePackagePath) {
-        BASE_PACKAGE_PATHS.addAll(basePackagePath);
+    public static Set<String> register(Collection<String> specifiedBasePackagePaths) {
+        basePackagePaths.addAll(specifiedBasePackagePaths);
+        optimize();
+        return get();
     }
 
     public static Set<String> get() {
-        return BASE_PACKAGE_PATHS;
+        return basePackagePaths;
     }
 
-    public static Set<String> get(String specifiedPackagePath) {
-        BASE_PACKAGE_PATHS.stream()
-                .filter(specifiedPackagePath::startsWith)
-                .findAny()
-                .ifPresentOrElse(Functional.emptyConsumer(), () -> BASE_PACKAGE_PATHS.add(specifiedPackagePath));
-        return BASE_PACKAGE_PATHS;
+    private static void optimize() {
+        basePackagePaths = Classes.getTheLargestRangePackagePath(basePackagePaths);
     }
 
 }
