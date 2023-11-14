@@ -60,35 +60,52 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
         globalConfig.setKeyConfig(idConfig.generateType().getStrategy().build(idConfig));
     }
 
+    /**
+     * handle the global delete logic config
+     *
+     * @param globalConfig      the mybatis flex global config
+     * @param deleteLogicConfig the global delete logic config
+     */
     private void setDeleteLogicConfig(FlexGlobalConfig globalConfig, DeleteLogicConfig deleteLogicConfig) {
         String normalValue = deleteLogicConfig.normalValue();
         String deletedValue = deleteLogicConfig.deletedValue();
 
-        Object actualNormalValue = Converts.toBoolean(normalValue);
+        Assert.of().setMessage("")
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfAnyBlank(normalValue, deletedValue);
+
+        // note:
+        // must convert to number first and then convert to boolean,
+        // because the value "0" can convert to boolean false, but the actual value should be integer 0.
+        Object actualNormalValue = Converts.toInteger(normalValue);
         if (Nil.isNull(actualNormalValue)) {
-            actualNormalValue = Converts.toNumber(normalValue);
+            actualNormalValue = Converts.toBoolean(normalValue);
             if (Nil.isNull(actualNormalValue)) {
                 actualNormalValue = Converts.toString(normalValue);
             }
         }
 
-        Object actualDeletedValue = Converts.toBoolean(deletedValue);
+        Object actualDeletedValue = Converts.toInteger(deletedValue);
         if (Nil.isNull(actualDeletedValue)) {
-            actualDeletedValue = Converts.toNumber(deletedValue);
+            actualDeletedValue = Converts.toBoolean(deletedValue);
             if (Nil.isNull(actualDeletedValue)) {
                 actualDeletedValue = Converts.toString(deletedValue);
             }
         }
 
-        Assert.of().setMessage("").setThrowable(LibraryJavaInternalException.class).throwsIfAnyNull(actualNormalValue, actualDeletedValue);
-
         globalConfig.setNormalValueOfLogicDelete(actualNormalValue);
         globalConfig.setDeletedValueOfLogicDelete(actualDeletedValue);
     }
 
+    /**
+     * handle the global listener config
+     *
+     * @param globalConfig   the mybatis flex global config
+     * @param listenerConfig the global listener config
+     */
     private void setListenerConfig(FlexGlobalConfig globalConfig, ListenerConfig listenerConfig) {
-        InsertListener<?> insertListener = Reflects.newInstance(listenerConfig.whenInsert());
-        UpdateListener<?> updateListener = Reflects.newInstance(listenerConfig.whenUpdate());
+        BaseInsertListener<?> insertListener = Reflects.newInstance(listenerConfig.whenInsert());
+        BaseUpdateListener<?> updateListener = Reflects.newInstance(listenerConfig.whenUpdate());
         if (Comparators.notEquals(NoneInsertListener.class, listenerConfig.whenInsert())) {
             globalConfig.registerInsertListener(insertListener, insertListener.getEntityType());
         }

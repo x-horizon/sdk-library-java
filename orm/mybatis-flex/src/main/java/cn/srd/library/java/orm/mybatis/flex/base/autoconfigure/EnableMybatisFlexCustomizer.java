@@ -35,8 +35,20 @@ public @interface EnableMybatisFlexCustomizer {
      */
     IdConfig globalIdGenerateConfig() default @IdConfig;
 
+    /**
+     * the global delete logic config
+     *
+     * @return the global delete logic config
+     * @see DeleteLogicConfig
+     */
     DeleteLogicConfig globalDeleteLogicConfig() default @DeleteLogicConfig;
 
+    /**
+     * the global listener config
+     *
+     * @return the global listener config
+     * @see ListenerConfig
+     */
     ListenerConfig globalListenerConfig() default @ListenerConfig;
 
     /**

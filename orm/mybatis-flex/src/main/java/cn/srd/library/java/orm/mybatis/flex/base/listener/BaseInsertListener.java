@@ -5,9 +5,12 @@
 package cn.srd.library.java.orm.mybatis.flex.base.listener;
 
 /**
+ * the base listener when insert data to database
+ *
+ * @param <T> the entity type
  * @author wjm
  * @since 2023-11-13 21:14
  */
-public interface InsertListener<T> extends BaseListener<T> {
+public interface BaseInsertListener<T> extends BaseListener<T> {
 
 }

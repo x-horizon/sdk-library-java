@@ -1,11 +1,11 @@
 package cn.library.java.orm.mybatis.flex.postgresql.config;
 
 import cn.library.java.orm.mybatis.flex.postgresql.model.po.BasePO;
-import cn.srd.library.java.orm.mybatis.flex.base.listener.InsertListener;
+import cn.srd.library.java.orm.mybatis.flex.base.listener.BaseInsertListener;
 
 import java.time.LocalDateTime;
 
-public class TestInsertListener implements InsertListener<BasePO> {
+public class TestInsertListener implements BaseInsertListener<BasePO> {
 
     @Override
     public Class<BasePO> getEntityType() {

@@ -9,6 +9,9 @@ import com.mybatisflex.annotation.InsertListener;
 import com.mybatisflex.annotation.UpdateListener;
 
 /**
+ * the base listener when operate database
+ *
+ * @param <T> the entity type
  * @author wjm
  * @since 2023-11-13 21:14
  */
@@ -26,8 +29,16 @@ public interface BaseListener<T> extends InsertListener, UpdateListener {
         action((T) entity);
     }
 
+    /**
+     * return the entity type
+     *
+     * @return the entity type
+     */
     Class<T> getEntityType();
 
+    /**
+     * the action when operate database
+     */
     void action(T entity);
 
 }
