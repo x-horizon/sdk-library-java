@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
 
 /**
  * {@link EnableAutoConfiguration AutoConfiguration} for Library ORM Mybatis Flex
@@ -18,6 +19,7 @@ import org.springframework.context.annotation.Bean;
  */
 @AutoConfigureBefore(MybatisFlexAutoConfiguration.class)
 @ConditionalOnBean(MybatisFlexCustomizerSwitcher.class)
+@DependsOn("mybatis-flex-com.mybatisflex.spring.boot.MybatisFlexProperties")
 public class MybatisFlexAutoConfigurer {
 
     /**

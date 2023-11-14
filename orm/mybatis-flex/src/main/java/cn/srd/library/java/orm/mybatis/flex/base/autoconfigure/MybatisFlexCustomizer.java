@@ -12,18 +12,23 @@ import cn.srd.library.java.orm.mybatis.flex.base.id.IdConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.listener.*;
 import cn.srd.library.java.orm.mybatis.flex.base.lock.OptimisticLockConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.logic.DeleteLogicConfig;
+import cn.srd.library.java.orm.mybatis.flex.base.property.PropertyConfig;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.object.Objects;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
+import cn.srd.library.java.tool.lang.text.Strings;
 import cn.srd.library.java.tool.spring.contract.Annotations;
+import cn.srd.library.java.tool.spring.contract.Classes;
+import cn.srd.library.java.tool.spring.contract.Springs;
 import com.mybatisflex.core.FlexGlobalConfig;
 import com.mybatisflex.core.audit.AuditManager;
 import com.mybatisflex.core.mybatis.FlexConfiguration;
 import com.mybatisflex.spring.boot.ConfigurationCustomizer;
 import com.mybatisflex.spring.boot.MyBatisFlexCustomizer;
+import com.mybatisflex.spring.boot.MybatisFlexProperties;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -35,6 +40,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFlexCustomizer {
 
+    /**
+     * the xml mapper class paths field name in {@link MybatisFlexProperties}
+     */
+    private static final String MYBATIS_FLEX_PROPERTIES_XML_MAPPER_CLASS_PATHS_FIELD_NAME = "mapperLocations";
+
+    /**
+     * the xml mapper class paths default field value in {@link MybatisFlexProperties}
+     */
+    private static final String[] MYBATIS_FLEX_PROPERTIES_XML_MAPPER_CLASS_PATHS_DEFAULT_FIELD_VALUE = new String[]{"classpath*:/mapper/**/*.xml"};
+
+    /**
+     * the xml mapper entity package alias class paths field name in {@link MybatisFlexProperties}
+     */
+    private static final String MYBATIS_FLEX_PROPERTIES_XML_MAPPER_ENTITY_PACKAGE_ALIAS_CLASS_PATHS_FIELD_NAME = "typeAliasesPackage";
+
     @Override
     public void customize(FlexConfiguration configuration) {
     }
@@ -44,11 +64,12 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
         log.debug("{}mybatis flex customizer is enabled, starting initializing...", ModuleView.ORM_MYBATIS_SYSTEM);
 
         EnableMybatisFlexCustomizer mybatisFlexCustomizer = Annotations.getAnnotation(EnableMybatisFlexCustomizer.class);
-        setIdGenerateConfig(globalConfig, mybatisFlexCustomizer.globalIdGenerateConfig());
-        setDeleteLogicConfig(globalConfig, mybatisFlexCustomizer.globalDeleteLogicConfig());
-        setListenerConfig(globalConfig, mybatisFlexCustomizer.globalListenerConfig());
-        setOptimisticLockConfig(globalConfig, mybatisFlexCustomizer.globalOptimisticLockConfig());
-        setAuditConfig(mybatisFlexCustomizer.auditConfig());
+        handleIdGenerateConfig(globalConfig, mybatisFlexCustomizer.globalIdGenerateConfig());
+        handleDeleteLogicConfig(globalConfig, mybatisFlexCustomizer.globalDeleteLogicConfig());
+        handleListenerConfig(globalConfig, mybatisFlexCustomizer.globalListenerConfig());
+        handleOptimisticLockConfig(globalConfig, mybatisFlexCustomizer.globalOptimisticLockConfig());
+        handleAuditConfig(mybatisFlexCustomizer.auditConfig());
+        handlePropertyConfig(mybatisFlexCustomizer.propertyConfig());
 
         log.debug("{}mybatis flex customizer initialized.", ModuleView.ORM_MYBATIS_SYSTEM);
     }
@@ -59,7 +80,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
      * @param globalConfig the mybatis flex global config
      * @param idConfig     the global id config
      */
-    private void setIdGenerateConfig(FlexGlobalConfig globalConfig, IdConfig idConfig) {
+    private void handleIdGenerateConfig(FlexGlobalConfig globalConfig, IdConfig idConfig) {
         globalConfig.setKeyConfig(idConfig.generateType().getStrategy().build(idConfig));
     }
 
@@ -69,7 +90,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
      * @param globalConfig      the mybatis flex global config
      * @param deleteLogicConfig the global delete logic config
      */
-    private void setDeleteLogicConfig(FlexGlobalConfig globalConfig, DeleteLogicConfig deleteLogicConfig) {
+    private void handleDeleteLogicConfig(FlexGlobalConfig globalConfig, DeleteLogicConfig deleteLogicConfig) {
         String normalValue = deleteLogicConfig.normalValue();
         String deletedValue = deleteLogicConfig.deletedValue();
 
@@ -106,7 +127,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
      * @param globalConfig   the mybatis flex global config
      * @param listenerConfig the global listener config
      */
-    private void setListenerConfig(FlexGlobalConfig globalConfig, ListenerConfig listenerConfig) {
+    private void handleListenerConfig(FlexGlobalConfig globalConfig, ListenerConfig listenerConfig) {
         BaseInsertListener<?> insertListener = Reflects.newInstance(listenerConfig.whenInsert());
         BaseUpdateListener<?> updateListener = Reflects.newInstance(listenerConfig.whenUpdate());
         if (Comparators.notEquals(UnsupportedInsertListener.class, listenerConfig.whenInsert())) {
@@ -123,7 +144,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
      * @param globalConfig         the mybatis flex global config
      * @param optimisticLockConfig the global id config
      */
-    private void setOptimisticLockConfig(FlexGlobalConfig globalConfig, OptimisticLockConfig optimisticLockConfig) {
+    private void handleOptimisticLockConfig(FlexGlobalConfig globalConfig, OptimisticLockConfig optimisticLockConfig) {
         Objects.setIfNotBlank(optimisticLockConfig.columnName(), globalConfig::setVersionColumn);
     }
 
@@ -132,7 +153,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
      *
      * @param auditLogConfig the audit log config
      */
-    private void setAuditConfig(AuditLogConfig auditLogConfig) {
+    private void handleAuditConfig(AuditLogConfig auditLogConfig) {
         if (auditLogConfig.enable()) {
             AuditManager.setAuditEnable(true);
             AuditManager.setMessageFactory(Reflects.newInstance(auditLogConfig.constructor()));
@@ -140,6 +161,27 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
             if (Comparators.notEquals(UnsupportedAuditLogTelemeter.class, auditLogConfig.telemeter())) {
                 AuditManager.setMessageReporter(Reflects.newInstance(auditLogConfig.telemeter()));
             }
+        }
+    }
+
+    /**
+     * handle the global property config for {@link MybatisFlexProperties}
+     *
+     * @param propertyConfig the global property config for {@link MybatisFlexProperties}
+     */
+    private void handlePropertyConfig(PropertyConfig propertyConfig) {
+        MybatisFlexProperties mybatisFlexProperties = Springs.getBean(MybatisFlexProperties.class);
+        if (Comparators.equals(MYBATIS_FLEX_PROPERTIES_XML_MAPPER_CLASS_PATHS_DEFAULT_FIELD_VALUE, mybatisFlexProperties.getMapperLocations())) {
+            Reflects.setFieldValue(mybatisFlexProperties,
+                    MYBATIS_FLEX_PROPERTIES_XML_MAPPER_CLASS_PATHS_FIELD_NAME,
+                    propertyConfig.xmlMapperClassPaths()
+            );
+        }
+        if (Nil.isNull(mybatisFlexProperties.getTypeAliasesPackage())) {
+            Reflects.setFieldValue(mybatisFlexProperties,
+                    MYBATIS_FLEX_PROPERTIES_XML_MAPPER_ENTITY_PACKAGE_ALIAS_CLASS_PATHS_FIELD_NAME,
+                    Strings.joinWithComma(Classes.parseAntStylePackagePathsToPackagePaths(propertyConfig.xmlMapperEntityPackageAliasPackagePaths()))
+            );
         }
     }
 

@@ -9,6 +9,8 @@ import cn.srd.library.java.orm.mybatis.flex.base.id.IdConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.listener.ListenerConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.lock.OptimisticLockConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.logic.DeleteLogicConfig;
+import cn.srd.library.java.orm.mybatis.flex.base.property.PropertyConfig;
+import com.mybatisflex.spring.boot.MybatisFlexProperties;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -72,5 +74,13 @@ public @interface EnableMybatisFlexCustomizer {
      * @see AuditLogConfig
      */
     AuditLogConfig auditConfig() default @AuditLogConfig;
+
+    /**
+     * the global property config for {@link MybatisFlexProperties}
+     *
+     * @return the global property config for {@link MybatisFlexProperties}
+     * @see PropertyConfig
+     */
+    PropertyConfig propertyConfig() default @PropertyConfig;
 
 }
