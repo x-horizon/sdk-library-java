@@ -6,8 +6,7 @@ package cn.srd.library.java.tool.convert.mapstruct;
 
 import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
-import cn.srd.library.java.tool.convert.mapstruct.exception.MapstructConvertMethodNotFoundException;
-import cn.srd.library.java.tool.convert.mapstruct.exception.MapstructConvertMethodUnsupportedException;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.convert.mapstruct.support.MapstructConvertsSupporter;
 import cn.srd.library.java.tool.convert.mapstruct.support.MapstructConvertsSupporterManager;
 import cn.srd.library.java.tool.convert.mapstruct.support.MapstructListBeanConvertsSupporter;
@@ -249,6 +248,7 @@ public class MapstructConverts {
         Set<Class<?>> classesWithMapstructScan = Classes.scanByAnnotation(EnableMapstructConvertScan.class);
         Set<Class<?>> classesWithBindMapstruct;
         Assert.of().setMessage("found multi @{} in {}, please just specifies one", EnableMapstructConvertScan.class.getSimpleName(), classesWithMapstructScan.stream().map(Class::getName).toList())
+                .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfTrue(classesWithMapstructScan.size() > 1);
         if (Nil.isNotEmpty(classesWithMapstructScan)) {
             String[] packageNamesToFindMapstruct = Annotations.getAnnotationValue(Collections.getFirst(classesWithMapstructScan).orElseThrow(), EnableMapstructConvertScan.class, String[].class);
@@ -266,6 +266,7 @@ public class MapstructConverts {
         classesWithBindMapstruct.forEach(classWithBindMapstruct -> {
             if (Nil.isNull(Springs.getBean(classWithBindMapstruct))) {
                 Assert.of().setMessage("could not find the class [{}] instance, please check!", classWithBindMapstruct.getName())
+                        .setThrowable(LibraryJavaInternalException.class)
                         .throwsIfNull(Mappers.getMapper(classWithBindMapstruct));
                 Springs.registerBean(classWithBindMapstruct);
             }
@@ -440,7 +441,7 @@ public class MapstructConverts {
                         Strings.subBefore(key, SymbolConstant.SLASH),
                         Strings.subAfter(key, SymbolConstant.SLASH)
                 )
-                .setThrowable(MapstructConvertMethodNotFoundException.class)
+                .setThrowable(LibraryJavaInternalException.class)
                 .doThrows();
     }
 
@@ -468,7 +469,9 @@ public class MapstructConverts {
         });
         if (Nil.isNotEmpty(unsupportedLocations)) {
             String msg = "MapstructBeanConverter：检测到有相同出入参的方法，对于这些方法无法使用通用转换，需要直接调用，如下：\n" + Strings.join(unsupportedLocations, "\n");
-            Assert.of().setMessage(msg).setThrowable(MapstructConvertMethodUnsupportedException.class).throwsIfFalse(warnOrThrow);
+            Assert.of().setMessage(msg)
+                    .setThrowable(LibraryJavaInternalException.class)
+                    .throwsIfFalse(warnOrThrow);
             log.warn(msg);
         }
     }

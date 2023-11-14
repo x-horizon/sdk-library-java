@@ -9,6 +9,7 @@ import cn.srd.library.java.contract.constant.classes.ClassConstant;
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.constant.web.ProtocolConstant;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.object.BasePackagePath;
 import cn.srd.library.java.tool.lang.object.Nil;
@@ -483,7 +484,7 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
                         // if the resource path like "file:/absolutePath/xxx.jar!/cn/test/lang/", then parse it to "cn/test/lang/"
                         relativeResourcePath = Strings.subAfter(resourcePath, ClassConstant.REFERENCE_JAR_PATH);
                     } else {
-                        throw new RuntimeException(Strings.format("{}parse ant style class path to package path failed because of the unsupported resource path [{}]", ModuleView.TOOL_CLASS_SYSTEM, resourcePath));
+                        throw new LibraryJavaInternalException(Strings.format("{}parse ant style class path to package path failed because of the unsupported resource path [{}]", ModuleView.TOOL_CLASS_SYSTEM, resourcePath));
                     }
                     return Strings.removeIfEndWith(convertResourcePathToClassName(relativeResourcePath), SymbolConstant.DOT);
                 })

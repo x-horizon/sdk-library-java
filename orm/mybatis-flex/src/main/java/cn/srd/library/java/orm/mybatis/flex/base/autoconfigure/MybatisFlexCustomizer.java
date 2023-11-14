@@ -5,6 +5,7 @@
 package cn.srd.library.java.orm.mybatis.flex.base.autoconfigure;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.orm.mybatis.flex.base.id.IdConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.listener.*;
 import cn.srd.library.java.orm.mybatis.flex.base.lock.OptimisticLockConfig;
@@ -79,7 +80,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
             }
         }
 
-        Assert.of().setMessage("").throwsIfAnyNull(actualNormalValue, actualDeletedValue);
+        Assert.of().setMessage("").setThrowable(LibraryJavaInternalException.class).throwsIfAnyNull(actualNormalValue, actualDeletedValue);
 
         globalConfig.setNormalValueOfLogicDelete(actualNormalValue);
         globalConfig.setDeletedValueOfLogicDelete(actualDeletedValue);

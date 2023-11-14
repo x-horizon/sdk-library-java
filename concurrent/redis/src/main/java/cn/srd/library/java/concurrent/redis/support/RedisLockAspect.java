@@ -3,6 +3,7 @@ package cn.srd.library.java.concurrent.redis.support;
 import cn.hutool.core.util.IdUtil;
 import cn.srd.library.java.concurrent.redis.RedisFairLock;
 import cn.srd.library.java.concurrent.redis.RedisLockTemplate;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
@@ -65,7 +66,9 @@ public abstract class RedisLockAspect {
                 // 根据 fieldOrder 获取方法形参列表上的第 fieldOrder 个参数，fieldOrder 为 0 时获取第 1 个，为 n 时获取第 n 个；
                 Object lockAnnotationMethodParameter = fieldOrder > 0 ? lockAnnotationMethodParameters[fieldOrder - 1] : lockAnnotationMethodParameters[0];
                 String fieldValue = Reflects.getFieldValue(lockAnnotationMethodParameter, fieldName, String.class);
-                Assert.of().setMessage("无法根据给定参数生成锁名：获取到的方法参数上对应的字段值为空，请检查！").throwsIfBlank(fieldValue);
+                Assert.of().setMessage("无法根据给定参数生成锁名：获取到的方法参数上对应的字段值为空，请检查！")
+                        .setThrowable(LibraryJavaInternalException.class)
+                        .throwsIfBlank(fieldValue);
                 return fieldValue;
             }
         }
@@ -85,7 +88,9 @@ public abstract class RedisLockAspect {
      * @return 临界区响应值
      */
     private <T extends RedisLockTemplate> Object doLock(String lockName, long waitTime, long leaseTime, TimeUnit timeUnit, Class<T> redisLockTemplateClass, ProceedingJoinPoint joinPoint) {
-        Assert.of().setMessage("非法的 waitTime 值，请检查！").throwsIfTrue(waitTime < 0);
+        Assert.of().setMessage("非法的 waitTime 值，请检查！")
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfTrue(waitTime < 0);
         RedisLockTemplate redisLockTemplate = getRedisLockTemplate(redisLockTemplateClass);
         return redisLockTemplate.tryLock(() -> this.proceed(joinPoint), lockName, waitTime, leaseTime, timeUnit);
     }

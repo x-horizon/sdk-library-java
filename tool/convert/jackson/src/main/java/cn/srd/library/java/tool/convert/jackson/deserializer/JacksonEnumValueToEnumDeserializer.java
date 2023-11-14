@@ -5,11 +5,11 @@
 package cn.srd.library.java.tool.convert.jackson.deserializer;
 
 import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
-import cn.srd.library.java.contract.model.throwable.DeserializerException;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.enums.Enums;
+import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Objects;
 import cn.srd.library.java.tool.lang.object.Types;
-import cn.srd.library.java.tool.lang.text.Strings;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -31,9 +31,9 @@ public class JacksonEnumValueToEnumDeserializer<E extends Enum<E>> extends JsonD
         String jsonFieldName = jsonParser.getCurrentName();
         Class<?> fieldOfClass = jsonParser.getCurrentValue().getClass();
         Class<?> fieldType = Types.getTypeClass(fieldOfClass, jsonFieldName);
-        if (Enums.isNotEnum(fieldType)) {
-            throw new DeserializerException(Strings.format("jackson deserializer: cannot deserializer field [{}] on class [{}] because the generic type in List.class is not Enum, please check!", jsonFieldName, fieldOfClass.getSimpleName()));
-        }
+        Assert.of().setMessage("jackson deserializer: cannot deserializer field [{}] on class [{}] because the generic type in List.class is not Enum, please check!", jsonFieldName, fieldOfClass.getSimpleName())
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfTrue(Enums.isNotEnum(fieldType));
         return Enums.toEnumByFieldValue(Objects.getActualValue(jsonParser.getText()), (Class<E>) fieldType);
     }
 

@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.tool.convert.jackson;
 
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -175,9 +176,9 @@ public class JacksonConverts {
              * @param jacksonMapper see {@link JacksonMapper}
              */
             public void buildGlobal(JacksonMapper jacksonMapper) {
-                Assert.of().throwsIfFalse(allowToReplaceGlobalObjectMapper);
+                Assert.of().setThrowable(LibraryJavaInternalException.class).throwsIfFalse(allowToReplaceGlobalObjectMapper);
                 synchronized (Builder.class) {
-                    Assert.of().throwsIfFalse(allowToReplaceGlobalObjectMapper);
+                    Assert.of().setThrowable(LibraryJavaInternalException.class).throwsIfFalse(allowToReplaceGlobalObjectMapper);
                     getInstance().replaceGlobalJacksonMapper(jacksonMapper);
                     allowToReplaceGlobalObjectMapper = false;
                 }

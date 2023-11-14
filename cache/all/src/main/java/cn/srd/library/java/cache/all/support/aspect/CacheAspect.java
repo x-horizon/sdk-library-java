@@ -9,6 +9,7 @@ import cn.srd.library.java.cache.all.support.strategy.CacheKeyGenerator;
 import cn.srd.library.java.cache.all.support.strategy.CacheModeStrategy;
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.booleans.Booleans;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
@@ -65,6 +66,7 @@ public interface CacheAspect extends AopCaptor {
             return doParseNamespaces(namespacesOnMethod);
         }
         Assert.of().setMessage("{}could not find namespace on method annotation and unspecified namespace on annotation [{}], please specify at least one!", ModuleView.CACHE_SYSTEM, CacheConfig.class.getSimpleName())
+                .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfNull(cacheConfigAnnotation);
         return doParseNamespaces(cacheConfigAnnotation.namespaces());
     }
@@ -95,6 +97,7 @@ public interface CacheAspect extends AopCaptor {
             }
         }
         Assert.of().setMessage("{}could not find namespace, please specify at least one!", ModuleView.CACHE_SYSTEM)
+                .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfEmpty(namespacesAfterParse);
         return Collections.toArray(namespacesAfterParse, String.class);
     }
@@ -111,6 +114,7 @@ public interface CacheAspect extends AopCaptor {
             return Collections.ofImmutableList(cacheTypesOnMethod);
         }
         Assert.of().setMessage("{}could not find cache type to cache, please specify at least one!", ModuleView.CACHE_SYSTEM)
+                .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfTrue(Nil.isNull(cacheConfigAnnotation) || Nil.isEmpty(cacheConfigAnnotation.cacheTypes()));
         return Collections.ofImmutableList(cacheConfigAnnotation.cacheTypes());
     }
@@ -134,10 +138,12 @@ public interface CacheAspect extends AopCaptor {
         if (Nil.isBlank(keyExpression)) {
             key = Reflects.newInstance(parseKeyGenerator(cacheConfigAnnotation, keyGeneratorOnMethod)).generate(parameterNames, parameterValues);
             Assert.of().setMessage("{}could not generate cache key by keyGenerator [{}], please check!", ModuleView.CACHE_SYSTEM, keyGeneratorOnMethod.getSimpleName())
+                    .setThrowable(LibraryJavaInternalException.class)
                     .throwsIfBlank(key);
         } else {
             key = Optional.ofNullable(Expressions.getInstance().parse(parameterNames, parameterValues, keyExpression)).map(Object::toString).orElse(null);
             Assert.of().setMessage("{}could not generate cache key by keyExpression [{}], please check!", ModuleView.CACHE_SYSTEM, keyExpression)
+                    .setThrowable(LibraryJavaInternalException.class)
                     .throwsIfBlank(key);
         }
         return key;
@@ -469,6 +475,7 @@ public interface CacheAspect extends AopCaptor {
                 for (T value : values) {
                     String key = Optional.ofNullable(Expressions.getInstance().parse(value, context.getOriginalKey())).map(Object::toString).orElse(null);
                     Assert.of().setMessage("{}could not parse the cache key when read all cache, please check!", ModuleView.CACHE_SYSTEM)
+                            .setThrowable(LibraryJavaInternalException.class)
                             .throwsIfBlank(key);
                     setCacheValue(context.setKey(key).setValue(value));
                 }
@@ -522,6 +529,7 @@ public interface CacheAspect extends AopCaptor {
     default void doWrite(CacheAspectContext context, Object value) {
         String key = Optional.ofNullable(Expressions.getInstance().parse(value, context.getOriginalKey())).map(Object::toString).orElse(null);
         Assert.of().setMessage("{}could not parse the cache key when write cache, please check!", ModuleView.CACHE_SYSTEM)
+                .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfBlank(key);
         /**
          * TODO wjm need optimize to use strategy

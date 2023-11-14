@@ -5,12 +5,12 @@
 package cn.srd.library.java.tool.convert.jackson.deserializer;
 
 import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
-import cn.srd.library.java.contract.model.throwable.DeserializerException;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.convert.jackson.Jacksons;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.enums.Enums;
+import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Types;
-import cn.srd.library.java.tool.lang.text.Strings;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -34,9 +34,11 @@ public class JacksonListEnumValueToListEnumDeserializer<E extends Enum<E>> exten
         String jsonFieldName = jsonParser.getCurrentName();
         Class<?> fieldOfClass = jsonParser.getParsingContext().getParent().getCurrentValue().getClass();
         Class<?> fieldGenericType = Types.getEmbedGenericTypeClass(fieldOfClass, jsonFieldName);
-        if (Enums.isNotEnum(fieldGenericType)) {
-            throw new DeserializerException(Strings.format("jackson deserializer: cannot deserializer field [{}] on class [{}] because the generic type in List.class is not Enum, please check!", jsonFieldName, fieldOfClass.getSimpleName()));
-        }
+
+        Assert.of().setMessage("jackson deserializer: cannot deserializer field [{}] on class [{}] because the generic type in List.class is not Enum, please check!", jsonFieldName, fieldOfClass.getSimpleName())
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfTrue(Enums.isNotEnum(fieldGenericType));
+
         return Collections.toList(
                 jsonParser.readValuesAs(Jacksons.<List<?>>newTypeReference()).next(),
                 filedValue -> Enums.toEnumByFieldValue(filedValue, (Class<E>) fieldGenericType)

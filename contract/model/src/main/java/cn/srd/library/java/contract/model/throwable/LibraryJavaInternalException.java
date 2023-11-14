@@ -15,7 +15,7 @@ import java.io.Serial;
  * @since 2023-11-08 17:26
  */
 @StandardException
-public class LibraryJavaInternalException extends RuntimeException {
+public class LibraryJavaInternalException extends AbstractRuntimeException {
 
     @Serial private static final long serialVersionUID = -6265494407089888791L;
 

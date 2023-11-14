@@ -6,6 +6,7 @@ package cn.library.java.orm.mybatis.contract.base.cache;
 
 import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.module.ModuleView;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
@@ -57,7 +58,9 @@ public abstract class ColumnMappingJavaTypeCache {
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
     public Set<Class> getMappingJavaTypes(String columnName) {
         Set<Class> javaClasses = cache.get(columnName);
-        Assert.of().setMessage("{}could not find column mapping java type by column name [{}], please check!", ModuleView.ORM_MYBATIS_SYSTEM, columnName).throwsIfEmpty(javaClasses);
+        Assert.of().setMessage("{}could not find column mapping java type by column name [{}], please check!", ModuleView.ORM_MYBATIS_SYSTEM, columnName)
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfEmpty(javaClasses);
         return javaClasses;
     }
 

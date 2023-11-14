@@ -5,7 +5,7 @@
 package cn.srd.library.java.tool.convert.mapstruct.support;
 
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
-import cn.srd.library.java.tool.convert.mapstruct.exception.MapstructConvertMethodUnsupportedException;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.object.Nil;
 
@@ -38,7 +38,7 @@ public class MapstructListBeanConvertsSupporter implements MapstructConvertsSupp
             return LIST_NAME + ((List<?>) sources[0]).get(0).getClass().getName() + SymbolConstant.SLASH + LIST_NAME + target.getName();
         }
         // List 类型只支持一对一转换
-        throw new MapstructConvertMethodUnsupportedException();
+        throw new LibraryJavaInternalException();
     }
 
     @Override
