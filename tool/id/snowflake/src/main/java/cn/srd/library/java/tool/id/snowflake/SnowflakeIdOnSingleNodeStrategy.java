@@ -8,13 +8,13 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * stand alone single node instance strategy
+ * single node strategy
  *
  * @author wjm
  * @since 2023-11-13 10:42
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SnowflakeIdOnStandAloneSingleInstanceStrategy implements SnowflakeIdEnvironmentStrategy {
+public class SnowflakeIdOnSingleNodeStrategy implements SnowflakeIdEnvironmentStrategy {
 
     /**
      * the default worker id

@@ -15,13 +15,13 @@ import lombok.NoArgsConstructor;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 
 /**
- * stand alone multiple node instance strategy
+ * multiple node strategy
  *
  * @author wjm
  * @since 2023-11-13 10:42
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SnowflakeIdOnStandAloneMultipleInstanceStrategy implements SnowflakeIdEnvironmentStrategy {
+public class SnowflakeIdOnMultipleNodeStrategy implements SnowflakeIdEnvironmentStrategy {
 
     /**
      * the min worker id

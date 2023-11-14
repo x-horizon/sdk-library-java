@@ -18,8 +18,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SnowflakeIdEnvironment {
 
-    STAND_ALONE_SINGLE_INSTANCE(new SnowflakeIdOnStandAloneSingleInstanceStrategy()),
-    STAND_ALONE_MULTIPLE_INSTANCE(new SnowflakeIdOnStandAloneMultipleInstanceStrategy()),
+    SINGLE_NODE(new SnowflakeIdOnSingleNodeStrategy()),
+    MULTIPLE_NODE(new SnowflakeIdOnMultipleNodeStrategy()),
 
     ;
 

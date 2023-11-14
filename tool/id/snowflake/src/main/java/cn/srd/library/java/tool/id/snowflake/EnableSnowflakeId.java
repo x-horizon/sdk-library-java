@@ -36,12 +36,12 @@ public @interface EnableSnowflakeId {
      * @see #workerIdBitLength()
      * @see #sequenceBitLength()
      */
-    SnowflakeIdEnvironment environment() default SnowflakeIdEnvironment.STAND_ALONE_SINGLE_INSTANCE;
+    SnowflakeIdEnvironment environment() default SnowflakeIdEnvironment.SINGLE_NODE;
 
     /**
      * the worker id bit length setter to set {@link IdGeneratorOptions#WorkerIdBitLength}.
      * <p>
-     * this field determines the max total node instance number in {@link SnowflakeIdEnvironment#STAND_ALONE_MULTIPLE_INSTANCE};<br/>
+     * this field determines the max total node instance number in {@link SnowflakeIdEnvironment#MULTIPLE_NODE};<br/>
      * the range of this field value is [1, 15];<br/>
      * the max total node instance number calculation: 2 ^ workerIdBitLength - 1;
      * <ul>
