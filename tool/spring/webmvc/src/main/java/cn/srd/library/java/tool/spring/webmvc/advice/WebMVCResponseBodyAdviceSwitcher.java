@@ -4,13 +4,13 @@
 
 package cn.srd.library.java.tool.spring.webmvc.advice;
 
-import cn.srd.library.java.tool.spring.webmvc.autoconfigure.SpringWebMVCResponseBodyAdviceAutoConfigurer;
+import cn.srd.library.java.tool.spring.webmvc.autoconfigure.WebMVCResponseBodyAdviceAutoConfigurer;
 
 /**
  * the {@link EnableWebMVCResponseBodyAdvice web response body advice} switcher
  *
  * @author wjm
- * @see SpringWebMVCResponseBodyAdviceAutoConfigurer
+ * @see WebMVCResponseBodyAdviceAutoConfigurer
  * @since 2023-11-09 21:01
  */
 public class WebMVCResponseBodyAdviceSwitcher {

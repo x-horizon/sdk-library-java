@@ -4,7 +4,6 @@
 
 package cn.srd.library.java.tool.spring.webmvc.autoconfigure;
 
-import cn.srd.library.java.tool.spring.webmvc.advice.ControllerAdvicePackagePathReplacer;
 import cn.srd.library.java.tool.spring.webmvc.advice.WebMVCResponseBodyAdvice;
 import cn.srd.library.java.tool.spring.webmvc.advice.WebMVCResponseBodyAdviceSwitcher;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -20,12 +19,7 @@ import org.springframework.context.annotation.Bean;
  */
 @AutoConfiguration
 @ConditionalOnBean(WebMVCResponseBodyAdviceSwitcher.class)
-public class SpringWebMVCResponseBodyAdviceAutoConfigurer {
-
-    @Bean
-    public ControllerAdvicePackagePathReplacer controllerAdvicePackagePathReplacer() {
-        return new ControllerAdvicePackagePathReplacer();
-    }
+public class WebMVCResponseBodyAdviceAutoConfigurer {
 
     @Bean
     public WebMVCResponseBodyAdvice webMVCResponseBodyAdvice() {
