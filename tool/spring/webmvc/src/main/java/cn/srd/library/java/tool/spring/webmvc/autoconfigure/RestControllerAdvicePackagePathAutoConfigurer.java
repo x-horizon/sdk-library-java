@@ -28,7 +28,7 @@ import java.util.Set;
  */
 @Slf4j
 @Order(SpringInitializeConstant.HIGH_INITIALIZE_PRIORITY)
-public class RestControllerAdvicePackagePathAutoConfigure implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+public class RestControllerAdvicePackagePathAutoConfigurer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     @Override
     public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {
