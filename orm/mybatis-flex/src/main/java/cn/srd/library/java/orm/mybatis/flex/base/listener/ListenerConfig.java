@@ -42,7 +42,7 @@ public @interface ListenerConfig {
      *
      * @return the action before data insert
      */
-    Class<? extends BaseInsertListener> whenInsert() default NoneInsertListener.class;
+    Class<? extends BaseInsertListener> whenInsert() default UnsupportedInsertListener.class;
 
     /**
      * <pre>
@@ -68,6 +68,6 @@ public @interface ListenerConfig {
      *
      * @return the action before data update
      */
-    Class<? extends BaseUpdateListener> whenUpdate() default NoneUpdateListener.class;
+    Class<? extends BaseUpdateListener> whenUpdate() default UnsupportedUpdateListener.class;
 
 }

@@ -6,23 +6,24 @@ package cn.srd.library.java.orm.mybatis.flex.base.listener;
 
 import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import cn.srd.library.java.tool.lang.text.Strings;
+import com.mybatisflex.core.FlexGlobalConfig;
 
 /**
- * the invalid {@link BaseUpdateListener} implement
+ * the invalid {@link BaseInsertListener} implement, will not add it to {@link FlexGlobalConfig#getEntityInsertListeners()}.
  *
  * @author wjm
  * @since 2023-11-13 21:14
  */
-public class NoneUpdateListener implements BaseUpdateListener<Void> {
+public class UnsupportedInsertListener implements BaseInsertListener<Void> {
 
     @Override
     public Class<Void> getEntityType() {
-        throw new UnsupportedException(Strings.format("{}unsupported update listener function!"));
+        throw new UnsupportedException(Strings.format("{}unsupported insert listener, please check!"));
     }
 
     @Override
     public void action(Void entity) {
-        throw new UnsupportedException(Strings.format("{}unsupported update listener function!"));
+        throw new UnsupportedException(Strings.format("{}unsupported insert listener, please check!"));
     }
 
 }

@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 import java.util.UUID;
 
 /**
- * the global mybatis flex id config
+ * the global id config
  *
  * @author wjm
  * @since 2023-11-12 21:06
