@@ -11,6 +11,7 @@ import cn.srd.library.java.orm.mybatis.flex.base.id.IdConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.id.IdGenerateType;
 import cn.srd.library.java.orm.mybatis.flex.base.listener.ListenerConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.logic.DeleteLogicConfig;
+import cn.srd.library.java.orm.mybatis.flex.base.property.PropertyConfig;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
 import org.junit.Test;
@@ -26,7 +27,11 @@ import org.springframework.test.context.junit4.SpringRunner;
         globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SNOWFLAKE),
         globalDeleteLogicConfig = @DeleteLogicConfig(normalValue = BooleanConstant.FALSE, deletedValue = BooleanConstant.TRUE),
         globalListenerConfig = @ListenerConfig(whenInsert = TestInsertListener.class, whenUpdate = TestUpdateListener.class),
-        auditConfig = @AuditLogConfig(enable = true)
+        auditConfig = @AuditLogConfig(enable = true),
+        propertyConfig = @PropertyConfig(
+                xmlMapperClassPaths = {"classpath*:cn/library/java/orm/mybatis/base/customer/dao/impl/*.xml"},
+                xmlMapperEntityPackageAliasPackagePaths = {"cn.library.java.**.po"}
+        )
 )
 @RunWith(SpringRunner.class)
 @SpringBootTest

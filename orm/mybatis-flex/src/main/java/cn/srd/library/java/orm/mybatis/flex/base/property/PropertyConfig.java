@@ -140,4 +140,6 @@ public @interface PropertyConfig {
      */
     String[] xmlMapperEntityPackageAliasPackagePaths() default {};
 
+    String[] mapperScanBasePackagePaths() default {};
+
 }
