@@ -65,6 +65,16 @@ public class Converts {
     }
 
     /**
+     * convert an object to integer
+     *
+     * @param input the input element
+     * @return after convert
+     */
+    public static Number toInteger(Object input) {
+        return Convert.toInt(input);
+    }
+
+    /**
      * convert an object to number
      *
      * @param input the input element
