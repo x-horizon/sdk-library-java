@@ -6,6 +6,8 @@ package cn.srd.library.java.orm.mybatis.flex.base.autoconfigure;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
+import cn.srd.library.java.orm.mybatis.flex.base.audit.AuditLogConfig;
+import cn.srd.library.java.orm.mybatis.flex.base.audit.UnsupportedAuditLogTelemeter;
 import cn.srd.library.java.orm.mybatis.flex.base.id.IdConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.listener.*;
 import cn.srd.library.java.orm.mybatis.flex.base.lock.OptimisticLockConfig;
@@ -18,6 +20,7 @@ import cn.srd.library.java.tool.lang.object.Objects;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.spring.contract.Annotations;
 import com.mybatisflex.core.FlexGlobalConfig;
+import com.mybatisflex.core.audit.AuditManager;
 import com.mybatisflex.core.mybatis.FlexConfiguration;
 import com.mybatisflex.spring.boot.ConfigurationCustomizer;
 import com.mybatisflex.spring.boot.MyBatisFlexCustomizer;
@@ -45,7 +48,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
         setDeleteLogicConfig(globalConfig, mybatisFlexCustomizer.globalDeleteLogicConfig());
         setListenerConfig(globalConfig, mybatisFlexCustomizer.globalListenerConfig());
         setOptimisticLockConfig(globalConfig, mybatisFlexCustomizer.globalOptimisticLockConfig());
-        // handleAuditConfig(mybatisFlexCustomizer.auditConfig());
+        setAuditConfig(mybatisFlexCustomizer.auditConfig());
 
         log.debug("{}mybatis flex customizer initialized.", ModuleView.ORM_MYBATIS_SYSTEM);
     }
@@ -106,10 +109,10 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
     private void setListenerConfig(FlexGlobalConfig globalConfig, ListenerConfig listenerConfig) {
         BaseInsertListener<?> insertListener = Reflects.newInstance(listenerConfig.whenInsert());
         BaseUpdateListener<?> updateListener = Reflects.newInstance(listenerConfig.whenUpdate());
-        if (Comparators.notEquals(NoneInsertListener.class, listenerConfig.whenInsert())) {
+        if (Comparators.notEquals(UnsupportedInsertListener.class, listenerConfig.whenInsert())) {
             globalConfig.registerInsertListener(insertListener, insertListener.getEntityType());
         }
-        if (Comparators.notEquals(NoneUpdateListener.class, listenerConfig.whenUpdate())) {
+        if (Comparators.notEquals(UnsupportedUpdateListener.class, listenerConfig.whenUpdate())) {
             globalConfig.registerUpdateListener(updateListener, updateListener.getEntityType());
         }
     }
@@ -124,21 +127,20 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
         Objects.setIfNotBlank(optimisticLockConfig.columnName(), globalConfig::setVersionColumn);
     }
 
-    // private void handleAuditConfig(AuditConfig auditConfig) {
-    //     handleAuditLogSQLConfig(auditConfig);
-    // }
-
-    // private void handleAuditLogSQLConfig(AuditConfig auditConfig) {
-    //     String enableLogSQLWrapper = auditConfig.enableLogSQL();
-    //     Boolean enableLogSQL = Converts.toBool(enableLogSQLWrapper);
-    //     if (Objects.isFalse(enableLogSQL)) {
-    //         enableLogSQL = Converts.toBool(SpringsUtil.getProperty(StringsUtil.removeIfStartAndEndWith(enableLogSQLWrapper, StringPool.DOLLAR_AND_DELIM_START, StringPool.DELIM_END)));
-    //     }
-    //     Assert.INSTANCE.set(StringsUtil.format("{}could not infer the value [{}] in [@{}]-[@{}] to a boolean value, please check!", ModuleView.ORM_MYBATIS_SYSTEM, enableLogSQLWrapper, EnableMybatisFlexCustomizer.class.getSimpleName(), AuditConfig.class.getSimpleName())).throwsIfNull(enableLogSQL);
-    //     if (enableLogSQL) {
-    //         AuditManager.setAuditEnable(true);
-    //         AuditManager.setMessageCollector(auditMessage -> log.debug("{},{}ms", auditMessage.getFullSql(), auditMessage.getElapsedTime()));
-    //     }
-    // }
+    /**
+     * handle the audit log config
+     *
+     * @param auditLogConfig the audit log config
+     */
+    private void setAuditConfig(AuditLogConfig auditLogConfig) {
+        if (auditLogConfig.enable()) {
+            AuditManager.setAuditEnable(true);
+            AuditManager.setMessageFactory(Reflects.newInstance(auditLogConfig.constructor()));
+            AuditManager.setMessageCollector(Reflects.newInstance(auditLogConfig.printer()));
+            if (Comparators.notEquals(UnsupportedAuditLogTelemeter.class, auditLogConfig.telemeter())) {
+                AuditManager.setMessageReporter(Reflects.newInstance(auditLogConfig.telemeter()));
+            }
+        }
+    }
 
 }

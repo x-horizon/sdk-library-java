@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.autoconfigure;
 
+import cn.srd.library.java.orm.mybatis.flex.base.audit.AuditLogConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.id.IdConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.listener.ListenerConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.lock.OptimisticLockConfig;
@@ -19,6 +20,11 @@ import java.lang.annotation.*;
  * @see MybatisFlexCustomizerSwitcher
  * @see MybatisFlexCustomizer
  * @see MybatisFlexAutoConfigurer
+ * @see IdConfig
+ * @see DeleteLogicConfig
+ * @see ListenerConfig
+ * @see OptimisticLockConfig
+ * @see AuditLogConfig
  * @since 2023-11-12 21:06
  */
 @Target({ElementType.TYPE})
@@ -59,6 +65,12 @@ public @interface EnableMybatisFlexCustomizer {
      **/
     OptimisticLockConfig globalOptimisticLockConfig() default @OptimisticLockConfig;
 
-    // AuditConfig auditConfig() default @AuditConfig;
+    /**
+     * the audit log config
+     *
+     * @return the audit log config
+     * @see AuditLogConfig
+     */
+    AuditLogConfig auditConfig() default @AuditLogConfig;
 
 }
