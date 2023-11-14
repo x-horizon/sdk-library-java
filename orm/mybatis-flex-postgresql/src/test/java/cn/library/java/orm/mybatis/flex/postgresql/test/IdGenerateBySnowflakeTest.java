@@ -30,7 +30,8 @@ import org.springframework.test.context.junit4.SpringRunner;
         auditConfig = @AuditLogConfig(enable = true),
         propertyConfig = @PropertyConfig(
                 xmlMapperClassPaths = {"classpath*:cn/library/java/orm/mybatis/base/customer/dao/impl/*.xml"},
-                xmlMapperEntityPackageAliasPackagePaths = {"cn.library.java.**.po"}
+                xmlMapperEntityPackageAliasPackagePaths = {"cn.library.java.orm.mybatis.**.po"},
+                mapperPackagePaths = {"cn.library.java.orm.mybatis.**.dao"}
         )
 )
 @RunWith(SpringRunner.class)

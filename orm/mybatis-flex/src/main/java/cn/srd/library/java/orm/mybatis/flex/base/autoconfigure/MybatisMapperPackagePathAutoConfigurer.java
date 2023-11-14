@@ -4,24 +4,38 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.autoconfigure;
 
-import cn.srd.library.java.tool.spring.contract.Annotations;
+import cn.srd.library.java.contract.constant.spring.SpringInitializeConstant;
+import cn.srd.library.java.tool.lang.annotation.Annotations;
+import cn.srd.library.java.tool.lang.object.Nil;
+import cn.srd.library.java.tool.spring.contract.Classes;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
+
+import java.util.Set;
 
 /**
  * @author wjm
  * @since 2023-11-14 21:25
  */
 @Slf4j
-public class MapperScanPackagePathReplacer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+@MapperScan
+@Order(SpringInitializeConstant.HIGH_INITIALIZE_PRIORITY)
+public class MybatisMapperPackagePathAutoConfigurer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     @Override
     public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {
         EnableMybatisFlexCustomizer mybatisFlexCustomizer = Annotations.getAnnotation(EnableMybatisFlexCustomizer.class);
-        MapperScan mapperScan = Annotations.getAnnotation(MapperScan.class);
+        if (Nil.isNotNull(mybatisFlexCustomizer)) {
+            MapperScan mapperScan = Annotations.getAnnotation(MapperScan.class);
+            Set<String> mybatisMapperPackagePaths = Classes.parseAntStylePackagePathsToPackagePaths(mybatisFlexCustomizer.propertyConfig().mapperPackagePaths());
+            if (Nil.isNotEmpty(mybatisMapperPackagePaths)) {
+
+            }
+        }
         // if (Nil.isNotNull(mybatisFlexCustomizer) && mybatisFlexCustomizer.propertyConfig().mapperScanBasePackagePaths()) {
         //
         // }
