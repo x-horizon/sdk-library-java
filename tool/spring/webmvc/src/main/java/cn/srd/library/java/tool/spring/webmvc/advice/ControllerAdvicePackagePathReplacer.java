@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.Set;
 
 /**
+ * TODO wjm bug 需要最早初始化而不是最后初始化，但若使用 ApplicationContextInitializer<ConfigurableApplicationContext> 的方式，则无法使用 Springs 的相关扫描器，因为当前 Spring 上下文还未初始化，目前该类不起作用
+ *
  * @author wjm
  * @since 2023-10-07 15:23
  */
