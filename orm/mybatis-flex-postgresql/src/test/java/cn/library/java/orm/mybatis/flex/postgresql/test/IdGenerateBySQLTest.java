@@ -5,6 +5,7 @@
 // import cn.library.java.orm.mybatis.flex.postgresql.dao.StudentTestIdSQLDao;
 // import cn.library.java.orm.mybatis.flex.postgresql.model.po.StudentTestIdSQLPO;
 // import cn.srd.library.java.contract.constant.booleans.BooleanConstant;
+// import cn.srd.library.java.orm.mybatis.flex.base.audit.AuditLogConfig;
 // import cn.srd.library.java.orm.mybatis.flex.base.autoconfigure.EnableMybatisFlexCustomizer;
 // import cn.srd.library.java.orm.mybatis.flex.base.id.IdConfig;
 // import cn.srd.library.java.orm.mybatis.flex.base.id.IdGenerateType;
@@ -21,7 +22,8 @@
 // @EnableMybatisFlexCustomizer(
 //         globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SQL, generateSQL = "SELECT SUBSTRING(MD5(RANDOM()::VARCHAR), 2, 8) AS id"),
 //         globalDeleteLogicConfig = @DeleteLogicConfig(normalValue = BooleanConstant.FALSE, deletedValue = BooleanConstant.TRUE),
-//         globalListenerConfig = @ListenerConfig(whenInsert = TestInsertListener.class, whenUpdate = TestUpdateListener.class)
+//         globalListenerConfig = @ListenerConfig(whenInsert = TestInsertListener.class, whenUpdate = TestUpdateListener.class),
+//         auditConfig = @AuditLogConfig(enable = true)
 // )
 // @RunWith(SpringRunner.class)
 // @SpringBootTest

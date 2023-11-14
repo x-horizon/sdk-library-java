@@ -5,6 +5,7 @@ import cn.library.java.orm.mybatis.flex.postgresql.config.TestUpdateListener;
 import cn.library.java.orm.mybatis.flex.postgresql.dao.StudentTestIdSnowflakeDao;
 import cn.library.java.orm.mybatis.flex.postgresql.model.po.StudentTestIdSnowflakePO;
 import cn.srd.library.java.contract.constant.booleans.BooleanConstant;
+import cn.srd.library.java.orm.mybatis.flex.base.audit.AuditLogConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.autoconfigure.EnableMybatisFlexCustomizer;
 import cn.srd.library.java.orm.mybatis.flex.base.id.IdConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.id.IdGenerateType;
@@ -24,7 +25,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @EnableMybatisFlexCustomizer(
         globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SNOWFLAKE),
         globalDeleteLogicConfig = @DeleteLogicConfig(normalValue = BooleanConstant.FALSE, deletedValue = BooleanConstant.TRUE),
-        globalListenerConfig = @ListenerConfig(whenInsert = TestInsertListener.class, whenUpdate = TestUpdateListener.class)
+        globalListenerConfig = @ListenerConfig(whenInsert = TestInsertListener.class, whenUpdate = TestUpdateListener.class),
+        auditConfig = @AuditLogConfig(enable = true)
 )
 @RunWith(SpringRunner.class)
 @SpringBootTest
