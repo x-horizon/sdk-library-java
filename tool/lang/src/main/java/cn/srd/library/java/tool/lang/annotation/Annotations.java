@@ -294,8 +294,26 @@ public class Annotations {
         return AnnotationUtil.getAnnotationValue(annotatedElement, annotationType, fieldName);
     }
 
-    public static void setAnnotationValue(Annotation annotation, String annotationFieldName, Object valueToSet) {
-        AnnotationUtil.setValue(annotation, annotationFieldName, valueToSet);
+    /**
+     * set annotation field value to default field name
+     *
+     * @param annotation the annotation
+     * @param fieldValue the field value
+     * @see AnnotationConstant#DEFAULT_FIELD_NAME
+     */
+    public static void setAnnotationValue(Annotation annotation, Object fieldValue) {
+        setAnnotationValue(annotation, AnnotationConstant.DEFAULT_FIELD_NAME, fieldValue);
+    }
+
+    /**
+     * set annotation field value to specified field name
+     *
+     * @param annotation          the annotation
+     * @param annotationFieldName the annotation field name
+     * @param fieldValue          the field value
+     */
+    public static void setAnnotationValue(Annotation annotation, String annotationFieldName, Object fieldValue) {
+        AnnotationUtil.setValue(annotation, annotationFieldName, fieldValue);
     }
 
 }

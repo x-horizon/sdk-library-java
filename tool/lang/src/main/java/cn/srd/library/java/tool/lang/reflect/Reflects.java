@@ -5,10 +5,12 @@
 package cn.srd.library.java.tool.lang.reflect;
 
 import cn.hutool.core.util.ReflectUtil;
+import cn.srd.library.java.tool.lang.annotation.Annotations;
 import io.vavr.control.Try;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -128,6 +130,27 @@ public class Reflects {
      */
     public static void setFieldValue(Object input, String fieldName, Object fieldValue) {
         ReflectUtil.setFieldValue(input, fieldName, fieldValue);
+    }
+
+    /**
+     * see {@link Annotations#setAnnotationValue(Annotation, Object)}
+     *
+     * @param annotation the annotation
+     * @param fieldValue the field value
+     */
+    public static void setAnnotationValue(Annotation annotation, Object fieldValue) {
+        Annotations.setAnnotationValue(annotation, fieldValue);
+    }
+
+    /**
+     * see {@link Annotations#setAnnotationValue(Annotation, String, Object)}
+     *
+     * @param annotation          the annotation
+     * @param annotationFieldName the annotation field name
+     * @param fieldValue          the field value
+     */
+    public static void setAnnotationValue(Annotation annotation, String annotationFieldName, Object fieldValue) {
+        Annotations.setAnnotationValue(annotation, annotationFieldName, fieldValue);
     }
 
     /**

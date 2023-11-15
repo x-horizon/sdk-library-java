@@ -850,8 +850,8 @@ public class Collections {
      * @param input the checked element
      * @return return true if the checked element length is 1
      */
-    public static boolean hasOneElement(Iterable<?> input) {
-        return hasOneElement(getIterator(input));
+    public static boolean hasOnlyOneElement(Iterable<?> input) {
+        return hasOnlyOneElement(getIterator(input));
     }
 
     /**
@@ -860,7 +860,7 @@ public class Collections {
      * @param input the checked element
      * @return return true if the checked element length is 1
      */
-    public static boolean hasOneElement(Iterator<?> input) {
+    public static boolean hasOnlyOneElement(Iterator<?> input) {
         return getLength(input) == CollectionConstant.LENGTH_ONE;
     }
 
@@ -870,7 +870,7 @@ public class Collections {
      * @param input the checked element
      * @return return true if the checked element length is 1
      */
-    public static boolean hasOneElement(Collection<?> input) {
+    public static boolean hasOnlyOneElement(Collection<?> input) {
         return getLength(input) == CollectionConstant.LENGTH_ONE;
     }
 
