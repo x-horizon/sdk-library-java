@@ -10,6 +10,7 @@ import cn.srd.library.java.contract.constant.spring.SpringWebMVCConstant;
 import cn.srd.library.java.tool.lang.annotation.Annotations;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.object.Nil;
+import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.spring.contract.Classes;
 import cn.srd.library.java.tool.spring.webmvc.advice.EnableWebMVCResponseBodyAdvice;
 import cn.srd.library.java.tool.spring.webmvc.advice.WebMVCResponseBodyAdvice;
@@ -36,7 +37,7 @@ public class RestControllerAdvicePackagePathAutoConfigurer implements Applicatio
         if (Nil.isNotEmpty(advicePackagePaths)) {
             RestControllerAdvice restControllerAdvice = Annotations.getAnnotation(WebMVCResponseBodyAdvice.class, RestControllerAdvice.class);
             String[] beforeReplaceBasePackagePaths = restControllerAdvice.basePackages();
-            Annotations.setAnnotationValue(restControllerAdvice, SpringWebMVCConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE, Collections.toArray(advicePackagePaths, String[]::new));
+            Reflects.setAnnotationValue(restControllerAdvice, SpringWebMVCConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE, Collections.toArray(advicePackagePaths, String[]::new));
             log.debug("{}replace the annotation [@{}] field [{}] value on class [@{}], before replace value {}, after replace value {}.",
                     ModuleView.WEB_SYSTEM,
                     RestControllerAdvice.class.getSimpleName(),
