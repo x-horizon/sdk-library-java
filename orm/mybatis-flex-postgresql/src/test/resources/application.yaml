@@ -25,6 +25,12 @@ spring:
       port: 30570
       timeout: 60000
 
+#mybatis-flex:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+##    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
 logging:
   level:
     cn.srd.library.java: debug

@@ -68,12 +68,12 @@ public @interface EnableMybatisFlexCustomizer {
     OptimisticLockConfig globalOptimisticLockConfig() default @OptimisticLockConfig;
 
     /**
-     * the audit log config
+     * the global audit log config
      *
      * @return the audit log config
      * @see AuditLogConfig
      */
-    AuditLogConfig auditConfig() default @AuditLogConfig;
+    AuditLogConfig globalAuditConfig() default @AuditLogConfig;
 
     /**
      * the global property config for {@link MybatisFlexProperties}
@@ -81,6 +81,6 @@ public @interface EnableMybatisFlexCustomizer {
      * @return the global property config for {@link MybatisFlexProperties}
      * @see PropertyConfig
      */
-    PropertyConfig propertyConfig() default @PropertyConfig;
+    PropertyConfig globalPropertyConfig() default @PropertyConfig;
 
 }

@@ -27,11 +27,10 @@ import org.springframework.test.context.junit4.SpringRunner;
         globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SNOWFLAKE),
         globalDeleteLogicConfig = @DeleteLogicConfig(normalValue = BooleanConstant.FALSE, deletedValue = BooleanConstant.TRUE),
         globalListenerConfig = @ListenerConfig(whenInsert = TestInsertListener.class, whenUpdate = TestUpdateListener.class),
-        auditConfig = @AuditLogConfig(enable = true),
-        propertyConfig = @PropertyConfig(
+        globalAuditConfig = @AuditLogConfig(enable = true),
+        globalPropertyConfig = @PropertyConfig(
                 xmlMapperClassPaths = {"classpath*:cn/srd/library/java/orm/mybatis/base/customer/dao/impl/*.xml"},
-                xmlMapperEntityPackageAliasPackagePaths = {"cn.srd.library.java.orm.mybatis.**.po"},
-                mapperPackagePaths = {"cn.srd.library.java.orm.mybatis.**.dao"}
+                xmlMapperEntityPackageAliasPackagePaths = {"cn.srd.library.java.orm.mybatis.**.po"}
         )
 )
 @RunWith(SpringRunner.class)

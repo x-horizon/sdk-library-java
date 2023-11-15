@@ -68,8 +68,41 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
         handleDeleteLogicConfig(globalConfig, mybatisFlexCustomizer.globalDeleteLogicConfig());
         handleListenerConfig(globalConfig, mybatisFlexCustomizer.globalListenerConfig());
         handleOptimisticLockConfig(globalConfig, mybatisFlexCustomizer.globalOptimisticLockConfig());
-        handleAuditConfig(mybatisFlexCustomizer.auditConfig());
-        handlePropertyConfig(mybatisFlexCustomizer.propertyConfig());
+        handleAuditConfig(mybatisFlexCustomizer.globalAuditConfig());
+        handlePropertyConfig(mybatisFlexCustomizer.globalPropertyConfig());
+
+        log.debug(""" 
+                        {}
+                        --------------------------------------------------------------------------------------------------------------------------------
+                        Global ID Generate Config:
+                           generateType = [{}]
+                           generator    = [{}]
+                           generateSQL  = [{}]
+                        Global Delete Logic Config:
+                           normalValue  = [{}]
+                           deletedValue = [{}]
+                        Global Listener Config:
+                           whenInsert = [{}]
+                           whenUpdate = [{}]
+                        Global Optimistic Lock Config:
+                           columnName = [{}]
+                        Global Audit Config:
+                           constructor = [{}]
+                           printer     = [{}]
+                           telemeter   = [{}]
+                        Global Property Config:
+                           xmlMapperClassPaths                     = {}
+                           xmlMapperEntityPackageAliasPackagePaths = {}
+                        --------------------------------------------------------------------------------------------------------------------------------
+                        """,
+                ModuleView.ORM_MYBATIS_SYSTEM,
+                mybatisFlexCustomizer.globalIdGenerateConfig().generateType().name(), mybatisFlexCustomizer.globalIdGenerateConfig().generator().getName(), mybatisFlexCustomizer.globalIdGenerateConfig().generateSQL(),
+                mybatisFlexCustomizer.globalDeleteLogicConfig().normalValue(), mybatisFlexCustomizer.globalDeleteLogicConfig().deletedValue(),
+                mybatisFlexCustomizer.globalListenerConfig().whenInsert().getName(), mybatisFlexCustomizer.globalListenerConfig().whenUpdate().getName(),
+                mybatisFlexCustomizer.globalOptimisticLockConfig().columnName(),
+                mybatisFlexCustomizer.globalAuditConfig().constructor().getName(), mybatisFlexCustomizer.globalAuditConfig().printer().getName(), mybatisFlexCustomizer.globalAuditConfig().telemeter().getName(),
+                mybatisFlexCustomizer.globalPropertyConfig().xmlMapperClassPaths(), mybatisFlexCustomizer.globalPropertyConfig().xmlMapperEntityPackageAliasPackagePaths()
+        );
 
         log.debug("{}mybatis flex customizer initialized.", ModuleView.ORM_MYBATIS_SYSTEM);
     }
