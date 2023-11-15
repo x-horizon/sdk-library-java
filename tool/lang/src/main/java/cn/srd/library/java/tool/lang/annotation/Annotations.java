@@ -19,6 +19,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author wjm
@@ -99,7 +100,7 @@ public class Annotations {
      * @see Classes#scanByAnnotation(Class, Collection)
      */
     public static Set<Class<?>> getAnnotatedClasses(Class<? extends Annotation> annotationClass) {
-        return Classes.scanByAnnotation(annotationClass, BasePackagePath.get());
+        return getAnnotatedClasses(annotationClass, BasePackagePath.get());
     }
 
     /**
@@ -111,7 +112,7 @@ public class Annotations {
      * @see Classes#scanByAnnotation(Class, Collection)
      */
     public static Set<Class<?>> getAnnotatedClasses(Class<? extends Annotation> annotationClass, String... scanPackagePaths) {
-        return Classes.scanByAnnotation(annotationClass, scanPackagePaths);
+        return getAnnotatedClasses(annotationClass, Collections.ofImmutableSet(scanPackagePaths));
     }
 
     /**
@@ -137,7 +138,7 @@ public class Annotations {
      * @see #getAnnotation(AnnotatedElement, Class)
      */
     public static <T extends Annotation> T getAnnotation(Class<T> annotationType) {
-        return getAnnotation(getAnnotatedClass(annotationType), annotationType);
+        return getAnnotation(annotationType, BasePackagePath.get());
     }
 
     /**
@@ -150,7 +151,7 @@ public class Annotations {
      * @see #getAnnotation(AnnotatedElement, Class)
      */
     public static <T extends Annotation> T getAnnotation(Class<T> annotationType, String... scanPackagePaths) {
-        return getAnnotation(getAnnotatedClass(annotationType, scanPackagePaths), annotationType);
+        return getAnnotation(annotationType, Collections.ofImmutableSet(scanPackagePaths));
     }
 
     /**
@@ -176,6 +177,50 @@ public class Annotations {
      */
     public static <T extends Annotation> T getAnnotation(AnnotatedElement annotatedElement, Class<T> annotationType) {
         return AnnotationUtil.getAnnotation(annotatedElement, annotationType);
+    }
+
+    /**
+     * get annotations in the default package path
+     *
+     * @param annotationType the annotation type
+     * @param <T>            the annotation type
+     * @return the annotation
+     * @see BasePackagePath#get()
+     * @see #getAnnotatedClasses(Class, Collection)
+     * @see #getAnnotations(Class, Collection)
+     * @see #getAnnotation(AnnotatedElement, Class)
+     */
+    public static <T extends Annotation> Set<T> getAnnotations(Class<T> annotationType) {
+        return getAnnotations(annotationType, BasePackagePath.get());
+    }
+
+    /**
+     * get annotations in the specified package paths
+     *
+     * @param annotationType the annotation type
+     * @param <T>            the annotation type
+     * @return the annotation
+     * @see #getAnnotatedClasses(Class, Collection)
+     * @see #getAnnotations(Class, Collection)
+     * @see #getAnnotation(AnnotatedElement, Class)
+     */
+    public static <T extends Annotation> Set<T> getAnnotations(Class<T> annotationType, String... scanPackagePaths) {
+        return getAnnotations(annotationType, Collections.ofImmutableSet(scanPackagePaths));
+    }
+
+    /**
+     * get annotations in the specified package paths
+     *
+     * @param annotationType the annotation type
+     * @param <T>            the annotation type
+     * @return the annotation
+     * @see #getAnnotatedClasses(Class, Collection)
+     * @see #getAnnotation(AnnotatedElement, Class)
+     */
+    public static <T extends Annotation> Set<T> getAnnotations(Class<T> annotationType, Collection<String> scanPackagePaths) {
+        return getAnnotatedClasses(annotationType, scanPackagePaths).stream()
+                .map(annotatedClasses -> getAnnotation(annotatedClasses, annotationType))
+                .collect(Collectors.toSet());
     }
 
     /**
