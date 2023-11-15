@@ -18,12 +18,12 @@ public class UnsupportedUpdateListener implements BaseUpdateListener<Void> {
 
     @Override
     public Class<Void> getEntityType() {
-        throw new UnsupportedException(Strings.format("{}unsupported update listener function!"));
+        throw new UnsupportedException(Strings.format("{}unsupported update listener, please check!"));
     }
 
     @Override
     public void action(Void entity) {
-        throw new UnsupportedException(Strings.format("{}unsupported update listener function!"));
+        throw new UnsupportedException(Strings.format("{}unsupported update listener, please check!"));
     }
 
 }

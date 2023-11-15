@@ -11,7 +11,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * the audit log config
+ * the audit log config TODO wjm implement @AuditLogConfigs to wrap multiple @AuditLogConfig to support multiple enviroment different config
  *
  * @author wjm
  * @since 2023-11-14 14:53

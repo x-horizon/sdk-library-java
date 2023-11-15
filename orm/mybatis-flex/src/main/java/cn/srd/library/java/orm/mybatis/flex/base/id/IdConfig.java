@@ -66,7 +66,7 @@ public @interface IdConfig {
      *
      * @return the specified id generator implement by {@link IdGenerator}
      */
-    Class<? extends IdGenerator> generator() default IdInvalidGenerator.class;
+    Class<? extends IdGenerator> generator() default UnsupportedIdGenerator.class;
 
     /**
      * the specified id generate sql, you need to set it when using {@link IdGenerateType#SQL}.

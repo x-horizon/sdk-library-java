@@ -30,6 +30,7 @@ import com.mybatisflex.spring.boot.ConfigurationCustomizer;
 import com.mybatisflex.spring.boot.MyBatisFlexCustomizer;
 import com.mybatisflex.spring.boot.MybatisFlexProperties;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.logging.Log;
 
 /**
  * the global mybatis flex customizer
@@ -55,6 +56,10 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
      */
     private static final String MYBATIS_FLEX_PROPERTIES_XML_MAPPER_ENTITY_PACKAGE_ALIAS_CLASS_PATHS_FIELD_NAME = "typeAliasesPackage";
 
+    private static final String MYBATIS_FLEX_PROPERTIES_CONFIGURATION_FIELD_NAME = "configuration";
+
+    private static final String MYBATIS_FLEX_PROPERTIES_CONFIGURATION_LOG_FIELD_NAME = "logImpl";
+
     @Override
     public void customize(FlexConfiguration configuration) {
     }
@@ -75,33 +80,33 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
                         {}
                         --------------------------------------------------------------------------------------------------------------------------------
                         Global ID Generate Config:
-                           generateType = [{}]
-                           generator    = [{}]
-                           generateSQL  = [{}]
+                           generateType                            = [{}]
+                           generator                               = [{}]
+                           generateSQL                             = [{}]
                         Global Delete Logic Config:
-                           normalValue  = [{}]
-                           deletedValue = [{}]
+                           normalValue                             = [{}]
+                           deletedValue                            = [{}]
                         Global Listener Config:
-                           whenInsert = [{}]
-                           whenUpdate = [{}]
+                           whenInsert                              = [{}]
+                           whenUpdate                              = [{}]
                         Global Optimistic Lock Config:
-                           columnName = [{}]
+                           columnName                              = [{}]
                         Global Audit Config:
-                           constructor = [{}]
-                           printer     = [{}]
-                           telemeter   = [{}]
+                           constructor                             = [{}]
+                           printer                                 = [{}]
+                           telemeter                               = [{}]
                         Global Property Config:
+                           nativeMybatisLog                        = [{}]
                            xmlMapperClassPaths                     = {}
                            xmlMapperEntityPackageAliasPackagePaths = {}
-                        --------------------------------------------------------------------------------------------------------------------------------
-                        """,
+                        --------------------------------------------------------------------------------------------------------------------------------""",
                 ModuleView.ORM_MYBATIS_SYSTEM,
                 mybatisFlexCustomizer.globalIdGenerateConfig().generateType().name(), mybatisFlexCustomizer.globalIdGenerateConfig().generator().getName(), mybatisFlexCustomizer.globalIdGenerateConfig().generateSQL(),
                 mybatisFlexCustomizer.globalDeleteLogicConfig().normalValue(), mybatisFlexCustomizer.globalDeleteLogicConfig().deletedValue(),
                 mybatisFlexCustomizer.globalListenerConfig().whenInsert().getName(), mybatisFlexCustomizer.globalListenerConfig().whenUpdate().getName(),
                 mybatisFlexCustomizer.globalOptimisticLockConfig().columnName(),
                 mybatisFlexCustomizer.globalAuditConfig().constructor().getName(), mybatisFlexCustomizer.globalAuditConfig().printer().getName(), mybatisFlexCustomizer.globalAuditConfig().telemeter().getName(),
-                mybatisFlexCustomizer.globalPropertyConfig().xmlMapperClassPaths(), mybatisFlexCustomizer.globalPropertyConfig().xmlMapperEntityPackageAliasPackagePaths()
+                mybatisFlexCustomizer.globalPropertyConfig().nativeMybatisLog().getName(), mybatisFlexCustomizer.globalPropertyConfig().xmlMapperClassPaths(), mybatisFlexCustomizer.globalPropertyConfig().xmlMapperEntityPackageAliasPackagePaths()
         );
 
         log.debug("{}mybatis flex customizer initialized.", ModuleView.ORM_MYBATIS_SYSTEM);
@@ -203,17 +208,66 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
      * @param propertyConfig the global property config for {@link MybatisFlexProperties}
      */
     private void handlePropertyConfig(PropertyConfig propertyConfig) {
+        handlerPropertyXMLMapperClassPathsIfNeed(propertyConfig.xmlMapperClassPaths());
+        handlerPropertyXMLMapperEntityPackageAliasPackagePathsIfNeed(propertyConfig.xmlMapperEntityPackageAliasPackagePaths());
+        handlerPropertyCoreConfigurationIfNeed();
+        handlerPropertyCoreConfigurationNativeMybatisLogIfNeed(propertyConfig.nativeMybatisLog());
+    }
+
+    /**
+     * handle the global property xml mapper class paths
+     *
+     * @param xmlMapperClassPaths xml mapper class paths
+     */
+    private void handlerPropertyXMLMapperClassPathsIfNeed(String[] xmlMapperClassPaths) {
         MybatisFlexProperties mybatisFlexProperties = Springs.getBean(MybatisFlexProperties.class);
         if (Comparators.equals(MYBATIS_FLEX_PROPERTIES_XML_MAPPER_CLASS_PATHS_DEFAULT_FIELD_VALUE, mybatisFlexProperties.getMapperLocations())) {
             Reflects.setFieldValue(mybatisFlexProperties,
                     MYBATIS_FLEX_PROPERTIES_XML_MAPPER_CLASS_PATHS_FIELD_NAME,
-                    propertyConfig.xmlMapperClassPaths()
+                    xmlMapperClassPaths
             );
         }
+    }
+
+    /**
+     * handle the global property xml mapper entity package alias package paths
+     *
+     * @param xmlMapperEntityPackageAliasPackagePaths xml mapper entity package alias package paths
+     */
+    private void handlerPropertyXMLMapperEntityPackageAliasPackagePathsIfNeed(String[] xmlMapperEntityPackageAliasPackagePaths) {
+        MybatisFlexProperties mybatisFlexProperties = Springs.getBean(MybatisFlexProperties.class);
         if (Nil.isNull(mybatisFlexProperties.getTypeAliasesPackage())) {
             Reflects.setFieldValue(mybatisFlexProperties,
                     MYBATIS_FLEX_PROPERTIES_XML_MAPPER_ENTITY_PACKAGE_ALIAS_CLASS_PATHS_FIELD_NAME,
-                    Strings.joinWithComma(Classes.parseAntStylePackagePathsToPackagePaths(propertyConfig.xmlMapperEntityPackageAliasPackagePaths()))
+                    Strings.joinWithComma(Classes.parseAntStylePackagePathsToPackagePaths(xmlMapperEntityPackageAliasPackagePaths))
+            );
+        }
+    }
+
+    /**
+     * handle the global property core configuration
+     */
+    private void handlerPropertyCoreConfigurationIfNeed() {
+        MybatisFlexProperties mybatisFlexProperties = Springs.getBean(MybatisFlexProperties.class);
+        if (Nil.isNull(mybatisFlexProperties.getConfiguration())) {
+            Reflects.setFieldValue(mybatisFlexProperties,
+                    MYBATIS_FLEX_PROPERTIES_CONFIGURATION_FIELD_NAME,
+                    new MybatisFlexProperties.CoreConfiguration()
+            );
+        }
+    }
+
+    /**
+     * handle the global property core configuration native mybatis log
+     *
+     * @param nativeMybatisLog core configuration native mybatis log
+     */
+    private void handlerPropertyCoreConfigurationNativeMybatisLogIfNeed(Class<? extends Log> nativeMybatisLog) {
+        MybatisFlexProperties mybatisFlexProperties = Springs.getBean(MybatisFlexProperties.class);
+        if (Nil.isNull(mybatisFlexProperties.getConfiguration().getLogImpl())) {
+            Reflects.setFieldValue(mybatisFlexProperties.getConfiguration(),
+                    MYBATIS_FLEX_PROPERTIES_CONFIGURATION_LOG_FIELD_NAME,
+                    nativeMybatisLog
             );
         }
     }

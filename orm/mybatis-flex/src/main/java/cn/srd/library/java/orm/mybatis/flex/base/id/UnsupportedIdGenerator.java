@@ -4,8 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.id;
 
-import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
+import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import cn.srd.library.java.tool.lang.text.Strings;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -17,11 +16,11 @@ import lombok.NoArgsConstructor;
  * @since 2023-11-12 21:06
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class IdInvalidGenerator implements IdGenerator {
+public class UnsupportedIdGenerator implements IdGenerator {
 
     @Override
     public Object generate(Object entity, String keyColumn) {
-        throw new LibraryJavaInternalException(Strings.format("{}could not use invalid id generator to generate id!", ModuleView.ORM_MYBATIS_SYSTEM));
+        throw new UnsupportedException(Strings.format("{}unsupported id generator, please check!"));
     }
 
 }

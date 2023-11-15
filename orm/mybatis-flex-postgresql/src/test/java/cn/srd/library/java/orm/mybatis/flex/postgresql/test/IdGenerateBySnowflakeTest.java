@@ -14,6 +14,7 @@ import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.StudentTestIdSnowflak
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.StudentTestIdSnowflakePO;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
+import org.apache.ibatis.logging.nologging.NoLoggingImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
@@ -29,6 +30,7 @@ import org.springframework.test.context.junit4.SpringRunner;
         globalListenerConfig = @ListenerConfig(whenInsert = TestInsertListener.class, whenUpdate = TestUpdateListener.class),
         globalAuditConfig = @AuditLogConfig(enable = true),
         globalPropertyConfig = @PropertyConfig(
+                nativeMybatisLog = NoLoggingImpl.class,
                 xmlMapperClassPaths = {"classpath*:cn/srd/library/java/orm/mybatis/base/customer/dao/impl/*.xml"},
                 xmlMapperEntityPackageAliasPackagePaths = {"cn.srd.library.java.orm.mybatis.**.po"}
         )

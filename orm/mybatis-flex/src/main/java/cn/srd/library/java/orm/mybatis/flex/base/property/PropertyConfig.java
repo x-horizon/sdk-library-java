@@ -5,6 +5,8 @@
 package cn.srd.library.java.orm.mybatis.flex.base.property;
 
 import com.mybatisflex.spring.boot.MybatisFlexProperties;
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.nologging.NoLoggingImpl;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -21,7 +23,54 @@ import java.lang.annotation.Target;
 public @interface PropertyConfig {
 
     /**
-     * the class paths where mybatis mapper xml files stored, like: "classpath*:cn/test/dao/impl/*.xml".
+     * the {@link MybatisFlexProperties.CoreConfiguration#getLogImpl() native mybatis log implement}.
+     * <ol>
+     *   <li>
+     *       if both this field value and the value of key "mybatis-flex.configuration.log-impl" in spring configuration file are specified,<br/>
+     *       the value of key "mybatis-flex.configuration.log-impl" in spring configuration file will be selected.
+     *       for example:
+     *       <ul>
+     *         <li>in spring configuration file application.yaml:
+     * <pre>
+     * {@code
+     *   mybatis-flex:
+     *     configuration:
+     *       log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+     * }
+     * </pre>
+     *         </li>
+     *         <li>specified this field value:
+     * <pre>
+     * {@code
+     *  @PropertyConfig(nativeMybatisLog = NoLoggingImpl.class)
+     * }
+     * </pre>
+     *         </li>
+     *       </ul>
+     *       finally the {@code StdOutImpl.class} in spring configuration file will be selected.
+     *   </li>
+     *   <li>
+     *       if just specified this field value, then using this field value as native mybatis log implement.
+     *       for example:
+     *       <ul>
+     *         <li>specified this field value:
+     *             <pre>
+     * {@code
+     *  @PropertyConfig(nativeMybatisLog = NoLoggingImpl.class)
+     * }
+     *             </pre>
+     *         </li>
+     *       </ul>
+     *       finally the {@code NoLoggingImpl.class} will be selected.
+     *   </li>
+     * </ol>
+     *
+     * @return the {@link MybatisFlexProperties.CoreConfiguration#getLogImpl() native mybatis log implement}
+     */
+    Class<? extends Log> nativeMybatisLog() default NoLoggingImpl.class;
+
+    /**
+     * the {@link MybatisFlexProperties#getMapperLocations() class paths where mybatis mapper xml files stored}, like: "classpath*:cn/test/dao/impl/*.xml".
      * <ol>
      *   <li>
      *       if not specified this field value or set the value of key "mybatis-flex.mapper-locations" in spring configuration file,<br/>
@@ -67,12 +116,12 @@ public @interface PropertyConfig {
      *   </li>
      * </ol>
      *
-     * @return the class paths where mybatis mapper xml files stored
+     * @return the {@link MybatisFlexProperties#getMapperLocations() class paths where mybatis mapper xml files stored}
      */
     String[] xmlMapperClassPaths() default {};
 
     /**
-     * the ant style package paths to register an alias instead of using the fully class name in mybatis mapper xml file.
+     * the {@link MybatisFlexProperties#getTypeAliasesPackage() ant style package paths to register an alias instead of using the fully class name in mybatis mapper xml file}.
      * <ol>
      *   <li>
      *       if both this field value and the value of key "mybatis-flex.type-aliases-package" in spring configuration file are specified,<br/>
@@ -136,7 +185,7 @@ public @interface PropertyConfig {
      *   </li>
      * </ol>
      *
-     * @return the ant style package paths to register an alias instead of using the fully class name in mybatis mapper xml file
+     * @return the {@link MybatisFlexProperties#getTypeAliasesPackage() ant style package paths to register an alias instead of using the fully class name in mybatis mapper xml file}
      */
     String[] xmlMapperEntityPackageAliasPackagePaths() default {};
 

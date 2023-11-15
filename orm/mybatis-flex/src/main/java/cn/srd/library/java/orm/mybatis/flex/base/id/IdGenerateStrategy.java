@@ -33,7 +33,7 @@ public interface IdGenerateStrategy {
     }
 
     default void warningIfNotDefaultIdGenerator(Class<? extends IdGenerator> idGenerator) {
-        if (Comparators.notEquals(IdInvalidGenerator.class, idGenerator)) {
+        if (Comparators.notEquals(UnsupportedIdGenerator.class, idGenerator)) {
             log.warn("{}id generator config - current id generate strategy is [{}], the specified id generator [{}] will not take effect!", ModuleView.ORM_MYBATIS_SYSTEM, this.getClass().getName(), idGenerator.getName());
         }
     }
