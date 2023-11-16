@@ -36,7 +36,7 @@ public class EnumAutowiredHandler<E extends Enum<E>> implements SmartInitializin
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     @Override
     public void afterSingletonsInstantiated() {
-        log.debug("{} enum autowired starting matching...", ModuleView.TOOL_ENUM_SYSTEM);
+        log.debug("{}enum autowired starting matching...", ModuleView.TOOL_ENUM_SYSTEM);
 
         Set<String> scanPackagePaths = Classes.optimizeAnnotationAntStylePackagePaths(EnableEnumAutowired.class, "scanPackagePaths");
         Set<BeanDefinition> enumAutowiredBeanDefinitions = Classes.scanByAnnotationTypeFilter(EnumAutowired.class, scanPackagePaths);
