@@ -27,7 +27,7 @@ import org.springframework.lang.NonNull;
  * @author wjm
  * @since 2023-03-04 16:48
  */
-public class OpenFeignResponseInterceptor implements Interceptor {
+public class FeignClientResponseInterceptor implements Interceptor {
 
     @SneakyThrows
     @NonNull
@@ -51,7 +51,7 @@ public class OpenFeignResponseInterceptor implements Interceptor {
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
     public String resolve(String responseBody) {
         TransportModel<?> responseModel = null;
-        for (Class<? extends TransportModel> responseModelClass : OpenFeignResponseModelCache.get()) {
+        for (Class<? extends TransportModel> responseModelClass : FeignClientResponseModelCache.get()) {
             responseModel = Try.of(() -> Converts.withJackson().toBean(responseBody, responseModelClass)).getOrNull();
             if (Nil.isNotNull(responseModel)) {
                 break;
@@ -60,8 +60,8 @@ public class OpenFeignResponseInterceptor implements Interceptor {
         if (Nil.isNull(responseModel)) {
             throw new LibraryJavaInternalException(Strings.format(
                     "\ncould not parse feign result to any model defined in class [{}], \ncurrent define models are {}, \nplease check your config! \ncurrent feign result is {}",
-                    Classes.getClassFullName(EnableOpenFeignResponseModelResolver.class),
-                    Collections.toList(OpenFeignResponseModelCache.get(), Classes::getClassFullName),
+                    Classes.getClassFullName(EnableFeignClientResponseModelResolver.class),
+                    Collections.toList(FeignClientResponseModelCache.get(), Classes::getClassFullName),
                     responseBody
             ));
         }

@@ -10,7 +10,7 @@ import cn.srd.library.java.contract.model.protocol.TransportModel;
 import java.lang.annotation.*;
 
 /**
- * enable {@link OpenFeignResponseInterceptor}
+ * enable {@link FeignClientResponseInterceptor}
  *
  * @author wjm
  * @since 2023-03-04 16:48
@@ -18,7 +18,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-public @interface EnableOpenFeignResponseModelResolver {
+public @interface EnableFeignClientResponseModelResolver {
 
     /**
      * the response models to resolve

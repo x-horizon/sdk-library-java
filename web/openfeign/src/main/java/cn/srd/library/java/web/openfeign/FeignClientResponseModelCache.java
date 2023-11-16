@@ -17,7 +17,7 @@ import java.util.Set;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
-public class OpenFeignResponseModelCache {
+public class FeignClientResponseModelCache {
 
     /**
      * the response models to resolve
