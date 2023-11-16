@@ -42,6 +42,7 @@ public class EnumAutowiredHandler<E extends Enum<E>> implements SmartInitializin
         Set<BeanDefinition> enumAutowiredBeanDefinitions = Classes.scanByAnnotationTypeFilter(EnumAutowired.class, scanPackagePaths);
         if (Nil.isEmpty(enumAutowiredBeanDefinitions)) {
             log.debug("{}could not found the class marked with [@{}], exited.", ModuleView.TOOL_ENUM_SYSTEM, EnumAutowired.class.getName());
+            return;
         }
 
         enumAutowiredBeanDefinitions.forEach(enumAutowiredBeanDefinition -> {
