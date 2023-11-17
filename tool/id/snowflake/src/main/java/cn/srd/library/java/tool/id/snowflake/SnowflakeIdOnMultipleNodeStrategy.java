@@ -31,7 +31,7 @@ public class SnowflakeIdOnMultipleNodeStrategy implements SnowflakeIdEnvironment
     @Override
     public short getWorkerId(EnableSnowflakeId snowflakeIdConfig) {
         RedisProperties redisProperties = CacheRedisProperties.getInstance().getBaseInfo();
-        return (short) SnowflakeIds.WorkerId.INSTANCE.GetWorkerId(
+        return (short) SnowflakeIds.WorkerId.INSTANCE.RegisterWorkerId(
                 Nil.isBlank(redisProperties.getUrl()) ? Strings.format("{}:{}", redisProperties.getHost(), redisProperties.getPort()) : redisProperties.getUrl(),
                 redisProperties.getPassword(),
                 redisProperties.getDatabase(),
