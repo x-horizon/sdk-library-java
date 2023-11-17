@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.tool.spring.contract;
+package cn.srd.library.java.tool.jdk;
 
 import cn.srd.library.java.contract.constant.spring.SpringInitializeConstant;
 import org.burningwave.core.assembler.StaticComponentContainer;
@@ -12,6 +12,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
 
 /**
+ * export all module on jdk16
+ *
  * @author wjm
  * @since 2023-10-14 17:05
  */

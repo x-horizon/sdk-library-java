@@ -8,4 +8,5 @@ dependencies {
 
     annotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MYBATIS_FLEX)))
     testAnnotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MYBATIS_FLEX)))
+    testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_JDK)))
 }

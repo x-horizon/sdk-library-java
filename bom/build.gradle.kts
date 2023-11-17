@@ -214,6 +214,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_FREEMARKER)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_GEOMETRY)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_ID_SNOWFLAKE)))
+        api(project(GradleModule.toReferenceName(GradleModule.TOOL_JDK)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_JNA)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_JOB_QUARTZ)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
