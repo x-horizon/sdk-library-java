@@ -52,8 +52,8 @@ public class ModuleView {
     public static final String TOOL_SNOWFLAKE_ID_SYSTEM = "Tool Snowflake ID System - ";
 
     /**
-     * the web system module name
+     * the spring webmvc system module name
      */
-    public static final String WEB_SYSTEM = "Web System - ";
+    public static final String TOOL_SPRING_WEBMVC_SYSTEM = "Tool Spring WebMVC System - ";
 
 }

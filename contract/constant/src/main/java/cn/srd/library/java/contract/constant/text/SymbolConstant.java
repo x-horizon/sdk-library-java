@@ -34,7 +34,7 @@ public class SymbolConstant {
     /**
      * the {@code ""} is line break, is mostly used on Windows
      */
-    public static final String CRLF = "\r\n";
+    public static final String CRLF = CR + LF;
 
     /**
      * {@code ""}
@@ -70,6 +70,11 @@ public class SymbolConstant {
      * {@code "-"}
      */
     public static final String DASHED = "-";
+
+    /**
+     * {@code "="}
+     */
+    public static final String EQUALS = "=";
 
     /**
      * {@code "|"}
