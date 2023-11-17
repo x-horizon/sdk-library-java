@@ -18,6 +18,7 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BasePackagePath {
 
+    // TODO the concurrent safe read and write does not valid because of the write is replace instead of write on the CopyOnWriteArraySet, see #optimize()
     private static Set<String> basePackagePaths = Collections.newCopyOnWriteArraySet();
 
     public static Set<String> register(String specifiedBasePackagePath) {
