@@ -80,9 +80,8 @@ public class SnowflakeIdAutoConfigurer implements SmartInitializingSingleton {
         YitIdHelper.setIdGenerator(idGeneratorOptions);
 
         log.debug(""" 
-                        {}
+                        {}loading configurations as following:
                         --------------------------------------------------------------------------------------------------------------------------------
-                        Snowflake ID Config:
                         workerIdBitLength = [{}]
                         seqBitLength      = [{}]
                         workerId          = [{}]
