@@ -83,7 +83,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
         handlePropertyConfig(mybatisFlexCustomizer.globalPropertyConfig());
 
         log.debug(""" 
-                        {}
+                        {}mybatis flex customizer has loaded the following configurations:
                         --------------------------------------------------------------------------------------------------------------------------------
                         Global ID Generate Config:
                            generateType                            = [{}]
@@ -114,6 +114,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
                 mybatisFlexCustomizer.globalAuditConfig().constructor().getName(), mybatisFlexCustomizer.globalAuditConfig().printer().getName(), mybatisFlexCustomizer.globalAuditConfig().telemeter().getName(),
                 mybatisFlexCustomizer.globalPropertyConfig().nativeMybatisLog().getName(), mybatisFlexCustomizer.globalPropertyConfig().xmlMapperClassPaths(), mybatisFlexCustomizer.globalPropertyConfig().xmlMapperEntityPackageAliasPackagePaths()
         );
+
         log.debug("{}mybatis flex customizer initialized.", ModuleView.ORM_MYBATIS_SYSTEM);
     }
 

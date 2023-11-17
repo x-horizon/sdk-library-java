@@ -14,6 +14,7 @@ import cn.srd.library.java.tool.lang.object.Types;
 import cn.srd.library.java.tool.lang.text.Strings;
 import cn.srd.library.java.tool.spring.contract.Annotations;
 import cn.srd.library.java.tool.spring.contract.Classes;
+import lombok.Getter;
 import org.apache.ibatis.type.TypeHandler;
 
 import java.lang.annotation.Annotation;
@@ -36,6 +37,7 @@ public abstract class ColumnMappingJavaTypeCache {
      * the database column name and java type mapping cache, like: {"detail_info": [cn.library.java.test.DetailPO]}
      */
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
+    @Getter
     private final Map<String, Set<Class>> cache =
             Classes.scanByBasePackagePath()
                     .stream()

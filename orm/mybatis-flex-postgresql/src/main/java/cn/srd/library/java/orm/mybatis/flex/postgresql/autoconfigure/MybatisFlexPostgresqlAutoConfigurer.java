@@ -4,10 +4,16 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.autoconfigure;
 
+import cn.srd.library.java.contract.constant.module.ModuleView;
+import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.cache.ColumnJsonbMappingJavaTypeCache;
+import cn.srd.library.java.tool.lang.text.Strings;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+
+import java.util.stream.Collectors;
 
 /**
  * {@link EnableAutoConfiguration AutoConfiguration} for Library Orm Mybatis Flex PostgreSQL
@@ -15,6 +21,7 @@ import org.springframework.context.annotation.Bean;
  * @author wjm
  * @since 2023-11-08 15:42
  */
+@Slf4j
 @AutoConfiguration
 public class MybatisFlexPostgresqlAutoConfigurer {
 
@@ -25,7 +32,28 @@ public class MybatisFlexPostgresqlAutoConfigurer {
      */
     @Bean
     public ColumnJsonbMappingJavaTypeCache mybatisFlexColumnJsonbMappingRelationCache() {
-        return new ColumnJsonbMappingJavaTypeCache();
+        log.debug("{}mybatis flex jdbc jsonb type caching system is enabled, starting initializing...", ModuleView.ORM_MYBATIS_SYSTEM);
+
+        ColumnJsonbMappingJavaTypeCache columnJsonbMappingJavaTypeCache = new ColumnJsonbMappingJavaTypeCache();
+
+        log.debug(""" 
+                        {}mybatis flex jdbc jsonb type caching system has loaded the following cache:
+                        --------------------------------------------------------------------------------------------------------------------------------
+                        {}
+                        --------------------------------------------------------------------------------------------------------------------------------""",
+                ModuleView.ORM_MYBATIS_SYSTEM,
+                Strings.join(
+                        columnJsonbMappingJavaTypeCache.getCache()
+                                .entrySet()
+                                .stream()
+                                .map(entry -> Strings.format("[{}] = [{}]", entry.getKey(), Strings.joinWithComma(entry.getValue().stream().map(Class::getName).collect(Collectors.toSet()))))
+                                .collect(Collectors.toSet()),
+                        SymbolConstant.LF
+                )
+        );
+        log.debug("{}mybatis flex jdbc jsonb type caching system initialized.", ModuleView.ORM_MYBATIS_SYSTEM);
+
+        return columnJsonbMappingJavaTypeCache;
     }
 
 }
