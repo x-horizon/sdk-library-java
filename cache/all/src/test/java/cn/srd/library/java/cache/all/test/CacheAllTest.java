@@ -8,28 +8,29 @@ import cn.srd.library.java.cache.all.service.CacheContextWithoutCacheConfigBuild
 import cn.srd.library.java.cache.all.service.CacheNotAllowEmptyValueService;
 import cn.srd.library.java.concurrent.redis.EnableRedisLock;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
+import lombok.AllArgsConstructor;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+@AllArgsConstructor
 @EnableCache
 @EnableRedisLock
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class CacheAllTest {
 
-    @Autowired private CacheContextWithoutCacheConfigBuildingService cacheContextWithoutCacheConfigBuildingService;
+    private final CacheContextWithoutCacheConfigBuildingService cacheContextWithoutCacheConfigBuildingService;
 
-    @Autowired private CacheContextWithCacheConfigBuildingService cacheContextWithCacheConfigBuildingService;
+    private final CacheContextWithCacheConfigBuildingService cacheContextWithCacheConfigBuildingService;
 
-    @Autowired private CacheNotAllowEmptyValueService cacheNotAllowEmptyValueService;
+    private final CacheNotAllowEmptyValueService cacheNotAllowEmptyValueService;
 
-    @Autowired private CacheAllowEmptyValueService cacheAllowEmptyValueService;
+    private final CacheAllowEmptyValueService cacheAllowEmptyValueService;
 
     private static final BookPO BOOK_PO1 = BookPO.build(1L);
 

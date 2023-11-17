@@ -1,7 +1,7 @@
 package cn.srd.library.java.cache.redis.test;
 
-import cn.srd.library.java.cache.redis.core.RedisCache;
-import cn.srd.library.java.cache.redis.core.RedisCacheTemplate;
+import cn.srd.library.java.cache.redis.RedisCache;
+import cn.srd.library.java.cache.redis.RedisCacheTemplate;
 import cn.srd.library.java.cache.redis.model.Student;
 import cn.srd.library.java.tool.lang.time.DurationWrapper;
 import org.junit.Test;
@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class RedisCacheTest {
 
     private static final String CACHE_NAMESPACE_NAME1 = "cache1";

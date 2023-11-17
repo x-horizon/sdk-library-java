@@ -30,8 +30,8 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class JacksonConvertsTest {
 
     private static final StudentDO STUDENT_DO = StudentDO.newDO();

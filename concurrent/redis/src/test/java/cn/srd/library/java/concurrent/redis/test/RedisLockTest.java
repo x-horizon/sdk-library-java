@@ -23,10 +23,10 @@ import java.util.function.Supplier;
  * 3、若不存在分布式锁，例如进行 multiThreadOperate(this::criticalSection) 这样的操作，最终的 {@link #semaphore} 不会变为 0
  * </pre>
  */
-@EnableRedisLock
-@RunWith(SpringRunner.class)
-@SpringBootTest
 @Setter
+@EnableRedisLock
+@SpringBootTest
+@RunWith(SpringRunner.class)
 public class RedisLockTest {
 
     private static final String LOCK_NAME = "lock";

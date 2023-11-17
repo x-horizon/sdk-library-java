@@ -25,8 +25,8 @@ import java.util.Set;
  * @author wjm
  * @since 2023-10-05 19:23
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class EnumAutowiredTest {
 
     @Test

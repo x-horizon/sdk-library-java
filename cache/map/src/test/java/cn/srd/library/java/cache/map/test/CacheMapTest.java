@@ -11,8 +11,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 import java.util.Map;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class CacheMapTest {
 
     private static final String CACHE_NAME1 = "cache1";

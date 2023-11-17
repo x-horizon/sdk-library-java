@@ -18,8 +18,8 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author wjm
  * @since 2023-10-03 18:46
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class SpringsTest {
 
     @Test

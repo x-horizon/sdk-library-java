@@ -22,8 +22,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class MapstructConvertsTest {
 
     private static final StudentVO DEFAULT_STUDENT_VO = StudentVO.newVO();

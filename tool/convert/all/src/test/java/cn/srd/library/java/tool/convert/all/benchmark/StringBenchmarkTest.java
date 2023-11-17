@@ -15,8 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class StringBenchmarkTest {
 
     private static final int DATA_SIZE = 10000000;
