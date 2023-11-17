@@ -44,7 +44,7 @@ public class SnowflakeIds {
 
         WorkerId INSTANCE = Native.load("worker-id-generate", WorkerId.class);
 
-        int getWorkerId(String address, String password, long db, String sentinelMasterName, int minWorkerId, int maxWorkerId, int lifeTimeSeconds);
+        int GetWorkerId(String address, String password, long db, String sentinelMasterName, int minWorkerId, int maxWorkerId, int lifeTimeSeconds);
 
     }
 
