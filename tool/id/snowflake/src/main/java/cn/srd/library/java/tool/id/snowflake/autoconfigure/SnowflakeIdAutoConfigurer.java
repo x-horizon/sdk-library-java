@@ -12,6 +12,7 @@ import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.spring.contract.Annotations;
 import com.github.yitter.contract.IdGeneratorOptions;
 import com.github.yitter.idgen.YitIdHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -25,6 +26,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
  * @see EnableSnowflakeId
  * @since 2023-11-13 10:26
  */
+@Slf4j
 @AutoConfigureAfter(RedissonAutoConfiguration.class)
 @ConditionalOnBean(SnowflakeIdSwitcher.class)
 public class SnowflakeIdAutoConfigurer implements SmartInitializingSingleton {
@@ -56,6 +58,8 @@ public class SnowflakeIdAutoConfigurer implements SmartInitializingSingleton {
 
     @Override
     public void afterSingletonsInstantiated() {
+        log.debug("{}snowflake id system is enabled, starting initializing...", ModuleView.TOOL_SNOWFLAKE_ID_SYSTEM);
+
         EnableSnowflakeId snowflakeIdConfig = Annotations.getAnnotation(EnableSnowflakeId.class);
         byte workerIdBitLength = snowflakeIdConfig.workerIdBitLength();
         byte sequenceBitLength = snowflakeIdConfig.sequenceBitLength();
@@ -74,6 +78,21 @@ public class SnowflakeIdAutoConfigurer implements SmartInitializingSingleton {
         idGeneratorOptions.SeqBitLength = sequenceBitLength;
         idGeneratorOptions.WorkerId = snowflakeIdConfig.environment().getStrategy().getWorkerId(snowflakeIdConfig);
         YitIdHelper.setIdGenerator(idGeneratorOptions);
+
+        log.debug(""" 
+                        {}
+                        --------------------------------------------------------------------------------------------------------------------------------
+                        Snowflake ID Config:
+                        workerIdBitLength = [{}]
+                        seqBitLength      = [{}]
+                        workerId          = [{}]
+                        --------------------------------------------------------------------------------------------------------------------------------""",
+                ModuleView.TOOL_SNOWFLAKE_ID_SYSTEM,
+                idGeneratorOptions.WorkerIdBitLength,
+                idGeneratorOptions.SeqBitLength,
+                idGeneratorOptions.WorkerId
+        );
+        log.debug("{}snowflake id system initialized.", ModuleView.TOOL_SNOWFLAKE_ID_SYSTEM);
     }
 
 }
