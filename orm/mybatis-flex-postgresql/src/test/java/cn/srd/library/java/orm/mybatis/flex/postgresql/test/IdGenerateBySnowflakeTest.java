@@ -14,15 +14,14 @@ import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.StudentTestIdSnowflak
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.StudentTestIdSnowflakePO;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
-import lombok.AllArgsConstructor;
 import org.apache.ibatis.logging.nologging.NoLoggingImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@AllArgsConstructor
 @MapperScan("cn.srd.library.java.orm.mybatis.flex.postgresql.dao")
 @EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
 @EnableMybatisFlexCustomizer(
@@ -40,7 +39,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 public class IdGenerateBySnowflakeTest {
 
-    private final StudentTestIdSnowflakeDao studentTestIdSnowflakeDao;
+    @Autowired private StudentTestIdSnowflakeDao studentTestIdSnowflakeDao;
 
     @Test
     public void testIt() {
