@@ -44,7 +44,7 @@ import java.util.UUID;
  *
  * <h2>note: the core of the postgresql jdbc string and java {@link UUID uuid} mapping relation is:</h2>
  * <strong><em>@OrmFrameworkColumnMarkedDemo(columnName = "family_id", typeHandler = JdbcCharMappingJavaUUIDTypeHandler.class)</em></strong>
- * <p/>
+ * <p>
  *
  * @author wjm
  * @since 2022-07-12 18:42

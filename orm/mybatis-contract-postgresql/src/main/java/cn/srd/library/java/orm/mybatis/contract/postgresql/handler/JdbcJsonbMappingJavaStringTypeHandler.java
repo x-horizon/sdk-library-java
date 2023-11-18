@@ -45,7 +45,7 @@ import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
  *
  * <h2>note: the core of the postgresql jdbc jsonb data type and java string mapping relation is:</h2>
  * <strong><em>@OrmFrameworkColumnMarkedDemo(columnName = "detail_info", typeHandler = JdbcJsonbMappingJavaStringTypeHandler.class)</em></strong>
- * <p/>
+ * <p>
  *
  * @author wjm
  * @since 2023-11-10 14:35

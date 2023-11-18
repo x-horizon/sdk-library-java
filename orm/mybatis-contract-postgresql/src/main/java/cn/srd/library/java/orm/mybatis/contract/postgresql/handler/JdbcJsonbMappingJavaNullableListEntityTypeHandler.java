@@ -66,8 +66,8 @@ import java.util.List;
  *
  * <h2>note1: the core of the postgresql jdbc jsonb data type and java list nullable entity mapping relation is:</h2>
  * <strong><em>@OrmFrameworkColumnMarkedDemo(columnName = "detail_infos", typeHandler = JdbcJsonbMappingJavaNullableListEntityTypeHandler.class)</em></strong>
- * <p/>
- * <h2>note2: about the usage of implement class {@link NullableObject}:</h2>
+ *
+ * <p><h2>note2: about the usage of implement class {@link NullableObject}:</h2>
  * <strong><em>
  * when storing this class into postgresql,<br/>
  * it provides an opportunity to represent the condition that the field in postgresql is empty,<br/>
@@ -75,7 +75,7 @@ import java.util.List;
  * when the field detailPOs value in the class ExamplePO is not empty, but some element detailPOs {@link NullableObject#isNull()} return true,<br/>
  * it will be filtered out and not set into postgresql.<br/>
  * </em></strong>
- * <br/>
+ * <p>
  *
  * @param <T> the java object data type
  * @author wjm

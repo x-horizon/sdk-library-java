@@ -61,7 +61,7 @@ package cn.srd.library.java.orm.mybatis.contract.postgresql.handler;
  *
  * <h2>note: the core of the postgresql jdbc jsonb data type and java list enum integer value mapping relation is:</h2>
  * <strong><em>@OrmFrameworkColumnMarkedDemo(columnName = "types", typeHandler = JdbcJsonbMappingJavaListEnumIntegerTypeHandler.class)</em></strong>
- * <p/>
+ * <p>
  *
  * @param <E> the enum data type
  * @author xiongjing

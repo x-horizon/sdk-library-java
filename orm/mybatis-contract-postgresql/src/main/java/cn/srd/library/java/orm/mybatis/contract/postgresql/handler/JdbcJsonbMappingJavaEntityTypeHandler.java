@@ -57,7 +57,7 @@ package cn.srd.library.java.orm.mybatis.contract.postgresql.handler;
  *
  * <h2>note: the core of the postgresql jdbc jsonb data type and java entity mapping relation is:</h2>
  * <strong><em>@OrmFrameworkColumnMarkedDemo(columnName = "detail_info", typeHandler = JdbcJsonbMappingJavaEntityTypeHandler.class)</em></strong>
- * <p/>
+ * <p>
  *
  * @param <T> the java object data type
  * @author wjm

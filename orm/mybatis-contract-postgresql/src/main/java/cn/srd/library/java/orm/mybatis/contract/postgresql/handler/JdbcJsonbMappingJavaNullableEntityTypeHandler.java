@@ -59,10 +59,10 @@ import java.util.Map;
  * }
  * </pre>
  *
- * <h2>note: the core of the postgresql jdbc jsonb data type and java nullable entity mapping relation is:</h2>
+ * <h2>note1: the core of the postgresql jdbc jsonb data type and java nullable entity mapping relation is:</h2>
  * <strong><em>@OrmFrameworkColumnMarkedDemo(columnName = "detail_info", typeHandler = JdbcJsonbMappingJavaNullableEntityTypeHandler.class)</em></strong>
- * <p/>
- * <h2>note2: about the usage of implement class {@link NullableObject}:</h2>
+ *
+ * <p><h2>note2: about the usage of implement class {@link NullableObject}:</h2>
  * <strong><em>
  * when storing this class into postgresql,<br/>
  * it provides an opportunity to represent the condition that the field in postgresql is empty,<br/>
@@ -70,7 +70,7 @@ import java.util.Map;
  * or {@link NullableObject#isNull()} return true,<br/>
  * it will set "{}" into postgresql.<br/>
  * </em></strong>
- * <br/>
+ * <p>
  *
  * @param <T> the java object data type
  * @author wjm

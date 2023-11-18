@@ -43,7 +43,7 @@ package cn.srd.library.java.orm.mybatis.contract.postgresql.handler;
  *
  * <h2>note: the core of the postgresql jdbc jsonb data type and java list long mapping relation is:</h2>
  * <strong><em>@OrmFrameworkColumnMarkedDemo(columnName = "family_ids", typeHandler = JdbcJsonbMappingJavaListLongTypeHandler.class)</em></strong>
- * <p/>
+ * <p>
  *
  * @author wjm
  * @since 2023-06-14 09:20
