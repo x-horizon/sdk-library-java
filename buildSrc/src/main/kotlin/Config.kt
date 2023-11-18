@@ -10,7 +10,7 @@ object GradleConfig {
 
     const val JAVA_VERSION = "17"
 
-    const val PROJECT_VERSION = "3.0051"
+    const val PROJECT_VERSION = "3.0061"
     const val PROJECT_CHARSET = "UTF-8"
 
     val projectCompileArgs = setOf(
