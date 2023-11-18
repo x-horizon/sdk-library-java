@@ -52,21 +52,21 @@ public @interface EnableSnowflakeId {
      *       the factors that affect the value of this field are as following:
      *   </li>
      *     <ol>
-     *       <li>this field value set to {@code 1}, the max total node instance number wil be {@code 1}, the number of id generate digit is {@code 14}, the id generate sample: {@code 15069150316997}.</li>
-     *       <li>this field value set to {@code 2}, the max total node instance number wil be {@code 3}, the number of id generate digit is {@code 14}, the id generate sample: {@code 30138313089157}.</li>
-     *       <li>this field value set to {@code 3}, the max total node instance number wil be {@code 7}, the number of id generate digit is {@code 14}, the id generate sample: {@code 60276641894085}.</li>
-     *       <li>this field value set to {@code 4}, the max total node instance number wil be {@code 15}, the number of id generate digit is {@code 15}, the id generate sample: {@code 120553307235589}.</li>
-     *       <li>this field value set to {@code 5}, the max total node instance number wil be {@code 31}, the number of id generate digit is {@code 15}, the id generate sample: {@code 241106669551941}.</li>
-     *       <li>this field value set to {@code 6}, the max total node instance number wil be {@code 63}, the number of id generate digit is {@code 15}, the id generate sample: {@code 482213446152581}.</li>
-     *       <li>this field value set to {@code 7}, the max total node instance number wil be {@code 127}, the number of id generate digit is {@code 15}, the id generate sample: {@code 964424066852037}.</li>
-     *       <li>this field value set to {@code 8}, the max total node instance number wil be {@code 255}, the number of id generate digit is {@code 16}, the id generate sample: {@code 1928847375287429}.</li>
-     *       <li>this field value set to {@code 9}, the max total node instance number wil be {@code 511}, the number of id generate digit is {@code 16}, the id generate sample: {@code 3857708801393093}.</li>
-     *       <li>this field value set to {@code 10}, the max total node instance number wil be {@code 1023}, the number of id generate digit is {@code 16}, the id generate sample: {@code 7715419168440837}.</li>
-     *       <li>this field value set to {@code 11}, the max total node instance number wil be {@code 2047}, the number of id generate digit is {@code 17}, the id generate sample: {@code 15430842986791493}.</li>
-     *       <li>this field value set to {@code 12}, the max total node instance number wil be {@code 4095}, the number of id generate digit is {@code 17}, the id generate sample: {@code 30861693610623621}.</li>
-     *       <li>this field value set to {@code 13}, the max total node instance number wil be {@code 8191}, the number of id generate digit is {@code 17}, the id generate sample: {@code 61723400668709573}.</li>
-     *       <li>this field value set to {@code 14}, the max total node instance number wil be {@code 16383}, the number of id generate digit is {@code 18}, the id generate sample: {@code 123446826092200709}.</li>
-     *       <li>this field value set to {@code 15}, the max total node instance number wil be {@code 32767}, the number of id generate digit is {@code 18}, the id generate sample: {@code 246893708121736005}.</li>
+     *       <li>this field value set to {@code 1}, the max concurrency node instance number wil be {@code 1}, the number of id generate digit is {@code 14}, the id generate sample: {@code 15069150316997}.</li>
+     *       <li>this field value set to {@code 2}, the max concurrency node instance number wil be {@code 3}, the number of id generate digit is {@code 14}, the id generate sample: {@code 30138313089157}.</li>
+     *       <li>this field value set to {@code 3}, the max concurrency node instance number wil be {@code 7}, the number of id generate digit is {@code 14}, the id generate sample: {@code 60276641894085}.</li>
+     *       <li>this field value set to {@code 4}, the max concurrency node instance number wil be {@code 15}, the number of id generate digit is {@code 15}, the id generate sample: {@code 120553307235589}.</li>
+     *       <li>this field value set to {@code 5}, the max concurrency node instance number wil be {@code 31}, the number of id generate digit is {@code 15}, the id generate sample: {@code 241106669551941}.</li>
+     *       <li>this field value set to {@code 6}, the max concurrency node instance number wil be {@code 63}, the number of id generate digit is {@code 15}, the id generate sample: {@code 482213446152581}.</li>
+     *       <li>this field value set to {@code 7}, the max concurrency node instance number wil be {@code 127}, the number of id generate digit is {@code 15}, the id generate sample: {@code 964424066852037}.</li>
+     *       <li>this field value set to {@code 8}, the max concurrency node instance number wil be {@code 255}, the number of id generate digit is {@code 16}, the id generate sample: {@code 1928847375287429}.</li>
+     *       <li>this field value set to {@code 9}, the max concurrency node instance number wil be {@code 511}, the number of id generate digit is {@code 16}, the id generate sample: {@code 3857708801393093}.</li>
+     *       <li>this field value set to {@code 10}, the max concurrency node instance number wil be {@code 1023}, the number of id generate digit is {@code 16}, the id generate sample: {@code 7715419168440837}.</li>
+     *       <li>this field value set to {@code 11}, the max concurrency node instance number wil be {@code 2047}, the number of id generate digit is {@code 17}, the id generate sample: {@code 15430842986791493}.</li>
+     *       <li>this field value set to {@code 12}, the max concurrency node instance number wil be {@code 4095}, the number of id generate digit is {@code 17}, the id generate sample: {@code 30861693610623621}.</li>
+     *       <li>this field value set to {@code 13}, the max concurrency node instance number wil be {@code 8191}, the number of id generate digit is {@code 17}, the id generate sample: {@code 61723400668709573}.</li>
+     *       <li>this field value set to {@code 14}, the max concurrency node instance number wil be {@code 16383}, the number of id generate digit is {@code 18}, the id generate sample: {@code 123446826092200709}.</li>
+     *       <li>this field value set to {@code 15}, the max concurrency node instance number wil be {@code 32767}, the number of id generate digit is {@code 18}, the id generate sample: {@code 246893708121736005}.</li>
      *     </ol>
      * </ul>
      * </p>
