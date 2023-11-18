@@ -1,18 +1,31 @@
-// Copyright (C) 2021-2023 thinkingto.com Ltd. All rights reserved.
-// Use of this source code is governed by SRD.
-// license that can be found in the LICENSE file.
+/*
+ *  Copyright (c) 2022-2023, Mybatis-Flex (fuhai999@gmail.com).
+ *  <p>
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *  <p>
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *  <p>
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 
 package cn.srd.library.java.pluggable.annotation.api.processor.mybatis.flex;
 
+import cn.srd.library.java.pluggable.annotation.api.processor.mybatis.flex.builder.ContentBuilder;
+import cn.srd.library.java.pluggable.annotation.api.processor.mybatis.flex.config.ConfigurationKey;
+import cn.srd.library.java.pluggable.annotation.api.processor.mybatis.flex.config.MybatisFlexConfig;
+import cn.srd.library.java.pluggable.annotation.api.processor.mybatis.flex.entity.ColumnInfo;
+import cn.srd.library.java.pluggable.annotation.api.processor.mybatis.flex.entity.TableInfo;
+import cn.srd.library.java.pluggable.annotation.api.processor.mybatis.flex.util.FileUtil;
+import cn.srd.library.java.pluggable.annotation.api.processor.mybatis.flex.util.StrUtil;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.ColumnAlias;
 import com.mybatisflex.annotation.Table;
-import com.mybatisflex.processor.builder.ContentBuilder;
-import com.mybatisflex.processor.config.ConfigurationKey;
-import com.mybatisflex.processor.entity.ColumnInfo;
-import com.mybatisflex.processor.entity.TableInfo;
-import com.mybatisflex.processor.util.FileUtil;
-import com.mybatisflex.processor.util.StrUtil;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
@@ -40,25 +53,27 @@ import java.util.*;
 import java.util.function.BiConsumer;
 
 /**
- * @author wjm
- * @since 2023-11-18 17:21
+ * MyBatis Flex Processor.
+ *
+ * @author 王帅
+ * @since 2023-06-22
  */
-public class TestProcessor extends AbstractProcessor {
+public class MybatisFlexProcessor extends AbstractProcessor {
 
     private static final List<String> DEFAULT_SUPPORT_COLUMN_TYPES = Arrays.asList(
-        int.class.getName(), Integer.class.getName(),
-        short.class.getName(), Short.class.getName(),
-        long.class.getName(), Long.class.getName(),
-        float.class.getName(), Float.class.getName(),
-        double.class.getName(), Double.class.getName(),
-        boolean.class.getName(), Boolean.class.getName(),
-        Date.class.getName(), java.sql.Date.class.getName(), Time.class.getName(), Timestamp.class.getName(),
-        Instant.class.getName(), LocalDate.class.getName(), LocalDateTime.class.getName(), LocalTime.class.getName(),
-        OffsetDateTime.class.getName(), OffsetTime.class.getName(), ZonedDateTime.class.getName(),
-        Year.class.getName(), Month.class.getName(), YearMonth.class.getName(), JapaneseDate.class.getName(),
-        byte[].class.getName(), Byte[].class.getName(), Byte.class.getName(),
-        BigInteger.class.getName(), BigDecimal.class.getName(),
-        char.class.getName(), String.class.getName(), Character.class.getName()
+            int.class.getName(), Integer.class.getName(),
+            short.class.getName(), Short.class.getName(),
+            long.class.getName(), Long.class.getName(),
+            float.class.getName(), Float.class.getName(),
+            double.class.getName(), Double.class.getName(),
+            boolean.class.getName(), Boolean.class.getName(),
+            Date.class.getName(), java.sql.Date.class.getName(), Time.class.getName(), Timestamp.class.getName(),
+            Instant.class.getName(), LocalDate.class.getName(), LocalDateTime.class.getName(), LocalTime.class.getName(),
+            OffsetDateTime.class.getName(), OffsetTime.class.getName(), ZonedDateTime.class.getName(),
+            Year.class.getName(), Month.class.getName(), YearMonth.class.getName(), JapaneseDate.class.getName(),
+            byte[].class.getName(), Byte[].class.getName(), Byte.class.getName(),
+            BigInteger.class.getName(), BigDecimal.class.getName(),
+            char.class.getName(), String.class.getName(), Character.class.getName()
     );
 
     private Filer filer;
@@ -71,7 +86,6 @@ public class TestProcessor extends AbstractProcessor {
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnvironment) {
-        // filer.createResource(StandardLocation.MODULE_SOURCE_PATH, "pluggable-annotation-api-processor-mybatis-flex", "mybatis-flex");
         super.init(processingEnvironment);
         this.filer = processingEnvironment.getFiler();
         this.elementUtils = processingEnvironment.getElementUtils();
@@ -177,7 +191,7 @@ public class TestProcessor extends AbstractProcessor {
                 String tableDefPackage = StrUtil.buildTableDefPackage(entityClass);
                 String tableDefClassName = entityClassName.concat(tableDefClassSuffix);
                 String tableDefContent = ContentBuilder.buildTableDef(tableInfo, allInTablesEnable, tableDefPackage, tableDefClassName
-                    , tableDefPropertiesNameStyle, tableDefInstanceSuffix, columnInfos, defaultColumns);
+                        , tableDefPropertiesNameStyle, tableDefInstanceSuffix, columnInfos, defaultColumns);
                 processGenClass(genPath, tableDefPackage, tableDefClassName, tableDefContent);
 
                 if (allInTablesEnable) {
@@ -268,8 +282,8 @@ public class TestProcessor extends AbstractProcessor {
 
                 // 未配置 typeHandler 的情况下，只支持基本数据类型，不支持比如 list set 或者自定义的类等
                 if ((column == null || "org.apache.ibatis.type.UnknownTypeHandler".equals(typeHandlerClass[0]))
-                    && !DEFAULT_SUPPORT_COLUMN_TYPES.contains(typeString)
-                    && (typeElement != null && ElementKind.ENUM != typeElement.getKind())
+                        && !DEFAULT_SUPPORT_COLUMN_TYPES.contains(typeString)
+                        && (typeElement != null && ElementKind.ENUM != typeElement.getKind())
                 ) {
                     continue;
                 }

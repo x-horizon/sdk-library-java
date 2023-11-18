@@ -81,6 +81,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     ORM_DATASTAX_OSS_CASSANDRA_JAVA_DRIVER_QUERY_BUILDER("com.datastax.oss:java-driver-query-builder", ORM_DATASTAX_OSS_CASSANDRA.version),
     ORM_MYBATIS("org.mybatis.spring.boot:mybatis-spring-boot-starter", "3.0.2"),
     ORM_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-spring-boot-starter", ""),
+    ORM_MYBATIS_FLEX_ANNOTATION("com.mybatis-flex:mybatis-flex-annotation", ""),
     ORM_MYBATIS_PLUS("com.baomidou:mybatis-plus-boot-starter", ""), // TODO wjm 待升级 mybatis-plus-spring-boot3-starter（因为其相关 springboot 版本太高暂不升级）
     ORM_MYBATIS_PLUS_DYNAMIC_DATASOURCE("com.baomidou:dynamic-datasource-spring-boot-starter", "4.2.0"),
     ORM_MYBATIS_PLUS_GENERATOR("com.baomidou:mybatis-plus-generator", ""),
