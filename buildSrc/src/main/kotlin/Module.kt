@@ -67,6 +67,14 @@ object GradleModule {
 
     const val OSS_MINIO = "oss-minio"
 
+    const val PLUGGABLE_ANNOTATION_API_LOMBOK = "pluggable-annotation-api-lombok"
+    const val PLUGGABLE_ANNOTATION_API_MICA_AUTO = "pluggable-annotation-api-mica-auto"
+    const val PLUGGABLE_ANNOTATION_API_PROCESSOR_JMH = "pluggable-annotation-api-processor-jmh"
+    const val PLUGGABLE_ANNOTATION_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING = "pluggable-annotation-api-processor-lombok-mapstruct-binding"
+    const val PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT = "pluggable-annotation-api-processor-mapstruct"
+    const val PLUGGABLE_ANNOTATION_API_PROCESSOR_MYBATIS_FLEX = "pluggable-annotation-api-processor-mybatis-flex"
+    const val PLUGGABLE_ANNOTATION_API_PROCESSOR_SPRING = "pluggable-annotation-api-processor-spring"
+
     const val POOL_APACHE = "pool-apache"
     const val POOL_DATABASE_HIKARICP = "pool-database-hikaricp"
 

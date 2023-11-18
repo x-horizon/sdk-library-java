@@ -170,7 +170,15 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.ORM_TD_ENGINE_JDBC)))
 
         api(project(GradleModule.toReferenceName(GradleModule.OSS_MINIO)))
-        
+
+        api(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK)))
+        api(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_MICA_AUTO)))
+        api(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_JMH)))
+        api(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING)))
+        api(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT)))
+        api(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MYBATIS_FLEX)))
+        api(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_SPRING)))
+
         api(project(GradleModule.toReferenceName(GradleModule.POOL_APACHE)))
         api(project(GradleModule.toReferenceName(GradleModule.POOL_DATABASE_HIKARICP)))
 
