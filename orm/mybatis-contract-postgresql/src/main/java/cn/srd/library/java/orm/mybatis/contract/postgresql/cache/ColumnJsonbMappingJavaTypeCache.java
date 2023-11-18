@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.contract.postgresql.cache;
 
-import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.mybatis.contract.base.cache.ColumnMappingJavaTypeCache;
 import cn.srd.library.java.orm.mybatis.contract.postgresql.handler.AbstractJdbcJsonbTypeHandler;
 import org.apache.ibatis.type.TypeHandler;

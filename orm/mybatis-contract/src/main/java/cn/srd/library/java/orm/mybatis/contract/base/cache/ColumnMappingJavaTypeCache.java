@@ -4,8 +4,8 @@
 
 package cn.srd.library.java.orm.mybatis.contract.base.cache;
 
-import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.module.ModuleView;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.functional.Assert;

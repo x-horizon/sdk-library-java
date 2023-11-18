@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.tool.convert.jackson.deserializer;
 
-import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.convert.jackson.JacksonFieldNameRegister;
 import cn.srd.library.java.tool.convert.jackson.Jacksons;

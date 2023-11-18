@@ -6,7 +6,7 @@ package cn.srd.library.java.tool.lang.enums;
 
 import cn.hutool.core.util.EnumUtil;
 import cn.srd.library.java.contract.constant.enums.EnumConstant;
-import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;

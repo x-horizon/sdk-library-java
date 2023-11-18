@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.contract.constant.jvm;
+package cn.srd.library.java.contract.constant.text;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -22,6 +22,11 @@ public class SuppressWarningConstant {
     public static final String ALL = "all";
 
     /**
+     * ignore using {@link Deprecated} warning: {@code "deprecation"}
+     */
+    public static final String DEPRECATED = "deprecation";
+
+    /**
      * ignore unchecked warning: {@code "unchecked"}
      */
     public static final String UNCHECKED = "unchecked";
@@ -37,8 +42,13 @@ public class SuppressWarningConstant {
     public static final String SERIAL = "serial";
 
     /**
-     * ignore using {@link Deprecated} warning: {@code "deprecation"}
+     * ignore unused warning: {@code "unused"}
      */
-    public static final String DEPRECATED = "deprecation";
+    public static final String UNUSED = "unused";
+
+    /**
+     * ignore varargs warning: {@code "varargs"}, the same as {@link SafeVarargs}
+     */
+    public static final String VARARGS = "varargs";
 
 }

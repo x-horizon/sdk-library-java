@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.contract.postgresql.handler;
 
-import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 
 /**
  * <pre>

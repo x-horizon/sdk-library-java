@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.tool.lang.collection;
 
-import cn.srd.library.java.contract.constant.jvm.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.object.Nil;
 
 import java.util.List;
