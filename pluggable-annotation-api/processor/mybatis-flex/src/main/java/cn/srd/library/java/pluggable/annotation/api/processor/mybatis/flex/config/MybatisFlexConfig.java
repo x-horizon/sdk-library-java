@@ -43,7 +43,7 @@ public class MybatisFlexConfig {
     public MybatisFlexConfig(Filer filer) {
 
         // wjm: change this code to hack mybatis-flex original apt setting, loading this module configuration to generate code.
-        properties.load(this.getClass().getResourceAsStream("/mybatis-flex.config"));
+        properties.load(this.getClass().getResourceAsStream("/" + APT_FILE_NAME));
 
         // try {
         //     // target/classes/
