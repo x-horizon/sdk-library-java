@@ -50,18 +50,16 @@ subprojects {
             annotationProcessor(enforcedPlatform(project(GradleModule.toReferenceName(GradleModule.BOM))))
             testAnnotationProcessor(enforcedPlatform(project(GradleModule.toReferenceName(GradleModule.BOM))))
 
-            if (GradleModule.toModuleName(project.toString()) != GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK) {
-                compileOnly(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK)))
-                annotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK)))
-            }
-
-            testCompileOnly(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK)))
+            compileOnly(GradleDependency.PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK.withoutVersion)
+            annotationProcessor(GradleDependency.PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK.withoutVersion)
+            testCompileOnly(GradleDependency.PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK.withoutVersion)
             testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_JMH)))
             testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_JUNIT)))
             testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING)))
-            testAnnotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK)))
-            testAnnotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_JMH)))
-            testAnnotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_SPRING)))
+            testAnnotationProcessor(GradleDependency.PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK.withoutVersion)
+            testAnnotationProcessor(GradleDependency.PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_OPENJDK_JMH.withoutVersion)
+            testAnnotationProcessor(GradleDependency.PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_SPRING_AUTOCONFIGURE.withoutVersion)
+            testAnnotationProcessor(GradleDependency.PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_SPRING_CONFIGURATION.withoutVersion)
         }
 
         java {
