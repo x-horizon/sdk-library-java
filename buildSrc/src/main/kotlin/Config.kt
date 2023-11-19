@@ -8,9 +8,9 @@ object GradleConfig {
     internal val activeEnvironment = Environment.DEVELOPMENT
     // internal val activeEnvironment = Environment.PRODUCTION
 
-    const val JAVA_VERSION = "17"
+    const val JAVA_VERSION = "21"
 
-    const val PROJECT_VERSION = "3.0061"
+    const val PROJECT_VERSION = "3.0066"
     const val PROJECT_CHARSET = "UTF-8"
 
     val projectCompileArgs = setOf(

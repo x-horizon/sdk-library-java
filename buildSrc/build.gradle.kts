@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 plugins {
-    `kotlin-dsl`
+    kotlin("jvm") version "1.9.20"
 }
 
 repositories {
