@@ -1,10 +1,10 @@
 package cn.srd.library.java.orm.mybatis.flex.postgresql.dao;
 
+import cn.srd.library.java.orm.mybatis.flex.base.dao.GenericCurdDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.StudentTestIdUUIDPO;
-import com.mybatisflex.core.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface StudentTestIdUUIDDao extends BaseMapper<StudentTestIdUUIDPO> {
+public interface StudentTestIdUUIDDao extends GenericCurdDao<StudentTestIdUUIDPO> {
 
 }
