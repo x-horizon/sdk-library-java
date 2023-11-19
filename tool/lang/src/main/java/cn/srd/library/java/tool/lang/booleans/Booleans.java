@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.tool.lang.booleans;
 
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.functional.Action;
 import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
  * @author wjm
  * @since 2022-08-11 10:59
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Booleans {
 

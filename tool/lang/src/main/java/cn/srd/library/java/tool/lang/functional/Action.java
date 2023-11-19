@@ -5,6 +5,7 @@
 package cn.srd.library.java.tool.lang.functional;
 
 import cn.hutool.core.text.CharSequenceUtil;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.booleans.Booleans;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.number.Numbers;
@@ -26,6 +27,7 @@ import java.util.function.Supplier;
  * @author wjm
  * @since 2023-09-23 10:45
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Action<V> {
 
@@ -79,36 +81,6 @@ public class Action<V> {
         }
         return this;
     }
-
-    // TODO wjm bug: value is always null
-    // /**
-    //  * do something if infer success
-    //  *
-    //  * @param action to do action
-    //  * @return self
-    //  */
-    // public Action<V> then(Consumer<V> action) {
-    //     if (isSuccess()) {
-    //         this.isSuccess = true;
-    //         action.accept(this.value);
-    //     }
-    //     return this;
-    // }
-
-    // TODO wjm bug: value is always null
-    // /**
-    //  * do something if infer failed
-    //  *
-    //  * @param action to do action
-    //  * @return self
-    //  */
-    // public Action<V> otherwise(Consumer<V> action) {
-    //     if (isFailed()) {
-    //         this.isSuccess = false;
-    //         action.accept(this.value);
-    //     }
-    //     return this;
-    // }
 
     /**
      * do something if infer failed

@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.tool.lang.serialization;
 
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import java.io.ObjectStreamClass;
  * @author wjm
  * @since 2023-11-04 01:36
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Serials {
 

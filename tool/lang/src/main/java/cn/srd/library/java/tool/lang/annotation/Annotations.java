@@ -7,6 +7,7 @@ package cn.srd.library.java.tool.lang.annotation;
 import cn.hutool.core.annotation.AnnotationUtil;
 import cn.srd.library.java.contract.constant.annotation.AnnotationConstant;
 import cn.srd.library.java.contract.constant.module.ModuleView;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.object.BasePackagePath;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
  * @author wjm
  * @since 2021-03-21 19:22
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Annotations {
 

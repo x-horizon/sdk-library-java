@@ -5,6 +5,7 @@
 package cn.srd.library.java.tool.lang.system;
 
 import cn.srd.library.java.contract.constant.system.SystemProperty;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
  * @author wjm
  * @since 2020-01-15 11:02
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Systems {
 

@@ -5,6 +5,7 @@
 package cn.srd.library.java.tool.lang.object;
 
 import cn.hutool.core.util.TypeUtil;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.functional.Action;
@@ -25,6 +26,7 @@ import java.util.List;
  * @author wjm
  * @since 2021-05-10 17:46
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Types {
 

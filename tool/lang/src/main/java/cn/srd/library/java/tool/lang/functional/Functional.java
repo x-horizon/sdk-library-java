@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.tool.lang.functional;
 
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import lombok.AccessLevel;
@@ -20,6 +21,7 @@ import java.util.function.Supplier;
  * @author wjm
  * @since 2023-09-23 11:33
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Functional {
 

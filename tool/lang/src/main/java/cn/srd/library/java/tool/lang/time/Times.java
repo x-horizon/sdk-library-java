@@ -3,6 +3,7 @@ package cn.srd.library.java.tool.lang.time;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.date.TemporalAccessorUtil;
 import cn.hutool.core.date.Week;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.constant.time.TimeConstant;
 import cn.srd.library.java.contract.constant.time.TimePatternConstant;
@@ -41,6 +42,7 @@ import java.util.stream.Stream;
  * @author wjm
  * @since 2020/8/11 15:27
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Times {
 

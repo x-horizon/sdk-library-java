@@ -5,6 +5,7 @@
 package cn.srd.library.java.tool.lang.functional;
 
 import cn.hutool.core.text.CharSequenceUtil;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.throwable.ExceptionMessage;
 import cn.srd.library.java.contract.constant.web.HttpStatus;
 import cn.srd.library.java.contract.model.throwable.AbstractRuntimeException;
@@ -48,8 +49,10 @@ import java.util.Map;
  * @author wjm
  * @since 2020-06-13 20:05
  */
+
 @Accessors(chain = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 public class Assert {
 
     /**

@@ -6,6 +6,7 @@ package cn.srd.library.java.tool.lang.compare;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.NumberUtil;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.Arrays;
  * @author wjm
  * @since 2023-09-23 14:42
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Comparators {
 

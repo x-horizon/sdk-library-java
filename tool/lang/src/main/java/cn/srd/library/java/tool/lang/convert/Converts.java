@@ -5,6 +5,7 @@
 package cn.srd.library.java.tool.lang.convert;
 
 import cn.hutool.core.convert.Convert;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.functional.Action;
 import cn.srd.library.java.tool.lang.functional.Functional;
@@ -24,6 +25,7 @@ import java.util.function.*;
  * @author wjm
  * @since 2021-05-01 14:13
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Converts {
 

@@ -5,6 +5,7 @@
 package cn.srd.library.java.tool.lang.object;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.Set;
  */
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 public class BasePackagePath {
 
     // TODO wjm the concurrent safe read and write does not valid because of the write is replace instead of write on the CopyOnWriteArraySet, see #optimize()

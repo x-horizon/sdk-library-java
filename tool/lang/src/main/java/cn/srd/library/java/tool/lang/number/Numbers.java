@@ -6,6 +6,7 @@ package cn.srd.library.java.tool.lang.number;
 
 import cn.hutool.core.util.NumberUtil;
 import cn.srd.library.java.contract.constant.number.NumberConstant;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.time.TimeUnitConstant;
 import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;
@@ -20,6 +21,7 @@ import java.math.RoundingMode;
  * @author wjm
  * @since 2020-08-20 17:42
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Numbers {
 

@@ -5,6 +5,7 @@
 package cn.srd.library.java.tool.lang.file;
 
 import cn.hutool.core.io.FileUtil;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,7 @@ import java.io.File;
  * @author wjm
  * @since 2020-04-02 17:52
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Files {
 

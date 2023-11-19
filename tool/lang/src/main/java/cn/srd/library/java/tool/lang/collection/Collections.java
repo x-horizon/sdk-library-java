@@ -34,6 +34,7 @@ import java.util.stream.StreamSupport;
  * @author wjm
  * @since 2020-12-15 12:40
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Collections {
 
@@ -1004,7 +1005,7 @@ public class Collections {
     @SafeVarargs
     public static <T> Collection<T> remove(Collection<T> inputs, T... removeElements) {
         return Action.<Collection<T>>ifEmpty(inputs)
-                .then(() -> ofArrayList())
+                .then(Collections::ofArrayList)
                 .otherwise(() -> CollectionUtil.removeAny(inputs, removeElements))
                 .get();
     }
@@ -1390,7 +1391,7 @@ public class Collections {
      */
     public static <T, U extends Comparable<? super U>> List<T> asc(Iterable<T> inputs, Function<T, U> mappingAction) {
         return Action.<List<T>>ifEmpty(inputs)
-                .then(() -> Collections.newArrayList())
+                .then(Collections::newArrayList)
                 .otherwise(() -> ofUnknownSizeStream(inputs)
                         .sorted(Comparator.comparing(mappingAction))
                         .collect(Collectors.toList())
@@ -1459,7 +1460,7 @@ public class Collections {
      */
     public static <T, U extends Comparable<? super U>> List<T> desc(Iterable<T> inputs, Function<T, U> mappingAction) {
         return Action.<List<T>>ifEmpty(inputs)
-                .then(() -> Collections.newArrayList())
+                .then(Collections::newArrayList)
                 .otherwise(() -> ofUnknownSizeStream(inputs)
                         .sorted(Comparator.comparing(mappingAction).reversed())
                         .collect(Collectors.toList())
@@ -1559,7 +1560,7 @@ public class Collections {
      */
     public static <T, U> List<T> distinct(Iterable<T> inputs, Function<? super T, U> getFieldToDistinctAction) {
         return Action.<List<T>>infer(Nil.isEmpty(inputs))
-                .then(() -> Collections.newArrayList())
+                .then(Collections::newArrayList)
                 .otherwise(() -> ofUnknownSizeStream(inputs)
                         .filter(distinctSupporter(getFieldToDistinctAction))
                         .collect(Collectors.toList())
@@ -1632,7 +1633,7 @@ public class Collections {
      */
     public static <T, N1 extends Iterable<T>> List<T> flattenNest1(Iterable<N1> inputs) {
         return Action.<List<T>>ifEmpty(inputs)
-                .then(() -> Collections.newArrayList())
+                .then(Collections::newArrayList)
                 .otherwise(() -> ofUnknownSizeStream(inputs)
                         .flatMap(Collections::ofUnknownSizeStream)
                         .collect(Collectors.toList())
@@ -1666,7 +1667,7 @@ public class Collections {
      */
     public static <T, N1 extends Iterable<T>, N2 extends Iterable<N1>> List<T> flattenNest2(Iterable<N2> inputs) {
         return Action.<List<T>>ifEmpty(inputs)
-                .then(() -> Collections.newArrayList())
+                .then(Collections::newArrayList)
                 .otherwise(() -> ofUnknownSizeStream(inputs)
                         .flatMap(Collections::ofUnknownSizeStream)
                         .flatMap(Collections::ofUnknownSizeStream)
@@ -1702,7 +1703,7 @@ public class Collections {
      */
     public static <T, N1 extends Iterable<T>, N2 extends Iterable<N1>, N3 extends Iterable<N2>> List<T> flattenNest3(Iterable<N3> inputs) {
         return Action.<List<T>>ifEmpty(inputs)
-                .then(() -> Collections.newArrayList())
+                .then(Collections::newArrayList)
                 .otherwise(() -> StreamSupport.stream(inputs.spliterator(), CollectionConstant.DEFAULT_ENABLE_STREAM_PARALLEL)
                         .flatMap(Collections::ofUnknownSizeStream)
                         .flatMap(Collections::ofUnknownSizeStream)
@@ -1761,7 +1762,7 @@ public class Collections {
      */
     public static <K, V> List<K> toMapKeys(Map<K, V> inputs) {
         return Action.<List<K>>ifEmpty(inputs)
-                .then(() -> Collections.newArrayList())
+                .then(Collections::newArrayList)
                 .otherwise(() -> ofArrayList(inputs.keySet()))
                 .get();
     }
@@ -1776,8 +1777,34 @@ public class Collections {
      */
     public static <K, V> List<V> toMapValues(Map<K, V> inputs) {
         return Action.<List<V>>ifEmpty(inputs)
-                .then(() -> Collections.newArrayList())
+                .then(Collections::newArrayList)
                 .otherwise(() -> ofArrayList(inputs.values()))
+                .get();
+    }
+
+    /**
+     * convert iterable to list
+     *
+     * @param inputs the input element
+     * @return after convert
+     */
+    public static <T> List<T> toList(Iterable<T> inputs) {
+        return Action.<List<T>>ifEmpty(inputs)
+                .then(Collections::newArrayList)
+                .otherwise(() -> ofUnknownSizeStream(inputs).collect(Collectors.toList()))
+                .get();
+    }
+
+    /**
+     * convert collection to list
+     *
+     * @param inputs the input element
+     * @return after convert
+     */
+    public static <T> List<T> toList(Collection<T> inputs) {
+        return Action.<List<T>>ifEmpty(inputs)
+                .then(Collections::newArrayList)
+                .otherwise(() -> ofArrayList(inputs))
                 .get();
     }
 
@@ -1819,7 +1846,7 @@ public class Collections {
      */
     public static <T, R> List<R> toList(Iterable<T> inputs, Function<T, R> mappingAction) {
         return Action.<List<R>>ifEmpty(inputs)
-                .then(() -> Collections.newArrayList())
+                .then(Collections::newArrayList)
                 .otherwise(() -> ofUnknownSizeStream(inputs)
                         .map(mappingAction)
                         .collect(Collectors.toList())
@@ -1865,7 +1892,7 @@ public class Collections {
      */
     public static <T, R> List<R> toList(T[] inputs, Function<T, R> mappingAction) {
         return Action.<List<R>>infer(Nil.isEmpty(inputs))
-                .then(() -> Collections.newArrayList())
+                .then(Collections::newArrayList)
                 .otherwise(() -> Arrays.stream(inputs)
                         .map(mappingAction)
                         .collect(Collectors.toList())
@@ -1905,8 +1932,34 @@ public class Collections {
      */
     public static <T> Set<T> toSet(T[] inputs) {
         return Action.<Set<T>>infer(Nil.isEmpty(inputs))
-                .then(() -> Collections.newHashSet())
+                .then(Collections::newHashSet)
                 .otherwise(() -> Arrays.stream(inputs).collect(Collectors.toSet()))
+                .get();
+    }
+
+    /**
+     * convert iterable to set
+     *
+     * @param inputs the input element
+     * @return after convert
+     */
+    public static <T> Set<T> toSet(Iterable<T> inputs) {
+        return Action.<Set<T>>ifEmpty(inputs)
+                .then(Collections::newHashSet)
+                .otherwise(() -> ofUnknownSizeStream(inputs).collect(Collectors.toSet()))
+                .get();
+    }
+
+    /**
+     * convert collection to set
+     *
+     * @param inputs the input element
+     * @return after convert
+     */
+    public static <T> Set<T> toSet(Collection<T> inputs) {
+        return Action.<Set<T>>ifEmpty(inputs)
+                .then(Collections::newHashSet)
+                .otherwise(() -> ofHashSet(inputs))
                 .get();
     }
 
@@ -1948,12 +2001,23 @@ public class Collections {
      */
     public static <T, R> Set<R> toSet(Iterable<T> inputs, Function<T, R> mappingAction) {
         return Action.<Set<R>>infer(Nil.isEmpty(inputs))
-                .then(() -> Collections.newHashSet())
+                .then(Collections::newHashSet)
                 .otherwise(() -> ofUnknownSizeStream(inputs)
                         .map(mappingAction)
                         .collect(Collectors.toSet())
                 )
                 .get();
+    }
+
+    /**
+     * convert anything to set
+     *
+     * @param input the input element
+     * @return after convert
+     */
+    @SuppressWarnings(SuppressWarningConstant.ALL)
+    public static Set<?> toSet(Object input) {
+        return Convert.convert(Set.class, input);
     }
 
     /**
@@ -1994,7 +2058,7 @@ public class Collections {
      */
     public static <K, V> Map<K, V> toMap(Iterable<V> inputs, Function<V, K> getKeyAction) {
         return Action.<Map<K, V>>infer(Nil.isEmpty(inputs))
-                .then(() -> Collections.newHashMap())
+                .then(Collections::newHashMap)
                 .otherwise(() -> ofUnknownSizeStream(inputs).collect(Collectors.toMap(getKeyAction, item -> item)))
                 .get();
     }
@@ -2039,7 +2103,7 @@ public class Collections {
      */
     public static <T, K, V> Map<K, V> toMap(Iterable<T> inputs, Function<T, K> getKeyAction, Function<T, V> getValueAction) {
         return Action.<Map<K, V>>infer(Nil.isEmpty(inputs))
-                .then(() -> Collections.newHashMap())
+                .then(Collections::newHashMap)
                 .otherwise(() -> ofUnknownSizeStream(inputs).collect(Collectors.toMap(getKeyAction, getValueAction)))
                 .get();
     }
@@ -2082,7 +2146,7 @@ public class Collections {
      */
     public static <K, V> Map<K, List<V>> toMultiMap(Iterable<V> inputs, Function<V, K> getKeyAction) {
         return Action.<Map<K, List<V>>>infer(Nil.isEmpty(inputs))
-                .then(() -> Collections.newHashMap())
+                .then(Collections::newHashMap)
                 .otherwise(() -> ofUnknownSizeStream(inputs).collect(Collectors.groupingBy(getKeyAction, Collectors.mapping(item -> item, Collectors.toList()))))
                 .get();
     }
@@ -2127,7 +2191,7 @@ public class Collections {
      */
     public static <T, K, V> Map<K, List<V>> toMultiMap(Iterable<T> inputs, Function<T, K> getKeyAction, Function<T, V> getValueAction) {
         return Action.<Map<K, List<V>>>infer(Nil.isEmpty(inputs))
-                .then(() -> Collections.newHashMap())
+                .then(Collections::newHashMap)
                 .otherwise(() -> ofUnknownSizeStream(inputs).collect(Collectors.groupingBy(getKeyAction, Collectors.mapping(getValueAction, Collectors.toList()))))
                 .get();
     }

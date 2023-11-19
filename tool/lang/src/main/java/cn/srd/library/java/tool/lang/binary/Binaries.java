@@ -5,6 +5,7 @@
 package cn.srd.library.java.tool.lang.binary;
 
 import cn.hutool.core.util.HexUtil;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.functional.Action;
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
  * @author wjm
  * @since 2022-07-06 21:53
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Binaries {
 

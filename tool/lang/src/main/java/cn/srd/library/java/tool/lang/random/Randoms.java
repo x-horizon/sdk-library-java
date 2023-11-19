@@ -5,6 +5,7 @@
 package cn.srd.library.java.tool.lang.random;
 
 import cn.hutool.core.util.RandomUtil;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
  * @author wjm
  * @since 2021-04-26 16:48
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Randoms {
 

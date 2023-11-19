@@ -32,6 +32,7 @@ import java.util.Map;
  * @author wjm
  * @since 2021-05-10 17:46
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Enums {
 

@@ -5,6 +5,7 @@
 package cn.srd.library.java.tool.lang.object;
 
 import cn.hutool.core.util.ClassUtil;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.functional.Action;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
  * @author wjm
  * @since 2021-05-10 17:46
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Classes {
 
