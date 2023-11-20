@@ -7,6 +7,7 @@ package cn.srd.library.java.orm.mybatis.flex.base.dao;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import cn.srd.library.java.tool.lang.collection.Collections;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.field.FieldQueryBuilder;
 import com.mybatisflex.core.paginate.Page;
@@ -14,6 +15,8 @@ import com.mybatisflex.core.query.QueryCondition;
 import com.mybatisflex.core.query.QueryWrapper;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +27,51 @@ import java.util.function.Consumer;
  * @since 2023-11-04 00:19
  */
 @SuppressWarnings(SuppressWarningConstant.ALL)
+// public interface GenericCurdDao<T> {
 public interface GenericCurdDao<T> extends BaseMapper<T> {
+
+    // default Class<?> get() {
+    // Arrays.stream(((MapperProxy) ((Proxy) this).h).mapperInterface.getGenericInfo().getTree().getSuperInterfaces()).findFirst().orElseThrow().getPath().stream().findFirst().orElseThrow().getName()
+    // return getInterfaceT(this, 0);
+    // }
+
+    // default T update(T entity) {
+    //     UpdateChain.of()
+    // }
+
+    public static Class<?> getInterfaceT(Object o, int index) {
+        Type[] types = o.getClass().getGenericInterfaces();
+        ParameterizedType parameterizedType = (ParameterizedType) types[index];
+        Type type = parameterizedType.getActualTypeArguments()[index];
+        return checkType(type, index);
+    }
+
+    public static Class<?> getClassT(Object o, int index) {
+        Type type = o.getClass().getGenericSuperclass();
+        if (type instanceof ParameterizedType) {
+            ParameterizedType parameterizedType = (ParameterizedType) type;
+            Type actType = parameterizedType.getActualTypeArguments()[index];
+            return checkType(actType, index);
+        } else {
+            String className = type == null ? "null" : type.getClass().getName();
+            throw new IllegalArgumentException("Expected a Class, ParameterizedType"
+                    + ", but <" + type + "> is of type " + className);
+        }
+    }
+
+    private static Class<?> checkType(Type type, int index) {
+        if (type instanceof Class<?>) {
+            return (Class<?>) type;
+        } else if (type instanceof ParameterizedType) {
+            ParameterizedType pt = (ParameterizedType) type;
+            Type t = pt.getActualTypeArguments()[index];
+            return checkType(t, index);
+        } else {
+            String className = type == null ? "null" : type.getClass().getName();
+            throw new IllegalArgumentException("Expected a Class, ParameterizedType"
+                    + ", but <" + type + "> is of type " + className);
+        }
+    }
 
     /**
      * see {@link BaseMapper#insertSelective(Object)}
@@ -52,14 +99,46 @@ public interface GenericCurdDao<T> extends BaseMapper<T> {
         return saveBatch(Collections.toList(entities));
     }
 
+    default List<T> saveBatch(Iterable<T> entities, int shardedSize) {
+        return saveBatch(Collections.toList(entities), shardedSize);
+    }
+
     default List<T> saveBatch(Collection<T> entities) {
         return saveBatch(Collections.toList(entities));
+    }
+
+    default List<T> saveBatch(Collection<T> entities, int shardedSize) {
+        return saveBatch(Collections.toList(entities), shardedSize);
     }
 
     default List<T> saveBatch(List<T> entities) {
         insertBatch(entities);
         return entities;
     }
+
+    default List<T> saveBatch(List<T> entities, int shardedSize) {
+        BaseMapper.super.insertBatch(entities, shardedSize);
+        return entities;
+    }
+
+    @CanIgnoreReturnValue
+    default int deleteBatchByIds(Iterable<? extends Serializable> ids) {
+        return deleteBatchByIds(Collections.toList(ids));
+    }
+
+    @CanIgnoreReturnValue
+    default int deleteBatchByIds(Iterable<? extends Serializable> ids, int shardedSize) {
+        return BaseMapper.super.deleteBatchByIds(Collections.toList(ids), shardedSize);
+    }
+
+    @CanIgnoreReturnValue
+    default int deleteBatchByIds(Collection<? extends Serializable> ids, int shardedSize) {
+        return BaseMapper.super.deleteBatchByIds(Collections.toList(ids), shardedSize);
+    }
+
+    // default int deleteByCondition(QueryCondition whereConditions) {
+    //     return BaseMapper.super.deleteByCondition(whereConditions);
+    // }
 
     // =======================================================================================================================================================
     // ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇
