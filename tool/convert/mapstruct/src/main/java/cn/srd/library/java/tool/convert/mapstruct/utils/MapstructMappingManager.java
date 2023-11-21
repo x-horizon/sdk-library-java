@@ -33,7 +33,6 @@ public class MapstructMappingManager {
      * @param value 待转换对象
      * @return 转换结果
      */
-
     @MapstructListToString
     public static String listToString(List<String> value) {
         return Nil.isNotEmpty(value) ? value.toString() : null;
@@ -45,7 +44,6 @@ public class MapstructMappingManager {
      * @param value 待转换对象
      * @return 转换结果
      */
-
     @MapstructListIntegerToString
     public static String listIntegerToString(List<Integer> value) {
         return Nil.isNotEmpty(value) ? Strings.joinWithComma(value) : null;
@@ -57,7 +55,6 @@ public class MapstructMappingManager {
      * @param value 待转换对象
      * @return 转换结果
      */
-
     @MapstructStringToListString
     public static List<String> stringToListString(String value) {
         return Nil.isNotEmpty(value) ? Strings.split(value) : null;
@@ -69,7 +66,6 @@ public class MapstructMappingManager {
      * @param value 待转换对象
      * @return 转换结果
      */
-
     @MapstructStringToListInteger
     public static List<Integer> stringToListInteger(String value) {
         return Strings.split(value).stream().map(Integer::valueOf).collect(Collectors.toList());
@@ -81,7 +77,6 @@ public class MapstructMappingManager {
      * @param value 待转换对象
      * @return 转换结果
      */
-
     @MapstructEnumToEnumString
     public static String enumToEnumString(Enum<?> value) {
         return Enums.getFieldValue(value, String.class);
@@ -93,7 +88,6 @@ public class MapstructMappingManager {
      * @param value 待转换对象
      * @return 转换结果
      */
-
     @MapstructEnumToEnumCode
     public static Integer enumToEnumNumber(Enum<?> value) {
         return Enums.getFieldValue(value, Integer.class);
@@ -105,7 +99,6 @@ public class MapstructMappingManager {
      * @param value 待转换对象
      * @return 转换结果
      */
-
     @MapstructByteArrayToHexString
     public static String byteArrayToHexString(Byte[] value) {
         return Hexes.toString(value);
@@ -117,7 +110,6 @@ public class MapstructMappingManager {
      * @param value 待转换对象
      * @return 转换结果
      */
-
     @MapstructLocalDateTimeToLong
     public static Long localDateTimeToLong(LocalDateTime value) {
         return Times.toLong(value);
@@ -129,7 +121,6 @@ public class MapstructMappingManager {
      * @param value 待转换对象
      * @return 转换结果
      */
-
     @MapstructLongToString
     public static String longToString(Long value) {
         return value.toString();
@@ -142,7 +133,6 @@ public class MapstructMappingManager {
      * @param <T>   待转换对象l类型
      * @return 转换结果
      */
-
     @MapstructNullListToEmptyArrayList
     public static <T> List<T> longToString(List<T> value) {
         if (Nil.isEmpty(value)) {

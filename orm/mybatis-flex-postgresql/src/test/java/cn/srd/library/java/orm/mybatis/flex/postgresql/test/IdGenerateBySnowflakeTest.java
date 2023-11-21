@@ -42,7 +42,7 @@ public class IdGenerateBySnowflakeTest {
 
     @Test
     public void testIt() {
-        studentTestIdSnowflakeDao.get();
+        studentTestIdSnowflakeDao.listAll();
         // studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().build());
         // studentTestIdSnowflakeDao.insertSelective(StudentTestIdSnowflakePO.builder().build());
 
