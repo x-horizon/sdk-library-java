@@ -15,8 +15,6 @@ import com.mybatisflex.core.query.QueryCondition;
 import com.mybatisflex.core.query.QueryWrapper;
 
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -29,49 +27,6 @@ import java.util.function.Consumer;
 @SuppressWarnings(SuppressWarningConstant.ALL)
 // public interface GenericCurdDao<T> {
 public interface GenericCurdDao<T> extends BaseMapper<T> {
-
-    // default Class<?> get() {
-    // Arrays.stream(((MapperProxy) ((Proxy) this).h).mapperInterface.getGenericInfo().getTree().getSuperInterfaces()).findFirst().orElseThrow().getPath().stream().findFirst().orElseThrow().getName()
-    // return getInterfaceT(this, 0);
-    // }
-
-    // default T update(T entity) {
-    //     UpdateChain.of()
-    // }
-
-    public static Class<?> getInterfaceT(Object o, int index) {
-        Type[] types = o.getClass().getGenericInterfaces();
-        ParameterizedType parameterizedType = (ParameterizedType) types[index];
-        Type type = parameterizedType.getActualTypeArguments()[index];
-        return checkType(type, index);
-    }
-
-    public static Class<?> getClassT(Object o, int index) {
-        Type type = o.getClass().getGenericSuperclass();
-        if (type instanceof ParameterizedType) {
-            ParameterizedType parameterizedType = (ParameterizedType) type;
-            Type actType = parameterizedType.getActualTypeArguments()[index];
-            return checkType(actType, index);
-        } else {
-            String className = type == null ? "null" : type.getClass().getName();
-            throw new IllegalArgumentException("Expected a Class, ParameterizedType"
-                    + ", but <" + type + "> is of type " + className);
-        }
-    }
-
-    private static Class<?> checkType(Type type, int index) {
-        if (type instanceof Class<?>) {
-            return (Class<?>) type;
-        } else if (type instanceof ParameterizedType) {
-            ParameterizedType pt = (ParameterizedType) type;
-            Type t = pt.getActualTypeArguments()[index];
-            return checkType(t, index);
-        } else {
-            String className = type == null ? "null" : type.getClass().getName();
-            throw new IllegalArgumentException("Expected a Class, ParameterizedType"
-                    + ", but <" + type + "> is of type " + className);
-        }
-    }
 
     /**
      * see {@link BaseMapper#insertSelective(Object)}
@@ -136,10 +91,6 @@ public interface GenericCurdDao<T> extends BaseMapper<T> {
         return BaseMapper.super.deleteBatchByIds(Collections.toList(ids), shardedSize);
     }
 
-    // default int deleteByCondition(QueryCondition whereConditions) {
-    //     return BaseMapper.super.deleteByCondition(whereConditions);
-    // }
-
     // =======================================================================================================================================================
     // ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇
     // marked all mybatis-flex base mapper funcations as deprecated, since mybatis-flex version 1.7.3, it is not recommended to use those following functions:
@@ -195,24 +146,6 @@ public interface GenericCurdDao<T> extends BaseMapper<T> {
     @Override
     @Deprecated
     default int delete(T entity) {
-        throw new UnsupportedException();
-    }
-
-    @Override
-    @Deprecated
-    default int deleteBatchByIds(List<? extends Serializable> ids, int size) {
-        throw new UnsupportedException();
-    }
-
-    @Override
-    @Deprecated
-    default int deleteByMap(Map<String, Object> whereConditions) {
-        throw new UnsupportedException();
-    }
-
-    @Override
-    @Deprecated
-    default int deleteByCondition(QueryCondition whereConditions) {
         throw new UnsupportedException();
     }
 
