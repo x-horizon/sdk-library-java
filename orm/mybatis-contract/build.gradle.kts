@@ -10,5 +10,5 @@ dependencies {
 
     api(GradleDependency.ORM_MYBATIS.withoutVersion)
     api(GradleDependency.TOOL_VALIDATION_HIBERNATE.withoutVersion)
-    implementation(GradleDependency.DOC_KNIFE4J.withoutVersion)
+    implementation(GradleDependency.DOC_XIAOYMIN_KNIFE4J_OPENAPI3_JAKARTA_SPRING_BOOT.withoutVersion)
 }

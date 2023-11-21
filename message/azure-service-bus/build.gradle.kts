@@ -5,5 +5,5 @@
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
 
-    api(GradleDependency.MESSAGE_AZURE_CLOUD_SERVICE_BUS.withoutVersion)
+    api(GradleDependency.MESSAGE_AZURE_SERVICE_BUS.withoutVersion)
 }

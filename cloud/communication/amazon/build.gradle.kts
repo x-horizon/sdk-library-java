@@ -5,6 +5,6 @@
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
 
-    api(GradleDependency.CLOUD_COMMUNICATION_AWAZON_AWS_JAVA_SDK_SQS.withoutVersion)
-    api(GradleDependency.CLOUD_COMMUNICATION_AWAZON_AWS_JAVA_SDK_SNS.withoutVersion)
+    api(GradleDependency.CLOUD_COMMUNICATION_AWAZON_SQS.withoutVersion)
+    api(GradleDependency.CLOUD_COMMUNICATION_AWAZON_SNS.withoutVersion)
 }

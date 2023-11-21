@@ -8,5 +8,5 @@ dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_VALIDATION_JAKARTA)))
 
     api(GradleDependency.FRAMEWORK_SPRING_BOOT.withoutVersion)
-    api(GradleDependency.AOP_SPRING_BOOT.withoutVersion)
+    api(GradleDependency.TOOL_AOP_SPRING_BOOT.withoutVersion)
 }

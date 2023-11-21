@@ -4,39 +4,37 @@
 
 enum class GradleDependency(val withoutVersion: String, val version: String) {
 
-    AOP_SPRING_BOOT("org.springframework.boot:spring-boot-starter-aop", ""),
-
     BOM_CLOUD_NATIVE_DOCKER("com.github.docker-java:docker-java-bom", "3.3.3"),
-    BOM_DOC_KNIFE4J("com.github.xiaoymin:knife4j-dependencies", "4.3.0"),
-    BOM_FRAMEWORK_AWAZON_AWS("com.amazonaws:aws-java-sdk-bom", "1.12.568"),
-    BOM_FRAMEWORK_AZURE_CLOUD("com.azure.spring:spring-cloud-azure-dependencies", "5.5.0"), // TODO wjm 到 spring-boot 版本 3.1.2，待更新
-    BOM_FRAMEWORK_GOOGLE_CLOUD("com.google.cloud:spring-cloud-gcp-dependencies", "4.8.0"),
+    BOM_DOC_XIAOYMIN_KNIFE4J("com.github.xiaoymin:knife4j-dependencies", "4.3.0"),
+    BOM_FRAMEWORK_AWAZON("com.amazonaws:aws-java-sdk-bom", "1.12.568"),
+    BOM_FRAMEWORK_AZURE_SPRING_CLOUD("com.azure.spring:spring-cloud-azure-dependencies", "5.5.0"), // TODO wjm 到 spring-boot 版本 3.1.2，待更新
+    BOM_FRAMEWORK_GOOGLE_GCP_SPRING_CLOUD("com.google.cloud:spring-cloud-gcp-dependencies", "4.8.0"),
     BOM_FRAMEWORK_SPRING("org.springframework:spring-framework-bom", "6.0.11"),
-    BOM_FRAMEWORK_SPRING_INTEGRATION("org.springframework.integration:spring-integration-bom", "6.1.2"),
     BOM_FRAMEWORK_SPRING_BOOT("org.springframework.boot:spring-boot-dependencies", "3.1.3"),
     BOM_FRAMEWORK_SPRING_CLOUD("org.springframework.cloud:spring-cloud-dependencies", "2022.0.4"),
+    BOM_FRAMEWORK_SPRING_INTEGRATION("org.springframework.integration:spring-integration-bom", "6.1.2"),
+    BOM_METRIC_DROPWIZARD("io.dropwizard.metrics:metrics-bom", "4.2.19"),
     BOM_METRIC_MICROMETER("io.micrometer:micrometer-bom", "1.11.5"),
-    BOM_METRIC_DROP_WIZARD("io.dropwizard.metrics:metrics-bom", "4.2.19"),
     BOM_ORM_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-dependencies", "1.7.3"),
     BOM_ORM_MYBATIS_PLUS("com.baomidou:mybatis-plus-bom", "3.5.4"),
-    BOM_SECURITY_SA_TOKEN("cn.dev33:sa-token-bom", "1.37.0"),
-    BOM_TOOL_CONTENT_ANALYSIS_APACHE_TIKA("org.apache.tika:tika-bom", "2.9.1"),
-    BOM_TOOL_SERIALIZATION_JACKSON("com.fasterxml.jackson:jackson-bom", "2.15.2"),
-    BOM_TOOL_SERIALIZATION_PROTOBUF_GOOGLE("com.google.protobuf:protobuf-bom", "3.24.3"),
-    BOM_TOOL_SERIALIZATION_PROTOBUF_SQUAREUP_WIRE("com.squareup.wire:wire-bom", "4.9.1"),
-    BOM_TEST_CONTAINER("org.testcontainers:testcontainers-bom", "1.19.1"),
+    BOM_SECURITY_DEV33_SA_TOKEN("cn.dev33:sa-token-bom", "1.37.0"),
     BOM_TEST_MOCKITO("org.mockito:mockito-bom", "5.3.1"),
-    BOM_WEB_IO_NETTY("io.netty:netty-bom", "4.1.100.Final"),
-    BOM_WEB_IO_REACTOR("io.projectreactor:reactor-bom", "2022.0.10"),
-    BOM_WEB_OPEN_FEIGN("io.github.openfeign:feign-bom", "12.4"),
+    BOM_TEST_TESTCONTAINERS("org.testcontainers:testcontainers-bom", "1.19.1"),
+    BOM_TOOL_FILE_ANALYSIS_APACHE_TIKA("org.apache.tika:tika-bom", "2.9.1"),
+    BOM_TOOL_SERIALIZATION_FASTERXML_JACKSON("com.fasterxml.jackson:jackson-bom", "2.15.2"),
+    BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF("com.google.protobuf:protobuf-bom", "3.24.3"),
+    BOM_TOOL_SERIALIZATION_SQUAREUP_WIRE("com.squareup.wire:wire-bom", "4.9.1"),
+    BOM_WEB_FEIGN("io.github.openfeign:feign-bom", "12.4"),
+    BOM_WEB_NETTY("io.netty:netty-bom", "4.1.100.Final"),
+    BOM_WEB_REACTOR("io.projectreactor:reactor-bom", "2022.0.10"),
 
     CACHE_CAFFEINE("com.github.ben-manes.caffeine:caffeine", "3.1.8"),
     CACHE_LETTUCE("io.lettuce:lettuce-core", "6.2.6.RELEASE"),
     CACHE_REDISSON("org.redisson:redisson-spring-boot-starter", "3.23.5"),
 
     CLOUD_COMMUNICATION_JAKARTA_MAIL("com.sun.mail:jakarta.mail", "2.0.1"),
-    CLOUD_COMMUNICATION_AWAZON_AWS_JAVA_SDK_SQS("com.amazonaws:aws-java-sdk-sqs", ""),
-    CLOUD_COMMUNICATION_AWAZON_AWS_JAVA_SDK_SNS("com.amazonaws:aws-java-sdk-sns", ""),
+    CLOUD_COMMUNICATION_AWAZON_SQS("com.amazonaws:aws-java-sdk-sqs", ""),
+    CLOUD_COMMUNICATION_AWAZON_SNS("com.amazonaws:aws-java-sdk-sns", ""),
     CLOUD_COMMUNICATION_DROMARA_SMS("org.dromara.sms4j:sms4j-spring-boot-starter", "3.0.3"),
     CLOUD_COMMUNICATION_TWILIO("com.twilio.sdk:twilio", "9.13.1"),
     CLOUD_NATIVE_DOCKER_CORE("com.github.docker-java:docker-java-core", ""),
@@ -49,7 +47,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     DATA_MYSQL("com.mysql:mysql-connector-j", "8.1.0"),
     DATA_POSTGRESQL("org.postgresql:postgresql", "42.6.0"),
 
-    DOC_KNIFE4J("com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter", ""),
+    DOC_XIAOYMIN_KNIFE4J_OPENAPI3_JAKARTA_SPRING_BOOT("com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter", ""),
 
     FRAMEWORK_SPRING_BOOT("org.springframework.boot:spring-boot-starter", ""),
     FRAMEWORK_SPRING_BOOT_WEBMVC("org.springframework.boot:spring-boot-starter-web", ""),
@@ -59,8 +57,8 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     LOG_SPRING_BOOT("org.springframework.boot:spring-boot-starter-logging", ""),
 
-    MESSAGE_AZURE_CLOUD_SERVICE_BUS("com.azure.spring:spring-cloud-azure-stream-binder-servicebus", ""),
-    MESSAGE_COAP_CALIFORNIUM("org.eclipse.californium:californium-core", "3.9.1"),
+    MESSAGE_AZURE_SERVICE_BUS("com.azure.spring:spring-cloud-azure-stream-binder-servicebus", ""),
+    MESSAGE_CALIFORNIUM_COAP("org.eclipse.californium:californium-core", "3.9.1"),
     MESSAGE_GOOGLE_CLOUD_PUBSUB("com.google.cloud:spring-cloud-gcp-starter-pubsub", ""), // TODO wjm 需移除该依赖，并替换为 spring cloud stream
     MESSAGE_SPRING_INTEGRATION_MQTT("org.springframework.integration:spring-integration-mqtt", ""),
     MESSAGE_SPRING_CLOUD_STREAM("org.springframework.cloud:spring-cloud-stream", ""),
@@ -69,9 +67,9 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     MESSAGE_ROCKETMQ("org.apache.rocketmq:rocketmq-spring-boot-starter", "2.2.3"),
 
     METRIC_BIT_WALKER_USER_AGENT("eu.bitwalker:UserAgentUtils", "1.21"),
-    METRIC_DROP_WIZARD_CORE("io.dropwizard.metrics:metrics-core", ""),
-    METRIC_DROP_WIZARD_JMX("io.dropwizard.metrics:metrics-jmx", ""),
-    METRIC_DROP_WIZARD_JVM("io.dropwizard.metrics:metrics-jvm", ""),
+    METRIC_DROPWIZARD_CORE("io.dropwizard.metrics:metrics-core", ""),
+    METRIC_DROPWIZARD_JMX("io.dropwizard.metrics:metrics-jmx", ""),
+    METRIC_DROPWIZARD_JVM("io.dropwizard.metrics:metrics-jvm", ""),
     METRIC_MICROMETER_PROMETHEUS("io.micrometer:micrometer-registry-prometheus", ""),//    METRIC_MICROMETER_CORE("io.micrometer:micrometer-core", ""),
     METRIC_OSHI_CORE("com.github.oshi:oshi-core", "6.4.6"),
     METRIC_SPRING_BOOT_ACTUATOR("org.springframework.boot:spring-boot-starter-actuator", ""),
@@ -120,16 +118,18 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     TOOL_ALIBABA_EASY_EXCEL("com.alibaba:easyexcel", "3.3.2"),
     TOOL_ALIBABA_TRANSMITTABLE_THREAD_LOCAL("com.alibaba:transmittable-thread-local", "2.14.3"),
-    TOOL_BURNING_WAVE_CORE("org.burningwave:core", "12.63.1"), // TODO wjm warning: commons-parent-28.pom:1:44: 前言中不允许有内容。
-    TOOL_CONTENT_ANALYSIS_APACHE_TIKA_CORE("org.apache.tika:tika-core", ""),
-    TOOL_CONTENT_ANALYSIS_APACHE_TIKA_PARSER("org.apache.tika:tika-parsers", BOM_TOOL_CONTENT_ANALYSIS_APACHE_TIKA.version),
+    TOOL_AOP_SPRING_BOOT("org.springframework.boot:spring-boot-starter-aop", ""),
     TOOL_EXEC("org.zeroturnaround:zt-exec", "1.12"),
+    TOOL_FILE_ANALYSIS_APACHE_TIKA_CORE("org.apache.tika:tika-core", ""),
+    TOOL_FILE_ANALYSIS_APACHE_TIKA_PARSER("org.apache.tika:tika-parsers", BOM_TOOL_FILE_ANALYSIS_APACHE_TIKA.version),
     TOOL_FREEMARKER("org.freemarker:freemarker", "2.3.32"),
+    TOOL_GENERATE_SQUAREUP_JAVAAPOET("com.squareup:javapoet", "1.13.0"),
     TOOL_GEOMETRY_LOCATION_TECH_JTS("org.locationtech.jts:jts-core", "1.19.0"),
     TOOL_GEOMETRY_LOCATION_TECH_SPATIAL4J("org.locationtech.spatial4j:spatial4j", "0.8"),
     TOOL_GOOGLE_GUAVA("com.google.guava:guava", "32.1.3-jre"),
     TOOL_HUTOOL("cn.hutool:hutool-all", "5.8.22"),
     TOOL_IO_VAVR("io.vavr:vavr", "0.10.4"),
+    TOOL_JDK_BURNING_WAVE_CORE("org.burningwave:core", "12.63.1"), // TODO wjm warning: commons-parent-28.pom:1:44: 前言中不允许有内容。
     TOOL_JNA_VERSION("", "5.13.0"),
     TOOL_JNA("net.java.dev.jna:jna", TOOL_JNA_VERSION.version),
     TOOL_JNA_JPMS("net.java.dev.jna:jna-jpms", TOOL_JNA_VERSION.version),
@@ -152,10 +152,10 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_VALIDATION_JAKARTA("jakarta.validation:jakarta.validation-api", "3.0.2"),
     TOOL_VALIDATION_JSON_SCHEMA("com.github.java-json-tools:json-schema-validator", "2.2.14"),
     TOOL_VALIDATION_SPRING_BOOT("org.springframework.boot:spring-boot-starter-validation", ""),
+    TOOL_VJTOOL("com.vip.vjtools:vjkit", "1.0.8"),
     TOOL_XML_DOM4J("org.dom4j:dom4j", "2.1.4"),
     TOOL_XML_JACKSON("com.fasterxml.jackson.dataformat:jackson-dataformat-xml", ""),
     TOOL_XML_JAVAX_JAXB_API("javax.xml.bind:jaxb-api", "2.3.1"),
-    TOOL_VJTOOL("com.vip.vjtools:vjkit", "1.0.8"),
     TOOL_YITTER_SNOWFLAKE_ID("com.github.yitter:yitter-idgenerator", "1.0.6"),
 
     TEST_CASSANDRA_UNIT("org.cassandraunit:cassandra-unit", "4.3.1.0"),

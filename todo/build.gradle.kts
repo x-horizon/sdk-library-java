@@ -3,5 +3,5 @@
 // license that can be found in the LICENSE file.
 
 dependencies {
-    api(GradleDependency.MESSAGE_COAP_CALIFORNIUM.withoutVersion)
+    api(GradleDependency.MESSAGE_CALIFORNIUM_COAP.withoutVersion)
 }
