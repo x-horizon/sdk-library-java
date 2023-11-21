@@ -14,6 +14,8 @@ import cn.srd.library.java.tool.lang.text.Strings;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.core.MethodParameter;
@@ -36,6 +38,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static cn.srd.library.java.contract.model.protocol.WebResponse.error;
@@ -53,7 +56,10 @@ import static cn.srd.library.java.contract.model.protocol.WebResponse.success;
 public class WebMVCResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
-    public boolean supports(@NonNull MethodParameter methodParameter, @NonNull Class converterType) {
+    public boolean supports(@NonNull MethodParameter methodParameter, @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
+        if (UnsupportedAdvice.get().stream().anyMatch(unsupportedType -> Comparators.equals(unsupportedType, methodParameter.getParameterType()))) {
+            return false;
+        }
         return Comparators.notEquals(converterType, StringHttpMessageConverter.class);
     }
 
@@ -226,6 +232,21 @@ public class WebMVCResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     public WebResponse<Void> handleThrowable(HttpServletRequest httpServletRequest, Throwable exception) {
         log.error("请求资源地址：'{}'，错误信息：", httpServletRequest.getRequestURI(), exception);
         return error(HttpStatus.INTERNAL_ERROR);
+    }
+
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public static class UnsupportedAdvice {
+
+        private static final Set<Class<?>> UNSUPPORTED_TYPES = Collections.newConcurrentHashSet();
+
+        public static Set<Class<?>> get() {
+            return UNSUPPORTED_TYPES;
+        }
+
+        public static void register(Class<?>... unsupportedTypes) {
+            UNSUPPORTED_TYPES.addAll(Collections.ofHashSet(unsupportedTypes));
+        }
+
     }
 
 }
