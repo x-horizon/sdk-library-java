@@ -4,8 +4,12 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.dao;
 
+import cn.srd.library.java.contract.constant.page.PageConstant;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.UnsupportedException;
+import cn.srd.library.java.orm.mybatis.contract.base.model.PageParam;
+import cn.srd.library.java.orm.mybatis.contract.base.model.PageResult;
+import cn.srd.library.java.orm.mybatis.flex.base.converter.PageConverter;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.mybatisflex.core.BaseMapper;
@@ -13,19 +17,22 @@ import com.mybatisflex.core.field.FieldQueryBuilder;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryCondition;
 import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.core.row.Row;
+import org.apache.ibatis.cursor.Cursor;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
  * @author wjm
  * @since 2023-11-04 00:19
  */
+@CanIgnoreReturnValue
 @SuppressWarnings(SuppressWarningConstant.ALL)
-// public interface GenericCurdDao<T> {
 public interface GenericCurdDao<T> extends BaseMapper<T> {
 
     /**
@@ -45,7 +52,7 @@ public interface GenericCurdDao<T> extends BaseMapper<T> {
      * @param entity
      * @return
      */
-    default T saveWithPrimaryKey(T entity) {
+    default T saveWithPK(T entity) {
         BaseMapper.super.insertSelectiveWithPk(entity);
         return entity;
     }
@@ -76,24 +83,77 @@ public interface GenericCurdDao<T> extends BaseMapper<T> {
         return entities;
     }
 
-    @CanIgnoreReturnValue
+    default int deleteById(T entity) {
+        return BaseMapper.super.delete(entity);
+    }
+
     default int deleteBatchByIds(Iterable<? extends Serializable> ids) {
         return deleteBatchByIds(Collections.toList(ids));
     }
 
-    @CanIgnoreReturnValue
     default int deleteBatchByIds(Iterable<? extends Serializable> ids, int shardedSize) {
         return BaseMapper.super.deleteBatchByIds(Collections.toList(ids), shardedSize);
     }
 
-    @CanIgnoreReturnValue
     default int deleteBatchByIds(Collection<? extends Serializable> ids, int shardedSize) {
         return BaseMapper.super.deleteBatchByIds(Collections.toList(ids), shardedSize);
     }
 
+    default int updateById(T entity) {
+        return BaseMapper.super.update(entity);
+    }
+
+    default int updateByCondition(T entity, QueryWrapper queryWrapper) {
+        return BaseMapper.super.updateByQuery(entity, queryWrapper);
+    }
+
+    default Optional<T> getById(T entity) {
+        return Optional.ofNullable(BaseMapper.super.selectOneByEntityId(entity));
+    }
+
+    default Optional<T> getById(Serializable id) {
+        return Optional.ofNullable(selectOneById(id));
+    }
+
+    default Optional<T> getByCondition(QueryWrapper queryWrapper) {
+        return Optional.ofNullable(BaseMapper.super.selectOneByQuery(queryWrapper));
+    }
+
+    default List<T> listByIds(Iterable<? extends Serializable> ids) {
+        return selectListByIds(Collections.toList(ids));
+    }
+
+    default List<T> listByCondition(QueryWrapper queryWrapper) {
+        return selectListByQuery(queryWrapper);
+    }
+
+    default List<T> listAll() {
+        return listByCondition(QueryWrapper.create());
+    }
+
+    default long countByCondition(QueryWrapper queryWrapper) {
+        return BaseMapper.super.selectCountByQuery(queryWrapper);
+    }
+
+    default long countAll() {
+        return countByCondition(QueryWrapper.create());
+    }
+
+    default PageResult<T> pageByCondition(QueryWrapper queryWrapper) {
+        return pageByCondition(PageConstant.DEFAULT_PAGE_INDEX, PageConstant.DEFAULT_PAGE_SIZE, queryWrapper);
+    }
+
+    default PageResult<T> pageByCondition(PageParam pageParam, QueryWrapper queryWrapper) {
+        return pageByCondition(pageParam.getPageIndex(), pageParam.getPageSize(), queryWrapper);
+    }
+
+    default PageResult<T> pageByCondition(Number pageIndex, Number pageSize, QueryWrapper queryWrapper) {
+        return PageConverter.INSTANCE.toPageResult(BaseMapper.super.paginate(pageIndex, pageSize, queryWrapper));
+    }
+
     // =======================================================================================================================================================
     // ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇
-    // marked all mybatis-flex base mapper funcations as deprecated, since mybatis-flex version 1.7.3, it is not recommended to use those following functions:
+    // marked most mybatis-flex base mapper funcations as deprecated, since mybatis-flex version 1.7.3, it is not recommended to use as following:
 
     @Override
     @Deprecated
@@ -180,9 +240,8 @@ public interface GenericCurdDao<T> extends BaseMapper<T> {
     }
 
     @Override
-    @Deprecated
     default int updateByQuery(T entity, QueryWrapper queryWrapper) {
-        throw new UnsupportedException();
+        return BaseMapper.super.updateByQuery(entity, queryWrapper);
     }
 
     @Override
@@ -280,6 +339,12 @@ public interface GenericCurdDao<T> extends BaseMapper<T> {
     default List<T> selectListByQuery(QueryWrapper queryWrapper, Consumer<FieldQueryBuilder<T>>... consumers) {
         throw new UnsupportedException();
     }
+
+    @Override
+    Cursor<T> selectCursorByQuery(QueryWrapper queryWrapper);
+
+    @Override
+    List<Row> selectRowsByQuery(QueryWrapper queryWrapper);
 
     @Override
     @Deprecated

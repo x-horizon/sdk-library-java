@@ -4,9 +4,10 @@
 
 package cn.srd.library.java.orm.mybatis.contract.base.model;
 
+import cn.srd.library.java.contract.constant.page.PageConstant;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -32,13 +33,13 @@ public class PageParam implements Serializable {
     @Serial private static final long serialVersionUID = -2956893884714618641L;
 
     @Schema(description = "page number", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
-    @NotNull(message = "page number is required")
     @Min(value = 1, message = "the minimum page number is 1")
-    private Integer pageIndex;
+    @Builder.Default
+    private Integer pageIndex = PageConstant.DEFAULT_PAGE_INDEX;
 
     @Schema(description = "record number per page", requiredMode = Schema.RequiredMode.REQUIRED, example = "10")
-    @NotNull(message = "record number per page is required")
     @Range(min = 1, max = 100, message = "the range of record number per page is [1, 100]")
-    private Integer pageSize;
+    @Builder.Default
+    private Integer pageSize = PageConstant.DEFAULT_PAGE_SIZE;
 
 }
