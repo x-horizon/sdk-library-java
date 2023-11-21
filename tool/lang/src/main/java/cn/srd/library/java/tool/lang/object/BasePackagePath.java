@@ -24,7 +24,7 @@ import java.util.Set;
 public class BasePackagePath {
 
     // TODO wjm the concurrent safe read and write does not valid because of the write is replace instead of write on the CopyOnWriteArraySet, see #optimize()
-    private static Set<String> basePackagePaths = Collections.newCopyOnWriteArraySet();
+    private static Set<String> basePackagePaths = Collections.newConcurrentHashSet();
 
     public static Set<String> register(String... specifiedBasePackagePaths) {
         return register(Collections.ofArrayList(specifiedBasePackagePaths));

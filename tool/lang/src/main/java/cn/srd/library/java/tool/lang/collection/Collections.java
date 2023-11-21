@@ -5,6 +5,7 @@
 package cn.srd.library.java.tool.lang.collection;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.core.collection.IterUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ArrayUtil;
@@ -120,7 +121,7 @@ public class Collections {
      * @return a specified init capacity hash set
      */
     public static <T> Set<T> newHashSet(int initCapacity) {
-        return new HashSet<>(initCapacity);
+        return HashSet.newHashSet(initCapacity);
     }
 
     /**
@@ -141,7 +142,7 @@ public class Collections {
      * @return a specified init capacity linked hash set
      */
     public static <T> Set<T> newLinkedHashSet(int initCapacity) {
-        return new LinkedHashSet<>(initCapacity);
+        return LinkedHashSet.newLinkedHashSet(initCapacity);
     }
 
     /**
@@ -152,6 +153,27 @@ public class Collections {
      */
     public static <T> Set<T> newCopyOnWriteArraySet() {
         return new CopyOnWriteArraySet<>();
+    }
+
+    /**
+     * create an empty concurrent hash set
+     *
+     * @param <T> the output type
+     * @return an empty concurrent hash set
+     */
+    public static <T> Set<T> newConcurrentHashSet() {
+        return new ConcurrentHashSet<>(CollectionConstant.DEFAULT_MAP_INITIAL_CAPACITY);
+    }
+
+    /**
+     * create a specified init capacity concurrent hash set
+     *
+     * @param initCapacity the specified capacity
+     * @param <T>          the output type
+     * @return a specified init capacity concurrent hash set
+     */
+    public static <T> Set<T> newConcurrentHashSet(int initCapacity) {
+        return new ConcurrentHashSet<>(initCapacity);
     }
 
     /**
@@ -184,7 +206,7 @@ public class Collections {
      * @return a specified init capacity hash map
      */
     public static <K, V> Map<K, V> newHashMap(int initCapacity) {
-        return new HashMap<>(initCapacity);
+        return HashMap.newHashMap(initCapacity);
     }
 
     /**
