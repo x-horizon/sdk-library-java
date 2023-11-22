@@ -338,6 +338,25 @@ public class CharacterSequences extends Characters {
     }
 
     /**
+     * <pre>
+     * convert multiple Nil to strings using {@link SymbolConstant#LF} as a separator.
+     *
+     * example:
+     *   the inputs are:       ["1", "2", "345"]
+     *   after join:           "1
+     *                          2
+     *                          345"
+     * </pre>
+     *
+     * @param inputs the input elements
+     * @param <T>    the input element type
+     * @return after join
+     */
+    public static <T> String joinWithLF(Iterable<T> inputs) {
+        return join(inputs, SymbolConstant.LF);
+    }
+
+    /**
      * see {@link CharSequenceUtil#split(CharSequence, CharSequence)}
      *
      * @param input     the input element
