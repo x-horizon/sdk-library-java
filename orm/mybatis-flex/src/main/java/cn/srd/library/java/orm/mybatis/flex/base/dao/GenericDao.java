@@ -5,6 +5,7 @@
 package cn.srd.library.java.orm.mybatis.flex.base.dao;
 
 /**
+ * @param <T>
  * @author wjm
  * @since 2023-11-04 00:19
  */

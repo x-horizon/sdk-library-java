@@ -28,6 +28,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
+ * @param <T>
  * @author wjm
  * @since 2023-11-04 00:19
  */
