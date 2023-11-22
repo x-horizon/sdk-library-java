@@ -47,7 +47,7 @@ public class Collections {
      * @return an empty array
      */
     public static <T> T[] newArray(Class<T> arrayType) {
-        return newArray(arrayType, CollectionConstant.EMPTY_CAPACITY);
+        return newArray(arrayType, CollectionConstant.CAPACITY_EMPTY);
     }
 
     /**
@@ -162,7 +162,7 @@ public class Collections {
      * @return an empty concurrent hash set
      */
     public static <T> Set<T> newConcurrentHashSet() {
-        return new ConcurrentHashSet<>(CollectionConstant.DEFAULT_MAP_INITIAL_CAPACITY);
+        return new ConcurrentHashSet<>(CollectionConstant.CAPACITY_DEFAULT_INITIALIZE_MAP);
     }
 
     /**
@@ -187,14 +187,14 @@ public class Collections {
     }
 
     /**
-     * create a {@link CollectionConstant#DEFAULT_MAP_INITIAL_CAPACITY default capacity} hash map
+     * create a {@link CollectionConstant#CAPACITY_DEFAULT_INITIALIZE_MAP default capacity} hash map
      *
      * @param <K> the key type of map
      * @param <V> the value type of map
-     * @return a {@link CollectionConstant#DEFAULT_MAP_INITIAL_CAPACITY default capacity} hash map
+     * @return a {@link CollectionConstant#CAPACITY_DEFAULT_INITIALIZE_MAP default capacity} hash map
      */
     public static <K, V> Map<K, V> newHashMap() {
-        return newHashMap(CollectionConstant.DEFAULT_MAP_INITIAL_CAPACITY);
+        return newHashMap(CollectionConstant.CAPACITY_DEFAULT_INITIALIZE_MAP);
     }
 
     /**
@@ -210,14 +210,14 @@ public class Collections {
     }
 
     /**
-     * create a {@link CollectionConstant#DEFAULT_MAP_INITIAL_CAPACITY default capacity} concurrent hash map
+     * create a {@link CollectionConstant#CAPACITY_DEFAULT_INITIALIZE_MAP default capacity} concurrent hash map
      *
      * @param <K> the key type of map
      * @param <V> the value type of map
-     * @return a {@link CollectionConstant#DEFAULT_MAP_INITIAL_CAPACITY default capacity} concurrent hash map
+     * @return a {@link CollectionConstant#CAPACITY_DEFAULT_INITIALIZE_MAP default capacity} concurrent hash map
      */
     public static <K, V> ConcurrentMap<K, V> newConcurrentHashMap() {
-        return newConcurrentHashMap(CollectionConstant.DEFAULT_MAP_INITIAL_CAPACITY);
+        return newConcurrentHashMap(CollectionConstant.CAPACITY_DEFAULT_INITIALIZE_MAP);
     }
 
     /**
@@ -715,7 +715,7 @@ public class Collections {
      * @return an unknown size stream of collection
      */
     public static <T> Stream<T> ofUnknownSizeStream(Iterator<T> inputs) {
-        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(inputs, Spliterator.ORDERED), CollectionConstant.DEFAULT_ENABLE_STREAM_PARALLEL);
+        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(inputs, Spliterator.ORDERED), CollectionConstant.DEFAULT_ENABLE_PARALLEL_STREAM);
     }
 
     /**
@@ -726,7 +726,7 @@ public class Collections {
      * @return an unknown size stream of collection
      */
     public static <T> Stream<T> ofUnknownSizeStream(Iterable<T> inputs) {
-        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(inputs.iterator(), Spliterator.ORDERED), CollectionConstant.DEFAULT_ENABLE_STREAM_PARALLEL);
+        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(inputs.iterator(), Spliterator.ORDERED), CollectionConstant.DEFAULT_ENABLE_PARALLEL_STREAM);
     }
 
     /**
@@ -1091,7 +1091,7 @@ public class Collections {
      * @return the first element
      */
     public static <T> Optional<T> getFirst(Iterable<T> inputs) {
-        return getByIndex(inputs, CollectionConstant.FIRST_INDEX);
+        return getByIndex(inputs, CollectionConstant.INDEX_FIRST);
     }
 
     /**
@@ -1102,7 +1102,7 @@ public class Collections {
      * @return the second element
      */
     public static <T> Optional<T> getSecond(Iterable<T> inputs) {
-        return getByIndex(inputs, CollectionConstant.SECOND_INDEX);
+        return getByIndex(inputs, CollectionConstant.INDEX_SECOND);
     }
 
     /**
@@ -1113,7 +1113,7 @@ public class Collections {
      * @return the third element
      */
     public static <T> Optional<T> getThird(Iterable<T> inputs) {
-        return getByIndex(inputs, CollectionConstant.THIRD_INDEX);
+        return getByIndex(inputs, CollectionConstant.INDEX_THIRD);
     }
 
     /**
@@ -1726,7 +1726,7 @@ public class Collections {
     public static <T, N1 extends Iterable<T>, N2 extends Iterable<N1>, N3 extends Iterable<N2>> List<T> flattenNest3(Iterable<N3> inputs) {
         return Action.<List<T>>ifEmpty(inputs)
                 .then(Collections::newArrayList)
-                .otherwise(() -> StreamSupport.stream(inputs.spliterator(), CollectionConstant.DEFAULT_ENABLE_STREAM_PARALLEL)
+                .otherwise(() -> StreamSupport.stream(inputs.spliterator(), CollectionConstant.DEFAULT_ENABLE_PARALLEL_STREAM)
                         .flatMap(Collections::ofUnknownSizeStream)
                         .flatMap(Collections::ofUnknownSizeStream)
                         .flatMap(Collections::ofUnknownSizeStream)
@@ -1757,7 +1757,7 @@ public class Collections {
      */
     public static <T> T[] toArray(Iterable<T> inputs, IntFunction<T[]> outputConstructAction) {
         return Action.<T[]>ifEmpty(inputs)
-                .then(() -> outputConstructAction.apply(CollectionConstant.EMPTY_CAPACITY))
+                .then(() -> outputConstructAction.apply(CollectionConstant.CAPACITY_EMPTY))
                 .otherwise(() -> ofUnknownSizeStream(inputs).toArray(outputConstructAction))
                 .get();
     }

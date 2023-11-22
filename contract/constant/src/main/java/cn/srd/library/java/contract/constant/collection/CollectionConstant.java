@@ -29,32 +29,32 @@ public class CollectionConstant {
     /**
      * the first index: {@code 0}
      */
-    public static final int FIRST_INDEX = 0;
+    public static final int INDEX_FIRST = 0;
 
     /**
      * the second index: {@code 1}
      */
-    public static final int SECOND_INDEX = 1;
+    public static final int INDEX_SECOND = 1;
 
     /**
      * the third index: {@code 2}
      */
-    public static final int THIRD_INDEX = 2;
+    public static final int INDEX_THIRD = 2;
 
     /**
      * not found index: {@code -1}
      */
-    public static final int NOT_FOUND_INDEX = -1;
+    public static final int INDEX_NOT_FOUND = -1;
 
     /**
      * the empty capacity: {@code 0}
      */
-    public static final int EMPTY_CAPACITY = 0;
+    public static final int CAPACITY_EMPTY = 0;
 
     /**
      * default map initial capacity: {@code 16}
      */
-    public static final int DEFAULT_MAP_INITIAL_CAPACITY = 16;
+    public static final int CAPACITY_DEFAULT_INITIALIZE_MAP = 16;
 
     /**
      * define an empty array string: {@code "[]"}
@@ -67,8 +67,8 @@ public class CollectionConstant {
     public static final String EMPTY_MAP_STRING = "{}";
 
     /**
-     * default enable stream parallel
+     * default enable parallel stream
      */
-    public static final boolean DEFAULT_ENABLE_STREAM_PARALLEL = false;
+    public static final boolean DEFAULT_ENABLE_PARALLEL_STREAM = false;
 
 }
