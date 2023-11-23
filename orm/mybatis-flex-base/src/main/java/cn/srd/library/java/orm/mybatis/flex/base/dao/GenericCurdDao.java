@@ -7,6 +7,8 @@ package cn.srd.library.java.orm.mybatis.flex.base.dao;
 import cn.srd.library.java.contract.constant.page.PageConstant;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.UnsupportedException;
+import cn.srd.library.java.orm.contract.model.base.BO;
+import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.page.PageParam;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.orm.mybatis.flex.base.converter.PageConverter;
@@ -34,7 +36,7 @@ import java.util.function.Consumer;
  */
 @CanIgnoreReturnValue
 @SuppressWarnings(SuppressWarningConstant.ALL)
-public interface GenericCurdDao<T> extends BaseMapper<T> {
+public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
 
     /**
      * see {@link BaseMapper#insertSelective(Object)}
@@ -128,6 +130,10 @@ public interface GenericCurdDao<T> extends BaseMapper<T> {
         return selectListByQuery(queryWrapper);
     }
 
+    default <R extends BO> List<R> listByCondition(QueryWrapper queryWrapper, Class<R> asType) {
+        return BaseMapper.super.selectListByQueryAs(queryWrapper, asType);
+    }
+
     default List<T> listAll() {
         return listByCondition(QueryWrapper.create());
     }
@@ -142,6 +148,14 @@ public interface GenericCurdDao<T> extends BaseMapper<T> {
 
     default PageResult<T> pageByCondition(Number pageIndex, Number pageSize, QueryWrapper queryWrapper) {
         return PageConverter.INSTANCE.toPageResult(BaseMapper.super.paginate(pageIndex, pageSize, queryWrapper));
+    }
+
+    default <R extends BO> PageResult<R> pageByCondition(PageParam pageParam, QueryWrapper queryWrapper, Class<R> asType) {
+        return pageByCondition(pageParam.getPageIndex(), pageParam.getPageSize(), queryWrapper, asType);
+    }
+
+    default <R extends BO> PageResult<R> pageByCondition(Number pageIndex, Number pageSize, QueryWrapper queryWrapper, Class<R> asType) {
+        return PageConverter.INSTANCE.toPageResult(BaseMapper.super.paginateAs(pageIndex, pageSize, queryWrapper, asType));
     }
 
     default long countByCondition(QueryWrapper queryWrapper) {

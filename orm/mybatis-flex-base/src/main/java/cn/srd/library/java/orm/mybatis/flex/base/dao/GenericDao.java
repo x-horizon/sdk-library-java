@@ -4,11 +4,13 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.dao;
 
+import cn.srd.library.java.orm.contract.model.base.PO;
+
 /**
  * @param <T>
  * @author wjm
  * @since 2023-11-04 00:19
  */
-public interface GenericDao<T> extends GenericCurdDao<T> {
+public interface GenericDao<T extends PO> extends GenericCurdDao<T> {
 
 }
