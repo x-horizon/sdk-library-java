@@ -774,7 +774,7 @@ public class Nil {
     }
 
     public static boolean isZeroValue(Number input) {
-        return Comparators.equals(NumberConstant.ZERO_NUMBER_VALUE, input);
+        return Nil.isNull(input) || Comparators.equals(NumberConstant.ZERO_NUMBER_VALUE, input);
     }
 
     public static boolean isZeroValue(CharSequence input) {

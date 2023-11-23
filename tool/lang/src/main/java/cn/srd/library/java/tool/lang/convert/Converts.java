@@ -67,12 +67,22 @@ public class Converts {
     }
 
     /**
+     * convert long to integer
+     *
+     * @param input the input element
+     * @return after convert
+     */
+    public static Integer toInteger(Long input) {
+        return Math.toIntExact(input);
+    }
+
+    /**
      * convert an object to integer
      *
      * @param input the input element
      * @return after convert
      */
-    public static Number toInteger(Object input) {
+    public static Integer toInteger(Object input) {
         return Convert.toInt(input);
     }
 
