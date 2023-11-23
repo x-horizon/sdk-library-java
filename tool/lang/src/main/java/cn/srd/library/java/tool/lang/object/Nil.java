@@ -5,7 +5,9 @@
 package cn.srd.library.java.tool.lang.object;
 
 import cn.hutool.core.text.CharSequenceUtil;
+import cn.srd.library.java.contract.constant.number.NumberConstant;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.tool.lang.compare.Comparators;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -769,6 +771,22 @@ public class Nil {
      */
     public static boolean isAllNotBlank(CharSequence... inputs) {
         return !isAnyBlank(inputs);
+    }
+
+    public static boolean isZeroValue(Number input) {
+        return Comparators.equals(NumberConstant.ZERO_NUMBER_VALUE, input);
+    }
+
+    public static boolean isZeroValue(CharSequence input) {
+        return isEmpty(input);
+    }
+
+    public static boolean isNotZeroValue(Number input) {
+        return !isZeroValue(input);
+    }
+
+    public static boolean isNotZeroValue(CharSequence input) {
+        return !isZeroValue(input);
     }
 
 }

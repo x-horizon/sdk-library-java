@@ -220,7 +220,7 @@ public class Numbers {
      * @return number after half adjust with 0 scale
      */
     public static BigDecimal roundWithScale0ToBigDecimal(double input) {
-        return NumberUtil.round(input, NumberConstant.ZERO_SCALE);
+        return NumberUtil.round(input, NumberConstant.ZERO_INT_SCALE);
     }
 
     /**
@@ -276,7 +276,7 @@ public class Numbers {
      * @return number after half adjust with 0 scale
      */
     public static BigDecimal addRoundWithScale0ToBigDecimal(double input1, double input2) {
-        return NumberUtil.add(Double.toString(input1), Double.toString(input2)).setScale(NumberConstant.ZERO_SCALE, RoundingMode.HALF_UP);
+        return NumberUtil.add(Double.toString(input1), Double.toString(input2)).setScale(NumberConstant.ZERO_INT_SCALE, RoundingMode.HALF_UP);
     }
 
     /**
@@ -326,7 +326,7 @@ public class Numbers {
      * @return number after half adjust with 0 scale
      */
     public static BigDecimal subRoundWithScale0ToBigDecimal(double input1, double input2) {
-        return NumberUtil.sub(Double.toString(input1), Double.toString(input2)).setScale(NumberConstant.ZERO_SCALE, RoundingMode.HALF_UP);
+        return NumberUtil.sub(Double.toString(input1), Double.toString(input2)).setScale(NumberConstant.ZERO_INT_SCALE, RoundingMode.HALF_UP);
     }
 
     /**
@@ -377,7 +377,7 @@ public class Numbers {
      * @return number after half adjust with 0 scale
      */
     public static BigDecimal mulRoundWithScale0ToBigDecimal(float input1, double input2) {
-        return NumberUtil.mul(Float.toString(input1), Double.toString(input2)).setScale(NumberConstant.ZERO_SCALE, RoundingMode.HALF_UP);
+        return NumberUtil.mul(Float.toString(input1), Double.toString(input2)).setScale(NumberConstant.ZERO_INT_SCALE, RoundingMode.HALF_UP);
     }
 
     /**
@@ -428,7 +428,7 @@ public class Numbers {
      * @return number after half adjust with 0 scale
      */
     public static BigDecimal divRoundWithScale0ToBigDecimal(double input1, double input2) {
-        return NumberUtil.div(Double.toString(input1), Double.toString(input2)).setScale(NumberConstant.ZERO_SCALE, RoundingMode.HALF_UP);
+        return NumberUtil.div(Double.toString(input1), Double.toString(input2)).setScale(NumberConstant.ZERO_INT_SCALE, RoundingMode.HALF_UP);
     }
 
 }

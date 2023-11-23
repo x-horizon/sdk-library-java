@@ -29,17 +29,22 @@ public class NumberConstant {
     /**
      * the number when two big decimal are equal
      */
-    public static final int EQUAL_BIG_DECIMAL = 0;
+    public static final int EQUAL_BIG_DECIMAL_INT_VALUE = 0;
 
     /**
      * the scale of decimal places: 0
      */
-    public static final int ZERO_SCALE = 0;
+    public static final int ZERO_INT_SCALE = 0;
 
     /**
-     * zero
+     * zero int value
      */
-    public static final int ZERO = 0;
+    public static final int ZERO_INT_VALUE = 0;
+
+    /**
+     * zero number value
+     */
+    public static final Number ZERO_NUMBER_VALUE = 0;
 
     /**
      * one hundred
