@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 import java.io.Serial;
 
 /**
- * the domain object define
+ * the domain model define
  *
  * @author wjm
  * @since 2023-11-23 22:55

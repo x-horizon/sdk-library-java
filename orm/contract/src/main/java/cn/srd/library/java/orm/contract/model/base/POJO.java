@@ -13,7 +13,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * the plain ordinary object define
+ * the plain ordinary model define
  *
  * @author wjm
  * @since 2023-11-23 22:56
