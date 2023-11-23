@@ -1,9 +1,9 @@
 package cn.srd.library.java.orm.mybatis.flex.postgresql.model.po;
 
-import cn.srd.library.java.orm.mybatis.contract.base.handler.JdbcCharMappingJavaUUIDTypeHandler;
-import cn.srd.library.java.orm.mybatis.contract.base.handler.JdbcUUIDMappingJavaStringTypeHandler;
-import cn.srd.library.java.orm.mybatis.contract.base.handler.JdbcUUIDMappingJavaUUIDTypeHandler;
-import cn.srd.library.java.orm.mybatis.contract.postgresql.handler.*;
+import cn.srd.library.java.orm.contract.mybatis.base.handler.JdbcCharMappingJavaUUIDTypeHandler;
+import cn.srd.library.java.orm.contract.mybatis.base.handler.JdbcUUIDMappingJavaStringTypeHandler;
+import cn.srd.library.java.orm.contract.mybatis.base.handler.JdbcUUIDMappingJavaUUIDTypeHandler;
+import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.*;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.enums.JobType;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;

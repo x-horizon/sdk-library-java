@@ -14,7 +14,7 @@ import java.lang.annotation.Annotation;
  * @author wjm
  * @since 2023-11-07 15:57
  */
-public class ColumnJsonbMappingJavaTypeCache extends cn.srd.library.java.orm.mybatis.contract.postgresql.cache.ColumnJsonbMappingJavaTypeCache {
+public class ColumnJsonbMappingJavaTypeCache extends cn.srd.library.java.orm.contract.mybatis.postgresql.cache.ColumnJsonbMappingJavaTypeCache {
 
     @Override
     protected Class<? extends Annotation> getTypeHandlerLocatedAnnotation() {

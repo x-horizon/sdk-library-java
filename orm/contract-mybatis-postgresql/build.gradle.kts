@@ -4,8 +4,7 @@
 
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.ORM_CONTRACT_MYBATIS_BASE)))
+    api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_ALL)))
 
-    api(GradleDependency.ORM_MYBATIS_PLUS.withoutVersion)
-    api(GradleDependency.ORM_MYBATIS_PLUS_DYNAMIC_DATASOURCE.withoutVersion)
-    api(GradleDependency.ORM_MYBATIS_PLUS_GENERATOR.withoutVersion)
+    api(GradleDependency.DATA_POSTGRESQL.withoutVersion)
 }
