@@ -108,12 +108,12 @@ public interface GenericCurdDao<T> extends BaseMapper<T> {
         return BaseMapper.super.updateByQuery(entity, queryWrapper);
     }
 
-    default Optional<T> getById(T entity) {
-        return Optional.ofNullable(BaseMapper.super.selectOneByEntityId(entity));
-    }
-
     default Optional<T> getById(Serializable id) {
         return Optional.ofNullable(selectOneById(id));
+    }
+
+    default Optional<T> getById(T entity) {
+        return Optional.ofNullable(BaseMapper.super.selectOneByEntityId(entity));
     }
 
     default Optional<T> getByCondition(QueryWrapper queryWrapper) {
@@ -132,14 +132,6 @@ public interface GenericCurdDao<T> extends BaseMapper<T> {
         return listByCondition(QueryWrapper.create());
     }
 
-    default long countByCondition(QueryWrapper queryWrapper) {
-        return BaseMapper.super.selectCountByQuery(queryWrapper);
-    }
-
-    default long countAll() {
-        return countByCondition(QueryWrapper.create());
-    }
-
     default PageResult<T> pageByCondition(QueryWrapper queryWrapper) {
         return pageByCondition(PageConstant.DEFAULT_PAGE_INDEX, PageConstant.DEFAULT_PAGE_SIZE, queryWrapper);
     }
@@ -150,6 +142,14 @@ public interface GenericCurdDao<T> extends BaseMapper<T> {
 
     default PageResult<T> pageByCondition(Number pageIndex, Number pageSize, QueryWrapper queryWrapper) {
         return PageConverter.INSTANCE.toPageResult(BaseMapper.super.paginate(pageIndex, pageSize, queryWrapper));
+    }
+
+    default long countByCondition(QueryWrapper queryWrapper) {
+        return BaseMapper.super.selectCountByQuery(queryWrapper);
+    }
+
+    default long countAll() {
+        return countByCondition(QueryWrapper.create());
     }
 
     // =======================================================================================================================================================
