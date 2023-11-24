@@ -1818,6 +1818,19 @@ public class Collections {
     }
 
     /**
+     * convert iterable to list
+     *
+     * @param inputs the input element
+     * @return after convert
+     */
+    public static <T> List<T> toList(Iterator<T> inputs) {
+        return Action.<List<T>>ifEmpty(inputs)
+                .then(Collections::newArrayList)
+                .otherwise(() -> ofUnknownSizeStream(inputs).collect(Collectors.toList()))
+                .get();
+    }
+
+    /**
      * convert collection to list
      *
      * @param inputs the input element

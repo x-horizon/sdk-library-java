@@ -4,7 +4,6 @@
 
 package cn.srd.library.java.tool.lang.functional;
 
-import cn.hutool.core.text.CharSequenceUtil;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.throwable.AssertMessage;
 import cn.srd.library.java.contract.constant.web.HttpStatus;
@@ -307,7 +306,7 @@ public class Assert {
     }
 
     /**
-     * throws if the checked element is {@link CharSequenceUtil#isEmpty(CharSequence)}
+     * throws if the checked element is empty string
      *
      * @param input the checked element
      * @see Nil#isEmpty(CharSequence)
@@ -320,7 +319,7 @@ public class Assert {
     }
 
     /**
-     * throws if the checked element is {@link CharSequenceUtil#isBlank(CharSequence)}
+     * throws if the checked element is blank string
      *
      * @param input the checked element
      * @see Nil#isBlank(CharSequence)
@@ -476,7 +475,7 @@ public class Assert {
     }
 
     /**
-     * throws if any checked element is {@link CharSequenceUtil#hasEmpty(CharSequence...)}
+     * throws if any checked element is empty string
      *
      * @param inputs the checked elements
      * @see Nil#isAnyEmpty(CharSequence...)
@@ -489,7 +488,7 @@ public class Assert {
     }
 
     /**
-     * throws if any checked element is {@link CharSequenceUtil#hasBlank(CharSequence...)}
+     * throws if any checked element is blank string
      *
      * @param inputs the checked elements
      * @see Nil#isAnyBlank(CharSequence...)
@@ -645,7 +644,7 @@ public class Assert {
     }
 
     /**
-     * throws if all checked elements are {@link CharSequenceUtil#isAllEmpty(CharSequence...)}
+     * throws if all checked elements are all empty string
      *
      * @param inputs the checked elements
      * @see Nil#isAllEmpty(CharSequence...)
@@ -658,7 +657,7 @@ public class Assert {
     }
 
     /**
-     * throws if all checked elements are {@link CharSequenceUtil#isAllBlank(CharSequence...)}
+     * throws if all checked elements are all blank string
      *
      * @param inputs the checked elements
      * @see Nil#isAllBlank(CharSequence...)
@@ -1198,7 +1197,7 @@ public class Assert {
     }
 
     /**
-     * throws if the checked element is {@link CharSequenceUtil#isNotEmpty(CharSequence)}
+     * throws if the checked element is not empty string
      *
      * @param input the checked element
      * @see Nil#isNotEmpty(CharSequence)
@@ -1211,7 +1210,7 @@ public class Assert {
     }
 
     /**
-     * throws if the checked element is {@link CharSequenceUtil#isNotBlank(CharSequence)}
+     * throws if the checked element is not blank string
      *
      * @param input the checked element
      * @see Nil#isNotBlank(CharSequence)
@@ -1341,7 +1340,7 @@ public class Assert {
     }
 
     /**
-     * throws if all checked elements are not {@link CharSequenceUtil#hasEmpty(CharSequence...)}
+     * throws if all checked elements are not empty string
      *
      * @param inputs the checked elements
      * @see Nil#isAllNotEmpty(CharSequence...)
@@ -1354,7 +1353,7 @@ public class Assert {
     }
 
     /**
-     * throws if all checked elements are not {@link CharSequenceUtil#hasBlank(CharSequence...)}
+     * throws if all checked elements are not blank string
      *
      * @param inputs the checked elements
      * @see Nil#isAllNotBlank(CharSequence...)
