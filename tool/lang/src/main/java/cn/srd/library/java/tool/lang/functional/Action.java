@@ -118,6 +118,42 @@ public class Action<V> {
     }
 
     /**
+     * infer the checked element is zero value, the zero value is {@code null} or {@code false}
+     *
+     * @param input the checked element
+     * @param <T>   the infer value type
+     * @return after infer action
+     * @see Nil#isZeroValue(Boolean)
+     */
+    public static <T> Action<T> ifZeroValue(Boolean input) {
+        return infer(Nil.isZeroValue(input));
+    }
+
+    /**
+     * infer the checked element is zero value, the zero value is {@code null} or {@code 0}
+     *
+     * @param input the checked element
+     * @param <T>   the infer value type
+     * @return after infer action
+     * @see Nil#isZeroValue(Number)
+     */
+    public static <T> Action<T> ifZeroValue(Number input) {
+        return infer(Nil.isZeroValue(input));
+    }
+
+    /**
+     * infer the checked element is zero value, the zero value is {@code null} or {@code ""}
+     *
+     * @param input the checked element
+     * @param <T>   the infer value type
+     * @return after infer action
+     * @see Nil#isZeroValue(CharSequence)
+     */
+    public static <T> Action<T> ifZeroValue(CharSequence input) {
+        return infer(Nil.isZeroValue(input));
+    }
+
+    /**
      * infer the checked element is null or zero size
      *
      * @param inputs the checked elements
@@ -902,6 +938,42 @@ public class Action<V> {
      */
     public static <T> Action<T> ifNotNull(Object input) {
         return infer(Nil.isNotNull(input));
+    }
+
+    /**
+     * infer the checked element is not zero value, the zero value is {@code null} or {@code false}
+     *
+     * @param input the checked element
+     * @param <T>   the infer value type
+     * @return after infer action
+     * @see Nil#isNotZeroValue(Boolean)
+     */
+    public static <T> Action<T> ifNotZeroValue(Boolean input) {
+        return infer(Nil.isNotZeroValue(input));
+    }
+
+    /**
+     * infer the checked element is not zero value, the zero value is {@code null} or {@code 0}
+     *
+     * @param input the checked element
+     * @param <T>   the infer value type
+     * @return after infer action
+     * @see Nil#isNotZeroValue(Number)
+     */
+    public static <T> Action<T> ifNotZeroValue(Number input) {
+        return infer(Nil.isNotZeroValue(input));
+    }
+
+    /**
+     * infer the checked element is not zero value, the zero value is {@code null} or {@code ""}
+     *
+     * @param input the checked element
+     * @param <T>   the infer value type
+     * @return after infer action
+     * @see Nil#isNotZeroValue(CharSequence)
+     */
+    public static <T> Action<T> ifNotZeroValue(CharSequence input) {
+        return infer(Nil.isNotZeroValue(input));
     }
 
     /**

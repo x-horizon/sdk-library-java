@@ -25,7 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
 @EnableMybatisFlexCustomizer(
         globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SNOWFLAKE),
-        globalDeleteLogicConfig = @DeleteLogicConfig(normalValue = BooleanConstant.FALSE, deletedValue = BooleanConstant.TRUE),
+        globalDeleteLogicConfig = @DeleteLogicConfig(normalValue = BooleanConstant.FALSE_STRING_LOWER_CASE, deletedValue = BooleanConstant.TRUE_STRING_LOWER_CASE),
         globalListenerConfig = @ListenerConfig(whenInsert = TestInsertListener.class, whenUpdate = TestUpdateListener.class),
         globalAuditConfig = @AuditLogConfig(enable = true),
         globalPropertyConfig = @PropertyConfig(

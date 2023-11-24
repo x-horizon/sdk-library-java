@@ -8,15 +8,17 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * exception message template
+ * assert message template
  *
  * @author wjm
  * @since 2021-02-01 20:38
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ExceptionMessage {
+public class AssertMessage {
 
     public static final String NULL_CHECKED_MESSAGE = "[Assertion failed] - the argument must be null";
+
+    public static final String ZERO_VALUE_CHECKED_MESSAGE = "[Assertion failed] - the argument must be zero value";
 
     public static final String EMPTY_CHECKED_MESSAGE = "[Assertion failed] - the argument must be empty";
 
@@ -31,6 +33,8 @@ public class ExceptionMessage {
     public static final String EQUAL_CHECKED_MESSAGE = "[Assertion failed] - the compared arguments must be equal";
 
     public static final String NOT_NULL_CHECKED_MESSAGE = "[Assertion failed] - the argument must be not null";
+
+    public static final String NOT_ZERO_VALUE_CHECKED_MESSAGE = "[Assertion failed] - the argument must be not zero value";
 
     public static final String NOT_EMPTY_CHECKED_MESSAGE = "[Assertion failed] - the argument must be not empty";
 

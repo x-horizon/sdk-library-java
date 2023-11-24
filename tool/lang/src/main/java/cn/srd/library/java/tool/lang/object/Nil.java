@@ -7,6 +7,7 @@ package cn.srd.library.java.tool.lang.object;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.srd.library.java.contract.constant.number.NumberConstant;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.tool.lang.booleans.Booleans;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,36 @@ public class Nil {
      */
     public static boolean isNull(Object input) {
         return null == input;
+    }
+
+    /**
+     * return true if the checked element is zero value, the zero value is {@code null} or {@code false}
+     *
+     * @param input the checked element
+     * @return return true if the checked element is zero value
+     */
+    public static boolean isZeroValue(Boolean input) {
+        return Nil.isNull(input) || Booleans.isFalse(input);
+    }
+
+    /**
+     * return true if the checked element is zero value, the zero value is {@code null} or {@code 0}
+     *
+     * @param input the checked element
+     * @return return true if the checked element is zero value
+     */
+    public static boolean isZeroValue(Number input) {
+        return Nil.isNull(input) || Comparators.equals(NumberConstant.ZERO_NUMBER_VALUE, input);
+    }
+
+    /**
+     * return true if the checked element is zero value, the zero value is {@code null} or {@code ""}
+     *
+     * @param input the checked element
+     * @return return true if the checked element is zero value
+     */
+    public static boolean isZeroValue(CharSequence input) {
+        return isEmpty(input);
     }
 
     /**
@@ -524,6 +555,36 @@ public class Nil {
     }
 
     /**
+     * reverse {@link #isZeroValue(Boolean)}
+     *
+     * @param input the checked element
+     * @return return true if the checked elements is not zero value, the zero value is {@code null} or {@code false}
+     */
+    public static boolean isNotZeroValue(Boolean input) {
+        return !isZeroValue(input);
+    }
+
+    /**
+     * reverse {@link #isZeroValue(Number)}
+     *
+     * @param input the checked element
+     * @return return true if the checked elements is not zero value, the zero value is {@code null} or {@code 0}
+     */
+    public static boolean isNotZeroValue(Number input) {
+        return !isZeroValue(input);
+    }
+
+    /**
+     * reverse {@link #isZeroValue(CharSequence)}
+     *
+     * @param input the checked element
+     * @return return true if the checked elements is not zero value, the zero value is {@code null} or {@code ""}
+     */
+    public static boolean isNotZeroValue(CharSequence input) {
+        return !isZeroValue(input);
+    }
+
+    /**
      * reverse {@link Nil#isEmpty(byte[])}
      *
      * @param inputs the checked elements
@@ -771,22 +832,6 @@ public class Nil {
      */
     public static boolean isAllNotBlank(CharSequence... inputs) {
         return !isAnyBlank(inputs);
-    }
-
-    public static boolean isZeroValue(Number input) {
-        return Nil.isNull(input) || Comparators.equals(NumberConstant.ZERO_NUMBER_VALUE, input);
-    }
-
-    public static boolean isZeroValue(CharSequence input) {
-        return isEmpty(input);
-    }
-
-    public static boolean isNotZeroValue(Number input) {
-        return !isZeroValue(input);
-    }
-
-    public static boolean isNotZeroValue(CharSequence input) {
-        return !isZeroValue(input);
     }
 
 }

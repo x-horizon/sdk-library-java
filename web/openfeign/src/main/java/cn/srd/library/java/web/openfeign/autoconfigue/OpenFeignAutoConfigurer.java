@@ -26,7 +26,7 @@ import java.util.Set;
  * @since 2023-03-04 16:48
  */
 @AutoConfiguration
-@ConditionalOnProperty(name = "spring.cloud.openfeign.okhttp.enabled", havingValue = BooleanConstant.TRUE)
+@ConditionalOnProperty(name = "spring.cloud.openfeign.okhttp.enabled", havingValue = BooleanConstant.TRUE_STRING_LOWER_CASE)
 public class OpenFeignAutoConfigurer {
 
     /**

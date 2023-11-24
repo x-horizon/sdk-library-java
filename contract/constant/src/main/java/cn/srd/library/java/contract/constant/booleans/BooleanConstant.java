@@ -16,8 +16,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BooleanConstant {
 
-    public static final String TRUE = "true";
+    public static final Boolean TRUE = Boolean.TRUE;
 
-    public static final String FALSE = "false";
+    public static final Boolean FALSE = Boolean.FALSE;
+
+    public static final String TRUE_STRING_LOWER_CASE = "true";
+
+    public static final String FALSE_STRING_LOWER_CASE = "false";
 
 }
