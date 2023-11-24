@@ -65,9 +65,13 @@ public class ContentBuilder {
                                        Collection<ColumnInfo> columnInfos, List<String> defaultColumns) {
         StringBuilder content = new StringBuilder("package ");
         content.append(tableDefPackage).append(";\n\n");
-        content.append("import com.mybatisflex.core.query.QueryColumn;\n");
+        // wjm using customer component.
+        content.append("import cn.srd.library.java.orm.mybatis.flex.base.query.GenericQueryColumn;\n");
+        // content.append("import com.mybatisflex.core.query.QueryColumn;\n");
         content.append("import com.mybatisflex.core.table.TableDef;\n\n");
-        content.append("// Auto generate by mybatis-flex, do not modify it.\n");
+        // wjm using customer component.
+        content.append("// Auto generate by library-orm-mybatis-flex, do not modify it.\n");
+        // content.append("// Auto generate by mybatis-flex, do not modify it.\n");
         content.append("public class ").append(tableDefClassName).append(" extends TableDef {\n\n");
 
         // TableDef 类的属性名称
@@ -100,9 +104,13 @@ public class ContentBuilder {
             if (columnPropertyName.equals(finalTableDefPropertyName)) {
                 columnPropertyName = columnPropertyName + "_";
             }
-            content.append("    public final QueryColumn ")
+            // wjm using customer component.
+            content.append("    public final GenericQueryColumn ")
+                    // content.append("    public final QueryColumn ")
                     .append(columnPropertyName)
-                    .append(" = new QueryColumn(this, \"")
+                    // wjm using customer component.
+                    .append(" = new GenericQueryColumn(this, \"")
+                    // .append(" = new QueryColumn(this, \"")
                     .append(columnInfo.getColumn()).append("\"");
             if (columnInfo.getAlias() != null && columnInfo.getAlias().length > 0) {
                 content.append(", \"").append(columnInfo.getAlias()[0]).append("\"");
@@ -112,7 +120,9 @@ public class ContentBuilder {
         content.append("    /**\n")
                 .append("     * 所有字段。\n")
                 .append("     */\n");
-        content.append("    public final QueryColumn ").append(StrUtil.buildFieldName("allColumns", tableDefPropertiesNameStyle)).append(" = new QueryColumn(this, \"*\");\n");
+        // wjm using customer component.
+        content.append("    public final GenericQueryColumn ").append(StrUtil.buildFieldName("allColumns", tableDefPropertiesNameStyle)).append(" = new GenericQueryColumn(this, \"*\");\n");
+        // content.append("    public final QueryColumn ").append(StrUtil.buildFieldName("allColumns", tableDefPropertiesNameStyle)).append(" = new QueryColumn(this, \"*\");\n");
         StringJoiner defaultColumnJoiner = new StringJoiner(", ");
         columnInfos.forEach(columnInfo -> {
             if (defaultColumns.contains(columnInfo.getColumn())) {
@@ -126,7 +136,9 @@ public class ContentBuilder {
         content.append("\n    /**\n")
                 .append("     * 默认字段，不包含逻辑删除或者 large 等字段。\n")
                 .append("     */\n");
-        content.append("    public final QueryColumn[] ").append(StrUtil.buildFieldName("defaultColumns", tableDefPropertiesNameStyle)).append(" = new QueryColumn[]{").append(defaultColumnJoiner).append("};\n\n");
+        // wjm using customer component.
+        content.append("    public final GenericQueryColumn[] ").append(StrUtil.buildFieldName("defaultColumns", tableDefPropertiesNameStyle)).append(" = new GenericQueryColumn[]{").append(defaultColumnJoiner).append("};\n\n");
+        // content.append("    public final QueryColumn[] ").append(StrUtil.buildFieldName("defaultColumns", tableDefPropertiesNameStyle)).append(" = new QueryColumn[]{").append(defaultColumnJoiner).append("};\n\n");
         String schema = !StrUtil.isBlank(tableInfo.getSchema())
                 ? tableInfo.getSchema()
                 : "";
