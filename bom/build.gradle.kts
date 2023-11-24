@@ -163,7 +163,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.ORM_CONTRACT)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_CONTRACT_MYBATIS_BASE)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_CONTRACT_MYBATIS_POSTGRESQL)))
-        api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_FLEX)))
+        api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_FLEX_BASE)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_FLEX_POSTGRESQL)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_PLUS)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_SPRING_JDBC)))

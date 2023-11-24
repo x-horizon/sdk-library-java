@@ -59,7 +59,7 @@ object GradleModule {
     const val ORM_CONTRACT = "orm-contract"
     const val ORM_CONTRACT_MYBATIS_BASE = "orm-contract-mybatis-base"
     const val ORM_CONTRACT_MYBATIS_POSTGRESQL = "orm-contract-mybatis-postgresql"
-    const val ORM_MYBATIS_FLEX = "orm-mybatis-flex-base"
+    const val ORM_MYBATIS_FLEX_BASE = "orm-mybatis-flex-base"
     const val ORM_MYBATIS_FLEX_POSTGRESQL = "orm-mybatis-flex-postgresql"
     const val ORM_MYBATIS_PLUS = "orm-mybatis-plus"
     const val ORM_SPRING_JDBC = "orm-spring-jdbc"
@@ -181,8 +181,8 @@ internal object ModuleHelper {
         put(GradleModule.ORM_CONTRACT, ":orm:contract")
         put(GradleModule.ORM_CONTRACT_MYBATIS_BASE, ":orm:contract-mybatis-base")
         put(GradleModule.ORM_CONTRACT_MYBATIS_POSTGRESQL, ":orm:contract-mybatis-postgresql")
-        put(GradleModule.ORM_CONTRACT_MYBATIS_POSTGRESQL, ":orm:mybatis-flex-base")
-        put(GradleModule.ORM_CONTRACT_MYBATIS_POSTGRESQL, ":orm:mybatis-flex-postgresql")
+        put(GradleModule.ORM_MYBATIS_FLEX_BASE, ":orm:mybatis-flex-base")
+        put(GradleModule.ORM_MYBATIS_FLEX_POSTGRESQL, ":orm:mybatis-flex-postgresql")
         put(GradleModule.TEST_DB_UNIT_SPRING, ":test:db-unit-spring")
         put(GradleModule.TOOL_SERIALIZATION_FASTJSON2, ":tool:serialization:fastjson2")
     }

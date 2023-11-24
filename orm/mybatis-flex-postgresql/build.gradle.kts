@@ -4,7 +4,7 @@
 
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.ORM_CONTRACT_MYBATIS_POSTGRESQL)))
-    api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_FLEX)))
+    api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_FLEX_BASE)))
 
     annotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING)))
     annotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT)))
