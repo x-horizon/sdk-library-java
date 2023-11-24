@@ -181,6 +181,8 @@ internal object ModuleHelper {
         put(GradleModule.ORM_CONTRACT, ":orm:contract")
         put(GradleModule.ORM_CONTRACT_MYBATIS_BASE, ":orm:contract-mybatis-base")
         put(GradleModule.ORM_CONTRACT_MYBATIS_POSTGRESQL, ":orm:contract-mybatis-postgresql")
+        put(GradleModule.ORM_CONTRACT_MYBATIS_POSTGRESQL, ":orm:mybatis-flex-base")
+        put(GradleModule.ORM_CONTRACT_MYBATIS_POSTGRESQL, ":orm:mybatis-flex-postgresql")
         put(GradleModule.TEST_DB_UNIT_SPRING, ":test:db-unit-spring")
         put(GradleModule.TOOL_SERIALIZATION_FASTJSON2, ":tool:serialization:fastjson2")
     }
