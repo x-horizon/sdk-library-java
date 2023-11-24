@@ -4,27 +4,12 @@
 
 package cn.srd.library.java.orm.contract.model.base;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
-import lombok.experimental.SuperBuilder;
-
-import java.io.Serial;
-
 /**
  * the domain model define
  *
  * @author wjm
  * @since 2023-11-23 22:55
  */
-@Data
-@NoArgsConstructor
-@Accessors(chain = true)
-@SuperBuilder(toBuilder = true)
-@EqualsAndHashCode(callSuper = true)
-public class DO extends POJO {
-
-    @Serial private static final long serialVersionUID = 7961269665851841076L;
+public interface DO extends POJO {
 
 }

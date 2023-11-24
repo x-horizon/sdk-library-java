@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mybatisflex.annotation.Column;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
@@ -19,8 +18,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
-@EqualsAndHashCode(callSuper = true)
-public class BasePO extends PO {
+public class BasePO implements PO {
 
     @Serial private static final long serialVersionUID = 2152316212528302390L;
 
