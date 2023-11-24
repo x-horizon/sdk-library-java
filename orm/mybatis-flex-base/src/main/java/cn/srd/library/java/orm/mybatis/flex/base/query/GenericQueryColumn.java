@@ -7,6 +7,7 @@ package cn.srd.library.java.orm.mybatis.flex.base.query;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.functional.If;
 import cn.srd.library.java.tool.lang.object.Nil;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.mybatisflex.core.query.QueryColumn;
@@ -89,7 +90,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotNull(Object)
      */
     public QueryCondition equalsIfNotNull(Object value) {
-        return equalsIfCondition(value, Nil.isNotNull(value));
+        return equalsIfCondition(value, If::notNull);
     }
 
     /**
@@ -100,7 +101,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotZeroValue(Boolean)
      */
     public QueryCondition equalsIfNotZeroValue(Boolean value) {
-        return equalsIfCondition(value, Nil.isNotZeroValue(value));
+        return equalsIfCondition(value, If::notZeroValue);
     }
 
     /**
@@ -111,7 +112,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotZeroValue(Number)
      */
     public QueryCondition equalsIfNotZeroValue(Number value) {
-        return equalsIfCondition(value, Nil.isNotZeroValue(value));
+        return equalsIfCondition(value, If::notZeroValue);
     }
 
     /**
@@ -122,7 +123,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotZeroValue(CharSequence)
      */
     public QueryCondition equalsIfNotZeroValue(CharSequence value) {
-        return equalsIfCondition(value, Nil.isNotZeroValue(value));
+        return equalsIfCondition(value, If::notZeroValue);
     }
 
     /**
@@ -133,7 +134,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotEmpty(CharSequence)
      */
     public QueryCondition equalsIfNotEmpty(CharSequence value) {
-        return equalsIfCondition(value, Nil.isNotEmpty(value));
+        return equalsIfCondition(value, If::notEmpty);
     }
 
     /**
@@ -144,7 +145,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotBlank(CharSequence)
      */
     public QueryCondition equalsIfNotBlank(CharSequence value) {
-        return equalsIfCondition(value, Nil.isNotBlank(value));
+        return equalsIfCondition(value, If::notBlank);
     }
 
     /**
@@ -200,7 +201,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotNull(Object)
      */
     public QueryCondition notEqualsIfNotNull(Object value) {
-        return notEqualsIfCondition(value, Nil.isNotNull(value));
+        return notEqualsIfCondition(value, If::notNull);
     }
 
     /**
@@ -211,7 +212,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotZeroValue(Boolean)
      */
     public QueryCondition notEqualsIfNotZeroValue(Boolean value) {
-        return notEqualsIfCondition(value, Nil.isNotZeroValue(value));
+        return notEqualsIfCondition(value, If::notZeroValue);
     }
 
     /**
@@ -222,7 +223,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotZeroValue(Number)
      */
     public QueryCondition notEqualsIfNotZeroValue(Number value) {
-        return notEqualsIfCondition(value, Nil.isNotZeroValue(value));
+        return notEqualsIfCondition(value, If::notZeroValue);
     }
 
     /**
@@ -233,7 +234,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotZeroValue(CharSequence)
      */
     public QueryCondition notEqualsIfNotZeroValue(CharSequence value) {
-        return notEqualsIfCondition(value, Nil.isNotZeroValue(value));
+        return notEqualsIfCondition(value, If::notZeroValue);
     }
 
     /**
@@ -244,7 +245,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotEmpty(CharSequence)
      */
     public QueryCondition notEqualsIfNotEmpty(CharSequence value) {
-        return notEqualsIfCondition(value, Nil.isNotEmpty(value));
+        return notEqualsIfCondition(value, If::notEmpty);
     }
 
     /**
@@ -255,7 +256,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotBlank(CharSequence)
      */
     public QueryCondition notEqualsIfNotBlank(CharSequence value) {
-        return notEqualsIfCondition(value, Nil.isNotBlank(value));
+        return notEqualsIfCondition(value, If::notBlank);
     }
 
     /**
@@ -311,7 +312,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotNull(Object)
      */
     public QueryCondition greaterThanIfNotNull(Object value) {
-        return greaterThanIfCondition(value, Nil.isNotNull(value));
+        return greaterThanIfCondition(value, If::notNull);
     }
 
     /**
@@ -322,7 +323,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotZeroValue(Number)
      */
     public QueryCondition greaterThanIfNotZeroValue(Number value) {
-        return greaterThanIfCondition(value, Nil.isNotZeroValue(value));
+        return greaterThanIfCondition(value, If::notZeroValue);
     }
 
     /**
@@ -378,7 +379,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotNull(Object)
      */
     public QueryCondition greaterThanOrEqualsIfNotNull(Object value) {
-        return greaterThanOrEqualsIfCondition(value, Nil.isNotNull(value));
+        return greaterThanOrEqualsIfCondition(value, If::notNull);
     }
 
     /**
@@ -389,7 +390,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotZeroValue(Number)
      */
     public QueryCondition greaterThanOrEqualsIfNotZeroValue(Number value) {
-        return greaterThanOrEqualsIfCondition(value, Nil.isNotZeroValue(value));
+        return greaterThanOrEqualsIfCondition(value, If::notZeroValue);
     }
 
     /**
@@ -445,7 +446,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotNull(Object)
      */
     public QueryCondition lessThanIfNotNull(Object value) {
-        return lessThanIfCondition(value, Nil.isNotNull(value));
+        return lessThanIfCondition(value, If::notNull);
     }
 
     /**
@@ -456,7 +457,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotZeroValue(Number)
      */
     public QueryCondition lessThanIfNotZeroValue(Number value) {
-        return lessThanIfCondition(value, Nil.isNotZeroValue(value));
+        return lessThanIfCondition(value, If::notZeroValue);
     }
 
     /**
@@ -512,7 +513,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotNull(Object)
      */
     public QueryCondition lessThanOrEqualsIfNotNull(Object value) {
-        return lessThanOrEqualsIfCondition(value, Nil.isNotNull(value));
+        return lessThanOrEqualsIfCondition(value, If::notNull);
     }
 
     /**
@@ -523,7 +524,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotZeroValue(Number)
      */
     public QueryCondition lessThanOrEqualsIfNotZeroValue(Number value) {
-        return lessThanOrEqualsIfCondition(value, Nil.isNotZeroValue(value));
+        return lessThanOrEqualsIfCondition(value, If::notZeroValue);
     }
 
     /**
@@ -582,7 +583,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotEmpty(Object...)
      */
     public QueryCondition inIfNotEmpty(Object... values) {
-        return inIfCondition(values, Nil.isNotEmpty(values));
+        return inIfCondition(values, If::notEmpty);
     }
 
     /**
@@ -594,9 +595,9 @@ public class GenericQueryColumn extends QueryColumn {
      */
     public QueryCondition inIfNotEmpty(Iterable<?> values) {
         if (values instanceof Collection<?> collection) {
-            return inIfCondition(collection, Nil.isNotEmpty(values));
+            return inIfCondition(collection, If::notEmpty);
         }
-        return inIfCondition(Collections.toList(values), Nil.isNotEmpty(values));
+        return inIfCondition(Collections.toList(values), If::notEmpty);
     }
 
     /**
@@ -607,7 +608,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotEmpty(Collection)
      */
     public QueryCondition inIfNotEmpty(Collection<?> values) {
-        return inIfCondition(values, Nil.isNotEmpty(values));
+        return inIfCondition(values, If::notEmpty);
     }
 
     /**
@@ -721,7 +722,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotEmpty(Object...)
      */
     public QueryCondition notInIfNotEmpty(Object... values) {
-        return notInIfCondition(values, Nil.isNotEmpty(values));
+        return notInIfCondition(values, If::notEmpty);
     }
 
     /**
@@ -733,9 +734,9 @@ public class GenericQueryColumn extends QueryColumn {
      */
     public QueryCondition notInIfNotEmpty(Iterable<?> values) {
         if (values instanceof Collection<?> collection) {
-            return notInIfCondition(collection, Nil.isNotEmpty(values));
+            return notInIfCondition(collection, If::notEmpty);
         }
-        return notInIfCondition(Collections.toList(values), Nil.isNotEmpty(values));
+        return notInIfCondition(Collections.toList(values), If::notEmpty);
     }
 
     /**
@@ -746,7 +747,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotEmpty(Collection)
      */
     public QueryCondition notInIfNotEmpty(Collection<?> values) {
-        return notInIfCondition(values, Nil.isNotEmpty(values));
+        return notInIfCondition(values, If::notEmpty);
     }
 
     /**
@@ -947,7 +948,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotNull(Object)
      */
     public QueryCondition likeIfNotNull(Object value) {
-        return likeIfCondition(value, Nil.isNotNull(value));
+        return likeIfCondition(value, If::notNull);
     }
 
     /**
@@ -958,7 +959,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotBlank(CharSequence)
      */
     public QueryCondition likeIfNotBlank(CharSequence value) {
-        return likeIfCondition(value, Nil.isNotBlank(value));
+        return likeIfCondition(value, If::notBlank);
     }
 
     /**
@@ -1004,7 +1005,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotNull(Object)
      */
     public QueryCondition likeLeftIfNotNull(Object value) {
-        return likeLeftIfCondition(value, Nil.isNotNull(value));
+        return likeLeftIfCondition(value, If::notNull);
     }
 
     /**
@@ -1015,7 +1016,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotBlank(CharSequence)
      */
     public QueryCondition likeLeftIfNotBlank(CharSequence value) {
-        return likeLeftIfCondition(value, Nil.isNotBlank(value));
+        return likeLeftIfCondition(value, If::notBlank);
     }
 
     /**
@@ -1061,7 +1062,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotNull(Object)
      */
     public QueryCondition likeRightIfNotNull(Object value) {
-        return likeRightIfCondition(value, Nil.isNotNull(value));
+        return likeRightIfCondition(value, If::notNull);
     }
 
     /**
@@ -1072,7 +1073,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotBlank(CharSequence)
      */
     public QueryCondition likeRightIfNotBlank(CharSequence value) {
-        return likeRightIfCondition(value, Nil.isNotBlank(value));
+        return likeRightIfCondition(value, If::notBlank);
     }
 
     /**
@@ -1118,7 +1119,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotNull(Object)
      */
     public QueryCondition likeRawIfNotNull(Object value) {
-        return likeRawIfCondition(value, Nil.isNotNull(value));
+        return likeRawIfCondition(value, If::notNull);
     }
 
     /**
@@ -1129,7 +1130,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotBlank(CharSequence)
      */
     public QueryCondition likeRawIfNotBlank(CharSequence value) {
-        return likeRawIfCondition(value, Nil.isNotBlank(value));
+        return likeRawIfCondition(value, If::notBlank);
     }
 
     /**
@@ -1175,7 +1176,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotNull(Object)
      */
     public QueryCondition notLikeIfNotNull(Object value) {
-        return notLikeIfCondition(value, Nil.isNotNull(value));
+        return notLikeIfCondition(value, If::notNull);
     }
 
     /**
@@ -1186,7 +1187,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotBlank(CharSequence)
      */
     public QueryCondition notLikeIfNotBlank(CharSequence value) {
-        return notLikeIfCondition(value, Nil.isNotBlank(value));
+        return notLikeIfCondition(value, If::notBlank);
     }
 
     /**
@@ -1232,7 +1233,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotNull(Object)
      */
     public QueryCondition notLikeLeftIfNotNull(Object value) {
-        return notLikeLeftIfCondition(value, Nil.isNotNull(value));
+        return notLikeLeftIfCondition(value, If::notNull);
     }
 
     /**
@@ -1243,7 +1244,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotBlank(CharSequence)
      */
     public QueryCondition notLikeLeftIfNotBlank(CharSequence value) {
-        return notLikeLeftIfCondition(value, Nil.isNotBlank(value));
+        return notLikeLeftIfCondition(value, If::notBlank);
     }
 
     /**
@@ -1289,7 +1290,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotNull(Object)
      */
     public QueryCondition notLikeRightIfNotNull(Object value) {
-        return notLikeRightIfCondition(value, Nil.isNotNull(value));
+        return notLikeRightIfCondition(value, If::notNull);
     }
 
     /**
@@ -1300,7 +1301,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotBlank(CharSequence)
      */
     public QueryCondition notLikeRightIfNotBlank(CharSequence value) {
-        return notLikeRightIfCondition(value, Nil.isNotBlank(value));
+        return notLikeRightIfCondition(value, If::notBlank);
     }
 
     /**
@@ -1346,7 +1347,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotNull(Object)
      */
     public QueryCondition notLikeRawIfNotNull(Object value) {
-        return notLikeRawIfCondition(value, Nil.isNotNull(value));
+        return notLikeRawIfCondition(value, If::notNull);
     }
 
     /**
@@ -1357,7 +1358,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotBlank(CharSequence)
      */
     public QueryCondition notLikeRawIfNotBlank(CharSequence value) {
-        return notLikeRawIfCondition(value, Nil.isNotBlank(value));
+        return notLikeRawIfCondition(value, If::notBlank);
     }
 
     /**
