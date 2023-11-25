@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.tool.spring.webmvc.advice;
 
-import cn.srd.library.java.tool.spring.webmvc.autoconfigure.WebMVCResponseBodyAdviceAutoConfigurer;
+import cn.srd.library.java.tool.spring.webmvc.autoconfigure.WebMVCAutoConfigurer;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -14,7 +14,7 @@ import java.lang.annotation.*;
  *
  * @author wjm
  * @see WebMVCResponseBodyAdviceSwitcher
- * @see WebMVCResponseBodyAdviceAutoConfigurer
+ * @see WebMVCAutoConfigurer
  * @since 2022-07-16 18:16
  */
 @Retention(RetentionPolicy.RUNTIME)

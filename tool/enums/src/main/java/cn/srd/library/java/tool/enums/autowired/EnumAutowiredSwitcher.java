@@ -4,10 +4,13 @@
 
 package cn.srd.library.java.tool.enums.autowired;
 
+import cn.srd.library.java.tool.enums.autoconfigure.EnumAutoConfigurer;
+
 /**
  * the {@link EnableEnumAutowired enum autowired system} switcher
  *
  * @author wjm
+ * @see EnumAutoConfigurer#enumAutowiredHandler()
  * @since 2023-11-09 21:01
  */
 public class EnumAutowiredSwitcher {

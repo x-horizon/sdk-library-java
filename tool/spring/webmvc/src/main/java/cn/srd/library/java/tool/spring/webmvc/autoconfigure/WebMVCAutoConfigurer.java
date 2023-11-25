@@ -12,16 +12,16 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 
 /**
- * {@link EnableAutoConfiguration AutoConfiguration} for Library Tool Spring WebMVC Response Body Advice
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Tool Spring WebMVC
  *
  * @author wjm
  * @since 2023-11-09 21:01
  */
 @AutoConfiguration
-@ConditionalOnBean(WebMVCResponseBodyAdviceSwitcher.class)
-public class WebMVCResponseBodyAdviceAutoConfigurer {
+public class WebMVCAutoConfigurer {
 
     @Bean
+    @ConditionalOnBean(WebMVCResponseBodyAdviceSwitcher.class)
     public WebMVCResponseBodyAdvice webMVCResponseBodyAdvice() {
         return new WebMVCResponseBodyAdvice();
     }

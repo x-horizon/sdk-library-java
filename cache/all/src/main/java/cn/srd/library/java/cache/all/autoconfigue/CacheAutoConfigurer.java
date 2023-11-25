@@ -22,36 +22,41 @@ import org.springframework.context.annotation.Bean;
  * @since 2023-06-07 16:48:52
  */
 @AutoConfiguration
-@ConditionalOnBean(CacheSwitcher.class)
 @EnableConfigurationProperties({CacheProperties.class, CacheMultilevelProperties.class})
 public class CacheAutoConfigurer {
 
     @Bean
+    @ConditionalOnBean(CacheSwitcher.class)
     public CacheReadAspect cacheReadAspect() {
         return new CacheReadAspect();
     }
 
     @Bean
+    @ConditionalOnBean(CacheSwitcher.class)
     public CacheReadAllAspect cacheReadAllAspect() {
         return new CacheReadAllAspect();
     }
 
     @Bean
+    @ConditionalOnBean(CacheSwitcher.class)
     public CacheWriteAspect cacheWriteAspect() {
         return new CacheWriteAspect();
     }
 
     @Bean
+    @ConditionalOnBean(CacheSwitcher.class)
     public CacheWriteBatchAspect cacheWriteBatchAspect() {
         return new CacheWriteBatchAspect();
     }
 
     @Bean
+    @ConditionalOnBean(CacheSwitcher.class)
     public CacheEvictAspect cacheEvictAspect() {
         return new CacheEvictAspect();
     }
 
     @Bean
+    @ConditionalOnBean(CacheSwitcher.class)
     public CachingAspect cachingAspect() {
         return new CachingAspect();
     }

@@ -10,7 +10,10 @@ import cn.srd.library.java.concurrent.redis.autoconfigue.RedisLockAutoConfigurer
  * the {@link EnableRedisLock redis lock system} switcher
  *
  * @author wjm
- * @see RedisLockAutoConfigurer
+ * @see RedisLockAutoConfigurer#redisFairLockAspect()
+ * @see RedisLockAutoConfigurer#redisFairLockHandler()
+ * @see RedisLockAutoConfigurer#redisNonFairLockAspect()
+ * @see RedisLockAutoConfigurer#redisNonFairLockHandler()
  * @since 2023-11-09 21:01
  */
 public class RedisLockSwitcher {
