@@ -134,7 +134,7 @@ public abstract class ColumnMappingJavaTypeCache {
      */
     private String getTypeHandlerAnnotatedFieldColumnName(Field annotatedField) {
         String columnName = Annotations.getAnnotationValue(annotatedField, getTypeHandlerLocatedAnnotation(), String.class);
-        return Nil.isBlank(columnName) ? Strings.toUnderlineCase(annotatedField.getName()) : columnName;
+        return Nil.isBlank(columnName) ? Strings.underlineCase(annotatedField.getName()) : columnName;
     }
 
 }

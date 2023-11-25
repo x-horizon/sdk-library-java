@@ -287,7 +287,7 @@ public class MapstructConverts {
      * 收集 {@link #mapstructAllMethodsInputAndOutputParameterNameMappingMethodsMap}
      */
     private void collectMapstructAllMethodsInputAndOutputParameterNameMappingMethodsMap() {
-        setMapstructAllMethodsInputAndOutputParameterNameMappingMethodsMap(Collections.toMultiMap(
+        setMapstructAllMethodsInputAndOutputParameterNameMappingMethodsMap(Converts.toMultiMap(
                 getMapstructAllMethods(),
                 // key：获取方法出入参的全路径类名，以 "/" 作为分隔符，最后一个全路径类名为出参，之前的全路径类名为入参，并且去除例如 List<Bean> 中的 "<"、">"，原因是泛型在运行时无法直接获取，在实际转换前匹配转换方法时，不再进行泛型前后标志符的拼接，提升性能
                 // 示例1：xxx.GradeDO/xxx.GradeVO
@@ -344,7 +344,7 @@ public class MapstructConverts {
                 )
                 .toList();
         setMapstructSupportedMethodInputParameterNameMappingMethodMap(
-                Collections.toMultiMap(doHaveOneParameterMapstructSupportedMethods, method -> Strings.removeAll(Strings.join(Types.getParameterTypeNames(method), SymbolConstant.SLASH), SymbolConstant.SINGLE_BOOK_NAME_LEFT, SymbolConstant.SINGLE_BOOK_NAME_RIGHT), method -> method)
+                Converts.toMultiMap(doHaveOneParameterMapstructSupportedMethods, method -> Strings.removeAll(Strings.join(Types.getParameterTypeNames(method), SymbolConstant.SLASH), SymbolConstant.SINGLE_BOOK_NAME_LEFT, SymbolConstant.SINGLE_BOOK_NAME_RIGHT), method -> method)
                         .entrySet()
                         .stream()
                         .filter(entry -> entry.getValue().size() == 1 && !Strings.containsAny(entry.getKey(), MapstructConvertsSupporter.LIST_NAME, SymbolConstant.SLASH))

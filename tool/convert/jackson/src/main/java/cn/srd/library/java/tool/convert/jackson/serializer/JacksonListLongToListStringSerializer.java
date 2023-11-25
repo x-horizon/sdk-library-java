@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.tool.convert.jackson.serializer;
 
-import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.object.Nil;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonToken;
@@ -29,7 +29,7 @@ public class JacksonListLongToListStringSerializer extends JsonSerializer<List<L
     @SneakyThrows
     public void serialize(List<Long> from, JsonGenerator jsonGenerator, SerializerProvider serializers) {
         List<String> strings = from.stream().filter(Nil::isNotNull).map(param -> Long.toString(param)).collect(Collectors.toList());
-        jsonGenerator.writeArray(Collections.toArray(strings, String.class), 0, strings.size());
+        jsonGenerator.writeArray(Converts.toArray(strings, String.class), 0, strings.size());
     }
 
     @Override

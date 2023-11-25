@@ -13,6 +13,7 @@ import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException
 import cn.srd.library.java.tool.lang.booleans.Booleans;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
@@ -99,7 +100,7 @@ public interface CacheAspect extends AopCaptor {
         Assert.of().setMessage("{}could not find namespace, please specify at least one!", ModuleView.CACHE_SYSTEM)
                 .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfEmpty(namespacesAfterParse);
-        return Collections.toArray(namespacesAfterParse, String.class);
+        return Converts.toArray(namespacesAfterParse, String.class);
     }
 
     /**

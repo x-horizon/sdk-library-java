@@ -10,7 +10,7 @@ import cn.srd.library.java.contract.constant.time.TimePatternConstant;
 import cn.srd.library.java.contract.constant.time.TimeUnitType;
 import cn.srd.library.java.contract.constant.time.TimeZoneConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
-import cn.srd.library.java.tool.lang.enums.Enums;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
 import io.vavr.control.Try;
@@ -728,7 +728,7 @@ public class Times {
     public static TimeUnitHandler wrapper(String timeFormat) {
         for (UnaryOperator<String> convertToTimeUnitFunction : TimeUnitHandler.CONVERT_TO_TIME_UNIT_FUNCTIONS) {
             String timeUnit = convertToTimeUnitFunction.apply(timeFormat);
-            TimeUnitType timeUnitType = Enums.toEnumByFieldValue(timeUnit, TimeUnitType.class);
+            TimeUnitType timeUnitType = Converts.toEnumByValue(timeUnit, TimeUnitType.class);
             if (Nil.isNotNull(timeUnitType)) {
                 long time = Try.of(() -> Long.parseLong(Strings.removeAll(timeFormat, timeUnit)))
                         .onFailure(throwable -> {

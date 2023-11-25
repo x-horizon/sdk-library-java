@@ -1,7 +1,7 @@
 package cn.srd.library.java.cache.contract;
 
-import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.springframework.cache.support.NullValue;
 
@@ -42,7 +42,7 @@ public interface CapableCacheTemplate<K> extends CacheTemplate<K> {
      * @return cache value
      */
     default <V> List<V> getByPattern(String pattern) {
-        return Collections.toMapValues(getMapByPattern(pattern));
+        return Converts.toMapValues(getMapByPattern(pattern));
     }
 
     /**
@@ -114,7 +114,7 @@ public interface CapableCacheTemplate<K> extends CacheTemplate<K> {
      * @return cache value
      */
     default <V> List<V> getByPatternWithoutNullValue(String pattern) {
-        return Collections.toMapValues(getMapByPatternWithoutNullValue(pattern));
+        return Converts.toMapValues(getMapByPatternWithoutNullValue(pattern));
     }
 
     /**

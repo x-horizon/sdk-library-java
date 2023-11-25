@@ -5,6 +5,7 @@
 package cn.srd.library.java.orm.contract.mybatis.postgresql.handler;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.enums.Enums;
 import cn.srd.library.java.tool.lang.text.Strings;
 
@@ -58,7 +59,7 @@ public abstract class AbstractJdbcJsonbMappingJavaListEnumTypeHandler<E extends 
     @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.RAW_TYPE})
     @Override
     protected List<E> doConvertToJavaObject(String columnValue, Class javaType) {
-        return Strings.splitToEnums(Strings.removeHeadTailBracket(columnValue), javaType);
+        return Converts.toEnumsByString(Strings.removeHeadTailBracket(columnValue), javaType);
     }
 
 }

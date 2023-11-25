@@ -2,6 +2,7 @@ package cn.srd.library.java.cache.all.support.manager;
 
 import cn.srd.library.java.cache.contract.CacheTemplate;
 import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -56,7 +57,7 @@ public class CacheDataManager {
      */
     public static CacheDataManager build(List<CacheType> cacheTypes) {
         CacheDataManager cacheDataManager = new CacheDataManager();
-        Map<String, List<Integer>> duplicateCacheTypeMap = Collections.toMap(
+        Map<String, List<Integer>> duplicateCacheTypeMap = Converts.toMap(
                 Collections.groupBy(cacheTypes, CacheType::name).entrySet(),
                 Map.Entry::getKey,
                 entry -> {

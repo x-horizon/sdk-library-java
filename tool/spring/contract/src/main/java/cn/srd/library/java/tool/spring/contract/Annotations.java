@@ -8,6 +8,7 @@ import cn.srd.library.java.contract.constant.annotation.AnnotationConstant;
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.text.Strings;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -423,7 +424,7 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      */
     public static <T> Set<T> getAnnotationNestValue(Class<? extends Annotation> annotationType, Class<T[]> fieldType, String fieldName, Collection<String> scanPackagePaths) {
-        return Collections.toSet(getAnnotationValue(annotationType, fieldType, fieldName, scanPackagePaths));
+        return Converts.toSet(getAnnotationValue(annotationType, fieldType, fieldName, scanPackagePaths));
     }
 
     /**

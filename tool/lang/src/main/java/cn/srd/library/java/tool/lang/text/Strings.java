@@ -160,10 +160,20 @@ public class Strings extends CharacterSequences {
     }
 
     /**
+     * see {@link StringUtils#upperCase(String)}
+     *
+     * @param input the input element
+     * @return after upper case
+     */
+    public static String upperCase(String input) {
+        return StringUtils.upperCase(input);
+    }
+
+    /**
      * see {@link StringUtils#lowerCase(String)}
      *
      * @param input the input element
-     * @return after lowercase
+     * @return after lower case
      */
     public static String lowerCase(String input) {
         return StringUtils.lowerCase(input);

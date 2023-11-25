@@ -5,7 +5,6 @@
 package cn.srd.library.java.tool.lang.booleans;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
-import cn.srd.library.java.tool.lang.functional.Action;
 import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -110,18 +109,6 @@ public class Booleans {
             }
         }
         return true;
-    }
-
-    /**
-     * to string
-     *
-     * @param input       the checked element
-     * @param trueString  return it if true
-     * @param falseString return it if false
-     * @return string
-     */
-    public static String toString(Boolean input, String trueString, String falseString) {
-        return Action.<String>ifTrue(input).then(() -> trueString).otherwise(() -> falseString).get();
     }
 
 }

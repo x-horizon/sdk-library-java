@@ -9,8 +9,6 @@ import cn.hutool.core.util.StrUtil;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.tool.lang.collection.Collections;
-import cn.srd.library.java.tool.lang.convert.Converts;
-import cn.srd.library.java.tool.lang.enums.Enums;
 import cn.srd.library.java.tool.lang.object.Nil;
 import io.vavr.control.Try;
 import lombok.AccessLevel;
@@ -18,7 +16,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * toolkit for char sequence
@@ -362,7 +359,7 @@ public class CharacterSequences extends Characters {
      * @param input the input element
      * @return after split
      */
-    public static List<String> splitWithComma(CharSequence input) {
+    public static List<String> splitByComma(CharSequence input) {
         return split(input, SymbolConstant.COMMA);
     }
 
@@ -375,156 +372,6 @@ public class CharacterSequences extends Characters {
      */
     public static List<String> split(CharSequence input, CharSequence separator) {
         return CharSequenceUtil.split(input, separator);
-    }
-
-    /**
-     * split a number string separated by {@link SymbolConstant#COMMA} to number collection.
-     *
-     * @param input       the input element
-     * @param outputClass the output number class
-     * @param <T>         the output number type
-     * @return after split
-     * @see #splitToNumbers(CharSequence, CharSequence, Class)
-     * @see Converts#toNumber(Object, Class)
-     */
-    public static <T extends Number> List<T> splitToNumbers(CharSequence input, Class<T> outputClass) {
-        return splitToNumbers(input, SymbolConstant.COMMA, outputClass);
-    }
-
-    /**
-     * <pre>
-     * split a number string separated by separator to number collection.
-     *
-     *  example:
-     *
-     *     {@code
-     *        public static void main(String[] args) {
-     *            // the output is [1, 2, 3, 4], data type is {@link Integer}
-     *           splitToNumbers("1,2,3,4", ",", Integer.class);
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param input       the input element
-     * @param separator   the separator
-     * @param outputClass the output number class
-     * @param <T>         the output number type
-     * @return after split
-     * @see Converts#toNumber(Object, Class)
-     */
-    public static <T extends Number> List<T> splitToNumbers(CharSequence input, CharSequence separator, Class<T> outputClass) {
-        return Nil.isBlank(input) ?
-                Collections.newArrayList() :
-                split(input, separator).stream().map(value -> Converts.toNumber(value, outputClass)).collect(Collectors.toList());
-    }
-
-    /**
-     * split a number string separated by {@link SymbolConstant#COMMA} to enum collection.
-     *
-     * @param input       the input element
-     * @param outputClass the output enum class
-     * @param <E>         the output enum type
-     * @return after split
-     * @see #splitToNumbers(CharSequence, CharSequence, Class)
-     * @see #splitToEnums(CharSequence, CharSequence, Class)
-     * @see Enums#toEnumByFieldValue(Object, Class)
-     * @see Converts#toNumber(Object, Class)
-     */
-    public static <E extends Enum<E>> List<E> splitToEnums(CharSequence input, Class<E> outputClass) {
-        return splitToEnums(input, SymbolConstant.COMMA, outputClass);
-    }
-
-    /**
-     * <pre>
-     * split a number string separated by separator to enum collection.
-     *
-     *  note 1. the most usually condition:
-     *
-     *     {@code
-     *        @Getter
-     *        @AllArgsConstructor
-     *        public enum GenderType {
-     *
-     *            MAN(1, "man"),
-     *            WOMAN(2, "woman"),
-     *            UNKNOWN(3, "unknown"),
-     *
-     *            ;
-     *
-     *            private final int code;
-     *
-     *            private final String description;
-     *
-     *            public static void main(String[] args) {
-     *                // the output is [GenderType.MAN, GenderType.WOMAN, GenderType.UNKNOWN]
-     *                Strings.splitToEnums("1, 2, 3", ",", GenderType.class);
-     *            }
-     *
-     *        }
-     *     }
-     *
-     *  note 2. still valid if there are multiple field data type.
-     *
-     *     {@code
-     *        @Getter
-     *        @AllArgsConstructor
-     *        public enum GenderType {
-     *
-     *            MAN(1, 10, "Man"),
-     *            WOMAN(2, 11, "Woman"),
-     *            UNKNOWN(3, 12, "Unknown"),
-     *
-     *            ;
-     *
-     *            private final int code1;
-     *
-     *            private final int code2;
-     *
-     *            private final String description;
-     *
-     *            public static void main(String[] args) {
-     *                // the output is [GenderType.MAN, GenderType.WOMAN, GenderType.UNKNOWN]
-     *                Strings.splitToEnums("1, 2, 3", ",", GenderType.class);
-     *                // the output is [GenderType.MAN, GenderType.WOMAN, GenderType.UNKNOWN]
-     *                Strings.splitToEnums("10, 11, 12", ",", GenderType.class);
-     *            }
-     *
-     *        }
-     *     }
-     *
-     *  note 3. it will always return null if the enum does not have additional fields.
-     *
-     *     {@code
-     *        public enum GenderType {
-     *
-     *            MAN,
-     *            WOMAN,
-     *            UNKNOWN,
-     *
-     *            ;
-     *
-     *            public static void main(String[] args) {
-     *                // the output is [null, null, null]
-     *                Strings.splitToEnums("1, 2, 3", ",", GenderType.class);
-     *            }
-     *
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param input       the input element
-     * @param separator   the separator
-     * @param outputClass the output enum class
-     * @param <E>         the output enum type
-     * @return after split
-     * @see #splitToNumbers(CharSequence, CharSequence, Class)
-     * @see Enums#toEnumByFieldValue(Object, Class)
-     * @see Converts#toNumber(Object, Class)
-     */
-    public static <E extends Enum<E>> List<E> splitToEnums(CharSequence input, CharSequence separator, Class<E> outputClass) {
-        return Nil.isBlank(input) ?
-                Collections.newArrayList() :
-                splitToNumbers(input, separator, Integer.class).stream().map(value -> Enums.toEnumByFieldValue(value, outputClass)).collect(Collectors.toList());
     }
 
     /**
@@ -752,7 +599,7 @@ public class CharacterSequences extends Characters {
      * @param input the input element
      * @return after upper first
      */
-    public static String toFirstUpper(CharSequence input) {
+    public static String upperFirst(CharSequence input) {
         return CharSequenceUtil.upperFirst(input);
     }
 
@@ -762,7 +609,7 @@ public class CharacterSequences extends Characters {
      * @param input the input element
      * @return after lower first
      */
-    public static String toFirstLower(CharSequence input) {
+    public static String lowerFirst(CharSequence input) {
         return CharSequenceUtil.lowerFirst(input);
     }
 
@@ -772,7 +619,7 @@ public class CharacterSequences extends Characters {
      * @param input the input element
      * @return after underline case
      */
-    public static String toUnderlineCase(CharSequence input) {
+    public static String underlineCase(CharSequence input) {
         return CharSequenceUtil.toUnderlineCase(input);
     }
 
@@ -783,7 +630,7 @@ public class CharacterSequences extends Characters {
      * @param symbol the symbol
      * @return after symbol case
      */
-    public static String toSymbolCase(CharSequence input, char symbol) {
+    public static String symbolCase(CharSequence input, char symbol) {
         return CharSequenceUtil.toSymbolCase(input, symbol);
     }
 
@@ -793,7 +640,7 @@ public class CharacterSequences extends Characters {
      * @param input the input element
      * @return after camel case
      */
-    public static String toCamelCase(CharSequence input) {
+    public static String camelCase(CharSequence input) {
         return CharSequenceUtil.toCamelCase(input);
     }
 

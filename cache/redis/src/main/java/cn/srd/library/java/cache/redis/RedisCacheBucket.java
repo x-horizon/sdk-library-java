@@ -3,6 +3,7 @@ package cn.srd.library.java.cache.redis;
 import cn.srd.library.java.contract.component.redis.RedisManager;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.time.DurationWrapper;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -70,12 +71,12 @@ public class RedisCacheBucket implements RedisCacheTemplate {
 
     @Override
     public <V> List<V> get(String... keys) {
-        return Collections.toMapValues(getMap(keys));
+        return Converts.toMapValues(getMap(keys));
     }
 
     @Override
     public <V> List<V> get(Collection<String> keys) {
-        return get(Collections.toArray(keys, String.class));
+        return get(Converts.toArray(keys, String.class));
     }
 
     @Override
@@ -85,7 +86,7 @@ public class RedisCacheBucket implements RedisCacheTemplate {
 
     @Override
     public <V> Map<String, V> getMap(Collection<String> keys) {
-        return getMap(Collections.toArray(keys, String.class));
+        return getMap(Converts.toArray(keys, String.class));
     }
 
     @Override
@@ -114,7 +115,7 @@ public class RedisCacheBucket implements RedisCacheTemplate {
 
     @Override
     public long delete(Collection<String> keys) {
-        return delete(Collections.toArray(keys, String.class));
+        return delete(Converts.toArray(keys, String.class));
     }
 
     @Override

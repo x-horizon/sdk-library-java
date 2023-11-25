@@ -57,7 +57,7 @@ public class MapstructMappingManager {
      */
     @MapstructStringToListString
     public static List<String> stringToListString(String value) {
-        return Nil.isNotEmpty(value) ? Strings.splitWithComma(value) : null;
+        return Nil.isNotEmpty(value) ? Strings.splitByComma(value) : null;
     }
 
     /**
@@ -68,7 +68,7 @@ public class MapstructMappingManager {
      */
     @MapstructStringToListInteger
     public static List<Integer> stringToListInteger(String value) {
-        return Strings.splitWithComma(value).stream().map(Integer::valueOf).collect(Collectors.toList());
+        return Strings.splitByComma(value).stream().map(Integer::valueOf).collect(Collectors.toList());
     }
 
     /**

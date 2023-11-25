@@ -1,6 +1,6 @@
 package cn.srd.library.java.cache.contract;
 
-import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.spring.contract.NullValues;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
@@ -111,7 +111,7 @@ public interface CacheTemplate<K> {
      * @return cache values
      */
     default <V> List<V> get(Collection<K> keys) {
-        return Collections.toMapValues(getMap(keys));
+        return Converts.toMapValues(getMap(keys));
     }
 
     /**
@@ -153,7 +153,7 @@ public interface CacheTemplate<K> {
      * @return cache value
      */
     default <V> List<V> getByNamespace(String namespace) {
-        return Collections.toMapValues(getMapByNamespace(namespace));
+        return Converts.toMapValues(getMapByNamespace(namespace));
     }
 
     /**
@@ -309,7 +309,7 @@ public interface CacheTemplate<K> {
      * @return cache values
      */
     default <V> List<V> getWithoutNullValue(Collection<K> keys) {
-        return Collections.toMapValues(getMapWithoutNullValue(keys));
+        return Converts.toMapValues(getMapWithoutNullValue(keys));
     }
 
     /**
@@ -351,7 +351,7 @@ public interface CacheTemplate<K> {
      * @return cache value
      */
     default <V> List<V> getByNamespaceWithoutNullValue(String namespace) {
-        return Collections.toMapValues(getMapByNamespaceWithoutNullValue(namespace));
+        return Converts.toMapValues(getMapByNamespaceWithoutNullValue(namespace));
     }
 
     /**

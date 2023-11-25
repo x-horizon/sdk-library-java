@@ -10,6 +10,7 @@ import cn.srd.library.java.contract.model.throwable.RunningException;
 import cn.srd.library.java.contract.model.throwable.WarningException;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.text.Strings;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
@@ -91,7 +92,7 @@ public class WebMVCResponseBodyAdvice implements ResponseBodyAdvice<Object> {
      */
     @ExceptionHandler(BindException.class)
     public WebResponse<Void> handleBindException(HttpServletRequest httpServletRequest, BindException exception) {
-        String message = Strings.joinWithComma(Collections.toList(exception.getFieldErrors(), DefaultMessageSourceResolvable::getDefaultMessage));
+        String message = Strings.joinWithComma(Converts.toList(exception.getFieldErrors(), DefaultMessageSourceResolvable::getDefaultMessage));
         log.warn("请求资源地址：'{}'，错误信息：'{}'", httpServletRequest.getRequestURI(), message);
         return error(HttpStatus.BAD_REQUEST, message);
     }

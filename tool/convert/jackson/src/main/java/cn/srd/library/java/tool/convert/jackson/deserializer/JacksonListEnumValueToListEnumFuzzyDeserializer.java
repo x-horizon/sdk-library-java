@@ -8,7 +8,7 @@ import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.convert.jackson.JacksonFieldNameRegister;
 import cn.srd.library.java.tool.convert.jackson.Jacksons;
-import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.enums.Enums;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Classes;
@@ -58,9 +58,9 @@ public class JacksonListEnumValueToListEnumFuzzyDeserializer<E extends Enum<E>> 
                 .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfTrue(Enums.isNotEnum(fieldGenericType));
 
-        return Collections.toList(
+        return Converts.toList(
                 jsonParser.readValuesAs(Jacksons.<List<?>>newTypeReference()).next(),
-                filedValue -> Enums.toEnumByFieldValue(filedValue, (Class<E>) fieldGenericType)
+                filedValue -> Converts.toEnumByValue(filedValue, (Class<E>) fieldGenericType)
         );
     }
 

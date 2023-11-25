@@ -7,11 +7,11 @@ package cn.srd.library.java.tool.lang.collection;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.core.collection.IterUtil;
-import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ArrayUtil;
 import cn.srd.library.java.contract.constant.collection.CollectionConstant;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.compare.Comparators;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.functional.Action;
 import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;
@@ -23,7 +23,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Function;
-import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -252,7 +251,7 @@ public class Collections {
      */
     @SafeVarargs
     public static <T> T[] ofArray(Class<T> arrayType, T... inputs) {
-        return toArray(Arrays.stream(inputs).toList(), arrayType);
+        return Converts.toArray(Arrays.stream(inputs).toList(), arrayType);
     }
 
     /**
@@ -884,7 +883,7 @@ public class Collections {
      * @return return true if the checked element length is 1
      */
     public static boolean hasOnlyOneElement(Iterator<?> input) {
-        return getLength(input) == CollectionConstant.LENGTH_ONE;
+        return getSize(input) == CollectionConstant.LENGTH_ONE;
     }
 
     /**
@@ -894,7 +893,7 @@ public class Collections {
      * @return return true if the checked element length is 1
      */
     public static boolean hasOnlyOneElement(Collection<?> input) {
-        return getLength(input) == CollectionConstant.LENGTH_ONE;
+        return getSize(input) == CollectionConstant.LENGTH_ONE;
     }
 
     /**
@@ -914,7 +913,7 @@ public class Collections {
      * @return return true if the checked element length > 1
      */
     public static boolean hasMoreThanOneElement(Iterator<?> input) {
-        return getLength(input) > CollectionConstant.LENGTH_ONE;
+        return getSize(input) > CollectionConstant.LENGTH_ONE;
     }
 
     /**
@@ -924,7 +923,7 @@ public class Collections {
      * @return return true if the checked element length > 1
      */
     public static boolean hasMoreThanOneElement(Collection<?> input) {
-        return getLength(input) > CollectionConstant.LENGTH_ONE;
+        return getSize(input) > CollectionConstant.LENGTH_ONE;
     }
 
     /**
@@ -1033,32 +1032,32 @@ public class Collections {
     }
 
     /**
-     * return the input element length
+     * return the input element size
      *
      * @param input the input element
-     * @return the length of input element
+     * @return the size of input element
      */
-    public static int getLength(Collection<?> input) {
+    public static int getSize(Collection<?> input) {
         return Nil.isNull(input) ? CollectionConstant.LENGTH_ZERO : input.size();
     }
 
     /**
-     * return the input element length
+     * return the input element size
      *
      * @param input the input element
-     * @return the length of input element
+     * @return the size of input element
      */
-    public static int getLength(Iterable<?> input) {
+    public static int getSize(Iterable<?> input) {
         return IterUtil.size(input);
     }
 
     /**
-     * return the input element length
+     * return the input element size
      *
      * @param input the input element
-     * @return the length of input element
+     * @return the size of input element
      */
-    public static int getLength(Iterator<?> input) {
+    public static int getSize(Iterator<?> input) {
         return IterUtil.size(input);
     }
 
@@ -1066,9 +1065,9 @@ public class Collections {
      * see {@link CollectionUtil#size(Object)}
      *
      * @param input the input element
-     * @return the length of input element
+     * @return the size of input element
      */
-    public static int getLength(Object input) {
+    public static int getSize(Object input) {
         return CollectionUtil.size(input);
     }
 
@@ -1532,7 +1531,7 @@ public class Collections {
     }
 
     /**
-     * the same as {@link #toMultiMap(Iterable, Function)}
+     * the same as {@link Converts#toMultiMap(Iterable, Function)}
      *
      * @param inputs       the input elements
      * @param getKeyAction the specified field to be map key in collection element
@@ -1541,7 +1540,7 @@ public class Collections {
      * @return after group by
      */
     public static <K, V> Map<K, List<V>> groupBy(Iterable<V> inputs, Function<V, K> getKeyAction) {
-        return toMultiMap(inputs, getKeyAction);
+        return Converts.toMultiMap(inputs, getKeyAction);
     }
 
     /**
@@ -1732,502 +1731,6 @@ public class Collections {
                         .flatMap(Collections::ofUnknownSizeStream)
                         .collect(Collectors.toList())
                 )
-                .get();
-    }
-
-    /**
-     * <pre>
-     * convert collection to array.
-     *
-     *  example:
-     *
-     *     {@code
-     *        public static void main(String[] args) {
-     *            List<Integer> inputs = List.of(1, 2, 3, 4, 5);
-     *            // the output is [1, 2, 3, 4, 5]
-     *            Integer[] outputs = Collections.toArray(inputs, Integer[]::new);
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs                the input elements
-     * @param outputConstructAction the array construct
-     * @param <T>                   the element type
-     * @return after convert
-     */
-    public static <T> T[] toArray(Iterable<T> inputs, IntFunction<T[]> outputConstructAction) {
-        return Action.<T[]>ifEmpty(inputs)
-                .then(() -> outputConstructAction.apply(CollectionConstant.CAPACITY_EMPTY))
-                .otherwise(() -> ofUnknownSizeStream(inputs).toArray(outputConstructAction))
-                .get();
-    }
-
-    /**
-     * convert collection to array.
-     *
-     * @param inputs    the input elements
-     * @param inputType the input element class
-     * @param <T>       the element type
-     * @return after convert
-     */
-    public static <T> T[] toArray(Collection<T> inputs, Class<T> inputType) {
-        return ArrayUtil.toArray(inputs, inputType);
-    }
-
-    /**
-     * convert map all keys to array list
-     *
-     * @param inputs the input elements
-     * @param <K>    the key type of map
-     * @param <V>    the value type of map
-     * @return after convert
-     */
-    public static <K, V> List<K> toMapKeys(Map<K, V> inputs) {
-        return Action.<List<K>>ifEmpty(inputs)
-                .then(Collections::newArrayList)
-                .otherwise(() -> ofArrayList(inputs.keySet()))
-                .get();
-    }
-
-    /**
-     * convert map all values to array list
-     *
-     * @param inputs the input elements
-     * @param <K>    the key type of map
-     * @param <V>    the value type of map
-     * @return after convert
-     */
-    public static <K, V> List<V> toMapValues(Map<K, V> inputs) {
-        return Action.<List<V>>ifEmpty(inputs)
-                .then(Collections::newArrayList)
-                .otherwise(() -> ofArrayList(inputs.values()))
-                .get();
-    }
-
-    /**
-     * convert iterable to list
-     *
-     * @param inputs the input element
-     * @return after convert
-     */
-    public static <T> List<T> toList(Iterable<T> inputs) {
-        return Action.<List<T>>ifEmpty(inputs)
-                .then(Collections::newArrayList)
-                .otherwise(() -> ofUnknownSizeStream(inputs).collect(Collectors.toList()))
-                .get();
-    }
-
-    /**
-     * convert iterable to list
-     *
-     * @param inputs the input element
-     * @return after convert
-     */
-    public static <T> List<T> toList(Iterator<T> inputs) {
-        return Action.<List<T>>ifEmpty(inputs)
-                .then(Collections::newArrayList)
-                .otherwise(() -> ofUnknownSizeStream(inputs).collect(Collectors.toList()))
-                .get();
-    }
-
-    /**
-     * convert collection to list
-     *
-     * @param inputs the input element
-     * @return after convert
-     */
-    public static <T> List<T> toList(Collection<T> inputs) {
-        return Action.<List<T>>ifEmpty(inputs)
-                .then(Collections::newArrayList)
-                .otherwise(() -> ofArrayList(inputs))
-                .get();
-    }
-
-    /**
-     * <pre>
-     * extract the specified field in collection element to become a new collection.
-     *
-     *  example:
-     *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
-     *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                List<Person> inputs = List.of(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(11).build(),
-     *                        Person.builder().name("name3").age(12).build(),
-     *                        Person.builder().name("name4").age(13).build()
-     *                );
-     *                // the output is [10, 11, 12, 13]
-     *                List<Integer> outputs = Collections.toList(inputs, Person::getAge);
-     *            }
-     *
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs        the input elements
-     * @param mappingAction the specified field in collection element
-     * @param <T>           the element type
-     * @param <R>           the field in collection element type
-     * @return after convert
-     */
-    public static <T, R> List<R> toList(Iterable<T> inputs, Function<T, R> mappingAction) {
-        return Action.<List<R>>ifEmpty(inputs)
-                .then(Collections::newArrayList)
-                .otherwise(() -> ofUnknownSizeStream(inputs)
-                        .map(mappingAction)
-                        .collect(Collectors.toList())
-                )
-                .get();
-    }
-
-    /**
-     * <pre>
-     * extract the specified field in array element to become a new collection.
-     *
-     *  example:
-     *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
-     *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                Person[] inputs = ofArray(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(11).build(),
-     *                        Person.builder().name("name3").age(12).build(),
-     *                        Person.builder().name("name4").age(13).build()
-     *                );
-     *                // the output is [10, 11, 12, 13]
-     *                List<Integer> outputs = Collections.toList(inputs, Person::getAge);
-     *            }
-     *
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs        the input elements
-     * @param mappingAction the specified field in array element
-     * @param <T>           the element type
-     * @param <R>           the new element type
-     * @return after convert
-     */
-    public static <T, R> List<R> toList(T[] inputs, Function<T, R> mappingAction) {
-        return Action.<List<R>>infer(Nil.isEmpty(inputs))
-                .then(Collections::newArrayList)
-                .otherwise(() -> Arrays.stream(inputs)
-                        .map(mappingAction)
-                        .collect(Collectors.toList())
-                )
-                .get();
-    }
-
-    /**
-     * convert anything to list
-     *
-     * @param input the input element
-     * @return after convert
-     */
-    @SuppressWarnings(SuppressWarningConstant.ALL)
-    public static List<?> toList(Object input) {
-        return Convert.convert(List.class, input);
-    }
-
-    /**
-     * <pre>
-     * convert array to hash set.
-     *
-     *  example:
-     *
-     *     {@code
-     *        public static void main(String[] args) {
-     *            Integer[] inputs = ofArray(1, 2, 3, 3, 4);
-     *            // the output is [1, 2, 3, 4]
-     *            Set<Integer> outputs = Collections.toSet(inputs);
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs the input elements
-     * @param <T>    the element type
-     * @return after convert
-     */
-    public static <T> Set<T> toSet(T[] inputs) {
-        return Action.<Set<T>>infer(Nil.isEmpty(inputs))
-                .then(Collections::newHashSet)
-                .otherwise(() -> Arrays.stream(inputs).collect(Collectors.toSet()))
-                .get();
-    }
-
-    /**
-     * convert iterable to set
-     *
-     * @param inputs the input element
-     * @return after convert
-     */
-    public static <T> Set<T> toSet(Iterable<T> inputs) {
-        return Action.<Set<T>>ifEmpty(inputs)
-                .then(Collections::newHashSet)
-                .otherwise(() -> ofUnknownSizeStream(inputs).collect(Collectors.toSet()))
-                .get();
-    }
-
-    /**
-     * convert collection to set
-     *
-     * @param inputs the input element
-     * @return after convert
-     */
-    public static <T> Set<T> toSet(Collection<T> inputs) {
-        return Action.<Set<T>>ifEmpty(inputs)
-                .then(Collections::newHashSet)
-                .otherwise(() -> ofHashSet(inputs))
-                .get();
-    }
-
-    /**
-     * <pre>
-     * extract the specified field in collection element to become a new collection.
-     *
-     *  example:
-     *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
-     *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                List<Person> inputs = List.of(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(11).build(),
-     *                        Person.builder().name("name3").age(11).build(),
-     *                        Person.builder().name("name4").age(12).build()
-     *                );
-     *                // the output is [10, 11, 12]
-     *                Set<Integer> outputs = Collections.toSet(inputs, Person::getAge);
-     *            }
-     *
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs        the input elements
-     * @param mappingAction the specified field in collection element
-     * @param <T>           the element type
-     * @param <R>           the new element type
-     * @return after convert
-     */
-    public static <T, R> Set<R> toSet(Iterable<T> inputs, Function<T, R> mappingAction) {
-        return Action.<Set<R>>infer(Nil.isEmpty(inputs))
-                .then(Collections::newHashSet)
-                .otherwise(() -> ofUnknownSizeStream(inputs)
-                        .map(mappingAction)
-                        .collect(Collectors.toSet())
-                )
-                .get();
-    }
-
-    /**
-     * convert anything to set
-     *
-     * @param input the input element
-     * @return after convert
-     */
-    @SuppressWarnings(SuppressWarningConstant.ALL)
-    public static Set<?> toSet(Object input) {
-        return Convert.convert(Set.class, input);
-    }
-
-    /**
-     * <pre>
-     * extract the specified field in collection element to become a new map, the key is the specified field, the value is the element self.
-     *
-     *  example:
-     *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
-     *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                List<Person> inputs = List.of(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(11).build(),
-     *                        Person.builder().name("name3").age(12).build(),
-     *                        Person.builder().name("name4").age(13).build()
-     *                );
-     *                // the output is {10:Person(name="name1", age=10), 11:Person(name="name2", age=11), 12:Person(name="name3", age=12), 13:Person(name="name4", age=13)}
-     *                Map<Integer, Person> outputs = Collections.toMap(inputs, Person::getAge);
-     *            }
-     *
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs       the input elements
-     * @param getKeyAction the specified field to be map key in collection element
-     * @param <K>          the key type of map
-     * @param <V>          the value type of map
-     * @return after convert
-     */
-    public static <K, V> Map<K, V> toMap(Iterable<V> inputs, Function<V, K> getKeyAction) {
-        return Action.<Map<K, V>>infer(Nil.isEmpty(inputs))
-                .then(Collections::newHashMap)
-                .otherwise(() -> ofUnknownSizeStream(inputs).collect(Collectors.toMap(getKeyAction, item -> item)))
-                .get();
-    }
-
-    /**
-     * <pre>
-     * extract the specified field in collection element to become a new map, the key is the specified field, the value is the other specified field.
-     *
-     *  example:
-     *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
-     *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                List<Person> inputs = List.of(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(11).build(),
-     *                        Person.builder().name("name3").age(12).build(),
-     *                        Person.builder().name("name4").age(13).build()
-     *                );
-     *                // the output is {10:"name1", 11:"name2", 12:"name3", 13:"name4"}
-     *                Map<Integer, String> outputs = Collections.toMap(inputs, Person::getAge, Person::getName);
-     *            }
-     *
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs         the input elements
-     * @param getKeyAction   the specified field to be map key in collection element
-     * @param getValueAction the specified field to be map value in collection element
-     * @param <T>            the element type
-     * @param <K>            the key type of map
-     * @param <V>            the value type of map
-     * @return after convert
-     */
-    public static <T, K, V> Map<K, V> toMap(Iterable<T> inputs, Function<T, K> getKeyAction, Function<T, V> getValueAction) {
-        return Action.<Map<K, V>>infer(Nil.isEmpty(inputs))
-                .then(Collections::newHashMap)
-                .otherwise(() -> ofUnknownSizeStream(inputs).collect(Collectors.toMap(getKeyAction, getValueAction)))
-                .get();
-    }
-
-    /**
-     * <pre>
-     * extract the specified field in collection element to become a new map, the key is the specified field, the value is the duplicate key and convert element self to array list.
-     *
-     *  example:
-     *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
-     *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                List<Person> inputs = List.of(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(11).build(),
-     *                        Person.builder().name("name3").age(11).build(),
-     *                        Person.builder().name("name4").age(12).build()
-     *                );
-     *                // the output is {10:[Person(name="name1", age=10)], 11:[Person(name="name2", age=11), Person(name="name3", age=11)], 12:[Person(name="name4", age=12)]}
-     *                Map<Integer, List<Person>> outputs = Collections.toMultiMap(inputs, Person::getAge);
-     *            }
-     *
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs       the input elements
-     * @param getKeyAction the specified field to be map key in collection element
-     * @param <K>          the key type of map
-     * @param <V>          the value type of map
-     * @return after convert
-     */
-    public static <K, V> Map<K, List<V>> toMultiMap(Iterable<V> inputs, Function<V, K> getKeyAction) {
-        return Action.<Map<K, List<V>>>infer(Nil.isEmpty(inputs))
-                .then(Collections::newHashMap)
-                .otherwise(() -> ofUnknownSizeStream(inputs).collect(Collectors.groupingBy(getKeyAction, Collectors.mapping(item -> item, Collectors.toList()))))
-                .get();
-    }
-
-    /**
-     * <pre>
-     * extract the specified field in collection element to become a new map, the key is the specified field, the value is the duplicate key and convert the other specified field to array list.
-     *
-     *  example:
-     *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
-     *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                List<Person> inputs = List.of(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(11).build(),
-     *                        Person.builder().name("name3").age(11).build(),
-     *                        Person.builder().name("name4").age(12).build()
-     *                );
-     *                // the output is {10:["name1"], 11:["name2", "name3"], 12:["name4"]}
-     *                Map<Integer, List<String>> outputs = Collections.toMultiMap(inputs, Person::getAge, Person::getName);
-     *            }
-     *
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs         the input elements
-     * @param getKeyAction   the specified field to be map key in collection element
-     * @param getValueAction the specified field to be map value in collection element
-     * @param <T>            the element type
-     * @param <K>            the key type of map
-     * @param <V>            the value type of map
-     * @return after convert
-     */
-    public static <T, K, V> Map<K, List<V>> toMultiMap(Iterable<T> inputs, Function<T, K> getKeyAction, Function<T, V> getValueAction) {
-        return Action.<Map<K, List<V>>>infer(Nil.isEmpty(inputs))
-                .then(Collections::newHashMap)
-                .otherwise(() -> ofUnknownSizeStream(inputs).collect(Collectors.groupingBy(getKeyAction, Collectors.mapping(getValueAction, Collectors.toList()))))
                 .get();
     }
 

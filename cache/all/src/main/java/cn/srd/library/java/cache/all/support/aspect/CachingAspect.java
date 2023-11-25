@@ -3,7 +3,7 @@ package cn.srd.library.java.cache.all.support.aspect;
 import cn.srd.library.java.cache.all.CacheEvict;
 import cn.srd.library.java.cache.all.CacheWrite;
 import cn.srd.library.java.cache.all.Caching;
-import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.spring.contract.NullValues;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -38,7 +38,7 @@ public class CachingAspect implements CacheAspect {
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
         Caching cachingAnnotation = getAnnotationMarkedOnMethod(joinPoint, Caching.class);
         // handle read
-        List<CacheAspectContext> readContexts = Collections.toList(cachingAnnotation.read(), annotation -> buildCacheReadContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.keyGenerator(), annotation.key(), annotation.allowEmptyValue()));
+        List<CacheAspectContext> readContexts = Converts.toList(cachingAnnotation.read(), annotation -> buildCacheReadContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.keyGenerator(), annotation.key(), annotation.allowEmptyValue()));
         Object value = doRead(joinPoint, readContexts);
         // handle write
         for (CacheWrite annotation : cachingAnnotation.write()) {

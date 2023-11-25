@@ -8,7 +8,6 @@ import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.protocol.TransportModel;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.convert.all.Converts;
-import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.object.Classes;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
@@ -61,7 +60,7 @@ public class FeignClientResponseInterceptor implements Interceptor {
             throw new LibraryJavaInternalException(Strings.format(
                     "\ncould not parse feign result to any model defined in class [{}], \ncurrent define models are {}, \nplease check your config! \ncurrent feign result is {}",
                     Classes.getClassFullName(EnableFeignClientResponseModelResolver.class),
-                    Collections.toList(FeignClientResponseModelCache.get(), Classes::getClassFullName),
+                    cn.srd.library.java.tool.lang.convert.Converts.toList(FeignClientResponseModelCache.get(), Classes::getClassFullName),
                     responseBody
             ));
         }

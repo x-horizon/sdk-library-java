@@ -8,6 +8,7 @@ import cn.hutool.core.util.TypeUtil;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.functional.Action;
 import cn.srd.library.java.tool.lang.text.Strings;
 import lombok.AccessLevel;
@@ -117,7 +118,7 @@ public class Types {
      * </ul>
      */
     public static List<String> getParameterTypeNames(Method input) {
-        return Collections.toList(getParameterTypes(input), Type::getTypeName);
+        return Converts.toList(getParameterTypes(input), Type::getTypeName);
     }
 
     /**
