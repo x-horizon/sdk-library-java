@@ -42,11 +42,6 @@ public class IdGenerateBySnowflakeTest {
 
     @Test
     public void testIt() {
-        // studentTestIdSnowflakeDao.listByCondition(QueryWrapper.create()
-        //         .where(STUDENT_TEST_ID_SNOWFLAKE.ID.equalIfNotNull(1))
-        // );
-        studentTestIdSnowflakeDao.listAll();
-        studentTestIdSnowflakeDao.listAll();
         studentTestIdSnowflakeDao.listAll();
         // studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().build());
         // studentTestIdSnowflakeDao.insertSelective(StudentTestIdSnowflakePO.builder().build());
