@@ -6,7 +6,7 @@ package cn.srd.library.java.orm.mybatis.flex.base.query;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.UnsupportedException;
-import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.functional.If;
 import cn.srd.library.java.tool.lang.object.Nil;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
@@ -657,10 +657,10 @@ public class GenericQueryColumn extends QueryColumn {
      * @return in conditdion
      */
     public QueryCondition inIfCondition(Iterable<?> values, boolean appendCondition) {
-        if (values instanceof Collection<?> collection) {
-            return super.in(collection, appendCondition);
+        if (values instanceof Collection<?> collectionTypeValues) {
+            return super.in(collectionTypeValues, appendCondition);
         }
-        return super.in(Collections.toList(values), appendCondition);
+        return super.in(Converts.toList(values), appendCondition);
     }
 
     /**
@@ -782,10 +782,10 @@ public class GenericQueryColumn extends QueryColumn {
      * @return not in conditdion
      */
     public QueryCondition notInIfCondition(Iterable<?> values, boolean appendCondition) {
-        if (values instanceof Collection<?> collection) {
-            return super.notIn(collection, appendCondition);
+        if (values instanceof Collection<?> collectionTypeValues) {
+            return super.notIn(collectionTypeValues, appendCondition);
         }
-        return super.notIn(Collections.toList(values), appendCondition);
+        return super.notIn(Converts.toList(values), appendCondition);
     }
 
     /**
