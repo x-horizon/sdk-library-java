@@ -17,43 +17,48 @@ import lombok.NoArgsConstructor;
 public class ModuleView {
 
     /**
+     * the root module name
+     */
+    public static final String ROOT_MODULE = "Library Java - ";
+
+    /**
      * the cache system module name
      */
-    public static final String CACHE_SYSTEM = "Cache System - ";
+    public static final String CACHE_SYSTEM = ROOT_MODULE + "Cache System - ";
 
     /**
      * the actor system module name
      */
-    public static final String CONCURRENT_ACTOR_SYSTEM = "Concurrent Actor System - ";
+    public static final String CONCURRENT_ACTOR_SYSTEM = ROOT_MODULE + "Concurrent Actor System - ";
 
     /**
      * the orm mybatis system module name
      */
-    public static final String ORM_MYBATIS_SYSTEM = "ORM Mybatis System - ";
+    public static final String ORM_MYBATIS_SYSTEM = ROOT_MODULE + "ORM Mybatis System - ";
 
     /**
      * the annotation system module name
      */
-    public static final String TOOL_ANNOTATION_SYSTEM = "Tool Annotation System - ";
+    public static final String TOOL_ANNOTATION_SYSTEM = ROOT_MODULE + "Tool Annotation System - ";
 
     /**
      * the class system module name
      */
-    public static final String TOOL_CLASS_SYSTEM = "Tool Class System - ";
+    public static final String TOOL_CLASS_SYSTEM = ROOT_MODULE + "Tool Class System - ";
 
     /**
      * the enum system module name
      */
-    public static final String TOOL_ENUM_SYSTEM = "Tool Enum System - ";
+    public static final String TOOL_ENUM_SYSTEM = ROOT_MODULE + "Tool Enum System - ";
 
     /**
      * the snowflake id system module name
      */
-    public static final String TOOL_SNOWFLAKE_ID_SYSTEM = "Tool Snowflake ID System - ";
+    public static final String TOOL_SNOWFLAKE_ID_SYSTEM = ROOT_MODULE + "Tool Snowflake ID System - ";
 
     /**
      * the spring webmvc system module name
      */
-    public static final String TOOL_SPRING_WEBMVC_SYSTEM = "Tool Spring WebMVC System - ";
+    public static final String TOOL_SPRING_WEBMVC_SYSTEM = ROOT_MODULE + "Tool Spring WebMVC System - ";
 
 }

@@ -605,7 +605,7 @@ public class GenericQueryColumn extends QueryColumn {
      *
      * @param values the column values
      * @return in conditdion
-     * @see Nil#isNotEmpty(Collection)
+     * @see Nil#isNotEmpty(Iterable)
      */
     public QueryCondition inIfNotEmpty(Collection<?> values) {
         return inIfCondition(values, If::notEmpty);
@@ -744,7 +744,7 @@ public class GenericQueryColumn extends QueryColumn {
      *
      * @param values the column values
      * @return not in conditdion
-     * @see Nil#isNotEmpty(Collection)
+     * @see Nil#isNotEmpty(Iterable)
      */
     public QueryCondition notInIfNotEmpty(Collection<?> values) {
         return notInIfCondition(values, If::notEmpty);
