@@ -35,19 +35,22 @@ public class RestControllerAdvicePackagePathAutoConfigurer implements Applicatio
     public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {
         log.debug("{}rest controller advice package path starting optimizing...", ModuleView.TOOL_SPRING_WEBMVC_SYSTEM);
 
-        Set<String> advicePackagePaths = Classes.parseAntStylePackagePathsToPackagePaths(Annotations.getAnnotation(EnableWebMVCResponseBodyAdvice.class).advicePackagePaths());
-        if (Nil.isNotEmpty(advicePackagePaths)) {
-            RestControllerAdvice restControllerAdvice = Annotations.getAnnotation(WebMVCResponseBodyAdvice.class, RestControllerAdvice.class);
-            String[] beforeReplaceBasePackagePaths = restControllerAdvice.basePackages();
-            Reflects.setAnnotationValue(restControllerAdvice, SpringWebMVCConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE, Collections.toArray(advicePackagePaths, String[]::new));
-            log.debug("{}replace the annotation [@{}] field [{}] value on class [@{}], before replace value {}, after replace value {}.",
-                    ModuleView.TOOL_SPRING_WEBMVC_SYSTEM,
-                    RestControllerAdvice.class.getSimpleName(),
-                    SpringWebMVCConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE,
-                    WebMVCResponseBodyAdvice.class.getSimpleName(),
-                    beforeReplaceBasePackagePaths,
-                    advicePackagePaths
-            );
+        EnableWebMVCResponseBodyAdvice webMVCResponseBodyAdvice = Annotations.getAnnotation(EnableWebMVCResponseBodyAdvice.class);
+        if (Nil.isNotNull(webMVCResponseBodyAdvice)) {
+            Set<String> advicePackagePaths = Classes.parseAntStylePackagePathsToPackagePaths(webMVCResponseBodyAdvice.advicePackagePaths());
+            if (Nil.isNotEmpty(advicePackagePaths)) {
+                RestControllerAdvice restControllerAdvice = Annotations.getAnnotation(WebMVCResponseBodyAdvice.class, RestControllerAdvice.class);
+                String[] beforeReplaceBasePackagePaths = restControllerAdvice.basePackages();
+                Reflects.setAnnotationValue(restControllerAdvice, SpringWebMVCConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE, Collections.toArray(advicePackagePaths, String[]::new));
+                log.debug("{}replace the annotation [@{}] field [{}] value on class [@{}], before replace value {}, after replace value {}.",
+                        ModuleView.TOOL_SPRING_WEBMVC_SYSTEM,
+                        RestControllerAdvice.class.getSimpleName(),
+                        SpringWebMVCConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE,
+                        WebMVCResponseBodyAdvice.class.getSimpleName(),
+                        beforeReplaceBasePackagePaths,
+                        advicePackagePaths
+                );
+            }
         }
 
         log.debug("{}rest controller advice package path has been optimized.", ModuleView.TOOL_SPRING_WEBMVC_SYSTEM);
