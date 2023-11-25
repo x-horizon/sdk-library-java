@@ -39,6 +39,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static cn.srd.library.java.contract.model.protocol.WebResponse.error;
@@ -57,10 +58,7 @@ public class WebMVCResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(@NonNull MethodParameter methodParameter, @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
-        if (UnsupportedAdvice.get().stream().anyMatch(unsupportedType -> Comparators.equals(unsupportedType, methodParameter.getParameterType()))) {
-            return false;
-        }
-        return Comparators.notEquals(converterType, StringHttpMessageConverter.class);
+        return Unsupported.support(methodParameter) && Comparators.notEquals(converterType, StringHttpMessageConverter.class);
     }
 
     @Override
@@ -235,16 +233,40 @@ public class WebMVCResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class UnsupportedAdvice {
+    public static class Unsupported {
 
-        private static final Set<Class<?>> UNSUPPORTED_TYPES = Collections.newConcurrentHashSet();
+        private static final Set<Class<?>> RESPONSE_BODY_MODEL_TYPES = Collections.newConcurrentHashSet();
 
-        public static Set<Class<?>> get() {
-            return UNSUPPORTED_TYPES;
+        private static final Set<Class<?>> CONTROLLER_TYPES = Collections.newConcurrentHashSet();
+
+        private static final Set<Predicate<MethodParameter>> PREDICATIONS = Collections.newConcurrentHashSet();
+
+        public static void registerResponseBodyModels(Class<?>... unsupportedResponseBodyModels) {
+            RESPONSE_BODY_MODEL_TYPES.addAll(Collections.ofHashSet(unsupportedResponseBodyModels));
         }
 
-        public static void register(Class<?>... unsupportedTypes) {
-            UNSUPPORTED_TYPES.addAll(Collections.ofHashSet(unsupportedTypes));
+        public static void registerControllers(Class<?>... unsupportedControllers) {
+            CONTROLLER_TYPES.addAll(Collections.ofHashSet(unsupportedControllers));
+        }
+
+        public static void registerPredications(Predicate<MethodParameter>... unsupportedPredications) {
+            PREDICATIONS.addAll(Collections.ofHashSet(unsupportedPredications));
+        }
+
+        private static boolean support(MethodParameter methodParameter) {
+            return noneMatchResponseBodyModels(methodParameter) && noneMatchControllers(methodParameter) && noneMatchPredications(methodParameter);
+        }
+
+        private static boolean noneMatchResponseBodyModels(MethodParameter methodParameter) {
+            return RESPONSE_BODY_MODEL_TYPES.stream().noneMatch(unsupportedType -> Comparators.equals(unsupportedType, methodParameter.getParameterType()));
+        }
+
+        private static boolean noneMatchControllers(MethodParameter methodParameter) {
+            return CONTROLLER_TYPES.stream().noneMatch(unsupportedType -> Comparators.equals(unsupportedType, methodParameter.getContainingClass()));
+        }
+
+        private static boolean noneMatchPredications(MethodParameter methodParameter) {
+            return PREDICATIONS.stream().noneMatch(predication -> predication.test(methodParameter));
         }
 
     }
