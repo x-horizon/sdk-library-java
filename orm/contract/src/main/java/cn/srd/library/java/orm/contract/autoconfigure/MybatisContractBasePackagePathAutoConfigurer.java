@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.orm.contract.mybatis.base.autoconfigure;
+package cn.srd.library.java.orm.contract.autoconfigure;
 
 import cn.srd.library.java.contract.constant.spring.SpringInitializeConstant;
 import cn.srd.library.java.tool.lang.object.BasePackagePath;
@@ -20,7 +20,7 @@ import org.springframework.lang.NonNull;
 @Order(SpringInitializeConstant.HIGHER_INITIALIZE_PRIORITY)
 public class MybatisContractBasePackagePathAutoConfigurer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
-    private static final String LIBRARY_JAVA_MYBATIS_BASE_PACKAGE_PATH = "cn.srd.library.java.orm.mybatis";
+    static final String LIBRARY_JAVA_MYBATIS_BASE_PACKAGE_PATH = "cn.srd.library.java.orm";
 
     @Override
     public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {

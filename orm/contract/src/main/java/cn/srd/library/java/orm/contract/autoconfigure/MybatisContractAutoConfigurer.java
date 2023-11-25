@@ -2,11 +2,13 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.orm.contract.mybatis.base.autoconfigure;
+package cn.srd.library.java.orm.contract.autoconfigure;
 
 import cn.srd.library.java.tool.enums.autowired.EnableEnumAutowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
+import static cn.srd.library.java.orm.contract.autoconfigure.MybatisContractBasePackagePathAutoConfigurer.LIBRARY_JAVA_MYBATIS_BASE_PACKAGE_PATH;
 
 /**
  * {@link EnableAutoConfiguration AutoConfiguration} for Library Orm Mybatis Contract
@@ -15,7 +17,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
  * @since 2023-11-08 17:07
  */
 @AutoConfiguration
-@EnableEnumAutowired(scanPackagePaths = "cn.srd.library.java.orm.mybatis")
+@EnableEnumAutowired(scanPackagePaths = LIBRARY_JAVA_MYBATIS_BASE_PACKAGE_PATH)
 public class MybatisContractAutoConfigurer {
 
 }
