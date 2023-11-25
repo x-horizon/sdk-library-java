@@ -4,8 +4,10 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.dao;
 
+import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.page.PageConstant;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import cn.srd.library.java.orm.contract.model.base.BO;
 import cn.srd.library.java.orm.contract.model.base.PO;
@@ -13,14 +15,22 @@ import cn.srd.library.java.orm.contract.model.page.PageParam;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.orm.mybatis.flex.base.converter.PageConverter;
 import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.convert.Converts;
+import cn.srd.library.java.tool.lang.functional.Assert;
+import cn.srd.library.java.tool.lang.object.Nil;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.field.FieldQueryBuilder;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryCondition;
 import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.core.row.Db;
 import com.mybatisflex.core.row.Row;
+import com.mybatisflex.core.service.IService;
+import com.mybatisflex.core.util.ClassUtil;
+import com.mybatisflex.core.util.SqlUtil;
 import org.apache.ibatis.cursor.Cursor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -37,6 +47,11 @@ import java.util.function.Consumer;
 @CanIgnoreReturnValue
 @SuppressWarnings(SuppressWarningConstant.ALL)
 public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
+
+    /**
+     * see <a href="https://mybatis-flex.com/zh/base/batch.html#basemapper-insertbatch-%E6%96%B9%E6%B3%95">"the batch operation core guide"</a>.
+     */
+    int SMALL_BATCH_OPERATION_SIZE = 100;
 
     /**
      * see {@link BaseMapper#insertSelective(Object)}
@@ -60,41 +75,49 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
         return entity;
     }
 
-    // TODO wjm BaseMapper.insertBatch 方法只适用于在小批量数据插入的场景，比如 100 条数据以内。
-    // TODO wjm Db.executeBatch 可以用于进行批量的插入、修改和删除，以下是使用 Db.executeBatch 进行批量插入的示例：
-    // TODO wjm Db.executeBatch 是通过 JDBC 的 Statement.executeBatch() 进行批量执行；这个在大批量数据执行的时候，效率要比 BaseMapper.insertBatch 高出许多；
-    // TODO wjm IService 很多批量操作的方法，也都是通过 Db.executeBatch 进行封装的，大家也可以通过其扩展出自己的 "批量操作" 方法来。比如这是一个批量忽略 null 的插入示例：
-    // TODO wjm 在社区里看到个别同学，在使用 Db.executeBatch 时，未使用到参数 mapper，而是使用了其他 mapper，或者使用了 UpdateChain 等。
+    /**
+     * using {@link #DEFAULT_BATCH_SIZE} as batch size each time to insert batch to database.
+     *
+     * @param entities the operate entities
+     * @return the entities with primary key
+     * @see #SMALL_BATCH_OPERATION_SIZE
+     * @see #saveBatch(Iterable, int)
+     * @see BaseMapper#insertBatch(List, int)
+     * @see IService#saveBatch(Collection, int)
+     */
     default List<T> saveBatch(Iterable<T> entities) {
-        if (entities instanceof Collection<T> collection) {
-            return saveBatch(collection);
+        return saveBatch(entities, DEFAULT_BATCH_SIZE);
+    }
+
+    /**
+     * insert batch to database.
+     * <ol>
+     *   <li>if the entites size <= {@link #SMALL_BATCH_OPERATION_SIZE}, the insert logic see function {@link BaseMapper#insertBatch(List, int)}.</li>
+     *   <li>if the entites size > {@link #SMALL_BATCH_OPERATION_SIZE}, the insert logic see function {@link IService#saveBatch(Collection, int)}.</li>
+     * </ol>
+     *
+     * @param entities          the operate entities
+     * @param batchSizeEachTime insert size each time
+     * @return the entities with primary key
+     * @apiNote about the different between {@link BaseMapper#insertBatch(List, int)} and {@link IService#saveBatch(Collection, int)}, you should see <a href="https://mybatis-flex.com/zh/base/batch.html#basemapper-insertbatch-%E6%96%B9%E6%B3%95">"the batch operation core guide"</a>.
+     * @see #SMALL_BATCH_OPERATION_SIZE
+     * @see BaseMapper#insertBatch(List, int)
+     * @see IService#saveBatch(Collection, int)
+     */
+    @Transactional(rollbackFor = Throwable.class)
+    default List<T> saveBatch(Iterable<T> entities, int batchSizeEachTime) {
+        if (Nil.isEmpty(entities)) {
+            return Collections.newArrayList();
         }
-        return saveBatch(Collections.toList(entities));
-    }
-
-    default List<T> saveBatch(Iterable<T> entities, int shardedSize) {
-        if (entities instanceof Collection<T> collection) {
-            return saveBatch(collection, shardedSize);
-        }
-        return saveBatch(Collections.toList(entities), shardedSize);
-    }
-
-    default List<T> saveBatch(Collection<T> entities) {
-        return saveBatch(Collections.toList(entities));
-    }
-
-    default List<T> saveBatch(Collection<T> entities, int shardedSize) {
-        return saveBatch(Collections.toList(entities), shardedSize);
-    }
-
-    default List<T> saveBatch(List<T> entities) {
-        insertBatch(entities);
-        return entities;
-    }
-
-    default List<T> saveBatch(List<T> entities, int shardedSize) {
-        BaseMapper.super.insertBatch(entities, shardedSize);
-        return entities;
+        List<T> listTypeEntities = entities instanceof List<T> ? (List<T>) entities : Converts.toList(entities);
+        Assert.of()
+                .setMessage("{}save batch failed, please check!", ModuleView.ORM_MYBATIS_SYSTEM)
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfFalse(listTypeEntities.size() <= SMALL_BATCH_OPERATION_SIZE ?
+                        Converts.toBoolean(BaseMapper.super.insertBatch(listTypeEntities, batchSizeEachTime)) :
+                        SqlUtil.toBool(Db.executeBatch(listTypeEntities, batchSizeEachTime, ClassUtil.getUsefulClass(this.getClass()), BaseMapper::insertSelective))
+                );
+        return listTypeEntities;
     }
 
     default int deleteById(T entity) {
@@ -102,15 +125,15 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
     }
 
     default int deleteBatchByIds(Iterable<? extends Serializable> ids) {
-        return deleteBatchByIds(Collections.toList(ids));
+        return deleteBatchByIds(Converts.toList(ids));
     }
 
     default int deleteBatchByIds(Iterable<? extends Serializable> ids, int shardedSize) {
-        return BaseMapper.super.deleteBatchByIds(Collections.toList(ids), shardedSize);
+        return BaseMapper.super.deleteBatchByIds(Converts.toList(ids), shardedSize);
     }
 
     default int deleteBatchByIds(Collection<? extends Serializable> ids, int shardedSize) {
-        return BaseMapper.super.deleteBatchByIds(Collections.toList(ids), shardedSize);
+        return BaseMapper.super.deleteBatchByIds(Converts.toList(ids), shardedSize);
     }
 
     // TODO wjm 虽然这个方法叫 updateBatch，但一样可以执行 insert、delete、update 等任何 SQL； 这个方法类似 Spring 的 jdbcTemplate.batchUpdate() 方法。
@@ -136,7 +159,7 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
     }
 
     default List<T> listByIds(Iterable<? extends Serializable> ids) {
-        return selectListByIds(Collections.toList(ids));
+        return selectListByIds(Converts.toList(ids));
     }
 
     default List<T> listByCondition(QueryWrapper queryWrapper) {
