@@ -22,6 +22,14 @@ public class BooleanConstant {
 
     public static final String TRUE_STRING_LOWER_CASE = "true";
 
+    public static final String TRUE_STRING_UPPER_CASE = "TRUE";
+
+    public static final String TRUE_STRING_UPPER_FIRST = "True";
+
     public static final String FALSE_STRING_LOWER_CASE = "false";
+
+    public static final String FALSE_STRING_UPPER_CASE = "FALSE";
+
+    public static final String FALSE_STRING_UPPER_FIRST = "False";
 
 }
