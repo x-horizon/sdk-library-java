@@ -34,7 +34,7 @@ public class BasePackagePath {
         basePackagePaths.addAll(specifiedBasePackagePaths);
         optimize();
         Set<String> currentBasePackagePaths = get();
-        log.debug("{}the path {} has already been registered to global base package paths, current global base package paths: {}.", ModuleView.TOOL_CLASS_SYSTEM, specifiedBasePackagePaths, currentBasePackagePaths);
+        log.debug("{}the path {} has been registered to global base package paths, current global base package paths: {}.", ModuleView.TOOL_CLASS_SYSTEM, specifiedBasePackagePaths, currentBasePackagePaths);
         return currentBasePackagePaths;
     }
 
