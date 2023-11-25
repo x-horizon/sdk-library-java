@@ -569,10 +569,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @return in conditdion
      */
     public QueryCondition in(Iterable<?> values) {
-        if (values instanceof Collection<?> collection) {
-            return super.in(collection);
-        }
-        return super.in(Collections.toList(values));
+        return inIfCondition(values, true);
     }
 
     /**
@@ -594,20 +591,6 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotEmpty(Iterable)
      */
     public QueryCondition inIfNotEmpty(Iterable<?> values) {
-        if (values instanceof Collection<?> collection) {
-            return inIfCondition(collection, If::notEmpty);
-        }
-        return inIfCondition(Collections.toList(values), If::notEmpty);
-    }
-
-    /**
-     * append in conditdion if the column values is not null and at least one size
-     *
-     * @param values the column values
-     * @return in conditdion
-     * @see Nil#isNotEmpty(Iterable)
-     */
-    public QueryCondition inIfNotEmpty(Collection<?> values) {
         return inIfCondition(values, If::notEmpty);
     }
 
@@ -651,7 +634,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @param appendCondition the append condition
      * @return in conditdion
      */
-    public QueryCondition inIfCondition(Collection<?> values, BooleanSupplier appendCondition) {
+    public QueryCondition inIfCondition(Iterable<?> values, BooleanSupplier appendCondition) {
         return inIfCondition(values, appendCondition.getAsBoolean());
     }
 
@@ -662,7 +645,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @param appendCondition the append condition
      * @return in conditdion
      */
-    public <T> QueryCondition inIfCondition(Collection<T> values, Predicate<Collection<T>> appendCondition) {
+    public <T> QueryCondition inIfCondition(Iterable<T> values, Predicate<Iterable<T>> appendCondition) {
         return inIfCondition(values, appendCondition.test(values));
     }
 
@@ -673,8 +656,11 @@ public class GenericQueryColumn extends QueryColumn {
      * @param appendCondition the append condition
      * @return in conditdion
      */
-    public QueryCondition inIfCondition(Collection<?> values, boolean appendCondition) {
-        return super.in(values, appendCondition);
+    public QueryCondition inIfCondition(Iterable<?> values, boolean appendCondition) {
+        if (values instanceof Collection<?> collection) {
+            return super.in(collection, appendCondition);
+        }
+        return super.in(Collections.toList(values), appendCondition);
     }
 
     /**
@@ -708,10 +694,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @return not in conditdion
      */
     public QueryCondition notIn(Iterable<?> values) {
-        if (values instanceof Collection<?> collection) {
-            return super.notIn(collection);
-        }
-        return super.notIn(Collections.toList(values));
+        return notInIfCondition(values, true);
     }
 
     /**
@@ -733,20 +716,6 @@ public class GenericQueryColumn extends QueryColumn {
      * @see Nil#isNotEmpty(Iterable)
      */
     public QueryCondition notInIfNotEmpty(Iterable<?> values) {
-        if (values instanceof Collection<?> collection) {
-            return notInIfCondition(collection, If::notEmpty);
-        }
-        return notInIfCondition(Collections.toList(values), If::notEmpty);
-    }
-
-    /**
-     * append not in conditdion if the column values is not null and at least one size
-     *
-     * @param values the column values
-     * @return not in conditdion
-     * @see Nil#isNotEmpty(Iterable)
-     */
-    public QueryCondition notInIfNotEmpty(Collection<?> values) {
         return notInIfCondition(values, If::notEmpty);
     }
 
@@ -790,7 +759,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @param appendCondition the append condition
      * @return not in conditdion
      */
-    public QueryCondition notInIfCondition(Collection<?> values, BooleanSupplier appendCondition) {
+    public QueryCondition notInIfCondition(Iterable<?> values, BooleanSupplier appendCondition) {
         return notInIfCondition(values, appendCondition.getAsBoolean());
     }
 
@@ -801,7 +770,7 @@ public class GenericQueryColumn extends QueryColumn {
      * @param appendCondition the append condition
      * @return not in conditdion
      */
-    public <T> QueryCondition notInIfCondition(Collection<T> values, Predicate<Collection<T>> appendCondition) {
+    public <T> QueryCondition notInIfCondition(Iterable<T> values, Predicate<Iterable<T>> appendCondition) {
         return notInIfCondition(values, appendCondition.test(values));
     }
 
@@ -812,8 +781,11 @@ public class GenericQueryColumn extends QueryColumn {
      * @param appendCondition the append condition
      * @return not in conditdion
      */
-    public QueryCondition notInIfCondition(Collection<?> values, boolean appendCondition) {
-        return super.notIn(values, appendCondition);
+    public QueryCondition notInIfCondition(Iterable<?> values, boolean appendCondition) {
+        if (values instanceof Collection<?> collection) {
+            return super.notIn(collection, appendCondition);
+        }
+        return super.notIn(Collections.toList(values), appendCondition);
     }
 
     /**
@@ -1544,6 +1516,12 @@ public class GenericQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
+    public QueryCondition in(Collection<?> value) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
     public QueryCondition in(Object[] value, boolean isEffective) {
         throw new UnsupportedException();
     }
@@ -1587,6 +1565,12 @@ public class GenericQueryColumn extends QueryColumn {
     @Deprecated
     @Override
     public QueryCondition in(QueryWrapper queryWrapper, BooleanSupplier isEffective) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public QueryCondition notIn(Collection<?> value) {
         throw new UnsupportedException();
     }
 
