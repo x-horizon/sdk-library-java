@@ -1516,12 +1516,6 @@ public class GenericQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public QueryCondition in(Collection<?> value) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
     public QueryCondition in(Object[] value, boolean isEffective) {
         throw new UnsupportedException();
     }
@@ -1565,12 +1559,6 @@ public class GenericQueryColumn extends QueryColumn {
     @Deprecated
     @Override
     public QueryCondition in(QueryWrapper queryWrapper, BooleanSupplier isEffective) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
-    public QueryCondition notIn(Collection<?> value) {
         throw new UnsupportedException();
     }
 
