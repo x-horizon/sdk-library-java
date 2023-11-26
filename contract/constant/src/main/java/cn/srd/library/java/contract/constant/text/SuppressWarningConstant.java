@@ -27,6 +27,11 @@ public class SuppressWarningConstant {
     public static final String DEPRECATED = "deprecation";
 
     /**
+     * ignore duplicated code: {@code "DuplicatedCode"}
+     */
+    public static final String DUPLICATED_CODE = "DuplicatedCode";
+
+    /**
      * ignore unchecked warning: {@code "unchecked"}
      */
     public static final String UNCHECKED = "unchecked";
