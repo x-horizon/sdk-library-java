@@ -11,6 +11,7 @@ import cn.srd.library.java.orm.mybatis.flex.base.property.PropertyConfig;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.config.TestInsertListener;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.config.TestUpdateListener;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.StudentTestIdSnowflakeDao;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.StudentTestIdSnowflakePO;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
 import org.apache.ibatis.logging.nologging.NoLoggingImpl;
@@ -42,6 +43,16 @@ public class IdGenerateBySnowflakeTest {
 
     @Test
     public void testIt() {
+
+        StudentTestIdSnowflakePO account = new StudentTestIdSnowflakePO();
+        account.setName("michael");
+
+        // StudentTestIdSnowflakePO newAccount = UpdateWrapper.of(account)
+        //         .setRaw(StudentTestIdSnowflakePO::getCreateTime, "now()")
+        //         .toEntity();
+
+        studentTestIdSnowflakeDao.save(account);
+
         studentTestIdSnowflakeDao.listAll();
         // studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().build());
         // studentTestIdSnowflakeDao.insertSelective(StudentTestIdSnowflakePO.builder().build());
