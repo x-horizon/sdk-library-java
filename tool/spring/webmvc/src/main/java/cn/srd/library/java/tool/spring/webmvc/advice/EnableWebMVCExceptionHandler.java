@@ -10,19 +10,17 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * enable webmvc response body advice
+ * enable spring webmvc exception handler
  *
  * @author wjm
- * @see WebMVCResponseBodyAdviceSwitcher
- * @see WebMVCAutoConfigurer#webMVCResponseBodyAdvice()
+ * @see WebMVCExceptionHandlerSwitcher
+ * @see WebMVCAutoConfigurer#webMVCExceptionHandler()
  * @since 2022-07-16 18:16
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(WebMVCResponseBodyAdviceSwitcher.class)
-public @interface EnableWebMVCResponseBodyAdvice {
-
-    String[] advicePackagePaths() default {};
+@Import(WebMVCExceptionHandlerSwitcher.class)
+public @interface EnableWebMVCExceptionHandler {
 
 }
