@@ -4,10 +4,8 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.dao;
 
-import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.page.PageConstant;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
-import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import cn.srd.library.java.orm.contract.model.base.BO;
 import cn.srd.library.java.orm.contract.model.base.PO;
@@ -16,7 +14,6 @@ import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.orm.mybatis.flex.base.converter.PageConverter;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;
-import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.mybatisflex.core.BaseMapper;
@@ -28,7 +25,6 @@ import com.mybatisflex.core.row.Db;
 import com.mybatisflex.core.row.Row;
 import com.mybatisflex.core.service.IService;
 import com.mybatisflex.core.util.ClassUtil;
-import com.mybatisflex.core.util.SqlUtil;
 import org.apache.ibatis.cursor.Cursor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -92,8 +88,23 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
     /**
      * insert batch to database.
      * <ol>
-     *   <li>if the entites size <= {@link #SMALL_BATCH_OPERATION_SIZE}, the insert logic see function {@link BaseMapper#insertBatch(List, int)}.</li>
-     *   <li>if the entites size > {@link #SMALL_BATCH_OPERATION_SIZE}, the insert logic see function {@link IService#saveBatch(Collection, int)}.</li>
+     *   <li>
+     *       if the entites size <= {@link #SMALL_BATCH_OPERATION_SIZE}, the insert logic see function {@link BaseMapper#insertBatch(List, int)}, the generated insert sql like:
+     *       <pre>
+     *       INSERT INTO "test_table"("id", "name", "row_is_deleted")
+     *       VALUES (487223443892741, 'test1', FALSE),
+     *              (487223443892742, 'test2', FALSE),
+     *              (487223443913230, 'test3', FALSE);
+     *       </pre>
+     *   </li>
+     *   <li>
+     *       if the entites size > {@link #SMALL_BATCH_OPERATION_SIZE}, the insert logic see function {@link IService#saveBatch(Collection, int)}, the generated insert sql like:
+     *       <pre>
+     *       INSERT INTO "test_table"("id", "name", "row_is_deleted") VALUES (487223443892741, 'test1', FALSE);
+     *       INSERT INTO "test_table"("id", "name", "row_is_deleted") VALUES (487223443892742, 'test2', FALSE);
+     *       INSERT INTO "test_table"("id", "name", "row_is_deleted") VALUES (487223443913230, 'test3', FALSE);
+     *       </pre>
+     *   </li>
      * </ol>
      *
      * @param entities          the operate entities
@@ -110,13 +121,11 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
             return Collections.newArrayList();
         }
         List<T> listTypeEntities = entities instanceof List<T> ? (List<T>) entities : Converts.toList(entities);
-        Assert.of()
-                .setMessage("{}save batch failed, please check!", ModuleView.ORM_MYBATIS_SYSTEM)
-                .setThrowable(LibraryJavaInternalException.class)
-                .throwsIfFalse(listTypeEntities.size() <= SMALL_BATCH_OPERATION_SIZE ?
-                        Converts.toBoolean(BaseMapper.super.insertBatch(listTypeEntities, batchSizeEachTime)) :
-                        SqlUtil.toBool(Db.executeBatch(listTypeEntities, batchSizeEachTime, ClassUtil.getUsefulClass(this.getClass()), BaseMapper::insertSelective))
-                );
+        if (listTypeEntities.size() <= SMALL_BATCH_OPERATION_SIZE) {
+            BaseMapper.super.insertBatch(listTypeEntities, batchSizeEachTime);
+        } else {
+            Db.executeBatch(listTypeEntities, batchSizeEachTime, ClassUtil.getUsefulClass(this.getClass()), GenericCurdDao::save);
+        }
         return listTypeEntities;
     }
 
