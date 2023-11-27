@@ -20,7 +20,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
 /**
- * {@link EnableAutoConfiguration AutoConfiguration} for Library Tool Snowflake ID
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Tool Snowflake ID
  *
  * @author wjm
  * @see EnableSnowflakeId

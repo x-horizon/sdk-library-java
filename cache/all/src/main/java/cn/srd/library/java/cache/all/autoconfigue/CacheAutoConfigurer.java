@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
  * TODO wjm 2、RedisTopics.addListener
  * TODO wjm 3、超时时间的实现
  * <p>
- * {@link EnableAutoConfiguration AutoConfiguration} for Library Cache All
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Cache All
  *
  * @author wjm
  * @since 2023-06-07 16:48:52

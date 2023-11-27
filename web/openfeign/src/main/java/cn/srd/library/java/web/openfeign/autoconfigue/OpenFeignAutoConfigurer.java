@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Bean;
 import java.util.Set;
 
 /**
- * {@link EnableAutoConfiguration AutoConfiguration} for library web open feign okHttp
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Web Open Feign
  *
  * @author wjm
  * @since 2023-03-04 16:48

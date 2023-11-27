@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 
 /**
- * {@link EnableAutoConfiguration AutoConfiguration} for Library Cache Redis
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Cache Redis
  *
  * @author wjm
  * @since 2020/12/12 18:06

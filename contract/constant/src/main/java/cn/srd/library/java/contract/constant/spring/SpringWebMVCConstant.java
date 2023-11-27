@@ -8,7 +8,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * spring web mvc constant
+ * spring webmvc constant
  *
  * @author wjm
  * @since 2023-10-15 19:51

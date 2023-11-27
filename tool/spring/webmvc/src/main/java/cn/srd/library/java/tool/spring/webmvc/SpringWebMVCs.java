@@ -13,13 +13,13 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
- * toolkit for spring web mvc
+ * toolkit for spring webmvc
  *
  * @author wjm
  * @since 2022-08-05 22:53
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class SpringsWebMVCs {
+public class SpringWebMVCs {
 
     /**
      * get {@link ServletRequestAttributes}
