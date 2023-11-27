@@ -2,18 +2,18 @@ package cn.srd.library.java.cache.caffeine.test;
 
 import cn.srd.library.java.cache.caffeine.CaffeineCache;
 import cn.srd.library.java.cache.caffeine.model.Student;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.support.NullValue;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
-public class CacheCaffeineTest {
+@ExtendWith(SpringExtension.class)
+class CacheCaffeineTest {
 
     private static final String CACHE_NAME1 = "cache1";
 
@@ -28,7 +28,7 @@ public class CacheCaffeineTest {
     private static final Student CACHE_OBJECT2 = Student.builder().id(2).name("test2").build();
 
     @Test
-    public void testCache() {
+    void testCache() {
         CaffeineCache<String> cache = CaffeineCache.newInstance();
 
         // =================== no handle NullValue ===================

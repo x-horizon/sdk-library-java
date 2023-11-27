@@ -7,17 +7,17 @@ package cn.srd.library.java.tool.convert.all.benchmark;
 import cn.hutool.core.text.StrBuilder;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.tool.lang.text.Strings;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
-public class StringBenchmarkTest {
+@ExtendWith(SpringExtension.class)
+class StringBenchmarkTest {
 
     private static final int DATA_SIZE = 10000000;
 
@@ -35,7 +35,7 @@ public class StringBenchmarkTest {
      */
 
     @Test
-    public void test() {
+    void test() {
         // 预热
         for (int i = 0; i < DATA_SIZE; i++) {
             String b = CONCAT_STR_1 + SymbolConstant.SLASH + CONCAT_STR_2;

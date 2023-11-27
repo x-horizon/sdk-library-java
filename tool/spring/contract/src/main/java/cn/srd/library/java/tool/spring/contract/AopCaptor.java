@@ -8,7 +8,6 @@ import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.SneakyThrows;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.core.StandardReflectionParameterNameDiscoverer;
 
@@ -87,14 +86,14 @@ public interface AopCaptor {
      *     }
      *  }
      * <li>after java compilation, method parameter names are not preserved, so, how does Spring know whether to inject foo or bar when injecting FooBar?</li><br>
-     * <li>before spring 4.x version, the class {@link LocalVariableTableParameterNameDiscoverer} implement by {@link ParameterNameDiscoverer} use asm bytecode to obtain parameter names.</li><br>
-     * <li>after spring 4.x version, the class {@link StandardReflectionParameterNameDiscoverer} was used instead of {@link LocalVariableTableParameterNameDiscoverer},
+     * <li>before spring 4.x version, the class {@link org.springframework.core.LocalVariableTableParameterNameDiscoverer} implement by {@link ParameterNameDiscoverer} use asm bytecode to obtain parameter names.</li><br>
+     * <li>after spring 4.x version, the class {@link StandardReflectionParameterNameDiscoverer} was used instead of {@link org.springframework.core.LocalVariableTableParameterNameDiscoverer},
      *     it use the standard implementation of jdk8, which uses reflection to obtain variable names.
      *     however, this method requires adding the -parameters parameter during compilation to preserve variable names.</li><br>
-     * <li>after spring 6.x version, the class {@link LocalVariableTableParameterNameDiscoverer} was marked as @{@link Deprecated},
+     * <li>after spring 6.x version, the class {@link org.springframework.core.LocalVariableTableParameterNameDiscoverer} was marked as @{@link Deprecated},
      *     when there is a situation where the variable name needs to be resolved,
      *     but the -parameters parameter was not added during compilation,
-     *     {@link LocalVariableTableParameterNameDiscoverer} will still be called,
+     *     {@link org.springframework.core.LocalVariableTableParameterNameDiscoverer} will still be called,
      *     and a warning will be printed:
      *     Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection.</li><br>
      * <li>based on the above description, if your project does not include the -parameters parameter during compilation,

@@ -13,30 +13,30 @@
 // import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.DetailPO;
 // import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.StudentTestTypeHandlerPO;
 // import cn.srd.library.java.tool.lang.collection.Collections;
-// import org.junit.Test;
-// import org.junit.runner.RunWith;
+// import org.junit.jupiter.api.Test;
+// import org.junit.jupiter.api.extension.ExtendWith;
 // import org.mybatis.spring.annotation.MapperScan;
 // import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.boot.test.context.SpringBootTest;
-// import org.springframework.test.context.junit4.SpringRunner;
+// import org.springframework.test.context.junit.jupiter.SpringExtension;
 //
 // import java.util.List;
 // import java.util.UUID;
 //
 // @MapperScan("cn.srd.library.java.orm.mybatis.flex.postgresql.dao")
 // @EnableMybatisFlexCustomizer(
-//         globalDeleteLogicConfig = @DeleteLogicConfig(normalValue = BooleanConstant.FALSE, deletedValue = BooleanConstant.TRUE),
+//         globalDeleteLogicConfig = @DeleteLogicConfig(normalValue = BooleanConstant.FALSE_STRING_LOWER_CASE, deletedValue = BooleanConstant.TRUE_STRING_LOWER_CASE),
 //         globalListenerConfig = @ListenerConfig(whenInsert = TestInsertListener.class, whenUpdate = TestUpdateListener.class),
 //         globalAuditConfig = @AuditLogConfig(enable = true)
 // )
 // @SpringBootTest
-// @RunWith(SpringRunner.class)
-// public class JdbcTypeHandlerTest {
+// @ExtendWith(SpringExtension.class)
+// class JdbcTypeHandlerTest {
 //
 //     @Autowired private StudentTestTypeHandlerDao studentTestTypeHandlerDao;
 //
 //     @Test
-//     public void testGet() {
+//     void testGet() {
 //         StudentTestTypeHandlerPO studentTestTypeHandlerPO1 = studentTestTypeHandlerDao.selectOneById(1L);
 //         StudentTestTypeHandlerPO studentTestTypeHandlerPO2 = studentTestTypeHandlerDao.selectOneById(2L);
 //         StudentTestTypeHandlerPO studentTestTypeHandlerPO3 = studentTestTypeHandlerDao.selectOneById(3L);

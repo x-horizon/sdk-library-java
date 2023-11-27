@@ -14,12 +14,12 @@ import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.StudentTestIdSnowflak
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
 import org.apache.ibatis.logging.nologging.NoLoggingImpl;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @MapperScan("cn.srd.library.java.orm.mybatis.flex.postgresql.dao")
 @EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
@@ -35,13 +35,18 @@ import org.springframework.test.context.junit4.SpringRunner;
         )
 )
 @SpringBootTest
-@RunWith(SpringRunner.class)
-public class IdGenerateBySnowflakeTest {
+@ExtendWith(SpringExtension.class)
+class IdGenerateBySnowflakeTest {
 
     @Autowired private StudentTestIdSnowflakeDao studentTestIdSnowflakeDao;
 
     @Test
-    public void testIt() {
+    void testIt() {
+        // studentTestIdSnowflakeDao.listByCondition(QueryWrapper.create()
+        //         .where(STUDENT_TEST_ID_SNOWFLAKE.ID.equalIfNotNull(1))
+        // );
+        studentTestIdSnowflakeDao.listAll();
+        studentTestIdSnowflakeDao.listAll();
         studentTestIdSnowflakeDao.listAll();
         // studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().build());
         // studentTestIdSnowflakeDao.insertSelective(StudentTestIdSnowflakePO.builder().build());
