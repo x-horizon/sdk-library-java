@@ -88,7 +88,7 @@ public class CacheTypeLocalStrategy implements CacheTypeStrategy {
      * @return the cache key after resolve
      */
     public String resolveKey(String key) {
-        return Strings.contains(key, SymbolConstant.COLON) ? Strings.subAfter(key, SymbolConstant.COLON) : key;
+        return Strings.containsAny(key, SymbolConstant.COLON) ? Strings.subAfter(key, SymbolConstant.COLON) : key;
     }
 
 }

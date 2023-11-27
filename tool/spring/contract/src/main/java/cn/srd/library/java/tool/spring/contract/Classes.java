@@ -468,19 +468,19 @@ public class Classes extends cn.srd.library.java.tool.lang.object.Classes {
                 .map(resourcePath -> {
                     String relativeResourcePath;
                     // parse the relative resource path:
-                    if (Strings.contains(resourcePath, ClassConstant.JAVA_MAIN_PATH)) {
+                    if (Strings.containsAny(resourcePath, ClassConstant.JAVA_MAIN_PATH)) {
                         // if the resource path like "/absolutePath/projectName/build/classes/java/main/cn/test/lang/", then parse it to "cn/test/lang/"
                         relativeResourcePath = Strings.subAfter(resourcePath, ClassConstant.JAVA_MAIN_PATH);
-                    } else if (Strings.contains(resourcePath, ClassConstant.RESOURCE_MAIN_PATH)) {
+                    } else if (Strings.containsAny(resourcePath, ClassConstant.RESOURCE_MAIN_PATH)) {
                         // if the resource path like "/absolutePath/projectName/build/resources/main/cn/test/lang/", then parse it to "cn/test/lang/"
                         relativeResourcePath = Strings.subAfter(resourcePath, ClassConstant.RESOURCE_MAIN_PATH);
-                    } else if (Strings.contains(resourcePath, ClassConstant.DOCKER_APP_CLASS_PATH)) {
+                    } else if (Strings.containsAny(resourcePath, ClassConstant.DOCKER_APP_CLASS_PATH)) {
                         // if the resource path like "/absolutePath/app/classes/cn/test/lang/", then parse it to "cn/test/lang/"
                         relativeResourcePath = Strings.subAfter(resourcePath, ClassConstant.DOCKER_APP_CLASS_PATH);
-                    } else if (Strings.contains(resourcePath, ClassConstant.DOCKER_APP_RESOURCE_PATH)) {
+                    } else if (Strings.containsAny(resourcePath, ClassConstant.DOCKER_APP_RESOURCE_PATH)) {
                         // if the resource path like "/absolutePath/app/resources/cn/test/lang/", then parse it to "cn/test/lang/"
                         relativeResourcePath = Strings.subAfter(resourcePath, ClassConstant.DOCKER_APP_RESOURCE_PATH);
-                    } else if (Strings.startWith(resourcePath, ProtocolConstant.FILE) && Strings.contains(resourcePath, ClassConstant.REFERENCE_JAR_PATH)) {
+                    } else if (Strings.startWith(resourcePath, ProtocolConstant.FILE) && Strings.containsAny(resourcePath, ClassConstant.REFERENCE_JAR_PATH)) {
                         // if the resource path like "file:/absolutePath/xxx.jar!/cn/test/lang/", then parse it to "cn/test/lang/"
                         relativeResourcePath = Strings.subAfter(resourcePath, ClassConstant.REFERENCE_JAR_PATH);
                     } else {
