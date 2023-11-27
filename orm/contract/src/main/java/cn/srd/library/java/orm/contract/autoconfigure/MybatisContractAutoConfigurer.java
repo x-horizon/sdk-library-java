@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import static cn.srd.library.java.orm.contract.autoconfigure.MybatisContractBasePackagePathAutoConfigurer.LIBRARY_JAVA_MYBATIS_BASE_PACKAGE_PATH;
 
 /**
- * {@link EnableAutoConfiguration AutoConfiguration} for Library Orm Mybatis Contract
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Java ORM Mybatis Contract
  *
  * @author wjm
  * @since 2023-11-08 17:07

@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
 
 /**
- * {@link EnableAutoConfiguration AutoConfiguration} for Library ORM Mybatis Flex
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Java ORM Mybatis Flex
  *
  * @author wjm
  * @since 2023-11-12 21:06

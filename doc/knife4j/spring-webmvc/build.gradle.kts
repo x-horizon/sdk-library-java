@@ -3,7 +3,6 @@
 // license that can be found in the LICENSE file.
 
 dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
-
-    api(GradleDependency.TEST_DB_UNIT.withoutVersion)
+    api(project(GradleModule.toReferenceName(GradleModule.DOC_KNIFE4J_CONTRACT)))
+    api(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_WEBMVC)))
 }

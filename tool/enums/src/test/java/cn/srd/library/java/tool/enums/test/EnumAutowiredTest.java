@@ -9,13 +9,13 @@ import cn.srd.library.java.tool.enums.model.GenderStrategy;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.spring.contract.Classes;
 import cn.srd.library.java.tool.spring.contract.Springs;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.AssignableTypeFilter;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Set;
 
@@ -26,11 +26,11 @@ import java.util.Set;
  * @since 2023-10-05 19:23
  */
 @SpringBootTest
-@RunWith(SpringRunner.class)
-public class EnumAutowiredTest {
+@ExtendWith(SpringExtension.class)
+class EnumAutowiredTest {
 
     @Test
-    public void testEnumAutowired() {
+    void testEnumAutowired() {
         String basePackage = Springs.getSpringBootApplicationPackagePath();
         Set<BeanDefinition> beanDefinitions = Classes.scanByTypeFilter(Collections.ofArrayList(new AnnotationTypeFilter(EnumAutowired.class), new AssignableTypeFilter(GenderStrategy.class)), basePackage);
     }

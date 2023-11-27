@@ -7,10 +7,10 @@ package cn.srd.library.java.tool.spring.contract.test;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import cn.srd.library.java.tool.spring.contract.model.WithAutoConfigurationBean;
 import cn.srd.library.java.tool.spring.contract.model.WithComponentBean;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * test for {@link Springs}
@@ -19,11 +19,11 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @since 2023-10-03 18:46
  */
 @SpringBootTest
-@RunWith(SpringRunner.class)
-public class SpringsTest {
+@ExtendWith(SpringExtension.class)
+class SpringsTest {
 
     @Test
-    public void testRegisterBean() {
+    void testRegisterBean() {
         Springs.registerBean(WithComponentBean.class);
         Springs.registerBean(WithAutoConfigurationBean.class);
         Springs.getBean(WithComponentBean.class);

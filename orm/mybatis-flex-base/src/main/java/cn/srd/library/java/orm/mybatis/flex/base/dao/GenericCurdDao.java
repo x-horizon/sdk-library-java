@@ -17,19 +17,14 @@ import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.object.Nil;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.mybatisflex.core.BaseMapper;
-import com.mybatisflex.core.FlexConsts;
 import com.mybatisflex.core.field.FieldQueryBuilder;
 import com.mybatisflex.core.paginate.Page;
-import com.mybatisflex.core.provider.EntitySqlProvider;
 import com.mybatisflex.core.query.QueryCondition;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.row.Db;
 import com.mybatisflex.core.row.Row;
 import com.mybatisflex.core.service.IService;
 import com.mybatisflex.core.util.ClassUtil;
-import com.mybatisflex.core.util.SqlUtil;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.cursor.Cursor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,11 +45,15 @@ import java.util.function.Consumer;
 public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
 
     /**
-     * insert to database and ignore null column value
+     * see <a href="https://mybatis-flex.com/zh/base/batch.html#basemapper-insertbatch-%E6%96%B9%E6%B3%95">"the batch operation core guide"</a>.
+     */
+    int SMALL_BATCH_OPERATION_SIZE = 100;
+
+    /**
+     * see {@link BaseMapper#insertSelective(Object)}
      *
-     * @param entity the operate entity
-     * @return the entity with primary key
-     * @see BaseMapper#insertSelective(Object)
+     * @param entity
+     * @return
      */
     default T save(T entity) {
         BaseMapper.super.insertSelective(entity);
@@ -62,53 +61,57 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
     }
 
     /**
-     * insert to database and ignore null column value
+     * see {@link BaseMapper#insertWithPk(Object)}
      *
-     * @param entity the operate entity with primary key and not using the primary key generate strategy.
-     * @return the entity
-     * @see BaseMapper#insertWithPk(Object)
+     * @param entity
+     * @return
      */
     default T saveWithPK(T entity) {
         BaseMapper.super.insertSelectiveWithPk(entity);
         return entity;
     }
 
-    @Override
-    @InsertProvider(type = EntitySqlProvider.class, method = FunctionConstant.SAVE_FUNCTION_NAME)
-    int insert(@Param(FlexConsts.ENTITY) T entity, @Param(FlexConsts.IGNORE_NULLS) boolean ignoreNulls);
-
-    @InsertProvider(type = EntitySqlProvider.class, method = FunctionConstant.SAVE_WITH_PK_FUNCTION_NAME)
-    int insertWithPk(@Param(FlexConsts.ENTITY) T entity, @Param(FlexConsts.IGNORE_NULLS) boolean ignoreNulls);
-
-    @InsertProvider(type = EntitySqlProvider.class, method = FunctionConstant.SAVE_BATCH_FUNCTION_NAME)
-    int insertBatch(@Param(FlexConsts.ENTITIES) List<T> entities);
-
     /**
-     * using {@link FunctionConstant#SMALL_BATCH_OPERATION_SIZE} as batch size each time to insert batch to database.
+     * using {@link #DEFAULT_BATCH_SIZE} as batch size each time to insert batch to database.
      *
      * @param entities the operate entities
      * @return the entities with primary key
+     * @see #SMALL_BATCH_OPERATION_SIZE
      * @see #saveBatch(Iterable, int)
-     * @see FunctionConstant#SMALL_BATCH_OPERATION_SIZE
      * @see BaseMapper#insertBatch(List, int)
      * @see IService#saveBatch(Collection, int)
      */
     default List<T> saveBatch(Iterable<T> entities) {
-        return saveBatch(entities, FunctionConstant.DEFAULT_BATCH_OPERATION_SIZE_EACH_TIME);
+        return saveBatch(entities, DEFAULT_BATCH_SIZE);
     }
 
     /**
      * insert batch to database.
      * <ol>
-     *   <li>if the entites size <= {@link #SMALL_BATCH_OPERATION_SIZE}, the insert logic see function {@link BaseMapper#insertBatch(List, int)}.</li>
-     *   <li>if the entites size > {@link #SMALL_BATCH_OPERATION_SIZE}, the insert logic see function {@link IService#saveBatch(Collection, int)}.</li>
+     *   <li>
+     *       if the entites size <= {@link #SMALL_BATCH_OPERATION_SIZE}, the insert logic see function {@link BaseMapper#insertBatch(List, int)}, the generated insert sql like:
+     *       <pre>
+     *       INSERT INTO "test_table"("id", "name", "row_is_deleted")
+     *       VALUES (487223443892741, 'test1', FALSE),
+     *              (487223443892742, 'test2', FALSE),
+     *              (487223443913230, 'test3', FALSE);
+     *       </pre>
+     *   </li>
+     *   <li>
+     *       if the entites size > {@link #SMALL_BATCH_OPERATION_SIZE}, the insert logic see function {@link IService#saveBatch(Collection, int)}, the generated insert sql like:
+     *       <pre>
+     *       INSERT INTO "test_table"("id", "name", "row_is_deleted") VALUES (487223443892741, 'test1', FALSE);
+     *       INSERT INTO "test_table"("id", "name", "row_is_deleted") VALUES (487223443892742, 'test2', FALSE);
+     *       INSERT INTO "test_table"("id", "name", "row_is_deleted") VALUES (487223443913230, 'test3', FALSE);
+     *       </pre>
+     *   </li>
      * </ol>
      *
      * @param entities          the operate entities
      * @param batchSizeEachTime insert size each time
      * @return the entities with primary key
      * @apiNote about the different between {@link BaseMapper#insertBatch(List, int)} and {@link IService#saveBatch(Collection, int)}, you should see <a href="https://mybatis-flex.com/zh/base/batch.html#basemapper-insertbatch-%E6%96%B9%E6%B3%95">"the batch operation core guide"</a>.
-     * @see FunctionConstant#SMALL_BATCH_OPERATION_SIZE
+     * @see #SMALL_BATCH_OPERATION_SIZE
      * @see BaseMapper#insertBatch(List, int)
      * @see IService#saveBatch(Collection, int)
      */
@@ -118,18 +121,28 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
             return Collections.newArrayList();
         }
         List<T> listTypeEntities = entities instanceof List<T> ? (List<T>) entities : Converts.toList(entities);
-        boolean ignore = listTypeEntities.size() <= FunctionConstant.SMALL_BATCH_OPERATION_SIZE ?
-                Converts.toBoolean(BaseMapper.super.insertBatch(listTypeEntities, batchSizeEachTime)) :
-                SqlUtil.toBool(Db.executeBatch(listTypeEntities, batchSizeEachTime, ClassUtil.getUsefulClass(this.getClass()), BaseMapper::insertSelective));
+        if (listTypeEntities.size() <= SMALL_BATCH_OPERATION_SIZE) {
+            BaseMapper.super.insertBatch(listTypeEntities, batchSizeEachTime);
+        } else {
+            Db.executeBatch(listTypeEntities, batchSizeEachTime, ClassUtil.getUsefulClass(this.getClass()), GenericCurdDao::save);
+        }
         return listTypeEntities;
     }
 
-    default void deleteById(T entity) {
-        BaseMapper.super.delete(entity);
+    default int deleteById(T entity) {
+        return BaseMapper.super.delete(entity);
     }
 
-    default void deleteByIds(Iterable<? extends Serializable> ids) {
-        deleteBatchByIds(Converts.toList(ids));
+    default int deleteBatchByIds(Iterable<? extends Serializable> ids) {
+        return deleteBatchByIds(Converts.toList(ids));
+    }
+
+    default int deleteBatchByIds(Iterable<? extends Serializable> ids, int shardedSize) {
+        return BaseMapper.super.deleteBatchByIds(Converts.toList(ids), shardedSize);
+    }
+
+    default int deleteBatchByIds(Collection<? extends Serializable> ids, int shardedSize) {
+        return BaseMapper.super.deleteBatchByIds(Converts.toList(ids), shardedSize);
     }
 
     // TODO wjm 虽然这个方法叫 updateBatch，但一样可以执行 insert、delete、update 等任何 SQL； 这个方法类似 Spring 的 jdbcTemplate.batchUpdate() 方法。
@@ -254,21 +267,6 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
     @Deprecated
     @Override
     default int delete(T entity) {
-        throw new UnsupportedException();
-    }
-
-    @Override
-    default int deleteBatchByIds(List<? extends Serializable> ids, int size) {
-        throw new UnsupportedException();
-    }
-
-    @Override
-    default int deleteByMap(Map<String, Object> whereConditions) {
-        throw new UnsupportedException();
-    }
-
-    @Override
-    default int deleteByCondition(QueryCondition whereConditions) {
         throw new UnsupportedException();
     }
 

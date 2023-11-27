@@ -12,28 +12,28 @@
 // import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.StudentTestIdUncontrolledDao;
 // import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.StudentTestIdUncontrolledPO;
 // import cn.srd.library.java.tool.lang.random.Randoms;
-// import org.junit.Test;
-// import org.junit.runner.RunWith;
+// import org.junit.jupiter.api.Test;
+// import org.junit.jupiter.api.extension.ExtendWith;
 // import org.mybatis.spring.annotation.MapperScan;
 // import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.boot.test.context.SpringBootTest;
-// import org.springframework.test.context.junit4.SpringRunner;
+// import org.springframework.test.context.junit.jupiter.SpringExtension;
 //
 // @MapperScan("cn.srd.library.java.orm.mybatis.flex.postgresql.dao")
 // @EnableMybatisFlexCustomizer(
 //         globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.UNCONTROLLED),
-//         globalDeleteLogicConfig = @DeleteLogicConfig(normalValue = BooleanConstant.FALSE, deletedValue = BooleanConstant.TRUE),
+//         globalDeleteLogicConfig = @DeleteLogicConfig(normalValue = BooleanConstant.FALSE_STRING_LOWER_CASE, deletedValue = BooleanConstant.TRUE_STRING_LOWER_CASE),
 //         globalListenerConfig = @ListenerConfig(whenInsert = TestInsertListener.class, whenUpdate = TestUpdateListener.class),
 //         globalAuditConfig = @AuditLogConfig(enable = true)
 // )
 // @SpringBootTest
-// @RunWith(SpringRunner.class)
-// public class IdGenerateByUncontrolledTest {
+// @ExtendWith(SpringExtension.class)
+// class IdGenerateByUncontrolledTest {
 //
 //     @Autowired private StudentTestIdUncontrolledDao studentTestIdUncontrolledDao;
 //
 //     @Test
-//     public void testIt() {
+//     void testIt() {
 //         // studentTestIdUncontrolledDao.insert(StudentTestIdUncontrolledPO.builder().id(Randoms.randomString(10)).build());
 //         studentTestIdUncontrolledDao.insertSelective(StudentTestIdUncontrolledPO.builder().id(Randoms.randomString(10)).build());
 //

@@ -10,15 +10,15 @@ import cn.srd.library.java.tool.spring.contract.StandardEvaluationContextBuilder
 import lombok.Data;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
-public class ExpressionsTest {
+@ExtendWith(SpringExtension.class)
+class ExpressionsTest {
 
     @Data
     @SuperBuilder(toBuilder = true)
@@ -82,7 +82,7 @@ public class ExpressionsTest {
             .build();
 
     @Test
-    public void testExpression() {
+    void testExpression() {
         // 文本操作
         String result1 = Expressions.getInstance().parse("'hello world'", String.class);
         String result2 = Expressions.getInstance().parse("'hello world'.concat('!')", String.class);

@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
  * @since 2023-02-04 17:49
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class SpringsWebFluxs {
+public class SpringWebFluxs {
 
     /**
      * get {@link ServerHttpRequest}

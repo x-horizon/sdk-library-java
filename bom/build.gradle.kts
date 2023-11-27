@@ -9,9 +9,7 @@ plugins {
 dependencies {
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_CLOUD_NATIVE_DOCKER)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_DOC_XIAOYMIN_KNIFE4J)))
-    api(platform(GradleDependency.withVersion(GradleDependency.BOM_FRAMEWORK_AWAZON)))
-    api(platform(GradleDependency.withVersion(GradleDependency.BOM_FRAMEWORK_AZURE_SPRING_CLOUD)))
-    api(platform(GradleDependency.withVersion(GradleDependency.BOM_FRAMEWORK_GOOGLE_GCP_SPRING_CLOUD)))
+    api(platform(GradleDependency.withVersion(GradleDependency.BOM_FRAMEWORK_ALIBABA_SPRING_CLOUD)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_FRAMEWORK_SPRING)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_FRAMEWORK_SPRING_BOOT)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_FRAMEWORK_SPRING_CLOUD)))
@@ -19,14 +17,13 @@ dependencies {
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_METRIC_DROPWIZARD)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_METRIC_MICROMETER)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_ORM_MYBATIS_FLEX)))
-    api(platform(GradleDependency.withVersion(GradleDependency.BOM_ORM_MYBATIS_PLUS)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_SECURITY_DEV33_SA_TOKEN)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_TEST_MOCKITO)))
-    api(platform(GradleDependency.withVersion(GradleDependency.BOM_TOOL_FILE_ANALYSIS_APACHE_TIKA)))
+    api(platform(GradleDependency.withVersion(GradleDependency.BOM_TEST_TESTCONTAINERS)))
+    api(platform(GradleDependency.withVersion(GradleDependency.BOM_TOOL_APACHE_TIKA)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_TOOL_SERIALIZATION_FASTERXML_JACKSON)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_TOOL_SERIALIZATION_SQUAREUP_WIRE)))
-    api(platform(GradleDependency.withVersion(GradleDependency.BOM_TEST_TESTCONTAINERS)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_WEB_FEIGN)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_WEB_NETTY)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_WEB_REACTOR)))
@@ -38,23 +35,20 @@ dependencies {
 
         api(GradleDependency.withVersion(GradleDependency.CLOUD_COMMUNICATION_DROMARA_SMS))
         api(GradleDependency.withVersion(GradleDependency.CLOUD_COMMUNICATION_JAKARTA_MAIL))
-        api(GradleDependency.withVersion(GradleDependency.CLOUD_COMMUNICATION_TWILIO))
 
-//        api(GradleDependency.withVersion(GradleDependency.DATA_CASSANDRA))
         api(GradleDependency.withVersion(GradleDependency.DATA_HSQLDB))
         api(GradleDependency.withVersion(GradleDependency.DATA_MYSQL))
         api(GradleDependency.withVersion(GradleDependency.DATA_POSTGRESQL))
 
-        api(GradleDependency.withVersion(GradleDependency.ORM_DATASTAX_OSS_CASSANDRA_JAVA_DRIVER_CORE))
-        api(GradleDependency.withVersion(GradleDependency.ORM_DATASTAX_OSS_CASSANDRA_JAVA_DRIVER_QUERY_BUILDER))
         api(GradleDependency.withVersion(GradleDependency.ORM_MYBATIS))
+        api(GradleDependency.withVersion(GradleDependency.ORM_MYBATIS_PLUS))
         api(GradleDependency.withVersion(GradleDependency.ORM_MYBATIS_PLUS_DYNAMIC_DATASOURCE))
+        api(GradleDependency.withVersion(GradleDependency.ORM_SPRING_INTEGRATION_CASSANDRA))
         api(GradleDependency.withVersion(GradleDependency.ORM_TD_ENGINE_JDBC))
 
         api(GradleDependency.withVersion(GradleDependency.OSS_MINIO))
 
-        api(GradleDependency.withVersion(GradleDependency.MESSAGE_CALIFORNIUM_COAP))
-        api(GradleDependency.withVersion(GradleDependency.MESSAGE_ROCKETMQ))
+        api(GradleDependency.withVersion(GradleDependency.MESSAGE_ROCKETMQ_TODO)) // TODO wjm need to remove
 
         api(GradleDependency.withVersion(GradleDependency.METRIC_BIT_WALKER_USER_AGENT))
         api(GradleDependency.withVersion(GradleDependency.METRIC_OSHI_CORE))
@@ -74,11 +68,8 @@ dependencies {
 
         api(GradleDependency.withVersion(GradleDependency.SECURITY_PASSAY))
 
-        api(GradleDependency.withVersion(GradleDependency.SCRIPT_JAVA_SCRIPT))
-
         api(GradleDependency.withVersion(GradleDependency.TOOL_ALIBABA_EASY_EXCEL))
         api(GradleDependency.withVersion(GradleDependency.TOOL_ALIBABA_TRANSMITTABLE_THREAD_LOCAL))
-        api(GradleDependency.withVersion(GradleDependency.TOOL_EXEC))
         api(GradleDependency.withVersion(GradleDependency.TOOL_FILE_ANALYSIS_APACHE_TIKA_PARSER))
         api(GradleDependency.withVersion(GradleDependency.TOOL_GEOMETRY_LOCATION_TECH_JTS))
         api(GradleDependency.withVersion(GradleDependency.TOOL_GEOMETRY_LOCATION_TECH_SPATIAL4J))
@@ -95,8 +86,6 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_FASTJSON))
         api(GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_FASTJSON2))
         api(GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_FST))
-        api(GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_GSON))
-        api(GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_PROTOBUF_THINGSBOARD_DYNAMIC))
         api(GradleDependency.withVersion(GradleDependency.TOOL_VALIDATION_HIBERNATE))
         api(GradleDependency.withVersion(GradleDependency.TOOL_VALIDATION_JAKARTA))
         api(GradleDependency.withVersion(GradleDependency.TOOL_VALIDATION_JSON_SCHEMA))
@@ -105,9 +94,6 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.TOOL_XML_JAVAX_JAXB_API))
         api(GradleDependency.withVersion(GradleDependency.TOOL_YITTER_SNOWFLAKE_ID))
 
-        api(GradleDependency.withVersion(GradleDependency.TEST_CASSANDRA_UNIT))
-        api(GradleDependency.withVersion(GradleDependency.TEST_DB_UNIT))
-        api(GradleDependency.withVersion(GradleDependency.TEST_DB_UNIT_SPRING))
         api(GradleDependency.withVersion(GradleDependency.TEST_JUNIT))
         api(GradleDependency.withVersion(GradleDependency.TEST_OPENJDK_JMH_CORE))
 
@@ -120,10 +106,8 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.CACHE_MAP)))
         api(project(GradleModule.toReferenceName(GradleModule.CACHE_REDIS)))
 
-        api(project(GradleModule.toReferenceName(GradleModule.CLOUD_COMMUNICATION_AMAZON)))
         api(project(GradleModule.toReferenceName(GradleModule.CLOUD_COMMUNICATION_DROMARA_SMS)))
         api(project(GradleModule.toReferenceName(GradleModule.CLOUD_COMMUNICATION_JAKARTA)))
-        api(project(GradleModule.toReferenceName(GradleModule.CLOUD_COMMUNICATION_TWILIO)))
         api(project(GradleModule.toReferenceName(GradleModule.CLOUD_NATIVE_DOCKER)))
         api(project(GradleModule.toReferenceName(GradleModule.CLOUD_NATIVE_KUBERNETES)))
 
@@ -142,13 +126,12 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.DATA_MYSQL)))
         api(project(GradleModule.toReferenceName(GradleModule.DATA_POSTGRESQL)))
 
-        api(project(GradleModule.toReferenceName(GradleModule.DOC_KNIFE4J)))
+        api(project(GradleModule.toReferenceName(GradleModule.DOC_KNIFE4J_CONTRACT)))
+        api(project(GradleModule.toReferenceName(GradleModule.DOC_KNIFE4J_SPRING_WEBFLUX)))
+        api(project(GradleModule.toReferenceName(GradleModule.DOC_KNIFE4J_SPRING_WEBMVC)))
 
         api(project(GradleModule.toReferenceName(GradleModule.GATEWAY_SPRING)))
 
-        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_AZURE_SERVICE_BUS)))
-        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_COAP)))
-        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_GOOGLE_PUBSUB)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_KAFKA)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_MQTT)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_RABBITMQ)))
@@ -187,22 +170,15 @@ dependencies {
 
         api(project(GradleModule.toReferenceName(GradleModule.REGISTRATION_ZOOKEEPER)))
 
-        api(project(GradleModule.toReferenceName(GradleModule.SCRIPT_JAVA_SCRIPT)))
-
         api(project(GradleModule.toReferenceName(GradleModule.SECURITY_CONTRACT)))
         api(project(GradleModule.toReferenceName(GradleModule.SECURITY_SPRING)))
         api(project(GradleModule.toReferenceName(GradleModule.SECURITY_SA_TOKEN)))
 
-        api(project(GradleModule.toReferenceName(GradleModule.TEST_CASSANDRA_UNIT)))
         api(project(GradleModule.toReferenceName(GradleModule.TEST_CONTAINER)))
-        api(project(GradleModule.toReferenceName(GradleModule.TEST_DB_UNIT)))
-        api(project(GradleModule.toReferenceName(GradleModule.TEST_DB_UNIT_SPRING)))
         api(project(GradleModule.toReferenceName(GradleModule.TEST_JMH)))
         api(project(GradleModule.toReferenceName(GradleModule.TEST_JUNIT)))
         api(project(GradleModule.toReferenceName(GradleModule.TEST_MOCKITO)))
         api(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING)))
-
-        api(project(GradleModule.toReferenceName(GradleModule.TODO)))
 
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONTENT_ANALYSIS)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_ALL)))
@@ -211,8 +187,6 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_SPRING)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_ENUMS)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_EXCEL)))
-        api(project(GradleModule.toReferenceName(GradleModule.TOOL_EXEC)))
-        api(project(GradleModule.toReferenceName(GradleModule.TOOL_FREEMARKER)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_GEOMETRY)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_ID_SNOWFLAKE)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_JDK)))
@@ -224,10 +198,8 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_SERIALIZATION_FASTJSON)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_SERIALIZATION_FASTJSON2)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_SERIALIZATION_FST)))
-        api(project(GradleModule.toReferenceName(GradleModule.TOOL_SERIALIZATION_GSON)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_SERIALIZATION_JACKSON)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_SERIALIZATION_PROTOBUF_GOOGLE)))
-        api(project(GradleModule.toReferenceName(GradleModule.TOOL_SERIALIZATION_PROTOBUF_THINGSBOARD)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_SERIALIZATION_PROTOBUF_SQUAREUP)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_CONTRACT)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_WEBFLUX)))

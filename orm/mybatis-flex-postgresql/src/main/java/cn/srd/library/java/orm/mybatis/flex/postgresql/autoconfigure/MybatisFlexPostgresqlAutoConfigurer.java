@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
 import java.util.stream.Collectors;
 
 /**
- * {@link EnableAutoConfiguration AutoConfiguration} for Library Orm Mybatis Flex PostgreSQL
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Java ORM Mybatis Flex PostgreSQL
  *
  * @author wjm
  * @since 2023-11-08 15:42

@@ -4,11 +4,11 @@ import cn.srd.library.java.cache.redis.RedisCache;
 import cn.srd.library.java.cache.redis.RedisCacheTemplate;
 import cn.srd.library.java.cache.redis.model.Student;
 import cn.srd.library.java.tool.lang.time.DurationWrapper;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.support.NullValue;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.Duration;
 import java.util.List;
@@ -16,8 +16,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
-public class RedisCacheTest {
+@ExtendWith(SpringExtension.class)
+class RedisCacheTest {
 
     private static final String CACHE_NAMESPACE_NAME1 = "cache1";
 
@@ -36,7 +36,7 @@ public class RedisCacheTest {
     private static final Student CACHE_OBJECT2 = Student.builder().id(2).name("test2").build();
 
     @Test
-    public void testCache() {
+    void testCache() {
         RedisCacheTemplate cache = RedisCache.getInstance().withBucket();
 
         // =================== no handle NullValue ===================

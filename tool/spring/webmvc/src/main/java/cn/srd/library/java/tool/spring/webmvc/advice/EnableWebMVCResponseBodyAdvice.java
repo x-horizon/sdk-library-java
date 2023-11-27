@@ -10,11 +10,11 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * enable web mvc response body advice
+ * enable webmvc response body advice
  *
  * @author wjm
  * @see WebMVCResponseBodyAdviceSwitcher
- * @see WebMVCAutoConfigurer
+ * @see WebMVCAutoConfigurer#webMVCResponseBodyAdvice()
  * @since 2022-07-16 18:16
  */
 @Retention(RetentionPolicy.RUNTIME)

@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 
 /**
- * {@link EnableAutoConfiguration AutoConfiguration} for Library Tool Enum
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Tool Enum
  *
  * @author wjm
  * @since 2023-11-09 21:01

@@ -11,28 +11,28 @@
 // import cn.srd.library.java.orm.mybatis.flex.postgresql.config.TestUpdateListener;
 // import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.StudentTestIdSQLDao;
 // import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.StudentTestIdSQLPO;
-// import org.junit.Test;
-// import org.junit.runner.RunWith;
+// import org.junit.jupiter.api.Test;
+// import org.junit.jupiter.api.extension.ExtendWith;
 // import org.mybatis.spring.annotation.MapperScan;
 // import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.boot.test.context.SpringBootTest;
-// import org.springframework.test.context.junit4.SpringRunner;
+// import org.springframework.test.context.junit.jupiter.SpringExtension;
 //
 // @MapperScan("cn.srd.library.java.orm.mybatis.flex.postgresql.dao")
 // @EnableMybatisFlexCustomizer(
 //         globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SQL, generateSQL = "SELECT SUBSTRING(MD5(RANDOM()::VARCHAR), 2, 8) AS id"),
-//         globalDeleteLogicConfig = @DeleteLogicConfig(normalValue = BooleanConstant.FALSE, deletedValue = BooleanConstant.TRUE),
+//         globalDeleteLogicConfig = @DeleteLogicConfig(normalValue = BooleanConstant.FALSE_STRING_LOWER_CASE, deletedValue = BooleanConstant.TRUE_STRING_LOWER_CASE),
 //         globalListenerConfig = @ListenerConfig(whenInsert = TestInsertListener.class, whenUpdate = TestUpdateListener.class),
 //         globalAuditConfig = @AuditLogConfig(enable = true)
 // )
 // @SpringBootTest
-// @RunWith(SpringRunner.class)
-// public class IdGenerateBySQLTest {
+// @ExtendWith(SpringExtension.class)
+// class IdGenerateBySQLTest {
 //
 //     @Autowired private StudentTestIdSQLDao studentTestIdSQLDao;
 //
 //     @Test
-//     public void testIt() {
+//     void testIt() {
 //         // studentTestIdSQLDao.insert(StudentTestIdSQLPO.builder().build());
 //         studentTestIdSQLDao.insertSelective(StudentTestIdSQLPO.builder().build());
 //

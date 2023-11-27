@@ -3,5 +3,6 @@
 // license that can be found in the LICENSE file.
 
 dependencies {
-    api(GradleDependency.MESSAGE_CALIFORNIUM_COAP.withoutVersion)
+    api(project(GradleModule.toReferenceName(GradleModule.DOC_KNIFE4J_CONTRACT)))
+    api(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_WEBFLUX)))
 }

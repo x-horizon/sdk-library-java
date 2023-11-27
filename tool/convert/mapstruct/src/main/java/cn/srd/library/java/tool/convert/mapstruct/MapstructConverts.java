@@ -774,7 +774,7 @@ public class MapstructConverts {
                 log.error(SymbolConstant.EMPTY, e);
                 return getDefaultValue(defaultValue, sources[0]);
             }
-            throw e;
+            throw new LibraryJavaInternalException(e);
         }
     }
 

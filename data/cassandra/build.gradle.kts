@@ -6,6 +6,4 @@ dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
 
     api(GradleDependency.DATA_CASSANDRA.withoutVersion)
-    api(GradleDependency.ORM_DATASTAX_OSS_CASSANDRA_JAVA_DRIVER_CORE.withoutVersion)
-    api(GradleDependency.ORM_DATASTAX_OSS_CASSANDRA_JAVA_DRIVER_QUERY_BUILDER.withoutVersion)
 }

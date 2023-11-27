@@ -8,20 +8,20 @@ import cn.srd.library.java.cache.all.service.CacheContextWithoutCacheConfigBuild
 import cn.srd.library.java.cache.all.service.CacheNotAllowEmptyValueService;
 import cn.srd.library.java.concurrent.redis.EnableRedisLock;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
 @EnableCache
 @EnableRedisLock
 @SpringBootTest
-@RunWith(SpringRunner.class)
-public class CacheAllTest {
+@ExtendWith(SpringExtension.class)
+class CacheAllTest {
 
     @Autowired private CacheContextWithoutCacheConfigBuildingService cacheContextWithoutCacheConfigBuildingService;
 
@@ -34,30 +34,30 @@ public class CacheAllTest {
     private static final BookPO BOOK_PO1 = BookPO.build(1L);
 
     @Test
-    public void testCacheContextBuilding() {
+    void testCacheContextBuilding() {
         // ======================== cache context without cache config building ========================
         // cache read
-        Throwable result1 = Assert.assertThrows(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById1(BOOK_PO1));
-        Throwable result2 = Assert.assertThrows(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById2(BOOK_PO1));
-        Throwable result3 = Assert.assertThrows(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById3(BOOK_PO1));
-        Throwable result4 = Assert.assertThrows(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById4(BOOK_PO1));
+        Throwable result1 = Assertions.assertThrowsExactly(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById1(BOOK_PO1));
+        Throwable result2 = Assertions.assertThrowsExactly(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById2(BOOK_PO1));
+        Throwable result3 = Assertions.assertThrowsExactly(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById3(BOOK_PO1));
+        Throwable result4 = Assertions.assertThrowsExactly(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById4(BOOK_PO1));
         cacheContextWithoutCacheConfigBuildingService.getById5(BOOK_PO1);
         cacheContextWithoutCacheConfigBuildingService.getById6(BOOK_PO1);
         cacheContextWithoutCacheConfigBuildingService.getById7(BOOK_PO1);
         cacheContextWithoutCacheConfigBuildingService.getById8(BOOK_PO1);
         // cache write
-        Throwable result5 = Assert.assertThrows(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById9(BOOK_PO1));
-        Throwable result6 = Assert.assertThrows(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById10(BOOK_PO1));
+        Throwable result5 = Assertions.assertThrowsExactly(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById9(BOOK_PO1));
+        Throwable result6 = Assertions.assertThrowsExactly(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById10(BOOK_PO1));
         cacheContextWithoutCacheConfigBuildingService.getById12(BOOK_PO1);
         cacheContextWithoutCacheConfigBuildingService.getById13(BOOK_PO1);
         cacheContextWithoutCacheConfigBuildingService.getById14(BOOK_PO1);
         cacheContextWithoutCacheConfigBuildingService.getById15(BOOK_PO1);
         cacheContextWithoutCacheConfigBuildingService.getById16(BOOK_PO1);
         // cache evict
-        Throwable result9 = Assert.assertThrows(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById17(BOOK_PO1));
-        Throwable result10 = Assert.assertThrows(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById18(BOOK_PO1));
-        Throwable result11 = Assert.assertThrows(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById19(BOOK_PO1));
-        Throwable result12 = Assert.assertThrows(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById20(BOOK_PO1));
+        Throwable result9 = Assertions.assertThrowsExactly(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById17(BOOK_PO1));
+        Throwable result10 = Assertions.assertThrowsExactly(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById18(BOOK_PO1));
+        Throwable result11 = Assertions.assertThrowsExactly(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById19(BOOK_PO1));
+        Throwable result12 = Assertions.assertThrowsExactly(LibraryJavaInternalException.class, () -> cacheContextWithoutCacheConfigBuildingService.getById20(BOOK_PO1));
         cacheContextWithoutCacheConfigBuildingService.getById21(BOOK_PO1);
         cacheContextWithoutCacheConfigBuildingService.getById22(BOOK_PO1);
         cacheContextWithoutCacheConfigBuildingService.getById23(BOOK_PO1);
@@ -68,11 +68,11 @@ public class CacheAllTest {
         // ======================== cache context with cache config building ========================
         // cache read
         cacheContextWithCacheConfigBuildingService.getById1(BOOK_PO1);
-        Throwable result13 = Assert.assertThrows(LibraryJavaInternalException.class, () -> cacheContextWithCacheConfigBuildingService.getById2(BOOK_PO1));
+        Throwable result13 = Assertions.assertThrowsExactly(LibraryJavaInternalException.class, () -> cacheContextWithCacheConfigBuildingService.getById2(BOOK_PO1));
         cacheContextWithCacheConfigBuildingService.getById3(BOOK_PO1);
         cacheContextWithCacheConfigBuildingService.getById4(BOOK_PO1);
         cacheContextWithCacheConfigBuildingService.getById5(BOOK_PO1);
-        Throwable result14 = Assert.assertThrows(LibraryJavaInternalException.class, () -> cacheContextWithCacheConfigBuildingService.getById6(BOOK_PO1));
+        Throwable result14 = Assertions.assertThrowsExactly(LibraryJavaInternalException.class, () -> cacheContextWithCacheConfigBuildingService.getById6(BOOK_PO1));
         cacheContextWithCacheConfigBuildingService.getById7(BOOK_PO1);
         // cache write
         cacheContextWithCacheConfigBuildingService.getById8(BOOK_PO1);
@@ -83,17 +83,17 @@ public class CacheAllTest {
         cacheContextWithCacheConfigBuildingService.getById14(BOOK_PO1);
         // cache evict
         cacheContextWithCacheConfigBuildingService.getById15(BOOK_PO1);
-        Throwable result17 = Assert.assertThrows(LibraryJavaInternalException.class, () -> cacheContextWithCacheConfigBuildingService.getById16(BOOK_PO1));
+        Throwable result17 = Assertions.assertThrowsExactly(LibraryJavaInternalException.class, () -> cacheContextWithCacheConfigBuildingService.getById16(BOOK_PO1));
         cacheContextWithCacheConfigBuildingService.getById17(BOOK_PO1);
         cacheContextWithCacheConfigBuildingService.getById18(BOOK_PO1);
         cacheContextWithCacheConfigBuildingService.getById19(BOOK_PO1);
-        Throwable result18 = Assert.assertThrows(LibraryJavaInternalException.class, () -> cacheContextWithCacheConfigBuildingService.getById20(BOOK_PO1));
+        Throwable result18 = Assertions.assertThrowsExactly(LibraryJavaInternalException.class, () -> cacheContextWithCacheConfigBuildingService.getById20(BOOK_PO1));
         cacheContextWithCacheConfigBuildingService.getById21(BOOK_PO1);
         cacheContextWithCacheConfigBuildingService.getById22(BOOK_PO1);
     }
 
     @Test
-    public void testCache() {
+    void testCache() {
         cacheAllowEmptyValueService.saveBatch(List.of(BookPO.builder().id(200L).build(), BookPO.builder().id(201L).build()));
 
         List<BookPO> result109 = cacheAllowEmptyValueService.getAll2();

@@ -75,17 +75,6 @@ public class CharacterSequences extends Characters {
      * @param searchedElements the searched elements
      * @return return true if the checked element contains any searched element
      */
-    public static boolean contains(CharSequence input, CharSequence... searchedElements) {
-        return CharSequenceUtil.containsAny(input, searchedElements);
-    }
-
-    /**
-     * see {@link CharSequenceUtil#containsAny(CharSequence, CharSequence...)}
-     *
-     * @param input            the checked element
-     * @param searchedElements the searched elements
-     * @return return true if the checked element contains any searched element
-     */
     public static boolean containsAny(CharSequence input, CharSequence... searchedElements) {
         return CharSequenceUtil.containsAny(input, searchedElements);
     }
@@ -123,14 +112,14 @@ public class CharacterSequences extends Characters {
     }
 
     /**
-     * reverse {@link #contains(CharSequence, CharSequence...)}
+     * reverse {@link #containsAny(CharSequence, CharSequence...)}
      *
      * @param input            the checked element
      * @param searchedElements the searched elements
      * @return return true if the checked element not contains all searched elements
      */
     public static boolean notContains(CharSequence input, CharSequence... searchedElements) {
-        return !contains(input, searchedElements);
+        return !containsAny(input, searchedElements);
     }
 
     /**
