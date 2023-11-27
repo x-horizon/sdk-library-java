@@ -36,7 +36,9 @@ object GradleModule {
     const val DATA_MYSQL = "data-mysql"
     const val DATA_POSTGRESQL = "data-postgresql"
 
-    const val DOC_KNIFE4J = "doc-knife4j"
+    const val DOC_KNIFE4J_CONTRACT = "doc-knife4j-contract"
+    const val DOC_KNIFE4J_SPRING_WEBMVC = "doc-knife4j-spring-webmvc"
+    const val DOC_KNIFE4J_SPRING_WEBFLUX = "doc-knife4j-spring-webflux"
 
     const val GATEWAY_SPRING = "gateway-spring"
 
@@ -162,6 +164,8 @@ internal object ModuleHelper {
 
     private val moduleNameMappingReferenceModuleNameMap = ConcurrentHashMap<String, String>().apply {
         // cache the special reference module name that cannot parse
+        put(GradleModule.DOC_KNIFE4J_SPRING_WEBFLUX, ":doc:knife4j:spring-webflux")
+        put(GradleModule.DOC_KNIFE4J_SPRING_WEBMVC, ":doc:knife4j:spring-webmvc")
         put(GradleModule.ORM_CONTRACT, ":orm:contract")
         put(GradleModule.ORM_CONTRACT_MYBATIS_BASE, ":orm:contract-mybatis-base")
         put(GradleModule.ORM_CONTRACT_MYBATIS_POSTGRESQL, ":orm:contract-mybatis-postgresql")

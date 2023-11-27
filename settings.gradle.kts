@@ -45,7 +45,9 @@ include(":data:hsqldb")
 include(":data:mysql")
 include(":data:postgresql")
 
-include(":doc:knife4j")
+include(":doc:knife4j:contract")
+include(":doc:knife4j:spring-webmvc")
+include(":doc:knife4j:spring-webflux")
 
 include(":gateway:spring")
 
