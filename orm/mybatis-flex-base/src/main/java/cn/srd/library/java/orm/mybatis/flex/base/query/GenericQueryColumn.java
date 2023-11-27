@@ -1802,11 +1802,13 @@ public class GenericQueryColumn extends QueryColumn {
         throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public QueryCondition isNull(boolean isEffective) {
         throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public QueryCondition isNotNull(boolean isEffective) {
         throw new UnsupportedException();
