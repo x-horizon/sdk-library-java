@@ -16,10 +16,8 @@ object GradleModule {
     const val CACHE_MAP = "cache-map"
     const val CACHE_REDIS = "cache-redis"
 
-    const val CLOUD_COMMUNICATION_AMAZON = "cloud-communication-amazon"
     const val CLOUD_COMMUNICATION_DROMARA_SMS = "cloud-communication-dromara-sms"
     const val CLOUD_COMMUNICATION_JAKARTA = "cloud-communication-jakarta"
-    const val CLOUD_COMMUNICATION_TWILIO = "cloud-communication-twilio"
     const val CLOUD_NATIVE_DOCKER = "cloud-native-docker"
     const val CLOUD_NATIVE_KUBERNETES = "cloud-native-kubernetes"
 
@@ -42,9 +40,6 @@ object GradleModule {
 
     const val GATEWAY_SPRING = "gateway-spring"
 
-    const val MESSAGE_AZURE_SERVICE_BUS = "message-azure-service-bus"
-    const val MESSAGE_COAP = "message-coap"
-    const val MESSAGE_GOOGLE_PUBSUB = "message-google-pubsub"
     const val MESSAGE_KAFKA = "message-kafka"
     const val MESSAGE_MQTT = "message-mqtt"
     const val MESSAGE_RABBITMQ = "message-rabbitmq"
@@ -83,22 +78,15 @@ object GradleModule {
 
     const val REGISTRATION_ZOOKEEPER = "registration-zookeeper"
 
-    const val SCRIPT_JAVA_SCRIPT = "script-java-script"
-
     const val SECURITY_CONTRACT = "security-contract"
     const val SECURITY_SPRING = "security-spring"
     const val SECURITY_SA_TOKEN = "security-sa-token"
 
-    const val TEST_CASSANDRA_UNIT = "test-cassandra-unit"
     const val TEST_CONTAINER = "test-container"
-    const val TEST_DB_UNIT = "test-db-unit"
-    const val TEST_DB_UNIT_SPRING = "test-db-unit-spring"
     const val TEST_JMH = "test-jmh"
     const val TEST_JUNIT = "test-junit"
     const val TEST_MOCKITO = "test-mockito"
     const val TEST_SPRING = "test-spring"
-
-    const val TODO = "todo"
 
     const val TOOL_CONTENT_ANALYSIS = "tool-content-analysis"
     const val TOOL_CONVERT_ALL = "tool-convert-all"
@@ -107,8 +95,6 @@ object GradleModule {
     const val TOOL_CONVERT_SPRING = "tool-convert-spring"
     const val TOOL_ENUMS = "tool-enums"
     const val TOOL_EXCEL = "tool-excel"
-    const val TOOL_EXEC = "tool-exec"
-    const val TOOL_FREEMARKER = "tool-freemarker"
     const val TOOL_GEOMETRY = "tool-geometry"
     const val TOOL_ID_SNOWFLAKE = "tool-id-snowflake"
     const val TOOL_JDK = "tool-jdk"
@@ -120,10 +106,8 @@ object GradleModule {
     const val TOOL_SERIALIZATION_FASTJSON = "tool-serialization-fastjson"
     const val TOOL_SERIALIZATION_FASTJSON2 = "tool-serialization-fastjson2"
     const val TOOL_SERIALIZATION_FST = "tool-serialization-fst"
-    const val TOOL_SERIALIZATION_GSON = "tool-serialization-gson"
     const val TOOL_SERIALIZATION_JACKSON = "tool-serialization-jackson"
     const val TOOL_SERIALIZATION_PROTOBUF_GOOGLE = "tool-serialization-protobuf-google"
-    const val TOOL_SERIALIZATION_PROTOBUF_THINGSBOARD = "tool-serialization-protobuf-thingsboard"
     const val TOOL_SERIALIZATION_PROTOBUF_SQUAREUP = "tool-serialization-protobuf-squareup"
     const val TOOL_SPRING_CONTRACT = "tool-spring-contract"
     const val TOOL_SPRING_WEBFLUX = "tool-spring-webflux"
@@ -183,7 +167,6 @@ internal object ModuleHelper {
         put(GradleModule.ORM_CONTRACT_MYBATIS_POSTGRESQL, ":orm:contract-mybatis-postgresql")
         put(GradleModule.ORM_MYBATIS_FLEX_BASE, ":orm:mybatis-flex-base")
         put(GradleModule.ORM_MYBATIS_FLEX_POSTGRESQL, ":orm:mybatis-flex-postgresql")
-        put(GradleModule.TEST_DB_UNIT_SPRING, ":test:db-unit-spring")
         put(GradleModule.TOOL_SERIALIZATION_FASTJSON2, ":tool:serialization:fastjson2")
     }
 
