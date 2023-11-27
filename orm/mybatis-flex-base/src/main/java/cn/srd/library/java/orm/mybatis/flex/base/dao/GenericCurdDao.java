@@ -18,6 +18,8 @@ import cn.srd.library.java.tool.lang.object.Nil;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.field.FieldQueryBuilder;
+import com.mybatisflex.core.keygen.CustomKeyGenerator;
+import com.mybatisflex.core.logicdelete.LogicDeleteManager;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryCondition;
 import com.mybatisflex.core.query.QueryWrapper;
@@ -25,10 +27,14 @@ import com.mybatisflex.core.row.Db;
 import com.mybatisflex.core.row.Row;
 import com.mybatisflex.core.service.IService;
 import com.mybatisflex.core.util.ClassUtil;
+import com.mybatisflex.core.util.SqlUtil;
 import org.apache.ibatis.cursor.Cursor;
+import org.apache.ibatis.executor.Executor;
+import org.apache.ibatis.mapping.MappedStatement;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.sql.Statement;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -45,15 +51,18 @@ import java.util.function.Consumer;
 public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
 
     /**
-     * see <a href="https://mybatis-flex.com/zh/base/batch.html#basemapper-insertbatch-%E6%96%B9%E6%B3%95">"the batch operation core guide"</a>.
-     */
-    int SMALL_BATCH_OPERATION_SIZE = 100;
-
-    /**
-     * see {@link BaseMapper#insertSelective(Object)}
+     * insert to database and ignore null column value.
+     * <ul>
+     *   <li>
+     *       {@link CustomKeyGenerator#processBefore(Executor, MappedStatement, Statement, Object) if the value of primary key is null or blank string},
+     *       then using the primary key generate strategy to build the primary key value and insert to database.
+     *   </li>
+     *   <li>if the value of primary key is not null or not blank string, then using the custom value of primary key to insert database.</li>
+     * </ul>
      *
-     * @param entity
-     * @return
+     * @param entity the operate entity
+     * @return the entity with primary key
+     * @see BaseMapper#insertSelective(Object)
      */
     default T save(T entity) {
         BaseMapper.super.insertSelective(entity);
@@ -61,35 +70,24 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
     }
 
     /**
-     * see {@link BaseMapper#insertWithPk(Object)}
-     *
-     * @param entity
-     * @return
-     */
-    default T saveWithPK(T entity) {
-        BaseMapper.super.insertSelectiveWithPk(entity);
-        return entity;
-    }
-
-    /**
-     * using {@link #DEFAULT_BATCH_SIZE} as batch size each time to insert batch to database.
+     * using {@link FunctionConstant#SMALL_BATCH_OPERATION_SIZE} as batch size each time to insert batch to database.
      *
      * @param entities the operate entities
      * @return the entities with primary key
-     * @see #SMALL_BATCH_OPERATION_SIZE
      * @see #saveBatch(Iterable, int)
+     * @see FunctionConstant#SMALL_BATCH_OPERATION_SIZE
      * @see BaseMapper#insertBatch(List, int)
      * @see IService#saveBatch(Collection, int)
      */
     default List<T> saveBatch(Iterable<T> entities) {
-        return saveBatch(entities, DEFAULT_BATCH_SIZE);
+        return saveBatch(entities, FunctionConstant.DEFAULT_BATCH_OPERATION_SIZE_EACH_TIME);
     }
 
     /**
      * insert batch to database.
      * <ol>
      *   <li>
-     *       if the entites size <= {@link #SMALL_BATCH_OPERATION_SIZE}, the insert logic see function {@link BaseMapper#insertBatch(List, int)}, the generated insert sql like:
+     *       if the entites size <= {@link FunctionConstant#SMALL_BATCH_OPERATION_SIZE}, the insert logic see function {@link BaseMapper#insertBatch(List, int)}, the generated insert sql like:
      *       <pre>
      *       INSERT INTO "test_table"("id", "name", "row_is_deleted")
      *       VALUES (487223443892741, 'test1', FALSE),
@@ -98,7 +96,7 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
      *       </pre>
      *   </li>
      *   <li>
-     *       if the entites size > {@link #SMALL_BATCH_OPERATION_SIZE}, the insert logic see function {@link IService#saveBatch(Collection, int)}, the generated insert sql like:
+     *       if the entites size > {@link FunctionConstant#SMALL_BATCH_OPERATION_SIZE}, the insert logic see function {@link IService#saveBatch(Collection, int)}, the generated insert sql like:
      *       <pre>
      *       INSERT INTO "test_table"("id", "name", "row_is_deleted") VALUES (487223443892741, 'test1', FALSE);
      *       INSERT INTO "test_table"("id", "name", "row_is_deleted") VALUES (487223443892742, 'test2', FALSE);
@@ -111,7 +109,7 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
      * @param batchSizeEachTime insert size each time
      * @return the entities with primary key
      * @apiNote about the different between {@link BaseMapper#insertBatch(List, int)} and {@link IService#saveBatch(Collection, int)}, you should see <a href="https://mybatis-flex.com/zh/base/batch.html#basemapper-insertbatch-%E6%96%B9%E6%B3%95">"the batch operation core guide"</a>.
-     * @see #SMALL_BATCH_OPERATION_SIZE
+     * @see FunctionConstant#SMALL_BATCH+++++++++++++_OPERATION_SIZE
      * @see BaseMapper#insertBatch(List, int)
      * @see IService#saveBatch(Collection, int)
      */
@@ -121,28 +119,54 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
             return Collections.newArrayList();
         }
         List<T> listTypeEntities = entities instanceof List<T> ? (List<T>) entities : Converts.toList(entities);
-        if (listTypeEntities.size() <= SMALL_BATCH_OPERATION_SIZE) {
-            BaseMapper.super.insertBatch(listTypeEntities, batchSizeEachTime);
-        } else {
-            Db.executeBatch(listTypeEntities, batchSizeEachTime, ClassUtil.getUsefulClass(this.getClass()), GenericCurdDao::save);
-        }
+        boolean ignore = listTypeEntities.size() <= FunctionConstant.SMALL_BATCH_OPERATION_SIZE ?
+                Converts.toBoolean(BaseMapper.super.insertBatch(listTypeEntities, batchSizeEachTime)) :
+                SqlUtil.toBool(Db.executeBatch(listTypeEntities, batchSizeEachTime, ClassUtil.getUsefulClass(this.getClass()), GenericCurdDao::save));
         return listTypeEntities;
     }
 
-    default int deleteById(T entity) {
-        return BaseMapper.super.delete(entity);
+    default void deleteByIds(Serializable... ids) {
+        deleteByIds(Collections.ofArrayList(ids));
     }
 
-    default int deleteBatchByIds(Iterable<? extends Serializable> ids) {
-        return deleteBatchByIds(Converts.toList(ids));
+    default void deleteByIds(Iterable<? extends Serializable> ids) {
+        deleteByIds(Converts.toList(ids));
     }
 
-    default int deleteBatchByIds(Iterable<? extends Serializable> ids, int shardedSize) {
-        return BaseMapper.super.deleteBatchByIds(Converts.toList(ids), shardedSize);
+    default void deleteByIds(Collection<? extends Serializable> ids) {
+        deleteBatchByIds(ids);
     }
 
-    default int deleteBatchByIds(Collection<? extends Serializable> ids, int shardedSize) {
-        return BaseMapper.super.deleteBatchByIds(Converts.toList(ids), shardedSize);
+    default void deleteByCondition(QueryWrapper queryWrapper) {
+        deleteByQuery(queryWrapper);
+    }
+
+    default void deleteAll() {
+        deleteByCondition(QueryWrapper.create());
+    }
+
+    default void deleteSkipLogicById(Serializable id) {
+        LogicDeleteManager.execWithoutLogicDelete(() -> deleteById(id));
+    }
+
+    default void deleteSkipLogicByIds(Serializable... ids) {
+        LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids));
+    }
+
+    default void deleteSkipLogicByIds(Iterable<? extends Serializable> ids) {
+        LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids));
+    }
+
+    default void deleteSkipLogicByIds(Collection<? extends Serializable> ids) {
+        LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids));
+    }
+
+    default void deleteSkipLogicByCondition(QueryWrapper queryWrapper) {
+        LogicDeleteManager.execWithoutLogicDelete(() -> deleteByCondition(queryWrapper));
+    }
+
+    default void deleteSkipLogicAll() {
+        LogicDeleteManager.execWithoutLogicDelete(() -> deleteByCondition(QueryWrapper.create().where(FunctionConstant.EMPTY_QUERY_CONDITION)));
     }
 
     // TODO wjm 虽然这个方法叫 updateBatch，但一样可以执行 insert、delete、update 等任何 SQL； 这个方法类似 Spring 的 jdbcTemplate.batchUpdate() 方法。
@@ -236,6 +260,12 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
 
     @Deprecated
     @Override
+    default int insertWithPk(T entity, boolean ignoreNulls) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
     default int insertSelectiveWithPk(T entity) {
         throw new UnsupportedException();
     }
@@ -272,6 +302,24 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
 
     @Deprecated
     @Override
+    default int deleteBatchByIds(List<? extends Serializable> ids, int size) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    default int deleteByMap(Map<String, Object> whereConditions) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    default int deleteByCondition(QueryCondition whereConditions) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
     default int update(T entity) {
         throw new UnsupportedException();
     }
@@ -301,6 +349,7 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
     }
 
     @Deprecated
+    @Override
     default int updateByQuery(T entity, QueryWrapper queryWrapper) {
         return BaseMapper.super.updateByQuery(entity, queryWrapper);
     }
@@ -402,9 +451,11 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
     }
 
     @Deprecated
+    @Override
     Cursor<T> selectCursorByQuery(QueryWrapper queryWrapper);
 
     @Deprecated
+    @Override
     List<Row> selectRowsByQuery(QueryWrapper queryWrapper);
 
     @Deprecated

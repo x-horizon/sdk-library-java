@@ -22,6 +22,8 @@ public class FunctionConstant {
 
     static final String SAVE_WITH_PK_FUNCTION_NAME = "insertWithPk";
 
+    static final String EMPTY_QUERY_CONDITION = "1=1";
+
     /**
      * see <a href="https://mybatis-flex.com/zh/base/batch.html#basemapper-insertbatch-%E6%96%B9%E6%B3%95">"the batch operation core guide"</a>.
      */
