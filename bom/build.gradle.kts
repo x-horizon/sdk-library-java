@@ -48,7 +48,7 @@ dependencies {
 
         api(GradleDependency.withVersion(GradleDependency.OSS_MINIO))
 
-        api(GradleDependency.withVersion(GradleDependency.MESSAGE_ROCKETMQ))
+        api(GradleDependency.withVersion(GradleDependency.MESSAGE_ROCKETMQ_TODO)) // TODO wjm need to remove
 
         api(GradleDependency.withVersion(GradleDependency.METRIC_BIT_WALKER_USER_AGENT))
         api(GradleDependency.withVersion(GradleDependency.METRIC_OSHI_CORE))

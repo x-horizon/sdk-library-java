@@ -56,6 +56,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     MESSAGE_SPRING_CLOUD_STREAM_KAFKA("org.springframework.cloud:spring-cloud-starter-stream-kafka", ""),
     MESSAGE_SPRING_CLOUD_STREAM_RABBITMQ("org.springframework.cloud:spring-cloud-starter-stream-rabbit", ""),
     MESSAGE_ROCKETMQ("com.alibaba.cloud:spring-cloud-starter-stream-rocketmq", ""),
+    MESSAGE_ROCKETMQ_TODO("org.apache.rocketmq:rocketmq-spring-boot-starter", "2.2.3"), // TODO wjm need to remove
 
     METRIC_BIT_WALKER_USER_AGENT("eu.bitwalker:UserAgentUtils", "1.21"),
     METRIC_DROPWIZARD_CORE("io.dropwizard.metrics:metrics-core", ""),
