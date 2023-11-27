@@ -12,6 +12,7 @@ import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.text.Strings;
+import cn.srd.library.java.tool.spring.webmvc.SpringsWebMVCs;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -240,6 +241,10 @@ public class WebMVCResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
         private static final Set<Class<?>> CONTROLLER_TYPES = Collections.newConcurrentHashSet();
 
+        private static final Set<String> CONTAIN_MATCH_URIS = Collections.newConcurrentHashSet();
+
+        private static final Set<String> FULL_MATCH_URIS = Collections.newConcurrentHashSet();
+
         private static final Set<Predicate<MethodParameter>> PREDICATIONS = Collections.newConcurrentHashSet();
 
         public static void registerResponseBodyModels(Class<?>... unsupportedResponseBodyModels) {
@@ -250,24 +255,26 @@ public class WebMVCResponseBodyAdvice implements ResponseBodyAdvice<Object> {
             CONTROLLER_TYPES.addAll(Collections.ofHashSet(unsupportedControllers));
         }
 
+        public static void registerContainMatchURIs(String... containMatchURIs) {
+            CONTAIN_MATCH_URIS.addAll(Collections.ofHashSet(containMatchURIs));
+        }
+
+        public static void registerFullMatchURIs(String... fullMatchURIs) {
+            FULL_MATCH_URIS.addAll(Collections.ofHashSet(fullMatchURIs));
+        }
+
+        @SafeVarargs
         public static void registerPredications(Predicate<MethodParameter>... unsupportedPredications) {
             PREDICATIONS.addAll(Collections.ofHashSet(unsupportedPredications));
         }
 
         private static boolean support(MethodParameter methodParameter) {
-            return noneMatchResponseBodyModels(methodParameter) && noneMatchControllers(methodParameter) && noneMatchPredications(methodParameter);
-        }
-
-        private static boolean noneMatchResponseBodyModels(MethodParameter methodParameter) {
-            return RESPONSE_BODY_MODEL_TYPES.stream().noneMatch(unsupportedType -> Comparators.equals(unsupportedType, methodParameter.getParameterType()));
-        }
-
-        private static boolean noneMatchControllers(MethodParameter methodParameter) {
-            return CONTROLLER_TYPES.stream().noneMatch(unsupportedType -> Comparators.equals(unsupportedType, methodParameter.getContainingClass()));
-        }
-
-        private static boolean noneMatchPredications(MethodParameter methodParameter) {
-            return PREDICATIONS.stream().noneMatch(predication -> predication.test(methodParameter));
+            String requestURI = SpringsWebMVCs.getHttpServletRequest().getRequestURI();
+            return RESPONSE_BODY_MODEL_TYPES.stream().noneMatch(unsupportedType -> Comparators.equals(unsupportedType, methodParameter.getParameterType())) &&
+                    CONTROLLER_TYPES.stream().noneMatch(unsupportedType -> Comparators.equals(unsupportedType, methodParameter.getContainingClass())) &&
+                    CONTAIN_MATCH_URIS.stream().noneMatch(containMatchURI -> Strings.containsAny(requestURI, containMatchURI)) &&
+                    FULL_MATCH_URIS.stream().noneMatch(fullMatchURI -> Comparators.equals(requestURI, fullMatchURI)) &&
+                    PREDICATIONS.stream().noneMatch(predication -> predication.test(methodParameter));
         }
 
     }
