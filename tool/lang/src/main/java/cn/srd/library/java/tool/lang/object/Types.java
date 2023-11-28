@@ -19,6 +19,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -217,7 +218,6 @@ public class Types {
      *          }
      *      }
      * }
-     *
      * </pre>
      *
      * @param input the specified class
@@ -225,6 +225,57 @@ public class Types {
      */
     public static Class<?> getArrayGenericType(Class<?> input) {
         return Nil.isNull(input) ? null : input.getComponentType();
+    }
+
+    /**
+     * <pre>
+     * get the generic type of the specified class.
+     *
+     * example code:
+     * {@code
+     *      public class Test1<String> {
+     *
+     *      }
+     *
+     *      public class Test2 implement TestInterface<String> {
+     *
+     *      }
+     *
+     *      public class Test3<T extends CharSequence> {
+     *
+     *      }
+     *
+     *      public class Test4 {
+     *
+     *      }
+     *
+     *      public class Test {
+     *          public static void main(String[] args) {
+     *              // the output is String.class.
+     *              Types.getClassGenericType(Test1);
+     *              // the output is String.class.
+     *              Types.getClassGenericType(Test2);
+     *              // unsupported embed generic type, will throw {@link ClassCastException}.
+     *              Types.getClassGenericType(Test3);
+     *              // the output is null.
+     *              Types.getClassGenericType(Test4);
+     *          }
+     *      }
+     * }
+     * </pre>
+     *
+     * @param input the specified class
+     * @return the generic type of the specified class
+     * @see TypeUtil#getGenerics(Class)
+     */
+    public static Class<?> getClassGenericType(Class<?> input) {
+        return (Class<?>) Arrays.stream(TypeUtil.getGenerics(input))
+                .findFirst()
+                .map(ParameterizedType::getActualTypeArguments)
+                .stream()
+                .flatMap(Arrays::stream)
+                .findFirst()
+                .orElse(null);
     }
 
     /**
