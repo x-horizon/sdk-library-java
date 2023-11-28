@@ -7,7 +7,9 @@ package cn.srd.library.java.orm.mybatis.flex.base.dao;
 import cn.srd.library.java.orm.contract.model.base.PO;
 
 /**
- * @param <T>
+ * the generic dao
+ *
+ * @param <T> the entity extends {@link PO}
  * @author wjm
  * @since 2023-11-04 00:19
  */
