@@ -351,10 +351,7 @@ public class Converts {
     public static <T, R> List<R> toList(Iterable<T> inputs, Function<T, R> mappingAction) {
         return Action.<List<R>>ifEmpty(inputs)
                 .then(Collections::newArrayList)
-                .otherwise(() -> Collections.ofUnknownSizeStream(inputs)
-                        .map(mappingAction)
-                        .collect(Collectors.toList())
-                )
+                .otherwise(() -> Collections.ofUnknownSizeStream(inputs).map(mappingAction).collect(Collectors.toList()))
                 .get();
     }
 
@@ -397,10 +394,7 @@ public class Converts {
     public static <T, R> List<R> toList(T[] inputs, Function<T, R> mappingAction) {
         return Action.<List<R>>infer(Nil.isEmpty(inputs))
                 .then(Collections::newArrayList)
-                .otherwise(() -> Arrays.stream(inputs)
-                        .map(mappingAction)
-                        .collect(Collectors.toList())
-                )
+                .otherwise(() -> Arrays.stream(inputs).map(mappingAction).collect(Collectors.toList()))
                 .get();
     }
 
@@ -506,10 +500,7 @@ public class Converts {
     public static <T, R> Set<R> toSet(Iterable<T> inputs, Function<T, R> mappingAction) {
         return Action.<Set<R>>infer(Nil.isEmpty(inputs))
                 .then(Collections::newHashSet)
-                .otherwise(() -> Collections.ofUnknownSizeStream(inputs)
-                        .map(mappingAction)
-                        .collect(Collectors.toSet())
-                )
+                .otherwise(() -> Collections.ofUnknownSizeStream(inputs).map(mappingAction).collect(Collectors.toSet()))
                 .get();
     }
 

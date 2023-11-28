@@ -714,7 +714,7 @@ public class Collections {
      * @return an unknown size stream of collection
      */
     public static <T> Stream<T> ofUnknownSizeStream(Iterator<T> inputs) {
-        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(inputs, Spliterator.ORDERED), CollectionConstant.DEFAULT_ENABLE_PARALLEL_STREAM);
+        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(inputs, Spliterator.ORDERED), CollectionConstant.DEFAULT_PARALLEL_STREAM_ENABLE);
     }
 
     /**
@@ -725,7 +725,7 @@ public class Collections {
      * @return an unknown size stream of collection
      */
     public static <T> Stream<T> ofUnknownSizeStream(Iterable<T> inputs) {
-        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(inputs.iterator(), Spliterator.ORDERED), CollectionConstant.DEFAULT_ENABLE_PARALLEL_STREAM);
+        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(inputs.iterator(), Spliterator.ORDERED), CollectionConstant.DEFAULT_PARALLEL_STREAM_ENABLE);
     }
 
     /**
@@ -872,6 +872,26 @@ public class Collections {
      * @param input the checked element
      * @return return true if the checked element length is 1
      */
+    public static <T> boolean hasOnlyOneElement(T[] input) {
+        return getSize(input) == CollectionConstant.LENGTH_ONE;
+    }
+
+    /**
+     * return true if the checked element length is 1
+     *
+     * @param input the checked element
+     * @return return true if the checked element length is 1
+     */
+    public static boolean hasOnlyOneElement(Collection<?> input) {
+        return getSize(input) == CollectionConstant.LENGTH_ONE;
+    }
+
+    /**
+     * return true if the checked element length is 1
+     *
+     * @param input the checked element
+     * @return return true if the checked element length is 1
+     */
     public static boolean hasOnlyOneElement(Iterable<?> input) {
         return hasOnlyOneElement(getIterator(input));
     }
@@ -887,13 +907,23 @@ public class Collections {
     }
 
     /**
-     * return true if the checked element length is 1
+     * return true if the checked element length > 1
      *
      * @param input the checked element
-     * @return return true if the checked element length is 1
+     * @return return true if the checked element length > 1
      */
-    public static boolean hasOnlyOneElement(Collection<?> input) {
-        return getSize(input) == CollectionConstant.LENGTH_ONE;
+    public static <T> boolean hasMoreThanOneElement(T[] input) {
+        return getSize(input) > CollectionConstant.LENGTH_ONE;
+    }
+
+    /**
+     * return true if the checked element length > 1
+     *
+     * @param input the checked element
+     * @return return true if the checked element length > 1
+     */
+    public static boolean hasMoreThanOneElement(Collection<?> input) {
+        return getSize(input) > CollectionConstant.LENGTH_ONE;
     }
 
     /**
@@ -913,16 +943,6 @@ public class Collections {
      * @return return true if the checked element length > 1
      */
     public static boolean hasMoreThanOneElement(Iterator<?> input) {
-        return getSize(input) > CollectionConstant.LENGTH_ONE;
-    }
-
-    /**
-     * return true if the checked element length > 1
-     *
-     * @param input the checked element
-     * @return return true if the checked element length > 1
-     */
-    public static boolean hasMoreThanOneElement(Collection<?> input) {
         return getSize(input) > CollectionConstant.LENGTH_ONE;
     }
 
@@ -1029,6 +1049,16 @@ public class Collections {
                 .then(Collections::ofArrayList)
                 .otherwise(() -> CollectionUtil.removeAny(inputs, removeElements))
                 .get();
+    }
+
+    /**
+     * return the input element size
+     *
+     * @param input the input element
+     * @return the size of input element
+     */
+    public static <T> int getSize(T[] input) {
+        return Nil.isNull(input) ? CollectionConstant.LENGTH_ZERO : input.length;
     }
 
     /**
@@ -1725,7 +1755,7 @@ public class Collections {
     public static <T, N1 extends Iterable<T>, N2 extends Iterable<N1>, N3 extends Iterable<N2>> List<T> flattenNest3(Iterable<N3> inputs) {
         return Action.<List<T>>ifEmpty(inputs)
                 .then(Collections::newArrayList)
-                .otherwise(() -> StreamSupport.stream(inputs.spliterator(), CollectionConstant.DEFAULT_ENABLE_PARALLEL_STREAM)
+                .otherwise(() -> StreamSupport.stream(inputs.spliterator(), CollectionConstant.DEFAULT_PARALLEL_STREAM_ENABLE)
                         .flatMap(Collections::ofUnknownSizeStream)
                         .flatMap(Collections::ofUnknownSizeStream)
                         .flatMap(Collections::ofUnknownSizeStream)

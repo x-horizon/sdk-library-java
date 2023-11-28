@@ -14,16 +14,11 @@ import lombok.NoArgsConstructor;
  * @since 2023-03-14 15:39
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class SQLKeyword {
+public class SQLQueryCondition {
 
     /**
-     * {@code "SELECT"}
+     * {@code "1=1"}
      */
-    public static final String SELECT = "SELECT";
-
-    /**
-     * {@code "FROM"}
-     */
-    public static final String FROM = "FROM";
+    public static final String EMPTY_QUERY_CONDITION = "1=1";
 
 }
