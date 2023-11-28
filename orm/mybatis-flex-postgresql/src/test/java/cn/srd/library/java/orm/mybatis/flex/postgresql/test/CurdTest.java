@@ -21,7 +21,10 @@ import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.CurdTwoIdPO;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
 import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.object.Types;
+import com.mybatisflex.core.query.QueryChain;
 import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.core.update.UpdateChain;
 import org.apache.ibatis.logging.nologging.NoLoggingImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -180,6 +183,34 @@ class CurdTest {
 
     @Test
     void testSelect() {
+        // curdOneIdDao.getByCondition();
+        // CurdOneIdDao
+        // TypeUtil.getGenerics(CurdOneIdDao.class);
+        Types.getClassGenericType(CurdOneIdDao.class);
+
+        // Proxy.newProxyInstance(CurdOneIdDao.class.getClassLoader()
+        //         , new Class[]{CurdOneIdDao.class}
+        //         , new Mappers.MapperHandler(mapperClass));
+        //
+        // Object mapperObject = MapUtil.computeIfAbsent(MAPPER_OBJECTS, mapperClass, clazz ->
+        //         Proxy.newProxyInstance(mapperClass.getClassLoader()
+        //                 , new Class[]{mapperClass}
+        //                 , new Mappers.MapperHandler(mapperClass)));
+        // return (M) mapperObject;
+
+        // 更新数据
+        UpdateChain.of(CurdTwoIdPO.class)
+                .set(CurdTwoIdPO::getName, "22")
+                .where(CurdTwoIdPO::getId).ge(100)
+                .and(CurdTwoIdPO::getName).eq("33")
+                .update();
+
+        // 查询所有数据并打印
+        QueryChain.of(CurdTwoIdPO.class)
+                .where(CurdTwoIdPO::getId).ge(100)
+                .and(CurdTwoIdPO::getName).eq(18)
+                .list()
+                .forEach(System.out::println);
     }
 
 }
