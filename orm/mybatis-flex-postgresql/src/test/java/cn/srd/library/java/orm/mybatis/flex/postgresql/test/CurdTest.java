@@ -14,8 +14,10 @@ import cn.srd.library.java.orm.mybatis.flex.base.logic.DeleteLogicConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.property.PropertyConfig;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.config.TestInsertListener;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.config.TestUpdateListener;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.StudentTestIdSnowflakeDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.StudentTestIdSnowflakePO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.CurdOneIdDao;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.CurdTwoIdDao;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.CurdOneIdPO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.CurdTwoIdPO;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
 import cn.srd.library.java.tool.lang.collection.Collections;
@@ -50,105 +52,134 @@ import static cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.table.Stu
 @ExtendWith(SpringExtension.class)
 class CurdTest {
 
-    @Autowired private StudentTestIdSnowflakeDao studentTestIdSnowflakeDao;
+    @Autowired private CurdOneIdDao curdOneIdDao;
+
+    @Autowired private CurdTwoIdDao curdTwoIdDao;
 
     @Test
     void testSave() {
-        StudentTestIdSnowflakePO studentTestIdSnowflakePO1 = studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().build());
-        StudentTestIdSnowflakePO studentTestIdSnowflakePO2 = studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(768L).build());
+        CurdOneIdPO curdOneIdPO1 = curdOneIdDao.save(CurdOneIdPO.builder().build());
+        CurdOneIdPO curdOneIdPO2 = curdOneIdDao.save(CurdOneIdPO.builder().id(768L).build());
 
-        Map<Integer, StudentTestIdSnowflakePO> smallStudentTestIdSnowflakePOs = Collections.newHashMap();
+        Map<Integer, CurdOneIdPO> smallCurdOneIdPOs = Collections.newHashMap();
         for (int i = 1; i < 60; i++) {
-            smallStudentTestIdSnowflakePOs.put(i, StudentTestIdSnowflakePO.builder().build());
+            smallCurdOneIdPOs.put(i, CurdOneIdPO.builder().build());
         }
-        List<StudentTestIdSnowflakePO> studentTestIdSnowflakePOs1 = studentTestIdSnowflakeDao.saveBatch(smallStudentTestIdSnowflakePOs.values());
+        List<CurdOneIdPO> curdOneIdPOs1 = curdOneIdDao.save(smallCurdOneIdPOs.values());
 
-        Map<Integer, StudentTestIdSnowflakePO> bigStudentTestIdSnowflakePOs = Collections.newHashMap();
+        Map<Integer, CurdOneIdPO> bigCurdOneIdPOs = Collections.newHashMap();
         for (int i = 1; i < 300; i++) {
-            bigStudentTestIdSnowflakePOs.put(i, StudentTestIdSnowflakePO.builder().build());
+            bigCurdOneIdPOs.put(i, CurdOneIdPO.builder().build());
         }
-        List<StudentTestIdSnowflakePO> studentTestIdSnowflakePOs2 = studentTestIdSnowflakeDao.saveBatch(bigStudentTestIdSnowflakePOs.values());
+        List<CurdOneIdPO> curdOneIdPOs2 = curdOneIdDao.save(bigCurdOneIdPOs.values());
 
-        Map<Integer, StudentTestIdSnowflakePO> smallStudentTestIdSnowflakeWithIdPOs = Collections.newHashMap();
+        Map<Integer, CurdOneIdPO> smallStudentTestIdSnowflakeWithIdPOs = Collections.newHashMap();
         for (int i = 1; i < 60; i++) {
             Long id = (long) (10000 + i);
-            smallStudentTestIdSnowflakeWithIdPOs.put(i, StudentTestIdSnowflakePO.builder().id(id).build());
+            smallStudentTestIdSnowflakeWithIdPOs.put(i, CurdOneIdPO.builder().id(id).build());
         }
-        List<StudentTestIdSnowflakePO> studentTestIdSnowflakePOs3 = studentTestIdSnowflakeDao.saveBatch(smallStudentTestIdSnowflakeWithIdPOs.values());
+        List<CurdOneIdPO> curdOneIdPOs3 = curdOneIdDao.save(smallStudentTestIdSnowflakeWithIdPOs.values());
 
-        Map<Integer, StudentTestIdSnowflakePO> bigStudentTestIdSnowflakeWithIdPOs = Collections.newHashMap();
+        Map<Integer, CurdOneIdPO> bigStudentTestIdSnowflakeWithIdPOs = Collections.newHashMap();
         for (int i = 1; i < 300; i++) {
             Long id = (long) (20000 + i);
-            bigStudentTestIdSnowflakeWithIdPOs.put(i, StudentTestIdSnowflakePO.builder().id(id).build());
+            bigStudentTestIdSnowflakeWithIdPOs.put(i, CurdOneIdPO.builder().id(id).build());
         }
-        List<StudentTestIdSnowflakePO> studentTestIdSnowflakePOs4 = studentTestIdSnowflakeDao.saveBatch(bigStudentTestIdSnowflakeWithIdPOs.values());
+        List<CurdOneIdPO> curdOneIdPOs4 = curdOneIdDao.save(bigStudentTestIdSnowflakeWithIdPOs.values());
 
-        studentTestIdSnowflakeDao.deleteSkipLogicAll();
+        curdOneIdDao.deleteSkipLogicAll();
+    }
+
+    @Test
+    void testUpdate() {
+        curdOneIdDao.save(CurdOneIdPO.builder().id(1L).name("test1").build());
+        curdOneIdDao.updateWithVersionById(CurdOneIdPO.builder().id(1L).name("test2").build());
+        curdOneIdDao.deleteSkipLogicById(1L);
+
+        // =============
+
+        curdOneIdDao.save(CurdOneIdPO.builder().id(1L).name("test1").build());
+        curdOneIdDao.save(CurdOneIdPO.builder().id(2L).name("test2").build());
+        curdOneIdDao.updateWithVersionById(List.of(CurdOneIdPO.builder().id(1L).name("test3").build(), CurdOneIdPO.builder().id(2L).name("test4").build()), CurdOneIdPO::getId);
+        curdOneIdDao.deleteSkipLogicByIds(1L, 2L);
+
+        // =============
+
+        curdTwoIdDao.save(CurdTwoIdPO.builder().id(1L).id2(2L).name("test1").build());
+        curdTwoIdDao.updateWithVersionById(CurdTwoIdPO.builder().id(1L).id2(2L).name("test2").build());
+        curdTwoIdDao.deleteSkipLogicById(CurdTwoIdPO.builder().id(1L).id2(2L).build());
     }
 
     @Test
     void testDelete() {
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(10L).build());
-        studentTestIdSnowflakeDao.deleteSkipLogicById(10L);
+        curdOneIdDao.save(CurdOneIdPO.builder().id(10L).build());
+        curdOneIdDao.deleteSkipLogicById(10L);
 
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(11L).build());
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(12L).build());
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(13L).build());
-        studentTestIdSnowflakeDao.deleteSkipLogicByIds(11L, 12L, 13L);
+        curdOneIdDao.save(CurdOneIdPO.builder().id(11L).build());
+        curdOneIdDao.save(CurdOneIdPO.builder().id(12L).build());
+        curdOneIdDao.save(CurdOneIdPO.builder().id(13L).build());
+        curdOneIdDao.deleteSkipLogicByIds(11L, 12L, 13L);
 
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(14L).build());
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(15L).build());
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(16L).build());
-        studentTestIdSnowflakeDao.deleteSkipLogicByIds(Collections.ofHashSet(14L, 15L, 16L));
+        curdOneIdDao.save(CurdOneIdPO.builder().id(14L).build());
+        curdOneIdDao.save(CurdOneIdPO.builder().id(15L).build());
+        curdOneIdDao.save(CurdOneIdPO.builder().id(16L).build());
+        curdOneIdDao.deleteSkipLogicByIds(Collections.ofHashSet(14L, 15L, 16L));
 
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(17L).build());
-        studentTestIdSnowflakeDao.deleteSkipLogicByCondition(QueryWrapper.create().where(STUDENT_TEST_ID_SNOWFLAKE.ID.equalsTo(17L)));
+        curdOneIdDao.save(CurdOneIdPO.builder().id(17L).build());
+        curdOneIdDao.deleteSkipLogicByCondition(QueryWrapper.create().where(STUDENT_TEST_ID_SNOWFLAKE.ID.equalsTo(17L)));
 
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(18L).build());
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(19L).build());
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(20L).build());
-        studentTestIdSnowflakeDao.deleteSkipLogicAll();
-
-        // =============
-
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(10L).build());
-        studentTestIdSnowflakeDao.deleteById(10L);
-
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(11L).build());
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(12L).build());
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(13L).build());
-        studentTestIdSnowflakeDao.deleteByIds(11L, 12L, 13L);
-
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(14L).build());
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(15L).build());
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(16L).build());
-        studentTestIdSnowflakeDao.deleteByIds(Collections.ofHashSet(14L, 15L, 16L));
-
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(17L).build());
-        studentTestIdSnowflakeDao.deleteByCondition(QueryWrapper.create().where(STUDENT_TEST_ID_SNOWFLAKE.ID.equalsTo(17L)));
-
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(18L).build());
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(19L).build());
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(20L).build());
-        studentTestIdSnowflakeDao.deleteAll();
+        curdOneIdDao.save(CurdOneIdPO.builder().id(18L).build());
+        curdOneIdDao.save(CurdOneIdPO.builder().id(19L).build());
+        curdOneIdDao.save(CurdOneIdPO.builder().id(20L).build());
+        curdOneIdDao.deleteSkipLogicByIds(Collections.ofHashSet(18L, 19L, 20L));
 
         // =============
 
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(21L).build());
-        studentTestIdSnowflakeDao.deleteSkipLogicById(21L);
+        curdOneIdDao.save(CurdOneIdPO.builder().id(10L).build());
+        curdOneIdDao.deleteById(10L);
 
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(22L).build());
-        studentTestIdSnowflakeDao.deleteById(22L);
+        curdOneIdDao.save(CurdOneIdPO.builder().id(11L).build());
+        curdOneIdDao.save(CurdOneIdPO.builder().id(12L).build());
+        curdOneIdDao.save(CurdOneIdPO.builder().id(13L).build());
+        curdOneIdDao.deleteByIds(11L, 12L, 13L);
 
-        studentTestIdSnowflakeDao.deleteSkipLogicAll();
+        curdOneIdDao.save(CurdOneIdPO.builder().id(14L).build());
+        curdOneIdDao.save(CurdOneIdPO.builder().id(15L).build());
+        curdOneIdDao.save(CurdOneIdPO.builder().id(16L).build());
+        curdOneIdDao.deleteByIds(Collections.ofHashSet(14L, 15L, 16L));
 
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(22L).build());
-        studentTestIdSnowflakeDao.deleteById(22L);
+        curdOneIdDao.save(CurdOneIdPO.builder().id(17L).build());
+        curdOneIdDao.deleteByCondition(QueryWrapper.create().where(STUDENT_TEST_ID_SNOWFLAKE.ID.equalsTo(17L)));
 
-        studentTestIdSnowflakeDao.save(StudentTestIdSnowflakePO.builder().id(21L).build());
-        studentTestIdSnowflakeDao.deleteSkipLogicById(21L);
+        curdOneIdDao.save(CurdOneIdPO.builder().id(18L).build());
+        curdOneIdDao.save(CurdOneIdPO.builder().id(19L).build());
+        curdOneIdDao.save(CurdOneIdPO.builder().id(20L).build());
+        curdOneIdDao.deleteAll();
 
-        studentTestIdSnowflakeDao.deleteSkipLogicAll();
+        // =============
+
+        curdOneIdDao.save(CurdOneIdPO.builder().id(21L).build());
+        curdOneIdDao.deleteSkipLogicById(21L);
+
+        curdOneIdDao.save(CurdOneIdPO.builder().id(22L).build());
+        curdOneIdDao.deleteById(22L);
+        curdOneIdDao.deleteSkipLogicById(22L);
+
+        curdOneIdDao.save(CurdOneIdPO.builder().id(22L).build());
+        curdOneIdDao.deleteById(22L);
+
+        curdOneIdDao.save(CurdOneIdPO.builder().id(21L).build());
+        curdOneIdDao.deleteSkipLogicById(21L);
+        curdOneIdDao.deleteSkipLogicAll();
+
+        // =============
+
+        curdTwoIdDao.save(CurdTwoIdPO.builder().id(1L).id2(2L).build());
+        curdTwoIdDao.deleteSkipLogicById(CurdTwoIdPO.builder().id(1L).id2(2L).build());
+    }
+
+    @Test
+    void testSelect() {
     }
 
 }
