@@ -42,7 +42,7 @@ public enum HttpStatus {
     BAD_METHOD(405, "client error - method not allowed"),
     NOT_ACCEPTABLE(406, "client error - not acceptable"),
     PROXY_AUTH(407, "client error - proxy authentication required"),
-    CLIENT_REQUEST_TIMEOUT(408, "client error - request time-Out"),
+    CLIENT_REQUEST_TIMEOUT(408, "client error - request timeout"),
     CONFLICT(409, "client error - conflict"),
     GONE(410, "client error - gone"),
     LENGTH_REQUIRED(411, "client error - length required"),
