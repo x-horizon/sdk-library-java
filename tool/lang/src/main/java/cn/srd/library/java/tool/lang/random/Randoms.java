@@ -24,7 +24,7 @@ public class Randoms {
      *
      * @return random number
      */
-    public static char randomNumber() {
+    public static char getNumber() {
         return RandomUtil.randomNumber();
     }
 
@@ -33,7 +33,7 @@ public class Randoms {
      *
      * @return random string
      */
-    public static String randomString(int length) {
+    public static String getString(int length) {
         return RandomUtil.randomString(length);
     }
 

@@ -26,7 +26,7 @@ public class BookPO implements Serializable {
     public static BookPO build(Long id) {
         return BookPO.builder()
                 .id(id)
-                .name("bookName" + Randoms.randomNumber())
+                .name("bookName" + Randoms.getNumber())
                 .build();
     }
 
