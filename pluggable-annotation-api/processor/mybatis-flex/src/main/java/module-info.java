@@ -4,4 +4,9 @@
 
 module cn.srd.library.java.pluggable.annotation.api.processor.mybatis.flex {
 
+    requires lombok;
+    requires java.compiler;
+    requires java.sql;
+    requires mybatis.flex.annotation;
+
 }

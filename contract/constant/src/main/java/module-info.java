@@ -4,6 +4,8 @@
 
 module cn.srd.library.java.contract.constant {
 
+    requires lombok;
+
     exports cn.srd.library.java.contract.constant.annotation;
     exports cn.srd.library.java.contract.constant.booleans;
     exports cn.srd.library.java.contract.constant.classes;

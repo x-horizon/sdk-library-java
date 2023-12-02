@@ -4,6 +4,12 @@
 
 module cn.srd.library.java.tool.validation.jakarta {
 
+    requires lombok;
+    requires jakarta.validation;
+    requires com.google.errorprone.annotations;
+    requires jsr305;
+    requires cn.srd.library.java.tool.lang;
+
     exports cn.srd.library.java.tool.validation.jakarta;
 
 }

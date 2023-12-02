@@ -4,6 +4,13 @@
 
 module cn.srd.library.java.tool.lang {
 
+    requires cn.hutool;
+    requires org.slf4j;
+    requires lombok;
+    requires com.google.errorprone.annotations;
+    requires cn.srd.library.java.contract.constant;
+    requires cn.srd.library.java.contract.model;
+
     exports cn.srd.library.java.tool.lang.annotation;
     exports cn.srd.library.java.tool.lang.binary;
     exports cn.srd.library.java.tool.lang.booleans;

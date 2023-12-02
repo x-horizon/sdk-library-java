@@ -4,6 +4,9 @@
 
 module cn.srd.library.java.contract.model {
 
+    requires lombok;
+    requires cn.srd.library.java.contract.constant;
+
     exports cn.srd.library.java.contract.model.protocol;
     exports cn.srd.library.java.contract.model.throwable;
 

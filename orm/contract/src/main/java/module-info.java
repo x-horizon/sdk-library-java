@@ -4,7 +4,10 @@
 
 module cn.srd.library.java.orm.contract {
 
+    requires io.swagger.v3.oas.annotations;
+    requires lombok;
+
     exports cn.srd.library.java.orm.contract.model.base;
     exports cn.srd.library.java.orm.contract.model.page;
-    
+
 }
