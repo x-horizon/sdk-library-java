@@ -6,13 +6,11 @@ plugins {
     id(GradlePlugin.JAVA_LIBRARY)
     id(GradlePlugin.MAVEN_PUBLISH)
     id(GradlePlugin.CHECK_STYLE)
-    id(GradlePlugin.EXTRA_JAVA_MODULE_INFO) version (GradlePlugin.EXTRA_JAVA_MODULE_INFO_VERSION)
 }
 
 allprojects {
     apply(plugin = GradlePlugin.MAVEN_PUBLISH)
     apply(plugin = GradlePlugin.CHECK_STYLE)
-    apply(plugin = GradlePlugin.EXTRA_JAVA_MODULE_INFO)
 
     repositories {
         mavenLocal()
@@ -21,31 +19,6 @@ allprojects {
         maven("https://repo.spring.io/milestone/")
         maven("https://repo.spring.io/snapshot/")
         mavenCentral()
-    }
-
-    extraJavaModuleInfo {
-//            // failOnMissingModuleInfo.set(false)
-//            module("commons-beanutils:commons-beanutils", "org.apache.commons.beanutils") {
-//                exports("org.apache.commons.beanutils")
-//                // exportAllPackages()
-//
-//                requiresTransitive("org.apache.commons.logging")
-//                requires("java.sql")
-//                requires("java.desktop")
-//
-//                // closeModule()
-//                // opens("org.apache.commons.beanutils")
-//
-//                // requiresTransitive(...)
-//                // requiresStatic(...)
-//
-//                // requireAllDefinedDependencies()
-//            }
-//            module("commons-cli:commons-cli", "org.apache.commons.cli") {
-//                exports("org.apache.commons.cli")
-//            }
-//            module("commons-collections:commons-collections", "org.apache.commons.collections")
-        automaticModule("com.google.code.findbugs:jsr305", "jsr305")
     }
 
     checkstyle {

@@ -13,9 +13,6 @@ object GradlePlugin {
     const val CHECK_STYLE_VERSION = "8.22"
     const val CHECK_STYLE_CONFIG_PATH = "/config/checkstyle/checkstyle.xml"
 
-    const val EXTRA_JAVA_MODULE_INFO = "de.jjohannes.extra-java-module-info"
-    const val EXTRA_JAVA_MODULE_INFO_VERSION = "0.6"
-
 }
 
 
