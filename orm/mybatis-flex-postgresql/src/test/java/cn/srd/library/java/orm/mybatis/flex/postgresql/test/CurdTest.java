@@ -36,6 +36,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 import java.util.Map;
 
+import static cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.table.CurdOneIdTable.CURD_ONE_ID;
 import static cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.table.StudentTestIdSnowflakeTable.STUDENT_TEST_ID_SNOWFLAKE;
 
 @MapperScan("cn.srd.library.java.orm.mybatis.flex.postgresql.dao")
@@ -187,6 +188,17 @@ class CurdTest {
         // CurdOneIdDao
         // TypeUtil.getGenerics(CurdOneIdDao.class);
         Types.getClassGenericType(CurdOneIdDao.class);
+
+        curdOneIdDao.save(CurdOneIdPO.builder().id(21L).build());
+        List<CurdOneIdPO> a = curdOneIdDao.openQuery()
+                // .where(CURD_ONE_ID.ID.equalsTo(21))
+                .where(CurdOneIdPO::getId).eq(21)
+                // .and("")
+                .list();
+
+        QueryChain.of(CurdOneIdPO.class)
+                .where(CURD_ONE_ID.ID.equalsTo(100))
+                .list();
 
         // Proxy.newProxyInstance(CurdOneIdDao.class.getClassLoader()
         //         , new Class[]{CurdOneIdDao.class}
