@@ -11,6 +11,7 @@ import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.functional.Action;
 import cn.srd.library.java.tool.lang.text.Strings;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
@@ -21,6 +22,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * toolkit for {@link Type}
@@ -28,9 +30,12 @@ import java.util.List;
  * @author wjm
  * @since 2021-05-10 17:46
  */
+@CanIgnoreReturnValue
 @SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Types {
+
+    private static final Map<Class<?>, Class<?>> CLASS_MAPPING_GENERIC_TYPE_MAP = Collections.newConcurrentHashMap();
 
     /**
      * return true if the field has generic
@@ -269,13 +274,14 @@ public class Types {
      * @see TypeUtil#getGenerics(Class)
      */
     public static Class<?> getClassGenericType(Class<?> input) {
-        return (Class<?>) Arrays.stream(TypeUtil.getGenerics(input))
+        return CLASS_MAPPING_GENERIC_TYPE_MAP.computeIfAbsent(input, ignore -> (Class<?>) Arrays.stream(TypeUtil.getGenerics(input))
                 .findFirst()
                 .map(ParameterizedType::getActualTypeArguments)
                 .stream()
                 .flatMap(Arrays::stream)
                 .findFirst()
-                .orElse(null);
+                .orElse(null)
+        );
     }
 
     /**
