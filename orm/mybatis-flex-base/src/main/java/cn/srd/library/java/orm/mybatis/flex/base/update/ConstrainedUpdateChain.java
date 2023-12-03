@@ -16,37 +16,37 @@ import java.io.Serial;
  * @author wjm
  * @since 2023-11-28 22:57
  */
-public class GenericUpdateChain<T extends PO> extends QueryWrapperAdapter<GenericUpdateChain<T>> implements PropertySetter<GenericUpdateChain<T>> {
+public class ConstrainedUpdateChain<T extends PO> extends QueryWrapperAdapter<ConstrainedUpdateChain<T>> implements PropertySetter<ConstrainedUpdateChain<T>> {
 
     @Serial private static final long serialVersionUID = -1638361030106862568L;
 
     @Override
-    public GenericUpdateChain<T> set(String property, Object value, boolean isEffective) {
+    public ConstrainedUpdateChain<T> set(String property, Object value, boolean isEffective) {
         return null;
     }
 
     @Override
-    public GenericUpdateChain<T> set(QueryColumn property, Object value, boolean isEffective) {
+    public ConstrainedUpdateChain<T> set(QueryColumn property, Object value, boolean isEffective) {
         return null;
     }
 
     @Override
-    public <U> GenericUpdateChain<T> set(LambdaGetter<U> property, Object value, boolean isEffective) {
+    public <U> ConstrainedUpdateChain<T> set(LambdaGetter<U> property, Object value, boolean isEffective) {
         return null;
     }
 
     @Override
-    public GenericUpdateChain<T> setRaw(String property, Object value, boolean isEffective) {
+    public ConstrainedUpdateChain<T> setRaw(String property, Object value, boolean isEffective) {
         return null;
     }
 
     @Override
-    public GenericUpdateChain<T> setRaw(QueryColumn property, Object value, boolean isEffective) {
+    public ConstrainedUpdateChain<T> setRaw(QueryColumn property, Object value, boolean isEffective) {
         return null;
     }
 
     @Override
-    public <U> GenericUpdateChain<T> setRaw(LambdaGetter<U> property, Object value, boolean isEffective) {
+    public <U> ConstrainedUpdateChain<T> setRaw(LambdaGetter<U> property, Object value, boolean isEffective) {
         return null;
     }
 

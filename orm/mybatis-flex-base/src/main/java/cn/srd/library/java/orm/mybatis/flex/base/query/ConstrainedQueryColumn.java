@@ -35,38 +35,38 @@ import java.util.function.Predicate;
  */
 @CanIgnoreReturnValue
 @SuppressWarnings(SuppressWarningConstant.ALL)
-public class GenericQueryColumn extends QueryColumn {
+public class ConstrainedQueryColumn extends QueryColumn {
 
     @Serial private static final long serialVersionUID = -6751799572163676067L;
 
-    public GenericQueryColumn() {
+    public ConstrainedQueryColumn() {
     }
 
-    public GenericQueryColumn(String name) {
+    public ConstrainedQueryColumn(String name) {
         super(name);
     }
 
-    public GenericQueryColumn(String tableName, String name) {
+    public ConstrainedQueryColumn(String tableName, String name) {
         super(tableName, name);
     }
 
-    public GenericQueryColumn(String schema, String tableName, String name) {
+    public ConstrainedQueryColumn(String schema, String tableName, String name) {
         super(schema, tableName, name);
     }
 
-    public GenericQueryColumn(String schema, String tableName, String name, String alias) {
+    public ConstrainedQueryColumn(String schema, String tableName, String name, String alias) {
         super(schema, tableName, name, alias);
     }
 
-    public GenericQueryColumn(QueryTable queryTable, String name) {
+    public ConstrainedQueryColumn(QueryTable queryTable, String name) {
         super(queryTable, name);
     }
 
-    public GenericQueryColumn(TableDef tableDef, String name) {
+    public ConstrainedQueryColumn(TableDef tableDef, String name) {
         super(tableDef, name);
     }
 
-    public GenericQueryColumn(TableDef tableDef, String name, String alias) {
+    public ConstrainedQueryColumn(TableDef tableDef, String name, String alias) {
         super(tableDef, name, alias);
     }
 

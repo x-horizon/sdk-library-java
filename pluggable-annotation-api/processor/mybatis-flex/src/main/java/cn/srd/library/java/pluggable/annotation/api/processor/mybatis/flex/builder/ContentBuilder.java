@@ -66,7 +66,7 @@ public class ContentBuilder {
         StringBuilder content = new StringBuilder("package ");
         content.append(tableDefPackage).append(";\n\n");
         // wjm using customer component.
-        content.append("import cn.srd.library.java.orm.mybatis.flex.base.query.GenericQueryColumn;\n");
+        content.append("import cn.srd.library.java.orm.mybatis.flex.base.query.ConstrainedQueryColumn;\n");
         // content.append("import com.mybatisflex.core.query.QueryColumn;\n");
         content.append("import com.mybatisflex.core.table.TableDef;\n\n");
         // wjm using customer component.
@@ -105,11 +105,11 @@ public class ContentBuilder {
                 columnPropertyName = columnPropertyName + "_";
             }
             // wjm using customer component.
-            content.append("    public final GenericQueryColumn ")
+            content.append("    public final ConstrainedQueryColumn ")
                     // content.append("    public final QueryColumn ")
                     .append(columnPropertyName)
                     // wjm using customer component.
-                    .append(" = new GenericQueryColumn(this, \"")
+                    .append(" = new ConstrainedQueryColumn(this, \"")
                     // .append(" = new QueryColumn(this, \"")
                     .append(columnInfo.getColumn()).append("\"");
             if (columnInfo.getAlias() != null && columnInfo.getAlias().length > 0) {
@@ -121,7 +121,7 @@ public class ContentBuilder {
                 .append("     * 所有字段。\n")
                 .append("     */\n");
         // wjm using customer component.
-        content.append("    public final GenericQueryColumn ").append(StrUtil.buildFieldName("allColumns", tableDefPropertiesNameStyle)).append(" = new GenericQueryColumn(this, \"*\");\n");
+        content.append("    public final ConstrainedQueryColumn ").append(StrUtil.buildFieldName("allColumns", tableDefPropertiesNameStyle)).append(" = new ConstrainedQueryColumn(this, \"*\");\n");
         // content.append("    public final QueryColumn ").append(StrUtil.buildFieldName("allColumns", tableDefPropertiesNameStyle)).append(" = new QueryColumn(this, \"*\");\n");
         StringJoiner defaultColumnJoiner = new StringJoiner(", ");
         columnInfos.forEach(columnInfo -> {
@@ -137,7 +137,7 @@ public class ContentBuilder {
                 .append("     * 默认字段，不包含逻辑删除或者 large 等字段。\n")
                 .append("     */\n");
         // wjm using customer component.
-        content.append("    public final GenericQueryColumn[] ").append(StrUtil.buildFieldName("defaultColumns", tableDefPropertiesNameStyle)).append(" = new GenericQueryColumn[]{").append(defaultColumnJoiner).append("};\n\n");
+        content.append("    public final ConstrainedQueryColumn[] ").append(StrUtil.buildFieldName("defaultColumns", tableDefPropertiesNameStyle)).append(" = new ConstrainedQueryColumn[]{").append(defaultColumnJoiner).append("};\n\n");
         // content.append("    public final QueryColumn[] ").append(StrUtil.buildFieldName("defaultColumns", tableDefPropertiesNameStyle)).append(" = new QueryColumn[]{").append(defaultColumnJoiner).append("};\n\n");
         String schema = !StrUtil.isBlank(tableInfo.getSchema())
                 ? tableInfo.getSchema()
