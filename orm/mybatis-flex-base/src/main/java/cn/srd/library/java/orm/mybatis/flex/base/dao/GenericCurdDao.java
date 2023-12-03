@@ -15,6 +15,7 @@ import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.page.PageParam;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.orm.mybatis.flex.base.converter.PageConverter;
+import cn.srd.library.java.orm.mybatis.flex.base.query.ConstrainedQueryChain;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.MybatisFlexs;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;
@@ -68,6 +69,10 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
      * default batch operation size each time
      */
     int DEFAULT_BATCH_SIZE_EACH_TIME = DEFAULT_BATCH_SIZE;
+
+    default ConstrainedQueryChain<T> openQuery() {
+        return ConstrainedQueryChain.of(this);
+    }
 
     /**
      * insert and not append the null column value.
