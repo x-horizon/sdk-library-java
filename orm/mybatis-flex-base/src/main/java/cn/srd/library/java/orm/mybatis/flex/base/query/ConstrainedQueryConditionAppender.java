@@ -4,10 +4,13 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.query;
 
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import com.mybatisflex.core.constant.SqlConnector;
 import com.mybatisflex.core.query.QueryColumn;
 import com.mybatisflex.core.query.QueryConditionBuilder;
 import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.core.util.LambdaGetter;
 
 import java.util.Collection;
 import java.util.function.BiPredicate;
@@ -15,9 +18,11 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
 
 /**
+ * @param <W> the wrapper extends {@link QueryWrapper}
  * @author wjm
  * @since 2023-12-03 23:35
  */
+@SuppressWarnings(SuppressWarningConstant.ALL)
 public class ConstrainedQueryConditionAppender<W extends QueryWrapper> extends QueryConditionBuilder<W> {
 
     public ConstrainedQueryConditionAppender(W queryWrapper, QueryColumn queryColumn, SqlConnector connector) {
@@ -28,404 +33,616 @@ public class ConstrainedQueryConditionAppender<W extends QueryWrapper> extends Q
     // ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇
     // marked most mybatis-flex original functions as deprecated, since mybatis-flex version 1.7.5, it is not recommended to use as following:
 
+    @Deprecated
     @Override
     public W eq(Object value) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W eq(Object value, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W eq(Object value, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <T> W eq(T value, Predicate<T> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
+    @Override
+    public <T> W eq(LambdaGetter<T> value) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public <T> W eq(LambdaGetter<T> value, boolean isEffective) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public <T> W eq(LambdaGetter<T> value, BooleanSupplier isEffective) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
     @Override
     public W ne(Object value) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W ne(Object value, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W ne(Object value, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <T> W ne(T value, Predicate<T> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
+    @Override
+    public <T> W ne(LambdaGetter<T> value) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public <T> W ne(LambdaGetter<T> value, boolean isEffective) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public <T> W ne(LambdaGetter<T> value, BooleanSupplier isEffective) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
     @Override
     public W gt(Object value) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W gt(Object value, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W gt(Object value, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <T> W gt(T value, Predicate<T> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
+    @Override
+    public <T> W gt(LambdaGetter<T> value) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public <T> W gt(LambdaGetter<T> value, boolean isEffective) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public <T> W gt(LambdaGetter<T> value, BooleanSupplier isEffective) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
     @Override
     public W ge(Object value) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W ge(Object value, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W ge(Object value, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <T> W ge(T value, Predicate<T> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
+    @Override
+    public <T> W ge(LambdaGetter<T> value) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public <T> W ge(LambdaGetter<T> value, boolean isEffective) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public <T> W ge(LambdaGetter<T> value, BooleanSupplier isEffective) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
     @Override
     public W lt(Object value) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W lt(Object value, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W lt(Object value, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <T> W lt(T value, Predicate<T> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
+    @Override
+    public <T> W lt(LambdaGetter<T> value) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public <T> W lt(LambdaGetter<T> value, boolean isEffective) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public <T> W lt(LambdaGetter<T> value, BooleanSupplier isEffective) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
     @Override
     public W le(Object value) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W le(Object value, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W le(Object value, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <T> W le(T value, Predicate<T> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
+    @Override
+    public <T> W le(LambdaGetter<T> value) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public <T> W le(LambdaGetter<T> value, boolean isEffective) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public <T> W le(LambdaGetter<T> value, BooleanSupplier isEffective) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
     @Override
     public W in(Object... value) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W in(Object[] value, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W in(Object[] value, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <T> W in(T[] value, Predicate<T[]> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W in(Collection<?> value) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W in(Collection<?> value, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W in(Collection<?> value, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <T extends Collection<?>> W in(T value, Predicate<T> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W in(QueryWrapper queryWrapper) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W in(QueryWrapper queryWrapper, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W in(QueryWrapper queryWrapper, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notIn(Object... value) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notIn(Object[] value, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notIn(Object[] value, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <T> W notIn(T[] value, Predicate<T[]> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notIn(Collection<?> value) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notIn(Collection<?> value, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notIn(Collection<?> value, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <T extends Collection<?>> W notIn(T value, Predicate<T> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notIn(QueryWrapper queryWrapper) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notIn(QueryWrapper queryWrapper, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notIn(QueryWrapper queryWrapper, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W between(Object start, Object end) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W between(Object start, Object end, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W between(Object start, Object end, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <S, E> W between(S start, E end, BiPredicate<S, E> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notBetween(Object start, Object end) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notBetween(Object start, Object end, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notBetween(Object start, Object end, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <S, E> W notBetween(S start, E end, BiPredicate<S, E> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W like(Object value) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W like(Object value, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W like(Object value, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <T> W like(T value, Predicate<T> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W likeLeft(Object value) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W likeLeft(Object value, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W likeLeft(Object value, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <T> W likeLeft(T value, Predicate<T> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W likeRight(Object value) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W likeRight(Object value, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W likeRight(Object value, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <T> W likeRight(T value, Predicate<T> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notLike(Object value) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notLike(Object value, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notLike(Object value, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <T> W notLike(T value, Predicate<T> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notLikeLeft(Object value) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notLikeLeft(Object value, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notLikeLeft(Object value, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <T> W notLikeLeft(T value, Predicate<T> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notLikeRight(Object value) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notLikeRight(Object value, boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W notLikeRight(Object value, BooleanSupplier isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public <T> W notLikeRight(T value, Predicate<T> isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W isNull(boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
     }
 
+    @Deprecated
     @Override
     public W isNotNull(boolean isEffective) {
-        return null;
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public W isNull() {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public W isNull(BooleanSupplier isEffective) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public W isNotNull() {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public W isNotNull(BooleanSupplier isEffective) {
+        throw new UnsupportedException();
     }
 
 }
