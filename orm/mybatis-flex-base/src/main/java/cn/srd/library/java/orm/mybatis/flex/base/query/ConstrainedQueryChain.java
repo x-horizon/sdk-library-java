@@ -69,8 +69,8 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
         return super.where(queryCondition);
     }
 
-    public ConstrainedQueryConditionAppender<ConstrainedQueryChain<T>> where(QueryColumnGetter<T> fn) {
-        return new ConstrainedQueryConditionAppender<>(this, LambdaUtil.getQueryColumn(fn), SqlConnector.AND);
+    public ConstrainedQueryConditionAppender<ConstrainedQueryChain<T>> where(QueryColumnFunction<T> columnValueAction) {
+        return new ConstrainedQueryConditionAppender<>(this, LambdaUtil.getQueryColumn(columnValueAction), SqlConnector.AND);
     }
 
     @Override
