@@ -64,11 +64,6 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
         return super.from(tables);
     }
 
-    @Override
-    public ConstrainedQueryChain<T> where(QueryCondition queryCondition) {
-        return super.where(queryCondition);
-    }
-
     public ConstrainedQueryConditionAppender<ConstrainedQueryChain<T>> where(QueryColumnFunction<T> columnValueAction) {
         return new ConstrainedQueryConditionAppender<>(this, LambdaUtil.getQueryColumn(columnValueAction), SqlConnector.AND);
     }
@@ -349,6 +344,12 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
     @Deprecated
     @Override
     public ConstrainedQueryChain<T> where(Consumer<QueryWrapper> consumer) {
+        throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public ConstrainedQueryChain<T> where(QueryCondition queryCondition) {
         throw new UnsupportedException();
     }
 
