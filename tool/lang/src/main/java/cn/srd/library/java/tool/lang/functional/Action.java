@@ -358,7 +358,7 @@ public class Action<V> {
     }
 
     /**
-     * infer the checked element > 0
+     * infer the checked element is not {@code null} and {@code > 0}
      *
      * @param input the checked element
      * @param <T>   the infer value type
@@ -514,7 +514,7 @@ public class Action<V> {
     }
 
     /**
-     * infer any checked element > 0
+     * infer any checked element is not {@code null} and {@code > 0}
      *
      * @param inputs the checked elements
      * @param <T>    the infer value type
@@ -670,7 +670,7 @@ public class Action<V> {
     }
 
     /**
-     * infer all checked elements > 0
+     * infer all checked elements are not {@code null} and {@code > 0}
      *
      * @param inputs the checked elements
      * @param <T>    the infer value type
@@ -1157,7 +1157,7 @@ public class Action<V> {
     }
 
     /**
-     * infer the checked element <= 0
+     * infer the checked element is not {@code null} and {@code <= 0}
      *
      * @param input the checked element
      * @param <T>   the infer value type

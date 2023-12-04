@@ -364,7 +364,7 @@ public class Assert {
     }
 
     /**
-     * throws if the checked element > 0
+     * throws if the checked element is not {@code null} and {@code > 0}
      *
      * @param input the checked element
      * @see Numbers#isPositive(Number)
@@ -533,7 +533,7 @@ public class Assert {
     }
 
     /**
-     * throws if any checked element > 0
+     * throws if any checked element is not {@code null} and {@code > 0}
      *
      * @param inputs the checked elements
      * @see Numbers#isAnyPositive(Number...)
@@ -702,7 +702,7 @@ public class Assert {
     }
 
     /**
-     * throws if all checked elements > 0
+     * throws if all checked elements are not {@code null} and {@code > 0}
      *
      * @param inputs the checked elements
      * @see Numbers#isAllPositive(Number...)
@@ -1229,7 +1229,7 @@ public class Assert {
     }
 
     /**
-     * throws if the checked element <= 0
+     * throws if the checked element is not {@code null} and {@code <= 0}
      *
      * @param input the checked element
      * @see Numbers#isNotPositive(Number)
@@ -1372,7 +1372,7 @@ public class Assert {
     }
 
     /**
-     * throws if all checked elements are <= 0
+     * throws if all checked elements are not {@code null} and {@code <= 0}
      *
      * @param inputs the checked elements
      * @see Numbers#isAllNotPositive(Number...)

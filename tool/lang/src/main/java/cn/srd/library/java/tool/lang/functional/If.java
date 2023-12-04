@@ -258,10 +258,10 @@ public class If {
     }
 
     /**
-     * return true if the checked element > 0
+     * return true if the checked element is not {@code null} and {@code > 0}
      *
      * @param input the checked element
-     * @return return true if the checked element > 0
+     * @return return true if the checked element is not {@code null} and {@code > 0}
      * @see Numbers#isPositive(Number)
      */
     public static boolean positive(Number input) {
@@ -401,10 +401,10 @@ public class If {
     }
 
     /**
-     * return true if any checked element > 0
+     * return true if any checked element is not {@code null} and {@code > 0}
      *
      * @param inputs the checked elements
-     * @return return true if any checked element > 0
+     * @return return true if any checked element is not {@code null} and {@code > 0}
      * @see Numbers#isAnyPositive(Number...)
      */
     public static boolean anyPositive(Number... inputs) {
@@ -544,10 +544,10 @@ public class If {
     }
 
     /**
-     * return true if all checked elements > 0
+     * return true if all checked elements are not {@code null} and {@code > 0}
      *
      * @param inputs the checked elements
-     * @return return true if all checked elements > 0
+     * @return return true if all checked elements are not {@code null} and {@code > 0}
      * @see Numbers#isAllPositive(Number...)
      */
     public static boolean allPositive(Number... inputs) {
@@ -993,10 +993,10 @@ public class If {
     }
 
     /**
-     * return true if the checked element <= 0
+     * return true if the checked element is not {@code null} and {@code <= 0}
      *
      * @param input the checked element
-     * @return return true if the checked element <= 0
+     * @return return true if the checked element is not {@code null} and {@code <= 0}
      * @see Numbers#isNotPositive(Number)
      */
     public static boolean notPositive(Number input) {
@@ -1114,10 +1114,10 @@ public class If {
     }
 
     /**
-     * return true if all checked elements are <= 0
+     * return true if all checked elements are not {@code null} and {@code <= 0}
      *
      * @param inputs the checked elements
-     * @return return true if all checked elements are <= 0
+     * @return return true if all checked elements are not {@code null} and {@code <= 0}
      * @see Numbers#isAllNotPositive(Number...)
      */
     public static boolean allNotPositive(Number... inputs) {
