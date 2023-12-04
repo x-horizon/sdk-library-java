@@ -81,20 +81,20 @@ public class Numbers {
     }
 
     /**
-     * return true if the checked element > 0
+     * return true if the checked element is not {@code null} and {@code > 0}
      *
      * @param input the checked element
-     * @return return true if the checked element > 0
+     * @return return true if the checked element is not {@code null} and {@code > 0}
      */
     public static boolean isPositive(Number input) {
-        return Nil.isNotNull(input) && input.longValue() > 0;
+        return Nil.isNotNull(input) && input.longValue() > NumberConstant.ZERO_LONG_VALUE;
     }
 
     /**
-     * return true if any checked element > 0
+     * return true if any checked element is not {@code null} and {@code > 0}
      *
      * @param inputs the checked elements
-     * @return return true if any checked element > 0
+     * @return return true if any checked element is not {@code null} and {@code > 0}
      */
     public static boolean isAnyPositive(Number... inputs) {
         if (Nil.isNull(inputs)) {
@@ -109,10 +109,10 @@ public class Numbers {
     }
 
     /**
-     * return true if all checked elements > 0
+     * return true if all checked elements are not {@code null} and {@code > 0}
      *
      * @param inputs the checked elements
-     * @return return true if all checked elements > 0
+     * @return return true if all checked elements are not {@code null} and {@code > 0}
      */
     public static boolean isAllPositive(Number... inputs) {
         if (Nil.isNull(inputs)) {
@@ -127,20 +127,20 @@ public class Numbers {
     }
 
     /**
-     * reverse {@link #isPositive(Number)}
+     * return true if any checked element is not {@code null} and {@code <= 0}
      *
      * @param input the checked element
-     * @return return true if the checked element <= 0
+     * @return return true if the checked element is not {@code null} and {@code <= 0}
      */
     public static boolean isNotPositive(Number input) {
-        return !isPositive(input);
+        return Nil.isNotNull(input) && input.longValue() <= NumberConstant.ZERO_LONG_VALUE;
     }
 
     /**
-     * reverse {@link #isAnyPositive(Number...)}
+     * return true if all checked elements are not {@code null} and {@code > 0}
      *
      * @param inputs the checked elements
-     * @return return true if all checked elements <= 0
+     * @return return true if all checked elements are not {@code null} and {@code > 0}
      */
     public static boolean isAllNotPositive(Number... inputs) {
         return !isAnyPositive(inputs);
