@@ -16,8 +16,12 @@ import cn.srd.library.java.orm.mybatis.flex.postgresql.config.TestInsertListener
 import cn.srd.library.java.orm.mybatis.flex.postgresql.config.TestUpdateListener;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.CurdOneIdDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.CurdTwoIdDao;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.JoinOneDao;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.JoinTwoDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.CurdOneIdPO;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.CurdTwoIdPO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.JoinOnePO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.JoinTwoPO;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
 import cn.srd.library.java.tool.lang.collection.Collections;
@@ -37,6 +41,9 @@ import java.util.List;
 import java.util.Map;
 
 import static cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.table.CurdOneIdTable.CURD_ONE_ID;
+import static cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.table.CurdTwoIdTable.CURD_TWO_ID;
+import static cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.table.JoinOneTable.JOIN_ONE;
+import static cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.table.JoinTwoTable.JOIN_TWO;
 import static cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.table.StudentTestIdSnowflakeTable.STUDENT_TEST_ID_SNOWFLAKE;
 
 @MapperScan("cn.srd.library.java.orm.mybatis.flex.postgresql.dao")
@@ -59,6 +66,10 @@ class CurdTest {
     @Autowired private CurdOneIdDao curdOneIdDao;
 
     @Autowired private CurdTwoIdDao curdTwoIdDao;
+
+    @Autowired private JoinOneDao joinOneDao;
+
+    @Autowired private JoinTwoDao joinTwoDao;
 
     @Test
     void testSave() {
@@ -189,14 +200,28 @@ class CurdTest {
         // TypeUtil.getGenerics(CurdOneIdDao.class);
         Types.getClassGenericType(CurdOneIdDao.class);
 
-        curdOneIdDao.save(CurdOneIdPO.builder().id(21L).build());
+        joinOneDao.save(JoinOnePO.builder().id(1L).joinTwoId(1L).build());
+        joinTwoDao.save(JoinTwoPO.builder().id(1L).joinOneId(1L).build());
+
+        List<JoinOnePO> b = joinOneDao.openQuery()
+                .leftJoin(JOIN_TWO).on(JOIN_ONE.ID.equalsTo(JOIN_TWO.JOIN_ONE_ID))
+                .where(JOIN_ONE.ID.equalsTo(1L))
+                .and(JOIN_TWO.ID.equalsTo(1L))
+                .list();
+
         List<CurdOneIdPO> a = curdOneIdDao.openQuery()
                 // .where(CURD_ONE_ID.ID.equalsTo(21))
-                .where(CurdOneIdPO::getId).eq(21)
+                // .leftJoin(CurdTwoIdPO.class).on(CURD_ONE_ID.ID.equalsTo(CURD_TWO_ID.ID))
+                .where(CurdOneIdPO::getId).equalsTo(23L)
+                // .where(CurdOneIdPO::getId).eq(CurdTwoIdPO::getId)
+                .where(CurdOneIdPO::getId).eq(CurdOneIdPO::getId)
+                // .where(CurdOneIdPO::getId).eq(21)
                 // .and("")
                 .list();
 
         QueryChain.of(CurdOneIdPO.class)
+                .leftJoin(CurdTwoIdPO.class).on(CURD_ONE_ID.ID.equalsTo(CURD_TWO_ID.ID))
+                .where(CurdOneIdPO::getId).eq(CurdTwoIdPO::getId)
                 .where(CURD_ONE_ID.ID.equalsTo(100))
                 .list();
 

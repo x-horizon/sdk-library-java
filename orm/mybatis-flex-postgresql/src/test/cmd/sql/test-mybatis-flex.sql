@@ -122,3 +122,29 @@ CREATE TABLE curd_two_id
     row_is_deleted BOOLEAN                        DEFAULT FALSE NOT NULL,
     PRIMARY KEY (id, id2)
 );
+
+
+CREATE TABLE join_one
+(
+    id             BIGINT                                       NOT NULL,
+    join_two_id    BIGINT                                       NOT NULL,
+    name           VARCHAR(50),
+    version        BIGINT                         DEFAULT 0     NOT NULL,
+    creator_id     BIGINT                         DEFAULT 0     NOT NULL,
+    create_time    TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+    row_is_deleted BOOLEAN                        DEFAULT FALSE NOT NULL,
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE join_two
+(
+    id             BIGINT                                       NOT NULL,
+    join_one_id    BIGINT                                       NOT NULL,
+    name           VARCHAR(50),
+    version        BIGINT                         DEFAULT 0     NOT NULL,
+    creator_id     BIGINT                         DEFAULT 0     NOT NULL,
+    create_time    TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+    row_is_deleted BOOLEAN                        DEFAULT FALSE NOT NULL,
+    PRIMARY KEY (id)
+);
