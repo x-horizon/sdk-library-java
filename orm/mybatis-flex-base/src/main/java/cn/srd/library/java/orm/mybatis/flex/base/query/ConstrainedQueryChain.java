@@ -4,9 +4,14 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.query;
 
+import cn.srd.library.java.contract.constant.page.PageConstant;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import cn.srd.library.java.orm.contract.model.base.PO;
+import cn.srd.library.java.orm.contract.model.page.PageParam;
+import cn.srd.library.java.orm.contract.model.page.PageResult;
+import cn.srd.library.java.orm.mybatis.flex.base.converter.PageConverter;
+import cn.srd.library.java.tool.lang.collection.Collections;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.constant.SqlConnector;
 import com.mybatisflex.core.mybatis.Mappers;
@@ -64,7 +69,146 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
         return super.from(tables);
     }
 
+    @Override
+    public Joiner<ConstrainedQueryChain<T>> innerJoin(Class entityClass) {
+        return innerJoinIfCondition(entityClass, true);
+    }
+
+    @Override
+    public Joiner<ConstrainedQueryChain<T>> innerJoin(TableDef table) {
+        return innerJoinIfCondition(table, true);
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> innerJoinIfCondition(Class<T> entityClass, BooleanSupplier appendCondition) {
+        return innerJoinIfCondition(entityClass, appendCondition.getAsBoolean());
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> innerJoinIfCondition(Class<T> entityClass, boolean joinCondition) {
+        return super.innerJoin(entityClass, joinCondition);
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> innerJoinIfCondition(TableDef table, BooleanSupplier appendCondition) {
+        return innerJoinIfCondition(table, appendCondition.getAsBoolean());
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> innerJoinIfCondition(TableDef table, boolean joinCondition) {
+        return super.innerJoin(table, joinCondition);
+    }
+
+    @Override
+    public Joiner<ConstrainedQueryChain<T>> leftJoin(Class entityClass) {
+        return leftJoinIfCondition(entityClass, true);
+    }
+
+    @Override
+    public Joiner<ConstrainedQueryChain<T>> leftJoin(TableDef table) {
+        return leftJoinIfCondition(table, true);
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> leftJoinIfCondition(Class<T> entityClass, BooleanSupplier appendCondition) {
+        return leftJoinIfCondition(entityClass, appendCondition.getAsBoolean());
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> leftJoinIfCondition(Class<T> entityClass, boolean joinCondition) {
+        return super.leftJoin(entityClass, joinCondition);
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> leftJoinIfCondition(TableDef table, BooleanSupplier appendCondition) {
+        return leftJoinIfCondition(table, appendCondition.getAsBoolean());
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> leftJoinIfCondition(TableDef table, boolean joinCondition) {
+        return super.leftJoin(table, joinCondition);
+    }
+
+    @Override
+    public Joiner<ConstrainedQueryChain<T>> rightJoin(Class entityClass) {
+        return rightJoinIfCondition(entityClass, true);
+    }
+
+    @Override
+    public Joiner<ConstrainedQueryChain<T>> rightJoin(TableDef table) {
+        return rightJoinIfCondition(table, true);
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> rightJoinIfCondition(Class<T> entityClass, BooleanSupplier appendCondition) {
+        return rightJoinIfCondition(entityClass, appendCondition.getAsBoolean());
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> rightJoinIfCondition(Class<T> entityClass, boolean joinCondition) {
+        return super.rightJoin(entityClass, joinCondition);
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> rightJoinIfCondition(TableDef table, BooleanSupplier appendCondition) {
+        return rightJoinIfCondition(table, appendCondition.getAsBoolean());
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> rightJoinIfCondition(TableDef table, boolean joinCondition) {
+        return super.rightJoin(table, joinCondition);
+    }
+
+    @Override
+    public Joiner<ConstrainedQueryChain<T>> crossJoin(Class entityClass) {
+        return crossJoinIfCondition(entityClass, true);
+    }
+
+    @Override
+    public Joiner<ConstrainedQueryChain<T>> crossJoin(TableDef table) {
+        return crossJoinIfCondition(table, true);
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> crossJoinIfCondition(Class<T> entityClass, BooleanSupplier appendCondition) {
+        return crossJoinIfCondition(entityClass, appendCondition.getAsBoolean());
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> crossJoinIfCondition(Class<T> entityClass, boolean joinCondition) {
+        return super.crossJoin(entityClass, joinCondition);
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> crossJoinIfCondition(TableDef table, BooleanSupplier appendCondition) {
+        return crossJoinIfCondition(table, appendCondition.getAsBoolean());
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> crossJoinIfCondition(TableDef table, boolean joinCondition) {
+        return super.crossJoin(table, joinCondition);
+    }
+
+    @Override
+    public Joiner<ConstrainedQueryChain<T>> fullJoin(Class entityClass) {
+        return fullJoinIfCondition(entityClass, true);
+    }
+
+    @Override
+    public Joiner<ConstrainedQueryChain<T>> fullJoin(TableDef table) {
+        return fullJoinIfCondition(table, true);
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> fullJoinIfCondition(Class<T> entityClass, BooleanSupplier appendCondition) {
+        return fullJoinIfCondition(entityClass, appendCondition.getAsBoolean());
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> fullJoinIfCondition(Class<T> entityClass, boolean joinCondition) {
+        return super.fullJoin(entityClass, joinCondition);
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> fullJoinIfCondition(TableDef table, BooleanSupplier appendCondition) {
+        return fullJoinIfCondition(table, appendCondition.getAsBoolean());
+    }
+
+    public Joiner<ConstrainedQueryChain<T>> fullJoinIfCondition(TableDef table, boolean joinCondition) {
+        return super.fullJoin(table, joinCondition);
+    }
+
     public ConstrainedQueryConditionAppender<ConstrainedQueryChain<T>> where(QueryColumnFunction<T> columnValueAction) {
+        return new ConstrainedQueryConditionAppender<>(this, LambdaUtil.getQueryColumn(columnValueAction), SqlConnector.AND);
+    }
+
+    @Override
+    public ConstrainedQueryChain<T> where(QueryCondition queryCondition) {
+        return super.where(queryCondition);
+    }
+
+    public ConstrainedQueryConditionAppender<ConstrainedQueryChain<T>> and(QueryColumnFunction<T> columnValueAction) {
         return new ConstrainedQueryConditionAppender<>(this, LambdaUtil.getQueryColumn(columnValueAction), SqlConnector.AND);
     }
 
@@ -73,9 +217,56 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
         return super.and(queryCondition);
     }
 
+    public Optional<T> get() {
+        return MapperQueryChain.super.oneOpt();
+    }
+
+    public Optional<T> getFirst() {
+        return Collections.getFirst(list());
+    }
+
+    public Optional<T> getOnlyOne() {
+        return Optional.ofNullable((T) MapperQueryChain.super.obj());
+    }
+
     @Override
     public List<T> list() {
         return MapperQueryChain.super.list();
+    }
+
+    public PageResult<T> pagination() {
+        return pagination(PageConstant.DEFAULT_PAGE_INDEX, PageConstant.DEFAULT_PAGE_SIZE, null);
+    }
+
+    public PageResult<T> pagination(PageParam pageParam) {
+        return pagination(pageParam.getPageIndex(), pageParam.getPageSize(), pageParam.getTotal());
+    }
+
+    public PageResult<T> pagination(Number pageIndex, Number pageSize) {
+        return pagination(new Page<>(pageIndex, pageSize));
+    }
+
+    public PageResult<T> pagination(Number pageIndex, Number pageSize, Number totalRecordNumber) {
+        return pagination(new Page<>(pageIndex, pageSize, totalRecordNumber));
+    }
+
+    private PageResult<T> pagination(Page page) {
+        return PageConverter.INSTANCE.toPageResult(MapperQueryChain.super.page(page));
+    }
+
+    @Override
+    public long count() {
+        return MapperQueryChain.super.count();
+    }
+
+    @Override
+    public boolean exists() {
+        return MapperQueryChain.super.exists();
+    }
+
+    @Override
+    public String toSQL() {
+        return super.toSQL();
     }
 
     // =======================================================================================================================================================
@@ -104,24 +295,6 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
 
     @Deprecated
     public static QueryWrapper create(Map map, SqlOperators operators) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
-    public String toSQL() {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
-    public long count() {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
-    public boolean exists() {
         throw new UnsupportedException();
     }
 
@@ -349,12 +522,6 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
 
     @Deprecated
     @Override
-    public ConstrainedQueryChain<T> where(QueryCondition queryCondition) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
     public ConstrainedQueryChain<T> and(String sql) {
         throw new UnsupportedException();
     }
@@ -457,19 +624,7 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
 
     @Deprecated
     @Override
-    public Joiner<ConstrainedQueryChain<T>> leftJoin(Class entityClass) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
     public Joiner<ConstrainedQueryChain<T>> leftJoin(Class entityClass, boolean when) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
-    public Joiner<ConstrainedQueryChain<T>> leftJoin(TableDef table) {
         throw new UnsupportedException();
     }
 
@@ -505,19 +660,7 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
 
     @Deprecated
     @Override
-    public Joiner<ConstrainedQueryChain<T>> rightJoin(Class entityClass) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
     public Joiner<ConstrainedQueryChain<T>> rightJoin(Class entityClass, boolean when) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
-    public Joiner<ConstrainedQueryChain<T>> rightJoin(TableDef table) {
         throw new UnsupportedException();
     }
 
@@ -553,19 +696,7 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
 
     @Deprecated
     @Override
-    public Joiner<ConstrainedQueryChain<T>> innerJoin(Class entityClass) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
     public Joiner<ConstrainedQueryChain<T>> innerJoin(Class entityClass, boolean when) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
-    public Joiner<ConstrainedQueryChain<T>> innerJoin(TableDef table) {
         throw new UnsupportedException();
     }
 
@@ -601,19 +732,7 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
 
     @Deprecated
     @Override
-    public Joiner<ConstrainedQueryChain<T>> fullJoin(Class entityClass) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
     public Joiner<ConstrainedQueryChain<T>> fullJoin(Class entityClass, boolean when) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
-    public Joiner<ConstrainedQueryChain<T>> fullJoin(TableDef table) {
         throw new UnsupportedException();
     }
 
@@ -649,19 +768,7 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
 
     @Deprecated
     @Override
-    public Joiner<ConstrainedQueryChain<T>> crossJoin(Class entityClass) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
     public Joiner<ConstrainedQueryChain<T>> crossJoin(Class entityClass, boolean when) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
-    public Joiner<ConstrainedQueryChain<T>> crossJoin(TableDef table) {
         throw new UnsupportedException();
     }
 

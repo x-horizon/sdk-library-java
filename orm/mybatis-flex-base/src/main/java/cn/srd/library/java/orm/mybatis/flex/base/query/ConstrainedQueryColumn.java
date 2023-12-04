@@ -94,17 +94,6 @@ public class ConstrainedQueryColumn extends QueryColumn {
     }
 
     /**
-     * append equals condition if the column value is not zero value, the zero value is {@code null} or {@code false}
-     *
-     * @param value the column value
-     * @return equals condition
-     * @see Nil#isNotZeroValue(Boolean)
-     */
-    public QueryCondition equalsIfNotZeroValue(Boolean value) {
-        return equalsIfCondition(value, If::notZeroValue);
-    }
-
-    /**
      * append equals condition if the column value is not zero value, the zero value is {@code null} or {@code 0}
      *
      * @param value the column value
@@ -112,17 +101,6 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @see Nil#isNotZeroValue(Number)
      */
     public QueryCondition equalsIfNotZeroValue(Number value) {
-        return equalsIfCondition(value, If::notZeroValue);
-    }
-
-    /**
-     * append equals condition if the column value is not zero value, the zero value is {@code null} or {@code ""}
-     *
-     * @param value the column value
-     * @return equals condition
-     * @see Nil#isNotZeroValue(CharSequence)
-     */
-    public QueryCondition equalsIfNotZeroValue(CharSequence value) {
         return equalsIfCondition(value, If::notZeroValue);
     }
 
@@ -205,17 +183,6 @@ public class ConstrainedQueryColumn extends QueryColumn {
     }
 
     /**
-     * append not equals condition if the column value is not zero value, the zero value is {@code null} or {@code false}
-     *
-     * @param value the column value
-     * @return not equals condition
-     * @see Nil#isNotZeroValue(Boolean)
-     */
-    public QueryCondition notEqualsIfNotZeroValue(Boolean value) {
-        return notEqualsIfCondition(value, If::notZeroValue);
-    }
-
-    /**
      * append not equals condition if the column value is not zero value, the zero value is {@code null} or {@code 0}
      *
      * @param value the column value
@@ -223,17 +190,6 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @see Nil#isNotZeroValue(Number)
      */
     public QueryCondition notEqualsIfNotZeroValue(Number value) {
-        return notEqualsIfCondition(value, If::notZeroValue);
-    }
-
-    /**
-     * append not equals condition if the column value is not zero value, the zero value is {@code null} or {@code ""}
-     *
-     * @param value the column value
-     * @return not equals condition
-     * @see Nil#isNotZeroValue(CharSequence)
-     */
-    public QueryCondition notEqualsIfNotZeroValue(CharSequence value) {
         return notEqualsIfCondition(value, If::notZeroValue);
     }
 
