@@ -178,4 +178,45 @@ public class Reflects {
         return ReflectUtil.newInstance(input, params);
     }
 
+    /**
+     * invoke method
+     *
+     * @param input      the input element
+     * @param methodName the method name
+     * @param params     the method params
+     * @param <T>        the return type
+     * @return the method result
+     * @see ReflectUtil#invoke(Object, String, Object...)
+     */
+    public static <T> T invoke(Object input, String methodName, Object... params) {
+        return ReflectUtil.invoke(input, methodName, params);
+    }
+
+    /**
+     * invoke method
+     *
+     * @param input  the input element
+     * @param method the method
+     * @param params the method params
+     * @param <T>    the return type
+     * @return the method result
+     * @see ReflectUtil#invoke(Object, Method, Object...)
+     */
+    public static <T> T invoke(Object input, Method method, Object... params) {
+        return ReflectUtil.invoke(input, method, params);
+    }
+
+    /**
+     * invoke static method
+     *
+     * @param method the static method
+     * @param params the static method params
+     * @param <T>    the return type
+     * @return the static method result
+     * @see ReflectUtil#invokeStatic(Method, Object...)
+     */
+    public static <T> T invokeStatic(Method method, Object... params) {
+        return ReflectUtil.invokeStatic(method, params);
+    }
+
 }
