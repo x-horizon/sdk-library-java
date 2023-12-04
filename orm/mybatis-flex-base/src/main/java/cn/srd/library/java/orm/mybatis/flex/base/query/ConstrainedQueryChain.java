@@ -22,10 +22,7 @@ import com.mybatisflex.core.util.LambdaGetter;
 import com.mybatisflex.core.util.LambdaUtil;
 
 import java.io.Serial;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -199,8 +196,8 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
         return super.fullJoin(table, joinCondition);
     }
 
-    public ConstrainedQueryConditionAppender<ConstrainedQueryChain<T>> where(QueryColumnFunction<T> columnValueAction) {
-        return new ConstrainedQueryConditionAppender<>(this, LambdaUtil.getQueryColumn(columnValueAction), SqlConnector.AND);
+    public ConstrainedQueryConditionAppender<ConstrainedQueryChain<T>> where(QueryColumnGetter<T> queryColumnGetter) {
+        return new ConstrainedQueryConditionAppender<>(this, LambdaUtil.getQueryColumn(queryColumnGetter), SqlConnector.AND);
     }
 
     @Override
@@ -208,13 +205,85 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
         return super.where(queryCondition);
     }
 
-    public ConstrainedQueryConditionAppender<ConstrainedQueryChain<T>> and(QueryColumnFunction<T> columnValueAction) {
-        return new ConstrainedQueryConditionAppender<>(this, LambdaUtil.getQueryColumn(columnValueAction), SqlConnector.AND);
+    public ConstrainedQueryConditionAppender<ConstrainedQueryChain<T>> and(QueryColumnGetter<T> queryColumnGetter) {
+        return new ConstrainedQueryConditionAppender<>(this, LambdaUtil.getQueryColumn(queryColumnGetter), SqlConnector.AND);
     }
 
     @Override
     public ConstrainedQueryChain<T> and(QueryCondition queryCondition) {
         return super.and(queryCondition);
+    }
+
+    public ConstrainedQueryConditionAppender<ConstrainedQueryChain<T>> or(QueryColumnGetter<T> queryColumnGetter) {
+        return new ConstrainedQueryConditionAppender<>(this, LambdaUtil.getQueryColumn(queryColumnGetter), SqlConnector.OR);
+    }
+
+    @Override
+    public ConstrainedQueryChain<T> or(QueryCondition queryCondition) {
+        return super.or(queryCondition);
+    }
+
+    @Override
+    public ConstrainedQueryChain<T> as(String aliasName) {
+        return super.as(aliasName);
+    }
+
+    private static final String ADD_WHERE_QUERY_CONDITION_METHOD_NAME = "addWhereQueryCondition";
+
+    @Override
+    public ConstrainedQueryChain<T> groupBy(QueryColumn queryColumn) {
+        return super.groupBy(queryColumn);
+    }
+
+    @Override
+    public ConstrainedQueryChain<T> groupBy(QueryColumn... queryColumns) {
+        return super.groupBy(queryColumns);
+    }
+
+    public ConstrainedQueryChain<T> groupBy(QueryColumnGetter<T> queryColumnGetter) {
+        return super.groupBy(queryColumnGetter);
+    }
+
+    public ConstrainedQueryChain<T> groupBy(QueryColumnGetter<T>... queryColumnGetters) {
+        return super.groupBy(queryColumnGetters);
+    }
+
+    public ConstrainedQueryChain<T> asc(QueryColumn queryColumn) {
+        return super.orderBy(queryColumn, true);
+    }
+
+    public ConstrainedQueryChain<T> asc(QueryColumn... queryColumns) {
+        return super.orderBy(Arrays.stream(queryColumns).map(QueryColumn::asc).toArray(QueryOrderBy[]::new));
+    }
+
+    public ConstrainedQueryChain<T> asc(QueryColumnGetter<T> queryColumnGetter) {
+        return super.orderBy(queryColumnGetter, true);
+    }
+
+    public ConstrainedQueryChain<T> asc(QueryColumnGetter<T>... queryColumnGetters) {
+        for (QueryColumnGetter<T> queryColumnGetter : queryColumnGetters) {
+            asc(queryColumnGetter);
+        }
+        return this;
+    }
+
+    public ConstrainedQueryChain<T> desc(QueryColumn queryColumn) {
+        return super.orderBy(queryColumn, false);
+    }
+
+    public ConstrainedQueryChain<T> desc(QueryColumn... queryColumns) {
+        return super.orderBy(Arrays.stream(queryColumns).map(QueryColumn::desc).toArray(QueryOrderBy[]::new));
+    }
+
+    public ConstrainedQueryChain<T> desc(QueryColumnGetter<T> queryColumnGetter) {
+        return super.orderBy(queryColumnGetter, false);
+    }
+
+    public ConstrainedQueryChain<T> desc(QueryColumnGetter<T>... queryColumnGetters) {
+        for (QueryColumnGetter<T> queryColumnGetter : queryColumnGetters) {
+            desc(queryColumnGetter);
+        }
+        return this;
     }
 
     public Optional<T> get() {
@@ -480,12 +549,6 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
 
     @Deprecated
     @Override
-    public ConstrainedQueryChain<T> as(String alias) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
     public ConstrainedQueryChain<T> where(String sql) {
         throw new UnsupportedException();
     }
@@ -559,12 +622,6 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
     @Deprecated
     @Override
     public ConstrainedQueryChain<T> and(Map<String, Object> whereConditions, SqlOperators operators, SqlConnector innerConnector) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
-    public ConstrainedQueryChain<T> or(QueryCondition queryCondition) {
         throw new UnsupportedException();
     }
 
@@ -871,18 +928,6 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
     @Deprecated
     @Override
     public ConstrainedQueryChain<T> groupBy(String... names) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
-    public ConstrainedQueryChain<T> groupBy(QueryColumn column) {
-        throw new UnsupportedException();
-    }
-
-    @Deprecated
-    @Override
-    public ConstrainedQueryChain<T> groupBy(QueryColumn... columns) {
         throw new UnsupportedException();
     }
 
