@@ -42,6 +42,11 @@ public class NumberConstant {
     public static final int ZERO_INT_VALUE = 0;
 
     /**
+     * zero long value
+     */
+    public static final long ZERO_LONG_VALUE = 0;
+
+    /**
      * zero int value
      */
     public static final double ZERO_DOUBLE_VALUE = 0;
