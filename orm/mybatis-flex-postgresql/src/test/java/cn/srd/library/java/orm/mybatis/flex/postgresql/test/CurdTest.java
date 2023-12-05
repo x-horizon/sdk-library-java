@@ -189,8 +189,8 @@ class CurdTest {
         Types.getClassGenericType(CurdOneIdDao.class);
 
         List<JoinOnePO> c = joinOneDao.openQuery()
-                .innerJoin(JoinTwoPO.class).on(JoinOnePO::getId, JoinTwoPO::getJoinOneId)
-                .innerJoin(JoinTwoPO.class).on(JoinOnePO::getId, JoinTwoPO::getJoinOneId, JoinOnePO::getId, JoinTwoPO::getJoinOneId, JoinOnePO::getId, JoinTwoPO::getJoinOneId, JoinOnePO::getId, JoinTwoPO::getJoinOneId)
+                .innerJoin(JoinTwoPO.class).onEquals(JoinOnePO::getId, JoinTwoPO::getJoinOneId)
+                .innerJoin(JoinTwoPO.class).onEquals(JoinOnePO::getId, JoinTwoPO::getJoinOneId, JoinOnePO::getId, JoinTwoPO::getJoinOneId, JoinOnePO::getId, JoinTwoPO::getJoinOneId, JoinOnePO::getId, JoinTwoPO::getJoinOneId)
                 .leftJoin(CurdOneIdPO.class).on(queryChainer -> queryChainer.and(CurdOneIdPO::getId).equalsTo(JoinOnePO::getId))
                 .where(JoinOnePO::getId).equalsTo(23L)
                 .and(CurdOneIdPO::getName).equalsTo("11")
