@@ -92,14 +92,13 @@ public class Comparators {
 
     /**
      * return true if two arrays are equal.
-     * <p>
-     * the equal conditions as following:
+     *
+     * <p>the equal conditions as following:
      * <ol>
      *   <li>is all null.</li>
      *   <li>the length of array is equal.</li>
      *   <li>the element of array is equal.</li>
      * </ol>
-     * </p>
      *
      * @param input           the checked element
      * @param comparedElement the compared elements
@@ -111,14 +110,13 @@ public class Comparators {
 
     /**
      * return true if two arrays are equal.
-     * <p>
-     * the equal conditions as following:
+     *
+     * <p>the equal conditions as following:
      * <ol>
      *   <li>is all null.</li>
      *   <li>the length of array is equal.</li>
      *   <li>the element of array is equal.</li>
      * </ol>
-     * </p>
      *
      * @param input           the checked element
      * @param comparedElement the compared elements
@@ -130,14 +128,13 @@ public class Comparators {
 
     /**
      * return true if two arrays are equal.
-     * <p>
-     * the equal conditions as following:
+     *
+     * <p>the equal conditions as following:
      * <ol>
      *   <li>is all null.</li>
      *   <li>the length of array is equal.</li>
      *   <li>the element of array is equal.</li>
      * </ol>
-     * </p>
      *
      * @param input           the checked element
      * @param comparedElement the compared elements
@@ -149,14 +146,13 @@ public class Comparators {
 
     /**
      * return true if two arrays are equal.
-     * <p>
-     * the equal conditions as following:
+     *
+     * <p>the equal conditions as following:
      * <ol>
      *   <li>is all null.</li>
      *   <li>the length of array is equal.</li>
      *   <li>the element of array is equal.</li>
      * </ol>
-     * </p>
      *
      * @param input           the checked element
      * @param comparedElement the compared elements
@@ -168,14 +164,13 @@ public class Comparators {
 
     /**
      * return true if two arrays are equal.
-     * <p>
-     * the equal conditions as following:
+     *
+     * <p>the equal conditions as following:
      * <ol>
      *   <li>is all null.</li>
      *   <li>the length of array is equal.</li>
      *   <li>the element of array is equal.</li>
      * </ol>
-     * </p>
      *
      * @param input           the checked element
      * @param comparedElement the compared elements
@@ -187,14 +182,13 @@ public class Comparators {
 
     /**
      * return true if two arrays are equal.
-     * <p>
-     * the equal conditions as following:
+     *
+     * <p>the equal conditions as following:
      * <ol>
      *   <li>is all null.</li>
      *   <li>the length of array is equal.</li>
      *   <li>the element of array is equal.</li>
      * </ol>
-     * </p>
      *
      * @param input           the checked element
      * @param comparedElement the compared elements
@@ -206,14 +200,13 @@ public class Comparators {
 
     /**
      * return true if two arrays are equal.
-     * <p>
-     * the equal conditions as following:
+     *
+     * <p>the equal conditions as following:
      * <ol>
      *   <li>is all null.</li>
      *   <li>the length of array is equal.</li>
      *   <li>the element of array is equal.</li>
      * </ol>
-     * </p>
      *
      * @param input           the checked element
      * @param comparedElement the compared elements
@@ -225,14 +218,13 @@ public class Comparators {
 
     /**
      * return true if two arrays are equal.
-     * <p>
-     * the equal conditions as following:
+     *
+     * <p>the equal conditions as following:
      * <ol>
      *   <li>is all null.</li>
      *   <li>the length of array is equal.</li>
      *   <li>the element of array is equal.</li>
      * </ol>
-     * </p>
      *
      * @param input           the checked element
      * @param comparedElement the compared elements
@@ -244,14 +236,13 @@ public class Comparators {
 
     /**
      * return true if two arrays are equal.
-     * <p>
-     * the equal conditions as following:
+     *
+     * <p>the equal conditions as following:
      * <ol>
      *   <li>is all null.</li>
      *   <li>the length of array is equal.</li>
      *   <li>the element of array is equal.</li>
      * </ol>
-     * </p>
      *
      * @param input           the checked element
      * @param comparedElement the compared elements

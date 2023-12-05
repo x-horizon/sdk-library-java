@@ -29,8 +29,8 @@ public @interface AuditLogConfig {
 
     /**
      * provide a class implement by {@link AuditLogConstructor} to expand extra audit log model.
-     * <p>
-     * the default info in audit log as following:
+     *
+     * <p>the default info in audit log as following:
      * <ul>
      *   <li>{@link AuditMessage#getQuery()}</li>
      *   <li>{@link AuditMessage#getQueryParams()}</li>
@@ -39,7 +39,6 @@ public @interface AuditLogConfig {
      *   <li>{@link AuditMessage#getQuery()}</li>
      *   <li>{@link AuditMessage#getElapsedTime()}</li>
      * </ul>
-     * </p>
      *
      * <pre>
      * you can build a {@link AuditLogDTO} by implement {@link AuditLogConstructor} to expand more audit log, example code:

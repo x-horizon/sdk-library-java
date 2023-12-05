@@ -22,22 +22,20 @@ public @interface DeleteLogicConfig {
 
     /**
      * the value when data in database is not logic deleted.
-     * <p>
-     * supported type as following:
+     *
+     * <p>supported type as following:
      * <ul>
      *   <li>any string value can convert to integer.</li>
      *   <li>any string value can convert to boolean.</li>
      *   <li>any string value can convert to not blank string.</li>
      * </ul>
-     * </p>
-     * <p>
-     * for example:
+     *
+     * <p>for example:
      * <ul>
      *   <li>set this field value to string "0", will be convert to integer 0.</li>
      *   <li>set this field value to string "false", will be convert to boolean false.</li>
      *   <li>set this field value to string "normal", will be convert to string "normal".</li>
      * </ul>
-     * </p>
      *
      * @return the value when data in database is not logic deleted.
      * @apiNote only when {@link Column#isLogicDelete()} = true on the field will it take effect, like:
@@ -52,22 +50,20 @@ public @interface DeleteLogicConfig {
 
     /**
      * the value when data in database already logic deleted.
-     * <p>
-     * supported type as following:
+     *
+     * <p>supported type as following:
      * <ul>
      *   <li>any string value can convert to integer.</li>
      *   <li>any string value can convert to boolean.</li>
      *   <li>any string value can convert to not blank string.</li>
      * </ul>
-     * </p>
-     * <p>
-     * for example:
+     *
+     * <p>for example:
      * <ul>
      *   <li>set this field value to string "1", will be convert to integer 1.</li>
      *   <li>set this field value to string "true", will be convert to boolean true.</li>
      *   <li>set this field value to string "invalid", will be convert to string "invalid".</li>
      * </ul>
-     * </p>
      *
      * @return the value when data in database already logic deleted.
      * @apiNote only when {@link Column#isLogicDelete()} = true on the field will it take effect, like:

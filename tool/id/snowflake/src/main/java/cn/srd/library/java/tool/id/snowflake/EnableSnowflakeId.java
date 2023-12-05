@@ -40,8 +40,8 @@ public @interface EnableSnowflakeId {
 
     /**
      * the worker id bit length setter to set {@link IdGeneratorOptions#WorkerIdBitLength}.
-     * <p>
-     * this field determines the max total node instance number in {@link SnowflakeIdEnvironment#MULTIPLE_NODE};<br/>
+     *
+     * <p>this field determines the max total node instance number in {@link SnowflakeIdEnvironment#MULTIPLE_NODE};<br/>
      * the range of this field value is [1, 15];<br/>
      * the max total node instance number calculation: 2 ^ workerIdBitLength - 1;
      * <ul>
@@ -69,7 +69,6 @@ public @interface EnableSnowflakeId {
      *       <li>this field value set to {@code 15}, the max concurrency node instance number wil be {@code 32767}, the number of id generate digit is {@code 18}, the id generate sample: {@code 246893708121736005}.</li>
      *     </ol>
      * </ul>
-     * </p>
      *
      * @return the worker id bit length setter to set {@link IdGeneratorOptions#WorkerIdBitLength}
      * @apiNote <li>the sum of {@link #sequenceBitLength()} and this field value must <= 22.</li>
@@ -80,15 +79,14 @@ public @interface EnableSnowflakeId {
 
     /**
      * the sequence bit length setter to set {@link IdGeneratorOptions#SeqBitLength}.
-     * <p>
-     * the range of this field value is [4, 21];<br/>
+     *
+     * <p>the range of this field value is [4, 21];<br/>
      * this field determines the number of id generated per millisecond:
      * <ul>
      *   <li>if the number of id generated <= 5W per second, just keep the sequence bit length by default value {@code 6}.</li>
      *   <li>if the number of id generated > 5W and <= 50W per second, it is recommended to set the sequence bit length value to {@code 10}.</li>
      *   <li>if the number of id generated > 50W and <= 500W per second, it is recommended to set the sequence bit length value to {@code 12}.</li>
      * </ul>
-     * </p>
      *
      * @return the sequence bit length setter to set {@link IdGeneratorOptions#SeqBitLength}.
      * @apiNote <li>the sum of {@link #workerIdBitLength()} and this field value must <= 22.</li>

@@ -561,7 +561,6 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
         return BaseMapper.super.selectListByQueryAs(queryWrapper, asType);
     }
 
-    // TODO wjm totalRow 的说明 在一般的分页场景中，只有第一页的时候有必要去查询数据总量，第二页以后是没必要的（因为第一页已经拿到总量了），因此， 第二页的时候，我们可以带入 totalRow，这样能提高程序的查询效率。
     default PageResult<T> pageByCondition(QueryWrapper queryWrapper) {
         return pageByCondition(PageConstant.DEFAULT_PAGE_INDEX, PageConstant.DEFAULT_PAGE_SIZE, queryWrapper);
     }
