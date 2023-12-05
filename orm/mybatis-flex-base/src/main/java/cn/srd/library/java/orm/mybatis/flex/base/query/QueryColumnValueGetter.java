@@ -13,6 +13,6 @@ import com.mybatisflex.core.util.LambdaGetter;
  * @since 2023-12-03 23:39
  */
 @FunctionalInterface
-public interface QueryColumnGetter<T extends PO> extends LambdaGetter<T> {
+public interface QueryColumnValueGetter<T extends PO> extends LambdaGetter<T> {
 
 }

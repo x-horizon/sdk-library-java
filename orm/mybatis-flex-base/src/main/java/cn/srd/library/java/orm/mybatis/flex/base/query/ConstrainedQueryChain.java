@@ -11,18 +11,21 @@ import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.page.PageParam;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.orm.mybatis.flex.base.converter.PageConverter;
+import cn.srd.library.java.orm.mybatis.flex.base.tool.MybatisFlexs;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.constant.SqlConnector;
-import com.mybatisflex.core.mybatis.Mappers;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.*;
 import com.mybatisflex.core.table.TableDef;
 import com.mybatisflex.core.util.LambdaGetter;
-import com.mybatisflex.core.util.LambdaUtil;
+import lombok.AllArgsConstructor;
 
 import java.io.Serial;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -32,20 +35,13 @@ import java.util.function.Predicate;
  * @author wjm
  * @since 2023-11-28 22:57
  */
+@AllArgsConstructor
 @SuppressWarnings(SuppressWarningConstant.ALL)
 public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<ConstrainedQueryChain<T>> implements MapperQueryChain<T> {
 
     @Serial private static final long serialVersionUID = 7214746557544965890L;
 
     private final BaseMapper<T> baseMapper;
-
-    public ConstrainedQueryChain(BaseMapper<T> baseMapper) {
-        this.baseMapper = baseMapper;
-    }
-
-    public static <T extends PO> ConstrainedQueryChain<T> of(Class<T> entityClass) {
-        return new ConstrainedQueryChain<>(Mappers.ofEntityClass(entityClass));
-    }
 
     public static <T extends PO> ConstrainedQueryChain<T> of(BaseMapper<T> baseMapper) {
         return new ConstrainedQueryChain<>(baseMapper);
@@ -62,13 +58,8 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
     }
 
     @Override
-    public ConstrainedQueryChain<T> from(QueryTable... tables) {
-        return super.from(tables);
-    }
-
-    @Override
     public Joiner<ConstrainedQueryChain<T>> innerJoin(Class entityClass) {
-        return innerJoinIfCondition(entityClass, true);
+        return innerJoin(MybatisFlexs.getTableDef(entityClass));
     }
 
     @Override
@@ -76,25 +67,25 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
         return innerJoinIfCondition(table, true);
     }
 
-    public Joiner<ConstrainedQueryChain<T>> innerJoinIfCondition(Class<T> entityClass, BooleanSupplier appendCondition) {
-        return innerJoinIfCondition(entityClass, appendCondition.getAsBoolean());
+    public Joiner<ConstrainedQueryChain<T>> innerJoinIfCondition(Class<T> entityClass, BooleanSupplier condition) {
+        return innerJoinIfCondition(entityClass, condition.getAsBoolean());
     }
 
-    public Joiner<ConstrainedQueryChain<T>> innerJoinIfCondition(Class<T> entityClass, boolean joinCondition) {
-        return super.innerJoin(entityClass, joinCondition);
+    public Joiner<ConstrainedQueryChain<T>> innerJoinIfCondition(Class<T> entityClass, boolean condition) {
+        return innerJoinIfCondition(MybatisFlexs.getTableDef(entityClass), condition);
     }
 
-    public Joiner<ConstrainedQueryChain<T>> innerJoinIfCondition(TableDef table, BooleanSupplier appendCondition) {
-        return innerJoinIfCondition(table, appendCondition.getAsBoolean());
+    public Joiner<ConstrainedQueryChain<T>> innerJoinIfCondition(TableDef table, BooleanSupplier condition) {
+        return innerJoinIfCondition(table, condition.getAsBoolean());
     }
 
-    public Joiner<ConstrainedQueryChain<T>> innerJoinIfCondition(TableDef table, boolean joinCondition) {
-        return super.innerJoin(table, joinCondition);
+    public Joiner<ConstrainedQueryChain<T>> innerJoinIfCondition(TableDef table, boolean condition) {
+        return super.innerJoin(table, condition);
     }
 
     @Override
     public Joiner<ConstrainedQueryChain<T>> leftJoin(Class entityClass) {
-        return leftJoinIfCondition(entityClass, true);
+        return leftJoin(MybatisFlexs.getTableDef(entityClass));
     }
 
     @Override
@@ -102,25 +93,25 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
         return leftJoinIfCondition(table, true);
     }
 
-    public Joiner<ConstrainedQueryChain<T>> leftJoinIfCondition(Class<T> entityClass, BooleanSupplier appendCondition) {
-        return leftJoinIfCondition(entityClass, appendCondition.getAsBoolean());
+    public Joiner<ConstrainedQueryChain<T>> leftJoinIfCondition(Class<T> entityClass, BooleanSupplier condition) {
+        return leftJoinIfCondition(entityClass, condition.getAsBoolean());
     }
 
-    public Joiner<ConstrainedQueryChain<T>> leftJoinIfCondition(Class<T> entityClass, boolean joinCondition) {
-        return super.leftJoin(entityClass, joinCondition);
+    public Joiner<ConstrainedQueryChain<T>> leftJoinIfCondition(Class<T> entityClass, boolean condition) {
+        return leftJoinIfCondition(MybatisFlexs.getTableDef(entityClass), condition);
     }
 
-    public Joiner<ConstrainedQueryChain<T>> leftJoinIfCondition(TableDef table, BooleanSupplier appendCondition) {
-        return leftJoinIfCondition(table, appendCondition.getAsBoolean());
+    public Joiner<ConstrainedQueryChain<T>> leftJoinIfCondition(TableDef table, BooleanSupplier condition) {
+        return leftJoinIfCondition(table, condition.getAsBoolean());
     }
 
-    public Joiner<ConstrainedQueryChain<T>> leftJoinIfCondition(TableDef table, boolean joinCondition) {
-        return super.leftJoin(table, joinCondition);
+    public Joiner<ConstrainedQueryChain<T>> leftJoinIfCondition(TableDef table, boolean condition) {
+        return super.leftJoin(table, condition);
     }
 
     @Override
     public Joiner<ConstrainedQueryChain<T>> rightJoin(Class entityClass) {
-        return rightJoinIfCondition(entityClass, true);
+        return rightJoin(MybatisFlexs.getTableDef(entityClass));
     }
 
     @Override
@@ -128,25 +119,25 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
         return rightJoinIfCondition(table, true);
     }
 
-    public Joiner<ConstrainedQueryChain<T>> rightJoinIfCondition(Class<T> entityClass, BooleanSupplier appendCondition) {
-        return rightJoinIfCondition(entityClass, appendCondition.getAsBoolean());
+    public Joiner<ConstrainedQueryChain<T>> rightJoinIfCondition(Class<T> entityClass, BooleanSupplier condition) {
+        return rightJoinIfCondition(entityClass, condition.getAsBoolean());
     }
 
-    public Joiner<ConstrainedQueryChain<T>> rightJoinIfCondition(Class<T> entityClass, boolean joinCondition) {
-        return super.rightJoin(entityClass, joinCondition);
+    public Joiner<ConstrainedQueryChain<T>> rightJoinIfCondition(Class<T> entityClass, boolean condition) {
+        return rightJoinIfCondition(MybatisFlexs.getTableDef(entityClass), condition);
     }
 
-    public Joiner<ConstrainedQueryChain<T>> rightJoinIfCondition(TableDef table, BooleanSupplier appendCondition) {
-        return rightJoinIfCondition(table, appendCondition.getAsBoolean());
+    public Joiner<ConstrainedQueryChain<T>> rightJoinIfCondition(TableDef table, BooleanSupplier condition) {
+        return rightJoinIfCondition(table, condition.getAsBoolean());
     }
 
-    public Joiner<ConstrainedQueryChain<T>> rightJoinIfCondition(TableDef table, boolean joinCondition) {
-        return super.rightJoin(table, joinCondition);
+    public Joiner<ConstrainedQueryChain<T>> rightJoinIfCondition(TableDef table, boolean condition) {
+        return super.rightJoin(table, condition);
     }
 
     @Override
     public Joiner<ConstrainedQueryChain<T>> crossJoin(Class entityClass) {
-        return crossJoinIfCondition(entityClass, true);
+        return crossJoin(MybatisFlexs.getTableDef(entityClass));
     }
 
     @Override
@@ -154,25 +145,25 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
         return crossJoinIfCondition(table, true);
     }
 
-    public Joiner<ConstrainedQueryChain<T>> crossJoinIfCondition(Class<T> entityClass, BooleanSupplier appendCondition) {
-        return crossJoinIfCondition(entityClass, appendCondition.getAsBoolean());
+    public Joiner<ConstrainedQueryChain<T>> crossJoinIfCondition(Class<T> entityClass, BooleanSupplier condition) {
+        return crossJoinIfCondition(entityClass, condition.getAsBoolean());
     }
 
-    public Joiner<ConstrainedQueryChain<T>> crossJoinIfCondition(Class<T> entityClass, boolean joinCondition) {
-        return super.crossJoin(entityClass, joinCondition);
+    public Joiner<ConstrainedQueryChain<T>> crossJoinIfCondition(Class<T> entityClass, boolean condition) {
+        return crossJoinIfCondition(MybatisFlexs.getTableDef(entityClass), condition);
     }
 
-    public Joiner<ConstrainedQueryChain<T>> crossJoinIfCondition(TableDef table, BooleanSupplier appendCondition) {
-        return crossJoinIfCondition(table, appendCondition.getAsBoolean());
+    public Joiner<ConstrainedQueryChain<T>> crossJoinIfCondition(TableDef table, BooleanSupplier condition) {
+        return crossJoinIfCondition(table, condition.getAsBoolean());
     }
 
-    public Joiner<ConstrainedQueryChain<T>> crossJoinIfCondition(TableDef table, boolean joinCondition) {
-        return super.crossJoin(table, joinCondition);
+    public Joiner<ConstrainedQueryChain<T>> crossJoinIfCondition(TableDef table, boolean condition) {
+        return super.crossJoin(table, condition);
     }
 
     @Override
     public Joiner<ConstrainedQueryChain<T>> fullJoin(Class entityClass) {
-        return fullJoinIfCondition(entityClass, true);
+        return fullJoin(MybatisFlexs.getTableDef(entityClass));
     }
 
     @Override
@@ -180,24 +171,24 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
         return fullJoinIfCondition(table, true);
     }
 
-    public Joiner<ConstrainedQueryChain<T>> fullJoinIfCondition(Class<T> entityClass, BooleanSupplier appendCondition) {
-        return fullJoinIfCondition(entityClass, appendCondition.getAsBoolean());
+    public Joiner<ConstrainedQueryChain<T>> fullJoinIfCondition(Class<T> entityClass, BooleanSupplier condition) {
+        return fullJoinIfCondition(entityClass, condition.getAsBoolean());
     }
 
-    public Joiner<ConstrainedQueryChain<T>> fullJoinIfCondition(Class<T> entityClass, boolean joinCondition) {
-        return super.fullJoin(entityClass, joinCondition);
+    public Joiner<ConstrainedQueryChain<T>> fullJoinIfCondition(Class<T> entityClass, boolean condition) {
+        return fullJoinIfCondition(MybatisFlexs.getTableDef(entityClass), condition);
     }
 
-    public Joiner<ConstrainedQueryChain<T>> fullJoinIfCondition(TableDef table, BooleanSupplier appendCondition) {
-        return fullJoinIfCondition(table, appendCondition.getAsBoolean());
+    public Joiner<ConstrainedQueryChain<T>> fullJoinIfCondition(TableDef table, BooleanSupplier condition) {
+        return fullJoinIfCondition(table, condition.getAsBoolean());
     }
 
-    public Joiner<ConstrainedQueryChain<T>> fullJoinIfCondition(TableDef table, boolean joinCondition) {
-        return super.fullJoin(table, joinCondition);
+    public Joiner<ConstrainedQueryChain<T>> fullJoinIfCondition(TableDef table, boolean condition) {
+        return super.fullJoin(table, condition);
     }
 
-    public ConstrainedQueryConditionAppender<ConstrainedQueryChain<T>> where(QueryColumnGetter<T> queryColumnGetter) {
-        return new ConstrainedQueryConditionAppender<>(this, LambdaUtil.getQueryColumn(queryColumnGetter), SqlConnector.AND);
+    public ConstrainedQueryConditionAppender<ConstrainedQueryChain<T>> where(QueryColumnValueGetter<T> queryColumnValueGetter) {
+        return new ConstrainedQueryConditionAppender<>(this, MybatisFlexs.getQueryColumn(queryColumnValueGetter), SqlConnector.AND);
     }
 
     @Override
@@ -205,8 +196,8 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
         return super.where(queryCondition);
     }
 
-    public ConstrainedQueryConditionAppender<ConstrainedQueryChain<T>> and(QueryColumnGetter<T> queryColumnGetter) {
-        return new ConstrainedQueryConditionAppender<>(this, LambdaUtil.getQueryColumn(queryColumnGetter), SqlConnector.AND);
+    public ConstrainedQueryConditionAppender<ConstrainedQueryChain<T>> and(QueryColumnValueGetter<T> queryColumnValueGetter) {
+        return new ConstrainedQueryConditionAppender<>(this, MybatisFlexs.getQueryColumn(queryColumnValueGetter), SqlConnector.AND);
     }
 
     @Override
@@ -214,8 +205,8 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
         return super.and(queryCondition);
     }
 
-    public ConstrainedQueryConditionAppender<ConstrainedQueryChain<T>> or(QueryColumnGetter<T> queryColumnGetter) {
-        return new ConstrainedQueryConditionAppender<>(this, LambdaUtil.getQueryColumn(queryColumnGetter), SqlConnector.OR);
+    public ConstrainedQueryConditionAppender<ConstrainedQueryChain<T>> or(QueryColumnValueGetter<T> queryColumnValueGetter) {
+        return new ConstrainedQueryConditionAppender<>(this, MybatisFlexs.getQueryColumn(queryColumnValueGetter), SqlConnector.OR);
     }
 
     @Override
@@ -228,7 +219,16 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
         return super.as(aliasName);
     }
 
-    private static final String ADD_WHERE_QUERY_CONDITION_METHOD_NAME = "addWhereQueryCondition";
+    public ConstrainedQueryChain<T> groupBy(QueryColumnValueGetter<T> queryColumnValueGetter) {
+        return groupBy(MybatisFlexs.getQueryColumn(queryColumnValueGetter));
+    }
+
+    public ConstrainedQueryChain<T> groupBy(QueryColumnValueGetter<T>... queryColumnValueGetters) {
+        for (QueryColumnValueGetter queryColumnValueGetter : queryColumnValueGetters) {
+            groupBy(queryColumnValueGetter);
+        }
+        return this;
+    }
 
     @Override
     public ConstrainedQueryChain<T> groupBy(QueryColumn queryColumn) {
@@ -237,15 +237,21 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
 
     @Override
     public ConstrainedQueryChain<T> groupBy(QueryColumn... queryColumns) {
-        return super.groupBy(queryColumns);
+        for (QueryColumn queryColumn : queryColumns) {
+            groupBy(queryColumn);
+        }
+        return this;
     }
 
-    public ConstrainedQueryChain<T> groupBy(QueryColumnGetter<T> queryColumnGetter) {
-        return super.groupBy(queryColumnGetter);
+    public ConstrainedQueryChain<T> asc(QueryColumnValueGetter<T> queryColumnValueGetter) {
+        return asc(MybatisFlexs.getQueryColumn(queryColumnValueGetter));
     }
 
-    public ConstrainedQueryChain<T> groupBy(QueryColumnGetter<T>... queryColumnGetters) {
-        return super.groupBy(queryColumnGetters);
+    public ConstrainedQueryChain<T> asc(QueryColumnValueGetter<T>... queryColumnValueGetters) {
+        for (QueryColumnValueGetter<T> queryColumnValueGetter : queryColumnValueGetters) {
+            asc(queryColumnValueGetter);
+        }
+        return this;
     }
 
     public ConstrainedQueryChain<T> asc(QueryColumn queryColumn) {
@@ -253,16 +259,19 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
     }
 
     public ConstrainedQueryChain<T> asc(QueryColumn... queryColumns) {
-        return super.orderBy(Arrays.stream(queryColumns).map(QueryColumn::asc).toArray(QueryOrderBy[]::new));
+        for (QueryColumn queryColumn : queryColumns) {
+            asc(queryColumn);
+        }
+        return this;
     }
 
-    public ConstrainedQueryChain<T> asc(QueryColumnGetter<T> queryColumnGetter) {
-        return super.orderBy(queryColumnGetter, true);
+    public ConstrainedQueryChain<T> desc(QueryColumnValueGetter<T> queryColumnValueGetter) {
+        return desc(MybatisFlexs.getQueryColumn(queryColumnValueGetter));
     }
 
-    public ConstrainedQueryChain<T> asc(QueryColumnGetter<T>... queryColumnGetters) {
-        for (QueryColumnGetter<T> queryColumnGetter : queryColumnGetters) {
-            asc(queryColumnGetter);
+    public ConstrainedQueryChain<T> desc(QueryColumnValueGetter<T>... queryColumnValueGetters) {
+        for (QueryColumnValueGetter<T> queryColumnValueGetter : queryColumnValueGetters) {
+            desc(queryColumnValueGetter);
         }
         return this;
     }
@@ -272,16 +281,8 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
     }
 
     public ConstrainedQueryChain<T> desc(QueryColumn... queryColumns) {
-        return super.orderBy(Arrays.stream(queryColumns).map(QueryColumn::desc).toArray(QueryOrderBy[]::new));
-    }
-
-    public ConstrainedQueryChain<T> desc(QueryColumnGetter<T> queryColumnGetter) {
-        return super.orderBy(queryColumnGetter, false);
-    }
-
-    public ConstrainedQueryChain<T> desc(QueryColumnGetter<T>... queryColumnGetters) {
-        for (QueryColumnGetter<T> queryColumnGetter : queryColumnGetters) {
-            desc(queryColumnGetter);
+        for (QueryColumn queryColumn : queryColumns) {
+            desc(queryColumn);
         }
         return this;
     }
@@ -304,7 +305,7 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
     }
 
     public PageResult<T> pagination() {
-        return pagination(PageConstant.DEFAULT_PAGE_INDEX, PageConstant.DEFAULT_PAGE_SIZE, null);
+        return pagination(PageConstant.DEFAULT_PAGE_INDEX, PageConstant.DEFAULT_PAGE_SIZE);
     }
 
     public PageResult<T> pagination(PageParam pageParam) {
@@ -312,11 +313,11 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
     }
 
     public PageResult<T> pagination(Number pageIndex, Number pageSize) {
-        return pagination(new Page<>(pageIndex, pageSize));
+        return pagination(pageIndex, pageSize, null);
     }
 
-    public PageResult<T> pagination(Number pageIndex, Number pageSize, Number totalRecordNumber) {
-        return pagination(new Page<>(pageIndex, pageSize, totalRecordNumber));
+    public PageResult<T> pagination(Number pageIndex, Number pageSize, Number totalNumber) {
+        return pagination(new Page<>(pageIndex, pageSize, totalNumber));
     }
 
     private PageResult<T> pagination(Page page) {
@@ -545,6 +546,12 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
     @Override
     public ConstrainedQueryChain<T> from(QueryWrapper queryWrapper) {
         throw new UnsupportedException();
+    }
+
+    @Deprecated
+    @Override
+    public ConstrainedQueryChain<T> from(QueryTable... tables) {
+        return super.from(tables);
     }
 
     @Deprecated
@@ -1006,13 +1013,15 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
     @Deprecated
     @Override
     public ConstrainedQueryChain<T> datasource(String datasource) {
-        throw new UnsupportedException();
+        super.datasource(datasource);
+        return this;
     }
 
     @Deprecated
     @Override
     public ConstrainedQueryChain<T> hint(String hint) {
-        throw new UnsupportedException();
+        super.hint(hint);
+        return this;
     }
 
     @Deprecated
@@ -1762,7 +1771,7 @@ public class ConstrainedQueryChain<T extends PO> extends QueryWrapperAdapter<Con
     @Deprecated
     @Override
     public ConstrainedQueryChain<T> clone() {
-        throw new UnsupportedException();
+        return super.clone();
     }
 
     @Deprecated

@@ -129,34 +129,34 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append equals condition if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return equals condition
      */
-    public QueryCondition equalsIfCondition(Object value, BooleanSupplier appendCondition) {
-        return equalsIfCondition(value, appendCondition.getAsBoolean());
+    public QueryCondition equalsIfCondition(Object value, BooleanSupplier condition) {
+        return equalsIfCondition(value, condition.getAsBoolean());
     }
 
     /**
      * append equals condition if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return equals condition
      */
-    public <T> QueryCondition equalsIfCondition(T value, Predicate<T> appendCondition) {
-        return equalsIfCondition(value, appendCondition.test(value));
+    public <T> QueryCondition equalsIfCondition(T value, Predicate<T> condition) {
+        return equalsIfCondition(value, condition.test(value));
     }
 
     /**
      * append equals condition if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return equals condition
      */
-    public QueryCondition equalsIfCondition(Object value, boolean appendCondition) {
-        return super.eq(value, appendCondition);
+    public QueryCondition equalsIfCondition(Object value, boolean condition) {
+        return super.eq(value, condition);
     }
 
     // ================================================ not equals conditdion ================================================
@@ -218,34 +218,34 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append not equals condition if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return not equals condition
      */
-    public QueryCondition notEqualsIfCondition(Object value, BooleanSupplier appendCondition) {
-        return notEqualsIfCondition(value, appendCondition.getAsBoolean());
+    public QueryCondition notEqualsIfCondition(Object value, BooleanSupplier condition) {
+        return notEqualsIfCondition(value, condition.getAsBoolean());
     }
 
     /**
      * append not equals condition if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return not equals condition
      */
-    public <T> QueryCondition notEqualsIfCondition(T value, Predicate<T> appendCondition) {
-        return notEqualsIfCondition(value, appendCondition.test(value));
+    public <T> QueryCondition notEqualsIfCondition(T value, Predicate<T> condition) {
+        return notEqualsIfCondition(value, condition.test(value));
     }
 
     /**
      * append not equals condition if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return not equals condition
      */
-    public QueryCondition notEqualsIfCondition(Object value, boolean appendCondition) {
-        return super.ne(value, appendCondition);
+    public QueryCondition notEqualsIfCondition(Object value, boolean condition) {
+        return super.ne(value, condition);
     }
 
     // ================================================ greater than conditdion ================================================
@@ -285,34 +285,34 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append greater than conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return greater than conditdion
      */
-    public QueryCondition greaterThanIfCondition(Object value, BooleanSupplier appendCondition) {
-        return greaterThanIfCondition(value, appendCondition.getAsBoolean());
+    public QueryCondition greaterThanIfCondition(Object value, BooleanSupplier condition) {
+        return greaterThanIfCondition(value, condition.getAsBoolean());
     }
 
     /**
      * append greater than conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return greater than conditdion
      */
-    public <T> QueryCondition greaterThanIfCondition(T value, Predicate<T> appendCondition) {
-        return greaterThanIfCondition(value, appendCondition.test(value));
+    public <T> QueryCondition greaterThanIfCondition(T value, Predicate<T> condition) {
+        return greaterThanIfCondition(value, condition.test(value));
     }
 
     /**
      * append greater than conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return greater than conditdion
      */
-    public QueryCondition greaterThanIfCondition(Object value, boolean appendCondition) {
-        return super.gt(value, appendCondition);
+    public QueryCondition greaterThanIfCondition(Object value, boolean condition) {
+        return super.gt(value, condition);
     }
 
     // ================================================ greater than or equals conditdion ================================================
@@ -352,34 +352,34 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append greater than or equals conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return greater than or equals conditdion
      */
-    public QueryCondition greaterThanOrEqualsIfCondition(Object value, BooleanSupplier appendCondition) {
-        return greaterThanOrEqualsIfCondition(value, appendCondition.getAsBoolean());
+    public QueryCondition greaterThanOrEqualsIfCondition(Object value, BooleanSupplier condition) {
+        return greaterThanOrEqualsIfCondition(value, condition.getAsBoolean());
     }
 
     /**
      * append greater than or equals conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return greater than or equals conditdion
      */
-    public <T> QueryCondition greaterThanOrEqualsIfCondition(T value, Predicate<T> appendCondition) {
-        return greaterThanOrEqualsIfCondition(value, appendCondition.test(value));
+    public <T> QueryCondition greaterThanOrEqualsIfCondition(T value, Predicate<T> condition) {
+        return greaterThanOrEqualsIfCondition(value, condition.test(value));
     }
 
     /**
      * append greater than or equals conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return greater than or equals conditdion
      */
-    public QueryCondition greaterThanOrEqualsIfCondition(Object value, boolean appendCondition) {
-        return super.ge(value, appendCondition);
+    public QueryCondition greaterThanOrEqualsIfCondition(Object value, boolean condition) {
+        return super.ge(value, condition);
     }
 
     // ================================================ less than conditdion ================================================
@@ -419,34 +419,34 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append less than conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return less than conditdion
      */
-    public QueryCondition lessThanIfCondition(Object value, BooleanSupplier appendCondition) {
-        return lessThanIfCondition(value, appendCondition.getAsBoolean());
+    public QueryCondition lessThanIfCondition(Object value, BooleanSupplier condition) {
+        return lessThanIfCondition(value, condition.getAsBoolean());
     }
 
     /**
      * append less than conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return less than conditdion
      */
-    public <T> QueryCondition lessThanIfCondition(T value, Predicate<T> appendCondition) {
-        return lessThanIfCondition(value, appendCondition.test(value));
+    public <T> QueryCondition lessThanIfCondition(T value, Predicate<T> condition) {
+        return lessThanIfCondition(value, condition.test(value));
     }
 
     /**
      * append less than conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return less than conditdion
      */
-    public QueryCondition lessThanIfCondition(Object value, boolean appendCondition) {
-        return super.lt(value, appendCondition);
+    public QueryCondition lessThanIfCondition(Object value, boolean condition) {
+        return super.lt(value, condition);
     }
 
     // ================================================ less than or equals conditdion ================================================
@@ -486,34 +486,34 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append less than or equals conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return less than or equals conditdion
      */
-    public QueryCondition lessThanOrEqualsIfCondition(Object value, BooleanSupplier appendCondition) {
-        return lessThanOrEqualsIfCondition(value, appendCondition.getAsBoolean());
+    public QueryCondition lessThanOrEqualsIfCondition(Object value, BooleanSupplier condition) {
+        return lessThanOrEqualsIfCondition(value, condition.getAsBoolean());
     }
 
     /**
      * append less than or equals conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return less than or equals conditdion
      */
-    public <T> QueryCondition lessThanOrEqualsIfCondition(T value, Predicate<T> appendCondition) {
-        return lessThanOrEqualsIfCondition(value, appendCondition.test(value));
+    public <T> QueryCondition lessThanOrEqualsIfCondition(T value, Predicate<T> condition) {
+        return lessThanOrEqualsIfCondition(value, condition.test(value));
     }
 
     /**
      * append less than or equals conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return less than or equals conditdion
      */
-    public QueryCondition lessThanOrEqualsIfCondition(Object value, boolean appendCondition) {
-        return super.le(value, appendCondition);
+    public QueryCondition lessThanOrEqualsIfCondition(Object value, boolean condition) {
+        return super.le(value, condition);
     }
 
     // ================================================ in conditdion ================================================
@@ -553,92 +553,92 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append in conditdion if the append condition return true
      *
-     * @param values          the column values
-     * @param appendCondition the append condition
+     * @param values    the column values
+     * @param condition the append condition
      * @return in conditdion
      */
-    public QueryCondition inIfCondition(Object[] values, BooleanSupplier appendCondition) {
-        return inIfCondition(values, appendCondition.getAsBoolean());
+    public QueryCondition inIfCondition(Object[] values, BooleanSupplier condition) {
+        return inIfCondition(values, condition.getAsBoolean());
     }
 
     /**
      * append in conditdion if the append condition return true
      *
-     * @param values          the column values
-     * @param appendCondition the append condition
+     * @param values    the column values
+     * @param condition the append condition
      * @return in conditdion
      */
-    public <T> QueryCondition inIfCondition(T[] values, Predicate<T[]> appendCondition) {
-        return inIfCondition(values, appendCondition.test(values));
+    public <T> QueryCondition inIfCondition(T[] values, Predicate<T[]> condition) {
+        return inIfCondition(values, condition.test(values));
     }
 
     /**
      * append in conditdion if the append condition return true
      *
-     * @param values          the column values
-     * @param appendCondition the append condition
+     * @param values    the column values
+     * @param condition the append condition
      * @return in conditdion
      */
-    public QueryCondition inIfCondition(Object[] values, boolean appendCondition) {
-        return super.in(values, appendCondition);
+    public QueryCondition inIfCondition(Object[] values, boolean condition) {
+        return super.in(values, condition);
     }
 
     /**
      * append in conditdion if the append condition return true
      *
-     * @param values          the column values
-     * @param appendCondition the append condition
+     * @param values    the column values
+     * @param condition the append condition
      * @return in conditdion
      */
-    public QueryCondition inIfCondition(Iterable<?> values, BooleanSupplier appendCondition) {
-        return inIfCondition(values, appendCondition.getAsBoolean());
+    public QueryCondition inIfCondition(Iterable<?> values, BooleanSupplier condition) {
+        return inIfCondition(values, condition.getAsBoolean());
     }
 
     /**
      * append in conditdion if the append condition return true
      *
-     * @param values          the column values
-     * @param appendCondition the append condition
+     * @param values    the column values
+     * @param condition the append condition
      * @return in conditdion
      */
-    public <T> QueryCondition inIfCondition(Iterable<T> values, Predicate<Iterable<T>> appendCondition) {
-        return inIfCondition(values, appendCondition.test(values));
+    public <T> QueryCondition inIfCondition(Iterable<T> values, Predicate<Iterable<T>> condition) {
+        return inIfCondition(values, condition.test(values));
     }
 
     /**
      * append in conditdion if the append condition return true
      *
-     * @param values          the column values
-     * @param appendCondition the append condition
+     * @param values    the column values
+     * @param condition the append condition
      * @return in conditdion
      */
-    public QueryCondition inIfCondition(Iterable<?> values, boolean appendCondition) {
+    public QueryCondition inIfCondition(Iterable<?> values, boolean condition) {
         if (values instanceof Collection<?> collectionTypeValues) {
-            return super.in(collectionTypeValues, appendCondition);
+            return super.in(collectionTypeValues, condition);
         }
-        return super.in(Converts.toList(values), appendCondition);
+        return super.in(Converts.toList(values), condition);
     }
 
     /**
      * append in conditdion if the append condition return true
      *
-     * @param values          the column values
-     * @param appendCondition the append condition
+     * @param values    the column values
+     * @param condition the append condition
      * @return in conditdion
      */
-    public QueryCondition inIfCondition(QueryWrapper queryWrapper, BooleanSupplier appendCondition) {
-        return inIfCondition(queryWrapper, appendCondition.getAsBoolean());
+    public QueryCondition inIfCondition(QueryWrapper queryWrapper, BooleanSupplier condition) {
+        return inIfCondition(queryWrapper, condition.getAsBoolean());
     }
 
     /**
      * append in conditdion if the append condition return true
      *
-     * @param values          the column values
-     * @param appendCondition the append condition
+     * @param values    the column values
+     * @param condition the append condition
      * @return in conditdion
      */
-    public QueryCondition inIfCondition(QueryWrapper queryWrapper, boolean appendCondition) {
-        return super.in(queryWrapper, appendCondition);
+    public QueryCondition inIfCondition(QueryWrapper queryWrapper, boolean condition) {
+        return super.in(queryWrapper, condition);
     }
 
     // ================================================ not in conditdion ================================================
@@ -678,92 +678,92 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append not in conditdion if the append condition return true
      *
-     * @param values          the column values
-     * @param appendCondition the append condition
+     * @param values    the column values
+     * @param condition the append condition
      * @return not in conditdion
      */
-    public QueryCondition notInIfCondition(Object[] values, BooleanSupplier appendCondition) {
-        return notInIfCondition(values, appendCondition.getAsBoolean());
+    public QueryCondition notInIfCondition(Object[] values, BooleanSupplier condition) {
+        return notInIfCondition(values, condition.getAsBoolean());
     }
 
     /**
      * append not in conditdion if the append condition return true
      *
-     * @param values          the column values
-     * @param appendCondition the append condition
+     * @param values    the column values
+     * @param condition the append condition
      * @return not in conditdion
      */
-    public <T> QueryCondition notInIfCondition(T[] values, Predicate<T[]> appendCondition) {
-        return notInIfCondition(values, appendCondition.test(values));
+    public <T> QueryCondition notInIfCondition(T[] values, Predicate<T[]> condition) {
+        return notInIfCondition(values, condition.test(values));
     }
 
     /**
      * append not in conditdion if the append condition return true
      *
-     * @param values          the column values
-     * @param appendCondition the append condition
+     * @param values    the column values
+     * @param condition the append condition
      * @return not in conditdion
      */
-    public QueryCondition notInIfCondition(Object[] values, boolean appendCondition) {
-        return super.notIn(values, appendCondition);
+    public QueryCondition notInIfCondition(Object[] values, boolean condition) {
+        return super.notIn(values, condition);
     }
 
     /**
      * append not in conditdion if the append condition return true
      *
-     * @param values          the column values
-     * @param appendCondition the append condition
+     * @param values    the column values
+     * @param condition the append condition
      * @return not in conditdion
      */
-    public QueryCondition notInIfCondition(Iterable<?> values, BooleanSupplier appendCondition) {
-        return notInIfCondition(values, appendCondition.getAsBoolean());
+    public QueryCondition notInIfCondition(Iterable<?> values, BooleanSupplier condition) {
+        return notInIfCondition(values, condition.getAsBoolean());
     }
 
     /**
      * append not in conditdion if the append condition return true
      *
-     * @param values          the column values
-     * @param appendCondition the append condition
+     * @param values    the column values
+     * @param condition the append condition
      * @return not in conditdion
      */
-    public <T> QueryCondition notInIfCondition(Iterable<T> values, Predicate<Iterable<T>> appendCondition) {
-        return notInIfCondition(values, appendCondition.test(values));
+    public <T> QueryCondition notInIfCondition(Iterable<T> values, Predicate<Iterable<T>> condition) {
+        return notInIfCondition(values, condition.test(values));
     }
 
     /**
      * append not in conditdion if the append condition return true
      *
-     * @param values          the column values
-     * @param appendCondition the append condition
+     * @param values    the column values
+     * @param condition the append condition
      * @return not in conditdion
      */
-    public QueryCondition notInIfCondition(Iterable<?> values, boolean appendCondition) {
+    public QueryCondition notInIfCondition(Iterable<?> values, boolean condition) {
         if (values instanceof Collection<?> collectionTypeValues) {
-            return super.notIn(collectionTypeValues, appendCondition);
+            return super.notIn(collectionTypeValues, condition);
         }
-        return super.notIn(Converts.toList(values), appendCondition);
+        return super.notIn(Converts.toList(values), condition);
     }
 
     /**
      * append not in conditdion if the append condition return true
      *
-     * @param values          the column values
-     * @param appendCondition the append condition
+     * @param values    the column values
+     * @param condition the append condition
      * @return not in conditdion
      */
-    public QueryCondition notInIfCondition(QueryWrapper queryWrapper, BooleanSupplier appendCondition) {
-        return notInIfCondition(queryWrapper, appendCondition.getAsBoolean());
+    public QueryCondition notInIfCondition(QueryWrapper queryWrapper, BooleanSupplier condition) {
+        return notInIfCondition(queryWrapper, condition.getAsBoolean());
     }
 
     /**
      * append not in conditdion if the append condition return true
      *
-     * @param values          the column values
-     * @param appendCondition the append condition
+     * @param values    the column values
+     * @param condition the append condition
      * @return not in conditdion
      */
-    public QueryCondition notInIfCondition(QueryWrapper queryWrapper, boolean appendCondition) {
-        return super.notIn(queryWrapper, appendCondition);
+    public QueryCondition notInIfCondition(QueryWrapper queryWrapper, boolean condition) {
+        return super.notIn(queryWrapper, condition);
     }
 
     // ================================================ between conditdion ================================================
@@ -783,37 +783,37 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append between conditdion if the append condition return true
      *
-     * @param startValue      the between start column value
-     * @param endValue        the between end column value
-     * @param appendCondition the append condition
+     * @param startValue the between start column value
+     * @param endValue   the between end column value
+     * @param condition  the append condition
      * @return between conditdion
      */
-    public QueryCondition betweenIfCondition(Object startValue, Object endValue, BooleanSupplier appendCondition) {
-        return betweenIfCondition(startValue, endValue, appendCondition.getAsBoolean());
+    public QueryCondition betweenIfCondition(Object startValue, Object endValue, BooleanSupplier condition) {
+        return betweenIfCondition(startValue, endValue, condition.getAsBoolean());
     }
 
     /**
      * append between conditdion if the append condition return true
      *
-     * @param startValue      the between start column value
-     * @param endValue        the between end column value
-     * @param appendCondition the append condition
+     * @param startValue the between start column value
+     * @param endValue   the between end column value
+     * @param condition  the append condition
      * @return between conditdion
      */
-    public <S, E> QueryCondition betweenIfCondition(S startValue, E endValue, BiPredicate<S, E> appendCondition) {
-        return super.between(startValue, endValue, appendCondition);
+    public <S, E> QueryCondition betweenIfCondition(S startValue, E endValue, BiPredicate<S, E> condition) {
+        return super.between(startValue, endValue, condition);
     }
 
     /**
      * append between conditdion if the append condition return true
      *
-     * @param startValue      the between start column value
-     * @param endValue        the between end column value
-     * @param appendCondition the append condition
+     * @param startValue the between start column value
+     * @param endValue   the between end column value
+     * @param condition  the append condition
      * @return between conditdion
      */
-    public QueryCondition betweenIfCondition(Object startValue, Object endValue, boolean appendCondition) {
-        return super.between(startValue, endValue, appendCondition);
+    public QueryCondition betweenIfCondition(Object startValue, Object endValue, boolean condition) {
+        return super.between(startValue, endValue, condition);
     }
 
     // ================================================ not between conditdion ================================================
@@ -833,37 +833,37 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append not between conditdion if the append condition return true
      *
-     * @param startValue      the between start column value
-     * @param endValue        the between end column value
-     * @param appendCondition the append condition
+     * @param startValue the between start column value
+     * @param endValue   the between end column value
+     * @param condition  the append condition
      * @return not between conditdion
      */
-    public QueryCondition notBetweenIfCondition(Object startValue, Object endValue, BooleanSupplier appendCondition) {
-        return notBetweenIfCondition(startValue, endValue, appendCondition.getAsBoolean());
+    public QueryCondition notBetweenIfCondition(Object startValue, Object endValue, BooleanSupplier condition) {
+        return notBetweenIfCondition(startValue, endValue, condition.getAsBoolean());
     }
 
     /**
      * append not between conditdion if the append condition return true
      *
-     * @param startValue      the between start column value
-     * @param endValue        the between end column value
-     * @param appendCondition the append condition
+     * @param startValue the between start column value
+     * @param endValue   the between end column value
+     * @param condition  the append condition
      * @return not between conditdion
      */
-    public <S, E> QueryCondition notBetweenIfCondition(S startValue, E endValue, BiPredicate<S, E> appendCondition) {
-        return super.notBetween(startValue, endValue, appendCondition);
+    public <S, E> QueryCondition notBetweenIfCondition(S startValue, E endValue, BiPredicate<S, E> condition) {
+        return super.notBetween(startValue, endValue, condition);
     }
 
     /**
      * append not between conditdion if the append condition return true
      *
-     * @param startValue      the between start column value
-     * @param endValue        the between end column value
-     * @param appendCondition the append condition
+     * @param startValue the between start column value
+     * @param endValue   the between end column value
+     * @param condition  the append condition
      * @return not between conditdion
      */
-    public QueryCondition notBetweenIfCondition(Object startValue, Object endValue, boolean appendCondition) {
-        return super.notBetween(startValue, endValue, appendCondition);
+    public QueryCondition notBetweenIfCondition(Object startValue, Object endValue, boolean condition) {
+        return super.notBetween(startValue, endValue, condition);
     }
 
     // ================================================ like "%value%" conditdion ================================================
@@ -893,34 +893,34 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append like {@code "%value%"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return like {@code "%value%"} conditdion
      */
-    public QueryCondition likeIfCondition(Object value, BooleanSupplier appendCondition) {
-        return likeIfCondition(value, appendCondition.getAsBoolean());
+    public QueryCondition likeIfCondition(Object value, BooleanSupplier condition) {
+        return likeIfCondition(value, condition.getAsBoolean());
     }
 
     /**
      * append like {@code "%value%"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return like {@code "%value%"} conditdion
      */
-    public <T> QueryCondition likeIfCondition(T value, Predicate<T> appendCondition) {
-        return likeIfCondition(value, appendCondition.test(value));
+    public <T> QueryCondition likeIfCondition(T value, Predicate<T> condition) {
+        return likeIfCondition(value, condition.test(value));
     }
 
     /**
      * append like {@code "%value%"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return like {@code "%value%"} conditdion
      */
-    public QueryCondition likeIfCondition(Object value, boolean appendCondition) {
-        return super.like(value, appendCondition);
+    public QueryCondition likeIfCondition(Object value, boolean condition) {
+        return super.like(value, condition);
     }
 
     // ================================================ like "value%" conditdion ================================================
@@ -950,34 +950,34 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append like {@code "value%"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return like {@code "value%"} conditdion
      */
-    public QueryCondition likeLeftIfCondition(Object value, BooleanSupplier appendCondition) {
-        return likeLeftIfCondition(value, appendCondition.getAsBoolean());
+    public QueryCondition likeLeftIfCondition(Object value, BooleanSupplier condition) {
+        return likeLeftIfCondition(value, condition.getAsBoolean());
     }
 
     /**
      * append like {@code "value%"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return like {@code "value%"} conditdion
      */
-    public <T> QueryCondition likeLeftIfCondition(T value, Predicate<T> appendCondition) {
-        return likeLeftIfCondition(value, appendCondition.test(value));
+    public <T> QueryCondition likeLeftIfCondition(T value, Predicate<T> condition) {
+        return likeLeftIfCondition(value, condition.test(value));
     }
 
     /**
      * append like {@code "value%"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return like {@code "value%"} conditdion
      */
-    public QueryCondition likeLeftIfCondition(Object value, boolean appendCondition) {
-        return super.likeLeft(value, appendCondition);
+    public QueryCondition likeLeftIfCondition(Object value, boolean condition) {
+        return super.likeLeft(value, condition);
     }
 
     // ================================================ like "%value" conditdion ================================================
@@ -1007,34 +1007,34 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append like {@code "%value"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return like {@code "%value"} conditdion
      */
-    public QueryCondition likeRightIfCondition(Object value, BooleanSupplier appendCondition) {
-        return likeRightIfCondition(value, appendCondition.getAsBoolean());
+    public QueryCondition likeRightIfCondition(Object value, BooleanSupplier condition) {
+        return likeRightIfCondition(value, condition.getAsBoolean());
     }
 
     /**
      * append like {@code "%value"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return like {@code "%value"} conditdion
      */
-    public <T> QueryCondition likeRightIfCondition(T value, Predicate<T> appendCondition) {
-        return likeRightIfCondition(value, appendCondition.test(value));
+    public <T> QueryCondition likeRightIfCondition(T value, Predicate<T> condition) {
+        return likeRightIfCondition(value, condition.test(value));
     }
 
     /**
      * append like {@code "%value"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return like {@code "%value"} conditdion
      */
-    public QueryCondition likeRightIfCondition(Object value, boolean appendCondition) {
-        return super.likeRight(value, appendCondition);
+    public QueryCondition likeRightIfCondition(Object value, boolean condition) {
+        return super.likeRight(value, condition);
     }
 
     // ================================================ like "value" conditdion ================================================
@@ -1064,34 +1064,34 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append like {@code "value"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return like {@code "value"} conditdion
      */
-    public QueryCondition likeRawIfCondition(Object value, BooleanSupplier appendCondition) {
-        return likeRawIfCondition(value, appendCondition.getAsBoolean());
+    public QueryCondition likeRawIfCondition(Object value, BooleanSupplier condition) {
+        return likeRawIfCondition(value, condition.getAsBoolean());
     }
 
     /**
      * append like {@code "value"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return like {@code "value"} conditdion
      */
-    public <T> QueryCondition likeRawIfCondition(T value, Predicate<T> appendCondition) {
-        return likeRawIfCondition(value, appendCondition.test(value));
+    public <T> QueryCondition likeRawIfCondition(T value, Predicate<T> condition) {
+        return likeRawIfCondition(value, condition.test(value));
     }
 
     /**
      * append like {@code "value"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return like {@code "value"} conditdion
      */
-    public QueryCondition likeRawIfCondition(Object value, boolean appendCondition) {
-        return super.likeRaw(value, appendCondition);
+    public QueryCondition likeRawIfCondition(Object value, boolean condition) {
+        return super.likeRaw(value, condition);
     }
 
     // ================================================ not like "%value%" conditdion ================================================
@@ -1121,34 +1121,34 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append not like {@code "%value%"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return not like {@code "%value%"} conditdion
      */
-    public QueryCondition notLikeIfCondition(Object value, BooleanSupplier appendCondition) {
-        return notLikeIfCondition(value, appendCondition.getAsBoolean());
+    public QueryCondition notLikeIfCondition(Object value, BooleanSupplier condition) {
+        return notLikeIfCondition(value, condition.getAsBoolean());
     }
 
     /**
      * append not like {@code "%value%"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return not like {@code "%value%"} conditdion
      */
-    public <T> QueryCondition notLikeIfCondition(T value, Predicate<T> appendCondition) {
-        return notLikeIfCondition(value, appendCondition.test(value));
+    public <T> QueryCondition notLikeIfCondition(T value, Predicate<T> condition) {
+        return notLikeIfCondition(value, condition.test(value));
     }
 
     /**
      * append not like {@code "%value%"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return not like {@code "%value%"} conditdion
      */
-    public QueryCondition notLikeIfCondition(Object value, boolean appendCondition) {
-        return super.notLike(value, appendCondition);
+    public QueryCondition notLikeIfCondition(Object value, boolean condition) {
+        return super.notLike(value, condition);
     }
 
     // ================================================ not like "value%" conditdion ================================================
@@ -1178,34 +1178,34 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append not like {@code "value%"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return not like {@code "value%"} conditdion
      */
-    public QueryCondition notLikeLeftIfCondition(Object value, BooleanSupplier appendCondition) {
-        return notLikeLeftIfCondition(value, appendCondition.getAsBoolean());
+    public QueryCondition notLikeLeftIfCondition(Object value, BooleanSupplier condition) {
+        return notLikeLeftIfCondition(value, condition.getAsBoolean());
     }
 
     /**
      * append not like {@code "value%"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return not like {@code "value%"} conditdion
      */
-    public <T> QueryCondition notLikeLeftIfCondition(T value, Predicate<T> appendCondition) {
-        return notLikeLeftIfCondition(value, appendCondition.test(value));
+    public <T> QueryCondition notLikeLeftIfCondition(T value, Predicate<T> condition) {
+        return notLikeLeftIfCondition(value, condition.test(value));
     }
 
     /**
      * append not like {@code "value%"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return not like {@code "value%"} conditdion
      */
-    public QueryCondition notLikeLeftIfCondition(Object value, boolean appendCondition) {
-        return super.notLikeLeft(value, appendCondition);
+    public QueryCondition notLikeLeftIfCondition(Object value, boolean condition) {
+        return super.notLikeLeft(value, condition);
     }
 
     // ================================================ not like "%value" conditdion ================================================
@@ -1235,34 +1235,34 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append not like {@code "%value"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return not like {@code "%value"} conditdion
      */
-    public QueryCondition notLikeRightIfCondition(Object value, BooleanSupplier appendCondition) {
-        return notLikeRightIfCondition(value, appendCondition.getAsBoolean());
+    public QueryCondition notLikeRightIfCondition(Object value, BooleanSupplier condition) {
+        return notLikeRightIfCondition(value, condition.getAsBoolean());
     }
 
     /**
      * append not like {@code "%value"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return not like {@code "%value"} conditdion
      */
-    public <T> QueryCondition notLikeRightIfCondition(T value, Predicate<T> appendCondition) {
-        return notLikeRightIfCondition(value, appendCondition.test(value));
+    public <T> QueryCondition notLikeRightIfCondition(T value, Predicate<T> condition) {
+        return notLikeRightIfCondition(value, condition.test(value));
     }
 
     /**
      * append not like {@code "%value"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return not like {@code "%value"} conditdion
      */
-    public QueryCondition notLikeRightIfCondition(Object value, boolean appendCondition) {
-        return super.notLikeRight(value, appendCondition);
+    public QueryCondition notLikeRightIfCondition(Object value, boolean condition) {
+        return super.notLikeRight(value, condition);
     }
 
     // ================================================ not like "value" conditdion ================================================
@@ -1292,34 +1292,88 @@ public class ConstrainedQueryColumn extends QueryColumn {
     /**
      * append not like {@code "value"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return not like {@code "value"} conditdion
      */
-    public QueryCondition notLikeRawIfCondition(Object value, BooleanSupplier appendCondition) {
-        return notLikeRawIfCondition(value, appendCondition.getAsBoolean());
+    public QueryCondition notLikeRawIfCondition(Object value, BooleanSupplier condition) {
+        return notLikeRawIfCondition(value, condition.getAsBoolean());
     }
 
     /**
      * append not like {@code "value"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return not like {@code "value"} conditdion
      */
-    public <T> QueryCondition notLikeRawIfCondition(T value, Predicate<T> appendCondition) {
-        return notLikeRawIfCondition(value, appendCondition.test(value));
+    public <T> QueryCondition notLikeRawIfCondition(T value, Predicate<T> condition) {
+        return notLikeRawIfCondition(value, condition.test(value));
     }
 
     /**
      * append not like {@code "value"} conditdion if the append condition return true
      *
-     * @param value           the column value
-     * @param appendCondition the append condition
+     * @param value     the column value
+     * @param condition the append condition
      * @return not like {@code "value"} conditdion
      */
-    public QueryCondition notLikeRawIfCondition(Object value, boolean appendCondition) {
-        return super.notLikeRaw(value, appendCondition);
+    public QueryCondition notLikeRawIfCondition(Object value, boolean condition) {
+        return super.notLikeRaw(value, condition);
+    }
+
+    // ================================================ in null conditdion ================================================
+
+    @Override
+    public QueryCondition isNull() {
+        return isNullIfCondition(true);
+    }
+
+    /**
+     * append is null conditdion if the append condition return true
+     *
+     * @param condition the append condition
+     * @return is null conditdion
+     */
+    public QueryCondition isNullIfCondition(BooleanSupplier condition) {
+        return isNullIfCondition(condition.getAsBoolean());
+    }
+
+    /**
+     * append is null conditdion if the append condition return true
+     *
+     * @param condition the append condition
+     * @return is null conditdion
+     */
+    public QueryCondition isNullIfCondition(boolean condition) {
+        return super.isNull(condition);
+    }
+
+    // ================================================ in not null conditdion ================================================
+
+    @Override
+    public QueryCondition isNotNull() {
+        return isNotNullIfCondition(true);
+    }
+
+    /**
+     * append is not null conditdion if the append condition return true
+     *
+     * @param condition the append condition
+     * @return is null conditdion
+     */
+    public QueryCondition isNotNullIfCondition(BooleanSupplier condition) {
+        return isNotNullIfCondition(condition.getAsBoolean());
+    }
+
+    /**
+     * append is not null conditdion if the append condition return true
+     *
+     * @param condition the append condition
+     * @return is null conditdion
+     */
+    public QueryCondition isNotNullIfCondition(boolean condition) {
+        return super.isNotNull(condition);
     }
 
     // =======================================================================================================================================================

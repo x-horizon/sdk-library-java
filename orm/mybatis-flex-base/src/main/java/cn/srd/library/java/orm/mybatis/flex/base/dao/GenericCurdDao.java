@@ -17,6 +17,7 @@ import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.orm.mybatis.flex.base.converter.PageConverter;
 import cn.srd.library.java.orm.mybatis.flex.base.query.ConstrainedQueryChain;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.MybatisFlexs;
+import cn.srd.library.java.orm.mybatis.flex.base.update.ConstrainedUpdateChain;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.functional.Action;
@@ -72,6 +73,10 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
 
     default ConstrainedQueryChain<T> openQuery() {
         return ConstrainedQueryChain.of(this);
+    }
+
+    default ConstrainedUpdateChain<T> openUpdate() {
+        return ConstrainedUpdateChain.of(this);
     }
 
     /**
