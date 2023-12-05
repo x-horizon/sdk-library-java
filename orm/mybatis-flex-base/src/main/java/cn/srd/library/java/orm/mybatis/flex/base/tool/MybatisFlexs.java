@@ -6,7 +6,6 @@ package cn.srd.library.java.orm.mybatis.flex.base.tool;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.mybatis.flex.base.query.QueryColumnValueGetter;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.mybatis.Mappers;
@@ -94,8 +93,8 @@ public class MybatisFlexs {
         return Mappers.ofEntityClass(entityClass);
     }
 
-    public static <T extends PO> QueryColumn getQueryColumn(QueryColumnValueGetter<T> queryColumnValueGetter) {
-        return LambdaUtil.getQueryColumn(queryColumnValueGetter);
+    public static <T extends PO> QueryColumn getQueryColumn(ColumnValueGetter<T> columnValueGetter) {
+        return LambdaUtil.getQueryColumn(columnValueGetter);
     }
 
     public static <T extends PO> QueryTable getQueryTable(Class<T> entityClass) {

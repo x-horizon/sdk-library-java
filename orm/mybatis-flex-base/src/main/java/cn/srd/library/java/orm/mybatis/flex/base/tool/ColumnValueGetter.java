@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.orm.mybatis.flex.base.query;
+package cn.srd.library.java.orm.mybatis.flex.base.tool;
 
 import cn.srd.library.java.orm.contract.model.base.PO;
 import com.mybatisflex.core.util.LambdaGetter;
@@ -13,6 +13,6 @@ import com.mybatisflex.core.util.LambdaGetter;
  * @since 2023-12-03 23:39
  */
 @FunctionalInterface
-public interface QueryColumnValueGetter<T extends PO> extends LambdaGetter<T> {
+public interface ColumnValueGetter<T extends PO> extends LambdaGetter<T> {
 
 }
