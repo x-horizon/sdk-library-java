@@ -262,6 +262,28 @@ public class Converts {
     }
 
     /**
+     * <pre>
+     * convert collection to array.
+     *
+     *  example:
+     *
+     *     {@code
+     *        public static void main(String[] args) {
+     *            List<Integer> inputs = List.of(1, 2, 3, 4, 5);
+     *            // the output is [1, 2, 3, 4, 5]
+     *            Object[] outputs = Collections.toArray(inputs);
+     *        }
+     *     }
+     * </pre>
+     *
+     * @param inputs the input elements
+     * @return after convert
+     */
+    public static Object[] toArray(Iterable<?> inputs) {
+        return Collections.ofUnknownSizeStream(inputs).toArray();
+    }
+
+    /**
      * convert collection to array.
      *
      * @param inputs    the input elements
