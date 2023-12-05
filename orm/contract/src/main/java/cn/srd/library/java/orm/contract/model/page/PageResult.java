@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.orm.contract.model.page;
 
+import cn.srd.library.java.orm.contract.model.base.DTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,6 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -26,7 +26,7 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
-public class PageResult<T> implements Serializable {
+public class PageResult<T> implements DTO {
 
     @Serial private static final long serialVersionUID = -6490851620278359181L;
 

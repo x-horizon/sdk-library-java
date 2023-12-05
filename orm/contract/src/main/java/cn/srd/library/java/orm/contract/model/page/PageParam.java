@@ -5,6 +5,7 @@
 package cn.srd.library.java.orm.contract.model.page;
 
 import cn.srd.library.java.contract.constant.page.PageConstant;
+import cn.srd.library.java.orm.contract.model.base.DTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +18,6 @@ import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.group.GroupSequenceProvider;
 
 import java.io.Serial;
-import java.io.Serializable;
 
 /**
  * the page param model
@@ -31,7 +31,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @GroupSequenceProvider(PageParamValidationGroup.class)
-public class PageParam implements Serializable {
+public class PageParam implements DTO {
 
     @Serial private static final long serialVersionUID = -2956893884714618641L;
 
