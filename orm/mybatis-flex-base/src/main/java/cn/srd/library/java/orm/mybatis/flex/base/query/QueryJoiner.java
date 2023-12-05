@@ -33,16 +33,11 @@ public class QueryJoiner<T extends PO, Q extends AbstractQueryChainer<T>> extend
         return this;
     }
 
-    public Q on(QueryCondition queryCondition) {
-        getNativeQueryJoiner().on(queryCondition);
-        return getQueryChainer();
-    }
-
-    public <U extends PO> Q on(ColumnValueGetter<T> masterTableColumnValue, ColumnValueGetter<U> joinedTableColumnValue) {
+    public <U extends PO> Q onEquals(ColumnValueGetter<T> masterTableColumnValue, ColumnValueGetter<U> joinedTableColumnValue) {
         return on(newQueryChainer -> newQueryChainer.and(masterTableColumnValue).equalsTo(joinedTableColumnValue));
     }
 
-    public <U extends PO> Q on(ColumnValueGetter<T> masterTableColumnValue1, ColumnValueGetter<U> joinedTableColumnValue1, ColumnValueGetter<T> masterTableColumnValue2, ColumnValueGetter<U> joinedTableColumnValue2) {
+    public <U extends PO> Q onEquals(ColumnValueGetter<T> masterTableColumnValue1, ColumnValueGetter<U> joinedTableColumnValue1, ColumnValueGetter<T> masterTableColumnValue2, ColumnValueGetter<U> joinedTableColumnValue2) {
         return on(newQueryChainer -> newQueryChainer
                 .and(masterTableColumnValue1)
                 .equalsTo(joinedTableColumnValue1)
@@ -51,7 +46,7 @@ public class QueryJoiner<T extends PO, Q extends AbstractQueryChainer<T>> extend
         );
     }
 
-    public <U extends PO> Q on(ColumnValueGetter<T> masterTableColumnValue1, ColumnValueGetter<U> joinedTableColumnValue1, ColumnValueGetter<T> masterTableColumnValue2, ColumnValueGetter<U> joinedTableColumnValue2, ColumnValueGetter<T> masterTableColumnValue3, ColumnValueGetter<U> joinedTableColumnValue3) {
+    public <U extends PO> Q onEquals(ColumnValueGetter<T> masterTableColumnValue1, ColumnValueGetter<U> joinedTableColumnValue1, ColumnValueGetter<T> masterTableColumnValue2, ColumnValueGetter<U> joinedTableColumnValue2, ColumnValueGetter<T> masterTableColumnValue3, ColumnValueGetter<U> joinedTableColumnValue3) {
         return on(newQueryChainer -> newQueryChainer
                 .and(masterTableColumnValue1)
                 .equalsTo(joinedTableColumnValue1)
@@ -62,7 +57,7 @@ public class QueryJoiner<T extends PO, Q extends AbstractQueryChainer<T>> extend
         );
     }
 
-    public <U extends PO> Q on(ColumnValueGetter<T> masterTableColumnValue1, ColumnValueGetter<U> joinedTableColumnValue1, ColumnValueGetter<T> masterTableColumnValue2, ColumnValueGetter<U> joinedTableColumnValue2, ColumnValueGetter<T> masterTableColumnValue3, ColumnValueGetter<U> joinedTableColumnValue3, ColumnValueGetter<T> masterTableColumnValue4, ColumnValueGetter<U> joinedTableColumnValue4) {
+    public <U extends PO> Q onEquals(ColumnValueGetter<T> masterTableColumnValue1, ColumnValueGetter<U> joinedTableColumnValue1, ColumnValueGetter<T> masterTableColumnValue2, ColumnValueGetter<U> joinedTableColumnValue2, ColumnValueGetter<T> masterTableColumnValue3, ColumnValueGetter<U> joinedTableColumnValue3, ColumnValueGetter<T> masterTableColumnValue4, ColumnValueGetter<U> joinedTableColumnValue4) {
         return on(newQueryChainer -> newQueryChainer
                 .and(masterTableColumnValue1)
                 .equalsTo(joinedTableColumnValue1)
@@ -76,9 +71,9 @@ public class QueryJoiner<T extends PO, Q extends AbstractQueryChainer<T>> extend
     }
 
     public Q on(Consumer<QueryChainer<T>> queryChainAction) {
-        QueryChainer<T> newQueryChainer = new QueryChainer<>(QueryChain.of(getQueryChainer().getNativeQueryChain().baseMapper()));
+        QueryChainer<T> newQueryChainer = new QueryChainer<>(QueryChain.of(getQueryChainer().getNativeQueryChainer().baseMapper()));
         queryChainAction.accept(newQueryChainer);
-        getNativeQueryJoiner().on(Reflects.getFieldValue(newQueryChainer.getNativeQueryChain().toQueryWrapper(), WHERE_QUERY_CONDITION_FIELD_NAME, QueryCondition.class));
+        getNativeQueryJoiner().on(Reflects.getFieldValue(newQueryChainer.getNativeQueryChainer().toQueryWrapper(), WHERE_QUERY_CONDITION_FIELD_NAME, QueryCondition.class));
         return getQueryChainer();
     }
 

@@ -13,6 +13,6 @@ import com.mybatisflex.core.query.QueryChain;
  */
 public abstract class AbstractQueryChainer<T extends PO> {
 
-    protected abstract QueryChain<T> getNativeQueryChain();
+    protected abstract QueryChain<T> getNativeQueryChainer();
 
 }

@@ -7,6 +7,7 @@ package cn.srd.library.java.orm.mybatis.flex.base.query;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnValueGetter;
+import cn.srd.library.java.orm.mybatis.flex.base.tool.MybatisFlexs;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.functional.If;
 import cn.srd.library.java.tool.lang.object.Nil;
@@ -93,9 +94,36 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
         return queryChainer;
     }
 
+    /**
+     * append equals condition
+     *
+     * @param columnValueGetter the column value getter
+     * @return equals condition
+     */
     public <U extends PO> Q equalsTo(ColumnValueGetter<U> columnValueGetter) {
-        getNativeQueryConditional().eq(columnValueGetter);
-        return queryChainer;
+        return equalsTo(columnValueGetter, true);
+    }
+
+    /**
+     * append equals condition if the append condition return true
+     *
+     * @param columnValueGetter the column value getter
+     * @param condition         the append condition
+     * @return equals condition
+     */
+    public <U extends PO> Q equalsTo(ColumnValueGetter<U> columnValueGetter, BooleanSupplier condition) {
+        return equalsTo(columnValueGetter, condition.getAsBoolean());
+    }
+
+    /**
+     * append equals condition if the append condition return true
+     *
+     * @param columnValueGetter the column value getter
+     * @param condition         the append condition
+     * @return equals condition
+     */
+    public <U extends PO> Q equalsTo(ColumnValueGetter<U> columnValueGetter, boolean condition) {
+        return equalsTo(MybatisFlexs.getQueryColumn(columnValueGetter), condition);
     }
 
     /**
@@ -189,6 +217,38 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
     }
 
     /**
+     * append not equals condition
+     *
+     * @param columnValueGetter the column value getter
+     * @return not equals condition
+     */
+    public <U extends PO> Q notEquals(ColumnValueGetter<U> columnValueGetter) {
+        return notEquals(columnValueGetter, true);
+    }
+
+    /**
+     * append not equals condition if the append condition return true
+     *
+     * @param columnValueGetter the column value getter
+     * @param condition         the append condition
+     * @return not equals condition
+     */
+    public <U extends PO> Q notEquals(ColumnValueGetter<U> columnValueGetter, BooleanSupplier condition) {
+        return notEquals(columnValueGetter, condition.getAsBoolean());
+    }
+
+    /**
+     * append not equals condition if the append condition return true
+     *
+     * @param columnValueGetter the column value getter
+     * @param condition         the append condition
+     * @return not equals condition
+     */
+    public <U extends PO> Q notEquals(ColumnValueGetter<U> columnValueGetter, boolean condition) {
+        return notEquals(MybatisFlexs.getQueryColumn(columnValueGetter), condition);
+    }
+
+    /**
      * append not equals condition if the column value is not null
      *
      * @param value the column value
@@ -279,6 +339,38 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
     }
 
     /**
+     * append greater than condition
+     *
+     * @param columnValueGetter the column value getter
+     * @return greater than condition
+     */
+    public <U extends PO> Q greaterThan(ColumnValueGetter<U> columnValueGetter) {
+        return greaterThan(columnValueGetter, true);
+    }
+
+    /**
+     * append greater than condition if the append condition return true
+     *
+     * @param columnValueGetter the column value getter
+     * @param condition         the append condition
+     * @return greater than condition
+     */
+    public <U extends PO> Q greaterThan(ColumnValueGetter<U> columnValueGetter, BooleanSupplier condition) {
+        return greaterThan(columnValueGetter, condition.getAsBoolean());
+    }
+
+    /**
+     * append greater than condition if the append condition return true
+     *
+     * @param columnValueGetter the column value getter
+     * @param condition         the append condition
+     * @return greater than condition
+     */
+    public <U extends PO> Q greaterThan(ColumnValueGetter<U> columnValueGetter, boolean condition) {
+        return greaterThan(MybatisFlexs.getQueryColumn(columnValueGetter), condition);
+    }
+
+    /**
      * append greater than condition if the column value is not null
      *
      * @param value the column value
@@ -344,6 +436,38 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
     public Q greaterThanOrEquals(Object value, boolean condition) {
         getNativeQueryConditional().ge(value, condition);
         return queryChainer;
+    }
+
+    /**
+     * append greater than or equals condition
+     *
+     * @param columnValueGetter the column value getter
+     * @return greater than or equals condition
+     */
+    public <U extends PO> Q greaterThanOrEquals(ColumnValueGetter<U> columnValueGetter) {
+        return greaterThanOrEquals(columnValueGetter, true);
+    }
+
+    /**
+     * append greater than or equals condition if the append condition return true
+     *
+     * @param columnValueGetter the column value getter
+     * @param condition         the append condition
+     * @return greater than or equals condition
+     */
+    public <U extends PO> Q greaterThanOrEquals(ColumnValueGetter<U> columnValueGetter, BooleanSupplier condition) {
+        return greaterThanOrEquals(columnValueGetter, condition.getAsBoolean());
+    }
+
+    /**
+     * append greater than or equals condition if the append condition return true
+     *
+     * @param columnValueGetter the column value getter
+     * @param condition         the append condition
+     * @return greater than or equals condition
+     */
+    public <U extends PO> Q greaterThanOrEquals(ColumnValueGetter<U> columnValueGetter, boolean condition) {
+        return greaterThanOrEquals(MybatisFlexs.getQueryColumn(columnValueGetter), condition);
     }
 
     /**
@@ -415,6 +539,38 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
     }
 
     /**
+     * append less than condition
+     *
+     * @param columnValueGetter the column value getter
+     * @return less than condition
+     */
+    public <U extends PO> Q lessThan(ColumnValueGetter<U> columnValueGetter) {
+        return lessThan(columnValueGetter, true);
+    }
+
+    /**
+     * append less than condition if the append condition return true
+     *
+     * @param columnValueGetter the column value getter
+     * @param condition         the append condition
+     * @return less than condition
+     */
+    public <U extends PO> Q lessThan(ColumnValueGetter<U> columnValueGetter, BooleanSupplier condition) {
+        return lessThan(columnValueGetter, condition.getAsBoolean());
+    }
+
+    /**
+     * append less than condition if the append condition return true
+     *
+     * @param columnValueGetter the column value getter
+     * @param condition         the append condition
+     * @return less than condition
+     */
+    public <U extends PO> Q lessThan(ColumnValueGetter<U> columnValueGetter, boolean condition) {
+        return lessThan(MybatisFlexs.getQueryColumn(columnValueGetter), condition);
+    }
+
+    /**
      * append less than condition if the column value is not null
      *
      * @param value the column value
@@ -449,28 +605,6 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
     }
 
     /**
-     * append less than or equals condition if the column value is not null
-     *
-     * @param value the column value
-     * @return less than or equals condition
-     * @see Nil#isNotNull(Object)
-     */
-    public Q lessThanOrEqualsIfNotNull(Object value) {
-        return lessThanOrEquals(value, If::notNull);
-    }
-
-    /**
-     * append less than or equals condition if the column value is not zero value, the zero value is {@code null} or {@code 0}
-     *
-     * @param value the column value
-     * @return less than or equals condition
-     * @see Nil#isNotZeroValue(Number)
-     */
-    public Q lessThanOrEqualsIfNotZeroValue(Number value) {
-        return lessThanOrEquals(value, If::notZeroValue);
-    }
-
-    /**
      * append less than or equals condition if the append condition return true
      *
      * @param value     the column value
@@ -502,6 +636,60 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
     public Q lessThanOrEquals(Object value, boolean condition) {
         getNativeQueryConditional().le(value, condition);
         return queryChainer;
+    }
+
+    /**
+     * append less than or equals condition
+     *
+     * @param columnValueGetter the column value getter
+     * @return less than or equals condition
+     */
+    public <U extends PO> Q lessThanOrEquals(ColumnValueGetter<U> columnValueGetter) {
+        return lessThanOrEquals(columnValueGetter, true);
+    }
+
+    /**
+     * append less than or equals condition if the append condition return true
+     *
+     * @param columnValueGetter the column value getter
+     * @param condition         the append condition
+     * @return less than or equals condition
+     */
+    public <U extends PO> Q lessThanOrEquals(ColumnValueGetter<U> columnValueGetter, BooleanSupplier condition) {
+        return lessThanOrEquals(columnValueGetter, condition.getAsBoolean());
+    }
+
+    /**
+     * append less than or equals condition if the append condition return true
+     *
+     * @param columnValueGetter the column value getter
+     * @param condition         the append condition
+     * @return less than or equals condition
+     */
+    public <U extends PO> Q lessThanOrEquals(ColumnValueGetter<U> columnValueGetter, boolean condition) {
+        return lessThanOrEquals(MybatisFlexs.getQueryColumn(columnValueGetter), condition);
+    }
+
+    /**
+     * append less than or equals condition if the column value is not null
+     *
+     * @param value the column value
+     * @return less than or equals condition
+     * @see Nil#isNotNull(Object)
+     */
+    public Q lessThanOrEqualsIfNotNull(Object value) {
+        return lessThanOrEquals(value, If::notNull);
+    }
+
+    /**
+     * append less than or equals condition if the column value is not zero value, the zero value is {@code null} or {@code 0}
+     *
+     * @param value the column value
+     * @return less than or equals condition
+     * @see Nil#isNotZeroValue(Number)
+     */
+    public Q lessThanOrEqualsIfNotZeroValue(Number value) {
+        return lessThanOrEquals(value, If::notZeroValue);
     }
 
     // ================================================ in condition ================================================
@@ -591,9 +779,9 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q in(Iterable<?> values, boolean condition) {
         if (values instanceof Collection<?> collectionTypeValues) {
-            getNativeQueryConditional().in(collectionTypeValues, condition);
+            in(collectionTypeValues.toArray(), condition);
         } else {
-            getNativeQueryConditional().in(Converts.toList(values), condition);
+            in(Converts.toArray(values), condition);
         }
         return queryChainer;
     }
@@ -707,9 +895,9 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q notIn(Iterable<?> values, boolean condition) {
         if (values instanceof Collection<?> collectionTypeValues) {
-            getNativeQueryConditional().notIn(collectionTypeValues, condition);
+            notIn(collectionTypeValues.toArray(), condition);
         } else {
-            getNativeQueryConditional().notIn(Converts.toList(values), condition);
+            notIn(Converts.toArray(values), condition);
         }
         return queryChainer;
     }
