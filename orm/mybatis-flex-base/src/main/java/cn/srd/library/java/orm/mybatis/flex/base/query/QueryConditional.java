@@ -1292,7 +1292,8 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      * @return like {@code "value"} condition
      */
     public Q likeRaw(Object value, boolean condition) {
-        Reflects.invoke(this, ADD_WHERE_QUERY_CONDITION_METHOD_NAME, Reflects.invoke(Reflects.getFieldValue(getNativeQueryConditional(), QUERY_COLUMN_FIELD_NAME), LIKE_RAW_METHOD_NAME), value, condition);
+        getQueryChainer().getNativeQueryChainer().
+                Reflects.invoke(this, ADD_WHERE_QUERY_CONDITION_METHOD_NAME, Reflects.invoke(Reflects.getFieldValue(getNativeQueryConditional(), QUERY_COLUMN_FIELD_NAME), LIKE_RAW_METHOD_NAME), value, condition);
         return queryChainer;
     }
 
