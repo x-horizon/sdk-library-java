@@ -56,7 +56,8 @@ public class QueryJoiner<T extends PO, Q extends AbstractQueryChainer<T>> extend
                 .equalsTo(joinedTableColumnValue3)
         );
     }
-
+    
+    @SuppressWarnings(SuppressWarningConstant.ALL)
     public <U extends PO> Q onEquals(ColumnValueGetter<T> masterTableColumnValue1, ColumnValueGetter<U> joinedTableColumnValue1, ColumnValueGetter<T> masterTableColumnValue2, ColumnValueGetter<U> joinedTableColumnValue2, ColumnValueGetter<T> masterTableColumnValue3, ColumnValueGetter<U> joinedTableColumnValue3, ColumnValueGetter<T> masterTableColumnValue4, ColumnValueGetter<U> joinedTableColumnValue4) {
         return on(newQueryChainer -> newQueryChainer
                 .and(masterTableColumnValue1)
