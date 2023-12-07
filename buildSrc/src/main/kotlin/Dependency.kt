@@ -9,7 +9,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_FRAMEWORK_ALIBABA_SPRING_CLOUD("com.alibaba.cloud:spring-cloud-alibaba-dependencies", "2022.0.0.0"), // TODO wjm spring-boot version 3.0.2
     BOM_FRAMEWORK_SPRING("org.springframework:spring-framework-bom", "6.1.1"),
     BOM_FRAMEWORK_SPRING_BOOT("org.springframework.boot:spring-boot-dependencies", "3.2.0"),
-    BOM_FRAMEWORK_SPRING_CLOUD("org.springframework.cloud:spring-cloud-dependencies", "2023.0.0-RC1"), // TODO wjm spring-boot version 3.2.0-RC1, need upgrade to stabled
+    BOM_FRAMEWORK_SPRING_CLOUD("org.springframework.cloud:spring-cloud-dependencies", "2023.0.0"),
     BOM_FRAMEWORK_SPRING_INTEGRATION("org.springframework.integration:spring-integration-bom", "6.2.0"),
     BOM_METRIC_DROPWIZARD("io.dropwizard.metrics:metrics-bom", "4.2.22"),
     BOM_METRIC_MICROMETER("io.micrometer:micrometer-bom", "1.12.0"),
