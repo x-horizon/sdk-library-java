@@ -1,4 +1,4 @@
-package cn.srd.library.java.orm.mybatis.flex.base.query;
+package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
@@ -56,7 +56,7 @@ public class QueryJoiner<T extends PO, Q extends AbstractQueryChainer<T>> extend
                 .equalsTo(joinedTableColumnValue3)
         );
     }
-    
+
     @SuppressWarnings(SuppressWarningConstant.ALL)
     public <U extends PO> Q onEquals(ColumnValueGetter<T> masterTableColumnValue1, ColumnValueGetter<U> joinedTableColumnValue1, ColumnValueGetter<T> masterTableColumnValue2, ColumnValueGetter<U> joinedTableColumnValue2, ColumnValueGetter<T> masterTableColumnValue3, ColumnValueGetter<U> joinedTableColumnValue3, ColumnValueGetter<T> masterTableColumnValue4, ColumnValueGetter<U> joinedTableColumnValue4) {
         return on(newQueryChainer -> newQueryChainer

@@ -14,8 +14,9 @@ import cn.srd.library.java.orm.contract.model.base.BO;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.page.PageParam;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
+import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChainer;
+import cn.srd.library.java.orm.mybatis.flex.base.chain.UpdateChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.converter.PageConverter;
-import cn.srd.library.java.orm.mybatis.flex.base.query.QueryChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.MybatisFlexs;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;
@@ -74,9 +75,9 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
         return QueryChainer.of(this);
     }
 
-    // default ConstrainedUpdateChain<T> openUpdate() {
-    //     return ConstrainedUpdateChain.of(this);
-    // }
+    default UpdateChainer<T> openUpdate() {
+        return UpdateChainer.of(this);
+    }
 
     /**
      * insert and not append the null column value.
@@ -717,7 +718,7 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
     @Deprecated
     @Override
     default int updateByQuery(T entity, QueryWrapper queryWrapper) {
-        throw new UnsupportedException();
+        return BaseMapper.super.updateByQuery(entity, queryWrapper);
     }
 
     @Deprecated

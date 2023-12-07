@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.orm.mybatis.flex.base.query;
+package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
 import cn.srd.library.java.contract.constant.page.PageConstant;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;

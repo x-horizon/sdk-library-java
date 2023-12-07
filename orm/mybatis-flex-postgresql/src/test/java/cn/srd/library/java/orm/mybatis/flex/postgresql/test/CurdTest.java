@@ -18,9 +18,7 @@ import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.CurdOneIdDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.CurdTwoIdDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.JoinOneDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.JoinTwoDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.CurdOneIdPO;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.JoinOnePO;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.JoinTwoPO;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
 import cn.srd.library.java.tool.lang.object.Types;
@@ -31,8 +29,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.List;
 
 @MapperScan("cn.srd.library.java.orm.mybatis.flex.postgresql.dao")
 @EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
@@ -188,16 +184,23 @@ class CurdTest {
         // TypeUtil.getGenerics(CurdOneIdDao.class);
         Types.getClassGenericType(CurdOneIdDao.class);
 
-        List<JoinOnePO> c = joinOneDao.openQuery()
-                .innerJoin(JoinTwoPO.class).onEquals(JoinOnePO::getId, JoinTwoPO::getJoinOneId)
-                .innerJoin(JoinTwoPO.class).onEquals(JoinOnePO::getId, JoinTwoPO::getJoinOneId, JoinOnePO::getId, JoinTwoPO::getJoinOneId, JoinOnePO::getId, JoinTwoPO::getJoinOneId, JoinOnePO::getId, JoinTwoPO::getJoinOneId)
-                .leftJoin(CurdOneIdPO.class).on(queryChainer -> queryChainer.and(CurdOneIdPO::getId).equalsTo(JoinOnePO::getId))
-                .where(JoinOnePO::getId).equalsTo(23L)
-                .and(CurdOneIdPO::getName).equalsTo("11")
-                .list();
+        // List<JoinOnePO> c = joinOneDao.openQuery()
+        //         .innerJoin(JoinTwoPO.class).onEquals(JoinOnePO::getId, JoinTwoPO::getJoinOneId)
+        //         .innerJoin(JoinTwoPO.class).onEquals(JoinOnePO::getId, JoinTwoPO::getJoinOneId, JoinOnePO::getId, JoinTwoPO::getJoinOneId, JoinOnePO::getId, JoinTwoPO::getJoinOneId, JoinOnePO::getId, JoinTwoPO::getJoinOneId)
+        //         .leftJoin(CurdOneIdPO.class).on(queryChainer -> queryChainer.and(CurdOneIdPO::getId).equalsTo(JoinOnePO::getId))
+        //         .where(JoinOnePO::getId).equalsTo(23L)
+        //         .and(CurdOneIdPO::getName).equalsTo("11")
+        //         .list();
 
-        joinOneDao.save(JoinOnePO.builder().id(1L).joinTwoId(1L).build());
-        joinTwoDao.save(JoinTwoPO.builder().id(1L).joinOneId(1L).build());
+        // joinOneDao.save(JoinOnePO.builder().id(1L).joinTwoId(1L).build());
+        // joinTwoDao.save(JoinTwoPO.builder().id(1L).joinOneId(1L).build());
+
+        joinOneDao.openUpdate()
+                .set(JoinOnePO::getName, "333")
+                .where(JoinOnePO::getId).equalsTo(23L)
+                .and(JoinOnePO::getName).equalsTo("11")
+                .update();
+
         //
         // UpdateChain.of(JoinOnePO.class)
         //         .set(JoinOnePO::getId, "1")

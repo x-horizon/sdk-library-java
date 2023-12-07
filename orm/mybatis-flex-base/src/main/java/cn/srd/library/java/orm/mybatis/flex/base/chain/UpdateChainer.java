@@ -2,16 +2,13 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.orm.mybatis.flex.base.update;
+package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.mybatis.flex.base.query.QueryChainer;
-import cn.srd.library.java.orm.mybatis.flex.base.query.QueryConditional;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnValueGetter;
 import cn.srd.library.java.tool.lang.functional.If;
 import com.mybatisflex.core.BaseMapper;
-import com.mybatisflex.core.query.QueryChain;
 import com.mybatisflex.core.update.UpdateChain;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -67,12 +64,20 @@ public class UpdateChainer<T extends PO> extends AbstractUpdateChainer<T> {
         return set(columnValueGetter, value, If::notBlank);
     }
 
-    public <U extends PO> UpdateChainer<T, QueryChainer<T>, QueryChain<T>> where(ColumnValueGetter<U> columnValueGetter) {
-        return new QueryConditional<>(getNativeQueryChainer().where(columnValueGetter), this);
+    public QueryConditional<T, UpdateChainer<T>, UpdateChain<T>> where(ColumnValueGetter<T> columnValueGetter) {
+        return new QueryConditional<>(getNativeUpdateChainer().where(columnValueGetter), this);
     }
 
-    public <U extends PO> UpdateChainer<T, QueryChainer<T>, QueryChain<T>> and(ColumnValueGetter<U> columnValueGetter) {
-        return new QueryConditional<>(getNativeQueryChainer().and(columnValueGetter), this);
+    public QueryConditional<T, UpdateChainer<T>, UpdateChain<T>> and(ColumnValueGetter<T> columnValueGetter) {
+        return new QueryConditional<>(getNativeUpdateChainer().and(columnValueGetter), this);
+    }
+
+    public void update() {
+        getNativeUpdateChainer().update();
+    }
+
+    public String toSQL() {
+        return getNativeUpdateChainer().toSQL();
     }
 
 }

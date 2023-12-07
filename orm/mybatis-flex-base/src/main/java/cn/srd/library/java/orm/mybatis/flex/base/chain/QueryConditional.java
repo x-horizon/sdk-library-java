@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.orm.mybatis.flex.base.query;
+package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
@@ -32,13 +32,13 @@ import java.util.function.Predicate;
 @CanIgnoreReturnValue
 @AllArgsConstructor(access = AccessLevel.MODULE)
 @SuppressWarnings(SuppressWarningConstant.UNUSED)
-public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N extends QueryWrapper> extends AbstractQueryConditional<N> {
+public class QueryConditional<T extends PO, Q extends AbstractChainer<T>, N extends QueryWrapper> extends AbstractQueryConditional<N> {
 
     @Getter(AccessLevel.PROTECTED)
     private final QueryConditionBuilder<N> nativeQueryConditional;
 
     @Getter(AccessLevel.PRIVATE)
-    private final Q queryChainer;
+    private final Q chainer;
 
     private static final String ADD_WHERE_QUERY_CONDITION_METHOD_NAME = "addWhereQueryCondition";
 
@@ -91,7 +91,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q equalsTo(Object value, boolean condition) {
         getNativeQueryConditional().eq(value, condition);
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -213,7 +213,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q notEquals(Object value, boolean condition) {
         getNativeQueryConditional().ne(value, condition);
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -335,7 +335,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q greaterThan(Object value, boolean condition) {
         getNativeQueryConditional().gt(value, condition);
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -435,7 +435,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q greaterThanOrEquals(Object value, boolean condition) {
         getNativeQueryConditional().ge(value, condition);
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -535,7 +535,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q lessThan(Object value, boolean condition) {
         getNativeQueryConditional().lt(value, condition);
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -635,7 +635,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q lessThanOrEquals(Object value, boolean condition) {
         getNativeQueryConditional().le(value, condition);
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -735,7 +735,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q in(Object[] values, boolean condition) {
         getNativeQueryConditional().in(values, condition);
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -783,7 +783,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
         } else {
             in(Converts.toArray(values), condition);
         }
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -851,7 +851,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q notIn(Object[] values, boolean condition) {
         getNativeQueryConditional().notIn(values, condition);
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -899,7 +899,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
         } else {
             notIn(Converts.toArray(values), condition);
         }
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -971,7 +971,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q between(Object startValue, Object endValue, boolean condition) {
         getNativeQueryConditional().between(startValue, endValue, condition);
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -1033,7 +1033,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q notBetween(Object startValue, Object endValue, boolean condition) {
         getNativeQueryConditional().notBetween(startValue, endValue, condition);
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -1091,7 +1091,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q like(Object value, boolean condition) {
         getNativeQueryConditional().like(value, condition);
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -1159,7 +1159,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q likeLeft(Object value, boolean condition) {
         getNativeQueryConditional().likeLeft(value, condition);
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -1226,7 +1226,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q likeRight(Object value, boolean condition) {
         getNativeQueryConditional().likeRight(value, condition);
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -1292,9 +1292,8 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      * @return like {@code "value"} condition
      */
     public Q likeRaw(Object value, boolean condition) {
-        getQueryChainer().getNativeQueryChainer().
-                Reflects.invoke(this, ADD_WHERE_QUERY_CONDITION_METHOD_NAME, Reflects.invoke(Reflects.getFieldValue(getNativeQueryConditional(), QUERY_COLUMN_FIELD_NAME), LIKE_RAW_METHOD_NAME), value, condition);
-        return queryChainer;
+        Reflects.invoke(this, ADD_WHERE_QUERY_CONDITION_METHOD_NAME, Reflects.invoke(Reflects.getFieldValue(getNativeQueryConditional(), QUERY_COLUMN_FIELD_NAME), LIKE_RAW_METHOD_NAME), value, condition);
+        return getChainer();
     }
 
     /**
@@ -1361,7 +1360,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q notLike(Object value, boolean condition) {
         getNativeQueryConditional().notLike(value, condition);
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -1429,7 +1428,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q notLikeLeft(Object value, boolean condition) {
         getNativeQueryConditional().notLikeLeft(value, condition);
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -1496,7 +1495,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q notLikeRight(Object value, boolean condition) {
         getNativeQueryConditional().notLikeRight(value, condition);
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -1564,7 +1563,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q notLikeRaw(Object value, boolean condition) {
         Reflects.invoke(this, ADD_WHERE_QUERY_CONDITION_METHOD_NAME, Reflects.invoke(Reflects.getFieldValue(getNativeQueryConditional(), QUERY_COLUMN_FIELD_NAME), NOT_LIKE_RAW_METHOD_NAME), value, condition);
-        return queryChainer;
+        return getChainer();
     }
 
     /**
@@ -1618,7 +1617,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q isNull(boolean condition) {
         getNativeQueryConditional().isNull(condition);
-        return queryChainer;
+        return getChainer();
     }
 
     // ================================================ in not null condition ================================================
@@ -1650,7 +1649,7 @@ public class QueryConditional<T extends PO, Q extends AbstractQueryChainer<T>, N
      */
     public Q isNotNull(boolean condition) {
         getNativeQueryConditional().isNotNull(condition);
-        return queryChainer;
+        return getChainer();
     }
 
 }
