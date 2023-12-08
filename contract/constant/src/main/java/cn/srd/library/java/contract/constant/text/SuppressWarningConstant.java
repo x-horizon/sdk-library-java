@@ -56,4 +56,21 @@ public class SuppressWarningConstant {
      */
     public static final String VARARGS = "varargs";
 
+    /**
+     * ignore spring ioc component weak known: {@code "SpringJavaInjectionPointsAutowiringInspection"}
+     */
+    public static final String SPRING_JAVA_INJECTION_POINTS_AUTOWIRING_INSPECTION = "SpringJavaInjectionPointsAutowiringInspection";
+
+    // @SuppressWarnings({"MagicConstant", "ConstantConditions"})
+    // @SuppressWarnings("NullableProblems")
+    // @SuppressWarnings({"PointlessBitwiseExpression", "FieldCanBeLocal"})
+    // @SuppressWarnings("UnnecessaryLocalVariable")
+    // @SuppressWarnings({"unchecked", "SuspiciousSystemArraycopy"})
+    // @SuppressWarnings("UnnecessaryUnicodeEscape")
+    // @SuppressWarnings("SameParameterValue")
+    // @SuppressWarnings("serial")
+    // @SuppressWarnings("removal")
+    // @SuppressWarnings({"deprecation", "unchecked"})
+    // @SuppressWarnings("null")
+
 }
