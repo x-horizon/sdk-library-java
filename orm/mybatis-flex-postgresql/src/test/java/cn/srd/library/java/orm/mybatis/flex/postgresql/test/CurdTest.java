@@ -201,6 +201,15 @@ class CurdTest {
                 .and(JoinOnePO::getName).equalsTo("11")
                 .update();
 
+        String a = joinOneDao.openDelete()
+                .where(JoinOnePO::getId).equalsTo(23L)
+                .and(JoinOnePO::getName).equalsTo("11")
+                // .delete();
+                .toSQL();
+        // .deleteSkipLogic();
+
+        System.out.println();
+
         //
         // UpdateChain.of(JoinOnePO.class)
         //         .set(JoinOnePO::getId, "1")
