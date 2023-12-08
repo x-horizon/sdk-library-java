@@ -5,14 +5,11 @@
 package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
 import cn.srd.library.java.orm.contract.model.base.PO;
-import com.mybatisflex.core.BaseMapper;
 
 /**
  * @author wjm
- * @since 2023-12-05 16:38
+ * @since 2023-12-08 20:39
  */
-public abstract class AbstractChainer<T extends PO> {
-
-    protected abstract BaseMapper<T> getNativeBaseMapper();
+public abstract class AbstractDeleteChainer<T extends PO> extends AbstractUpdateChainer<T> {
 
 }

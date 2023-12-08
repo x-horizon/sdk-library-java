@@ -32,10 +32,12 @@ import java.util.function.BooleanSupplier;
 @SuppressWarnings(SuppressWarningConstant.UNUSED)
 public class QueryChainer<T extends PO> extends AbstractQueryChainer<T> {
 
+    @Getter(AccessLevel.PROTECTED) private final BaseMapper<T> nativeBaseMapper;
+
     @Getter(AccessLevel.PROTECTED) private final QueryChain<T> nativeQueryChainer;
 
     public static <T extends PO> QueryChainer<T> of(BaseMapper<T> baseMapper) {
-        return new QueryChainer<>(QueryChain.of(baseMapper));
+        return new QueryChainer<>(baseMapper, QueryChain.of(baseMapper));
     }
 
     public <U extends PO> QueryJoiner<T, QueryChainer<T>> innerJoin(Class<U> entityClass) {

@@ -4,6 +4,7 @@ import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnValueGetter;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
+import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.query.Joiner;
 import com.mybatisflex.core.query.QueryChain;
 import com.mybatisflex.core.query.QueryCondition;
@@ -72,7 +73,8 @@ public class QueryJoiner<T extends PO, Q extends AbstractQueryChainer<T>> extend
     }
 
     public Q on(Consumer<QueryChainer<T>> queryChainAction) {
-        QueryChainer<T> newQueryChainer = new QueryChainer<>(QueryChain.of(getQueryChainer().getNativeQueryChainer().baseMapper()));
+        BaseMapper<T> baseMapper = getQueryChainer().getNativeQueryChainer().baseMapper();
+        QueryChainer<T> newQueryChainer = new QueryChainer<>(baseMapper, QueryChain.of(baseMapper));
         queryChainAction.accept(newQueryChainer);
         getNativeQueryJoiner().on(Reflects.getFieldValue(newQueryChainer.getNativeQueryChainer().toQueryWrapper(), WHERE_QUERY_CONDITION_FIELD_NAME, QueryCondition.class));
         return getQueryChainer();

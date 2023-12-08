@@ -4,7 +4,6 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.dao;
 
-import cn.srd.library.java.contract.constant.database.SQLQueryCondition;
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.page.PageConstant;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
@@ -14,6 +13,7 @@ import cn.srd.library.java.orm.contract.model.base.BO;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.page.PageParam;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
+import cn.srd.library.java.orm.mybatis.flex.base.chain.DeleteChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.UpdateChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.converter.PageConverter;
@@ -77,6 +77,10 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
 
     default UpdateChainer<T> openUpdate() {
         return UpdateChainer.of(this);
+    }
+
+    default DeleteChainer<T> openDelete() {
+        return DeleteChainer.of(this);
     }
 
     /**
@@ -254,17 +258,6 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
     }
 
     /**
-     * update batch by condition.
-     *
-     * @param entities     the operate entities
-     * @param queryWrapper the query condition
-     * @see #updateById(Iterable, int)
-     */
-    default void updateByCondition(T entity, QueryWrapper queryWrapper) {
-        BaseMapper.super.updateByQuery(entity, queryWrapper);
-    }
-
-    /**
      * update by id.
      * <ul>
      *   <li>supported the entity with version.</li>
@@ -335,19 +328,6 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
     default void updateWithVersionById(Iterable<T> entities, int batchSizeEachTime, Function<T, ? extends Serializable> getIdAction) {
         setVersionFieldValues(entities, getIdAction);
         updateById(entities, batchSizeEachTime);
-    }
-
-    /**
-     * update by condition.
-     *
-     * @param entity       the operate entitiy
-     * @param queryWrapper the query condition
-     * @see #updateWithVersionById(PO)
-     * @see #updateByCondition(PO, QueryWrapper)
-     */
-    default void updateWithVersionByCondition(T entity, QueryWrapper queryWrapper) {
-        setVersionFieldValue(getEntityToUpdateVersion(entity), entity);
-        updateByCondition(entity, queryWrapper);
     }
 
     /**
@@ -428,28 +408,6 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
     }
 
     /**
-     * delete by condition.
-     *
-     * @param queryWrapper the query condition
-     * @see #deleteByIds(Iterable)
-     */
-    default void deleteByCondition(QueryWrapper queryWrapper) {
-        deleteByQuery(queryWrapper);
-    }
-
-    /**
-     * delete all.
-     *
-     * @apiNote this will delete all data in table, please confirm if necessary before calling this function.
-     * @see #deleteByIds(Iterable)
-     */
-    @Deprecated
-    default void deleteAll() {
-        deleteByCondition(QueryWrapper.create());
-        // throw new UnsupportedException();
-    }
-
-    /**
      * delete skip logic anyway, recommended for the entity with multiple primary keys.
      * <ul>
      *   <li>
@@ -512,28 +470,6 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
         LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toSet(ids)));
     }
 
-    /**
-     * delete by condition and skip logic anyway.
-     *
-     * @param queryWrapper the query condition
-     * @see #deleteSkipLogicByIds(Iterable)
-     */
-    default void deleteSkipLogicByCondition(QueryWrapper queryWrapper) {
-        LogicDeleteManager.execWithoutLogicDelete(() -> deleteByCondition(queryWrapper));
-    }
-
-    /**
-     * delete all and skip logic anyway.
-     *
-     * @apiNote this will delete all data in table, please confirm if necessary before calling this function.
-     * @see #deleteSkipLogicByIds(Iterable)
-     */
-    @Deprecated
-    default void deleteSkipLogicAll() {
-        deleteSkipLogicByCondition(QueryWrapper.create().where(SQLQueryCondition.EMPTY_QUERY_CONDITION));
-        // throw new UnsupportedException();
-    }
-
     default Optional<T> getById(T entity) {
         return Optional.ofNullable(BaseMapper.super.selectOneByEntityId(entity));
     }
@@ -544,10 +480,6 @@ public interface GenericCurdDao<T extends PO> extends BaseMapper<T> {
 
     default Optional<T> getByCondition(QueryWrapper queryWrapper) {
         return Optional.ofNullable(BaseMapper.super.selectOneByQuery(queryWrapper));
-    }
-
-    default Optional<T> getFirstByCondition(QueryWrapper queryWrapper) {
-        return Collections.getFirst(listByCondition(queryWrapper));
     }
 
     default List<T> listByIds(Iterable<? extends Serializable> ids) {

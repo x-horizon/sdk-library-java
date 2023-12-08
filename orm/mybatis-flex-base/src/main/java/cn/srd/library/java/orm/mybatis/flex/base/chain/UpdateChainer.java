@@ -25,10 +25,12 @@ import java.util.function.Predicate;
 @SuppressWarnings(SuppressWarningConstant.UNUSED)
 public class UpdateChainer<T extends PO> extends AbstractUpdateChainer<T> {
 
+    @Getter(AccessLevel.PROTECTED) private final BaseMapper<T> nativeBaseMapper;
+
     @Getter(AccessLevel.PROTECTED) private final UpdateChain<T> nativeUpdateChainer;
 
     public static <T extends PO> UpdateChainer<T> of(BaseMapper<T> baseMapper) {
-        return new UpdateChainer<>(UpdateChain.of(baseMapper));
+        return new UpdateChainer<>(baseMapper, UpdateChain.of(baseMapper));
     }
 
     public UpdateChainer<T> set(ColumnValueGetter<T> columnValueGetter, Object value) {
