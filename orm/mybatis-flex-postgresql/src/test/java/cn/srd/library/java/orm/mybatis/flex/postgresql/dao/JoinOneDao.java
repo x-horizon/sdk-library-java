@@ -1,10 +1,11 @@
 package cn.srd.library.java.orm.mybatis.flex.postgresql.dao;
 
-import cn.srd.library.java.orm.mybatis.flex.base.dao.GenericCurdDao;
+import cn.srd.library.java.orm.mybatis.flex.base.dao.GenericCurdDao2;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.JoinOnePO;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
-@Mapper
-public interface JoinOneDao extends GenericCurdDao<JoinOnePO> {
+@Repository
+public interface JoinOneDao extends GenericCurdDao2<JoinOnePO> {
+// public interface JoinOneDao extends GenericCurdDao<JoinOnePO> {
 
 }

@@ -19,9 +19,12 @@ import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.CurdTwoIdDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.JoinOneDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.JoinTwoDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.JoinOnePO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.JoinTwoPO;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
 import cn.srd.library.java.tool.lang.object.Types;
+import com.mybatisflex.core.mybatis.Mappers;
+import com.mybatisflex.core.query.QueryWrapper;
 import org.apache.ibatis.logging.nologging.NoLoggingImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -195,17 +198,22 @@ class CurdTest {
         // joinOneDao.save(JoinOnePO.builder().id(1L).joinTwoId(1L).build());
         // joinTwoDao.save(JoinTwoPO.builder().id(1L).joinOneId(1L).build());
 
-        joinOneDao.openUpdate()
-                .set(JoinOnePO::getName, "333")
-                .where(JoinOnePO::getId).equalsTo(23L)
-                .and(JoinOnePO::getName).equalsTo("11")
-                .update();
+        // joinOneDao.openUpdate()
+        //         .set(JoinOnePO::getName, "333")
+        //         .where(JoinOnePO::getId).equalsTo(23L)
+        //         .and(JoinOnePO::getName).equalsTo("11")
+        //         .update();
 
-        String a = joinOneDao.openDelete()
-                .where(JoinOnePO::getId).equalsTo(23L)
-                .and(JoinOnePO::getName).equalsTo("11")
-                // .delete();
-                .toSQL();
+        Mappers.ofEntityClass(JoinTwoPO.class);
+        Mappers.ofEntityClass(JoinOnePO.class);
+        
+        joinOneDao.selectListByQuery(QueryWrapper.create());
+
+        joinTwoDao.openDelete()
+                .where(JoinTwoPO::getId).equalsTo(23L)
+                .and(JoinTwoPO::getName).equalsTo("11")
+                .delete();
+        // .toSQL();
         // .deleteSkipLogic();
 
         System.out.println();
