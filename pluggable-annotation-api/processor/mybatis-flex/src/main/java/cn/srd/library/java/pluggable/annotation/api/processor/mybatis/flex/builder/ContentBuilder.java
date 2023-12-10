@@ -66,7 +66,7 @@ public class ContentBuilder {
         StringBuilder content = new StringBuilder("package ");
         content.append(tableDefPackage).append(";\n\n");
         // wjm using customer component.
-        content.append("import cn.srd.library.java.orm.mybatis.flex.base.query.ConstrainedQueryColumn;\n");
+        content.append("import cn.srd.library.java.orm.mybatis.flex.base.chain.ConstrainedQueryColumn;\n");
         // content.append("import com.mybatisflex.core.query.QueryColumn;\n");
         content.append("import com.mybatisflex.core.table.TableDef;\n\n");
         // wjm using customer component.
