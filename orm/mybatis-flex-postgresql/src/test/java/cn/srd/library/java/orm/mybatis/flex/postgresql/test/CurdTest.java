@@ -18,13 +18,9 @@ import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.CurdOneIdDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.CurdTwoIdDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.JoinOneDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.JoinTwoDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.JoinOnePO;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.JoinTwoPO;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
 import cn.srd.library.java.tool.lang.object.Types;
-import com.mybatisflex.core.mybatis.Mappers;
-import com.mybatisflex.core.query.QueryWrapper;
 import org.apache.ibatis.logging.nologging.NoLoggingImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -204,14 +200,15 @@ class CurdTest {
         //         .and(JoinOnePO::getName).equalsTo("11")
         //         .update();
 
-        Mappers.ofEntityClass(JoinTwoPO.class);
-        Mappers.ofEntityClass(JoinOnePO.class);
-        
-        joinOneDao.selectListByQuery(QueryWrapper.create());
+        // Mappers.ofEntityClass(JoinTwoPO.class);
+        // Mappers.ofEntityClass(JoinOnePO.class);
+        //
+        // joinOneDao.selectListByQuery(QueryWrapper.create());
 
         joinTwoDao.openDelete()
-                .where(JoinTwoPO::getId).equalsTo(23L)
-                .and(JoinTwoPO::getName).equalsTo("11")
+                .all()
+                // .where(JoinTwoPO::getId).equalsTo(23L)
+                // .and(JoinTwoPO::getName).equalsTo("11")
                 .delete();
         // .toSQL();
         // .deleteSkipLogic();
