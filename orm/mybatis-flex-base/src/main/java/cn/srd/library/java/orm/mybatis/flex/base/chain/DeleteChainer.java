@@ -38,6 +38,10 @@ public class DeleteChainer<T extends PO> extends AbstractDeleteChainer<T> {
         return new QueryConditional<>(getNativeUpdateChainer().and(columnValueGetter), this);
     }
 
+    public DeleteChainer<T> all() {
+        return this;
+    }
+
     public void delete() {
         getNativeUpdateChainer().remove();
     }

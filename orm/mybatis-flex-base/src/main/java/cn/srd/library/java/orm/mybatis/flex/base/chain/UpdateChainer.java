@@ -74,6 +74,10 @@ public class UpdateChainer<T extends PO> extends AbstractUpdateChainer<T> {
         return new QueryConditional<>(getNativeUpdateChainer().and(columnValueGetter), this);
     }
 
+    public UpdateChainer<T> all() {
+        return this;
+    }
+
     public void update() {
         getNativeUpdateChainer().update();
     }
