@@ -1,4 +1,4 @@
-package cn.srd.library.java.orm.mybatis.flex.postgresql.model.po;
+package cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.curd;
 
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonLongToLocalDateTimeDeserializer;

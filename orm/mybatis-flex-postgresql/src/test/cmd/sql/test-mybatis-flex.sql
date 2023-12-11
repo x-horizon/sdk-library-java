@@ -148,3 +148,56 @@ CREATE TABLE join_two
     row_is_deleted BOOLEAN                        DEFAULT FALSE NOT NULL,
     PRIMARY KEY (id)
 );
+
+
+CREATE TABLE home
+(
+    id             BIGINT                                       NOT NULL,
+    name           VARCHAR(50)                    DEFAULT ''    NOT NULL,
+    version        BIGINT                         DEFAULT 0     NOT NULL,
+    creator_id     BIGINT                         DEFAULT 0     NOT NULL,
+    create_time    TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+    row_is_deleted BOOLEAN                        DEFAULT FALSE NOT NULL,
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE bed
+(
+    id             BIGINT                                       NOT NULL,
+    home_id        BIGINT                                       NOT NULL,
+    name           VARCHAR(50)                    DEFAULT ''    NOT NULL,
+    version        BIGINT                         DEFAULT 0     NOT NULL,
+    creator_id     BIGINT                         DEFAULT 0     NOT NULL,
+    create_time    TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+    row_is_deleted BOOLEAN                        DEFAULT FALSE NOT NULL,
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE door
+(
+    id             BIGINT                                       NOT NULL,
+    home_id        BIGINT                                       NOT NULL,
+    name           VARCHAR(50)                    DEFAULT ''    NOT NULL,
+    material_type  SMALLINT                       DEFAULT 0     NOT NULL,
+    version        BIGINT                         DEFAULT 0     NOT NULL,
+    creator_id     BIGINT                         DEFAULT 0     NOT NULL,
+    create_time    TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+    row_is_deleted BOOLEAN                        DEFAULT FALSE NOT NULL,
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE key
+(
+    id             BIGINT                                       NOT NULL,
+    home_id        BIGINT                                       NOT NULL,
+    door_id        BIGINT                                       NOT NULL,
+    name           VARCHAR(50)                    DEFAULT ''    NOT NULL,
+    version        BIGINT                         DEFAULT 0     NOT NULL,
+    creator_id     BIGINT                         DEFAULT 0     NOT NULL,
+    create_time    TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+    row_is_deleted BOOLEAN                        DEFAULT FALSE NOT NULL,
+    PRIMARY KEY (id)
+);

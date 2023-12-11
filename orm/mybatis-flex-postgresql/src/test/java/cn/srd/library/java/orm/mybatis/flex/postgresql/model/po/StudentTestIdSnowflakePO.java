@@ -1,5 +1,6 @@
 package cn.srd.library.java.orm.mybatis.flex.postgresql.model.po;
 
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.curd.BasePO;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;

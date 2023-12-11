@@ -5,6 +5,7 @@ import cn.srd.library.java.orm.contract.mybatis.base.handler.JdbcUUIDMappingJava
 import cn.srd.library.java.orm.contract.mybatis.base.handler.JdbcUUIDMappingJavaUUIDTypeHandler;
 import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.*;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.enums.JobType;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.curd.BasePO;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;

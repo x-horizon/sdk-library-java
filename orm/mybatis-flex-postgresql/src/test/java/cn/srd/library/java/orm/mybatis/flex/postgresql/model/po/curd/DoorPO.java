@@ -1,6 +1,6 @@
-package cn.srd.library.java.orm.mybatis.flex.postgresql.model.po;
+package cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.curd;
 
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.curd.BasePO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.enums.MaterialType;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
@@ -17,16 +17,22 @@ import java.io.Serial;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-@Table(value = "student_test_id_sql")
-public class StudentTestIdSQLPO extends BasePO {
+@Table(value = "door")
+public class DoorPO extends BasePO {
 
-    @Serial private static final long serialVersionUID = 1719575586110517425L;
+    @Serial private static final long serialVersionUID = 2974514946089440336L;
 
     @Id
     @Column(value = "id")
-    private String id;
+    private Long id;
+
+    @Column(value = "home_id")
+    private Long homeId;
 
     @Column(value = "name")
     private String name;
+
+    @Column(value = "material_type")
+    private MaterialType materialType;
 
 }
