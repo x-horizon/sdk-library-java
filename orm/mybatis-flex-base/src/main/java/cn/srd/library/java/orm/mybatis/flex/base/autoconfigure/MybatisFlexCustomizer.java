@@ -147,17 +147,17 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
         // because the value "0" can convert to boolean false, but the actual value should be integer 0.
         Object actualNormalValue = Converts.toInteger(normalValue);
         if (Nil.isNull(actualNormalValue)) {
-            actualNormalValue = Converts.toBoolean(normalValue);
+            actualNormalValue = Converts.toString(normalValue);
             if (Nil.isNull(actualNormalValue)) {
-                actualNormalValue = Converts.toString(normalValue);
+                actualNormalValue = Converts.toBoolean(normalValue);
             }
         }
 
         Object actualDeletedValue = Converts.toInteger(deletedValue);
         if (Nil.isNull(actualDeletedValue)) {
-            actualDeletedValue = Converts.toBoolean(deletedValue);
+            actualDeletedValue = Converts.toString(deletedValue);
             if (Nil.isNull(actualDeletedValue)) {
-                actualDeletedValue = Converts.toString(deletedValue);
+                actualDeletedValue = Converts.toBoolean(deletedValue);
             }
         }
 
