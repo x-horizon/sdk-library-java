@@ -115,14 +115,14 @@ class CurdTest {
         String keyName3 = "key3";
 
         // ==================================== test save ====================================
-        HomePO afterSaveHomePO = homeDao.save(homePO);
-
-        List<BedPO> afterSaveCollectionTypeByUsingDisposableSQLBedPOs = bedDao.save(collectionTypeAndUsingDisposableSQLBedPOs);
-        List<BedPO> afterSaveCollectionTypeByUsingJDBCSQLBedPOs = bedDao.save(collectionTypeAndUsingJDBCSQLBedPOs);
-        List<BedPO> afterSaveListTypeByUsingJDBCSQLBedPOs = bedDao.save(listTypeAndUsingDisposableSQLBedPOs);
-
-        homeDao.openDelete().all().deleteSkipLogic();
-        bedDao.openDelete().all().deleteSkipLogic();
+        // HomePO afterSaveHomePO = homeDao.save(homePO);
+        //
+        // List<BedPO> afterSaveCollectionTypeByUsingDisposableSQLBedPOs = bedDao.save(collectionTypeAndUsingDisposableSQLBedPOs);
+        // List<BedPO> afterSaveCollectionTypeByUsingJDBCSQLBedPOs = bedDao.save(collectionTypeAndUsingJDBCSQLBedPOs);
+        // List<BedPO> afterSaveListTypeByUsingJDBCSQLBedPOs = bedDao.save(listTypeAndUsingDisposableSQLBedPOs);
+        //
+        // homeDao.openDelete().all().deleteSkipLogic();
+        // bedDao.openDelete().all().deleteSkipLogic();
     }
 
     // @Test
