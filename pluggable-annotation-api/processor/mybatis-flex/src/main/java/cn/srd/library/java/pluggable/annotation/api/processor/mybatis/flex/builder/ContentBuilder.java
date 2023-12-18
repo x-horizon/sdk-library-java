@@ -47,8 +47,11 @@ public class ContentBuilder {
         content.append("import ").append(baseMapperClass).append(";\n");
         content.append("import ").append(entityClass).append(";\n\n");
         if (mapperAnnotationEnable) {
-            content.append("import org.apache.ibatis.annotations.Mapper;\n\n");
-            content.append("@Mapper\n");
+            // wjm: change this code to hack mybatis-flex original apt setting
+            content.append("import org.springframework.stereotype.Repository;\n\n");
+            content.append("@Repository\n");
+            // content.append("import org.apache.ibatis.annotations.Mapper;\n\n");
+            // content.append("@Mapper\n");
         }
         String realEntityClassName = StrUtil.getClassName(entityClass);
         String baseMapperClassName = StrUtil.getClassName(baseMapperClass);

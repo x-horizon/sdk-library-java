@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.autoconfigure;
 
+import cn.srd.library.java.orm.mybatis.flex.base.dao.GenericDaoAdapter;
 import com.mybatisflex.spring.boot.MybatisFlexAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -30,6 +31,11 @@ public class MybatisFlexAutoConfigurer {
     @ConditionalOnBean(MybatisFlexCustomizerSwitcher.class)
     public MybatisFlexCustomizer mybatisFlexCapableCustomizer() {
         return new MybatisFlexCustomizer();
+    }
+
+    @Bean
+    public GenericDaoAdapter genericDaoAdapter() {
+        return new GenericDaoAdapter();
     }
 
 }

@@ -204,7 +204,9 @@ public class MybatisFlexProcessor extends AbstractProcessor {
                 // 是否生成 Mapper 文件
                 if ("true".equalsIgnoreCase(mapperGenerateEnable) && table.mapperGenerateEnable()) {
                     String realMapperPackage = StrUtil.isBlank(mapperPackage) ? StrUtil.buildMapperPackage(entityClass) : mapperPackage;
-                    String mapperClassName = entityClassName.concat("Mapper");
+                    // wjm: change this code to hack mybatis-flex original apt setting
+                    String mapperClassName = "MybatisFlexInternal".concat(entityClassName).concat("Dao");
+                    // String mapperClassName = entityClassName.concat("Mapper");
                     boolean mapperAnnotationEnable = "true".equalsIgnoreCase(mapperAnnotation);
                     String mapperClassContent = ContentBuilder.buildMapper(tableInfo, realMapperPackage, mapperClassName, mapperBaseClass, mapperAnnotationEnable);
                     processGenClass(genPath, realMapperPackage, mapperClassName, mapperClassContent);
