@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@MapperScan("cn.srd.library.java.orm.mybatis.flex.postgresql.dao")
+@MapperScan("cn.srd.library.java.orm.mybatis.flex.postgresql.**")
 @EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
 @EnableMybatisFlexCustomizer(
         globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SNOWFLAKE),
@@ -77,6 +77,7 @@ class CurdTest {
 
     @Test
     void testCurd() {
+
         Long homeId = 1L;
         String homeName = "home";
         HomePO homePO = HomePO.builder().id(1L).name(homeName).build();

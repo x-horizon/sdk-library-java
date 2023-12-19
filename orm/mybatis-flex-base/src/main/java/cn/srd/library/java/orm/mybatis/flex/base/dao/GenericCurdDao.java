@@ -4,7 +4,6 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.dao;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
@@ -16,7 +15,6 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
  * @since 2023-11-04 00:19
  */
 @CanIgnoreReturnValue
-@SuppressWarnings(SuppressWarningConstant.ALL)
 public interface GenericCurdDao<T extends PO> {
 
     // /**

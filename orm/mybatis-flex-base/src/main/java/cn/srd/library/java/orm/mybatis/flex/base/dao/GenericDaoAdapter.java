@@ -5,8 +5,10 @@
 package cn.srd.library.java.orm.mybatis.flex.base.dao;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;
+import cn.srd.library.java.tool.lang.text.Strings;
 import cn.srd.library.java.tool.spring.contract.Classes;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import com.mybatisflex.core.BaseMapper;
@@ -23,31 +25,36 @@ import java.util.stream.Collectors;
  */
 public class GenericDaoAdapter implements SmartInitializingSingleton {
 
-    @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
-    private static final Map<Class<? extends GenericDao>, Class<? extends BaseMapper>> BASE_MAPPER_MAPPING_GENERIC_DAO_MAP = Collections.newConcurrentHashMap(256);
+    private static final Map<GenericCurdDao<? extends PO>, BaseMapper<? extends PO>> GENERIC_DAO_MAPPING_BASE_MAPPER_MAP = Collections.newConcurrentHashMap(256);
 
     @Override
-    @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public void afterSingletonsInstantiated() {
-        Map<String, BaseMapper> baseMapperClassNameMappingBaseMapperClassMap = Classes.scanBySuper(BaseMapper.class)
+        Map<String, BaseMapper<? extends PO>> baseMapperClassNameMappingBaseMapperMap = Classes.scanBySuper(BaseMapper.class)
                 .stream()
-                .map(baseMapperClass -> {
-                    BaseMapper baseMapper = Springs.getBean(baseMapperClass);
-                    return Collections.ofPair(Classes.getClassSimpleName(baseMapperClass), baseMapper);
+                .map(baseMapperClass -> Collections.ofPair(Classes.getClassSimpleName(baseMapperClass), Springs.getBean(baseMapperClass)))
+                .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
+        Map<String, GenericCurdDao<? extends PO>> genericDaoClassNameMappingGenericCurdDaoMap = Classes.scanBySuper(GenericCurdDao.class)
+                .stream()
+                .map(genericDaoClass -> Collections.ofPair(Classes.getClassSimpleName(genericDaoClass), Springs.getBean(genericDaoClass)))
+                .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
+        List<String> baseMapperClassNames = Converts.toMapKeys(baseMapperClassNameMappingBaseMapperMap);
+        List<String> genericDaoClassNames = Converts.toMapKeys(genericDaoClassNameMappingGenericCurdDaoMap);
+        GENERIC_DAO_MAPPING_BASE_MAPPER_MAP.putAll(genericDaoClassNames
+                .stream()
+                .map(genericDaoClassName -> {
+                    String mostSimilarBaseMapperClassName = Strings.getMostSimilar(genericDaoClassName, baseMapperClassNames);
+                    Collections.remove(baseMapperClassNames, mostSimilarBaseMapperClassName);
+                    return Collections.ofPair(genericDaoClassName, mostSimilarBaseMapperClassName);
                 })
-                .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
-        List<String> baseMapperClassNames = Converts.toMapKeys(baseMapperClassNameMappingBaseMapperClassMap);
-
-        Map<String, Class<? extends GenericDao>> genericDaoClassNameMappingGenericDaoClassMap = Classes.scanBySuper(GenericDao.class)
-                .stream()
-                .map(genericDaoClass -> Collections.ofPair(Classes.getClassSimpleName(genericDaoClass), genericDaoClass))
-                .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
-
-        // genericDaoClassNameMappingGenericDaoClassMap.forEach((genericDaoClassName, genericDaoClass) -> BASE_MAPPER_MAPPING_GENERIC_DAO_MAP.put(genericDaoClassNameMappingGenericDaoClassMap.get(genericDaoClassName), baseMapperClassNameMappingBaseMapperClassMap.get(Strings.getMostSimilar(genericDaoClassName, baseMapperClassNames))));
+                .map(entry -> Collections.ofPair(genericDaoClassNameMappingGenericCurdDaoMap.get(entry.getKey()), baseMapperClassNameMappingBaseMapperMap.get(entry.getValue())))
+                .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue))
+        );
     }
 
-    // public static BaseMapper toBaseMapper(Class<? extends GenericDao<? extends PO>> genericDaoClass) {
-    //     return MybatisFlexs.BASE_MAPPER_MAPPING_GENERIC_DAO_MAP.get(genericDaoClass);
-    // }
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public static <T extends PO> BaseMapper<T> getBaseMapper(GenericCurdDao<T> genericDao) {
+        return (BaseMapper<T>) GENERIC_DAO_MAPPING_BASE_MAPPER_MAP.get(genericDao);
+    }
 
 }
