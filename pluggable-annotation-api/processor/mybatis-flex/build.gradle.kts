@@ -6,5 +6,4 @@ dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
 
     api(GradleDependency.ORM_MYBATIS_FLEX_ANNOTATION.withoutVersion)
-//    api(GradleDependency.PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MYBATIS_FLEX.withoutVersion)
 }
