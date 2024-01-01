@@ -77,7 +77,7 @@ class CurdTest {
 
     @Test
     void testCurd() {
-
+        HomePO homePO2 = homeDao.getById(1L).orElseThrow();
         Long homeId = 1L;
         String homeName = "home";
         HomePO homePO = HomePO.builder().id(1L).name(homeName).build();

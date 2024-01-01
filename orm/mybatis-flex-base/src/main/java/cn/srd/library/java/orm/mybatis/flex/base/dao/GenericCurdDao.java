@@ -7,6 +7,9 @@ package cn.srd.library.java.orm.mybatis.flex.base.dao;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
+import java.io.Serializable;
+import java.util.Optional;
+
 /**
  * the generic curd dao
  *
@@ -426,13 +429,16 @@ public interface GenericCurdDao<T extends PO> {
     //     LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toSet(ids)));
     // }
     //
+
+    // // default T getById(T entity) {
     // default Optional<T> getById(T entity) {
-    //     return Optional.ofNullable(BaseMapper.super.selectOneByEntityId(entity));
+    //     return Optional.ofNullable(GenericCurdDaoAdapter.getInstance().getBaseMapper(this.getClass()).selectOneByEntityId(entity));
     // }
     //
-    // default Optional<T> getById(Serializable id) {
-    //     return Optional.ofNullable(selectOneById(id));
-    // }
+
+    default Optional<T> getById(Serializable id) {
+        return Optional.ofNullable((T) GenericCurdDaoAdapter.getInstance().getBaseMapper(this.getClass()).selectOneById(id));
+    }
     //
     // default Optional<T> getByCondition(QueryWrapper queryWrapper) {
     //     return Optional.ofNullable(BaseMapper.super.selectOneByQuery(queryWrapper));
