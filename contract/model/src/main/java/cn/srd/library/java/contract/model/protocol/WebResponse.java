@@ -166,11 +166,7 @@ public final class WebResponse<T> implements TransportModel<T> {
      * @return response model
      */
     public static <T> WebResponse<T> response(HttpStatus httpStatus, T data) {
-        return WebResponse.<T>builder()
-                .status(httpStatus.getStatus())
-                .message(httpStatus.getDescription())
-                .data(data)
-                .build();
+        return response(httpStatus.getStatus(), httpStatus.getDescription(), data);
     }
 
     /**
