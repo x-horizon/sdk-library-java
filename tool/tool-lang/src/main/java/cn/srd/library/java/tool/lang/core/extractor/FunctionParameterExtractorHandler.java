@@ -54,7 +54,6 @@ public interface FunctionParameterExtractorHandler<T> {
     @SuppressWarnings("unchecked")
     default T ensureExtractInFunctionParameter(Object[] methodParameters, int extractIndex, String extractFieldName) {
         Objects.requireFalse(extractIndex < 0);
-        Objects.requireNotEmpty(methodParameters);
         // 获取需要提取方法中的第几个形参的索引
         int internalExtractIndex = isExtractFirstParameter(extractIndex) ? EXTRACT_FIRST_PARAMETER_INDEX : extractIndex;
         // 根据 internalExtractIndex 获取方法形参列表上的第几个形参，internalExtractIndex 为 0 时获取第 1 个，为 n 时获取第 n 个；
