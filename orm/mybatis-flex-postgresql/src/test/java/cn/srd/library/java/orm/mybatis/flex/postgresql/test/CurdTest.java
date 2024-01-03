@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.test;
 
+import cn.hutool.core.lang.Console;
 import cn.srd.library.java.contract.constant.booleans.BooleanConstant;
 import cn.srd.library.java.orm.mybatis.flex.base.audit.AuditLogConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.autoconfigure.EnableMybatisFlexCustomizer;
@@ -74,6 +75,27 @@ class CurdTest {
     @Autowired private DoorDao doorDao;
 
     @Autowired private KeyDao keyDao;
+
+    @Test
+    void testSave() {
+        String homeName = "home";
+        HomePO homePO = HomePO.builder().id(1L).name(homeName).build();
+        homePO = homeDao.save(homePO);
+
+        List<HomePO> onlyOnceTimeHomePOs = Collections.newArrayList(101);
+        for (int index = 1; index <= 100; index++) {
+            onlyOnceTimeHomePOs.add(HomePO.builder().name(homeName + index).build());
+        }
+        onlyOnceTimeHomePOs = homeDao.saveBatch(onlyOnceTimeHomePOs);
+
+        List<HomePO> highPerformanceHomePOs = Collections.newArrayList(1000);
+        for (int index = 1; index <= 2000; index++) {
+            highPerformanceHomePOs.add(HomePO.builder().name(homeName + index).build());
+        }
+        highPerformanceHomePOs = homeDao.saveBatch(highPerformanceHomePOs);
+
+        Console.log();
+    }
 
     @Test
     void testCurd() {

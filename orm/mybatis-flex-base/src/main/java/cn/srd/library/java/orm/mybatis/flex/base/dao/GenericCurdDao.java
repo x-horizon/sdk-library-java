@@ -23,6 +23,7 @@ import cn.srd.library.java.tool.lang.functional.Action;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.lang.text.Strings;
+import cn.srd.library.java.tool.spring.contract.Springs;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.keygen.CustomKeyGenerator;
@@ -53,11 +54,6 @@ import java.util.function.Function;
 @CanIgnoreReturnValue
 public interface GenericCurdDao<T extends PO> {
 
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    private BaseMapper<T> getBaseMapper() {
-        return (BaseMapper<T>) GenericCurdDaoAdapter.getInstance().getBaseMapper(this.getClass());
-    }
-
     /**
      * see <a href="https://mybatis-flex.com/zh/base/batch.html">"the batch operation guide"</a>.
      */
@@ -67,18 +63,6 @@ public interface GenericCurdDao<T extends PO> {
      * default batch operation size each time
      */
     int DEFAULT_BATCH_SIZE_EACH_TIME = BaseMapper.DEFAULT_BATCH_SIZE;
-
-    default QueryChainer<T> openQuery() {
-        return QueryChainer.of(getBaseMapper());
-    }
-
-    default UpdateChainer<T> openUpdate() {
-        return UpdateChainer.of(getBaseMapper());
-    }
-
-    default DeleteChainer<T> openDelete() {
-        return DeleteChainer.of(getBaseMapper());
-    }
 
     /**
      * insert and not append the null column value.
@@ -132,21 +116,23 @@ public interface GenericCurdDao<T extends PO> {
      * @return the entities with primary key
      * @see #GENERATE_FULL_SQL_BATCH_SIZE
      * @see #save(PO)
-     * @see #save(Iterable, int)
+     * @see #saveBatch(Iterable, int)
      * @see BaseMapper#insertSelective(Object)
      * @see BaseMapper#insertBatch(List, int)
      * @see IService#saveBatch(Collection, int)
      * @see CustomKeyGenerator#processBefore(Executor, MappedStatement, Statement, Object)
      */
-    default List<T> save(Iterable<T> entities) {
-        return save(entities, DEFAULT_BATCH_SIZE_EACH_TIME);
+    @Transactional(rollbackFor = Throwable.class)
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    default List<T> saveBatch(Iterable<T> entities) {
+        return Springs.getBean(this.getClass()).saveBatch(entities, DEFAULT_BATCH_SIZE_EACH_TIME);
     }
 
     /**
      * insert batch.
      * <ol>
      *   <li>
-     *       using {@link BaseMapper#insertBatch(List, int)} if the entites size <= {@link #GENERATE_FULL_SQL_BATCH_SIZE}, the generated insert sql like:<br/>
+     *       using {@link BaseMapper#insertBatch(List, int)} if the entities size <= {@link #GENERATE_FULL_SQL_BATCH_SIZE}, the generated insert sql like:<br/>
      *       <br/>
      *       INSERT INTO "test_table"("id", "name") VALUES<br/>
      *       (487223443892741, 'test1'),<br/>
@@ -155,7 +141,7 @@ public interface GenericCurdDao<T extends PO> {
      *   </li>
      *   <br/>
      *   <li>
-     *       using {@link IService#saveBatch(Collection, int)} if the entites size > {@link #GENERATE_FULL_SQL_BATCH_SIZE}, the generated insert sql like:<br/>
+     *       using {@link IService#saveBatch(Collection, int)} if the entities size > {@link #GENERATE_FULL_SQL_BATCH_SIZE}, the generated insert sql like:<br/>
      *       <br/>
      *       INSERT INTO "test_table"("id", "name") VALUES (487223443892741, 'test1');<br/>
      *       INSERT INTO "test_table"("id", "name") VALUES (487223443892742, 'test2');<br/>
@@ -175,11 +161,12 @@ public interface GenericCurdDao<T extends PO> {
      * @see CustomKeyGenerator#processBefore(Executor, MappedStatement, Statement, Object)
      */
     @Transactional(rollbackFor = Throwable.class)
-    default List<T> save(Iterable<T> entities, int batchSizeEachTime) {
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    default List<T> saveBatch(Iterable<T> entities, int batchSizeEachTime) {
         if (Nil.isEmpty(entities)) {
             return Collections.newArrayList();
         }
-        List<T> listTypeEntities = entities instanceof List<T> ? (List<T>) entities : Converts.toList(entities);
+        List<T> listTypeEntities = entities instanceof List<T> actualEntities ? actualEntities : Converts.toList(entities);
         Action.ifTrue(listTypeEntities.size() <= GENERATE_FULL_SQL_BATCH_SIZE)
                 .then(() -> getBaseMapper().insertBatch(listTypeEntities, batchSizeEachTime))
                 .otherwise(() -> Db.executeBatch(listTypeEntities, batchSizeEachTime, ClassUtil.getUsefulClass(this.getClass()), GenericCurdDao::save));
@@ -367,6 +354,10 @@ public interface GenericCurdDao<T extends PO> {
         getBaseMapper().delete(entity);
     }
 
+    default void deleteById(Serializable id) {
+        getBaseMapper().deleteById(id);
+    }
+
     /**
      * delete batch by ids.
      *
@@ -467,11 +458,6 @@ public interface GenericCurdDao<T extends PO> {
         LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toSet(ids)));
     }
 
-    // default T getById(T entity) {
-    default Optional<T> getById(T entity) {
-        return Optional.ofNullable(GenericCurdDaoAdapter.getInstance().getBaseMapper(this.getClass()).selectOneByEntityId(entity));
-    }
-
     default Optional<T> getById(Serializable id) {
         return Optional.ofNullable(getBaseMapper().selectOneById(id));
     }
@@ -514,6 +500,23 @@ public interface GenericCurdDao<T extends PO> {
 
     default long countAll() {
         return countByCondition(QueryWrapper.create());
+    }
+
+    default QueryChainer<T> openQuery() {
+        return QueryChainer.of(getBaseMapper());
+    }
+
+    default UpdateChainer<T> openUpdate() {
+        return UpdateChainer.of(getBaseMapper());
+    }
+
+    default DeleteChainer<T> openDelete() {
+        return DeleteChainer.of(getBaseMapper());
+    }
+
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    private BaseMapper<T> getBaseMapper() {
+        return (BaseMapper<T>) GenericCurdDaoAdapter.getInstance().getBaseMapper(this.getClass());
     }
 
     private T getEntityToUpdateVersion(T updatedEntity) {
