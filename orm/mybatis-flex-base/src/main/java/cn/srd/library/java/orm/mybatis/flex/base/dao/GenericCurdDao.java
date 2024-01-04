@@ -125,7 +125,7 @@ public interface GenericCurdDao<T extends PO> {
     @Transactional(rollbackFor = Throwable.class)
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     default List<T> saveBatch(Iterable<T> entities) {
-        return Springs.getBean(this.getClass()).saveBatch(entities, DEFAULT_BATCH_SIZE_EACH_TIME);
+        return Springs.getProxy(GenericCurdDao.class).saveBatch(entities, DEFAULT_BATCH_SIZE_EACH_TIME);
     }
 
     /**
@@ -177,7 +177,7 @@ public interface GenericCurdDao<T extends PO> {
      * update by id.
      *
      * @param entity – the operate entity
-     * @see #updateById(Iterable, int)
+     * @see #updateBatchById(Iterable, int)
      */
     default void updateById(T entity) {
         getBaseMapper().update(entity);
@@ -187,22 +187,25 @@ public interface GenericCurdDao<T extends PO> {
      * update batch by id.
      *
      * @param entities the operate entities
-     * @see #updateById(Iterable, int)
+     * @see #updateBatchById(Iterable, int)
      * @see IService#updateBatch(Collection, int)
      */
-    default void updateById(T... entities) {
-        updateById(Collections.ofArrayList(entities));
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    default void updateBatchById(T... entities) {
+        Springs.getProxy(GenericCurdDao.class).updateBatchById(Collections.ofArrayList(entities));
     }
 
     /**
      * using {@link #GENERATE_FULL_SQL_BATCH_SIZE batch size each time} to update by id.
      *
      * @param entities the operate entities
-     * @see #updateById(Iterable, int)
+     * @see #updateBatchById(Iterable, int)
      * @see IService#updateBatch(Collection, int)
      */
-    default void updateById(Iterable<T> entities) {
-        updateById(entities, DEFAULT_BATCH_SIZE_EACH_TIME);
+    @Transactional(rollbackFor = Throwable.class)
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    default void updateBatchById(Iterable<T> entities) {
+        Springs.getProxy(GenericCurdDao.class).updateBatchById(entities, DEFAULT_BATCH_SIZE_EACH_TIME);
     }
 
     /**
@@ -232,9 +235,10 @@ public interface GenericCurdDao<T extends PO> {
      * @see IService#updateBatch(Collection, int)
      */
     @Transactional(rollbackFor = Throwable.class)
-    default void updateById(Iterable<T> entities, int batchSizeEachTime) {
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    default void updateBatchById(Iterable<T> entities, int batchSizeEachTime) {
         Db.executeBatch(
-                entities instanceof Collection<T> ? (Collection<T>) entities : Converts.toList(entities),
+                entities instanceof List<T> actualEntities ? actualEntities : Converts.toList(entities),
                 batchSizeEachTime,
                 ClassUtil.getUsefulClass(this.getClass()),
                 GenericCurdDao::updateById
@@ -263,7 +267,7 @@ public interface GenericCurdDao<T extends PO> {
      *   </ul>
      * </ul>
      *
-     * @param entity the operate entitiy
+     * @param entity the operate entity
      * @see #updateById(PO)
      */
     default void updateWithVersionById(T entity) {
@@ -277,13 +281,13 @@ public interface GenericCurdDao<T extends PO> {
      * @param entities    the operate entities
      * @param getIdAction how to find the primary key in each entity
      * @apiNote only support the entity with one primary key.
-     * @see #updateWithVersionById(Iterable, int, Function)
-     * @see #updateById(Iterable, int)
+     * @see #updateBatchWithVersionById(Iterable, int, Function)
+     * @see #updateBatchById(Iterable, int)
      * @see IService#updateBatch(Collection, int)
      */
-    default void updateWithVersionById(Iterable<T> entities, Function<T, ? extends Serializable> getIdAction) {
+    default void updateBatchWithVersionById(Iterable<T> entities, Function<T, ? extends Serializable> getIdAction) {
         setVersionFieldValues(entities, getIdAction);
-        updateById(entities);
+        updateBatchById(entities);
     }
 
     /**
@@ -306,12 +310,12 @@ public interface GenericCurdDao<T extends PO> {
      * @param batchSizeEachTime insert size each time
      * @param getIdAction       how to find the primary key in each entity
      * @apiNote only support the entity with one primary key.
-     * @see #updateById(Iterable, int)
+     * @see #updateBatchById(Iterable, int)
      * @see IService#updateBatch(Collection, int)
      */
-    default void updateWithVersionById(Iterable<T> entities, int batchSizeEachTime, Function<T, ? extends Serializable> getIdAction) {
+    default void updateBatchWithVersionById(Iterable<T> entities, int batchSizeEachTime, Function<T, ? extends Serializable> getIdAction) {
         setVersionFieldValues(entities, getIdAction);
-        updateById(entities, batchSizeEachTime);
+        updateBatchById(entities, batchSizeEachTime);
     }
 
     /**

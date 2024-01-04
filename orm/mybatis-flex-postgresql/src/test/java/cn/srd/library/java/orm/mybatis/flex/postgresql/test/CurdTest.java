@@ -36,6 +36,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Collection;
@@ -58,6 +59,7 @@ import java.util.stream.IntStream;
 )
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
+@EnableAspectJAutoProxy(exposeProxy = true)
 class CurdTest {
 
     @Autowired private CurdOneIdDao curdOneIdDao;
@@ -78,6 +80,27 @@ class CurdTest {
 
     @Test
     void testSave() {
+        String homeName = "home";
+        HomePO homePO = HomePO.builder().id(1L).name(homeName).build();
+        homePO = homeDao.save(homePO);
+
+        List<HomePO> onlyOnceTimeHomePOs = Collections.newArrayList(101);
+        for (int index = 1; index <= 100; index++) {
+            onlyOnceTimeHomePOs.add(HomePO.builder().name(homeName + index).build());
+        }
+        onlyOnceTimeHomePOs = homeDao.saveBatch(onlyOnceTimeHomePOs);
+
+        List<HomePO> highPerformanceHomePOs = Collections.newArrayList(1000);
+        for (int index = 1; index <= 2000; index++) {
+            highPerformanceHomePOs.add(HomePO.builder().name(homeName + index).build());
+        }
+        highPerformanceHomePOs = homeDao.saveBatch(highPerformanceHomePOs);
+
+        Console.log();
+    }
+
+    @Test
+    void testUpdate() {
         String homeName = "home";
         HomePO homePO = HomePO.builder().id(1L).name(homeName).build();
         homePO = homeDao.save(homePO);
