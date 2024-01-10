@@ -17,14 +17,18 @@ import java.io.Serial;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-@Table(value = "student_test_id_sql")
-public class StudentTestIdSQLPO extends BaseWithVersionPO {
+@Table(value = "curd_two_id")
+public class CurdTwoIdWithVersionPO extends BaseWithVersionPO {
 
-    @Serial private static final long serialVersionUID = 1719575586110517425L;
+    @Serial private static final long serialVersionUID = -2963941116323035038L;
 
     @Id
     @Column(value = "id")
-    private String id;
+    private Long id;
+
+    @Id
+    @Column(value = "id2")
+    private Long id2;
 
     @Column(value = "name")
     private String name;

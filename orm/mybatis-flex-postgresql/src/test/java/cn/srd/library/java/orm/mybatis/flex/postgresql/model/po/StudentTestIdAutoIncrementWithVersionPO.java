@@ -1,6 +1,6 @@
 package cn.srd.library.java.orm.mybatis.flex.postgresql.model.po;
 
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.curd.BasePO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.curd.version.BaseWithVersionPO;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
@@ -17,17 +17,14 @@ import java.io.Serial;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-@Table(value = "join_one")
-public class JoinOnePO extends BasePO {
+@Table(value = "student_test_id_auto_increment")
+public class StudentTestIdAutoIncrementWithVersionPO extends BaseWithVersionPO {
 
-    @Serial private static final long serialVersionUID = 2292915698629113992L;
+    @Serial private static final long serialVersionUID = 247523653746984138L;
 
     @Id
     @Column(value = "id")
     private Long id;
-
-    @Column(value = "join_two_id")
-    private Long joinTwoId;
 
     @Column(value = "name")
     private String name;

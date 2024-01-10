@@ -5,7 +5,7 @@ import cn.srd.library.java.orm.contract.mybatis.base.handler.JdbcUUIDMappingJava
 import cn.srd.library.java.orm.contract.mybatis.base.handler.JdbcUUIDMappingJavaUUIDTypeHandler;
 import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.*;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.enums.JobType;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.curd.BasePO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.curd.version.BaseWithVersionPO;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
@@ -25,7 +25,7 @@ import java.util.UUID;
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
 @Table(value = "student_test_type_handler")
-public class StudentTestTypeHandlerPO extends BasePO {
+public class StudentTestTypeHandlerWithVersionPO extends BaseWithVersionPO {
 
     @Serial private static final long serialVersionUID = -4846541461580942831L;
 

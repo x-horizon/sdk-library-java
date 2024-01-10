@@ -1,19 +1,19 @@
 package cn.srd.library.java.orm.mybatis.flex.postgresql.config;
 
 import cn.srd.library.java.orm.mybatis.flex.base.listener.BaseUpdateListener;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.curd.BasePO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.curd.version.BaseWithVersionPO;
 
 import java.time.LocalDateTime;
 
-public class TestUpdateListener implements BaseUpdateListener<BasePO> {
+public class TestUpdateListener implements BaseUpdateListener<BaseWithVersionPO> {
 
     @Override
-    public Class<BasePO> getEntityType() {
-        return BasePO.class;
+    public Class<BaseWithVersionPO> getEntityType() {
+        return BaseWithVersionPO.class;
     }
 
     @Override
-    public void action(BasePO entity) {
+    public void action(BaseWithVersionPO entity) {
         entity.setCreateTime(LocalDateTime.now()).setCreatorId(2L);
     }
 

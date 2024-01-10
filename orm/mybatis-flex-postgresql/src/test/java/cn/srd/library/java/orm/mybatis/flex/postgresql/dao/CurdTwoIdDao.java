@@ -1,10 +1,10 @@
 package cn.srd.library.java.orm.mybatis.flex.postgresql.dao;
 
 import cn.srd.library.java.orm.mybatis.flex.base.dao.GenericDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.CurdTwoIdPO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.CurdTwoIdWithVersionPO;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CurdTwoIdDao extends GenericDao<CurdTwoIdPO> {
+public interface CurdTwoIdDao extends GenericDao<CurdTwoIdWithVersionPO> {
 
 }

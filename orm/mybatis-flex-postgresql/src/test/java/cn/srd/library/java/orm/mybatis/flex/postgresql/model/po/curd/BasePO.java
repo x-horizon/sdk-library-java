@@ -20,10 +20,7 @@ import java.time.LocalDateTime;
 @SuperBuilder(toBuilder = true)
 public class BasePO implements PO {
 
-    @Serial private static final long serialVersionUID = 2152316212528302390L;
-
-    @Column(value = "version", version = true)
-    private Long version;
+    @Serial private static final long serialVersionUID = -6744701187675528956L;
 
     @Column(value = "creator_id")
     private Long creatorId;
