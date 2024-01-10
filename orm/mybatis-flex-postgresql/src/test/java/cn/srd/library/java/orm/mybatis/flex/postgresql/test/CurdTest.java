@@ -110,10 +110,10 @@ class CurdTest {
         }
         highPerformanceHomePOS = homeDao.saveBatch(highPerformanceHomePOS);
 
+        // ----------------- with version -----------------
+
         HomeWithVersionPO homeWithVersionPO = HomeWithVersionPO.builder().id(1L).name(homeName).build();
         homeWithVersionPO = homeWithVersionDao.save(homeWithVersionPO);
-
-        // ----------------- with version -----------------
         
         List<HomeWithVersionPO> onlyOnceTimeHomeWithVersionPOS = Collections.newArrayList(101);
         for (int index = 1; index <= 100; index++) {
