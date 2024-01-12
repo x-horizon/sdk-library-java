@@ -67,21 +67,21 @@ import java.util.stream.IntStream;
 @EnableAspectJAutoProxy(exposeProxy = true)
 class CurdTest {
 
-    @Autowired private HomeDao homeDao;
-
     @Autowired private HomeWithVersionDao homeWithVersionDao;
-
-    @Autowired private BedDao bedDao;
 
     @Autowired private BedWithVersionDao bedWithVersionDao;
 
-    @Autowired private DoorDao doorDao;
-
     @Autowired private DoorWithVersionDao doorWithVersionDao;
 
-    @Autowired private KeyDao keyDao;
-
     @Autowired private KeyWithVersionDao keyWithVersionDao;
+
+    @Autowired private HomeDao homeDao;
+
+    @Autowired private BedDao bedDao;
+
+    @Autowired private DoorDao doorDao;
+
+    @Autowired private KeyDao keyDao;
 
     @Autowired private CurdOneIdDao curdOneIdDao;
 
@@ -98,34 +98,34 @@ class CurdTest {
         HomePO homePO = HomePO.builder().id(1L).name(homeName).build();
         homePO = homeDao.save(homePO);
 
-        List<HomePO> onlyOnceTimeHomePOS = Collections.newArrayList(101);
+        List<HomePO> onlyOnceTimeHomePOs = Collections.newArrayList(101);
         for (int index = 1; index <= 100; index++) {
-            onlyOnceTimeHomePOS.add(HomePO.builder().name(homeName + index).build());
+            onlyOnceTimeHomePOs.add(HomePO.builder().name(homeName + index).build());
         }
-        onlyOnceTimeHomePOS = homeDao.saveBatch(onlyOnceTimeHomePOS);
+        onlyOnceTimeHomePOs = homeDao.saveBatch(onlyOnceTimeHomePOs);
 
-        List<HomePO> highPerformanceHomePOS = Collections.newArrayList(1000);
+        List<HomePO> highPerformanceHomePOs = Collections.newArrayList(1000);
         for (int index = 1; index <= 2000; index++) {
-            highPerformanceHomePOS.add(HomePO.builder().name(homeName + index).build());
+            highPerformanceHomePOs.add(HomePO.builder().name(homeName + index).build());
         }
-        highPerformanceHomePOS = homeDao.saveBatch(highPerformanceHomePOS);
+        highPerformanceHomePOs = homeDao.saveBatch(highPerformanceHomePOs);
 
         // ----------------- with version -----------------
 
         HomeWithVersionPO homeWithVersionPO = HomeWithVersionPO.builder().id(1L).name(homeName).build();
         homeWithVersionPO = homeWithVersionDao.save(homeWithVersionPO);
-        
-        List<HomeWithVersionPO> onlyOnceTimeHomeWithVersionPOS = Collections.newArrayList(101);
-        for (int index = 1; index <= 100; index++) {
-            onlyOnceTimeHomeWithVersionPOS.add(HomeWithVersionPO.builder().name(homeName + index).build());
-        }
-        onlyOnceTimeHomeWithVersionPOS = homeWithVersionDao.saveBatch(onlyOnceTimeHomeWithVersionPOS);
 
-        List<HomeWithVersionPO> highPerformanceHomeWithVersionPOS = Collections.newArrayList(1000);
-        for (int index = 1; index <= 2000; index++) {
-            highPerformanceHomeWithVersionPOS.add(HomeWithVersionPO.builder().name(homeName + index).build());
+        List<HomeWithVersionPO> onlyOnceTimeHomeWithVersionPOs = Collections.newArrayList(101);
+        for (int index = 1; index <= 100; index++) {
+            onlyOnceTimeHomeWithVersionPOs.add(HomeWithVersionPO.builder().name(homeName + index).build());
         }
-        highPerformanceHomeWithVersionPOS = homeWithVersionDao.saveBatch(highPerformanceHomeWithVersionPOS);
+        onlyOnceTimeHomeWithVersionPOs = homeWithVersionDao.saveBatch(onlyOnceTimeHomeWithVersionPOs);
+
+        List<HomeWithVersionPO> highPerformanceHomeWithVersionPOs = Collections.newArrayList(1000);
+        for (int index = 1; index <= 2000; index++) {
+            highPerformanceHomeWithVersionPOs.add(HomeWithVersionPO.builder().name(homeName + index).build());
+        }
+        highPerformanceHomeWithVersionPOs = homeWithVersionDao.saveBatch(highPerformanceHomeWithVersionPOs);
 
         Console.log();
     }
@@ -135,14 +135,14 @@ class CurdTest {
         testSave();
 
         String homeName = "home1";
-        HomeWithVersionPO homeWithVersionPO = HomeWithVersionPO.builder().id(1L).name(homeName).build();
-        homeWithVersionDao.updateById(homeWithVersionPO);
+        HomePO homePO = HomePO.builder().id(1L).name(homeName).build();
+        homeDao.updateById(homePO);
 
-        List<HomeWithVersionPO> highPerformanceHomeWithVersionPOS = Collections.newArrayList(1000);
+        List<HomePO> highPerformanceHomePOs = Collections.newArrayList(1000);
         for (int index = 1; index <= 1000; index++) {
-            highPerformanceHomeWithVersionPOS.add(HomeWithVersionPO.builder().name(homeName + index).build());
+            highPerformanceHomePOs.add(HomePO.builder().id(index + 1).name(homeName + index).build());
         }
-        homeWithVersionDao.updateBatchById(highPerformanceHomeWithVersionPOS);
+        homeWithVersionDao.updateBatchById(highPerformanceHomeWithVersionPOs);
 
         Console.log();
     }
