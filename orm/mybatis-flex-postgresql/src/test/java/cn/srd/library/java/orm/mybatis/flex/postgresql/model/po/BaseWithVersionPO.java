@@ -1,6 +1,5 @@
-package cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.curd.version;
+package cn.srd.library.java.orm.mybatis.flex.postgresql.model.po;
 
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.curd.BasePO;
 import com.mybatisflex.annotation.Column;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

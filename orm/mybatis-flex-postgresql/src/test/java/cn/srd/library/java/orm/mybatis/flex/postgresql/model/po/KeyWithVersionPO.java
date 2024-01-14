@@ -1,6 +1,5 @@
 package cn.srd.library.java.orm.mybatis.flex.postgresql.model.po;
 
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.curd.version.BaseWithVersionPO;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
@@ -17,14 +16,20 @@ import java.io.Serial;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-@Table(value = "student_test_id_sql")
-public class StudentTestIdSQLPO extends BaseWithVersionPO {
+@Table(value = "key_with_version")
+public class KeyWithVersionPO extends BaseWithVersionPO {
 
-    @Serial private static final long serialVersionUID = 1719575586110517425L;
+    @Serial private static final long serialVersionUID = -2406926081842847637L;
 
     @Id
     @Column(value = "id")
-    private String id;
+    private Long id;
+
+    @Column(value = "home_id")
+    private Long homeId;
+
+    @Column(value = "door_id")
+    private Long doorId;
 
     @Column(value = "name")
     private String name;

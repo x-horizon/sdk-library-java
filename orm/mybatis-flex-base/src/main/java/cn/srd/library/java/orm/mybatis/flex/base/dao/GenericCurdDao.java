@@ -535,9 +535,7 @@ public interface GenericCurdDao<T extends PO> {
     private void setVersionFieldValues(Iterable<T> updatedEntities, Function<T, ? extends Serializable> getIdAction) {
         Map<? extends Serializable, T> idMappingOldEntity = Converts.toMap(listByIds(Converts.toList(updatedEntities, getIdAction)), getIdAction);
         Map<? extends Serializable, T> idMappingUpdatedEntity = Converts.toMap(updatedEntities, getIdAction);
-        idMappingOldEntity.forEach((id, oldEntity) -> {
-            setVersionFieldValue(oldEntity, idMappingUpdatedEntity.get(id));
-        });
+        idMappingOldEntity.forEach((id, oldEntity) -> setVersionFieldValue(oldEntity, idMappingUpdatedEntity.get(id)));
     }
 
 }

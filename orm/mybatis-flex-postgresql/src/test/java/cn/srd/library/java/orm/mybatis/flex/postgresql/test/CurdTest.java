@@ -15,26 +15,12 @@ import cn.srd.library.java.orm.mybatis.flex.base.logic.DeleteLogicConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.property.PropertyConfig;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.config.TestInsertListener;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.config.TestUpdateListener;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.CurdOneIdDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.CurdTwoIdDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.JoinOneDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.JoinTwoDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.curd.BedDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.curd.DoorDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.curd.HomeDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.curd.KeyDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.curd.version.BedWithVersionDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.curd.version.DoorWithVersionDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.curd.version.HomeWithVersionDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.curd.version.KeyWithVersionDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.enums.MaterialType;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.curd.HomePO;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.curd.version.BedWithVersionPO;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.curd.version.HomeWithVersionPO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.HomeDao;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.KeyWithVersionDao;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.HomePO;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
 import cn.srd.library.java.tool.lang.collection.Collections;
-import cn.srd.library.java.tool.lang.random.Randoms;
 import org.apache.ibatis.logging.nologging.NoLoggingImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,10 +30,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @MapperScan("cn.srd.library.java.orm.mybatis.flex.postgresql.**")
 @EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
@@ -67,29 +50,9 @@ import java.util.stream.IntStream;
 @EnableAspectJAutoProxy(exposeProxy = true)
 class CurdTest {
 
-    @Autowired private HomeWithVersionDao homeWithVersionDao;
-
-    @Autowired private BedWithVersionDao bedWithVersionDao;
-
-    @Autowired private DoorWithVersionDao doorWithVersionDao;
-
     @Autowired private KeyWithVersionDao keyWithVersionDao;
 
     @Autowired private HomeDao homeDao;
-
-    @Autowired private BedDao bedDao;
-
-    @Autowired private DoorDao doorDao;
-
-    @Autowired private KeyDao keyDao;
-
-    @Autowired private CurdOneIdDao curdOneIdDao;
-
-    @Autowired private CurdTwoIdDao curdTwoIdDao;
-
-    @Autowired private JoinOneDao joinOneDao;
-
-    @Autowired private JoinTwoDao joinTwoDao;
 
     @Test
     void testSave() {
@@ -110,92 +73,75 @@ class CurdTest {
         }
         highPerformanceHomePOs = homeDao.saveBatch(highPerformanceHomePOs);
 
-        // ----------------- with version -----------------
-
-        HomeWithVersionPO homeWithVersionPO = HomeWithVersionPO.builder().id(1L).name(homeName).build();
-        homeWithVersionPO = homeWithVersionDao.save(homeWithVersionPO);
-
-        List<HomeWithVersionPO> onlyOnceTimeHomeWithVersionPOs = Collections.newArrayList(101);
-        for (int index = 1; index <= 100; index++) {
-            onlyOnceTimeHomeWithVersionPOs.add(HomeWithVersionPO.builder().name(homeName + index).build());
-        }
-        onlyOnceTimeHomeWithVersionPOs = homeWithVersionDao.saveBatch(onlyOnceTimeHomeWithVersionPOs);
-
-        List<HomeWithVersionPO> highPerformanceHomeWithVersionPOs = Collections.newArrayList(1000);
-        for (int index = 1; index <= 2000; index++) {
-            highPerformanceHomeWithVersionPOs.add(HomeWithVersionPO.builder().name(homeName + index).build());
-        }
-        highPerformanceHomeWithVersionPOs = homeWithVersionDao.saveBatch(highPerformanceHomeWithVersionPOs);
-
         Console.log();
     }
 
     @Test
     void testUpdate() {
-        testSave();
-
-        String homeName = "home1";
-        HomePO homePO = HomePO.builder().id(1L).name(homeName).build();
-        homeDao.updateById(homePO);
-
-        List<HomePO> highPerformanceHomePOs = Collections.newArrayList(1000);
-        for (int index = 1; index <= 1000; index++) {
-            highPerformanceHomePOs.add(HomePO.builder().id(index + 1).name(homeName + index).build());
-        }
-        homeWithVersionDao.updateBatchById(highPerformanceHomeWithVersionPOs);
-
-        Console.log();
+        // testSave();
+        //
+        // String homeName = "home1";
+        // HomePO homePO = HomePO.builder().id(1L).name(homeName).build();
+        // homeDao.updateById(homePO);
+        //
+        // List<HomePO> highPerformanceHomePOs = Collections.newArrayList(1000);
+        // for (int index = 1; index <= 1000; index++) {
+        //     highPerformanceHomePOs.add(HomePO.builder().id(index + 1).name(homeName + index).build());
+        // }
+        // homeWithVersionDao.updateBatchById(highPerformanceHomeWithVersionPOs);
+        //
+        // Console.log();
     }
 
     @Test
     void testCurd() {
-        HomeWithVersionPO homeWithVersionPO2 = homeWithVersionDao.getById(1L).orElseThrow();
-        Long homeId = 1L;
-        String homeName = "home";
-        HomeWithVersionPO homeWithVersionPO = HomeWithVersionPO.builder().id(1L).name(homeName).build();
-
-        Long bedId1 = 1L;
-        Long bedId2 = 2L;
-        Long bedId3 = 3L;
-        Long bedId4 = 4L;
-        String bedName1 = "bed1";
-        String bedName2 = "bed2";
-        String bedName3 = "bed3";
-        String bedName4 = "bed4";
-        String bedNameBatch = "bed";
-        BedWithVersionPO bedWithVersionPO1 = BedWithVersionPO.builder().id(bedId1).homeId(homeId).name(bedName1).build();
-        BedWithVersionPO bedWithVersionPO2 = BedWithVersionPO.builder().id(bedId2).homeId(homeId).name(bedName2).build();
-        BedWithVersionPO bedWithVersionPO3 = BedWithVersionPO.builder().id(bedId3).homeId(homeId).name(bedName3).build();
-        BedWithVersionPO bedWithVersionPO4 = BedWithVersionPO.builder().id(bedId4).homeId(homeId).name(bedName4).build();
-        Collection<BedWithVersionPO> collectionTypeAndUsingDisposableSQLBedWithVersionPOS = Collections.ofImmutableMap(bedId1, bedWithVersionPO1, bedId2, bedWithVersionPO2).values();
-        Collection<BedWithVersionPO> collectionTypeAndUsingJDBCSQLBedWithVersionPOS = IntStream.range(0, 500).mapToObj(ignore -> BedWithVersionPO.builder().homeId(homeId).name(bedNameBatch + Randoms.getNumber()).build()).collect(Collectors.toUnmodifiableList());
-        List<BedWithVersionPO> listTypeAndUsingDisposableSQLBedWithVersionPOS = Collections.ofImmutableList(bedWithVersionPO3, bedWithVersionPO4);
-
-        Long doorId1 = 1L;
-        Long doorId2 = 2L;
-        Long doorId3 = 3L;
-        String doorName1 = "door1";
-        String doorName2 = "door2";
-        String doorName3 = "door3";
-        MaterialType woodinessMaterialType = MaterialType.WOODINESS;
-        MaterialType steelMaterialType = MaterialType.STEEL;
-
-        Long keyId1 = 1L;
-        Long keyId2 = 2L;
-        Long keyId3 = 3L;
-        String keyName1 = "key1";
-        String keyName2 = "key2";
-        String keyName3 = "key3";
-
-        // ==================================== test save ====================================
-        // HomePO afterSaveHomePO = homeDao.save(homePO);
+        // HomeWithVersionPO homeWithVersionPO2 = homeWithVersionDao.getById(1L).orElseThrow();
+        // Long homeId = 1L;
+        // String homeName = "home";
+        // HomeWithVersionPO homeWithVersionPO = HomeWithVersionPO.builder().id(1L).name(homeName).build();
         //
-        // List<BedPO> afterSaveCollectionTypeByUsingDisposableSQLBedPOs = bedDao.save(collectionTypeAndUsingDisposableSQLBedPOs);
-        // List<BedPO> afterSaveCollectionTypeByUsingJDBCSQLBedPOs = bedDao.save(collectionTypeAndUsingJDBCSQLBedPOs);
-        // List<BedPO> afterSaveListTypeByUsingJDBCSQLBedPOs = bedDao.save(listTypeAndUsingDisposableSQLBedPOs);
+        // Long bedId1 = 1L;
+        // Long bedId2 = 2L;
+        // Long bedId3 = 3L;
+        // Long bedId4 = 4L;
+        // String bedName1 = "bed1";
+        // String bedName2 = "bed2";
+        // String bedName3 = "bed3";
+        // String bedName4 = "bed4";
+        // String bedNameBatch = "bed";
+        // BedWithVersionPO bedWithVersionPO1 = BedWithVersionPO.builder().id(bedId1).homeId(homeId).name(bedName1).build();
+        // BedWithVersionPO bedWithVersionPO2 = BedWithVersionPO.builder().id(bedId2).homeId(homeId).name(bedName2).build();
+        // BedWithVersionPO bedWithVersionPO3 = BedWithVersionPO.builder().id(bedId3).homeId(homeId).name(bedName3).build();
+        // BedWithVersionPO bedWithVersionPO4 = BedWithVersionPO.builder().id(bedId4).homeId(homeId).name(bedName4).build();
+        // Collection<BedWithVersionPO> collectionTypeAndUsingDisposableSQLBedWithVersionPOS = Collections.ofImmutableMap(bedId1, bedWithVersionPO1, bedId2, bedWithVersionPO2).values();
+        // Collection<BedWithVersionPO> collectionTypeAndUsingJDBCSQLBedWithVersionPOS = IntStream.range(0, 500).mapToObj(ignore -> BedWithVersionPO.builder().homeId(homeId).name(bedNameBatch + Randoms.getNumber()).build()).collect(Collectors.toUnmodifiableList());
+        // List<BedWithVersionPO> listTypeAndUsingDisposableSQLBedWithVersionPOS = Collections.ofImmutableList(bedWithVersionPO3, bedWithVersionPO4);
         //
-        // homeDao.openDelete().all().deleteSkipLogic();
-        // bedDao.openDelete().all().deleteSkipLogic();
+        // Long doorId1 = 1L;
+        // Long doorId2 = 2L;
+        // Long doorId3 = 3L;
+        // String doorName1 = "door1";
+        // String doorName2 = "door2";
+        // String doorName3 = "door3";
+        // MaterialType woodinessMaterialType = MaterialType.WOODINESS;
+        // MaterialType steelMaterialType = MaterialType.STEEL;
+        //
+        // Long keyId1 = 1L;
+        // Long keyId2 = 2L;
+        // Long keyId3 = 3L;
+        // String keyName1 = "key1";
+        // String keyName2 = "key2";
+        // String keyName3 = "key3";
+        //
+        // // ==================================== test save ====================================
+        // // HomePO afterSaveHomePO = homeDao.save(homePO);
+        // //
+        // // List<BedPO> afterSaveCollectionTypeByUsingDisposableSQLBedPOs = bedDao.save(collectionTypeAndUsingDisposableSQLBedPOs);
+        // // List<BedPO> afterSaveCollectionTypeByUsingJDBCSQLBedPOs = bedDao.save(collectionTypeAndUsingJDBCSQLBedPOs);
+        // // List<BedPO> afterSaveListTypeByUsingJDBCSQLBedPOs = bedDao.save(listTypeAndUsingDisposableSQLBedPOs);
+        // //
+        // // homeDao.openDelete().all().deleteSkipLogic();
+        // // bedDao.openDelete().all().deleteSkipLogic();
     }
 
     // @Test
