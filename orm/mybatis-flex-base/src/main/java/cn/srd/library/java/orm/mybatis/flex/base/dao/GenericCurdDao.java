@@ -491,7 +491,7 @@ public interface GenericCurdDao<T extends PO> {
     }
 
     default PageResult<T> pageByCondition(PageParam pageParam, QueryWrapper queryWrapper) {
-        return pageByCondition(pageParam.getPageIndex(), pageParam.getPageSize(), queryWrapper);
+        return pageByCondition(pageParam.getPageNumber(), pageParam.getPageSize(), queryWrapper);
     }
 
     default PageResult<T> pageByCondition(Number pageIndex, Number pageSize, QueryWrapper queryWrapper) {

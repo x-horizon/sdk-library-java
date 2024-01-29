@@ -38,7 +38,7 @@ public class PageParam implements DTO {
     @Schema(description = "page number", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
     @Min(value = 1, message = "the minimum page number is 1")
     @Builder.Default
-    private Integer pageIndex = PageConstant.DEFAULT_PAGE_INDEX;
+    private Integer pageNumber = PageConstant.DEFAULT_PAGE_INDEX;
 
     @Schema(description = "record number per page", requiredMode = Schema.RequiredMode.REQUIRED, example = "10")
     @Range(min = 1, max = 100, message = "the range of record number per page is [1, 100]")
@@ -47,6 +47,6 @@ public class PageParam implements DTO {
 
     @Schema(description = "total record number, must > 0 if page index > 1", example = "999")
     @NotNull(message = "the total record number must > 0 if page index > 1", groups = PageParamValidationGroup.TotalRecordNumberValidator.class)
-    private Long total;
+    private Long totalNumber;
 
 }

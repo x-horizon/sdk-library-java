@@ -163,7 +163,7 @@ public class QueryChainer<T extends PO> extends AbstractQueryChainer<T> {
     }
 
     public PageResult<T> page(PageParam pageParam) {
-        return page(pageParam.getPageIndex(), pageParam.getPageSize(), pageParam.getTotal());
+        return page(pageParam.getPageNumber(), pageParam.getPageSize(), pageParam.getTotalNumber());
     }
 
     public PageResult<T> page(Number pageIndex, Number pageSize) {

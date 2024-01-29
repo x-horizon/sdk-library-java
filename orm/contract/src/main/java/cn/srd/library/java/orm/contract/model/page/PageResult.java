@@ -31,13 +31,13 @@ public class PageResult<T> implements DTO {
     @Serial private static final long serialVersionUID = -6490851620278359181L;
 
     @Schema(description = "total record number", requiredMode = Schema.RequiredMode.REQUIRED, example = "1000")
-    private Long total;
+    private Long totalNumber;
 
     @Schema(description = "total page number", requiredMode = Schema.RequiredMode.REQUIRED, example = "100")
-    private Long totalPages;
+    private Long totalPageNumber;
 
     @Schema(description = "current page number", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
-    private Long currentPage;
+    private Long currentPageNumber;
 
     @Schema(description = "record number per page", requiredMode = Schema.RequiredMode.REQUIRED, example = "10")
     private Long pageSize;

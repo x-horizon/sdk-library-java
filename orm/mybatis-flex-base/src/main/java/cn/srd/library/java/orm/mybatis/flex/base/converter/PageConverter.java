@@ -29,9 +29,9 @@ public interface PageConverter {
             return null;
         }
         return PageResult.<T>builder()
-                .total(page.getTotalRow())
-                .totalPages(page.getTotalPage())
-                .currentPage(page.getPageNumber())
+                .totalNumber(page.getTotalRow())
+                .totalPageNumber(page.getTotalPage())
+                .currentPageNumber(page.getPageNumber())
                 .pageSize(page.getPageSize())
                 .data(page.getRecords())
                 .build();
