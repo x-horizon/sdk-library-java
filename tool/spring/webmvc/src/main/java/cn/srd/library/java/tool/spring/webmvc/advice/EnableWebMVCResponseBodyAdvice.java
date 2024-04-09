@@ -15,7 +15,7 @@ import java.lang.annotation.*;
  * @author wjm
  * @see WebMVCResponseBodyAdviceSwitcher
  * @see WebMVCAutoConfigurer#webMVCResponseBodyAdvice()
- * @since 2022-07-16 18:16
+ * @since 2020-07-16 18:16
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
