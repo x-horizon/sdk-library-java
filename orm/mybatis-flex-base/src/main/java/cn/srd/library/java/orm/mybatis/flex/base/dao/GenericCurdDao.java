@@ -246,7 +246,7 @@ public interface GenericCurdDao<T extends PO> {
     }
 
     /**
-     * update by id.
+     * update with version by id.
      * <ul>
      *   <li>supported the entity with version.</li>
      *   <li>supported the entity with multiple primary keys.</li><br/>
@@ -276,7 +276,7 @@ public interface GenericCurdDao<T extends PO> {
     }
 
     /**
-     * update batch by id.
+     * update batch with version by id.
      *
      * @param entities    the operate entities
      * @param getIdAction how to find the primary key in each entity
@@ -291,7 +291,7 @@ public interface GenericCurdDao<T extends PO> {
     }
 
     /**
-     * update batch by id.
+     * update batch by with version id.
      * <ul>
      *   <li>supported the entity with version.</li>
      *   <li>only support the entity with one primary key.</li><br/>

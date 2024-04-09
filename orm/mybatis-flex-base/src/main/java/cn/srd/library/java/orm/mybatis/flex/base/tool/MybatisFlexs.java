@@ -102,15 +102,16 @@ public class MybatisFlexs {
         return new QueryTable(tableInfo.getSchema(), tableInfo.getTableName());
     }
 
-    public static QueryTable getQueryTable(TableDef table) {
-        return new QueryTable(table);
-    }
-
-    public static <T extends PO> TableDef getTableDef(Class<T> entityClass) {
-        return ENTITY_CLASS_MAPPING_TABLE_DEF_MAP.computeIfAbsent(entityClass, ignore -> {
-            TableInfo tableInfo = getTableInfo(entityClass);
-            return new TableDef(tableInfo.getSchema(), tableInfo.getTableName());
-        });
-    }
+    // TODO wjm mybatis-flex 升级引起的报错，暂未用到以下函数，待移除
+    // public static QueryTable getQueryTable(TableDef table) {
+    //     return new QueryTable(table);
+    // }
+    //
+    // public static <T extends PO> TableDef getTableDef(Class<T> entityClass) {
+    //     return ENTITY_CLASS_MAPPING_TABLE_DEF_MAP.computeIfAbsent(entityClass, ignore -> {
+    //         TableInfo tableInfo = getTableInfo(entityClass);
+    //         return new TableDef(tableInfo.getSchema(), tableInfo.getTableName());
+    //     });
+    // }
 
 }

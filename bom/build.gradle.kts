@@ -17,6 +17,7 @@ dependencies {
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_METRIC_DROPWIZARD)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_METRIC_MICROMETER)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_ORM_MYBATIS_FLEX)))
+    api(platform(GradleDependency.withVersion(GradleDependency.BOM_ORM_MYBATIS_PLUS)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_SECURITY_DEV33_SA_TOKEN)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_TEST_MOCKITO)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_TEST_TESTCONTAINERS)))
@@ -241,4 +242,3 @@ publishing {
         }
     }
 }
-
