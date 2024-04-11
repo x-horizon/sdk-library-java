@@ -2,12 +2,9 @@ spring:
   datasource:
     driverClassName: org.postgresql.Driver
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://127.0.0.1:5432/test_mybatis_flex
+    url: jdbc:postgresql://127.0.0.1:10003/test
     username: postgres
-    password: sp3tmzGpVeD8KwjmJquW
-    # url: jdbc:postgresql://192.168.10.91:30569/test_mybatis_flex
-    # username: postgres
-    # password: UXDiyeyxy4GvBm
+    password: 123456
     hikari:
       minimum-idle: 10
       maximum-pool-size: 20
@@ -20,9 +17,8 @@ spring:
     redis:
       database: 0
       host: 127.0.0.1
-      port: 6379
-      # host: 192.168.10.91
-      # port: 30570
+      port: 10004
+      password: 123456
       timeout: 60000
 
 logging:
