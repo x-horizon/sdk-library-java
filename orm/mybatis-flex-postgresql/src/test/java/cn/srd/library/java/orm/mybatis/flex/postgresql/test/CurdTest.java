@@ -16,12 +16,14 @@ import cn.srd.library.java.orm.mybatis.flex.base.property.PropertyConfig;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.config.TestInsertListener;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.config.TestUpdateListener;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.HomeDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.KeyWithVersionDao;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.PeopleDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.HomePO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.PeoplePO;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import org.apache.ibatis.logging.nologging.NoLoggingImpl;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mybatis.spring.annotation.MapperScan;
@@ -31,6 +33,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @MapperScan("cn.srd.library.java.orm.mybatis.flex.postgresql.**")
 @EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
@@ -50,9 +53,23 @@ import java.util.List;
 @EnableAspectJAutoProxy(exposeProxy = true)
 class CurdTest {
 
-    @Autowired private KeyWithVersionDao keyWithVersionDao;
+    @Autowired private PeopleDao peopleDao;
 
     @Autowired private HomeDao homeDao;
+
+    @BeforeEach
+    public void pre() {
+        homeDao.deleteSkipLogicByIds(homeDao.listAll()
+                .stream()
+                .map(HomePO::getId)
+                .collect(Collectors.toSet())
+        );
+        peopleDao.deleteSkipLogicByIds(peopleDao.listAll()
+                .stream()
+                .map(PeoplePO::getId)
+                .collect(Collectors.toSet())
+        );
+    }
 
     @Test
     void testSave() {

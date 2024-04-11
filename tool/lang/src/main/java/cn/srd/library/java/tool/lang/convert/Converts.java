@@ -6,9 +6,9 @@ package cn.srd.library.java.tool.lang.convert;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ArrayUtil;
-import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.EnumUtil;
 import cn.hutool.core.util.HexUtil;
+import cn.srd.library.java.contract.constant.booleans.BooleanConstant;
 import cn.srd.library.java.contract.constant.collection.CollectionConstant;
 import cn.srd.library.java.contract.constant.number.NumberConstant;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
@@ -68,25 +68,31 @@ public class Converts {
     }
 
     /**
-     * convert string to boolean
-     *
-     * @param input the input element
-     * @return after convert
-     * @see BooleanUtil#toBoolean(String)
-     */
-    public static Boolean toBoolean(String input) {
-        return BooleanUtil.toBoolean(input);
-    }
-
-    /**
      * convert object to boolean
      *
      * @param input the input element
      * @return after convert
-     * @see Convert#toBool(Object)
      */
+    @SuppressWarnings(SuppressWarningConstant.ALL)
     public static Boolean toBoolean(Object input) {
-        return Convert.toBool(input);
+        if (input instanceof Boolean inputBoolean) {
+            return inputBoolean;
+        } else if (input instanceof Integer inputInteger) {
+            if (Comparators.equals(BooleanConstant.TRUE_NUMBER, inputInteger)) {
+                return true;
+            }
+            if (Comparators.equals(BooleanConstant.FALSE_NUMBER, inputInteger)) {
+                return false;
+            }
+        } else if (input instanceof String inputString) {
+            if (Collections.contains(BooleanConstant.TRUE_STRINGS, inputString)) {
+                return true;
+            }
+            if (Collections.contains(BooleanConstant.FALSE_STRINGS, inputString)) {
+                return false;
+            }
+        }
+        return null;
     }
 
     /**

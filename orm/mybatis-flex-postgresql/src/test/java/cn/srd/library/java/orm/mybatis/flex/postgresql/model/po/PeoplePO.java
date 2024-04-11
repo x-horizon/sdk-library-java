@@ -17,7 +17,7 @@ import java.io.Serial;
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
 @Table(value = "key_with_version")
-public class KeyWithVersionPO extends BaseWithVersionPO {
+public class PeoplePO extends BaseWithVersionPO {
 
     @Serial private static final long serialVersionUID = -2406926081842847637L;
 
@@ -27,9 +27,6 @@ public class KeyWithVersionPO extends BaseWithVersionPO {
 
     @Column(value = "home_id")
     private Long homeId;
-
-    @Column(value = "door_id")
-    private Long doorId;
 
     @Column(value = "name")
     private String name;

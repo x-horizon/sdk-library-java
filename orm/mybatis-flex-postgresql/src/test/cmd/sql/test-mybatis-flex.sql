@@ -16,7 +16,7 @@ CREATE TABLE home
 );
 
 
-CREATE TABLE key_with_version
+CREATE TABLE people
 (
     id             BIGINT                                       NOT NULL,
     home_id        BIGINT                                       NOT NULL,

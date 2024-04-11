@@ -459,7 +459,7 @@ public interface GenericCurdDao<T extends PO> {
      * @param ids the primary key values
      */
     default void deleteSkipLogicByIds(Iterable<? extends Serializable> ids) {
-        LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toSet(ids)));
+        LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids instanceof Collection<? extends Serializable> ? ids : Converts.toSet(ids)));
     }
 
     default Optional<T> getById(Serializable id) {

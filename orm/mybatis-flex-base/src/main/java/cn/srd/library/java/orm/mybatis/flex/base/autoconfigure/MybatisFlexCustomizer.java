@@ -142,27 +142,8 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
                 .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfAnyBlank(normalValue, deletedValue);
 
-        // note:
-        // must convert to number first and then convert to boolean,
-        // because the value "0" can convert to boolean false, but the actual value should be integer 0.
-        Object actualNormalValue = Converts.toInteger(normalValue);
-        if (Nil.isNull(actualNormalValue)) {
-            actualNormalValue = Converts.toString(normalValue);
-            if (Nil.isNull(actualNormalValue)) {
-                actualNormalValue = Converts.toBoolean(normalValue);
-            }
-        }
-
-        Object actualDeletedValue = Converts.toInteger(deletedValue);
-        if (Nil.isNull(actualDeletedValue)) {
-            actualDeletedValue = Converts.toString(deletedValue);
-            if (Nil.isNull(actualDeletedValue)) {
-                actualDeletedValue = Converts.toBoolean(deletedValue);
-            }
-        }
-
-        globalConfig.setNormalValueOfLogicDelete(actualNormalValue);
-        globalConfig.setDeletedValueOfLogicDelete(actualDeletedValue);
+        globalConfig.setNormalValueOfLogicDelete(getDeleteLogicValue(normalValue));
+        globalConfig.setDeletedValueOfLogicDelete(getDeleteLogicValue(deletedValue));
     }
 
     /**
@@ -283,6 +264,20 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
                     new MybatisFlexProperties.CoreConfiguration()
             );
         }
+    }
+
+    private Object getDeleteLogicValue(String value) {
+        // note:
+        // must convert value to number first and then convert value to boolean,
+        // because the value "0" can convert to boolean false, but the actual value should be integer 0.
+        Object actualValue = Converts.toInteger(value);
+        if (Nil.isNull(actualValue)) {
+            actualValue = Converts.toBoolean(value);
+            if (Nil.isNull(actualValue)) {
+                actualValue = Converts.toString(value);
+            }
+        }
+        return actualValue;
     }
 
 }
