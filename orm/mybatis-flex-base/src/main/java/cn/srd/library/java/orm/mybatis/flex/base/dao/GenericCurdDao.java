@@ -20,6 +20,7 @@ import cn.srd.library.java.orm.mybatis.flex.base.tool.MybatisFlexs;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.functional.Action;
+import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.lang.text.Strings;
@@ -202,7 +203,6 @@ public interface GenericCurdDao<T extends PO> {
      * @see #updateBatchById(Iterable, int)
      * @see IService#updateBatch(Collection, int)
      */
-    @Transactional(rollbackFor = Throwable.class)
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     default void updateBatchById(Iterable<T> entities) {
         Springs.getProxy(GenericCurdDao.class).updateBatchById(entities, DEFAULT_BATCH_SIZE_EACH_TIME);
@@ -281,7 +281,7 @@ public interface GenericCurdDao<T extends PO> {
      * @param entities    the operate entities
      * @param getIdAction how to find the primary key in each entity
      * @apiNote only support the entity with one primary key.
-     * @see #updateBatchWithVersionById(Iterable, int, Function)
+     * @see #updateBatchWithVersionById(Iterable, Function, int)
      * @see #updateBatchById(Iterable, int)
      * @see IService#updateBatch(Collection, int)
      */
@@ -307,15 +307,16 @@ public interface GenericCurdDao<T extends PO> {
      * </ul>
      *
      * @param entities          the operate entities
-     * @param batchSizeEachTime insert size each time
      * @param getIdAction       how to find the primary key in each entity
+     * @param batchSizeEachTime insert size each time
      * @apiNote only support the entity with one primary key.
      * @see #updateBatchById(Iterable, int)
      * @see IService#updateBatch(Collection, int)
      */
-    default void updateBatchWithVersionById(Iterable<T> entities, int batchSizeEachTime, Function<T, ? extends Serializable> getIdAction) {
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    default void updateBatchWithVersionById(Iterable<T> entities, Function<T, ? extends Serializable> getIdAction, int batchSizeEachTime) {
         setVersionFieldValues(entities, getIdAction);
-        updateBatchById(entities, batchSizeEachTime);
+        Springs.getProxy(GenericCurdDao.class).updateBatchById(entities, batchSizeEachTime);
     }
 
     /**
@@ -355,7 +356,7 @@ public interface GenericCurdDao<T extends PO> {
      * @param entity the entity
      */
     default void deleteById(T entity) {
-        getBaseMapper().delete(entity);
+        Assert.of().setMessage("删除失败，数据不存在，请检查！").setThrowable(LibraryJavaInternalException.class).throwsIfZeroValue(getBaseMapper().delete(entity));
     }
 
     default void deleteById(Serializable id) {
