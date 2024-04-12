@@ -34,12 +34,17 @@ public class CollectionConstant {
     /**
      * the second index: {@code 1}
      */
-    public static final int INDEX_SECOND = 1;
+    public static final int INDEX_SECOND = INDEX_FIRST + 1;
 
     /**
      * the third index: {@code 2}
      */
-    public static final int INDEX_THIRD = 2;
+    public static final int INDEX_THIRD = INDEX_SECOND + 1;
+
+    /**
+     * the forth index: {@code 3}
+     */
+    public static final int INDEX_FORTH = INDEX_THIRD + 1;
 
     /**
      * not found index: {@code -1}

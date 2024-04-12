@@ -1146,6 +1146,17 @@ public class Collections {
     }
 
     /**
+     * get the forth element
+     *
+     * @param inputs the input elements
+     * @param <T>    the element type
+     * @return the third element
+     */
+    public static <T> Optional<T> getForth(Iterable<T> inputs) {
+        return getByIndex(inputs, CollectionConstant.INDEX_FORTH);
+    }
+
+    /**
      * get the first node key
      *
      * @param inputs the input elements

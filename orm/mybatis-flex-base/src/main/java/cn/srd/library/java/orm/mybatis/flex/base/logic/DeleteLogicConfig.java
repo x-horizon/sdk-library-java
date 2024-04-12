@@ -5,6 +5,8 @@
 package cn.srd.library.java.orm.mybatis.flex.base.logic;
 
 import com.mybatisflex.annotation.Column;
+import com.mybatisflex.core.logicdelete.LogicDeleteProcessor;
+import com.mybatisflex.core.logicdelete.impl.BooleanLogicDeleteProcessor;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -21,24 +23,11 @@ import java.lang.annotation.Target;
 public @interface DeleteLogicConfig {
 
     /**
-     * the value when data in database is not logic deleted.
+     * the logic deleted processor when data in database to be deleted, see <a href="https://mybatis-flex.com/zh/core/logic-delete.html#%E9%80%BB%E8%BE%91%E5%88%A0%E9%99%A4">official document</url>.
      *
-     * <p>supported type as following:
-     * <ul>
-     *   <li>any string value can convert to integer.</li>
-     *   <li>any string value can convert to boolean.</li>
-     *   <li>any string value can convert to not blank string.</li>
-     * </ul>
-     *
-     * <p>for example:
-     * <ul>
-     *   <li>set this field value to string "0", will be convert to integer 0.</li>
-     *   <li>set this field value to string "false", will be convert to boolean false.</li>
-     *   <li>set this field value to string "normal", will be convert to string "normal".</li>
-     * </ul>
-     *
-     * @return the value when data in database is not logic deleted.
+     * @return the logic deleted processor when data in database to be deleted.
      * @apiNote only when {@link Column#isLogicDelete()} = true on the field will it take effect, like:
+     * <p>
      * <pre>
      * {@code
      *  @Column(value = "row_is_deleted", isLogicDelete = true)
@@ -46,34 +35,6 @@ public @interface DeleteLogicConfig {
      * }
      * </pre>
      */
-    String normalValue() default "0";
-
-    /**
-     * the value when data in database already logic deleted.
-     *
-     * <p>supported type as following:
-     * <ul>
-     *   <li>any string value can convert to integer.</li>
-     *   <li>any string value can convert to boolean.</li>
-     *   <li>any string value can convert to not blank string.</li>
-     * </ul>
-     *
-     * <p>for example:
-     * <ul>
-     *   <li>set this field value to string "1", will be convert to integer 1.</li>
-     *   <li>set this field value to string "true", will be convert to boolean true.</li>
-     *   <li>set this field value to string "invalid", will be convert to string "invalid".</li>
-     * </ul>
-     *
-     * @return the value when data in database already logic deleted.
-     * @apiNote only when {@link Column#isLogicDelete()} = true on the field will it take effect, like:
-     * <pre>
-     * {@code
-     *  @Column(value = "row_is_deleted", isLogicDelete = true)
-     *  private Boolean rowIsDeleted;
-     * }
-     * </pre>
-     */
-    String deletedValue() default "1";
+    Class<? extends LogicDeleteProcessor> processor() default BooleanLogicDeleteProcessor.class;
 
 }

@@ -5,7 +5,6 @@
 package cn.srd.library.java.orm.mybatis.flex.base.autoconfigure;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.orm.mybatis.flex.base.audit.AuditLogConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.audit.UnsupportedAuditLogTelemeter;
 import cn.srd.library.java.orm.mybatis.flex.base.id.IdConfig;
@@ -15,7 +14,6 @@ import cn.srd.library.java.orm.mybatis.flex.base.logic.DeleteLogicConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.property.PropertyConfig;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.convert.Converts;
-import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.object.Objects;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
@@ -25,6 +23,7 @@ import cn.srd.library.java.tool.spring.contract.Classes;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import com.mybatisflex.core.FlexGlobalConfig;
 import com.mybatisflex.core.audit.AuditManager;
+import com.mybatisflex.core.logicdelete.LogicDeleteManager;
 import com.mybatisflex.core.mybatis.FlexConfiguration;
 import com.mybatisflex.spring.boot.ConfigurationCustomizer;
 import com.mybatisflex.spring.boot.MyBatisFlexCustomizer;
@@ -76,7 +75,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
 
         EnableMybatisFlexCustomizer mybatisFlexCustomizer = Annotations.getAnnotation(EnableMybatisFlexCustomizer.class);
         handleIdGenerateConfig(globalConfig, mybatisFlexCustomizer.globalIdGenerateConfig());
-        handleDeleteLogicConfig(globalConfig, mybatisFlexCustomizer.globalDeleteLogicConfig());
+        handleDeleteLogicConfig(mybatisFlexCustomizer.globalDeleteLogicConfig());
         handleListenerConfig(globalConfig, mybatisFlexCustomizer.globalListenerConfig());
         handleOptimisticLockConfig(globalConfig, mybatisFlexCustomizer.globalOptimisticLockConfig());
         handleAuditConfig(mybatisFlexCustomizer.globalAuditConfig());
@@ -90,8 +89,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
                            generator                               = [{}]
                            generateSQL                             = [{}]
                         Global Delete Logic Config:
-                           normalValue                             = [{}]
-                           deletedValue                            = [{}]
+                           processor                               = [{}]
                         Global Listener Config:
                            whenInsert                              = [{}]
                            whenUpdate                              = [{}]
@@ -108,7 +106,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
                         --------------------------------------------------------------------------------------------------------------------------------""",
                 ModuleView.ORM_MYBATIS_SYSTEM,
                 mybatisFlexCustomizer.globalIdGenerateConfig().generateType().name(), mybatisFlexCustomizer.globalIdGenerateConfig().generator().getName(), mybatisFlexCustomizer.globalIdGenerateConfig().generateSQL(),
-                mybatisFlexCustomizer.globalDeleteLogicConfig().normalValue(), mybatisFlexCustomizer.globalDeleteLogicConfig().deletedValue(),
+                mybatisFlexCustomizer.globalDeleteLogicConfig().processor().getName(),
                 mybatisFlexCustomizer.globalListenerConfig().whenInsert().getName(), mybatisFlexCustomizer.globalListenerConfig().whenUpdate().getName(),
                 mybatisFlexCustomizer.globalOptimisticLockConfig().columnName(),
                 mybatisFlexCustomizer.globalAuditConfig().constructor().getName(), mybatisFlexCustomizer.globalAuditConfig().printer().getName(), mybatisFlexCustomizer.globalAuditConfig().telemeter().getName(),
@@ -131,19 +129,10 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
     /**
      * handle the global delete logic config
      *
-     * @param globalConfig      the mybatis flex global config
      * @param deleteLogicConfig the global delete logic config
      */
-    private void handleDeleteLogicConfig(FlexGlobalConfig globalConfig, DeleteLogicConfig deleteLogicConfig) {
-        String normalValue = deleteLogicConfig.normalValue();
-        String deletedValue = deleteLogicConfig.deletedValue();
-
-        Assert.of().setMessage("")
-                .setThrowable(LibraryJavaInternalException.class)
-                .throwsIfAnyBlank(normalValue, deletedValue);
-
-        globalConfig.setNormalValueOfLogicDelete(getDeleteLogicValue(normalValue));
-        globalConfig.setDeletedValueOfLogicDelete(getDeleteLogicValue(deletedValue));
+    private void handleDeleteLogicConfig(DeleteLogicConfig deleteLogicConfig) {
+        LogicDeleteManager.setProcessor(Reflects.newInstance(deleteLogicConfig.processor()));
     }
 
     /**
