@@ -30,7 +30,7 @@ public class BasePO implements PO {
     @JsonDeserialize(converter = JacksonLongToLocalDateTimeDeserializer.class)
     private LocalDateTime createTime;
 
-    @Column(value = "row_is_deleted", isLogicDelete = true)
-    private Boolean rowIsDeleted;
+    @Column(value = "delete_time", isLogicDelete = true)
+    private Boolean deleteTime;
 
 }

@@ -5,7 +5,6 @@
 package cn.srd.library.java.orm.mybatis.flex.postgresql.test;
 
 import cn.hutool.core.lang.Console;
-import cn.srd.library.java.contract.constant.booleans.BooleanConstant;
 import cn.srd.library.java.orm.mybatis.flex.base.audit.AuditLogConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.autoconfigure.EnableMybatisFlexCustomizer;
 import cn.srd.library.java.orm.mybatis.flex.base.id.IdConfig;
@@ -22,6 +21,9 @@ import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.PeoplePO;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
 import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.convert.Converts;
+import cn.srd.library.java.tool.lang.object.Nil;
+import com.mybatisflex.core.logicdelete.impl.DateTimeLogicDeleteProcessor;
 import org.apache.ibatis.logging.nologging.NoLoggingImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,13 +35,12 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @MapperScan("cn.srd.library.java.orm.mybatis.flex.postgresql.**")
 @EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
 @EnableMybatisFlexCustomizer(
         globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SNOWFLAKE),
-        globalDeleteLogicConfig = @DeleteLogicConfig(normalValue = BooleanConstant.FALSE_STRING_LOWER_CASE, deletedValue = BooleanConstant.TRUE_STRING_LOWER_CASE),
+        globalDeleteLogicConfig = @DeleteLogicConfig(processor = DateTimeLogicDeleteProcessor.class),
         globalListenerConfig = @ListenerConfig(whenInsert = TestInsertListener.class, whenUpdate = TestUpdateListener.class),
         globalAuditConfig = @AuditLogConfig(enable = true),
         globalPropertyConfig = @PropertyConfig(
@@ -57,18 +58,70 @@ class CurdTest {
 
     @Autowired private HomeDao homeDao;
 
+    private static final String homeName1 = "home1";
+
+    private static final String homeName2 = "home2";
+
+    private static final String homeName3 = "home3";
+
+    private static final String homeName4 = "home4";
+
+    private static final String homeName5 = "home5";
+
+    private static final String homeName6 = "home6";
+
+    private static final String homeName7 = "home7";
+
+    private static final String homeName8 = "home8";
+
+    private static final String homeName9 = "home9";
+
+    private static final String homeName10 = "home10";
+
+    private static final String homeName11 = "home11";
+
+    private static final String homeName12 = "home12";
+
+    private static final String homeName13 = "home13";
+
+    private static final String homeName14 = "home14";
+
+    private static final String homeName15 = "home15";
+
+    private static final String peopleName1 = "people1";
+
+    private static final String peopleName2 = "people2";
+
+    private static final String peopleName3 = "people3";
+
+    private static final String peopleName4 = "people4";
+
+    private static final String peopleName5 = "people5";
+
+    private static final String peopleName6 = "people6";
+
+    private static final String peopleName7 = "people7";
+
+    private static final String peopleName8 = "people8";
+
+    private static final String peopleName9 = "people9";
+
+    private static final String peopleName10 = "people10";
+
+    private static final String peopleName11 = "people11";
+
+    private static final String peopleName12 = "people12";
+
+    private static final String peopleName13 = "people13";
+
+    private static final String peopleName14 = "people14";
+
+    private static final String peopleName15 = "people15";
+
     @BeforeEach
     public void pre() {
-        homeDao.deleteSkipLogicByIds(homeDao.listAll()
-                .stream()
-                .map(HomePO::getId)
-                .collect(Collectors.toSet())
-        );
-        peopleDao.deleteSkipLogicByIds(peopleDao.listAll()
-                .stream()
-                .map(PeoplePO::getId)
-                .collect(Collectors.toSet())
-        );
+        clearTestDataIfNeed();
+        prepareTestData();
     }
 
     @Test
@@ -91,6 +144,108 @@ class CurdTest {
         highPerformanceHomePOs = homeDao.saveBatch(highPerformanceHomePOs);
 
         Console.log();
+    }
+
+    public void clearTestDataIfNeed() {
+        clearTestHomeDataIfNeed();
+        clearTestPeopleDataIfNeed();
+    }
+
+    public void clearTestHomeDataIfNeed() {
+        List<HomePO> homePOs = homeDao.listAll();
+        List<Long> homeIds = Converts.toList(homePOs, HomePO::getId);
+        if (Nil.isNotEmpty(homeIds)) {
+            Long firstHomeId = Collections.getFirst(homeIds).orElseThrow();
+            homeDao.deleteById(firstHomeId);
+            HomePO secondHomePO = Collections.getSecond(homePOs).orElseThrow();
+            homeDao.deleteById(secondHomePO);
+            homeDao.deleteByIds(homeIds);
+
+            Long thirdHomeId = Collections.getThird(homeIds).orElseThrow();
+            homeDao.deleteSkipLogicById(thirdHomeId);
+            HomePO forthHomePO = Collections.getForth(homePOs).orElseThrow();
+            homeDao.deleteSkipLogicById(forthHomePO);
+            homeDao.deleteSkipLogicByIds(homeIds);
+        }
+    }
+
+    public void clearTestPeopleDataIfNeed() {
+        List<PeoplePO> peoplePOs = peopleDao.listAll();
+        List<Long> peopleIds = Converts.toList(peoplePOs, PeoplePO::getId);
+        if (Nil.isNotEmpty(peopleIds)) {
+            Long firstPeopleId = Collections.getFirst(peopleIds).orElseThrow();
+            peopleDao.deleteById(firstPeopleId);
+            PeoplePO secondPeoplePO = Collections.getSecond(peoplePOs).orElseThrow();
+            peopleDao.deleteById(secondPeoplePO);
+            peopleDao.deleteByIds(peopleIds);
+
+            Long thirdPeopleId = Collections.getThird(peopleIds).orElseThrow();
+            peopleDao.deleteSkipLogicById(thirdPeopleId);
+            PeoplePO forthPeoplePO = Collections.getForth(peoplePOs).orElseThrow();
+            peopleDao.deleteSkipLogicById(forthPeoplePO);
+            peopleDao.deleteSkipLogicByIds(peopleIds);
+        }
+    }
+
+    public void prepareTestData() {
+        prepareHomeData();
+        preparePeopleData();
+    }
+
+    public void prepareHomeData() {
+
+        homeDao.save(HomePO.builder().name(homeName1).build());
+        homeDao.save(HomePO.builder().name(homeName2).build());
+        homeDao.save(HomePO.builder().name(homeName3).build());
+        homeDao.save(HomePO.builder().name(homeName4).build());
+        homeDao.save(HomePO.builder().name(homeName5).build());
+
+        homeDao.saveBatch(Collections.ofArrayList(
+                HomePO.builder().name(homeName6).build(),
+                HomePO.builder().name(homeName7).build(),
+                HomePO.builder().name(homeName8).build(),
+                HomePO.builder().name(homeName9).build(),
+                HomePO.builder().name(homeName10).build()
+        ));
+
+        homeDao.saveBatch(
+                Collections.ofArrayList(
+                        HomePO.builder().name(homeName11).build(),
+                        HomePO.builder().name(homeName12).build(),
+                        HomePO.builder().name(homeName13).build(),
+                        HomePO.builder().name(homeName14).build(),
+                        HomePO.builder().name(homeName15).build()
+                ),
+                2
+        );
+    }
+
+    public void preparePeopleData() {
+
+        peopleDao.save(PeoplePO.builder().name(peopleName1).build());
+        peopleDao.save(PeoplePO.builder().name(peopleName2).build());
+        peopleDao.save(PeoplePO.builder().name(peopleName3).build());
+        peopleDao.save(PeoplePO.builder().name(peopleName4).build());
+        peopleDao.save(PeoplePO.builder().name(peopleName5).build());
+
+        peopleDao.saveBatch(Collections.ofArrayList(
+                PeoplePO.builder().name(peopleName6).build(),
+                PeoplePO.builder().name(peopleName7).build(),
+                PeoplePO.builder().name(peopleName8).build(),
+                PeoplePO.builder().name(peopleName9).build(),
+                PeoplePO.builder().name(peopleName10).build()
+        ));
+
+        peopleDao.saveBatch(
+                Collections.ofArrayList(
+                        PeoplePO.builder().name(peopleName11).build(),
+                        PeoplePO.builder().name(peopleName12).build(),
+                        PeoplePO.builder().name(peopleName13).build(),
+                        PeoplePO.builder().name(peopleName14).build(),
+                        PeoplePO.builder().name(peopleName15).build()
+                ),
+                2
+        );
     }
 
     @Test

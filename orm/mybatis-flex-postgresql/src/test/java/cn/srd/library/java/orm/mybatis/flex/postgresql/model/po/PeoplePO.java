@@ -16,7 +16,7 @@ import java.io.Serial;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-@Table(value = "key_with_version")
+@Table(value = "people")
 public class PeoplePO extends BaseWithVersionPO {
 
     @Serial private static final long serialVersionUID = -2406926081842847637L;
