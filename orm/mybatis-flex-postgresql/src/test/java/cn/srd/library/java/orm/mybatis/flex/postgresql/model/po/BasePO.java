@@ -25,10 +25,18 @@ public class BasePO implements PO {
     @Column(value = "creator_id")
     private Long creatorId;
 
+    @Column(value = "updater_id")
+    private Long updaterId;
+
     @Column(value = "create_time")
     @JsonSerialize(using = JacksonLocalDateTimeToLongSerializer.class)
     @JsonDeserialize(converter = JacksonLongToLocalDateTimeDeserializer.class)
     private LocalDateTime createTime;
+
+    @Column(value = "update_time")
+    @JsonSerialize(using = JacksonLocalDateTimeToLongSerializer.class)
+    @JsonDeserialize(converter = JacksonLongToLocalDateTimeDeserializer.class)
+    private LocalDateTime updateTime;
 
     @Column(value = "delete_time", isLogicDelete = true)
     private Boolean deleteTime;

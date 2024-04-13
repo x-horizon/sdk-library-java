@@ -9,6 +9,7 @@ import cn.srd.library.java.orm.mybatis.flex.base.autoconfigure.EnableMybatisFlex
 import cn.srd.library.java.orm.mybatis.flex.base.id.IdConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.id.IdGenerateType;
 import cn.srd.library.java.orm.mybatis.flex.base.listener.ListenerConfig;
+import cn.srd.library.java.orm.mybatis.flex.base.lock.OptimisticLockConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.logic.DeleteLogicConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.property.PropertyConfig;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.config.TestInsertListener;
@@ -41,6 +42,7 @@ import java.util.Map;
         globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SNOWFLAKE),
         globalDeleteLogicConfig = @DeleteLogicConfig(processor = DateTimeLogicDeleteProcessor.class),
         globalListenerConfig = @ListenerConfig(whenInsert = TestInsertListener.class, whenUpdate = TestUpdateListener.class),
+        globalOptimisticLockConfig = @OptimisticLockConfig(columnName = "version"),
         globalAuditConfig = @AuditLogConfig(enable = true),
         globalPropertyConfig = @PropertyConfig(
                 nativeMybatisLog = NoLoggingImpl.class,
@@ -120,6 +122,7 @@ class CurdTest {
     @Test
     void testSave() {
         testDelete();
+
         homeDao.save(HomePO.builder().name(HOME_NAME_1).build());
         homeDao.save(HomePO.builder().name(HOME_NAME_2).build());
         homeDao.save(HomePO.builder().name(HOME_NAME_3).build());
@@ -142,30 +145,32 @@ class CurdTest {
 
         List<HomePO> homePOs = homeDao.listAll();
         Map<String, Long> homeNameMappingHomeIdMap = Converts.toMap(homePOs, HomePO::getName, HomePO::getId);
-        peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_1)).name(PEOPLE_NAME_1).build());
-        peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_2)).name(PEOPLE_NAME_2).build());
-        peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_3)).name(PEOPLE_NAME_3).build());
-        peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_4)).name(PEOPLE_NAME_4).build());
-        peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_5)).name(PEOPLE_NAME_5).build());
+        peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_1)).build().setName(PEOPLE_NAME_1));
+        peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_2)).build().setName(PEOPLE_NAME_2));
+        peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_3)).build().setName(PEOPLE_NAME_3));
+        peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_4)).build().setName(PEOPLE_NAME_4));
+        peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_5)).build().setName(PEOPLE_NAME_5));
         peopleDao.saveBatch(Collections.ofArrayList(
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_6)).name(PEOPLE_NAME_6).build(),
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_7)).name(PEOPLE_NAME_7).build(),
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_8)).name(PEOPLE_NAME_8).build(),
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_9)).name(PEOPLE_NAME_9).build(),
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_10)).name(PEOPLE_NAME_10).build()
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_6)).build().setName(PEOPLE_NAME_6),
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_7)).build().setName(PEOPLE_NAME_7),
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_8)).build().setName(PEOPLE_NAME_8),
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_9)).build().setName(PEOPLE_NAME_9),
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_10)).build().setName(PEOPLE_NAME_10)
         ));
         peopleDao.saveBatch(Collections.ofArrayList(
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_11)).name(PEOPLE_NAME_11).build(),
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_12)).name(PEOPLE_NAME_12).build(),
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_13)).name(PEOPLE_NAME_13).build(),
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_14)).name(PEOPLE_NAME_14).build(),
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_15)).name(PEOPLE_NAME_15).build()
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_11)).build().setName(PEOPLE_NAME_11),
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_12)).build().setName(PEOPLE_NAME_12),
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_13)).build().setName(PEOPLE_NAME_13),
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_14)).build().setName(PEOPLE_NAME_14),
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_15)).build().setName(PEOPLE_NAME_15)
         ), 2);
     }
 
     @Test
     void testUpdate() {
+        testDelete();
         testSave();
+
         List<HomePO> homePOs = homeDao.listAll().stream().map(homePO -> homePO.setName(homePO.getName() + "*")).toList();
         HomePO theFirstHomePO = Collections.getFirst(homePOs).orElseThrow();
         homeDao.updateById(theFirstHomePO);
@@ -173,13 +178,46 @@ class CurdTest {
         homeDao.updateBatchById(homePOs);
         homeDao.updateBatchById(homePOs, 2);
 
-        List<PeoplePO> peoplePOs = peopleDao.listAll().stream().map(peoplePO -> peoplePO.setName(peoplePO.getName() + "*")).toList();
+        List<PeoplePO> peoplePOs = peopleDao.listAll().stream().map(peoplePO -> peoplePO.setName(peoplePO.getName1() + "*")).toList();
         PeoplePO theFirstPeoplePO = Collections.getFirst(peoplePOs).orElseThrow();
         peopleDao.updateWithVersionById(theFirstPeoplePO);
         peopleDao.updateBatchWithVersionById(peoplePOs, PeoplePO::getId);
         peopleDao.updateBatchWithVersionById(peoplePOs, PeoplePO::getId, 2);
+
+        peopleDao.openUpdate()
+                .where(PeoplePO::getCreatorId).equalsTo(1)
+                .and(PeoplePO::getUpdaterId).equalsTo(1)
+                .update();
+
+        peopleDao.openUpdate()
+                .set(PeoplePO::getName1, theFirstPeoplePO.getName1() + "-set")
+                .set(PeoplePO::getName2, theFirstPeoplePO.getName2() + "-set-boolean-supplier", () -> true)
+                .set(PeoplePO::getName4, theFirstPeoplePO.getName4() + "-set-boolean", ignore -> true)
+                .setIfNotNull(PeoplePO::getName5, theFirstPeoplePO.getName5() + "-set-if-not-null")
+                .setIfNotEmpty(PeoplePO::getName6, theFirstPeoplePO.getName6() + "-set-if-not-empty")
+                .setIfNotBlank(PeoplePO::getName7, theFirstPeoplePO.getName7() + "-set-if-not-blank")
+                .setIfNotZeroValue(PeoplePO::getHomeId, 2)
+                .where(PeoplePO::getCreatorId).equalsTo(1)
+                .and(PeoplePO::getUpdaterId).equalsTo(1)
+                .or(PeoplePO::getUpdaterId).equalsTo(1)
+                .update();
+
+        peopleDao.openUpdate()
+                .set(PeoplePO::getName1, theFirstPeoplePO.getName1() + "-set-2")
+                .set(PeoplePO::getName2, theFirstPeoplePO.getName2() + "-set-boolean-supplier-2", () -> false)
+                .set(PeoplePO::getName4, theFirstPeoplePO.getName4() + "-set-boolean-2", ignore -> false)
+                .setIfNotNull(PeoplePO::getName5, null)
+                .setIfNotEmpty(PeoplePO::getName6, "")
+                .setIfNotBlank(PeoplePO::getName7, "  ")
+                .setIfNotZeroValue(PeoplePO::getHomeId, 0)
+                .where(PeoplePO::getCreatorId).equalsTo(1)
+                .and(PeoplePO::getUpdaterId).equalsTo(1)
+                .or(PeoplePO::getUpdaterId).equalsTo(1)
+                .update();
+
+        testDelete();
     }
- 
+
     @Test
     void testDelete() {
         List<HomePO> homePOs = homeDao.listAll();
@@ -216,272 +254,164 @@ class CurdTest {
     }
 
     @Test
-    void testCurd() {
-        // HomeWithVersionPO homeWithVersionPO2 = homeWithVersionDao.getById(1L).orElseThrow();
-        // Long homeId = 1L;
-        // String homeName = "home";
-        // HomeWithVersionPO homeWithVersionPO = HomeWithVersionPO.builder().id(1L).name(homeName).build();
-        //
-        // Long bedId1 = 1L;
-        // Long bedId2 = 2L;
-        // Long bedId3 = 3L;
-        // Long bedId4 = 4L;
-        // String bedName1 = "bed1";
-        // String bedName2 = "bed2";
-        // String bedName3 = "bed3";
-        // String bedName4 = "bed4";
-        // String bedNameBatch = "bed";
-        // BedWithVersionPO bedWithVersionPO1 = BedWithVersionPO.builder().id(bedId1).homeId(homeId).name(bedName1).build();
-        // BedWithVersionPO bedWithVersionPO2 = BedWithVersionPO.builder().id(bedId2).homeId(homeId).name(bedName2).build();
-        // BedWithVersionPO bedWithVersionPO3 = BedWithVersionPO.builder().id(bedId3).homeId(homeId).name(bedName3).build();
-        // BedWithVersionPO bedWithVersionPO4 = BedWithVersionPO.builder().id(bedId4).homeId(homeId).name(bedName4).build();
-        // Collection<BedWithVersionPO> collectionTypeAndUsingDisposableSQLBedWithVersionPOS = Collections.ofImmutableMap(bedId1, bedWithVersionPO1, bedId2, bedWithVersionPO2).values();
-        // Collection<BedWithVersionPO> collectionTypeAndUsingJDBCSQLBedWithVersionPOS = IntStream.range(0, 500).mapToObj(ignore -> BedWithVersionPO.builder().homeId(homeId).name(bedNameBatch + Randoms.getNumber()).build()).collect(Collectors.toUnmodifiableList());
-        // List<BedWithVersionPO> listTypeAndUsingDisposableSQLBedWithVersionPOS = Collections.ofImmutableList(bedWithVersionPO3, bedWithVersionPO4);
-        //
-        // Long doorId1 = 1L;
-        // Long doorId2 = 2L;
-        // Long doorId3 = 3L;
-        // String doorName1 = "door1";
-        // String doorName2 = "door2";
-        // String doorName3 = "door3";
-        // MaterialType woodinessMaterialType = MaterialType.WOODINESS;
-        // MaterialType steelMaterialType = MaterialType.STEEL;
-        //
-        // Long keyId1 = 1L;
-        // Long keyId2 = 2L;
-        // Long keyId3 = 3L;
-        // String keyName1 = "key1";
-        // String keyName2 = "key2";
-        // String keyName3 = "key3";
-        //
-        // // ==================================== test save ====================================
-        // // HomePO afterSaveHomePO = homeDao.save(homePO);
-        // //
-        // // List<BedPO> afterSaveCollectionTypeByUsingDisposableSQLBedPOs = bedDao.save(collectionTypeAndUsingDisposableSQLBedPOs);
-        // // List<BedPO> afterSaveCollectionTypeByUsingJDBCSQLBedPOs = bedDao.save(collectionTypeAndUsingJDBCSQLBedPOs);
-        // // List<BedPO> afterSaveListTypeByUsingJDBCSQLBedPOs = bedDao.save(listTypeAndUsingDisposableSQLBedPOs);
-        // //
-        // // homeDao.openDelete().all().deleteSkipLogic();
-        // // bedDao.openDelete().all().deleteSkipLogic();
-    }
+    void testQuery() {
+        testDelete();
+        testSave();
 
-    // @Test
-    // void testSave() {
-    //     CurdOneIdPO curdOneIdPO1 = curdOneIdDao.save(CurdOneIdPO.builder().build());
-    //     CurdOneIdPO curdOneIdPO2 = curdOneIdDao.save(CurdOneIdPO.builder().id(768L).build());
-    //
-    //     Map<Integer, CurdOneIdPO> smallCurdOneIdPOs = Collections.newHashMap();
-    //     for (int i = 1; i < 60; i++) {
-    //         smallCurdOneIdPOs.put(i, CurdOneIdPO.builder().build());
-    //     }
-    //     List<CurdOneIdPO> curdOneIdPOs1 = curdOneIdDao.save(smallCurdOneIdPOs.values());
-    //
-    //     Map<Integer, CurdOneIdPO> bigCurdOneIdPOs = Collections.newHashMap();
-    //     for (int i = 1; i < 300; i++) {
-    //         bigCurdOneIdPOs.put(i, CurdOneIdPO.builder().build());
-    //     }
-    //     List<CurdOneIdPO> curdOneIdPOs2 = curdOneIdDao.save(bigCurdOneIdPOs.values());
-    //
-    //     Map<Integer, CurdOneIdPO> smallStudentTestIdSnowflakeWithIdPOs = Collections.newHashMap();
-    //     for (int i = 1; i < 60; i++) {
-    //         Long id = (long) (10000 + i);
-    //         smallStudentTestIdSnowflakeWithIdPOs.put(i, CurdOneIdPO.builder().id(id).build());
-    //     }
-    //     List<CurdOneIdPO> curdOneIdPOs3 = curdOneIdDao.save(smallStudentTestIdSnowflakeWithIdPOs.values());
-    //
-    //     Map<Integer, CurdOneIdPO> bigStudentTestIdSnowflakeWithIdPOs = Collections.newHashMap();
-    //     for (int i = 1; i < 300; i++) {
-    //         Long id = (long) (20000 + i);
-    //         bigStudentTestIdSnowflakeWithIdPOs.put(i, CurdOneIdPO.builder().id(id).build());
-    //     }
-    //     List<CurdOneIdPO> curdOneIdPOs4 = curdOneIdDao.save(bigStudentTestIdSnowflakeWithIdPOs.values());
-    //
-    //     curdOneIdDao.deleteSkipLogicAll();
-    // }
-    //
-    // @Test
-    // void testUpdate() {
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(1L).name("test1").build());
-    //     curdOneIdDao.updateWithVersionById(CurdOneIdPO.builder().id(1L).name("test2").build());
-    //     curdOneIdDao.deleteSkipLogicById(1L);
-    //
-    //     // =============
-    //
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(1L).name("test1").build());
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(2L).name("test2").build());
-    //     curdOneIdDao.updateWithVersionById(List.of(CurdOneIdPO.builder().id(1L).name("test3").build(), CurdOneIdPO.builder().id(2L).name("test4").build()), CurdOneIdPO::getId);
-    //     curdOneIdDao.deleteSkipLogicByIds(1L, 2L);
-    //
-    //     // =============
-    //
-    //     curdTwoIdDao.save(CurdTwoIdPO.builder().id(1L).id2(2L).name("test1").build());
-    //     curdTwoIdDao.updateWithVersionById(CurdTwoIdPO.builder().id(1L).id2(2L).name("test2").build());
-    //     curdTwoIdDao.deleteSkipLogicById(CurdTwoIdPO.builder().id(1L).id2(2L).build());
-    // }
-    //
-    // @Test
-    // void testDelete() {
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(10L).build());
-    //     curdOneIdDao.deleteSkipLogicById(10L);
-    //
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(11L).build());
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(12L).build());
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(13L).build());
-    //     curdOneIdDao.deleteSkipLogicByIds(11L, 12L, 13L);
-    //
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(14L).build());
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(15L).build());
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(16L).build());
-    //     curdOneIdDao.deleteSkipLogicByIds(Collections.ofHashSet(14L, 15L, 16L));
-    //
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(17L).build());
-    //     curdOneIdDao.deleteSkipLogicByCondition(QueryWrapper.create().where(STUDENT_TEST_ID_SNOWFLAKE.ID.equalsTo(17L)));
-    //
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(18L).build());
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(19L).build());
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(20L).build());
-    //     curdOneIdDao.deleteSkipLogicByIds(Collections.ofHashSet(18L, 19L, 20L));
-    //
-    //     // =============
-    //
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(10L).build());
-    //     curdOneIdDao.deleteById(10L);
-    //
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(11L).build());
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(12L).build());
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(13L).build());
-    //     curdOneIdDao.deleteByIds(11L, 12L, 13L);
-    //
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(14L).build());
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(15L).build());
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(16L).build());
-    //     curdOneIdDao.deleteByIds(Collections.ofHashSet(14L, 15L, 16L));
-    //
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(17L).build());
-    //     curdOneIdDao.deleteByCondition(QueryWrapper.create().where(STUDENT_TEST_ID_SNOWFLAKE.ID.equalsTo(17L)));
-    //
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(18L).build());
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(19L).build());
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(20L).build());
-    //     curdOneIdDao.deleteAll();
-    //
-    //     // =============
-    //
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(21L).build());
-    //     curdOneIdDao.deleteSkipLogicById(21L);
-    //
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(22L).build());
-    //     curdOneIdDao.deleteById(22L);
-    //     curdOneIdDao.deleteSkipLogicById(22L);
-    //
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(22L).build());
-    //     curdOneIdDao.deleteById(22L);
-    //
-    //     curdOneIdDao.save(CurdOneIdPO.builder().id(21L).build());
-    //     curdOneIdDao.deleteSkipLogicById(21L);
-    //     curdOneIdDao.deleteSkipLogicAll();
-    //
-    //     // =============
-    //
-    //     curdTwoIdDao.save(CurdTwoIdPO.builder().id(1L).id2(2L).build());
-    //     curdTwoIdDao.deleteSkipLogicById(CurdTwoIdPO.builder().id(1L).id2(2L).build());
-    // }
-    //
-    // @Test
-    // void testSelect() {
-    //     // curdOneIdDao.getByCondition();
-    //     // CurdOneIdDao
-    //     // TypeUtil.getGenerics(CurdOneIdDao.class);
-    //     Types.getClassGenericType(CurdOneIdDao.class);
-    //
-    //     // List<JoinOnePO> c = joinOneDao.openQuery()
-    //     //         .innerJoin(JoinTwoPO.class).onEquals(JoinOnePO::getId, JoinTwoPO::getJoinOneId)
-    //     //         .innerJoin(JoinTwoPO.class).onEquals(JoinOnePO::getId, JoinTwoPO::getJoinOneId, JoinOnePO::getId, JoinTwoPO::getJoinOneId, JoinOnePO::getId, JoinTwoPO::getJoinOneId, JoinOnePO::getId, JoinTwoPO::getJoinOneId)
-    //     //         .leftJoin(CurdOneIdPO.class).on(queryChainer -> queryChainer.and(CurdOneIdPO::getId).equalsTo(JoinOnePO::getId))
-    //     //         .where(JoinOnePO::getId).equalsTo(23L)
-    //     //         .and(CurdOneIdPO::getName).equalsTo("11")
-    //     //         .list();
-    //
-    //     // joinOneDao.save(JoinOnePO.builder().id(1L).joinTwoId(1L).build());
-    //     // joinTwoDao.save(JoinTwoPO.builder().id(1L).joinOneId(1L).build());
-    //
-    //     // joinOneDao.openUpdate()
-    //     //         .set(JoinOnePO::getName, "333")
-    //     //         .where(JoinOnePO::getId).equalsTo(23L)
-    //     //         .and(JoinOnePO::getName).equalsTo("11")
-    //     //         .update();
-    //
-    //     // Mappers.ofEntityClass(JoinTwoPO.class);
-    //     // Mappers.ofEntityClass(JoinOnePO.class);
-    //     //
-    //     // joinOneDao.selectListByQuery(QueryWrapper.create());
-    //
-    //     joinTwoDao.openDelete()
-    //             .all()
-    //             // .where(JoinTwoPO::getId).equalsTo(23L)
-    //             // .and(JoinTwoPO::getName).equalsTo("11")
-    //             .delete();
-    //     // .toSQL();
-    //     // .deleteSkipLogic();
-    //
-    //     System.out.println();
-    //
-    //     //
-    //     // UpdateChain.of(JoinOnePO.class)
-    //     //         .set(JoinOnePO::getId, "1")
-    //     //         .set(JOIN_ONE.ID, "1")
-    //     //         .where(JOIN_ONE.ID.equalsTo(1L))
-    //     //         .and(JOIN_TWO.ID.equalsTo(1L))
-    //     //         .where(CurdOneIdPO::getId).eq(23L)
-    //     //         .and(CurdOneIdPO::getId).eq(23L)
-    //     //         .update();
-    //     //
-    //     // List<JoinOnePO> b = joinOneDao.openQuery()
-    //     //         .leftJoin(JOIN_TWO).on(JOIN_ONE.ID.equalsTo(JOIN_TWO.JOIN_ONE_ID))
-    //     //         .where(JOIN_ONE.ID.equalsTo(1L))
-    //     //         .and(JOIN_TWO.ID.equalsTo(1L))
-    //     //         .list();
-    //     //
-    //     // List<CurdOneIdPO> a = curdOneIdDao.openQuery()
-    //     //         // .where(CURD_ONE_ID.ID.equalsTo(21))
-    //     //         // .leftJoin(CurdTwoIdPO.class).on(CURD_ONE_ID.ID.equalsTo(CURD_TWO_ID.ID))
-    //     //         .where(CurdOneIdPO::getId).equalsTo(23L)
-    //     //         // .where(CurdOneIdPO::getId).eq(CurdTwoIdPO::getId)
-    //     //         .where(CurdOneIdPO::getId).eq(CurdOneIdPO::getId)
-    //     //         // .where(CurdOneIdPO::getId).eq(21)
-    //     //         // .and("")
-    //     //         .list();
-    //     //
-    //     // QueryChain.of(CurdOneIdPO.class)
-    //     //         .leftJoin(CurdTwoIdPO.class).on(CURD_ONE_ID.ID.equalsTo(CURD_TWO_ID.ID))
-    //     //         .where(CurdOneIdPO::getId).eq(CurdTwoIdPO::getId)
-    //     //         .where(CURD_ONE_ID.ID.equalsTo(100))
-    //     //         .list();
-    //     //
-    //     // // Proxy.newProxyInstance(CurdOneIdDao.class.getClassLoader()
-    //     // //         , new Class[]{CurdOneIdDao.class}
-    //     // //         , new Mappers.MapperHandler(mapperClass));
-    //     // //
-    //     // // Object mapperObject = MapUtil.computeIfAbsent(MAPPER_OBJECTS, mapperClass, clazz ->
-    //     // //         Proxy.newProxyInstance(mapperClass.getClassLoader()
-    //     // //                 , new Class[]{mapperClass}
-    //     // //                 , new Mappers.MapperHandler(mapperClass)));
-    //     // // return (M) mapperObject;
-    //     //
-    //     // // 更新数据
-    //     // UpdateChain.of(CurdTwoIdPO.class)
-    //     //         .set(CurdTwoIdPO::getName, "22")
-    //     //         .where(CurdTwoIdPO::getId).ge(100)
-    //     //         .and(CurdTwoIdPO::getName).eq("33")
-    //     //         .update();
-    //     //
-    //     // // // 查询所有数据并打印
-    //     // QueryChain.of(CurdTwoIdPO.class)
-    //     //         .where(CurdTwoIdPO::getId).ge(100)
-    //     //         .and(CurdTwoIdPO::getName).eq(18)
-    //     //         .list()
-    //     //         .forEach(System.out::println);
-    // }
+        List<PeoplePO> allPeoplePOs = peopleDao.listAll();
+        PeoplePO theFirstPeoplePO = Collections.getFirst(allPeoplePOs).orElseThrow();
+        PeoplePO theSecondPeoplePO = Collections.getSecond(allPeoplePOs).orElseThrow();
+        List<PeoplePO> peoplePOs = peopleDao.listByIds(Collections.ofImmutableList(theFirstPeoplePO.getId(), theSecondPeoplePO.getId()));
+        PeoplePO peoplePO1 = peopleDao.getById(theFirstPeoplePO).orElseThrow();
+        PeoplePO peoplePO2 = peopleDao.getById(theSecondPeoplePO).orElseThrow();
+        Long peopleTotalNumber = peopleDao.countAll();
+
+        peoplePO1 = (PeoplePO) peopleDao.openQuery()
+                .where(PeoplePO::getId).equalsTo(theFirstPeoplePO.getId())
+                .and(PeoplePO::getName1).equalsTo(theFirstPeoplePO.getName1())
+                .and(PeoplePO::getName1).equalsTo(theFirstPeoplePO.getName1(), () -> true)
+                .and(PeoplePO::getName1).equalsTo(theFirstPeoplePO.getName1(), ignore -> true)
+                .and(PeoplePO::getName1).equalsTo(PeoplePO::getName1)
+                .and(PeoplePO::getName1).equalsTo(PeoplePO::getName1, () -> true)
+                .and(PeoplePO::getName1).equalsIfNotNull(theFirstPeoplePO.getName1())
+                .and(PeoplePO::getName1).equalsIfNotEmpty(theFirstPeoplePO.getName1())
+                .and(PeoplePO::getName1).equalsIfNotBlank(theFirstPeoplePO.getName1())
+                .and(PeoplePO::getCreatorId).equalsIfNotZeroValue(1L)
+
+                .and(PeoplePO::getName1).notEquals("")
+                .and(PeoplePO::getName1).notEquals("", () -> true)
+                .and(PeoplePO::getName1).notEquals("", ignore -> true)
+                .and(PeoplePO::getName1).notEquals(PeoplePO::getId)
+                .and(PeoplePO::getName1).notEquals(PeoplePO::getId, () -> true)
+                .and(PeoplePO::getName1).notEqualsIfNotNull(theFirstPeoplePO.getName1())
+                .and(PeoplePO::getName1).notEqualsIfNotEmpty(theFirstPeoplePO.getName1())
+                .and(PeoplePO::getName1).notEqualsIfNotBlank(theFirstPeoplePO.getName1())
+                .and(PeoplePO::getCreatorId).notEqualsIfNotZeroValue(2L)
+
+                .and(PeoplePO::getId).greaterThan(theFirstPeoplePO.getCreatorId())
+                .and(PeoplePO::getId).greaterThan(theFirstPeoplePO.getCreatorId(), () -> true)
+                .and(PeoplePO::getId).greaterThan(theFirstPeoplePO.getCreatorId(), ignore -> true)
+                .and(PeoplePO::getId).greaterThan(PeoplePO::getCreatorId)
+                .and(PeoplePO::getId).greaterThan(PeoplePO::getCreatorId, () -> true)
+                .and(PeoplePO::getId).greaterThanIfNotNull(theFirstPeoplePO.getCreatorId())
+                .and(PeoplePO::getId).greaterThanIfNotZeroValue(theFirstPeoplePO.getCreatorId())
+
+                .and(PeoplePO::getId).greaterThanOrEquals(theFirstPeoplePO.getCreatorId())
+                .and(PeoplePO::getId).greaterThanOrEquals(theFirstPeoplePO.getCreatorId(), () -> true)
+                .and(PeoplePO::getId).greaterThanOrEquals(theFirstPeoplePO.getCreatorId(), ignore -> true)
+                .and(PeoplePO::getId).greaterThanOrEquals(PeoplePO::getCreatorId)
+                .and(PeoplePO::getId).greaterThanOrEquals(PeoplePO::getCreatorId, () -> true)
+                .and(PeoplePO::getId).greaterThanOrEqualsIfNotNull(theFirstPeoplePO.getCreatorId())
+                .and(PeoplePO::getId).greaterThanOrEqualsIfNotZeroValue(theFirstPeoplePO.getCreatorId())
+
+                .and(PeoplePO::getCreatorId).lessThan(theFirstPeoplePO.getId())
+                .and(PeoplePO::getCreatorId).lessThan(theFirstPeoplePO.getId(), () -> true)
+                .and(PeoplePO::getCreatorId).lessThan(theFirstPeoplePO.getId(), ignore -> true)
+                .and(PeoplePO::getCreatorId).lessThan(PeoplePO::getId)
+                .and(PeoplePO::getCreatorId).lessThan(PeoplePO::getId, () -> true)
+                .and(PeoplePO::getCreatorId).lessThanIfNotNull(theFirstPeoplePO.getId())
+                .and(PeoplePO::getCreatorId).lessThanIfNotZeroValue(theFirstPeoplePO.getId())
+
+                .and(PeoplePO::getCreatorId).lessThanOrEquals(theFirstPeoplePO.getId(), () -> true)
+                .and(PeoplePO::getCreatorId).lessThanOrEquals(theFirstPeoplePO.getId(), ignore -> true)
+                .and(PeoplePO::getCreatorId).lessThanOrEquals(PeoplePO::getId)
+                .and(PeoplePO::getCreatorId).lessThanOrEquals(PeoplePO::getId, () -> true)
+                .and(PeoplePO::getCreatorId).lessThanOrEqualsIfNotNull(theFirstPeoplePO.getId())
+                .and(PeoplePO::getCreatorId).lessThanOrEqualsIfNotZeroValue(theFirstPeoplePO.getId())
+
+                .and(PeoplePO::getId).in(theFirstPeoplePO.getId())
+                .and(PeoplePO::getId).in(Collections.ofArray(Object.class, theFirstPeoplePO.getId()))
+                .and(PeoplePO::getId).in(Collections.ofArray(Object.class, theFirstPeoplePO.getId()), () -> true)
+                .and(PeoplePO::getId).in(Collections.ofArray(Object.class, theFirstPeoplePO.getId()), ignore -> true)
+                .and(PeoplePO::getId).in(Collections.ofImmutableList(theFirstPeoplePO.getId()))
+                .and(PeoplePO::getId).in(Collections.ofImmutableList(theFirstPeoplePO.getId()), () -> true)
+                .and(PeoplePO::getId).in(Collections.ofImmutableList(theFirstPeoplePO.getId()), ignore -> true)
+                .and(PeoplePO::getId).inIfNotEmpty(Collections.ofArray(Object.class, theFirstPeoplePO.getId()))
+                .and(PeoplePO::getId).inIfNotEmpty(Collections.ofImmutableList(theFirstPeoplePO.getId()))
+
+                .and(PeoplePO::getId).notIn(theFirstPeoplePO.getCreatorId())
+                .and(PeoplePO::getId).notIn(Collections.ofArray(Object.class, theFirstPeoplePO.getCreatorId()))
+                .and(PeoplePO::getId).notIn(Collections.ofArray(Object.class, theFirstPeoplePO.getCreatorId()), () -> true)
+                .and(PeoplePO::getId).notIn(Collections.ofArray(Object.class, theFirstPeoplePO.getCreatorId()), ignore -> true)
+                .and(PeoplePO::getId).notIn(Collections.ofImmutableList(theFirstPeoplePO.getCreatorId()))
+                .and(PeoplePO::getId).notIn(Collections.ofImmutableList(theFirstPeoplePO.getCreatorId()), () -> true)
+                .and(PeoplePO::getId).notIn(Collections.ofImmutableList(theFirstPeoplePO.getCreatorId()), ignore -> true)
+                .and(PeoplePO::getId).notInIfNotEmpty(Collections.ofArray(Object.class, theFirstPeoplePO.getCreatorId()))
+                .and(PeoplePO::getId).notInIfNotEmpty(Collections.ofImmutableList(theFirstPeoplePO.getCreatorId()))
+
+                .and(PeoplePO::getId).between(theFirstPeoplePO.getCreatorId(), theFirstPeoplePO.getId())
+                .and(PeoplePO::getId).between(theFirstPeoplePO.getCreatorId(), theFirstPeoplePO.getId(), () -> true)
+                .and(PeoplePO::getId).between(theFirstPeoplePO.getCreatorId(), theFirstPeoplePO.getId(), (ignore1, ignore2) -> true)
+                .and(PeoplePO::getId).betweenIfAllNotNull(theFirstPeoplePO.getCreatorId(), theFirstPeoplePO.getId())
+
+                .and(PeoplePO::getId).notBetween(theFirstPeoplePO.getCreatorId(), 2L)
+                .and(PeoplePO::getId).notBetween(theFirstPeoplePO.getCreatorId(), 2L, () -> true)
+                .and(PeoplePO::getId).notBetween(theFirstPeoplePO.getCreatorId(), 2L, (ignore1, ignore2) -> true)
+                .and(PeoplePO::getId).notBetweenIfAllNotNull(theFirstPeoplePO.getCreatorId(), 2L)
+
+                .and(PeoplePO::getName1).like(theFirstPeoplePO.getName1())
+                .and(PeoplePO::getName1).like(theFirstPeoplePO.getName1(), () -> true)
+                .and(PeoplePO::getName1).like(theFirstPeoplePO.getName1(), ignore -> true)
+                .and(PeoplePO::getName1).likeIfNotNull(theFirstPeoplePO.getName1())
+                .and(PeoplePO::getName1).likeIfNotBlank(theFirstPeoplePO.getName1())
+
+                .and(PeoplePO::getName1).likeLeft(theFirstPeoplePO.getName1())
+                .and(PeoplePO::getName1).likeLeft(theFirstPeoplePO.getName1(), () -> true)
+                .and(PeoplePO::getName1).likeLeft(theFirstPeoplePO.getName1(), ignore -> true)
+                .and(PeoplePO::getName1).likeLeftIfNotNull(theFirstPeoplePO.getName1())
+                .and(PeoplePO::getName1).likeLeftIfNotBlank(theFirstPeoplePO.getName1())
+
+                .and(PeoplePO::getName1).likeRight(theFirstPeoplePO.getName1())
+                .and(PeoplePO::getName1).likeRight(theFirstPeoplePO.getName1(), () -> true)
+                .and(PeoplePO::getName1).likeRight(theFirstPeoplePO.getName1(), ignore -> true)
+                .and(PeoplePO::getName1).likeRightIfNotNull(theFirstPeoplePO.getName1())
+                .and(PeoplePO::getName1).likeRightIfNotBlank(theFirstPeoplePO.getName1())
+
+                .and(PeoplePO::getName1).likeRaw(theFirstPeoplePO.getName1())
+                .and(PeoplePO::getName1).likeRaw(theFirstPeoplePO.getName1(), () -> true)
+                .and(PeoplePO::getName1).likeRaw(theFirstPeoplePO.getName1(), ignore -> true)
+                .and(PeoplePO::getName1).likeRawIfNotNull(theFirstPeoplePO.getName1())
+                .and(PeoplePO::getName1).likeRawIfNotBlank(theFirstPeoplePO.getName1())
+
+                .and(PeoplePO::getName1).notLike("111")
+                .and(PeoplePO::getName1).notLike("111", () -> true)
+                .and(PeoplePO::getName1).notLike("111", ignore -> true)
+                .and(PeoplePO::getName1).notLikeIfNotNull("111")
+                .and(PeoplePO::getName1).notLikeIfNotBlank("111")
+
+                .and(PeoplePO::getName1).notLikeLeft("111")
+                .and(PeoplePO::getName1).notLikeLeft("111", () -> true)
+                .and(PeoplePO::getName1).notLikeLeft("111", ignore -> true)
+                .and(PeoplePO::getName1).notLikeLeftIfNotNull("111")
+                .and(PeoplePO::getName1).notLikeLeftIfNotBlank("111")
+
+                .and(PeoplePO::getName1).notLikeRight("111")
+                .and(PeoplePO::getName1).notLikeRight("111", () -> true)
+                .and(PeoplePO::getName1).notLikeRight("111", ignore -> true)
+                .and(PeoplePO::getName1).notLikeRightIfNotNull("111")
+                .and(PeoplePO::getName1).notLikeRightIfNotBlank("111")
+
+                .and(PeoplePO::getName1).notLikeRaw("111")
+                .and(PeoplePO::getName1).notLikeRaw("111", () -> true)
+                .and(PeoplePO::getName1).notLikeRaw("111", ignore -> true)
+                .and(PeoplePO::getName1).notLikeRawIfNotNull("111")
+                .and(PeoplePO::getName1).notLikeRawIfNotBlank("111")
+
+                .and(PeoplePO::getDeleteTime).isNull()
+                .and(PeoplePO::getDeleteTime).isNull(() -> true)
+
+                .and(PeoplePO::getId).isNotNull()
+                .and(PeoplePO::getId).isNotNull(() -> true)
+
+                .orderByDesc(PeoplePO::getCreateTime)
+                .get()
+                .orElseThrow();
+
+        //         .set(PeoplePO::getName2, theFirstPeoplePO.getName2() + "-set-boolean-supplier-2", () -> false)
+        // .set(PeoplePO::getName3, theFirstPeoplePO.getName3() + "-set-boolean-predicate-2", ignore -> false)
+        // .set(PeoplePO::getName4, theFirstPeoplePO.getName4() + "-set-boolean-2", ignore -> false)
+
+        testDelete();
+    }
 
 }

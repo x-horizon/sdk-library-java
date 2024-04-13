@@ -14,7 +14,12 @@ public class TestInsertListener implements BaseInsertListener<BasePO> {
 
     @Override
     public void action(BasePO entity) {
-        entity.setCreateTime(LocalDateTime.now()).setCreatorId(1L);
+        LocalDateTime now = LocalDateTime.now();
+        entity.setCreatorId(1L)
+                .setUpdaterId(1L)
+                .setCreateTime(now)
+                .setUpdateTime(now);
+
     }
 
 }
