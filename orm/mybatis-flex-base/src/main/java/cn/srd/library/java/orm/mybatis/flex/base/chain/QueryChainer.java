@@ -148,8 +148,9 @@ public class QueryChainer<T extends PO> extends AbstractQueryChainer<T> {
         return Collections.getFirst(list());
     }
 
+    // TODO wjm 测试是否为 limit 1，并且补充与 getFirst 的区别
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public <U extends PO> Optional<U> getOnlyOne() {
+    public <U extends PO> Optional<U> getFirstOne() {
         return Optional.ofNullable((U) getNativeQueryChainer().obj());
     }
 
