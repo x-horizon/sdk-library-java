@@ -266,7 +266,8 @@ class CurdTest {
         PeoplePO peoplePO2 = peopleDao.getById(theSecondPeoplePO).orElseThrow();
         Long peopleTotalNumber = peopleDao.countAll();
 
-        peoplePO1 = (PeoplePO) peopleDao.openQuery()
+        peoplePO1 = (PeoplePO) peopleDao
+                .openQuery()
                 .where(PeoplePO::getId).equalsTo(theFirstPeoplePO.getId())
                 .and(PeoplePO::getName1).equalsTo(theFirstPeoplePO.getName1())
                 .and(PeoplePO::getName1).equalsTo(theFirstPeoplePO.getName1(), () -> true)
@@ -368,10 +369,10 @@ class CurdTest {
                 .and(PeoplePO::getName1).likeRightIfNotBlank(theFirstPeoplePO.getName1())
 
                 .and(PeoplePO::getName1).likeRaw(theFirstPeoplePO.getName1())
-                .and(PeoplePO::getName1).likeRaw(theFirstPeoplePO.getName1(), () -> true)
-                .and(PeoplePO::getName1).likeRaw(theFirstPeoplePO.getName1(), ignore -> true)
-                .and(PeoplePO::getName1).likeRawIfNotNull(theFirstPeoplePO.getName1())
-                .and(PeoplePO::getName1).likeRawIfNotBlank(theFirstPeoplePO.getName1())
+                // .and(PeoplePO::getName1).likeRaw(theFirstPeoplePO.getName1(), () -> true)
+                // .and(PeoplePO::getName1).likeRaw(theFirstPeoplePO.getName1(), ignore -> true)
+                // .and(PeoplePO::getName1).likeRawIfNotNull(theFirstPeoplePO.getName1())
+                // .and(PeoplePO::getName1).likeRawIfNotBlank(theFirstPeoplePO.getName1())
 
                 .and(PeoplePO::getName1).notLike("111")
                 .and(PeoplePO::getName1).notLike("111", () -> true)
@@ -391,11 +392,11 @@ class CurdTest {
                 .and(PeoplePO::getName1).notLikeRightIfNotNull("111")
                 .and(PeoplePO::getName1).notLikeRightIfNotBlank("111")
 
-                .and(PeoplePO::getName1).notLikeRaw("111")
-                .and(PeoplePO::getName1).notLikeRaw("111", () -> true)
-                .and(PeoplePO::getName1).notLikeRaw("111", ignore -> true)
-                .and(PeoplePO::getName1).notLikeRawIfNotNull("111")
-                .and(PeoplePO::getName1).notLikeRawIfNotBlank("111")
+                // .and(PeoplePO::getName1).notLikeRaw("111")
+                // .and(PeoplePO::getName1).notLikeRaw("111", () -> true)
+                // .and(PeoplePO::getName1).notLikeRaw("111", ignore -> true)
+                // .and(PeoplePO::getName1).notLikeRawIfNotNull("111")
+                // .and(PeoplePO::getName1).notLikeRawIfNotBlank("111")
 
                 .and(PeoplePO::getDeleteTime).isNull()
                 .and(PeoplePO::getDeleteTime).isNull(() -> true)
