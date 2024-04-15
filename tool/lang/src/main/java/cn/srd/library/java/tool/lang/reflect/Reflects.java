@@ -57,8 +57,9 @@ public class Reflects {
      * @param fieldName the field name to find value
      * @return the field value
      */
-    public static Object getFieldValue(Object input, String fieldName) {
-        return ReflectUtil.getFieldValue(input, fieldName);
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public static <T> T getFieldValue(Object input, String fieldName) {
+        return (T) ReflectUtil.getFieldValue(input, fieldName);
     }
 
     /**

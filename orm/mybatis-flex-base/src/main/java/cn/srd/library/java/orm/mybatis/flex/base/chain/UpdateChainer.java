@@ -23,7 +23,7 @@ import java.util.function.Predicate;
  */
 @AllArgsConstructor(access = AccessLevel.MODULE)
 @SuppressWarnings(SuppressWarningConstant.UNUSED)
-public class UpdateChainer<T extends PO> extends AbstractUpdateChainer<T> {
+public class UpdateChainer<T extends PO> extends BaseUpdateChainer<T> {
 
     @Getter(AccessLevel.PROTECTED) private final BaseMapper<T> nativeBaseMapper;
 

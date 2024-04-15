@@ -1,4 +1,4 @@
-package cn.srd.library.java.orm.mybatis.flex.postgresql.model.po;
+package cn.srd.library.java.orm.contract.mybatis.flex.model.bo;
 
 import com.mybatisflex.annotation.Column;
 import lombok.Data;
@@ -9,12 +9,16 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 
+/**
+ * @author wjm
+ * @since 2023-11-04 00:19
+ */
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-public class BaseWithVersionPO extends BasePO {
+public class BaseVersionBO extends BaseBO {
 
     @Serial private static final long serialVersionUID = 2152316212528302390L;
 

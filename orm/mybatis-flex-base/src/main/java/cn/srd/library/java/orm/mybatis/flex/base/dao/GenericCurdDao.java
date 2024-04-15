@@ -466,41 +466,13 @@ public interface GenericCurdDao<T extends PO> {
         return Optional.ofNullable(getBaseMapper().selectOneByEntityId(entity));
     }
 
-    // default Optional<T> getByCondition(QueryWrapper queryWrapper) {
-    //     return Optional.ofNullable(getBaseMapper().selectOneByQuery(queryWrapper));
-    // }
-
     default List<T> listByIds(Iterable<? extends Serializable> ids) {
         return getBaseMapper().selectListByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toSet(ids));
     }
 
-    // default List<T> listByCondition(QueryWrapper queryWrapper) {
-    //     return getBaseMapper().selectListByQuery(queryWrapper);
-    // }
-
-    // default <R extends BO> List<R> listByCondition(QueryWrapper queryWrapper, Class<R> asType) {
-    //     return getBaseMapper().selectListByQueryAs(queryWrapper, asType);
-    // }
-
     default List<T> listAll() {
         return getBaseMapper().selectListByQuery(QueryWrapper.create());
     }
-
-    // default PageResult<T> pageByCondition(QueryWrapper queryWrapper) {
-    //     return pageByCondition(PageConstant.DEFAULT_PAGE_INDEX, PageConstant.DEFAULT_PAGE_SIZE, queryWrapper);
-    // }
-    //
-    // default PageResult<T> pageByCondition(PageParam pageParam, QueryWrapper queryWrapper) {
-    //     return pageByCondition(pageParam.getPageNumber(), pageParam.getPageSize(), queryWrapper);
-    // }
-    //
-    // default PageResult<T> pageByCondition(Number pageIndex, Number pageSize, QueryWrapper queryWrapper) {
-    //     return PageConverter.INSTANCE.toPageResult(getBaseMapper().paginate(pageIndex, pageSize, queryWrapper));
-    // }
-    //
-    // default long countByCondition(QueryWrapper queryWrapper) {
-    //     return getBaseMapper().selectCountByQuery(queryWrapper);
-    // }
 
     default long countAll() {
         return getBaseMapper().selectCountByQuery(QueryWrapper.create());

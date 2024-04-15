@@ -11,7 +11,7 @@ import com.mybatisflex.core.query.QueryWrapper;
  * @author wjm
  * @since 2023-12-05 16:38
  */
-public abstract class AbstractQueryConditional<Q extends QueryWrapper> {
+public abstract class BaseQueryConditional<Q extends QueryWrapper> {
 
     protected abstract QueryConditionBuilder<Q> getNativeQueryConditional();
 

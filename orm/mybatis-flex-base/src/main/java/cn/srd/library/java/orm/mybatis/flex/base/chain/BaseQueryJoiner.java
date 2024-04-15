@@ -5,14 +5,15 @@
 package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
 import cn.srd.library.java.orm.contract.model.base.PO;
+import com.mybatisflex.core.query.Joiner;
 import com.mybatisflex.core.query.QueryChain;
 
 /**
  * @author wjm
  * @since 2023-12-05 16:38
  */
-public abstract class AbstractQueryChainer<T extends PO> extends AbstractChainer<T> {
+public abstract class BaseQueryJoiner<T extends PO> {
 
-    protected abstract QueryChain<T> getNativeQueryChainer();
+    protected abstract Joiner<QueryChain<T>> getNativeQueryJoiner();
 
 }

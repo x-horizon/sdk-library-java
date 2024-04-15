@@ -11,7 +11,6 @@ import cn.srd.library.java.orm.contract.model.page.PageParam;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.orm.mybatis.flex.base.converter.PageConverter;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnValueGetter;
-import cn.srd.library.java.tool.lang.collection.Collections;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryChain;
@@ -30,7 +29,7 @@ import java.util.function.BooleanSupplier;
  */
 @AllArgsConstructor(access = AccessLevel.MODULE)
 @SuppressWarnings(SuppressWarningConstant.UNUSED)
-public class QueryChainer<T extends PO> extends AbstractQueryChainer<T> {
+public class QueryChainer<T extends PO> extends BaseQueryChainer<T> {
 
     @Getter(AccessLevel.PROTECTED) private final BaseMapper<T> nativeBaseMapper;
 
@@ -38,6 +37,12 @@ public class QueryChainer<T extends PO> extends AbstractQueryChainer<T> {
 
     public static <T extends PO> QueryChainer<T> of(BaseMapper<T> baseMapper) {
         return new QueryChainer<>(baseMapper, QueryChain.of(baseMapper));
+    }
+
+    @SafeVarargs
+    public final <U extends PO> QueryChainer<T> select(ColumnValueGetter<U>... columnValueGetters) {
+        getNativeQueryChainer().select(columnValueGetters);
+        return this;
     }
 
     public <U extends PO> QueryJoiner<T, QueryChainer<T>> innerJoin(Class<U> entityClass) {
@@ -76,17 +81,16 @@ public class QueryChainer<T extends PO> extends AbstractQueryChainer<T> {
         return new QueryJoiner<>(getNativeQueryChainer().rightJoin(entityClass, condition), this);
     }
 
-    public <U extends PO> QueryJoiner<T, QueryChainer<T>> crossJoin(Class<U> entityClass) {
-        return crossJoin(entityClass, true);
-    }
-
-    public <U extends PO> QueryJoiner<T, QueryChainer<T>> crossJoin(Class<U> entityClass, BooleanSupplier condition) {
-        return crossJoin(entityClass, condition.getAsBoolean());
-    }
-
-    public <U extends PO> QueryJoiner<T, QueryChainer<T>> crossJoin(Class<U> entityClass, boolean condition) {
-        return new QueryJoiner<>(getNativeQueryChainer().crossJoin(entityClass, condition), this);
-    }
+    // TODO wjm 关于 cross join，不是在 cross join table name 后拼接 on 的连接条件的，而是在 where 后拼接表的连接条件，mybatis-flex 目前的实现有 bug，此处先屏蔽 cross join 的相关函数
+    // public <U extends PO> QueryJoiner<T, QueryChainer<T>> crossJoin(Class<U> entityClass) {
+    //     return crossJoin(entityClass, true);
+    // }
+    // public <U extends PO> QueryJoiner<T, QueryChainer<T>> crossJoin(Class<U> entityClass, BooleanSupplier condition) {
+    //     return crossJoin(entityClass, condition.getAsBoolean());
+    // }
+    // public <U extends PO> QueryJoiner<T, QueryChainer<T>> crossJoin(Class<U> entityClass, boolean condition) {
+    //     return new QueryJoiner<>(getNativeQueryChainer().crossJoin(entityClass, condition), this);
+    // }
 
     public <U extends PO> QueryJoiner<T, QueryChainer<T>> fullJoin(Class<U> entityClass) {
         return fullJoin(entityClass, true);
@@ -139,24 +143,12 @@ public class QueryChainer<T extends PO> extends AbstractQueryChainer<T> {
         return this;
     }
 
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public <U extends PO> Optional<U> get() {
-        return (Optional<U>) getNativeQueryChainer().oneOpt();
+    public Optional<T> get() {
+        return getNativeQueryChainer().oneOpt();
     }
 
-    public <U extends PO> Optional<U> getFirst() {
-        return Collections.getFirst(list());
-    }
-
-    // TODO wjm 测试是否为 limit 1，并且补充与 getFirst 的区别
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public <U extends PO> Optional<U> getFirstOne() {
-        return Optional.ofNullable((U) getNativeQueryChainer().obj());
-    }
-
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public <U extends PO> List<U> list() {
-        return (List<U>) getNativeQueryChainer().list();
+    public List<T> list() {
+        return getNativeQueryChainer().list();
     }
 
     public PageResult<T> page() {
@@ -185,6 +177,10 @@ public class QueryChainer<T extends PO> extends AbstractQueryChainer<T> {
 
     public boolean exists() {
         return getNativeQueryChainer().exists();
+    }
+
+    public boolean notExists() {
+        return !exists();
     }
 
     public String toSQL() {

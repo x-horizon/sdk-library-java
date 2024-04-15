@@ -20,7 +20,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor(access = AccessLevel.MODULE)
 @SuppressWarnings(SuppressWarningConstant.UNUSED)
-public class DeleteChainer<T extends PO> extends AbstractDeleteChainer<T> {
+public class DeleteChainer<T extends PO> extends BaseDeleteChainer<T> {
 
     @Getter(AccessLevel.PROTECTED) private final BaseMapper<T> nativeBaseMapper;
 
@@ -40,10 +40,6 @@ public class DeleteChainer<T extends PO> extends AbstractDeleteChainer<T> {
 
     public QueryConditional<T, DeleteChainer<T>, UpdateChain<T>> or(ColumnValueGetter<T> columnValueGetter) {
         return new QueryConditional<>(getNativeUpdateChainer().or(columnValueGetter), this);
-    }
-
-    public DeleteChainer<T> all() {
-        return this;
     }
 
     public void delete() {

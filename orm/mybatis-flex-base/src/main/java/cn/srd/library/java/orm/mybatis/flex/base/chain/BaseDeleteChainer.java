@@ -10,6 +10,6 @@ import cn.srd.library.java.orm.contract.model.base.PO;
  * @author wjm
  * @since 2023-12-08 20:39
  */
-public abstract class AbstractDeleteChainer<T extends PO> extends AbstractUpdateChainer<T> {
+public abstract class BaseDeleteChainer<T extends PO> extends BaseUpdateChainer<T> {
 
 }

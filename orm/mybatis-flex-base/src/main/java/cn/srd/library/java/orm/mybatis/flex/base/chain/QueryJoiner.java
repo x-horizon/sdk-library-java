@@ -21,13 +21,13 @@ import java.util.function.Consumer;
  */
 @AllArgsConstructor(access = AccessLevel.MODULE)
 @SuppressWarnings(SuppressWarningConstant.UNUSED)
-public class QueryJoiner<T extends PO, Q extends AbstractQueryChainer<T>> extends AbstractQueryJoiner<T> {
-
-    private static final String WHERE_QUERY_CONDITION_FIELD_NAME = "whereQueryCondition";
+public class QueryJoiner<T extends PO, Q extends BaseQueryChainer<T>> extends BaseQueryJoiner<T> {
 
     @Getter(AccessLevel.PROTECTED) private final Joiner<QueryChain<T>> nativeQueryJoiner;
 
     @Getter(AccessLevel.PRIVATE) private final Q queryChainer;
+
+    private static final String WHERE_QUERY_CONDITION_FIELD_NAME = "whereQueryCondition";
 
     public QueryJoiner<T, Q> as(String alias) {
         getNativeQueryJoiner().as(alias);

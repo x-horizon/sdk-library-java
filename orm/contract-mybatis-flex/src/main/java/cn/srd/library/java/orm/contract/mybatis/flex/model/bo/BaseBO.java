@@ -1,6 +1,6 @@
-package cn.srd.library.java.orm.mybatis.flex.postgresql.model.po;
+package cn.srd.library.java.orm.contract.mybatis.flex.model.bo;
 
-import cn.srd.library.java.orm.contract.model.base.PO;
+import cn.srd.library.java.orm.contract.model.base.BO;
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonLongToLocalDateTimeDeserializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonLocalDateTimeToLongSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -14,11 +14,15 @@ import lombok.experimental.SuperBuilder;
 import java.io.Serial;
 import java.time.LocalDateTime;
 
+/**
+ * @author wjm
+ * @since 2023-11-04 00:19
+ */
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
-public class BasePO implements PO {
+public class BaseBO implements BO {
 
     @Serial private static final long serialVersionUID = -6744701187675528956L;
 

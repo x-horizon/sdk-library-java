@@ -13,6 +13,8 @@ import cn.srd.library.java.tool.lang.functional.If;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import com.mybatisflex.core.query.QueryColumn;
+import com.mybatisflex.core.query.QueryCondition;
 import com.mybatisflex.core.query.QueryConditionBuilder;
 import com.mybatisflex.core.query.QueryWrapper;
 import lombok.AccessLevel;
@@ -32,7 +34,7 @@ import java.util.function.Predicate;
 @CanIgnoreReturnValue
 @AllArgsConstructor(access = AccessLevel.MODULE)
 @SuppressWarnings(SuppressWarningConstant.UNUSED)
-public class QueryConditional<T extends PO, Q extends AbstractChainer<T>, N extends QueryWrapper> extends AbstractQueryConditional<N> {
+public class QueryConditional<T extends PO, Q extends BaseChainer<T>, N extends QueryWrapper> extends BaseQueryConditional<N> {
 
     @Getter(AccessLevel.PROTECTED)
     private final QueryConditionBuilder<N> nativeQueryConditional;
@@ -1292,7 +1294,9 @@ public class QueryConditional<T extends PO, Q extends AbstractChainer<T>, N exte
      * @return like {@code "value"} condition
      */
     public Q likeRaw(Object value, boolean condition) {
-        Reflects.invoke(this, ADD_WHERE_QUERY_CONDITION_METHOD_NAME, Reflects.invoke(Reflects.getFieldValue(getNativeQueryConditional(), QUERY_COLUMN_FIELD_NAME), LIKE_RAW_METHOD_NAME), value, condition);
+        QueryColumn queryColumn = Reflects.getFieldValue(getNativeQueryConditional(), QUERY_COLUMN_FIELD_NAME);
+        QueryCondition queryCondition = Reflects.invoke(queryColumn, LIKE_RAW_METHOD_NAME, value, condition);
+        Reflects.invoke(nativeQueryConditional, ADD_WHERE_QUERY_CONDITION_METHOD_NAME, queryCondition);
         return getChainer();
     }
 
@@ -1562,7 +1566,9 @@ public class QueryConditional<T extends PO, Q extends AbstractChainer<T>, N exte
      * @return not like {@code "value"} condition
      */
     public Q notLikeRaw(Object value, boolean condition) {
-        Reflects.invoke(this, ADD_WHERE_QUERY_CONDITION_METHOD_NAME, Reflects.invoke(Reflects.getFieldValue(getNativeQueryConditional(), QUERY_COLUMN_FIELD_NAME), NOT_LIKE_RAW_METHOD_NAME), value, condition);
+        QueryColumn queryColumn = Reflects.getFieldValue(getNativeQueryConditional(), QUERY_COLUMN_FIELD_NAME);
+        QueryCondition queryCondition = Reflects.invoke(queryColumn, NOT_LIKE_RAW_METHOD_NAME, value, condition);
+        Reflects.invoke(nativeQueryConditional, ADD_WHERE_QUERY_CONDITION_METHOD_NAME, queryCondition);
         return getChainer();
     }
 
