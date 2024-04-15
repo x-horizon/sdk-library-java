@@ -1,0 +1,44 @@
+package ${packageName}.bean.vo;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+
+/**
+ * ${tableComment}(${tableName}) 视图模型
+ *
+ * @author TODO 请填写名字
+ * @since ${currentTimeAccurateToSecond}
+ */
+@Schema(description = "${tableComment}(${tableName}) 视图模型")
+@Data
+@NoArgsConstructor
+@Accessors(chain = true)
+@SuperBuilder(toBuilder = true)
+public class ${ClassName}VO implements Serializable {
+
+    // TODO 请添加 serialVersionUID
+
+    #foreach ($tableColumn in $tableColumns)
+    #if($tableColumn.genColumnComment == '主键')
+    @Schema(description = "$tableColumn.genColumnComment", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "")
+    private String $tableColumn.javaFieldName;
+
+    #end
+    #if($tableColumn.genColumnComment != '主键')
+    #if($tableColumn.javaFieldName == 'createTime' || $tableColumn.javaFieldName == 'updateTime')
+    @Schema(description = "$tableColumn.genColumnComment", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "")
+    private Long $tableColumn.javaFieldName;
+
+    #end
+    #if($tableColumn.javaFieldName != 'deleteIs' && $tableColumn.javaFieldName != 'createTime' && $tableColumn.javaFieldName != 'updateTime')
+    @Schema(description = "$tableColumn.genColumnComment", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "")
+    private $tableColumn.javaFieldType $tableColumn.javaFieldName;
+
+    #end
+    #end
+    #end
+}
