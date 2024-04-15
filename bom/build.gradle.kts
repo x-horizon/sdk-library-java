@@ -176,6 +176,8 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.SECURITY_SPRING)))
         api(project(GradleModule.toReferenceName(GradleModule.SECURITY_SA_TOKEN)))
 
+        api(project(GradleModule.toReferenceName(GradleModule.STUDIO_LOW_CODE)))
+
         api(project(GradleModule.toReferenceName(GradleModule.TEST_CONTAINER)))
         api(project(GradleModule.toReferenceName(GradleModule.TEST_JMH)))
         api(project(GradleModule.toReferenceName(GradleModule.TEST_JUNIT)))

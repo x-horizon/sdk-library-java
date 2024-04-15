@@ -94,6 +94,8 @@ include(":security:contract")
 include(":security:spring")
 include(":security:sa-token")
 
+include(":studio:low-code")
+
 include(":test:container")
 include(":test:jmh")
 include(":test:junit")

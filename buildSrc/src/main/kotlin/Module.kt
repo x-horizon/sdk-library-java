@@ -85,6 +85,8 @@ object GradleModule {
     const val SECURITY_SPRING = "security-spring"
     const val SECURITY_SA_TOKEN = "security-sa-token"
 
+    const val STUDIO_LOW_CODE = "studio-low-code"
+
     const val TEST_CONTAINER = "test-container"
     const val TEST_JMH = "test-jmh"
     const val TEST_JUNIT = "test-junit"
