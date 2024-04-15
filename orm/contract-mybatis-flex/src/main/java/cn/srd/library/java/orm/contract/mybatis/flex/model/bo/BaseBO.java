@@ -26,6 +26,9 @@ public class BaseBO implements BO {
 
     @Serial private static final long serialVersionUID = -6744701187675528956L;
 
+    @Column(value = "remark")
+    private String remark;
+
     @Column(value = "creator_id")
     private Long creatorId;
 

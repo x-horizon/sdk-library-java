@@ -9,6 +9,7 @@ CREATE TABLE home
 (
     id          BIGINT                                       NOT NULL,
     name        VARCHAR(64)                    DEFAULT ''    NOT NULL,
+    remark      VARCHAR(255)                   DEFAULT ''    NOT NULL,
     creator_id  BIGINT                         DEFAULT 0     NOT NULL,
     updater_id  BIGINT                         DEFAULT 0     NOT NULL,
     create_time TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
@@ -30,6 +31,7 @@ CREATE TABLE people
     name6       VARCHAR(64)                    DEFAULT ''    NOT NULL,
     name7       VARCHAR(64)                    DEFAULT ''    NOT NULL,
     version     BIGINT                         DEFAULT 0     NOT NULL,
+    remark      VARCHAR(255)                   DEFAULT ''    NOT NULL,
     creator_id  BIGINT                         DEFAULT 0     NOT NULL,
     updater_id  BIGINT                         DEFAULT 0     NOT NULL,
     create_time TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
