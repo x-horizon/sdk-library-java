@@ -37,7 +37,7 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
     public PageResult<StudentVO> pageByCondition(StudentPageConditionVO studentPageConditionVO) {
         return studentDao.openQuery()
                 .where(StudentPO::getName).likeIfNotBlank(studentPageConditionVO.getName())
-                .page();
+                .page(studentPageConditionVO.getPageNumber(), studentPageConditionVO.getPageSize());
     }
 
 }

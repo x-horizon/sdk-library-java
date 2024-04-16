@@ -37,7 +37,7 @@ public class SchoolService extends GenericService<SchoolPO, SchoolVO, SchoolDao>
     public PageResult<SchoolVO> pageByCondition(SchoolPageConditionVO schoolPageConditionVO) {
         return schoolDao.openQuery()
                 .where(SchoolPO::getName).likeIfNotBlank(schoolPageConditionVO.getName())
-                .page();
+                .page(schoolPageConditionVO.getPageNumber(), schoolPageConditionVO.getPageSize());
     }
 
 }
