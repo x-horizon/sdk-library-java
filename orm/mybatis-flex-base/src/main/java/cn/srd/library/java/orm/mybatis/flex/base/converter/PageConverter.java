@@ -28,8 +28,21 @@ public interface PageConverter {
 
     PageConverter INSTANCE = Mappers.getMapper(PageConverter.class);
 
+    default <P extends PO> PageResult<P> toPageResult(Page<P> page) {
+        if (Nil.isNull(page)) {
+            return null;
+        }
+        return PageResult.<P>builder()
+                .totalNumber(page.getTotalRow())
+                .totalPageNumber(page.getTotalPage())
+                .currentPageNumber(page.getPageNumber())
+                .pageSize(page.getPageSize())
+                .data(page.getRecords())
+                .build();
+    }
+
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    default <P extends PO, V extends VO> PageResult<V> toPageResult(Page<P> page) {
+    default <P extends PO, V extends VO> PageResult<V> toPageResultVO(Page<P> page) {
         if (Nil.isNull(page)) {
             return null;
         }

@@ -167,24 +167,44 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
         return list().stream().map(po -> (V) po.toVO()).collect(Collectors.toList());
     }
 
-    public <V extends VO> PageResult<V> page() {
+    public PageResult<P> page() {
         return page(PageConstant.DEFAULT_PAGE_INDEX, PageConstant.DEFAULT_PAGE_SIZE);
     }
 
-    public <V extends VO> PageResult<V> page(PageParam pageParam) {
+    public PageResult<P> page(PageParam pageParam) {
         return page(pageParam.getPageNumber(), pageParam.getPageSize(), pageParam.getTotalNumber());
     }
 
-    public <V extends VO> PageResult<V> page(Number pageIndex, Number pageSize) {
+    public PageResult<P> page(Number pageIndex, Number pageSize) {
         return page(new Page<>(pageIndex, pageSize));
     }
 
-    public <V extends VO> PageResult<V> page(Number pageIndex, Number pageSize, Number totalNumber) {
+    public PageResult<P> page(Number pageIndex, Number pageSize, Number totalNumber) {
         return page(new Page<>(pageIndex, pageSize, totalNumber));
     }
 
-    private <V extends VO> PageResult<V> page(Page<P> page) {
+    private PageResult<P> page(Page<P> page) {
         return PageConverter.INSTANCE.toPageResult(getNativeQueryChainer().page(page));
+    }
+
+    public <V extends VO> PageResult<V> pageToVO() {
+        return pageToVO(PageConstant.DEFAULT_PAGE_INDEX, PageConstant.DEFAULT_PAGE_SIZE);
+    }
+
+    public <V extends VO> PageResult<V> pageToVO(PageParam pageParam) {
+        return pageToVO(pageParam.getPageNumber(), pageParam.getPageSize(), pageParam.getTotalNumber());
+    }
+
+    public <V extends VO> PageResult<V> pageToVO(Number pageIndex, Number pageSize) {
+        return pageToVO(new Page<>(pageIndex, pageSize));
+    }
+
+    public <V extends VO> PageResult<V> pageToVO(Number pageIndex, Number pageSize, Number totalNumber) {
+        return pageToVO(new Page<>(pageIndex, pageSize, totalNumber));
+    }
+
+    private <V extends VO> PageResult<V> pageToVO(Page<P> page) {
+        return PageConverter.INSTANCE.toPageResultVO(getNativeQueryChainer().page(page));
     }
 
     public long count() {
