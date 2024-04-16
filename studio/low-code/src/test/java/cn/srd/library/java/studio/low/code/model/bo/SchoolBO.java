@@ -6,7 +6,7 @@ package cn.srd.library.java.studio.low.code.model.bo;
 
 import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseVersionBO;
 import com.mybatisflex.annotation.Column;
-import com.mybatisflex.annotation.Id;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -16,11 +16,12 @@ import lombok.experimental.SuperBuilder;
 import java.io.Serial;
 
 /**
- * 学校信息
+ * 学校信息 model
  *
  * @author TODO 请填写作者名字
  * @since 2024-04-15 23:57
  */
+@Schema(description = "学校信息")
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
@@ -30,13 +31,11 @@ public class SchoolBO extends BaseVersionBO {
 
     @Serial private static final long serialVersionUID = -9052089371242697920L;
 
-    @Id
-    @Column(value = "id")
-    private Long id;
-
+    @Schema(description = "名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "example-name")
     @Column(value = "name")
     private String name;
 
+    @Schema(description = "地址", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "example-address")
     @Column(value = "address")
     private String address;
 

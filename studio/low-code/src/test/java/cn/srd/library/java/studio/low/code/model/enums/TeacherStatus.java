@@ -9,21 +9,22 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 教师课程类型
+ * 教师状态
  *
  * @author TODO 请填写作者名字
  * @since 2024-04-15 23:57
  */
 @Getter
 @AllArgsConstructor
-public enum TeacherCourseType {
+public enum TeacherStatus {
 
-    CHINESE("语文"),
-    MATH("数学"),
-    ENGLISH("英语"),
+    ONLINE(1, "在职"),
+    OFFLINE(2, "离职"),
     ;
 
     @EnumValue
-    private final String code;
+    private final int code;
+
+    private final String description;
 
 }

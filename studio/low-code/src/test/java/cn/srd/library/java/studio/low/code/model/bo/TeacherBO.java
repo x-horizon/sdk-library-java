@@ -5,10 +5,20 @@
 package cn.srd.library.java.studio.low.code.model.bo;
 
 import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseVersionBO;
+import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListEnumIntegerTypeHandler;
+import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListEnumStringTypeHandler;
 import cn.srd.library.java.studio.low.code.model.enums.TeacherCourseType;
 import cn.srd.library.java.studio.low.code.model.enums.TeacherLevelType;
+import cn.srd.library.java.studio.low.code.model.enums.TeacherStatus;
+import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToEnumDeserializer;
+import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonListEnumValueToListEnumDeserializer;
+import cn.srd.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
+import cn.srd.library.java.tool.convert.jackson.serializer.JacksonListEnumToListIntegerSerializer;
+import cn.srd.library.java.tool.convert.jackson.serializer.JacksonListEnumToListStringSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mybatisflex.annotation.Column;
-import com.mybatisflex.annotation.Id;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -19,7 +29,7 @@ import java.io.Serial;
 import java.util.List;
 
 /**
- * 教师信息
+ * 教师信息 model
  *
  * @author TODO 请填写作者名字
  * @since 2024-04-15 23:57
@@ -33,20 +43,30 @@ public class TeacherBO extends BaseVersionBO {
 
     @Serial private static final long serialVersionUID = -8552109224294597412L;
 
-    @Id
-    @Column(value = "id")
-    private Long id;
-
+    @Schema(description = "学校id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "1")
     @Column(value = "school_id")
     private Long schoolId;
 
+    @Schema(description = "名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "example-name")
     @Column(value = "name")
     private String name;
 
-    @Column(value = "level_types")
+    @Schema(description = "状态", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "1")
+    @Column(value = "status")
+    @JsonSerialize(using = JacksonEnumToIntegerSerializer.class)
+    @JsonDeserialize(using = JacksonEnumValueToEnumDeserializer.class)
+    private TeacherStatus status;
+
+    @Schema(description = "等级类型", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "[1, 2]")
+    @Column(value = "level_types", typeHandler = JdbcJsonbMappingJavaListEnumIntegerTypeHandler.class)
+    @JsonDeserialize(using = JacksonListEnumValueToListEnumDeserializer.class)
+    @JsonSerialize(using = JacksonListEnumToListIntegerSerializer.class)
     private List<TeacherLevelType> levelTypes;
 
-    @Column(value = "course_types")
+    @Schema(description = "课程类型", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "[语文, 数学]")
+    @Column(value = "course_types", typeHandler = JdbcJsonbMappingJavaListEnumStringTypeHandler.class)
+    @JsonDeserialize(using = JacksonListEnumValueToListEnumDeserializer.class)
+    @JsonSerialize(using = JacksonListEnumToListStringSerializer.class)
     private List<TeacherCourseType> courseTypes;
 
 }

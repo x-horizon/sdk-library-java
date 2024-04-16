@@ -5,6 +5,7 @@
 package cn.srd.library.java.studio.low.code.model.enums;
 
 import com.mybatisflex.annotation.EnumValue;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -14,6 +15,7 @@ import lombok.Getter;
  * @since 2024-04-15 23:57
  */
 @Getter
+@AllArgsConstructor
 public enum TeacherLevelType {
 
     ONE(1, "一级教师"),
@@ -21,11 +23,6 @@ public enum TeacherLevelType {
     THREE(3, "三级教师"),
     HIGH(4, "高级教师"),
     ;
-
-    TeacherLevelType(int code, String description) {
-        this.code = code;
-        this.description = description;
-    }
 
     @EnumValue
     private final int code;

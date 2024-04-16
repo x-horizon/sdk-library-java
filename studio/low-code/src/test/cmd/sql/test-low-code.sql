@@ -19,10 +19,10 @@ CREATE TABLE school
     delete_time TIMESTAMP(6) WITHOUT TIME ZONE,
     PRIMARY KEY (id)
 );
-COMMENT ON TABLE school IS '学校表';
-COMMENT ON COLUMN school.id IS '学校id';
-COMMENT ON COLUMN school.name IS '学校名称';
-COMMENT ON COLUMN school.address IS '学校地址';
+COMMENT ON TABLE school IS '学校信息';
+COMMENT ON COLUMN school.id IS 'id';
+COMMENT ON COLUMN school.name IS '名字';
+COMMENT ON COLUMN school.address IS '地址';
 COMMENT ON COLUMN school.version IS '版本号';
 COMMENT ON COLUMN school.remark IS '备注';
 COMMENT ON COLUMN school.creator_id IS '创建人id';
@@ -37,6 +37,7 @@ CREATE TABLE teacher
     id           BIGINT                                             NOT NULL,
     school_id    BIGINT                         DEFAULT 0           NOT NULL,
     name         VARCHAR(64)                    DEFAULT ''          NOT NULL,
+    status       SMALLINT                       DEFAULT 0           NOT NULL,
     level_types  JSONB                          DEFAULT '[]'::JSONB NOT NULL,
     course_types JSONB                          DEFAULT '[]'::JSONB NOT NULL,
     version      BIGINT                         DEFAULT 0           NOT NULL,
@@ -48,12 +49,13 @@ CREATE TABLE teacher
     delete_time  TIMESTAMP(6) WITHOUT TIME ZONE,
     PRIMARY KEY (id)
 );
-COMMENT ON TABLE teacher IS '教师表';
-COMMENT ON COLUMN teacher.id IS '教师id';
+COMMENT ON TABLE teacher IS '教师信息';
+COMMENT ON COLUMN teacher.id IS 'id';
 COMMENT ON COLUMN teacher.school_id IS '学校id';
-COMMENT ON COLUMN teacher.name IS '教师名称';
-COMMENT ON COLUMN teacher.level_types IS '教师等级类型';
-COMMENT ON COLUMN teacher.course_types IS '教师课程类型';
+COMMENT ON COLUMN teacher.name IS '名字';
+COMMENT ON COLUMN teacher.status IS '状态';
+COMMENT ON COLUMN teacher.level_types IS '等级类型';
+COMMENT ON COLUMN teacher.course_types IS '课程类型';
 COMMENT ON COLUMN teacher.version IS '版本号';
 COMMENT ON COLUMN teacher.remark IS '备注';
 COMMENT ON COLUMN teacher.creator_id IS '创建人id';
@@ -81,11 +83,11 @@ CREATE TABLE student
     delete_time  TIMESTAMP(6) WITHOUT TIME ZONE,
     PRIMARY KEY (id)
 );
-COMMENT ON TABLE student IS '学生表';
-COMMENT ON COLUMN student.id IS '学生id';
+COMMENT ON TABLE student IS '学生信息';
+COMMENT ON COLUMN student.id IS 'id';
 COMMENT ON COLUMN student.school_id IS '学校id';
 COMMENT ON COLUMN student.teacher_ids IS '老师id';
-COMMENT ON COLUMN student.name IS '学生名字';
+COMMENT ON COLUMN student.name IS '名字';
 COMMENT ON COLUMN student.hobby_info IS '兴趣爱好信息';
 COMMENT ON COLUMN student.course_infos IS '课程信息';
 COMMENT ON COLUMN student.version IS '版本号';

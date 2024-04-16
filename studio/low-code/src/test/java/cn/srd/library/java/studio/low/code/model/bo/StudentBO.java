@@ -5,8 +5,11 @@
 package cn.srd.library.java.studio.low.code.model.bo;
 
 import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseVersionBO;
+import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaEntityTypeHandler;
+import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListEntityTypeHandler;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mybatisflex.annotation.Column;
-import com.mybatisflex.annotation.Id;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -17,11 +20,12 @@ import java.io.Serial;
 import java.util.List;
 
 /**
- * 学生信息
+ * 学生信息 model
  *
  * @author TODO 请填写作者名字
  * @since 2024-04-15 23:57
  */
+@Schema(description = "学生信息")
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
@@ -31,23 +35,26 @@ public class StudentBO extends BaseVersionBO {
 
     @Serial private static final long serialVersionUID = 2234235631313555403L;
 
-    @Id
-    @Column(value = "id")
-    private Long id;
-
+    @Schema(description = "学校id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "1")
     @Column(value = "school_id")
     private Long schoolId;
 
+    @Schema(description = "教师id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "[1, 2, 3]")
     @Column(value = "teacher_ids")
     private List<Long> teacherIds;
 
+    @Schema(description = "名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "example-name")
     @Column(value = "name")
     private String name;
 
-    @Column(value = "hobby_info")
-    private StudentHobbyBO hobbyInfo;
+    @Schema(description = "兴趣爱好信息")
+    @Column(value = "hobby_info", typeHandler = JdbcJsonbMappingJavaEntityTypeHandler.class)
+    @JsonProperty("hobbyInfo")
+    private StudentHobbyBO hobbyBO;
 
-    @Column(value = "course_infos")
-    private List<StudentCourseBO> courseInfos;
+    @Schema(description = "课程信息")
+    @Column(value = "course_infos", typeHandler = JdbcJsonbMappingJavaListEntityTypeHandler.class)
+    @JsonProperty("courseInfos")
+    private List<StudentCourseBO> courseBOs;
 
 }
