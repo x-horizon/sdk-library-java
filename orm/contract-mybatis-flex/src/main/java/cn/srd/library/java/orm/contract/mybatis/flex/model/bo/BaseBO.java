@@ -1,11 +1,16 @@
 package cn.srd.library.java.orm.contract.mybatis.flex.model.bo;
 
+import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.orm.contract.model.base.BO;
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonLongToLocalDateTimeDeserializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonLocalDateTimeToLongSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mybatisflex.annotation.Column;
+import com.mybatisflex.annotation.Id;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -18,6 +23,7 @@ import java.time.LocalDateTime;
  * @author wjm
  * @since 2023-11-04 00:19
  */
+@Schema(description = "基础信息")
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
@@ -26,26 +32,39 @@ public class BaseBO implements BO {
 
     @Serial private static final long serialVersionUID = -6744701187675528956L;
 
-    @Column(value = "remark")
-    private String remark;
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "1")
+    @Column(value = "id")
+    @Id
+    private Long id;
 
+    @Schema(description = "备注", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "example-remark")
+    @Column(value = "remark")
+    @Builder.Default
+    private String remark = SymbolConstant.EMPTY;
+
+    @Schema(description = "创建人id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "1")
     @Column(value = "creator_id")
     private Long creatorId;
 
+    @Schema(description = "更新人id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "1")
     @Column(value = "updater_id")
     private Long updaterId;
 
+    @Schema(description = "创建时间")
     @Column(value = "create_time")
     @JsonSerialize(using = JacksonLocalDateTimeToLongSerializer.class)
     @JsonDeserialize(converter = JacksonLongToLocalDateTimeDeserializer.class)
     private LocalDateTime createTime;
 
+    @Schema(description = "更新时间")
     @Column(value = "update_time")
     @JsonSerialize(using = JacksonLocalDateTimeToLongSerializer.class)
     @JsonDeserialize(converter = JacksonLongToLocalDateTimeDeserializer.class)
     private LocalDateTime updateTime;
 
+    @Schema(description = "删除时间")
     @Column(value = "delete_time", isLogicDelete = true)
+    @JsonIgnore
     private Boolean deleteTime;
 
 }

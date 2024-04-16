@@ -11,8 +11,8 @@ import com.mybatisflex.core.BaseMapper;
  * @author wjm
  * @since 2023-12-05 16:38
  */
-public abstract class BaseChainer<T extends PO> {
+public abstract class BaseChainer<P extends PO> {
 
-    protected abstract BaseMapper<T> getNativeBaseMapper();
+    protected abstract BaseMapper<P> getNativeBaseMapper();
 
 }

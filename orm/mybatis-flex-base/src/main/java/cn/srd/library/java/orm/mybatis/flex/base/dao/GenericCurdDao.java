@@ -8,6 +8,7 @@ import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.orm.contract.model.base.PO;
+import cn.srd.library.java.orm.mybatis.flex.base.adapter.MybatisFlexAdapter;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.DeleteChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.UpdateChainer;
@@ -15,7 +16,6 @@ import cn.srd.library.java.orm.mybatis.flex.base.tool.MybatisFlexs;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.functional.Action;
-import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.lang.text.Strings;
@@ -43,12 +43,12 @@ import java.util.function.Function;
 /**
  * the generic curd dao
  *
- * @param <T> the entity extends {@link PO}
+ * @param <P> the entity extends {@link PO}
  * @author wjm
  * @since 2023-11-04 00:19
  */
 @CanIgnoreReturnValue
-public interface GenericCurdDao<T extends PO> {
+public interface GenericCurdDao<P extends PO> {
 
     /**
      * see <a href="https://mybatis-flex.com/zh/base/batch.html">"the batch operation guide"</a>.
@@ -100,7 +100,7 @@ public interface GenericCurdDao<T extends PO> {
      * @see BaseMapper#insertSelective(Object)
      * @see CustomKeyGenerator#processBefore(Executor, MappedStatement, Statement, Object)
      */
-    default T save(T entity) {
+    default P save(P entity) {
         getBaseMapper().insertSelective(entity);
         return entity;
     }
@@ -120,7 +120,7 @@ public interface GenericCurdDao<T extends PO> {
      */
     @Transactional(rollbackFor = Throwable.class)
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    default List<T> saveBatch(Iterable<T> entities) {
+    default List<P> saveBatch(Iterable<P> entities) {
         return Springs.getProxy(GenericCurdDao.class).saveBatch(entities, DEFAULT_BATCH_SIZE_EACH_TIME);
     }
 
@@ -158,11 +158,11 @@ public interface GenericCurdDao<T extends PO> {
      */
     @Transactional(rollbackFor = Throwable.class)
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    default List<T> saveBatch(Iterable<T> entities, int batchSizeEachTime) {
+    default List<P> saveBatch(Iterable<P> entities, int batchSizeEachTime) {
         if (Nil.isEmpty(entities)) {
             return Collections.newArrayList();
         }
-        List<T> listTypeEntities = entities instanceof List<T> actualEntities ? actualEntities : Converts.toList(entities);
+        List<P> listTypeEntities = entities instanceof List<P> actualEntities ? actualEntities : Converts.toList(entities);
         Action.ifTrue(listTypeEntities.size() <= GENERATE_FULL_SQL_BATCH_SIZE)
                 .then(() -> getBaseMapper().insertBatch(listTypeEntities, batchSizeEachTime))
                 .otherwise(() -> Db.executeBatch(listTypeEntities, batchSizeEachTime, ClassUtil.getUsefulClass(this.getClass()), GenericCurdDao::save));
@@ -175,8 +175,9 @@ public interface GenericCurdDao<T extends PO> {
      * @param entity – the operate entity
      * @see #updateBatchById(Iterable, int)
      */
-    default void updateById(T entity) {
+    default P updateById(P entity) {
         getBaseMapper().update(entity);
+        return entity;
     }
 
     /**
@@ -187,8 +188,10 @@ public interface GenericCurdDao<T extends PO> {
      * @see IService#updateBatch(Collection, int)
      */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    default void updateBatchById(T... entities) {
-        Springs.getProxy(GenericCurdDao.class).updateBatchById(Collections.ofArrayList(entities));
+    default List<P> updateBatchById(P... entities) {
+        List<P> needToUpdateEntities = Collections.ofArrayList(entities);
+        Springs.getProxy(GenericCurdDao.class).updateBatchById(needToUpdateEntities);
+        return needToUpdateEntities;
     }
 
     /**
@@ -199,8 +202,8 @@ public interface GenericCurdDao<T extends PO> {
      * @see IService#updateBatch(Collection, int)
      */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    default void updateBatchById(Iterable<T> entities) {
-        Springs.getProxy(GenericCurdDao.class).updateBatchById(entities, DEFAULT_BATCH_SIZE_EACH_TIME);
+    default List<P> updateBatchById(Iterable<P> entities) {
+        return Springs.getProxy(GenericCurdDao.class).updateBatchById(entities, DEFAULT_BATCH_SIZE_EACH_TIME);
     }
 
     /**
@@ -231,13 +234,15 @@ public interface GenericCurdDao<T extends PO> {
      */
     @Transactional(rollbackFor = Throwable.class)
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    default void updateBatchById(Iterable<T> entities, int batchSizeEachTime) {
+    default List<P> updateBatchById(Iterable<P> entities, int batchSizeEachTime) {
+        List<P> needToUpdateEntities = entities instanceof List<P> actualEntities ? actualEntities : Converts.toList(entities);
         Db.executeBatch(
-                entities instanceof List<T> actualEntities ? actualEntities : Converts.toList(entities),
+                needToUpdateEntities,
                 batchSizeEachTime,
                 ClassUtil.getUsefulClass(this.getClass()),
                 GenericCurdDao::updateById
         );
+        return needToUpdateEntities;
     }
 
     /**
@@ -265,9 +270,10 @@ public interface GenericCurdDao<T extends PO> {
      * @param entity the operate entity
      * @see #updateById(PO)
      */
-    default void updateWithVersionById(T entity) {
+    default P updateWithVersionById(P entity) {
         setVersionFieldValue(getEntityToUpdateVersion(entity), entity);
         updateById(entity);
+        return entity;
     }
 
     /**
@@ -280,9 +286,9 @@ public interface GenericCurdDao<T extends PO> {
      * @see #updateBatchById(Iterable, int)
      * @see IService#updateBatch(Collection, int)
      */
-    default void updateBatchWithVersionById(Iterable<T> entities, Function<T, ? extends Serializable> getIdAction) {
+    default List<P> updateBatchWithVersionById(Iterable<P> entities, Function<P, ? extends Serializable> getIdAction) {
         setVersionFieldValues(entities, getIdAction);
-        updateBatchById(entities);
+        return updateBatchById(entities);
     }
 
     /**
@@ -292,7 +298,7 @@ public interface GenericCurdDao<T extends PO> {
      *   <li>only support the entity with one primary key.</li><br/>
      *   <li>the update stage as following:</li>
      *   <ul>
-     *     <li>the entities with one primary key: [TestTablePO(id=1L, name="test1", version=0), TestTablePO(id=2L, name="test2", version=0)].</li>
+     *     <li>the entities with one primary key: [TestTablePO(id=1L, name="test1", version=0), PestTablePO(id=2L, name="test2", version=0)].</li>
      *     <ol>
      *       <li>SELECT * FROM "test_table" WHERE "id" = 1  OR "id" = 2;</li>
      *       <li>UPDATE "test_table" SET "name" = 'test3', "version" = "version" + 1  WHERE "id" = 1 AND "version" = 0;</li>
@@ -309,9 +315,9 @@ public interface GenericCurdDao<T extends PO> {
      * @see IService#updateBatch(Collection, int)
      */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    default void updateBatchWithVersionById(Iterable<T> entities, Function<T, ? extends Serializable> getIdAction, int batchSizeEachTime) {
+    default List<P> updateBatchWithVersionById(Iterable<P> entities, Function<P, ? extends Serializable> getIdAction, int batchSizeEachTime) {
         setVersionFieldValues(entities, getIdAction);
-        Springs.getProxy(GenericCurdDao.class).updateBatchById(entities, batchSizeEachTime);
+        return Springs.getProxy(GenericCurdDao.class).updateBatchById(entities, batchSizeEachTime);
     }
 
     /**
@@ -350,8 +356,8 @@ public interface GenericCurdDao<T extends PO> {
      *
      * @param entity the entity
      */
-    default void deleteById(T entity) {
-        Assert.of().setMessage("删除失败，数据不存在，请检查！").setThrowable(LibraryJavaInternalException.class).throwsIfZeroValue(getBaseMapper().delete(entity));
+    default void deleteById(P entity) {
+        getBaseMapper().delete(entity);
     }
 
     default void deleteById(Serializable id) {
@@ -416,7 +422,7 @@ public interface GenericCurdDao<T extends PO> {
      *
      * @param entity the entity
      */
-    default void deleteSkipLogicById(T entity) {
+    default void deleteSkipLogicById(P entity) {
         LogicDeleteManager.execWithoutLogicDelete(() -> deleteById(entity));
     }
 
@@ -458,19 +464,19 @@ public interface GenericCurdDao<T extends PO> {
         LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids instanceof Collection<? extends Serializable> ? ids : Converts.toSet(ids)));
     }
 
-    default Optional<T> getById(Serializable id) {
+    default Optional<P> getById(Serializable id) {
         return Optional.ofNullable(getBaseMapper().selectOneById(id));
     }
 
-    default Optional<T> getById(T entity) {
+    default Optional<P> getById(P entity) {
         return Optional.ofNullable(getBaseMapper().selectOneByEntityId(entity));
     }
 
-    default List<T> listByIds(Iterable<? extends Serializable> ids) {
+    default List<P> listByIds(Iterable<? extends Serializable> ids) {
         return getBaseMapper().selectListByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toSet(ids));
     }
 
-    default List<T> listAll() {
+    default List<P> listAll() {
         return getBaseMapper().selectListByQuery(QueryWrapper.create());
     }
 
@@ -478,35 +484,35 @@ public interface GenericCurdDao<T extends PO> {
         return getBaseMapper().selectCountByQuery(QueryWrapper.create());
     }
 
-    default QueryChainer<T> openQuery() {
+    default QueryChainer<P> openQuery() {
         return QueryChainer.of(getBaseMapper());
     }
 
-    default UpdateChainer<T> openUpdate() {
+    default UpdateChainer<P> openUpdate() {
         return UpdateChainer.of(getBaseMapper());
     }
 
-    default DeleteChainer<T> openDelete() {
+    default DeleteChainer<P> openDelete() {
         return DeleteChainer.of(getBaseMapper());
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    private BaseMapper<T> getBaseMapper() {
-        return (BaseMapper<T>) GenericCurdDaoAdapter.getInstance().getBaseMapper(this.getClass());
+    private BaseMapper<P> getBaseMapper() {
+        return (BaseMapper<P>) MybatisFlexAdapter.getInstance().getBaseMapper(this.getClass());
     }
 
-    private T getEntityToUpdateVersion(T updatedEntity) {
+    private P getEntityToUpdateVersion(P updatedEntity) {
         return getById(updatedEntity).orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}update with version failed, the entity [{}] could not be found in table [{}], please check!", ModuleView.ORM_MYBATIS_SYSTEM, updatedEntity.getClass().getName(), MybatisFlexs.getTableName(updatedEntity).orElse(null))));
     }
 
-    private void setVersionFieldValue(T oldEntity, T updatedEntity) {
+    private void setVersionFieldValue(P oldEntity, P updatedEntity) {
         String versionFieldName = MybatisFlexs.getVersionFieldName(updatedEntity).orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}update with version failed, the entity [{}] does not have the version column, please check!", ModuleView.ORM_MYBATIS_SYSTEM, updatedEntity.getClass().getName())));
         Reflects.setFieldValue(updatedEntity, versionFieldName, Reflects.getFieldValue(oldEntity, versionFieldName));
     }
 
-    private void setVersionFieldValues(Iterable<T> updatedEntities, Function<T, ? extends Serializable> getIdAction) {
-        Map<? extends Serializable, T> idMappingOldEntity = Converts.toMap(listByIds(Converts.toList(updatedEntities, getIdAction)), getIdAction);
-        Map<? extends Serializable, T> idMappingUpdatedEntity = Converts.toMap(updatedEntities, getIdAction);
+    private void setVersionFieldValues(Iterable<P> updatedEntities, Function<P, ? extends Serializable> getIdAction) {
+        Map<? extends Serializable, P> idMappingOldEntity = Converts.toMap(listByIds(Converts.toList(updatedEntities, getIdAction)), getIdAction);
+        Map<? extends Serializable, P> idMappingUpdatedEntity = Converts.toMap(updatedEntities, getIdAction);
         idMappingOldEntity.forEach((id, oldEntity) -> setVersionFieldValue(oldEntity, idMappingUpdatedEntity.get(id)));
     }
 

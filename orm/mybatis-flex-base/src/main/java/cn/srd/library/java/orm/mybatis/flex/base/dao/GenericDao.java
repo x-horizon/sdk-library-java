@@ -9,10 +9,10 @@ import cn.srd.library.java.orm.contract.model.base.PO;
 /**
  * the generic dao
  *
- * @param <T> the entity extends {@link PO}
+ * @param <P> the entity extends {@link PO}
  * @author wjm
  * @since 2023-11-04 00:19
  */
-public interface GenericDao<T extends PO> extends GenericCurdDao<T> {
+public interface GenericDao<P extends PO> extends GenericCurdDao<P> {
 
 }

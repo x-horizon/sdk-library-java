@@ -23,58 +23,58 @@ import java.util.function.Predicate;
  */
 @AllArgsConstructor(access = AccessLevel.MODULE)
 @SuppressWarnings(SuppressWarningConstant.UNUSED)
-public class UpdateChainer<T extends PO> extends BaseUpdateChainer<T> {
+public class UpdateChainer<P extends PO> extends BaseUpdateChainer<P> {
 
-    @Getter(AccessLevel.PROTECTED) private final BaseMapper<T> nativeBaseMapper;
+    @Getter(AccessLevel.PROTECTED) private final BaseMapper<P> nativeBaseMapper;
 
-    @Getter(AccessLevel.PROTECTED) private final UpdateChain<T> nativeUpdateChainer;
+    @Getter(AccessLevel.PROTECTED) private final UpdateChain<P> nativeUpdateChainer;
 
-    public static <T extends PO> UpdateChainer<T> of(BaseMapper<T> baseMapper) {
+    public static <P extends PO> UpdateChainer<P> of(BaseMapper<P> baseMapper) {
         return new UpdateChainer<>(baseMapper, UpdateChain.of(baseMapper));
     }
 
-    public UpdateChainer<T> set(ColumnValueGetter<T> columnValueGetter, Object value) {
+    public UpdateChainer<P> set(ColumnValueGetter<P> columnValueGetter, Object value) {
         return set(columnValueGetter, value, true);
     }
 
-    public UpdateChainer<T> set(ColumnValueGetter<T> columnValueGetter, Object value, BooleanSupplier condition) {
+    public UpdateChainer<P> set(ColumnValueGetter<P> columnValueGetter, Object value, BooleanSupplier condition) {
         return set(columnValueGetter, value, condition.getAsBoolean());
     }
 
-    public <U> UpdateChainer<T> set(ColumnValueGetter<T> columnValueGetter, U value, Predicate<U> condition) {
+    public <U> UpdateChainer<P> set(ColumnValueGetter<P> columnValueGetter, U value, Predicate<U> condition) {
         return set(columnValueGetter, value, condition.test(value));
     }
 
-    public UpdateChainer<T> set(ColumnValueGetter<T> columnValueGetter, Object value, boolean condition) {
+    public UpdateChainer<P> set(ColumnValueGetter<P> columnValueGetter, Object value, boolean condition) {
         getNativeUpdateChainer().set(columnValueGetter, value, condition);
         return this;
     }
 
-    public UpdateChainer<T> setIfNotNull(ColumnValueGetter<T> columnValueGetter, Object value) {
+    public UpdateChainer<P> setIfNotNull(ColumnValueGetter<P> columnValueGetter, Object value) {
         return set(columnValueGetter, value, If::notNull);
     }
 
-    public UpdateChainer<T> setIfNotZeroValue(ColumnValueGetter<T> columnValueGetter, Number value) {
+    public UpdateChainer<P> setIfNotZeroValue(ColumnValueGetter<P> columnValueGetter, Number value) {
         return set(columnValueGetter, value, If::notZeroValue);
     }
 
-    public UpdateChainer<T> setIfNotEmpty(ColumnValueGetter<T> columnValueGetter, CharSequence value) {
+    public UpdateChainer<P> setIfNotEmpty(ColumnValueGetter<P> columnValueGetter, CharSequence value) {
         return set(columnValueGetter, value, If::notEmpty);
     }
 
-    public UpdateChainer<T> setIfNotBlank(ColumnValueGetter<T> columnValueGetter, CharSequence value) {
+    public UpdateChainer<P> setIfNotBlank(ColumnValueGetter<P> columnValueGetter, CharSequence value) {
         return set(columnValueGetter, value, If::notBlank);
     }
 
-    public QueryConditional<T, UpdateChainer<T>, UpdateChain<T>> where(ColumnValueGetter<T> columnValueGetter) {
+    public QueryConditional<P, UpdateChainer<P>, UpdateChain<P>> where(ColumnValueGetter<P> columnValueGetter) {
         return new QueryConditional<>(getNativeUpdateChainer().where(columnValueGetter), this);
     }
 
-    public QueryConditional<T, UpdateChainer<T>, UpdateChain<T>> and(ColumnValueGetter<T> columnValueGetter) {
+    public QueryConditional<P, UpdateChainer<P>, UpdateChain<P>> and(ColumnValueGetter<P> columnValueGetter) {
         return new QueryConditional<>(getNativeUpdateChainer().and(columnValueGetter), this);
     }
 
-    public QueryConditional<T, UpdateChainer<T>, UpdateChain<T>> or(ColumnValueGetter<T> columnValueGetter) {
+    public QueryConditional<P, UpdateChainer<P>, UpdateChain<P>> or(ColumnValueGetter<P> columnValueGetter) {
         return new QueryConditional<>(getNativeUpdateChainer().or(columnValueGetter), this);
     }
 

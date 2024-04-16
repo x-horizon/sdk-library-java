@@ -11,8 +11,8 @@ import com.mybatisflex.core.query.QueryChain;
  * @author wjm
  * @since 2023-12-05 16:38
  */
-public abstract class BaseQueryChainer<T extends PO> extends BaseChainer<T> {
+public abstract class BaseQueryChainer<P extends PO> extends BaseChainer<P> {
 
-    protected abstract QueryChain<T> getNativeQueryChainer();
+    protected abstract QueryChain<P> getNativeQueryChainer();
 
 }

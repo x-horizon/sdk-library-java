@@ -34,7 +34,7 @@ import java.util.function.Predicate;
 @CanIgnoreReturnValue
 @AllArgsConstructor(access = AccessLevel.MODULE)
 @SuppressWarnings(SuppressWarningConstant.UNUSED)
-public class QueryConditional<T extends PO, Q extends BaseChainer<T>, N extends QueryWrapper> extends BaseQueryConditional<N> {
+public class QueryConditional<P extends PO, Q extends BaseChainer<P>, N extends QueryWrapper> extends BaseQueryConditional<N> {
 
     @Getter(AccessLevel.PROTECTED)
     private final QueryConditionBuilder<N> nativeQueryConditional;

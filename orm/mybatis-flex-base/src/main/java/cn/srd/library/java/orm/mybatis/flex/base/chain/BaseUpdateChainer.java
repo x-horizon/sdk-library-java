@@ -11,8 +11,8 @@ import com.mybatisflex.core.update.UpdateChain;
  * @author wjm
  * @since 2023-12-05 16:38
  */
-public abstract class BaseUpdateChainer<T extends PO> extends BaseChainer<T> {
+public abstract class BaseUpdateChainer<P extends PO> extends BaseChainer<P> {
 
-    protected abstract UpdateChain<T> getNativeUpdateChainer();
+    protected abstract UpdateChain<P> getNativeUpdateChainer();
 
 }

@@ -31,35 +31,35 @@ public class MybatisFlexs {
 
     private static final Map<Class<? extends PO>, TableDef> ENTITY_CLASS_MAPPING_TABLE_DEF_MAP = Collections.newConcurrentHashMap();
 
-    public static <T> Class<T> getUsefulClass(Class<T> input) {
+    public static <P> Class<P> getUsefulClass(Class<P> input) {
         return ClassUtil.getUsefulClass(input);
     }
 
-    public static <T extends PO> TableInfo getTableInfo(T entity) {
+    public static <P extends PO> TableInfo getTableInfo(P entity) {
         return getTableInfo(entity.getClass());
     }
 
-    public static <T extends PO> TableInfo getTableInfo(Class<T> entityClass) {
+    public static <P extends PO> TableInfo getTableInfo(Class<P> entityClass) {
         return TableInfoFactory.ofEntityClass(entityClass);
     }
 
-    public static <T extends PO> Optional<String> getTableName(T entity) {
+    public static <P extends PO> Optional<String> getTableName(P entity) {
         return getTableName(entity.getClass());
     }
 
-    public static <T extends PO> Optional<String> getTableName(Class<T> entity) {
+    public static <P extends PO> Optional<String> getTableName(Class<P> entity) {
         return Optional.ofNullable(getTableInfo(entity).getTableName());
     }
 
-    public static <T extends PO> Optional<String> getVersionFieldName(T entity) {
+    public static <P extends PO> Optional<String> getVersionFieldName(P entity) {
         return getVersionFieldName(entity.getClass());
     }
 
-    public static <T extends PO> Optional<String> getVersionFieldName(Class<T> entityClass) {
+    public static <P extends PO> Optional<String> getVersionFieldName(Class<P> entityClass) {
         return Optional.ofNullable(getTableInfo(entityClass).getVersionColumn());
     }
 
-    // public static <T extends PO> Optional<String> getPrimaryKeyFieldName(Class<T> entityClass) {
+    // public static <P extends PO> Optional<String> getPrimaryKeyFieldName(Class<P> entityClass) {
     //     getPrimaryKeyFieldNames(entityClass);
     //     Assert.of()
     //             .setMessage("")
@@ -68,36 +68,36 @@ public class MybatisFlexs {
     //     return Optional.ofNullable(getTableInfo(entityClass).getPrimaryColumns());
     // }
 
-    public static <T extends PO> Optional<String[]> getPrimaryKeyFieldNames(T entity) {
+    public static <P extends PO> Optional<String[]> getPrimaryKeyFieldNames(P entity) {
         return getPrimaryKeyFieldNames(entity.getClass());
     }
 
-    public static <T extends PO> Optional<String[]> getPrimaryKeyFieldNames(Class<T> entityClass) {
+    public static <P extends PO> Optional<String[]> getPrimaryKeyFieldNames(Class<P> entityClass) {
         return Optional.ofNullable(getTableInfo(entityClass).getPrimaryColumns());
     }
 
-    public static <T extends PO> Object getPrimaryKeyValue(T entity) {
+    public static <P extends PO> Object getPrimaryKeyValue(P entity) {
         return Collections.getFirst(getPrimaryKeyValues(entity)).orElseThrow();
     }
 
-    public static <T extends PO> Object[] getPrimaryKeyValues(T entity) {
+    public static <P extends PO> Object[] getPrimaryKeyValues(P entity) {
         return getTableInfo(entity.getClass()).buildPkSqlArgs(entity);
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public static <T extends PO> BaseMapper<T> getBaseMapper(T entity) {
-        return (BaseMapper<T>) getBaseMapper(getUsefulClass(entity.getClass()));
+    public static <P extends PO> BaseMapper<P> getBaseMapper(P entity) {
+        return (BaseMapper<P>) getBaseMapper(getUsefulClass(entity.getClass()));
     }
 
-    public static <T extends PO> BaseMapper<T> getBaseMapper(Class<T> entityClass) {
+    public static <P extends PO> BaseMapper<P> getBaseMapper(Class<P> entityClass) {
         return Mappers.ofEntityClass(entityClass);
     }
 
-    public static <T extends PO> QueryColumn getQueryColumn(ColumnValueGetter<T> columnValueGetter) {
+    public static <P extends PO> QueryColumn getQueryColumn(ColumnValueGetter<P> columnValueGetter) {
         return LambdaUtil.getQueryColumn(columnValueGetter);
     }
 
-    public static <T extends PO> QueryTable getQueryTable(Class<T> entityClass) {
+    public static <P extends PO> QueryTable getQueryTable(Class<P> entityClass) {
         TableInfo tableInfo = getTableInfo(entityClass);
         return new QueryTable(tableInfo.getSchema(), tableInfo.getTableName());
     }
@@ -107,7 +107,7 @@ public class MybatisFlexs {
     //     return new QueryTable(table);
     // }
     //
-    // public static <T extends PO> TableDef getTableDef(Class<T> entityClass) {
+    // public static <P extends PO> TableDef getTableDef(Class<P> entityClass) {
     //     return ENTITY_CLASS_MAPPING_TABLE_DEF_MAP.computeIfAbsent(entityClass, ignore -> {
     //         TableInfo tableInfo = getTableInfo(entityClass);
     //         return new TableDef(tableInfo.getSchema(), tableInfo.getTableName());

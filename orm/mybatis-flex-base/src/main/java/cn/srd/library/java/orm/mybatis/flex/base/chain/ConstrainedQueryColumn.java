@@ -140,7 +140,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return equals condition
      */
-    public <T> QueryCondition equalsIfCondition(T value, Predicate<T> condition) {
+    public <P> QueryCondition equalsIfCondition(P value, Predicate<P> condition) {
         return equalsIfCondition(value, condition.test(value));
     }
 
@@ -229,7 +229,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return not equals condition
      */
-    public <T> QueryCondition notEqualsIfCondition(T value, Predicate<T> condition) {
+    public <P> QueryCondition notEqualsIfCondition(P value, Predicate<P> condition) {
         return notEqualsIfCondition(value, condition.test(value));
     }
 
@@ -296,7 +296,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return greater than conditdion
      */
-    public <T> QueryCondition greaterThanIfCondition(T value, Predicate<T> condition) {
+    public <P> QueryCondition greaterThanIfCondition(P value, Predicate<P> condition) {
         return greaterThanIfCondition(value, condition.test(value));
     }
 
@@ -363,7 +363,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return greater than or equals conditdion
      */
-    public <T> QueryCondition greaterThanOrEqualsIfCondition(T value, Predicate<T> condition) {
+    public <P> QueryCondition greaterThanOrEqualsIfCondition(P value, Predicate<P> condition) {
         return greaterThanOrEqualsIfCondition(value, condition.test(value));
     }
 
@@ -430,7 +430,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return less than conditdion
      */
-    public <T> QueryCondition lessThanIfCondition(T value, Predicate<T> condition) {
+    public <P> QueryCondition lessThanIfCondition(P value, Predicate<P> condition) {
         return lessThanIfCondition(value, condition.test(value));
     }
 
@@ -497,7 +497,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return less than or equals conditdion
      */
-    public <T> QueryCondition lessThanOrEqualsIfCondition(T value, Predicate<T> condition) {
+    public <P> QueryCondition lessThanOrEqualsIfCondition(P value, Predicate<P> condition) {
         return lessThanOrEqualsIfCondition(value, condition.test(value));
     }
 
@@ -564,7 +564,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return in conditdion
      */
-    public <T> QueryCondition inIfCondition(T[] values, Predicate<T[]> condition) {
+    public <P> QueryCondition inIfCondition(P[] values, Predicate<P[]> condition) {
         return inIfCondition(values, condition.test(values));
     }
 
@@ -597,7 +597,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return in conditdion
      */
-    public <T> QueryCondition inIfCondition(Iterable<T> values, Predicate<Iterable<T>> condition) {
+    public <P> QueryCondition inIfCondition(Iterable<P> values, Predicate<Iterable<P>> condition) {
         return inIfCondition(values, condition.test(values));
     }
 
@@ -689,7 +689,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return not in conditdion
      */
-    public <T> QueryCondition notInIfCondition(T[] values, Predicate<T[]> condition) {
+    public <P> QueryCondition notInIfCondition(P[] values, Predicate<P[]> condition) {
         return notInIfCondition(values, condition.test(values));
     }
 
@@ -722,7 +722,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return not in conditdion
      */
-    public <T> QueryCondition notInIfCondition(Iterable<T> values, Predicate<Iterable<T>> condition) {
+    public <P> QueryCondition notInIfCondition(Iterable<P> values, Predicate<Iterable<P>> condition) {
         return notInIfCondition(values, condition.test(values));
     }
 
@@ -904,7 +904,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return like {@code "%value%"} conditdion
      */
-    public <T> QueryCondition likeIfCondition(T value, Predicate<T> condition) {
+    public <P> QueryCondition likeIfCondition(P value, Predicate<P> condition) {
         return likeIfCondition(value, condition.test(value));
     }
 
@@ -961,7 +961,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return like {@code "value%"} conditdion
      */
-    public <T> QueryCondition likeLeftIfCondition(T value, Predicate<T> condition) {
+    public <P> QueryCondition likeLeftIfCondition(P value, Predicate<P> condition) {
         return likeLeftIfCondition(value, condition.test(value));
     }
 
@@ -1018,7 +1018,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return like {@code "%value"} conditdion
      */
-    public <T> QueryCondition likeRightIfCondition(T value, Predicate<T> condition) {
+    public <P> QueryCondition likeRightIfCondition(P value, Predicate<P> condition) {
         return likeRightIfCondition(value, condition.test(value));
     }
 
@@ -1075,7 +1075,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return like {@code "value"} conditdion
      */
-    public <T> QueryCondition likeRawIfCondition(T value, Predicate<T> condition) {
+    public <P> QueryCondition likeRawIfCondition(P value, Predicate<P> condition) {
         return likeRawIfCondition(value, condition.test(value));
     }
 
@@ -1132,7 +1132,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return not like {@code "%value%"} conditdion
      */
-    public <T> QueryCondition notLikeIfCondition(T value, Predicate<T> condition) {
+    public <P> QueryCondition notLikeIfCondition(P value, Predicate<P> condition) {
         return notLikeIfCondition(value, condition.test(value));
     }
 
@@ -1189,7 +1189,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return not like {@code "value%"} conditdion
      */
-    public <T> QueryCondition notLikeLeftIfCondition(T value, Predicate<T> condition) {
+    public <P> QueryCondition notLikeLeftIfCondition(P value, Predicate<P> condition) {
         return notLikeLeftIfCondition(value, condition.test(value));
     }
 
@@ -1246,7 +1246,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return not like {@code "%value"} conditdion
      */
-    public <T> QueryCondition notLikeRightIfCondition(T value, Predicate<T> condition) {
+    public <P> QueryCondition notLikeRightIfCondition(P value, Predicate<P> condition) {
         return notLikeRightIfCondition(value, condition.test(value));
     }
 
@@ -1303,7 +1303,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
      * @param condition the append condition
      * @return not like {@code "value"} conditdion
      */
-    public <T> QueryCondition notLikeRawIfCondition(T value, Predicate<T> condition) {
+    public <P> QueryCondition notLikeRawIfCondition(P value, Predicate<P> condition) {
         return notLikeRawIfCondition(value, condition.test(value));
     }
 
@@ -1396,7 +1396,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T> QueryCondition eq(T value, Predicate<T> isEffective) {
+    public <P> QueryCondition eq(P value, Predicate<P> isEffective) {
         throw new UnsupportedException();
     }
 
@@ -1420,7 +1420,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T> QueryCondition ne(T value, Predicate<T> isEffective) {
+    public <P> QueryCondition ne(P value, Predicate<P> isEffective) {
         throw new UnsupportedException();
     }
 
@@ -1444,7 +1444,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T> QueryCondition gt(T value, Predicate<T> isEffective) {
+    public <P> QueryCondition gt(P value, Predicate<P> isEffective) {
         throw new UnsupportedException();
     }
 
@@ -1468,7 +1468,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T> QueryCondition ge(T value, Predicate<T> isEffective) {
+    public <P> QueryCondition ge(P value, Predicate<P> isEffective) {
         throw new UnsupportedException();
     }
 
@@ -1492,7 +1492,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T> QueryCondition lt(T value, Predicate<T> isEffective) {
+    public <P> QueryCondition lt(P value, Predicate<P> isEffective) {
         throw new UnsupportedException();
     }
 
@@ -1516,7 +1516,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T> QueryCondition le(T value, Predicate<T> isEffective) {
+    public <P> QueryCondition le(P value, Predicate<P> isEffective) {
         throw new UnsupportedException();
     }
 
@@ -1534,7 +1534,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T> QueryCondition in(T[] value, Predicate<T[]> isEffective) {
+    public <P> QueryCondition in(P[] value, Predicate<P[]> isEffective) {
         throw new UnsupportedException();
     }
 
@@ -1552,7 +1552,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T extends Collection<?>> QueryCondition in(T value, Predicate<T> isEffective) {
+    public <P extends Collection<?>> QueryCondition in(P value, Predicate<P> isEffective) {
         throw new UnsupportedException();
     }
 
@@ -1582,7 +1582,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T> QueryCondition notIn(T[] value, Predicate<T[]> isEffective) {
+    public <P> QueryCondition notIn(P[] value, Predicate<P[]> isEffective) {
         throw new UnsupportedException();
     }
 
@@ -1600,7 +1600,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T extends Collection<?>> QueryCondition notIn(T value, Predicate<T> isEffective) {
+    public <P extends Collection<?>> QueryCondition notIn(P value, Predicate<P> isEffective) {
         throw new UnsupportedException();
     }
 
@@ -1678,7 +1678,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T> QueryCondition like(T value, Predicate<T> isEffective) {
+    public <P> QueryCondition like(P value, Predicate<P> isEffective) {
         throw new UnsupportedException();
     }
 
@@ -1696,7 +1696,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T> QueryCondition likeLeft(T value, Predicate<T> isEffective) {
+    public <P> QueryCondition likeLeft(P value, Predicate<P> isEffective) {
         throw new UnsupportedException();
     }
 
@@ -1714,7 +1714,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T> QueryCondition likeRight(T value, Predicate<T> isEffective) {
+    public <P> QueryCondition likeRight(P value, Predicate<P> isEffective) {
         throw new UnsupportedException();
     }
 
@@ -1732,7 +1732,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T> QueryCondition likeRaw(T value, Predicate<T> isEffective) {
+    public <P> QueryCondition likeRaw(P value, Predicate<P> isEffective) {
         throw new UnsupportedException();
     }
 
@@ -1750,7 +1750,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T> QueryCondition notLike(T value, Predicate<T> isEffective) {
+    public <P> QueryCondition notLike(P value, Predicate<P> isEffective) {
         throw new UnsupportedException();
     }
 
@@ -1768,7 +1768,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T> QueryCondition notLikeLeft(T value, Predicate<T> isEffective) {
+    public <P> QueryCondition notLikeLeft(P value, Predicate<P> isEffective) {
         throw new UnsupportedException();
     }
 
@@ -1786,7 +1786,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T> QueryCondition notLikeRight(T value, Predicate<T> isEffective) {
+    public <P> QueryCondition notLikeRight(P value, Predicate<P> isEffective) {
         throw new UnsupportedException();
     }
 
@@ -1804,7 +1804,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
 
     @Deprecated
     @Override
-    public <T> QueryCondition notLikeRaw(T value, Predicate<T> isEffective) {
+    public <P> QueryCondition notLikeRaw(P value, Predicate<P> isEffective) {
         throw new UnsupportedException();
     }
 

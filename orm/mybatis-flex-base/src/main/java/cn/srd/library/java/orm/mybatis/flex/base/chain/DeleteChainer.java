@@ -20,25 +20,25 @@ import lombok.Getter;
  */
 @AllArgsConstructor(access = AccessLevel.MODULE)
 @SuppressWarnings(SuppressWarningConstant.UNUSED)
-public class DeleteChainer<T extends PO> extends BaseDeleteChainer<T> {
+public class DeleteChainer<P extends PO> extends BaseDeleteChainer<P> {
 
-    @Getter(AccessLevel.PROTECTED) private final BaseMapper<T> nativeBaseMapper;
+    @Getter(AccessLevel.PROTECTED) private final BaseMapper<P> nativeBaseMapper;
 
-    @Getter(AccessLevel.PROTECTED) private final UpdateChain<T> nativeUpdateChainer;
+    @Getter(AccessLevel.PROTECTED) private final UpdateChain<P> nativeUpdateChainer;
 
-    public static <T extends PO> DeleteChainer<T> of(BaseMapper<T> baseMapper) {
+    public static <P extends PO> DeleteChainer<P> of(BaseMapper<P> baseMapper) {
         return new DeleteChainer<>(baseMapper, UpdateChain.of(baseMapper));
     }
 
-    public QueryConditional<T, DeleteChainer<T>, UpdateChain<T>> where(ColumnValueGetter<T> columnValueGetter) {
+    public QueryConditional<P, DeleteChainer<P>, UpdateChain<P>> where(ColumnValueGetter<P> columnValueGetter) {
         return new QueryConditional<>(getNativeUpdateChainer().where(columnValueGetter), this);
     }
 
-    public QueryConditional<T, DeleteChainer<T>, UpdateChain<T>> and(ColumnValueGetter<T> columnValueGetter) {
+    public QueryConditional<P, DeleteChainer<P>, UpdateChain<P>> and(ColumnValueGetter<P> columnValueGetter) {
         return new QueryConditional<>(getNativeUpdateChainer().and(columnValueGetter), this);
     }
 
-    public QueryConditional<T, DeleteChainer<T>, UpdateChain<T>> or(ColumnValueGetter<T> columnValueGetter) {
+    public QueryConditional<P, DeleteChainer<P>, UpdateChain<P>> or(ColumnValueGetter<P> columnValueGetter) {
         return new QueryConditional<>(getNativeUpdateChainer().or(columnValueGetter), this);
     }
 

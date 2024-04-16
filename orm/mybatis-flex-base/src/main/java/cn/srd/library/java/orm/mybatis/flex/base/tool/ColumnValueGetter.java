@@ -8,11 +8,11 @@ import cn.srd.library.java.orm.contract.model.base.PO;
 import com.mybatisflex.core.util.LambdaGetter;
 
 /**
- * @param <T> the entity extends {@link PO}
+ * @param <P> the entity extends {@link PO}
  * @author wjm
  * @since 2023-12-03 23:39
  */
 @FunctionalInterface
-public interface ColumnValueGetter<T extends PO> extends LambdaGetter<T> {
+public interface ColumnValueGetter<P extends PO> extends LambdaGetter<P> {
 
 }

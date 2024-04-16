@@ -11,22 +11,22 @@ import com.mybatisflex.annotation.UpdateListener;
 /**
  * the base listener when operate database
  *
- * @param <T> the entity type
+ * @param <P> the entity type
  * @author wjm
  * @since 2023-11-13 21:14
  */
-public interface BaseListener<T> extends InsertListener, UpdateListener {
+public interface BaseListener<P> extends InsertListener, UpdateListener {
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     @Override
     default void onInsert(Object entity) {
-        action((T) entity);
+        action((P) entity);
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     @Override
     default void onUpdate(Object entity) {
-        action((T) entity);
+        action((P) entity);
     }
 
     /**
@@ -34,11 +34,11 @@ public interface BaseListener<T> extends InsertListener, UpdateListener {
      *
      * @return the entity type
      */
-    Class<T> getEntityType();
+    Class<P> getEntityType();
 
     /**
      * the action when operate database
      */
-    void action(T entity);
+    void action(P entity);
 
 }

@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.autoconfigure;
 
-import cn.srd.library.java.orm.mybatis.flex.base.dao.GenericCurdDaoAdapter;
+import cn.srd.library.java.orm.mybatis.flex.base.adapter.MybatisFlexAdapter;
 import com.mybatisflex.spring.boot.MybatisFlexAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -34,8 +34,8 @@ public class MybatisFlexAutoConfigurer {
     }
 
     @Bean
-    public GenericCurdDaoAdapter genericDaoAdapter() {
-        return new GenericCurdDaoAdapter();
+    public MybatisFlexAdapter genericDaoAdapter() {
+        return new MybatisFlexAdapter();
     }
 
 }

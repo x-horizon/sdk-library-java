@@ -1,6 +1,8 @@
 package cn.srd.library.java.orm.contract.mybatis.flex.model.bo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mybatisflex.annotation.Column;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -13,6 +15,7 @@ import java.io.Serial;
  * @author wjm
  * @since 2023-11-04 00:19
  */
+@Schema(description = "基础信息-带版本")
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
@@ -22,7 +25,9 @@ public class BaseVersionBO extends BaseBO {
 
     @Serial private static final long serialVersionUID = 2152316212528302390L;
 
+    @Schema(description = "版本号")
     @Column(value = "version", version = true)
+    @JsonIgnore
     private Long version;
 
 }

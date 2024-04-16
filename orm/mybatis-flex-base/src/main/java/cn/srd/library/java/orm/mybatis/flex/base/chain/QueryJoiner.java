@@ -21,24 +21,24 @@ import java.util.function.Consumer;
  */
 @AllArgsConstructor(access = AccessLevel.MODULE)
 @SuppressWarnings(SuppressWarningConstant.UNUSED)
-public class QueryJoiner<T extends PO, Q extends BaseQueryChainer<T>> extends BaseQueryJoiner<T> {
+public class QueryJoiner<P extends PO, Q extends BaseQueryChainer<P>> extends BaseQueryJoiner<P> {
 
-    @Getter(AccessLevel.PROTECTED) private final Joiner<QueryChain<T>> nativeQueryJoiner;
+    @Getter(AccessLevel.PROTECTED) private final Joiner<QueryChain<P>> nativeQueryJoiner;
 
     @Getter(AccessLevel.PRIVATE) private final Q queryChainer;
 
     private static final String WHERE_QUERY_CONDITION_FIELD_NAME = "whereQueryCondition";
 
-    public QueryJoiner<T, Q> as(String alias) {
+    public QueryJoiner<P, Q> as(String alias) {
         getNativeQueryJoiner().as(alias);
         return this;
     }
 
-    public <U extends PO> Q onEquals(ColumnValueGetter<T> masterTableColumnValue, ColumnValueGetter<U> joinedTableColumnValue) {
+    public <U extends PO> Q onEquals(ColumnValueGetter<P> masterTableColumnValue, ColumnValueGetter<U> joinedTableColumnValue) {
         return on(newQueryChainer -> newQueryChainer.and(masterTableColumnValue).equalsTo(joinedTableColumnValue));
     }
 
-    public <U extends PO> Q onEquals(ColumnValueGetter<T> masterTableColumnValue1, ColumnValueGetter<U> joinedTableColumnValue1, ColumnValueGetter<T> masterTableColumnValue2, ColumnValueGetter<U> joinedTableColumnValue2) {
+    public <U extends PO> Q onEquals(ColumnValueGetter<P> masterTableColumnValue1, ColumnValueGetter<U> joinedTableColumnValue1, ColumnValueGetter<P> masterTableColumnValue2, ColumnValueGetter<U> joinedTableColumnValue2) {
         return on(newQueryChainer -> newQueryChainer
                 .and(masterTableColumnValue1)
                 .equalsTo(joinedTableColumnValue1)
@@ -47,7 +47,7 @@ public class QueryJoiner<T extends PO, Q extends BaseQueryChainer<T>> extends Ba
         );
     }
 
-    public <U extends PO> Q onEquals(ColumnValueGetter<T> masterTableColumnValue1, ColumnValueGetter<U> joinedTableColumnValue1, ColumnValueGetter<T> masterTableColumnValue2, ColumnValueGetter<U> joinedTableColumnValue2, ColumnValueGetter<T> masterTableColumnValue3, ColumnValueGetter<U> joinedTableColumnValue3) {
+    public <U extends PO> Q onEquals(ColumnValueGetter<P> masterTableColumnValue1, ColumnValueGetter<U> joinedTableColumnValue1, ColumnValueGetter<P> masterTableColumnValue2, ColumnValueGetter<U> joinedTableColumnValue2, ColumnValueGetter<P> masterTableColumnValue3, ColumnValueGetter<U> joinedTableColumnValue3) {
         return on(newQueryChainer -> newQueryChainer
                 .and(masterTableColumnValue1)
                 .equalsTo(joinedTableColumnValue1)
@@ -59,7 +59,7 @@ public class QueryJoiner<T extends PO, Q extends BaseQueryChainer<T>> extends Ba
     }
 
     @SuppressWarnings(SuppressWarningConstant.ALL)
-    public <U extends PO> Q onEquals(ColumnValueGetter<T> masterTableColumnValue1, ColumnValueGetter<U> joinedTableColumnValue1, ColumnValueGetter<T> masterTableColumnValue2, ColumnValueGetter<U> joinedTableColumnValue2, ColumnValueGetter<T> masterTableColumnValue3, ColumnValueGetter<U> joinedTableColumnValue3, ColumnValueGetter<T> masterTableColumnValue4, ColumnValueGetter<U> joinedTableColumnValue4) {
+    public <U extends PO> Q onEquals(ColumnValueGetter<P> masterTableColumnValue1, ColumnValueGetter<U> joinedTableColumnValue1, ColumnValueGetter<P> masterTableColumnValue2, ColumnValueGetter<U> joinedTableColumnValue2, ColumnValueGetter<P> masterTableColumnValue3, ColumnValueGetter<U> joinedTableColumnValue3, ColumnValueGetter<P> masterTableColumnValue4, ColumnValueGetter<U> joinedTableColumnValue4) {
         return on(newQueryChainer -> newQueryChainer
                 .and(masterTableColumnValue1)
                 .equalsTo(joinedTableColumnValue1)
@@ -72,9 +72,9 @@ public class QueryJoiner<T extends PO, Q extends BaseQueryChainer<T>> extends Ba
         );
     }
 
-    public Q on(Consumer<QueryChainer<T>> queryChainAction) {
-        BaseMapper<T> baseMapper = getQueryChainer().getNativeQueryChainer().baseMapper();
-        QueryChainer<T> newQueryChainer = new QueryChainer<>(baseMapper, QueryChain.of(baseMapper));
+    public Q on(Consumer<QueryChainer<P>> queryChainAction) {
+        BaseMapper<P> baseMapper = getQueryChainer().getNativeQueryChainer().baseMapper();
+        QueryChainer<P> newQueryChainer = new QueryChainer<>(baseMapper, QueryChain.of(baseMapper));
         queryChainAction.accept(newQueryChainer);
         getNativeQueryJoiner().on(Reflects.getFieldValue(newQueryChainer.getNativeQueryChainer().toQueryWrapper(), WHERE_QUERY_CONDITION_FIELD_NAME, QueryCondition.class));
         return getQueryChainer();

@@ -12,4 +12,6 @@ package cn.srd.library.java.orm.contract.model.base;
  */
 public interface VO extends POJO {
 
+    PO toPO();
+
 }
