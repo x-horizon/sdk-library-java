@@ -6,6 +6,7 @@ package cn.srd.library.java.tool.spring.webmvc.advice;
 
 import cn.srd.library.java.contract.constant.web.HttpStatus;
 import cn.srd.library.java.contract.model.protocol.WebResponse;
+import cn.srd.library.java.contract.model.throwable.DataNotFoundException;
 import cn.srd.library.java.contract.model.throwable.RunningException;
 import cn.srd.library.java.contract.model.throwable.WarningException;
 import cn.srd.library.java.tool.lang.convert.Converts;
@@ -149,6 +150,20 @@ public class WebMVCExceptionHandler {
     public WebResponse<Void> handleWarnOperationException(HttpServletRequest httpServletRequest, WarningException exception) {
         String message = exception.getMessage();
         log.warn("请求资源地址：'{}'，错误信息：'{}'", httpServletRequest.getRequestURI(), message);
+        return error(exception.getStatus(), message);
+    }
+
+    /**
+     * 出现 {@link DataNotFoundException} 时的处理；
+     *
+     * @param httpServletRequest Servlet 上下文信息
+     * @param exception          抛出的异常
+     * @return 响应结果
+     */
+    @ExceptionHandler(DataNotFoundException.class)
+    public WebResponse<Void> handleDataNotFoundException(HttpServletRequest httpServletRequest, DataNotFoundException exception) {
+        String message = "操作失败，数据不存在";
+        log.warn("请求资源地址：'{}'，错误信息：", httpServletRequest.getRequestURI(), message);
         return error(exception.getStatus(), message);
     }
 
