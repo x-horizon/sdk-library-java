@@ -4,14 +4,16 @@
 
 package cn.srd.library.java.studio.low.code.service;
 
+import cn.srd.library.java.contract.model.throwable.DataNotFoundException;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.orm.mybatis.flex.base.service.GenericService;
 import cn.srd.library.java.studio.low.code.dao.TeacherDao;
 import cn.srd.library.java.studio.low.code.model.po.TeacherPO;
+import cn.srd.library.java.studio.low.code.model.vo.TeacherGetConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.TeacherListConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.TeacherPageConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.TeacherVO;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,21 +25,28 @@ import java.util.List;
  * @since 2024-04-15 23:57
  */
 @Service
-@RequiredArgsConstructor
 public class TeacherService extends GenericService<TeacherPO, TeacherVO, TeacherDao> {
 
-    private final TeacherDao teacherDao;
+    @Autowired private TeacherDao teacherDao;
 
-    public List<TeacherVO> listByCondition(TeacherListConditionVO teacherListConditionVO) {
+    public TeacherVO getByCondition(TeacherGetConditionVO conditionVO) {
         return teacherDao.openQuery()
-                .where(TeacherPO::getName).likeIfNotBlank(teacherListConditionVO.getName())
+                .where(TeacherPO::getId).equalsTo(conditionVO.getId())
+                .and(TeacherPO::getName).likeIfNotBlank(conditionVO.getName())
+                .<TeacherVO>getToVO()
+                .orElseThrow(DataNotFoundException::new);
+    }
+
+    public List<TeacherVO> listByCondition(TeacherListConditionVO conditionVO) {
+        return teacherDao.openQuery()
+                .where(TeacherPO::getName).likeIfNotBlank(conditionVO.getName())
                 .listToVOs();
     }
 
-    public PageResult<TeacherVO> pageByCondition(TeacherPageConditionVO teacherPageConditionVO) {
+    public PageResult<TeacherVO> pageByCondition(TeacherPageConditionVO conditionVO) {
         return teacherDao.openQuery()
-                .where(TeacherPO::getName).likeIfNotBlank(teacherPageConditionVO.getName())
-                .page(teacherPageConditionVO.getPageNumber(), teacherPageConditionVO.getPageSize());
+                .where(TeacherPO::getName).likeIfNotBlank(conditionVO.getName())
+                .pageToVO(conditionVO.getPageNumber(), conditionVO.getPageSize());
     }
 
 }

@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.studio.low.code.model.vo;
 
+import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
 import cn.srd.library.java.orm.contract.model.page.PageParam;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -30,7 +31,10 @@ public class SchoolPageConditionVO extends PageParam implements Serializable {
 
     @Serial private static final long serialVersionUID = -1970204634551545667L;
 
-    @Schema(description = "名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "example-name")
+    @Schema(description = "名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
     private String name;
+
+    @Schema(description = "地址", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
+    private String address;
 
 }

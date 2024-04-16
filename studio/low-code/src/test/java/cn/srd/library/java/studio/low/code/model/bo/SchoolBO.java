@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.studio.low.code.model.bo;
 
+import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
 import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseVersionBO;
 import com.mybatisflex.annotation.Column;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,11 +32,11 @@ public class SchoolBO extends BaseVersionBO {
 
     @Serial private static final long serialVersionUID = -9052089371242697920L;
 
-    @Schema(description = "名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "example-name")
+    @Schema(description = "名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
     @Column(value = "name")
     private String name;
 
-    @Schema(description = "地址", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "example-address")
+    @Schema(description = "地址", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
     @Column(value = "address")
     private String address;
 

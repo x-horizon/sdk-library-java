@@ -32,40 +32,6 @@ COMMENT ON COLUMN school.update_time IS '更新时间';
 COMMENT ON COLUMN school.delete_time IS '删除时间';
 
 
-CREATE TABLE teacher
-(
-    id           BIGINT                                             NOT NULL,
-    school_id    BIGINT                         DEFAULT 0           NOT NULL,
-    name         VARCHAR(64)                    DEFAULT ''          NOT NULL,
-    status       SMALLINT                       DEFAULT 0           NOT NULL,
-    level_types  JSONB                          DEFAULT '[]'::JSONB NOT NULL,
-    course_types JSONB                          DEFAULT '[]'::JSONB NOT NULL,
-    version      BIGINT                         DEFAULT 0           NOT NULL,
-    remark       VARCHAR(255)                   DEFAULT ''          NOT NULL,
-    creator_id   BIGINT                         DEFAULT 0           NOT NULL,
-    updater_id   BIGINT                         DEFAULT 0           NOT NULL,
-    create_time  TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT NOW()       NOT NULL,
-    update_time  TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT NOW()       NOT NULL,
-    delete_time  TIMESTAMP(6) WITHOUT TIME ZONE,
-    PRIMARY KEY (id)
-);
-COMMENT ON TABLE teacher IS '教师信息';
-COMMENT ON COLUMN teacher.id IS 'id';
-COMMENT ON COLUMN teacher.school_id IS '学校id';
-COMMENT ON COLUMN teacher.name IS '名字';
-COMMENT ON COLUMN teacher.status IS '状态';
-COMMENT ON COLUMN teacher.level_types IS '等级类型';
-COMMENT ON COLUMN teacher.course_types IS '课程类型';
-COMMENT ON COLUMN teacher.version IS '版本号';
-COMMENT ON COLUMN teacher.remark IS '备注';
-COMMENT ON COLUMN teacher.creator_id IS '创建人id';
-COMMENT ON COLUMN teacher.updater_id IS '更新人id';
-COMMENT ON COLUMN teacher.create_time IS '创建时间';
-COMMENT ON COLUMN teacher.update_time IS '更新时间';
-COMMENT ON COLUMN teacher.delete_time IS '删除时间';
-
-
-
 CREATE TABLE student
 (
     id           BIGINT                                             NOT NULL,
@@ -97,3 +63,36 @@ COMMENT ON COLUMN student.updater_id IS '更新人id';
 COMMENT ON COLUMN student.create_time IS '创建时间';
 COMMENT ON COLUMN student.update_time IS '更新时间';
 COMMENT ON COLUMN student.delete_time IS '删除时间';
+
+
+CREATE TABLE teacher
+(
+    id           BIGINT                                             NOT NULL,
+    school_id    BIGINT                         DEFAULT 0           NOT NULL,
+    name         VARCHAR(64)                    DEFAULT ''          NOT NULL,
+    status       SMALLINT                       DEFAULT 0           NOT NULL,
+    level_types  JSONB                          DEFAULT '[]'::JSONB NOT NULL,
+    course_types JSONB                          DEFAULT '[]'::JSONB NOT NULL,
+    version      BIGINT                         DEFAULT 0           NOT NULL,
+    remark       VARCHAR(255)                   DEFAULT ''          NOT NULL,
+    creator_id   BIGINT                         DEFAULT 0           NOT NULL,
+    updater_id   BIGINT                         DEFAULT 0           NOT NULL,
+    create_time  TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT NOW()       NOT NULL,
+    update_time  TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT NOW()       NOT NULL,
+    delete_time  TIMESTAMP(6) WITHOUT TIME ZONE,
+    PRIMARY KEY (id)
+);
+COMMENT ON TABLE teacher IS '教师信息';
+COMMENT ON COLUMN teacher.id IS 'id';
+COMMENT ON COLUMN teacher.school_id IS '学校id';
+COMMENT ON COLUMN teacher.name IS '名字';
+COMMENT ON COLUMN teacher.status IS '状态';
+COMMENT ON COLUMN teacher.level_types IS '等级类型';
+COMMENT ON COLUMN teacher.course_types IS '课程类型';
+COMMENT ON COLUMN teacher.version IS '版本号';
+COMMENT ON COLUMN teacher.remark IS '备注';
+COMMENT ON COLUMN teacher.creator_id IS '创建人id';
+COMMENT ON COLUMN teacher.updater_id IS '更新人id';
+COMMENT ON COLUMN teacher.create_time IS '创建时间';
+COMMENT ON COLUMN teacher.update_time IS '更新时间';
+COMMENT ON COLUMN teacher.delete_time IS '删除时间';

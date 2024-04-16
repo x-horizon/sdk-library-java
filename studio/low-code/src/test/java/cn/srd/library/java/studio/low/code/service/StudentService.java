@@ -4,14 +4,16 @@
 
 package cn.srd.library.java.studio.low.code.service;
 
+import cn.srd.library.java.contract.model.throwable.DataNotFoundException;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.orm.mybatis.flex.base.service.GenericService;
 import cn.srd.library.java.studio.low.code.dao.StudentDao;
 import cn.srd.library.java.studio.low.code.model.po.StudentPO;
+import cn.srd.library.java.studio.low.code.model.vo.StudentGetConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.StudentListConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.StudentPageConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.StudentVO;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,21 +25,29 @@ import java.util.List;
  * @since 2024-04-15 23:57
  */
 @Service
-@RequiredArgsConstructor
 public class StudentService extends GenericService<StudentPO, StudentVO, StudentDao> {
 
-    private final StudentDao studentDao;
+    @Autowired private StudentDao studentDao;
 
-    public List<StudentVO> listByCondition(StudentListConditionVO studentListConditionVO) {
+    public StudentVO getByCondition(StudentGetConditionVO conditionVO) {
         return studentDao.openQuery()
-                .where(StudentPO::getName).likeIfNotBlank(studentListConditionVO.getName())
+                .where(StudentPO::getId).equalsTo(conditionVO.getId())
+                .and(StudentPO::getName).likeIfNotBlank(conditionVO.getName())
+                .<StudentVO>getToVO()
+                .orElseThrow(DataNotFoundException::new);
+    }
+
+    public List<StudentVO> listByCondition(StudentListConditionVO conditionVO) {
+        return studentDao.openQuery()
+                .where(StudentPO::getId).inIfNotEmpty(conditionVO.getIds())
+                .and(StudentPO::getName).likeIfNotBlank(conditionVO.getName())
                 .listToVOs();
     }
 
-    public PageResult<StudentVO> pageByCondition(StudentPageConditionVO studentPageConditionVO) {
+    public PageResult<StudentVO> pageByCondition(StudentPageConditionVO conditionVO) {
         return studentDao.openQuery()
-                .where(StudentPO::getName).likeIfNotBlank(studentPageConditionVO.getName())
-                .page(studentPageConditionVO.getPageNumber(), studentPageConditionVO.getPageSize());
+                .where(StudentPO::getName).likeIfNotBlank(conditionVO.getName())
+                .pageToVO(conditionVO.getPageNumber(), conditionVO.getPageSize());
     }
 
 }

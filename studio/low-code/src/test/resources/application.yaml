@@ -1,4 +1,7 @@
 spring:
+  threads:
+    virtual:
+      enabled: true
   datasource:
     driverClassName: org.postgresql.Driver
     type: com.zaxxer.hikari.HikariDataSource
