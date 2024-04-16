@@ -5,7 +5,9 @@
 package cn.srd.library.java.orm.mybatis.flex.postgresql.model.po;
 
 import cn.srd.library.java.orm.contract.model.base.PO;
+import cn.srd.library.java.orm.contract.model.base.VO;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.bo.PeopleBO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.converter.PeopleConverter;
 import com.mybatisflex.annotation.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,6 +34,11 @@ public class PeoplePO extends PeopleBO implements PO {
     public PeoplePO setAllName(String name) {
         super.setAllName(name);
         return this;
+    }
+
+    @Override
+    public VO toVO() {
+        return PeopleConverter.INSTANCE.toVO(this);
     }
 
 }

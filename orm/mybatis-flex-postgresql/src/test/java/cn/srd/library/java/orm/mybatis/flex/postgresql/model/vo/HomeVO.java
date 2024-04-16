@@ -2,13 +2,12 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.orm.mybatis.flex.postgresql.model.po;
+package cn.srd.library.java.orm.mybatis.flex.postgresql.model.vo;
 
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.base.VO;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.bo.HomeBO;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.converter.HomeConverter;
-import com.mybatisflex.annotation.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -25,15 +24,14 @@ import java.io.Serial;
 @NoArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
-@Table(value = "home")
 @EqualsAndHashCode(callSuper = true)
-public class HomePO extends HomeBO implements PO {
+public class HomeVO extends HomeBO implements VO {
 
-    @Serial private static final long serialVersionUID = -5698067987095394L;
+    @Serial private static final long serialVersionUID = 1030055421739967275L;
 
     @Override
-    public VO toVO() {
-        return HomeConverter.INSTANCE.toVO(this);
+    public PO toPO() {
+        return HomeConverter.INSTANCE.toPO(this);
     }
 
 }

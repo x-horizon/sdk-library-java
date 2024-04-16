@@ -19,6 +19,10 @@ import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.HomeDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.PeopleDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.HomePO;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.PeoplePO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.vo.HomeVO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.vo.PeopleVO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.service.HomeService;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.service.PeopleService;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
 import cn.srd.library.java.tool.lang.collection.Collections;
@@ -56,9 +60,13 @@ import java.util.Map;
 @EnableAspectJAutoProxy(exposeProxy = true)
 class CurdTest {
 
-    @Autowired private PeopleDao peopleDao;
+    @Autowired private HomeService homeService;
 
     @Autowired private HomeDao homeDao;
+
+    @Autowired private PeopleService peopleService;
+
+    @Autowired private PeopleDao peopleDao;
 
     private static final String HOME_NAME_1 = "home1";
 
@@ -137,7 +145,7 @@ class CurdTest {
         homeDao.save(HomePO.builder().name(HOME_NAME_2).build());
         homeDao.save(HomePO.builder().name(HOME_NAME_3).build());
         homeDao.save(HomePO.builder().name(HOME_NAME_4).build());
-        homeDao.save(HomePO.builder().name(HOME_NAME_5).build());
+        HomeVO homeVO = homeService.save(HomeVO.builder().name(HOME_NAME_5).build());
 
         // INSERT INTO "home"("id", "name", "creator_id", "updater_id", "create_time", "update_time", "delete_time")
         // VALUES (536748152329157, 'home6', 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL),
@@ -185,7 +193,7 @@ class CurdTest {
         peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_2)).build().setAllName(PEOPLE_NAME_2));
         peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_3)).build().setAllName(PEOPLE_NAME_3));
         peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_4)).build().setAllName(PEOPLE_NAME_4));
-        peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_5)).build().setAllName(PEOPLE_NAME_5));
+        PeopleVO peopleVO = peopleService.save(PeopleVO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_5)).build().setAllName(PEOPLE_NAME_5));
 
         // INSERT INTO "people"("id", "home_id", "name1", "name2", "name3", "name4", "name5", "name6", "name7", "version", "creator_id", "updater_id", "create_time", "update_time", "delete_time")
         // VALUES (536748152595397, 536748152329157, 'people6', 'people6', 'people6', 'people6', 'people6', 'people6', 'people6', 0, 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL),
@@ -878,7 +886,7 @@ class CurdTest {
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC
         // LIMIT 10 OFFSET 0;
-        PageResult<PeoplePO> peoplePagePOs1 = peopleDao.openQuery()
+        PageResult<PeopleVO> peoplePageVOs1 = peopleDao.openQuery()
                 .rightJoin(HomePO.class).onEquals(PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()
@@ -899,7 +907,7 @@ class CurdTest {
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC
         // LIMIT 5 OFFSET 0;
-        PageResult<PeoplePO> peoplePagePOs2 = peopleDao.openQuery()
+        PageResult<PeopleVO> peoplePageVOs2 = peopleDao.openQuery()
                 .rightJoin(HomePO.class).onEquals(PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()
@@ -914,7 +922,7 @@ class CurdTest {
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC
         // LIMIT 5 OFFSET 0;
-        PageResult<PeoplePO> peoplePagePOs3 = peopleDao.openQuery()
+        PageResult<PeopleVO> peoplePageVOs3 = peopleDao.openQuery()
                 .rightJoin(HomePO.class).onEquals(PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()

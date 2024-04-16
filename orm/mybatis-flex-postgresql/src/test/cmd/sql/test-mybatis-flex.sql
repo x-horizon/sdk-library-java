@@ -22,7 +22,7 @@ CREATE TABLE home
 CREATE TABLE people
 (
     id          BIGINT                                       NOT NULL,
-    home_id     BIGINT                                       NOT NULL,
+    home_id     BIGINT                         DEFAULT 0     NOT NULL,
     name1       VARCHAR(64)                    DEFAULT ''    NOT NULL,
     name2       VARCHAR(64)                    DEFAULT ''    NOT NULL,
     name3       VARCHAR(64)                    DEFAULT ''    NOT NULL,

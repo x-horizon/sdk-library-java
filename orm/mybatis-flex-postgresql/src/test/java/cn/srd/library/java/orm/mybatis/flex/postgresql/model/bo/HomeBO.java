@@ -2,7 +2,6 @@ package cn.srd.library.java.orm.mybatis.flex.postgresql.model.bo;
 
 import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseBO;
 import com.mybatisflex.annotation.Column;
-import com.mybatisflex.annotation.Id;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -23,10 +22,6 @@ import java.io.Serial;
 public class HomeBO extends BaseBO {
 
     @Serial private static final long serialVersionUID = -6137206413570817335L;
-
-    @Id
-    @Column(value = "id")
-    private Long id;
 
     @Column(value = "name")
     private String name;
