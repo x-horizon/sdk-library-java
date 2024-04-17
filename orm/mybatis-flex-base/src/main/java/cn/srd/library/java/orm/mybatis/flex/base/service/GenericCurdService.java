@@ -11,7 +11,6 @@ import cn.srd.library.java.orm.mybatis.flex.base.dao.GenericCurdDao;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -26,7 +25,6 @@ import java.util.stream.Collectors;
  * @author wjm
  * @since 2024-04-16 14:31
  */
-@Service
 @CanIgnoreReturnValue
 @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
 public class GenericCurdService<P extends PO, V extends VO, D extends GenericCurdDao<P>> {
