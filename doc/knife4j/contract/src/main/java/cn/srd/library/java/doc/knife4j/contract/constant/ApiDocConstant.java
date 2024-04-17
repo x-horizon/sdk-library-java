@@ -16,9 +16,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ApiDocConstant {
 
+    public static final String BOOLEAN = "true";
+
     public static final String NUMBER = "1";
 
     public static final String STRING = "example-string";
+
+    public static final String TIMESTAMP = "1713341740";
 
     public static final String LIST_NUMBER = "[1, 2]";
 
