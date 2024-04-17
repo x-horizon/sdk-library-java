@@ -15,7 +15,6 @@ import java.io.Serial;
  * @author wjm
  * @since 2023-11-04 00:19
  */
-@Schema(description = "基础信息-带版本")
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)

@@ -8,6 +8,7 @@ import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.orm.contract.model.base.PO;
+import cn.srd.library.java.orm.contract.model.generic.NameModel;
 import cn.srd.library.java.orm.mybatis.flex.base.adapter.MybatisFlexAdapter;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.DeleteChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChainer;
@@ -470,6 +471,14 @@ public interface GenericCurdDao<P extends PO> {
 
     default Optional<P> getById(P entity) {
         return Optional.ofNullable(getBaseMapper().selectOneByEntityId(entity));
+    }
+
+    default Optional<P> getByName(String name) {
+        return openQuery().where(NameModel::getName).equalsTo(name).get();
+    }
+
+    default <N extends NameModel> Optional<P> getByName(N entity) {
+        return openQuery().where(NameModel::getName).equalsTo(entity.getName()).get();
     }
 
     default List<P> listByIds(Iterable<? extends Serializable> ids) {
