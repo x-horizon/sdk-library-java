@@ -41,6 +41,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 import java.util.Map;
 
+// @MapperScan("cn.srd.library.java.**.dao.**")
 @MapperScan("cn.srd.library.java.orm.mybatis.flex.postgresql.**")
 @EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
 @EnableMybatisFlexCustomizer(
@@ -886,7 +887,7 @@ class CurdTest {
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC
         // LIMIT 10 OFFSET 0;
-        PageResult<PeopleVO> peoplePageVOs1 = peopleDao.openQuery()
+        PageResult<PeoplePO> peoplePagePOs1 = peopleDao.openQuery()
                 .rightJoin(HomePO.class).onEquals(PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()
@@ -913,7 +914,7 @@ class CurdTest {
                 .and(PeoplePO::getId).isNotNull()
                 .or(PeoplePO::getId).isNotNull()
                 .orderByDesc(PeoplePO::getCreateTime)
-                .page(1, 5);
+                .pageToVO(1, 5);
 
         // SELECT *
         // FROM "people"
@@ -928,7 +929,7 @@ class CurdTest {
                 .and(PeoplePO::getId).isNotNull()
                 .or(PeoplePO::getId).isNotNull()
                 .orderByDesc(PeoplePO::getCreateTime)
-                .page(1, 5, 9);
+                .pageToVO(1, 5, 9);
 
         // SELECT COUNT(*) FROM "people" WHERE ("id" IS NULL ) AND "delete_time" IS NULL;
         Long peopleTotalNumber2 = peopleDao.openQuery().where(PeoplePO::getId).isNull().count();
