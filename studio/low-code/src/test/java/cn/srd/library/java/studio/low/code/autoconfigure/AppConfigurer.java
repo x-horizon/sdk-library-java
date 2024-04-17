@@ -29,8 +29,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @AutoConfiguration
 @EnableAspectJAutoProxy(exposeProxy = true)
 @EnableEnumAutowired
-// @ComponentScan(basePackages = "cn.srd.library.java.studio.low.code")
-@MapperScan("cn.srd.library.java.studio.low.code.model.mapper")
+@MapperScan("cn.srd.library.java.studio.low.code")
 @EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
 @EnableMybatisFlexCustomizer(
         globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SNOWFLAKE),
@@ -46,21 +45,3 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 public class AppConfigurer {
 
 }
-
-// @MapperScan("cn.srd.library.java.orm.mybatis.flex.postgresql.**")
-// @EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
-// @EnableMybatisFlexCustomizer(
-//         globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SNOWFLAKE),
-//         globalDeleteLogicConfig = @DeleteLogicConfig(processor = DateTimeLogicDeleteProcessor.class),
-//         globalListenerConfig = @ListenerConfig(whenInsert = TestInsertListener.class, whenUpdate = TestUpdateListener.class),
-//         globalOptimisticLockConfig = @OptimisticLockConfig(columnName = "version"),
-//         globalAuditConfig = @AuditLogConfig(enable = true),
-//         globalPropertyConfig = @PropertyConfig(
-//                 nativeMybatisLog = NoLoggingImpl.class,
-//                 xmlMapperClassPaths = {"classpath*:cn/srd/library/java/orm/mybatis/base/customer/dao/impl/*.xml"},
-//                 xmlMapperEntityPackageAliasPackagePaths = {"cn.srd.library.java.orm.mybatis.**.po"}
-//         )
-// )
-// @SpringBootTest
-// @ExtendWith(SpringExtension.class)
-// @EnableAspectJAutoProxy(exposeProxy = true)

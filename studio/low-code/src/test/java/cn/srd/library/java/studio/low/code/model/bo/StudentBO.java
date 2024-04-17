@@ -5,6 +5,10 @@
 package cn.srd.library.java.studio.low.code.model.bo;
 
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
+import cn.srd.library.java.orm.contract.model.base.BO;
+import cn.srd.library.java.orm.contract.model.generic.CodeStringModel;
+import cn.srd.library.java.orm.contract.model.generic.NameModel;
+import cn.srd.library.java.orm.contract.model.generic.SortModel;
 import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseVersionBO;
 import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaEntityTypeHandler;
 import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListEntityTypeHandler;
@@ -32,7 +36,7 @@ import java.util.List;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-public class StudentBO extends BaseVersionBO {
+public class StudentBO extends BaseVersionBO implements BO, CodeStringModel, NameModel, SortModel {
 
     @Serial private static final long serialVersionUID = 2234235631313555403L;
 
@@ -44,9 +48,17 @@ public class StudentBO extends BaseVersionBO {
     @Column(value = "teacher_ids")
     private List<Long> teacherIds;
 
+    @Schema(description = "编号", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
+    @Column(value = "code")
+    private String code;
+
     @Schema(description = "名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
     @Column(value = "name")
     private String name;
+
+    @Schema(description = "排序", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
+    @Column(value = "sort")
+    private Integer sort;
 
     @Schema(description = "兴趣爱好信息")
     @Column(value = "hobby_info", typeHandler = JdbcJsonbMappingJavaEntityTypeHandler.class)

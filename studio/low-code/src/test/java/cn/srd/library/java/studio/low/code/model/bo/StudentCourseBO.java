@@ -5,6 +5,8 @@
 package cn.srd.library.java.studio.low.code.model.bo;
 
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
+import cn.srd.library.java.orm.contract.model.base.BO;
+import cn.srd.library.java.orm.contract.model.generic.NameModel;
 import cn.srd.library.java.tool.convert.jackson.NullableObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -26,7 +28,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
-public class StudentCourseBO implements NullableObject, Serializable {
+public class StudentCourseBO implements BO, NameModel, NullableObject, Serializable {
 
     @Serial private static final long serialVersionUID = -4519741225149076678L;
 
@@ -34,5 +36,8 @@ public class StudentCourseBO implements NullableObject, Serializable {
 
     @Schema(description = "名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
     private String name;
+
+    @Schema(description = "学分", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
+    private Short credit;
 
 }

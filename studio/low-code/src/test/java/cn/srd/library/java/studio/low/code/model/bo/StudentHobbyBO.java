@@ -5,7 +5,16 @@
 package cn.srd.library.java.studio.low.code.model.bo;
 
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
+import cn.srd.library.java.orm.contract.model.base.BO;
+import cn.srd.library.java.studio.low.code.model.enums.StudentHobbyAchievementType;
+import cn.srd.library.java.studio.low.code.model.enums.StudentHobbyParticipationLevelType;
 import cn.srd.library.java.tool.convert.jackson.NullableObject;
+import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToEnumDeserializer;
+import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonListEnumValueToListEnumDeserializer;
+import cn.srd.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
+import cn.srd.library.java.tool.convert.jackson.serializer.JacksonListEnumToListStringSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +23,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 学生兴趣爱好信息 model
@@ -26,13 +36,26 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
-public class StudentHobbyBO implements NullableObject, Serializable {
+public class StudentHobbyBO implements BO, NullableObject, Serializable {
 
     @Serial private static final long serialVersionUID = -3729928508090089728L;
 
     private transient boolean isNull;
 
-    @Schema(description = "名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
-    private String name;
+    @Schema(description = "主要兴趣", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
+    private String primaryInterestName;
+
+    @Schema(description = "具体兴趣", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.LIST_STRING)
+    private List<String> specificInterestNames;
+
+    @Schema(description = "参与程度", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
+    @JsonSerialize(using = JacksonEnumToIntegerSerializer.class)
+    @JsonDeserialize(using = JacksonEnumValueToEnumDeserializer.class)
+    private StudentHobbyParticipationLevelType levelType;
+
+    @Schema(description = "获得的成就类型", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.LIST_NUMBER)
+    @JsonDeserialize(using = JacksonListEnumValueToListEnumDeserializer.class)
+    @JsonSerialize(using = JacksonListEnumToListStringSerializer.class)
+    private List<StudentHobbyAchievementType> achievementTypes;
 
 }
