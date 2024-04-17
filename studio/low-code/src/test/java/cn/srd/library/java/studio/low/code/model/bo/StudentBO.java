@@ -6,9 +6,6 @@ package cn.srd.library.java.studio.low.code.model.bo;
 
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
 import cn.srd.library.java.orm.contract.model.base.BO;
-import cn.srd.library.java.orm.contract.model.generic.CodeStringModel;
-import cn.srd.library.java.orm.contract.model.generic.NameModel;
-import cn.srd.library.java.orm.contract.model.generic.SortModel;
 import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseVersionBO;
 import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaEntityTypeHandler;
 import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListEntityTypeHandler;
@@ -36,7 +33,7 @@ import java.util.List;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-public class StudentBO extends BaseVersionBO implements BO, CodeStringModel, NameModel, SortModel {
+public class StudentBO extends BaseVersionBO implements BO {
 
     @Serial private static final long serialVersionUID = 2234235631313555403L;
 

@@ -6,9 +6,6 @@ package cn.srd.library.java.studio.low.code.model.bo;
 
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
 import cn.srd.library.java.orm.contract.model.base.BO;
-import cn.srd.library.java.orm.contract.model.generic.CodeNumberModel;
-import cn.srd.library.java.orm.contract.model.generic.NameModel;
-import cn.srd.library.java.orm.contract.model.generic.StatusModel;
 import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseVersionBO;
 import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListEnumIntegerTypeHandler;
 import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListEnumStringTypeHandler;
@@ -44,7 +41,7 @@ import java.util.List;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-public class TeacherBO extends BaseVersionBO implements BO, CodeNumberModel, NameModel, StatusModel {
+public class TeacherBO extends BaseVersionBO implements BO {
 
     @Serial private static final long serialVersionUID = -8552109224294597412L;
 

@@ -6,9 +6,6 @@ package cn.srd.library.java.studio.low.code.model.bo;
 
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
 import cn.srd.library.java.orm.contract.model.base.BO;
-import cn.srd.library.java.orm.contract.model.generic.EnableModel;
-import cn.srd.library.java.orm.contract.model.generic.NameModel;
-import cn.srd.library.java.orm.contract.model.generic.TypeModel;
 import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseVersionBO;
 import cn.srd.library.java.studio.low.code.model.enums.SchoolType;
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToEnumDeserializer;
@@ -37,7 +34,7 @@ import java.io.Serial;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-public class SchoolBO extends BaseVersionBO implements BO, NameModel, TypeModel, EnableModel {
+public class SchoolBO extends BaseVersionBO implements BO {
 
     @Serial private static final long serialVersionUID = -9052089371242697920L;
 
