@@ -1,6 +1,5 @@
 package cn.srd.library.java.orm.mybatis.flex.postgresql.model.bo;
 
-import cn.srd.library.java.orm.contract.model.generic.NameModel;
 import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseBO;
 import com.mybatisflex.annotation.Column;
 import lombok.Data;
@@ -20,7 +19,7 @@ import java.io.Serial;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-public class HomeBO extends BaseBO implements NameModel {
+public class HomeBO extends BaseBO {
 
     @Serial private static final long serialVersionUID = -6137206413570817335L;
 

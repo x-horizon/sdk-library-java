@@ -525,8 +525,10 @@ class CurdTest {
         testDelete();
         testSave();
 
+        // SELECT * FROM "home" WHERE ("home"."name" = 'home1') AND "delete_time" IS NULL LIMIT 1
         HomeVO homeVO1 = homeService.getByName(HOME_NAME_1).orElseThrow();
-        HomeVO homeVO2 = homeService.getByName(HomeVO.builder().name(HOME_NAME_1).build()).orElseThrow();
+        // SELECT * FROM "home" WHERE (name LIKE '%home%') AND "delete_time" IS NULL
+        List<HomePO> homePOs1 = homeDao.listLikeByName("home");
 
         // SELECT * FROM "people" WHERE "delete_time" IS NULL;
         List<PeoplePO> allPeoplePOs = peopleDao.listAll();
