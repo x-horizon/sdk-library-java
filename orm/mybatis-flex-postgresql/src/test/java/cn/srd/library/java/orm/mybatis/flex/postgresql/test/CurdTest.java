@@ -525,6 +525,9 @@ class CurdTest {
         testDelete();
         testSave();
 
+        HomeVO homeVO1 = homeService.getByName(HOME_NAME_1).orElseThrow();
+        HomeVO homeVO2 = homeService.getByName(HomeVO.builder().name(HOME_NAME_1).build()).orElseThrow();
+
         // SELECT * FROM "people" WHERE "delete_time" IS NULL;
         List<PeoplePO> allPeoplePOs = peopleDao.listAll();
         PeoplePO theFirstPeoplePO = Collections.getFirst(allPeoplePOs).orElseThrow();
