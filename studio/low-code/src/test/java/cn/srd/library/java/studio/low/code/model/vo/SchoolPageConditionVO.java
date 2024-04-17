@@ -5,7 +5,7 @@
 package cn.srd.library.java.studio.low.code.model.vo;
 
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
-import cn.srd.library.java.orm.contract.model.page.PageParam;
+import cn.srd.library.java.orm.contract.model.base.BasePageConditionVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,7 +27,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-public class SchoolPageConditionVO extends PageParam implements Serializable {
+public class SchoolPageConditionVO extends BasePageConditionVO implements Serializable {
 
     @Serial private static final long serialVersionUID = -1970204634551545667L;
 

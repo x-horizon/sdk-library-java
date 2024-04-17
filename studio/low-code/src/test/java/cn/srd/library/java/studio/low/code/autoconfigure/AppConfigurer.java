@@ -21,19 +21,16 @@ import com.mybatisflex.core.logicdelete.impl.DateTimeLogicDeleteProcessor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author wjm
  * @since 2024-04-17 00:21
  */
 @AutoConfiguration
-@EnableAsync(proxyTargetClass = true)
 @EnableAspectJAutoProxy(exposeProxy = true)
-@EnableScheduling
 @EnableEnumAutowired
-@MapperScan("cn.srd.library.java.studio.low.code.**.dao")
+// @ComponentScan(basePackages = "cn.srd.library.java.studio.low.code")
+@MapperScan("cn.srd.library.java.studio.low.code.model.mapper")
 @EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
 @EnableMybatisFlexCustomizer(
         globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SNOWFLAKE),
@@ -49,3 +46,21 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class AppConfigurer {
 
 }
+
+// @MapperScan("cn.srd.library.java.orm.mybatis.flex.postgresql.**")
+// @EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
+// @EnableMybatisFlexCustomizer(
+//         globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SNOWFLAKE),
+//         globalDeleteLogicConfig = @DeleteLogicConfig(processor = DateTimeLogicDeleteProcessor.class),
+//         globalListenerConfig = @ListenerConfig(whenInsert = TestInsertListener.class, whenUpdate = TestUpdateListener.class),
+//         globalOptimisticLockConfig = @OptimisticLockConfig(columnName = "version"),
+//         globalAuditConfig = @AuditLogConfig(enable = true),
+//         globalPropertyConfig = @PropertyConfig(
+//                 nativeMybatisLog = NoLoggingImpl.class,
+//                 xmlMapperClassPaths = {"classpath*:cn/srd/library/java/orm/mybatis/base/customer/dao/impl/*.xml"},
+//                 xmlMapperEntityPackageAliasPackagePaths = {"cn.srd.library.java.orm.mybatis.**.po"}
+//         )
+// )
+// @SpringBootTest
+// @ExtendWith(SpringExtension.class)
+// @EnableAspectJAutoProxy(exposeProxy = true)

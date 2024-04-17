@@ -5,7 +5,7 @@
 package cn.srd.library.java.studio.low.code.model.vo;
 
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
-import cn.srd.library.java.orm.contract.model.page.PageParam;
+import cn.srd.library.java.orm.contract.model.base.BasePageConditionVO;
 import cn.srd.library.java.studio.low.code.model.enums.TeacherCourseType;
 import cn.srd.library.java.studio.low.code.model.enums.TeacherLevelType;
 import cn.srd.library.java.studio.low.code.model.enums.TeacherStatus;
@@ -38,7 +38,7 @@ import java.util.List;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-public class TeacherPageConditionVO extends PageParam implements Serializable {
+public class TeacherPageConditionVO extends BasePageConditionVO implements Serializable {
 
     @Serial private static final long serialVersionUID = -1970204634551545667L;
 

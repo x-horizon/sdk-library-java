@@ -5,8 +5,10 @@
 package cn.srd.library.java.studio.low.code.model.vo;
 
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
+import cn.srd.library.java.orm.contract.model.base.BaseListConditionVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
@@ -25,12 +27,10 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
-public class StudentListConditionVO implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+public class StudentListConditionVO extends BaseListConditionVO implements Serializable {
 
     @Serial private static final long serialVersionUID = -3730719478119777195L;
-
-    @Schema(description = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.LIST_NUMBER)
-    private List<Long> ids;
 
     @Schema(description = "学校id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.LIST_NUMBER)
     private Long schoolId;
