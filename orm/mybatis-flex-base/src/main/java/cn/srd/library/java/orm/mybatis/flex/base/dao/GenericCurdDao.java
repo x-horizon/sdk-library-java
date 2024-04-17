@@ -7,8 +7,8 @@ package cn.srd.library.java.orm.mybatis.flex.base.dao;
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
+import cn.srd.library.java.orm.contract.constant.GenericColumnName;
 import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.contract.model.generic.NameModel;
 import cn.srd.library.java.orm.mybatis.flex.base.adapter.MybatisFlexAdapter;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.DeleteChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChainer;
@@ -473,20 +473,76 @@ public interface GenericCurdDao<P extends PO> {
         return Optional.ofNullable(getBaseMapper().selectOneByEntityId(entity));
     }
 
-    default Optional<P> getByName(String name) {
-        return openQuery().where(NameModel::getName).equalsTo(name).get();
+    default Optional<P> getByCode(Number code) {
+        return Optional.ofNullable(getBaseMapper().selectOneByMap(Collections.ofImmutableMap(GenericColumnName.CODE, code)));
     }
 
-    default <N extends NameModel> Optional<P> getByName(N entity) {
-        return openQuery().where(NameModel::getName).equalsTo(entity.getName()).get();
+    default Optional<P> getByCode(String code) {
+        return Optional.ofNullable(getBaseMapper().selectOneByMap(Collections.ofImmutableMap(GenericColumnName.CODE, code)));
+    }
+
+    default Optional<P> getByEnableIs(Boolean enableIs) {
+        return Optional.ofNullable(getBaseMapper().selectOneByMap(Collections.ofImmutableMap(GenericColumnName.ENABLE_IS, enableIs)));
+    }
+
+    default Optional<P> getByName(String name) {
+        return Optional.ofNullable(getBaseMapper().selectOneByMap(Collections.ofImmutableMap(GenericColumnName.NAME, name)));
+    }
+
+    default Optional<P> getBySort(Number sort) {
+        return Optional.ofNullable(getBaseMapper().selectOneByMap(Collections.ofImmutableMap(GenericColumnName.SORT, sort)));
+    }
+
+    default Optional<P> getByStatus(Enum<?> status) {
+        return Optional.ofNullable(getBaseMapper().selectOneByMap(Collections.ofImmutableMap(GenericColumnName.STATUS, status)));
+    }
+
+    default Optional<P> getByType(Enum<?> type) {
+        return Optional.ofNullable(getBaseMapper().selectOneByMap(Collections.ofImmutableMap(GenericColumnName.TYPE, type)));
     }
 
     default List<P> listByIds(Iterable<? extends Serializable> ids) {
         return getBaseMapper().selectListByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toSet(ids));
     }
 
+    default List<P> listByCode(Number code) {
+        return getBaseMapper().selectListByMap(Collections.ofImmutableMap(GenericColumnName.CODE, code));
+    }
+
+    default List<P> listByCode(String code) {
+        return getBaseMapper().selectListByMap(Collections.ofImmutableMap(GenericColumnName.CODE, code));
+    }
+
+    default List<P> listByEnableIs(Boolean enableIs) {
+        return getBaseMapper().selectListByMap(Collections.ofImmutableMap(GenericColumnName.ENABLE_IS, enableIs));
+    }
+
+    default List<P> listByName(String name) {
+        return getBaseMapper().selectListByMap(Collections.ofImmutableMap(GenericColumnName.NAME, name));
+    }
+
+    default List<P> listBySort(Number sort) {
+        return getBaseMapper().selectListByMap(Collections.ofImmutableMap(GenericColumnName.SORT, sort));
+    }
+
+    default List<P> listByStatus(Enum<?> status) {
+        return getBaseMapper().selectListByMap(Collections.ofImmutableMap(GenericColumnName.STATUS, status));
+    }
+
+    default List<P> listByType(Enum<?> type) {
+        return getBaseMapper().selectListByMap(Collections.ofImmutableMap(GenericColumnName.TYPE, type));
+    }
+
     default List<P> listAll() {
         return getBaseMapper().selectListByQuery(QueryWrapper.create());
+    }
+
+    default List<P> listLikeByCode(String code) {
+        return getBaseMapper().selectListByQuery(QueryWrapper.create().like(GenericColumnName.CODE, code));
+    }
+
+    default List<P> listLikeByName(String name) {
+        return getBaseMapper().selectListByQuery(QueryWrapper.create().like(GenericColumnName.NAME, name));
     }
 
     default long countAll() {

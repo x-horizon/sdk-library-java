@@ -106,6 +106,11 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
         return new QueryJoiner<>(getNativeQueryChainer().fullJoin(entityClass, condition), this);
     }
 
+    // public <U extends PO> QueryConditional<P, QueryChainer<P>, QueryChain<P>> where(String columnName) {
+    //     getNativeQueryChainer().where(columnName);
+    //     return new QueryConditional<>(getNativeQueryChainer().where(columnName), this);
+    // }
+
     public <U extends PO> QueryConditional<P, QueryChainer<P>, QueryChain<P>> where(ColumnValueGetter<U> columnValueGetter) {
         return new QueryConditional<>(getNativeQueryChainer().where(columnValueGetter), this);
     }

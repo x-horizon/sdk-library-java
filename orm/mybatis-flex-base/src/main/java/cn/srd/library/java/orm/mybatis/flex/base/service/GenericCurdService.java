@@ -7,7 +7,6 @@ package cn.srd.library.java.orm.mybatis.flex.base.service;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.base.VO;
-import cn.srd.library.java.orm.contract.model.generic.NameModel;
 import cn.srd.library.java.orm.mybatis.flex.base.dao.GenericCurdDao;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
@@ -147,10 +146,6 @@ public class GenericCurdService<P extends PO, V extends VO, D extends GenericCur
             return Optional.ofNullable((V) po.orElseThrow().toVO());
         }
         return Optional.empty();
-    }
-
-    public <M extends NameModel> Optional<V> getByName(M entity) {
-        return getByName(entity.getName());
     }
 
     public List<V> listByIds(Iterable<? extends Serializable> ids) {
