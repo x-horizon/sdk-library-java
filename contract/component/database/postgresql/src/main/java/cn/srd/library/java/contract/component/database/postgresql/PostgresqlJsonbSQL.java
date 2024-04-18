@@ -21,7 +21,7 @@ import java.util.List;
  * @since 2024-04-18 20:34
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class PostgresqlJsonbSQLs {
+public class PostgresqlJsonbSQL {
 
     private static final String EMPTY_LIST_JSONB = "'[]'::JSONB";
 
