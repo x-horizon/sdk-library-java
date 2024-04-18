@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 dependencies {
+    api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_DATABASE_POSTGRESQL)))
     api(project(GradleModule.toReferenceName(GradleModule.ORM_CONTRACT_MYBATIS_BASE)))
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_ALL)))
 
