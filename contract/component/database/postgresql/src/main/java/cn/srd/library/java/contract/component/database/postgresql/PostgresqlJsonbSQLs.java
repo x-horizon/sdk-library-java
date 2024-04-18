@@ -25,6 +25,16 @@ public class PostgresqlJsonbSQLs {
 
     private static final String EMPTY_LIST_JSONB = "'[]'::JSONB";
 
+    private static final String LIST_NUMBER_EQUAL_FUNCTION_NAME = "jsonb_list_number_equal";
+
+    private static final String LIST_NUMBER_IN_FUNCTION_NAME = "jsonb_list_number_in";
+
+    private static final String LIST_STRING_EQUAL_FUNCTION_NAME = "jsonb_list_string_equal";
+
+    private static final String LIST_STRING_IN_FUNCTION_NAME = "jsonb_list_string_in";
+
+    private static final String LIST_STRING_LIKE_FUNCTION_NAME = "jsonb_list_string_like";
+
     private static final String LIST_OBJECT_KEY_ID_EQUAL_FUNCTION_NAME = "jsonb_list_object_key_id_equal";
 
     private static final String LIST_OBJECT_KEY_ID_IN_FUNCTION_NAME = "jsonb_list_object_key_id_in";
@@ -32,14 +42,6 @@ public class PostgresqlJsonbSQLs {
     private static final String LIST_OBJECT_KEY_TYPE_EQUAL_FUNCTION_NAME = "jsonb_list_object_key_type_equal";
 
     private static final String LIST_OBJECT_KEY_TYPE_IN_FUNCTION_NAME = "jsonb_list_object_key_type_in";
-
-    private static final String LIST_NUMBER_EQUAL_FUNCTION_NAME = "jsonb_list_number_equal";
-
-    private static final String LIST_NUMBER_IN_FUNCTION_NAME = "jsonb_list_number_in";
-
-    private static final String LIST_STRING_EQUAL_FUNCTION_NAME = "jsonb_list_string_equal";
-
-    private static final String LIST_STRING_LIKE_FUNCTION_NAME = "jsonb_list_string_like";
 
     /**
      * the condition sql example: names = '[]'::JSONB
@@ -52,56 +54,6 @@ public class PostgresqlJsonbSQLs {
     }
 
     /**
-     * the condition sql example: jsonb_list_object_key_id_equal(id_info, 1)
-     *
-     * @param columnName the column name
-     * @param value      the value
-     * @return the condition sql
-     */
-    public static <T extends Number> String getListObjectKeyIdEqual(String columnName, T value) {
-        return getListObjectNumberEqualFunctionTemplate(LIST_OBJECT_KEY_ID_EQUAL_FUNCTION_NAME, columnName, value);
-    }
-
-    /**
-     * <pre>
-     * 1. if the values is empty, the condition sql example: id_infos = '[]'::JSONB
-     * 2. if the values is not empty, the condition sql example: jsonb_list_object_key_id_in(id_infos, ARRAY [1,2])
-     * </pre>
-     *
-     * @param columnName the column name
-     * @param values     the values
-     * @return the condition sql
-     */
-    public static <T extends Number> String getListObjectKeyIdIn(String columnName, List<T> values) {
-        return getListObjectNumberInFunctionTemplate(LIST_OBJECT_KEY_ID_IN_FUNCTION_NAME, columnName, values);
-    }
-
-    /**
-     * the condition sql example: jsonb_list_object_key_type_equal(type_info, 1)
-     *
-     * @param columnName the column name
-     * @param value      the value
-     * @return the condition sql
-     */
-    public static <T extends Number> String getListObjectKeyTypeEqual(String columnName, T value) {
-        return getListObjectNumberEqualFunctionTemplate(LIST_OBJECT_KEY_TYPE_EQUAL_FUNCTION_NAME, columnName, value);
-    }
-
-    /**
-     * <pre>
-     * 1. if the values is empty, the condition sql example: type_infos = '[]'::JSONB
-     * 2. if the values is not empty, the condition sql example: jsonb_list_object_key_type_in(type_infos, ARRAY [1,2])
-     * </pre>
-     *
-     * @param columnName the column name
-     * @param values     the values
-     * @return the condition sql
-     */
-    public static <T extends Number> String getListObjectKeyTypeIn(String columnName, List<T> values) {
-        return getListObjectNumberInFunctionTemplate(LIST_OBJECT_KEY_TYPE_IN_FUNCTION_NAME, columnName, values);
-    }
-
-    /**
      * the condition sql example: jsonb_list_number_equal(types, 1)
      *
      * @param columnName the column name
@@ -109,7 +61,7 @@ public class PostgresqlJsonbSQLs {
      * @return the condition sql
      */
     public static <T extends Number> String getListNumberEqual(String columnName, T value) {
-        return getListObjectNumberEqualFunctionTemplate(LIST_NUMBER_EQUAL_FUNCTION_NAME, columnName, value);
+        return getListObjectEqualFunctionTemplate(LIST_NUMBER_EQUAL_FUNCTION_NAME, columnName, value);
     }
 
     /**
@@ -120,7 +72,7 @@ public class PostgresqlJsonbSQLs {
      * @return the condition sql
      */
     public static <T extends Number> String getListNumberIn(String columnName, List<T> values) {
-        return getListObjectNumberInFunctionTemplate(LIST_NUMBER_IN_FUNCTION_NAME, columnName, values);
+        return geyListObjectInFunctionTemplate(LIST_NUMBER_IN_FUNCTION_NAME, columnName, values);
     }
 
     /**
@@ -135,6 +87,17 @@ public class PostgresqlJsonbSQLs {
     }
 
     /**
+     * the condition sql example: jsonb_list_number_in(types, ARRAY [1,2])
+     *
+     * @param columnName the column name
+     * @param values     the values
+     * @return the condition sql
+     */
+    public static String getListStringIn(String columnName, List<String> values) {
+        return geyListObjectInFunctionTemplate(LIST_STRING_IN_FUNCTION_NAME, columnName, values);
+    }
+
+    /**
      * the condition sql example: jsonb_list_string_like(names, 'jimmy')
      *
      * @param columnName the column name
@@ -145,15 +108,54 @@ public class PostgresqlJsonbSQLs {
         return getListObjectEqualFunctionTemplate(LIST_STRING_LIKE_FUNCTION_NAME, columnName, Strings.format("'{}'", value));
     }
 
-    private static <T> String getListObjectNumberEqualFunctionTemplate(String functionName, String columnName, T value) {
-        return getListObjectEqualFunctionTemplate(functionName, columnName, value);
+    /**
+     * the condition sql example: jsonb_list_object_key_id_equal(id_info, 1)
+     *
+     * @param columnName the column name
+     * @param value      the value
+     * @return the condition sql
+     */
+    public static <T extends Number> String getListObjectKeyIdEqual(String columnName, T value) {
+        return getListObjectEqualFunctionTemplate(LIST_OBJECT_KEY_ID_EQUAL_FUNCTION_NAME, columnName, value);
     }
 
-    private static <T> String getListObjectNumberInFunctionTemplate(String functionName, String columnName, List<T> values) {
-        if (Nil.isEmpty(values)) {
-            return getEmptyListEqual(columnName);
-        }
-        return geyListObjectInFunctionTemplate(functionName, columnName, values);
+    /**
+     * <pre>
+     * 1. if the values is empty, the condition sql example: id_infos = '[]'::JSONB
+     * 2. if the values is not empty, the condition sql example: jsonb_list_object_key_id_in(id_infos, ARRAY [1,2])
+     * </pre>
+     *
+     * @param columnName the column name
+     * @param values     the values
+     * @return the condition sql
+     */
+    public static <T extends Number> String getListObjectKeyIdIn(String columnName, List<T> values) {
+        return geyListObjectInFunctionTemplate(LIST_OBJECT_KEY_ID_IN_FUNCTION_NAME, columnName, values);
+    }
+
+    /**
+     * the condition sql example: jsonb_list_object_key_type_equal(type_info, 1)
+     *
+     * @param columnName the column name
+     * @param value      the value
+     * @return the condition sql
+     */
+    public static <T extends Number> String getListObjectKeyTypeEqual(String columnName, T value) {
+        return getListObjectEqualFunctionTemplate(LIST_OBJECT_KEY_TYPE_EQUAL_FUNCTION_NAME, columnName, value);
+    }
+
+    /**
+     * <pre>
+     * 1. if the values is empty, the condition sql example: type_infos = '[]'::JSONB
+     * 2. if the values is not empty, the condition sql example: jsonb_list_object_key_type_in(type_infos, ARRAY [1,2])
+     * </pre>
+     *
+     * @param columnName the column name
+     * @param values     the values
+     * @return the condition sql
+     */
+    public static <T extends Number> String getListObjectKeyTypeIn(String columnName, List<T> values) {
+        return geyListObjectInFunctionTemplate(LIST_OBJECT_KEY_TYPE_IN_FUNCTION_NAME, columnName, values);
     }
 
     private static <T> String getListObjectEqualFunctionTemplate(String functionName, String columnName, T value) {
@@ -161,6 +163,9 @@ public class PostgresqlJsonbSQLs {
     }
 
     private static <T> String geyListObjectInFunctionTemplate(String functionName, String columnName, List<T> values) {
+        if (Nil.isEmpty(values)) {
+            return getEmptyListEqual(columnName);
+        }
         return Strings.format("{}({}, ARRAY [{}])", functionName, columnName, Strings.joinWithComma(values));
     }
 
