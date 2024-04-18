@@ -8,6 +8,7 @@ import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.base.VO;
 import cn.srd.library.java.orm.mybatis.flex.base.dao.GenericCurdDao;
+import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnValueGetter;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ import java.util.stream.Collectors;
 /**
  * the generic curd service
  *
+ * @param <P> the entity extends {@link PO}
+ * @param <V> the entity extends {@link VO}
+ * @param <D> the dao extends {@link GenericCurdDao}
  * @author wjm
  * @since 2024-04-16 14:31
  */
@@ -140,8 +144,8 @@ public class GenericCurdService<P extends PO, V extends VO, D extends GenericCur
         return Optional.empty();
     }
 
-    public Optional<V> getByName(String name) {
-        Optional<P> po = dao.getByName(name);
+    public Optional<V> getByField(ColumnValueGetter<P> columnValueGetter, String name) {
+        Optional<P> po = dao.getByField(columnValueGetter, name);
         if (po.isPresent()) {
             return Optional.ofNullable((V) po.orElseThrow().toVO());
         }
@@ -150,6 +154,20 @@ public class GenericCurdService<P extends PO, V extends VO, D extends GenericCur
 
     public List<V> listByIds(Iterable<? extends Serializable> ids) {
         return dao.listByIds(ids)
+                .stream()
+                .map(po -> (V) po.toVO())
+                .collect(Collectors.toList());
+    }
+
+    public List<V> listByField(ColumnValueGetter<P> columnValueGetter, Object value) {
+        return dao.listByField(columnValueGetter, value)
+                .stream()
+                .map(po -> (V) po.toVO())
+                .collect(Collectors.toList());
+    }
+
+    public List<V> listLikeByField(ColumnValueGetter<P> columnValueGetter, String value) {
+        return dao.listLikeByField(columnValueGetter, value)
                 .stream()
                 .map(po -> (V) po.toVO())
                 .collect(Collectors.toList());

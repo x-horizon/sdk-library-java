@@ -15,11 +15,12 @@ import lombok.Getter;
 import java.util.function.Consumer;
 
 /**
+ * @param <P> the entity extends {@link PO}
  * @param <Q> query chain type
  * @author wjm
  * @since 2023-12-05 16:20
  */
-@AllArgsConstructor(access = AccessLevel.MODULE)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @SuppressWarnings(SuppressWarningConstant.UNUSED)
 public class QueryJoiner<P extends PO, Q extends BaseQueryChainer<P>> extends BaseQueryJoiner<P> {
 
@@ -29,6 +30,7 @@ public class QueryJoiner<P extends PO, Q extends BaseQueryChainer<P>> extends Ba
 
     private static final String WHERE_QUERY_CONDITION_FIELD_NAME = "whereQueryCondition";
 
+    @SuppressWarnings(SuppressWarningConstant.DEPRECATED)
     public QueryJoiner<P, Q> as(String alias) {
         getNativeQueryJoiner().as(alias);
         return this;

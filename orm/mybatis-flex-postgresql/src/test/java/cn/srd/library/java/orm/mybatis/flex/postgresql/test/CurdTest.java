@@ -526,9 +526,10 @@ class CurdTest {
         testSave();
 
         // SELECT * FROM "home" WHERE ("home"."name" = 'home1') AND "delete_time" IS NULL LIMIT 1
-        HomeVO homeVO1 = homeService.getByName(HOME_NAME_1).orElseThrow();
+        HomeVO homeVO1 = homeService.getByField(HomePO::getName, HOME_NAME_1).orElseThrow();
         // SELECT * FROM "home" WHERE (name LIKE '%home%') AND "delete_time" IS NULL
-        List<HomePO> homePOs1 = homeDao.listLikeByName("home");
+        List<HomePO> homePOs1 = homeDao.listLikeByField(HomePO::getName, "home");
+        List<HomePO> homePOs2 = homeDao.listJsonbListStringLikeByField(HomePO::getName, "home");
 
         // SELECT * FROM "people" WHERE "delete_time" IS NULL;
         List<PeoplePO> allPeoplePOs = peopleDao.listAll();

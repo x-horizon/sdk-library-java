@@ -27,12 +27,14 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
 
 /**
+ * @param <P> the entity extends {@link PO}
+ * @param <Q> the chainer extends {@link BaseChainer}
  * @param <N> the wrapper extends {@link QueryWrapper}
  * @author wjm
  * @since 2023-12-03 23:35
  */
 @CanIgnoreReturnValue
-@AllArgsConstructor(access = AccessLevel.MODULE)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @SuppressWarnings(SuppressWarningConstant.UNUSED)
 public class QueryConditional<P extends PO, Q extends BaseChainer<P>, N extends QueryWrapper> extends BaseQueryConditional<N> {
 

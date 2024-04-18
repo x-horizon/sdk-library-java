@@ -4,7 +4,6 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.service;
 
-import cn.srd.library.java.orm.mybatis.flex.base.service.GenericService;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.HomeDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.HomePO;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.vo.HomeVO;

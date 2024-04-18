@@ -11,6 +11,9 @@ import cn.srd.library.java.orm.mybatis.flex.base.dao.GenericCurdDao;
 /**
  * the generic service
  *
+ * @param <P> the entity extends {@link PO}
+ * @param <V> the entity extends {@link VO}
+ * @param <D> the dao extends {@link GenericCurdDao}
  * @author wjm
  * @since 2024-04-16 14:31
  */
