@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.studio.low.code.dao;
 
-import cn.srd.library.java.orm.mybatis.flex.base.dao.GenericDao;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.GenericDao;
 import cn.srd.library.java.studio.low.code.model.po.TeacherPO;
 import org.springframework.stereotype.Repository;
 

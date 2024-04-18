@@ -6,7 +6,7 @@ package cn.srd.library.java.studio.low.code.service;
 
 import cn.srd.library.java.contract.model.throwable.DataNotFoundException;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
-import cn.srd.library.java.orm.mybatis.flex.base.service.GenericService;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.service.GenericService;
 import cn.srd.library.java.studio.low.code.dao.SchoolDao;
 import cn.srd.library.java.studio.low.code.model.po.SchoolPO;
 import cn.srd.library.java.studio.low.code.model.vo.SchoolGetConditionVO;
