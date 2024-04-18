@@ -1,6 +1,6 @@
 package cn.srd.library.java.cache.redis;
 
-import cn.srd.library.java.contract.component.redis.RedisManager;
+import cn.srd.library.java.contract.component.cache.redis.RedisManager;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.convert.Converts;

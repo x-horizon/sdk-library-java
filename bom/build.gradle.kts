@@ -116,7 +116,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.CONCURRENT_REDIS)))
 
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_MESSAGE_SPRING)))
-        api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_REDIS)))
+        api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_CACHE_REDIS)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_CONSTANT)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_MODEL)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_PROPERTIES)))
