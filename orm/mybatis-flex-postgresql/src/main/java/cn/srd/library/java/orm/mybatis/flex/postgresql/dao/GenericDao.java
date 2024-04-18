@@ -30,7 +30,7 @@ public interface GenericDao<P extends PO> extends cn.srd.library.java.orm.mybati
         return QueryChainer.of(getBaseMapper());
     }
 
-    default List<P> listJsonbEmptyByField(ColumnValueGetter<P> columnValueGetter) {
+    default List<P> listJsonbEmptyListByField(ColumnValueGetter<P> columnValueGetter) {
         return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQLs.getEmptyListEqual(MybatisFlexs.getQueryColumn(columnValueGetter).getName())));
     }
 

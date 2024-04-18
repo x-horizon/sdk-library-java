@@ -32,7 +32,7 @@ public class GenericService<P extends PO, V extends VO, D extends GenericDao<P>>
     @Autowired private D dao;
 
     public List<V> listJsonbEmptyByField(ColumnValueGetter<P> columnValueGetter) {
-        return dao.listJsonbEmptyByField(columnValueGetter)
+        return dao.listJsonbEmptyListByField(columnValueGetter)
                 .stream()
                 .map(po -> (V) po.toVO())
                 .collect(Collectors.toList());
