@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.dao;
 
-import cn.srd.library.java.contract.component.database.postgresql.PostgresqlJsonbSQLs;
+import cn.srd.library.java.contract.component.database.postgresql.PostgresqlJsonbSQL;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.mybatis.flex.base.adapter.MybatisFlexAdapter;
@@ -31,43 +31,43 @@ public interface GenericDao<P extends PO> extends cn.srd.library.java.orm.mybati
     }
 
     default List<P> listJsonbEmptyListByField(ColumnValueGetter<P> columnValueGetter) {
-        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQLs.getEmptyListEqual(MybatisFlexs.getQueryColumn(columnValueGetter).getName())));
+        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQL.getEmptyListEqual(MybatisFlexs.getQueryColumn(columnValueGetter).getName())));
     }
 
     default <T extends Number> List<P> listJsonbListNumberEqualByField(ColumnValueGetter<P> columnValueGetter, T value) {
-        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQLs.getListNumberEqual(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), value)));
+        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQL.getListNumberEqual(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), value)));
     }
 
     default <T extends Number> List<P> listJsonbListNumberInByField(ColumnValueGetter<P> columnValueGetter, List<T> values) {
-        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQLs.getListNumberIn(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), values)));
+        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQL.getListNumberIn(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), values)));
     }
 
     default List<P> listJsonbListStringEqualByField(ColumnValueGetter<P> columnValueGetter, String value) {
-        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQLs.getListStringEqual(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), value)));
+        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQL.getListStringEqual(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), value)));
     }
 
     default List<P> listJsonbListStringInByField(ColumnValueGetter<P> columnValueGetter, List<String> values) {
-        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQLs.getListStringIn(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), values)));
+        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQL.getListStringIn(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), values)));
     }
 
     default List<P> listJsonbListStringLikeByField(ColumnValueGetter<P> columnValueGetter, String value) {
-        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQLs.getListStringLike(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), value)));
+        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQL.getListStringLike(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), value)));
     }
 
     default <T extends Number> List<P> listJsonbListObjectKeyIdEqualByField(ColumnValueGetter<P> columnValueGetter, T value) {
-        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQLs.getListObjectKeyIdEqual(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), value)));
+        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQL.getListObjectKeyIdEqual(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), value)));
     }
 
     default <T extends Number> List<P> listJsonbListObjectKeyIdInByField(ColumnValueGetter<P> columnValueGetter, List<T> values) {
-        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQLs.getListObjectKeyIdIn(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), values)));
+        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQL.getListObjectKeyIdIn(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), values)));
     }
 
     default <T extends Number> List<P> listJsonbListObjectKeyTypeEqualByField(ColumnValueGetter<P> columnValueGetter, T value) {
-        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQLs.getListObjectKeyTypeEqual(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), value)));
+        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQL.getListObjectKeyTypeEqual(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), value)));
     }
 
     default <T extends Number> List<P> listJsonbListObjectKeyTypeInByField(ColumnValueGetter<P> columnValueGetter, List<T> values) {
-        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQLs.getListObjectKeyTypeIn(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), values)));
+        return getBaseMapper().selectListByCondition(new RawQueryCondition(PostgresqlJsonbSQL.getListObjectKeyTypeIn(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), values)));
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
