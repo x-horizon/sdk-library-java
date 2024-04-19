@@ -1187,6 +1187,21 @@ public class Collections {
      * @param <T>    the element type
      * @return the last element
      */
+    public static <T> Optional<T> getLast(T[] inputs) {
+        int inputLength = inputs.length;
+        if (Nil.isZeroValue(inputLength)) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(inputs[inputLength - 1]);
+    }
+
+    /**
+     * get the last element
+     *
+     * @param inputs the input elements
+     * @param <T>    the element type
+     * @return the last element
+     */
     public static <T> Optional<T> getLast(Collection<T> inputs) {
         return Optional.ofNullable(CollectionUtil.getLast(inputs));
     }
