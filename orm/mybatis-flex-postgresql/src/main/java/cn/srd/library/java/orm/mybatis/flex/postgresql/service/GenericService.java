@@ -8,7 +8,7 @@ import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.base.VO;
 import cn.srd.library.java.orm.mybatis.flex.base.dao.GenericCurdDao;
-import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnValueGetter;
+import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.GenericDao;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,71 +31,71 @@ public class GenericService<P extends PO, V extends VO, D extends GenericDao<P>>
 
     @Autowired private D dao;
 
-    public List<V> listJsonbEmptyByField(ColumnValueGetter<P> columnValueGetter) {
-        return dao.listJsonbEmptyListByField(columnValueGetter)
+    public List<V> listJsonbEmptyByField(ColumnNameGetter<P> columnNameGetter) {
+        return dao.listJsonbEmptyListByField(columnNameGetter)
                 .stream()
                 .map(po -> (V) po.toVO())
                 .collect(Collectors.toList());
     }
 
-    public <T extends Number> List<V> listJsonbListNumberEqualByField(ColumnValueGetter<P> columnValueGetter, T value) {
-        return dao.listJsonbListNumberEqualByField(columnValueGetter, value)
+    public <T extends Number> List<V> listJsonbListNumberEqualByField(ColumnNameGetter<P> columnNameGetter, T value) {
+        return dao.listJsonbListNumberEqualByField(columnNameGetter, value)
                 .stream()
                 .map(po -> (V) po.toVO())
                 .collect(Collectors.toList());
     }
 
-    public <T extends Number> List<V> listJsonbListNumberInByField(ColumnValueGetter<P> columnValueGetter, List<T> values) {
-        return dao.listJsonbListNumberInByField(columnValueGetter, values)
+    public <T extends Number> List<V> listJsonbListNumberInByField(ColumnNameGetter<P> columnNameGetter, List<T> values) {
+        return dao.listJsonbListNumberInByField(columnNameGetter, values)
                 .stream()
                 .map(po -> (V) po.toVO())
                 .collect(Collectors.toList());
     }
 
-    public List<V> listJsonbListStringEqualByField(ColumnValueGetter<P> columnValueGetter, String value) {
-        return dao.listJsonbListStringEqualByField(columnValueGetter, value)
+    public List<V> listJsonbListStringEqualByField(ColumnNameGetter<P> columnNameGetter, String value) {
+        return dao.listJsonbListStringEqualByField(columnNameGetter, value)
                 .stream()
                 .map(po -> (V) po.toVO())
                 .collect(Collectors.toList());
     }
 
-    public List<V> listJsonbListStringInByField(ColumnValueGetter<P> columnValueGetter, List<String> values) {
-        return dao.listJsonbListStringInByField(columnValueGetter, values)
+    public List<V> listJsonbListStringInByField(ColumnNameGetter<P> columnNameGetter, List<String> values) {
+        return dao.listJsonbListStringInByField(columnNameGetter, values)
                 .stream()
                 .map(po -> (V) po.toVO())
                 .collect(Collectors.toList());
     }
 
-    public List<V> listJsonbListStringLikeByField(ColumnValueGetter<P> columnValueGetter, String value) {
-        return dao.listJsonbListStringLikeByField(columnValueGetter, value)
+    public List<V> listJsonbListStringLikeByField(ColumnNameGetter<P> columnNameGetter, String value) {
+        return dao.listJsonbListStringLikeByField(columnNameGetter, value)
                 .stream()
                 .map(po -> (V) po.toVO())
                 .collect(Collectors.toList());
     }
 
-    public <T extends Number> List<V> listJsonbListObjectKeyIdEqualByField(ColumnValueGetter<P> columnValueGetter, T value) {
-        return dao.listJsonbListObjectKeyIdEqualByField(columnValueGetter, value)
+    public <T extends Number> List<V> listJsonbListObjectKeyIdEqualByField(ColumnNameGetter<P> columnNameGetter, T value) {
+        return dao.listJsonbListObjectKeyIdEqualByField(columnNameGetter, value)
                 .stream()
                 .map(po -> (V) po.toVO())
                 .collect(Collectors.toList());
     }
 
-    public <T extends Number> List<V> listJsonbListObjectKeyIdInByField(ColumnValueGetter<P> columnValueGetter, List<T> values) {
-        return dao.listJsonbListObjectKeyIdInByField(columnValueGetter, values)
+    public <T extends Number> List<V> listJsonbListObjectKeyIdInByField(ColumnNameGetter<P> columnNameGetter, List<T> values) {
+        return dao.listJsonbListObjectKeyIdInByField(columnNameGetter, values)
                 .stream()
                 .map(po -> (V) po.toVO())
                 .collect(Collectors.toList());
     }
 
-    public <T extends Number> List<V> listJsonbListObjectKeyTypeEqualByField(ColumnValueGetter<P> columnValueGetter, T value) {
-        return dao.listJsonbListObjectKeyTypeEqualByField(columnValueGetter, value)
+    public <T extends Number> List<V> listJsonbListObjectKeyTypeEqualByField(ColumnNameGetter<P> columnNameGetter, T value) {
+        return dao.listJsonbListObjectKeyTypeEqualByField(columnNameGetter, value)
                 .stream()
                 .map(po -> (V) po.toVO())
                 .collect(Collectors.toList());
     }
 
-    public <T extends Number> List<V> listJsonbListObjectKeyTypeInByField(ColumnValueGetter<P> columnValueGetter, List<T> values) {
-        return dao.listJsonbListObjectKeyTypeInByField(columnValueGetter, values)
+    public <T extends Number> List<V> listJsonbListObjectKeyTypeInByField(ColumnNameGetter<P> columnNameGetter, List<T> values) {
+        return dao.listJsonbListObjectKeyTypeInByField(columnNameGetter, values)
                 .stream()
                 .map(po -> (V) po.toVO())
                 .collect(Collectors.toList());

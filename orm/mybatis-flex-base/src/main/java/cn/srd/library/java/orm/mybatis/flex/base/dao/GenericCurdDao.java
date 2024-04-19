@@ -12,7 +12,7 @@ import cn.srd.library.java.orm.mybatis.flex.base.adapter.MybatisFlexAdapter;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.DeleteChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.UpdateChainer;
-import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnValueGetter;
+import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.MybatisFlexs;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;
@@ -473,20 +473,20 @@ public interface GenericCurdDao<P extends PO> {
         return Optional.ofNullable(getBaseMapper().selectOneByEntityId(entity));
     }
 
-    default Optional<P> getByField(ColumnValueGetter<P> columnValueGetter, Object value) {
-        return Optional.ofNullable(getBaseMapper().selectOneByMap(Collections.ofImmutableMap(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), value)));
+    default Optional<P> getByField(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return Optional.ofNullable(getBaseMapper().selectOneByMap(Collections.ofImmutableMap(MybatisFlexs.getColumnName(columnNameGetter), value)));
     }
 
     default List<P> listByIds(Iterable<? extends Serializable> ids) {
         return getBaseMapper().selectListByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toSet(ids));
     }
 
-    default List<P> listByField(ColumnValueGetter<P> columnValueGetter, Object value) {
-        return getBaseMapper().selectListByMap(Collections.ofImmutableMap(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), value));
+    default List<P> listByField(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return getBaseMapper().selectListByMap(Collections.ofImmutableMap(MybatisFlexs.getColumnName(columnNameGetter), value));
     }
 
-    default List<P> listLikeByField(ColumnValueGetter<P> columnValueGetter, String value) {
-        return getBaseMapper().selectListByQuery(QueryWrapper.create().like(MybatisFlexs.getQueryColumn(columnValueGetter).getName(), value));
+    default List<P> listLikeByField(ColumnNameGetter<P> columnNameGetter, String value) {
+        return getBaseMapper().selectListByQuery(QueryWrapper.create().like(MybatisFlexs.getColumnName(columnNameGetter), value));
     }
 
     default List<P> listAll() {

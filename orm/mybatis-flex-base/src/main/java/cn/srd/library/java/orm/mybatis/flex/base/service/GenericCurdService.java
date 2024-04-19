@@ -8,7 +8,7 @@ import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.base.VO;
 import cn.srd.library.java.orm.mybatis.flex.base.dao.GenericCurdDao;
-import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnValueGetter;
+import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,8 +144,8 @@ public class GenericCurdService<P extends PO, V extends VO, D extends GenericCur
         return Optional.empty();
     }
 
-    public Optional<V> getByField(ColumnValueGetter<P> columnValueGetter, String name) {
-        Optional<P> po = dao.getByField(columnValueGetter, name);
+    public Optional<V> getByField(ColumnNameGetter<P> columnNameGetter, String name) {
+        Optional<P> po = dao.getByField(columnNameGetter, name);
         if (po.isPresent()) {
             return Optional.ofNullable((V) po.orElseThrow().toVO());
         }
@@ -159,15 +159,15 @@ public class GenericCurdService<P extends PO, V extends VO, D extends GenericCur
                 .collect(Collectors.toList());
     }
 
-    public List<V> listByField(ColumnValueGetter<P> columnValueGetter, Object value) {
-        return dao.listByField(columnValueGetter, value)
+    public List<V> listByField(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return dao.listByField(columnNameGetter, value)
                 .stream()
                 .map(po -> (V) po.toVO())
                 .collect(Collectors.toList());
     }
 
-    public List<V> listLikeByField(ColumnValueGetter<P> columnValueGetter, String value) {
-        return dao.listLikeByField(columnValueGetter, value)
+    public List<V> listLikeByField(ColumnNameGetter<P> columnNameGetter, String value) {
+        return dao.listLikeByField(columnNameGetter, value)
                 .stream()
                 .map(po -> (V) po.toVO())
                 .collect(Collectors.toList());

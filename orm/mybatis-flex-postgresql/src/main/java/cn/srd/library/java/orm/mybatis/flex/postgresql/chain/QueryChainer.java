@@ -4,16 +4,24 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.chain;
 
+import cn.srd.library.java.contract.component.database.postgresql.PostgresqlJsonbSQL;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnValueGetter;
+import cn.srd.library.java.orm.contract.model.base.POJO;
+import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
+import cn.srd.library.java.orm.mybatis.flex.base.tool.MybatisFlexs;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.function.PostgresqlFunctionQueryCondition;
+import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.convert.Converts;
+import cn.srd.library.java.tool.lang.object.Nil;
+import cn.srd.library.java.tool.lang.random.Randoms;
+import cn.srd.library.java.tool.lang.text.Strings;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.query.QueryChain;
-import lombok.AccessLevel;
-import lombok.Getter;
+import com.mybatisflex.core.query.RawQueryCondition;
 
-import java.util.function.BooleanSupplier;
+import java.util.List;
 
 /**
  * @param <P> the entity extends {@link PO}
@@ -24,121 +32,96 @@ import java.util.function.BooleanSupplier;
 @SuppressWarnings(SuppressWarningConstant.UNUSED)
 public class QueryChainer<P extends PO> extends cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChainer<P> {
 
-    @Getter(AccessLevel.PROTECTED) private final BaseMapper<P> nativeBaseMapper;
-
-    @Getter(AccessLevel.PROTECTED) private final QueryChain<P> nativeQueryChainer;
-
     protected QueryChainer(BaseMapper<P> nativeBaseMapper, QueryChain<P> nativeQueryChainer) {
         super(nativeBaseMapper, nativeQueryChainer);
-        this.nativeBaseMapper = nativeBaseMapper;
-        this.nativeQueryChainer = nativeQueryChainer;
     }
 
     public static <P extends PO> QueryChainer<P> of(BaseMapper<P> baseMapper) {
         return new QueryChainer<>(baseMapper, QueryChain.of(baseMapper));
     }
 
-    @SafeVarargs
-    public final <U extends PO> QueryChainer<P> select(ColumnValueGetter<U>... columnValueGetters) {
-        getNativeQueryChainer().select(columnValueGetters);
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public <U extends PO> QueryChainer<P> select(ColumnNameGetter<U>... columnNameGetters) {
+        getNativeQueryChainer().select(columnNameGetters);
         return this;
     }
 
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> innerJoin(Class<U> entityClass) {
-        return innerJoin(entityClass, true);
-    }
-
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> innerJoin(Class<U> entityClass, BooleanSupplier condition) {
-        return innerJoin(entityClass, condition.getAsBoolean());
-    }
-
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> innerJoin(Class<U> entityClass, boolean condition) {
-        return new QueryJoiner<>(getNativeQueryChainer().innerJoin(entityClass, condition), this);
-    }
-
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> leftJoin(Class<U> entityClass) {
-        return leftJoin(entityClass, true);
-    }
-
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> leftJoin(Class<U> entityClass, BooleanSupplier condition) {
-        return leftJoin(entityClass, condition.getAsBoolean());
-    }
-
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> leftJoin(Class<U> entityClass, boolean condition) {
-        return new QueryJoiner<>(getNativeQueryChainer().leftJoin(entityClass, condition), this);
-    }
-
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> rightJoin(Class<U> entityClass) {
-        return rightJoin(entityClass, true);
-    }
-
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> rightJoin(Class<U> entityClass, BooleanSupplier condition) {
-        return rightJoin(entityClass, condition.getAsBoolean());
-    }
-
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> rightJoin(Class<U> entityClass, boolean condition) {
-        return new QueryJoiner<>(getNativeQueryChainer().rightJoin(entityClass, condition), this);
-    }
-
-    // TODO wjm 关于 cross join，不是在 cross join table name 后拼接 on 的连接条件的，而是在 where 后拼接表的连接条件，mybatis-flex 目前的实现有 bug，此处先屏蔽 cross join 的相关函数
-    // public <U extends PO> QueryJoiner<P, QueryChainer<P>> crossJoin(Class<U> entityClass) {
-    //     return crossJoin(entityClass, true);
-    // }
-    // public <U extends PO> QueryJoiner<P, QueryChainer<P>> crossJoin(Class<U> entityClass, BooleanSupplier condition) {
-    //     return crossJoin(entityClass, condition.getAsBoolean());
-    // }
-    // public <U extends PO> QueryJoiner<P, QueryChainer<P>> crossJoin(Class<U> entityClass, boolean condition) {
-    //     return new QueryJoiner<>(getNativeQueryChainer().crossJoin(entityClass, condition), this);
-    // }
-
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> fullJoin(Class<U> entityClass) {
-        return fullJoin(entityClass, true);
-    }
-
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> fullJoin(Class<U> entityClass, BooleanSupplier condition) {
-        return fullJoin(entityClass, condition.getAsBoolean());
-    }
-
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> fullJoin(Class<U> entityClass, boolean condition) {
-        return new QueryJoiner<>(getNativeQueryChainer().fullJoin(entityClass, condition), this);
-    }
-
-    public <U extends PO> QueryConditional<P, QueryChainer<P>, QueryChain<P>> where(ColumnValueGetter<U> columnValueGetter) {
-        return new QueryConditional<>(getNativeQueryChainer().where(columnValueGetter), this);
-    }
-
-    public <U extends PO> QueryConditional<P, QueryChainer<P>, QueryChain<P>> and(ColumnValueGetter<U> columnValueGetter) {
-        return new QueryConditional<>(getNativeQueryChainer().and(columnValueGetter), this);
-    }
-
-    public <U extends PO> QueryConditional<P, QueryChainer<P>, QueryChain<P>> or(ColumnValueGetter<U> columnValueGetter) {
-        return new QueryConditional<>(getNativeQueryChainer().or(columnValueGetter), this);
-    }
-
-    public QueryChainer<P> as(String aliasName) {
-        getNativeQueryChainer().as(aliasName);
+    public <U extends PO> QueryChainer<P> selectSelfAll() {
+        getNativeQueryChainer().select();
         return this;
     }
 
     @SafeVarargs
-    public final <U extends PO> QueryChainer<P> groupBy(ColumnValueGetter<U>... columnValueGetters) {
-        getNativeQueryChainer().groupBy(columnValueGetters);
-        return this;
-    }
-
-    @SafeVarargs
-    public final <U extends PO> QueryChainer<P> orderByAsc(ColumnValueGetter<U>... columnValueGetters) {
-        for (ColumnValueGetter<U> columnValueGetter : columnValueGetters) {
-            getNativeQueryChainer().orderBy(columnValueGetter, true);
+    public final <U extends PO, T extends POJO> QueryChainer<P> innerJoinJsonbListVirtualTable(ColumnNameGetter<U> columnNameGetter, ColumnNameGetter<T>... jsonbInternalKeyNameGetters) {
+        String columnName = MybatisFlexs.getColumnName(columnNameGetter);
+        // TODO wjm 直接使用随机数拼接为 jsonb 表名的方式不够好
+        String jsonbVirtualTableRandomAliasName = Randoms.getString(5);
+        if (Nil.isEmpty(jsonbInternalKeyNameGetters)) {
+            getNativeQueryChainer().innerJoin(Strings.format("JSONB_ARRAY_ELEMENTS({})", columnName));
+            this.as(Strings.format("{}_{}", columnName, jsonbVirtualTableRandomAliasName));
+            return this;
         }
+        List<String> jsonbInternalKeyNames = Converts.toList(jsonbInternalKeyNameGetters, jsonbInternalKeyNameGetter -> Strings.format("'{}'", MybatisFlexs.getFieldName(jsonbInternalKeyNameGetter)));
+        getNativeQueryChainer()
+                .innerJoin(Strings.format("JSONB_ARRAY_ELEMENTS(JSONB_EXTRACT_PATH({}, {}))", MybatisFlexs.getColumnName(columnNameGetter), Strings.joinWithComma(jsonbInternalKeyNames)))
+                .as(Strings.format("{}_{}", MybatisFlexs.getFieldName(Collections.getLast(jsonbInternalKeyNameGetters).orElseThrow()), jsonbVirtualTableRandomAliasName));
+        // getNativeQueryChainer().innerJoin(QueryWrapper.create());
+        // this.as(Strings.format("{}_{}", MybatisFlexs.getFieldName(Collections.getLast(jsonbInternalKeyNameGetters).orElseThrow()), jsonbVirtualTableRandomAliasName));
         return this;
     }
 
-    @SafeVarargs
-    public final <U extends PO> QueryChainer<P> orderByDesc(ColumnValueGetter<U>... columnValueGetters) {
-        for (ColumnValueGetter<U> columnValueGetter : columnValueGetters) {
-            getNativeQueryChainer().orderBy(columnValueGetter, false);
-        }
+    public <U extends PO, T extends Number> QueryChainer<P> lkkk(ColumnNameGetter<U> columnNameGetter) {
+        getNativeQueryChainer().and(new RawQueryCondition(PostgresqlJsonbSQL.getEmptyListEqual(MybatisFlexs.getColumnName(columnNameGetter))));
+        return this;
+    }
+
+    public <U extends PO, T extends Number> QueryChainer<P> andListJsonbEmptyListFunction(ColumnNameGetter<U> columnNameGetter) {
+        getNativeQueryChainer().and(PostgresqlFunctionQueryCondition.listJsonbEmptyList(columnNameGetter));
+        return this;
+    }
+
+    public <U extends PO, T extends Number> QueryChainer<P> andListJsonbListNumberEqualFunction(ColumnNameGetter<P> columnNameGetter, T value) {
+        getNativeQueryChainer().and(PostgresqlFunctionQueryCondition.listJsonbListNumberEqual(columnNameGetter, value));
+        return this;
+    }
+
+    public <U extends PO, T extends Number> QueryChainer<P> andListJsonbListNumberInFunction(ColumnNameGetter<P> columnNameGetter, List<T> values) {
+        getNativeQueryChainer().and(PostgresqlFunctionQueryCondition.listJsonbListNumberIn(columnNameGetter, values));
+        return this;
+    }
+
+    public <U extends PO> QueryChainer<P> andListJsonbListStringEqualFunction(ColumnNameGetter<P> columnNameGetter, String value) {
+        getNativeQueryChainer().and(PostgresqlFunctionQueryCondition.listJsonbListStringEqual(columnNameGetter, value));
+        return this;
+    }
+
+    public <U extends PO> QueryChainer<P> andListJsonbListStringInFunction(ColumnNameGetter<P> columnNameGetter, List<String> values) {
+        getNativeQueryChainer().and(PostgresqlFunctionQueryCondition.listJsonbListStringIn(columnNameGetter, values));
+        return this;
+    }
+
+    public <U extends PO> QueryChainer<P> andListJsonbListStringLikeFunction(ColumnNameGetter<P> columnNameGetter, String value) {
+        getNativeQueryChainer().and(PostgresqlFunctionQueryCondition.listJsonbListStringLike(columnNameGetter, value));
+        return this;
+    }
+
+    public <U extends PO, T extends Number> QueryChainer<P> andListJsonbListObjectKeyIdEqualFunction(ColumnNameGetter<P> columnNameGetter, T value) {
+        getNativeQueryChainer().and(PostgresqlFunctionQueryCondition.listJsonbListObjectKeyIdEqual(columnNameGetter, value));
+        return this;
+    }
+
+    public <U extends PO, T extends Number> QueryChainer<P> andListJsonbListObjectKeyIdInFunction(ColumnNameGetter<P> columnNameGetter, List<T> values) {
+        getNativeQueryChainer().and(PostgresqlFunctionQueryCondition.listJsonbListObjectKeyIdIn(columnNameGetter, values));
+        return this;
+    }
+
+    public <U extends PO, T extends Number> QueryChainer<P> andListJsonbListObjectKeyTypeEqualFunction(ColumnNameGetter<P> columnNameGetter, T value) {
+        getNativeQueryChainer().and(PostgresqlFunctionQueryCondition.listJsonbListObjectKeyTypeEqual(columnNameGetter, value));
+        return this;
+    }
+
+    public <U extends PO, T extends Number> QueryChainer<P> andListJsonbListObjectKeyTypeInFunction(ColumnNameGetter<P> columnNameGetter, List<T> values) {
+        getNativeQueryChainer().and(PostgresqlFunctionQueryCondition.listJsonbListObjectKeyTypeIn(columnNameGetter, values));
         return this;
     }
 

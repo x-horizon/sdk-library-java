@@ -93,13 +93,21 @@ public class MybatisFlexs {
         return Mappers.ofEntityClass(entityClass);
     }
 
-    public static <P extends PO> QueryColumn getQueryColumn(ColumnValueGetter<P> columnValueGetter) {
-        return LambdaUtil.getQueryColumn(columnValueGetter);
-    }
-
     public static <P extends PO> QueryTable getQueryTable(Class<P> entityClass) {
         TableInfo tableInfo = getTableInfo(entityClass);
         return new QueryTable(tableInfo.getSchema(), tableInfo.getTableName());
+    }
+
+    public static <T> QueryColumn getQueryColumn(ColumnNameGetter<T> columnNameGetter) {
+        return LambdaUtil.getQueryColumn(columnNameGetter);
+    }
+
+    public static <T> String getColumnName(ColumnNameGetter<T> columnNameGetter) {
+        return getQueryColumn(columnNameGetter).getName();
+    }
+
+    public static <T> String getFieldName(ColumnNameGetter<T> columnNameGetter) {
+        return LambdaUtil.getFieldName(columnNameGetter);
     }
 
     // TODO wjm mybatis-flex 升级引起的报错，暂未用到以下函数，待移除

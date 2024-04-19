@@ -6,7 +6,7 @@ package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnValueGetter;
+import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
 import cn.srd.library.java.tool.lang.functional.If;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.update.UpdateChain;
@@ -33,49 +33,49 @@ public class UpdateChainer<P extends PO> extends BaseUpdateChainer<P> {
         return new UpdateChainer<>(baseMapper, UpdateChain.of(baseMapper));
     }
 
-    public UpdateChainer<P> set(ColumnValueGetter<P> columnValueGetter, Object value) {
-        return set(columnValueGetter, value, true);
+    public UpdateChainer<P> set(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return set(columnNameGetter, value, true);
     }
 
-    public UpdateChainer<P> set(ColumnValueGetter<P> columnValueGetter, Object value, BooleanSupplier condition) {
-        return set(columnValueGetter, value, condition.getAsBoolean());
+    public UpdateChainer<P> set(ColumnNameGetter<P> columnNameGetter, Object value, BooleanSupplier condition) {
+        return set(columnNameGetter, value, condition.getAsBoolean());
     }
 
-    public <U> UpdateChainer<P> set(ColumnValueGetter<P> columnValueGetter, U value, Predicate<U> condition) {
-        return set(columnValueGetter, value, condition.test(value));
+    public <U> UpdateChainer<P> set(ColumnNameGetter<P> columnNameGetter, U value, Predicate<U> condition) {
+        return set(columnNameGetter, value, condition.test(value));
     }
 
-    public UpdateChainer<P> set(ColumnValueGetter<P> columnValueGetter, Object value, boolean condition) {
-        getNativeUpdateChainer().set(columnValueGetter, value, condition);
+    public UpdateChainer<P> set(ColumnNameGetter<P> columnNameGetter, Object value, boolean condition) {
+        getNativeUpdateChainer().set(columnNameGetter, value, condition);
         return this;
     }
 
-    public UpdateChainer<P> setIfNotNull(ColumnValueGetter<P> columnValueGetter, Object value) {
-        return set(columnValueGetter, value, If::notNull);
+    public UpdateChainer<P> setIfNotNull(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return set(columnNameGetter, value, If::notNull);
     }
 
-    public UpdateChainer<P> setIfNotZeroValue(ColumnValueGetter<P> columnValueGetter, Number value) {
-        return set(columnValueGetter, value, If::notZeroValue);
+    public UpdateChainer<P> setIfNotZeroValue(ColumnNameGetter<P> columnNameGetter, Number value) {
+        return set(columnNameGetter, value, If::notZeroValue);
     }
 
-    public UpdateChainer<P> setIfNotEmpty(ColumnValueGetter<P> columnValueGetter, CharSequence value) {
-        return set(columnValueGetter, value, If::notEmpty);
+    public UpdateChainer<P> setIfNotEmpty(ColumnNameGetter<P> columnNameGetter, CharSequence value) {
+        return set(columnNameGetter, value, If::notEmpty);
     }
 
-    public UpdateChainer<P> setIfNotBlank(ColumnValueGetter<P> columnValueGetter, CharSequence value) {
-        return set(columnValueGetter, value, If::notBlank);
+    public UpdateChainer<P> setIfNotBlank(ColumnNameGetter<P> columnNameGetter, CharSequence value) {
+        return set(columnNameGetter, value, If::notBlank);
     }
 
-    public QueryConditional<P, UpdateChainer<P>, UpdateChain<P>> where(ColumnValueGetter<P> columnValueGetter) {
-        return new QueryConditional<>(getNativeUpdateChainer().where(columnValueGetter), this);
+    public QueryConditional<P, UpdateChainer<P>, UpdateChain<P>> where(ColumnNameGetter<P> columnNameGetter) {
+        return new QueryConditional<>(getNativeUpdateChainer().where(columnNameGetter), this);
     }
 
-    public QueryConditional<P, UpdateChainer<P>, UpdateChain<P>> and(ColumnValueGetter<P> columnValueGetter) {
-        return new QueryConditional<>(getNativeUpdateChainer().and(columnValueGetter), this);
+    public QueryConditional<P, UpdateChainer<P>, UpdateChain<P>> and(ColumnNameGetter<P> columnNameGetter) {
+        return new QueryConditional<>(getNativeUpdateChainer().and(columnNameGetter), this);
     }
 
-    public QueryConditional<P, UpdateChainer<P>, UpdateChain<P>> or(ColumnValueGetter<P> columnValueGetter) {
-        return new QueryConditional<>(getNativeUpdateChainer().or(columnValueGetter), this);
+    public QueryConditional<P, UpdateChainer<P>, UpdateChain<P>> or(ColumnNameGetter<P> columnNameGetter) {
+        return new QueryConditional<>(getNativeUpdateChainer().or(columnNameGetter), this);
     }
 
     public void update() {

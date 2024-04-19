@@ -11,7 +11,7 @@ import cn.srd.library.java.orm.contract.model.base.VO;
 import cn.srd.library.java.orm.contract.model.page.PageParam;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.orm.mybatis.flex.base.converter.PageConverter;
-import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnValueGetter;
+import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryChain;
@@ -41,9 +41,14 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
         return new QueryChainer<>(baseMapper, QueryChain.of(baseMapper));
     }
 
-    @SafeVarargs
-    public final <U extends PO> QueryChainer<P> select(ColumnValueGetter<U>... columnValueGetters) {
-        getNativeQueryChainer().select(columnValueGetters);
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public <U extends PO> QueryChainer<P> select(ColumnNameGetter<U>... columnNameGetters) {
+        getNativeQueryChainer().select(columnNameGetters);
+        return this;
+    }
+
+    public <U extends PO> QueryChainer<P> selectSelfAll() {
+        getNativeQueryChainer().select();
         return this;
     }
 
@@ -106,16 +111,16 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
         return new QueryJoiner<>(getNativeQueryChainer().fullJoin(entityClass, condition), this);
     }
 
-    public <U extends PO> QueryConditional<P, QueryChainer<P>, QueryChain<P>> where(ColumnValueGetter<U> columnValueGetter) {
-        return new QueryConditional<>(getNativeQueryChainer().where(columnValueGetter), this);
+    public <U extends PO> QueryConditional<P, QueryChainer<P>, QueryChain<P>> where(ColumnNameGetter<U> columnNameGetter) {
+        return new QueryConditional<>(getNativeQueryChainer().where(columnNameGetter), this);
     }
 
-    public <U extends PO> QueryConditional<P, QueryChainer<P>, QueryChain<P>> and(ColumnValueGetter<U> columnValueGetter) {
-        return new QueryConditional<>(getNativeQueryChainer().and(columnValueGetter), this);
+    public <U extends PO> QueryConditional<P, QueryChainer<P>, QueryChain<P>> and(ColumnNameGetter<U> columnNameGetter) {
+        return new QueryConditional<>(getNativeQueryChainer().and(columnNameGetter), this);
     }
 
-    public <U extends PO> QueryConditional<P, QueryChainer<P>, QueryChain<P>> or(ColumnValueGetter<U> columnValueGetter) {
-        return new QueryConditional<>(getNativeQueryChainer().or(columnValueGetter), this);
+    public <U extends PO> QueryConditional<P, QueryChainer<P>, QueryChain<P>> or(ColumnNameGetter<U> columnNameGetter) {
+        return new QueryConditional<>(getNativeQueryChainer().or(columnNameGetter), this);
     }
 
     public QueryChainer<P> as(String aliasName) {
@@ -124,23 +129,23 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     @SafeVarargs
-    public final <U extends PO> QueryChainer<P> groupBy(ColumnValueGetter<U>... columnValueGetters) {
-        getNativeQueryChainer().groupBy(columnValueGetters);
+    public final <U extends PO> QueryChainer<P> groupBy(ColumnNameGetter<U>... columnNameGetters) {
+        getNativeQueryChainer().groupBy(columnNameGetters);
         return this;
     }
 
     @SafeVarargs
-    public final <U extends PO> QueryChainer<P> orderByAsc(ColumnValueGetter<U>... columnValueGetters) {
-        for (ColumnValueGetter<U> columnValueGetter : columnValueGetters) {
-            getNativeQueryChainer().orderBy(columnValueGetter, true);
+    public final <U extends PO> QueryChainer<P> orderByAsc(ColumnNameGetter<U>... columnNameGetters) {
+        for (ColumnNameGetter<U> columnNameGetter : columnNameGetters) {
+            getNativeQueryChainer().orderBy(columnNameGetter, true);
         }
         return this;
     }
 
     @SafeVarargs
-    public final <U extends PO> QueryChainer<P> orderByDesc(ColumnValueGetter<U>... columnValueGetters) {
-        for (ColumnValueGetter<U> columnValueGetter : columnValueGetters) {
-            getNativeQueryChainer().orderBy(columnValueGetter, false);
+    public final <U extends PO> QueryChainer<P> orderByDesc(ColumnNameGetter<U>... columnNameGetters) {
+        for (ColumnNameGetter<U> columnNameGetter : columnNameGetters) {
+            getNativeQueryChainer().orderBy(columnNameGetter, false);
         }
         return this;
     }

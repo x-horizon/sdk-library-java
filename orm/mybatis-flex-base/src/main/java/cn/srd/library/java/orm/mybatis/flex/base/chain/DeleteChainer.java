@@ -6,7 +6,7 @@ package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnValueGetter;
+import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.logicdelete.LogicDeleteManager;
 import com.mybatisflex.core.update.UpdateChain;
@@ -30,16 +30,16 @@ public class DeleteChainer<P extends PO> extends BaseDeleteChainer<P> {
         return new DeleteChainer<>(baseMapper, UpdateChain.of(baseMapper));
     }
 
-    public QueryConditional<P, DeleteChainer<P>, UpdateChain<P>> where(ColumnValueGetter<P> columnValueGetter) {
-        return new QueryConditional<>(getNativeUpdateChainer().where(columnValueGetter), this);
+    public QueryConditional<P, DeleteChainer<P>, UpdateChain<P>> where(ColumnNameGetter<P> columnNameGetter) {
+        return new QueryConditional<>(getNativeUpdateChainer().where(columnNameGetter), this);
     }
 
-    public QueryConditional<P, DeleteChainer<P>, UpdateChain<P>> and(ColumnValueGetter<P> columnValueGetter) {
-        return new QueryConditional<>(getNativeUpdateChainer().and(columnValueGetter), this);
+    public QueryConditional<P, DeleteChainer<P>, UpdateChain<P>> and(ColumnNameGetter<P> columnNameGetter) {
+        return new QueryConditional<>(getNativeUpdateChainer().and(columnNameGetter), this);
     }
 
-    public QueryConditional<P, DeleteChainer<P>, UpdateChain<P>> or(ColumnValueGetter<P> columnValueGetter) {
-        return new QueryConditional<>(getNativeUpdateChainer().or(columnValueGetter), this);
+    public QueryConditional<P, DeleteChainer<P>, UpdateChain<P>> or(ColumnNameGetter<P> columnNameGetter) {
+        return new QueryConditional<>(getNativeUpdateChainer().or(columnNameGetter), this);
     }
 
     public void delete() {

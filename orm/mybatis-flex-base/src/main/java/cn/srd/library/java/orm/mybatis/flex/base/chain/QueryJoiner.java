@@ -2,7 +2,7 @@ package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnValueGetter;
+import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.query.Joiner;
@@ -16,7 +16,7 @@ import java.util.function.Consumer;
 
 /**
  * @param <P> the entity extends {@link PO}
- * @param <Q> query chain type
+ * @param <Q> the chainer extends {@link BaseQueryChainer}
  * @author wjm
  * @since 2023-12-05 16:20
  */
@@ -36,11 +36,11 @@ public class QueryJoiner<P extends PO, Q extends BaseQueryChainer<P>> extends Ba
         return this;
     }
 
-    public <U extends PO> Q onEquals(ColumnValueGetter<P> masterTableColumnValue, ColumnValueGetter<U> joinedTableColumnValue) {
+    public <U extends PO> Q onEquals(ColumnNameGetter<P> masterTableColumnValue, ColumnNameGetter<U> joinedTableColumnValue) {
         return on(newQueryChainer -> newQueryChainer.and(masterTableColumnValue).equalsTo(joinedTableColumnValue));
     }
 
-    public <U extends PO> Q onEquals(ColumnValueGetter<P> masterTableColumnValue1, ColumnValueGetter<U> joinedTableColumnValue1, ColumnValueGetter<P> masterTableColumnValue2, ColumnValueGetter<U> joinedTableColumnValue2) {
+    public <U extends PO> Q onEquals(ColumnNameGetter<P> masterTableColumnValue1, ColumnNameGetter<U> joinedTableColumnValue1, ColumnNameGetter<P> masterTableColumnValue2, ColumnNameGetter<U> joinedTableColumnValue2) {
         return on(newQueryChainer -> newQueryChainer
                 .and(masterTableColumnValue1)
                 .equalsTo(joinedTableColumnValue1)
@@ -49,7 +49,7 @@ public class QueryJoiner<P extends PO, Q extends BaseQueryChainer<P>> extends Ba
         );
     }
 
-    public <U extends PO> Q onEquals(ColumnValueGetter<P> masterTableColumnValue1, ColumnValueGetter<U> joinedTableColumnValue1, ColumnValueGetter<P> masterTableColumnValue2, ColumnValueGetter<U> joinedTableColumnValue2, ColumnValueGetter<P> masterTableColumnValue3, ColumnValueGetter<U> joinedTableColumnValue3) {
+    public <U extends PO> Q onEquals(ColumnNameGetter<P> masterTableColumnValue1, ColumnNameGetter<U> joinedTableColumnValue1, ColumnNameGetter<P> masterTableColumnValue2, ColumnNameGetter<U> joinedTableColumnValue2, ColumnNameGetter<P> masterTableColumnValue3, ColumnNameGetter<U> joinedTableColumnValue3) {
         return on(newQueryChainer -> newQueryChainer
                 .and(masterTableColumnValue1)
                 .equalsTo(joinedTableColumnValue1)
@@ -61,7 +61,7 @@ public class QueryJoiner<P extends PO, Q extends BaseQueryChainer<P>> extends Ba
     }
 
     @SuppressWarnings(SuppressWarningConstant.ALL)
-    public <U extends PO> Q onEquals(ColumnValueGetter<P> masterTableColumnValue1, ColumnValueGetter<U> joinedTableColumnValue1, ColumnValueGetter<P> masterTableColumnValue2, ColumnValueGetter<U> joinedTableColumnValue2, ColumnValueGetter<P> masterTableColumnValue3, ColumnValueGetter<U> joinedTableColumnValue3, ColumnValueGetter<P> masterTableColumnValue4, ColumnValueGetter<U> joinedTableColumnValue4) {
+    public <U extends PO> Q onEquals(ColumnNameGetter<P> masterTableColumnValue1, ColumnNameGetter<U> joinedTableColumnValue1, ColumnNameGetter<P> masterTableColumnValue2, ColumnNameGetter<U> joinedTableColumnValue2, ColumnNameGetter<P> masterTableColumnValue3, ColumnNameGetter<U> joinedTableColumnValue3, ColumnNameGetter<P> masterTableColumnValue4, ColumnNameGetter<U> joinedTableColumnValue4) {
         return on(newQueryChainer -> newQueryChainer
                 .and(masterTableColumnValue1)
                 .equalsTo(joinedTableColumnValue1)

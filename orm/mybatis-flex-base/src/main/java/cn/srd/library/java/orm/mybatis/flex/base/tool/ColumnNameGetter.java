@@ -4,15 +4,13 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.tool;
 
-import cn.srd.library.java.orm.contract.model.base.PO;
 import com.mybatisflex.core.util.LambdaGetter;
 
 /**
- * @param <P> the entity extends {@link PO}
  * @author wjm
  * @since 2023-12-03 23:39
  */
 @FunctionalInterface
-public interface ColumnValueGetter<P extends PO> extends LambdaGetter<P> {
+public interface ColumnNameGetter<T> extends LambdaGetter<T> {
 
 }
