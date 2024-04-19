@@ -7,8 +7,13 @@ package cn.srd.library.java.studio.low.code.service;
 import cn.srd.library.java.contract.model.throwable.DataNotFoundException;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.service.GenericService;
+import cn.srd.library.java.studio.low.code.dao.SchoolDao;
 import cn.srd.library.java.studio.low.code.dao.StudentDao;
+import cn.srd.library.java.studio.low.code.dao.TeacherDao;
+import cn.srd.library.java.studio.low.code.model.bo.StudentHobbyBO;
+import cn.srd.library.java.studio.low.code.model.po.SchoolPO;
 import cn.srd.library.java.studio.low.code.model.po.StudentPO;
+import cn.srd.library.java.studio.low.code.model.po.TeacherPO;
 import cn.srd.library.java.studio.low.code.model.vo.StudentGetConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.StudentListConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.StudentPageConditionVO;
@@ -29,6 +34,10 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
 
     @Autowired private StudentDao studentDao;
 
+    @Autowired private SchoolDao schoolDao;
+
+    @Autowired private TeacherDao teacherDao;
+
     public StudentVO getByCondition(StudentGetConditionVO conditionVO) {
         return studentDao.openQuery()
                 .where(StudentPO::getId).equalsTo(conditionVO.getId())
@@ -38,6 +47,19 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
     }
 
     public List<StudentVO> listByCondition(StudentListConditionVO conditionVO) {
+        // StudentHobbyBO studentHobbyBO = new StudentHobbyBO();
+        // StudentCourseBO studentCourseBO = new StudentCourseBO();
+        studentDao.openQuery()
+                .selectSelfAll()
+                .innerJoinJsonbListVirtualTable(StudentPO::getHobbyBO, StudentHobbyBO::getPrimaryInterestName)
+                // .innerJoinJsonbListVirtualTable(StudentPO::getHobbyBO, (StudentHobbyBO bo) -> bo.getAchievementTypes(), (StudentCourseBO bo) -> bo.getName())
+                .where(StudentPO::getId).inIfNotEmpty(conditionVO.getIds())
+                .and(StudentPO::getName).likeIfNotBlank(conditionVO.getName())
+                .listToVOs();
+
+        List<SchoolPO> schoolPOs = schoolDao.listLikeByField(SchoolPO::getName, conditionVO.getSchoolName());
+        List<TeacherPO> teacherPOs = teacherDao.listLikeByField(TeacherPO::getName, conditionVO.getTeacherName());
+
         return studentDao.openQuery()
                 .where(StudentPO::getId).inIfNotEmpty(conditionVO.getIds())
                 .and(StudentPO::getName).likeIfNotBlank(conditionVO.getName())

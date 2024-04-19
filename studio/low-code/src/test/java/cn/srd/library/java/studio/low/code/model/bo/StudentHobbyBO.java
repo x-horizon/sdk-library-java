@@ -12,7 +12,7 @@ import cn.srd.library.java.tool.convert.jackson.NullableObject;
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToEnumDeserializer;
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonListEnumValueToListEnumDeserializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
-import cn.srd.library.java.tool.convert.jackson.serializer.JacksonListEnumToListStringSerializer;
+import cn.srd.library.java.tool.convert.jackson.serializer.JacksonListEnumToListIntegerSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -22,7 +22,6 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -36,7 +35,7 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
-public class StudentHobbyBO implements BO, NullableObject, Serializable {
+public class StudentHobbyBO implements BO, NullableObject {
 
     @Serial private static final long serialVersionUID = -3729928508090089728L;
 
@@ -55,7 +54,7 @@ public class StudentHobbyBO implements BO, NullableObject, Serializable {
 
     @Schema(description = "获得的成就类型", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.LIST_NUMBER)
     @JsonDeserialize(using = JacksonListEnumValueToListEnumDeserializer.class)
-    @JsonSerialize(using = JacksonListEnumToListStringSerializer.class)
+    @JsonSerialize(using = JacksonListEnumToListIntegerSerializer.class)
     private List<StudentHobbyAchievementType> achievementTypes;
 
 }

@@ -14,7 +14,6 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
-import java.io.Serializable;
 
 /**
  * 学生课程信息 model
@@ -27,9 +26,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
-public class StudentCourseBO implements BO, NullableObject, Serializable {
+public class StudentCourseBO implements BO, NullableObject {
 
-    @Serial private static final long serialVersionUID = -4519741225149076678L;
+    @Serial private static final long serialVersionUID = -7236373958148461707L;
 
     private transient boolean isNull;
 

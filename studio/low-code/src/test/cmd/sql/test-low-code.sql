@@ -11,7 +11,7 @@ CREATE TABLE school
     name        VARCHAR(64)                    DEFAULT ''    NOT NULL,
     type        SMALLINT                       DEFAULT 0     NOT NULL,
     address     VARCHAR(255)                   DEFAULT ''    NOT NULL,
-    enable      BOOLEAN                        DEFAULT FALSE NOT NULL,
+    enable_is   BOOLEAN                        DEFAULT FALSE NOT NULL,
     version     BIGINT                         DEFAULT 0     NOT NULL,
     remark      VARCHAR(255)                   DEFAULT ''    NOT NULL,
     creator_id  BIGINT                         DEFAULT 0     NOT NULL,
@@ -26,7 +26,7 @@ COMMENT ON COLUMN school.id IS 'id';
 COMMENT ON COLUMN school.name IS '名字';
 COMMENT ON COLUMN school.type IS '类型';
 COMMENT ON COLUMN school.address IS '地址';
-COMMENT ON COLUMN school.enable IS '是否启用';
+COMMENT ON COLUMN school.enable_is IS '是否启用';
 COMMENT ON COLUMN school.version IS '版本号';
 COMMENT ON COLUMN school.remark IS '备注';
 COMMENT ON COLUMN school.creator_id IS '创建人id';
