@@ -41,7 +41,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 import java.util.Map;
 
-// @MapperScan("cn.srd.library.java.**.dao.**")
 @MapperScan("cn.srd.library.java.orm.mybatis.flex.postgresql.**")
 @EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
 @EnableMybatisFlexCustomizer(
@@ -529,7 +528,6 @@ class CurdTest {
         HomeVO homeVO1 = homeService.getByField(HomePO::getName, HOME_NAME_1).orElseThrow();
         // SELECT * FROM "home" WHERE (name LIKE '%home%') AND "delete_time" IS NULL
         List<HomePO> homePOs1 = homeDao.listLikeByField(HomePO::getName, "home");
-        List<HomePO> homePOs2 = homeDao.listJsonbListStringLikeByField(HomePO::getName, "home");
 
         // SELECT * FROM "people" WHERE "delete_time" IS NULL;
         List<PeoplePO> allPeoplePOs = peopleDao.listAll();
