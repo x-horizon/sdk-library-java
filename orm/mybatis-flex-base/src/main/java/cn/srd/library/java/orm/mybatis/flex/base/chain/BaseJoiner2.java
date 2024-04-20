@@ -6,6 +6,6 @@ package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
 import cn.srd.library.java.orm.contract.model.base.PO;
 
-public class Joiner<P extends PO, Q extends Chainer<P>> {
+public class BaseJoiner2<P extends PO> {
 
 }

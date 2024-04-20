@@ -6,6 +6,6 @@ package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
 import cn.srd.library.java.orm.contract.model.base.PO;
 
-public class BaseJoiner<P extends PO> {
+public class SecondConditional2<P extends PO, Q extends Chainer2<P>, N extends Wrapper2> extends Conditional2<P, Q, N> {
 
 }

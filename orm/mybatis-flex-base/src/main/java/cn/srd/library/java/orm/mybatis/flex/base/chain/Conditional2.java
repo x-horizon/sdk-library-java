@@ -4,6 +4,8 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
-public class BaseConditional<Q extends Wrapper> {
+import cn.srd.library.java.orm.contract.model.base.PO;
+
+public class Conditional2<P extends PO, Q extends Chainer2<P>, N extends Wrapper2> extends BaseConditional2<N> {
 
 }

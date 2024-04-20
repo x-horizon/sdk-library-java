@@ -49,13 +49,15 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
     public List<StudentVO> listByCondition(StudentListConditionVO conditionVO) {
         // StudentHobbyBO studentHobbyBO = new StudentHobbyBO();
         // StudentCourseBO studentCourseBO = new StudentCourseBO();
-        studentDao.openQuery()
+        String a = studentDao.openQuery()
                 .selectSelfAll()
                 .innerJoinJsonbListVirtualTable(StudentPO::getHobbyBO, StudentHobbyBO::getPrimaryInterestName)
                 // .innerJoinJsonbListVirtualTable(StudentPO::getHobbyBO, (StudentHobbyBO bo) -> bo.getAchievementTypes(), (StudentCourseBO bo) -> bo.getName())
                 .where(StudentPO::getId).inIfNotEmpty(conditionVO.getIds())
                 .and(StudentPO::getName).likeIfNotBlank(conditionVO.getName())
-                .listToVOs();
+                .and(StudentHobbyBO::getPrimaryInterestName).likeIfNotBlank(conditionVO.getName())
+                .toSQL();
+        // .listToVOs();
 
         List<SchoolPO> schoolPOs = schoolDao.listLikeByField(SchoolPO::getName, conditionVO.getSchoolName());
         List<TeacherPO> teacherPOs = teacherDao.listLikeByField(TeacherPO::getName, conditionVO.getTeacherName());

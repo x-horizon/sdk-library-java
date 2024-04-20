@@ -6,10 +6,10 @@ package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
 import cn.srd.library.java.orm.contract.model.base.PO;
 
-public class SecondChainer<P extends PO> extends Chainer<P> {
+public class SecondChainer2<P extends PO> extends Chainer2<P> {
 
-    public <U extends PO> SecondJoiner<P, SecondChainer<P>> leftJoin(Class<U> entityClass, boolean condition) {
-        return new SecondJoiner<>();
+    public <U extends PO> SecondJoiner2<P, SecondChainer2<P>> leftJoin(Class<U> entityClass, boolean condition) {
+        return new SecondJoiner2<>();
     }
 
 }

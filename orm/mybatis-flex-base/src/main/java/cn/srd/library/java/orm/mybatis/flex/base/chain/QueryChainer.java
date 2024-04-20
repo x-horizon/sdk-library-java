@@ -12,14 +12,19 @@ import cn.srd.library.java.orm.contract.model.page.PageParam;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.orm.mybatis.flex.base.converter.PageConverter;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
+import cn.srd.library.java.orm.mybatis.flex.base.tool.MybatisFlexs;
+import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.object.Nil;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryChain;
+import com.mybatisflex.core.query.QueryColumn;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import java.util.stream.Collectors;
@@ -36,6 +41,8 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     @Getter(AccessLevel.PROTECTED) private final BaseMapper<P> nativeBaseMapper;
 
     @Getter(AccessLevel.PROTECTED) private final QueryChain<P> nativeQueryChainer;
+
+    private static final Map<String, String> ORIGINAL_COLUMN_NAME_MAPPING_SPECIAL_COLUMN_NAME_MAP = Collections.newConcurrentHashMap(256);
 
     public static <P extends PO> QueryChainer<P> of(BaseMapper<P> baseMapper) {
         return new QueryChainer<>(baseMapper, QueryChain.of(baseMapper));
@@ -112,6 +119,7 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     public <U extends PO> QueryConditional<P, QueryChainer<P>, QueryChain<P>> where(ColumnNameGetter<U> columnNameGetter) {
+        // getColumnName(columnNameGetter)
         return new QueryConditional<>(getNativeQueryChainer().where(columnNameGetter), this);
     }
 
@@ -226,6 +234,15 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
 
     public String toSQL() {
         return getNativeQueryChainer().toSQL();
+    }
+
+    private <U extends PO> QueryColumn getQueryColumn(ColumnNameGetter<U> columnNameGetter) {
+        QueryColumn queryColumn = MybatisFlexs.getQueryColumn(columnNameGetter);
+        String specialColumnName = ORIGINAL_COLUMN_NAME_MAPPING_SPECIAL_COLUMN_NAME_MAP.get(queryColumn.getName());
+        if (Nil.isNotNull(specialColumnName)) {
+            queryColumn.setName(specialColumnName);
+        }
+        return queryColumn;
     }
 
 }
