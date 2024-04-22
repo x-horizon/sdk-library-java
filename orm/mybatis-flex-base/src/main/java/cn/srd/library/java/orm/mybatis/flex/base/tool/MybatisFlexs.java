@@ -7,6 +7,7 @@ package cn.srd.library.java.orm.mybatis.flex.base.tool;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.object.Nil;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.mybatis.Mappers;
 import com.mybatisflex.core.query.QueryColumn;
@@ -29,7 +30,7 @@ import java.util.Optional;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MybatisFlexs {
 
-    private static final Map<Class<? extends PO>, TableDef> ENTITY_CLASS_MAPPING_TABLE_DEF_MAP = Collections.newConcurrentHashMap();
+    private static final Map<Class<? extends PO>, TableDef> ENTITY_CLASS_MAPPING_TABLE_DEF_MAP = Collections.newConcurrentHashMap(256);
 
     public static <P> Class<P> getUsefulClass(Class<P> input) {
         return ClassUtil.getUsefulClass(input);
@@ -99,11 +100,19 @@ public class MybatisFlexs {
     }
 
     public static <T> QueryColumn getQueryColumn(ColumnNameGetter<T> columnNameGetter) {
-        return LambdaUtil.getQueryColumn(columnNameGetter);
+        try {
+            return LambdaUtil.getQueryColumn(columnNameGetter);
+        } catch (Exception ignore) {
+        }
+        return null;
     }
 
     public static <T> String getColumnName(ColumnNameGetter<T> columnNameGetter) {
-        return getQueryColumn(columnNameGetter).getName();
+        QueryColumn queryColumn = LambdaUtil.getQueryColumn(columnNameGetter);
+        if (Nil.isNull(queryColumn)) {
+            return getFieldName(columnNameGetter);
+        }
+        return queryColumn.getName();
     }
 
     public static <T> String getFieldName(ColumnNameGetter<T> columnNameGetter) {

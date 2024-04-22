@@ -34,7 +34,7 @@ import java.util.function.Predicate;
  * @since 2023-12-03 23:35
  */
 @CanIgnoreReturnValue
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @SuppressWarnings(SuppressWarningConstant.UNUSED)
 public class QueryConditional<P extends PO, Q extends BaseChainer<P>, N extends QueryWrapper> extends BaseQueryConditional<N> {
 

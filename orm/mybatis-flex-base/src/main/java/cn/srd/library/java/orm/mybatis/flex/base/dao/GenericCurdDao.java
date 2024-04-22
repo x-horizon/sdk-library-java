@@ -8,7 +8,7 @@ import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.mybatis.flex.base.adapter.MybatisFlexAdapter;
+import cn.srd.library.java.orm.mybatis.flex.base.adapter.BaseMapperAdapter;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.DeleteChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.UpdateChainer;
@@ -511,7 +511,7 @@ public interface GenericCurdDao<P extends PO> {
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     private BaseMapper<P> getBaseMapper() {
-        return (BaseMapper<P>) MybatisFlexAdapter.getInstance().getBaseMapper(this.getClass());
+        return (BaseMapper<P>) BaseMapperAdapter.getInstance().getBaseMapper(this.getClass());
     }
 
     private P getEntityToUpdateVersion(P updatedEntity) {

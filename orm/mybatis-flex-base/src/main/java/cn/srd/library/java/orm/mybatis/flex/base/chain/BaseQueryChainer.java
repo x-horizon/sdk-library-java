@@ -5,7 +5,6 @@
 package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
 import cn.srd.library.java.orm.contract.model.base.PO;
-import com.mybatisflex.core.query.QueryChain;
 
 /**
  * @author wjm

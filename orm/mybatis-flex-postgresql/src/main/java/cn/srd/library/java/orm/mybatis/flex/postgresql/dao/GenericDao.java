@@ -6,7 +6,7 @@ package cn.srd.library.java.orm.mybatis.flex.postgresql.dao;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.mybatis.flex.base.adapter.MybatisFlexAdapter;
+import cn.srd.library.java.orm.mybatis.flex.base.adapter.BaseMapperAdapter;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.chain.QueryChainer;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.function.PostgresqlFunctionQueryCondition;
@@ -70,7 +70,7 @@ public interface GenericDao<P extends PO> extends cn.srd.library.java.orm.mybati
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     private BaseMapper<P> getBaseMapper() {
-        return (BaseMapper<P>) MybatisFlexAdapter.getInstance().getBaseMapper(this.getClass());
+        return (BaseMapper<P>) BaseMapperAdapter.getInstance().getBaseMapper(this.getClass());
     }
 
 }

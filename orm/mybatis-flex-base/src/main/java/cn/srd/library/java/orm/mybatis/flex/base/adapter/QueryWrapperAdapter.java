@@ -14,7 +14,7 @@ import java.io.Serial;
  * @author wjm
  * @since 2024-04-20 15:04
  */
-public class QueryWrapperAdapter2<R extends QueryWrapperAdapter2<R>> extends com.mybatisflex.core.query.QueryWrapperAdapter<R> {
+public class QueryWrapperAdapter<R extends QueryWrapperAdapter<R>> extends com.mybatisflex.core.query.QueryWrapperAdapter<R> {
 
     @Serial private static final long serialVersionUID = 971536476435856761L;
 

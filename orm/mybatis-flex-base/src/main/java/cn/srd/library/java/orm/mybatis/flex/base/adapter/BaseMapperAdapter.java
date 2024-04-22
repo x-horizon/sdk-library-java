@@ -25,13 +25,13 @@ import java.util.stream.Collectors;
  * @author wjm
  * @since 2023-12-18 23:34
  */
-public class MybatisFlexAdapter<P extends PO, D extends GenericCurdDao<P>, B extends BaseMapper<P>> implements SmartInitializingSingleton {
+public class BaseMapperAdapter<P extends PO, D extends GenericCurdDao<P>, B extends BaseMapper<P>> implements SmartInitializingSingleton {
 
     private final Map<String, BaseMapper<P>> genericCurdDaoClassNameMappingBaseMapperClassMap = Collections.newConcurrentHashMap(256);
 
     private final Map<Class<D>, BaseMapper<P>> proxyGenericDaoClassMappingBaseMapperClassMap = Collections.newConcurrentHashMap(256);
 
-    @Getter private static MybatisFlexAdapter<?, ?, ?> instance = null;
+    @Getter private static BaseMapperAdapter<?, ?, ?> instance = null;
 
     @PostConstruct
     public void initialize() {
