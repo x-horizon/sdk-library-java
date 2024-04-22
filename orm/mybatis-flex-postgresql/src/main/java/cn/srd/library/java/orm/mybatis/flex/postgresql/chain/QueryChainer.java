@@ -71,9 +71,9 @@ public class QueryChainer<P extends PO> extends cn.srd.library.java.orm.mybatis.
     }
 
     @SafeVarargs
-    public final <U extends PO, T extends POJO> QueryChainer<P> innerJoinJsonbListVirtualTable(ColumnNameGetter<U> columnNameGetter, ColumnNameGetter<T>... jsonbInternalKeyNameGetters) {
-        List<String> jsonbInternalKeyNames = Converts.toList(jsonbInternalKeyNameGetters, jsonbInternalKeyNameGetter -> Strings.format("'{}'", MybatisFlexs.getFieldName(jsonbInternalKeyNameGetter)));
-        String jsonQueryFieldName = MybatisFlexs.getFieldName(Collections.getLast(jsonbInternalKeyNameGetters).orElseThrow());
+    public final <U extends PO, T extends POJO> QueryChainer<P> innerJoinJsonbListVirtualTable(ColumnNameGetter<U> columnNameGetter, ColumnNameGetter<T>... jsonInternalKeyNameGetters) {
+        List<String> jsonbInternalKeyNames = Converts.toList(jsonInternalKeyNameGetters, jsonInternalKeyNameGetter -> Strings.format("'{}'", MybatisFlexs.getFieldName(jsonInternalKeyNameGetter)));
+        String jsonQueryFieldName = MybatisFlexs.getFieldName(Collections.getLast(jsonInternalKeyNameGetters).orElseThrow());
         String jsonQueryColumnName = JSON_QUERY_FIELD_NAME_MAPPING_JSON_QUERY_COLUMN_NAME_MAP.computeIfAbsent(jsonQueryFieldName, ignore -> Strings.format("{}_{}", jsonQueryFieldName, SnowflakeIds.get()));
         getNativeQueryChainer()
                 .innerJoin(new RawQueryTable(Strings.format("JSONB_ARRAY_ELEMENTS(JSONB_EXTRACT_PATH({}, {}))", MybatisFlexs.getColumnName(columnNameGetter), Strings.joinWithComma(jsonbInternalKeyNames))))
@@ -90,6 +90,14 @@ public class QueryChainer<P extends PO> extends cn.srd.library.java.orm.mybatis.
     @Override
     public <U extends POJO> QueryConditional<P, QueryChainer<P>, QueryChain<P>> and(ColumnNameGetter<U> columnNameGetter) {
         return new QueryConditional<>(getNativeQueryChainer().and(getQueryColumn(columnNameGetter)), this);
+    }
+
+    public <U, R extends POJO> QueryConditional<P, QueryChainer<P>, QueryChain<P>> andJsonQuery(ColumnNameGetter<U> columnNameGetter, ColumnNameGetter<R> jsonInternalKeyNameGetter) {
+        getNativeQueryChainer().and(new RawQueryCondition(PostgresqlJsonbSQL.getEmptyListEqual(MybatisFlexs.getColumnName(columnNameGetter))));
+        String jsonQueryFieldName = MybatisFlexs.getFieldName(columnNameGetter);
+        String jsonInternalKeyName = MybatisFlexs.getFieldName(jsonInternalKeyNameGetter);
+        String sql = Strings.format("{} ->> '{}'::VARCHAR", jsonQueryFieldName, jsonInternalKeyName);
+        return new QueryConditional<>(getNativeQueryChainer().and(new RawQueryCondition(sql)), this);
     }
 
     @Override
