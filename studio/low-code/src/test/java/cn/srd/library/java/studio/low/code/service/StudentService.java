@@ -51,11 +51,12 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
         // StudentCourseBO studentCourseBO = new StudentCourseBO();
         String a = studentDao.openQuery()
                 .selectSelfAll()
-                .innerJoinJsonbListVirtualTable(StudentPO::getHobbyBO, StudentHobbyBO::getPrimaryInterestName)
+                .innerJoinJsonbListVirtualTable(StudentPO::getHobbyBO, StudentHobbyBO::getAchievementTypes)
+                // .innerJoinJsonbListVirtualTable(StudentPO::getHobbyBO, (StudentHobbyBO bo) -> bo.getAchievementTypes())
                 // .innerJoinJsonbListVirtualTable(StudentPO::getHobbyBO, (StudentHobbyBO bo) -> bo.getAchievementTypes(), (StudentCourseBO bo) -> bo.getName())
                 .where(StudentPO::getId).inIfNotEmpty(conditionVO.getIds())
                 .and(StudentPO::getName).likeIfNotBlank(conditionVO.getName())
-                .and(StudentHobbyBO::getPrimaryInterestName).likeIfNotBlank(conditionVO.getName())
+                .and(StudentHobbyBO::getAchievementTypes).likeIfNotBlank(conditionVO.getName())
                 .toSQL();
         // .listToVOs();
 
