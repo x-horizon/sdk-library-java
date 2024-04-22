@@ -10,6 +10,7 @@ import cn.srd.library.java.orm.mybatis.flex.postgresql.service.GenericService;
 import cn.srd.library.java.studio.low.code.dao.SchoolDao;
 import cn.srd.library.java.studio.low.code.dao.StudentDao;
 import cn.srd.library.java.studio.low.code.dao.TeacherDao;
+import cn.srd.library.java.studio.low.code.model.bo.StudentCourseBO;
 import cn.srd.library.java.studio.low.code.model.bo.StudentHobbyBO;
 import cn.srd.library.java.studio.low.code.model.po.SchoolPO;
 import cn.srd.library.java.studio.low.code.model.po.StudentPO;
@@ -56,7 +57,7 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
                 // .innerJoinJsonbListVirtualTable(StudentPO::getHobbyBO, (StudentHobbyBO bo) -> bo.getAchievementTypes(), (StudentCourseBO bo) -> bo.getName())
                 .where(StudentPO::getId).inIfNotEmpty(conditionVO.getIds())
                 .and(StudentPO::getName).likeIfNotBlank(conditionVO.getName())
-                .and(StudentHobbyBO::getAchievementTypes).likeIfNotBlank(conditionVO.getName())
+                .andJsonQuery(StudentHobbyBO::getAchievementTypes, StudentCourseBO::getName).likeIfNotBlank(conditionVO.getName())
                 .toSQL();
         // .listToVOs();
 
