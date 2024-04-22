@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
  * @author wjm
  * @since 2021-03-21 19:22
  */
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Annotations {
 

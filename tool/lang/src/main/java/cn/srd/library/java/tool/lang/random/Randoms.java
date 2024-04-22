@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
  * @author wjm
  * @since 2021-04-26 16:48
  */
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Randoms {
 

@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
  * @author wjm
  * @since 2024-04-16 23:39
  */
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ApiDocConstant {
 

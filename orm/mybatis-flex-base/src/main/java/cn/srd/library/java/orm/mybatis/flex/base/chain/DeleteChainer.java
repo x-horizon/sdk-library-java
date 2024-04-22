@@ -4,7 +4,6 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
 import com.mybatisflex.core.BaseMapper;
@@ -19,7 +18,6 @@ import lombok.Getter;
  * @since 2023-12-08 20:40
  */
 @AllArgsConstructor(access = AccessLevel.MODULE)
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 public class DeleteChainer<P extends PO> extends BaseDeleteChainer<P> {
 
     @Getter(AccessLevel.PROTECTED) private final BaseMapper<P> nativeBaseMapper;

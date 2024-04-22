@@ -20,7 +20,6 @@ import java.util.Arrays;
  * @author wjm
  * @since 2023-09-23 14:42
  */
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Comparators {
 

@@ -4,7 +4,6 @@
 
 package cn.srd.library.java.tool.lang.functional;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.throwable.AssertMessage;
 import cn.srd.library.java.contract.constant.web.HttpStatus;
 import cn.srd.library.java.contract.model.throwable.AbstractRuntimeException;
@@ -51,7 +50,6 @@ import java.util.Map;
 
 @Accessors(chain = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 public class Assert {
 
     /**

@@ -41,7 +41,6 @@ import java.util.stream.Collectors;
  * @author wjm
  * @since 2021-05-01 14:13
  */
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Converts {
 

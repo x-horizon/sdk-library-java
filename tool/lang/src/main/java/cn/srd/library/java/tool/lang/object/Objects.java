@@ -5,7 +5,6 @@
 package cn.srd.library.java.tool.lang.object;
 
 import cn.hutool.core.util.ObjectUtil;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.number.Numbers;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -19,7 +18,6 @@ import java.util.function.Supplier;
  * @author wjm
  * @since 2020-07-08 16:11
  */
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Objects {
 

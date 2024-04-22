@@ -20,7 +20,6 @@ import java.util.function.Consumer;
  * @since 2023-12-05 16:20
  */
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 public class QueryJoiner<P extends PO, Q extends BaseQueryChainer<P>> extends BaseQueryJoiner<P> {
 
     @Getter(AccessLevel.PROTECTED) private final Joiner<QueryChain<P>> nativeQueryJoiner;

@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
  * @author wjm
  * @since 2022-07-06 11:28
  */
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Hexes {
 

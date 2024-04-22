@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
  * @author wjm
  * @since 2022-08-11 10:59
  */
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Booleans {
 

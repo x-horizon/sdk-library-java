@@ -31,7 +31,6 @@ import java.util.Map;
  * @since 2021-05-10 17:46
  */
 @CanIgnoreReturnValue
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Types {
 

@@ -5,7 +5,6 @@
 package cn.srd.library.java.tool.lang.functional;
 
 import cn.hutool.core.text.CharSequenceUtil;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.booleans.Booleans;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.number.Numbers;
@@ -27,7 +26,6 @@ import java.util.function.Supplier;
  * @author wjm
  * @since 2023-09-23 10:45
  */
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Action<V> {
 

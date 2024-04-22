@@ -20,7 +20,6 @@ import java.util.Set;
  */
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 public class BasePackagePath {
 
     // TODO wjm the concurrent safe read and write does not valid because of the write is replace instead of write on the CopyOnWriteArraySet, see #optimize()

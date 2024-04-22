@@ -42,7 +42,6 @@ import java.util.stream.Stream;
  * @author wjm
  * @since 2020/8/11 15:27
  */
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Times {
 

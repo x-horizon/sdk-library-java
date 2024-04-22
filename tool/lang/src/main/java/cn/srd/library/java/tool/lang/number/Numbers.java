@@ -21,7 +21,6 @@ import java.math.RoundingMode;
  * @author wjm
  * @since 2020-08-20 17:42
  */
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Numbers {
 

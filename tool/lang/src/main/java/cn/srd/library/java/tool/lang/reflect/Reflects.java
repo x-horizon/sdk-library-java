@@ -24,7 +24,6 @@ import java.lang.reflect.Method;
  * @since 2021-06-03 11:54
  */
 @CanIgnoreReturnValue
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Reflects {
 

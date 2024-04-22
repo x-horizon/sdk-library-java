@@ -4,7 +4,6 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.MybatisFlexs;
@@ -35,7 +34,6 @@ import java.util.function.Predicate;
  */
 @CanIgnoreReturnValue
 @AllArgsConstructor
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 public class QueryConditional<P extends PO, Q extends BaseChainer<P>, N extends QueryWrapper> extends BaseQueryConditional<N> {
 
     @Getter(AccessLevel.PROTECTED)

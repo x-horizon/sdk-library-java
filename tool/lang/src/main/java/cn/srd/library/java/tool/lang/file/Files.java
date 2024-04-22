@@ -17,7 +17,6 @@ import java.io.File;
  * @author wjm
  * @since 2020-04-02 17:52
  */
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Files {
 

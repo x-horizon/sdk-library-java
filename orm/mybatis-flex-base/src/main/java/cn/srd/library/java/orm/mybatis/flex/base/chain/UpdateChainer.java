@@ -4,7 +4,6 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
 import cn.srd.library.java.tool.lang.functional.If;
@@ -22,7 +21,6 @@ import java.util.function.Predicate;
  * @since 2023-12-05 23:25
  */
 @AllArgsConstructor(access = AccessLevel.MODULE)
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 public class UpdateChainer<P extends PO> extends BaseUpdateChainer<P> {
 
     @Getter(AccessLevel.PROTECTED) private final BaseMapper<P> nativeBaseMapper;

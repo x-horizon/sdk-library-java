@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
  * @author wjm
  * @since 2022-07-06 21:53
  */
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Binaries {
 

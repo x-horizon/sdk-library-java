@@ -34,7 +34,6 @@ import java.util.stream.StreamSupport;
  * @author wjm
  * @since 2020-12-15 12:40
  */
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Collections {
 

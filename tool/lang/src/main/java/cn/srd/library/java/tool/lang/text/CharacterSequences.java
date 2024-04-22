@@ -6,7 +6,6 @@ package cn.srd.library.java.tool.lang.text;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.object.Nil;
@@ -23,7 +22,6 @@ import java.util.Optional;
  * @author wjm
  * @since 2020-05-19 17:12
  */
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CharacterSequences extends Characters {
 

@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
  * @author wjm
  * @since 2020-01-15 11:02
  */
-@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Systems {
 
