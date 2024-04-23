@@ -4,14 +4,14 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
-import cn.srd.library.java.orm.contract.model.base.PO;
+import cn.srd.library.java.orm.contract.model.base.POJO;
 
 /**
  * @author wjm
  * @since 2023-12-05 16:38
  */
-public abstract class BaseQueryChainer<P extends PO> extends BaseChainer<P> {
+public abstract class BaseQueryChainer<P extends POJO> extends BaseChainer<P> {
 
-    protected abstract QueryChain<P> getNativeQueryChainer();
+    protected abstract QueryChain<P> getNativeQueryChain();
 
 }

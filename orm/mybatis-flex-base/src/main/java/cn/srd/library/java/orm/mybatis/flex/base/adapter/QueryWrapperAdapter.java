@@ -8,6 +8,7 @@ import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import com.mybatisflex.core.constant.SqlConnector;
 import com.mybatisflex.core.query.QueryColumn;
 import com.mybatisflex.core.query.QueryConditionBuilder;
+import com.mybatisflex.core.query.RawQueryColumn;
 import com.mybatisflex.core.query.RawQueryCondition;
 
 import java.io.Serial;
@@ -20,9 +21,12 @@ public class QueryWrapperAdapter<R extends QueryWrapperAdapter<R>> extends com.m
 
     @Serial private static final long serialVersionUID = 971536476435856761L;
 
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public QueryConditionBuilder<R> where(QueryColumn queryColumn) {
-        return new QueryConditionBuilder<>((R) this, queryColumn, SqlConnector.AND);
+        return and(queryColumn);
+    }
+
+    public QueryConditionBuilder<R> where(RawQueryCondition rawQueryCondition) {
+        return and(rawQueryCondition);
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
@@ -32,14 +36,17 @@ public class QueryWrapperAdapter<R extends QueryWrapperAdapter<R>> extends com.m
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public QueryConditionBuilder<R> and(RawQueryCondition rawQueryCondition) {
-        QueryColumn queryColumn = new QueryColumn();
-        queryColumn.setName(rawQueryCondition.getContent());
-        return new QueryConditionBuilder<>((R) this, queryColumn, SqlConnector.AND);
+        return new QueryConditionBuilder<>((R) this, new RawQueryColumn(rawQueryCondition.getContent()), SqlConnector.AND);
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public QueryConditionBuilder<R> or(QueryColumn queryColumn) {
         return new QueryConditionBuilder<>((R) this, queryColumn, SqlConnector.OR);
+    }
+
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public QueryConditionBuilder<R> or(RawQueryCondition rawQueryCondition) {
+        return new QueryConditionBuilder<>((R) this, new RawQueryColumn(rawQueryCondition.getContent()), SqlConnector.OR);
     }
 
 }

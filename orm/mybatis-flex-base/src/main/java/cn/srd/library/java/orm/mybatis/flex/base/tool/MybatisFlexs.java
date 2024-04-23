@@ -4,10 +4,16 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.tool;
 
+import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
+import cn.srd.library.java.tool.lang.text.Strings;
+import cn.srd.library.java.tool.spring.contract.Classes;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.mybatis.Mappers;
 import com.mybatisflex.core.query.QueryColumn;
@@ -20,6 +26,7 @@ import com.mybatisflex.core.util.LambdaUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Optional;
 
@@ -115,8 +122,23 @@ public class MybatisFlexs {
         return queryColumn.getName();
     }
 
+    // TODO wjm 后续优化 JsonProperty 为可插拔
     public static <T> String getFieldName(ColumnNameGetter<T> columnNameGetter) {
-        return LambdaUtil.getFieldName(columnNameGetter);
+        String fieldName = LambdaUtil.getFieldName(columnNameGetter);
+        Class<?> classOfField = LambdaUtil.getImplClass(columnNameGetter);
+        Field field = Classes.getFieldDeep(classOfField, fieldName);
+        Assert.of().setMessage("{}could not find the field by name [{}] and class [{}], please check!", ModuleView.ORM_MYBATIS_SYSTEM, fieldName, classOfField.getName())
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfNull(field);
+        JsonProperty jsonProperty = field.getAnnotation(JsonProperty.class);
+        if (Nil.isNull(jsonProperty)) {
+            return fieldName;
+        }
+        return Strings.underlineCase(jsonProperty.value());
+    }
+
+    public static <T> Class<?> getClassOfColumn(ColumnNameGetter<T> columnNameGetter) {
+        return LambdaUtil.getImplClass(columnNameGetter);
     }
 
     // TODO wjm mybatis-flex 升级引起的报错，暂未用到以下函数，待移除

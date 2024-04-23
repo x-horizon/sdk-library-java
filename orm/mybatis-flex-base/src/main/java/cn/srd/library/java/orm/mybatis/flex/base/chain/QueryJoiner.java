@@ -73,10 +73,10 @@ public class QueryJoiner<P extends PO, Q extends BaseQueryChainer<P>> extends Ba
     }
 
     public Q on(Consumer<QueryChainer<P>> queryChainAction) {
-        BaseMapper<P> baseMapper = getQueryChainer().getNativeQueryChainer().baseMapper();
+        BaseMapper<P> baseMapper = getQueryChainer().getNativeQueryChain().baseMapper();
         QueryChainer<P> newQueryChainer = new QueryChainer<>(baseMapper, QueryChain.of(baseMapper));
         queryChainAction.accept(newQueryChainer);
-        getNativeQueryJoiner().on(Reflects.getFieldValue(newQueryChainer.getNativeQueryChainer().toQueryWrapper(), WHERE_QUERY_CONDITION_FIELD_NAME, QueryCondition.class));
+        getNativeQueryJoiner().on(Reflects.getFieldValue(newQueryChainer.getNativeQueryChain().toQueryWrapper(), WHERE_QUERY_CONDITION_FIELD_NAME, QueryCondition.class));
         return getQueryChainer();
     }
 

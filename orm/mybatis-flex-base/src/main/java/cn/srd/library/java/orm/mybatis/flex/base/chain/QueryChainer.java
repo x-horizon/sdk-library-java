@@ -34,7 +34,7 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
 
     @Getter(AccessLevel.PROTECTED) private final BaseMapper<P> nativeBaseMapper;
 
-    @Getter(AccessLevel.PROTECTED) private final QueryChain<P> nativeQueryChainer;
+    @Getter private final QueryChain<P> nativeQueryChain;
 
     public static <P extends PO> QueryChainer<P> of(BaseMapper<P> baseMapper) {
         return new QueryChainer<>(baseMapper, QueryChain.of(baseMapper));
@@ -42,12 +42,7 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public <U extends PO> QueryChainer<P> select(ColumnNameGetter<U>... columnNameGetters) {
-        getNativeQueryChainer().select(columnNameGetters);
-        return this;
-    }
-
-    public <U extends PO> QueryChainer<P> selectSelfAll() {
-        getNativeQueryChainer().select();
+        getNativeQueryChain().select(columnNameGetters);
         return this;
     }
 
@@ -60,7 +55,7 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     public <U extends PO> QueryJoiner<P, QueryChainer<P>> innerJoin(Class<U> entityClass, boolean condition) {
-        return new QueryJoiner<>(getNativeQueryChainer().innerJoin(entityClass, condition), this);
+        return new QueryJoiner<>(getNativeQueryChain().innerJoin(entityClass, condition), this);
     }
 
     public <U extends PO> QueryJoiner<P, QueryChainer<P>> leftJoin(Class<U> entityClass) {
@@ -72,7 +67,7 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     public <U extends PO> QueryJoiner<P, QueryChainer<P>> leftJoin(Class<U> entityClass, boolean condition) {
-        return new QueryJoiner<>(getNativeQueryChainer().leftJoin(entityClass, condition), this);
+        return new QueryJoiner<>(getNativeQueryChain().leftJoin(entityClass, condition), this);
     }
 
     public <U extends PO> QueryJoiner<P, QueryChainer<P>> rightJoin(Class<U> entityClass) {
@@ -84,7 +79,7 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     public <U extends PO> QueryJoiner<P, QueryChainer<P>> rightJoin(Class<U> entityClass, boolean condition) {
-        return new QueryJoiner<>(getNativeQueryChainer().rightJoin(entityClass, condition), this);
+        return new QueryJoiner<>(getNativeQueryChain().rightJoin(entityClass, condition), this);
     }
 
     // TODO wjm 关于 cross join，不是在 cross join table name 后拼接 on 的连接条件的，而是在 where 后拼接表的连接条件，mybatis-flex 目前的实现有 bug，此处先屏蔽 cross join 的相关函数
@@ -107,39 +102,39 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     public <U extends PO> QueryJoiner<P, QueryChainer<P>> fullJoin(Class<U> entityClass, boolean condition) {
-        return new QueryJoiner<>(getNativeQueryChainer().fullJoin(entityClass, condition), this);
+        return new QueryJoiner<>(getNativeQueryChain().fullJoin(entityClass, condition), this);
     }
 
     @SuppressWarnings(SuppressWarningConstant.ALL)
     public <U extends POJO> QueryConditional<P, ? extends QueryChainer<P>, QueryChain<P>> where(ColumnNameGetter<U> columnNameGetter) {
-        return new QueryConditional<>(getNativeQueryChainer().where(columnNameGetter), this);
+        return new QueryConditional<>(getNativeQueryChain().where(columnNameGetter), this);
     }
 
     @SuppressWarnings(SuppressWarningConstant.ALL)
     public <U extends POJO> QueryConditional<P, ? extends QueryChainer<P>, QueryChain<P>> and(ColumnNameGetter<U> columnNameGetter) {
-        return new QueryConditional<>(getNativeQueryChainer().and(columnNameGetter), this);
+        return new QueryConditional<>(getNativeQueryChain().and(columnNameGetter), this);
     }
 
     @SuppressWarnings(SuppressWarningConstant.ALL)
     public <U extends POJO> QueryConditional<P, ? extends QueryChainer<P>, QueryChain<P>> or(ColumnNameGetter<U> columnNameGetter) {
-        return new QueryConditional<>(getNativeQueryChainer().or(columnNameGetter), this);
+        return new QueryConditional<>(getNativeQueryChain().or(columnNameGetter), this);
     }
 
     public QueryChainer<P> as(String aliasName) {
-        getNativeQueryChainer().as(aliasName);
+        getNativeQueryChain().as(aliasName);
         return this;
     }
 
     @SafeVarargs
     public final <U extends PO> QueryChainer<P> groupBy(ColumnNameGetter<U>... columnNameGetters) {
-        getNativeQueryChainer().groupBy(columnNameGetters);
+        getNativeQueryChain().groupBy(columnNameGetters);
         return this;
     }
 
     @SafeVarargs
     public final <U extends PO> QueryChainer<P> orderByAsc(ColumnNameGetter<U>... columnNameGetters) {
         for (ColumnNameGetter<U> columnNameGetter : columnNameGetters) {
-            getNativeQueryChainer().orderBy(columnNameGetter, true);
+            getNativeQueryChain().orderBy(columnNameGetter, true);
         }
         return this;
     }
@@ -147,13 +142,13 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     @SafeVarargs
     public final <U extends PO> QueryChainer<P> orderByDesc(ColumnNameGetter<U>... columnNameGetters) {
         for (ColumnNameGetter<U> columnNameGetter : columnNameGetters) {
-            getNativeQueryChainer().orderBy(columnNameGetter, false);
+            getNativeQueryChain().orderBy(columnNameGetter, false);
         }
         return this;
     }
 
     public Optional<P> get() {
-        return getNativeQueryChainer().oneOpt();
+        return getNativeQueryChain().oneOpt();
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
@@ -166,7 +161,7 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     public List<P> list() {
-        return getNativeQueryChainer().list();
+        return getNativeQueryChain().list();
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
@@ -191,7 +186,7 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     private PageResult<P> page(Page<P> page) {
-        return PageConverter.INSTANCE.toPageResult(getNativeQueryChainer().page(page));
+        return PageConverter.INSTANCE.toPageResult(getNativeQueryChain().page(page));
     }
 
     public <V extends VO> PageResult<V> pageToVO() {
@@ -211,15 +206,15 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     private <V extends VO> PageResult<V> pageToVO(Page<P> page) {
-        return PageConverter.INSTANCE.toPageResultVO(getNativeQueryChainer().page(page));
+        return PageConverter.INSTANCE.toPageResultVO(getNativeQueryChain().page(page));
     }
 
     public long count() {
-        return getNativeQueryChainer().count();
+        return getNativeQueryChain().count();
     }
 
     public boolean exists() {
-        return getNativeQueryChainer().exists();
+        return getNativeQueryChain().exists();
     }
 
     public boolean notExists() {
@@ -227,7 +222,7 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     public String toSQL() {
-        return getNativeQueryChainer().toSQL();
+        return getNativeQueryChain().toSQL();
     }
 
 }
