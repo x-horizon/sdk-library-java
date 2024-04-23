@@ -47,6 +47,11 @@ public class SymbolConstant {
     public static final String SPACE = " ";
 
     /**
+     * {@code "'"}
+     */
+    public static final String SINGLE_QUOTE = "'";
+
+    /**
      * {@code "."}
      */
     public static final String DOT = ".";

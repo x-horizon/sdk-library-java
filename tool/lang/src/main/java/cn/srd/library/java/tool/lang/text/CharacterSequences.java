@@ -274,8 +274,37 @@ public class CharacterSequences extends Characters {
     }
 
     /**
+     * see {@link #joinWithSingleQuoteAndComma(Iterable)}
+     *
+     * @param inputs the input elements
+     * @param <T>    the input element type
+     * @return after join
+     */
+    @SafeVarargs
+    public static <T> String joinWithSingleQuoteAndComma(T... inputs) {
+        return joinWithSingleQuoteAndComma(Collections.ofArrayList(inputs));
+    }
+
+    /**
      * <pre>
-     * convert multiple Nil to strings using {@link SymbolConstant#COMMA} as a separator.
+     * convert collection to strings using {@link SymbolConstant#COMMA} and {@link SymbolConstant#COMMA} as a separator.
+     *
+     * example:
+     *   the inputs are:       ["1", "2", "345"]
+     *   after join:           "'1','2','345'"
+     * </pre>
+     *
+     * @param inputs the input elements
+     * @param <T>    the input element type
+     * @return after join
+     */
+    public static <T> String joinWithSingleQuoteAndComma(Iterable<T> inputs) {
+        return join(Collections.ofUnknownSizeStream(inputs).map(input -> Strings.format("'{}'", input)).toList(), SymbolConstant.COMMA);
+    }
+
+    /**
+     * <pre>
+     * convert collection to strings using {@link SymbolConstant#COMMA} as a separator.
      *
      * example:
      *   the inputs are:       ["1", "2", "345"]
@@ -292,7 +321,7 @@ public class CharacterSequences extends Characters {
 
     /**
      * <pre>
-     * convert multiple Nil to strings using {@link SymbolConstant#LF} as a separator.
+     * convert collection to strings using {@link SymbolConstant#LF} as a separator.
      *
      * example:
      *   the inputs are:       ["1", "2", "345"]
@@ -323,7 +352,7 @@ public class CharacterSequences extends Characters {
 
     /**
      * <pre>
-     * convert multiple Nil to strings using conjunction as a separator.
+     * convert collection to strings using conjunction as a separator.
      *
      * example:
      *   the inputs are:       ["1", "2", "345"]

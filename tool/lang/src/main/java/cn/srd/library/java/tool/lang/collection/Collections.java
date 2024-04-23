@@ -1051,6 +1051,23 @@ public class Collections {
     }
 
     /**
+     * remove the first element in specified array
+     *
+     * @param arrayType the array type
+     * @param inputs    the input element
+     * @param <T>       the element type
+     * @return after remove the first element
+     */
+    public static <T> T[] removeFirst(Class<T> arrayType, T[] inputs) {
+        if (Nil.isEmpty(inputs)) {
+            return inputs;
+        }
+        T[] outputs = newArray(arrayType, inputs.length - 1);
+        System.arraycopy(inputs, 1, outputs, 0, outputs.length);
+        return outputs;
+    }
+
+    /**
      * return the input element size
      *
      * @param input the input element

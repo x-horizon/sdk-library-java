@@ -765,7 +765,7 @@ public class Converts {
      *
      *            public static void main(String[] args) {
      *                // the output is GenderType.WOMAN
-     *                Enums.toEnumByFieldName("WOMAN", GenderType.class);
+     *                Converts.toEnumByName("WOMAN", GenderType.class);
      *            }
      *
      *        }
@@ -803,13 +803,13 @@ public class Converts {
      *
      *            public static void main(String[] args) {
      *                // the output is GenderType.WOMAN
-     *                Enums.toEnumByFieldValue(2, GenderType.class);
+     *                Converts.toEnumByValue(2, GenderType.class);
      *                // the output is GenderType.WOMAN
-     *                Enums.toEnumByFieldValue("woman", GenderType.class);
+     *                Converts.toEnumByValue("woman", GenderType.class);
      *                // the output is null
-     *                Enums.toEnumByFieldValue("2", GenderType.class);
+     *                Converts.toEnumByValue("2", GenderType.class);
      *                // the output is null
-     *                Enums.toEnumByFieldValue("WOMAN", GenderType.class);
+     *                Converts.toEnumByValue("WOMAN", GenderType.class);
      *            }
      *
      *        }
@@ -834,15 +834,15 @@ public class Converts {
      *
      *            public static void main(String[] args) {
      *                // the output is GenderType.WOMAN
-     *                Enums.toEnumByFieldValue(2, GenderType.class);
+     *                Converts.toEnumByValue(2, GenderType.class);
      *                // the output is GenderType.WOMAN
-     *                Enums.toEnumByFieldValue("woman", GenderType.class);
+     *                Converts.toEnumByValue("woman", GenderType.class);
      *                // the output is GenderType.WOMAN
-     *                Enums.toEnumByFieldValue("Woman", GenderType.class);
+     *                Converts.toEnumByValue("Woman", GenderType.class);
      *                // the output is null
-     *                Enums.toEnumByFieldValue("WOMAN", GenderType.class);
+     *                Converts.toEnumByValue("WOMAN", GenderType.class);
      *                // the output is null
-     *                Enums.toEnumByFieldValue("2", GenderType.class);
+     *                Converts.toEnumByValue("2", GenderType.class);
      *            }
      *
      *        }
@@ -869,9 +869,9 @@ public class Converts {
      *
      *            public static void main(String[] args) {
      *                // the output is GenderType.WOMAN
-     *                Enums.toEnumByFieldValue("Woman", GenderType.class);
+     *                Converts.toEnumByValue("Woman", GenderType.class);
      *                // the output is GenderType.UNKNOWN
-     *                Enums.toEnumByFieldValue("unknown", GenderType.class);
+     *                Converts.toEnumByValue("unknown", GenderType.class);
      *            }
      *
      *        }
@@ -890,7 +890,7 @@ public class Converts {
      *
      *            public static void main(String[] args) {
      *                // the output is null
-     *                Enums.toEnumByFieldValue("WOMAN", GenderType.class);
+     *                Converts.toEnumByValue("WOMAN", GenderType.class);
      *            }
      *
      *        }
