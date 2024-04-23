@@ -44,7 +44,7 @@ public class FeignClientResponseInterceptor implements Interceptor {
      * resolve response body
      *
      * @param responseBody okhttp response body
-     * @return 生产端响应结果
+     * @return the resolve result
      */
     @SneakyThrows
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
