@@ -106,3 +106,14 @@ COMMENT ON COLUMN teacher.updater_id IS '更新人id';
 COMMENT ON COLUMN teacher.create_time IS '创建时间';
 COMMENT ON COLUMN teacher.update_time IS '更新时间';
 COMMENT ON COLUMN teacher.delete_time IS '删除时间';
+
+INSERT INTO public.school (id, name, type, address, enable_is, version, remark, creator_id, updater_id, create_time, update_time, delete_time)
+VALUES (538102469964805, '学校1', 1, '新疆维吾尔自治区毕节市江北区', FALSE, 0, '', 1, 1, '2024-04-19 14:44:35.342183', '2024-04-19 14:44:35.342183', NULL);
+
+INSERT INTO public.student (id, school_id, teacher_ids, code, name, sort, hobby_info, course_infos, version, remark, creator_id, updater_id, create_time, update_time, delete_time)
+VALUES (538109302425029, 538102469964805, '[538108389811589, 538108543567237]', '44', '学生1', 1, '{"levelType": 1, "achievementTypes": [1, 2], "primaryInterestName": "音乐", "specificInterestNames": ["美术", "运动"]}', '[{"name": "语文", "credit": 60}, {"name": "数学", "credit": 60}]', 0, 'ea elit', 1, 1, '2024-04-19 15:12:23.420131', '2024-04-19 15:12:23.420131', NULL);
+
+INSERT INTO public.teacher (id, school_id, code, name, status, level_types, course_types, version, remark, creator_id, updater_id, create_time, update_time, delete_time)
+VALUES (538108389811589, 538102469964805, 37, '老师1', 1, '[1, 2]', '["语文", "英语"]', 0, '', 1, 1, '2024-04-19 15:08:40.606767', '2024-04-19 15:08:40.606767', NULL);
+INSERT INTO public.teacher (id, school_id, code, name, status, level_types, course_types, version, remark, creator_id, updater_id, create_time, update_time, delete_time)
+VALUES (538108543567237, 538102469964805, 37, '老师2', 1, '[1, 2, 3]', '["语文", "数学"]', 0, '', 1, 1, '2024-04-19 15:09:18.144291', '2024-04-19 15:09:18.144291', NULL);

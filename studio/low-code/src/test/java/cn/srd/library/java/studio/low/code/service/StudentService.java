@@ -50,15 +50,33 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
     public List<StudentVO> listByCondition(StudentListConditionVO conditionVO) {
         // StudentHobbyBO studentHobbyBO = new StudentHobbyBO();
         // StudentCourseBO studentCourseBO = new StudentCourseBO();
-        String a = studentDao.openQuery()
-                .selectSelfAll()
-                .innerJoinJsonbListVirtualTable(StudentPO::getHobbyBO, StudentHobbyBO::getAchievementTypes)
-                // .innerJoinJsonbListVirtualTable(StudentPO::getHobbyBO, (StudentHobbyBO bo) -> bo.getAchievementTypes())
-                // .innerJoinJsonbListVirtualTable(StudentPO::getHobbyBO, (StudentHobbyBO bo) -> bo.getAchievementTypes(), (StudentCourseBO bo) -> bo.getName())
+        String a = studentDao.openJsonbQuery()
+                .addObjectExtractFunction(StudentPO::getCourseBOs, StudentHobbyBO::getAchievementTypes)
+                .addArrayUnnestFunction()
+                .addObjectExtractFunction(StudentPO::getCourseBOs, StudentHobbyBO::getAchievementTypes)
+                .addArrayUnnestFunction()
+                .addObjectExtractFunction(StudentPO::getCourseBOs, StudentHobbyBO::getAchievementTypes)
+                .addArrayUnnestFunction()
+                .innerJoin(StudentHobbyBO::getAchievementTypes)
+                .next()
+                .addObjectExtractFunction(StudentPO::getCourseBOs, StudentHobbyBO::getAchievementTypes)
+                .addArrayUnnestFunction()
+                .innerJoin(StudentHobbyBO::getAchievementTypes)
+                .switchToQuery()
                 .where(StudentPO::getId).inIfNotEmpty(conditionVO.getIds())
                 .and(StudentPO::getName).likeIfNotBlank(conditionVO.getName())
                 .andJsonQuery(StudentHobbyBO::getAchievementTypes, StudentCourseBO::getName).likeIfNotBlank(conditionVO.getName())
                 .toSQL();
+        // String a = studentDao.openQuery()
+        //         // .innerJoinJsonbListObjectView(StudentPO::getCourseBOs, StudentHobbyBO::getAchievementTypes, StudentHobbyBO::getAchievementTypes, StudentHobbyBO::getAchievementTypes, StudentHobbyBO::getAchievementTypes, StudentHobbyBO::getAchievementTypes, StudentHobbyBO::getAchievementTypes, StudentHobbyBO::getAchievementTypes, StudentCourseBO::getName)
+        //         .innerJoinJsonbListObjectView2(StudentPO::getCourseBOs, StudentHobbyBO::getAchievementTypes, PostgresqlFunctionType.JSONB_OBJECT_EXTRACT, PostgresqlFunctionType.JSONB_ARRAY_UNNEST)
+        //         // .innerJoinJsonbListVirtualTable(StudentPO::getHobbyBO, (StudentHobbyBO bo) -> bo.getAchievementTypes())
+        //         // .innerJoinJsonbListVirtualTable(StudentPO::getHobbyBO, (StudentHobbyBO bo) -> bo.getAchievementTypes(), (StudentCourseBO bo) -> bo.getName())
+        //         .where(StudentPO::getId).inIfNotEmpty(conditionVO.getIds())
+        //         .and(StudentPO::getName).likeIfNotBlank(conditionVO.getName())
+        //         .andJsonQuery(StudentHobbyBO::getAchievementTypes, StudentCourseBO::getName).likeIfNotBlank(conditionVO.getName())
+        //         // .andJsonQuery(StudentCourseBO::getName, StudentCourseBO::getName).likeIfNotBlank(conditionVO.getName())
+        //         .toSQL();
         // .listToVOs();
 
         List<SchoolPO> schoolPOs = schoolDao.listLikeByField(SchoolPO::getName, conditionVO.getSchoolName());
