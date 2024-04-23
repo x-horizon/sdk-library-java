@@ -4,14 +4,18 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.chain;
 
+import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.base.POJO;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.MybatisFlexs;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.cache.ColumnJsonbMappingAliasCache;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIds;
+import cn.srd.library.java.tool.lang.functional.Assert;
+import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
 import com.mybatisflex.core.query.RawQueryTable;
 import lombok.AccessLevel;
@@ -36,8 +40,12 @@ public class JsonbQueryChainer<P extends POJO, U extends PO> {
         return new JsonbQueryChainer<>(queryChainer, SymbolConstant.EMPTY);
     }
 
-    public <V extends POJO> JsonbQueryChainer<P, U> addObjectExtractFunction(ColumnNameGetter<U> columnNameGetter, ColumnNameGetter<V> jsonKeyNameGetter) {
+    public <C, V extends POJO> JsonbQueryChainer<P, U> addObjectExtractFunction(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V> jsonKeyNameGetter) {
         String jsonColumnName = MybatisFlexs.getFieldName(columnNameGetter);
+        String jsonViewAlias = ColumnJsonbMappingAliasCache.get(jsonColumnName);
+        if (Nil.isNotNull(jsonViewAlias)) {
+            jsonColumnName = jsonViewAlias;
+        }
         String jsonKeyName = MybatisFlexs.getFieldName(jsonKeyNameGetter);
         ColumnJsonbMappingAliasCache.set(jsonKeyName, Strings.format("{}_{}", jsonKeyName, SnowflakeIds.get()));
         setJsonbFunctionSQL(Strings.format("JSONB_EXTRACT_PATH({}, {})", jsonColumnName, Strings.joinWithSingleQuoteAndComma(jsonKeyName)));
@@ -49,7 +57,7 @@ public class JsonbQueryChainer<P extends POJO, U extends PO> {
         return this;
     }
 
-    public JsonbQueryChainer<P, U> addArrayUnnestFunction(ColumnNameGetter<U> columnNameGetter) {
+    public <C extends POJO> JsonbQueryChainer<P, U> addArrayUnnestFunction(ColumnNameGetter<C> columnNameGetter) {
         String jsonColumnName = MybatisFlexs.getFieldName(columnNameGetter);
         setJsonbFunctionSQL(Strings.format("JSONB_ARRAY_ELEMENTS({})", jsonColumnName));
         return this;
@@ -59,6 +67,9 @@ public class JsonbQueryChainer<P extends POJO, U extends PO> {
     public <V extends POJO> JsonbQueryChainer<P, U> innerJoin(ColumnNameGetter<V> theLastJsonKeyNameGetter) {
         String jsonKeyName = MybatisFlexs.getFieldName(theLastJsonKeyNameGetter);
         String jsonViewAlias = ColumnJsonbMappingAliasCache.get(jsonKeyName);
+        Assert.of().setMessage("{}could not find the json query alias name by [{}], please check!", ModuleView.ORM_MYBATIS_SYSTEM, jsonKeyName)
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfNull(jsonViewAlias);
         getQueryChainer().getNativeQueryChain()
                 .innerJoin(new RawQueryTable(getJsonbFunctionSQL()))
                 .as(jsonViewAlias)
