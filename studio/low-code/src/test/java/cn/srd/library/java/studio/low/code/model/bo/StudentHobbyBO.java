@@ -13,6 +13,7 @@ import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToE
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonListEnumValueToListEnumDeserializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonListEnumToListIntegerSerializer;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -56,5 +57,13 @@ public class StudentHobbyBO implements BO, NullableObject {
     @JsonDeserialize(using = JacksonListEnumValueToListEnumDeserializer.class)
     @JsonSerialize(using = JacksonListEnumToListIntegerSerializer.class)
     private List<StudentHobbyAchievementType> achievementTypes;
+
+    @Schema(description = "书本信息")
+    @JsonProperty("bookInfo")
+    private StudentHobbyBookBO bookBO;
+
+    @Schema(description = "工具信息")
+    @JsonProperty("toolInfos")
+    private List<StudentHobbyToolBO> toolBOs;
 
 }

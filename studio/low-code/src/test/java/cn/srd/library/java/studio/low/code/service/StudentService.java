@@ -51,7 +51,7 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
         // StudentHobbyBO studentHobbyBO = new StudentHobbyBO();
         // StudentCourseBO studentCourseBO = new StudentCourseBO();
 
-        String a = studentDao.openJsonbQuery()
+        List<StudentVO> a = studentDao.openJsonbQuery()
                 .functionArrayUnnest(StudentPO::getCourseBOs)
                 .innerJoin(StudentPO::getCourseBOs)
                 .next()
@@ -65,7 +65,7 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
                 .where(StudentPO::getId).inIfNotEmpty(conditionVO.getIds())
                 .and(StudentPO::getName).likeIfNotBlank(conditionVO.getName())
                 .andJsonQuery(StudentHobbyBO::getLevelType, StudentCourseBO::getName).likeIfNotBlank(conditionVO.getName())
-                .toSQL();
+                .listToVOs();
 
         List<SchoolPO> schoolPOs = schoolDao.listLikeByField(SchoolPO::getName, conditionVO.getSchoolName());
         List<TeacherPO> teacherPOs = teacherDao.listLikeByField(TeacherPO::getName, conditionVO.getTeacherName());
