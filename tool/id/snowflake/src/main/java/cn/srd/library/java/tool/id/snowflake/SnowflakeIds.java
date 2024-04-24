@@ -20,6 +20,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SnowflakeIds {
 
+    private static final long FIXED_ID = get();
+
     /**
      * get a snowflake id
      *
@@ -27,6 +29,15 @@ public class SnowflakeIds {
      */
     public static long get() {
         return YitIdHelper.nextId();
+    }
+
+    /**
+     * get a fixed snowflake id
+     *
+     * @return fixed snowflake id
+     */
+    public static long getFixed() {
+        return FIXED_ID;
     }
 
     /**

@@ -6,6 +6,7 @@ package cn.srd.library.java.tool.lang.text;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.srd.library.java.contract.constant.regex.RegexConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.object.Nil;
@@ -15,6 +16,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * toolkit for char sequence
@@ -263,43 +266,34 @@ public class CharacterSequences extends Characters {
     }
 
     /**
-     * see {@link #joinWithComma(Iterable)}
-     *
-     * @param inputs the input elements
-     * @param <T>    the input element type
-     * @return after join
-     */
-    public static <T> String joinWithComma(T[] inputs) {
-        return joinWithComma(Collections.ofArrayList(inputs));
-    }
-
-    /**
-     * see {@link #joinWithSingleQuoteAndComma(Iterable)}
-     *
-     * @param inputs the input elements
-     * @param <T>    the input element type
-     * @return after join
-     */
-    @SafeVarargs
-    public static <T> String joinWithSingleQuoteAndComma(T... inputs) {
-        return joinWithSingleQuoteAndComma(Collections.ofArrayList(inputs));
-    }
-
-    /**
      * <pre>
-     * convert collection to strings using {@link SymbolConstant#COMMA} and {@link SymbolConstant#COMMA} as a separator.
+     * convert collection to strings using {@link SymbolConstant#LF} as a separator.
      *
      * example:
      *   the inputs are:       ["1", "2", "345"]
-     *   after join:           "'1','2','345'"
+     *   after join:           "1
+     *                          2
+     *                          345"
      * </pre>
      *
      * @param inputs the input elements
      * @param <T>    the input element type
      * @return after join
      */
-    public static <T> String joinWithSingleQuoteAndComma(Iterable<T> inputs) {
-        return join(Collections.ofUnknownSizeStream(inputs).map(input -> Strings.format("'{}'", input)).toList(), SymbolConstant.COMMA);
+    public static <T> String joinWithLF(Iterable<T> inputs) {
+        return join(inputs, SymbolConstant.LF);
+    }
+
+    /**
+     * see {@link #joinWithComma(Iterable)}
+     *
+     * @param inputs the input elements
+     * @param <T>    the input element type
+     * @return after join
+     */
+    @SafeVarargs
+    public static <T> String joinWithComma(T... inputs) {
+        return joinWithComma(Collections.ofArrayList(inputs));
     }
 
     /**
@@ -320,22 +314,61 @@ public class CharacterSequences extends Characters {
     }
 
     /**
+     * see {@link #joinWithSingleQuoteAndComma(Iterable)}
+     *
+     * @param inputs the input elements
+     * @param <T>    the input element type
+     * @return after join
+     */
+    @SafeVarargs
+    public static <T> String joinWithSingleQuoteAndComma(T... inputs) {
+        return joinWithSingleQuoteAndComma(Collections.ofArrayList(inputs));
+    }
+
+    /**
      * <pre>
-     * convert collection to strings using {@link SymbolConstant#LF} as a separator.
+     * convert collection to strings using {@link SymbolConstant#SINGLE_QUOTE} and {@link SymbolConstant#COMMA} as a separator.
      *
      * example:
      *   the inputs are:       ["1", "2", "345"]
-     *   after join:           "1
-     *                          2
-     *                          345"
+     *   after join:           "'1','2','345'"
      * </pre>
      *
      * @param inputs the input elements
      * @param <T>    the input element type
      * @return after join
      */
-    public static <T> String joinWithLF(Iterable<T> inputs) {
-        return join(inputs, SymbolConstant.LF);
+    public static <T> String joinWithSingleQuoteAndComma(Iterable<T> inputs) {
+        return join(Collections.ofUnknownSizeStream(inputs).map(input -> Strings.format("'{}'", input)).toList(), SymbolConstant.COMMA);
+    }
+
+    /**
+     * see {@link #joinWithDoubleQuoteAndComma(Iterable)}
+     *
+     * @param inputs the input elements
+     * @param <T>    the input element type
+     * @return after join
+     */
+    @SafeVarargs
+    public static <T> String joinWithDoubleQuoteAndComma(T... inputs) {
+        return joinWithDoubleQuoteAndComma(Collections.ofArrayList(inputs));
+    }
+
+    /**
+     * <pre>
+     * convert collection to strings using {@link SymbolConstant#DOUBLE_QUOTE} and {@link SymbolConstant#COMMA} as a separator.
+     *
+     * example:
+     *   the inputs are:       ["1", "2", "345"]
+     *   after join:           ""1","2","345""
+     * </pre>
+     *
+     * @param inputs the input elements
+     * @param <T>    the input element type
+     * @return after join
+     */
+    public static <T> String joinWithDoubleQuoteAndComma(Iterable<T> inputs) {
+        return join(Collections.ofUnknownSizeStream(inputs).map(input -> Strings.format("\"{}\"", input)).toList(), SymbolConstant.COMMA);
     }
 
     /**
@@ -537,8 +570,8 @@ public class CharacterSequences extends Characters {
      * @param input the input element
      * @return after remove
      */
-    public static String removeHeadTailDoubleQuotes(CharSequence input) {
-        return subBetween(input, SymbolConstant.DOUBLE_QUOTES);
+    public static String removeHeadTailDoubleQuote(CharSequence input) {
+        return subBetween(input, SymbolConstant.DOUBLE_QUOTE);
     }
 
     /**
@@ -607,6 +640,40 @@ public class CharacterSequences extends Characters {
      */
     public static String replaceIgnoreCase(CharSequence input, CharSequence searchedElement, CharSequence replacedElement) {
         return CharSequenceUtil.replaceIgnoreCase(input, searchedElement, replacedElement);
+    }
+
+    /**
+     * see {@link RegexConstant#THE_LAST_DOUBLE_QUOTE}
+     *
+     * @param input the input element
+     * @return the search result, the {@link SymbolConstant#EMPTY} will be return if no content to be found.
+     */
+    public static String getTheLastDoubleQuoteContent(CharSequence input) {
+        return getByRegex(input, RegexConstant.THE_LAST_DOUBLE_QUOTE_PATTERN);
+    }
+
+    /**
+     * search specified content by regex
+     *
+     * @param input the input element
+     * @return the search result, the {@link SymbolConstant#EMPTY} will be return if no content to be found.
+     */
+    public static String getByRegex(CharSequence input, String regex) {
+        return getByRegex(input, Pattern.compile(regex));
+    }
+
+    /**
+     * search specified content by regex
+     *
+     * @param input the input element
+     * @return the search result, the {@link SymbolConstant#EMPTY} will be return if no content to be found.
+     */
+    public static String getByRegex(CharSequence input, Pattern regexPattern) {
+        Matcher matcher = regexPattern.matcher(input);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        return SymbolConstant.EMPTY;
     }
 
     /**
