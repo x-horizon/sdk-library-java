@@ -18,7 +18,6 @@ import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.mybatis.Mappers;
 import com.mybatisflex.core.query.QueryColumn;
 import com.mybatisflex.core.query.QueryTable;
-import com.mybatisflex.core.table.TableDef;
 import com.mybatisflex.core.table.TableInfo;
 import com.mybatisflex.core.table.TableInfoFactory;
 import com.mybatisflex.core.util.ClassUtil;
@@ -37,7 +36,7 @@ import java.util.Optional;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MybatisFlexs {
 
-    private static final Map<Class<? extends PO>, TableDef> ENTITY_CLASS_MAPPING_TABLE_DEF_MAP = Collections.newConcurrentHashMap(256);
+    private static final Map<String, String> CLASS_NAME_AND_FIELD_NAME_MAPPING_DATABASE_COLUMN_NAME_MAP = Collections.newConcurrentHashMap(256);
 
     public static <P> Class<P> getUsefulClass(Class<P> input) {
         return ClassUtil.getUsefulClass(input);
@@ -113,21 +112,22 @@ public class MybatisFlexs {
         return queryColumn.getName();
     }
 
-    // private static final Map<Field, String>
-
     // TODO wjm 后续优化 JsonProperty 为可插拔
     public static <T> String getFieldName(ColumnNameGetter<T> columnNameGetter) {
         String fieldName = LambdaUtil.getFieldName(columnNameGetter);
         Class<?> classOfField = LambdaUtil.getImplClass(columnNameGetter);
-        Field field = Classes.getFieldDeep(classOfField, fieldName);
-        Assert.of().setMessage("{}could not find the field by name [{}] and class [{}], please check!", ModuleView.ORM_MYBATIS_SYSTEM, fieldName, classOfField.getName())
-                .setThrowable(LibraryJavaInternalException.class)
-                .throwsIfNull(field);
-        JsonProperty jsonProperty = field.getAnnotation(JsonProperty.class);
-        if (Nil.isNull(jsonProperty)) {
-            return fieldName;
-        }
-        return Strings.underlineCase(jsonProperty.value());
+        String classNameAndFieldName = Strings.format("{}-{}", classOfField.getName(), fieldName);
+        return CLASS_NAME_AND_FIELD_NAME_MAPPING_DATABASE_COLUMN_NAME_MAP.computeIfAbsent(classNameAndFieldName, ignore -> {
+            Field field = Classes.getFieldDeep(classOfField, fieldName);
+            Assert.of().setMessage("{}could not find the field by name [{}] and class [{}], please check!", ModuleView.ORM_MYBATIS_SYSTEM, fieldName, classOfField.getName())
+                    .setThrowable(LibraryJavaInternalException.class)
+                    .throwsIfNull(field);
+            JsonProperty jsonProperty = field.getAnnotation(JsonProperty.class);
+            if (Nil.isNull(jsonProperty)) {
+                return fieldName;
+            }
+            return Strings.underlineCase(jsonProperty.value());
+        });
     }
 
     public static <T> Class<?> getClassOfColumn(ColumnNameGetter<T> columnNameGetter) {
@@ -135,6 +135,7 @@ public class MybatisFlexs {
     }
 
     // TODO wjm mybatis-flex 升级引起的报错，暂未用到以下函数，待移除
+    // private static final Map<Class<? extends PO>, TableDef> ENTITY_CLASS_MAPPING_TABLE_DEF_MAP = Collections.newConcurrentHashMap(256);
     // public static QueryTable getQueryTable(TableDef table) {
     //     return new QueryTable(table);
     // }
