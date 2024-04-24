@@ -45,15 +45,6 @@ public class QueryChainer<P extends PO> extends cn.srd.library.java.orm.mybatis.
         return this;
     }
 
-    // public final <U extends PO> QueryChainer<P> innerJoinJsonbListView(ColumnNameGetter<U> columnNameGetter) {
-    //     String columnName = MybatisFlexs.getColumnName(columnNameGetter);
-    //     getNativeQueryChain()
-    //             .innerJoin(new RawQueryTable(Strings.format("JSONB_ARRAY_ELEMENTS({})", columnName)))
-    //             .as(Strings.format("{}_{}", columnName, SnowflakeIds.get()))
-    //             .on("true");
-    //     return this;
-    // }
-
     @Override
     public <U extends POJO> QueryConditional<P, QueryChainer<P>, QueryChain<P>> where(ColumnNameGetter<U> columnNameGetter) {
         return new QueryConditional<>(getNativeQueryChain().where(getQueryColumn(columnNameGetter)), this);
@@ -103,7 +94,7 @@ public class QueryChainer<P extends PO> extends cn.srd.library.java.orm.mybatis.
                 .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfNull(jsonQueryColumnName);
         String jsonKeyName = MybatisFlexs.getFieldName(jsonKeyNameGetter);
-        return Strings.format("\"{}\" ->> '{}'::VARCHAR", jsonQueryColumnName, jsonKeyName);
+        return Strings.format("{} ->> '{}'::VARCHAR", jsonQueryColumnName, jsonKeyName);
     }
 
 }

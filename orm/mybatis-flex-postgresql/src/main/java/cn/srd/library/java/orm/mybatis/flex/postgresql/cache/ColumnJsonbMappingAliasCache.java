@@ -4,7 +4,17 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.cache;
 
+import cn.srd.library.java.contract.component.database.postgresql.PostgresqlFunction;
+import cn.srd.library.java.contract.constant.module.ModuleView;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
+import cn.srd.library.java.orm.contract.model.base.POJO;
+import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
+import cn.srd.library.java.orm.mybatis.flex.base.tool.MybatisFlexs;
+import cn.srd.library.java.tool.id.snowflake.SnowflakeIds;
 import cn.srd.library.java.tool.lang.collection.Collections;
+import cn.srd.library.java.tool.lang.functional.Assert;
+import cn.srd.library.java.tool.lang.object.Nil;
+import cn.srd.library.java.tool.lang.text.Strings;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -19,12 +29,31 @@ public class ColumnJsonbMappingAliasCache {
 
     private static final Map<String, String> CACHE = Collections.newConcurrentHashMap(256);
 
+    private static final Map<String, String> FUNCTION_SQL_MAPPING_THE_LAST_KEY_MAP = Collections.newConcurrentHashMap(256);
+
     public static String get(String key) {
         return CACHE.get(key);
     }
 
-    public static String set(String key, String value) {
-        return CACHE.putIfAbsent(key, value);
+    public static String computeToCache(String key) {
+        Assert.of().setMessage("{}illegal jsonb alias key: [{}], please check!", ModuleView.ORM_MYBATIS_SYSTEM, key)
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfTrue(Strings.startWith(key, PostgresqlFunction.JSONB_ARRAY_UNNEST));
+        if (Strings.startWith(key, PostgresqlFunction.JSONB_OBJECT_EXTRACT)) {
+            String theLastJsonKey = FUNCTION_SQL_MAPPING_THE_LAST_KEY_MAP.get(key);
+            if (Nil.isNull(theLastJsonKey)) {
+                theLastJsonKey = Strings.getTheLastDoubleQuoteContent(key);
+                String finalTheLastJsonKey = theLastJsonKey;
+                FUNCTION_SQL_MAPPING_THE_LAST_KEY_MAP.computeIfAbsent(key, ignore -> finalTheLastJsonKey);
+            }
+            key = theLastJsonKey;
+        }
+        String finalKey = key;
+        return CACHE.computeIfAbsent(key, ignore -> Strings.format("\"{}_{}\"", finalKey, SnowflakeIds.getFixed()));
+    }
+
+    public static <P extends POJO> String computeToCache(ColumnNameGetter<P> columnNameGetter) {
+        return computeToCache(MybatisFlexs.getFieldName(columnNameGetter));
     }
 
 }

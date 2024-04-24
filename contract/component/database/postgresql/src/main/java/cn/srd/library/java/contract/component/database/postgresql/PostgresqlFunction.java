@@ -4,7 +4,8 @@
 
 package cn.srd.library.java.contract.component.database.postgresql;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * the postgresql jsonb function.
@@ -12,16 +13,15 @@ import lombok.*;
  * @author wjm
  * @since 2024-04-18 20:34
  */
-@Data
-@Builder
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class PostgresqlFunction {
 
-    @Builder.Default
-    private String jsonbArrayUnnest = "JSONB_ARRAY_ELEMENTS";
+    public static final String JSONB_OBJECT_EXTRACT = "JSONB_EXTRACT_PATH";
 
-    @Builder.Default
-    private String jsonbObjectExtract = "JSONB_EXTRACT_PATH";
+    public static final String JSONB_OBJECT_EXTRACT_APPENDER = JSONB_OBJECT_EXTRACT + "({}, {})";
+
+    public static final String JSONB_ARRAY_UNNEST = "JSONB_ARRAY_ELEMENTS";
+
+    public static final String JSONB_ARRAY_UNNEST_APPENDER = JSONB_ARRAY_UNNEST + "({})";
 
 }

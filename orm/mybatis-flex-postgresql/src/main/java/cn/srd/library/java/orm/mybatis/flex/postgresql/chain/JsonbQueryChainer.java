@@ -4,6 +4,8 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.chain;
 
+import cn.srd.library.java.contract.component.database.postgresql.PostgresqlFunction;
+import cn.srd.library.java.contract.constant.booleans.BooleanConstant;
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
@@ -13,7 +15,7 @@ import cn.srd.library.java.orm.contract.model.base.POJO;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.MybatisFlexs;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.cache.ColumnJsonbMappingAliasCache;
-import cn.srd.library.java.tool.id.snowflake.SnowflakeIds;
+import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
@@ -22,6 +24,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 /**
  * @author wjm
@@ -40,26 +44,116 @@ public class JsonbQueryChainer<P extends POJO, U extends PO> {
         return new JsonbQueryChainer<>(queryChainer, SymbolConstant.EMPTY);
     }
 
-    public <C, V extends POJO> JsonbQueryChainer<P, U> addObjectExtractFunction(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V> jsonKeyNameGetter) {
+    public <C, V extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V> jsonKeyNameGetter) {
+        return functionObjectExtract(columnNameGetter, List.of(MybatisFlexs.getFieldName(jsonKeyNameGetter)));
+    }
+
+    public <C, V1, V2 extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V1> jsonKeyNameGetter1, ColumnNameGetter<V2> jsonKeyNameGetter2) {
+        return functionObjectExtract(columnNameGetter, List.of(
+                MybatisFlexs.getFieldName(jsonKeyNameGetter1),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter2)
+        ));
+    }
+
+    public <C, V1, V2, V3 extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V1> jsonKeyNameGetter1, ColumnNameGetter<V2> jsonKeyNameGetter2, ColumnNameGetter<V3> jsonKeyNameGetter3) {
+        return functionObjectExtract(columnNameGetter, List.of(
+                MybatisFlexs.getFieldName(jsonKeyNameGetter1),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter2),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter3)
+        ));
+    }
+
+    public <C, V1, V2, V3, V4 extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V1> jsonKeyNameGetter1, ColumnNameGetter<V2> jsonKeyNameGetter2, ColumnNameGetter<V3> jsonKeyNameGetter3, ColumnNameGetter<V4> jsonKeyNameGetter4) {
+        return functionObjectExtract(columnNameGetter, List.of(
+                MybatisFlexs.getFieldName(jsonKeyNameGetter1),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter2),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter3),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter4)
+        ));
+    }
+
+    public <C, V1, V2, V3, V4, V5 extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V1> jsonKeyNameGetter1, ColumnNameGetter<V2> jsonKeyNameGetter2, ColumnNameGetter<V3> jsonKeyNameGetter3, ColumnNameGetter<V4> jsonKeyNameGetter4, ColumnNameGetter<V5> jsonKeyNameGetter5) {
+        return functionObjectExtract(columnNameGetter, List.of(
+                MybatisFlexs.getFieldName(jsonKeyNameGetter1),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter2),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter3),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter4),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter5)
+        ));
+    }
+
+    public <C, V1, V2, V3, V4, V5, V6 extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V1> jsonKeyNameGetter1, ColumnNameGetter<V2> jsonKeyNameGetter2, ColumnNameGetter<V3> jsonKeyNameGetter3, ColumnNameGetter<V4> jsonKeyNameGetter4, ColumnNameGetter<V5> jsonKeyNameGetter5, ColumnNameGetter<V6> jsonKeyNameGetter6) {
+        return functionObjectExtract(columnNameGetter, List.of(
+                MybatisFlexs.getFieldName(jsonKeyNameGetter1),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter2),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter3),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter4),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter5),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter6)
+        ));
+    }
+
+    public <C, V1, V2, V3, V4, V5, V6, V7 extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V1> jsonKeyNameGetter1, ColumnNameGetter<V2> jsonKeyNameGetter2, ColumnNameGetter<V3> jsonKeyNameGetter3, ColumnNameGetter<V4> jsonKeyNameGetter4, ColumnNameGetter<V5> jsonKeyNameGetter5, ColumnNameGetter<V6> jsonKeyNameGetter6, ColumnNameGetter<V7> jsonKeyNameGetter7) {
+        return functionObjectExtract(columnNameGetter, List.of(
+                MybatisFlexs.getFieldName(jsonKeyNameGetter1),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter2),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter3),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter4),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter5),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter6),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter7)
+        ));
+    }
+
+    public <C, V1, V2, V3, V4, V5, V6, V7, V8 extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V1> jsonKeyNameGetter1, ColumnNameGetter<V2> jsonKeyNameGetter2, ColumnNameGetter<V3> jsonKeyNameGetter3, ColumnNameGetter<V4> jsonKeyNameGetter4, ColumnNameGetter<V5> jsonKeyNameGetter5, ColumnNameGetter<V6> jsonKeyNameGetter6, ColumnNameGetter<V7> jsonKeyNameGetter7, ColumnNameGetter<V8> jsonKeyNameGetter8) {
+        return functionObjectExtract(columnNameGetter, List.of(
+                MybatisFlexs.getFieldName(jsonKeyNameGetter1),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter2),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter3),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter4),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter5),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter6),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter7),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter8)
+        ));
+    }
+
+    public <C, V1, V2, V3, V4, V5, V6, V7, V8, V9 extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V1> jsonKeyNameGetter1, ColumnNameGetter<V2> jsonKeyNameGetter2, ColumnNameGetter<V3> jsonKeyNameGetter3, ColumnNameGetter<V4> jsonKeyNameGetter4, ColumnNameGetter<V5> jsonKeyNameGetter5, ColumnNameGetter<V6> jsonKeyNameGetter6, ColumnNameGetter<V7> jsonKeyNameGetter7, ColumnNameGetter<V8> jsonKeyNameGetter8, ColumnNameGetter<V9> jsonKeyNameGetter9) {
+        return functionObjectExtract(columnNameGetter, List.of(
+                MybatisFlexs.getFieldName(jsonKeyNameGetter1),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter2),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter3),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter4),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter5),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter6),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter7),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter8),
+                MybatisFlexs.getFieldName(jsonKeyNameGetter9)
+        ));
+    }
+
+    private <C> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, List<String> jsonKeyNames) {
         String jsonColumnName = MybatisFlexs.getFieldName(columnNameGetter);
         String jsonViewAlias = ColumnJsonbMappingAliasCache.get(jsonColumnName);
         if (Nil.isNotNull(jsonViewAlias)) {
             jsonColumnName = jsonViewAlias;
         }
-        String jsonKeyName = MybatisFlexs.getFieldName(jsonKeyNameGetter);
-        ColumnJsonbMappingAliasCache.set(jsonKeyName, Strings.format("{}_{}", jsonKeyName, SnowflakeIds.get()));
-        setJsonbFunctionSQL(Strings.format("JSONB_EXTRACT_PATH({}, {})", jsonColumnName, Strings.joinWithSingleQuoteAndComma(jsonKeyName)));
+        String theLastJsonKeyName = Collections.getLast(jsonKeyNames).orElseThrow();
+        ColumnJsonbMappingAliasCache.computeToCache(theLastJsonKeyName);
+        setJsonbFunctionSQL(Strings.format(PostgresqlFunction.JSONB_OBJECT_EXTRACT_APPENDER, jsonColumnName, Strings.joinWithSingleQuoteAndComma(jsonKeyNames)));
         return this;
     }
 
-    public JsonbQueryChainer<P, U> addArrayUnnestFunction() {
-        setJsonbFunctionSQL(Strings.format("JSONB_ARRAY_ELEMENTS({})", getJsonbFunctionSQL()));
+    public JsonbQueryChainer<P, U> functionArrayUnnest() {
+        ColumnJsonbMappingAliasCache.computeToCache(getJsonbFunctionSQL());
+        setJsonbFunctionSQL(Strings.format(PostgresqlFunction.JSONB_ARRAY_UNNEST_APPENDER, getJsonbFunctionSQL()));
         return this;
     }
 
-    public <C extends POJO> JsonbQueryChainer<P, U> addArrayUnnestFunction(ColumnNameGetter<C> columnNameGetter) {
+    public <C extends POJO> JsonbQueryChainer<P, U> functionArrayUnnest(ColumnNameGetter<C> columnNameGetter) {
         String jsonColumnName = MybatisFlexs.getFieldName(columnNameGetter);
-        setJsonbFunctionSQL(Strings.format("JSONB_ARRAY_ELEMENTS({})", jsonColumnName));
+        ColumnJsonbMappingAliasCache.computeToCache(jsonColumnName);
+        setJsonbFunctionSQL(Strings.format(PostgresqlFunction.JSONB_ARRAY_UNNEST_APPENDER, jsonColumnName));
         return this;
     }
 
@@ -72,8 +166,8 @@ public class JsonbQueryChainer<P extends POJO, U extends PO> {
                 .throwsIfNull(jsonViewAlias);
         getQueryChainer().getNativeQueryChain()
                 .innerJoin(new RawQueryTable(getJsonbFunctionSQL()))
-                .as(jsonViewAlias)
-                .on("true");
+                .as(Strings.removeHeadTailDoubleQuote(jsonViewAlias))
+                .on(BooleanConstant.TRUE_STRING_LOWER_CASE);
         return this;
     }
 
@@ -81,34 +175,8 @@ public class JsonbQueryChainer<P extends POJO, U extends PO> {
         return JsonbQueryChainer.of(getQueryChainer());
     }
 
-    public QueryChainer<U> switchToQuery() {
+    public QueryChainer<U> switchToNormalQuery() {
         return getQueryChainer();
     }
-
-    // @SuppressWarnings(SuppressWarningConstant.DEPRECATED)
-    // public JsonbQueryChainer<P, U> innerJoinJsonbListObjectView2(ColumnNameGetter<U> columnNameGetter, ColumnNameGetter<P> jsonKeyNameGetter, PostgresqlFunctionType... jsonFunctionTypes) {
-    //     Assert.of().setMessage("{}postgresql function is not specified, please check!", ModuleView.ORM_MYBATIS_SYSTEM)
-    //             .setThrowable(LibraryJavaInternalException.class)
-    //             .throwsIfEmpty(jsonFunctionTypes);
-    //
-    //     String jsonColumnName = MybatisFlexs.getFieldName(columnNameGetter);
-    //     String jsonKeyName = MybatisFlexs.getFieldName(jsonKeyNameGetter);
-    //     String jsonViewAlias = JSON_QUERY_FIELD_NAME_MAPPING_JSON_QUERY_COLUMN_NAME_MAP.computeIfAbsent(jsonKeyName, ignore -> Strings.format("{}_{}", jsonKeyName, SnowflakeIds.get()));
-    //     String jsonKeyActualName = Strings.format("'{}'", jsonKeyName);
-    //
-    //     String innerJoinJsonbSQL = SymbolConstant.EMPTY;
-    //     String[] innerJoinJsonbSQLs = Collections.ofArray(String.class, jsonColumnName, jsonKeyActualName);
-    //     for (PostgresqlFunctionType jsonFunctionType : jsonFunctionTypes) {
-    //         innerJoinJsonbSQL = jsonFunctionType.getStrategy().toSQL(innerJoinJsonbSQLs);
-    //         innerJoinJsonbSQLs = Collections.ofArray(String.class, innerJoinJsonbSQL);
-    //     }
-    //
-    //     getNativeQueryChain()
-    //             .innerJoin(new RawQueryTable(innerJoinJsonbSQL))
-    //             .as(jsonViewAlias)
-    //             .on("true");
-    //
-    //     return this;
-    // }
 
 }

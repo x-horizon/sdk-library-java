@@ -67,15 +67,6 @@ public class MybatisFlexs {
         return Optional.ofNullable(getTableInfo(entityClass).getVersionColumn());
     }
 
-    // public static <P extends PO> Optional<String> getPrimaryKeyFieldName(Class<P> entityClass) {
-    //     getPrimaryKeyFieldNames(entityClass);
-    //     Assert.of()
-    //             .setMessage("")
-    //             .setThrowable(LibraryJavaInternalException.class)
-    //             .throwsIfTrue(Collections.hasMoreThanOneElement(primaryKeyFieldNames));
-    //     return Optional.ofNullable(getTableInfo(entityClass).getPrimaryColumns());
-    // }
-
     public static <P extends PO> Optional<String[]> getPrimaryKeyFieldNames(P entity) {
         return getPrimaryKeyFieldNames(entity.getClass());
     }
@@ -121,6 +112,8 @@ public class MybatisFlexs {
         }
         return queryColumn.getName();
     }
+
+    // private static final Map<Field, String>
 
     // TODO wjm 后续优化 JsonProperty 为可插拔
     public static <T> String getFieldName(ColumnNameGetter<T> columnNameGetter) {
