@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.contract.component.database.postgresql;
+package cn.srd.library.java.contract.constant.database;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

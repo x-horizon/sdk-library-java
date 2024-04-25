@@ -1068,6 +1068,21 @@ public class Collections {
     }
 
     /**
+     * reverse the key value map to value key map
+     *
+     * @param inputs the input key value map
+     * @param <K>    the key type of map
+     * @param <V>    the value type of map
+     * @return the value key map
+     */
+    public static <K, V> Map<V, K> reverse(Map<K, V> inputs) {
+        return inputs.entrySet()
+                .stream()
+                .map(entry -> Collections.ofPair(entry.getValue(), entry.getKey()))
+                .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
+    }
+
+    /**
      * return the input element size
      *
      * @param input the input element

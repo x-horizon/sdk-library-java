@@ -17,7 +17,24 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum PostgresqlDataType {
 
-    JSONB("jsonb"),
+    BOOLEAN("BOOLEAN"),
+
+    SMALLINT("SMALLINT"),
+    INTEGER("INTEGER"),
+    BIGINT("BIGINT"),
+
+    DECIMAL("DECIMAL"),
+    NUMERIC("NUMERIC"),
+    REAL("REAL"),
+
+    CHAR("CHAR"),
+    VARCHAR("VARCHAR"),
+    TEXT("TEXT"),
+
+    TIMESTAMP("TIMESTAMP"),
+
+    JSON("JSON"),
+    JSONB("JSONB"),
 
     ;
 

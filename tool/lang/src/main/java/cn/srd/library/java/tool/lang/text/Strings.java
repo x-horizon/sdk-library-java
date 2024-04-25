@@ -80,7 +80,7 @@ public class Strings extends CharacterSequences {
         return Action.<String>infer(Nil.isEmpty(input) || Nil.isEmpty(comparedElements))
                 .then(Functional.emptyStringSupplier())
                 .otherwise(() -> {
-                    Map<Integer, String> similarityMappingStringMap = new HashMap<>(comparedElements.size());
+                    Map<Integer, String> similarityMappingStringMap = Collections.newHashMap(comparedElements.size());
                     List<Integer> similarities = new ArrayList<>(comparedElements.size());
                     comparedElements.forEach(compareInput -> {
                         int similarity = getLongestCommonSubstringLength(input, compareInput);
