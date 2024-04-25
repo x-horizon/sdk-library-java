@@ -8,8 +8,9 @@ import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.base.POJO;
 import cn.srd.library.java.orm.mybatis.flex.base.adapter.BaseMapperAdapter;
+import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChain;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.chain.JsonbQueryChainer;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.chain.QueryChainer;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.chain.NormalQueryChainer;
 import com.mybatisflex.core.BaseMapper;
 
 /**
@@ -21,13 +22,18 @@ import com.mybatisflex.core.BaseMapper;
  */
 public interface GenericDao<P extends PO> extends cn.srd.library.java.orm.mybatis.flex.base.dao.GenericDao<P> {
 
-    // @Override
-    // default QueryChainer<P> openQuery() {
-    //     return QueryChainer.of(getBaseMapper());
-    // }
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    default <Q extends POJO> NormalQueryChainer<P, Q> openNormalQuery() {
+        BaseMapper<P> baseMapper = getBaseMapper();
+        Class<P> poClass = (Class<P>) BaseMapperAdapter.getInstance().getPOClass(this.getClass());
+        return new NormalQueryChainer<>(QueryChain.of(baseMapper), poClass);
+    }
 
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     default <Q extends POJO> JsonbQueryChainer<Q, P> openJsonbQuery() {
-        return JsonbQueryChainer.of(QueryChainer.of(getBaseMapper()));
+        BaseMapper<P> baseMapper = getBaseMapper();
+        Class<P> poClass = (Class<P>) BaseMapperAdapter.getInstance().getPOClass(this.getClass());
+        return new JsonbQueryChainer<>(new NormalQueryChainer<>(QueryChain.of(baseMapper), poClass), poClass);
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)

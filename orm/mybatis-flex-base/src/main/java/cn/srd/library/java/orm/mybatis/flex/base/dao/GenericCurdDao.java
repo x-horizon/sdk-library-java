@@ -10,6 +10,7 @@ import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.mybatis.flex.base.adapter.BaseMapperAdapter;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.DeleteChainer;
+import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChain;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.UpdateChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
@@ -28,6 +29,7 @@ import com.mybatisflex.core.logicdelete.LogicDeleteManager;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.row.Db;
 import com.mybatisflex.core.service.IService;
+import com.mybatisflex.core.update.UpdateChain;
 import com.mybatisflex.core.util.ClassUtil;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -498,15 +500,18 @@ public interface GenericCurdDao<P extends PO> {
     }
 
     default QueryChainer<P> openQuery() {
-        return QueryChainer.of(getBaseMapper());
+        BaseMapper<P> baseMapper = getBaseMapper();
+        return new QueryChainer<>(QueryChain.of(baseMapper));
     }
 
     default UpdateChainer<P> openUpdate() {
-        return UpdateChainer.of(getBaseMapper());
+        BaseMapper<P> baseMapper = getBaseMapper();
+        return new UpdateChainer<>(UpdateChain.of(baseMapper));
     }
 
     default DeleteChainer<P> openDelete() {
-        return DeleteChainer.of(getBaseMapper());
+        BaseMapper<P> baseMapper = getBaseMapper();
+        return new DeleteChainer<>(UpdateChain.of(baseMapper));
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)

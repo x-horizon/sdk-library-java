@@ -112,6 +112,10 @@ public class MybatisFlexs {
         return queryColumn.getName();
     }
 
+    public static <T> String getClassName(ColumnNameGetter<T> columnNameGetter) {
+        return LambdaUtil.getImplClass(columnNameGetter).getSimpleName();
+    }
+
     // TODO wjm 后续优化 JsonProperty 为可插拔
     public static <T> String getFieldName(ColumnNameGetter<T> columnNameGetter) {
         String fieldName = LambdaUtil.getFieldName(columnNameGetter);
@@ -123,9 +127,15 @@ public class MybatisFlexs {
                     .setThrowable(LibraryJavaInternalException.class)
                     .throwsIfNull(field);
             JsonProperty jsonProperty = field.getAnnotation(JsonProperty.class);
+            // no json property annotation exist，using the field name.
             if (Nil.isNull(jsonProperty)) {
                 return fieldName;
             }
+            // json property annotation exist, but the entity is not real table, using the json property name.
+            if (Nil.isNull(LambdaUtil.getQueryColumn(columnNameGetter))) {
+                return jsonProperty.value();
+            }
+            // json property annotation exist and the entity is real table, using under line case json property name.
             return Strings.underlineCase(jsonProperty.value());
         });
     }

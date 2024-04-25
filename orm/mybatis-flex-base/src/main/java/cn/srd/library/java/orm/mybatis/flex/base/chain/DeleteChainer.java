@@ -6,7 +6,6 @@ package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
-import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.logicdelete.LogicDeleteManager;
 import com.mybatisflex.core.update.UpdateChain;
 import lombok.AccessLevel;
@@ -17,26 +16,20 @@ import lombok.Getter;
  * @author wjm
  * @since 2023-12-08 20:40
  */
-@AllArgsConstructor(access = AccessLevel.MODULE)
+@AllArgsConstructor
 public class DeleteChainer<P extends PO> extends BaseDeleteChainer<P> {
-
-    @Getter(AccessLevel.PROTECTED) private final BaseMapper<P> nativeBaseMapper;
 
     @Getter(AccessLevel.PROTECTED) private final UpdateChain<P> nativeUpdateChainer;
 
-    public static <P extends PO> DeleteChainer<P> of(BaseMapper<P> baseMapper) {
-        return new DeleteChainer<>(baseMapper, UpdateChain.of(baseMapper));
-    }
-
-    public QueryConditional<P, DeleteChainer<P>, UpdateChain<P>> where(ColumnNameGetter<P> columnNameGetter) {
+    public QueryConditional<DeleteChainer<P>, UpdateChain<P>> where(ColumnNameGetter<P> columnNameGetter) {
         return new QueryConditional<>(getNativeUpdateChainer().where(columnNameGetter), this);
     }
 
-    public QueryConditional<P, DeleteChainer<P>, UpdateChain<P>> and(ColumnNameGetter<P> columnNameGetter) {
+    public QueryConditional<DeleteChainer<P>, UpdateChain<P>> and(ColumnNameGetter<P> columnNameGetter) {
         return new QueryConditional<>(getNativeUpdateChainer().and(columnNameGetter), this);
     }
 
-    public QueryConditional<P, DeleteChainer<P>, UpdateChain<P>> or(ColumnNameGetter<P> columnNameGetter) {
+    public QueryConditional<DeleteChainer<P>, UpdateChain<P>> or(ColumnNameGetter<P> columnNameGetter) {
         return new QueryConditional<>(getNativeUpdateChainer().or(columnNameGetter), this);
     }
 

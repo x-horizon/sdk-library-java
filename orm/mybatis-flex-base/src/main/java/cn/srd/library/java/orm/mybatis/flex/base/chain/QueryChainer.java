@@ -13,7 +13,6 @@ import cn.srd.library.java.orm.contract.model.page.PageParam;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.orm.mybatis.flex.base.converter.PageConverter;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
-import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.paginate.Page;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -29,16 +28,11 @@ import java.util.stream.Collectors;
  * @author wjm
  * @since 2023-11-28 22:57
  */
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter(AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
 
-    @Getter(AccessLevel.PROTECTED) private final BaseMapper<P> nativeBaseMapper;
-
-    @Getter private final QueryChain<P> nativeQueryChain;
-
-    public static <P extends PO> QueryChainer<P> of(BaseMapper<P> baseMapper) {
-        return new QueryChainer<>(baseMapper, QueryChain.of(baseMapper));
-    }
+    private final QueryChain<P> nativeQueryChain;
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public <U extends PO> QueryChainer<P> select(ColumnNameGetter<U>... columnNameGetters) {
@@ -46,77 +40,92 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
         return this;
     }
 
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> innerJoin(Class<U> entityClass) {
+    @SuppressWarnings(SuppressWarningConstant.ALL)
+    public <U extends PO> QueryJoiner<P, ? extends QueryChainer<P>> innerJoin(Class<U> entityClass) {
         return innerJoin(entityClass, true);
     }
 
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> innerJoin(Class<U> entityClass, BooleanSupplier condition) {
+    @SuppressWarnings(SuppressWarningConstant.ALL)
+    public <U extends PO> QueryJoiner<P, ? extends QueryChainer<P>> innerJoin(Class<U> entityClass, BooleanSupplier condition) {
         return innerJoin(entityClass, condition.getAsBoolean());
     }
 
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> innerJoin(Class<U> entityClass, boolean condition) {
+    @SuppressWarnings(SuppressWarningConstant.ALL)
+    public <U extends PO> QueryJoiner<P, ? extends QueryChainer<P>> innerJoin(Class<U> entityClass, boolean condition) {
         return new QueryJoiner<>(getNativeQueryChain().innerJoin(entityClass, condition), this);
     }
 
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> leftJoin(Class<U> entityClass) {
+    @SuppressWarnings(SuppressWarningConstant.ALL)
+    public <U extends PO> QueryJoiner<P, ? extends QueryChainer<P>> leftJoin(Class<U> entityClass) {
         return leftJoin(entityClass, true);
     }
 
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> leftJoin(Class<U> entityClass, BooleanSupplier condition) {
+    @SuppressWarnings(SuppressWarningConstant.ALL)
+    public <U extends PO> QueryJoiner<P, ? extends QueryChainer<P>> leftJoin(Class<U> entityClass, BooleanSupplier condition) {
         return leftJoin(entityClass, condition.getAsBoolean());
     }
 
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> leftJoin(Class<U> entityClass, boolean condition) {
+    @SuppressWarnings(SuppressWarningConstant.ALL)
+    public <U extends PO> QueryJoiner<P, ? extends QueryChainer<P>> leftJoin(Class<U> entityClass, boolean condition) {
         return new QueryJoiner<>(getNativeQueryChain().leftJoin(entityClass, condition), this);
     }
 
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> rightJoin(Class<U> entityClass) {
+    @SuppressWarnings(SuppressWarningConstant.ALL)
+    public <U extends PO> QueryJoiner<P, ? extends QueryChainer<P>> rightJoin(Class<U> entityClass) {
         return rightJoin(entityClass, true);
     }
 
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> rightJoin(Class<U> entityClass, BooleanSupplier condition) {
+    @SuppressWarnings(SuppressWarningConstant.ALL)
+    public <U extends PO> QueryJoiner<P, ? extends QueryChainer<P>> rightJoin(Class<U> entityClass, BooleanSupplier condition) {
         return rightJoin(entityClass, condition.getAsBoolean());
     }
 
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> rightJoin(Class<U> entityClass, boolean condition) {
+    @SuppressWarnings(SuppressWarningConstant.ALL)
+    public <U extends PO> QueryJoiner<P, ? extends QueryChainer<P>> rightJoin(Class<U> entityClass, boolean condition) {
         return new QueryJoiner<>(getNativeQueryChain().rightJoin(entityClass, condition), this);
     }
 
     // TODO wjm 关于 cross join，不是在 cross join table name 后拼接 on 的连接条件的，而是在 where 后拼接表的连接条件，mybatis-flex 目前的实现有 bug，此处先屏蔽 cross join 的相关函数
-    // public <U extends PO> QueryJoiner<P, QueryChainer<P>> crossJoin(Class<U> entityClass) {
+    // @SuppressWarnings(SuppressWarningConstant.ALL)
+    // public <U extends PO> QueryJoiner<P, ? extends QueryChainer<P>> crossJoin(Class<U> entityClass) {
     //     return crossJoin(entityClass, true);
     // }
-    // public <U extends PO> QueryJoiner<P, QueryChainer<P>> crossJoin(Class<U> entityClass, BooleanSupplier condition) {
+    // @SuppressWarnings(SuppressWarningConstant.ALL)
+    // public <U extends PO> QueryJoiner<P, ? extends QueryChainer<P>> crossJoin(Class<U> entityClass, BooleanSupplier condition) {
     //     return crossJoin(entityClass, condition.getAsBoolean());
     // }
-    // public <U extends PO> QueryJoiner<P, QueryChainer<P>> crossJoin(Class<U> entityClass, boolean condition) {
+    // @SuppressWarnings(SuppressWarningConstant.ALL)
+    // public <U extends PO> QueryJoiner<P, ? extends QueryChainer<P>> crossJoin(Class<U> entityClass, boolean condition) {
     //     return new QueryJoiner<>(getNativeQueryChainer().crossJoin(entityClass, condition), this);
     // }
 
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> fullJoin(Class<U> entityClass) {
+    @SuppressWarnings(SuppressWarningConstant.ALL)
+    public <U extends PO> QueryJoiner<P, ? extends QueryChainer<P>> fullJoin(Class<U> entityClass) {
         return fullJoin(entityClass, true);
     }
 
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> fullJoin(Class<U> entityClass, BooleanSupplier condition) {
+    @SuppressWarnings(SuppressWarningConstant.ALL)
+    public <U extends PO> QueryJoiner<P, ? extends QueryChainer<P>> fullJoin(Class<U> entityClass, BooleanSupplier condition) {
         return fullJoin(entityClass, condition.getAsBoolean());
     }
 
-    public <U extends PO> QueryJoiner<P, QueryChainer<P>> fullJoin(Class<U> entityClass, boolean condition) {
+    @SuppressWarnings(SuppressWarningConstant.ALL)
+    public <U extends PO> QueryJoiner<P, ? extends QueryChainer<P>> fullJoin(Class<U> entityClass, boolean condition) {
         return new QueryJoiner<>(getNativeQueryChain().fullJoin(entityClass, condition), this);
     }
 
     @SuppressWarnings(SuppressWarningConstant.ALL)
-    public <U extends POJO> QueryConditional<P, ? extends QueryChainer<P>, QueryChain<P>> where(ColumnNameGetter<U> columnNameGetter) {
+    public <U extends POJO> QueryConditional<? extends QueryChainer<P>, QueryChain<P>> where(ColumnNameGetter<U> columnNameGetter) {
         return new QueryConditional<>(getNativeQueryChain().where(columnNameGetter), this);
     }
 
     @SuppressWarnings(SuppressWarningConstant.ALL)
-    public <U extends POJO> QueryConditional<P, ? extends QueryChainer<P>, QueryChain<P>> and(ColumnNameGetter<U> columnNameGetter) {
+    public <U extends POJO> QueryConditional<? extends QueryChainer<P>, QueryChain<P>> and(ColumnNameGetter<U> columnNameGetter) {
         return new QueryConditional<>(getNativeQueryChain().and(columnNameGetter), this);
     }
 
     @SuppressWarnings(SuppressWarningConstant.ALL)
-    public <U extends POJO> QueryConditional<P, ? extends QueryChainer<P>, QueryChain<P>> or(ColumnNameGetter<U> columnNameGetter) {
+    public <U extends POJO> QueryConditional<? extends QueryChainer<P>, QueryChain<P>> or(ColumnNameGetter<U> columnNameGetter) {
         return new QueryConditional<>(getNativeQueryChain().or(columnNameGetter), this);
     }
 

@@ -661,7 +661,7 @@ class CurdTest {
         //    AND "delete_time" IS NULL
         // ORDER BY "create_time" DESC
         // LIMIT 1;
-        PeoplePO peoplePO3 = peopleDao.openQuery()
+        PeoplePO peoplePO3 = peopleDao.openNormalQuery()
                 .where(PeoplePO::getId).equalsTo(theFirstPeoplePO.getId())
                 .and(PeoplePO::getName1).equalsTo(theFirstPeoplePO.getName1())
                 .and(PeoplePO::getName1).equalsTo(theFirstPeoplePO.getName1(), () -> true)
@@ -803,7 +803,7 @@ class CurdTest {
                 .orElseThrow();
 
         // SELECT * FROM "people" WHERE "delete_time" IS NULL;
-        List<PeoplePO> peoplePOs2 = peopleDao.openQuery().list();
+        List<PeoplePO> peoplePOs2 = peopleDao.openNormalQuery().list();
 
         // SELECT *
         // FROM "people"
@@ -811,7 +811,7 @@ class CurdTest {
         // WHERE ("people"."id" IS NOT NULL AND "people"."id" IS NOT NULL OR "people"."id" IS NOT NULL)
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC;
-        List<PeoplePO> peoplePOs3 = peopleDao.openQuery()
+        List<PeoplePO> peoplePOs3 = peopleDao.openNormalQuery()
                 .innerJoin(HomePO.class).as("home2").onEquals(PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()
@@ -825,7 +825,7 @@ class CurdTest {
         // WHERE ("people"."id" IS NOT NULL AND "people"."id" IS NOT NULL OR "people"."id" IS NOT NULL)
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC;
-        List<PeoplePO> peoplePOs4 = peopleDao.openQuery()
+        List<PeoplePO> peoplePOs4 = peopleDao.openNormalQuery()
                 .leftJoin(HomePO.class).onEquals(PeoplePO::getHomeId, HomePO::getId, PeoplePO::getHomeId, HomePO::getId, PeoplePO::getHomeId, HomePO::getId, PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()
@@ -839,7 +839,7 @@ class CurdTest {
         // WHERE ("people"."id" IS NOT NULL AND "people"."id" IS NOT NULL OR "people"."id" IS NOT NULL)
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC;
-        List<PeoplePO> peoplePOs5 = peopleDao.openQuery()
+        List<PeoplePO> peoplePOs5 = peopleDao.openNormalQuery()
                 .rightJoin(HomePO.class).onEquals(PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()
@@ -853,7 +853,7 @@ class CurdTest {
         // WHERE ("people"."id" IS NOT NULL AND "people"."id" IS NOT NULL OR "people"."id" IS NOT NULL)
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC;
-        List<PeoplePO> peoplePOs7 = peopleDao.openQuery()
+        List<PeoplePO> peoplePOs7 = peopleDao.openNormalQuery()
                 .fullJoin(HomePO.class).onEquals(PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()
@@ -867,7 +867,7 @@ class CurdTest {
         //   AND "delete_time" IS NULL
         // GROUP BY "creator_id", "creator_id", "updater_id"
         // ORDER BY "creator_id" DESC;
-        List<PeoplePO> peoplePOs8 = peopleDao.openQuery()
+        List<PeoplePO> peoplePOs8 = peopleDao.openNormalQuery()
                 .select(PeoplePO::getCreatorId, PeoplePO::getCreatorId)
                 .select(PeoplePO::getUpdaterId)
                 .where(PeoplePO::getId).isNotNull()
@@ -891,7 +891,7 @@ class CurdTest {
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC
         // LIMIT 10 OFFSET 0;
-        PageResult<PeoplePO> peoplePagePOs1 = peopleDao.openQuery()
+        PageResult<PeoplePO> peoplePagePOs1 = peopleDao.openNormalQuery()
                 .rightJoin(HomePO.class).onEquals(PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()
@@ -912,7 +912,7 @@ class CurdTest {
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC
         // LIMIT 5 OFFSET 0;
-        PageResult<PeopleVO> peoplePageVOs2 = peopleDao.openQuery()
+        PageResult<PeopleVO> peoplePageVOs2 = peopleDao.openNormalQuery()
                 .rightJoin(HomePO.class).onEquals(PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()
@@ -927,7 +927,7 @@ class CurdTest {
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC
         // LIMIT 5 OFFSET 0;
-        PageResult<PeopleVO> peoplePageVOs3 = peopleDao.openQuery()
+        PageResult<PeopleVO> peoplePageVOs3 = peopleDao.openNormalQuery()
                 .rightJoin(HomePO.class).onEquals(PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()
@@ -936,13 +936,13 @@ class CurdTest {
                 .pageToVO(1, 5, 9);
 
         // SELECT COUNT(*) FROM "people" WHERE ("id" IS NULL ) AND "delete_time" IS NULL;
-        Long peopleTotalNumber2 = peopleDao.openQuery().where(PeoplePO::getId).isNull().count();
+        Long peopleTotalNumber2 = peopleDao.openNormalQuery().where(PeoplePO::getId).isNull().count();
         // SELECT COUNT(*) FROM "people" WHERE ("id" IS NOT NULL ) AND "delete_time" IS NULL;
-        Long peopleTotalNumber3 = peopleDao.openQuery().where(PeoplePO::getId).isNotNull().count();
+        Long peopleTotalNumber3 = peopleDao.openNormalQuery().where(PeoplePO::getId).isNotNull().count();
         // SELECT COUNT(*) FROM "people" WHERE ("id" IS NULL ) AND "delete_time" IS NULL;
-        Boolean isPeopleExist1 = peopleDao.openQuery().where(PeoplePO::getId).isNull().exists();
+        Boolean isPeopleExist1 = peopleDao.openNormalQuery().where(PeoplePO::getId).isNull().exists();
         // SELECT COUNT(*) FROM "people" WHERE ("id" IS NOT NULL ) AND "delete_time" IS NULL;
-        Boolean isPeopleExist2 = peopleDao.openQuery().where(PeoplePO::getId).isNotNull().exists();
+        Boolean isPeopleExist2 = peopleDao.openNormalQuery().where(PeoplePO::getId).isNotNull().exists();
 
         testDelete();
     }

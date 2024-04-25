@@ -7,7 +7,6 @@ package cn.srd.library.java.orm.mybatis.flex.base.chain;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
 import cn.srd.library.java.tool.lang.functional.If;
-import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.update.UpdateChain;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,16 +19,10 @@ import java.util.function.Predicate;
  * @author wjm
  * @since 2023-12-05 23:25
  */
-@AllArgsConstructor(access = AccessLevel.MODULE)
+@AllArgsConstructor
 public class UpdateChainer<P extends PO> extends BaseUpdateChainer<P> {
 
-    @Getter(AccessLevel.PROTECTED) private final BaseMapper<P> nativeBaseMapper;
-
     @Getter(AccessLevel.PROTECTED) private final UpdateChain<P> nativeUpdateChainer;
-
-    public static <P extends PO> UpdateChainer<P> of(BaseMapper<P> baseMapper) {
-        return new UpdateChainer<>(baseMapper, UpdateChain.of(baseMapper));
-    }
 
     public UpdateChainer<P> set(ColumnNameGetter<P> columnNameGetter, Object value) {
         return set(columnNameGetter, value, true);
@@ -64,15 +57,15 @@ public class UpdateChainer<P extends PO> extends BaseUpdateChainer<P> {
         return set(columnNameGetter, value, If::notBlank);
     }
 
-    public QueryConditional<P, UpdateChainer<P>, UpdateChain<P>> where(ColumnNameGetter<P> columnNameGetter) {
+    public QueryConditional<UpdateChainer<P>, UpdateChain<P>> where(ColumnNameGetter<P> columnNameGetter) {
         return new QueryConditional<>(getNativeUpdateChainer().where(columnNameGetter), this);
     }
 
-    public QueryConditional<P, UpdateChainer<P>, UpdateChain<P>> and(ColumnNameGetter<P> columnNameGetter) {
+    public QueryConditional<UpdateChainer<P>, UpdateChain<P>> and(ColumnNameGetter<P> columnNameGetter) {
         return new QueryConditional<>(getNativeUpdateChainer().and(columnNameGetter), this);
     }
 
-    public QueryConditional<P, UpdateChainer<P>, UpdateChain<P>> or(ColumnNameGetter<P> columnNameGetter) {
+    public QueryConditional<UpdateChainer<P>, UpdateChain<P>> or(ColumnNameGetter<P> columnNameGetter) {
         return new QueryConditional<>(getNativeUpdateChainer().or(columnNameGetter), this);
     }
 

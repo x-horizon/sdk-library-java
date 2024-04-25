@@ -19,7 +19,7 @@ import java.util.function.Consumer;
  * @author wjm
  * @since 2023-12-05 16:20
  */
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class QueryJoiner<P extends PO, Q extends BaseQueryChainer<P>> extends BaseQueryJoiner<P> {
 
     @Getter(AccessLevel.PROTECTED) private final Joiner<QueryChain<P>> nativeQueryJoiner;
@@ -74,7 +74,7 @@ public class QueryJoiner<P extends PO, Q extends BaseQueryChainer<P>> extends Ba
 
     public Q on(Consumer<QueryChainer<P>> queryChainAction) {
         BaseMapper<P> baseMapper = getQueryChainer().getNativeQueryChain().baseMapper();
-        QueryChainer<P> newQueryChainer = new QueryChainer<>(baseMapper, QueryChain.of(baseMapper));
+        QueryChainer<P> newQueryChainer = new QueryChainer<>(QueryChain.of(baseMapper));
         queryChainAction.accept(newQueryChainer);
         getNativeQueryJoiner().on(Reflects.getFieldValue(newQueryChainer.getNativeQueryChain().toQueryWrapper(), WHERE_QUERY_CONDITION_FIELD_NAME, QueryCondition.class));
         return getQueryChainer();

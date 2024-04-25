@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.cache;
 
-import cn.srd.library.java.contract.component.database.postgresql.PostgresqlFunction;
+import cn.srd.library.java.contract.constant.database.PostgresqlFunction;
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.orm.contract.model.base.POJO;
@@ -15,6 +15,7 @@ import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -29,31 +30,49 @@ public class ColumnJsonbMappingAliasCache {
 
     private static final Map<String, String> CACHE = Collections.newConcurrentHashMap(256);
 
-    private static final Map<String, String> FUNCTION_SQL_MAPPING_THE_LAST_KEY_MAP = Collections.newConcurrentHashMap(256);
+    private static final Map<String, String> FUNCTION_SQL_MAPPING_THE_LAST_JSON_KEY_MAP = Collections.newConcurrentHashMap(256);
 
-    public static String get(String key) {
-        return CACHE.get(key);
+    public static <P extends POJO> String get(ColumnNameGetter<P> keyGetter, String key) {
+        String classNameOfKey = Strings.lowerFirst(MybatisFlexs.getClassName(keyGetter));
+        String alias= CACHE.get(getCacheKey(key, classNameOfKey));
+        if(Nil.isNull(alias)){
+            return CACHE.get(getCacheKey(Strings.underlineCase(key), classNameOfKey));
+        }
+        return alias;
     }
 
-    public static String computeToCache(String key) {
+    @CanIgnoreReturnValue
+    public static <P extends POJO> String computeToCache(ColumnNameGetter<P> keyGetter) {
+        return computeToCache(MybatisFlexs.getFieldName(keyGetter), MybatisFlexs.getClassName(keyGetter));
+    }
+
+    @CanIgnoreReturnValue
+    public static <P extends POJO> String computeToUnderlineCaseCache(ColumnNameGetter<P> keyGetter) {
+        return computeToCache(Strings.underlineCase(MybatisFlexs.getFieldName(keyGetter)), MybatisFlexs.getClassName(keyGetter));
+    }
+
+    @CanIgnoreReturnValue
+    public static String computeToCache(String key, String classNameOfKey) {
         Assert.of().setMessage("{}illegal jsonb alias key: [{}], please check!", ModuleView.ORM_MYBATIS_SYSTEM, key)
                 .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfTrue(Strings.startWith(key, PostgresqlFunction.JSONB_ARRAY_UNNEST));
+
         if (Strings.startWith(key, PostgresqlFunction.JSONB_OBJECT_EXTRACT)) {
-            String theLastJsonKey = FUNCTION_SQL_MAPPING_THE_LAST_KEY_MAP.get(key);
+            String theLastJsonKey = FUNCTION_SQL_MAPPING_THE_LAST_JSON_KEY_MAP.get(key);
             if (Nil.isNull(theLastJsonKey)) {
                 theLastJsonKey = Strings.getTheLastDoubleQuoteContent(key);
                 String finalTheLastJsonKey = theLastJsonKey;
-                FUNCTION_SQL_MAPPING_THE_LAST_KEY_MAP.computeIfAbsent(key, ignore -> finalTheLastJsonKey);
+                FUNCTION_SQL_MAPPING_THE_LAST_JSON_KEY_MAP.computeIfAbsent(key, ignore -> finalTheLastJsonKey);
             }
             key = theLastJsonKey;
         }
         String finalKey = key;
-        return CACHE.computeIfAbsent(key, ignore -> Strings.format("\"{}_{}\"", finalKey, SnowflakeIds.getFixed()));
+        String finalClassNameOfKey = Strings.lowerFirst(classNameOfKey);
+        return CACHE.computeIfAbsent(getCacheKey(key, finalClassNameOfKey), ignore -> Strings.format("\"{}_{}_{}\"", finalClassNameOfKey, finalKey, SnowflakeIds.getFixed()));
     }
 
-    public static <P extends POJO> String computeToCache(ColumnNameGetter<P> columnNameGetter) {
-        return computeToCache(MybatisFlexs.getFieldName(columnNameGetter));
+    private static String getCacheKey(String key, String className) {
+        return Strings.format("{}_{}", className, key);
     }
 
 }
