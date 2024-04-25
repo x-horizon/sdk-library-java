@@ -37,60 +37,60 @@ import java.util.List;
 @Getter(AccessLevel.PROTECTED)
 @Setter(AccessLevel.PRIVATE)
 @CanIgnoreReturnValue
-public class JsonbQueryChainer<P extends POJO, U extends PO> extends BaseQueryChainer<P> {
+public class JsonbQueryChainer<PJ extends POJO, P extends PO> extends BaseQueryChainer<PJ> {
 
-    private final NormalQueryChainer<U, P> normalQueryChainer;
+    private final NormalQueryChainer<P, PJ> normalQueryChainer;
 
-    private final QueryChain<P> nativeQueryChain;
+    private final QueryChain<PJ> nativeQueryChain;
 
-    private final Class<U> poClass;
+    private final Class<P> poClass;
 
     private String jsonbFunctionSQL;
 
     private String theLastJsonKeyName;
 
-    private ColumnNameGetter<P> theLastJsonKeyNameGetter;
+    private ColumnNameGetter<PJ> theLastJsonKeyNameGetter;
 
-    public JsonbQueryChainer(NormalQueryChainer<U, P> normalQueryChainer, Class<U> poClass) {
+    public JsonbQueryChainer(NormalQueryChainer<P, PJ> normalQueryChainer, Class<P> poClass) {
         this.normalQueryChainer = normalQueryChainer;
         this.nativeQueryChain = Reflects.getFieldValue(normalQueryChainer, "nativeQueryChain");
         this.poClass = poClass;
     }
 
-    public <C extends POJO, V extends POJO> JsonbQueryCaster<P, C, V, U> where(ColumnNameGetter<C> columnNameGetter) {
+    public <PJ1 extends POJO, PJ2 extends POJO> JsonbQueryCaster<PJ, PJ1, PJ2, P> where(ColumnNameGetter<PJ1> columnNameGetter) {
         return and(columnNameGetter);
     }
 
-    public <C extends POJO, V extends POJO> JsonbQueryCaster<P, C, V, U> where(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V> jsonKeyNameGetter) {
+    public <PJ1 extends POJO, PJ2 extends POJO> JsonbQueryCaster<PJ, PJ1, PJ2, P> where(ColumnNameGetter<PJ1> columnNameGetter, ColumnNameGetter<PJ2> jsonKeyNameGetter) {
         return and(columnNameGetter, jsonKeyNameGetter);
     }
 
-    public <C extends POJO, V extends POJO> JsonbQueryCaster<P, C, V, U> and(ColumnNameGetter<C> columnNameGetter) {
+    public <PJ1 extends POJO, PJ2 extends POJO> JsonbQueryCaster<PJ, PJ1, PJ2, P> and(ColumnNameGetter<PJ1> columnNameGetter) {
         return new JsonbQueryCaster<>(SqlConnector.AND, this, getNativeQueryChain(), columnNameGetter);
     }
 
-    public <C extends POJO, V extends POJO> JsonbQueryCaster<P, C, V, U> and(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V> jsonKeyNameGetter) {
+    public <PJ1 extends POJO, PJ2 extends POJO> JsonbQueryCaster<PJ, PJ1, PJ2, P> and(ColumnNameGetter<PJ1> columnNameGetter, ColumnNameGetter<PJ2> jsonKeyNameGetter) {
         return new JsonbQueryCaster<>(SqlConnector.AND, this, getNativeQueryChain(), columnNameGetter, jsonKeyNameGetter);
     }
 
-    public <C extends POJO, V extends POJO> JsonbQueryCaster<P, C, V, U> or(ColumnNameGetter<C> columnNameGetter) {
+    public <PJ1 extends POJO, PJ2 extends POJO> JsonbQueryCaster<PJ, PJ1, PJ2, P> or(ColumnNameGetter<PJ1> columnNameGetter) {
         return new JsonbQueryCaster<>(SqlConnector.OR, this, getNativeQueryChain(), columnNameGetter);
     }
 
-    public <C extends POJO, V extends POJO> JsonbQueryCaster<P, C, V, U> or(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V> jsonKeyNameGetter) {
+    public <PJ1 extends POJO, PJ2 extends POJO> JsonbQueryCaster<PJ, PJ1, PJ2, P> or(ColumnNameGetter<PJ1> columnNameGetter, ColumnNameGetter<PJ2> jsonKeyNameGetter) {
         return new JsonbQueryCaster<>(SqlConnector.OR, this, getNativeQueryChain(), columnNameGetter, jsonKeyNameGetter);
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public <C, V extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V> jsonKeyNameGetter) {
-        setTheLastJsonKeyNameGetter((ColumnNameGetter<P>) jsonKeyNameGetter);
+    public <PJ1, PJ2 extends POJO> JsonbQueryChainer<PJ, P> functionObjectExtract(ColumnNameGetter<PJ1> columnNameGetter, ColumnNameGetter<PJ2> jsonKeyNameGetter) {
+        setTheLastJsonKeyNameGetter((ColumnNameGetter<PJ>) jsonKeyNameGetter);
         ColumnJsonbMappingAliasCache.computeToCache(jsonKeyNameGetter);
         return functionObjectExtract(columnNameGetter, List.of(MybatisFlexs.getFieldName(jsonKeyNameGetter)));
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public <C, V1, V2 extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V1> jsonKeyNameGetter1, ColumnNameGetter<V2> jsonKeyNameGetter2) {
-        setTheLastJsonKeyNameGetter((ColumnNameGetter<P>) jsonKeyNameGetter2);
+    public <PJ1, PJ2, PJ3 extends POJO> JsonbQueryChainer<PJ, P> functionObjectExtract(ColumnNameGetter<PJ1> columnNameGetter, ColumnNameGetter<PJ2> jsonKeyNameGetter1, ColumnNameGetter<PJ3> jsonKeyNameGetter2) {
+        setTheLastJsonKeyNameGetter((ColumnNameGetter<PJ>) jsonKeyNameGetter2);
         ColumnJsonbMappingAliasCache.computeToCache(jsonKeyNameGetter2);
         return functionObjectExtract(columnNameGetter, List.of(
                 MybatisFlexs.getFieldName(jsonKeyNameGetter1),
@@ -99,8 +99,8 @@ public class JsonbQueryChainer<P extends POJO, U extends PO> extends BaseQueryCh
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public <C, V1, V2, V3 extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V1> jsonKeyNameGetter1, ColumnNameGetter<V2> jsonKeyNameGetter2, ColumnNameGetter<V3> jsonKeyNameGetter3) {
-        setTheLastJsonKeyNameGetter((ColumnNameGetter<P>) jsonKeyNameGetter3);
+    public <PJ1, PJ2, PJ3, PJ4 extends POJO> JsonbQueryChainer<PJ, P> functionObjectExtract(ColumnNameGetter<PJ1> columnNameGetter, ColumnNameGetter<PJ2> jsonKeyNameGetter1, ColumnNameGetter<PJ3> jsonKeyNameGetter2, ColumnNameGetter<PJ4> jsonKeyNameGetter3) {
+        setTheLastJsonKeyNameGetter((ColumnNameGetter<PJ>) jsonKeyNameGetter3);
         ColumnJsonbMappingAliasCache.computeToCache(jsonKeyNameGetter3);
         return functionObjectExtract(columnNameGetter, List.of(
                 MybatisFlexs.getFieldName(jsonKeyNameGetter1),
@@ -110,8 +110,8 @@ public class JsonbQueryChainer<P extends POJO, U extends PO> extends BaseQueryCh
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public <C, V1, V2, V3, V4 extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V1> jsonKeyNameGetter1, ColumnNameGetter<V2> jsonKeyNameGetter2, ColumnNameGetter<V3> jsonKeyNameGetter3, ColumnNameGetter<V4> jsonKeyNameGetter4) {
-        setTheLastJsonKeyNameGetter((ColumnNameGetter<P>) jsonKeyNameGetter4);
+    public <PJ1, PJ2, PJ3, PJ4, PJ5 extends POJO> JsonbQueryChainer<PJ, P> functionObjectExtract(ColumnNameGetter<PJ1> columnNameGetter, ColumnNameGetter<PJ2> jsonKeyNameGetter1, ColumnNameGetter<PJ3> jsonKeyNameGetter2, ColumnNameGetter<PJ4> jsonKeyNameGetter3, ColumnNameGetter<PJ5> jsonKeyNameGetter4) {
+        setTheLastJsonKeyNameGetter((ColumnNameGetter<PJ>) jsonKeyNameGetter4);
         ColumnJsonbMappingAliasCache.computeToCache(jsonKeyNameGetter4);
         return functionObjectExtract(columnNameGetter, List.of(
                 MybatisFlexs.getFieldName(jsonKeyNameGetter1),
@@ -122,8 +122,8 @@ public class JsonbQueryChainer<P extends POJO, U extends PO> extends BaseQueryCh
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public <C, V1, V2, V3, V4, V5 extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V1> jsonKeyNameGetter1, ColumnNameGetter<V2> jsonKeyNameGetter2, ColumnNameGetter<V3> jsonKeyNameGetter3, ColumnNameGetter<V4> jsonKeyNameGetter4, ColumnNameGetter<V5> jsonKeyNameGetter5) {
-        setTheLastJsonKeyNameGetter((ColumnNameGetter<P>) jsonKeyNameGetter5);
+    public <PJ1, PJ2, PJ3, PJ4, PJ5, PJ6 extends POJO> JsonbQueryChainer<PJ, P> functionObjectExtract(ColumnNameGetter<PJ1> columnNameGetter, ColumnNameGetter<PJ2> jsonKeyNameGetter1, ColumnNameGetter<PJ3> jsonKeyNameGetter2, ColumnNameGetter<PJ4> jsonKeyNameGetter3, ColumnNameGetter<PJ5> jsonKeyNameGetter4, ColumnNameGetter<PJ6> jsonKeyNameGetter5) {
+        setTheLastJsonKeyNameGetter((ColumnNameGetter<PJ>) jsonKeyNameGetter5);
         ColumnJsonbMappingAliasCache.computeToCache(jsonKeyNameGetter5);
         return functionObjectExtract(columnNameGetter, List.of(
                 MybatisFlexs.getFieldName(jsonKeyNameGetter1),
@@ -135,8 +135,8 @@ public class JsonbQueryChainer<P extends POJO, U extends PO> extends BaseQueryCh
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public <C, V1, V2, V3, V4, V5, V6 extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V1> jsonKeyNameGetter1, ColumnNameGetter<V2> jsonKeyNameGetter2, ColumnNameGetter<V3> jsonKeyNameGetter3, ColumnNameGetter<V4> jsonKeyNameGetter4, ColumnNameGetter<V5> jsonKeyNameGetter5, ColumnNameGetter<V6> jsonKeyNameGetter6) {
-        setTheLastJsonKeyNameGetter((ColumnNameGetter<P>) jsonKeyNameGetter6);
+    public <PJ1, PJ2, PJ3, PJ4, PJ5, PJ6, PJ7 extends POJO> JsonbQueryChainer<PJ, P> functionObjectExtract(ColumnNameGetter<PJ1> columnNameGetter, ColumnNameGetter<PJ2> jsonKeyNameGetter1, ColumnNameGetter<PJ3> jsonKeyNameGetter2, ColumnNameGetter<PJ4> jsonKeyNameGetter3, ColumnNameGetter<PJ5> jsonKeyNameGetter4, ColumnNameGetter<PJ6> jsonKeyNameGetter5, ColumnNameGetter<PJ7> jsonKeyNameGetter6) {
+        setTheLastJsonKeyNameGetter((ColumnNameGetter<PJ>) jsonKeyNameGetter6);
         ColumnJsonbMappingAliasCache.computeToCache(jsonKeyNameGetter6);
         return functionObjectExtract(columnNameGetter, List.of(
                 MybatisFlexs.getFieldName(jsonKeyNameGetter1),
@@ -149,8 +149,8 @@ public class JsonbQueryChainer<P extends POJO, U extends PO> extends BaseQueryCh
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public <C, V1, V2, V3, V4, V5, V6, V7 extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V1> jsonKeyNameGetter1, ColumnNameGetter<V2> jsonKeyNameGetter2, ColumnNameGetter<V3> jsonKeyNameGetter3, ColumnNameGetter<V4> jsonKeyNameGetter4, ColumnNameGetter<V5> jsonKeyNameGetter5, ColumnNameGetter<V6> jsonKeyNameGetter6, ColumnNameGetter<V7> jsonKeyNameGetter7) {
-        setTheLastJsonKeyNameGetter((ColumnNameGetter<P>) jsonKeyNameGetter7);
+    public <PJ1, PJ2, PJ3, PJ4, PJ5, PJ6, PJ7, PJ8 extends POJO> JsonbQueryChainer<PJ, P> functionObjectExtract(ColumnNameGetter<PJ1> columnNameGetter, ColumnNameGetter<PJ2> jsonKeyNameGetter1, ColumnNameGetter<PJ3> jsonKeyNameGetter2, ColumnNameGetter<PJ4> jsonKeyNameGetter3, ColumnNameGetter<PJ5> jsonKeyNameGetter4, ColumnNameGetter<PJ6> jsonKeyNameGetter5, ColumnNameGetter<PJ7> jsonKeyNameGetter6, ColumnNameGetter<PJ8> jsonKeyNameGetter7) {
+        setTheLastJsonKeyNameGetter((ColumnNameGetter<PJ>) jsonKeyNameGetter7);
         ColumnJsonbMappingAliasCache.computeToCache(jsonKeyNameGetter7);
         return functionObjectExtract(columnNameGetter, List.of(
                 MybatisFlexs.getFieldName(jsonKeyNameGetter1),
@@ -164,8 +164,8 @@ public class JsonbQueryChainer<P extends POJO, U extends PO> extends BaseQueryCh
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public <C, V1, V2, V3, V4, V5, V6, V7, V8 extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V1> jsonKeyNameGetter1, ColumnNameGetter<V2> jsonKeyNameGetter2, ColumnNameGetter<V3> jsonKeyNameGetter3, ColumnNameGetter<V4> jsonKeyNameGetter4, ColumnNameGetter<V5> jsonKeyNameGetter5, ColumnNameGetter<V6> jsonKeyNameGetter6, ColumnNameGetter<V7> jsonKeyNameGetter7, ColumnNameGetter<V8> jsonKeyNameGetter8) {
-        setTheLastJsonKeyNameGetter((ColumnNameGetter<P>) jsonKeyNameGetter8);
+    public <PJ1, PJ2, PJ3, PJ4, PJ5, PJ6, PJ7, PJ8, PJ9 extends POJO> JsonbQueryChainer<PJ, P> functionObjectExtract(ColumnNameGetter<PJ1> columnNameGetter, ColumnNameGetter<PJ2> jsonKeyNameGetter1, ColumnNameGetter<PJ3> jsonKeyNameGetter2, ColumnNameGetter<PJ4> jsonKeyNameGetter3, ColumnNameGetter<PJ5> jsonKeyNameGetter4, ColumnNameGetter<PJ6> jsonKeyNameGetter5, ColumnNameGetter<PJ7> jsonKeyNameGetter6, ColumnNameGetter<PJ8> jsonKeyNameGetter7, ColumnNameGetter<PJ9> jsonKeyNameGetter8) {
+        setTheLastJsonKeyNameGetter((ColumnNameGetter<PJ>) jsonKeyNameGetter8);
         ColumnJsonbMappingAliasCache.computeToCache(jsonKeyNameGetter8);
         return functionObjectExtract(columnNameGetter, List.of(
                 MybatisFlexs.getFieldName(jsonKeyNameGetter1),
@@ -180,8 +180,8 @@ public class JsonbQueryChainer<P extends POJO, U extends PO> extends BaseQueryCh
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public <C, V1, V2, V3, V4, V5, V6, V7, V8, V9 extends POJO> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, ColumnNameGetter<V1> jsonKeyNameGetter1, ColumnNameGetter<V2> jsonKeyNameGetter2, ColumnNameGetter<V3> jsonKeyNameGetter3, ColumnNameGetter<V4> jsonKeyNameGetter4, ColumnNameGetter<V5> jsonKeyNameGetter5, ColumnNameGetter<V6> jsonKeyNameGetter6, ColumnNameGetter<V7> jsonKeyNameGetter7, ColumnNameGetter<V8> jsonKeyNameGetter8, ColumnNameGetter<V9> jsonKeyNameGetter9) {
-        setTheLastJsonKeyNameGetter((ColumnNameGetter<P>) jsonKeyNameGetter9);
+    public <PJ1, PJ2, PJ3, PJ4, PJ5, PJ6, PJ7, PJ8, PJ9, PJ10 extends POJO> JsonbQueryChainer<PJ, P> functionObjectExtract(ColumnNameGetter<PJ1> columnNameGetter, ColumnNameGetter<PJ2> jsonKeyNameGetter1, ColumnNameGetter<PJ3> jsonKeyNameGetter2, ColumnNameGetter<PJ4> jsonKeyNameGetter3, ColumnNameGetter<PJ5> jsonKeyNameGetter4, ColumnNameGetter<PJ6> jsonKeyNameGetter5, ColumnNameGetter<PJ7> jsonKeyNameGetter6, ColumnNameGetter<PJ8> jsonKeyNameGetter7, ColumnNameGetter<PJ9> jsonKeyNameGetter8, ColumnNameGetter<PJ10> jsonKeyNameGetter9) {
+        setTheLastJsonKeyNameGetter((ColumnNameGetter<PJ>) jsonKeyNameGetter9);
         ColumnJsonbMappingAliasCache.computeToCache(jsonKeyNameGetter9);
         return functionObjectExtract(columnNameGetter, List.of(
                 MybatisFlexs.getFieldName(jsonKeyNameGetter1),
@@ -197,9 +197,9 @@ public class JsonbQueryChainer<P extends POJO, U extends PO> extends BaseQueryCh
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    private <C> JsonbQueryChainer<P, U> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, List<String> jsonKeyNames) {
+    private <C> JsonbQueryChainer<PJ, P> functionObjectExtract(ColumnNameGetter<C> columnNameGetter, List<String> jsonKeyNames) {
         String jsonColumnName = MybatisFlexs.getFieldName(columnNameGetter);
-        String jsonViewAlias = ColumnJsonbMappingAliasCache.get((ColumnNameGetter<P>) columnNameGetter, jsonColumnName);
+        String jsonViewAlias = ColumnJsonbMappingAliasCache.get((ColumnNameGetter<PJ>) columnNameGetter, jsonColumnName);
         if (Nil.isNotNull(jsonViewAlias)) {
             jsonColumnName = jsonViewAlias;
         }
@@ -208,24 +208,24 @@ public class JsonbQueryChainer<P extends POJO, U extends PO> extends BaseQueryCh
         return this;
     }
 
-    public JsonbQueryChainer<P, U> functionArrayUnnest() {
+    public JsonbQueryChainer<PJ, P> functionArrayUnnest() {
         ColumnJsonbMappingAliasCache.computeToCache(getJsonbFunctionSQL(), getPoClass().getSimpleName());
         setJsonbFunctionSQL(Strings.format(PostgresqlFunction.JSONB_ARRAY_UNNEST_APPENDER, getJsonbFunctionSQL()));
         return this;
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public <C extends POJO> JsonbQueryChainer<P, U> functionArrayUnnest(ColumnNameGetter<C> columnNameGetter) {
+    public <PJ1 extends POJO> JsonbQueryChainer<PJ, P> functionArrayUnnest(ColumnNameGetter<PJ1> columnNameGetter) {
         ColumnJsonbMappingAliasCache.computeToUnderlineCaseCache(columnNameGetter);
         String jsonColumnName = Strings.underlineCase(MybatisFlexs.getFieldName(columnNameGetter));
         setTheLastJsonKeyName(jsonColumnName);
-        setTheLastJsonKeyNameGetter((ColumnNameGetter<P>) columnNameGetter);
+        setTheLastJsonKeyNameGetter((ColumnNameGetter<PJ>) columnNameGetter);
         setJsonbFunctionSQL(Strings.format(PostgresqlFunction.JSONB_ARRAY_UNNEST_APPENDER, jsonColumnName));
         return this;
     }
 
     @SuppressWarnings(SuppressWarningConstant.DEPRECATED)
-    public JsonbQueryChainer<P, U> innerJoin() {
+    public JsonbQueryChainer<PJ, P> innerJoin() {
         String jsonViewAlias = ColumnJsonbMappingAliasCache.get(getTheLastJsonKeyNameGetter(), getTheLastJsonKeyName());
         Assert.of().setMessage("{}could not find the json query alias name by [{}], please check!", ModuleView.ORM_MYBATIS_SYSTEM, getTheLastJsonKeyName())
                 .setThrowable(LibraryJavaInternalException.class)
@@ -237,7 +237,7 @@ public class JsonbQueryChainer<P extends POJO, U extends PO> extends BaseQueryCh
         return new JsonbQueryChainer<>(getNormalQueryChainer(), getPoClass());
     }
 
-    public NormalQueryChainer<U, P> switchToNormalQuery() {
+    public NormalQueryChainer<P, PJ> switchToNormalQuery() {
         return getNormalQueryChainer();
     }
 

@@ -32,22 +32,22 @@ public class ColumnJsonbMappingAliasCache {
 
     private static final Map<String, String> FUNCTION_SQL_MAPPING_THE_LAST_JSON_KEY_MAP = Collections.newConcurrentHashMap(256);
 
-    public static <P extends POJO> String get(ColumnNameGetter<P> keyGetter, String key) {
+    public static <PJ extends POJO> String get(ColumnNameGetter<PJ> keyGetter, String key) {
         String classNameOfKey = Strings.lowerFirst(MybatisFlexs.getClassName(keyGetter));
-        String alias= CACHE.get(getCacheKey(key, classNameOfKey));
-        if(Nil.isNull(alias)){
+        String alias = CACHE.get(getCacheKey(key, classNameOfKey));
+        if (Nil.isNull(alias)) {
             return CACHE.get(getCacheKey(Strings.underlineCase(key), classNameOfKey));
         }
         return alias;
     }
 
     @CanIgnoreReturnValue
-    public static <P extends POJO> String computeToCache(ColumnNameGetter<P> keyGetter) {
+    public static <PJ extends POJO> String computeToCache(ColumnNameGetter<PJ> keyGetter) {
         return computeToCache(MybatisFlexs.getFieldName(keyGetter), MybatisFlexs.getClassName(keyGetter));
     }
 
     @CanIgnoreReturnValue
-    public static <P extends POJO> String computeToUnderlineCaseCache(ColumnNameGetter<P> keyGetter) {
+    public static <PJ extends POJO> String computeToUnderlineCaseCache(ColumnNameGetter<PJ> keyGetter) {
         return computeToCache(Strings.underlineCase(MybatisFlexs.getFieldName(keyGetter)), MybatisFlexs.getClassName(keyGetter));
     }
 

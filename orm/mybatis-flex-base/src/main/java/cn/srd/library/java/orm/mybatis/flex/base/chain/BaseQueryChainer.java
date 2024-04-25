@@ -10,8 +10,8 @@ import cn.srd.library.java.orm.contract.model.base.POJO;
  * @author wjm
  * @since 2023-12-05 16:38
  */
-public abstract class BaseQueryChainer<P extends POJO> extends BaseChainer {
+public abstract class BaseQueryChainer<PJ extends POJO> extends BaseChainer {
 
-    protected abstract QueryChain<P> getNativeQueryChain();
+    protected abstract QueryChain<PJ> getNativeQueryChain();
 
 }

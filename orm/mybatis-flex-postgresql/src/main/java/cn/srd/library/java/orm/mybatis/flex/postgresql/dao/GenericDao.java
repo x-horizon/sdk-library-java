@@ -23,14 +23,14 @@ import com.mybatisflex.core.BaseMapper;
 public interface GenericDao<P extends PO> extends cn.srd.library.java.orm.mybatis.flex.base.dao.GenericDao<P> {
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    default <Q extends POJO> NormalQueryChainer<P, Q> openNormalQuery() {
+    default <PJ extends POJO> NormalQueryChainer<P, PJ> openNormalQuery() {
         BaseMapper<P> baseMapper = getBaseMapper();
         Class<P> poClass = (Class<P>) BaseMapperAdapter.getInstance().getPOClass(this.getClass());
         return new NormalQueryChainer<>(QueryChain.of(baseMapper), poClass);
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    default <Q extends POJO> JsonbQueryChainer<Q, P> openJsonbQuery() {
+    default <PJ extends POJO> JsonbQueryChainer<PJ, P> openJsonbQuery() {
         BaseMapper<P> baseMapper = getBaseMapper();
         Class<P> poClass = (Class<P>) BaseMapperAdapter.getInstance().getPOClass(this.getClass());
         return new JsonbQueryChainer<>(new NormalQueryChainer<>(QueryChain.of(baseMapper), poClass), poClass);

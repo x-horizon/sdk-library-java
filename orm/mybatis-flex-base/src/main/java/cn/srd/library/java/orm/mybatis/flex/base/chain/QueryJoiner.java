@@ -34,11 +34,11 @@ public class QueryJoiner<P extends PO, Q extends BaseQueryChainer<P>> extends Ba
         return this;
     }
 
-    public <U extends PO> Q onEquals(ColumnNameGetter<P> masterTableColumnValue, ColumnNameGetter<U> joinedTableColumnValue) {
+    public <P1 extends PO> Q onEquals(ColumnNameGetter<P> masterTableColumnValue, ColumnNameGetter<P1> joinedTableColumnValue) {
         return on(newQueryChainer -> newQueryChainer.and(masterTableColumnValue).equalsTo(joinedTableColumnValue));
     }
 
-    public <U extends PO> Q onEquals(ColumnNameGetter<P> masterTableColumnValue1, ColumnNameGetter<U> joinedTableColumnValue1, ColumnNameGetter<P> masterTableColumnValue2, ColumnNameGetter<U> joinedTableColumnValue2) {
+    public <P1 extends PO> Q onEquals(ColumnNameGetter<P> masterTableColumnValue1, ColumnNameGetter<P1> joinedTableColumnValue1, ColumnNameGetter<P> masterTableColumnValue2, ColumnNameGetter<P1> joinedTableColumnValue2) {
         return on(newQueryChainer -> newQueryChainer
                 .and(masterTableColumnValue1)
                 .equalsTo(joinedTableColumnValue1)
@@ -47,7 +47,7 @@ public class QueryJoiner<P extends PO, Q extends BaseQueryChainer<P>> extends Ba
         );
     }
 
-    public <U extends PO> Q onEquals(ColumnNameGetter<P> masterTableColumnValue1, ColumnNameGetter<U> joinedTableColumnValue1, ColumnNameGetter<P> masterTableColumnValue2, ColumnNameGetter<U> joinedTableColumnValue2, ColumnNameGetter<P> masterTableColumnValue3, ColumnNameGetter<U> joinedTableColumnValue3) {
+    public <P1 extends PO> Q onEquals(ColumnNameGetter<P> masterTableColumnValue1, ColumnNameGetter<P1> joinedTableColumnValue1, ColumnNameGetter<P> masterTableColumnValue2, ColumnNameGetter<P1> joinedTableColumnValue2, ColumnNameGetter<P> masterTableColumnValue3, ColumnNameGetter<P1> joinedTableColumnValue3) {
         return on(newQueryChainer -> newQueryChainer
                 .and(masterTableColumnValue1)
                 .equalsTo(joinedTableColumnValue1)
@@ -59,7 +59,7 @@ public class QueryJoiner<P extends PO, Q extends BaseQueryChainer<P>> extends Ba
     }
 
     @SuppressWarnings(SuppressWarningConstant.ALL)
-    public <U extends PO> Q onEquals(ColumnNameGetter<P> masterTableColumnValue1, ColumnNameGetter<U> joinedTableColumnValue1, ColumnNameGetter<P> masterTableColumnValue2, ColumnNameGetter<U> joinedTableColumnValue2, ColumnNameGetter<P> masterTableColumnValue3, ColumnNameGetter<U> joinedTableColumnValue3, ColumnNameGetter<P> masterTableColumnValue4, ColumnNameGetter<U> joinedTableColumnValue4) {
+    public <P1 extends PO> Q onEquals(ColumnNameGetter<P> masterTableColumnValue1, ColumnNameGetter<P1> joinedTableColumnValue1, ColumnNameGetter<P> masterTableColumnValue2, ColumnNameGetter<P1> joinedTableColumnValue2, ColumnNameGetter<P> masterTableColumnValue3, ColumnNameGetter<P1> joinedTableColumnValue3, ColumnNameGetter<P> masterTableColumnValue4, ColumnNameGetter<P1> joinedTableColumnValue4) {
         return on(newQueryChainer -> newQueryChainer
                 .and(masterTableColumnValue1)
                 .equalsTo(joinedTableColumnValue1)

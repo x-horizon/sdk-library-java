@@ -25,9 +25,9 @@ import java.util.function.BooleanSupplier;
  */
 @Getter(AccessLevel.PRIVATE)
 @CanIgnoreReturnValue
-public class NormalQueryChainer<P extends PO, C extends POJO> extends QueryChainer<P> {
+public class NormalQueryChainer<P extends PO, PJ extends POJO> extends QueryChainer<P> {
 
-    private final JsonbQueryChainer<C, P> jsonbQueryChainer;
+    private final JsonbQueryChainer<PJ, P> jsonbQueryChainer;
 
     private final Class<P> poClass;
 
@@ -39,87 +39,87 @@ public class NormalQueryChainer<P extends PO, C extends POJO> extends QueryChain
 
     @Override
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public <U extends PO> NormalQueryChainer<P, C> select(ColumnNameGetter<U>... columnNameGetters) {
+    public <P1 extends PO> NormalQueryChainer<P, PJ> select(ColumnNameGetter<P1>... columnNameGetters) {
         getNativeQueryChain().select(columnNameGetters);
         return this;
     }
 
     @Override
-    public <U extends PO> QueryJoiner<P, NormalQueryChainer<P, C>> innerJoin(Class<U> entityClass) {
+    public <P1 extends PO> QueryJoiner<P, NormalQueryChainer<P, PJ>> innerJoin(Class<P1> entityClass) {
         return innerJoin(entityClass, true);
     }
 
     @Override
-    public <U extends PO> QueryJoiner<P, NormalQueryChainer<P, C>> innerJoin(Class<U> entityClass, BooleanSupplier condition) {
+    public <P1 extends PO> QueryJoiner<P, NormalQueryChainer<P, PJ>> innerJoin(Class<P1> entityClass, BooleanSupplier condition) {
         return innerJoin(entityClass, condition.getAsBoolean());
     }
 
     @Override
-    public <U extends PO> QueryJoiner<P, NormalQueryChainer<P, C>> innerJoin(Class<U> entityClass, boolean condition) {
+    public <P1 extends PO> QueryJoiner<P, NormalQueryChainer<P, PJ>> innerJoin(Class<P1> entityClass, boolean condition) {
         return new QueryJoiner<>(getNativeQueryChain().innerJoin(entityClass, condition), this);
     }
 
     @Override
-    public <U extends PO> QueryJoiner<P, NormalQueryChainer<P, C>> leftJoin(Class<U> entityClass) {
+    public <P1 extends PO> QueryJoiner<P, NormalQueryChainer<P, PJ>> leftJoin(Class<P1> entityClass) {
         return leftJoin(entityClass, true);
     }
 
     @Override
-    public <U extends PO> QueryJoiner<P, NormalQueryChainer<P, C>> leftJoin(Class<U> entityClass, BooleanSupplier condition) {
+    public <P1 extends PO> QueryJoiner<P, NormalQueryChainer<P, PJ>> leftJoin(Class<P1> entityClass, BooleanSupplier condition) {
         return leftJoin(entityClass, condition.getAsBoolean());
     }
 
     @Override
-    public <U extends PO> QueryJoiner<P, NormalQueryChainer<P, C>> leftJoin(Class<U> entityClass, boolean condition) {
+    public <P1 extends PO> QueryJoiner<P, NormalQueryChainer<P, PJ>> leftJoin(Class<P1> entityClass, boolean condition) {
         return new QueryJoiner<>(getNativeQueryChain().leftJoin(entityClass, condition), this);
     }
 
     @Override
-    public <U extends PO> QueryJoiner<P, NormalQueryChainer<P, C>> rightJoin(Class<U> entityClass) {
+    public <P1 extends PO> QueryJoiner<P, NormalQueryChainer<P, PJ>> rightJoin(Class<P1> entityClass) {
         return rightJoin(entityClass, true);
     }
 
     @Override
-    public <U extends PO> QueryJoiner<P, NormalQueryChainer<P, C>> rightJoin(Class<U> entityClass, BooleanSupplier condition) {
+    public <P1 extends PO> QueryJoiner<P, NormalQueryChainer<P, PJ>> rightJoin(Class<P1> entityClass, BooleanSupplier condition) {
         return rightJoin(entityClass, condition.getAsBoolean());
     }
 
     @Override
-    public <U extends PO> QueryJoiner<P, NormalQueryChainer<P, C>> rightJoin(Class<U> entityClass, boolean condition) {
+    public <P1 extends PO> QueryJoiner<P, NormalQueryChainer<P, PJ>> rightJoin(Class<P1> entityClass, boolean condition) {
         return new QueryJoiner<>(getNativeQueryChain().rightJoin(entityClass, condition), this);
     }
 
     @Override
-    public <U extends PO> QueryJoiner<P, NormalQueryChainer<P, C>> fullJoin(Class<U> entityClass) {
+    public <P1 extends PO> QueryJoiner<P, NormalQueryChainer<P, PJ>> fullJoin(Class<P1> entityClass) {
         return fullJoin(entityClass, true);
     }
 
     @Override
-    public <U extends PO> QueryJoiner<P, NormalQueryChainer<P, C>> fullJoin(Class<U> entityClass, BooleanSupplier condition) {
+    public <P1 extends PO> QueryJoiner<P, NormalQueryChainer<P, PJ>> fullJoin(Class<P1> entityClass, BooleanSupplier condition) {
         return fullJoin(entityClass, condition.getAsBoolean());
     }
 
     @Override
-    public <U extends PO> QueryJoiner<P, NormalQueryChainer<P, C>> fullJoin(Class<U> entityClass, boolean condition) {
+    public <P1 extends PO> QueryJoiner<P, NormalQueryChainer<P, PJ>> fullJoin(Class<P1> entityClass, boolean condition) {
         return new QueryJoiner<>(getNativeQueryChain().fullJoin(entityClass, condition), this);
     }
 
     @Override
-    public <U extends POJO> QueryConditional<NormalQueryChainer<P, C>, QueryChain<P>> where(ColumnNameGetter<U> columnNameGetter) {
+    public <PJ1 extends POJO> QueryConditional<NormalQueryChainer<P, PJ>, QueryChain<P>> where(ColumnNameGetter<PJ1> columnNameGetter) {
         return new QueryConditional<>(getNativeQueryChain().where(columnNameGetter), this);
     }
 
     @Override
-    public <U extends POJO> QueryConditional<NormalQueryChainer<P, C>, QueryChain<P>> and(ColumnNameGetter<U> columnNameGetter) {
+    public <PJ1 extends POJO> QueryConditional<NormalQueryChainer<P, PJ>, QueryChain<P>> and(ColumnNameGetter<PJ1> columnNameGetter) {
         return new QueryConditional<>(getNativeQueryChain().and(columnNameGetter), this);
     }
 
     @Override
-    public <U extends POJO> QueryConditional<NormalQueryChainer<P, C>, QueryChain<P>> or(ColumnNameGetter<U> columnNameGetter) {
+    public <PJ1 extends POJO> QueryConditional<NormalQueryChainer<P, PJ>, QueryChain<P>> or(ColumnNameGetter<PJ1> columnNameGetter) {
         return new QueryConditional<>(getNativeQueryChain().or(columnNameGetter), this);
     }
 
-    public JsonbQueryChainer<C, P> switchToJsonbQuery() {
+    public JsonbQueryChainer<PJ, P> switchToJsonbQuery() {
         return getJsonbQueryChainer();
     }
 

@@ -101,7 +101,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param columnNameGetter the column value getter
      * @return equals condition
      */
-    public <U extends PO> Q equalsTo(ColumnNameGetter<U> columnNameGetter) {
+    public <P1 extends PO> Q equalsTo(ColumnNameGetter<P1> columnNameGetter) {
         return equalsTo(columnNameGetter, true);
     }
 
@@ -112,7 +112,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return equals condition
      */
-    public <U extends PO> Q equalsTo(ColumnNameGetter<U> columnNameGetter, BooleanSupplier condition) {
+    public <P1 extends PO> Q equalsTo(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
         return equalsTo(columnNameGetter, condition.getAsBoolean());
     }
 
@@ -123,7 +123,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return equals condition
      */
-    public <U extends PO> Q equalsTo(ColumnNameGetter<U> columnNameGetter, boolean condition) {
+    public <P1 extends PO> Q equalsTo(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
         return equalsTo(MybatisFlexs.getQueryColumn(columnNameGetter), condition);
     }
 
@@ -223,7 +223,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param columnNameGetter the column value getter
      * @return not equals condition
      */
-    public <U extends PO> Q notEquals(ColumnNameGetter<U> columnNameGetter) {
+    public <P1 extends PO> Q notEquals(ColumnNameGetter<P1> columnNameGetter) {
         return notEquals(columnNameGetter, true);
     }
 
@@ -234,7 +234,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return not equals condition
      */
-    public <U extends PO> Q notEquals(ColumnNameGetter<U> columnNameGetter, BooleanSupplier condition) {
+    public <P1 extends PO> Q notEquals(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
         return notEquals(columnNameGetter, condition.getAsBoolean());
     }
 
@@ -245,7 +245,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return not equals condition
      */
-    public <U extends PO> Q notEquals(ColumnNameGetter<U> columnNameGetter, boolean condition) {
+    public <P1 extends PO> Q notEquals(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
         return notEquals(MybatisFlexs.getQueryColumn(columnNameGetter), condition);
     }
 
@@ -345,7 +345,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param columnNameGetter the column value getter
      * @return greater than condition
      */
-    public <U extends PO> Q greaterThan(ColumnNameGetter<U> columnNameGetter) {
+    public <P1 extends PO> Q greaterThan(ColumnNameGetter<P1> columnNameGetter) {
         return greaterThan(columnNameGetter, true);
     }
 
@@ -356,7 +356,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return greater than condition
      */
-    public <U extends PO> Q greaterThan(ColumnNameGetter<U> columnNameGetter, BooleanSupplier condition) {
+    public <P1 extends PO> Q greaterThan(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
         return greaterThan(columnNameGetter, condition.getAsBoolean());
     }
 
@@ -367,7 +367,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return greater than condition
      */
-    public <U extends PO> Q greaterThan(ColumnNameGetter<U> columnNameGetter, boolean condition) {
+    public <P1 extends PO> Q greaterThan(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
         return greaterThan(MybatisFlexs.getQueryColumn(columnNameGetter), condition);
     }
 
@@ -445,7 +445,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param columnNameGetter the column value getter
      * @return greater than or equals condition
      */
-    public <U extends PO> Q greaterThanOrEquals(ColumnNameGetter<U> columnNameGetter) {
+    public <P1 extends PO> Q greaterThanOrEquals(ColumnNameGetter<P1> columnNameGetter) {
         return greaterThanOrEquals(columnNameGetter, true);
     }
 
@@ -456,7 +456,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return greater than or equals condition
      */
-    public <U extends PO> Q greaterThanOrEquals(ColumnNameGetter<U> columnNameGetter, BooleanSupplier condition) {
+    public <P1 extends PO> Q greaterThanOrEquals(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
         return greaterThanOrEquals(columnNameGetter, condition.getAsBoolean());
     }
 
@@ -467,7 +467,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return greater than or equals condition
      */
-    public <U extends PO> Q greaterThanOrEquals(ColumnNameGetter<U> columnNameGetter, boolean condition) {
+    public <P1 extends PO> Q greaterThanOrEquals(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
         return greaterThanOrEquals(MybatisFlexs.getQueryColumn(columnNameGetter), condition);
     }
 
@@ -545,7 +545,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param columnNameGetter the column value getter
      * @return less than condition
      */
-    public <U extends PO> Q lessThan(ColumnNameGetter<U> columnNameGetter) {
+    public <P1 extends PO> Q lessThan(ColumnNameGetter<P1> columnNameGetter) {
         return lessThan(columnNameGetter, true);
     }
 
@@ -556,7 +556,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return less than condition
      */
-    public <U extends PO> Q lessThan(ColumnNameGetter<U> columnNameGetter, BooleanSupplier condition) {
+    public <P1 extends PO> Q lessThan(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
         return lessThan(columnNameGetter, condition.getAsBoolean());
     }
 
@@ -567,7 +567,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return less than condition
      */
-    public <U extends PO> Q lessThan(ColumnNameGetter<U> columnNameGetter, boolean condition) {
+    public <P1 extends PO> Q lessThan(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
         return lessThan(MybatisFlexs.getQueryColumn(columnNameGetter), condition);
     }
 
@@ -645,7 +645,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param columnNameGetter the column value getter
      * @return less than or equals condition
      */
-    public <U extends PO> Q lessThanOrEquals(ColumnNameGetter<U> columnNameGetter) {
+    public <P1 extends PO> Q lessThanOrEquals(ColumnNameGetter<P1> columnNameGetter) {
         return lessThanOrEquals(columnNameGetter, true);
     }
 
@@ -656,7 +656,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return less than or equals condition
      */
-    public <U extends PO> Q lessThanOrEquals(ColumnNameGetter<U> columnNameGetter, BooleanSupplier condition) {
+    public <P1 extends PO> Q lessThanOrEquals(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
         return lessThanOrEquals(columnNameGetter, condition.getAsBoolean());
     }
 
@@ -667,7 +667,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return less than or equals condition
      */
-    public <U extends PO> Q lessThanOrEquals(ColumnNameGetter<U> columnNameGetter, boolean condition) {
+    public <P1 extends PO> Q lessThanOrEquals(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
         return lessThanOrEquals(MybatisFlexs.getQueryColumn(columnNameGetter), condition);
     }
 
