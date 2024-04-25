@@ -30,7 +30,7 @@ public class SchoolService extends GenericService<SchoolPO, SchoolVO, SchoolDao>
     @Autowired private SchoolDao schoolDao;
 
     public SchoolVO getByCondition(SchoolGetConditionVO conditionVO) {
-        return schoolDao.openQuery()
+        return schoolDao.openNormalQuery()
                 .where(SchoolPO::getId).equalsTo(conditionVO.getId())
                 .and(SchoolPO::getName).likeIfNotBlank(conditionVO.getName())
                 .<SchoolVO>getToVO()
@@ -38,7 +38,7 @@ public class SchoolService extends GenericService<SchoolPO, SchoolVO, SchoolDao>
     }
 
     public List<SchoolVO> listByCondition(SchoolListConditionVO conditionVO) {
-        return schoolDao.openQuery()
+        return schoolDao.openNormalQuery()
                 .where(SchoolPO::getId).inIfNotEmpty(conditionVO.getIds())
                 .and(SchoolPO::getName).likeIfNotBlank(conditionVO.getName())
                 .and(SchoolPO::getAddress).likeIfNotBlank(conditionVO.getAddress())
@@ -46,7 +46,7 @@ public class SchoolService extends GenericService<SchoolPO, SchoolVO, SchoolDao>
     }
 
     public PageResult<SchoolVO> pageByCondition(SchoolPageConditionVO conditionVO) {
-        return schoolDao.openQuery()
+        return schoolDao.openNormalQuery()
                 .where(SchoolPO::getName).likeIfNotBlank(conditionVO.getName())
                 .pageToVO(conditionVO.getPageNumber(), conditionVO.getPageSize());
     }

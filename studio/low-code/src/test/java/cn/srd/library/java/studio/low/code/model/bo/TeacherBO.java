@@ -7,15 +7,12 @@ package cn.srd.library.java.studio.low.code.model.bo;
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
 import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseVersionBO;
 import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListEnumIntegerTypeHandler;
-import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListEnumStringTypeHandler;
-import cn.srd.library.java.studio.low.code.model.enums.TeacherCourseType;
 import cn.srd.library.java.studio.low.code.model.enums.TeacherLevelType;
 import cn.srd.library.java.studio.low.code.model.enums.TeacherStatus;
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToEnumDeserializer;
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonListEnumValueToListEnumDeserializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonListEnumToListIntegerSerializer;
-import cn.srd.library.java.tool.convert.jackson.serializer.JacksonListEnumToListStringSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mybatisflex.annotation.Column;
@@ -68,10 +65,10 @@ public class TeacherBO extends BaseVersionBO {
     @JsonSerialize(using = JacksonListEnumToListIntegerSerializer.class)
     private List<TeacherLevelType> levelTypes;
 
-    @Schema(description = "课程类型", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.LIST_STRING)
-    @Column(value = "course_types", typeHandler = JdbcJsonbMappingJavaListEnumStringTypeHandler.class)
-    @JsonDeserialize(using = JacksonListEnumValueToListEnumDeserializer.class)
-    @JsonSerialize(using = JacksonListEnumToListStringSerializer.class)
-    private List<TeacherCourseType> courseTypes;
+    // @Schema(description = "课程类型", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.LIST_STRING)
+    // @Column(value = "course_types", typeHandler = JdbcJsonbMappingJavaListEnumStringTypeHandler.class)
+    // @JsonDeserialize(using = JacksonListEnumValueToListEnumDeserializer.class)
+    // @JsonSerialize(using = JacksonListEnumToListStringSerializer.class)
+    // private List<TeacherCourseType> courseTypes;
 
 }

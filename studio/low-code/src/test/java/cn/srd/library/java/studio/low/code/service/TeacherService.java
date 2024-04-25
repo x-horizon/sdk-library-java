@@ -30,7 +30,7 @@ public class TeacherService extends GenericService<TeacherPO, TeacherVO, Teacher
     @Autowired private TeacherDao teacherDao;
 
     public TeacherVO getByCondition(TeacherGetConditionVO conditionVO) {
-        return teacherDao.openQuery()
+        return teacherDao.openNormalQuery()
                 .where(TeacherPO::getId).equalsTo(conditionVO.getId())
                 .and(TeacherPO::getName).likeIfNotBlank(conditionVO.getName())
                 .<TeacherVO>getToVO()
@@ -38,13 +38,13 @@ public class TeacherService extends GenericService<TeacherPO, TeacherVO, Teacher
     }
 
     public List<TeacherVO> listByCondition(TeacherListConditionVO conditionVO) {
-        return teacherDao.openQuery()
+        return teacherDao.openNormalQuery()
                 .where(TeacherPO::getName).likeIfNotBlank(conditionVO.getName())
                 .listToVOs();
     }
 
     public PageResult<TeacherVO> pageByCondition(TeacherPageConditionVO conditionVO) {
-        return teacherDao.openQuery()
+        return teacherDao.openNormalQuery()
                 .where(TeacherPO::getName).likeIfNotBlank(conditionVO.getName())
                 .pageToVO(conditionVO.getPageNumber(), conditionVO.getPageSize());
     }

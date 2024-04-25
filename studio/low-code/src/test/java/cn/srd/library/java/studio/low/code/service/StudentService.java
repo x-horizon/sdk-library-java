@@ -10,8 +10,8 @@ import cn.srd.library.java.orm.mybatis.flex.postgresql.service.GenericService;
 import cn.srd.library.java.studio.low.code.dao.SchoolDao;
 import cn.srd.library.java.studio.low.code.dao.StudentDao;
 import cn.srd.library.java.studio.low.code.dao.TeacherDao;
-import cn.srd.library.java.studio.low.code.model.bo.StudentCourseBO;
-import cn.srd.library.java.studio.low.code.model.bo.StudentHobbyBO;
+import cn.srd.library.java.studio.low.code.model.bo.*;
+import cn.srd.library.java.studio.low.code.model.enums.StudentHobbyAchievementType;
 import cn.srd.library.java.studio.low.code.model.po.SchoolPO;
 import cn.srd.library.java.studio.low.code.model.po.StudentPO;
 import cn.srd.library.java.studio.low.code.model.po.TeacherPO;
@@ -19,6 +19,7 @@ import cn.srd.library.java.studio.low.code.model.vo.StudentGetConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.StudentListConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.StudentPageConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.StudentVO;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +41,7 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
     @Autowired private TeacherDao teacherDao;
 
     public StudentVO getByCondition(StudentGetConditionVO conditionVO) {
-        return studentDao.openQuery()
+        return studentDao.openNormalQuery()
                 .where(StudentPO::getId).equalsTo(conditionVO.getId())
                 .and(StudentPO::getName).likeIfNotBlank(conditionVO.getName())
                 .<StudentVO>getToVO()
@@ -48,36 +49,71 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
     }
 
     public List<StudentVO> listByCondition(StudentListConditionVO conditionVO) {
-        // StudentHobbyBO studentHobbyBO = new StudentHobbyBO();
-        // StudentCourseBO studentCourseBO = new StudentCourseBO();
-
-        List<StudentVO> a = studentDao.openJsonbQuery()
-                .functionArrayUnnest(StudentPO::getCourseBOs)
-                .innerJoin(StudentPO::getCourseBOs)
-                .next()
-                .functionObjectExtract(StudentPO::getCourseBOs, StudentHobbyBO::getAchievementTypes, StudentCourseBO::getCredit)
-                .functionArrayUnnest()
-                .innerJoin(StudentCourseBO::getCredit)
-                .next()
-                .functionObjectExtract(StudentCourseBO::getCredit, StudentHobbyBO::getLevelType, StudentCourseBO::getCredit, StudentCourseBO::getName, StudentHobbyBO::getLevelType)
-                .innerJoin(StudentHobbyBO::getLevelType)
-                .switchToNormalQuery()
-                .where(StudentPO::getId).inIfNotEmpty(conditionVO.getIds())
-                .and(StudentPO::getName).likeIfNotBlank(conditionVO.getName())
-                .andJsonQuery(StudentHobbyBO::getLevelType, StudentCourseBO::getName).likeIfNotBlank(conditionVO.getName())
-                .listToVOs();
-
         List<SchoolPO> schoolPOs = schoolDao.listLikeByField(SchoolPO::getName, conditionVO.getSchoolName());
         List<TeacherPO> teacherPOs = teacherDao.listLikeByField(TeacherPO::getName, conditionVO.getTeacherName());
 
-        return studentDao.openQuery()
+        List<StudentVO> a = studentDao
+                .openJsonbQuery()
+                // 展开学生信息的 teacherIds
+                .functionArrayUnnest(StudentPO::getTeacherIds)
+                .innerJoin()
+                // 提取学生信息的 hobbyBO.specificInterestNames
+                .functionObjectExtract(StudentPO::getHobbyBO, StudentHobbyBO::getSpecificInterestNames)
+                // 展开学生信息的 hobbyBO -> specificInterestNames
+                .functionArrayUnnest()
+                .innerJoin()
+                // 提取学生信息的 hobbyBO.achievementTypes
+                .functionObjectExtract(StudentPO::getHobbyBO, StudentHobbyBO::getAchievementTypes)
+                // 展开学生信息的 hobbyBO.achievementTypes
+                .functionArrayUnnest()
+                .innerJoin()
+                // 提取学生信息的 hobbyBO.bookBO
+                .functionObjectExtract(StudentPO::getHobbyBO, StudentHobbyBO::getBookBO)
+                .innerJoin()
+                // 提取学生信息的 hobbyBO.toolBOs
+                .functionObjectExtract(StudentPO::getHobbyBO, StudentHobbyBO::getToolBOs)
+                // 展开学生信息-的 hobbyBO.toolBOs
+                .functionArrayUnnest()
+                .innerJoin()
+                // 展开学生信息的 courseBOs
+                .functionArrayUnnest(StudentPO::getCourseBOs)
+                .innerJoin()
+                // 提取学生信息的 courseBO.bookBO
+                .functionObjectExtract(StudentPO::getCourseBOs, StudentCourseBO::getBookBO)
+                .innerJoin()
+                // 提取学生信息的 courseBO.toolBOs
+                .functionObjectExtract(StudentPO::getCourseBOs, StudentCourseBO::getToolBOs)
+                // 展开学生信息的 courseBO.toolBOs
+                .functionArrayUnnest()
+                .innerJoin()
+                .switchToNormalQuery()
+                .where(StudentPO::getId).inIfNotEmpty(conditionVO.getIds())
+                .and(StudentPO::getName).likeIfNotBlank(conditionVO.getName())
+                .and(StudentPO::getSchoolId).in(Converts.toList(schoolPOs, SchoolPO::getId))
+                .switchToJsonbQuery()
+                .and(StudentPO::getTeacherIds).castToBigint().in(Converts.toList(teacherPOs, TeacherPO::getId))
+                .and(StudentPO::getCourseBOs, StudentCourseBO::getName).castToVarchar().likeIfNotBlank(conditionVO.getCourseName())
+                .and(StudentPO::getCourseBOs, StudentCourseBO::getCredit).castToInteger().greaterThan(conditionVO.getCourseCredit())
+                .and(StudentCourseBO::getBookBO, StudentCourseBookBO::getName).castToVarchar().likeIfNotBlank(conditionVO.getCourseBookName())
+                .and(StudentCourseBO::getToolBOs, StudentCourseToolBO::getName).castToVarchar().likeIfNotBlank(conditionVO.getCourseToolName())
+                .and(StudentPO::getHobbyBO, StudentHobbyBO::getPrimaryInterestName).castToVarchar().likeIfNotBlank(conditionVO.getHobbyPrimaryInterestName())
+                .and(StudentPO::getHobbyBO, StudentHobbyBO::getSpecificInterestNames).castToVarchar().likeIfNotBlank(conditionVO.getHobbySpecificInterestNames())
+                .and(StudentPO::getHobbyBO, StudentHobbyBO::getLevelType).castToSmallint().equalsIfNotNull(conditionVO.getHobbyParticipationLevelType().getCode())
+                .and(StudentPO::getHobbyBO, StudentHobbyBO::getAchievementTypes).castToSmallint().inIfNotEmpty(conditionVO.getHobbyAchievementType().getCode())
+                .and(StudentPO::getHobbyBO, StudentHobbyBO::getAchievementTypes).castToSmallint().inIfNotEmpty(Converts.toList(conditionVO.getHobbyAchievementTypes(), StudentHobbyAchievementType::getCode))
+                .and(StudentHobbyBO::getBookBO, StudentHobbyBookBO::getName).castToVarchar().likeIfNotBlank(conditionVO.getHobbyBookName())
+                .and(StudentHobbyBO::getToolBOs, StudentHobbyToolBO::getName).castToVarchar().likeIfNotBlank(conditionVO.getHobbyToolName())
+                .switchToNormalQuery()
+                .listToVOs();
+
+        return studentDao.openNormalQuery()
                 .where(StudentPO::getId).inIfNotEmpty(conditionVO.getIds())
                 .and(StudentPO::getName).likeIfNotBlank(conditionVO.getName())
                 .listToVOs();
     }
 
     public PageResult<StudentVO> pageByCondition(StudentPageConditionVO conditionVO) {
-        return studentDao.openQuery()
+        return studentDao.openNormalQuery()
                 .where(StudentPO::getName).likeIfNotBlank(conditionVO.getName())
                 .pageToVO(conditionVO.getPageNumber(), conditionVO.getPageSize());
     }

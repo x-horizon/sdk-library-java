@@ -12,7 +12,6 @@ import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToE
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonListEnumValueToListEnumDeserializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonListEnumToListStringSerializer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -56,6 +55,12 @@ public class StudentListConditionVO extends BaseListConditionVO implements Seria
     @Schema(description = "课程-课程学分", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
     private Short courseCredit;
 
+    @Schema(description = "课程-书本-书本名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
+    private String courseBookName;
+
+    @Schema(description = "课程-工具-工具名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
+    private String courseToolName;
+
     @Schema(description = "兴趣爱好-主要兴趣", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
     private String hobbyPrimaryInterestName;
 
@@ -77,14 +82,10 @@ public class StudentListConditionVO extends BaseListConditionVO implements Seria
     @JsonSerialize(using = JacksonListEnumToListStringSerializer.class)
     private List<StudentHobbyAchievementType> hobbyAchievementTypes;
 
-    // ---
+    @Schema(description = "兴趣爱好-书本-书本名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
+    private String hobbyBookName;
 
-    @Schema(description = "学校id")
-    @JsonIgnore
-    private List<Long> schoolIds;
-
-    @Schema(description = "教师id")
-    @JsonIgnore
-    private List<Long> teacherIds;
+    @Schema(description = "兴趣爱好-工具-工具名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
+    private String hobbyToolName;
 
 }
