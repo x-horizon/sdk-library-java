@@ -119,38 +119,8 @@ public class NormalQueryChainer<P extends PO, C extends POJO> extends QueryChain
         return new QueryConditional<>(getNativeQueryChain().or(columnNameGetter), this);
     }
 
-    // @Override
-    // public <U extends POJO> QueryConditional<NormalQueryChainer<P, C>, QueryChain<P>> where(ColumnNameGetter<U> columnNameGetter) {
-    //     return new QueryConditional<>(getNativeQueryChain().where(getQueryColumn(columnNameGetter)), this);
-    // }
-    //
-    // @Override
-    // public <U extends POJO> QueryConditional<NormalQueryChainer<P, C>, QueryChain<P>> and(ColumnNameGetter<U> columnNameGetter) {
-    //     return new QueryConditional<>(getNativeQueryChain().and(getQueryColumn(columnNameGetter)), this);
-    // }
-    //
-    // @Override
-    // public <U extends POJO> QueryConditional<NormalQueryChainer<P, C>, QueryChain<P>> or(ColumnNameGetter<U> columnNameGetter) {
-    //     return new QueryConditional<>(getNativeQueryChain().or(getQueryColumn(columnNameGetter)), this);
-    // }
-
     public JsonbQueryChainer<C, P> switchToJsonbQuery() {
         return getJsonbQueryChainer();
     }
-
-    // private <U extends POJO> QueryColumn getQueryColumn(ColumnNameGetter<U> columnNameGetter) {
-    //     QueryColumn queryColumn = MybatisFlexs.getQueryColumn(columnNameGetter);
-    //     if (Nil.isNull(queryColumn)) {
-    //         String jsonQueryFieldName = MybatisFlexs.getFieldName(columnNameGetter);
-    //         String jsonQueryColumnName = ColumnJsonbMappingAliasCache.get(jsonQueryFieldName);
-    //         Assert.of().setMessage("{}could not generate query column, please check!", ModuleView.ORM_MYBATIS_SYSTEM)
-    //                 .setThrowable(LibraryJavaInternalException.class)
-    //                 .throwsIfNull(jsonQueryColumnName);
-    //         queryColumn = new QueryColumn();
-    //         queryColumn.setName(jsonQueryColumnName);
-    //         return queryColumn;
-    //     }
-    //     return queryColumn;
-    // }
 
 }
