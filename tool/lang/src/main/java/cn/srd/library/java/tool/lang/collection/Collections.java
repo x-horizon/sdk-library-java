@@ -18,6 +18,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -816,6 +818,32 @@ public class Collections {
      */
     public static boolean isArray(Object input) {
         return ArrayUtil.isArray(input);
+    }
+
+    /**
+     * <pre>
+     * return true if the field data type is an iterable type.
+     * 1. the field data type is {@link Iterable}
+     * 2. the field data type is {@link Iterator}
+     * 3. the field data type is {@link Map}
+     * 4. the field data type is {@link Array}
+     * </pre>
+     *
+     * @param field the field
+     * @return return true if the field data type is an iterable type.
+     */
+    public static boolean isIterable(Field field) {
+        if (Nil.isNull(field)) {
+            return false;
+        }
+        Class<?> fieldType = field.getType();
+        return Iterable.class.isAssignableFrom(fieldType)
+                ||
+                Iterator.class.isAssignableFrom(fieldType)
+                ||
+                Map.class.isAssignableFrom(fieldType)
+                ||
+                fieldType.isArray();
     }
 
     /**
