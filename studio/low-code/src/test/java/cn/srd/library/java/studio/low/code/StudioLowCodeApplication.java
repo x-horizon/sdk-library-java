@@ -30,7 +30,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
         globalOptimisticLockConfig = @OptimisticLockConfig(columnName = "version"),
         globalAuditConfig = @AuditLogConfig(enable = true),
         globalPropertyConfig = @PropertyConfig(
-                xmlMapperClassPaths = {"classpath*:cn/srd/library/java/studio/low/code/**/dao/**/impl/*.xml"},
+                xmlMapperClassPaths = {"classpath*:cn/srd/library/java/studio/low/code/**/repository/**/impl/*.xml"},
                 xmlMapperEntityPackageAliasPackagePaths = {"cn.srd.library.java.studio.low.code.**.model.**"}
         )
 )
