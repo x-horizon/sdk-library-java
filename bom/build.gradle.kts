@@ -117,6 +117,7 @@ dependencies {
 
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_MESSAGE_SPRING)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_CACHE_REDIS)))
+        api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_DATABASE_BASE)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_DATABASE_POSTGRESQL)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_CONSTANT)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_MODEL)))

@@ -57,6 +57,16 @@ public class SuppressWarningConstant {
     public static final String VARARGS = "varargs";
 
     /**
+     * ignore removal warning: {@code "removal"}
+     */
+    public static final String REMOVAL = "removal";
+
+    /**
+     * ignore preview warning: {@code "preview"}
+     */
+    public static final String PREVIEW = "preview";
+
+    /**
      * ignore spring ioc component weak known: {@code "SpringJavaInjectionPointsAutowiringInspection"}
      */
     public static final String SPRING_JAVA_INJECTION_POINTS_AUTOWIRING_INSPECTION = "SpringJavaInjectionPointsAutowiringInspection";
@@ -69,7 +79,6 @@ public class SuppressWarningConstant {
     // @SuppressWarnings("UnnecessaryUnicodeEscape")
     // @SuppressWarnings("SameParameterValue")
     // @SuppressWarnings("serial")
-    // @SuppressWarnings("removal")
     // @SuppressWarnings({"deprecation", "unchecked"})
     // @SuppressWarnings("null")
 

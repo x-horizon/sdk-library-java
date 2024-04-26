@@ -26,6 +26,7 @@ object GradleModule {
 
     const val CONTRACT_COMPONENT_MESSAGE_SPRING = "contract-component-message-spring"
     const val CONTRACT_COMPONENT_CACHE_REDIS = "contract-component-cache-redis"
+    const val CONTRACT_COMPONENT_DATABASE_BASE = "contract-component-database-base"
     const val CONTRACT_COMPONENT_DATABASE_POSTGRESQL = "contract-component-database-postgresql"
     const val CONTRACT_CONSTANT = "contract-constant"
     const val CONTRACT_MODEL = "contract-model"

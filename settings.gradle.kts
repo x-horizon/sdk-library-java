@@ -34,6 +34,7 @@ include(":concurrent:actor")
 include(":concurrent:redis")
 
 include(":contract:component:cache:redis")
+include(":contract:component:database:base")
 include(":contract:component:database:postgresql")
 include(":contract:component:message:spring")
 include(":contract:constant")

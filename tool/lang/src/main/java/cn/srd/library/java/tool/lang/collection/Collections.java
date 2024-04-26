@@ -1096,6 +1096,17 @@ public class Collections {
     }
 
     /**
+     * remove the last element in specified array
+     *
+     * @param inputs the input element
+     * @param <T>    the element type
+     * @return the remove element
+     */
+    public static <T> T removeLast(List<T> inputs) {
+        return inputs.removeLast();
+    }
+
+    /**
      * reverse the key value map to value key map
      *
      * @param inputs the input key value map
