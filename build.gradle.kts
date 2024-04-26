@@ -29,13 +29,14 @@ allprojects {
     tasks.withType<JavaCompile> {
         options.release = Integer.valueOf(GradleConfig.JAVA_VERSION)
         options.encoding = GradleConfig.PROJECT_CHARSET
-        options.compilerArgs.plusAssign(GradleConfig.projectCompileArgs)
+        options.compilerArgs.plusAssign((GradleConfig.WITH_PARAMETERS_ARG))
+        options.compilerArgs.plusAssign((GradleConfig.WITH_ENABLE_PREVIEW_ARG))
     }
 
     tasks.withType<Test> {
         useJUnitPlatform()
     }
-
+    
     tasks.withType<GenerateModuleMetadata> {
         suppressedValidationErrors.add("enforced-platform")
     }
@@ -94,5 +95,3 @@ subprojects {
         }
     }
 }
-
-

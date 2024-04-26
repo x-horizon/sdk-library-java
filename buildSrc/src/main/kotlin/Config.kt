@@ -13,9 +13,8 @@ object GradleConfig {
     const val PROJECT_VERSION = "3.0081"
     const val PROJECT_CHARSET = "UTF-8"
 
-    val projectCompileArgs = setOf(
-        "-parameters",
-    )
+    const val WITH_PARAMETERS_ARG = "-parameters"
+    const val WITH_ENABLE_PREVIEW_ARG = "--enable-preview"
 
 }
 
