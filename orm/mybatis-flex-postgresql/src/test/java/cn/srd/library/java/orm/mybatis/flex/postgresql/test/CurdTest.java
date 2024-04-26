@@ -15,12 +15,12 @@ import cn.srd.library.java.orm.mybatis.flex.base.logic.DeleteLogicConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.property.PropertyConfig;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.config.TestInsertListener;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.config.TestUpdateListener;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.HomeDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.PeopleDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.HomePO;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.PeoplePO;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.vo.HomeVO;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.vo.PeopleVO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.repository.HomeRepository;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.repository.PeopleRepository;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.service.HomeService;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.service.PeopleService;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
@@ -51,7 +51,7 @@ import java.util.Map;
         globalAuditConfig = @AuditLogConfig(enable = true),
         globalPropertyConfig = @PropertyConfig(
                 nativeMybatisLog = NoLoggingImpl.class,
-                xmlMapperClassPaths = {"classpath*:cn/srd/library/java/orm/mybatis/base/customer/dao/impl/*.xml"},
+                xmlMapperClassPaths = {"classpath*:cn/srd/library/java/orm/mybatis/base/customer/repository/impl/*.xml"},
                 xmlMapperEntityPackageAliasPackagePaths = {"cn.srd.library.java.orm.mybatis.**.po"}
         )
 )
@@ -62,11 +62,11 @@ class CurdTest {
 
     @Autowired private HomeService homeService;
 
-    @Autowired private HomeDao homeDao;
+    @Autowired private HomeRepository homeRepository;
 
     @Autowired private PeopleService peopleService;
 
-    @Autowired private PeopleDao peopleDao;
+    @Autowired private PeopleRepository peopleRepository;
 
     private static final String HOME_NAME_1 = "home1";
 
@@ -141,10 +141,10 @@ class CurdTest {
         // VALUES (536748152255429, 'home4', 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51');
         // INSERT INTO "home"("id", "name", "creator_id", "updater_id", "create_time", "update_time")
         // VALUES (536748152271813, 'home5', 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51');
-        homeDao.save(HomePO.builder().name(HOME_NAME_1).build());
-        homeDao.save(HomePO.builder().name(HOME_NAME_2).build());
-        homeDao.save(HomePO.builder().name(HOME_NAME_3).build());
-        homeDao.save(HomePO.builder().name(HOME_NAME_4).build());
+        homeRepository.save(HomePO.builder().name(HOME_NAME_1).build());
+        homeRepository.save(HomePO.builder().name(HOME_NAME_2).build());
+        homeRepository.save(HomePO.builder().name(HOME_NAME_3).build());
+        homeRepository.save(HomePO.builder().name(HOME_NAME_4).build());
         HomeVO homeVO = homeService.save(HomeVO.builder().name(HOME_NAME_5).build());
 
         // INSERT INTO "home"("id", "name", "creator_id", "updater_id", "create_time", "update_time", "delete_time")
@@ -153,7 +153,7 @@ class CurdTest {
         //        (536748152329159, 'home8', 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL),
         //        (536748152329160, 'home9', 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL),
         //        (536748152329161, 'home10', 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL);
-        homeDao.saveBatch(Collections.ofArrayList(
+        homeRepository.saveBatch(Collections.ofArrayList(
                 HomePO.builder().name(HOME_NAME_6).build(),
                 HomePO.builder().name(HOME_NAME_7).build(),
                 HomePO.builder().name(HOME_NAME_8).build(),
@@ -169,7 +169,7 @@ class CurdTest {
         //        (536748152423365, 'home14', 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL);
         // INSERT INTO "home"("id", "name", "creator_id", "updater_id", "create_time", "update_time", "delete_time")
         // VALUES (536748152439749, 'home15', 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL);
-        homeDao.saveBatch(Collections.ofArrayList(
+        homeRepository.saveBatch(Collections.ofArrayList(
                 HomePO.builder().name(HOME_NAME_11).build(),
                 HomePO.builder().name(HOME_NAME_12).build(),
                 HomePO.builder().name(HOME_NAME_13).build(),
@@ -187,12 +187,12 @@ class CurdTest {
         // VALUES (536748152562629, 536748152255429, 'people4', 'people4', 'people4', 'people4', 'people4', 'people4', 'people4', 0, 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51');
         // INSERT INTO "people"("id", "home_id", "name1", "name2", "name3", "name4", "name5", "name6", "name7", "version", "creator_id", "updater_id", "create_time", "update_time")
         // VALUES (536748152579013, 536748152271813, 'people5', 'people5', 'people5', 'people5', 'people5', 'people5', 'people5', 0, 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51');
-        List<HomePO> homePOs = homeDao.listAll();
+        List<HomePO> homePOs = homeRepository.listAll();
         Map<String, Long> homeNameMappingHomeIdMap = Converts.toMap(homePOs, HomePO::getName, HomePO::getId);
-        peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_1)).build().setAllName(PEOPLE_NAME_1));
-        peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_2)).build().setAllName(PEOPLE_NAME_2));
-        peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_3)).build().setAllName(PEOPLE_NAME_3));
-        peopleDao.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_4)).build().setAllName(PEOPLE_NAME_4));
+        peopleRepository.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_1)).build().setAllName(PEOPLE_NAME_1));
+        peopleRepository.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_2)).build().setAllName(PEOPLE_NAME_2));
+        peopleRepository.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_3)).build().setAllName(PEOPLE_NAME_3));
+        peopleRepository.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_4)).build().setAllName(PEOPLE_NAME_4));
         PeopleVO peopleVO = peopleService.save(PeopleVO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_5)).build().setAllName(PEOPLE_NAME_5));
 
         // INSERT INTO "people"("id", "home_id", "name1", "name2", "name3", "name4", "name5", "name6", "name7", "version", "creator_id", "updater_id", "create_time", "update_time", "delete_time")
@@ -201,7 +201,7 @@ class CurdTest {
         //        (536748152595399, 536748152329159, 'people8', 'people8', 'people8', 'people8', 'people8', 'people8', 'people8', 0, 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL),
         //        (536748152595400, 536748152329160, 'people9', 'people9', 'people9', 'people9', 'people9', 'people9', 'people9', 0, 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL),
         //        (536748152595401, 536748152329161, 'people10', 'people10', 'people10', 'people10', 'people10', 'people10', 'people10', 0, 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL);
-        peopleDao.saveBatch(Collections.ofArrayList(
+        peopleRepository.saveBatch(Collections.ofArrayList(
                 PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_6)).build().setAllName(PEOPLE_NAME_6),
                 PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_7)).build().setAllName(PEOPLE_NAME_7),
                 PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_8)).build().setAllName(PEOPLE_NAME_8),
@@ -217,7 +217,7 @@ class CurdTest {
         //        (536748152640454, 536748152423365, 'people14', 'people14', 'people14', 'people14', 'people14', 'people14', 'people14', 0, 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL);
         // INSERT INTO "people"("id", "home_id", "name1", "name2", "name3", "name4", "name5", "name6", "name7", "version", "creator_id", "updater_id", "create_time", "update_time", "delete_time")
         // VALUES (536748152660933, 536748152439749, 'people15', 'people15', 'people15', 'people15', 'people15', 'people15', 'people15', 0, 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL);
-        peopleDao.saveBatch(Collections.ofArrayList(
+        peopleRepository.saveBatch(Collections.ofArrayList(
                 PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_11)).build().setAllName(PEOPLE_NAME_11),
                 PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_12)).build().setAllName(PEOPLE_NAME_12),
                 PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_13)).build().setAllName(PEOPLE_NAME_13),
@@ -231,7 +231,7 @@ class CurdTest {
         testDelete();
         testSave();
 
-        List<HomePO> homePOs = homeDao.listAll().stream().peek(homePO -> homePO.setName(homePO.getName() + "*")).toList();
+        List<HomePO> homePOs = homeRepository.listAll().stream().peek(homePO -> homePO.setName(homePO.getName() + "*")).toList();
         HomePO theFirstHomePO = Collections.getFirst(homePOs).orElseThrow();
         // UPDATE "home"
         // SET "name"        = 'home1*',
@@ -241,7 +241,7 @@ class CurdTest {
         //     "update_time" = '2024-04-15 19:02:19'
         // WHERE "id" = 536750208472197
         //   AND "delete_time" IS NULL;
-        homeDao.updateById(theFirstHomePO);
+        homeRepository.updateById(theFirstHomePO);
         // UPDATE "home"
         // SET "name"        = 'home1*',
         //     "creator_id"  = 1,
@@ -250,7 +250,7 @@ class CurdTest {
         //     "update_time" = '2024-04-15 19:02:45'
         // WHERE "id" = 536750208472197
         //   AND "delete_time" IS NULL;
-        homeDao.updateBatchById(theFirstHomePO);
+        homeRepository.updateBatchById(theFirstHomePO);
         // UPDATE "home" SET "name" = 'home1*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:02:13' , "update_time" = '2024-04-15 19:03:14'  WHERE "id" = 536750208472197  AND "delete_time" IS NULL;
         // UPDATE "home" SET "name" = 'home2*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:02:13' , "update_time" = '2024-04-15 19:03:14'  WHERE "id" = 536750208525445  AND "delete_time" IS NULL;
         // UPDATE "home" SET "name" = 'home3*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:02:13' , "update_time" = '2024-04-15 19:03:14'  WHERE "id" = 536750208558213  AND "delete_time" IS NULL;
@@ -266,7 +266,7 @@ class CurdTest {
         // UPDATE "home" SET "name" = 'home13*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:02:13' , "update_time" = '2024-04-15 19:03:14'  WHERE "id" = 536750208771205  AND "delete_time" IS NULL;
         // UPDATE "home" SET "name" = 'home14*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:02:13' , "update_time" = '2024-04-15 19:03:14'  WHERE "id" = 536750208771206  AND "delete_time" IS NULL;
         // UPDATE "home" SET "name" = 'home15*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:02:13' , "update_time" = '2024-04-15 19:03:14'  WHERE "id" = 536750208787589  AND "delete_time" IS NULL;
-        homeDao.updateBatchById(homePOs);
+        homeRepository.updateBatchById(homePOs);
         // UPDATE "home" SET "name" = 'home1*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:02:13' , "update_time" = '2024-04-15 19:03:42'  WHERE "id" = 536750208472197  AND "delete_time" IS NULL;
         // UPDATE "home" SET "name" = 'home2*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:02:13' , "update_time" = '2024-04-15 19:03:42'  WHERE "id" = 536750208525445  AND "delete_time" IS NULL;
         // UPDATE "home" SET "name" = 'home3*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:02:13' , "update_time" = '2024-04-15 19:03:42'  WHERE "id" = 536750208558213  AND "delete_time" IS NULL;
@@ -282,13 +282,13 @@ class CurdTest {
         // UPDATE "home" SET "name" = 'home13*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:02:13' , "update_time" = '2024-04-15 19:03:42'  WHERE "id" = 536750208771205  AND "delete_time" IS NULL;
         // UPDATE "home" SET "name" = 'home14*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:02:13' , "update_time" = '2024-04-15 19:03:42'  WHERE "id" = 536750208771206  AND "delete_time" IS NULL;
         // UPDATE "home" SET "name" = 'home15*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:02:13' , "update_time" = '2024-04-15 19:03:42'  WHERE "id" = 536750208787589  AND "delete_time" IS NULL;
-        homeDao.updateBatchById(homePOs, 2);
+        homeRepository.updateBatchById(homePOs, 2);
 
-        List<PeoplePO> peoplePOs = peopleDao.listAll().stream().map(peoplePO -> peoplePO.setAllName(peoplePO.getName1() + "*")).toList();
+        List<PeoplePO> peoplePOs = peopleRepository.listAll().stream().map(peoplePO -> peoplePO.setAllName(peoplePO.getName1() + "*")).toList();
         PeoplePO theFirstPeoplePO = Collections.getFirst(peoplePOs).orElseThrow();
         // SELECT * FROM "people" WHERE "id" = 536750845867205  AND "delete_time" IS NULL;
         // UPDATE "people" SET "home_id" = 536750845560005 , "name1" = 'people1*' , "name2" = 'people1*' , "name3" = 'people1*' , "name4" = 'people1*' , "name5" = 'people1*' , "name6" = 'people1*' , "name7" = 'people1*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:04:48' , "update_time" = '2024-04-15 19:05:01' , "version" = "version" + 1  WHERE "id" = 536750845867205  AND "delete_time" IS NULL AND "version" = 0;
-        peopleDao.updateWithVersionById(theFirstPeoplePO);
+        peopleRepository.updateWithVersionById(theFirstPeoplePO);
         // SELECT "id", "home_id", "name1", "name2", "name3", "name4", "name5", "name6", "name7", "version", "creator_id", "updater_id", "create_time", "update_time", "delete_time" FROM "people" WHERE ("id" = 536750845867205  OR "id" = 536750845904069  OR "id" = 536750845920453  OR "id" = 536750845940933  OR "id" = 536750845961413  OR "id" = 536750845990085  OR "id" = 536750845990086  OR "id" = 536750845994181  OR "id" = 536750845994182  OR "id" = 536750845998277  OR "id" = 536750846047429  OR "id" = 536750846047430  OR "id" = 536750846067909  OR "id" = 536750846067910  OR "id" = 536750846096581 ) AND "delete_time" IS NULL;
         // UPDATE "people" SET "home_id" = 536750845560005 , "name1" = 'people1*' , "name2" = 'people1*' , "name3" = 'people1*' , "name4" = 'people1*' , "name5" = 'people1*' , "name6" = 'people1*' , "name7" = 'people1*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:04:48' , "update_time" = '2024-04-15 19:05:23' , "version" = "version" + 1  WHERE "id" = 536750845867205  AND "delete_time" IS NULL AND "version" = 1;
         // UPDATE "people" SET "home_id" = 536750845625541 , "name1" = 'people2*' , "name2" = 'people2*' , "name3" = 'people2*' , "name4" = 'people2*' , "name5" = 'people2*' , "name6" = 'people2*' , "name7" = 'people2*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:04:48' , "update_time" = '2024-04-15 19:05:23' , "version" = "version" + 1  WHERE "id" = 536750845904069  AND "delete_time" IS NULL AND "version" = 0;
@@ -305,7 +305,7 @@ class CurdTest {
         // UPDATE "people" SET "home_id" = 536750845801669 , "name1" = 'people13*' , "name2" = 'people13*' , "name3" = 'people13*' , "name4" = 'people13*' , "name5" = 'people13*' , "name6" = 'people13*' , "name7" = 'people13*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:04:49' , "update_time" = '2024-04-15 19:05:23' , "version" = "version" + 1  WHERE "id" = 536750846067909  AND "delete_time" IS NULL AND "version" = 0;
         // UPDATE "people" SET "home_id" = 536750845801670 , "name1" = 'people14*' , "name2" = 'people14*' , "name3" = 'people14*' , "name4" = 'people14*' , "name5" = 'people14*' , "name6" = 'people14*' , "name7" = 'people14*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:04:49' , "update_time" = '2024-04-15 19:05:23' , "version" = "version" + 1  WHERE "id" = 536750846067910  AND "delete_time" IS NULL AND "version" = 0;
         // UPDATE "people" SET "home_id" = 536750845813957 , "name1" = 'people15*' , "name2" = 'people15*' , "name3" = 'people15*' , "name4" = 'people15*' , "name5" = 'people15*' , "name6" = 'people15*' , "name7" = 'people15*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:04:49' , "update_time" = '2024-04-15 19:05:23' , "version" = "version" + 1  WHERE "id" = 536750846096581  AND "delete_time" IS NULL AND "version" = 0;
-        peopleDao.updateBatchWithVersionById(peoplePOs, PeoplePO::getId);
+        peopleRepository.updateBatchWithVersionById(peoplePOs, PeoplePO::getId);
         // SELECT "id", "home_id", "name1", "name2", "name3", "name4", "name5", "name6", "name7", "version", "creator_id", "updater_id", "create_time", "update_time", "delete_time" FROM "people" WHERE ("id" = 536750845867205  OR "id" = 536750845904069  OR "id" = 536750845920453  OR "id" = 536750845940933  OR "id" = 536750845961413  OR "id" = 536750845990085  OR "id" = 536750845990086  OR "id" = 536750845994181  OR "id" = 536750845994182  OR "id" = 536750845998277  OR "id" = 536750846047429  OR "id" = 536750846047430  OR "id" = 536750846067909  OR "id" = 536750846067910  OR "id" = 536750846096581 ) AND "delete_time" IS NULL;
         // UPDATE "people" SET "home_id" = 536750845560005 , "name1" = 'people1*' , "name2" = 'people1*' , "name3" = 'people1*' , "name4" = 'people1*' , "name5" = 'people1*' , "name6" = 'people1*' , "name7" = 'people1*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:04:48' , "update_time" = '2024-04-15 19:06:19' , "version" = "version" + 1  WHERE "id" = 536750845867205  AND "delete_time" IS NULL AND "version" = 2;
         // UPDATE "people" SET "home_id" = 536750845625541 , "name1" = 'people2*' , "name2" = 'people2*' , "name3" = 'people2*' , "name4" = 'people2*' , "name5" = 'people2*' , "name6" = 'people2*' , "name7" = 'people2*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:04:48' , "update_time" = '2024-04-15 19:06:19' , "version" = "version" + 1  WHERE "id" = 536750845904069  AND "delete_time" IS NULL AND "version" = 1;
@@ -322,7 +322,7 @@ class CurdTest {
         // UPDATE "people" SET "home_id" = 536750845801669 , "name1" = 'people13*' , "name2" = 'people13*' , "name3" = 'people13*' , "name4" = 'people13*' , "name5" = 'people13*' , "name6" = 'people13*' , "name7" = 'people13*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:04:49' , "update_time" = '2024-04-15 19:06:19' , "version" = "version" + 1  WHERE "id" = 536750846067909  AND "delete_time" IS NULL AND "version" = 1;
         // UPDATE "people" SET "home_id" = 536750845801670 , "name1" = 'people14*' , "name2" = 'people14*' , "name3" = 'people14*' , "name4" = 'people14*' , "name5" = 'people14*' , "name6" = 'people14*' , "name7" = 'people14*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:04:49' , "update_time" = '2024-04-15 19:06:19' , "version" = "version" + 1  WHERE "id" = 536750846067910  AND "delete_time" IS NULL AND "version" = 1;
         // UPDATE "people" SET "home_id" = 536750845813957 , "name1" = 'people15*' , "name2" = 'people15*' , "name3" = 'people15*' , "name4" = 'people15*' , "name5" = 'people15*' , "name6" = 'people15*' , "name7" = 'people15*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:04:49' , "update_time" = '2024-04-15 19:06:19' , "version" = "version" + 1  WHERE "id" = 536750846096581  AND "delete_time" IS NULL AND "version" = 1;
-        peopleDao.updateBatchWithVersionById(peoplePOs, PeoplePO::getId, 2);
+        peopleRepository.updateBatchWithVersionById(peoplePOs, PeoplePO::getId, 2);
 
         // UPDATE "people"
         // SET "updater_id"  = 1,
@@ -330,7 +330,7 @@ class CurdTest {
         //     "version"     = "version" + 1
         // WHERE ("creator_id" = 1 AND "updater_id" = 1)
         //   AND "delete_time" IS NULL;
-        peopleDao.openUpdate()
+        peopleRepository.openUpdate()
                 .where(PeoplePO::getCreatorId).equalsTo(1)
                 .and(PeoplePO::getUpdaterId).equalsTo(1)
                 .update();
@@ -347,7 +347,7 @@ class CurdTest {
         //     "version"     = "version" + 1
         // WHERE ("creator_id" = 1 AND "updater_id" = 1 OR "updater_id" = 1)
         //   AND "delete_time" IS NULL;
-        peopleDao.openUpdate()
+        peopleRepository.openUpdate()
                 .set(PeoplePO::getName1, theFirstPeoplePO.getName1() + "-set")
                 .set(PeoplePO::getName2, theFirstPeoplePO.getName2() + "-set-boolean-supplier", () -> true)
                 .set(PeoplePO::getName4, theFirstPeoplePO.getName4() + "-set-boolean", ignore -> true)
@@ -366,7 +366,7 @@ class CurdTest {
         //     "version"     = "version" + 1
         // WHERE ("creator_id" = 1 AND "updater_id" = 1 OR "updater_id" = 1)
         //   AND "delete_time" IS NULL;
-        peopleDao.openUpdate()
+        peopleRepository.openUpdate()
                 .set(PeoplePO::getName1, theFirstPeoplePO.getName1() + "-set-2")
                 .set(PeoplePO::getName2, theFirstPeoplePO.getName2() + "-set-boolean-supplier-2", () -> false)
                 .set(PeoplePO::getName4, theFirstPeoplePO.getName4() + "-set-boolean-2", ignore -> false)
@@ -384,7 +384,7 @@ class CurdTest {
 
     @Test
     void testDelete() {
-        List<HomePO> homePOs = homeDao.listAll();
+        List<HomePO> homePOs = homeRepository.listAll();
         List<Long> homeIds = Converts.toList(homePOs, HomePO::getId);
         if (Nil.isNotEmpty(homeIds)) {
             Long theFirstHomeId = Collections.getFirst(homeIds).orElseThrow();
@@ -392,18 +392,18 @@ class CurdTest {
             // SET "delete_time" = NOW()
             // WHERE "id" = 536751840355717
             //   AND "delete_time" IS NULL;
-            homeDao.deleteById(theFirstHomeId);
+            homeRepository.deleteById(theFirstHomeId);
             HomePO theSecondHomePO = Collections.getSecond(homePOs).orElseThrow();
             // UPDATE "home"
             // SET "delete_time" = NOW()
             // WHERE "id" = 536751840429445
             //   AND "delete_time" IS NULL;
-            homeDao.deleteById(theSecondHomePO);
+            homeRepository.deleteById(theSecondHomePO);
             // UPDATE "home"
             // SET "delete_time" = NOW()
             // WHERE ("id" IS NOT NULL)
             //   AND "delete_time" IS NULL;
-            homeDao.openDelete().where(HomePO::getId).isNotNull().delete();
+            homeRepository.openDelete().where(HomePO::getId).isNotNull().delete();
             // UPDATE "home"
             // SET "delete_time" = NOW()
             // WHERE "id" = 536751840355717
@@ -422,15 +422,15 @@ class CurdTest {
             //    OR "id" = 536751840654726
             //    OR "id" = 536751840667013
             //     AND "delete_time" IS NULL;
-            homeDao.deleteByIds(homeIds);
+            homeRepository.deleteByIds(homeIds);
             Long theThirdHomeId = Collections.getThird(homeIds).orElseThrow();
             // DELETE FROM "home" WHERE "id" = 536757777872453;
-            homeDao.deleteSkipLogicById(theThirdHomeId);
+            homeRepository.deleteSkipLogicById(theThirdHomeId);
             HomePO theForthHomePO = Collections.getForth(homePOs).orElseThrow();
             // DELETE FROM "home" WHERE "id" = 536757777901125;
-            homeDao.deleteSkipLogicById(theForthHomePO);
+            homeRepository.deleteSkipLogicById(theForthHomePO);
             // DELETE FROM "home" WHERE "id" IS NOT NULL;
-            homeDao.openDelete().where(HomePO::getId).isNotNull().deleteSkipLogic();
+            homeRepository.openDelete().where(HomePO::getId).isNotNull().deleteSkipLogic();
             // DELETE
             // FROM "home"
             // WHERE "id" = 536757777798725
@@ -448,10 +448,10 @@ class CurdTest {
             //    OR "id" = 536757778032197
             //    OR "id" = 536757778032198
             //    OR "id" = 536757778052677;
-            homeDao.deleteSkipLogicByIds(homeIds);
+            homeRepository.deleteSkipLogicByIds(homeIds);
         }
 
-        List<PeoplePO> peoplePOs = peopleDao.listAll();
+        List<PeoplePO> peoplePOs = peopleRepository.listAll();
         List<Long> peopleIds = Converts.toList(peoplePOs, PeoplePO::getId);
         if (Nil.isNotEmpty(peopleIds)) {
             Long theFirstPeopleId = Collections.getFirst(peopleIds).orElseThrow();
@@ -459,18 +459,18 @@ class CurdTest {
             // SET "delete_time" = NOW()
             // WHERE "id" = 536757778110021
             //   AND "delete_time" IS NULL;
-            peopleDao.deleteById(theFirstPeopleId);
+            peopleRepository.deleteById(theFirstPeopleId);
             PeoplePO theSecondPeoplePO = Collections.getSecond(peoplePOs).orElseThrow();
             // UPDATE "people"
             // SET "delete_time" = NOW()
             // WHERE "id" = 536757778110021
             //   AND "delete_time" IS NULL;
-            peopleDao.deleteById(theSecondPeoplePO);
+            peopleRepository.deleteById(theSecondPeoplePO);
             // UPDATE "people"
             // SET "delete_time" = NOW()
             // WHERE ("id" IS NOT NULL)
             //   AND "delete_time" IS NULL;
-            peopleDao.openDelete().where(PeoplePO::getId).isNotNull().delete();
+            peopleRepository.openDelete().where(PeoplePO::getId).isNotNull().delete();
             // UPDATE "people"
             // SET "delete_time" = NOW()
             // WHERE "id" = 536757778110021
@@ -489,15 +489,15 @@ class CurdTest {
             //    OR "id" = 536757778302534
             //    OR "id" = 536757778323013
             //     AND "delete_time" IS NULL;
-            peopleDao.deleteByIds(peopleIds);
+            peopleRepository.deleteByIds(peopleIds);
             Long theThirdPeopleId = Collections.getThird(peopleIds).orElseThrow();
             // DELETE FROM "people" WHERE "id" = 536757778175557;
-            peopleDao.deleteSkipLogicById(theThirdPeopleId);
+            peopleRepository.deleteSkipLogicById(theThirdPeopleId);
             PeoplePO theForthPeoplePO = Collections.getForth(peoplePOs).orElseThrow();
             // DELETE FROM "people" WHERE "id" = 536757778196037;
-            peopleDao.deleteSkipLogicById(theForthPeoplePO);
+            peopleRepository.deleteSkipLogicById(theForthPeoplePO);
             // DELETE FROM "people" WHERE "id" IS NOT NULL;
-            peopleDao.openDelete().where(PeoplePO::getId).isNotNull().deleteSkipLogic();
+            peopleRepository.openDelete().where(PeoplePO::getId).isNotNull().deleteSkipLogic();
             // DELETE
             // FROM "people"
             // WHERE "id" = 536757778110021
@@ -515,7 +515,7 @@ class CurdTest {
             //    OR "id" = 536757778302533
             //    OR "id" = 536757778302534
             //    OR "id" = 536757778323013;
-            peopleDao.deleteSkipLogicByIds(peopleIds);
+            peopleRepository.deleteSkipLogicByIds(peopleIds);
         }
     }
 
@@ -527,18 +527,18 @@ class CurdTest {
         // SELECT * FROM "home" WHERE ("home"."name" = 'home1') AND "delete_time" IS NULL LIMIT 1
         HomeVO homeVO1 = homeService.getByField(HomePO::getName, HOME_NAME_1).orElseThrow();
         // SELECT * FROM "home" WHERE (name LIKE '%home%') AND "delete_time" IS NULL
-        List<HomePO> homePOs1 = homeDao.listLikeByField(HomePO::getName, "home");
+        List<HomePO> homePOs1 = homeRepository.listLikeByField(HomePO::getName, "home");
 
         // SELECT * FROM "people" WHERE "delete_time" IS NULL;
-        List<PeoplePO> allPeoplePOs = peopleDao.listAll();
+        List<PeoplePO> allPeoplePOs = peopleRepository.listAll();
         PeoplePO theFirstPeoplePO = Collections.getFirst(allPeoplePOs).orElseThrow();
         PeoplePO theSecondPeoplePO = Collections.getSecond(allPeoplePOs).orElseThrow();
         // SELECT * FROM "people" WHERE ("id" = 536758914377477  OR "id" = 536758914397957 ) AND "delete_time" IS NULL;
-        List<PeoplePO> peoplePOs1 = peopleDao.listByIds(Collections.ofImmutableList(theFirstPeoplePO.getId(), theSecondPeoplePO.getId()));
+        List<PeoplePO> peoplePOs1 = peopleRepository.listByIds(Collections.ofImmutableList(theFirstPeoplePO.getId(), theSecondPeoplePO.getId()));
         // SELECT * FROM "people" WHERE "id" = 536758914377477  AND "delete_time" IS NULL;
-        PeoplePO peoplePO1 = peopleDao.getById(theFirstPeoplePO).orElseThrow();
+        PeoplePO peoplePO1 = peopleRepository.getById(theFirstPeoplePO).orElseThrow();
         // SELECT COUNT(*) FROM "people" WHERE "delete_time" IS NULL;
-        Long peopleTotalNumber1 = peopleDao.countAll();
+        Long peopleTotalNumber1 = peopleRepository.countAll();
 
         // SELECT *
         // FROM "people"
@@ -661,7 +661,7 @@ class CurdTest {
         //    AND "delete_time" IS NULL
         // ORDER BY "create_time" DESC
         // LIMIT 1;
-        PeoplePO peoplePO3 = peopleDao.openNormalQuery()
+        PeoplePO peoplePO3 = peopleRepository.openNormalQuery()
                 .where(PeoplePO::getId).equalsTo(theFirstPeoplePO.getId())
                 .and(PeoplePO::getName1).equalsTo(theFirstPeoplePO.getName1())
                 .and(PeoplePO::getName1).equalsTo(theFirstPeoplePO.getName1(), () -> true)
@@ -803,7 +803,7 @@ class CurdTest {
                 .orElseThrow();
 
         // SELECT * FROM "people" WHERE "delete_time" IS NULL;
-        List<PeoplePO> peoplePOs2 = peopleDao.openNormalQuery().list();
+        List<PeoplePO> peoplePOs2 = peopleRepository.openNormalQuery().list();
 
         // SELECT *
         // FROM "people"
@@ -811,7 +811,7 @@ class CurdTest {
         // WHERE ("people"."id" IS NOT NULL AND "people"."id" IS NOT NULL OR "people"."id" IS NOT NULL)
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC;
-        List<PeoplePO> peoplePOs3 = peopleDao.openNormalQuery()
+        List<PeoplePO> peoplePOs3 = peopleRepository.openNormalQuery()
                 .innerJoin(HomePO.class).as("home2").onEquals(PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()
@@ -825,7 +825,7 @@ class CurdTest {
         // WHERE ("people"."id" IS NOT NULL AND "people"."id" IS NOT NULL OR "people"."id" IS NOT NULL)
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC;
-        List<PeoplePO> peoplePOs4 = peopleDao.openNormalQuery()
+        List<PeoplePO> peoplePOs4 = peopleRepository.openNormalQuery()
                 .leftJoin(HomePO.class).onEquals(PeoplePO::getHomeId, HomePO::getId, PeoplePO::getHomeId, HomePO::getId, PeoplePO::getHomeId, HomePO::getId, PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()
@@ -839,7 +839,7 @@ class CurdTest {
         // WHERE ("people"."id" IS NOT NULL AND "people"."id" IS NOT NULL OR "people"."id" IS NOT NULL)
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC;
-        List<PeoplePO> peoplePOs5 = peopleDao.openNormalQuery()
+        List<PeoplePO> peoplePOs5 = peopleRepository.openNormalQuery()
                 .rightJoin(HomePO.class).onEquals(PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()
@@ -853,7 +853,7 @@ class CurdTest {
         // WHERE ("people"."id" IS NOT NULL AND "people"."id" IS NOT NULL OR "people"."id" IS NOT NULL)
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC;
-        List<PeoplePO> peoplePOs7 = peopleDao.openNormalQuery()
+        List<PeoplePO> peoplePOs7 = peopleRepository.openNormalQuery()
                 .fullJoin(HomePO.class).onEquals(PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()
@@ -867,7 +867,7 @@ class CurdTest {
         //   AND "delete_time" IS NULL
         // GROUP BY "creator_id", "creator_id", "updater_id"
         // ORDER BY "creator_id" DESC;
-        List<PeoplePO> peoplePOs8 = peopleDao.openNormalQuery()
+        List<PeoplePO> peoplePOs8 = peopleRepository.openNormalQuery()
                 .select(PeoplePO::getCreatorId, PeoplePO::getCreatorId)
                 .select(PeoplePO::getUpdaterId)
                 .where(PeoplePO::getId).isNotNull()
@@ -891,7 +891,7 @@ class CurdTest {
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC
         // LIMIT 10 OFFSET 0;
-        PageResult<PeoplePO> peoplePagePOs1 = peopleDao.openNormalQuery()
+        PageResult<PeoplePO> peoplePagePOs1 = peopleRepository.openNormalQuery()
                 .rightJoin(HomePO.class).onEquals(PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()
@@ -912,7 +912,7 @@ class CurdTest {
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC
         // LIMIT 5 OFFSET 0;
-        PageResult<PeopleVO> peoplePageVOs2 = peopleDao.openNormalQuery()
+        PageResult<PeopleVO> peoplePageVOs2 = peopleRepository.openNormalQuery()
                 .rightJoin(HomePO.class).onEquals(PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()
@@ -927,7 +927,7 @@ class CurdTest {
         //   AND "people"."delete_time" IS NULL
         // ORDER BY "people"."create_time" DESC
         // LIMIT 5 OFFSET 0;
-        PageResult<PeopleVO> peoplePageVOs3 = peopleDao.openNormalQuery()
+        PageResult<PeopleVO> peoplePageVOs3 = peopleRepository.openNormalQuery()
                 .rightJoin(HomePO.class).onEquals(PeoplePO::getHomeId, HomePO::getId)
                 .where(PeoplePO::getId).isNotNull()
                 .and(PeoplePO::getId).isNotNull()
@@ -936,13 +936,13 @@ class CurdTest {
                 .pageToVO(1, 5, 9);
 
         // SELECT COUNT(*) FROM "people" WHERE ("id" IS NULL ) AND "delete_time" IS NULL;
-        Long peopleTotalNumber2 = peopleDao.openNormalQuery().where(PeoplePO::getId).isNull().count();
+        Long peopleTotalNumber2 = peopleRepository.openNormalQuery().where(PeoplePO::getId).isNull().count();
         // SELECT COUNT(*) FROM "people" WHERE ("id" IS NOT NULL ) AND "delete_time" IS NULL;
-        Long peopleTotalNumber3 = peopleDao.openNormalQuery().where(PeoplePO::getId).isNotNull().count();
+        Long peopleTotalNumber3 = peopleRepository.openNormalQuery().where(PeoplePO::getId).isNotNull().count();
         // SELECT COUNT(*) FROM "people" WHERE ("id" IS NULL ) AND "delete_time" IS NULL;
-        Boolean isPeopleExist1 = peopleDao.openNormalQuery().where(PeoplePO::getId).isNull().exists();
+        Boolean isPeopleExist1 = peopleRepository.openNormalQuery().where(PeoplePO::getId).isNull().exists();
         // SELECT COUNT(*) FROM "people" WHERE ("id" IS NOT NULL ) AND "delete_time" IS NULL;
-        Boolean isPeopleExist2 = peopleDao.openNormalQuery().where(PeoplePO::getId).isNotNull().exists();
+        Boolean isPeopleExist2 = peopleRepository.openNormalQuery().where(PeoplePO::getId).isNotNull().exists();
 
         testDelete();
     }

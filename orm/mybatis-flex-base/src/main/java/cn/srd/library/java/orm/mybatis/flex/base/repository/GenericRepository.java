@@ -2,13 +2,13 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.orm.mybatis.flex.base.dao;
+package cn.srd.library.java.orm.mybatis.flex.base.repository;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.mybatis.flex.base.adapter.BaseMapperAdapter;
+import cn.srd.library.java.orm.mybatis.flex.base.cache.MybatisFlexSystemCache;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.DeleteChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChain;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChainer;
@@ -44,14 +44,14 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * the generic curd dao
+ * the generic curd repository
  *
  * @param <P> the entity extends {@link PO}
  * @author wjm
  * @since 2023-11-04 00:19
  */
 @CanIgnoreReturnValue
-public interface GenericCurdDao<P extends PO> {
+public interface GenericRepository<P extends PO> {
 
     /**
      * see <a href="https://mybatis-flex.com/zh/base/batch.html">"the batch operation guide"</a>.
@@ -124,7 +124,7 @@ public interface GenericCurdDao<P extends PO> {
     @Transactional(rollbackFor = Throwable.class)
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     default List<P> saveBatch(Iterable<P> entities) {
-        return Springs.getProxy(GenericCurdDao.class).saveBatch(entities, DEFAULT_BATCH_SIZE_EACH_TIME);
+        return Springs.getProxy(GenericRepository.class).saveBatch(entities, DEFAULT_BATCH_SIZE_EACH_TIME);
     }
 
     /**
@@ -168,7 +168,7 @@ public interface GenericCurdDao<P extends PO> {
         List<P> listTypeEntities = entities instanceof List<P> actualEntities ? actualEntities : Converts.toList(entities);
         Action.ifTrue(listTypeEntities.size() <= GENERATE_FULL_SQL_BATCH_SIZE)
                 .then(() -> getBaseMapper().insertBatch(listTypeEntities, batchSizeEachTime))
-                .otherwise(() -> Db.executeBatch(listTypeEntities, batchSizeEachTime, ClassUtil.getUsefulClass(this.getClass()), GenericCurdDao::save));
+                .otherwise(() -> Db.executeBatch(listTypeEntities, batchSizeEachTime, ClassUtil.getUsefulClass(this.getClass()), GenericRepository::save));
         return listTypeEntities;
     }
 
@@ -193,7 +193,7 @@ public interface GenericCurdDao<P extends PO> {
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     default List<P> updateBatchById(P... entities) {
         List<P> needToUpdateEntities = Collections.ofArrayList(entities);
-        Springs.getProxy(GenericCurdDao.class).updateBatchById(needToUpdateEntities);
+        Springs.getProxy(GenericRepository.class).updateBatchById(needToUpdateEntities);
         return needToUpdateEntities;
     }
 
@@ -206,7 +206,7 @@ public interface GenericCurdDao<P extends PO> {
      */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     default List<P> updateBatchById(Iterable<P> entities) {
-        return Springs.getProxy(GenericCurdDao.class).updateBatchById(entities, DEFAULT_BATCH_SIZE_EACH_TIME);
+        return Springs.getProxy(GenericRepository.class).updateBatchById(entities, DEFAULT_BATCH_SIZE_EACH_TIME);
     }
 
     /**
@@ -243,7 +243,7 @@ public interface GenericCurdDao<P extends PO> {
                 needToUpdateEntities,
                 batchSizeEachTime,
                 ClassUtil.getUsefulClass(this.getClass()),
-                GenericCurdDao::updateById
+                GenericRepository::updateById
         );
         return needToUpdateEntities;
     }
@@ -320,7 +320,7 @@ public interface GenericCurdDao<P extends PO> {
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     default List<P> updateBatchWithVersionById(Iterable<P> entities, Function<P, ? extends Serializable> getIdAction, int batchSizeEachTime) {
         setVersionFieldValues(entities, getIdAction);
-        return Springs.getProxy(GenericCurdDao.class).updateBatchById(entities, batchSizeEachTime);
+        return Springs.getProxy(GenericRepository.class).updateBatchById(entities, batchSizeEachTime);
     }
 
     /**
@@ -514,9 +514,8 @@ public interface GenericCurdDao<P extends PO> {
         return new DeleteChainer<>(UpdateChain.of(baseMapper));
     }
 
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     private BaseMapper<P> getBaseMapper() {
-        return (BaseMapper<P>) BaseMapperAdapter.getInstance().getBaseMapper(this.getClass());
+        return MybatisFlexSystemCache.getInstance().getBaseMapper(this.getClass());
     }
 
     private P getEntityToUpdateVersion(P updatedEntity) {

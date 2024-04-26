@@ -22,15 +22,15 @@ public class DeleteChainer<P extends PO> extends BaseDeleteChainer<P> {
     @Getter(AccessLevel.PROTECTED) private final UpdateChain<P> nativeUpdateChainer;
 
     public QueryConditional<DeleteChainer<P>, UpdateChain<P>> where(ColumnNameGetter<P> columnNameGetter) {
-        return new QueryConditional<>(getNativeUpdateChainer().where(columnNameGetter), this);
+        return new QueryConditional<>(this, getNativeUpdateChainer().where(columnNameGetter));
     }
 
     public QueryConditional<DeleteChainer<P>, UpdateChain<P>> and(ColumnNameGetter<P> columnNameGetter) {
-        return new QueryConditional<>(getNativeUpdateChainer().and(columnNameGetter), this);
+        return new QueryConditional<>(this, getNativeUpdateChainer().and(columnNameGetter));
     }
 
     public QueryConditional<DeleteChainer<P>, UpdateChain<P>> or(ColumnNameGetter<P> columnNameGetter) {
-        return new QueryConditional<>(getNativeUpdateChainer().or(columnNameGetter), this);
+        return new QueryConditional<>(this, getNativeUpdateChainer().or(columnNameGetter));
     }
 
     public void delete() {

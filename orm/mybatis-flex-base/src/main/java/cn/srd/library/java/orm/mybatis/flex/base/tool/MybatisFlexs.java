@@ -112,6 +112,10 @@ public class MybatisFlexs {
         return queryColumn.getName();
     }
 
+    public static <T> Class<?> getClass(ColumnNameGetter<T> columnNameGetter) {
+        return LambdaUtil.getImplClass(columnNameGetter);
+    }
+
     public static <T> String getClassName(ColumnNameGetter<T> columnNameGetter) {
         return LambdaUtil.getImplClass(columnNameGetter).getSimpleName();
     }
@@ -119,7 +123,7 @@ public class MybatisFlexs {
     // TODO wjm 后续优化 JsonProperty 为可插拔
     public static <T> String getFieldName(ColumnNameGetter<T> columnNameGetter) {
         String fieldName = LambdaUtil.getFieldName(columnNameGetter);
-        Class<?> classOfField = LambdaUtil.getImplClass(columnNameGetter);
+        Class<?> classOfField = getClass(columnNameGetter);
         String classNameAndFieldName = Strings.format("{}-{}", classOfField.getName(), fieldName);
         return CLASS_NAME_AND_FIELD_NAME_MAPPING_DATABASE_COLUMN_NAME_MAP.computeIfAbsent(classNameAndFieldName, ignore -> {
             Field field = Classes.getFieldDeep(classOfField, fieldName);

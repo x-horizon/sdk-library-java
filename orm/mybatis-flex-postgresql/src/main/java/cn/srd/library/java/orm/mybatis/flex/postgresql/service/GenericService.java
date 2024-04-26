@@ -6,8 +6,7 @@ package cn.srd.library.java.orm.mybatis.flex.postgresql.service;
 
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.base.VO;
-import cn.srd.library.java.orm.mybatis.flex.base.dao.GenericCurdDao;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.GenericDao;
+import cn.srd.library.java.orm.mybatis.flex.base.repository.GenericRepository;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,13 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @param <P> the entity extends {@link PO}
  * @param <V> the entity extends {@link VO}
- * @param <D> the dao extends {@link GenericCurdDao}
+ * @param <R> the repository extends {@link GenericRepository}
  * @author wjm
  * @since 2024-04-18 23:44
  */
 @CanIgnoreReturnValue
-public class GenericService<P extends PO, V extends VO, D extends GenericDao<P>> extends cn.srd.library.java.orm.mybatis.flex.base.service.GenericService<P, V, D> {
+public class GenericService<P extends PO, V extends VO, R extends GenericRepository<P>> extends cn.srd.library.java.orm.mybatis.flex.base.service.GenericService<P, V, R> {
 
-    @Autowired private D dao;
+    @Autowired private R repository;
 
 }

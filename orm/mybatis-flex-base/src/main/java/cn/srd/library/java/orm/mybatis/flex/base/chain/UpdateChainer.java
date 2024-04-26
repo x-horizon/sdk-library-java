@@ -58,15 +58,15 @@ public class UpdateChainer<P extends PO> extends BaseUpdateChainer<P> {
     }
 
     public QueryConditional<UpdateChainer<P>, UpdateChain<P>> where(ColumnNameGetter<P> columnNameGetter) {
-        return new QueryConditional<>(getNativeUpdateChainer().where(columnNameGetter), this);
+        return new QueryConditional<>(this, getNativeUpdateChainer().where(columnNameGetter));
     }
 
     public QueryConditional<UpdateChainer<P>, UpdateChain<P>> and(ColumnNameGetter<P> columnNameGetter) {
-        return new QueryConditional<>(getNativeUpdateChainer().and(columnNameGetter), this);
+        return new QueryConditional<>(this, getNativeUpdateChainer().and(columnNameGetter));
     }
 
     public QueryConditional<UpdateChainer<P>, UpdateChain<P>> or(ColumnNameGetter<P> columnNameGetter) {
-        return new QueryConditional<>(getNativeUpdateChainer().or(columnNameGetter), this);
+        return new QueryConditional<>(this, getNativeUpdateChainer().or(columnNameGetter));
     }
 
     public void update() {

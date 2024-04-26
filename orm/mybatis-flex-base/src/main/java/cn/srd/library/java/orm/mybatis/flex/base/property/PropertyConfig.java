@@ -70,7 +70,7 @@ public @interface PropertyConfig {
     Class<? extends Log> nativeMybatisLog() default NoLoggingImpl.class;
 
     /**
-     * the {@link MybatisFlexProperties#getMapperLocations() class paths where mybatis mapper xml files stored}, like: "classpath*:cn/test/dao/impl/*.xml".
+     * the {@link MybatisFlexProperties#getMapperLocations() class paths where mybatis mapper xml files stored}, like: "classpath*:cn/test/repository/impl/*.xml".
      * <ol>
      *   <li>
      *       if not specified this field value or set the value of key "mybatis-flex.mapper-locations" in spring configuration file,<br/>
@@ -86,19 +86,19 @@ public @interface PropertyConfig {
      * {@code
      *   mybatis-flex:
      *     mapper-locations:
-     *       - classpath*:cn/test1/dao/impl/*.xml
+     *       - classpath*:cn/test1/repository/impl/*.xml
      * }
      * </pre>
      *         </li>
      *         <li>specified this field value:
      * <pre>
      * {@code
-     *  @PropertyConfig(xmlMapperClassPaths = {"classpath*:cn/test2/dao/impl/*.xml"})
+     *  @PropertyConfig(xmlMapperClassPaths = {"classpath*:cn/test2/repository/impl/*.xml"})
      * }
      * </pre>
      *         </li>
      *       </ul>
-     *       finally the class path "classpath*:cn/test1/dao/impl/*.xml" in spring configuration file will be selected.
+     *       finally the class path "classpath*:cn/test1/repository/impl/*.xml" in spring configuration file will be selected.
      *   </li>
      *   <li>
      *       if just specified this field value, then using this field value as the class paths where mybatis mapper xml files stored.
@@ -107,12 +107,12 @@ public @interface PropertyConfig {
      *         <li>specified this field value:
      * <pre>
      * {@code
-     *  @PropertyConfig(xmlMapperClassPaths = {"classpath*:cn/test/dao/impl/*.xml"})
+     *  @PropertyConfig(xmlMapperClassPaths = {"classpath*:cn/test/repository/impl/*.xml"})
      * }
      * </pre>
      *         </li>
      *       </ul>
-     *       finally the class path "classpath*:cn/test/dao/impl/*.xml" will be selected.
+     *       finally the class path "classpath*:cn/test/repository/impl/*.xml" will be selected.
      *   </li>
      * </ol>
      *

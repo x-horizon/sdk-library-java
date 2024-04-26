@@ -5,8 +5,8 @@
 package cn.srd.library.java.orm.mybatis.flex.base.autoconfigure;
 
 import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.mybatis.flex.base.adapter.BaseMapperAdapter;
-import cn.srd.library.java.orm.mybatis.flex.base.dao.GenericCurdDao;
+import cn.srd.library.java.orm.mybatis.flex.base.cache.MybatisFlexSystemCache;
+import cn.srd.library.java.orm.mybatis.flex.base.repository.GenericRepository;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.spring.boot.MybatisFlexAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -37,8 +37,8 @@ public class MybatisFlexAutoConfigurer {
     }
 
     @Bean
-    public <P extends PO, D extends GenericCurdDao<P>, B extends BaseMapper<P>> BaseMapperAdapter<P, D, B> genericDaoAdapter() {
-        return new BaseMapperAdapter<>();
+    public <P extends PO, R extends GenericRepository<P>, B extends BaseMapper<P>> MybatisFlexSystemCache<P, R, B> mybatisFlexSystemCache() {
+        return new MybatisFlexSystemCache<>();
     }
 
 }

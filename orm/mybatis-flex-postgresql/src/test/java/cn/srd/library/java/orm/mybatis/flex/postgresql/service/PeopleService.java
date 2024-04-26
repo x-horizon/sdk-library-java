@@ -4,9 +4,9 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.service;
 
-import cn.srd.library.java.orm.mybatis.flex.postgresql.dao.PeopleDao;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.PeoplePO;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.vo.PeopleVO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.repository.PeopleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
  * @since 2024-04-16 15:26
  */
 @Service
-public class PeopleService extends GenericService<PeoplePO, PeopleVO, PeopleDao> {
+public class PeopleService extends GenericService<PeoplePO, PeopleVO, PeopleRepository> {
 
-    @Autowired private PeopleDao peopleDao;
+    @Autowired private PeopleRepository peopleRepository;
 
 }

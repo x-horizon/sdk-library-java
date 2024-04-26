@@ -1,4 +1,4 @@
-package cn.srd.library.java.orm.mybatis.flex.postgresql.dao;
+package cn.srd.library.java.orm.mybatis.flex.postgresql.repository;
 
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.PeoplePO;
 import org.springframework.stereotype.Repository;
@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
  * @since 2023-11-04 00:19
  */
 @Repository
-public interface PeopleDao extends GenericDao<PeoplePO> {
+public interface PeopleRepository extends GenericRepository<PeoplePO> {
 
 }

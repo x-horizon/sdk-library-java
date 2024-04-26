@@ -116,17 +116,17 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
 
     @SuppressWarnings(SuppressWarningConstant.ALL)
     public <PJ extends POJO> QueryConditional<? extends QueryChainer<P>, QueryChain<P>> where(ColumnNameGetter<PJ> columnNameGetter) {
-        return new QueryConditional<>(getNativeQueryChain().where(columnNameGetter), this);
+        return new QueryConditional<>(this, getNativeQueryChain().where(columnNameGetter));
     }
 
     @SuppressWarnings(SuppressWarningConstant.ALL)
     public <PJ extends POJO> QueryConditional<? extends QueryChainer<P>, QueryChain<P>> and(ColumnNameGetter<PJ> columnNameGetter) {
-        return new QueryConditional<>(getNativeQueryChain().and(columnNameGetter), this);
+        return new QueryConditional<>(this, getNativeQueryChain().and(columnNameGetter));
     }
 
     @SuppressWarnings(SuppressWarningConstant.ALL)
     public <PJ extends POJO> QueryConditional<? extends QueryChainer<P>, QueryChain<P>> or(ColumnNameGetter<PJ> columnNameGetter) {
-        return new QueryConditional<>(getNativeQueryChain().or(columnNameGetter), this);
+        return new QueryConditional<>(this, getNativeQueryChain().or(columnNameGetter));
     }
 
     public QueryChainer<P> as(String aliasName) {

@@ -26,20 +26,20 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
 
 /**
- * @param <Q> the chainer extends {@link BaseChainer}
- * @param <N> the wrapper extends {@link QueryWrapper}
+ * @param <C> the chainer extends {@link BaseChainer}
+ * @param <W> the wrapper extends {@link QueryWrapper}
  * @author wjm
  * @since 2023-12-03 23:35
  */
 @CanIgnoreReturnValue
 @AllArgsConstructor
-public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> extends BaseQueryConditional<N> {
-
-    @Getter(AccessLevel.PROTECTED)
-    private final QueryConditionBuilder<N> nativeQueryConditional;
+public class QueryConditional<C extends BaseChainer, W extends QueryWrapper> extends BaseQueryConditional<W> {
 
     @Getter(AccessLevel.PRIVATE)
-    private final Q chainer;
+    private final C chainer;
+
+    @Getter(AccessLevel.PROTECTED)
+    private final QueryConditionBuilder<W> nativeQueryConditional;
 
     private static final String ADD_WHERE_QUERY_CONDITION_METHOD_NAME = "addWhereQueryCondition";
 
@@ -57,7 +57,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param value the column value
      * @return equals condition
      */
-    public Q equalsTo(Object value) {
+    public C equalsTo(Object value) {
         return equalsTo(value, true);
     }
 
@@ -68,7 +68,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return equals condition
      */
-    public Q equalsTo(Object value, BooleanSupplier condition) {
+    public C equalsTo(Object value, BooleanSupplier condition) {
         return equalsTo(value, condition.getAsBoolean());
     }
 
@@ -79,7 +79,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return equals condition
      */
-    public <U> Q equalsTo(U value, Predicate<U> condition) {
+    public <U> C equalsTo(U value, Predicate<U> condition) {
         return equalsTo(value, condition.test(value));
     }
 
@@ -90,7 +90,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return equals condition
      */
-    public Q equalsTo(Object value, boolean condition) {
+    public C equalsTo(Object value, boolean condition) {
         getNativeQueryConditional().eq(value, condition);
         return getChainer();
     }
@@ -101,7 +101,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param columnNameGetter the column value getter
      * @return equals condition
      */
-    public <P1 extends PO> Q equalsTo(ColumnNameGetter<P1> columnNameGetter) {
+    public <P1 extends PO> C equalsTo(ColumnNameGetter<P1> columnNameGetter) {
         return equalsTo(columnNameGetter, true);
     }
 
@@ -112,7 +112,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return equals condition
      */
-    public <P1 extends PO> Q equalsTo(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
+    public <P1 extends PO> C equalsTo(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
         return equalsTo(columnNameGetter, condition.getAsBoolean());
     }
 
@@ -123,7 +123,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return equals condition
      */
-    public <P1 extends PO> Q equalsTo(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
+    public <P1 extends PO> C equalsTo(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
         return equalsTo(MybatisFlexs.getQueryColumn(columnNameGetter), condition);
     }
 
@@ -134,7 +134,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return equals condition
      * @see Nil#isNotNull(Object)
      */
-    public Q equalsIfNotNull(Object value) {
+    public C equalsIfNotNull(Object value) {
         return equalsTo(value, If::notNull);
     }
 
@@ -145,7 +145,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return equals condition
      * @see Nil#isNotZeroValue(Number)
      */
-    public Q equalsIfNotZeroValue(Number value) {
+    public C equalsIfNotZeroValue(Number value) {
         return equalsTo(value, If::notZeroValue);
     }
 
@@ -156,7 +156,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return equals condition
      * @see Nil#isNotEmpty(CharSequence)
      */
-    public Q equalsIfNotEmpty(CharSequence value) {
+    public C equalsIfNotEmpty(CharSequence value) {
         return equalsTo(value, If::notEmpty);
     }
 
@@ -167,7 +167,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return equals condition
      * @see Nil#isNotBlank(CharSequence)
      */
-    public Q equalsIfNotBlank(CharSequence value) {
+    public C equalsIfNotBlank(CharSequence value) {
         return equalsTo(value, If::notBlank);
     }
 
@@ -179,7 +179,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param value the column value
      * @return not equals condition
      */
-    public Q notEquals(Object value) {
+    public C notEquals(Object value) {
         return notEquals(value, true);
     }
 
@@ -190,7 +190,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not equals condition
      */
-    public Q notEquals(Object value, BooleanSupplier condition) {
+    public C notEquals(Object value, BooleanSupplier condition) {
         return notEquals(value, condition.getAsBoolean());
     }
 
@@ -201,7 +201,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not equals condition
      */
-    public <U> Q notEquals(U value, Predicate<U> condition) {
+    public <U> C notEquals(U value, Predicate<U> condition) {
         return notEquals(value, condition.test(value));
     }
 
@@ -212,7 +212,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not equals condition
      */
-    public Q notEquals(Object value, boolean condition) {
+    public C notEquals(Object value, boolean condition) {
         getNativeQueryConditional().ne(value, condition);
         return getChainer();
     }
@@ -223,7 +223,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param columnNameGetter the column value getter
      * @return not equals condition
      */
-    public <P1 extends PO> Q notEquals(ColumnNameGetter<P1> columnNameGetter) {
+    public <P1 extends PO> C notEquals(ColumnNameGetter<P1> columnNameGetter) {
         return notEquals(columnNameGetter, true);
     }
 
@@ -234,7 +234,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return not equals condition
      */
-    public <P1 extends PO> Q notEquals(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
+    public <P1 extends PO> C notEquals(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
         return notEquals(columnNameGetter, condition.getAsBoolean());
     }
 
@@ -245,7 +245,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return not equals condition
      */
-    public <P1 extends PO> Q notEquals(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
+    public <P1 extends PO> C notEquals(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
         return notEquals(MybatisFlexs.getQueryColumn(columnNameGetter), condition);
     }
 
@@ -256,7 +256,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return not equals condition
      * @see Nil#isNotNull(Object)
      */
-    public Q notEqualsIfNotNull(Object value) {
+    public C notEqualsIfNotNull(Object value) {
         return notEquals(value, If::notNull);
     }
 
@@ -267,7 +267,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return not equals condition
      * @see Nil#isNotZeroValue(Number)
      */
-    public Q notEqualsIfNotZeroValue(Number value) {
+    public C notEqualsIfNotZeroValue(Number value) {
         return notEquals(value, If::notZeroValue);
     }
 
@@ -278,7 +278,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return not equals condition
      * @see Nil#isNotEmpty(CharSequence)
      */
-    public Q notEqualsIfNotEmpty(CharSequence value) {
+    public C notEqualsIfNotEmpty(CharSequence value) {
         return notEquals(value, If::notEmpty);
     }
 
@@ -289,7 +289,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return not equals condition
      * @see Nil#isNotBlank(CharSequence)
      */
-    public Q notEqualsIfNotBlank(CharSequence value) {
+    public C notEqualsIfNotBlank(CharSequence value) {
         return notEquals(value, If::notBlank);
     }
 
@@ -301,7 +301,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param value the column value
      * @return greater than condition
      */
-    public Q greaterThan(Object value) {
+    public C greaterThan(Object value) {
         return greaterThan(value, true);
     }
 
@@ -312,7 +312,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return greater than condition
      */
-    public Q greaterThan(Object value, BooleanSupplier condition) {
+    public C greaterThan(Object value, BooleanSupplier condition) {
         return greaterThan(value, condition.getAsBoolean());
     }
 
@@ -323,7 +323,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return greater than condition
      */
-    public <U> Q greaterThan(U value, Predicate<U> condition) {
+    public <U> C greaterThan(U value, Predicate<U> condition) {
         return greaterThan(value, condition.test(value));
     }
 
@@ -334,7 +334,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return greater than condition
      */
-    public Q greaterThan(Object value, boolean condition) {
+    public C greaterThan(Object value, boolean condition) {
         getNativeQueryConditional().gt(value, condition);
         return getChainer();
     }
@@ -345,7 +345,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param columnNameGetter the column value getter
      * @return greater than condition
      */
-    public <P1 extends PO> Q greaterThan(ColumnNameGetter<P1> columnNameGetter) {
+    public <P1 extends PO> C greaterThan(ColumnNameGetter<P1> columnNameGetter) {
         return greaterThan(columnNameGetter, true);
     }
 
@@ -356,7 +356,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return greater than condition
      */
-    public <P1 extends PO> Q greaterThan(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
+    public <P1 extends PO> C greaterThan(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
         return greaterThan(columnNameGetter, condition.getAsBoolean());
     }
 
@@ -367,7 +367,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return greater than condition
      */
-    public <P1 extends PO> Q greaterThan(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
+    public <P1 extends PO> C greaterThan(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
         return greaterThan(MybatisFlexs.getQueryColumn(columnNameGetter), condition);
     }
 
@@ -378,7 +378,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return greater than condition
      * @see Nil#isNotNull(Object)
      */
-    public Q greaterThanIfNotNull(Object value) {
+    public C greaterThanIfNotNull(Object value) {
         return greaterThan(value, If::notNull);
     }
 
@@ -389,7 +389,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return greater than condition
      * @see Nil#isNotZeroValue(Number)
      */
-    public Q greaterThanIfNotZeroValue(Number value) {
+    public C greaterThanIfNotZeroValue(Number value) {
         return greaterThan(value, If::notZeroValue);
     }
 
@@ -401,7 +401,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param value the column value
      * @return greater than or equals condition
      */
-    public Q greaterThanOrEquals(Object value) {
+    public C greaterThanOrEquals(Object value) {
         return greaterThanOrEquals(value, true);
     }
 
@@ -412,7 +412,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return greater than or equals condition
      */
-    public Q greaterThanOrEquals(Object value, BooleanSupplier condition) {
+    public C greaterThanOrEquals(Object value, BooleanSupplier condition) {
         return greaterThanOrEquals(value, condition.getAsBoolean());
     }
 
@@ -423,7 +423,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return greater than or equals condition
      */
-    public <U> Q greaterThanOrEquals(U value, Predicate<U> condition) {
+    public <U> C greaterThanOrEquals(U value, Predicate<U> condition) {
         return greaterThanOrEquals(value, condition.test(value));
     }
 
@@ -434,7 +434,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return greater than or equals condition
      */
-    public Q greaterThanOrEquals(Object value, boolean condition) {
+    public C greaterThanOrEquals(Object value, boolean condition) {
         getNativeQueryConditional().ge(value, condition);
         return getChainer();
     }
@@ -445,7 +445,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param columnNameGetter the column value getter
      * @return greater than or equals condition
      */
-    public <P1 extends PO> Q greaterThanOrEquals(ColumnNameGetter<P1> columnNameGetter) {
+    public <P1 extends PO> C greaterThanOrEquals(ColumnNameGetter<P1> columnNameGetter) {
         return greaterThanOrEquals(columnNameGetter, true);
     }
 
@@ -456,7 +456,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return greater than or equals condition
      */
-    public <P1 extends PO> Q greaterThanOrEquals(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
+    public <P1 extends PO> C greaterThanOrEquals(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
         return greaterThanOrEquals(columnNameGetter, condition.getAsBoolean());
     }
 
@@ -467,7 +467,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return greater than or equals condition
      */
-    public <P1 extends PO> Q greaterThanOrEquals(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
+    public <P1 extends PO> C greaterThanOrEquals(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
         return greaterThanOrEquals(MybatisFlexs.getQueryColumn(columnNameGetter), condition);
     }
 
@@ -478,7 +478,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return greater than or equals condition
      * @see Nil#isNotNull(Object)
      */
-    public Q greaterThanOrEqualsIfNotNull(Object value) {
+    public C greaterThanOrEqualsIfNotNull(Object value) {
         return greaterThanOrEquals(value, If::notNull);
     }
 
@@ -489,7 +489,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return greater than or equals condition
      * @see Nil#isNotZeroValue(Number)
      */
-    public Q greaterThanOrEqualsIfNotZeroValue(Number value) {
+    public C greaterThanOrEqualsIfNotZeroValue(Number value) {
         return greaterThanOrEquals(value, If::notZeroValue);
     }
 
@@ -501,7 +501,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param value the column value
      * @return less than condition
      */
-    public Q lessThan(Object value) {
+    public C lessThan(Object value) {
         return lessThan(value, true);
     }
 
@@ -512,7 +512,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return less than condition
      */
-    public Q lessThan(Object value, BooleanSupplier condition) {
+    public C lessThan(Object value, BooleanSupplier condition) {
         return lessThan(value, condition.getAsBoolean());
     }
 
@@ -523,7 +523,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return less than condition
      */
-    public <U> Q lessThan(U value, Predicate<U> condition) {
+    public <U> C lessThan(U value, Predicate<U> condition) {
         return lessThan(value, condition.test(value));
     }
 
@@ -534,7 +534,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return less than condition
      */
-    public Q lessThan(Object value, boolean condition) {
+    public C lessThan(Object value, boolean condition) {
         getNativeQueryConditional().lt(value, condition);
         return getChainer();
     }
@@ -545,7 +545,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param columnNameGetter the column value getter
      * @return less than condition
      */
-    public <P1 extends PO> Q lessThan(ColumnNameGetter<P1> columnNameGetter) {
+    public <P1 extends PO> C lessThan(ColumnNameGetter<P1> columnNameGetter) {
         return lessThan(columnNameGetter, true);
     }
 
@@ -556,7 +556,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return less than condition
      */
-    public <P1 extends PO> Q lessThan(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
+    public <P1 extends PO> C lessThan(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
         return lessThan(columnNameGetter, condition.getAsBoolean());
     }
 
@@ -567,7 +567,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return less than condition
      */
-    public <P1 extends PO> Q lessThan(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
+    public <P1 extends PO> C lessThan(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
         return lessThan(MybatisFlexs.getQueryColumn(columnNameGetter), condition);
     }
 
@@ -578,7 +578,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return less than condition
      * @see Nil#isNotNull(Object)
      */
-    public Q lessThanIfNotNull(Object value) {
+    public C lessThanIfNotNull(Object value) {
         return lessThan(value, If::notNull);
     }
 
@@ -589,7 +589,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return less than condition
      * @see Nil#isNotZeroValue(Number)
      */
-    public Q lessThanIfNotZeroValue(Number value) {
+    public C lessThanIfNotZeroValue(Number value) {
         return lessThan(value, If::notZeroValue);
     }
 
@@ -601,7 +601,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param value the column value
      * @return less than or equals condition
      */
-    public Q lessThanOrEquals(Object value) {
+    public C lessThanOrEquals(Object value) {
         return lessThanOrEquals(value, true);
     }
 
@@ -612,7 +612,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return less than or equals condition
      */
-    public Q lessThanOrEquals(Object value, BooleanSupplier condition) {
+    public C lessThanOrEquals(Object value, BooleanSupplier condition) {
         return lessThanOrEquals(value, condition.getAsBoolean());
     }
 
@@ -623,7 +623,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return less than or equals condition
      */
-    public <U> Q lessThanOrEquals(U value, Predicate<U> condition) {
+    public <U> C lessThanOrEquals(U value, Predicate<U> condition) {
         return lessThanOrEquals(value, condition.test(value));
     }
 
@@ -634,7 +634,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return less than or equals condition
      */
-    public Q lessThanOrEquals(Object value, boolean condition) {
+    public C lessThanOrEquals(Object value, boolean condition) {
         getNativeQueryConditional().le(value, condition);
         return getChainer();
     }
@@ -645,7 +645,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param columnNameGetter the column value getter
      * @return less than or equals condition
      */
-    public <P1 extends PO> Q lessThanOrEquals(ColumnNameGetter<P1> columnNameGetter) {
+    public <P1 extends PO> C lessThanOrEquals(ColumnNameGetter<P1> columnNameGetter) {
         return lessThanOrEquals(columnNameGetter, true);
     }
 
@@ -656,7 +656,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return less than or equals condition
      */
-    public <P1 extends PO> Q lessThanOrEquals(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
+    public <P1 extends PO> C lessThanOrEquals(ColumnNameGetter<P1> columnNameGetter, BooleanSupplier condition) {
         return lessThanOrEquals(columnNameGetter, condition.getAsBoolean());
     }
 
@@ -667,7 +667,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition        the append condition
      * @return less than or equals condition
      */
-    public <P1 extends PO> Q lessThanOrEquals(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
+    public <P1 extends PO> C lessThanOrEquals(ColumnNameGetter<P1> columnNameGetter, boolean condition) {
         return lessThanOrEquals(MybatisFlexs.getQueryColumn(columnNameGetter), condition);
     }
 
@@ -678,7 +678,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return less than or equals condition
      * @see Nil#isNotNull(Object)
      */
-    public Q lessThanOrEqualsIfNotNull(Object value) {
+    public C lessThanOrEqualsIfNotNull(Object value) {
         return lessThanOrEquals(value, If::notNull);
     }
 
@@ -689,7 +689,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return less than or equals condition
      * @see Nil#isNotZeroValue(Number)
      */
-    public Q lessThanOrEqualsIfNotZeroValue(Number value) {
+    public C lessThanOrEqualsIfNotZeroValue(Number value) {
         return lessThanOrEquals(value, If::notZeroValue);
     }
 
@@ -701,7 +701,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param values the column values
      * @return in condition
      */
-    public Q in(Object... values) {
+    public C in(Object... values) {
         return in(values, true);
     }
 
@@ -712,7 +712,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return in condition
      */
-    public Q in(Object[] values, BooleanSupplier condition) {
+    public C in(Object[] values, BooleanSupplier condition) {
         return in(values, condition.getAsBoolean());
     }
 
@@ -723,7 +723,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return in condition
      */
-    public <U> Q in(U[] values, Predicate<U[]> condition) {
+    public <U> C in(U[] values, Predicate<U[]> condition) {
         return in(values, condition.test(values));
     }
 
@@ -734,7 +734,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return in condition
      */
-    public Q in(Object[] values, boolean condition) {
+    public C in(Object[] values, boolean condition) {
         getNativeQueryConditional().in(values, condition);
         return getChainer();
     }
@@ -745,7 +745,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param values the column values
      * @return in condition
      */
-    public Q in(Iterable<?> values) {
+    public C in(Iterable<?> values) {
         return in(values, true);
     }
 
@@ -756,7 +756,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return in condition
      */
-    public Q in(Iterable<?> values, BooleanSupplier condition) {
+    public C in(Iterable<?> values, BooleanSupplier condition) {
         return in(values, condition.getAsBoolean());
     }
 
@@ -767,7 +767,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return in condition
      */
-    public <U> Q in(Iterable<U> values, Predicate<Iterable<U>> condition) {
+    public <U> C in(Iterable<U> values, Predicate<Iterable<U>> condition) {
         return in(values, condition.test(values));
     }
 
@@ -778,7 +778,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return in condition
      */
-    public Q in(Iterable<?> values, boolean condition) {
+    public C in(Iterable<?> values, boolean condition) {
         if (values instanceof Collection<?> collectionTypeValues) {
             in(collectionTypeValues.toArray(), condition);
         } else {
@@ -794,7 +794,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return in condition
      * @see Nil#isNotEmpty(Object...)
      */
-    public Q inIfNotEmpty(Object... values) {
+    public C inIfNotEmpty(Object... values) {
         return in(values, If::notEmpty);
     }
 
@@ -805,7 +805,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return in condition
      * @see Nil#isNotEmpty(Iterable)
      */
-    public Q inIfNotEmpty(Iterable<?> values) {
+    public C inIfNotEmpty(Iterable<?> values) {
         return in(values, If::notEmpty);
     }
 
@@ -817,7 +817,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param values the column values
      * @return not in condition
      */
-    public Q notIn(Object... values) {
+    public C notIn(Object... values) {
         return notIn(values, true);
     }
 
@@ -828,7 +828,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not in condition
      */
-    public Q notIn(Object[] values, BooleanSupplier condition) {
+    public C notIn(Object[] values, BooleanSupplier condition) {
         return notIn(values, condition.getAsBoolean());
     }
 
@@ -839,7 +839,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not in condition
      */
-    public <U> Q notIn(U[] values, Predicate<U[]> condition) {
+    public <U> C notIn(U[] values, Predicate<U[]> condition) {
         return notIn(values, condition.test(values));
     }
 
@@ -850,7 +850,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not in condition
      */
-    public Q notIn(Object[] values, boolean condition) {
+    public C notIn(Object[] values, boolean condition) {
         getNativeQueryConditional().notIn(values, condition);
         return getChainer();
     }
@@ -861,7 +861,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param values the column values
      * @return not in condition
      */
-    public Q notIn(Iterable<?> values) {
+    public C notIn(Iterable<?> values) {
         return notIn(values, true);
     }
 
@@ -872,7 +872,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not in condition
      */
-    public Q notIn(Iterable<?> values, BooleanSupplier condition) {
+    public C notIn(Iterable<?> values, BooleanSupplier condition) {
         return notIn(values, condition.getAsBoolean());
     }
 
@@ -883,7 +883,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not in condition
      */
-    public <U> Q notIn(Iterable<U> values, Predicate<Iterable<U>> condition) {
+    public <U> C notIn(Iterable<U> values, Predicate<Iterable<U>> condition) {
         return notIn(values, condition.test(values));
     }
 
@@ -894,7 +894,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not in condition
      */
-    public Q notIn(Iterable<?> values, boolean condition) {
+    public C notIn(Iterable<?> values, boolean condition) {
         if (values instanceof Collection<?> collectionTypeValues) {
             notIn(collectionTypeValues.toArray(), condition);
         } else {
@@ -910,7 +910,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return not in condition
      * @see Nil#isNotEmpty(Object...)
      */
-    public Q notInIfNotEmpty(Object... values) {
+    public C notInIfNotEmpty(Object... values) {
         return notIn(values, If::notEmpty);
     }
 
@@ -921,7 +921,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return not in condition
      * @see Nil#isNotEmpty(Iterable)
      */
-    public Q notInIfNotEmpty(Iterable<?> values) {
+    public C notInIfNotEmpty(Iterable<?> values) {
         return notIn(values, If::notEmpty);
     }
 
@@ -934,7 +934,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param endValue   the between end column value
      * @return between condition
      */
-    public Q between(Object startValue, Object endValue) {
+    public C between(Object startValue, Object endValue) {
         return between(startValue, endValue, true);
     }
 
@@ -946,7 +946,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition  the append condition
      * @return between condition
      */
-    public Q between(Object startValue, Object endValue, BooleanSupplier condition) {
+    public C between(Object startValue, Object endValue, BooleanSupplier condition) {
         return between(startValue, endValue, condition.getAsBoolean());
     }
 
@@ -958,7 +958,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition  the append condition
      * @return between condition
      */
-    public <S, E> Q between(S startValue, E endValue, BiPredicate<S, E> condition) {
+    public <S, E> C between(S startValue, E endValue, BiPredicate<S, E> condition) {
         return between(startValue, endValue, condition.test(startValue, endValue));
     }
 
@@ -970,7 +970,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition  the append condition
      * @return between condition
      */
-    public Q between(Object startValue, Object endValue, boolean condition) {
+    public C between(Object startValue, Object endValue, boolean condition) {
         getNativeQueryConditional().between(startValue, endValue, condition);
         return getChainer();
     }
@@ -983,7 +983,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return between condition
      * @see Nil#isAllNotNull(Object...)
      */
-    public Q betweenIfAllNotNull(Object startValue, Object endValue) {
+    public C betweenIfAllNotNull(Object startValue, Object endValue) {
         return between(startValue, endValue, Nil.isAllNotNull(startValue, endValue));
     }
 
@@ -996,7 +996,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param endValue   the between end column value
      * @return not between condition
      */
-    public Q notBetween(Object startValue, Object endValue) {
+    public C notBetween(Object startValue, Object endValue) {
         return notBetween(startValue, endValue, true);
     }
 
@@ -1008,7 +1008,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition  the append condition
      * @return not between condition
      */
-    public Q notBetween(Object startValue, Object endValue, BooleanSupplier condition) {
+    public C notBetween(Object startValue, Object endValue, BooleanSupplier condition) {
         return notBetween(startValue, endValue, condition.getAsBoolean());
     }
 
@@ -1020,7 +1020,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition  the append condition
      * @return not between condition
      */
-    public <S, E> Q notBetween(S startValue, E endValue, BiPredicate<S, E> condition) {
+    public <S, E> C notBetween(S startValue, E endValue, BiPredicate<S, E> condition) {
         return notBetween(startValue, endValue, condition.test(startValue, endValue));
     }
 
@@ -1032,7 +1032,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition  the append condition
      * @return not between condition
      */
-    public Q notBetween(Object startValue, Object endValue, boolean condition) {
+    public C notBetween(Object startValue, Object endValue, boolean condition) {
         getNativeQueryConditional().notBetween(startValue, endValue, condition);
         return getChainer();
     }
@@ -1045,7 +1045,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return not between condition
      * @see Nil#isAllNotNull(Object...)
      */
-    public Q notBetweenIfAllNotNull(Object startValue, Object endValue) {
+    public C notBetweenIfAllNotNull(Object startValue, Object endValue) {
         return notBetween(startValue, endValue, Nil.isAllNotNull(startValue, endValue));
     }
 
@@ -1057,7 +1057,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param value the column value
      * @return like {@code "%value%"} condition
      */
-    public Q like(Object value) {
+    public C like(Object value) {
         return like(value, true);
     }
 
@@ -1068,7 +1068,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return like {@code "%value%"} condition
      */
-    public Q like(Object value, BooleanSupplier condition) {
+    public C like(Object value, BooleanSupplier condition) {
         return like(value, condition.getAsBoolean());
     }
 
@@ -1079,7 +1079,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return like {@code "%value%"} condition
      */
-    public <U> Q like(U value, Predicate<U> condition) {
+    public <U> C like(U value, Predicate<U> condition) {
         return like(value, condition.test(value));
     }
 
@@ -1090,7 +1090,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return like {@code "%value%"} condition
      */
-    public Q like(Object value, boolean condition) {
+    public C like(Object value, boolean condition) {
         getNativeQueryConditional().like(value, condition);
         return getChainer();
     }
@@ -1102,7 +1102,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return like {@code "%value%"} condition
      * @see Nil#isNotNull(Object)
      */
-    public Q likeIfNotNull(Object value) {
+    public C likeIfNotNull(Object value) {
         return like(value, If::notNull);
     }
 
@@ -1113,7 +1113,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return like {@code "%value%"} condition
      * @see Nil#isNotBlank(CharSequence)
      */
-    public Q likeIfNotBlank(CharSequence value) {
+    public C likeIfNotBlank(CharSequence value) {
         return like(value, If::notBlank);
     }
 
@@ -1125,7 +1125,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param value the column value
      * @return like {@code "value%"} condition
      */
-    public Q likeLeft(Object value) {
+    public C likeLeft(Object value) {
         return likeLeft(value, true);
     }
 
@@ -1136,7 +1136,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return like {@code "value%"} condition
      */
-    public Q likeLeft(Object value, BooleanSupplier condition) {
+    public C likeLeft(Object value, BooleanSupplier condition) {
         return likeLeft(value, condition.getAsBoolean());
     }
 
@@ -1147,7 +1147,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return like {@code "value%"} condition
      */
-    public <U> Q likeLeft(U value, Predicate<U> condition) {
+    public <U> C likeLeft(U value, Predicate<U> condition) {
         return likeLeft(value, condition.test(value));
     }
 
@@ -1158,7 +1158,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return like {@code "value%"} condition
      */
-    public Q likeLeft(Object value, boolean condition) {
+    public C likeLeft(Object value, boolean condition) {
         getNativeQueryConditional().likeLeft(value, condition);
         return getChainer();
     }
@@ -1170,7 +1170,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return like {@code "value%"} condition
      * @see Nil#isNotNull(Object)
      */
-    public Q likeLeftIfNotNull(Object value) {
+    public C likeLeftIfNotNull(Object value) {
         return likeLeft(value, If::notNull);
     }
 
@@ -1181,7 +1181,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return like {@code "value%"} condition
      * @see Nil#isNotBlank(CharSequence)
      */
-    public Q likeLeftIfNotBlank(CharSequence value) {
+    public C likeLeftIfNotBlank(CharSequence value) {
         return likeLeft(value, If::notBlank);
     }
     // ================================================ like "%value" condition ================================================
@@ -1192,7 +1192,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param value the column value
      * @return like {@code "%value"} condition
      */
-    public Q likeRight(Object value) {
+    public C likeRight(Object value) {
         return likeRight(value, true);
     }
 
@@ -1203,7 +1203,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return like {@code "%value"} condition
      */
-    public Q likeRight(Object value, BooleanSupplier condition) {
+    public C likeRight(Object value, BooleanSupplier condition) {
         return likeRight(value, condition.getAsBoolean());
     }
 
@@ -1214,7 +1214,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return like {@code "%value"} condition
      */
-    public <U> Q likeRight(U value, Predicate<U> condition) {
+    public <U> C likeRight(U value, Predicate<U> condition) {
         return likeRight(value, condition.test(value));
     }
 
@@ -1225,7 +1225,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return like {@code "%value"} condition
      */
-    public Q likeRight(Object value, boolean condition) {
+    public C likeRight(Object value, boolean condition) {
         getNativeQueryConditional().likeRight(value, condition);
         return getChainer();
     }
@@ -1237,7 +1237,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return like {@code "%value"} condition
      * @see Nil#isNotNull(Object)
      */
-    public Q likeRightIfNotNull(Object value) {
+    public C likeRightIfNotNull(Object value) {
         return likeRight(value, If::notNull);
     }
 
@@ -1248,7 +1248,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return like {@code "%value"} condition
      * @see Nil#isNotBlank(CharSequence)
      */
-    public Q likeRightIfNotBlank(CharSequence value) {
+    public C likeRightIfNotBlank(CharSequence value) {
         return likeRight(value, If::notBlank);
     }
     // ================================================ like "value" condition ================================================
@@ -1259,7 +1259,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param value the column value
      * @return like {@code "value"} condition
      */
-    public Q likeRaw(Object value) {
+    public C likeRaw(Object value) {
         return likeRaw(value, true);
     }
 
@@ -1270,7 +1270,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return like {@code "value"} condition
      */
-    public Q likeRaw(Object value, BooleanSupplier condition) {
+    public C likeRaw(Object value, BooleanSupplier condition) {
         return likeRaw(value, condition.getAsBoolean());
     }
 
@@ -1281,7 +1281,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return like {@code "value"} condition
      */
-    public <U> Q likeRaw(U value, Predicate<U> condition) {
+    public <U> C likeRaw(U value, Predicate<U> condition) {
         return likeRaw(value, condition.test(value));
     }
 
@@ -1292,7 +1292,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return like {@code "value"} condition
      */
-    public Q likeRaw(Object value, boolean condition) {
+    public C likeRaw(Object value, boolean condition) {
         QueryColumn queryColumn = Reflects.getFieldValue(getNativeQueryConditional(), QUERY_COLUMN_FIELD_NAME);
         QueryCondition queryCondition = Reflects.invoke(queryColumn, LIKE_RAW_METHOD_NAME, value, condition);
         Reflects.invoke(nativeQueryConditional, ADD_WHERE_QUERY_CONDITION_METHOD_NAME, queryCondition);
@@ -1306,7 +1306,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return like {@code "value"} condition
      * @see Nil#isNotNull(Object)
      */
-    public Q likeRawIfNotNull(Object value) {
+    public C likeRawIfNotNull(Object value) {
         return likeRaw(value, If::notNull);
     }
 
@@ -1317,7 +1317,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return like {@code "value"} condition
      * @see Nil#isNotBlank(CharSequence)
      */
-    public Q likeRawIfNotBlank(CharSequence value) {
+    public C likeRawIfNotBlank(CharSequence value) {
         return likeRaw(value, If::notBlank);
     }
     // ================================================ not like "%value%" condition ================================================
@@ -1328,7 +1328,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param value the column value
      * @return not like {@code "%value%"} condition
      */
-    public Q notLike(Object value) {
+    public C notLike(Object value) {
         return notLike(value, true);
     }
 
@@ -1339,7 +1339,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not like {@code "%value%"} condition
      */
-    public Q notLike(Object value, BooleanSupplier condition) {
+    public C notLike(Object value, BooleanSupplier condition) {
         return notLike(value, condition.getAsBoolean());
     }
 
@@ -1350,7 +1350,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not like {@code "%value%"} condition
      */
-    public <U> Q notLike(U value, Predicate<U> condition) {
+    public <U> C notLike(U value, Predicate<U> condition) {
         return notLike(value, condition.test(value));
     }
 
@@ -1361,7 +1361,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not like {@code "%value%"} condition
      */
-    public Q notLike(Object value, boolean condition) {
+    public C notLike(Object value, boolean condition) {
         getNativeQueryConditional().notLike(value, condition);
         return getChainer();
     }
@@ -1373,7 +1373,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return not like {@code "%value%"} condition
      * @see Nil#isNotNull(Object)
      */
-    public Q notLikeIfNotNull(Object value) {
+    public C notLikeIfNotNull(Object value) {
         return notLike(value, If::notNull);
     }
 
@@ -1384,7 +1384,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return not like {@code "%value%"} condition
      * @see Nil#isNotBlank(CharSequence)
      */
-    public Q notLikeIfNotBlank(CharSequence value) {
+    public C notLikeIfNotBlank(CharSequence value) {
         return notLike(value, If::notBlank);
     }
 
@@ -1396,7 +1396,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param value the column value
      * @return not like {@code "value%"} condition
      */
-    public Q notLikeLeft(Object value) {
+    public C notLikeLeft(Object value) {
         return notLikeLeft(value, true);
     }
 
@@ -1407,7 +1407,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not like {@code "value%"} condition
      */
-    public Q notLikeLeft(Object value, BooleanSupplier condition) {
+    public C notLikeLeft(Object value, BooleanSupplier condition) {
         return notLikeLeft(value, condition.getAsBoolean());
     }
 
@@ -1418,7 +1418,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not like {@code "value%"} condition
      */
-    public <U> Q notLikeLeft(U value, Predicate<U> condition) {
+    public <U> C notLikeLeft(U value, Predicate<U> condition) {
         return notLikeLeft(value, condition.test(value));
     }
 
@@ -1429,7 +1429,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not like {@code "value%"} condition
      */
-    public Q notLikeLeft(Object value, boolean condition) {
+    public C notLikeLeft(Object value, boolean condition) {
         getNativeQueryConditional().notLikeLeft(value, condition);
         return getChainer();
     }
@@ -1441,7 +1441,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return not like {@code "value%"} condition
      * @see Nil#isNotNull(Object)
      */
-    public Q notLikeLeftIfNotNull(Object value) {
+    public C notLikeLeftIfNotNull(Object value) {
         return notLikeLeft(value, If::notNull);
     }
 
@@ -1452,7 +1452,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return not like {@code "value%"} condition
      * @see Nil#isNotBlank(CharSequence)
      */
-    public Q notLikeLeftIfNotBlank(CharSequence value) {
+    public C notLikeLeftIfNotBlank(CharSequence value) {
         return notLikeLeft(value, If::notBlank);
     }
     // ================================================ not like "%value" condition ================================================
@@ -1463,7 +1463,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param value the column value
      * @return not like {@code "%value"} condition
      */
-    public Q notLikeRight(Object value) {
+    public C notLikeRight(Object value) {
         return notLikeRight(value, true);
     }
 
@@ -1474,7 +1474,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not like {@code "%value"} condition
      */
-    public Q notLikeRight(Object value, BooleanSupplier condition) {
+    public C notLikeRight(Object value, BooleanSupplier condition) {
         return notLikeRight(value, condition.getAsBoolean());
     }
 
@@ -1485,7 +1485,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not like {@code "%value"} condition
      */
-    public <U> Q notLikeRight(U value, Predicate<U> condition) {
+    public <U> C notLikeRight(U value, Predicate<U> condition) {
         return notLikeRight(value, condition.test(value));
     }
 
@@ -1496,7 +1496,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not like {@code "%value"} condition
      */
-    public Q notLikeRight(Object value, boolean condition) {
+    public C notLikeRight(Object value, boolean condition) {
         getNativeQueryConditional().notLikeRight(value, condition);
         return getChainer();
     }
@@ -1508,7 +1508,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return not like {@code "%value"} condition
      * @see Nil#isNotNull(Object)
      */
-    public Q notLikeRightIfNotNull(Object value) {
+    public C notLikeRightIfNotNull(Object value) {
         return notLikeRight(value, If::notNull);
     }
 
@@ -1519,7 +1519,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return not like {@code "%value"} condition
      * @see Nil#isNotBlank(CharSequence)
      */
-    public Q notLikeRightIfNotBlank(CharSequence value) {
+    public C notLikeRightIfNotBlank(CharSequence value) {
         return notLikeRight(value, If::notBlank);
     }
 
@@ -1531,7 +1531,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param value the column value
      * @return not like {@code "value"} condition
      */
-    public Q notLikeRaw(Object value) {
+    public C notLikeRaw(Object value) {
         return notLikeRaw(value, true);
     }
 
@@ -1542,7 +1542,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not like {@code "value"} condition
      */
-    public Q notLikeRaw(Object value, BooleanSupplier condition) {
+    public C notLikeRaw(Object value, BooleanSupplier condition) {
         return notLikeRaw(value, condition.getAsBoolean());
     }
 
@@ -1553,7 +1553,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not like {@code "value"} condition
      */
-    public <U> Q notLikeRaw(U value, Predicate<U> condition) {
+    public <U> C notLikeRaw(U value, Predicate<U> condition) {
         return notLikeRaw(value, condition.test(value));
     }
 
@@ -1564,7 +1564,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return not like {@code "value"} condition
      */
-    public Q notLikeRaw(Object value, boolean condition) {
+    public C notLikeRaw(Object value, boolean condition) {
         QueryColumn queryColumn = Reflects.getFieldValue(getNativeQueryConditional(), QUERY_COLUMN_FIELD_NAME);
         QueryCondition queryCondition = Reflects.invoke(queryColumn, NOT_LIKE_RAW_METHOD_NAME, value, condition);
         Reflects.invoke(nativeQueryConditional, ADD_WHERE_QUERY_CONDITION_METHOD_NAME, queryCondition);
@@ -1578,7 +1578,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return not like {@code "value"} condition
      * @see Nil#isNotNull(Object)
      */
-    public Q notLikeRawIfNotNull(Object value) {
+    public C notLikeRawIfNotNull(Object value) {
         return notLikeRaw(value, If::notNull);
     }
 
@@ -1589,7 +1589,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @return not like {@code "value"} condition
      * @see Nil#isNotBlank(CharSequence)
      */
-    public Q notLikeRawIfNotBlank(CharSequence value) {
+    public C notLikeRawIfNotBlank(CharSequence value) {
         return notLikeRaw(value, If::notBlank);
     }
 
@@ -1600,7 +1600,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      *
      * @return is null condition
      */
-    public Q isNull() {
+    public C isNull() {
         return isNull(true);
     }
 
@@ -1610,7 +1610,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return is null condition
      */
-    public Q isNull(BooleanSupplier condition) {
+    public C isNull(BooleanSupplier condition) {
         return isNull(condition.getAsBoolean());
     }
 
@@ -1620,7 +1620,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return is null condition
      */
-    public Q isNull(boolean condition) {
+    public C isNull(boolean condition) {
         getNativeQueryConditional().isNull(condition);
         return getChainer();
     }
@@ -1632,7 +1632,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      *
      * @return is not null condition
      */
-    public Q isNotNull() {
+    public C isNotNull() {
         return isNotNull(true);
     }
 
@@ -1642,7 +1642,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return is not null condition
      */
-    public Q isNotNull(BooleanSupplier condition) {
+    public C isNotNull(BooleanSupplier condition) {
         return isNotNull(condition.getAsBoolean());
     }
 
@@ -1652,7 +1652,7 @@ public class QueryConditional<Q extends BaseChainer, N extends QueryWrapper> ext
      * @param condition the append condition
      * @return is not null condition
      */
-    public Q isNotNull(boolean condition) {
+    public C isNotNull(boolean condition) {
         getNativeQueryConditional().isNotNull(condition);
         return getChainer();
     }

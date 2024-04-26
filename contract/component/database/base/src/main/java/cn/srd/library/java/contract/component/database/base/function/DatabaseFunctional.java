@@ -2,6 +2,12 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_DATABASE_BASE)))
+package cn.srd.library.java.contract.component.database.base.function;
+
+/**
+ * @author wjm
+ * @since 2024-04-26 14:53
+ */
+public interface DatabaseFunctional {
+
 }
