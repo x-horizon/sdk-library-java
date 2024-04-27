@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static cn.srd.library.java.orm.mybatis.flex.postgresql.chain2.PostgresqlFunctionQueryConditional.jsonbArrayElements;
+import static cn.srd.library.java.orm.mybatis.flex.postgresql.chain2.PostgresqlJsonbFunctionQueryConditional.jsonbArrayElements;
 import static com.mybatisflex.core.query.QueryMethods.exists;
 import static com.mybatisflex.core.query.QueryMethods.selectOne;
 
@@ -66,7 +66,7 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
                 .where(StudentPO::getId).inIfNotEmpty(conditionVO.getIds())
                 .switchToJsonbQuery()
                 .and(StudentPO::getHobbyBO, StudentHobbyBO::getBookBO, StudentHobbyBookBO::getName).castToVarchar().likeIfNotBlank("学生")
-                .andExistSubquery(jsonbArrayElements(StudentPO::getTeacherIds)).castToBigint().in(1, 2)
+                .andExistFunction(jsonbArrayElements(StudentPO::getTeacherIds)).castToBigint().in(1, 2)
                 .toSQL();
 
         System.out.println();
