@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.mybatis.flex.base.adapter.QueryWrapperAdapter;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.mybatis.Mappers;
@@ -13,15 +14,12 @@ import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.table.TableInfo;
 import com.mybatisflex.core.table.TableInfoFactory;
 
-import java.io.Serial;
-
 /**
  * @author wjm
  * @since 2024-04-20 15:08
  */
+@SuppressWarnings(SuppressWarningConstant.SERIAL)
 public class QueryChain<T> extends QueryWrapperAdapter<QueryChain<T>> implements MapperQueryChain<T> {
-
-    @Serial private static final long serialVersionUID = 6771089212486923320L;
 
     private final BaseMapper<T> baseMapper;
 

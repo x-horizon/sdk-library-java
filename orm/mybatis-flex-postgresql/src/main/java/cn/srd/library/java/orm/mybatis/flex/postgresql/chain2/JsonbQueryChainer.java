@@ -4,10 +4,10 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.chain2;
 
+import cn.srd.library.java.contract.component.database.base.function.DatabaseFunctional;
 import cn.srd.library.java.contract.constant.collection.CollectionConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.base.POJO;
-import cn.srd.library.java.orm.mybatis.flex.base.chain.BaseChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.BaseQueryChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChain;
 import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
@@ -16,7 +16,6 @@ import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.lang.text.Strings;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.mybatisflex.core.constant.SqlConnector;
-import com.mybatisflex.core.query.QueryWrapper;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -66,7 +65,7 @@ public class JsonbQueryChainer<PJ extends POJO, P extends PO> extends BaseQueryC
         return new JsonbQueryCaster<>(connectJsonbDirectQuerySQL(columnNameGetter, jsonKeyGetter1, jsonKeyGetter2), SqlConnector.AND, this.nativeQueryChain, this);
     }
 
-    public <C extends BaseChainer, W extends QueryWrapper> JsonbQueryCaster<PJ, P> andExistSubquery(PostgresqlFunctionQueryConditional<C, W> function) {
+    public JsonbQueryCaster<PJ, P> andExistFunction(DatabaseFunctional function) {
         return new JsonbQueryCaster<>(connectJsonbFunctionQuerySQL(function), SqlConnector.AND, this.nativeQueryChain, this);
     }
 
@@ -94,8 +93,9 @@ public class JsonbQueryChainer<PJ extends POJO, P extends PO> extends BaseQueryC
         );
     }
 
-    private <C extends BaseChainer, W extends QueryWrapper> String connectJsonbFunctionQuerySQL(PostgresqlFunctionQueryConditional<C, W> function) {
-        return Strings.format(function.getFunctionSQLAppender(), Strings.format("\"{}\".", this.tableName));
+    private String connectJsonbFunctionQuerySQL(DatabaseFunctional function) {
+        // exists(selectOne().from("1").where("1")).toSql();
+        return Strings.format(function.getSqlAppender(), Strings.format("\"{}\".", this.tableName));
     }
 
 }

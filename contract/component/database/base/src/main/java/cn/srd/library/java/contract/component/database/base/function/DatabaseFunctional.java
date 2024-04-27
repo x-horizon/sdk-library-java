@@ -10,4 +10,6 @@ package cn.srd.library.java.contract.component.database.base.function;
  */
 public interface DatabaseFunctional {
 
+    String getSqlAppender();
+
 }

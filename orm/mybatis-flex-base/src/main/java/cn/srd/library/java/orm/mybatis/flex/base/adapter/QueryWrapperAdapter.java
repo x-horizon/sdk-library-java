@@ -11,15 +11,12 @@ import com.mybatisflex.core.query.QueryConditionBuilder;
 import com.mybatisflex.core.query.RawQueryColumn;
 import com.mybatisflex.core.query.RawQueryCondition;
 
-import java.io.Serial;
-
 /**
  * @author wjm
  * @since 2024-04-20 15:04
  */
+@SuppressWarnings(SuppressWarningConstant.SERIAL)
 public class QueryWrapperAdapter<R extends QueryWrapperAdapter<R>> extends com.mybatisflex.core.query.QueryWrapperAdapter<R> {
-
-    @Serial private static final long serialVersionUID = 971536476435856761L;
 
     public QueryConditionBuilder<R> where(QueryColumn queryColumn) {
         return and(queryColumn);
