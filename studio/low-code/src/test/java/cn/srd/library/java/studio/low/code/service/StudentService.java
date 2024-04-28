@@ -20,6 +20,7 @@ import cn.srd.library.java.studio.low.code.repository.SchoolRepository;
 import cn.srd.library.java.studio.low.code.repository.StudentRepository;
 import cn.srd.library.java.studio.low.code.repository.TeacherRepository;
 import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.core.row.DbChain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +61,12 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
                 .select()
                 .from("1")
                 .where("1")
-                .and(exists(selectOne().from("1").where("1"))).toSQL();
+                .and(exists(selectOne().from("1").as("1111").where("1"))).toSQL();
+
+        String d = DbChain.table("JSONB_ARRAY_ELEMENTS(\"student\".teacher_ids)")
+                .select("1")
+                .where("\"studentPO_teacher_ids_540330549004101\"::INTEGER IN (1, 2, 3))")
+                .toSQL();
 
         String b = studentRepository.openNormalQuery()
                 .where(StudentPO::getId).inIfNotEmpty(conditionVO.getIds())
