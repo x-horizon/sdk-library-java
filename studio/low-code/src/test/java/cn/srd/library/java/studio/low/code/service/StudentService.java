@@ -84,6 +84,7 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
                         .castToBigint()
                         .in(1, 2)
                 )
+                .switchToNormalQuery()
                 .toSQL();
 
         System.out.println();
