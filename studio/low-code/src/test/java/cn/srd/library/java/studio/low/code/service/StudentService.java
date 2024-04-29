@@ -7,6 +7,7 @@ package cn.srd.library.java.studio.low.code.service;
 import cn.srd.library.java.contract.model.throwable.DataNotFoundException;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.service.GenericService;
+import cn.srd.library.java.studio.low.code.model.bo.StudentBO;
 import cn.srd.library.java.studio.low.code.model.bo.StudentHobbyBO;
 import cn.srd.library.java.studio.low.code.model.bo.StudentHobbyBookBO;
 import cn.srd.library.java.studio.low.code.model.po.SchoolPO;
@@ -20,12 +21,14 @@ import cn.srd.library.java.studio.low.code.repository.SchoolRepository;
 import cn.srd.library.java.studio.low.code.repository.StudentRepository;
 import cn.srd.library.java.studio.low.code.repository.TeacherRepository;
 import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.core.query.RawQueryCondition;
+import com.mybatisflex.core.query.RawQueryTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static cn.srd.library.java.orm.mybatis.flex.postgresql.chain2.PostgresqlJsonbFunctionQueryConditional.jsonbArrayElements;
+import static cn.srd.library.java.orm.mybatis.flex.postgresql.chain2.JsonbQueryFunctionChainer.jsonbArrayElements;
 import static com.mybatisflex.core.query.QueryMethods.exists;
 import static com.mybatisflex.core.query.QueryMethods.selectOne;
 
@@ -58,13 +61,13 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
 
         String c = QueryWrapper.create()
                 .select()
-                .from("1")
-                .where("1")
+                .from("student")
+                .where("1=1")
                 .and(exists(selectOne()
-                        .from("JSONB_ARRAY_ELEMENTS(\"student\".teacher_ids)")
+                        .from(new RawQueryTable("JSONB_ARRAY_ELEMENTS(\"student\".teacher_ids)"))
                         .as("studentPO_teacher_ids_540330549004101")
-                        .where("\"studentPO_teacher_ids_540330549004101\"::INTEGER")
-                        .in("(1, 2, 3)")
+                        .where(new RawQueryCondition("\"studentPO_teacher_ids_540330549004101\"::INTEGER"))
+                        .in(StudentBO::getName, 1, 2, 3)
                 )).toSQL();
 
         // String d = DbChain.table("JSONB_ARRAY_ELEMENTS(\"student\".teacher_ids)")
@@ -76,7 +79,11 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
                 .where(StudentPO::getId).inIfNotEmpty(conditionVO.getIds())
                 .switchToJsonbQuery()
                 .and(StudentPO::getHobbyBO, StudentHobbyBO::getBookBO, StudentHobbyBookBO::getName).castToVarchar().likeIfNotBlank("学生")
-                .andExistFunction(jsonbArrayElements(StudentPO::getTeacherIds)).castToBigint().in(1, 2)
+                .andExist(jsonbArrayElements(StudentPO::getTeacherIds)
+                        .where(StudentPO::getTeacherIds)
+                        .castToBigint()
+                        .in(1, 2)
+                )
                 .toSQL();
 
         System.out.println();
