@@ -32,6 +32,15 @@ public class SnowflakeIds {
     }
 
     /**
+     * get a string snowflake id
+     *
+     * @return snowflake id
+     */
+    public static String getString() {
+        return Long.toString(get());
+    }
+
+    /**
      * get a fixed snowflake id
      *
      * @return fixed snowflake id
