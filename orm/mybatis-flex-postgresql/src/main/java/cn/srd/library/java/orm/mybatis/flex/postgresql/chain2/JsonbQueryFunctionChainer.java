@@ -31,45 +31,26 @@ public class JsonbQueryFunctionChainer<PJ extends POJO> extends BaseQueryChainer
 
     private final QueryChain<PJ> nativeQueryChain;
 
-    private final String fieldName;
-
-    private final String classOfFieldName;
-
     private final String sqlAppender;
 
-    private JsonbQueryFunctionChainer(String fieldName, String classOfFieldName, String sqlAppender) {
+    private JsonbQueryFunctionChainer(String sqlAppender) {
         this.nativeQueryChain = new QueryChain<>(null);
-        this.fieldName = fieldName;
-        this.classOfFieldName = classOfFieldName;
         this.sqlAppender = sqlAppender;
     }
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static <PJ1 extends POJO> JsonbQueryFunctionChainer<PJ1> jsonbArrayElements(ColumnNameGetter<PJ1> columnNameGetter) {
-        return new JsonbQueryFunctionChainer<>(
-                MybatisFlexs.getFieldName(columnNameGetter),
-                MybatisFlexs.getClassName(columnNameGetter),
-                STR."\{PostgresqlFunctionType.JSONB_ARRAY_ELEMENTS.getValue()}({}\{MybatisFlexs.getColumnName(columnNameGetter)})"
-        );
+        return new JsonbQueryFunctionChainer<>(STR."\{PostgresqlFunctionType.JSONB_ARRAY_ELEMENTS.getValue()}({}\{MybatisFlexs.getColumnName(columnNameGetter)})");
     }
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static <PJ1 extends POJO> JsonbQueryFunctionChainer<PJ1> jsonbArrayElements(JsonbQueryFunctionChainer<PJ1> function) {
-        return new JsonbQueryFunctionChainer<>(
-                function.getFieldName(),
-                function.getClassOfFieldName(),
-                STR."\{PostgresqlFunctionType.JSONB_ARRAY_ELEMENTS.getValue()}(\{function.getSqlAppender()})"
-        );
+        return new JsonbQueryFunctionChainer<>(STR."\{PostgresqlFunctionType.JSONB_ARRAY_ELEMENTS.getValue()}(\{function.getSqlAppender()})");
     }
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static <PJ1 extends POJO, PJ2 extends POJO, PJ3 extends POJO> JsonbQueryFunctionChainer<PJ1> jsonbExtractPath(ColumnNameGetter<PJ2> columnNameGetter, ColumnNameGetter<PJ3> jsonKeyGetter) {
-        String theLastJsonKeyFieldName = MybatisFlexs.getFieldName(jsonKeyGetter);
-        return new JsonbQueryFunctionChainer<>(
-                theLastJsonKeyFieldName,
-                MybatisFlexs.getClassName(jsonKeyGetter),
-                STR."\{PostgresqlFunctionType.JSONB_EXTRACT_PATH.getValue()}({}\{MybatisFlexs.getColumnName(columnNameGetter)}, '\{theLastJsonKeyFieldName}')"
-        );
+        return new JsonbQueryFunctionChainer<>(STR."\{PostgresqlFunctionType.JSONB_EXTRACT_PATH.getValue()}({}\{MybatisFlexs.getColumnName(columnNameGetter)}, '\{MybatisFlexs.getFieldName(jsonKeyGetter)}')");
     }
 
     public JsonbQueryFunctionCaster<PJ> where(ColumnNameGetter<PJ> columnNameGetter) {
@@ -77,12 +58,10 @@ public class JsonbQueryFunctionChainer<PJ extends POJO> extends BaseQueryChainer
     }
 
     public JsonbQueryFunctionCaster<PJ> and(ColumnNameGetter<PJ> columnNameGetter) {
-        String alias = Strings.format("{}_{}", Strings.lowerFirst(this.classOfFieldName), this.fieldName);
+        String tableName = Strings.format(this.sqlAppender, Strings.format("\"{}\".", "student"));
+        String tableAlias = Strings.format("{}_{}", Strings.lowerFirst(MybatisFlexs.getClassName(columnNameGetter)), MybatisFlexs.getFieldName(columnNameGetter));
         return new JsonbQueryFunctionCaster<>(
-                selectOne()
-                        .from(new RawQueryTable(Strings.format(this.sqlAppender, Strings.format("\"{}\".", "student"))))
-                        .as(alias)
-                        .where(new RawQueryCondition(Strings.joinWithDoubleQuoteAndComma(alias))).toSQL(),
+                selectOne().from(new RawQueryTable(tableName)).as(tableAlias).where(new RawQueryCondition(Strings.joinWithDoubleQuoteAndComma(tableAlias))).toSQL(),
                 SqlConnector.AND,
                 this.nativeQueryChain,
                 this

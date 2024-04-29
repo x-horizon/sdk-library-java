@@ -53,4 +53,8 @@ public class QueryChain<T> extends QueryWrapperAdapter<QueryChain<T>> implements
         return super.toSQL();
     }
 
+    public String toSQLIgnoreTable() {
+        return super.toSQL();
+    }
+
 }

@@ -37,6 +37,8 @@ public class MybatisFlexSystemCache<P extends PO, R extends GenericRepository<P>
 
     private final Map<Class<R>, MybatisFlexSystemCacheDTO<P, R>> repositoryProxyClassMappingSystemCacheMap = Collections.newConcurrentHashMap(256);
 
+    private final Map<Class<R>, MybatisFlexSystemCacheDTO<P, R>> pojoFieldNameMappingTableNameMap = Collections.newConcurrentHashMap(256);
+
     @Getter private static MybatisFlexSystemCache<?, ?, ?> instance = null;
 
     @PostConstruct
@@ -76,6 +78,26 @@ public class MybatisFlexSystemCache<P extends PO, R extends GenericRepository<P>
                     Assert.of().setMessage("{}could not find the table name by po class [{}], please check the annotation [{}] is marked!", ModuleView.ORM_MYBATIS_SYSTEM, poClass.getName(), Table.class.getName())
                             .setThrowable(LibraryJavaInternalException.class)
                             .throwsIfNull(tableName);
+
+                    // Classes.getFieldsDeep(poClass)
+                    //         .stream()
+                    //         .map(Field::getType)
+                    //         .filter(fieldType -> Classes.isAssignable(fieldType, POJO.class))
+                    //         .toList();
+
+                    // Classes.getFieldsDeep(poClass)
+                    //         .stream()
+                    //         .map(Field::getType)
+                    //         .filter(fieldType->{
+                    //             if(Classes.isAssignable(fieldType,POJO.class)){
+                    //                 return true;
+                    //             }
+                    //             if(Collections.isIterable()){
+                    //
+                    //             }
+                    //         })
+                    //         .toList();
+
                     repositoryClassMappingSystemCacheMap.put(repositoryProxyClass, repositoryClassMappingSystemCacheMap
                             .get(repositoryProxyClass)
                             .setBaseMapper(baseMapper)

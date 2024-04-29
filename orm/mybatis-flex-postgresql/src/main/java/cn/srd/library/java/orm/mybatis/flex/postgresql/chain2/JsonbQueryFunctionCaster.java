@@ -92,15 +92,4 @@ public class JsonbQueryFunctionCaster<PJ extends POJO> extends QueryCaster<PJ> {
         return (QueryConditional<JsonbQueryFunctionChainer<PJ>, QueryChain<PJ>>) super.castToJsonb();
     }
 
-    // @SuppressWarnings(SuppressWarningConstant.ALL)
-    // private QueryConditional<JsonbQueryFunctionChainer<PJ>, QueryChain<PJ>> toQueryConditional(PostgresqlDataType dataType) {
-    //     if (SqlConnector.AND == this.sqlConnector) {
-    //         return new QueryConditional<>(getQueryChainer(), this.nativeQueryChain);
-    //     }
-    //     if (SqlConnector.OR == this.sqlConnector) {
-    //         return new QueryConditional<>(getQueryChainer(), this.nativeQueryChain.or(new RawQueryCondition(castSQL(dataType))));
-    //     }
-    //     throw new LibraryJavaInternalException(Strings.format("{}cast json key to specified type failed because of the unsupported sql connector:[{}]", ModuleView.ORM_MYBATIS_SYSTEM, dataType));
-    // }
-
 }

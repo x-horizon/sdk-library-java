@@ -15,6 +15,8 @@ import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.lang.text.Strings;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.mybatisflex.core.constant.SqlConnector;
+import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.core.query.RawQueryTable;
 import lombok.AccessLevel;
 import lombok.Getter;
 
@@ -65,11 +67,11 @@ public class JsonbQueryChainer<P extends PO, PJ extends POJO> extends BaseQueryC
     }
 
     public <PJ1 extends POJO> JsonbQueryChainer<P, PJ> andExist(JsonbQueryFunctionChainer<PJ1> chainer) {
-        // QueryWrapper queryWrapper = chainer.getNativeQueryChain().toQueryWrapper();
-        // queryWrapper.from(new RawQueryTable(Strings.removeIfStartWith(queryWrapper.toSQL(), "SELECT * FROM  WHERE "))).as(SnowflakeIds.getString());
-        // Reflects.getFieldValue(queryWrapper, "whereQueryCondition");
-        // this.nativeQueryChain.and(exists(queryWrapper));
-        this.nativeQueryChain.and(exists(chainer.getNativeQueryChain().toQueryWrapper()));
+        this.nativeQueryChain.and(exists(QueryWrapper.create()
+                .from(new RawQueryTable(Strings.format("({})", Strings.removeIfStartWith(chainer.getNativeQueryChain().toSQLIgnoreTable(), "SELECT * FROM  WHERE "))))
+                .as("jsonb_query_table")
+                .select("1"))
+        );
         return this;
     }
 
@@ -79,6 +81,10 @@ public class JsonbQueryChainer<P extends PO, PJ extends POJO> extends BaseQueryC
 
     public <PJ1 extends POJO, PJ2 extends POJO> JsonbQueryCaster<P, PJ> or(ColumnNameGetter<PJ1> columnNameGetter, ColumnNameGetter<PJ2> jsonKeyGetter) {
         return new JsonbQueryCaster<>(connectJsonbDirectQuerySQL(columnNameGetter, jsonKeyGetter), SqlConnector.OR, this.nativeQueryChain, this);
+    }
+
+    public NormalQueryChainer<P, PJ> switchToNormalQuery() {
+        return this.normalQueryChainer;
     }
 
     public String toSQL() {
