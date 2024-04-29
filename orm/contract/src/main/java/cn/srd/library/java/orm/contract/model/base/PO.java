@@ -4,8 +4,6 @@
 
 package cn.srd.library.java.orm.contract.model.base;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
-
 /**
  * the persistent model define
  *
@@ -14,7 +12,6 @@ import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
  */
 public interface PO extends POJO {
 
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     VO toVO();
 
 }

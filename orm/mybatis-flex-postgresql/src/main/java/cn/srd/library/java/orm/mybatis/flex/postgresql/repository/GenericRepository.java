@@ -30,7 +30,7 @@ public interface GenericRepository<P extends PO> extends cn.srd.library.java.orm
         return new NormalQueryChainer<>(QueryChain.of(baseMapper), tableName, poClass);
     }
 
-    default <PJ extends POJO, R extends GenericRepository<P>> JsonbQueryChainer<PJ, P> openJsonbQuery() {
+    default <PJ extends POJO, R extends GenericRepository<P>> JsonbQueryChainer<P, PJ> openJsonbQuery() {
         MybatisFlexSystemCacheDTO<P, R> systemCache = MybatisFlexSystemCache.getInstance().get(this.getClass());
         String tableName = systemCache.getTableName();
         Class<P> poClass = systemCache.getPoClass();

@@ -4,102 +4,93 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.chain2;
 
-import cn.srd.library.java.contract.constant.database.PostgresqlDataType;
-import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.base.POJO;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChain;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryConditional;
-import cn.srd.library.java.tool.lang.text.Strings;
 import com.mybatisflex.core.constant.SqlConnector;
-import com.mybatisflex.core.query.RawQueryCondition;
+import lombok.AccessLevel;
+import lombok.Getter;
 
 /**
  * @author wjm
  * @since 2024-04-25 15:02
  */
-public class JsonbQueryCaster<PJ extends POJO, P extends PO> {
+@SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+public class JsonbQueryCaster<P extends PO, PJ extends POJO> extends QueryCaster<PJ> {
 
-    private final String sql;
+    @Getter(AccessLevel.PROTECTED)
+    private final JsonbQueryChainer<P, PJ> queryChainer;
 
-    private final SqlConnector sqlConnector;
-
-    private final QueryChain<PJ> nativeQueryChain;
-
-    private final JsonbQueryChainer<PJ, P> jsonbQueryChainer;
-
-    public JsonbQueryCaster(String sql, SqlConnector sqlConnector, QueryChain<PJ> nativeQueryChain, JsonbQueryChainer<PJ, P> jsonbQueryChainer) {
-        this.sql = sql;
-        this.sqlConnector = sqlConnector;
-        this.nativeQueryChain = nativeQueryChain;
-        this.jsonbQueryChainer = jsonbQueryChainer;
+    public JsonbQueryCaster(String sql, SqlConnector sqlConnector, QueryChain<PJ> nativeQueryChain, JsonbQueryChainer<P, PJ> jsonbQueryChainer) {
+        super(sql, sqlConnector, nativeQueryChain);
+        this.queryChainer = jsonbQueryChainer;
     }
 
-    public QueryConditional<JsonbQueryChainer<PJ, P>, QueryChain<PJ>> castToBoolean() {
-        return toQueryConditional(PostgresqlDataType.BOOLEAN);
+    @Override
+    public QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>> castToBoolean() {
+        return (QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>>) super.castToBoolean();
     }
 
-    public QueryConditional<JsonbQueryChainer<PJ, P>, QueryChain<PJ>> castToSmallint() {
-        return toQueryConditional(PostgresqlDataType.SMALLINT);
+    @Override
+    public QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>> castToSmallint() {
+        return (QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>>) super.castToSmallint();
     }
 
-    public QueryConditional<JsonbQueryChainer<PJ, P>, QueryChain<PJ>> castToInteger() {
-        return toQueryConditional(PostgresqlDataType.INTEGER);
+    @Override
+    public QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>> castToInteger() {
+        return (QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>>) super.castToInteger();
     }
 
-    public QueryConditional<JsonbQueryChainer<PJ, P>, QueryChain<PJ>> castToBigint() {
-        return toQueryConditional(PostgresqlDataType.BIGINT);
+    @Override
+    public QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>> castToBigint() {
+        return (QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>>) super.castToBigint();
     }
 
-    public QueryConditional<JsonbQueryChainer<PJ, P>, QueryChain<PJ>> castToDecimal() {
-        return toQueryConditional(PostgresqlDataType.DECIMAL);
+    @Override
+    public QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>> castToDecimal() {
+        return (QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>>) super.castToDecimal();
     }
 
-    public QueryConditional<JsonbQueryChainer<PJ, P>, QueryChain<PJ>> castToNumberic() {
-        return toQueryConditional(PostgresqlDataType.NUMERIC);
+    @Override
+    public QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>> castToNumberic() {
+        return (QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>>) super.castToNumberic();
     }
 
-    public QueryConditional<JsonbQueryChainer<PJ, P>, QueryChain<PJ>> castToReal() {
-        return toQueryConditional(PostgresqlDataType.REAL);
+    @Override
+    public QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>> castToReal() {
+        return (QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>>) super.castToReal();
     }
 
-    public QueryConditional<JsonbQueryChainer<PJ, P>, QueryChain<PJ>> castToChar() {
-        return toQueryConditional(PostgresqlDataType.CHAR);
+    @Override
+    public QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>> castToChar() {
+        return (QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>>) super.castToChar();
     }
 
-    public QueryConditional<JsonbQueryChainer<PJ, P>, QueryChain<PJ>> castToVarchar() {
-        return toQueryConditional(PostgresqlDataType.VARCHAR);
+    @Override
+    public QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>> castToVarchar() {
+        return (QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>>) super.castToVarchar();
     }
 
-    public QueryConditional<JsonbQueryChainer<PJ, P>, QueryChain<PJ>> castToText() {
-        return toQueryConditional(PostgresqlDataType.TEXT);
+    @Override
+    public QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>> castToText() {
+        return (QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>>) super.castToText();
     }
 
-    public QueryConditional<JsonbQueryChainer<PJ, P>, QueryChain<PJ>> castToTimestamp() {
-        return toQueryConditional(PostgresqlDataType.TIMESTAMP);
+    @Override
+    public QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>> castToTimestamp() {
+        return (QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>>) super.castToTimestamp();
     }
 
-    public QueryConditional<JsonbQueryChainer<PJ, P>, QueryChain<PJ>> castToJson() {
-        return toQueryConditional(PostgresqlDataType.JSON);
+    @Override
+    public QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>> castToJson() {
+        return (QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>>) super.castToJson();
     }
 
-    public QueryConditional<JsonbQueryChainer<PJ, P>, QueryChain<PJ>> castToJsonb() {
-        return toQueryConditional(PostgresqlDataType.JSONB);
-    }
-
-    private QueryConditional<JsonbQueryChainer<PJ, P>, QueryChain<PJ>> toQueryConditional(PostgresqlDataType dataType) {
-        if (SqlConnector.AND == this.sqlConnector) {
-            return new QueryConditional<>(this.jsonbQueryChainer, this.nativeQueryChain.and(new RawQueryCondition(castSQL(dataType))));
-        }
-        if (SqlConnector.OR == this.sqlConnector) {
-            return new QueryConditional<>(this.jsonbQueryChainer, this.nativeQueryChain.or(new RawQueryCondition(castSQL(dataType))));
-        }
-        throw new LibraryJavaInternalException(Strings.format("{}cast json key to specified type failed because of the unsupported sql connector:[{}]", ModuleView.ORM_MYBATIS_SYSTEM, dataType));
-    }
-
-    private String castSQL(PostgresqlDataType dataType) {
-        return Strings.format("{}::{}", this.sql, dataType.getValue());
+    @Override
+    public QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>> castToJsonb() {
+        return (QueryConditional<JsonbQueryChainer<P, PJ>, QueryChain<PJ>>) super.castToJsonb();
     }
 
 }
