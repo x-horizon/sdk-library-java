@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.tool.id.snowflake;
 
+import cn.srd.library.java.tool.lang.convert.Converts;
 import com.github.yitter.idgen.YitIdHelper;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
@@ -37,7 +38,7 @@ public class SnowflakeIds {
      * @return snowflake id
      */
     public static String getString() {
-        return Long.toString(get());
+        return Converts.toString(get());
     }
 
     /**
@@ -47,6 +48,15 @@ public class SnowflakeIds {
      */
     public static long getFixed() {
         return FIXED_ID;
+    }
+
+    /**
+     * get a fixed string snowflake id
+     *
+     * @return fixed snowflake id
+     */
+    public static String getFixedString() {
+        return Converts.toString(getFixed());
     }
 
     /**

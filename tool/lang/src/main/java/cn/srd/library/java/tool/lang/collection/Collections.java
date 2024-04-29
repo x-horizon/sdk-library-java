@@ -821,29 +821,42 @@ public class Collections {
     }
 
     /**
-     * <pre>
      * return true if the field data type is an iterable type.
-     * 1. the field data type is {@link Iterable}
-     * 2. the field data type is {@link Iterator}
-     * 3. the field data type is {@link Map}
-     * 4. the field data type is {@link Array}
-     * </pre>
      *
-     * @param field the field
+     * @param input the field
      * @return return true if the field data type is an iterable type.
+     * @see #isIterable(Class)
      */
-    public static boolean isIterable(Field field) {
-        if (Nil.isNull(field)) {
+    public static boolean isIterable(Field input) {
+        if (Nil.isNull(input)) {
             return false;
         }
-        Class<?> fieldType = field.getType();
-        return Iterable.class.isAssignableFrom(fieldType)
+        return isIterable(input.getType());
+    }
+
+    /**
+     * <pre>
+     * return true if the field data type is an iterable type.
+     * 1. the class type is {@link Iterable}
+     * 2. the class type is {@link Iterator}
+     * 3. the class type is {@link Map}
+     * 4. the class type is {@link Array}
+     * </pre>
+     *
+     * @param input the class
+     * @return return true if the class type is an iterable type.
+     */
+    public static boolean isIterable(Class<?> input) {
+        if (Nil.isNull(input)) {
+            return false;
+        }
+        return Iterable.class.isAssignableFrom(input)
                 ||
-                Iterator.class.isAssignableFrom(fieldType)
+                Iterator.class.isAssignableFrom(input)
                 ||
-                Map.class.isAssignableFrom(fieldType)
+                Map.class.isAssignableFrom(input)
                 ||
-                fieldType.isArray();
+                input.isArray();
     }
 
     /**

@@ -5,7 +5,6 @@
 package cn.srd.library.java.tool.lang.object;
 
 import cn.hutool.core.util.ClassUtil;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.functional.Action;
@@ -207,7 +206,7 @@ public class Classes {
      */
     public static List<Field> getFields(Class<?> input) {
         return Action.<List<Field>>ifNull(input)
-                .then(() -> Collections.newArrayList())
+                .then(Collections::newArrayList)
                 .otherwise(() -> Arrays.stream(input.getDeclaredFields()).toList())
                 .get();
     }
@@ -220,7 +219,7 @@ public class Classes {
      */
     public static List<String> getFieldNames(Class<?> input) {
         return Action.<List<String>>ifNull(input)
-                .then(() -> Collections.newArrayList())
+                .then(Collections::newArrayList)
                 .otherwise(() -> Arrays.stream(input.getDeclaredFields()).map(Field::getName).toList())
                 .get();
     }

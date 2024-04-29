@@ -205,6 +205,19 @@ public class Converts {
     }
 
     /**
+     * convert number to string
+     *
+     * @param input the input element
+     * @return after convert
+     */
+    public static String toString(Number input) {
+        if (Nil.isNull(input)) {
+            return null;
+        }
+        return input.toString();
+    }
+
+    /**
      * convert object to string
      *
      * @param input the input element
