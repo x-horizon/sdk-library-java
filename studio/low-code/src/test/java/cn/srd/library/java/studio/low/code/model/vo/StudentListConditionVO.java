@@ -73,11 +73,6 @@ public class StudentListConditionVO extends BaseListConditionVO implements Seria
     private StudentHobbyParticipationLevelType hobbyParticipationLevelType;
 
     @Schema(description = "兴趣爱好-获得的成就类型", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.LIST_NUMBER)
-    @JsonSerialize(using = JacksonEnumToIntegerSerializer.class)
-    @JsonDeserialize(using = JacksonEnumValueToEnumDeserializer.class)
-    private StudentHobbyAchievementType hobbyAchievementType;
-
-    @Schema(description = "兴趣爱好-获得的成就类型", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.LIST_NUMBER)
     @JsonDeserialize(using = JacksonListEnumValueToListEnumDeserializer.class)
     @JsonSerialize(using = JacksonListEnumToListStringSerializer.class)
     private List<StudentHobbyAchievementType> hobbyAchievementTypes;
