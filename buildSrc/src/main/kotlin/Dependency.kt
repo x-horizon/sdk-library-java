@@ -107,6 +107,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_ALIBABA_EASY_EXCEL("com.alibaba:easyexcel", "3.3.2"),
     TOOL_ALIBABA_TRANSMITTABLE_THREAD_LOCAL("com.alibaba:transmittable-thread-local", "2.14.5"),
     TOOL_AOP_SPRING_BOOT("org.springframework.boot:spring-boot-starter-aop", ""),
+    TOOL_AUTOWIRED_SMART_SPRING("io.github.burukeyou:spring-smart-di-all", "0.2.0"),
     TOOL_FILE_ANALYSIS_APACHE_TIKA_CORE("org.apache.tika:tika-core", ""),
     TOOL_FILE_ANALYSIS_APACHE_TIKA_PARSER("org.apache.tika:tika-parsers", BOM_TOOL_APACHE_TIKA.version),
     TOOL_GEOMETRY_LOCATION_TECH_JTS("org.locationtech.jts:jts-core", "1.19.0"),
@@ -131,6 +132,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_SERIALIZATION_PROTOBUF_GOOGLE_JAVA("com.google.protobuf:protobuf-java", ""),
     TOOL_SERIALIZATION_PROTOBUF_GOOGLE_JAVA_UTIL("com.google.protobuf:protobuf-java-util", ""),
     TOOL_SERIALIZATION_PROTOBUF_SQUAREUP_WIRE("com.squareup.wire:wire-schema", ""),
+    TOOL_STREAM_JDFRAME("io.github.burukeyou:jdframe", "0.0.2"),
     TOOL_VALIDATION_HIBERNATE("org.hibernate.validator:hibernate-validator", "8.0.1.Final"),
     TOOL_VALIDATION_JAKARTA("jakarta.validation:jakarta.validation-api", "3.0.2"), // support spring-boot version to 3.2.4
     TOOL_VALIDATION_JSON_SCHEMA("com.github.java-json-tools:json-schema-validator", "2.2.14"),

@@ -71,6 +71,7 @@ dependencies {
 
         api(GradleDependency.withVersion(GradleDependency.TOOL_ALIBABA_EASY_EXCEL))
         api(GradleDependency.withVersion(GradleDependency.TOOL_ALIBABA_TRANSMITTABLE_THREAD_LOCAL))
+        api(GradleDependency.withVersion(GradleDependency.TOOL_AUTOWIRED_SMART_SPRING))
         api(GradleDependency.withVersion(GradleDependency.TOOL_FILE_ANALYSIS_APACHE_TIKA_PARSER))
         api(GradleDependency.withVersion(GradleDependency.TOOL_GEOMETRY_LOCATION_TECH_JTS))
         api(GradleDependency.withVersion(GradleDependency.TOOL_GEOMETRY_LOCATION_TECH_SPATIAL4J))
@@ -87,6 +88,7 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_FASTJSON))
         api(GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_FASTJSON2))
         api(GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_FST))
+        api(GradleDependency.withVersion(GradleDependency.TOOL_STREAM_JDFRAME))
         api(GradleDependency.withVersion(GradleDependency.TOOL_VALIDATION_HIBERNATE))
         api(GradleDependency.withVersion(GradleDependency.TOOL_VALIDATION_JAKARTA))
         api(GradleDependency.withVersion(GradleDependency.TOOL_VALIDATION_JSON_SCHEMA))
