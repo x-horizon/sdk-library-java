@@ -24,14 +24,14 @@ public interface GenericRepository<P extends PO> extends cn.srd.library.java.orm
 
     default <PJ extends POJO, R extends GenericRepository<P>> NormalQueryChainer<P, PJ> openNormalQuery() {
         BaseMapper<P> baseMapper = getBaseMapper();
-        MybatisFlexSystemCacheDTO<P, R> systemCache = MybatisFlexSystemCache.getInstance().get(this.getClass());
+        MybatisFlexSystemCacheDTO<P, R> systemCache = MybatisFlexSystemCache.getInstance().getByRepositoryProxyClass(this.getClass());
         String tableName = systemCache.getTableName();
         Class<P> poClass = systemCache.getPoClass();
         return new NormalQueryChainer<>(QueryChain.of(baseMapper), tableName, poClass);
     }
 
     default <PJ extends POJO, R extends GenericRepository<P>> JsonbQueryChainer<P, PJ> openJsonbQuery() {
-        MybatisFlexSystemCacheDTO<P, R> systemCache = MybatisFlexSystemCache.getInstance().get(this.getClass());
+        MybatisFlexSystemCacheDTO<P, R> systemCache = MybatisFlexSystemCache.getInstance().getByRepositoryProxyClass(this.getClass());
         String tableName = systemCache.getTableName();
         Class<P> poClass = systemCache.getPoClass();
         return new JsonbQueryChainer<>(openNormalQuery(), tableName, poClass);

@@ -37,7 +37,7 @@ public class MybatisFlexSystemCache<P extends PO, R extends GenericRepository<P>
 
     private final Map<Class<R>, MybatisFlexSystemCacheDTO<P, R>> repositoryProxyClassMappingSystemCacheMap = Collections.newConcurrentHashMap(256);
 
-    private final Map<Class<R>, MybatisFlexSystemCacheDTO<P, R>> pojoFieldNameMappingTableNameMap = Collections.newConcurrentHashMap(256);
+    private final Map<Class<P>, MybatisFlexSystemCacheDTO<P, R>> poClassMappingSystemCacheMap = Collections.newConcurrentHashMap(256);
 
     @Getter private static MybatisFlexSystemCache<?, ?, ?> instance = null;
 
@@ -78,39 +78,29 @@ public class MybatisFlexSystemCache<P extends PO, R extends GenericRepository<P>
                     Assert.of().setMessage("{}could not find the table name by po class [{}], please check the annotation [{}] is marked!", ModuleView.ORM_MYBATIS_SYSTEM, poClass.getName(), Table.class.getName())
                             .setThrowable(LibraryJavaInternalException.class)
                             .throwsIfNull(tableName);
-
-                    // Classes.getFieldsDeep(poClass)
-                    //         .stream()
-                    //         .map(Field::getType)
-                    //         .filter(fieldType -> Classes.isAssignable(fieldType, POJO.class))
-                    //         .toList();
-
-                    // Classes.getFieldsDeep(poClass)
-                    //         .stream()
-                    //         .map(Field::getType)
-                    //         .filter(fieldType->{
-                    //             if(Classes.isAssignable(fieldType,POJO.class)){
-                    //                 return true;
-                    //             }
-                    //             if(Collections.isIterable()){
-                    //
-                    //             }
-                    //         })
-                    //         .toList();
-
-                    repositoryClassMappingSystemCacheMap.put(repositoryProxyClass, repositoryClassMappingSystemCacheMap
+                    MybatisFlexSystemCacheDTO<P, R> systemCacheDTO = repositoryClassMappingSystemCacheMap
                             .get(repositoryProxyClass)
                             .setBaseMapper(baseMapper)
                             .setPoClass(poClass)
-                            .setTableName(tableName)
-                    );
+                            .setTableName(tableName);
+                    poClassMappingSystemCacheMap.put(poClass, systemCacheDTO);
+                    repositoryClassMappingSystemCacheMap.put(repositoryProxyClass, systemCacheDTO);
                 });
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public <P1 extends PO, R1 extends GenericRepository<P1>> MybatisFlexSystemCacheDTO<P1, R1> get(Class<?> repositoryProxyClass) {
+    public <P1 extends PO, R1 extends GenericRepository<P1>> MybatisFlexSystemCacheDTO<P1, R1> getByPOClass(Class<P1> poClass) {
+        MybatisFlexSystemCacheDTO<P1, R1> systemCacheDTO = (MybatisFlexSystemCacheDTO<P1, R1>) poClassMappingSystemCacheMap.get(poClass);
+        Assert.of().setMessage("{}could not find the mybatis flex system cache by po class:[{}], please check!", ModuleView.ORM_MYBATIS_SYSTEM, poClass.getName())
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfNull(systemCacheDTO);
+        return systemCacheDTO;
+    }
+
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public <P1 extends PO, R1 extends GenericRepository<P1>> MybatisFlexSystemCacheDTO<P1, R1> getByRepositoryProxyClass(Class<?> repositoryProxyClass) {
         MybatisFlexSystemCacheDTO<P1, R1> systemCacheDTO = (MybatisFlexSystemCacheDTO<P1, R1>) repositoryProxyClassMappingSystemCacheMap.get(repositoryProxyClass);
-        Assert.of().setMessage("{}could not find the mybatis flex system cache by repository, please using this function before get the base mapper first!", ModuleView.ORM_MYBATIS_SYSTEM)
+        Assert.of().setMessage("{}could not find the mybatis flex system cache by repository proxy class, please using this function before get the base mapper first!", ModuleView.ORM_MYBATIS_SYSTEM)
                 .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfNull(systemCacheDTO);
         return systemCacheDTO;

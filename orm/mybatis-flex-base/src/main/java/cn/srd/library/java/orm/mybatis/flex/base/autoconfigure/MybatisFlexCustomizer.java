@@ -25,6 +25,7 @@ import com.mybatisflex.core.FlexGlobalConfig;
 import com.mybatisflex.core.audit.AuditManager;
 import com.mybatisflex.core.logicdelete.LogicDeleteManager;
 import com.mybatisflex.core.mybatis.FlexConfiguration;
+import com.mybatisflex.core.query.QueryColumnBehavior;
 import com.mybatisflex.spring.boot.ConfigurationCustomizer;
 import com.mybatisflex.spring.boot.MyBatisFlexCustomizer;
 import com.mybatisflex.spring.boot.MybatisFlexProperties;
@@ -73,6 +74,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
     public void customize(FlexGlobalConfig globalConfig) {
         log.debug("{}mybatis flex customizer is enabled, starting initializing...", ModuleView.ORM_MYBATIS_SYSTEM);
 
+        handleQueryConditionBehavior();
         EnableMybatisFlexCustomizer mybatisFlexCustomizer = Annotations.getAnnotation(EnableMybatisFlexCustomizer.class);
         handleIdGenerateConfig(globalConfig, mybatisFlexCustomizer.globalIdGenerateConfig());
         handleDeleteLogicConfig(mybatisFlexCustomizer.globalDeleteLogicConfig());
@@ -114,6 +116,16 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
         );
 
         log.debug("{}mybatis flex customizer initialized.", ModuleView.ORM_MYBATIS_SYSTEM);
+    }
+
+    /**
+     * <pre>
+     * replace the default query condition behavior to never ignore anything, this behavior should be entirely determined by user.
+     * see <a href="https://mybatis-flex.com/zh/base/querywrapper.html#querycolumnbehavior">query column behavior</a>
+     * </pre>
+     */
+    private void handleQueryConditionBehavior() {
+        QueryColumnBehavior.setIgnoreFunction(QueryColumnBehavior.IGNORE_NONE);
     }
 
     /**
