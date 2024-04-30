@@ -18,7 +18,7 @@ import org.springframework.lang.NonNull;
  * @since 2023-11-08 17:07
  */
 @Order(SpringInitializeConstant.HIGHER_INITIALIZE_PRIORITY)
-public class MybatisContractBasePackagePathAutoConfigurer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+public class ORMContractBasePackagePathAutoConfigurer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     static final String LIBRARY_JAVA_MYBATIS_BASE_PACKAGE_PATH = "cn.srd.library.java.orm";
 

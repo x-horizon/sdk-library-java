@@ -1,1 +1,1 @@
-cn.srd.library.java.orm.contract.autoconfigure.MybatisContractAutoConfigurer
+cn.srd.library.java.orm.contract.autoconfigure.ORMContractAutoConfigurer
