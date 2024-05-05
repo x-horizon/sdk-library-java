@@ -23,6 +23,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF("com.google.protobuf:protobuf-bom", "3.25.1"),
     BOM_TOOL_SERIALIZATION_SQUAREUP_WIRE("com.squareup.wire:wire-bom", "4.9.1"),
     BOM_WEB_FEIGN("io.github.openfeign:feign-bom", "13.2.1"), // need to synchronize with "org.springframework.cloud:spring-cloud-starter-openfeign"
+    BOM_WEB_OKHTTPS("cn.zhxu:okhttps-parent", "4.0.2"), // need to synchronize with "org.springframework.cloud:spring-cloud-starter-openfeign"
     BOM_WEB_NETTY("io.netty:netty-bom", "4.1.107.Final"), // support spring-boot version to 3.2.4
     BOM_WEB_REACTOR("io.projectreactor:reactor-bom", "2023.0.4"), // support spring-boot version to 3.2.4
 
@@ -149,6 +150,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TEST_OPENJDK_JMH_CORE("org.openjdk.jmh:jmh-core", PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_OPENJDK_JMH.version),
     TEST_SPRING_BOOT_TEST("org.springframework.boot:spring-boot-starter-test", ""),
 
+    WEB_OKHTTPS("cn.zhxu:okhttps-jackson", ""),
     WEB_IO_NETTY("io.netty:netty-all", ""), // TODO wjm org.springframework.integration
     WEB_IO_REACTOR("io.projectreactor:reactor-core", ""),
     WEB_OPEN_FEIGN_OKHTTP("io.github.openfeign:feign-okhttp", ""), // TODO wjm org.springframework.integration

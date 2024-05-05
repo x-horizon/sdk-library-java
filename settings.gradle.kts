@@ -136,6 +136,7 @@ include(":tool:xml")
 
 include(":transaction:spring")
 
+include(":web:http:okhttps")
 include(":web:netty")
 include(":web:openfeign")
 include(":web:reactor")

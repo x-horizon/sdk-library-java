@@ -26,6 +26,7 @@ dependencies {
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_TOOL_SERIALIZATION_SQUAREUP_WIRE)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_WEB_FEIGN)))
+    api(platform(GradleDependency.withVersion(GradleDependency.BOM_WEB_OKHTTPS)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_WEB_NETTY)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_WEB_REACTOR)))
 
@@ -221,6 +222,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.TRANSACTION_SPRING)))
 
         api(project(GradleModule.toReferenceName(GradleModule.WEB_NETTY)))
+        api(project(GradleModule.toReferenceName(GradleModule.WEB_HTTP_OKHTTPS)))
         api(project(GradleModule.toReferenceName(GradleModule.WEB_OPEN_FEIGN)))
         api(project(GradleModule.toReferenceName(GradleModule.WEB_REACTOR)))
         api(project(GradleModule.toReferenceName(GradleModule.WEB_WEBSOCKET)))
