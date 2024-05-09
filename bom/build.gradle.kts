@@ -26,7 +26,6 @@ dependencies {
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_TOOL_SERIALIZATION_SQUAREUP_WIRE)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_WEB_FEIGN)))
-    api(platform(GradleDependency.withVersion(GradleDependency.BOM_WEB_OKHTTPS)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_WEB_NETTY)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_WEB_REACTOR)))
 
@@ -100,6 +99,8 @@ dependencies {
 
         api(GradleDependency.withVersion(GradleDependency.TEST_JUNIT))
         api(GradleDependency.withVersion(GradleDependency.TEST_OPENJDK_JMH_CORE))
+
+        api(GradleDependency.withVersion(GradleDependency.WEB_OKHTTPS))
 
         api(project(GradleModule.toReferenceName(GradleModule.BOM)))
 
