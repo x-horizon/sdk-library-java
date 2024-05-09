@@ -43,9 +43,17 @@ public class BaseBO extends IdBO implements BO {
     @Column(value = "creator_id")
     private Long creatorId;
 
+    @Schema(description = "创建人名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
+    @Column(value = "creator_name")
+    private String creatorName;
+
     @Schema(description = "更新人id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
     @Column(value = "updater_id")
     private Long updaterId;
+
+    @Schema(description = "更新人名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
+    @Column(value = "updater_name")
+    private String updaterName;
 
     @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.TIMESTAMP)
     @Column(value = "create_time")
