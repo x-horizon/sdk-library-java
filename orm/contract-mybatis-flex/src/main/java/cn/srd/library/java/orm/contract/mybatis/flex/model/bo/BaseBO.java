@@ -12,7 +12,6 @@ import com.mybatisflex.annotation.Column;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
@@ -29,8 +28,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
-@EqualsAndHashCode(callSuper = true)
-public class BaseBO extends IdBO implements BO {
+public class BaseBO implements BO {
 
     @Serial private static final long serialVersionUID = -6744701187675528956L;
 
@@ -70,6 +68,6 @@ public class BaseBO extends IdBO implements BO {
     @Schema(description = "删除时间")
     @Column(value = "delete_time", isLogicDelete = true)
     @JsonIgnore
-    private Boolean deleteTime;
+    private LocalDateTime deleteTime;
 
 }

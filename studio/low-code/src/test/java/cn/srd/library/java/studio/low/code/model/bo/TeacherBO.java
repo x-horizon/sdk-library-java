@@ -5,7 +5,7 @@
 package cn.srd.library.java.studio.low.code.model.bo;
 
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
-import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseVersionBO;
+import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseWithVersionBO;
 import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListEnumIntegerTypeHandler;
 import cn.srd.library.java.studio.low.code.model.enums.TeacherLevelType;
 import cn.srd.library.java.studio.low.code.model.enums.TeacherStatus;
@@ -16,6 +16,7 @@ import cn.srd.library.java.tool.convert.jackson.serializer.JacksonListEnumToList
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mybatisflex.annotation.Column;
+import com.mybatisflex.annotation.Id;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,9 +38,14 @@ import java.util.List;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-public class TeacherBO extends BaseVersionBO {
+public class TeacherBO extends BaseWithVersionBO {
 
     @Serial private static final long serialVersionUID = -8552109224294597412L;
+
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
+    @Column(value = "id")
+    @Id
+    private Long id;
 
     @Schema(description = "学校id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
     @Column(value = "school_id")

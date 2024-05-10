@@ -5,13 +5,14 @@
 package cn.srd.library.java.studio.low.code.model.bo;
 
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
-import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseVersionBO;
+import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseWithVersionBO;
 import cn.srd.library.java.studio.low.code.model.enums.SchoolType;
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToEnumDeserializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mybatisflex.annotation.Column;
+import com.mybatisflex.annotation.Id;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -33,9 +34,14 @@ import java.io.Serial;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-public class SchoolBO extends BaseVersionBO {
+public class SchoolBO extends BaseWithVersionBO {
 
     @Serial private static final long serialVersionUID = -9052089371242697920L;
+
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
+    @Column(value = "id")
+    @Id
+    private Long id;
 
     @Schema(description = "名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
     @Column(value = "name")

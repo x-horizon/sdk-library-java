@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.orm.contract.model.page;
 
+import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
 import cn.srd.library.java.orm.contract.model.base.DTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -30,16 +31,16 @@ public class PageResult<T> implements DTO {
 
     @Serial private static final long serialVersionUID = -6490851620278359181L;
 
-    @Schema(description = "total record number", requiredMode = Schema.RequiredMode.REQUIRED, example = "1000")
+    @Schema(description = "total record number", requiredMode = Schema.RequiredMode.REQUIRED, example = ApiDocConstant.NUMBER)
     private Long totalNumber;
 
-    @Schema(description = "total page number", requiredMode = Schema.RequiredMode.REQUIRED, example = "100")
+    @Schema(description = "total page number", requiredMode = Schema.RequiredMode.REQUIRED, example = ApiDocConstant.NUMBER)
     private Long totalPageNumber;
 
-    @Schema(description = "current page number", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
+    @Schema(description = "current page number", requiredMode = Schema.RequiredMode.REQUIRED, example = ApiDocConstant.NUMBER)
     private Long currentPageNumber;
 
-    @Schema(description = "record number per page", requiredMode = Schema.RequiredMode.REQUIRED, example = "10")
+    @Schema(description = "record number per page", requiredMode = Schema.RequiredMode.REQUIRED, example = ApiDocConstant.NUMBER)
     private Long pageSize;
 
     @Schema(description = "collection record", requiredMode = Schema.RequiredMode.REQUIRED)

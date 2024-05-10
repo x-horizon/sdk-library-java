@@ -1,7 +1,10 @@
 package cn.srd.library.java.orm.mybatis.flex.postgresql.model.bo;
 
-import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseVersionBO;
+import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
+import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseWithVersionBO;
 import com.mybatisflex.annotation.Column;
+import com.mybatisflex.annotation.Id;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -19,9 +22,14 @@ import java.io.Serial;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-public class PeopleBO extends BaseVersionBO {
+public class PeopleBO extends BaseWithVersionBO {
 
     @Serial private static final long serialVersionUID = -2406926081842847637L;
+
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
+    @Column(value = "id")
+    @Id
+    private Long id;
 
     @Column(value = "home_id")
     private Long homeId;

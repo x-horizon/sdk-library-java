@@ -20,7 +20,7 @@ import java.io.Serial;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-public class BaseVersionBO extends BaseBO {
+public class BaseWithVersionBO extends BaseBO {
 
     @Serial private static final long serialVersionUID = 2152316212528302390L;
 
