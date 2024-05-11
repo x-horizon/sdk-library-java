@@ -8,8 +8,7 @@ import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.mybatis.flex.base.cache.MybatisFlexSystemCache;
 import cn.srd.library.java.orm.mybatis.flex.base.repository.GenericRepository;
 import com.mybatisflex.core.BaseMapper;
-import com.mybatisflex.spring.boot.MybatisFlexAutoConfiguration;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +20,7 @@ import org.springframework.context.annotation.DependsOn;
  * @author wjm
  * @since 2023-11-12 21:06
  */
-@AutoConfigureBefore(MybatisFlexAutoConfiguration.class)
+@AutoConfiguration
 @DependsOn("mybatis-flex-com.mybatisflex.spring.boot.MybatisFlexProperties")
 public class MybatisFlexAutoConfigurer {
 
