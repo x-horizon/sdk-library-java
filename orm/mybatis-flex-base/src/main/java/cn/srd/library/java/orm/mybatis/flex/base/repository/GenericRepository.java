@@ -514,7 +514,7 @@ public interface GenericRepository<P extends PO> {
         return new DeleteChainer<>(UpdateChain.of(baseMapper));
     }
 
-    private BaseMapper<P> getBaseMapper() {
+    default BaseMapper<P> getBaseMapper() {
         return MybatisFlexSystemCache.getInstance().getBaseMapper(this.getClass());
     }
 

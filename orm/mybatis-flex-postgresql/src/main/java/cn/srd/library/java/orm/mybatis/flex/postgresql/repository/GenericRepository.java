@@ -37,8 +37,4 @@ public interface GenericRepository<P extends PO> extends cn.srd.library.java.orm
         return new JsonbQueryChainer<>(openNormalQuery(), tableName, poClass);
     }
 
-    private BaseMapper<P> getBaseMapper() {
-        return MybatisFlexSystemCache.getInstance().getBaseMapper(this.getClass());
-    }
-
 }
