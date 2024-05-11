@@ -100,13 +100,13 @@ public class StrUtil {
 
     public static String buildMapperPackage(String entityClass) {
         if (!entityClass.contains(".")) {
-            return "mapper";
+            return "repository";
         } else {
             String entityPackage = entityClass.substring(0, entityClass.lastIndexOf("."));
             if (entityPackage.contains(".")) {
-                return entityPackage.substring(0, entityPackage.lastIndexOf(".")) + ".mapper";
+                return entityPackage.substring(0, entityPackage.lastIndexOf(".")) + ".repository";
             } else {
-                return "mapper";
+                return "repository";
             }
         }
     }
