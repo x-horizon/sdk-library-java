@@ -19,7 +19,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-@MapperScan("cn.srd.library.java.studio.low.code")
+@MapperScan("cn.srd.library.java.studio.low.code.**.repository")
 @EnableAspectJAutoProxy(exposeProxy = true)
 @EnableEnumAutowired
 @EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
