@@ -39,6 +39,8 @@ public class MybatisFlexSystemCache<P extends PO, R extends GenericRepository<P>
 
     private final Map<Class<P>, MybatisFlexSystemCacheDTO<P, R>> poClassMappingSystemCacheMap = Collections.newConcurrentHashMap(256);
 
+    private static final String MYBATIS_FLEX_INTERNAL_REPOSITORY_CLASS_NAME_PREFIX = "MybatisFlexInternal";
+
     @Getter private static MybatisFlexSystemCache<?, ?, ?> instance = null;
 
     @PostConstruct
@@ -66,7 +68,14 @@ public class MybatisFlexSystemCache<P extends PO, R extends GenericRepository<P>
                 .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, entry -> (Class<B>) entry.getValue()))
                 .entrySet()
                 .stream()
-                .map(entry -> Collections.ofPair(repositoryClassNameMappingRepositoryClassMap.get(Strings.getMostSimilar(entry.getKey(), repositoryClassNameMappingRepositoryClassMap.keySet())).getName(), Springs.getBean(entry.getValue())))
+                .map(entry -> {
+                    String actualRepositoryClassSimpleName = Strings.removeIfStartWith(entry.getKey(), MYBATIS_FLEX_INTERNAL_REPOSITORY_CLASS_NAME_PREFIX);
+                    Class<R> actualRepositoryClass = repositoryClassNameMappingRepositoryClassMap.get(actualRepositoryClassSimpleName);
+                    Assert.of().setMessage("{}could not find the repository: [{}] instance, please add it to spring ioc!", ModuleView.ORM_MYBATIS_SYSTEM, actualRepositoryClassSimpleName)
+                            .setThrowable(LibraryJavaInternalException.class)
+                            .throwsIfNull(actualRepositoryClass);
+                    return Collections.ofPair(actualRepositoryClass.getName(), Springs.getBean(entry.getValue()));
+                })
                 .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue))
                 .forEach((repositoryClassName, baseMapper) -> {
                     Class<R> repositoryProxyClass = (Class<R>) Classes.ofName(repositoryClassName);
