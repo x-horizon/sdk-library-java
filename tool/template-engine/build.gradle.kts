@@ -5,6 +5,5 @@
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
 
-    api(GradleDependency.TOOL_APACHE_FILE_ANALYSIS_TIKA_CORE.withoutVersion)
-    api(GradleDependency.TOOL_APACHE_FILE_ANALYSIS_TIKA_PARSER.withoutVersion)
+    api(GradleDependency.TOOL_APACHE_TEMPLATE_ENGINE_VELOCITY.withoutVersion)
 }
