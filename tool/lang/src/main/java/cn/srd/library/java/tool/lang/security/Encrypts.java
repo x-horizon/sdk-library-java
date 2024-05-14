@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.tool.lang.secutiry;
+package cn.srd.library.java.tool.lang.security;
 
 import cn.hutool.crypto.SecureUtil;
 import lombok.AccessLevel;
