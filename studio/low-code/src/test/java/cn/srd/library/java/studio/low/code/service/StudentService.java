@@ -25,8 +25,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static cn.srd.library.java.orm.mybatis.flex.postgresql.chain2.JsonbQueryFunctionChainer.jsonbArrayElements;
-import static cn.srd.library.java.orm.mybatis.flex.postgresql.chain2.JsonbQueryFunctionChainer.jsonbExtractPath;
+import static cn.srd.library.java.orm.mybatis.flex.postgresql.chain.JsonbQueryFunctionChainer.jsonbArrayElements;
+import static cn.srd.library.java.orm.mybatis.flex.postgresql.chain.JsonbQueryFunctionChainer.jsonbExtractPath;
 
 /**
  * 学生信息 service

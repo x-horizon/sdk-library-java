@@ -9,8 +9,8 @@ import cn.srd.library.java.orm.contract.model.base.POJO;
 import cn.srd.library.java.orm.mybatis.flex.base.cache.MybatisFlexSystemCache;
 import cn.srd.library.java.orm.mybatis.flex.base.cache.MybatisFlexSystemCacheDTO;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChain;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.chain2.JsonbQueryChainer;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.chain2.NormalQueryChainer;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.chain.JsonbQueryChainer;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.chain.NormalQueryChainer;
 import com.mybatisflex.core.BaseMapper;
 
 /**
