@@ -1,4 +1,4 @@
-// Copyright (C) 2021-2023 thinkingto.com Ltd. All rights reserved.
+// Copyright (C) 2021-2026 thinkingto.com Ltd. All rights reserved.
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
@@ -6,7 +6,6 @@ package cn.srd.library.java.tool.lang.number;
 
 import cn.hutool.core.util.NumberUtil;
 import cn.srd.library.java.contract.constant.number.NumberConstant;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.time.TimeUnitConstant;
 import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;

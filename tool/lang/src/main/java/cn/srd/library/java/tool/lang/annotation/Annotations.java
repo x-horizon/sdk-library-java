@@ -1,4 +1,4 @@
-// Copyright (C) 2021-2023 thinkingto.com Ltd. All rights reserved.
+// Copyright (C) 2021-2026 thinkingto.com Ltd. All rights reserved.
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
@@ -7,7 +7,6 @@ package cn.srd.library.java.tool.lang.annotation;
 import cn.hutool.core.annotation.AnnotationUtil;
 import cn.srd.library.java.contract.constant.annotation.AnnotationConstant;
 import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.object.BasePackagePath;
