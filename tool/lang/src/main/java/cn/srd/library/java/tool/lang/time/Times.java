@@ -3,7 +3,6 @@ package cn.srd.library.java.tool.lang.time;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.date.TemporalAccessorUtil;
 import cn.hutool.core.date.Week;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.constant.time.TimeConstant;
 import cn.srd.library.java.contract.constant.time.TimePatternConstant;
@@ -190,6 +189,16 @@ public class Times {
      */
     public static String toStringWithDateTime(LocalDateTime input, String format) {
         return Nil.isNull(input) ? SymbolConstant.EMPTY : DateTimeFormatter.ofPattern(format).format(input);
+    }
+
+    /**
+     * LocalDateTime =&gt; String，如：2011-12-03 10:15
+     *
+     * @param input 输入时间对象
+     * @return 时间字符串
+     */
+    public static String toStringWithoutSecond(LocalDateTime input) {
+        return Nil.isNull(input) ? SymbolConstant.EMPTY : DateTimeFormatter.ofPattern(TimePatternConstant.DATETIME_WITHOUT_SECOND).format(input);
     }
 
     /**

@@ -27,6 +27,11 @@ public class TimePatternConstant {
     public static final String HOUR_MINUTE_SECOND = "HH:mm:ss";
 
     /**
+     * {@code "yyyy-MM-dd HH:mm"}
+     */
+    public static final String DATETIME_WITHOUT_SECOND = "yyyy-MM-dd HH:mm";
+
+    /**
      * {@code "yyyy-MM-dd HH:mm:ss"}
      */
     public static final String DATETIME_MS0 = "yyyy-MM-dd HH:mm:ss";
