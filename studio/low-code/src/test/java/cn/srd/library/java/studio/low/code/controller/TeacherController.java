@@ -4,7 +4,6 @@
 
 package cn.srd.library.java.studio.low.code.controller;
 
-import cn.srd.library.java.contract.model.protocol.WebResponse;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.studio.low.code.model.vo.TeacherGetConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.TeacherListConditionVO;
@@ -23,8 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static cn.srd.library.java.contract.model.protocol.WebResponse.success;
-
 /**
  * 教师信息 controller
  *
@@ -40,41 +37,38 @@ public class TeacherController {
 
     @Operation(summary = "保存数据")
     @PostMapping("/save")
-    public WebResponse<Void> save(@RequestBody TeacherVO teacherVO) {
+    public void save(@RequestBody TeacherVO teacherVO) {
         teacherService.save(teacherVO);
-        return success();
     }
 
     @Operation(summary = "根据 id 更新数据")
     @PostMapping("/updateById")
-    public WebResponse<Void> updateById(@RequestBody TeacherVO teacherVO) {
+    public void updateById(@RequestBody TeacherVO teacherVO) {
         teacherService.updateById(teacherVO);
-        return success();
     }
 
     @Operation(summary = "根据 id 删除数据")
     @PostMapping("/deleteByIds")
-    public WebResponse<Void> deleteByIds(@Validated @RequestBody ValidList<Long> ids) {
+    public void deleteByIds(@Validated @RequestBody ValidList<Long> ids) {
         teacherService.deleteByIds(ids);
-        return success();
     }
 
     @Operation(summary = "根据条件查询数据")
     @PostMapping("/getByCondition")
-    public WebResponse<TeacherVO> getByCondition(@RequestBody TeacherGetConditionVO conditionVO) {
-        return success(teacherService.getByCondition(conditionVO));
+    public TeacherVO getByCondition(@RequestBody TeacherGetConditionVO conditionVO) {
+        return teacherService.getByCondition(conditionVO);
     }
 
     @Operation(summary = "根据条件查询列表数据")
     @PostMapping("/listByCondition")
-    public WebResponse<List<TeacherVO>> listByCondition(@RequestBody TeacherListConditionVO conditionVO) {
-        return success(teacherService.listByCondition(conditionVO));
+    public List<TeacherVO> listByCondition(@RequestBody TeacherListConditionVO conditionVO) {
+        return teacherService.listByCondition(conditionVO);
     }
 
     @Operation(summary = "根据条件查询分页数据")
     @PostMapping("/pageByCondition")
-    public WebResponse<PageResult<TeacherVO>> pageByCondition(@RequestBody TeacherPageConditionVO conditionVO) {
-        return success(teacherService.pageByCondition(conditionVO));
+    public PageResult<TeacherVO> pageByCondition(@RequestBody TeacherPageConditionVO conditionVO) {
+        return teacherService.pageByCondition(conditionVO);
     }
 
 }
