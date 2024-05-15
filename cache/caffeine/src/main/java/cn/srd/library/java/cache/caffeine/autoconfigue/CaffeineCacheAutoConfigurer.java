@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Cache Caffeine
  *
  * @author wjm
- * @since 2023-06-05 17:01:12
+ * @since 2023-06-05 17:01
  */
 @AutoConfiguration
 @EnableConfigurationProperties(CacheCaffeineProperties.class)

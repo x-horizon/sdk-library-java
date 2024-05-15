@@ -10,7 +10,7 @@ import java.util.function.UnaryOperator;
  * the validator support chain of responsibility
  *
  * @author wjm
- * @since 2023-06-27 16:41:11
+ * @since 2023-06-27 16:41
  */
 public interface Validator<T> {
 

@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
  * Jackson 序列化处理器：LocalDateTime =&gt; String，遵循 ISO 标准，如：2011-12-03T10:15:30
  *
  * @author wjm
- * @since 2022-11-14 21:16:51
+ * @since 2022-11-14 21:16
  */
 public class JacksonLocalDateTimeToStringISOSerializer extends JsonSerializer<LocalDateTime> {
 

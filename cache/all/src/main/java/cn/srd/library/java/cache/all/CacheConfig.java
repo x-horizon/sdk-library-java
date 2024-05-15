@@ -45,7 +45,7 @@ import java.lang.annotation.*;
  * </pre>
  *
  * @author wjm
- * @since 2023-06-08 10:14:52
+ * @since 2023-06-08 10:14
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

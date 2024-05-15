@@ -6,7 +6,7 @@ import org.springframework.cache.interceptor.SimpleKeyGenerator;
  * the key generator in default
  *
  * @author wjm
- * @since 2023-06-10 11:42:19
+ * @since 2023-06-10 11:42
  */
 public class CacheDefaultKeyGenerator implements CacheKeyGenerator {
 
@@ -16,5 +16,3 @@ public class CacheDefaultKeyGenerator implements CacheKeyGenerator {
     }
 
 }
-
-

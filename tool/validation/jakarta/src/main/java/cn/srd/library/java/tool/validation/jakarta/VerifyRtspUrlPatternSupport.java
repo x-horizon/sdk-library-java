@@ -8,7 +8,7 @@ import jakarta.validation.ConstraintValidatorContext;
  * 校验一个字符串是否为rtsp格式，例如：rtsp://127.0.0.1:8080/ch01/0
  *
  * @author xiongjing
- * @since 2023-03-10 15:31:27
+ * @since 2023-03-10 15:31
  */
 public class VerifyRtspUrlPatternSupport implements ConstraintValidator<VerifyRtspUrlPattern, String> {
 

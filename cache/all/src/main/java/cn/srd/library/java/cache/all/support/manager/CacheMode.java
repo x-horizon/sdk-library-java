@@ -10,7 +10,7 @@ import lombok.Getter;
  * the cache mode
  *
  * @author wjm
- * @since 2023-06-19 21:26:47
+ * @since 2023-06-19 21:26
  */
 @Getter
 @AllArgsConstructor
@@ -34,5 +34,3 @@ public enum CacheMode {
     private final CacheModeStrategy strategy;
 
 }
-
-

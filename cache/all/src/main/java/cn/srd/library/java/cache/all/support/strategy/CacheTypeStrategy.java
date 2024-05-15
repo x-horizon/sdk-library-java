@@ -9,7 +9,7 @@ import java.util.Map;
  * the cache type strategy
  *
  * @author wjm
- * @since 2023-06-12 20:49:21
+ * @since 2023-06-12 20:49
  */
 public interface CacheTypeStrategy {
 
@@ -47,5 +47,3 @@ public interface CacheTypeStrategy {
     <V> Map<String, V> getMapByNamespaceWithoutNullValue(CacheDataManager dataManager, String namespace, int findCacheTypeNameIndex);
 
 }
-
-

@@ -19,7 +19,7 @@ import java.time.LocalDate;
  * Jackson 序列化处理器：LocalDate =&gt; String
  *
  * @author wjm
- * @since 2023-06-21 12:01:01
+ * @since 2023-06-21 12:01
  */
 public class JacksonLocalDateToStringSerializer extends JsonSerializer<LocalDate> {
 

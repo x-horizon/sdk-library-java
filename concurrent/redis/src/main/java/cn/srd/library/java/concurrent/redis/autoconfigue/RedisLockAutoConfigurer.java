@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
  * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Cache Redis
  *
  * @author wjm
- * @since 2020/12/12 18:06
+ * @since 2020-12-12 18:06
  */
 @AutoConfiguration
 public class RedisLockAutoConfigurer {

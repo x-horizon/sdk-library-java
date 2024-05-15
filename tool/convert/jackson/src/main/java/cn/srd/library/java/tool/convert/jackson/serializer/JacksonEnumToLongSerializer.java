@@ -17,7 +17,7 @@ import lombok.SneakyThrows;
  * Jackson 序列化处理器：Enum =&gt; Enum 内部 Long 类型的值
  *
  * @author wjm
- * @since 2020/12/15 17:02
+ * @since 2020-12-15 17:02
  */
 public class JacksonEnumToLongSerializer extends JsonSerializer<Enum<?>> {
 

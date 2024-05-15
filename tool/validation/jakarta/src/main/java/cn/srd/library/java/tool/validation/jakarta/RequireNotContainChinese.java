@@ -10,7 +10,7 @@ import java.lang.annotation.*;
  *
  * @author xiongjing
  * @see RequireNotContainChineseSupport
- * @since 2022-11-20 13:49:11
+ * @since 2022-11-20 13:49
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

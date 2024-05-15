@@ -76,7 +76,7 @@ import java.util.function.Supplier;
  *
  * @author wjm
  * @see RedisFairLockAspect
- * @since 2020/12/12 18:06
+ * @since 2020-12-12 18:06
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

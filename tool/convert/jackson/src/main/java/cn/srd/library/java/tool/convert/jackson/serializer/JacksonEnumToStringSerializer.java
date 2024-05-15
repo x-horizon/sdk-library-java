@@ -17,7 +17,7 @@ import lombok.SneakyThrows;
  * Jackson 序列化处理器：Enum =&gt; Enum 内部 String 类型的值（不是枚举本身的值）
  *
  * @author wjm
- * @since 2022/10/27 18:56:21
+ * @since 2022-10-27 18:56
  */
 public class JacksonEnumToStringSerializer extends JsonSerializer<Enum<?>> {
 

@@ -16,7 +16,7 @@ import java.util.List;
  * Aspect for {@link Caching}
  *
  * @author wjm
- * @since 2023-06-09 15:06:14
+ * @since 2023-06-09 15:06
  */
 @Aspect
 public class CachingAspect implements CacheAspect {

@@ -14,7 +14,7 @@ import java.util.Map;
  * the local cache type strategy implement
  *
  * @author wjm
- * @since 2023-06-12 20:49:21
+ * @since 2023-06-12 20:49
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CacheTypeLocalStrategy implements CacheTypeStrategy {
@@ -92,5 +92,3 @@ public class CacheTypeLocalStrategy implements CacheTypeStrategy {
     }
 
 }
-
-

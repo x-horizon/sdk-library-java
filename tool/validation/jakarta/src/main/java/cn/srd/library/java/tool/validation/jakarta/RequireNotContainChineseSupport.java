@@ -9,7 +9,7 @@ import jakarta.validation.ConstraintValidatorContext;
  *
  * @author xiongjing
  * @see RequireNotContainChinese
- * @since 2022-11-20 13:49:11
+ * @since 2022-11-20 13:49
  */
 public class RequireNotContainChineseSupport implements ConstraintValidator<RequireNotContainChinese, String> {
 

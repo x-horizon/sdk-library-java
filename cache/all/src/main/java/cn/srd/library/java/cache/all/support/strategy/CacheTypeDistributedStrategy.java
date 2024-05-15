@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * the distributed cache type strategy implement
  *
  * @author wjm
- * @since 2023-06-12 20:49:21
+ * @since 2023-06-12 20:49
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CacheTypeDistributedStrategy implements CacheTypeStrategy {
@@ -75,5 +75,3 @@ public class CacheTypeDistributedStrategy implements CacheTypeStrategy {
     }
 
 }
-
-

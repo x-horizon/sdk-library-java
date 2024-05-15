@@ -10,7 +10,7 @@ import org.aspectj.lang.annotation.Pointcut;
  * Aspect for {@link CacheEvict}
  *
  * @author wjm
- * @since 2023-06-09 15:06:14
+ * @since 2023-06-09 15:06
  */
 @Aspect
 public class CacheEvictAspect implements CacheAspect {

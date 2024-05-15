@@ -36,7 +36,7 @@ import java.util.function.Function;
  * the cache aspect common action
  *
  * @author wjm
- * @since 2023-06-09 15:06:14
+ * @since 2023-06-09 15:06
  */
 public interface CacheAspect extends AopCaptor {
 

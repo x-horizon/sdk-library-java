@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
  * </pre>
  *
  * @author wjm
- * @since 2023-03-28 19:41:33
+ * @since 2023-03-28 19:41
  */
 public class StreamMessageJacksonConverter extends AbstractMessageConverter {
 

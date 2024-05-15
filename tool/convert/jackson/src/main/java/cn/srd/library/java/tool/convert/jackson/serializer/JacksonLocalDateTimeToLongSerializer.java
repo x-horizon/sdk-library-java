@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  * Jackson 序列化处理器：LocalDateTime =&gt; Long
  *
  * @author wjm
- * @since 2022-10-14 18:16:31
+ * @since 2022-10-14 18:16
  */
 public class JacksonLocalDateTimeToLongSerializer extends JsonSerializer<LocalDateTime> {
 
@@ -38,4 +38,3 @@ public class JacksonLocalDateTimeToLongSerializer extends JsonSerializer<LocalDa
     }
 
 }
-

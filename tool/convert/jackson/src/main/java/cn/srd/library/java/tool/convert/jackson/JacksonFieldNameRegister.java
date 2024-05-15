@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * the field name in json and the field name on class mapping
  *
  * @author wjm
- * @since 2023-06-17 14:42:11
+ * @since 2023-06-17 14:42
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JacksonFieldNameRegister {

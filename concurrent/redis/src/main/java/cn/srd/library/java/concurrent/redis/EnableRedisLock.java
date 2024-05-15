@@ -11,7 +11,7 @@ import java.lang.annotation.*;
  * @author wjm
  * @see RedisLockSwitcher
  * @see RedisLockAutoConfigurer
- * @since 2023-06-13 17:26:49
+ * @since 2023-06-13 17:26
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

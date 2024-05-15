@@ -4,7 +4,7 @@ package cn.srd.library.java.cache.all.support.strategy;
  * the read write cache mode strategy
  *
  * @author wjm
- * @since 2023-06-19 21:26:47
+ * @since 2023-06-19 21:26
  */
 public class CacheModeReadWriteStrategy implements CacheModeStrategy {
 
@@ -23,5 +23,3 @@ public class CacheModeReadWriteStrategy implements CacheModeStrategy {
     }
 
 }
-
-

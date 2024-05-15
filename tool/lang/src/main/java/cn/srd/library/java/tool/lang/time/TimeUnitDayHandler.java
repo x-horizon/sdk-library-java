@@ -10,7 +10,7 @@ import java.time.Duration;
  * 时间单位处理器 - 日
  *
  * @author wjm
- * @since 2023-02-13 22:09:11
+ * @since 2023-02-13 22:09
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TimeUnitDayHandler extends TimeUnitHandler {

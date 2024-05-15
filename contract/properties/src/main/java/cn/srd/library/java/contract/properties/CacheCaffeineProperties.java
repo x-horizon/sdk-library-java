@@ -12,7 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * TODO wjm optimize the prefix path like {@link com.github.benmanes.caffeine.cache.CaffeineSpec#configure(String, String)}
  *
  * @author wjm
- * @since 2023-06-05 17:01:12
+ * @since 2023-06-05 17:01
  */
 @Getter
 @Setter

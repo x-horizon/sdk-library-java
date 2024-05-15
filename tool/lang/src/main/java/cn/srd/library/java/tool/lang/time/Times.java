@@ -39,7 +39,7 @@ import java.util.stream.Stream;
  * </pre>
  *
  * @author wjm
- * @since 2020/8/11 15:27
+ * @since 2020-08-11 15:27
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Times {

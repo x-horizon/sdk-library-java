@@ -10,7 +10,7 @@ import org.springframework.cloud.stream.function.StreamBridge;
  * {@link StreamBridge} Manager
  *
  * @author wjm
- * @since 2023-03-25 16:53:22
+ * @since 2023-03-25 16:53
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StreamBridgeManager {

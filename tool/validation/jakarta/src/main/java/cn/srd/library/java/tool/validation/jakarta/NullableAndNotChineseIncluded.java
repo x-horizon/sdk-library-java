@@ -9,7 +9,7 @@ import java.lang.annotation.*;
  * 验证字符串的格式，不能为中文，且长度有限制
  *
  * @author xiongjing
- * @since 2023-03-11 09:15:16
+ * @since 2023-03-11 09:15
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

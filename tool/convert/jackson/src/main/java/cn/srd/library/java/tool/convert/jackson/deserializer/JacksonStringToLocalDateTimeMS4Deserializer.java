@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  * Jackson 反序列化处理器：String =&gt; LocalDateTime（仅支持如：2023-03-27 21:41:07.7697）
  *
  * @author wjm
- * @since 2023-03-28 10:00:01
+ * @since 2023-03-28 10:00
  */
 public class JacksonStringToLocalDateTimeMS4Deserializer extends StdConverter<String, LocalDateTime> {
 

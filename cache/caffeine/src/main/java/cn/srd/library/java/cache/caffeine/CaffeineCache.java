@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @param <K> cache key type
  * @author wjm
- * @since 2023-06-05 17:01:12
+ * @since 2023-06-05 17:01
  */
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class CaffeineCache<K> implements CaffeineCacheTemplate<K> {

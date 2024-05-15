@@ -10,7 +10,7 @@ import java.lang.annotation.*;
  *
  * @author wjm
  * @see RequireJsonStringSupport
- * @since 2022-08-03 14:24:41
+ * @since 2022-08-03 14:24
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

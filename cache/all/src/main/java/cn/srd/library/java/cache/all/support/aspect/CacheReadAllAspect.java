@@ -12,7 +12,7 @@ import java.util.List;
  * Aspect for {@link CacheReadAll}
  *
  * @author wjm
- * @since 2023-06-18 02:20:54
+ * @since 2023-06-18 02:20
  */
 @Aspect
 public class CacheReadAllAspect implements CacheAspect {

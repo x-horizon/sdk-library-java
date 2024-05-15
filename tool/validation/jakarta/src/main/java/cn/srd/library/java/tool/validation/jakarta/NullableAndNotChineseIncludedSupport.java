@@ -9,7 +9,7 @@ import jakarta.validation.ConstraintValidatorContext;
  * 验证字符串的格式不能有中文，可以为空字符串
  *
  * @author xiongjing
- * @since 2023-03-11 09:19:45
+ * @since 2023-03-11 09:19
  */
 public class NullableAndNotChineseIncludedSupport implements ConstraintValidator<NullableAndNotChineseIncluded, String> {
 

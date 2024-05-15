@@ -21,7 +21,7 @@ import java.util.Map;
  * Redis 缓存操作（桶）
  *
  * @author wjm
- * @since 2023-01-12 10:37:12
+ * @since 2023-01-12 10:37
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RedisCacheBucket implements RedisCacheTemplate {

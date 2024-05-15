@@ -6,7 +6,7 @@ import cn.srd.library.java.cache.all.support.manager.CacheMode;
  * the cache mode strategy
  *
  * @author wjm
- * @since 2023-06-19 21:26:47
+ * @since 2023-06-19 21:26
  */
 public interface CacheModeStrategy {
 
@@ -16,5 +16,3 @@ public interface CacheModeStrategy {
     CacheMode DEFAULT_CACHE_MODE = CacheMode.READ_ONLY;
 
 }
-
-

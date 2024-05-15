@@ -12,7 +12,7 @@ import java.lang.annotation.*;
  * 解析最高位
  *
  * @author xiongjing
- * @since 2022-11-14 09:38:12
+ * @since 2022-11-14 09:38
  */
 @Qualifier
 @Target(ElementType.METHOD)

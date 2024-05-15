@@ -25,7 +25,7 @@ import java.lang.reflect.Field;
  *
  * @param <E> the data type after deserialize
  * @author wjm
- * @since 2020/12/15 17:02
+ * @since 2020-12-15 17:02
  */
 public class JacksonEnumValueToEnumFuzzyDeserializer<E extends Enum<E>> extends JsonDeserializer<E> {
 

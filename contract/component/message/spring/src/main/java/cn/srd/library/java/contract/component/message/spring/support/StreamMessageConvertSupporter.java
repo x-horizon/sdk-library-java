@@ -6,7 +6,7 @@ import java.util.List;
  * 用于在管道中流动数据的转换支持器
  *
  * @author wjm
- * @since 2023-03-28 19:41:33
+ * @since 2023-03-28 19:41
  */
 public interface StreamMessageConvertSupporter {
 

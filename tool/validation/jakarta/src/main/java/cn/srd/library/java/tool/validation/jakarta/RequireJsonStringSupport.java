@@ -9,7 +9,7 @@ import jakarta.validation.ConstraintValidatorContext;
  *
  * @author wjm
  * @see RequireJsonString
- * @since 2022-08-03 14:24:41
+ * @since 2022-08-03 14:24
  */
 public class RequireJsonStringSupport implements ConstraintValidator<RequireJsonString, Object> {
 

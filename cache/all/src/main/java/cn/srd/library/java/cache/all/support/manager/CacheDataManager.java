@@ -16,7 +16,7 @@ import java.util.Map;
  * the cache data manager
  *
  * @author wjm
- * @since 2023-06-06 16:14:13
+ * @since 2023-06-06 16:14
  */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -91,5 +91,3 @@ public class CacheDataManager {
     }
 
 }
-
-

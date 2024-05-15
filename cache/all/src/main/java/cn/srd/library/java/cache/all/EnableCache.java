@@ -11,7 +11,7 @@ import java.lang.annotation.*;
  * @author wjm
  * @see CacheSwitcher
  * @see CacheAutoConfigurer
- * @since 2023-06-09 15:06:14
+ * @since 2023-06-09 15:06
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

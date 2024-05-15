@@ -27,7 +27,7 @@ import java.util.function.Supplier;
  * @see RedisLockAspect
  * @see RedisFairLockHandler
  * @see RedisNonFairLockHandler
- * @since 2020/12/12 18:06
+ * @since 2020-12-12 18:06
  */
 public interface RedisLockTemplate {
 

@@ -11,7 +11,7 @@ import java.util.*;
  *
  * @param <E> the collection element data type
  * @author wjm
- * @since 2020/12/08 19:45
+ * @since 2020-12-08 19:45
  */
 @Data
 public class ValidList<E> implements List<E> {

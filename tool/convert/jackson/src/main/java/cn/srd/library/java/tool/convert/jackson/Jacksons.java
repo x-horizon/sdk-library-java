@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
  * convert toolkit for jackson
  *
  * @author wjm
- * @since 2023-06-17 09:37:17
+ * @since 2023-06-17 09:37
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Jacksons {
@@ -29,4 +29,3 @@ public class Jacksons {
     }
 
 }
-

@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
  * Mapstruct 转换器
  *
  * @author wjm
- * @since 2021/5/1 14:13
+ * @since 2021-05-01 14:13
  */
 @Slf4j
 @Getter(AccessLevel.PACKAGE)
@@ -779,4 +779,3 @@ public class MapstructConverts {
     }
 
 }
-

@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * Redis 分布式锁注解切面支持
  *
  * @author wjm
- * @since 2020/12/12 18:06
+ * @since 2020-12-12 18:06
  */
 public abstract class RedisLockAspect {
 

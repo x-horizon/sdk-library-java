@@ -8,7 +8,7 @@ import jakarta.validation.ConstraintValidatorContext;
  *
  * @author wjm
  * @see RequireNumber
- * @since 2022-07-20 11:18:25
+ * @since 2022-07-20 11:18
  */
 public class RequireNumberSupport implements ConstraintValidator<RequireNumber, Object> {
 

@@ -5,7 +5,7 @@ package cn.srd.library.java.cache.contract;
  *
  * @param <K> cache key type
  * @author wjm
- * @since 2023-06-05 16:41:28
+ * @since 2023-06-05 16:41
  */
 public interface CapableExpirationCacheTemplate<K> extends CapableCacheTemplate<K>, ExpirationCacheTemplate<K> {
 

@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  * Redis Cache Template
  *
  * @author wjm
- * @since 2023-06-05 16:41:28
+ * @since 2023-06-05 16:41
  */
 public interface RedisCacheTemplate extends CapableExpirationCacheTemplate<String> {
 

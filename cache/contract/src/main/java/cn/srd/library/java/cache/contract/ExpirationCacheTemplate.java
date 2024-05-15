@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @param <K> cache key type
  * @author wjm
- * @since 2023-06-05 16:41:28
+ * @since 2023-06-05 16:41
  */
 public interface ExpirationCacheTemplate<K> extends CacheTemplate<K> {
 

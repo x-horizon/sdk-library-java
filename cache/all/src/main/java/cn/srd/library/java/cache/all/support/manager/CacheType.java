@@ -15,7 +15,7 @@ import java.util.function.Supplier;
  * the cache component type
  *
  * @author wjm
- * @since 2023-06-06 16:14:13
+ * @since 2023-06-06 16:14
  */
 @Getter
 @AllArgsConstructor
@@ -53,5 +53,3 @@ public enum CacheType {
     );
 
 }
-
-

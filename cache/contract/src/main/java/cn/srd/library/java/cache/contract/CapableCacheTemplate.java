@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  *
  * @param <K> cache key type
  * @author wjm
- * @since 2023-06-05 16:41:28
+ * @since 2023-06-05 16:41
  */
 public interface CapableCacheTemplate<K> extends CacheTemplate<K> {
 

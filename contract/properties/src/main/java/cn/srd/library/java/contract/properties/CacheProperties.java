@@ -11,7 +11,7 @@ import org.springframework.context.annotation.DependsOn;
  * properties for cache
  *
  * @author wjm
- * @since 2023-06-07 16:48:52
+ * @since 2023-06-07 16:48
  */
 @Getter
 @Setter

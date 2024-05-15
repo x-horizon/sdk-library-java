@@ -7,7 +7,7 @@ import cn.srd.library.java.cache.contract.CacheTemplate;
  *
  * @param <K> cache key type
  * @author wjm
- * @since 2023-06-06 16:14:13
+ * @since 2023-06-06 16:14
  */
 public interface MapCacheTemplate<K> extends CacheTemplate<K> {
 

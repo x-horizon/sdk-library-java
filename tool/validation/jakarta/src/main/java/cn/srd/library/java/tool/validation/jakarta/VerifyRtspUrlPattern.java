@@ -10,7 +10,7 @@ import java.lang.annotation.*;
  *
  * @author xiongjing
  * @see VerifyRtspUrlPatternSupport
- * @since 2023-03-10 15:29:13
+ * @since 2023-03-10 15:29
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

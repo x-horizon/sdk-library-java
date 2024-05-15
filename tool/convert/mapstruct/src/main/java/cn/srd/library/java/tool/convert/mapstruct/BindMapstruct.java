@@ -10,7 +10,7 @@ import java.lang.annotation.*;
  * 用于标记哪些是 Mapstruct 类
  *
  * @author wjm
- * @since 2021/5/1 14:13
+ * @since 2021-05-01 14:13
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

@@ -10,7 +10,7 @@ import java.lang.annotation.*;
  *
  * @author wjm
  * @see RequireNumberSupport
- * @since 2022-07-20 11:18:25
+ * @since 2022-07-20 11:18
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

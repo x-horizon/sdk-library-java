@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
  * {@link Cache} Builder
  *
  * @author wjm
- * @since 2023-06-05 17:01:12
+ * @since 2023-06-05 17:01
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CaffeineCacheBuilder {

@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @param <E> the data type after deserialize
  * @author wjm
- * @since 2022-09-13 09:45:13
+ * @since 2022-09-13 09:45
  */
 public class JacksonListEnumValueToListEnumDeserializer<E extends Enum<E>> extends JsonDeserializer<List<E>> {
 

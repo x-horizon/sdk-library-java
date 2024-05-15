@@ -9,7 +9,7 @@ import org.redisson.api.RLock;
  * Redis 分布式单点公平锁操作，参考 {@link RedisFairLock}
  *
  * @author wjm
- * @since 2020/12/12 18:06
+ * @since 2020-12-12 18:06
  */
 public class RedisFairLockHandler implements RedisLockTemplate {
 

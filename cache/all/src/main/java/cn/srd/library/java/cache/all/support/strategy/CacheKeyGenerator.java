@@ -4,7 +4,7 @@ package cn.srd.library.java.cache.all.support.strategy;
  * the key generator
  *
  * @author wjm
- * @since 2023-06-10 11:42:19
+ * @since 2023-06-10 11:42
  */
 public interface CacheKeyGenerator {
 
@@ -23,5 +23,3 @@ public interface CacheKeyGenerator {
     String generate(String[] parameterNames, Object[] parameterValues);
 
 }
-
-

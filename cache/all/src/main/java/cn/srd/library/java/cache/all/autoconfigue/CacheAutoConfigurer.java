@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Bean;
  * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Cache All
  *
  * @author wjm
- * @since 2023-06-07 16:48:52
+ * @since 2023-06-07 16:48
  */
 @AutoConfiguration
 @EnableConfigurationProperties({CacheProperties.class, CacheMultilevelProperties.class})

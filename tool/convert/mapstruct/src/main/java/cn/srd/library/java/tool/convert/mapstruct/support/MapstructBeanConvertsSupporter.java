@@ -10,7 +10,7 @@ import cn.srd.library.java.contract.constant.text.SymbolConstant;
  * Mapstruct 转换器支持：普通 Bean 类型
  *
  * @author wjm
- * @since 2021/5/1 14:13
+ * @since 2021-05-01 14:13
  */
 @Deprecated
 public class MapstructBeanConvertsSupporter implements MapstructConvertsSupporter {

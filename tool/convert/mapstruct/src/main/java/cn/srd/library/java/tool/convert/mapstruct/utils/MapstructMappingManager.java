@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * Mapstruct 属性转换管理，用于绑定转换方法
  *
  * @author wjm
- * @since 2021/3/11 10:25
+ * @since 2021-03-11 10:25
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @MapstructMappingQualify

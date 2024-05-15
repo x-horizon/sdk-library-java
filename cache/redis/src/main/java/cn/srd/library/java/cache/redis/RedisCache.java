@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
  * Redis Cache Operation
  *
  * @author wjm
- * @since 2023-01-12 10:37:12
+ * @since 2023-01-12 10:37
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RedisCache {

@@ -9,7 +9,7 @@ import java.lang.annotation.*;
  * 启用 {@link StreamMessageJacksonConverter}
  *
  * @author wjm
- * @since 2023-03-28 19:41:33
+ * @since 2023-03-28 19:41
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

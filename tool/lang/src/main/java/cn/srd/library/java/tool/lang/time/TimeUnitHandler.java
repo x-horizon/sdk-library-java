@@ -16,7 +16,7 @@ import java.util.function.UnaryOperator;
  * 时间单位处理器
  *
  * @author wjm
- * @since 2023-02-13 22:09:11
+ * @since 2023-02-13 22:09
  */
 @Getter(AccessLevel.PROTECTED)
 @Setter(AccessLevel.PROTECTED)

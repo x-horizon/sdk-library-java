@@ -10,7 +10,7 @@ import java.util.List;
  * the weekday type
  *
  * @author wjm
- * @since 2023-06-28 11:10:00
+ * @since 2023-06-28 11:10
  */
 @Getter
 @AllArgsConstructor

@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
  * Duration =&gt; long time and timeunit
  *
  * @author wjm
- * @since 2023-06-07 10:18:29
+ * @since 2023-06-07 10:18
  */
 @Data
 @Accessors(chain = true)

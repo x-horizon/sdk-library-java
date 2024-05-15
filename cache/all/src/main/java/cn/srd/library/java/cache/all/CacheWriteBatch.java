@@ -12,7 +12,7 @@ import java.util.Collection;
  * TODO wjm unimplemented：condition、unless
  *
  * @author wjm
- * @since 2023-06-28 09:49:12
+ * @since 2023-06-28 09:49
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
