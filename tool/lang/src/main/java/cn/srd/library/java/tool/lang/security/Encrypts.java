@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
  * encrypt toolkit
  *
  * @author wjm
- * @since 2024-05-14 22:36
+ * @since 2024-05-14 16:23
  */
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Encrypts {
 
     /**
      * see {@link SecureUtil#md5(String)}
      *
-     * @param content the content to encrypt
+     * @param content the content need to encrypt
      * @return after encrypt
      */
     public static String md5(String content) {
