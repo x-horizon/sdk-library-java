@@ -17,7 +17,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 学校查询条件信息 model
+ * 学校详情查询条件信息 model
  *
  * @author TODO 请填写作者名字
  * @since 2024-04-15 23:57
