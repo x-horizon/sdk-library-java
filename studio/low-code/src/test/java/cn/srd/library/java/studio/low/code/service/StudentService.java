@@ -20,7 +20,7 @@ import cn.srd.library.java.studio.low.code.repository.SchoolRepository;
 import cn.srd.library.java.studio.low.code.repository.StudentRepository;
 import cn.srd.library.java.studio.low.code.repository.TeacherRepository;
 import cn.srd.library.java.tool.convert.all.Converts;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,14 +34,15 @@ import static cn.srd.library.java.orm.mybatis.flex.postgresql.chain.JsonbQueryFu
  * @author TODO 请填写作者名字
  * @since 2024-04-15 23:57
  */
+@AllArgsConstructor
 @Service
 public class StudentService extends GenericService<StudentPO, StudentVO, StudentRepository> {
 
-    @Autowired private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
-    @Autowired private SchoolRepository schoolRepository;
+    private final SchoolRepository schoolRepository;
 
-    @Autowired private TeacherRepository teacherRepository;
+    private final TeacherRepository teacherRepository;
 
     public StudentVO getByCondition(StudentGetConditionVO conditionVO) {
         return studentRepository.openNormalQuery()
