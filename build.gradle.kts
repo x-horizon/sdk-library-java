@@ -35,8 +35,17 @@ allprojects {
 
     tasks.withType<Test> {
         useJUnitPlatform()
+        jvmArgs(
+            GradleConfig.WITH_ENABLE_PREVIEW_ARG,
+        )
     }
-    
+
+    tasks.withType<JavaExec> {
+        jvmArgs(
+            GradleConfig.WITH_ENABLE_PREVIEW_ARG,
+        )
+    }
+
     tasks.withType<GenerateModuleMetadata> {
         suppressedValidationErrors.add("enforced-platform")
     }
