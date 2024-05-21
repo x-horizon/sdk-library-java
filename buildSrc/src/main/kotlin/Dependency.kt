@@ -5,23 +5,23 @@
 enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     BOM_CLOUD_NATIVE_DOCKER("com.github.docker-java:docker-java-bom", "3.3.6"),
-    BOM_DOC_XIAOYMIN_KNIFE4J("com.github.xiaoymin:knife4j-dependencies", "4.3.0"), // TODO wjm support spring-boot version to 3.0.4
-    BOM_FRAMEWORK_ALIBABA_SPRING_CLOUD("com.alibaba.cloud:spring-cloud-alibaba-dependencies", "2023.0.0.0-RC1"), // TODO wjm need to update
-    BOM_FRAMEWORK_SPRING("org.springframework:spring-framework-bom", "6.1.5"), // support spring-boot version to 3.2.4
-    BOM_FRAMEWORK_SPRING_BOOT("org.springframework.boot:spring-boot-dependencies", "3.2.4"),
+    BOM_DOC_XIAOYMIN_KNIFE4J("com.github.xiaoymin:knife4j-dependencies", "4.5.0"), // TODO wjm support spring-boot version to 3.0.4
+    BOM_FRAMEWORK_ALIBABA_SPRING_CLOUD("com.alibaba.cloud:spring-cloud-alibaba-dependencies", "2023.0.1.0"), // TODO wjm need to update
+    BOM_FRAMEWORK_SPRING("org.springframework:spring-framework-bom", "6.1.7"), // support spring-boot version to 3.2.4
+    BOM_FRAMEWORK_SPRING_BOOT("org.springframework.boot:spring-boot-dependencies", "3.2.5"),
     BOM_FRAMEWORK_SPRING_CLOUD("org.springframework.cloud:spring-cloud-dependencies", "2023.0.1"),
-    BOM_FRAMEWORK_SPRING_INTEGRATION("org.springframework.integration:spring-integration-bom", "6.2.3"),
+    BOM_FRAMEWORK_SPRING_INTEGRATION("org.springframework.integration:spring-integration-bom", "6.2.4"),
     BOM_METRIC_DROPWIZARD("io.dropwizard.metrics:metrics-bom", "4.2.25"), // support spring-boot version to 3.2.4
-    BOM_METRIC_MICROMETER("io.micrometer:micrometer-bom", "1.12.4"), // support spring-boot version to 3.2.4
-    BOM_ORM_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-dependencies", "1.8.6"), // support spring-boot version to 3.2.4
-    BOM_ORM_MYBATIS_PLUS("com.baomidou:mybatis-plus-bom", "3.5.5"), // TODO wjm support spring-boot version to 3.2.0
+    BOM_METRIC_MICROMETER("io.micrometer:micrometer-bom", "1.13.0"), // support spring-boot version to 3.2.4
+    BOM_ORM_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-dependencies", "1.8.9"), // support spring-boot version to 3.2.4
+    BOM_ORM_MYBATIS_PLUS("com.baomidou:mybatis-plus-bom", "3.5.6"), // TODO wjm support spring-boot version to 3.2.0
     BOM_SECURITY_DEV33_SA_TOKEN("cn.dev33:sa-token-bom", "1.38.0"), // TODO wjm support spring-boot version to 2.5.15
-    BOM_TEST_MOCKITO("org.mockito:mockito-bom", "5.7.0"), // support spring-boot version to 3.2.4
-    BOM_TEST_TESTCONTAINERS("org.testcontainers:testcontainers-bom", "1.19.7"), // support spring-boot version to 3.2.4
-    BOM_TOOL_APACHE_TIKA("org.apache.tika:tika-bom", "2.9.1"),
-    BOM_TOOL_SERIALIZATION_FASTERXML_JACKSON("com.fasterxml.jackson:jackson-bom", "2.16.1"), // TODO wjm spring-boot 3.2.4 support it to 2.15.4
-    BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF("com.google.protobuf:protobuf-bom", "3.25.1"),
-    BOM_TOOL_SERIALIZATION_SQUAREUP_WIRE("com.squareup.wire:wire-bom", "4.9.1"),
+    BOM_TEST_MOCKITO("org.mockito:mockito-bom", "5.12.0"), // support spring-boot version to 3.2.4
+    BOM_TEST_TESTCONTAINERS("org.testcontainers:testcontainers-bom", "1.19.8"), // support spring-boot version to 3.2.4
+    BOM_TOOL_APACHE_TIKA("org.apache.tika:tika-bom", "2.9.2"),
+    BOM_TOOL_SERIALIZATION_FASTERXML_JACKSON("com.fasterxml.jackson:jackson-bom", "2.17.1"), // TODO wjm spring-boot 3.2.4 support it to 2.15.4
+    BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF("com.google.protobuf:protobuf-bom", "4.26.1"),
+    BOM_TOOL_SERIALIZATION_SQUAREUP_WIRE("com.squareup.wire:wire-bom", "4.9.9"),
     BOM_WEB_FEIGN("io.github.openfeign:feign-bom", "13.2.1"), // need to synchronize with "org.springframework.cloud:spring-cloud-starter-openfeign"
     BOM_WEB_NETTY("io.netty:netty-bom", "4.1.107.Final"), // support spring-boot version to 3.2.4
     BOM_WEB_REACTOR("io.projectreactor:reactor-bom", "2023.0.4"), // support spring-boot version to 3.2.4
