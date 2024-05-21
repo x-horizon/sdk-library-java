@@ -140,11 +140,11 @@ dependencies {
 
         api(project(GradleModule.toReferenceName(GradleModule.GATEWAY_SPRING)))
 
-        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_KAFKA)))
-        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_MQTT)))
-        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_RABBITMQ)))
-        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_REDIS)))
-        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ROCKETMQ)))
+        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_KAFKA)))
+        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_MQTT)))
+        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_RABBITMQ)))
+        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_REDIS)))
+        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_ROCKETMQ)))
 
         api(project(GradleModule.toReferenceName(GradleModule.METRIC_DROP_WIZARD)))
         api(project(GradleModule.toReferenceName(GradleModule.METRIC_MICROMETER_PROMETHEUS)))

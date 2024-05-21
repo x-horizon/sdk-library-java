@@ -44,11 +44,11 @@ object GradleModule {
 
     const val GATEWAY_SPRING = "gateway-spring"
 
-    const val MESSAGE_KAFKA = "message-kafka"
-    const val MESSAGE_MQTT = "message-mqtt"
-    const val MESSAGE_RABBITMQ = "message-rabbitmq"
-    const val MESSAGE_REDIS = "message-redis"
-    const val MESSAGE_ROCKETMQ = "message-rocketmq"
+    const val MESSAGE_ENGINE_KAFKA = "message-engine-kafka"
+    const val MESSAGE_ENGINE_MQTT = "message-engine-mqtt"
+    const val MESSAGE_ENGINE_RABBITMQ = "message-engine-rabbitmq"
+    const val MESSAGE_ENGINE_REDIS = "message-engine-redis"
+    const val MESSAGE_ENGINE_ROCKETMQ = "message-engine-rocketmq"
 
     const val METRIC_DROP_WIZARD = "metric-drop-wizard"
     const val METRIC_MICROMETER_PROMETHEUS = "metric-micrometer-prometheus"

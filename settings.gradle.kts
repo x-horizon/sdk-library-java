@@ -53,11 +53,11 @@ include(":doc:knife4j:spring-webflux")
 
 include(":gateway:spring")
 
-include(":message:kafka")
-include(":message:mqtt")
-include(":message:rabbitmq")
-include(":message:redis")
-include(":message:rocketmq")
+include(":message-engine:kafka")
+include(":message-engine:mqtt")
+include(":message-engine:rabbitmq")
+include(":message-engine:redis")
+include(":message-engine:rocketmq")
 
 include(":metric:drop-wizard")
 include(":metric:micrometer:prometheus")
