@@ -4,10 +4,12 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.model.vo;
 
-import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.base.VO;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.bo.HomeBO;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.converter.HomeConverter;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.HomePO;
+import cn.srd.library.java.tool.convert.all.Converts;
+import io.github.linpeilie.annotations.AutoMapper;
+import io.github.linpeilie.annotations.AutoMappers;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -25,13 +27,14 @@ import java.io.Serial;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
+@AutoMappers({@AutoMapper(target = HomeBO.class), @AutoMapper(target = HomePO.class)})
 public class HomeVO extends HomeBO implements VO {
 
     @Serial private static final long serialVersionUID = 1030055421739967275L;
 
     @Override
-    public PO toPO() {
-        return HomeConverter.INSTANCE.toPO(this);
+    public HomePO toPO() {
+        return Converts.withMapstruct().toBean(this, HomePO.class);
     }
 
 }

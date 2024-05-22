@@ -2,8 +2,12 @@ package cn.srd.library.java.orm.mybatis.flex.postgresql.model.bo;
 
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
 import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseWithVersionBO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.PeoplePO;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.vo.PeopleVO;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
+import io.github.linpeilie.annotations.AutoMapper;
+import io.github.linpeilie.annotations.AutoMappers;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,6 +26,7 @@ import java.io.Serial;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
+@AutoMappers({@AutoMapper(target = PeoplePO.class), @AutoMapper(target = PeopleVO.class)})
 public class PeopleBO extends BaseWithVersionBO {
 
     @Serial private static final long serialVersionUID = -2406926081842847637L;

@@ -5,10 +5,12 @@
 package cn.srd.library.java.orm.mybatis.flex.postgresql.model.po;
 
 import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.contract.model.base.VO;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.bo.PeopleBO;
-import cn.srd.library.java.orm.mybatis.flex.postgresql.model.converter.PeopleConverter;
+import cn.srd.library.java.orm.mybatis.flex.postgresql.model.vo.PeopleVO;
+import cn.srd.library.java.tool.convert.all.Converts;
 import com.mybatisflex.annotation.Table;
+import io.github.linpeilie.annotations.AutoMapper;
+import io.github.linpeilie.annotations.AutoMappers;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -27,6 +29,7 @@ import java.io.Serial;
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
 @Table(value = "people")
+@AutoMappers({@AutoMapper(target = PeopleBO.class), @AutoMapper(target = PeopleVO.class)})
 public class PeoplePO extends PeopleBO implements PO {
 
     @Serial private static final long serialVersionUID = 4292133966454196212L;
@@ -37,8 +40,8 @@ public class PeoplePO extends PeopleBO implements PO {
     }
 
     @Override
-    public VO toVO() {
-        return PeopleConverter.INSTANCE.toVO(this);
+    public PeopleVO toVO() {
+        return Converts.withMapstruct().toBean(this, PeopleVO.class);
     }
 
 }
