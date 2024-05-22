@@ -2,22 +2,22 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.tool.convert.mapstruct.utils;
+package cn.srd.library.java.tool.convert.mapstruct.support;
 
 import org.mapstruct.Qualifier;
 
 import java.lang.annotation.*;
 
 /**
- * Mapstruct 属性映射转换器注解，Enum =&gt; Enum 的字符串字段值
+ * Mapstruct 属性映射转换器注解，Byte[] =&gt; Hex String
  *
  * @author wjm
- * @since 2021-03-11 10:25
+ * @since 2022-07-06
  */
 @Qualifier
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
 @Documented
-public @interface MapstructEnumToEnumString {
+public @interface MapstructByteArrayToHexString {
 
 }

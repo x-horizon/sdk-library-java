@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.tool.convert.mapstruct.utils;
+package cn.srd.library.java.tool.convert.mapstruct.support;
 
 import cn.srd.library.java.tool.lang.enums.Enums;
 import cn.srd.library.java.tool.lang.number.Hexes;

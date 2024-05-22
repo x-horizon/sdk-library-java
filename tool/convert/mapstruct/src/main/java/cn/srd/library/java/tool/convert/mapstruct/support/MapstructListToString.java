@@ -2,14 +2,14 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.tool.convert.mapstruct.utils;
+package cn.srd.library.java.tool.convert.mapstruct.support;
 
 import org.mapstruct.Qualifier;
 
 import java.lang.annotation.*;
 
 /**
- * Mapstruct 属性映射转换器注解，Long =&gt; String
+ * Mapstruct 属性映射转换器注解，List =&gt; String
  *
  * @author wjm
  * @since 2021-03-11 10:25
@@ -18,6 +18,6 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
 @Documented
-public @interface MapstructLongToString {
+public @interface MapstructListToString {
 
 }

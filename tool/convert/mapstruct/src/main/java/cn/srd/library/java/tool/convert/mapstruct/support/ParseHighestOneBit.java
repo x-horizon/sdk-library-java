@@ -2,22 +2,22 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.tool.convert.mapstruct.utils;
+package cn.srd.library.java.tool.convert.mapstruct.support;
 
 import org.mapstruct.Qualifier;
 
 import java.lang.annotation.*;
 
 /**
- * Mapstruct 属性映射转换器注解，LocalDateTime =&gt; Long
+ * 解析最高位
  *
- * @author wjm
- * @since 2022-07-18 09:59
+ * @author xiongjing
+ * @since 2022-11-14 09:38
  */
 @Qualifier
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
 @Documented
-public @interface MapstructLocalDateTimeToLong {
+public @interface ParseHighestOneBit {
 
 }

@@ -5,6 +5,9 @@
 package cn.srd.library.java.tool.convert.all.mapstruct.model.domain;
 
 import cn.hutool.core.util.RandomUtil;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.tool.convert.all.mapstruct.model.vo.GradeVO;
+import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -19,6 +22,7 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
+@AutoMapper(target = GradeVO.class)
 public class GradeDO implements Serializable {
 
     @Serial private static final long serialVersionUID = 5570807991030073183L;
@@ -29,10 +33,11 @@ public class GradeDO implements Serializable {
 
     private List<StudentDO> students;
 
+    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static GradeDO newDO() {
         return GradeDO.builder()
                 .id(RandomUtil.randomInt(99))
-                .name(RandomUtil.randomInt(1, 7) + "年级")
+                .name(STR."\{RandomUtil.randomInt(1, 7)}年级")
                 .students(StudentDO.newDOs())
                 .build();
     }

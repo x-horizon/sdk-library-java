@@ -5,6 +5,10 @@
 package cn.srd.library.java.tool.convert.all.mapstruct.model.domain;
 
 import cn.hutool.core.util.RandomUtil;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.tool.convert.all.mapstruct.model.vo.StudentVO;
+import io.github.linpeilie.annotations.AutoMapper;
+import io.github.linpeilie.annotations.AutoMapping;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -21,14 +25,18 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
+@AutoMapper(target = StudentVO.class)
 public class StudentDO implements Serializable {
 
     @Serial private static final long serialVersionUID = 6221890475348794702L;
 
+    @AutoMapping(target = "studentId")
     private Integer id;
 
+    @AutoMapping(target = "studentName")
     private String name;
 
+    @AutoMapping(target = "studentAge")
     private Integer age;
 
     private Sex sex;
@@ -42,10 +50,11 @@ public class StudentDO implements Serializable {
         private final int number;
     }
 
+    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static StudentDO newDO() {
         return StudentDO.builder()
                 .id(RandomUtil.randomInt(99))
-                .name("name" + RandomUtil.randomNumbers(2))
+                .name(STR."name\{RandomUtil.randomNumbers(2)}")
                 .age(RandomUtil.randomInt(15, 20))
                 .sex(Sex.GIRL)
                 .build();

@@ -2,22 +2,22 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.tool.convert.mapstruct.utils;
+package cn.srd.library.java.tool.convert.mapstruct.support;
 
 import org.mapstruct.Qualifier;
 
 import java.lang.annotation.*;
 
 /**
- * Mapstruct 属性映射转换器注解，null List =&gt; Empty ArrayList
+ * Mapstruct 属性映射注解标记，标记了该注解的类可以作为 Mapstruct 中的转换方法
  *
  * @author wjm
- * @since 2022-07-20 11:37
+ * @since 2021-03-11 10:25
  */
 @Qualifier
-@Target(ElementType.METHOD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.CLASS)
 @Documented
-public @interface MapstructNullListToEmptyArrayList {
+public @interface MapstructMappingQualify {
 
 }
