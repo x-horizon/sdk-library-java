@@ -28,7 +28,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     CACHE_CAFFEINE("com.github.ben-manes.caffeine:caffeine", "3.1.8"), // support spring-boot version to 3.2.4
     CACHE_LETTUCE("io.lettuce:lettuce-core", "6.3.2.RELEASE"), // support spring-boot version to 3.2.4
-    CACHE_REDISSON("org.redisson:redisson-spring-boot-starter", "3.27.2"), // TODO wjm support spring-boot version to 3.2.2
+    CACHE_REDISSON("org.redisson:redisson-spring-boot-starter", "3.30.0"), // TODO wjm support spring-boot version to 3.2.2
 
     CLOUD_COMMUNICATION_JAKARTA_MAIL("com.sun.mail:jakarta.mail", "2.0.1"),
     CLOUD_COMMUNICATION_DROMARA_SMS("org.dromara.sms4j:sms4j-spring-boot-starter", "3.2.1"), // TODO wjm support spring-boot version to 2.7.18
