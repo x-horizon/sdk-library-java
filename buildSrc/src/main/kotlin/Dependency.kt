@@ -7,12 +7,12 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_CLOUD_NATIVE_DOCKER("com.github.docker-java:docker-java-bom", "3.3.6"),
     BOM_DOC_XIAOYMIN_KNIFE4J("com.github.xiaoymin:knife4j-dependencies", "4.5.0"), // TODO wjm support spring-boot version to 3.0.4
     BOM_FRAMEWORK_ALIBABA_SPRING_CLOUD("com.alibaba.cloud:spring-cloud-alibaba-dependencies", "2023.0.1.0"),
-    BOM_FRAMEWORK_SPRING("org.springframework:spring-framework-bom", "6.1.7"), // support spring-boot version to 3.2.4
+    BOM_FRAMEWORK_SPRING("org.springframework:spring-framework-bom", "6.1.6"), // support spring-boot version to 3.2.5
     BOM_FRAMEWORK_SPRING_BOOT("org.springframework.boot:spring-boot-dependencies", "3.2.5"),
     BOM_FRAMEWORK_SPRING_CLOUD("org.springframework.cloud:spring-cloud-dependencies", "2023.0.1"),
     BOM_FRAMEWORK_SPRING_INTEGRATION("org.springframework.integration:spring-integration-bom", "6.2.4"),
     BOM_METRIC_DROPWIZARD("io.dropwizard.metrics:metrics-bom", "4.2.25"), // support spring-boot version to 3.2.4
-    BOM_METRIC_MICROMETER("io.micrometer:micrometer-bom", "1.13.0"), // support spring-boot version to 3.2.4
+    BOM_METRIC_MICROMETER("io.micrometer:micrometer-bom", "1.13.0"), // support spring-boot version to 3.2.5
     BOM_ORM_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-dependencies", "1.8.9"), // support spring-boot version to 3.2.4
     BOM_ORM_MYBATIS_PLUS("com.baomidou:mybatis-plus-bom", "3.5.6"), // TODO wjm support spring-boot version to 3.2.0
     BOM_SECURITY_DEV33_SA_TOKEN("cn.dev33:sa-token-bom", "1.38.0"), // TODO wjm support spring-boot version to 2.5.15
@@ -24,8 +24,8 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF("com.google.protobuf:protobuf-bom", "4.26.1"),
     BOM_TOOL_SERIALIZATION_SQUAREUP_WIRE("com.squareup.wire:wire-bom", "4.9.9"),
     BOM_WEB_FEIGN("io.github.openfeign:feign-bom", "13.2.1"), // need to synchronize with "org.springframework.cloud:spring-cloud-starter-openfeign"
-    BOM_WEB_NETTY("io.netty:netty-bom", "4.1.107.Final"), // support spring-boot version to 3.2.4
-    BOM_WEB_REACTOR("io.projectreactor:reactor-bom", "2023.0.4"), // support spring-boot version to 3.2.4
+    BOM_WEB_NETTY("io.netty:netty-bom", "4.1.109.Final"), // support spring-boot version to 3.2.5
+    BOM_WEB_REACTOR("io.projectreactor:reactor-bom", "2023.0.5"), // support spring-boot version to 3.2.5
 
     CACHE_CAFFEINE("com.github.ben-manes.caffeine:caffeine", "3.1.8"), // support spring-boot version to 3.2.4
     CACHE_LETTUCE("io.lettuce:lettuce-core", "6.3.2.RELEASE"), // support spring-boot version to 3.2.4
@@ -80,7 +80,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     OSS_MINIO("io.minio:minio", "8.5.9"),
 
-    PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK("org.projectlombok:lombok", "1.18.32"), // TODO wjm support spring-boot version to 3.2.4
+    PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK("org.projectlombok:lombok", "1.18.32"), // support spring-boot version to 3.2.5
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING("org.projectlombok:lombok-mapstruct-binding", "0.2.0"),
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-processor", BOM_TOOL_MAPSTRUCT_PLUS.version),
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MICA_AUTO("net.dreamlu:mica-auto", "3.1.2"),
