@@ -72,7 +72,7 @@ object GradleModule {
     const val PLUGGABLE_ANNOTATION_API_MICA_AUTO = "pluggable-annotation-api-mica-auto"
     const val PLUGGABLE_ANNOTATION_API_PROCESSOR_JMH = "pluggable-annotation-api-processor-jmh"
     const val PLUGGABLE_ANNOTATION_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING = "pluggable-annotation-api-processor-lombok-mapstruct-binding"
-    const val PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT = "pluggable-annotation-api-processor-mapstruct"
+    const val PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PLUS = "pluggable-annotation-api-processor-mapstruct-plus"
     const val PLUGGABLE_ANNOTATION_API_PROCESSOR_MYBATIS_FLEX = "pluggable-annotation-api-processor-mybatis-flex"
     const val PLUGGABLE_ANNOTATION_API_PROCESSOR_SPRING = "pluggable-annotation-api-processor-spring"
 
@@ -179,6 +179,7 @@ internal object ModuleHelper {
         put(GradleModule.ORM_CONTRACT_MYBATIS_FLEX, ":orm:contract-mybatis-flex")
         put(GradleModule.ORM_MYBATIS_FLEX_BASE, ":orm:mybatis-flex-base")
         put(GradleModule.ORM_MYBATIS_FLEX_POSTGRESQL, ":orm:mybatis-flex-postgresql")
+        put(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PLUS, ":pluggable-annotation-api:processor:mapstruct-plus")
         put(GradleModule.TOOL_SERIALIZATION_FASTJSON2, ":tool:serialization:fastjson2")
     }
 

@@ -19,6 +19,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_TEST_MOCKITO("org.mockito:mockito-bom", "5.12.0"), // support spring-boot version to 3.2.4
     BOM_TEST_TESTCONTAINERS("org.testcontainers:testcontainers-bom", "1.19.8"), // support spring-boot version to 3.2.4
     BOM_TOOL_APACHE_TIKA("org.apache.tika:tika-bom", "2.9.2"),
+    BOM_TOOL_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-pom", "1.4.0"), // TODO wjm support spring-boot version to 2.7.9
     BOM_TOOL_SERIALIZATION_FASTERXML_JACKSON("com.fasterxml.jackson:jackson-bom", "2.17.1"), // TODO wjm spring-boot 3.2.4 support it to 2.15.4
     BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF("com.google.protobuf:protobuf-bom", "4.26.1"),
     BOM_TOOL_SERIALIZATION_SQUAREUP_WIRE("com.squareup.wire:wire-bom", "4.9.9"),
@@ -79,9 +80,9 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     OSS_MINIO("io.minio:minio", "8.5.9"),
 
-    PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK("org.projectlombok:lombok", "1.18.30"), // support spring-boot version to 3.2.4
+    PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK("org.projectlombok:lombok", "1.18.30"), // TODO wjm support spring-boot version to 3.2.4
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING("org.projectlombok:lombok-mapstruct-binding", "0.2.0"),
-    PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MAPSTRUCT("org.mapstruct:mapstruct-processor", "1.5.5.Final"),
+    PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-processor", BOM_TOOL_MAPSTRUCT_PLUS.version),
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MICA_AUTO("net.dreamlu:mica-auto", "3.1.2"),
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-processor", ""),
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_OPENJDK_JMH("org.openjdk.jmh:jmh-generator-annprocess", "1.37"),
@@ -121,7 +122,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_JNA("net.java.dev.jna:jna", TOOL_JNA_VERSION.version),
     TOOL_JNA_JPMS("net.java.dev.jna:jna-jpms", TOOL_JNA_VERSION.version),
     TOOL_JOB_QUARTZ("org.quartz-scheduler:quartz", "2.3.2"),
-    TOOL_MAPSTRUCT("org.mapstruct:mapstruct", PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MAPSTRUCT.version),
+    TOOL_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-spring-boot-starter", ""),
     TOOL_REFLECT_ASM("com.esotericsoftware:reflectasm", "1.11.9"),
     TOOL_RATE_LIMITING_BUCKET4J("com.github.vladimir-bukhtoyarov:bucket4j-core", "7.6.0"),
     TOOL_SERIALIZATION_FASTJSON("com.alibaba:fastjson", "1.2.83"),

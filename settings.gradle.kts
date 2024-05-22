@@ -81,7 +81,7 @@ include(":pluggable-annotation-api:lombok")
 include(":pluggable-annotation-api:mica-auto")
 include(":pluggable-annotation-api:processor:jmh")
 include(":pluggable-annotation-api:processor:lombok-mapstruct-binding")
-include(":pluggable-annotation-api:processor:mapstruct")
+include(":pluggable-annotation-api:processor:mapstruct-plus")
 include(":pluggable-annotation-api:processor:mybatis-flex")
 include(":pluggable-annotation-api:processor:spring")
 

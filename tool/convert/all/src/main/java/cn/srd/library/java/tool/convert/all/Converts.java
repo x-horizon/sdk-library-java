@@ -11,7 +11,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * All in one 转换器
+ * all in one converter
  *
  * @author wjm
  * @since 2021-05-01 14:13
@@ -20,30 +20,29 @@ import lombok.NoArgsConstructor;
 public class Converts extends cn.srd.library.java.tool.lang.convert.Converts {
 
     /**
-     * 应用 Spring 转换器
+     * apply spring converter
      *
-     * @return Spring 转换器
+     * @return spring converter
      */
     public static SpringConverts withSpring() {
         return SpringConverts.getInstance();
     }
 
     /**
-     * 应用 Jackson 转换器
+     * apply jackson converter
      *
-     * @return Jackson 转换器
+     * @return jackson converter
      */
     public static JacksonConverts withJackson() {
         return JacksonConverts.getInstance();
     }
 
     /**
-     * 应用 通用的 Mapstruct 转换器
+     * apply mapstruct converter
      *
-     * @return 通用的 Mapstruct 转换器
+     * @return mapstruct converter
      */
-    @Deprecated
-    public static MapstructConverts withGenericMapstruct() {
+    public static MapstructConverts withMapstruct() {
         return MapstructConverts.getInstance();
     }
 
