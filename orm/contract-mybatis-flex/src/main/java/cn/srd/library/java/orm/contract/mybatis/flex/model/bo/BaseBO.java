@@ -5,6 +5,7 @@ import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
 import cn.srd.library.java.orm.contract.model.base.BO;
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonLongToLocalDateTimeDeserializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonLocalDateTimeToLongSerializer;
+import cn.srd.library.java.tool.convert.jackson.serializer.JacksonLongToStringSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -39,6 +40,7 @@ public class BaseBO implements BO {
 
     @Schema(description = "创建人id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
     @Column(value = "creator_id")
+    @JsonSerialize(using = JacksonLongToStringSerializer.class)
     private Long creatorId;
 
     @Schema(description = "创建人名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
@@ -47,6 +49,7 @@ public class BaseBO implements BO {
 
     @Schema(description = "更新人id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
     @Column(value = "updater_id")
+    @JsonSerialize(using = JacksonLongToStringSerializer.class)
     private Long updaterId;
 
     @Schema(description = "更新人名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
