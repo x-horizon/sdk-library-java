@@ -9,14 +9,19 @@ import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseWithVersionBO;
 import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListEnumIntegerTypeHandler;
 import cn.srd.library.java.studio.low.code.model.enums.TeacherLevelType;
 import cn.srd.library.java.studio.low.code.model.enums.TeacherStatus;
+import cn.srd.library.java.studio.low.code.model.po.TeacherPO;
+import cn.srd.library.java.studio.low.code.model.vo.TeacherVO;
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToEnumDeserializer;
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonListEnumValueToListEnumDeserializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonListEnumToListIntegerSerializer;
+import cn.srd.library.java.tool.convert.jackson.serializer.JacksonLongToStringSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
+import io.github.linpeilie.annotations.AutoMapper;
+import io.github.linpeilie.annotations.AutoMappers;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,6 +43,7 @@ import java.util.List;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
+@AutoMappers({@AutoMapper(target = TeacherPO.class), @AutoMapper(target = TeacherVO.class)})
 public class TeacherBO extends BaseWithVersionBO {
 
     @Serial private static final long serialVersionUID = -8552109224294597412L;
@@ -45,10 +51,12 @@ public class TeacherBO extends BaseWithVersionBO {
     @Schema(description = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
     @Column(value = "id")
     @Id
+    @JsonSerialize(using = JacksonLongToStringSerializer.class)
     private Long id;
 
     @Schema(description = "学校id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
     @Column(value = "school_id")
+    @JsonSerialize(using = JacksonLongToStringSerializer.class)
     private Long schoolId;
 
     @Schema(description = "编号", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)

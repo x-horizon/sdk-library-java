@@ -4,10 +4,12 @@
 
 package cn.srd.library.java.studio.low.code.model.vo;
 
-import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.base.VO;
 import cn.srd.library.java.studio.low.code.model.bo.StudentBO;
-import cn.srd.library.java.studio.low.code.model.converter.StudentConverter;
+import cn.srd.library.java.studio.low.code.model.po.StudentPO;
+import cn.srd.library.java.tool.convert.all.Converts;
+import io.github.linpeilie.annotations.AutoMapper;
+import io.github.linpeilie.annotations.AutoMappers;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -27,13 +29,14 @@ import java.io.Serial;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
+@AutoMappers({@AutoMapper(target = StudentBO.class), @AutoMapper(target = StudentPO.class)})
 public class StudentVO extends StudentBO implements VO {
 
     @Serial private static final long serialVersionUID = -5249617111496549985L;
 
     @Override
-    public PO toPO() {
-        return StudentConverter.INSTANCE.toPO(this);
+    public StudentPO toPO() {
+        return Converts.withMapstruct().toBean(this, StudentPO.class);
     }
 
 }

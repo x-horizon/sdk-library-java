@@ -5,10 +5,12 @@
 package cn.srd.library.java.studio.low.code.model.po;
 
 import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.contract.model.base.VO;
 import cn.srd.library.java.studio.low.code.model.bo.TeacherBO;
-import cn.srd.library.java.studio.low.code.model.converter.TeacherConverter;
+import cn.srd.library.java.studio.low.code.model.vo.TeacherVO;
+import cn.srd.library.java.tool.convert.all.Converts;
 import com.mybatisflex.annotation.Table;
+import io.github.linpeilie.annotations.AutoMapper;
+import io.github.linpeilie.annotations.AutoMappers;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -28,14 +30,15 @@ import java.io.Serial;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
+@AutoMappers({@AutoMapper(target = TeacherBO.class), @AutoMapper(target = TeacherVO.class)})
 @Table(value = "teacher")
 public class TeacherPO extends TeacherBO implements PO {
 
     @Serial private static final long serialVersionUID = -5169963718660974805L;
 
     @Override
-    public VO toVO() {
-        return TeacherConverter.INSTANCE.toVO(this);
+    public TeacherVO toVO() {
+        return Converts.withMapstruct().toBean(this, TeacherVO.class);
     }
 
 }

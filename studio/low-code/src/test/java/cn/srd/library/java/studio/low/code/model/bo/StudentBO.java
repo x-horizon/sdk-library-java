@@ -9,9 +9,16 @@ import cn.srd.library.java.orm.contract.mybatis.flex.model.bo.BaseWithVersionBO;
 import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaEntityTypeHandler;
 import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListEntityTypeHandler;
 import cn.srd.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListLongTypeHandler;
+import cn.srd.library.java.studio.low.code.model.po.StudentPO;
+import cn.srd.library.java.studio.low.code.model.vo.StudentVO;
+import cn.srd.library.java.tool.convert.jackson.serializer.JacksonListLongToListStringSerializer;
+import cn.srd.library.java.tool.convert.jackson.serializer.JacksonLongToStringSerializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
+import io.github.linpeilie.annotations.AutoMapper;
+import io.github.linpeilie.annotations.AutoMappers;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,6 +41,7 @@ import java.util.List;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
+@AutoMappers({@AutoMapper(target = StudentPO.class), @AutoMapper(target = StudentVO.class)})
 public class StudentBO extends BaseWithVersionBO {
 
     @Serial private static final long serialVersionUID = 2234235631313555403L;
@@ -41,14 +49,17 @@ public class StudentBO extends BaseWithVersionBO {
     @Schema(description = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
     @Column(value = "id")
     @Id
+    @JsonSerialize(using = JacksonLongToStringSerializer.class)
     private Long id;
 
     @Schema(description = "学校id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
     @Column(value = "school_id")
+    @JsonSerialize(using = JacksonLongToStringSerializer.class)
     private Long schoolId;
 
     @Schema(description = "教师id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.LIST_NUMBER)
     @Column(value = "teacher_ids", typeHandler = JdbcJsonbMappingJavaListLongTypeHandler.class)
+    @JsonSerialize(using = JacksonListLongToListStringSerializer.class)
     private List<Long> teacherIds;
 
     @Schema(description = "编号", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)

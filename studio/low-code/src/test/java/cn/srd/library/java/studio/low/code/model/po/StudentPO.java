@@ -6,9 +6,11 @@ package cn.srd.library.java.studio.low.code.model.po;
 
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.studio.low.code.model.bo.StudentBO;
-import cn.srd.library.java.studio.low.code.model.converter.StudentConverter;
 import cn.srd.library.java.studio.low.code.model.vo.StudentVO;
+import cn.srd.library.java.tool.convert.all.Converts;
 import com.mybatisflex.annotation.Table;
+import io.github.linpeilie.annotations.AutoMapper;
+import io.github.linpeilie.annotations.AutoMappers;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -28,6 +30,7 @@ import java.io.Serial;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
+@AutoMappers({@AutoMapper(target = StudentBO.class), @AutoMapper(target = StudentVO.class)})
 @Table(value = "student")
 public class StudentPO extends StudentBO implements PO {
 
@@ -35,7 +38,7 @@ public class StudentPO extends StudentBO implements PO {
 
     @Override
     public StudentVO toVO() {
-        return StudentConverter.INSTANCE.toVO(this);
+        return Converts.withMapstruct().toBean(this, StudentVO.class);
     }
 
 }
