@@ -1,6 +1,6 @@
-package cn.srd.library.java.contract.component.message.spring.support;
+package cn.srd.library.java.contract.component.message.engine.spring.support;
 
-import cn.srd.library.java.contract.component.message.spring.EnableStreamMessageJacksonConverter;
+import cn.srd.library.java.contract.component.message.engine.spring.EnableStreamMessageJacksonConverter;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.object.Nil;

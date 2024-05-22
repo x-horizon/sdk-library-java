@@ -1,6 +1,6 @@
-package cn.srd.library.java.contract.component.message.spring;
+package cn.srd.library.java.contract.component.message.engine.spring;
 
-import cn.srd.library.java.contract.component.message.spring.support.StreamMessageJacksonConverter;
+import cn.srd.library.java.contract.component.message.engine.spring.support.StreamMessageJacksonConverter;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

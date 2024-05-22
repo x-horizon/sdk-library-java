@@ -1,4 +1,4 @@
-package cn.srd.library.java.contract.component.message.spring.support;
+package cn.srd.library.java.contract.component.message.engine.spring.support;
 
 import java.util.List;
 

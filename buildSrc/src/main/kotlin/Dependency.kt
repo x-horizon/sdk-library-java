@@ -6,7 +6,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     BOM_CLOUD_NATIVE_DOCKER("com.github.docker-java:docker-java-bom", "3.3.6"),
     BOM_DOC_XIAOYMIN_KNIFE4J("com.github.xiaoymin:knife4j-dependencies", "4.5.0"), // TODO wjm support spring-boot version to 3.0.4
-    BOM_FRAMEWORK_ALIBABA_SPRING_CLOUD("com.alibaba.cloud:spring-cloud-alibaba-dependencies", "2023.0.1.0"), // TODO wjm need to update
+    BOM_FRAMEWORK_ALIBABA_SPRING_CLOUD("com.alibaba.cloud:spring-cloud-alibaba-dependencies", "2023.0.1.0"),
     BOM_FRAMEWORK_SPRING("org.springframework:spring-framework-bom", "6.1.7"), // support spring-boot version to 3.2.4
     BOM_FRAMEWORK_SPRING_BOOT("org.springframework.boot:spring-boot-dependencies", "3.2.5"),
     BOM_FRAMEWORK_SPRING_CLOUD("org.springframework.cloud:spring-cloud-dependencies", "2023.0.1"),
@@ -116,7 +116,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_GOOGLE_GUAVA("com.google.guava:guava", "32.1.2-jre"), // support spring-boot version to 3.2.4
     TOOL_HUTOOL("cn.hutool:hutool-all", "5.8.26"),
     TOOL_IO_VAVR("io.vavr:vavr", "0.10.4"),
-    TOOL_JDK_BURNING_WAVE_CORE("org.burningwave:core", "12.64.3"), // TODO wjm warning: commons-parent-28.pom:1:44: 前言中不允许有内容。
+    TOOL_JDK_BURNING_WAVE_CORE("org.burningwave:core", "12.64.3"),
     TOOL_JNA_VERSION("", "5.13.0"),
     TOOL_JNA("net.java.dev.jna:jna", TOOL_JNA_VERSION.version),
     TOOL_JNA_JPMS("net.java.dev.jna:jna-jpms", TOOL_JNA_VERSION.version),

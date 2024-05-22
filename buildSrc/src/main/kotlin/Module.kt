@@ -24,7 +24,7 @@ object GradleModule {
     const val CONCURRENT_ACTOR = "concurrent-actor"
     const val CONCURRENT_REDIS = "concurrent-redis"
 
-    const val CONTRACT_COMPONENT_MESSAGE_SPRING = "contract-component-message-spring"
+    const val CONTRACT_COMPONENT_MESSAGE_ENGINE_SPRING = "contract-component-message-engine-spring"
     const val CONTRACT_COMPONENT_CACHE_REDIS = "contract-component-cache-redis"
     const val CONTRACT_COMPONENT_DATABASE_BASE = "contract-component-database-base"
     const val CONTRACT_COMPONENT_DATABASE_POSTGRESQL = "contract-component-database-postgresql"
