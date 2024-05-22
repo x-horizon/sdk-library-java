@@ -169,10 +169,17 @@ internal object ModuleHelper {
 
     private data class ModuleTreeNode(val name: String, val children: MutableList<ModuleTreeNode> = mutableListOf())
 
+
     private val moduleNameMappingReferenceModuleNameMap = ConcurrentHashMap<String, String>().apply {
         // cache the special reference module name that cannot parse
+        put(GradleModule.CONTRACT_COMPONENT_MESSAGE_ENGINE_SPRING, ":contract:component:message-engine:spring")
         put(GradleModule.DOC_KNIFE4J_SPRING_WEBFLUX, ":doc:knife4j:spring-webflux")
         put(GradleModule.DOC_KNIFE4J_SPRING_WEBMVC, ":doc:knife4j:spring-webmvc")
+        // put(GradleModule.MESSAGE_ENGINE_KAFKA, ":message-engine:kafka")
+        // put(GradleModule.MESSAGE_ENGINE_MQTT, ":message-engine:mqtt")
+        // put(GradleModule.MESSAGE_ENGINE_RABBITMQ, ":message-engine:rabbitmq")
+        // put(GradleModule.MESSAGE_ENGINE_REDIS, ":message-engine:redis")
+        // put(GradleModule.MESSAGE_ENGINE_ROCKETMQ, ":message-engine:rocketmq")
         put(GradleModule.ORM_CONTRACT, ":orm:contract")
         put(GradleModule.ORM_CONTRACT_MYBATIS_BASE, ":orm:contract-mybatis-base")
         put(GradleModule.ORM_CONTRACT_MYBATIS_BASE_POSTGRESQL, ":orm:contract-mybatis-base-postgresql")
