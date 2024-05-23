@@ -69,7 +69,7 @@ subprojects {
 
             testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_JMH)))
             testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_JUNIT)))
-            testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING)))
+            testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING_BOOT)))
             testAnnotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_JMH)))
             testAnnotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_SPRING)))
         }

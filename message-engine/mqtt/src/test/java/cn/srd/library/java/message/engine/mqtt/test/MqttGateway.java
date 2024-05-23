@@ -1,12 +1,12 @@
-package cn.srd.library.java.message.engine.mqtt.test;
-
-import org.springframework.integration.annotation.MessagingGateway;
-import org.springframework.messaging.handler.annotation.Header;
-import org.springframework.messaging.handler.annotation.Payload;
-
-@MessagingGateway(defaultRequestChannel = "mqttOutboundChannel")
-public interface MqttGateway {
-
-    void sendToMqtt(@Payload String data, @Header("mqtt_topic") String topic);
-
-}
+// package cn.srd.library.java.message.engine.mqtt.test;
+//
+// import org.springframework.integration.annotation.MessagingGateway;
+// import org.springframework.messaging.handler.annotation.Header;
+// import org.springframework.messaging.handler.annotation.Payload;
+//
+// @MessagingGateway(defaultRequestChannel = "mqttOutboundChannel")
+// public interface MqttGateway {
+//
+//     void sendToMqtt(@Payload String data, @Header("mqtt_topic") String topic);
+//
+// }

@@ -190,7 +190,8 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.TEST_JMH)))
         api(project(GradleModule.toReferenceName(GradleModule.TEST_JUNIT)))
         api(project(GradleModule.toReferenceName(GradleModule.TEST_MOCKITO)))
-        api(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING)))
+        api(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING_BOOT)))
+        api(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING_INTEGRATION)))
 
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONTENT_ANALYSIS)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_ALL)))

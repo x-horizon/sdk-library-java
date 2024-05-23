@@ -3,11 +3,12 @@
 // license that can be found in the LICENSE file.
 
 dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_CONTRACT)))
+    api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_MESSAGE_ENGINE_SPRING)))
 
     api(GradleDependency.MESSAGE_SPRING_INTEGRATION_MQTT.withoutVersion)
-    
+
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_JUNIT)))
-    testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING)))
+    testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_MOCKITO)))
+    testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING_BOOT)))
+    testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING_INTEGRATION)))
 }

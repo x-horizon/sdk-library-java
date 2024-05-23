@@ -8,4 +8,5 @@ dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_ALL)))
 
     api(GradleDependency.MESSAGE_SPRING_CLOUD_STREAM.withoutVersion)
+    api(GradleDependency.MESSAGE_SPRING_INTEGRATION_STREAM.withoutVersion)
 }

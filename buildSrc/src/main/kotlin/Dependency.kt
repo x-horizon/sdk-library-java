@@ -53,10 +53,11 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     LOG_SPRING_BOOT("org.springframework.boot:spring-boot-starter-logging", ""),
 
-    MESSAGE_SPRING_INTEGRATION_MQTT("org.springframework.integration:spring-integration-mqtt", ""),
     MESSAGE_SPRING_CLOUD_STREAM("org.springframework.cloud:spring-cloud-stream", ""),
     MESSAGE_SPRING_CLOUD_STREAM_KAFKA("org.springframework.cloud:spring-cloud-starter-stream-kafka", ""),
     MESSAGE_SPRING_CLOUD_STREAM_RABBITMQ("org.springframework.cloud:spring-cloud-starter-stream-rabbit", ""),
+    MESSAGE_SPRING_INTEGRATION_STREAM("org.springframework.integration:spring-integration-stream", ""),
+    MESSAGE_SPRING_INTEGRATION_MQTT("org.springframework.integration:spring-integration-mqtt", ""),
     MESSAGE_ROCKETMQ("com.alibaba.cloud:spring-cloud-starter-stream-rocketmq", ""),
     MESSAGE_ROCKETMQ_TODO("org.apache.rocketmq:rocketmq-spring-boot-starter", "2.2.3"), // TODO wjm need to remove
 
@@ -150,6 +151,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TEST_MOCKITO_CORE("org.mockito:mockito-core", ""),
     TEST_OPENJDK_JMH_CORE("org.openjdk.jmh:jmh-core", PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_OPENJDK_JMH.version),
     TEST_SPRING_BOOT_TEST("org.springframework.boot:spring-boot-starter-test", ""),
+    TEST_SPRING_INTEGRATION_TEST("org.springframework.integration:spring-integration-test", ""),
 
     WEB_OKHTTPS("cn.zhxu:okhttps-jackson", "4.0.2"),
     WEB_IO_NETTY("io.netty:netty-all", ""), // TODO wjm org.springframework.integration

@@ -93,7 +93,8 @@ object GradleModule {
     const val TEST_JMH = "test-jmh"
     const val TEST_JUNIT = "test-junit"
     const val TEST_MOCKITO = "test-mockito"
-    const val TEST_SPRING = "test-spring"
+    const val TEST_SPRING_BOOT = "test-spring-boot"
+    const val TEST_SPRING_INTEGRATION = "test-spring-integration"
 
     const val TOOL_CONTENT_ANALYSIS = "tool-content-analysis"
     const val TOOL_CONVERT_ALL = "tool-convert-all"
