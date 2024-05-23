@@ -1,10 +1,10 @@
 spring:
   profiles:
     include: config-cache,
-      config-cache-development,
+      config-cache-localhost,
       config-datasource,
-      config-datasource-development,
+      config-datasource-localhost,
       config-doc,
       config-log,
       config-spring
-    active: environment-development
+    active: environment-localhost

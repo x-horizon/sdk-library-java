@@ -31,8 +31,8 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@SpringBootTest
 @ExtendWith(SpringExtension.class)
+@SpringBootTest
 class JacksonConvertsTest {
 
     private static final StudentDO STUDENT_DO = StudentDO.newDO();

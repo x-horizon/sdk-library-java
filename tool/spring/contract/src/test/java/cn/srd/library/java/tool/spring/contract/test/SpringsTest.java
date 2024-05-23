@@ -18,8 +18,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  * @author wjm
  * @since 2023-10-03 18:46
  */
-@SpringBootTest
 @ExtendWith(SpringExtension.class)
+@SpringBootTest
 class SpringsTest {
 
     @Test

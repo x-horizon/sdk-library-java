@@ -15,8 +15,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
-@SpringBootTest
 @ExtendWith(SpringExtension.class)
+@SpringBootTest
 class StringBenchmarkTest {
 
     private static final int DATA_SIZE = 10000000;

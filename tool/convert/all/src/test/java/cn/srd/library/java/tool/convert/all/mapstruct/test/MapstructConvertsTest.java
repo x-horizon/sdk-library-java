@@ -16,8 +16,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
-@SpringBootTest
 @ExtendWith(SpringExtension.class)
+@SpringBootTest
 class MapstructConvertsTest {
 
     private static final GradeDO GRADE_DO = GradeDO.newDO();

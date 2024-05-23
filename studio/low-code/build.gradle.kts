@@ -20,7 +20,7 @@ dependencies {
     testImplementation(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_FLEX_POSTGRESQL)))
 
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_JUNIT)))
-    testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING)))
+    testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING_BOOT)))
 
     annotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING)))
     annotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PLUS)))

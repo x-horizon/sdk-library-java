@@ -21,8 +21,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  * @author TODO 请填写作者名字
  * @since 2024-04-15 23:57
  */
-@SpringBootTest
 @ExtendWith(SpringExtension.class)
+@SpringBootTest
 class SchoolServiceTest {
 
     @Autowired private SchoolService schoolService;

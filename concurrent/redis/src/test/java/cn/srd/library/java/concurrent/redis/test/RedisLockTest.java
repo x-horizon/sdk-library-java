@@ -25,8 +25,8 @@ import java.util.function.Supplier;
  */
 @Setter
 @EnableRedisLock
-@SpringBootTest
 @ExtendWith(SpringExtension.class)
+@SpringBootTest
 class RedisLockTest {
 
     private static final String LOCK_NAME = "lock";

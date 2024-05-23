@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-@SpringBootTest
 @ExtendWith(SpringExtension.class)
+@SpringBootTest
 class RedisCacheTest {
 
     private static final String CACHE_NAMESPACE_NAME1 = "cache1";
@@ -207,4 +207,3 @@ class RedisCacheTest {
     }
 
 }
-

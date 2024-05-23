@@ -55,8 +55,8 @@ import java.util.Map;
                 xmlMapperEntityPackageAliasPackagePaths = {"cn.srd.library.java.orm.mybatis.**.po"}
         )
 )
-@SpringBootTest
 @ExtendWith(SpringExtension.class)
+@SpringBootTest
 @EnableAspectJAutoProxy(exposeProxy = true)
 class CurdTest {
 

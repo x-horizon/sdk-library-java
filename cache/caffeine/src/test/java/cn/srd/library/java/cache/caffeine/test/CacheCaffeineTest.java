@@ -11,8 +11,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 import java.util.Map;
 
-@SpringBootTest
 @ExtendWith(SpringExtension.class)
+@SpringBootTest
 class CacheCaffeineTest {
 
     private static final String CACHE_NAME1 = "cache1";
@@ -108,4 +108,3 @@ class CacheCaffeineTest {
     }
 
 }
-

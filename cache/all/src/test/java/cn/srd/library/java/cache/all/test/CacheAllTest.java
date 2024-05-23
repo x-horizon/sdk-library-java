@@ -19,8 +19,8 @@ import java.util.List;
 
 @EnableCache
 @EnableRedisLock
-@SpringBootTest
 @ExtendWith(SpringExtension.class)
+@SpringBootTest
 class CacheAllTest {
 
     @Autowired private CacheContextWithoutCacheConfigBuildingService cacheContextWithoutCacheConfigBuildingService;
