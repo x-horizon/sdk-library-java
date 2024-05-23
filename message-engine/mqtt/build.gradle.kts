@@ -4,9 +4,10 @@
 
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
+    api(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_CONTRACT)))
 
     api(GradleDependency.MESSAGE_SPRING_INTEGRATION_MQTT.withoutVersion)
-
+    
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_JUNIT)))
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING)))
 }
