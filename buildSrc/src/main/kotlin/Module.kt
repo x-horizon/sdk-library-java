@@ -45,7 +45,7 @@ object GradleModule {
     const val GATEWAY_SPRING = "gateway-spring"
 
     const val MESSAGE_ENGINE_KAFKA = "message-engine-kafka"
-    const val MESSAGE_ENGINE_MQTT = "message-engine-mqtt"
+    const val MESSAGE_ENGINE_MQTT_V3 = "message-engine-mqtt-v3"
     const val MESSAGE_ENGINE_RABBITMQ = "message-engine-rabbitmq"
     const val MESSAGE_ENGINE_REDIS = "message-engine-redis"
     const val MESSAGE_ENGINE_ROCKETMQ = "message-engine-rocketmq"
@@ -169,7 +169,6 @@ internal object ModuleHelper {
     )
 
     private data class ModuleTreeNode(val name: String, val children: MutableList<ModuleTreeNode> = mutableListOf())
-
 
     private val moduleNameMappingReferenceModuleNameMap = ConcurrentHashMap<String, String>().apply {
         // cache the special reference module name that cannot parse

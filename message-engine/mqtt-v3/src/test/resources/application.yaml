@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    include: config-log,
+      config-spring
+    active: environment-development
+    # active: environment-localhost

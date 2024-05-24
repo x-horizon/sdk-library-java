@@ -54,7 +54,7 @@ include(":doc:knife4j:spring-webflux")
 include(":gateway:spring")
 
 include(":message-engine:kafka")
-include(":message-engine:mqtt")
+include(":message-engine:mqtt-v3")
 include(":message-engine:rabbitmq")
 include(":message-engine:redis")
 include(":message-engine:rocketmq")

@@ -8,7 +8,7 @@ dependencies {
     api(GradleDependency.MESSAGE_SPRING_INTEGRATION_MQTT.withoutVersion)
 
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_JUNIT)))
-    testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_MOCKITO)))
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING_BOOT)))
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING_INTEGRATION)))
+    testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_LOG)))
 }
