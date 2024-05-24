@@ -3,5 +3,5 @@
 // license that can be found in the LICENSE file.
 
 dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_DATABASE_BASE)))
+    api(project(GradleModule.toReferenceName(GradleModule.DATA_POSTGRESQL)))
 }
