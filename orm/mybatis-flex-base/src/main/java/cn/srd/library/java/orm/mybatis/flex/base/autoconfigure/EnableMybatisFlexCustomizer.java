@@ -21,7 +21,7 @@ import java.lang.annotation.*;
  * @author wjm
  * @see MybatisFlexCustomizerSwitcher
  * @see MybatisFlexCustomizer
- * @see MybatisFlexAutoConfigurer
+ * @see MybatisFlexAutoConfigurer#mybatisFlexCapableCustomizer()
  * @see IdConfig
  * @see DeleteLogicConfig
  * @see ListenerConfig
