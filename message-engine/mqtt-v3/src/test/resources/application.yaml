@@ -1,6 +1,7 @@
 spring:
   profiles:
     include: config-log,
+      config-message-engine.yaml,
       config-spring
     active: environment-development
     # active: environment-localhost

@@ -121,7 +121,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.CONCURRENT_ACTOR)))
         api(project(GradleModule.toReferenceName(GradleModule.CONCURRENT_REDIS)))
 
-        api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_MESSAGE_ENGINE_SPRING)))
+        api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_MESSAGE_ENGINE)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_CACHE_REDIS)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_DATABASE_BASE)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_DATABASE_POSTGRESQL)))

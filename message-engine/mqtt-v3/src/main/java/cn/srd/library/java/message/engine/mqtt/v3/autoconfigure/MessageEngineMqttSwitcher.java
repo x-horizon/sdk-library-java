@@ -4,13 +4,13 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.autoconfigure;
 
-import org.springframework.context.annotation.Import;
-
 /**
+ * the {@link EnableMessageEngineMqtt message engine mqtt customizer system} switcher
+ *
  * @author wjm
- * @since 2024-05-24 16:54
+ * @see MessageEngineMqttAutoConfigurer#mqttClientFactory()
+ * @since 2024-05-24 16:55
  */
-@Import(MessageEngineMqttCustomizerSwitcher.class)
-public class EnableMessageEngineMqttCustomizer {
+public class MessageEngineMqttSwitcher {
 
 }

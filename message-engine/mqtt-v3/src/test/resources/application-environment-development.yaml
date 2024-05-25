@@ -1,0 +1,8 @@
+library:
+  java:
+    message-engine:
+      mqtt:
+        # username: ""
+        # password: ""
+        server-urls:
+          - "tcp://192.168.10.91:32567"
