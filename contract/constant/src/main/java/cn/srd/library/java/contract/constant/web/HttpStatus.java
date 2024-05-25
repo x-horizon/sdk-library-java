@@ -64,7 +64,7 @@ public enum HttpStatus {
     ;
 
     /**
-     * the status
+     * the status code
      */
     private final int status;
 
