@@ -6,6 +6,8 @@ package cn.srd.library.java.message.engine.mqtt.v3.test;
 
 import cn.srd.library.java.contract.model.protocol.MessageModel;
 import cn.srd.library.java.message.engine.mqtt.v3.autoconfigure.EnableMessageEngineMqtt;
+import cn.srd.library.java.message.engine.mqtt.v3.consumer.FooConsumer;
+import cn.srd.library.java.tool.spring.contract.Springs;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,15 +37,7 @@ class MqttTest {
     @SneakyThrows
     @Test
     void test() {
-        // MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler("siSamplePublisher", mqttClientFactory);
-        // messageHandler.setAsync(true);
-        // messageHandler.setDefaultTopic("siSampleTopic");
-        // messageHandler.setDefaultQos(1);
-        // messageHandler.setCompletionTimeout(5000);
-        // IntegrationFlow integrationFlow = flow -> flow
-        //         .transform(p -> Converts.withJackson().toString(p))
-        //         .handle(messageHandler);
-        // Springs.registerBean();
+        Springs.getBean(FooConsumer.class).send();
         while (true) {
             this.mqttOutFlow.getInputChannel().send(new GenericMessage<>(MessageModel.builder().status(200).message("ok").data("foo").build()));
             TimeUnit.SECONDS.sleep(1);

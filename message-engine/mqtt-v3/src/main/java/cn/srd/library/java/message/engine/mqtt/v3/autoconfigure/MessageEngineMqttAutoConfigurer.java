@@ -8,6 +8,7 @@ import cn.srd.library.java.contract.model.protocol.MessageModel;
 import cn.srd.library.java.contract.properties.MessageEngineMqttProperties;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.spring.contract.Springs;
+import lombok.AllArgsConstructor;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -15,9 +16,11 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.config.EnableIntegration;
 import org.springframework.integration.dsl.IntegrationFlow;
+import org.springframework.integration.dsl.context.IntegrationFlowContext;
 import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
 import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
@@ -33,12 +36,16 @@ import java.util.Optional;
  * @author wjm
  * @since 2024-05-24 16:56
  */
+@AllArgsConstructor
 @AutoConfiguration
 @Configuration
+@EnableAspectJAutoProxy(exposeProxy = true)
 @EnableIntegration
 @EnableConfigurationProperties(MessageEngineMqttProperties.class)
 @IntegrationComponentScan
 public class MessageEngineMqttAutoConfigurer {
+
+    private final IntegrationFlowContext flowContext;
 
     @Bean
     @ConditionalOnBean(MessageEngineMqttSwitcher.class)
@@ -48,17 +55,30 @@ public class MessageEngineMqttAutoConfigurer {
         Optional.ofNullable(mqttProperties.getUsername()).ifPresent(mqttConnectOptions::setUserName);
         Optional.ofNullable(mqttProperties.getPassword()).ifPresent(password -> mqttConnectOptions.setPassword(password.toCharArray()));
         mqttConnectOptions.setServerURIs(Converts.toArray(mqttProperties.getServerURLs(), String.class));
-
         DefaultMqttPahoClientFactory mqttClientFactory = new DefaultMqttPahoClientFactory();
         mqttClientFactory.setConnectionOptions(mqttConnectOptions);
+        registerFlow(mqttClientFactory);
         return mqttClientFactory;
+    }
+
+    private void registerFlow(MqttPahoClientFactory mqttClientFactory) {
+        this.flowContext
+                .registration(mqttOutFlow(mqttClientFactory))
+                .id("mqttOutFlow")
+                .useFlowIdAsPrefix()
+                .register();
+
+        this.flowContext
+                .registration(mqttInFlow(mqttClientFactory))
+                .id("mqttInFlow")
+                .useFlowIdAsPrefix()
+                .register();
     }
 
     // publisher
 
-    @Bean
-    public IntegrationFlow mqttOutFlow(MqttPahoClientFactory mqttClientFactory) {
-        MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler("siSamplePublisher", mqttClientFactory);
+    private IntegrationFlow mqttOutFlow(MqttPahoClientFactory mqttClientFactory) {
+        MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler("siSamplePublisher3", mqttClientFactory);
         messageHandler.setAsync(true);
         messageHandler.setDefaultTopic("siSampleTopic");
         messageHandler.setDefaultQos(1);
@@ -70,9 +90,8 @@ public class MessageEngineMqttAutoConfigurer {
 
     // consumer
 
-    @Bean
     public IntegrationFlow mqttInFlow(MqttPahoClientFactory mqttClientFactory) {
-        MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter("siSampleConsumer", mqttClientFactory, "siSampleTopic");
+        MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter("siSampleConsumer3", mqttClientFactory, "siSampleTopic");
         adapter.setCompletionTimeout(5000);
         adapter.setConverter(new DefaultPahoMessageConverter());
         adapter.setQos(1);
