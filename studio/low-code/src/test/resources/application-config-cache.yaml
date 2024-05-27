@@ -1,6 +1,7 @@
 spring:
   data:
     redis:
+      database: 0
       timeout: 10s
       lettuce:
         pool:
