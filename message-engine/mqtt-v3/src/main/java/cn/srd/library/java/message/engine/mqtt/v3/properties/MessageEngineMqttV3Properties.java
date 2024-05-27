@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.contract.properties;
+package cn.srd.library.java.message.engine.mqtt.v3.properties;
 
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
@@ -19,10 +19,10 @@ import java.util.List;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "library.java.message-engine.mqtt")
-public class MessageEngineMqttProperties {
+@ConfigurationProperties(prefix = "library.java.message-engine.mqtt.v3")
+public class MessageEngineMqttV3Properties {
 
-    @Getter private static MessageEngineMqttProperties instance = null;
+    @Getter private static MessageEngineMqttV3Properties instance = null;
 
     @PostConstruct
     public void initialize() {

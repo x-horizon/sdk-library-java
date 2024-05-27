@@ -4,7 +4,6 @@
 
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.CACHE_REDIS)))
-    api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_PROPERTIES)))
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_JNA)))
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_CONTRACT)))

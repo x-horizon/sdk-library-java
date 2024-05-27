@@ -1,6 +1,6 @@
 package cn.srd.library.java.concurrent.redis;
 
-import cn.srd.library.java.contract.component.cache.redis.RedisManager;
+import cn.srd.library.java.contract.component.redis.RedisManager;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.redisson.api.RLock;

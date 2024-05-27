@@ -1,9 +1,9 @@
 package cn.srd.library.java.cache.all.autoconfigue;
 
 import cn.srd.library.java.cache.all.CacheSwitcher;
+import cn.srd.library.java.cache.all.properties.CacheMultilevelProperties;
+import cn.srd.library.java.cache.all.properties.CacheProperties;
 import cn.srd.library.java.cache.all.support.aspect.*;
-import cn.srd.library.java.contract.properties.CacheMultilevelProperties;
-import cn.srd.library.java.contract.properties.CacheProperties;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

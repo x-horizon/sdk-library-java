@@ -4,8 +4,8 @@
 
 package cn.srd.library.java.tool.id.snowflake;
 
+import cn.srd.library.java.cache.redis.properties.CacheRedisProperties;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
-import cn.srd.library.java.contract.properties.CacheRedisProperties;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
 import com.github.yitter.contract.IdGeneratorOptions;

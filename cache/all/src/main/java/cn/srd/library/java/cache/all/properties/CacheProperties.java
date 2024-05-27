@@ -1,5 +1,7 @@
-package cn.srd.library.java.contract.properties;
+package cn.srd.library.java.cache.all.properties;
 
+import cn.srd.library.java.cache.caffeine.properties.CacheCaffeineProperties;
+import cn.srd.library.java.cache.redis.properties.CacheRedisProperties;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;

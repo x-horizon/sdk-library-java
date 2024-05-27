@@ -5,11 +5,11 @@
 package cn.srd.library.java.message.engine.mqtt.v3.autoconfigure;
 
 import cn.srd.library.java.contract.model.protocol.MessageModel;
-import cn.srd.library.java.contract.properties.MessageEngineMqttProperties;
 import cn.srd.library.java.message.engine.contract.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.MessageFlows;
 import cn.srd.library.java.message.engine.contract.MessageReceive;
 import cn.srd.library.java.message.engine.mqtt.v3.MessageEngineMqttV3Action;
+import cn.srd.library.java.message.engine.mqtt.v3.properties.MessageEngineMqttV3Properties;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.annotation.Annotations;
 import cn.srd.library.java.tool.lang.compare.Comparators;
@@ -47,7 +47,7 @@ import java.util.Optional;
 @Configuration
 @EnableAspectJAutoProxy(exposeProxy = true)
 @EnableIntegration
-@EnableConfigurationProperties(MessageEngineMqttProperties.class)
+@EnableConfigurationProperties(MessageEngineMqttV3Properties.class)
 @IntegrationComponentScan
 public class MessageEngineMqttV3AutoConfigurer {
 
@@ -61,7 +61,7 @@ public class MessageEngineMqttV3AutoConfigurer {
     @Bean
     @ConditionalOnBean(MessageEngineMqttV3Switcher.class)
     public MqttPahoClientFactory mqttClientFactory() {
-        MessageEngineMqttProperties mqttProperties = Springs.getBean(MessageEngineMqttProperties.class);
+        MessageEngineMqttV3Properties mqttProperties = Springs.getBean(MessageEngineMqttV3Properties.class);
         MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
         Optional.ofNullable(mqttProperties.getUsername()).ifPresent(mqttConnectOptions::setUserName);
         Optional.ofNullable(mqttProperties.getPassword()).ifPresent(password -> mqttConnectOptions.setPassword(password.toCharArray()));

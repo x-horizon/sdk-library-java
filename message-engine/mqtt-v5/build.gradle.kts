@@ -3,7 +3,6 @@
 // license that can be found in the LICENSE file.
 
 dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_PROPERTIES)))
     api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_CONTRACT)))
 
     api(GradleDependency.MESSAGE_MQTT_SPRING_INTEGRATION.withoutVersion)

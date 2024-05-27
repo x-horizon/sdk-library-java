@@ -6,10 +6,10 @@ package cn.srd.library.java.cache.all;
 
 import cn.srd.library.java.cache.caffeine.CaffeineCache;
 import cn.srd.library.java.cache.caffeine.CaffeineCacheTemplate;
+import cn.srd.library.java.cache.caffeine.properties.CacheCaffeineProperties;
 import cn.srd.library.java.cache.map.MapCache;
 import cn.srd.library.java.cache.map.MapCacheTemplate;
 import cn.srd.library.java.cache.redis.RedisCache;
-import cn.srd.library.java.contract.properties.CacheCaffeineProperties;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

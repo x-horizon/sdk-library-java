@@ -2,7 +2,8 @@ library:
   java:
     message-engine:
       mqtt:
-        # username: ""
-        # password: ""
-        server-urls:
-          - "tcp://localhost:10017"
+        v3:
+          # username: ""
+          # password: ""
+          server-urls:
+            - "tcp://localhost:10017"

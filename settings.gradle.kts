@@ -33,10 +33,9 @@ include(":cloud:native:kubernetes")
 include(":concurrent:actor")
 include(":concurrent:redis")
 
-include(":contract:component:cache:redis")
+include(":contract:component:redis")
 include(":contract:constant")
 include(":contract:model")
-include(":contract:properties")
 
 include(":data:cassandra")
 include(":data:elasticsearch")
