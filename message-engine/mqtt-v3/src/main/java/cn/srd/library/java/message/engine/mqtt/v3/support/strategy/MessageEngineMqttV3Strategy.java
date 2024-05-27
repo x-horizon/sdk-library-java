@@ -30,7 +30,7 @@ public class MessageEngineMqttV3Strategy implements MessageEngineStrategy {
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     @Override
     public MessageEngineMqttV3Strategy registerProducerFlowIfNeed(String flowId, MessageProducer messageProducerAnnotation) {
-        if (Nil.isNull(flowContext.getRegistrationById(flowId))) {
+        if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
             MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(MessageFlows.getUniqueClientId(flowId, messageProducerAnnotation.clientId()), this.mqttClientFactory);
             messageHandler.setDefaultTopic(messageProducerAnnotation.topic());
             messageHandler.setDefaultQos(messageProducerAnnotation.qos().getStatus());
