@@ -4,7 +4,6 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.autoconfigure;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.protocol.MessageModel;
 import cn.srd.library.java.contract.properties.MessageEngineMqttProperties;
 import cn.srd.library.java.message.engine.contract.MessageEngineType;
@@ -73,8 +72,7 @@ public class MessageEngineMqttV3AutoConfigurer {
         return mqttClientFactory;
     }
 
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    private <T> void registerReceiveFlow(MqttPahoClientFactory mqttClientFactory) {
+    private void registerReceiveFlow(MqttPahoClientFactory mqttClientFactory) {
         Annotations.getAnnotatedMethods(MessageReceive.class)
                 .stream()
                 .filter(method -> Comparators.equals(MessageEngineType.MQTT_V3, method.getAnnotation(MessageReceive.class).type()))
@@ -86,11 +84,11 @@ public class MessageEngineMqttV3AutoConfigurer {
                         messageDrivenChannelAdapter.setConverter(new DefaultPahoMessageConverter());
                         messageDrivenChannelAdapter.setQos(1);
                         this.flowContext
-                                .registration(IntegrationFlow.from(messageDrivenChannelAdapter).handle(message -> {
-                                    MessageModel<T> messageModel = Converts.withJackson().toBean((String) message.getPayload(), MessageModel.class);
-                                    messageModel.requireSuccess();
-                                    Reflects.invoke(Springs.getBean(method.getDeclaringClass()), method, messageModel.getData());
-                                }).get())
+                                .registration(IntegrationFlow.from(messageDrivenChannelAdapter).handle(message -> Reflects.invoke(
+                                        Springs.getBean(method.getDeclaringClass()),
+                                        method,
+                                        Converts.withJackson().toBean((String) message.getPayload(), MessageModel.class).requireSuccessAndGetData())
+                                ).get())
                                 .id(flowId)
                                 .useFlowIdAsPrefix()
                                 .register();

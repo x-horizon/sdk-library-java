@@ -37,6 +37,11 @@ public class SuppressWarningConstant {
     public static final String UNCHECKED = "unchecked";
 
     /**
+     * ignore null pointer exception warning: {@code "null"}
+     */
+    public static final String NULL = "null";
+
+    /**
      * ignore without generic warning: {@code "rawtypes"}
      */
     public static final String RAW_TYPE = "rawtypes";

@@ -64,9 +64,17 @@ public interface TransportModel<T> extends Serializable {
      * throw {@link RunningException} if not success
      */
     default void requireSuccess() {
-        ifNotSuccess(value -> {
+        ifNotSuccess(ignore -> {
             throw this.buildRunningException();
         });
+    }
+
+    /**
+     * return {@link #getData()} after {@link #requireSuccess()}
+     */
+    default T requireSuccessAndGetData() {
+        requireSuccess();
+        return getData();
     }
 
     /**
