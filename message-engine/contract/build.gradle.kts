@@ -7,6 +7,7 @@ dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_CONTRACT)))
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_ALL)))
+    api(project(GradleModule.toReferenceName(GradleModule.TOOL_ID_SNOWFLAKE)))
 
     api(GradleDependency.MESSAGE_SPRING_INTEGRATION_STREAM.withoutVersion)
 }

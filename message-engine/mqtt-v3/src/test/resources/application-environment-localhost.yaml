@@ -1,3 +1,10 @@
+spring:
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 10004
+      password: 123456
+
 library:
   java:
     message-engine:

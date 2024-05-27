@@ -5,7 +5,7 @@
 package cn.srd.library.java.message.engine.rabbitmq;
 
 import cn.srd.library.java.message.engine.contract.MessageEngineAction;
-import cn.srd.library.java.message.engine.contract.MessageSend;
+import cn.srd.library.java.message.engine.contract.MessageProducer;
 
 /**
  * @author wjm
@@ -14,7 +14,7 @@ import cn.srd.library.java.message.engine.contract.MessageSend;
 public class MessageEngineRabbitMqAction implements MessageEngineAction {
 
     @Override
-    public MessageEngineRabbitMqAction registerSendFlowIfNeed(String flowId, MessageSend messageSendAnnotation) {
+    public MessageEngineRabbitMqAction registerProducerFlowIfNeed(String flowId, MessageProducer messageProducerAnnotation) {
         throw new UnsupportedOperationException();
     }
 

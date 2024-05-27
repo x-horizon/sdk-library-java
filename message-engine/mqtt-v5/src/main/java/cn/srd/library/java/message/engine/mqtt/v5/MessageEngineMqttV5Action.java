@@ -5,7 +5,7 @@
 package cn.srd.library.java.message.engine.mqtt.v5;
 
 import cn.srd.library.java.message.engine.contract.MessageEngineAction;
-import cn.srd.library.java.message.engine.contract.MessageSend;
+import cn.srd.library.java.message.engine.contract.MessageProducer;
 
 /**
  * @author wjm
@@ -14,7 +14,7 @@ import cn.srd.library.java.message.engine.contract.MessageSend;
 public class MessageEngineMqttV5Action implements MessageEngineAction {
 
     @Override
-    public MessageEngineMqttV5Action registerSendFlowIfNeed(String flowId, MessageSend messageSendAnnotation) {
+    public MessageEngineMqttV5Action registerProducerFlowIfNeed(String flowId, MessageProducer messageProducerAnnotation) {
         throw new UnsupportedOperationException();
     }
 

@@ -5,7 +5,7 @@
 package cn.srd.library.java.message.engine.rocketmq;
 
 import cn.srd.library.java.message.engine.contract.MessageEngineAction;
-import cn.srd.library.java.message.engine.contract.MessageSend;
+import cn.srd.library.java.message.engine.contract.MessageProducer;
 
 /**
  * @author wjm
@@ -14,7 +14,7 @@ import cn.srd.library.java.message.engine.contract.MessageSend;
 public class MessageEngineRocketMqAction implements MessageEngineAction {
 
     @Override
-    public MessageEngineRocketMqAction registerSendFlowIfNeed(String flowId, MessageSend messageSendAnnotation) {
+    public MessageEngineRocketMqAction registerProducerFlowIfNeed(String flowId, MessageProducer messageProducerAnnotation) {
         throw new UnsupportedOperationException();
     }
 

@@ -2,10 +2,11 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.message.engine.mqtt.v3.consumer;
+package cn.srd.library.java.message.engine.mqtt.v3.test;
 
+import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageEngineType;
-import cn.srd.library.java.message.engine.contract.MessageReceive;
+import cn.srd.library.java.tool.lang.time.Times;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,10 +16,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class FooConsumer {
 
-    @MessageReceive(type = MessageEngineType.MQTT_V3)
+    @MessageConsumer(type = MessageEngineType.MQTT_V3, topic = {TopicConstant.TOPIC_TEST1, TopicConstant.TOPIC_TEST2})
     public String receive(String a) {
-        System.out.println(a);
-        return "foo";
+        System.out.println(Times.getCurrentDateTime() + "-receive-" + a);
+        return "receive";
     }
 
 }

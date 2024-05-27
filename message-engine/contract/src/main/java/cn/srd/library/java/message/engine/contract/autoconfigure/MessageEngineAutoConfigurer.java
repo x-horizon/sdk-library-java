@@ -4,8 +4,10 @@
 
 package cn.srd.library.java.message.engine.contract.autoconfigure;
 
-import cn.srd.library.java.message.engine.contract.MessageSendAspect;
+import cn.srd.library.java.message.engine.contract.MessageProducerAspect;
 import cn.srd.library.java.tool.enums.autowired.EnableEnumAutowired;
+import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
+import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -20,11 +22,12 @@ import static cn.srd.library.java.message.engine.contract.autoconfigure.MessageE
  */
 @AutoConfiguration
 @EnableEnumAutowired(scanPackagePaths = BASE_PACKAGE_PATH)
+@EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
 public class MessageEngineAutoConfigurer {
 
     @Bean
-    public MessageSendAspect messageSendAspect() {
-        return new MessageSendAspect();
+    public MessageProducerAspect messageSendAspect() {
+        return new MessageProducerAspect();
     }
 
 }

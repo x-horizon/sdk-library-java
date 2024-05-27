@@ -5,7 +5,8 @@
 package cn.srd.library.java.message.engine.contract;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
-import cn.srd.library.java.contract.constant.text.SymbolConstant;
+import cn.srd.library.java.tool.id.snowflake.SnowflakeIds;
+import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -20,12 +21,21 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MessageFlows {
 
+    static final long DEFAULT_COMPLETION_TIMEOUT = 30000L;
+
+    static final long DISCONNECT_COMPLETION_TIMEOUT = 5000L;
+
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
-    public static String getId(Method annotatedMethod) {
-        String annotatedMethodDeclaredClassName = annotatedMethod.getDeclaringClass().getSimpleName();
+    public static String getUniqueFlowId(Method annotatedMethod) {
+        String annotatedMethodDeclaredClassName = annotatedMethod.getDeclaringClass().getName();
         String annotatedMethodName = annotatedMethod.getName();
-        String annotatedMethodParameterTypeName = Arrays.stream(annotatedMethod.getParameterTypes()).map(Class::getSimpleName).collect(Collectors.joining(SymbolConstant.UNDERLINE));
-        return STR."\{annotatedMethodDeclaredClassName}_\{annotatedMethodName}_\{annotatedMethodParameterTypeName}";
+        String annotatedMethodParameterTypeName = Arrays.stream(annotatedMethod.getParameters()).map(parameter -> STR."\{parameter.getType().getSimpleName()} \{parameter.getName()}").collect(Collectors.joining(", "));
+        return STR."\{annotatedMethodDeclaredClassName}.\{annotatedMethodName}(\{annotatedMethodParameterTypeName})";
+    }
+
+    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
+    public static String getUniqueClientId(String flowId, String clientId) {
+        return Nil.isBlank(clientId) ? STR."\{flowId}-\{SnowflakeIds.get()}" : STR."\{clientId}-\{SnowflakeIds.get()}";
     }
 
 }

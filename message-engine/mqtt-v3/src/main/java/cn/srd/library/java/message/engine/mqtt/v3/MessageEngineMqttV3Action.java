@@ -4,9 +4,11 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3;
 
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.protocol.MessageModel;
 import cn.srd.library.java.message.engine.contract.MessageEngineAction;
-import cn.srd.library.java.message.engine.contract.MessageSend;
+import cn.srd.library.java.message.engine.contract.MessageFlows;
+import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.object.Nil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +27,16 @@ public class MessageEngineMqttV3Action implements MessageEngineAction {
 
     @Autowired private IntegrationFlowContext flowContext;
 
+    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     @Override
-    public MessageEngineMqttV3Action registerSendFlowIfNeed(String flowId, MessageSend messageSendAnnotation) {
+    public MessageEngineMqttV3Action registerProducerFlowIfNeed(String flowId, MessageProducer messageProducerAnnotation) {
         if (Nil.isNull(flowContext.getRegistrationById(flowId))) {
-            MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler("siSamplePublisher3", this.mqttClientFactory);
-            messageHandler.setAsync(true);
-            messageHandler.setDefaultTopic("siSampleTopic");
-            messageHandler.setDefaultQos(1);
-            messageHandler.setCompletionTimeout(5000);
+            MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(MessageFlows.getUniqueClientId(flowId, messageProducerAnnotation.clientId()), this.mqttClientFactory);
+            messageHandler.setDefaultTopic(messageProducerAnnotation.topic());
+            messageHandler.setDefaultQos(messageProducerAnnotation.qos().getStatus());
+            messageHandler.setAsync(messageProducerAnnotation.sendAsync());
+            messageHandler.setCompletionTimeout(messageProducerAnnotation.completionTimeout());
+            messageHandler.setDisconnectCompletionTimeout(messageProducerAnnotation.disconnectCompletionTimeout());
             this.flowContext
                     .registration(flow -> flow.transform(message -> Converts.withJackson().toString(message)).handle(messageHandler))
                     .id(flowId)

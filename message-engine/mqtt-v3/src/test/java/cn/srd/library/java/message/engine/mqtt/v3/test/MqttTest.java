@@ -5,7 +5,6 @@
 package cn.srd.library.java.message.engine.mqtt.v3.test;
 
 import cn.srd.library.java.message.engine.mqtt.v3.autoconfigure.EnableMessageEngineMqttV3;
-import cn.srd.library.java.message.engine.mqtt.v3.producer.FooProducer;
 import cn.srd.library.java.tool.enums.autowired.EnableEnumAutowired;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
@@ -36,7 +35,8 @@ class MqttTest {
     @Test
     void test() {
         while (true) {
-            fooProducer.send("1", "2");
+            fooProducer.send1("1", "2");
+            fooProducer.send2("1", "2");
             TimeUnit.SECONDS.sleep(1);
         }
     }

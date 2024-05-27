@@ -5,9 +5,10 @@
 package cn.srd.library.java.message.engine.mqtt.v3.autoconfigure;
 
 import cn.srd.library.java.contract.model.protocol.MessageModel;
+import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.MessageFlows;
-import cn.srd.library.java.message.engine.contract.MessageReceive;
+import cn.srd.library.java.message.engine.contract.MessageQosType;
 import cn.srd.library.java.message.engine.mqtt.v3.MessageEngineMqttV3Action;
 import cn.srd.library.java.message.engine.mqtt.v3.properties.MessageEngineMqttV3Properties;
 import cn.srd.library.java.tool.convert.all.Converts;
@@ -34,6 +35,7 @@ import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 /**
@@ -68,21 +70,27 @@ public class MessageEngineMqttV3AutoConfigurer {
         mqttConnectOptions.setServerURIs(Converts.toArray(mqttProperties.getServerURLs(), String.class));
         DefaultMqttPahoClientFactory mqttClientFactory = new DefaultMqttPahoClientFactory();
         mqttClientFactory.setConnectionOptions(mqttConnectOptions);
-        registerReceiveFlow(mqttClientFactory);
+        registerConsumerFlow(mqttClientFactory);
         return mqttClientFactory;
     }
 
-    private void registerReceiveFlow(MqttPahoClientFactory mqttClientFactory) {
-        Annotations.getAnnotatedMethods(MessageReceive.class)
+    private void registerConsumerFlow(MqttPahoClientFactory mqttClientFactory) {
+        Annotations.getAnnotatedMethods(MessageConsumer.class)
                 .stream()
-                .filter(method -> Comparators.equals(MessageEngineType.MQTT_V3, method.getAnnotation(MessageReceive.class).type()))
+                .filter(method -> Comparators.equals(MessageEngineType.MQTT_V3, method.getAnnotation(MessageConsumer.class).type()))
                 .forEach(method -> {
-                    String flowId = MessageFlows.getId(method);
+                    String flowId = MessageFlows.getUniqueFlowId(method);
+                    MessageConsumer messageConsumerAnnotation = method.getAnnotation(MessageConsumer.class);
                     if (Nil.isNull(flowContext.getRegistrationById(flowId))) {
-                        MqttPahoMessageDrivenChannelAdapter messageDrivenChannelAdapter = new MqttPahoMessageDrivenChannelAdapter("siSampleConsumer3", mqttClientFactory, "siSampleTopic");
-                        messageDrivenChannelAdapter.setCompletionTimeout(5000);
+                        MqttPahoMessageDrivenChannelAdapter messageDrivenChannelAdapter = new MqttPahoMessageDrivenChannelAdapter(
+                                MessageFlows.getUniqueClientId(flowId, messageConsumerAnnotation.clientId()),
+                                mqttClientFactory,
+                                messageConsumerAnnotation.topic()
+                        );
+                        messageDrivenChannelAdapter.setQos(Arrays.stream(messageConsumerAnnotation.qos()).mapToInt(MessageQosType::getStatus).toArray());
                         messageDrivenChannelAdapter.setConverter(new DefaultPahoMessageConverter());
-                        messageDrivenChannelAdapter.setQos(1);
+                        messageDrivenChannelAdapter.setCompletionTimeout(messageConsumerAnnotation.completionTimeout());
+                        messageDrivenChannelAdapter.setDisconnectCompletionTimeout(messageConsumerAnnotation.disconnectCompletionTimeout());
                         this.flowContext
                                 .registration(IntegrationFlow.from(messageDrivenChannelAdapter).handle(message -> Reflects.invoke(
                                         Springs.getBean(method.getDeclaringClass()),

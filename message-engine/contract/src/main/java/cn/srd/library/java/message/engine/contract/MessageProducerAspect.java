@@ -10,20 +10,20 @@ import org.aspectj.lang.annotation.Pointcut;
  * @since 2023-05-25 17:02
  */
 @Aspect
-public class MessageSendAspect extends MessageAspect {
+public class MessageProducerAspect extends MessageAspect {
 
-    @Pointcut("@annotation(cn.srd.library.java.message.engine.contract.MessageSend)")
+    @Pointcut("@annotation(cn.srd.library.java.message.engine.contract.MessageProducer)")
     public void pointcut() {
     }
 
     @Around("pointcut()")
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
         Object message = doProceed(joinPoint);
-        String flowId = MessageFlows.getId(getMethod(joinPoint));
-        MessageSend messageSendAnnotation = getAnnotationMarkedOnMethod(joinPoint, MessageSend.class);
-        messageSendAnnotation.type()
+        String flowId = MessageFlows.getUniqueFlowId(getMethod(joinPoint));
+        MessageProducer messageProducerAnnotation = getAnnotationMarkedOnMethod(joinPoint, MessageProducer.class);
+        messageProducerAnnotation.type()
                 .getAction()
-                .registerSendFlowIfNeed(flowId, messageSendAnnotation)
+                .registerProducerFlowIfNeed(flowId, messageProducerAnnotation)
                 .send(flowId, message);
         return message;
     }

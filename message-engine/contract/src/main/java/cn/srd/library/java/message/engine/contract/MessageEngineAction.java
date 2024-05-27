@@ -10,7 +10,7 @@ package cn.srd.library.java.message.engine.contract;
  */
 public interface MessageEngineAction {
 
-    MessageEngineAction registerSendFlowIfNeed(String flowId, MessageSend messageSendAnnotation);
+    MessageEngineAction registerProducerFlowIfNeed(String flowId, MessageProducer messageProducerAnnotation);
 
     <T> boolean send(String flowId, T message);
 
