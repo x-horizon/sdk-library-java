@@ -6,6 +6,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     BOM_CLOUD_NATIVE_DOCKER("com.github.docker-java:docker-java-bom", "3.3.6"),
     BOM_DOC_XIAOYMIN_KNIFE4J("com.github.xiaoymin:knife4j-dependencies", "4.5.0"), // TODO wjm support spring-boot version to 3.0.4
+    BOM_ECLIPSE_PAHO("org.eclipse.paho:java-parent", "1.2.5"), // support spring-boot version to 3.5.0, need to synchronize with "org.springframework.boot:spring-boot-dependencies"
     BOM_FRAMEWORK_ALIBABA_SPRING_CLOUD("com.alibaba.cloud:spring-cloud-alibaba-dependencies", "2023.0.1.0"), // TODO wjm support spring-boot version to 3.2.4
     BOM_FRAMEWORK_SPRING("org.springframework:spring-framework-bom", "6.1.8"), // support spring-boot version to 3.3.0
     BOM_FRAMEWORK_SPRING_BOOT("org.springframework.boot:spring-boot-dependencies", "3.3.0"),
@@ -54,10 +55,11 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     LOG_SPRING_BOOT("org.springframework.boot:spring-boot-starter-logging", ""),
 
     MESSAGE_SPRING_CLOUD_STREAM("org.springframework.cloud:spring-cloud-stream", ""),
-    MESSAGE_SPRING_CLOUD_STREAM_KAFKA("org.springframework.cloud:spring-cloud-starter-stream-kafka", ""),
-    MESSAGE_SPRING_CLOUD_STREAM_RABBITMQ("org.springframework.cloud:spring-cloud-starter-stream-rabbit", ""),
     MESSAGE_SPRING_INTEGRATION_STREAM("org.springframework.integration:spring-integration-stream", ""),
-    MESSAGE_SPRING_INTEGRATION_MQTT("org.springframework.integration:spring-integration-mqtt", ""),
+    MESSAGE_KAFKA_SPRING_CLOUD_STREAM("org.springframework.cloud:spring-cloud-starter-stream-kafka", ""),
+    MESSAGE_MQTT_SPRING_INTEGRATION("org.springframework.integration:spring-integration-mqtt", ""),
+    MESSAGE_MQTT_V5_ECLIPSE_PAHO("org.eclipse.paho:org.eclipse.paho.mqttv5.client", BOM_ECLIPSE_PAHO.version), // TODO wjm bom is not invalid
+    MESSAGE_RABBITMQ_SPRING_CLOUD_STREAM("org.springframework.cloud:spring-cloud-starter-stream-rabbit", ""),
     MESSAGE_ROCKETMQ("com.alibaba.cloud:spring-cloud-starter-stream-rocketmq", ""),
     MESSAGE_ROCKETMQ_TODO("org.apache.rocketmq:rocketmq-spring-boot-starter", "2.2.3"), // TODO wjm need to remove
 

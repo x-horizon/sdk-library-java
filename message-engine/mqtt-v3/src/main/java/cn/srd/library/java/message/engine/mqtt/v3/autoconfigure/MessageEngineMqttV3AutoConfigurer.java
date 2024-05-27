@@ -10,7 +10,7 @@ import cn.srd.library.java.contract.properties.MessageEngineMqttProperties;
 import cn.srd.library.java.message.engine.contract.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.MessageFlows;
 import cn.srd.library.java.message.engine.contract.MessageReceive;
-import cn.srd.library.java.message.engine.mqtt.v3.MessageEngineMqttAction;
+import cn.srd.library.java.message.engine.mqtt.v3.MessageEngineMqttV3Action;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.annotation.Annotations;
 import cn.srd.library.java.tool.lang.compare.Comparators;
@@ -50,17 +50,17 @@ import java.util.Optional;
 @EnableIntegration
 @EnableConfigurationProperties(MessageEngineMqttProperties.class)
 @IntegrationComponentScan
-public class MessageEngineMqttAutoConfigurer {
+public class MessageEngineMqttV3AutoConfigurer {
 
     private final IntegrationFlowContext flowContext;
 
     @Bean
-    public MessageEngineMqttAction messageEngineMqttAction() {
-        return new MessageEngineMqttAction();
+    public MessageEngineMqttV3Action messageEngineMqttAction() {
+        return new MessageEngineMqttV3Action();
     }
 
     @Bean
-    @ConditionalOnBean(MessageEngineMqttSwitcher.class)
+    @ConditionalOnBean(MessageEngineMqttV3Switcher.class)
     public MqttPahoClientFactory mqttClientFactory() {
         MessageEngineMqttProperties mqttProperties = Springs.getBean(MessageEngineMqttProperties.class);
         MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();

@@ -3,10 +3,11 @@
 // license that can be found in the LICENSE file.
 
 dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_PROPERTIES))) // TODO wjm 需优化
+    api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_PROPERTIES)))
     api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_CONTRACT)))
 
     api(GradleDependency.MESSAGE_MQTT_SPRING_INTEGRATION.withoutVersion)
+    api(GradleDependency.MESSAGE_MQTT_V5_ECLIPSE_PAHO.withoutVersion)
 
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_JUNIT)))
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING_BOOT)))

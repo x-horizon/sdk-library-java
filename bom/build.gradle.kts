@@ -9,6 +9,7 @@ plugins {
 dependencies {
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_CLOUD_NATIVE_DOCKER)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_DOC_XIAOYMIN_KNIFE4J)))
+    api(platform(GradleDependency.withVersion(GradleDependency.BOM_ECLIPSE_PAHO)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_FRAMEWORK_ALIBABA_SPRING_CLOUD)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_FRAMEWORK_SPRING)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_FRAMEWORK_SPRING_BOOT)))
@@ -50,6 +51,7 @@ dependencies {
 
         api(GradleDependency.withVersion(GradleDependency.OSS_MINIO))
 
+        api(GradleDependency.withVersion(GradleDependency.MESSAGE_MQTT_V5_ECLIPSE_PAHO)) // TODO wjm need to remove
         api(GradleDependency.withVersion(GradleDependency.MESSAGE_ROCKETMQ_TODO)) // TODO wjm need to remove
 
         api(GradleDependency.withVersion(GradleDependency.METRIC_BIT_WALKER_USER_AGENT))
@@ -142,6 +144,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_CONTRACT)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_KAFKA)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_MQTT_V3)))
+        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_MQTT_V5)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_RABBITMQ)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_REDIS)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_ROCKETMQ)))

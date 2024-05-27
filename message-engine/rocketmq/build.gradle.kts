@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
+    api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_CONTRACT)))
 
     api(GradleDependency.MESSAGE_ROCKETMQ.withoutVersion)
     api(GradleDependency.MESSAGE_ROCKETMQ_TODO.withoutVersion) { exclude(group = "commons-logging", module = "commons-logging") }

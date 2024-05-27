@@ -19,14 +19,14 @@ import org.springframework.messaging.support.GenericMessage;
  * @author wjm
  * @since 2024-05-27 11:54
  */
-public class MessageEngineMqttAction implements MessageEngineAction {
+public class MessageEngineMqttV3Action implements MessageEngineAction {
 
     @Autowired private MqttPahoClientFactory mqttClientFactory;
 
     @Autowired private IntegrationFlowContext flowContext;
 
     @Override
-    public MessageEngineMqttAction registerSendFlowIfNeed(String flowId, MessageSend messageSendAnnotation) {
+    public MessageEngineMqttV3Action registerSendFlowIfNeed(String flowId, MessageSend messageSendAnnotation) {
         if (Nil.isNull(flowContext.getRegistrationById(flowId))) {
             MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler("siSamplePublisher3", this.mqttClientFactory);
             messageHandler.setAsync(true);

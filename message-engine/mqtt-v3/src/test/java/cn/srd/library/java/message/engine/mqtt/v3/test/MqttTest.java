@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.test;
 
-import cn.srd.library.java.message.engine.mqtt.v3.autoconfigure.EnableMessageEngineMqtt;
+import cn.srd.library.java.message.engine.mqtt.v3.autoconfigure.EnableMessageEngineMqttV3;
 import cn.srd.library.java.message.engine.mqtt.v3.producer.FooProducer;
 import cn.srd.library.java.tool.enums.autowired.EnableEnumAutowired;
 import lombok.SneakyThrows;
@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * @since 2024-05-21 21:55
  */
 @EnableEnumAutowired
-@EnableMessageEngineMqtt
+@EnableMessageEngineMqttV3
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @SpringIntegrationTest

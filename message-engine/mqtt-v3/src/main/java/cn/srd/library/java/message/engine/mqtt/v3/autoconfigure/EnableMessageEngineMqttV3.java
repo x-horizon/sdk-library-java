@@ -10,14 +10,14 @@ import java.lang.annotation.*;
 
 /**
  * @author wjm
- * @see MessageEngineMqttSwitcher
- * @see MessageEngineMqttAutoConfigurer#mqttClientFactory()
+ * @see MessageEngineMqttV3Switcher
+ * @see MessageEngineMqttV3AutoConfigurer#mqttClientFactory()
  * @since 2024-05-24 16:54
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(MessageEngineMqttSwitcher.class)
-public @interface EnableMessageEngineMqtt {
+@Import(MessageEngineMqttV3Switcher.class)
+public @interface EnableMessageEngineMqttV3 {
 
 }
