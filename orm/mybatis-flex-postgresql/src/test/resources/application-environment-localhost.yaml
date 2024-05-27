@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:10003/test_mybatis_flex
+    username: postgres
+    password: 123456
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 10004
+      password: 123456
