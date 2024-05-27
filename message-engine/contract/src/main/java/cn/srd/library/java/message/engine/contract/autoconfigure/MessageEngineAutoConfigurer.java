@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.message.engine.contract.autoconfigure;
 
-import cn.srd.library.java.message.engine.contract.MessageProducerAspect;
+import cn.srd.library.java.message.engine.contract.support.aspect.MessageProducerAspect;
 import cn.srd.library.java.tool.enums.autowired.EnableEnumAutowired;
 import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;

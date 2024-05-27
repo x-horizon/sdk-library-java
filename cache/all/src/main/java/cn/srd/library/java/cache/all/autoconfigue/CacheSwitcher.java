@@ -2,9 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.cache.all;
-
-import cn.srd.library.java.cache.all.autoconfigue.CacheAutoConfigurer;
+package cn.srd.library.java.cache.all.autoconfigue;
 
 /**
  * the {@link EnableCache cache system} switcher

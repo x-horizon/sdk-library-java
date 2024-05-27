@@ -1,6 +1,5 @@
-package cn.srd.library.java.cache.all;
+package cn.srd.library.java.cache.all.autoconfigue;
 
-import cn.srd.library.java.cache.all.autoconfigue.CacheAutoConfigurer;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

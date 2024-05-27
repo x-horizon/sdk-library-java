@@ -1,6 +1,5 @@
 package cn.srd.library.java.cache.all.autoconfigue;
 
-import cn.srd.library.java.cache.all.CacheSwitcher;
 import cn.srd.library.java.cache.all.properties.CacheMultilevelProperties;
 import cn.srd.library.java.cache.all.properties.CacheProperties;
 import cn.srd.library.java.cache.all.support.aspect.*;

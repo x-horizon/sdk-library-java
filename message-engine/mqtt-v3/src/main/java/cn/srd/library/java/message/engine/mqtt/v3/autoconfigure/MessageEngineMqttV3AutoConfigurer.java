@@ -6,11 +6,11 @@ package cn.srd.library.java.message.engine.mqtt.v3.autoconfigure;
 
 import cn.srd.library.java.contract.model.protocol.MessageModel;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
-import cn.srd.library.java.message.engine.contract.MessageEngineType;
-import cn.srd.library.java.message.engine.contract.MessageFlows;
-import cn.srd.library.java.message.engine.contract.MessageQosType;
-import cn.srd.library.java.message.engine.mqtt.v3.MessageEngineMqttV3Action;
+import cn.srd.library.java.message.engine.contract.support.MessageFlows;
+import cn.srd.library.java.message.engine.contract.support.strategy.MessageEngineType;
+import cn.srd.library.java.message.engine.contract.support.strategy.MessageQosType;
 import cn.srd.library.java.message.engine.mqtt.v3.properties.MessageEngineMqttV3Properties;
+import cn.srd.library.java.message.engine.mqtt.v3.support.strategy.MessageEngineMqttV3Strategy;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.annotation.Annotations;
 import cn.srd.library.java.tool.lang.compare.Comparators;
@@ -56,8 +56,8 @@ public class MessageEngineMqttV3AutoConfigurer {
     private final IntegrationFlowContext flowContext;
 
     @Bean
-    public MessageEngineMqttV3Action messageEngineMqttAction() {
-        return new MessageEngineMqttV3Action();
+    public MessageEngineMqttV3Strategy messageEngineMqttAction() {
+        return new MessageEngineMqttV3Strategy();
     }
 
     @Bean
@@ -77,7 +77,7 @@ public class MessageEngineMqttV3AutoConfigurer {
     private void registerConsumerFlow(MqttPahoClientFactory mqttClientFactory) {
         Annotations.getAnnotatedMethods(MessageConsumer.class)
                 .stream()
-                .filter(method -> Comparators.equals(MessageEngineType.MQTT_V3, method.getAnnotation(MessageConsumer.class).type()))
+                .filter(method -> Comparators.equals(MessageEngineType.MQTT_V3, method.getAnnotation(MessageConsumer.class).engine()))
                 .forEach(method -> {
                     String flowId = MessageFlows.getUniqueFlowId(method);
                     MessageConsumer messageConsumerAnnotation = method.getAnnotation(MessageConsumer.class);

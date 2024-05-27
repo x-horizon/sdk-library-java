@@ -1,6 +1,6 @@
 package cn.srd.library.java.cache.all.test;
 
-import cn.srd.library.java.cache.all.EnableCache;
+import cn.srd.library.java.cache.all.autoconfigue.EnableCache;
 import cn.srd.library.java.cache.all.model.BookPO;
 import cn.srd.library.java.cache.all.service.CacheAllowEmptyValueService;
 import cn.srd.library.java.cache.all.service.CacheContextWithCacheConfigBuildingService;

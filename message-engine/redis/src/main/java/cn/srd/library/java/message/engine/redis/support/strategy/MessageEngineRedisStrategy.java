@@ -2,19 +2,19 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.message.engine.redis;
+package cn.srd.library.java.message.engine.redis.support.strategy;
 
-import cn.srd.library.java.message.engine.contract.MessageEngineAction;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
+import cn.srd.library.java.message.engine.contract.support.strategy.MessageEngineStrategy;
 
 /**
  * @author wjm
  * @since 2024-05-27 11:54
  */
-public class MessageEngineRedisAction implements MessageEngineAction {
+public class MessageEngineRedisStrategy implements MessageEngineStrategy {
 
     @Override
-    public MessageEngineRedisAction registerProducerFlowIfNeed(String flowId, MessageProducer messageProducerAnnotation) {
+    public MessageEngineRedisStrategy registerProducerFlowIfNeed(String flowId, MessageProducer messageProducerAnnotation) {
         throw new UnsupportedOperationException();
     }
 

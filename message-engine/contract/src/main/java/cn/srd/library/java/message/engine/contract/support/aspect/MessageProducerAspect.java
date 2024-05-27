@@ -1,5 +1,7 @@
-package cn.srd.library.java.message.engine.contract;
+package cn.srd.library.java.message.engine.contract.support.aspect;
 
+import cn.srd.library.java.message.engine.contract.MessageProducer;
+import cn.srd.library.java.message.engine.contract.support.MessageFlows;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,7 +23,7 @@ public class MessageProducerAspect extends MessageAspect {
         Object message = doProceed(joinPoint);
         String flowId = MessageFlows.getUniqueFlowId(getMethod(joinPoint));
         MessageProducer messageProducerAnnotation = getAnnotationMarkedOnMethod(joinPoint, MessageProducer.class);
-        messageProducerAnnotation.type()
+        messageProducerAnnotation.engine()
                 .getAction()
                 .registerProducerFlowIfNeed(flowId, messageProducerAnnotation)
                 .send(flowId, message);

@@ -1,6 +1,9 @@
 package cn.srd.library.java.message.engine.contract;
 
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
+import cn.srd.library.java.message.engine.contract.support.MessageFlows;
+import cn.srd.library.java.message.engine.contract.support.strategy.MessageEngineType;
+import cn.srd.library.java.message.engine.contract.support.strategy.MessageQosType;
 
 import java.lang.annotation.*;
 
@@ -14,7 +17,7 @@ import java.lang.annotation.*;
 @Inherited
 public @interface MessageProducer {
 
-    MessageEngineType type();
+    MessageEngineType engine();
 
     String clientId() default SymbolConstant.EMPTY;
 

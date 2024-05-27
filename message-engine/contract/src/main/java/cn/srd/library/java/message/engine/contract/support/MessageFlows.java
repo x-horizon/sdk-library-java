@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.message.engine.contract;
+package cn.srd.library.java.message.engine.contract.support;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIds;
@@ -21,9 +21,9 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MessageFlows {
 
-    static final long DEFAULT_COMPLETION_TIMEOUT = 30000L;
+    public static final long DEFAULT_COMPLETION_TIMEOUT = 30000L;
 
-    static final long DISCONNECT_COMPLETION_TIMEOUT = 5000L;
+    public static final long DISCONNECT_COMPLETION_TIMEOUT = 5000L;
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static String getUniqueFlowId(Method annotatedMethod) {

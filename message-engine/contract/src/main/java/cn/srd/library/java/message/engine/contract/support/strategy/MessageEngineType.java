@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.message.engine.contract;
+package cn.srd.library.java.message.engine.contract.support.strategy;
 
 import cn.srd.library.java.tool.enums.autowired.EnumAutowired;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import lombok.Getter;
  * @since 2024-05-26 15:04
  */
 @Getter
-@EnumAutowired(rootClass = MessageEngineAction.class)
+@EnumAutowired(rootClass = MessageEngineStrategy.class)
 public enum MessageEngineType {
 
     KAFKA(1),
@@ -30,6 +30,6 @@ public enum MessageEngineType {
 
     private final int status;
 
-    private MessageEngineAction action;
+    private MessageEngineStrategy action;
 
 }
