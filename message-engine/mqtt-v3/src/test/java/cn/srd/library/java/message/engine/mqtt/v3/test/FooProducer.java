@@ -6,6 +6,7 @@ package cn.srd.library.java.message.engine.mqtt.v3.test;
 
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.support.strategy.MessageEngineType;
+import cn.srd.library.java.message.engine.contract.support.strategy.MessageQosType;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,12 +16,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class FooProducer {
 
-    @MessageProducer(engine = MessageEngineType.MQTT_V3, topic = TopicConstant.TOPIC_TEST1)
+    @MessageProducer(engine = MessageEngineType.MQTT_V3, topic = TopicConstant.TOPIC_TEST1, qos = MessageQosType.EXACTLY_ONCE)
     public String send1(String a, String b) {
         return "send1";
     }
 
-    @MessageProducer(engine = MessageEngineType.MQTT_V3, topic = TopicConstant.TOPIC_TEST2)
+    @MessageProducer(engine = MessageEngineType.MQTT_V3, topic = TopicConstant.TOPIC_TEST2, qos = MessageQosType.EXACTLY_ONCE)
     public String send2(String a, String b) {
         return "send2";
     }
