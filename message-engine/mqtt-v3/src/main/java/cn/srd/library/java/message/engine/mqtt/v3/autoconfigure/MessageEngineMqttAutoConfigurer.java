@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.autoconfigure;
 
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.protocol.MessageModel;
 import cn.srd.library.java.contract.properties.MessageEngineMqttProperties;
 import cn.srd.library.java.message.engine.contract.MessageEngineType;
@@ -68,11 +69,12 @@ public class MessageEngineMqttAutoConfigurer {
         mqttConnectOptions.setServerURIs(Converts.toArray(mqttProperties.getServerURLs(), String.class));
         DefaultMqttPahoClientFactory mqttClientFactory = new DefaultMqttPahoClientFactory();
         mqttClientFactory.setConnectionOptions(mqttConnectOptions);
-        registerFlow(mqttClientFactory);
+        registerReceiveFlow(mqttClientFactory);
         return mqttClientFactory;
     }
 
-    private <T> void registerFlow(MqttPahoClientFactory mqttClientFactory) {
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    private <T> void registerReceiveFlow(MqttPahoClientFactory mqttClientFactory) {
         Annotations.getAnnotatedMethods(MessageReceive.class)
                 .stream()
                 .filter(method -> Comparators.equals(MessageEngineType.MQTT_V3, method.getAnnotation(MessageReceive.class).type()))
