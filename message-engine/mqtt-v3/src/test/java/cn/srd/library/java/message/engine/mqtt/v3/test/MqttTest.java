@@ -4,18 +4,15 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.test;
 
-import cn.srd.library.java.contract.model.protocol.MessageModel;
 import cn.srd.library.java.message.engine.mqtt.v3.autoconfigure.EnableMessageEngineMqtt;
-import cn.srd.library.java.message.engine.mqtt.v3.consumer.FooConsumer;
-import cn.srd.library.java.tool.spring.contract.Springs;
+import cn.srd.library.java.message.engine.mqtt.v3.producer.FooProducer;
+import cn.srd.library.java.tool.enums.autowired.EnableEnumAutowired;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.test.context.SpringIntegrationTest;
-import org.springframework.messaging.support.GenericMessage;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.concurrent.TimeUnit;
@@ -26,20 +23,20 @@ import java.util.concurrent.TimeUnit;
  * @author wjm
  * @since 2024-05-21 21:55
  */
+@EnableEnumAutowired
 @EnableMessageEngineMqtt
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @SpringIntegrationTest
 class MqttTest {
 
-    @Autowired private IntegrationFlow mqttOutFlow;
+    @Autowired private FooProducer fooProducer;
 
     @SneakyThrows
     @Test
     void test() {
-        Springs.getBean(FooConsumer.class).send();
         while (true) {
-            this.mqttOutFlow.getInputChannel().send(new GenericMessage<>(MessageModel.builder().status(200).message("ok").data("foo").build()));
+            fooProducer.send("1", "2");
             TimeUnit.SECONDS.sleep(1);
         }
     }

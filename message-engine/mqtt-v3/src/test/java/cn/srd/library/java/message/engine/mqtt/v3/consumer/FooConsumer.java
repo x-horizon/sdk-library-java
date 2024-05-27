@@ -4,8 +4,8 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.consumer;
 
-import cn.srd.library.java.contract.component.message.engine.MessageSend;
-import cn.srd.library.java.contract.component.message.engine.model.enums.MessageEngineType;
+import cn.srd.library.java.message.engine.contract.MessageEngineType;
+import cn.srd.library.java.message.engine.contract.MessageReceive;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,8 +15,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class FooConsumer {
 
-    @MessageSend(type = MessageEngineType.MQTT_V3)
-    public String send() {
+    @MessageReceive(type = MessageEngineType.MQTT_V3)
+    public String receive(String a) {
+        System.out.println(a);
         return "foo";
     }
 

@@ -1,6 +1,4 @@
-package cn.srd.library.java.contract.component.message.engine;
-
-import cn.srd.library.java.contract.component.message.engine.model.enums.MessageEngineType;
+package cn.srd.library.java.message.engine.contract;
 
 import java.lang.annotation.*;
 
