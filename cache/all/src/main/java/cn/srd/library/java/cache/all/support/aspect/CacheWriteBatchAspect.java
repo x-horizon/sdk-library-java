@@ -16,7 +16,7 @@ import java.util.List;
  * @since 2023-06-09 15:06
  */
 @Aspect
-public class CacheWriteBatchAspect implements CacheAspect {
+public class CacheWriteBatchAspect extends CacheAspect {
 
     /**
      * the pointcut for {@link CacheWrite}

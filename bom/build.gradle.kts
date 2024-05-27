@@ -86,6 +86,7 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.TOOL_JOB_QUARTZ))
         api(GradleDependency.withVersion(GradleDependency.TOOL_MAPSTRUCT_PLUS))
         api(GradleDependency.withVersion(GradleDependency.TOOL_REFLECT_ASM))
+        api(GradleDependency.withVersion(GradleDependency.TOOL_REFLECT_RONMAMO))
         api(GradleDependency.withVersion(GradleDependency.TOOL_RATE_LIMITING_BUCKET4J))
         api(GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_FASTJSON))
         api(GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_FASTJSON2))
@@ -121,10 +122,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.CONCURRENT_ACTOR)))
         api(project(GradleModule.toReferenceName(GradleModule.CONCURRENT_REDIS)))
 
-        api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_MESSAGE_ENGINE)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_CACHE_REDIS)))
-        api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_DATABASE_BASE)))
-        api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_DATABASE_POSTGRESQL)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_CONSTANT)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_MODEL)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_PROPERTIES)))
@@ -141,6 +139,7 @@ dependencies {
 
         api(project(GradleModule.toReferenceName(GradleModule.GATEWAY_SPRING)))
 
+        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_CONTRACT)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_KAFKA)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_MQTT_V3)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_RABBITMQ)))

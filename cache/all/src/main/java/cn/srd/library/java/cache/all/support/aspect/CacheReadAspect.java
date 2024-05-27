@@ -13,7 +13,7 @@ import org.aspectj.lang.annotation.Pointcut;
  * @since 2023-06-08 10:14
  */
 @Aspect
-public class CacheReadAspect implements CacheAspect {
+public class CacheReadAspect extends CacheAspect {
 
     /**
      * the pointcut for {@link CacheRead}

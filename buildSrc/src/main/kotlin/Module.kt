@@ -25,9 +25,6 @@ object GradleModule {
     const val CONCURRENT_REDIS = "concurrent-redis"
 
     const val CONTRACT_COMPONENT_CACHE_REDIS = "contract-component-cache-redis"
-    const val CONTRACT_COMPONENT_DATABASE_BASE = "contract-component-database-base"
-    const val CONTRACT_COMPONENT_DATABASE_POSTGRESQL = "contract-component-database-postgresql"
-    const val CONTRACT_COMPONENT_MESSAGE_ENGINE = "contract-component-message-engine"
     const val CONTRACT_CONSTANT = "contract-constant"
     const val CONTRACT_MODEL = "contract-model"
     const val CONTRACT_PROPERTIES = "contract-properties"
@@ -44,6 +41,7 @@ object GradleModule {
 
     const val GATEWAY_SPRING = "gateway-spring"
 
+    const val MESSAGE_ENGINE_CONTRACT = "message-engine-contract"
     const val MESSAGE_ENGINE_KAFKA = "message-engine-kafka"
     const val MESSAGE_ENGINE_MQTT_V3 = "message-engine-mqtt-v3"
     const val MESSAGE_ENGINE_RABBITMQ = "message-engine-rabbitmq"
@@ -172,9 +170,9 @@ internal object ModuleHelper {
 
     private val moduleNameMappingReferenceModuleNameMap = ConcurrentHashMap<String, String>().apply {
         // cache the special reference module name that cannot parse
-        put(GradleModule.CONTRACT_COMPONENT_MESSAGE_ENGINE, ":contract:component:message-engine")
         put(GradleModule.DOC_KNIFE4J_SPRING_WEBFLUX, ":doc:knife4j:spring-webflux")
         put(GradleModule.DOC_KNIFE4J_SPRING_WEBMVC, ":doc:knife4j:spring-webmvc")
+        // put(GradleModule.MESSAGE_ENGINE_CONTRACT, ":message-engine:contract")
         // put(GradleModule.MESSAGE_ENGINE_KAFKA, ":message-engine:kafka")
         // put(GradleModule.MESSAGE_ENGINE_MQTT, ":message-engine:mqtt")
         // put(GradleModule.MESSAGE_ENGINE_RABBITMQ, ":message-engine:rabbitmq")

@@ -14,9 +14,14 @@ import cn.srd.library.java.tool.lang.object.Classes;
 import cn.srd.library.java.tool.lang.text.Strings;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.reflections.Reflections;
+import org.reflections.scanners.Scanners;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -125,6 +130,47 @@ public class Annotations {
      */
     public static Set<Class<?>> getAnnotatedClasses(Class<? extends Annotation> annotationClass, Collection<String> scanPackagePaths) {
         return Classes.scanByAnnotation(annotationClass, scanPackagePaths);
+    }
+
+    /**
+     * get all methods containing the specified annotation in the default package path
+     *
+     * @param annotationClass the specified annotation class
+     * @return all methods containing the specified annotation in the default package path
+     * @see BasePackagePath#get()
+     * @see Annotations#getAnnotatedMethods(Class, Collection)
+     */
+    public static Set<Method> getAnnotatedMethods(Class<? extends Annotation> annotationClass) {
+        return getAnnotatedMethods(annotationClass, BasePackagePath.get());
+    }
+
+    /**
+     * get all methods containing the specified annotation in the specified package paths
+     *
+     * @param annotationClass  the specified annotation class
+     * @param scanPackagePaths the specified packages path
+     * @return all methods containing the specified annotation in the specified package paths
+     * @see Annotations#getAnnotatedMethods(Class, Collection)
+     */
+    public static Set<Method> getAnnotatedMethods(Class<? extends Annotation> annotationClass, String... scanPackagePaths) {
+        return getAnnotatedMethods(annotationClass, Collections.ofImmutableSet(scanPackagePaths));
+    }
+
+    /**
+     * get all methods containing the specified annotation in the specified package paths
+     *
+     * @param annotationClass  the specified annotation class
+     * @param scanPackagePaths the specified packages path
+     * @return all methods containing the specified annotation in the specified package paths
+     */
+    public static Set<Method> getAnnotatedMethods(Class<? extends Annotation> annotationClass, Collection<String> scanPackagePaths) {
+        return scanPackagePaths.stream()
+                .map(scanPackagePath -> new Reflections(new ConfigurationBuilder()
+                        .setUrls(ClasspathHelper.forPackage(scanPackagePath))
+                        .setScanners(Scanners.MethodsAnnotated, Scanners.ConstructorsAnnotated)
+                ).getMethodsAnnotatedWith(annotationClass))
+                .flatMap(Collection::stream)
+                .collect(Collectors.toSet());
     }
 
     /**

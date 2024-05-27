@@ -13,7 +13,7 @@ import org.aspectj.lang.annotation.Pointcut;
  * @since 2023-06-09 15:06
  */
 @Aspect
-public class CacheEvictAspect implements CacheAspect {
+public class CacheEvictAspect extends CacheAspect {
 
     /**
      * the pointcut for {@link CacheEvict}

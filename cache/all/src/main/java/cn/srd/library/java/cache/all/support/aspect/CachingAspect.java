@@ -19,7 +19,7 @@ import java.util.List;
  * @since 2023-06-09 15:06
  */
 @Aspect
-public class CachingAspect implements CacheAspect {
+public class CachingAspect extends CacheAspect {
 
     /**
      * the pointcut for {@link Caching}

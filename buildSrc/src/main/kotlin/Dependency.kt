@@ -125,6 +125,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_JOB_QUARTZ("org.quartz-scheduler:quartz", "2.3.2"),
     TOOL_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-spring-boot-starter", ""),
     TOOL_REFLECT_ASM("com.esotericsoftware:reflectasm", "1.11.9"),
+    TOOL_REFLECT_RONMAMO("org.reflections:reflections", "0.10.2"),
     TOOL_RATE_LIMITING_BUCKET4J("com.github.vladimir-bukhtoyarov:bucket4j-core", "7.6.0"),
     TOOL_SERIALIZATION_FASTJSON("com.alibaba:fastjson", "1.2.83"),
     TOOL_SERIALIZATION_FASTJSON2("com.alibaba.fastjson2:fastjson2", "2.0.48"),

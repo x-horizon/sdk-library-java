@@ -15,7 +15,7 @@ import java.util.List;
  * @since 2023-06-18 02:20
  */
 @Aspect
-public class CacheReadAllAspect implements CacheAspect {
+public class CacheReadAllAspect extends CacheAspect {
 
     /**
      * the pointcut for {@link CacheReadAll}

@@ -189,6 +189,17 @@ public interface AopCaptor {
     }
 
     /**
+     * auto handle exception by {@link ProceedingJoinPoint#proceed(Object[])}
+     *
+     * @param joinPoint {@link ProceedingJoinPoint}
+     * @return {@link ProceedingJoinPoint#proceed(Object[])}  return
+     */
+    @SneakyThrows
+    default Object doProceed(ProceedingJoinPoint joinPoint, Object[] parameters) {
+        return joinPoint.proceed(parameters);
+    }
+
+    /**
      * support convert a specified class type from {@link #doProceed(ProceedingJoinPoint)}
      *
      * @param joinPoint {@link ProceedingJoinPoint}

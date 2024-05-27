@@ -8,7 +8,7 @@ import cn.srd.library.java.tool.enums.autowired.EnableEnumAutowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
-import static cn.srd.library.java.orm.contract.autoconfigure.ORMContractBasePackagePathAutoConfigurer.LIBRARY_JAVA_MYBATIS_BASE_PACKAGE_PATH;
+import static cn.srd.library.java.orm.contract.autoconfigure.ORMContractBasePackagePathAutoConfigurer.BASE_PACKAGE_PATH;
 
 /**
  * {@link EnableAutoConfiguration AutoConfiguration} for Library Java ORM Mybatis Contract
@@ -17,7 +17,7 @@ import static cn.srd.library.java.orm.contract.autoconfigure.ORMContractBasePack
  * @since 2023-11-08 17:07
  */
 @AutoConfiguration
-@EnableEnumAutowired(scanPackagePaths = LIBRARY_JAVA_MYBATIS_BASE_PACKAGE_PATH)
+@EnableEnumAutowired(scanPackagePaths = BASE_PACKAGE_PATH)
 public class ORMContractAutoConfigurer {
 
 }

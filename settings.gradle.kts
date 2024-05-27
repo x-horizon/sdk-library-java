@@ -34,9 +34,6 @@ include(":concurrent:actor")
 include(":concurrent:redis")
 
 include(":contract:component:cache:redis")
-include(":contract:component:database:base")
-include(":contract:component:database:postgresql")
-include(":contract:component:message-engine")
 include(":contract:constant")
 include(":contract:model")
 include(":contract:properties")
@@ -53,6 +50,7 @@ include(":doc:knife4j:spring-webflux")
 
 include(":gateway:spring")
 
+include(":message-engine:contract")
 include(":message-engine:kafka")
 include(":message-engine:mqtt-v3")
 include(":message-engine:rabbitmq")
