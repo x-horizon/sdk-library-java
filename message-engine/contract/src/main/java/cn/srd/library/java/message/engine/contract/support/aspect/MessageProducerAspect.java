@@ -24,7 +24,7 @@ public class MessageProducerAspect extends MessageAspect {
         String flowId = MessageFlows.getUniqueFlowId(getMethod(joinPoint));
         MessageProducer messageProducerAnnotation = getAnnotationMarkedOnMethod(joinPoint, MessageProducer.class);
         messageProducerAnnotation.engine()
-                .getAction()
+                .getStrategy()
                 .registerProducerFlowIfNeed(flowId, messageProducerAnnotation)
                 .send(flowId, message);
         return message;

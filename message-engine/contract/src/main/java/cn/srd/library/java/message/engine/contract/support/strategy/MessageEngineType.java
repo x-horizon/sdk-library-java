@@ -30,6 +30,6 @@ public enum MessageEngineType {
 
     private final int status;
 
-    private MessageEngineStrategy action;
+    private MessageEngineStrategy strategy;
 
 }
