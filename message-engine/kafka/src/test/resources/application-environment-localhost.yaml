@@ -1,8 +1,9 @@
 spring:
   data:
     redis:
-      host: 192.168.10.91
-      port: 30570
+      host: 127.0.0.1
+      port: 10004
+      password: 123456
 
 library:
   java:
@@ -12,4 +13,4 @@ library:
           # username: ""
           # password: ""
           server-urls:
-            - "tcp://192.168.10.91:32567"
+            - "tcp://localhost:10017"

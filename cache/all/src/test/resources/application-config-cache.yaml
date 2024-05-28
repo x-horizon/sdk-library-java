@@ -1,0 +1,30 @@
+spring:
+  data:
+    redis:
+      database: 0
+      timeout: 10s
+      lettuce:
+        pool:
+          max-active: 200
+          max-wait: -1ms
+          max-idle: 10
+          min-idle: 0
+
+library:
+  java:
+    cache:
+      #    caffeine:
+      #      initial-capacity: 16
+      #      maximum-size: 2500
+      #      expire-after-access: "10m"
+      #      expire-after-write: "10m"
+      #      refresh-after-write: "10m"
+      #      key-reference-level: strong
+      #      value-reference-level: strong
+      multilevel:
+        block-to-hit-distributed-cache-wait-time: "3s"
+        block-to-hit-distributed-cache-lease-time: "5s"
+
+project:
+  cache:
+    test-cache-key: "my-cache:"

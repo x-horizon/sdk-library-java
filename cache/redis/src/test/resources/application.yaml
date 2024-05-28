@@ -1,8 +1,6 @@
 spring:
-  data:
-    redis:
-      database: 14
-      host: 127.0.0.1
-      port: 6379
-      #    password:
-      timeout: 60000
+  profiles:
+    include: config-cache,
+      config-spring
+    active: environment-development
+    # active: environment-localhost
