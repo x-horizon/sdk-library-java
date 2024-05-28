@@ -18,9 +18,8 @@ import org.springframework.stereotype.Component;
 public class FooConsumer {
 
     @MessageConsumer(engine = MessageEngineType.MQTT_V3, topic = {TopicConstant.TOPIC_TEST1, TopicConstant.TOPIC_TEST2}, qos = MessageQosType.EXACTLY_ONCE)
-    public String receive(String a) {
-        System.out.println(Times.getCurrentDateTime() + "-receive-" + a);
-        return "receive";
+    public void receive(String message) {
+        System.out.println(Times.getCurrentDateTime() + "-receive-" + message);
     }
 
 }

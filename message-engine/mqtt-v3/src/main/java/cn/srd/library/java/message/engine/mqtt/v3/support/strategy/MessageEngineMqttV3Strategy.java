@@ -4,7 +4,6 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.support.strategy;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.protocol.MessageModel;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
@@ -27,7 +26,6 @@ public class MessageEngineMqttV3Strategy implements MessageEngineStrategy {
 
     @Autowired private IntegrationFlowContext flowContext;
 
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     @Override
     public MessageEngineMqttV3Strategy registerProducerFlowIfNeed(String flowId, MessageProducer messageProducerAnnotation) {
         if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
@@ -38,7 +36,7 @@ public class MessageEngineMqttV3Strategy implements MessageEngineStrategy {
             messageHandler.setCompletionTimeout(messageProducerAnnotation.completionTimeout());
             messageHandler.setDisconnectCompletionTimeout(messageProducerAnnotation.disconnectCompletionTimeout());
             this.flowContext
-                    .registration(flow -> flow.transform(message -> Converts.withJackson().toString(message)).handle(messageHandler))
+                    .registration(flow -> flow.transform(messageModel -> Converts.withJackson().toString(messageModel)).handle(messageHandler))
                     .id(flowId)
                     .useFlowIdAsPrefix()
                     .register();
@@ -51,7 +49,7 @@ public class MessageEngineMqttV3Strategy implements MessageEngineStrategy {
         return this.flowContext
                 .getRegistrationById(flowId)
                 .getInputChannel()
-                .send(new GenericMessage<>(MessageModel.builder().status(200).message("ok").data(message).build()));
+                .send(new GenericMessage<>(MessageModel.builder().data(message).build()));
     }
 
 }

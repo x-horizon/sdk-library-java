@@ -17,12 +17,12 @@ import org.springframework.stereotype.Component;
 public class FooProducer {
 
     @MessageProducer(engine = MessageEngineType.MQTT_V3, topic = TopicConstant.TOPIC_TEST1, qos = MessageQosType.EXACTLY_ONCE)
-    public String send1(String a, String b) {
+    public String send1() {
         return "send1";
     }
 
     @MessageProducer(engine = MessageEngineType.MQTT_V3, topic = TopicConstant.TOPIC_TEST2, qos = MessageQosType.EXACTLY_ONCE)
-    public String send2(String a, String b) {
+    public String send2() {
         return "send2";
     }
 

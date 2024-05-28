@@ -4,7 +4,9 @@
 
 package cn.srd.library.java.contract.model.protocol;
 
+import cn.srd.library.java.contract.constant.web.HttpStatus;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -26,10 +28,12 @@ public class MessageModel<T> implements TransportModel<T> {
 
     @Serial private static final long serialVersionUID = -3530554978681104595L;
 
-    private Integer status;
+    @Builder.Default
+    private Integer status = HttpStatus.OK.getStatus();
+
+    @Builder.Default
+    private String message = HttpStatus.OK.getDescription();
 
     private T data;
-
-    private String message;
 
 }

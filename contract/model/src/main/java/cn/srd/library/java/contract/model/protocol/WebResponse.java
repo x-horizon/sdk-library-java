@@ -30,9 +30,9 @@ public final class WebResponse<T> implements TransportModel<T> {
 
     private Integer status;
 
-    private T data;
-
     private String message;
+
+    private T data;
 
     /**
      * build a success web response model

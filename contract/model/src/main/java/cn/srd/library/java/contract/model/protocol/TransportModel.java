@@ -48,7 +48,7 @@ public interface TransportModel<T> extends Serializable {
      * @return true if {@link HttpStatus#OK}
      */
     default boolean successIs() {
-        return HttpStatus.OK.getStatus() == getStatus();
+        return null != getStatus() && HttpStatus.OK.getStatus() == getStatus();
     }
 
     /**

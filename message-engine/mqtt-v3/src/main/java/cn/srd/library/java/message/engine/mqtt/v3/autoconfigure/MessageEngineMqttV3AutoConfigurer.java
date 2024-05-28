@@ -4,7 +4,9 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.autoconfigure;
 
+import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.model.protocol.MessageModel;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
 import cn.srd.library.java.message.engine.contract.support.strategy.MessageEngineType;
@@ -14,6 +16,7 @@ import cn.srd.library.java.message.engine.mqtt.v3.support.strategy.MessageEngine
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.annotation.Annotations;
 import cn.srd.library.java.tool.lang.compare.Comparators;
+import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.spring.contract.Springs;
@@ -82,21 +85,20 @@ public class MessageEngineMqttV3AutoConfigurer {
                     String flowId = MessageFlows.getUniqueFlowId(method);
                     MessageConsumer messageConsumerAnnotation = method.getAnnotation(MessageConsumer.class);
                     if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
-                        MqttPahoMessageDrivenChannelAdapter messageDrivenChannelAdapter = new MqttPahoMessageDrivenChannelAdapter(
-                                MessageFlows.getUniqueClientId(flowId, messageConsumerAnnotation.clientId()),
-                                mqttClientFactory,
-                                messageConsumerAnnotation.topic()
-                        );
+                        MqttPahoMessageDrivenChannelAdapter messageDrivenChannelAdapter = new MqttPahoMessageDrivenChannelAdapter(MessageFlows.getUniqueClientId(flowId, messageConsumerAnnotation.clientId()), mqttClientFactory, messageConsumerAnnotation.topic());
                         messageDrivenChannelAdapter.setQos(Arrays.stream(messageConsumerAnnotation.qos()).mapToInt(MessageQosType::getStatus).toArray());
                         messageDrivenChannelAdapter.setConverter(new DefaultPahoMessageConverter());
                         messageDrivenChannelAdapter.setCompletionTimeout(messageConsumerAnnotation.completionTimeout());
                         messageDrivenChannelAdapter.setDisconnectCompletionTimeout(messageConsumerAnnotation.disconnectCompletionTimeout());
+                        Object consumerInstance = Springs.getBean(method.getDeclaringClass());
+                        Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, method.getDeclaringClass().getName())
+                                .setThrowable(LibraryJavaInternalException.class)
+                                .throwsIfNull(consumerInstance);
+                        IntegrationFlow flow = IntegrationFlow.from(messageDrivenChannelAdapter)
+                                .handle(message -> Reflects.invoke(consumerInstance, method, Converts.withJackson().toBean((String) message.getPayload(), MessageModel.class).requireSuccessAndGetData()))
+                                .get();
                         this.flowContext
-                                .registration(IntegrationFlow.from(messageDrivenChannelAdapter).handle(message -> Reflects.invoke(
-                                        Springs.getBean(method.getDeclaringClass()),
-                                        method,
-                                        Converts.withJackson().toBean((String) message.getPayload(), MessageModel.class).requireSuccessAndGetData())
-                                ).get())
+                                .registration(flow)
                                 .id(flowId)
                                 .useFlowIdAsPrefix()
                                 .register();
