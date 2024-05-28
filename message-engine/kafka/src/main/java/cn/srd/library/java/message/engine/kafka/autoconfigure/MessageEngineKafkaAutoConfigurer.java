@@ -23,6 +23,7 @@ import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -41,6 +42,7 @@ import org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAd
 import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
 import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
+import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.ProducerFactory;
@@ -67,9 +69,17 @@ public class MessageEngineKafkaAutoConfigurer {
     private final IntegrationFlowContext flowContext;
 
     @Bean
-    public ProducerFactory<String, Object> kafkaProducerFactory(KafkaProperties properties) {
+    public ProducerFactory<?, ?> kafkaProducerFactory(KafkaProperties properties) {
         Map<String, Object> producerProperties = properties.buildProducerProperties(null);
+        producerProperties.put(ProducerConfig.LINGER_MS_CONFIG, 1);
         return new DefaultKafkaProducerFactory<>(producerProperties);
+    }
+
+    @Bean
+    public ConsumerFactory<?, ?> kafkaConsumerFactory(KafkaProperties properties) {
+        Map<String, Object> consumerProperties = properties.buildConsumerProperties(null);
+        consumerProperties.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, 15000);
+        return new DefaultKafkaConsumerFactory<>(consumerProperties);
     }
 
     @Bean
