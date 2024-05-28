@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.message.engine.mqtt.v3.autoconfigure;
+package cn.srd.library.java.message.engine.kafka.autoconfigure;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.model.protocol.MessageModel;
@@ -11,8 +11,9 @@ import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
 import cn.srd.library.java.message.engine.contract.support.strategy.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.support.strategy.MessageQosType;
+import cn.srd.library.java.message.engine.kafka.properties.MessageEngineKafkaProperties;
+import cn.srd.library.java.message.engine.kafka.support.strategy.MessageEngineKafkaStrategy;
 import cn.srd.library.java.message.engine.mqtt.v3.properties.MessageEngineMqttV3Properties;
-import cn.srd.library.java.message.engine.mqtt.v3.support.strategy.MessageEngineMqttV3Strategy;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.annotation.Annotations;
 import cn.srd.library.java.tool.lang.compare.Comparators;
@@ -25,6 +26,7 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,12 +39,15 @@ import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
 import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.core.ProducerFactory;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Optional;
 
 /**
- * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Message Engine MQTT
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Message Engine Kafka
  *
  * @author wjm
  * @since 2024-05-24 16:56
@@ -52,19 +57,25 @@ import java.util.Optional;
 @Configuration
 @EnableAspectJAutoProxy(exposeProxy = true)
 @EnableIntegration
-@EnableConfigurationProperties(MessageEngineMqttV3Properties.class)
+@EnableConfigurationProperties(MessageEngineKafkaProperties.class)
 @IntegrationComponentScan
-public class MessageEngineMqttV3AutoConfigurer {
+public class MessageEngineKafkaAutoConfigurer {
 
     private final IntegrationFlowContext flowContext;
 
     @Bean
-    public MessageEngineMqttV3Strategy messageEngineMqttStrategy() {
-        return new MessageEngineMqttV3Strategy();
+    public ProducerFactory<String, Object> kafkaProducerFactory(KafkaProperties properties) {
+        Map<String, Object> producerProperties = properties.buildProducerProperties(null);
+        return new DefaultKafkaProducerFactory<>(producerProperties);
     }
 
     @Bean
-    @ConditionalOnBean(MessageEngineMqttV3Switcher.class)
+    public MessageEngineKafkaStrategy messageEngineKafkaStrategy() {
+        return new MessageEngineKafkaStrategy();
+    }
+
+    @Bean
+    @ConditionalOnBean(MessageEngineKafkaSwitcher.class)
     public MqttPahoClientFactory mqttClientFactory() {
         MessageEngineMqttV3Properties mqttProperties = Springs.getBean(MessageEngineMqttV3Properties.class);
         MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
@@ -80,7 +91,7 @@ public class MessageEngineMqttV3AutoConfigurer {
     private void registerConsumerFlow(MqttPahoClientFactory mqttClientFactory) {
         Annotations.getAnnotatedMethods(MessageConsumer.class)
                 .stream()
-                .filter(method -> Comparators.equals(MessageEngineType.MQTT_V3, method.getAnnotation(MessageConsumer.class).engine()))
+                .filter(method -> Comparators.equals(MessageEngineType.KAFKA, method.getAnnotation(MessageConsumer.class).engine()))
                 .forEach(method -> {
                     String flowId = MessageFlows.getUniqueFlowId(method);
                     MessageConsumer messageConsumerAnnotation = method.getAnnotation(MessageConsumer.class);

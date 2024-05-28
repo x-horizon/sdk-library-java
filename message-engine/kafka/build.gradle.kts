@@ -5,5 +5,5 @@
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_CONTRACT)))
 
-    api(GradleDependency.MESSAGE_KAFKA_SPRING_CLOUD_STREAM.withoutVersion)
+    api(GradleDependency.MESSAGE_KAFKA_SPRING_INTEGRATION.withoutVersion)
 }

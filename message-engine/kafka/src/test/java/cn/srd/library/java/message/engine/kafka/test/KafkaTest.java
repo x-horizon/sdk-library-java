@@ -2,10 +2,10 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.message.engine.mqtt.v3.test;
+package cn.srd.library.java.message.engine.kafka.test;
 
+import cn.srd.library.java.message.engine.kafka.foo.FooProducer;
 import cn.srd.library.java.message.engine.mqtt.v3.autoconfigure.EnableMessageEngineMqttV3;
-import cn.srd.library.java.message.engine.mqtt.v3.foo.FooProducer;
 import cn.srd.library.java.tool.enums.autowired.EnableEnumAutowired;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @SpringIntegrationTest
-class MqttTest {
+class KafkaTest {
 
     @Autowired private FooProducer fooProducer;
 

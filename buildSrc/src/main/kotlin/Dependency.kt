@@ -54,14 +54,15 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     LOG_SPRING_BOOT("org.springframework.boot:spring-boot-starter-logging", ""),
 
-    MESSAGE_SPRING_CLOUD_STREAM("org.springframework.cloud:spring-cloud-stream", ""),
-    MESSAGE_SPRING_INTEGRATION_STREAM("org.springframework.integration:spring-integration-stream", ""),
-    MESSAGE_KAFKA_SPRING_CLOUD_STREAM("org.springframework.cloud:spring-cloud-starter-stream-kafka", ""),
+    // MESSAGE_SPRING_CLOUD_STREAM("org.springframework.cloud:spring-cloud-stream", ""),
+    // MESSAGE_KAFKA_SPRING_CLOUD_STREAM("org.springframework.cloud:spring-cloud-starter-stream-kafka", ""),
+    MESSAGE_KAFKA_SPRING_INTEGRATION("org.springframework.integration:spring-integration-kafka", ""),
     MESSAGE_MQTT_SPRING_INTEGRATION("org.springframework.integration:spring-integration-mqtt", ""),
     MESSAGE_MQTT_V5_ECLIPSE_PAHO("org.eclipse.paho:org.eclipse.paho.mqttv5.client", BOM_ECLIPSE_PAHO.version), // TODO wjm bom is not invalid
     MESSAGE_RABBITMQ_SPRING_CLOUD_STREAM("org.springframework.cloud:spring-cloud-starter-stream-rabbit", ""),
-    MESSAGE_ROCKETMQ("com.alibaba.cloud:spring-cloud-starter-stream-rocketmq", ""),
+    MESSAGE_ROCKETMQ_SPRING_CLOUD_STREAM("com.alibaba.cloud:spring-cloud-starter-stream-rocketmq", ""),
     MESSAGE_ROCKETMQ_TODO("org.apache.rocketmq:rocketmq-spring-boot-starter", "2.2.3"), // TODO wjm need to remove
+    MESSAGE_SPRING_INTEGRATION_STREAM("org.springframework.integration:spring-integration-stream", ""),
 
     METRIC_BIT_WALKER_USER_AGENT("eu.bitwalker:UserAgentUtils", "1.21"),
     METRIC_DROPWIZARD_CORE("io.dropwizard.metrics:metrics-core", ""),
