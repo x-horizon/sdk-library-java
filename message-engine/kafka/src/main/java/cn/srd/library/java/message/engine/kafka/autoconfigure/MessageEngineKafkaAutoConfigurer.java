@@ -22,6 +22,7 @@ import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import lombok.AllArgsConstructor;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -35,10 +36,12 @@ import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.config.EnableIntegration;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.context.IntegrationFlowContext;
+import org.springframework.integration.kafka.dsl.Kafka;
+import org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter;
 import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
 import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
-import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
+import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.ProducerFactory;
 
@@ -88,6 +91,18 @@ public class MessageEngineKafkaAutoConfigurer {
         return mqttClientFactory;
     }
 
+    public void addAnotherListenerForTopics(String... topics) {
+        Map<String, Object> consumerProperties = kafkaProperties.buildConsumerProperties(null);
+        // change the group id, so we don't revoke the other partitions.
+        consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG, consumerProperties.get(ConsumerConfig.GROUP_ID_CONFIG) + "x");
+        IntegrationFlow flow = IntegrationFlow.from(Kafka.messageDrivenChannelAdapter(new DefaultKafkaConsumerFactory<String, String>(consumerProperties), topics))
+                .channel("fromKafka")
+                .get();
+        this.flowContext
+                .registration(flow)
+                .register();
+    }
+
     private void registerConsumerFlow(MqttPahoClientFactory mqttClientFactory) {
         Annotations.getAnnotatedMethods(MessageConsumer.class)
                 .stream()
@@ -96,7 +111,7 @@ public class MessageEngineKafkaAutoConfigurer {
                     String flowId = MessageFlows.getUniqueFlowId(method);
                     MessageConsumer messageConsumerAnnotation = method.getAnnotation(MessageConsumer.class);
                     if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
-                        MqttPahoMessageDrivenChannelAdapter messageDrivenChannelAdapter = new MqttPahoMessageDrivenChannelAdapter(MessageFlows.getUniqueClientId(flowId, messageConsumerAnnotation.clientId()), mqttClientFactory, messageConsumerAnnotation.topic());
+                        KafkaMessageDrivenChannelAdapter messageDrivenChannelAdapter = new KafkaMessageDrivenChannelAdapter(MessageFlows.getUniqueClientId(flowId, messageConsumerAnnotation.clientId()), mqttClientFactory, messageConsumerAnnotation.topic());
                         messageDrivenChannelAdapter.setQos(Arrays.stream(messageConsumerAnnotation.qos()).mapToInt(MessageQosType::getStatus).toArray());
                         messageDrivenChannelAdapter.setConverter(new DefaultPahoMessageConverter());
                         messageDrivenChannelAdapter.setCompletionTimeout(messageConsumerAnnotation.completionTimeout());
