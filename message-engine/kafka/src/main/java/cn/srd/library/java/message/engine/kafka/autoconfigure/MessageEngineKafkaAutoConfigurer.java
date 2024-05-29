@@ -10,10 +10,8 @@ import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
 import cn.srd.library.java.message.engine.contract.support.strategy.MessageEngineType;
-import cn.srd.library.java.message.engine.contract.support.strategy.MessageQosType;
 import cn.srd.library.java.message.engine.kafka.properties.MessageEngineKafkaProperties;
 import cn.srd.library.java.message.engine.kafka.support.strategy.MessageEngineKafkaStrategy;
-import cn.srd.library.java.message.engine.mqtt.v3.properties.MessageEngineMqttV3Properties;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.annotation.Annotations;
 import cn.srd.library.java.tool.lang.compare.Comparators;
@@ -22,13 +20,9 @@ import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import lombok.AllArgsConstructor;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,17 +33,13 @@ import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.context.IntegrationFlowContext;
 import org.springframework.integration.kafka.dsl.Kafka;
 import org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter;
-import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
-import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
-import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.ProducerFactory;
-
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Optional;
+import org.springframework.kafka.listener.ContainerProperties;
+import org.springframework.kafka.support.DefaultKafkaHeaderMapper;
+import org.springframework.retry.support.RetryTemplate;
 
 /**
  * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Message Engine Kafka
@@ -64,80 +54,82 @@ import java.util.Optional;
 @EnableIntegration
 @EnableConfigurationProperties(MessageEngineKafkaProperties.class)
 @IntegrationComponentScan
-public class MessageEngineKafkaAutoConfigurer {
+public class MessageEngineKafkaAutoConfigurer<K, V> {
 
     private final IntegrationFlowContext flowContext;
 
     @Bean
-    public ProducerFactory<?, ?> kafkaProducerFactory(KafkaProperties properties) {
-        Map<String, Object> producerProperties = properties.buildProducerProperties(null);
-        producerProperties.put(ProducerConfig.LINGER_MS_CONFIG, 1);
-        return new DefaultKafkaProducerFactory<>(producerProperties);
-    }
-
-    @Bean
-    public ConsumerFactory<?, ?> kafkaConsumerFactory(KafkaProperties properties) {
-        Map<String, Object> consumerProperties = properties.buildConsumerProperties(null);
-        consumerProperties.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, 15000);
-        return new DefaultKafkaConsumerFactory<>(consumerProperties);
-    }
-
-    @Bean
-    public MessageEngineKafkaStrategy messageEngineKafkaStrategy() {
-        return new MessageEngineKafkaStrategy();
+    public MessageEngineKafkaStrategy<K, V> messageEngineKafkaStrategy() {
+        return new MessageEngineKafkaStrategy<>();
     }
 
     @Bean
     @ConditionalOnBean(MessageEngineKafkaSwitcher.class)
-    public MqttPahoClientFactory mqttClientFactory() {
-        MessageEngineMqttV3Properties mqttProperties = Springs.getBean(MessageEngineMqttV3Properties.class);
-        MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
-        Optional.ofNullable(mqttProperties.getUsername()).ifPresent(mqttConnectOptions::setUserName);
-        Optional.ofNullable(mqttProperties.getPassword()).ifPresent(password -> mqttConnectOptions.setPassword(password.toCharArray()));
-        mqttConnectOptions.setServerURIs(Converts.toArray(mqttProperties.getServerURLs(), String.class));
-        DefaultMqttPahoClientFactory mqttClientFactory = new DefaultMqttPahoClientFactory();
-        mqttClientFactory.setConnectionOptions(mqttConnectOptions);
-        registerConsumerFlow(mqttClientFactory);
-        return mqttClientFactory;
+    public ProducerFactory<K, V> kafkaProducerFactory() {
+        MessageEngineKafkaProperties kafkaProperties = Springs.getBean(MessageEngineKafkaProperties.class);
+        return new DefaultKafkaProducerFactory<>(Converts.withJackson().toMap(kafkaProperties));
     }
 
-    public void addAnotherListenerForTopics(String... topics) {
-        Map<String, Object> consumerProperties = kafkaProperties.buildConsumerProperties(null);
-        // change the group id, so we don't revoke the other partitions.
-        consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG, consumerProperties.get(ConsumerConfig.GROUP_ID_CONFIG) + "x");
-        IntegrationFlow flow = IntegrationFlow.from(Kafka.messageDrivenChannelAdapter(new DefaultKafkaConsumerFactory<String, String>(consumerProperties), topics))
-                .channel("fromKafka")
-                .get();
-        this.flowContext
-                .registration(flow)
-                .register();
+    @Bean
+    @ConditionalOnBean(MessageEngineKafkaSwitcher.class)
+    public ConsumerFactory<K, V> kafkaConsumerFactory() {
+        MessageEngineKafkaProperties kafkaProperties = Springs.getBean(MessageEngineKafkaProperties.class);
+        ConsumerFactory<K, V> consumerFactory = new DefaultKafkaConsumerFactory<>(Converts.withJackson().toMap(kafkaProperties));
+        registerConsumerFlow(consumerFactory);
+        return consumerFactory;
     }
 
-    private void registerConsumerFlow(MqttPahoClientFactory mqttClientFactory) {
+    @Bean
+    @ConditionalOnBean(MessageEngineKafkaSwitcher.class)
+    public DefaultKafkaHeaderMapper kafkaHeaderMapper() {
+        return new DefaultKafkaHeaderMapper();
+    }
+
+    // public void addAnotherListenerForTopics(String... topics) {
+    //     Map<String, Object> consumerProperties = kafkaProperties.buildConsumerProperties(null);
+    //     // change the group id, so we don't revoke the other partitions.
+    //     consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG, consumerProperties.get(ConsumerConfig.GROUP_ID_CONFIG) + "x");
+    //     IntegrationFlow flow = IntegrationFlow.from(Kafka.messageDrivenChannelAdapter(new DefaultKafkaConsumerFactory<String, String>(consumerProperties), topics))
+    //             .channel("fromKafka")
+    //             .get();
+    //     this.flowContext
+    //             .registration(flow)
+    //             .register();
+    // }
+
+    private void registerConsumerFlow(ConsumerFactory<K, V> consumerFactory) {
         Annotations.getAnnotatedMethods(MessageConsumer.class)
                 .stream()
                 .filter(method -> Comparators.equals(MessageEngineType.KAFKA, method.getAnnotation(MessageConsumer.class).engine()))
                 .forEach(method -> {
-                    String flowId = MessageFlows.getUniqueFlowId(method);
+                    String flowId = MessageFlows.getUniqueFlowId(MessageEngineType.KAFKA, method);
                     MessageConsumer messageConsumerAnnotation = method.getAnnotation(MessageConsumer.class);
                     if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
-                        KafkaMessageDrivenChannelAdapter messageDrivenChannelAdapter = new KafkaMessageDrivenChannelAdapter(MessageFlows.getUniqueClientId(flowId, messageConsumerAnnotation.clientId()), mqttClientFactory, messageConsumerAnnotation.topic());
-                        messageDrivenChannelAdapter.setQos(Arrays.stream(messageConsumerAnnotation.qos()).mapToInt(MessageQosType::getStatus).toArray());
-                        messageDrivenChannelAdapter.setConverter(new DefaultPahoMessageConverter());
-                        messageDrivenChannelAdapter.setCompletionTimeout(messageConsumerAnnotation.completionTimeout());
-                        messageDrivenChannelAdapter.setDisconnectCompletionTimeout(messageConsumerAnnotation.disconnectCompletionTimeout());
                         Object consumerInstance = Springs.getBean(method.getDeclaringClass());
+                        IntegrationFlow flow = IntegrationFlow.from(Kafka.messageDrivenChannelAdapter(consumerFactory, KafkaMessageDrivenChannelAdapter.ListenerMode.record, messageConsumerAnnotation.topic())
+                                        .configureListenerContainer(c -> c.ackMode(ContainerProperties.AckMode.RECORD).id(flowId))
+                                        // .recoveryCallback(new ErrorMessageSendingRecoverer(errorChannel(), new RawRecordHeaderErrorMessageStrategy()))
+                                        .retryTemplate(new RetryTemplate())
+                                        .filterInRetry(true)
+                                )
+                                .handle(message -> Reflects.invoke(consumerInstance, method, Converts.withJackson().toBean((String) message.getPayload(), MessageModel.class).requireSuccessAndGetData()))
+                                .get();
                         Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, method.getDeclaringClass().getName())
                                 .setThrowable(LibraryJavaInternalException.class)
                                 .throwsIfNull(consumerInstance);
-                        IntegrationFlow flow = IntegrationFlow.from(messageDrivenChannelAdapter)
-                                .handle(message -> Reflects.invoke(consumerInstance, method, Converts.withJackson().toBean((String) message.getPayload(), MessageModel.class).requireSuccessAndGetData()))
-                                .get();
                         this.flowContext
                                 .registration(flow)
                                 .id(flowId)
                                 .useFlowIdAsPrefix()
                                 .register();
+
+                        // TODO wjm 有两种：KafkaMessageListenerContainer、ConcurrentMessageListenerContainer，应有配置文件配置，在 https://docs.spring.io/spring-integration/reference/kafka.html#java-dsl-configuration 直接搜索 KafkaMessageListenerContainer 即可看到介绍
+                        // TODO wjm KafkaMessageDrivenChannelAdapter.ListenerMode.record
+                        // KafkaMessageDrivenChannelAdapter<K, V> messageDrivenChannelAdapter = new KafkaMessageDrivenChannelAdapter<>(Springs.getBean(KafkaMessageListenerContainer.class), KafkaMessageDrivenChannelAdapter.ListenerMode.record);
+                        // messageDrivenChannelAdapter.setQos(Arrays.stream(messageConsumerAnnotation.qos()).mapToInt(MessageQosType::getStatus).toArray());
+                        // messageDrivenChannelAdapter.setConverter(new DefaultPahoMessageConverter());
+                        // messageDrivenChannelAdapter.setCompletionTimeout(messageConsumerAnnotation.completionTimeout());
+                        // messageDrivenChannelAdapter.setDisconnectCompletionTimeout(messageConsumerAnnotation.disconnectCompletionTimeout());
                     }
                 });
     }

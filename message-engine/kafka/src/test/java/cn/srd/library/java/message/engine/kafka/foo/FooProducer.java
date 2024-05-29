@@ -16,14 +16,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class FooProducer {
 
-    @MessageProducer(engine = MessageEngineType.MQTT_V3, topic = FooTopicConstant.TOPIC_TEST1, qos = MessageQosType.EXACTLY_ONCE)
+    @MessageProducer(engine = MessageEngineType.KAFKA, topic = FooTopicConstant.TOPIC_TEST1, qos = MessageQosType.EXACTLY_ONCE)
     public String send1() {
         return "send1";
     }
 
-    @MessageProducer(engine = MessageEngineType.MQTT_V3, topic = FooTopicConstant.TOPIC_TEST2, qos = MessageQosType.EXACTLY_ONCE)
-    public String send2() {
-        return "send2";
-    }
+    // @MessageProducer(engine = MessageEngineType.KAFKA, topic = FooTopicConstant.TOPIC_TEST2, qos = MessageQosType.EXACTLY_ONCE)
+    // public String send2() {
+    //     return "send2";
+    // }
 
 }

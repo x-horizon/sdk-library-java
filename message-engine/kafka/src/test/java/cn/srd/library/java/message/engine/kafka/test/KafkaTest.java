@@ -4,8 +4,8 @@
 
 package cn.srd.library.java.message.engine.kafka.test;
 
+import cn.srd.library.java.message.engine.kafka.autoconfigure.EnableMessageEngineKafka;
 import cn.srd.library.java.message.engine.kafka.foo.FooProducer;
-import cn.srd.library.java.message.engine.mqtt.v3.autoconfigure.EnableMessageEngineMqttV3;
 import cn.srd.library.java.tool.enums.autowired.EnableEnumAutowired;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
@@ -18,13 +18,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.concurrent.TimeUnit;
 
 /**
- * mqtt test
+ * kafka test
  *
  * @author wjm
  * @since 2024-05-21 21:55
  */
 @EnableEnumAutowired
-@EnableMessageEngineMqttV3
+@EnableMessageEngineKafka
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @SpringIntegrationTest
@@ -37,7 +37,7 @@ class KafkaTest {
     void test() {
         while (true) {
             fooProducer.send1();
-            fooProducer.send2();
+            // fooProducer.send2();
             TimeUnit.SECONDS.sleep(1);
         }
     }
