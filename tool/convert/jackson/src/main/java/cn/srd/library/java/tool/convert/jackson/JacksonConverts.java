@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.tool.convert.jackson;
 
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
@@ -509,17 +510,21 @@ public class JacksonConverts {
         );
     }
 
+    public <V> Map<String, V> toMap(String json, Class<V> valueClass) {
+        return toMap(json, valueClass, DEFAULT_VALIDATE_ENABLE);
+    }
+
     /**
      * 转换为 Map
      *
-     * @param json       待转换对象
-     * @param valueClass 目标转换对象类
-     * @param <V>        待转换对象类型
+     * @param input 输入源
+     * @param <K>   key 类型
+     * @param <V>   value 类型
      * @return 转换后对象
      */
-    @SneakyThrows
-    public <V> Map<String, V> toMap(String json, Class<V> valueClass) {
-        return toMap(json, valueClass, DEFAULT_VALIDATE_ENABLE);
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public <K, V> Map<K, V> toMap(Object input) {
+        return defaultJacksonMapper.convertValue(input, Map.class);
     }
 
     /**
