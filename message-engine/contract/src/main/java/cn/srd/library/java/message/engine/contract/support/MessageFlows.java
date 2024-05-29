@@ -5,6 +5,7 @@
 package cn.srd.library.java.message.engine.contract.support;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.message.engine.contract.support.strategy.MessageEngineType;
 import cn.srd.library.java.tool.id.snowflake.SnowflakeIds;
 import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;
@@ -26,11 +27,11 @@ public class MessageFlows {
     public static final long DISCONNECT_COMPLETION_TIMEOUT = 5000L;
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
-    public static String getUniqueFlowId(Method annotatedMethod) {
+    public static String getUniqueFlowId(MessageEngineType messageEngineType, Method annotatedMethod) {
         String annotatedMethodDeclaredClassName = annotatedMethod.getDeclaringClass().getName();
         String annotatedMethodName = annotatedMethod.getName();
         String annotatedMethodParameterTypeName = Arrays.stream(annotatedMethod.getParameters()).map(parameter -> STR."\{parameter.getType().getSimpleName()} \{parameter.getName()}").collect(Collectors.joining(", "));
-        return STR."\{annotatedMethodDeclaredClassName}.\{annotatedMethodName}(\{annotatedMethodParameterTypeName})";
+        return STR."\{messageEngineType.getDescription()}-\{annotatedMethodDeclaredClassName}.\{annotatedMethodName}(\{annotatedMethodParameterTypeName})";
     }
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)

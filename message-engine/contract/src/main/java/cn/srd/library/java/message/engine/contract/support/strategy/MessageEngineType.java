@@ -15,20 +15,23 @@ import lombok.Getter;
 @EnumAutowired(rootClass = MessageEngineStrategy.class)
 public enum MessageEngineType {
 
-    KAFKA(1),
-    MQTT_V3(2),
-    MQTT_V5(3),
-    RABBITMQ(4),
-    REDIS(5),
-    ROCKETMQ(6),
+    KAFKA(1, "kafka"),
+    MQTT_V3(2, "mqttV3"),
+    MQTT_V5(3, "mattV5"),
+    RABBITMQ(4, "rabbitmq"),
+    REDIS(5, "redis"),
+    ROCKETMQ(6, "rocketmq"),
 
     ;
 
-    MessageEngineType(int status) {
-        this.status = status;
+    MessageEngineType(int code, String description) {
+        this.code = code;
+        this.description = description;
     }
 
-    private final int status;
+    private final int code;
+
+    private final String description;
 
     private MessageEngineStrategy strategy;
 

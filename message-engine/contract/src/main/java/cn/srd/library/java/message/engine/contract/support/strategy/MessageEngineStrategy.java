@@ -4,8 +4,12 @@
 
 package cn.srd.library.java.message.engine.contract.support.strategy;
 
+import cn.srd.library.java.contract.model.protocol.MessageModel;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
+import cn.srd.library.java.tool.spring.contract.Springs;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import org.springframework.integration.dsl.context.IntegrationFlowContext;
+import org.springframework.messaging.support.GenericMessage;
 
 /**
  * @author wjm
@@ -16,6 +20,11 @@ public interface MessageEngineStrategy {
     MessageEngineStrategy registerProducerFlowIfNeed(String flowId, MessageProducer messageProducerAnnotation);
 
     @CanIgnoreReturnValue
-    <T> boolean send(String flowId, T message);
+    default <T> boolean send(String flowId, T message) {
+        return Springs.getBean(IntegrationFlowContext.class)
+                .getRegistrationById(flowId)
+                .getInputChannel()
+                .send(new GenericMessage<>(MessageModel.builder().data(message).build()));
+    }
 
 }
