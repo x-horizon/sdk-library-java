@@ -1,33 +1,32 @@
-#spring:
-#  data:
-#    redis:
-#      host: 192.168.10.91
-#      port: 30570
-#      timeout: 60000
-#
-#library:
-#  java:
-#    message-engine:
-#      mqtt:
-#        v3:
-#          # username: ""
-#          # password: ""
-#          server-urls:
-#            - "tcp://192.168.10.91:32567"
-
 spring:
-  kafka:
-    bootstrapServers:
-      - ""
-    consumer:
-      group-id: siTestGroup
-      auto-offset-reset: earliest
-      enable-auto-commit: false
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    producer:
-      batch-size: 16384
-      buffer-memory: 33554432
-      retries: 0
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  data:
+    redis:
+      host: 192.168.10.91
+      port: 30570
+      timeout: 60000
+
+library:
+  java:
+    message-engine:
+      kafka:
+        server-urls:
+          # username: ""
+          # password: ""
+          - "tcp://192.168.10.91:32577"
+
+#spring:
+#  kafka:
+#    bootstrapServers:
+#      - ""
+#    consumer:
+#      group-id: siTestGroup
+#      auto-offset-reset: earliest
+#      enable-auto-commit: false
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#    producer:
+#      batch-size: 16384
+#      buffer-memory: 33554432
+#      retries: 0
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer

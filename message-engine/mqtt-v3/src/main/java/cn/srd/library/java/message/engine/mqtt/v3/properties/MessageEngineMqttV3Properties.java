@@ -4,12 +4,11 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.properties;
 
+import cn.srd.library.java.message.engine.contract.properties.MessageEngineProperties;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
-import java.util.List;
 
 /**
  * properties for message engine mqtt
@@ -20,7 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "library.java.message-engine.mqtt.v3")
-public class MessageEngineMqttV3Properties {
+public class MessageEngineMqttV3Properties extends MessageEngineProperties {
 
     @Getter private static MessageEngineMqttV3Properties instance = null;
 
@@ -32,7 +31,5 @@ public class MessageEngineMqttV3Properties {
     private String username;
 
     private String password;
-
-    private List<String> serverURLs;
 
 }

@@ -23,6 +23,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -65,16 +66,18 @@ public class MessageEngineKafkaAutoConfigurer<K, V> {
 
     @Bean
     @ConditionalOnBean(MessageEngineKafkaSwitcher.class)
-    public ProducerFactory<K, V> kafkaProducerFactory() {
-        MessageEngineKafkaProperties kafkaProperties = Springs.getBean(MessageEngineKafkaProperties.class);
-        return new DefaultKafkaProducerFactory<>(Converts.withJackson().toMap(kafkaProperties));
+    public ProducerFactory<K, V> kafkaProducerFactory(KafkaProperties kafkaProperties) {
+        MessageEngineKafkaProperties libraryJavaKafkaProperties = Springs.getBean(MessageEngineKafkaProperties.class);
+        kafkaProperties.setBootstrapServers(libraryJavaKafkaProperties.getServerURLs());
+        return new DefaultKafkaProducerFactory<>(kafkaProperties.buildProducerProperties(null));
     }
 
     @Bean
     @ConditionalOnBean(MessageEngineKafkaSwitcher.class)
-    public ConsumerFactory<K, V> kafkaConsumerFactory() {
-        MessageEngineKafkaProperties kafkaProperties = Springs.getBean(MessageEngineKafkaProperties.class);
-        ConsumerFactory<K, V> consumerFactory = new DefaultKafkaConsumerFactory<>(Converts.withJackson().toMap(kafkaProperties));
+    public ConsumerFactory<K, V> kafkaConsumerFactory(KafkaProperties kafkaProperties) {
+        MessageEngineKafkaProperties libraryJavaKafkaProperties = Springs.getBean(MessageEngineKafkaProperties.class);
+        kafkaProperties.setBootstrapServers(libraryJavaKafkaProperties.getServerURLs());
+        ConsumerFactory<K, V> consumerFactory = new DefaultKafkaConsumerFactory<>(kafkaProperties.buildConsumerProperties(null));
         registerConsumerFlow(consumerFactory);
         return consumerFactory;
     }
@@ -107,7 +110,7 @@ public class MessageEngineKafkaAutoConfigurer<K, V> {
                     if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
                         Object consumerInstance = Springs.getBean(method.getDeclaringClass());
                         IntegrationFlow flow = IntegrationFlow.from(Kafka.messageDrivenChannelAdapter(consumerFactory, KafkaMessageDrivenChannelAdapter.ListenerMode.record, messageConsumerAnnotation.topic())
-                                        .configureListenerContainer(c -> c.ackMode(ContainerProperties.AckMode.RECORD).id(flowId))
+                                        .configureListenerContainer(kafkaMessageListenerContainerSpec -> kafkaMessageListenerContainerSpec.ackMode(ContainerProperties.AckMode.RECORD).id(flowId))
                                         // .recoveryCallback(new ErrorMessageSendingRecoverer(errorChannel(), new RawRecordHeaderErrorMessageStrategy()))
                                         .retryTemplate(new RetryTemplate())
                                         .filterInRetry(true)

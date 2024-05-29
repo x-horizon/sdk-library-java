@@ -4,12 +4,11 @@
 
 package cn.srd.library.java.message.engine.kafka.properties;
 
+import cn.srd.library.java.message.engine.contract.properties.MessageEngineProperties;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
-import java.util.List;
 
 /**
  * properties for message engine mqtt
@@ -20,7 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "library.java.message-engine.kafka")
-public class MessageEngineKafkaProperties {
+public class MessageEngineKafkaProperties extends MessageEngineProperties {
 
     @Getter private static MessageEngineKafkaProperties instance = null;
 
@@ -28,11 +27,5 @@ public class MessageEngineKafkaProperties {
     public void initialize() {
         instance = this;
     }
-
-    private String username;
-
-    private String password;
-
-    private List<String> serverURLs;
 
 }

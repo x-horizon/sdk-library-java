@@ -6,7 +6,6 @@ package cn.srd.library.java.message.engine.mqtt.v3.test;
 
 import cn.srd.library.java.message.engine.mqtt.v3.autoconfigure.EnableMessageEngineMqttV3;
 import cn.srd.library.java.message.engine.mqtt.v3.foo.FooProducer;
-import cn.srd.library.java.tool.enums.autowired.EnableEnumAutowired;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +22,6 @@ import java.util.concurrent.TimeUnit;
  * @author wjm
  * @since 2024-05-21 21:55
  */
-@EnableEnumAutowired
 @EnableMessageEngineMqttV3
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
