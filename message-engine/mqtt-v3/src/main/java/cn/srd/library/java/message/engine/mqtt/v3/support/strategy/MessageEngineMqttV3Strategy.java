@@ -4,7 +4,6 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.support.strategy;
 
-import cn.srd.library.java.contract.model.protocol.MessageModel;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
 import cn.srd.library.java.message.engine.contract.support.strategy.MessageEngineStrategy;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.dsl.context.IntegrationFlowContext;
 import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
 import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
-import org.springframework.messaging.support.GenericMessage;
 
 /**
  * @author wjm
@@ -44,12 +42,12 @@ public class MessageEngineMqttV3Strategy implements MessageEngineStrategy {
         return this;
     }
 
-    @Override
-    public <T> boolean send(String flowId, T message) {
-        return this.flowContext
-                .getRegistrationById(flowId)
-                .getInputChannel()
-                .send(new GenericMessage<>(MessageModel.builder().data(message).build()));
-    }
+    // @Override
+    // public <T> boolean send(String flowId, T message) {
+    //     return this.flowContext
+    //             .getRegistrationById(flowId)
+    //             .getInputChannel()
+    //             .send(new GenericMessage<>(MessageModel.builder().data(message).build()));
+    // }
 
 }

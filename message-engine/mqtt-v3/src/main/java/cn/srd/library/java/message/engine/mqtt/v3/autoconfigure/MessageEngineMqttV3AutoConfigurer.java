@@ -82,7 +82,7 @@ public class MessageEngineMqttV3AutoConfigurer {
                 .stream()
                 .filter(method -> Comparators.equals(MessageEngineType.MQTT_V3, method.getAnnotation(MessageConsumer.class).engine()))
                 .forEach(method -> {
-                    String flowId = MessageFlows.getUniqueFlowId(method);
+                    String flowId = MessageFlows.getUniqueFlowId(MessageEngineType.MQTT_V3, method);
                     MessageConsumer messageConsumerAnnotation = method.getAnnotation(MessageConsumer.class);
                     if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
                         MqttPahoMessageDrivenChannelAdapter messageDrivenChannelAdapter = new MqttPahoMessageDrivenChannelAdapter(MessageFlows.getUniqueClientId(flowId, messageConsumerAnnotation.clientId()), mqttClientFactory, messageConsumerAnnotation.topic());

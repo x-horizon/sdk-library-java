@@ -36,8 +36,8 @@ class MqttTest {
     @Test
     void test() {
         while (true) {
-            fooProducer.send1();
-            fooProducer.send2();
+            // fooProducer.send1();
+            // fooProducer.send2();
             TimeUnit.SECONDS.sleep(1);
         }
     }

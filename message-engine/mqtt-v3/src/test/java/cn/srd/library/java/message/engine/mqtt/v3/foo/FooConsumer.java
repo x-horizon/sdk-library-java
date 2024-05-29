@@ -19,7 +19,7 @@ public class FooConsumer {
 
     @MessageConsumer(engine = MessageEngineType.MQTT_V3, topic = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2}, qos = MessageQosType.EXACTLY_ONCE)
     public void receive(String message) {
-        System.out.println(Times.getCurrentDateTime() + "-receive-" + message);
+        System.out.println("消费者1 -------- " + Times.getCurrentDateTime() + "-receive-" + message);
     }
 
 }
