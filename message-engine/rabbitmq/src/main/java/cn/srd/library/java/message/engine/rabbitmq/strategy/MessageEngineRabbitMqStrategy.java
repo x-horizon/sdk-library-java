@@ -2,10 +2,10 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.message.engine.rabbitmq.support.strategy;
+package cn.srd.library.java.message.engine.rabbitmq.strategy;
 
 import cn.srd.library.java.message.engine.contract.MessageProducer;
-import cn.srd.library.java.message.engine.contract.support.strategy.MessageEngineStrategy;
+import cn.srd.library.java.message.engine.contract.strategy.MessageEngineStrategy;
 
 /**
  * @author wjm

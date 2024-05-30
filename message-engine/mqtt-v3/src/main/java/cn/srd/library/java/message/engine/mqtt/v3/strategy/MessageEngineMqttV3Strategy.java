@@ -2,11 +2,12 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.message.engine.mqtt.v3.support.strategy;
+package cn.srd.library.java.message.engine.mqtt.v3.strategy;
 
 import cn.srd.library.java.message.engine.contract.MessageProducer;
+import cn.srd.library.java.message.engine.contract.strategy.MessageEngineStrategy;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
-import cn.srd.library.java.message.engine.contract.support.strategy.MessageEngineStrategy;
+import cn.srd.library.java.message.engine.mqtt.v3.autoconfigure.MessageEngineMqttV3Customizer;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.object.Nil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,12 @@ public class MessageEngineMqttV3Strategy implements MessageEngineStrategy {
 
     @Autowired private IntegrationFlowContext flowContext;
 
+    @Autowired private MessageEngineMqttV3Customizer mqttV3Customizer;
+
     @Override
     public MessageEngineMqttV3Strategy registerProducerFlowIfNeed(String flowId, MessageProducer messageProducerAnnotation) {
         if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
-            MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(MessageFlows.getUniqueClientId(flowId, messageProducerAnnotation.clientId()), this.mqttClientFactory);
+            MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(MessageFlows.getUniqueClientId(mqttV3Customizer.getUniqueClientIdGenerateType(), flowId, messageProducerAnnotation.clientId()), this.mqttClientFactory);
             messageHandler.setDefaultTopic(messageProducerAnnotation.topic());
             messageHandler.setDefaultQos(messageProducerAnnotation.qos().getStatus());
             messageHandler.setAsync(messageProducerAnnotation.sendAsync());

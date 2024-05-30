@@ -2,11 +2,11 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.message.engine.kafka.support.strategy;
+package cn.srd.library.java.message.engine.kafka.strategy;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
-import cn.srd.library.java.message.engine.contract.support.strategy.MessageEngineStrategy;
+import cn.srd.library.java.message.engine.contract.strategy.MessageEngineStrategy;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.object.Nil;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -8,11 +8,11 @@ import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.model.protocol.MessageModel;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
+import cn.srd.library.java.message.engine.contract.strategy.MessageEngineType;
+import cn.srd.library.java.message.engine.contract.strategy.MessageQosType;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
-import cn.srd.library.java.message.engine.contract.support.strategy.MessageEngineType;
-import cn.srd.library.java.message.engine.contract.support.strategy.MessageQosType;
 import cn.srd.library.java.message.engine.mqtt.v3.properties.MessageEngineMqttV3Properties;
-import cn.srd.library.java.message.engine.mqtt.v3.support.strategy.MessageEngineMqttV3Strategy;
+import cn.srd.library.java.message.engine.mqtt.v3.strategy.MessageEngineMqttV3Strategy;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.annotation.Annotations;
 import cn.srd.library.java.tool.lang.compare.Comparators;
@@ -28,6 +28,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.config.EnableIntegration;
@@ -65,6 +66,13 @@ public class MessageEngineMqttV3AutoConfigurer {
 
     @Bean
     @ConditionalOnBean(MessageEngineMqttV3Switcher.class)
+    public MessageEngineMqttV3Customizer messageEngineMqttV3Customizer() {
+        return new MessageEngineMqttV3Customizer();
+    }
+
+    @Bean
+    @ConditionalOnBean(MessageEngineMqttV3Switcher.class)
+    @DependsOn("messageEngineMqttV3Customizer")
     public MqttPahoClientFactory mqttClientFactory() {
         MessageEngineMqttV3Properties mqttProperties = Springs.getBean(MessageEngineMqttV3Properties.class);
         MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
@@ -85,7 +93,8 @@ public class MessageEngineMqttV3AutoConfigurer {
                     String flowId = MessageFlows.getUniqueFlowId(MessageEngineType.MQTT_V3, method);
                     MessageConsumer messageConsumerAnnotation = method.getAnnotation(MessageConsumer.class);
                     if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
-                        MqttPahoMessageDrivenChannelAdapter messageDrivenChannelAdapter = new MqttPahoMessageDrivenChannelAdapter(MessageFlows.getUniqueClientId(flowId, messageConsumerAnnotation.clientId()), mqttClientFactory, messageConsumerAnnotation.topic());
+                        MessageEngineMqttV3Customizer mqttV3Customizer = Springs.getBean(MessageEngineMqttV3Customizer.class);
+                        MqttPahoMessageDrivenChannelAdapter messageDrivenChannelAdapter = new MqttPahoMessageDrivenChannelAdapter(MessageFlows.getUniqueClientId(mqttV3Customizer.getUniqueClientIdGenerateType(), flowId, messageConsumerAnnotation.clientId()), mqttClientFactory, messageConsumerAnnotation.topic());
                         messageDrivenChannelAdapter.setQos(Arrays.stream(messageConsumerAnnotation.qos()).mapToInt(MessageQosType::getStatus).toArray());
                         messageDrivenChannelAdapter.setConverter(new DefaultPahoMessageConverter());
                         messageDrivenChannelAdapter.setCompletionTimeout(messageConsumerAnnotation.completionTimeout());

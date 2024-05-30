@@ -1,9 +1,9 @@
 package cn.srd.library.java.message.engine.contract;
 
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
+import cn.srd.library.java.message.engine.contract.strategy.MessageEngineType;
+import cn.srd.library.java.message.engine.contract.strategy.MessageQosType;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
-import cn.srd.library.java.message.engine.contract.support.strategy.MessageEngineType;
-import cn.srd.library.java.message.engine.contract.support.strategy.MessageQosType;
 
 import java.lang.annotation.*;
 

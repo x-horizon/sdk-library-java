@@ -5,8 +5,8 @@
 package cn.srd.library.java.message.engine.kafka.foo;
 
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
-import cn.srd.library.java.message.engine.contract.support.strategy.MessageEngineType;
-import cn.srd.library.java.message.engine.contract.support.strategy.MessageQosType;
+import cn.srd.library.java.message.engine.contract.strategy.MessageEngineType;
+import cn.srd.library.java.message.engine.contract.strategy.MessageQosType;
 import cn.srd.library.java.tool.lang.time.Times;
 import org.springframework.stereotype.Component;
 

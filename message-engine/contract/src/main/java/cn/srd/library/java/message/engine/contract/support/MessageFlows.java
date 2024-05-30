@@ -5,8 +5,9 @@
 package cn.srd.library.java.message.engine.contract.support;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
-import cn.srd.library.java.message.engine.contract.support.strategy.MessageEngineType;
-import cn.srd.library.java.tool.id.snowflake.SnowflakeIds;
+import cn.srd.library.java.message.engine.contract.strategy.MessageEngineType;
+import cn.srd.library.java.message.engine.contract.strategy.UniqueClientIdGenerateType;
+import cn.srd.library.java.tool.id.snowflake.support.SnowflakeIds;
 import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -35,8 +36,8 @@ public class MessageFlows {
     }
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
-    public static String getUniqueClientId(String flowId, String clientId) {
-        return Nil.isBlank(clientId) ? STR."\{flowId}-\{SnowflakeIds.get()}" : STR."\{clientId}-\{SnowflakeIds.get()}";
+    public static String getUniqueClientId(UniqueClientIdGenerateType generateType, String flowId, String clientId) {
+        return Nil.isBlank(clientId) ? STR."\{flowId}-\{generateType.getStrategy().getId()}" : STR."\{clientId}-\{SnowflakeIds.get()}";
     }
 
 }

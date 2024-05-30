@@ -8,10 +8,10 @@ import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.model.protocol.MessageModel;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
+import cn.srd.library.java.message.engine.contract.strategy.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
-import cn.srd.library.java.message.engine.contract.support.strategy.MessageEngineType;
 import cn.srd.library.java.message.engine.kafka.properties.MessageEngineKafkaProperties;
-import cn.srd.library.java.message.engine.kafka.support.strategy.MessageEngineKafkaStrategy;
+import cn.srd.library.java.message.engine.kafka.strategy.MessageEngineKafkaStrategy;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.annotation.Annotations;
 import cn.srd.library.java.tool.lang.compare.Comparators;
@@ -62,6 +62,12 @@ public class MessageEngineKafkaAutoConfigurer<K, V> {
     @Bean
     public MessageEngineKafkaStrategy<K, V> messageEngineKafkaStrategy() {
         return new MessageEngineKafkaStrategy<>();
+    }
+
+    @Bean
+    @ConditionalOnBean(MessageEngineKafkaSwitcher.class)
+    public MessageEngineKafkaCustomizer messageEngineMqttV3Customizer() {
+        return new MessageEngineKafkaCustomizer();
     }
 
     @Bean

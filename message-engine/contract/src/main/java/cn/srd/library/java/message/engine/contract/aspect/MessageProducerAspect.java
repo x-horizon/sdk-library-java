@@ -1,4 +1,4 @@
-package cn.srd.library.java.message.engine.contract.support.aspect;
+package cn.srd.library.java.message.engine.contract.aspect;
 
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;

@@ -4,14 +4,21 @@
 
 package cn.srd.library.java.message.engine.kafka.autoconfigure;
 
+import cn.srd.library.java.message.engine.contract.strategy.UniqueClientIdGenerateType;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
 
 /**
+ * provide an annotation to enable message engine kafka system.
+ *
  * @author wjm
  * @see MessageEngineKafkaSwitcher
- * @see MessageEngineKafkaAutoConfigurer#mqttClientFactory()
+ * @see MessageEngineKafkaAutoConfigurer#messageEngineMqttV3Customizer()
+ * @see MessageEngineKafkaAutoConfigurer#kafkaProducerFactory(KafkaProperties)
+ * @see MessageEngineKafkaAutoConfigurer#kafkaConsumerFactory(KafkaProperties)
+ * @see MessageEngineKafkaAutoConfigurer#kafkaHeaderMapper()
  * @since 2024-05-24 16:54
  */
 @Target({ElementType.TYPE})
@@ -19,5 +26,7 @@ import java.lang.annotation.*;
 @Documented
 @Import(MessageEngineKafkaSwitcher.class)
 public @interface EnableMessageEngineKafka {
+
+    UniqueClientIdGenerateType uniqueClientIdGenerateType() default UniqueClientIdGenerateType.UUID; // TODO wjm 此处实现不够好，与 snowflake id 强绑定，客户端不一定需要用到 snowflake id，目前客户端必须提供正确的 redis 配置，否则项目启动报错
 
 }
