@@ -79,12 +79,14 @@ public class MessageEngineMqttV3Customizer {
                 ModuleView.MESSAGE_ENGINE_SYSTEM,
                 mqttV3Customizer.clientIdGenerateType().name(),
                 Strings.join(Springs.getBean(MessageEngineMqttV3Properties.class).getServerUrls(), SymbolConstant.COMMA + SymbolConstant.SPACE),
-                consumerMethods.stream().map(consumerMethod -> STR."flowId = [\{MessageFlows.getUniqueFlowId(MessageEngineType.MQTT_V3, consumerMethod)}], " +
-                                STR."qos = [\{consumerMethod.getAnnotation(MessageConsumer.class).engineConfig().mqttV3().qos()}], " +
-                                STR."completionTimeout = [\{consumerMethod.getAnnotation(MessageConsumer.class).engineConfig().mqttV3().completionTimeout()}], " +
-                                STR."disconnectCompletionTimeout = [\{consumerMethod.getAnnotation(MessageConsumer.class).engineConfig().mqttV3().disconnectCompletionTimeout()}]"
-                        )
-                        .collect(Collectors.joining(STR."\n   "))
+                consumerMethods.stream().map(consumerMethod -> {
+                            MessageEngineMqttV3Config mqttV3Config = consumerMethod.getAnnotation(MessageConsumer.class).engineConfig().mqttV3();
+                            return STR."flowId = [\{MessageFlows.getUniqueFlowId(MessageEngineType.MQTT_V3, consumerMethod)}], " +
+                                    STR."qos = [\{mqttV3Config.qos()}], " +
+                                    STR."completionTimeout = [\{mqttV3Config.completionTimeout()}], " +
+                                    STR."disconnectCompletionTimeout = [\{mqttV3Config.disconnectCompletionTimeout()}]";
+                        })
+                        .collect(Collectors.joining("\n   "))
         );
 
         log.debug("{}message engine mqtt-v3 customizer initialized.", ModuleView.MESSAGE_ENGINE_SYSTEM);

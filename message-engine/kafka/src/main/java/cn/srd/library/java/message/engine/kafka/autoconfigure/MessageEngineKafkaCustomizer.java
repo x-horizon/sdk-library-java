@@ -80,7 +80,7 @@ public class MessageEngineKafkaCustomizer<K, V> {
                 ModuleView.MESSAGE_ENGINE_SYSTEM,
                 kafkaCustomizer.clientIdGenerateType().name(),
                 Strings.join(Springs.getBean(MessageEngineKafkaProperties.class).getServerUrls(), SymbolConstant.COMMA + SymbolConstant.SPACE),
-                consumerMethods.stream().map(consumerMethod -> STR."groupId = [\{consumerMethod.getAnnotation(MessageConsumer.class).engineConfig().kafka().consumerConfig().groupId()}], flowId = [\{MessageFlows.getUniqueFlowId(MessageEngineType.KAFKA, consumerMethod)}]").collect(Collectors.joining(STR."\n   "))
+                consumerMethods.stream().map(consumerMethod -> STR."groupId = [\{consumerMethod.getAnnotation(MessageConsumer.class).engineConfig().kafka().consumerConfig().groupId()}], flowId = [\{MessageFlows.getUniqueFlowId(MessageEngineType.KAFKA, consumerMethod)}]").collect(Collectors.joining("\n   "))
         );
 
         log.debug("{}message engine kafka customizer initialized.", ModuleView.MESSAGE_ENGINE_SYSTEM);
