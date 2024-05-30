@@ -19,7 +19,12 @@ import org.springframework.stereotype.Component;
 public class FooConsumer {
 
     @MessageConsumer(
-            engineConfig = @MessageEngineConfig(type = MessageEngineType.KAFKA, kafka = @MessageEngineKafkaConfig),
+            engineConfig = @MessageEngineConfig(
+                    type = MessageEngineType.KAFKA,
+                    kafka = @MessageEngineKafkaConfig(
+                            consumerConfig = @MessageEngineKafkaConfig.ConsumerConfig(groupId = "1")
+                    )
+            ),
             topic = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2}
     )
     public void receive(String message) {

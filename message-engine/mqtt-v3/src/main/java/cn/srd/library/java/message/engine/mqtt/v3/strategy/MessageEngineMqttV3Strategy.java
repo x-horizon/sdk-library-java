@@ -9,7 +9,6 @@ import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.strategy.MessageEngineStrategy;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
 import cn.srd.library.java.message.engine.mqtt.v3.autoconfigure.MessageEngineMqttV3Customizer;
-import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.object.Nil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.dsl.context.IntegrationFlowContext;
@@ -39,7 +38,7 @@ public class MessageEngineMqttV3Strategy implements MessageEngineStrategy {
             messageHandler.setCompletionTimeout(messageEngineMqttV3Config.completionTimeout());
             messageHandler.setDisconnectCompletionTimeout(messageEngineMqttV3Config.disconnectCompletionTimeout());
             this.flowContext
-                    .registration(flow -> flow.transform(messageModel -> Converts.withJackson().toString(messageModel)).handle(messageHandler))
+                    .registration(MessageFlows.getStringToObjectIntegrationFlow(messageHandler))
                     .id(flowId)
                     .useFlowIdAsPrefix()
                     .register();

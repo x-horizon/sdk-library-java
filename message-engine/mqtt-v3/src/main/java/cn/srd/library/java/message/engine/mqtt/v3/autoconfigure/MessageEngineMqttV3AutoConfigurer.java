@@ -5,7 +5,6 @@
 package cn.srd.library.java.message.engine.mqtt.v3.autoconfigure;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.contract.model.protocol.MessageModel;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageEngineMqttV3Config;
@@ -18,7 +17,6 @@ import cn.srd.library.java.tool.lang.annotation.Annotations;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
-import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import lombok.AllArgsConstructor;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
@@ -87,10 +85,10 @@ public class MessageEngineMqttV3AutoConfigurer {
     private void registerConsumerFlow(MqttPahoClientFactory mqttClientFactory) {
         Annotations.getAnnotatedMethods(MessageConsumer.class)
                 .stream()
-                .filter(method -> Comparators.equals(MessageEngineType.MQTT_V3, method.getAnnotation(MessageConsumer.class).engineConfig().type()))
-                .forEach(method -> {
-                    String flowId = MessageFlows.getUniqueFlowId(MessageEngineType.MQTT_V3, method);
-                    MessageConsumer messageConsumerAnnotation = method.getAnnotation(MessageConsumer.class);
+                .filter(consumerMethod -> Comparators.equals(MessageEngineType.MQTT_V3, consumerMethod.getAnnotation(MessageConsumer.class).engineConfig().type()))
+                .forEach(consumerMethod -> {
+                    String flowId = MessageFlows.getUniqueFlowId(MessageEngineType.MQTT_V3, consumerMethod);
+                    MessageConsumer messageConsumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
                     if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
                         MessageEngineMqttV3Config messageEngineMqttV3Config = messageConsumerAnnotation.engineConfig().mqttV3();
                         MessageEngineMqttV3Customizer mqttV3Customizer = Springs.getBean(MessageEngineMqttV3Customizer.class);
@@ -99,12 +97,12 @@ public class MessageEngineMqttV3AutoConfigurer {
                         messageDrivenChannelAdapter.setConverter(new DefaultPahoMessageConverter());
                         messageDrivenChannelAdapter.setCompletionTimeout(messageEngineMqttV3Config.completionTimeout());
                         messageDrivenChannelAdapter.setDisconnectCompletionTimeout(messageEngineMqttV3Config.disconnectCompletionTimeout());
-                        Object consumerInstance = Springs.getBean(method.getDeclaringClass());
-                        Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, method.getDeclaringClass().getName())
+                        Object consumerInstance = Springs.getBean(consumerMethod.getDeclaringClass());
+                        Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, consumerMethod.getDeclaringClass().getName())
                                 .setThrowable(LibraryJavaInternalException.class)
                                 .throwsIfNull(consumerInstance);
                         IntegrationFlow flow = IntegrationFlow.from(messageDrivenChannelAdapter)
-                                .handle(message -> Reflects.invoke(consumerInstance, method, Converts.withJackson().toBean((String) message.getPayload(), MessageModel.class).requireSuccessAndGetData()))
+                                .handle(MessageFlows.getObjectToStringMessageHandler(consumerInstance, consumerMethod))
                                 .get();
                         this.flowContext
                                 .registration(flow)

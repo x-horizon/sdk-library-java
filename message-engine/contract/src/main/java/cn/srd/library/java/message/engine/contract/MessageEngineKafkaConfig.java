@@ -4,6 +4,8 @@
 
 package cn.srd.library.java.message.engine.contract;
 
+import cn.srd.library.java.contract.constant.text.SymbolConstant;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
@@ -25,6 +27,8 @@ public @interface MessageEngineKafkaConfig {
     }
 
     @interface ConsumerConfig {
+
+        String groupId() default SymbolConstant.EMPTY;
 
     }
 

@@ -7,7 +7,7 @@ package cn.srd.library.java.message.engine.kafka.strategy;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.strategy.MessageEngineStrategy;
-import cn.srd.library.java.tool.convert.all.Converts;
+import cn.srd.library.java.message.engine.contract.support.MessageFlows;
 import cn.srd.library.java.tool.lang.object.Nil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.IntegrationMessageHeaderAccessor;
@@ -40,7 +40,7 @@ public class MessageEngineKafkaStrategy<K, V> implements MessageEngineStrategy {
                     .topicExpression(STR."headers[kafka_topic] ?: '\{messageProducerAnnotation.topic()}'")
                     .configureKafkaTemplate(t -> t.id(STR."kafkaTemplate:\{messageProducerAnnotation.topic()}"));
             this.flowContext
-                    .registration(flow -> flow.transform(messageModel -> Converts.withJackson().toString(messageModel)).handle(messageHandler))
+                    .registration(MessageFlows.getStringToObjectIntegrationFlow(messageHandler))
                     .id(flowId)
                     .useFlowIdAsPrefix()
                     .register();

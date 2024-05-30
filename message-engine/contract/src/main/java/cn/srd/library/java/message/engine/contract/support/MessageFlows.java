@@ -5,12 +5,18 @@
 package cn.srd.library.java.message.engine.contract.support;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.model.protocol.MessageModel;
 import cn.srd.library.java.message.engine.contract.strategy.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.strategy.UniqueClientIdGenerateType;
+import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.id.snowflake.support.SnowflakeIds;
 import cn.srd.library.java.tool.lang.object.Nil;
+import cn.srd.library.java.tool.lang.reflect.Reflects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.integration.dsl.IntegrationFlow;
+import org.springframework.integration.dsl.MessageHandlerSpec;
+import org.springframework.messaging.MessageHandler;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -38,6 +44,18 @@ public class MessageFlows {
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static String getUniqueClientId(UniqueClientIdGenerateType generateType, String flowId, String clientId) {
         return Nil.isBlank(clientId) ? STR."\{flowId}-\{generateType.getStrategy().getId()}" : STR."\{clientId}-\{SnowflakeIds.get()}";
+    }
+
+    public static MessageHandler getObjectToStringMessageHandler(Object consumerInstance, Method consumerMethod) {
+        return message -> Reflects.invoke(consumerInstance, consumerMethod, Converts.withJackson().toBean((String) message.getPayload(), MessageModel.class).requireSuccessAndGetData());
+    }
+
+    public static IntegrationFlow getStringToObjectIntegrationFlow(MessageHandler messageHandler) {
+        return flow -> flow.transform(messageData -> Converts.withJackson().toString(messageData)).handle(messageHandler);
+    }
+
+    public static <H extends MessageHandler> IntegrationFlow getStringToObjectIntegrationFlow(MessageHandlerSpec<?, H> messageHandlerSpec) {
+        return flow -> flow.transform(messageData -> Converts.withJackson().toString(messageData)).handle(messageHandlerSpec);
     }
 
 }

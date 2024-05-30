@@ -5,19 +5,16 @@
 package cn.srd.library.java.message.engine.kafka.autoconfigure;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.contract.model.protocol.MessageModel;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.strategy.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
 import cn.srd.library.java.message.engine.kafka.properties.MessageEngineKafkaProperties;
 import cn.srd.library.java.message.engine.kafka.strategy.MessageEngineKafkaStrategy;
-import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.annotation.Annotations;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
-import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -109,21 +106,21 @@ public class MessageEngineKafkaAutoConfigurer<K, V> {
     private void registerConsumerFlow(ConsumerFactory<K, V> consumerFactory) {
         Annotations.getAnnotatedMethods(MessageConsumer.class)
                 .stream()
-                .filter(method -> Comparators.equals(MessageEngineType.KAFKA, method.getAnnotation(MessageConsumer.class).engineConfig().type()))
-                .forEach(method -> {
-                    String flowId = MessageFlows.getUniqueFlowId(MessageEngineType.KAFKA, method);
-                    MessageConsumer messageConsumerAnnotation = method.getAnnotation(MessageConsumer.class);
+                .filter(consumerMethod -> Comparators.equals(MessageEngineType.KAFKA, consumerMethod.getAnnotation(MessageConsumer.class).engineConfig().type()))
+                .forEach(consumerMethod -> {
+                    String flowId = MessageFlows.getUniqueFlowId(MessageEngineType.KAFKA, consumerMethod);
+                    MessageConsumer messageConsumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
                     if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
-                        Object consumerInstance = Springs.getBean(method.getDeclaringClass());
+                        Object consumerInstance = Springs.getBean(consumerMethod.getDeclaringClass());
                         IntegrationFlow flow = IntegrationFlow.from(Kafka.messageDrivenChannelAdapter(consumerFactory, KafkaMessageDrivenChannelAdapter.ListenerMode.record, messageConsumerAnnotation.topic())
                                         .configureListenerContainer(kafkaMessageListenerContainerSpec -> kafkaMessageListenerContainerSpec.ackMode(ContainerProperties.AckMode.RECORD).id(flowId))
                                         // .recoveryCallback(new ErrorMessageSendingRecoverer(errorChannel(), new RawRecordHeaderErrorMessageStrategy()))
                                         .retryTemplate(new RetryTemplate())
                                         .filterInRetry(true)
                                 )
-                                .handle(message -> Reflects.invoke(consumerInstance, method, Converts.withJackson().toBean((String) message.getPayload(), MessageModel.class).requireSuccessAndGetData()))
+                                .handle(MessageFlows.getObjectToStringMessageHandler(consumerInstance, consumerMethod))
                                 .get();
-                        Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, method.getDeclaringClass().getName())
+                        Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, consumerMethod.getDeclaringClass().getName())
                                 .setThrowable(LibraryJavaInternalException.class)
                                 .throwsIfNull(consumerInstance);
                         this.flowContext
