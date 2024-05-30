@@ -34,8 +34,7 @@ public class MessageEngineKafkaCustomizer {
         log.debug(""" 
                         {}message engine kafka customizer has loaded the following configurations:
                         --------------------------------------------------------------------------------------------------------------------------------
-                        Unique Client Id Generate Config
-                        Global Id Generate Config:
+                        Unique Client Id Generate Config:
                            generateType                            = [{}]
                         --------------------------------------------------------------------------------------------------------------------------------""",
                 ModuleView.MESSAGE_ENGINE_SYSTEM,

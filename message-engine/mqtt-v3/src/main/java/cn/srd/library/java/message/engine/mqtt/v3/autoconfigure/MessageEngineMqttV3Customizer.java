@@ -34,8 +34,7 @@ public class MessageEngineMqttV3Customizer {
         log.debug(""" 
                         {}message engine mqtt-v3 customizer has loaded the following configurations:
                         --------------------------------------------------------------------------------------------------------------------------------
-                        Unique Client Id Generate Config
-                        Global Id Generate Config:
+                        Unique Client Id Generate Config:
                            generateType                            = [{}]
                         --------------------------------------------------------------------------------------------------------------------------------""",
                 ModuleView.MESSAGE_ENGINE_SYSTEM,
