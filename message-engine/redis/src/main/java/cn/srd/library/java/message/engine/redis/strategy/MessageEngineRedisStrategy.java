@@ -14,7 +14,7 @@ import cn.srd.library.java.message.engine.contract.strategy.MessageEngineStrateg
 public class MessageEngineRedisStrategy implements MessageEngineStrategy {
 
     @Override
-    public MessageEngineRedisStrategy registerProducerFlowIfNeed(String flowId, MessageProducer messageProducerAnnotation) {
+    public MessageEngineRedisStrategy registerProducerFlowIfNeed(String flowId, MessageProducer producerAnnotation) {
         throw new UnsupportedOperationException();
     }
 

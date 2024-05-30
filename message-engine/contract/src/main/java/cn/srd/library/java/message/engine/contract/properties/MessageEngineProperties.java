@@ -17,6 +17,6 @@ import java.util.List;
 @Setter
 public class MessageEngineProperties {
 
-    private List<String> serverURLs;
+    private List<String> serverUrls;
 
 }

@@ -31,27 +31,27 @@ public class MessageEngineKafkaStrategy<K, V> implements MessageEngineStrategy {
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     @Override
-    public MessageEngineKafkaStrategy<K, V> registerProducerFlowIfNeed(String flowId, MessageProducer messageProducerAnnotation) {
+    public MessageEngineKafkaStrategy<K, V> registerProducerFlowIfNeed(String flowId, MessageProducer producerAnnotation) {
         if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
             KafkaProducerMessageHandlerSpec.KafkaProducerMessageHandlerTemplateSpec<K, V> messageHandler = Kafka.outboundChannelAdapter(producerFactory)
                     .messageKey(m -> m.getHeaders().get(IntegrationMessageHeaderAccessor.SEQUENCE_NUMBER))
                     .headerMapper(headerMapper)
                     .partitionId(m -> 10)
-                    .topicExpression(STR."headers[kafka_topic] ?: '\{messageProducerAnnotation.topic()}'")
-                    .configureKafkaTemplate(t -> t.id(STR."kafkaTemplate:\{messageProducerAnnotation.topic()}"));
+                    .topicExpression(STR."headers[kafka_topic] ?: '\{producerAnnotation.topic()}'")
+                    .configureKafkaTemplate(t -> t.id(STR."kafkaTemplate:\{producerAnnotation.topic()}"));
             this.flowContext
-                    .registration(MessageFlows.getStringToObjectIntegrationFlow(messageHandler))
+                    .registration(MessageFlows.getObjectToStringIntegrationFlow(messageHandler))
                     .id(flowId)
                     .useFlowIdAsPrefix()
                     .register();
             // TODO wjm 此处涉及到发送到哪个分区的问题，要深入研究，需通过不同的分区来区分消息的顺序性，消息引擎只是逻辑队列，分区才是物理的先进先出队列
             // KafkaProducerMessageHandler<K, V> producerMessageHandler = null;
-            // MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(MessageFlows.getUniqueClientId(flowId, messageProducerAnnotation.clientId()), this.mqttClientFactory);
-            // messageHandler.setDefaultTopic(messageProducerAnnotation.topic());
-            // messageHandler.setDefaultQos(messageProducerAnnotation.qos().getStatus());
-            // messageHandler.setAsync(messageProducerAnnotation.sendAsync());
-            // messageHandler.setCompletionTimeout(messageProducerAnnotation.completionTimeout());
-            // messageHandler.setDisconnectCompletionTimeout(messageProducerAnnotation.disconnectCompletionTimeout());
+            // MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(MessageFlows.getUniqueClientId(flowId, producerAnnotation.clientId()), this.mqttClientFactory);
+            // messageHandler.setDefaultTopic(producerAnnotation.topic());
+            // messageHandler.setDefaultQos(producerAnnotation.qos().getStatus());
+            // messageHandler.setAsync(producerAnnotation.sendAsync());
+            // messageHandler.setCompletionTimeout(producerAnnotation.completionTimeout());
+            // messageHandler.setDisconnectCompletionTimeout(producerAnnotation.disconnectCompletionTimeout());
         }
         return this;
     }

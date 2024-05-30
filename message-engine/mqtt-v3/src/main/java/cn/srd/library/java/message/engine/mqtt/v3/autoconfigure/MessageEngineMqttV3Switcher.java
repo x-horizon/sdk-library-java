@@ -8,7 +8,7 @@ package cn.srd.library.java.message.engine.mqtt.v3.autoconfigure;
  * the {@link EnableMessageEngineMqttV3 message engine mqtt customizer system} switcher
  *
  * @author wjm
- * @see MessageEngineMqttV3AutoConfigurer#mqttClientFactory()
+ * @see MessageEngineMqttV3AutoConfigurer#messageEngineMqttV3Customizer()
  * @since 2024-05-24 16:55
  */
 public class MessageEngineMqttV3Switcher {

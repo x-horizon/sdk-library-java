@@ -24,7 +24,7 @@ public class FooProducer {
             topic = FooTopicConstant.TOPIC_TEST1
     )
     public String send1() {
-        System.out.println("生产者1 -------- " + Times.getCurrentDateTime() + "-produces-" + "send1");
+        System.out.println("生产者1 -------- " + Times.getCurrentDateTime() + "-producer-" + "send1");
         return "send1";
     }
 

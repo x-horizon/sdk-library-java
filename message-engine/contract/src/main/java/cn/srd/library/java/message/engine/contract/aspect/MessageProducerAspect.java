@@ -21,12 +21,12 @@ public class MessageProducerAspect extends MessageAspect {
     @Around("pointcut()")
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
         Object message = doProceed(joinPoint);
-        MessageProducer messageProducerAnnotation = getAnnotationMarkedOnMethod(joinPoint, MessageProducer.class);
-        String flowId = MessageFlows.getUniqueFlowId(messageProducerAnnotation.engineConfig().type(), getMethod(joinPoint));
-        messageProducerAnnotation.engineConfig()
+        MessageProducer producerAnnotation = getAnnotationMarkedOnMethod(joinPoint, MessageProducer.class);
+        String flowId = MessageFlows.getUniqueFlowId(producerAnnotation.engineConfig().type(), getMethod(joinPoint));
+        producerAnnotation.engineConfig()
                 .type()
                 .getStrategy()
-                .registerProducerFlowIfNeed(flowId, messageProducerAnnotation)
+                .registerProducerFlowIfNeed(flowId, producerAnnotation)
                 .send(flowId, message);
         return message;
     }

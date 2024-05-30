@@ -14,7 +14,7 @@ import cn.srd.library.java.message.engine.contract.strategy.MessageEngineStrateg
 public class MessageEngineRabbitMqStrategy implements MessageEngineStrategy {
 
     @Override
-    public MessageEngineRabbitMqStrategy registerProducerFlowIfNeed(String flowId, MessageProducer messageProducerAnnotation) {
+    public MessageEngineRabbitMqStrategy registerProducerFlowIfNeed(String flowId, MessageProducer producerAnnotation) {
         throw new UnsupportedOperationException();
     }
 

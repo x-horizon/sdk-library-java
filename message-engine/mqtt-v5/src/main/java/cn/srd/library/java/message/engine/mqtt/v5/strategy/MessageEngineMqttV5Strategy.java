@@ -14,7 +14,7 @@ import cn.srd.library.java.message.engine.contract.strategy.MessageEngineStrateg
 public class MessageEngineMqttV5Strategy implements MessageEngineStrategy {
 
     @Override
-    public MessageEngineMqttV5Strategy registerProducerFlowIfNeed(String flowId, MessageProducer messageProducerAnnotation) {
+    public MessageEngineMqttV5Strategy registerProducerFlowIfNeed(String flowId, MessageProducer producerAnnotation) {
         throw new UnsupportedOperationException();
     }
 

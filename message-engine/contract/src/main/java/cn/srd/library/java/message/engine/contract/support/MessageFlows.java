@@ -6,20 +6,21 @@ package cn.srd.library.java.message.engine.contract.support;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.protocol.MessageModel;
+import cn.srd.library.java.message.engine.contract.strategy.ClientIdGenerateType;
 import cn.srd.library.java.message.engine.contract.strategy.MessageEngineType;
-import cn.srd.library.java.message.engine.contract.strategy.UniqueClientIdGenerateType;
 import cn.srd.library.java.tool.convert.all.Converts;
-import cn.srd.library.java.tool.id.snowflake.support.SnowflakeIds;
-import cn.srd.library.java.tool.lang.object.Nil;
+import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.integration.core.GenericTransformer;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.MessageHandlerSpec;
 import org.springframework.messaging.MessageHandler;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -29,33 +30,37 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MessageFlows {
 
-    public static final long DEFAULT_COMPLETION_TIMEOUT = 30000L;
-
-    public static final long DISCONNECT_COMPLETION_TIMEOUT = 5000L;
+    private static final Map<Method, String> FLOW_ID_CACHE = Collections.newConcurrentHashMap(256);
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static String getUniqueFlowId(MessageEngineType messageEngineType, Method annotatedMethod) {
-        String annotatedMethodDeclaredClassName = annotatedMethod.getDeclaringClass().getName();
-        String annotatedMethodName = annotatedMethod.getName();
-        String annotatedMethodParameterTypeName = Arrays.stream(annotatedMethod.getParameters()).map(parameter -> STR."\{parameter.getType().getSimpleName()} \{parameter.getName()}").collect(Collectors.joining(", "));
-        return STR."\{messageEngineType.getDescription()}-\{annotatedMethodDeclaredClassName}.\{annotatedMethodName}(\{annotatedMethodParameterTypeName})";
+        return FLOW_ID_CACHE.computeIfAbsent(annotatedMethod, ignore -> {
+            String annotatedMethodDeclaredClassName = annotatedMethod.getDeclaringClass().getName();
+            String annotatedMethodName = annotatedMethod.getName();
+            String annotatedMethodParameterTypeName = Arrays.stream(annotatedMethod.getParameters()).map(parameter -> STR."\{parameter.getType().getSimpleName()} \{parameter.getName()}").collect(Collectors.joining(", "));
+            return STR."\{messageEngineType.getDescription()}-\{annotatedMethodDeclaredClassName}.\{annotatedMethodName}(\{annotatedMethodParameterTypeName})";
+        });
     }
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
-    public static String getUniqueClientId(UniqueClientIdGenerateType generateType, String flowId, String clientId) {
-        return Nil.isBlank(clientId) ? STR."\{flowId}-\{generateType.getStrategy().getId()}" : STR."\{clientId}-\{SnowflakeIds.get()}";
+    public static String getUniqueClientId(ClientIdGenerateType generateType, String flowId) {
+        return STR."\{flowId}-\{generateType.getStrategy().getId()}";
     }
 
-    public static MessageHandler getObjectToStringMessageHandler(Object consumerInstance, Method consumerMethod) {
+    public static MessageHandler getStringToObjectMessageHandler(Object consumerInstance, Method consumerMethod) {
         return message -> Reflects.invoke(consumerInstance, consumerMethod, Converts.withJackson().toBean((String) message.getPayload(), MessageModel.class).requireSuccessAndGetData());
     }
 
-    public static IntegrationFlow getStringToObjectIntegrationFlow(MessageHandler messageHandler) {
-        return flow -> flow.transform(messageData -> Converts.withJackson().toString(messageData)).handle(messageHandler);
+    public static IntegrationFlow getObjectToStringIntegrationFlow(MessageHandler messageHandler) {
+        return flow -> flow.transform(getObjectToStringTransformer()).handle(messageHandler);
     }
 
-    public static <H extends MessageHandler> IntegrationFlow getStringToObjectIntegrationFlow(MessageHandlerSpec<?, H> messageHandlerSpec) {
-        return flow -> flow.transform(messageData -> Converts.withJackson().toString(messageData)).handle(messageHandlerSpec);
+    public static <H extends MessageHandler> IntegrationFlow getObjectToStringIntegrationFlow(MessageHandlerSpec<?, H> messageHandlerSpec) {
+        return flow -> flow.transform(getObjectToStringTransformer()).handle(messageHandlerSpec);
+    }
+
+    public static GenericTransformer<?, ?> getObjectToStringTransformer() {
+        return messageData -> Converts.withJackson().toString(messageData);
     }
 
 }

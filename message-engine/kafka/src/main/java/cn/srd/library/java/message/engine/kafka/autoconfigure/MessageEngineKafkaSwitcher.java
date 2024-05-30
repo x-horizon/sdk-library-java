@@ -8,7 +8,7 @@ package cn.srd.library.java.message.engine.kafka.autoconfigure;
  * the {@link EnableMessageEngineKafka message engine mqtt customizer system} switcher
  *
  * @author wjm
- * @see MessageEngineKafkaAutoConfigurer#mqttClientFactory()
+ * @see MessageEngineKafkaAutoConfigurer#messageEngineKafkaCustomizer()
  * @since 2024-05-24 16:55
  */
 public class MessageEngineKafkaSwitcher {

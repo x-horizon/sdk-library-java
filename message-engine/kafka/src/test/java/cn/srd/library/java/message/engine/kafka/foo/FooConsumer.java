@@ -25,10 +25,25 @@ public class FooConsumer {
                             consumerConfig = @MessageEngineKafkaConfig.ConsumerConfig(groupId = "1")
                     )
             ),
-            topic = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2}
+            topic = {FooTopicConstant.TOPIC_TEST1}
+            // topic = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2}
     )
-    public void receive(String message) {
-        System.out.println(Times.getCurrentDateTime() + "-receive-" + message);
+    public void receive1(String message) {
+        System.out.println(Times.getCurrentDateTime() + "-receive1-" + message);
+    }
+
+    @MessageConsumer(
+            engineConfig = @MessageEngineConfig(
+                    type = MessageEngineType.KAFKA,
+                    kafka = @MessageEngineKafkaConfig(
+                            consumerConfig = @MessageEngineKafkaConfig.ConsumerConfig(groupId = "1")
+                    )
+            ),
+            topic = {FooTopicConstant.TOPIC_TEST1}
+            // topic = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2}
+    )
+    public void receive2(String message) {
+        System.out.println(Times.getCurrentDateTime() + "-receive2-" + message);
     }
 
 }

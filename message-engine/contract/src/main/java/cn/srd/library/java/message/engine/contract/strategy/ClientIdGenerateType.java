@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum UniqueClientIdGenerateType {
+public enum ClientIdGenerateType {
 
     UUID(1, new UniqueClientIdGenerateByUUIDStrategy()),
     SNOWFLAKE(2, new UniqueClientIdGenerateBySnowflakeStrategy()),

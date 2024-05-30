@@ -163,7 +163,7 @@ public class Springs {
     }
 
     /**
-     * register bean(singleton) to spring ioc.
+     * register bean(singleton) to spring ioc by bean class.
      *
      * @param input the class to register
      * @param <T>   the class type
@@ -173,7 +173,7 @@ public class Springs {
     }
 
     /**
-     * register bean(singleton) to spring ioc.
+     * register bean(singleton) to spring ioc by bean name and bean class.
      *
      * @param beanName the beanName to register
      * @param input    the class to register
@@ -187,6 +187,17 @@ public class Springs {
             DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) ANNOTATION_CONFIG_APPLICATION_CONTEXT.getBeanFactory();
             beanFactory.registerBeanDefinition(beanName, beanDefinition);
         }
+    }
+
+    /**
+     * register bean(singleton) to spring ioc by bean name and bean instance.
+     *
+     * @param beanName the beanName to register
+     * @param input    the class to register
+     * @param <T>      the class type
+     */
+    public static <T> void registerBean(String beanName, T input) {
+        SpringUtil.registerBean(beanName, input);
     }
 
 }
