@@ -20,7 +20,7 @@ import org.springframework.context.annotation.DependsOn;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "library.java.cache.redis")
+@ConfigurationProperties(prefix = "library-java.cache.redis")
 public class CacheRedisProperties {
 
     /**

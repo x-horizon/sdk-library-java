@@ -4,12 +4,10 @@ spring:
       host: 192.168.10.91
       port: 30570
 
-library:
-  java:
-    message-engine:
-      mqtt:
-        v3:
-          # username: ""
-          # password: ""
-          server-urls:
-            - "tcp://192.168.10.91:32580"
+library-java:
+  message-engine:
+    mqtt-v3:
+      # username: ""
+      # password: ""
+      server-urls:
+        - "tcp://192.168.10.91:32580"

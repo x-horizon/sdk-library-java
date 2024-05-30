@@ -5,11 +5,10 @@ spring:
       port: 10004
       password: 123456
 
-library:
-  java:
-    message-engine:
-      kafka:
-        server-urls:
-          # username: ""
-          # password: ""
-          - "tcp://127.0.0.1:10008"
+library-java:
+  message-engine:
+    kafka:
+      server-urls:
+        # username: ""
+        # password: ""
+        - "tcp://127.0.0.1:10008"

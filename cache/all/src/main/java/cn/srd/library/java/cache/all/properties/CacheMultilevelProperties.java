@@ -15,7 +15,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "library.java.cache.multilevel")
+@ConfigurationProperties(prefix = "library-java.cache.multilevel")
 public class CacheMultilevelProperties {
 
     /**

@@ -16,7 +16,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "library.java.cache.caffeine")
+@ConfigurationProperties(prefix = "library-java.cache.caffeine")
 public class CacheCaffeineProperties {
 
     /**

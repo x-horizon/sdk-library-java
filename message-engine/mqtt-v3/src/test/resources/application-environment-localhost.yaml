@@ -5,12 +5,10 @@ spring:
       port: 10004
       password: 123456
 
-library:
-  java:
-    message-engine:
-      mqtt:
-        v3:
-          # username: ""
-          # password: ""
-          server-urls:
-            - "tcp://localhost:10017"
+library-java:
+  message-engine:
+    mqtt-v3:
+      # username: ""
+      # password: ""
+      server-urls:
+        - "tcp://localhost:10017"

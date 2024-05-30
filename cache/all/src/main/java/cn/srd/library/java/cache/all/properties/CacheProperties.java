@@ -17,7 +17,7 @@ import org.springframework.context.annotation.DependsOn;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "library.java.cache")
+@ConfigurationProperties(prefix = "library-java.cache")
 public class CacheProperties {
 
     /**

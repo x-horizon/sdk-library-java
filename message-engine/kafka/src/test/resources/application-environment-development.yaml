@@ -5,14 +5,13 @@ spring:
       port: 30570
       timeout: 60000
 
-library:
-  java:
-    message-engine:
-      kafka:
-        server-urls:
-          # username: ""
-          # password: ""
-          - "tcp://192.168.10.91:32577"
+library-java:
+  message-engine:
+    kafka:
+      server-urls:
+        # username: ""
+        # password: ""
+        - "tcp://192.168.10.91:32577"
 
 #spring:
 #  kafka:

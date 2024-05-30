@@ -18,7 +18,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "library.java.message-engine.mqtt.v3")
+@ConfigurationProperties(prefix = "library-java.message-engine.mqtt-v3")
 public class MessageEngineMqttV3Properties extends MessageEngineProperties {
 
     @Getter private static MessageEngineMqttV3Properties instance = null;

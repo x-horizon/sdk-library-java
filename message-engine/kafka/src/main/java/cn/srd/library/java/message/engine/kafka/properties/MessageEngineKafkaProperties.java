@@ -18,7 +18,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "library.java.message-engine.kafka")
+@ConfigurationProperties(prefix = "library-java.message-engine.kafka")
 public class MessageEngineKafkaProperties extends MessageEngineProperties {
 
     @Getter private static MessageEngineKafkaProperties instance = null;
