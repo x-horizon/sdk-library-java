@@ -5,7 +5,7 @@
 package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
 import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
+import cn.srd.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
 import com.mybatisflex.core.logicdelete.LogicDeleteManager;
 import com.mybatisflex.core.update.UpdateChain;
 import lombok.AccessLevel;

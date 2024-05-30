@@ -11,7 +11,7 @@ import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChain;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryConditional;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryJoiner;
-import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
+import cn.srd.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
 
 import java.util.function.BooleanSupplier;
 

@@ -12,7 +12,7 @@ import cn.srd.library.java.orm.contract.model.base.VO;
 import cn.srd.library.java.orm.contract.model.page.PageParam;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.orm.mybatis.flex.base.converter.PageConverter;
-import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
+import cn.srd.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
 import com.mybatisflex.core.paginate.Page;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.orm.mybatis.flex.base.tool;
+package cn.srd.library.java.orm.mybatis.flex.base.support;
 
 import com.mybatisflex.core.util.LambdaGetter;
 

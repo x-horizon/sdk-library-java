@@ -10,7 +10,7 @@ import cn.srd.library.java.orm.contract.model.base.POJO;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.BaseQueryChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChain;
 import cn.srd.library.java.orm.mybatis.flex.base.constant.MybatisFlexDefaultDML;
-import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
+import cn.srd.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.lang.text.Strings;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;

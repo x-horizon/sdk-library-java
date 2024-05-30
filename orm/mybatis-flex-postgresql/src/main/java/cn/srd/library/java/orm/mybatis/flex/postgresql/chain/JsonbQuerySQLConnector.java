@@ -5,8 +5,8 @@
 package cn.srd.library.java.orm.mybatis.flex.postgresql.chain;
 
 import cn.srd.library.java.contract.constant.collection.CollectionConstant;
-import cn.srd.library.java.orm.mybatis.flex.base.tool.ColumnNameGetter;
-import cn.srd.library.java.orm.mybatis.flex.base.tool.MybatisFlexs;
+import cn.srd.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
+import cn.srd.library.java.orm.mybatis.flex.base.support.MybatisFlexs;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
 import lombok.AccessLevel;
