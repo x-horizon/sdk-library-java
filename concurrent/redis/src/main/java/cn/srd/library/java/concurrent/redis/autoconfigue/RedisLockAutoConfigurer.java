@@ -1,10 +1,9 @@
 package cn.srd.library.java.concurrent.redis.autoconfigue;
 
-import cn.srd.library.java.concurrent.redis.RedisFairLockHandler;
-import cn.srd.library.java.concurrent.redis.RedisLockSwitcher;
-import cn.srd.library.java.concurrent.redis.RedisNonFairLockHandler;
-import cn.srd.library.java.concurrent.redis.support.RedisFairLockAspect;
-import cn.srd.library.java.concurrent.redis.support.RedisNonFairLockAspect;
+import cn.srd.library.java.concurrent.redis.aspect.RedisFairLockAspect;
+import cn.srd.library.java.concurrent.redis.aspect.RedisNonFairLockAspect;
+import cn.srd.library.java.concurrent.redis.strategy.RedisFairLockHandler;
+import cn.srd.library.java.concurrent.redis.strategy.RedisNonFairLockHandler;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

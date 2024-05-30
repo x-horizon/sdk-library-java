@@ -4,8 +4,8 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.id;
 
-import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
-import cn.srd.library.java.tool.id.snowflake.SnowflakeIds;
+import cn.srd.library.java.tool.id.snowflake.autoconfigure.EnableSnowflakeId;
+import cn.srd.library.java.tool.id.snowflake.support.SnowflakeIds;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -59,7 +59,7 @@ public @interface IdConfig {
      *
      * @return the specified id generate type
      */
-    IdGenerateType generateType() default IdGenerateType.UNCONTROLLED;
+    IdGenerateType generateType() default IdGenerateType.UNCONTROLLED; // TODO wjm 此处实现不够好，与 snowflake id 强绑定，客户端不一定需要用到 snowflake id，目前客户端必须提供正确的 redis 配置，否则项目启动报错
 
     /**
      * the specified id generator implement by {@link IdGenerator}, you need to set it when using {@link IdGenerateType#CUSTOMER}.

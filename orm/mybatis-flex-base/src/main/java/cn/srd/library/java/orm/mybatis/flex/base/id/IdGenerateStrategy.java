@@ -5,6 +5,7 @@
 package cn.srd.library.java.orm.mybatis.flex.base.id;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.object.Nil;
 import com.mybatisflex.core.FlexGlobalConfig;
@@ -22,8 +23,9 @@ public interface IdGenerateStrategy {
 
     Logger log = LoggerFactory.getLogger(IdGenerateStrategy.class);
 
+    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     default String getGeneratorName() {
-        return "mybatisFlexId-" + this.getClass().getSimpleName();
+        return STR."mybatisFlexId-\{this.getClass().getSimpleName()}";
     }
 
     default void warningIfNotDefaultIdGenerateType(IdGenerateType idGenerateType) {

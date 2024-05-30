@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.tool.enums.model;
 
-import cn.srd.library.java.tool.enums.autowired.EnumAutowired;
+import cn.srd.library.java.tool.enums.EnumAutowired;
 import lombok.Getter;
 
 @Getter

@@ -5,7 +5,7 @@
 package cn.srd.library.java.doc.knife4j.spring.webmvc;
 
 import cn.srd.library.java.tool.spring.webmvc.advice.WebMVCResponseBodyAdvice;
-import cn.srd.library.java.tool.spring.webmvc.advice.WebMVCResponseBodyAdviceSwitcher;
+import cn.srd.library.java.tool.spring.webmvc.autoconfigure.WebMVCResponseBodyAdviceSwitcher;
 import org.springdoc.webmvc.api.MultipleOpenApiActuatorResource;
 import org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource;
 import org.springdoc.webmvc.api.OpenApiActuatorResource;

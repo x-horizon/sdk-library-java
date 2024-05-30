@@ -1,8 +1,8 @@
 package cn.srd.library.java.cache.all;
 
-import cn.srd.library.java.cache.all.support.manager.CacheType;
-import cn.srd.library.java.cache.all.support.strategy.CacheDefaultKeyGenerator;
-import cn.srd.library.java.cache.all.support.strategy.CacheKeyGenerator;
+import cn.srd.library.java.cache.all.manager.CacheType;
+import cn.srd.library.java.cache.all.strategy.CacheDefaultKeyGenerator;
+import cn.srd.library.java.cache.all.strategy.CacheKeyGenerator;
 import org.springframework.cache.support.NullValue;
 
 import java.lang.annotation.*;

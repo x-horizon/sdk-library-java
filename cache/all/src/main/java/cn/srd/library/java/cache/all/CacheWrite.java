@@ -1,7 +1,7 @@
 package cn.srd.library.java.cache.all;
 
-import cn.srd.library.java.cache.all.support.manager.CacheMode;
-import cn.srd.library.java.cache.all.support.manager.CacheType;
+import cn.srd.library.java.cache.all.manager.CacheMode;
+import cn.srd.library.java.cache.all.manager.CacheType;
 import org.springframework.cache.support.NullValue;
 
 import java.lang.annotation.*;

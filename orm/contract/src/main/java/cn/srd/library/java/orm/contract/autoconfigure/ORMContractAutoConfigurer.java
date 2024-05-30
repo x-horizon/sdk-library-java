@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.orm.contract.autoconfigure;
 
-import cn.srd.library.java.tool.enums.autowired.EnableEnumAutowired;
+import cn.srd.library.java.tool.enums.autoconfigure.EnableEnumAutowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 

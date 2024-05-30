@@ -1,7 +1,7 @@
 package cn.srd.library.java.concurrent.redis.test;
 
-import cn.srd.library.java.concurrent.redis.EnableRedisLock;
-import cn.srd.library.java.concurrent.redis.RedisFairLockHandler;
+import cn.srd.library.java.concurrent.redis.autoconfigue.EnableRedisLock;
+import cn.srd.library.java.concurrent.redis.strategy.RedisFairLockHandler;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.text.Strings;
 import lombok.Setter;

@@ -6,7 +6,7 @@ import cn.srd.library.java.cache.all.service.CacheAllowEmptyValueService;
 import cn.srd.library.java.cache.all.service.CacheContextWithCacheConfigBuildingService;
 import cn.srd.library.java.cache.all.service.CacheContextWithoutCacheConfigBuildingService;
 import cn.srd.library.java.cache.all.service.CacheNotAllowEmptyValueService;
-import cn.srd.library.java.concurrent.redis.EnableRedisLock;
+import cn.srd.library.java.concurrent.redis.autoconfigue.EnableRedisLock;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

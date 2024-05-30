@@ -103,6 +103,7 @@ object GradleModule {
     const val TOOL_EXCEL = "tool-excel"
     const val TOOL_GEOMETRY = "tool-geometry"
     const val TOOL_ID_SNOWFLAKE = "tool-id-snowflake"
+    const val TOOL_ID_UUID = "tool-id-uuid"
     const val TOOL_JDK = "tool-jdk"
     const val TOOL_JNA = "tool-jna"
     const val TOOL_JOB_QUARTZ = "tool-job-quartz"

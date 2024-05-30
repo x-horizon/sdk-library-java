@@ -23,8 +23,8 @@ import cn.srd.library.java.orm.mybatis.flex.postgresql.repository.HomeRepository
 import cn.srd.library.java.orm.mybatis.flex.postgresql.repository.PeopleRepository;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.service.HomeService;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.service.PeopleService;
-import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
-import cn.srd.library.java.tool.id.snowflake.SnowflakeIdEnvironment;
+import cn.srd.library.java.tool.id.snowflake.autoconfigure.EnableSnowflakeId;
+import cn.srd.library.java.tool.id.snowflake.strategy.SnowflakeIdEnvironment;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.object.Nil;

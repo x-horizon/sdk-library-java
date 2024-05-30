@@ -6,8 +6,6 @@ package cn.srd.library.java.tool.id.snowflake.autoconfigure;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
-import cn.srd.library.java.tool.id.snowflake.EnableSnowflakeId;
-import cn.srd.library.java.tool.id.snowflake.SnowflakeIdSwitcher;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.spring.contract.Annotations;
 import com.github.yitter.contract.IdGeneratorOptions;

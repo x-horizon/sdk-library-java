@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.tool.enums.test;
 
-import cn.srd.library.java.tool.enums.autowired.EnumAutowired;
+import cn.srd.library.java.tool.enums.EnumAutowired;
 import cn.srd.library.java.tool.enums.model.GenderStrategy;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.spring.contract.Classes;

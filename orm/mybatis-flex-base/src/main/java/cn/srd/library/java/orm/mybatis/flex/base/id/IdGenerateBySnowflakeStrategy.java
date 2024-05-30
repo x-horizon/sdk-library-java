@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.id;
 
-import cn.srd.library.java.tool.id.snowflake.SnowflakeIds;
+import cn.srd.library.java.tool.id.snowflake.support.SnowflakeIds;
 import com.mybatisflex.core.keygen.KeyGeneratorFactory;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

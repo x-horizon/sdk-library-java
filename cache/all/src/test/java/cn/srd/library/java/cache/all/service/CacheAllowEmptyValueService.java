@@ -1,9 +1,9 @@
 package cn.srd.library.java.cache.all.service;
 
 import cn.srd.library.java.cache.all.*;
+import cn.srd.library.java.cache.all.manager.CacheMode;
+import cn.srd.library.java.cache.all.manager.CacheType;
 import cn.srd.library.java.cache.all.model.BookPO;
-import cn.srd.library.java.cache.all.support.manager.CacheMode;
-import cn.srd.library.java.cache.all.support.manager.CacheType;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

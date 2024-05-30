@@ -4,7 +4,8 @@
 
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.ORM_CONTRACT_MYBATIS_FLEX)))
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_ID_SNOWFLAKE))) // TODO wjm 此处实现不够好，与 snowflake id 强绑定，客户端不一定需要用到 snowflake id，目前客户端必须提供正确的 redis 配置，否则项目启动报错
+    api(project(GradleModule.toReferenceName(GradleModule.TOOL_ID_SNOWFLAKE)))
+    api(project(GradleModule.toReferenceName(GradleModule.TOOL_ID_UUID)))
 
     annotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING)))
     annotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PLUS)))

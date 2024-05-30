@@ -5,7 +5,7 @@
 package cn.srd.library.java.orm.contract.mybatis.base.type;
 
 import cn.srd.library.java.orm.contract.mybatis.base.cache.ColumnMappingJavaTypeCache;
-import cn.srd.library.java.tool.enums.autowired.EnumAutowired;
+import cn.srd.library.java.tool.enums.EnumAutowired;
 import lombok.Getter;
 
 /**

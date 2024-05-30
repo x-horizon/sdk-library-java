@@ -8,9 +8,8 @@ import cn.srd.library.java.contract.constant.booleans.BooleanConstant;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.spring.contract.Annotations;
-import cn.srd.library.java.web.openfeign.EnableFeignClientResponseModelResolver;
-import cn.srd.library.java.web.openfeign.FeignClientResponseInterceptor;
-import cn.srd.library.java.web.openfeign.FeignClientResponseModelCache;
+import cn.srd.library.java.web.openfeign.cache.OpenFeignClientResponseModelCache;
+import cn.srd.library.java.web.openfeign.interceptor.OpenFeignClientResponseInterceptor;
 import okhttp3.OkHttpClient;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -42,10 +41,10 @@ public class OpenFeignAutoConfigurer {
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
     @Bean
     public OkHttpClient.Builder okHttpClientBuilder() {
-        Set<Class> resolvedModels = Annotations.getAnnotationNestValues(EnableFeignClientResponseModelResolver.class, Class[].class);
+        Set<Class> resolvedModels = Annotations.getAnnotationNestValues(EnableOpenFeignClientResponseModelResolver.class, Class[].class);
         if (Nil.isNotEmpty(resolvedModels)) {
-            FeignClientResponseModelCache.set(resolvedModels);
-            OKHTTP_CLIENT_BUILDER_INSTANCE.addInterceptor(new FeignClientResponseInterceptor());
+            OpenFeignClientResponseModelCache.set(resolvedModels);
+            OKHTTP_CLIENT_BUILDER_INSTANCE.addInterceptor(new OpenFeignClientResponseInterceptor());
         }
         return OKHTTP_CLIENT_BUILDER_INSTANCE;
     }

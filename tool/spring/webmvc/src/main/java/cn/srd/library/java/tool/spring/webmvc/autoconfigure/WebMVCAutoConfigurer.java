@@ -4,10 +4,8 @@
 
 package cn.srd.library.java.tool.spring.webmvc.autoconfigure;
 
-import cn.srd.library.java.tool.spring.webmvc.advice.WebMVCExceptionHandler;
-import cn.srd.library.java.tool.spring.webmvc.advice.WebMVCExceptionHandlerSwitcher;
+import cn.srd.library.java.tool.spring.webmvc.advice.WebMVCExceptionInterceptor;
 import cn.srd.library.java.tool.spring.webmvc.advice.WebMVCResponseBodyAdvice;
-import cn.srd.library.java.tool.spring.webmvc.advice.WebMVCResponseBodyAdviceSwitcher;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -30,8 +28,8 @@ public class WebMVCAutoConfigurer {
 
     @Bean
     @ConditionalOnBean(WebMVCExceptionHandlerSwitcher.class)
-    public WebMVCExceptionHandler webMVCExceptionHandler() {
-        return new WebMVCExceptionHandler();
+    public WebMVCExceptionInterceptor webMVCExceptionHandler() {
+        return new WebMVCExceptionInterceptor();
     }
 
 }

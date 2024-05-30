@@ -1,6 +1,6 @@
 package cn.srd.library.java.cache.all.test;
 
-import cn.srd.library.java.cache.all.support.strategy.CacheKeyGenerator;
+import cn.srd.library.java.cache.all.strategy.CacheKeyGenerator;
 
 public class CacheTestKeyGenerator implements CacheKeyGenerator {
 
@@ -10,5 +10,3 @@ public class CacheTestKeyGenerator implements CacheKeyGenerator {
     }
 
 }
-
-

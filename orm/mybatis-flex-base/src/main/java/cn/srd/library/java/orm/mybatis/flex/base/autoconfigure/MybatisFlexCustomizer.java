@@ -86,7 +86,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
         log.debug(""" 
                         {}mybatis flex customizer has loaded the following configurations:
                         --------------------------------------------------------------------------------------------------------------------------------
-                        Global ID Generate Config:
+                        Global Id Generate Config:
                            generateType                            = [{}]
                            generator                               = [{}]
                            generateSQL                             = [{}]
