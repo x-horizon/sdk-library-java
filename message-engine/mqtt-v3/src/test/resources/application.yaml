@@ -1,8 +1,19 @@
 spring:
   profiles:
     include: config-log,
-      config-cache,
-      config-message-engine,
+      config-cache-redis,
+      config-cache-redis-${activeEnvironmentName},
+      config-message-engine-mqtt-v3,
+      config-message-engine-mqtt-v3-${activeEnvironmentName},
       config-spring
-    active: environment-development
-    # active: environment-localhost
+    active: environment-${activeEnvironmentName}
+
+#spring:
+#  profiles:
+#    include: config-log,
+#      config-cache-redis,
+#      config-cache-redis-localhost,
+#      config-message-engine-mqtt-v3,
+#      config-message-engine-mqtt-v3-localhost,
+#      config-spring
+#    active: environment-localhost

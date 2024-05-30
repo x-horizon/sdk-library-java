@@ -69,6 +69,7 @@ subprojects {
 
             testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_JMH)))
             testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_JUNIT)))
+            testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_LOG)))
             testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING_BOOT)))
             testAnnotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_JMH)))
             testAnnotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_SPRING)))
@@ -100,6 +101,14 @@ subprojects {
                         credentials { password = GradleRepository.NEXUS_PASSWORD }
                     }
                 }
+            }
+        }
+
+        tasks.processResources {
+            filesMatching("**/*.yaml") {
+                expand(
+                    GradleConfig.ACTIVE_ENVIRONMENT_FIELD_NAME to GradleConfig.activeEnvironmentName,
+                )
             }
         }
     }

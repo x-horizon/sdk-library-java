@@ -8,8 +8,5 @@ dependencies {
     api(GradleDependency.MESSAGE_MQTT_SPRING_INTEGRATION.withoutVersion)
     api(GradleDependency.MESSAGE_MQTT_V5_ECLIPSE_PAHO.withoutVersion)
 
-    testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_JUNIT)))
-    testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING_BOOT)))
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING_INTEGRATION)))
-    testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_LOG)))
 }
