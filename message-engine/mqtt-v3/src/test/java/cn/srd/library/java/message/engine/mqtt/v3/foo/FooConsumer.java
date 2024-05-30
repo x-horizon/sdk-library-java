@@ -5,6 +5,8 @@
 package cn.srd.library.java.message.engine.mqtt.v3.foo;
 
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
+import cn.srd.library.java.message.engine.contract.MessageEngineConfig;
+import cn.srd.library.java.message.engine.contract.MessageEngineMqttV3Config;
 import cn.srd.library.java.message.engine.contract.strategy.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.strategy.MessageQosType;
 import cn.srd.library.java.tool.lang.time.Times;
@@ -17,7 +19,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class FooConsumer {
 
-    @MessageConsumer(engine = MessageEngineType.MQTT_V3, topic = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2}, qos = MessageQosType.EXACTLY_ONCE)
+    @MessageConsumer(
+            engineType = MessageEngineType.MQTT_V3,
+            engineConfig = @MessageEngineConfig(mqttV3 = @MessageEngineMqttV3Config(qos = MessageQosType.EXACTLY_ONCE)),
+            topic = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2}
+    )
     public void receive(String message) {
         System.out.println("消费者1 -------- " + Times.getCurrentDateTime() + "-receive-" + message);
     }

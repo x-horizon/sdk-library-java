@@ -4,6 +4,8 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.foo;
 
+import cn.srd.library.java.message.engine.contract.MessageEngineConfig;
+import cn.srd.library.java.message.engine.contract.MessageEngineMqttV3Config;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.strategy.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.strategy.MessageQosType;
@@ -17,15 +19,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class FooProducer {
 
-    @MessageProducer(engine = MessageEngineType.MQTT_V3, topic = FooTopicConstant.TOPIC_TEST1, qos = MessageQosType.EXACTLY_ONCE)
+    @MessageProducer(
+            engineType = MessageEngineType.MQTT_V3,
+            engineConfig = @MessageEngineConfig(mqttV3 = @MessageEngineMqttV3Config(qos = MessageQosType.EXACTLY_ONCE)),
+            topic = FooTopicConstant.TOPIC_TEST1
+    )
     public String send1() {
         System.out.println("生产者1 -------- " + Times.getCurrentDateTime() + "-produces-" + "send1");
         return "send1";
     }
 
-    // @MessageProducer(engine = MessageEngineType.MQTT_V3, topic = FooTopicConstant.TOPIC_TEST2, qos = MessageQosType.EXACTLY_ONCE)
-    // public String send2() {
-    //     return "send2";
-    // }
+    @MessageProducer(
+            engineType = MessageEngineType.MQTT_V3,
+            engineConfig = @MessageEngineConfig(mqttV3 = @MessageEngineMqttV3Config(qos = MessageQosType.EXACTLY_ONCE)),
+            topic = FooTopicConstant.TOPIC_TEST2
+    )
+    public String send2() {
+        return "send2";
+    }
 
 }

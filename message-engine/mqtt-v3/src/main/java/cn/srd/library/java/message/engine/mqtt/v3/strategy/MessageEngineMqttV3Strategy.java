@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.strategy;
 
+import cn.srd.library.java.message.engine.contract.MessageEngineMqttV3Config;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.strategy.MessageEngineStrategy;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
@@ -30,12 +31,13 @@ public class MessageEngineMqttV3Strategy implements MessageEngineStrategy {
     @Override
     public MessageEngineMqttV3Strategy registerProducerFlowIfNeed(String flowId, MessageProducer messageProducerAnnotation) {
         if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
-            MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(MessageFlows.getUniqueClientId(mqttV3Customizer.getUniqueClientIdGenerateType(), flowId, messageProducerAnnotation.clientId()), this.mqttClientFactory);
+            MessageEngineMqttV3Config messageEngineMqttV3Config = messageProducerAnnotation.engineConfig().mqttV3();
+            MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(MessageFlows.getUniqueClientId(mqttV3Customizer.getUniqueClientIdGenerateType(), flowId, messageEngineMqttV3Config.clientId()), this.mqttClientFactory);
             messageHandler.setDefaultTopic(messageProducerAnnotation.topic());
-            messageHandler.setDefaultQos(messageProducerAnnotation.qos().getStatus());
-            messageHandler.setAsync(messageProducerAnnotation.sendAsync());
-            messageHandler.setCompletionTimeout(messageProducerAnnotation.completionTimeout());
-            messageHandler.setDisconnectCompletionTimeout(messageProducerAnnotation.disconnectCompletionTimeout());
+            messageHandler.setDefaultQos(messageEngineMqttV3Config.qos().getStatus());
+            messageHandler.setAsync(messageEngineMqttV3Config.producerConfig().needToSendAsync());
+            messageHandler.setCompletionTimeout(messageEngineMqttV3Config.completionTimeout());
+            messageHandler.setDisconnectCompletionTimeout(messageEngineMqttV3Config.disconnectCompletionTimeout());
             this.flowContext
                     .registration(flow -> flow.transform(messageModel -> Converts.withJackson().toString(messageModel)).handle(messageHandler))
                     .id(flowId)
@@ -44,13 +46,5 @@ public class MessageEngineMqttV3Strategy implements MessageEngineStrategy {
         }
         return this;
     }
-
-    // @Override
-    // public <T> boolean send(String flowId, T message) {
-    //     return this.flowContext
-    //             .getRegistrationById(flowId)
-    //             .getInputChannel()
-    //             .send(new GenericMessage<>(MessageModel.builder().data(message).build()));
-    // }
 
 }

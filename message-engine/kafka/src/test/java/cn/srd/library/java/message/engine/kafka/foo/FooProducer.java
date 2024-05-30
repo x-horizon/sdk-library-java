@@ -4,9 +4,10 @@
 
 package cn.srd.library.java.message.engine.kafka.foo;
 
+import cn.srd.library.java.message.engine.contract.MessageEngineConfig;
+import cn.srd.library.java.message.engine.contract.MessageEngineKafkaConfig;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.strategy.MessageEngineType;
-import cn.srd.library.java.message.engine.contract.strategy.MessageQosType;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,14 +17,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class FooProducer {
 
-    @MessageProducer(engine = MessageEngineType.KAFKA, topic = FooTopicConstant.TOPIC_TEST1, qos = MessageQosType.EXACTLY_ONCE)
+    @MessageProducer(
+            engineType = MessageEngineType.KAFKA,
+            engineConfig = @MessageEngineConfig(kafka = @MessageEngineKafkaConfig),
+            topic = FooTopicConstant.TOPIC_TEST1
+    )
     public String send1() {
         return "send1";
     }
 
-    // @MessageProducer(engine = MessageEngineType.KAFKA, topic = FooTopicConstant.TOPIC_TEST2, qos = MessageQosType.EXACTLY_ONCE)
-    // public String send2() {
-    //     return "send2";
-    // }
+    @MessageProducer(
+            engineType = MessageEngineType.KAFKA,
+            engineConfig = @MessageEngineConfig(kafka = @MessageEngineKafkaConfig),
+            topic = FooTopicConstant.TOPIC_TEST2
+    )
+    public String send2() {
+        return "send2";
+    }
 
 }

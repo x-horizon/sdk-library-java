@@ -1,9 +1,6 @@
 package cn.srd.library.java.message.engine.contract;
 
-import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.message.engine.contract.strategy.MessageEngineType;
-import cn.srd.library.java.message.engine.contract.strategy.MessageQosType;
-import cn.srd.library.java.message.engine.contract.support.MessageFlows;
 
 import java.lang.annotation.*;
 
@@ -17,18 +14,10 @@ import java.lang.annotation.*;
 @Inherited
 public @interface MessageProducer {
 
-    MessageEngineType engine();
+    MessageEngineType engineType();
 
-    String clientId() default SymbolConstant.EMPTY;
+    MessageEngineConfig engineConfig();
 
     String topic();
-
-    MessageQosType qos() default MessageQosType.AT_MOST_ONCE;
-
-    boolean sendAsync() default true;
-
-    long completionTimeout() default MessageFlows.DEFAULT_COMPLETION_TIMEOUT;
-
-    long disconnectCompletionTimeout() default MessageFlows.DISCONNECT_COMPLETION_TIMEOUT;
 
 }

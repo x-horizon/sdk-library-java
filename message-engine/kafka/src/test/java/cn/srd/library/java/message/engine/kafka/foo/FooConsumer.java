@@ -5,8 +5,9 @@
 package cn.srd.library.java.message.engine.kafka.foo;
 
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
+import cn.srd.library.java.message.engine.contract.MessageEngineConfig;
+import cn.srd.library.java.message.engine.contract.MessageEngineKafkaConfig;
 import cn.srd.library.java.message.engine.contract.strategy.MessageEngineType;
-import cn.srd.library.java.message.engine.contract.strategy.MessageQosType;
 import cn.srd.library.java.tool.lang.time.Times;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class FooConsumer {
 
-    @MessageConsumer(engine = MessageEngineType.KAFKA, topic = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2}, qos = MessageQosType.EXACTLY_ONCE)
+    @MessageConsumer(
+            engineType = MessageEngineType.KAFKA,
+            engineConfig = @MessageEngineConfig(kafka = @MessageEngineKafkaConfig),
+            topic = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2}
+    )
     public void receive(String message) {
         System.out.println(Times.getCurrentDateTime() + "-receive-" + message);
     }

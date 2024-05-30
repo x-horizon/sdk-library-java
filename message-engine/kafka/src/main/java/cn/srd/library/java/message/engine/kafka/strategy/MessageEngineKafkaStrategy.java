@@ -56,12 +56,4 @@ public class MessageEngineKafkaStrategy<K, V> implements MessageEngineStrategy {
         return this;
     }
 
-    // @Override
-    // public <T> boolean send(String flowId, T message) {
-    //     return this.flowContext
-    //             .getRegistrationById(flowId)
-    //             .getInputChannel()
-    //             .send(new GenericMessage<>(MessageModel.builder().data(message).build()));
-    // }
-
 }
