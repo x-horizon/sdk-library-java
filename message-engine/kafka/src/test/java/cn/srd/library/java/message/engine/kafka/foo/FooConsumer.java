@@ -19,8 +19,7 @@ import org.springframework.stereotype.Component;
 public class FooConsumer {
 
     @MessageConsumer(
-            engineType = MessageEngineType.KAFKA,
-            engineConfig = @MessageEngineConfig(kafka = @MessageEngineKafkaConfig),
+            engineConfig = @MessageEngineConfig(type = MessageEngineType.KAFKA, kafka = @MessageEngineKafkaConfig),
             topic = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2}
     )
     public void receive(String message) {

@@ -20,8 +20,7 @@ import org.springframework.stereotype.Component;
 public class FooConsumer {
 
     @MessageConsumer(
-            engineType = MessageEngineType.MQTT_V3,
-            engineConfig = @MessageEngineConfig(mqttV3 = @MessageEngineMqttV3Config(qos = MessageQosType.EXACTLY_ONCE)),
+            engineConfig = @MessageEngineConfig(type = MessageEngineType.MQTT_V3, mqttV3 = @MessageEngineMqttV3Config(qos = MessageQosType.EXACTLY_ONCE)),
             topic = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2}
     )
     public void receive(String message) {

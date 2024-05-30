@@ -87,7 +87,7 @@ public class MessageEngineMqttV3AutoConfigurer {
     private void registerConsumerFlow(MqttPahoClientFactory mqttClientFactory) {
         Annotations.getAnnotatedMethods(MessageConsumer.class)
                 .stream()
-                .filter(method -> Comparators.equals(MessageEngineType.MQTT_V3, method.getAnnotation(MessageConsumer.class).engineType()))
+                .filter(method -> Comparators.equals(MessageEngineType.MQTT_V3, method.getAnnotation(MessageConsumer.class).engineConfig().type()))
                 .forEach(method -> {
                     String flowId = MessageFlows.getUniqueFlowId(MessageEngineType.MQTT_V3, method);
                     MessageConsumer messageConsumerAnnotation = method.getAnnotation(MessageConsumer.class);

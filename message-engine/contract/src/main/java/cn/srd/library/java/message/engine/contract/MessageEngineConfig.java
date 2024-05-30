@@ -4,6 +4,8 @@
 
 package cn.srd.library.java.message.engine.contract;
 
+import cn.srd.library.java.message.engine.contract.strategy.MessageEngineType;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
@@ -15,6 +17,8 @@ import java.lang.annotation.Target;
 @Target({})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MessageEngineConfig {
+
+    MessageEngineType type();
 
     MessageEngineKafkaConfig kafka() default @MessageEngineKafkaConfig();
 

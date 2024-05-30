@@ -1,7 +1,5 @@
 package cn.srd.library.java.message.engine.contract;
 
-import cn.srd.library.java.message.engine.contract.strategy.MessageEngineType;
-
 import java.lang.annotation.*;
 
 /**
@@ -13,8 +11,6 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 public @interface MessageConsumer {
-
-    MessageEngineType engineType();
 
     MessageEngineConfig engineConfig();
 

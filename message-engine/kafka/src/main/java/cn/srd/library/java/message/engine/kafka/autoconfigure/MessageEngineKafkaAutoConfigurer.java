@@ -109,7 +109,7 @@ public class MessageEngineKafkaAutoConfigurer<K, V> {
     private void registerConsumerFlow(ConsumerFactory<K, V> consumerFactory) {
         Annotations.getAnnotatedMethods(MessageConsumer.class)
                 .stream()
-                .filter(method -> Comparators.equals(MessageEngineType.KAFKA, method.getAnnotation(MessageConsumer.class).engineType()))
+                .filter(method -> Comparators.equals(MessageEngineType.KAFKA, method.getAnnotation(MessageConsumer.class).engineConfig().type()))
                 .forEach(method -> {
                     String flowId = MessageFlows.getUniqueFlowId(MessageEngineType.KAFKA, method);
                     MessageConsumer messageConsumerAnnotation = method.getAnnotation(MessageConsumer.class);

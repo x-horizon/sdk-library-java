@@ -20,8 +20,7 @@ import org.springframework.stereotype.Component;
 public class FooProducer {
 
     @MessageProducer(
-            engineType = MessageEngineType.MQTT_V3,
-            engineConfig = @MessageEngineConfig(mqttV3 = @MessageEngineMqttV3Config(qos = MessageQosType.EXACTLY_ONCE)),
+            engineConfig = @MessageEngineConfig(type = MessageEngineType.MQTT_V3, mqttV3 = @MessageEngineMqttV3Config(qos = MessageQosType.EXACTLY_ONCE)),
             topic = FooTopicConstant.TOPIC_TEST1
     )
     public String send1() {
@@ -30,8 +29,7 @@ public class FooProducer {
     }
 
     @MessageProducer(
-            engineType = MessageEngineType.MQTT_V3,
-            engineConfig = @MessageEngineConfig(mqttV3 = @MessageEngineMqttV3Config(qos = MessageQosType.EXACTLY_ONCE)),
+            engineConfig = @MessageEngineConfig(type = MessageEngineType.MQTT_V3, mqttV3 = @MessageEngineMqttV3Config(qos = MessageQosType.EXACTLY_ONCE)),
             topic = FooTopicConstant.TOPIC_TEST2
     )
     public String send2() {
