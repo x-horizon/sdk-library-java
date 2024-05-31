@@ -18,4 +18,5 @@ object GradleConfig {
 
     const val ACTIVE_ENVIRONMENT_FIELD_NAME = "activeEnvironmentName"
     var activeEnvironmentName = activeEnvironment.handler.getActiveEnvironmentName()
+    
 }
