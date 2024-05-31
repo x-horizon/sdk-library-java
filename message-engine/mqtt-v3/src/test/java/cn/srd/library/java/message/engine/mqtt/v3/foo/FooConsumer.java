@@ -6,9 +6,9 @@ package cn.srd.library.java.message.engine.mqtt.v3.foo;
 
 import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
-import cn.srd.library.java.message.engine.contract.MessageMqttV3Config;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageQosType;
+import cn.srd.library.java.message.engine.mqtt.v3.MessageMqttV3Config;
 import cn.srd.library.java.tool.lang.time.Times;
 import org.springframework.stereotype.Component;
 

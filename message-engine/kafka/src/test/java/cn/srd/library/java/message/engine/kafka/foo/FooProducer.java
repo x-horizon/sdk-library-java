@@ -5,9 +5,9 @@
 package cn.srd.library.java.message.engine.kafka.foo;
 
 import cn.srd.library.java.message.engine.contract.MessageConfig;
-import cn.srd.library.java.message.engine.contract.MessageKafkaConfig;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
+import cn.srd.library.java.message.engine.kafka.MessageKafkaConfig;
 import org.springframework.stereotype.Component;
 
 /**

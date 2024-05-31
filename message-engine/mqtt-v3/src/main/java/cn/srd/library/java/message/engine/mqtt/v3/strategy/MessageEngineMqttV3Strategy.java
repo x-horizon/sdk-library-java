@@ -4,10 +4,10 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.strategy;
 
-import cn.srd.library.java.message.engine.contract.MessageMqttV3Config;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.strategy.MessageEngineStrategy;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
+import cn.srd.library.java.message.engine.mqtt.v3.MessageMqttV3Config;
 import cn.srd.library.java.message.engine.mqtt.v3.autoconfigure.MessageEngineMqttV3Customizer;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.spring.contract.Springs;

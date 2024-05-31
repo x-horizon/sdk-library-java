@@ -5,6 +5,12 @@
 package cn.srd.library.java.message.engine.contract;
 
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
+import cn.srd.library.java.message.engine.kafka.MessageKafkaConfig;
+import cn.srd.library.java.message.engine.mqtt.v3.MessageMqttV3Config;
+import cn.srd.library.java.message.engine.mqtt.v5.MessageMqttV5Config;
+import cn.srd.library.java.message.engine.rabbitmq.MessageRabbitmqConfig;
+import cn.srd.library.java.message.engine.redis.MessageRedisConfig;
+import cn.srd.library.java.message.engine.rocketmq.MessageRocketmqConfig;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
