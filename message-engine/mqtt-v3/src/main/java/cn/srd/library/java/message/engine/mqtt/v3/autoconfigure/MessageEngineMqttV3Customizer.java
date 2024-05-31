@@ -55,7 +55,7 @@ public class MessageEngineMqttV3Customizer {
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     @PostConstruct
     public void initialize() {
-        log.debug("{}message engine mqtt-v3 customizer is enabled, starting initializing...", ModuleView.MESSAGE_ENGINE_SYSTEM);
+        log.info("{}message engine mqtt-v3 customizer is enabled, starting initializing...", ModuleView.MESSAGE_ENGINE_SYSTEM);
 
         EnableMessageEngineMqttV3 mqttV3Customizer = Annotations.getAnnotation(EnableMessageEngineMqttV3.class);
         this.clientIdGenerateType = mqttV3Customizer.clientIdGenerateType();
@@ -64,7 +64,7 @@ public class MessageEngineMqttV3Customizer {
         MqttPahoClientFactory clientFactory = registerClientFactory();
         registerConsumer(consumerMethods, clientFactory);
 
-        log.debug(""" 
+        log.info(""" 
                         {}message engine mqtt-v3 customizer has loaded the following configurations:
                         --------------------------------------------------------------------------------------------------------------------------------
                         Client Id Generate Config:
@@ -89,7 +89,7 @@ public class MessageEngineMqttV3Customizer {
                         .collect(Collectors.joining("\n   "))
         );
 
-        log.debug("{}message engine mqtt-v3 customizer initialized.", ModuleView.MESSAGE_ENGINE_SYSTEM);
+        log.info("{}message engine mqtt-v3 customizer initialized.", ModuleView.MESSAGE_ENGINE_SYSTEM);
     }
 
     private List<Method> getConsumerMethods() {

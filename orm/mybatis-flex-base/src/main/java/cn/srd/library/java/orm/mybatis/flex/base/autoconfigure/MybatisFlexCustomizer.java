@@ -72,7 +72,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
 
     @Override
     public void customize(FlexGlobalConfig globalConfig) {
-        log.debug("{}mybatis flex customizer is enabled, starting initializing...", ModuleView.ORM_MYBATIS_SYSTEM);
+        log.info("{}mybatis flex customizer is enabled, starting initializing...", ModuleView.ORM_MYBATIS_SYSTEM);
 
         handleQueryConditionBehavior();
         EnableMybatisFlexCustomizer mybatisFlexCustomizer = Annotations.getAnnotation(EnableMybatisFlexCustomizer.class);
@@ -83,7 +83,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
         handleAuditConfig(mybatisFlexCustomizer.globalAuditConfig());
         handleMybatisFlexProperties(mybatisFlexCustomizer.globalPropertyConfig());
 
-        log.debug(""" 
+        log.info(""" 
                         {}mybatis flex customizer has loaded the following configurations:
                         --------------------------------------------------------------------------------------------------------------------------------
                         Global Id Generate Config:
@@ -115,7 +115,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
                 mybatisFlexCustomizer.globalPropertyConfig().nativeMybatisLog().getName(), mybatisFlexCustomizer.globalPropertyConfig().xmlMapperClassPaths(), mybatisFlexCustomizer.globalPropertyConfig().xmlMapperEntityPackageAliasPackagePaths()
         );
 
-        log.debug("{}mybatis flex customizer initialized.", ModuleView.ORM_MYBATIS_SYSTEM);
+        log.info("{}mybatis flex customizer initialized.", ModuleView.ORM_MYBATIS_SYSTEM);
     }
 
     /**

@@ -32,7 +32,7 @@ public class RestControllerAdvicePackagePathAutoConfigurer implements Applicatio
 
     @Override
     public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {
-        log.debug("{}rest controller advice package path starting optimizing...", ModuleView.TOOL_SPRING_WEBMVC_SYSTEM);
+        log.info("{}rest controller advice package path starting optimizing...", ModuleView.TOOL_SPRING_WEBMVC_SYSTEM);
 
         EnableWebMVCResponseBodyAdvice webMVCResponseBodyAdvice = Annotations.getAnnotation(EnableWebMVCResponseBodyAdvice.class);
         if (Nil.isNotNull(webMVCResponseBodyAdvice)) {
@@ -41,7 +41,7 @@ public class RestControllerAdvicePackagePathAutoConfigurer implements Applicatio
                 RestControllerAdvice restControllerAdvice = Annotations.getAnnotation(WebMVCResponseBodyAdvice.class, RestControllerAdvice.class);
                 String[] beforeReplaceBasePackagePaths = restControllerAdvice.basePackages();
                 Reflects.setAnnotationValue(restControllerAdvice, SpringWebMVCConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE, Converts.toArray(advicePackagePaths, String[]::new));
-                log.debug("{}replace the annotation [@{}] field [{}] value on class [@{}], before replace value {}, after replace value {}.",
+                log.info("{}replace the annotation [@{}] field [{}] value on class [@{}], before replace value {}, after replace value {}.",
                         ModuleView.TOOL_SPRING_WEBMVC_SYSTEM,
                         RestControllerAdvice.class.getSimpleName(),
                         SpringWebMVCConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE,
@@ -52,7 +52,7 @@ public class RestControllerAdvicePackagePathAutoConfigurer implements Applicatio
             }
         }
 
-        log.debug("{}rest controller advice package path has been optimized.", ModuleView.TOOL_SPRING_WEBMVC_SYSTEM);
+        log.info("{}rest controller advice package path has been optimized.", ModuleView.TOOL_SPRING_WEBMVC_SYSTEM);
     }
 
 }

@@ -56,7 +56,7 @@ public class SnowflakeIdAutoConfigurer implements SmartInitializingSingleton {
 
     @Override
     public void afterSingletonsInstantiated() {
-        log.debug("{}snowflake id system is enabled, starting initializing...", ModuleView.TOOL_SNOWFLAKE_ID_SYSTEM);
+        log.info("{}snowflake id system is enabled, starting initializing...", ModuleView.TOOL_SNOWFLAKE_ID_SYSTEM);
 
         EnableSnowflakeId snowflakeIdConfig = Annotations.getAnnotation(EnableSnowflakeId.class);
         byte workerIdBitLength = snowflakeIdConfig.workerIdBitLength();
@@ -77,7 +77,7 @@ public class SnowflakeIdAutoConfigurer implements SmartInitializingSingleton {
         idGeneratorOptions.WorkerId = snowflakeIdConfig.environment().getStrategy().getWorkerId(snowflakeIdConfig);
         YitIdHelper.setIdGenerator(idGeneratorOptions);
 
-        log.debug(""" 
+        log.info(""" 
                         {}loading configurations as following:
                         --------------------------------------------------------------------------------------------------------------------------------
                         workerIdBitLength = [{}]
@@ -89,7 +89,7 @@ public class SnowflakeIdAutoConfigurer implements SmartInitializingSingleton {
                 idGeneratorOptions.SeqBitLength,
                 idGeneratorOptions.WorkerId
         );
-        log.debug("{}snowflake id system initialized.", ModuleView.TOOL_SNOWFLAKE_ID_SYSTEM);
+        log.info("{}snowflake id system initialized.", ModuleView.TOOL_SNOWFLAKE_ID_SYSTEM);
     }
 
 }

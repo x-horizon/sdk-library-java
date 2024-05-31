@@ -38,12 +38,12 @@ public class EnumAutowiredCollector<E extends Enum<E>> implements SmartInitializ
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     @Override
     public void afterSingletonsInstantiated() {
-        log.debug("{}enum autowired system is enabled, starting initializing...", ModuleView.TOOL_ENUM_SYSTEM);
+        log.info("{}enum autowired system is enabled, starting initializing...", ModuleView.TOOL_ENUM_SYSTEM);
 
         Set<String> scanPackagePaths = Classes.optimizeAnnotationAntStylePackagePaths(EnableEnumAutowired.class, "scanPackagePaths");
         Set<BeanDefinition> enumAutowiredBeanDefinitions = Classes.scanByAnnotationTypeFilter(EnumAutowired.class, scanPackagePaths);
         if (Nil.isEmpty(enumAutowiredBeanDefinitions)) {
-            log.debug("{}no class marked with [@{}].", ModuleView.TOOL_ENUM_SYSTEM, EnumAutowired.class.getName());
+            log.info("{}no class marked with [@{}].", ModuleView.TOOL_ENUM_SYSTEM, EnumAutowired.class.getName());
         }
 
         enumAutowiredBeanDefinitions.forEach(enumAutowiredBeanDefinition -> {
@@ -88,11 +88,11 @@ public class EnumAutowiredCollector<E extends Enum<E>> implements SmartInitializ
                         .setThrowable(LibraryJavaInternalException.class)
                         .throwsIfNull(theMostSuitableAutowiredClass);
                 Reflects.setFieldValue(enumField, autowiredFiledName, theMostSuitableAutowiredClass);
-                log.debug("{}find class [{}] and autowired it into enum [{}]-[{}] filed [{}]", ModuleView.TOOL_ENUM_SYSTEM, theMostSuitableAutowiredClassName, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName);
+                log.info("{}find class [{}] and autowired it into enum [{}]-[{}] filed [{}]", ModuleView.TOOL_ENUM_SYSTEM, theMostSuitableAutowiredClassName, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName);
             }
         });
 
-        log.debug("{}enum autowired system initialized.", ModuleView.TOOL_ENUM_SYSTEM);
+        log.info("{}enum autowired system initialized.", ModuleView.TOOL_ENUM_SYSTEM);
     }
 
 }

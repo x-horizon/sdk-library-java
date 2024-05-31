@@ -57,7 +57,7 @@ public class MessageEngineKafkaCustomizer<K, V> {
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     @PostConstruct
     public void initialize() {
-        log.debug("{}message engine kafka customizer is enabled, starting initializing...", ModuleView.MESSAGE_ENGINE_SYSTEM);
+        log.info("{}message engine kafka customizer is enabled, starting initializing...", ModuleView.MESSAGE_ENGINE_SYSTEM);
 
         EnableMessageEngineKafka kafkaCustomizer = Annotations.getAnnotation(EnableMessageEngineKafka.class);
         this.clientIdGenerateType = kafkaCustomizer.clientIdGenerateType();
@@ -65,7 +65,7 @@ public class MessageEngineKafkaCustomizer<K, V> {
         List<Method> consumerMethods = getConsumerMethods();
         registerConsumer(consumerMethods);
 
-        log.debug(""" 
+        log.info(""" 
                         {}message engine kafka customizer has loaded the following configurations:
                         --------------------------------------------------------------------------------------------------------------------------------
                         Client Id Generate Config:
@@ -83,7 +83,7 @@ public class MessageEngineKafkaCustomizer<K, V> {
                 consumerMethods.stream().map(consumerMethod -> STR."groupId = [\{consumerMethod.getAnnotation(MessageConsumer.class).engineConfig().kafka().consumerConfig().groupId()}], flowId = [\{MessageFlows.getUniqueFlowId(MessageEngineType.KAFKA, consumerMethod)}]").collect(Collectors.joining("\n   "))
         );
 
-        log.debug("{}message engine kafka customizer initialized.", ModuleView.MESSAGE_ENGINE_SYSTEM);
+        log.info("{}message engine kafka customizer initialized.", ModuleView.MESSAGE_ENGINE_SYSTEM);
     }
 
     private List<Method> getConsumerMethods() {
