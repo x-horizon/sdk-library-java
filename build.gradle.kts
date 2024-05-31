@@ -85,6 +85,19 @@ subprojects {
             modularity.inferModulePath = true
         }
 
+        sourceSets {
+            main {
+                resources {
+                    setSrcDirs(listOf("src/main/java", "src/main/resources"))
+                }
+            }
+            test {
+                resources {
+                    setSrcDirs(listOf("src/test/java", "src/test/resources"))
+                }
+            }
+        }
+
         publishing {
             publications {
                 create<MavenPublication>(GradleRepository.REPOSITORY_DEFAULT_NAME) {
@@ -105,6 +118,14 @@ subprojects {
         }
 
         tasks.processResources {
+            filesMatching("**/*.yaml") {
+                expand(
+                    GradleConfig.ACTIVE_ENVIRONMENT_FIELD_NAME to GradleConfig.activeEnvironmentName,
+                )
+            }
+        }
+
+        tasks.processTestResources {
             filesMatching("**/*.yaml") {
                 expand(
                     GradleConfig.ACTIVE_ENVIRONMENT_FIELD_NAME to GradleConfig.activeEnvironmentName,
