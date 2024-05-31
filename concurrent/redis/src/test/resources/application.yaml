@@ -1,6 +1,6 @@
 spring:
   profiles:
-    include: config-cache,
+    include: config-cache-redis,
+      config-cache-redis-${activeEnvironmentName},
       config-spring
-    active: environment-development
-    # active: environment-localhost
+    active: environment-${activeEnvironmentName}

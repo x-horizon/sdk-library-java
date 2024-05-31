@@ -1,0 +1,7 @@
+library-java:
+  message-engine:
+    kafka:
+      server-urls:
+        # username: ""
+        # password: ""
+        - "tcp://192.168.10.91:32577"

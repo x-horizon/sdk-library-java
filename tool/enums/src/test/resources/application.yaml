@@ -1,3 +1,4 @@
-logging:
-  level:
-    cn.srd.library.java.tool.enums: debug
+spring:
+  profiles:
+    include: config-log
+    active: environment-${activeEnvironmentName}

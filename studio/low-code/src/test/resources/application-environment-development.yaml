@@ -1,9 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:postgresql://192.168.10.91:30569/test_low_code
-    username: postgres
-    password: UXDiyeyxy4GvBm
-  data:
-    redis:
-      host: 192.168.10.91
-      port: 30570
