@@ -1,5 +1,8 @@
-package cn.srd.library.java.message.engine.contract.strategy;
+package cn.srd.library.java.message.engine.contract.model.enums;
 
+import cn.srd.library.java.message.engine.contract.strategy.UniqueClientIdGenerateBySnowflakeStrategy;
+import cn.srd.library.java.message.engine.contract.strategy.UniqueClientIdGenerateByUUIDStrategy;
+import cn.srd.library.java.message.engine.contract.strategy.UniqueClientIdGenerateStrategy;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.message.engine.kafka.autoconfigure;
 
-import cn.srd.library.java.message.engine.contract.strategy.ClientIdGenerateType;
+import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

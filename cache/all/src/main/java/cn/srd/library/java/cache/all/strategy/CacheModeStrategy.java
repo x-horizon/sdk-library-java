@@ -1,6 +1,6 @@
 package cn.srd.library.java.cache.all.strategy;
 
-import cn.srd.library.java.cache.all.manager.CacheMode;
+import cn.srd.library.java.cache.all.model.enums.CacheMode;
 
 /**
  * the cache mode strategy

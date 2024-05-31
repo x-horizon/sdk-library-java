@@ -1,5 +1,6 @@
 package cn.srd.library.java.cache.all.manager;
 
+import cn.srd.library.java.cache.all.model.enums.CacheType;
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;

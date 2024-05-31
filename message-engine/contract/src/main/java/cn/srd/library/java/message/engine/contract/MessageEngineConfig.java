@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.message.engine.contract;
 
-import cn.srd.library.java.message.engine.contract.strategy.MessageEngineType;
+import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

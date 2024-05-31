@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.message.engine.contract;
 
-import cn.srd.library.java.message.engine.contract.strategy.MessageQosType;
+import cn.srd.library.java.message.engine.contract.model.enums.MessageQosType;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

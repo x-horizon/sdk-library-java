@@ -1,5 +1,6 @@
 package cn.srd.library.java.cache.all.manager;
 
+import cn.srd.library.java.cache.all.model.enums.CacheType;
 import cn.srd.library.java.cache.contract.CacheTemplate;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;

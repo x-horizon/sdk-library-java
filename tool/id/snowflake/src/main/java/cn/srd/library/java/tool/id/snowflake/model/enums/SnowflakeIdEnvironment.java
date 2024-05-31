@@ -2,9 +2,12 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.tool.id.snowflake.strategy;
+package cn.srd.library.java.tool.id.snowflake.model.enums;
 
 import cn.srd.library.java.tool.id.snowflake.autoconfigure.EnableSnowflakeId;
+import cn.srd.library.java.tool.id.snowflake.strategy.SnowflakeIdEnvironmentStrategy;
+import cn.srd.library.java.tool.id.snowflake.strategy.SnowflakeIdOnMultipleNodeStrategy;
+import cn.srd.library.java.tool.id.snowflake.strategy.SnowflakeIdOnSingleNodeStrategy;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

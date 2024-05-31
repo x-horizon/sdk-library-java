@@ -1,6 +1,6 @@
 package cn.srd.library.java.cache.all;
 
-import cn.srd.library.java.cache.all.manager.CacheType;
+import cn.srd.library.java.cache.all.model.enums.CacheType;
 import cn.srd.library.java.cache.all.strategy.CacheDefaultKeyGenerator;
 import cn.srd.library.java.cache.all.strategy.CacheKeyGenerator;
 import org.springframework.cache.support.NullValue;

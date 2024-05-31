@@ -1,8 +1,8 @@
 package cn.srd.library.java.cache.all.aspect;
 
 import cn.srd.library.java.cache.all.CacheConfig;
-import cn.srd.library.java.cache.all.manager.CacheMode;
-import cn.srd.library.java.cache.all.manager.CacheType;
+import cn.srd.library.java.cache.all.model.enums.CacheMode;
+import cn.srd.library.java.cache.all.model.enums.CacheType;
 import cn.srd.library.java.cache.all.strategy.CacheKeyGenerator;
 import lombok.Data;
 import lombok.experimental.Accessors;

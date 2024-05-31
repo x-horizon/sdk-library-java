@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.tool.id.snowflake.autoconfigure;
 
-import cn.srd.library.java.tool.id.snowflake.strategy.SnowflakeIdEnvironment;
+import cn.srd.library.java.tool.id.snowflake.model.enums.SnowflakeIdEnvironment;
 import com.github.yitter.contract.IdGeneratorOptions;
 import org.springframework.context.annotation.Import;
 

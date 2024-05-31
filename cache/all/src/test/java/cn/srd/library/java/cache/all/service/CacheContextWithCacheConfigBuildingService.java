@@ -4,8 +4,8 @@ import cn.srd.library.java.cache.all.CacheConfig;
 import cn.srd.library.java.cache.all.CacheEvict;
 import cn.srd.library.java.cache.all.CacheRead;
 import cn.srd.library.java.cache.all.CacheWrite;
-import cn.srd.library.java.cache.all.manager.CacheType;
 import cn.srd.library.java.cache.all.model.BookPO;
+import cn.srd.library.java.cache.all.model.enums.CacheType;
 import cn.srd.library.java.cache.all.test.CacheTestKeyGenerator;
 import org.springframework.stereotype.Component;
 

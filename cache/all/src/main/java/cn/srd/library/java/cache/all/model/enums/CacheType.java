@@ -1,4 +1,4 @@
-package cn.srd.library.java.cache.all.manager;
+package cn.srd.library.java.cache.all.model.enums;
 
 import cn.srd.library.java.cache.all.Caches;
 import cn.srd.library.java.cache.all.strategy.CacheTypeDistributedStrategy;

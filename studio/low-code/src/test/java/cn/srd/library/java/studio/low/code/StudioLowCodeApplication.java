@@ -12,7 +12,7 @@ import cn.srd.library.java.studio.low.code.manager.orm.MybatisInsertListener;
 import cn.srd.library.java.studio.low.code.manager.orm.MybatisUpdateListener;
 import cn.srd.library.java.tool.enums.autoconfigure.EnableEnumAutowired;
 import cn.srd.library.java.tool.id.snowflake.autoconfigure.EnableSnowflakeId;
-import cn.srd.library.java.tool.id.snowflake.strategy.SnowflakeIdEnvironment;
+import cn.srd.library.java.tool.id.snowflake.model.enums.SnowflakeIdEnvironment;
 import com.mybatisflex.core.logicdelete.impl.DateTimeLogicDeleteProcessor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

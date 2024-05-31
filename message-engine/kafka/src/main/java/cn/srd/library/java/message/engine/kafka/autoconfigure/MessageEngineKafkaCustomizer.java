@@ -9,8 +9,9 @@ import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
-import cn.srd.library.java.message.engine.contract.strategy.ClientIdGenerateType;
-import cn.srd.library.java.message.engine.contract.strategy.MessageEngineType;
+import cn.srd.library.java.message.engine.contract.MessageEngineKafkaConfig;
+import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
+import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
 import cn.srd.library.java.message.engine.kafka.properties.MessageEngineKafkaProperties;
 import cn.srd.library.java.tool.lang.compare.Comparators;
@@ -80,7 +81,12 @@ public class MessageEngineKafkaCustomizer<K, V> {
                 ModuleView.MESSAGE_ENGINE_SYSTEM,
                 kafkaCustomizer.clientIdGenerateType().name(),
                 Strings.join(Springs.getBean(MessageEngineKafkaProperties.class).getServerUrls(), SymbolConstant.COMMA + SymbolConstant.SPACE),
-                consumerMethods.stream().map(consumerMethod -> STR."groupId = [\{consumerMethod.getAnnotation(MessageConsumer.class).engineConfig().kafka().consumerConfig().groupId()}], flowId = [\{MessageFlows.getUniqueFlowId(MessageEngineType.KAFKA, consumerMethod)}]").collect(Collectors.joining("\n   "))
+                consumerMethods.stream().map(consumerMethod -> {
+                            MessageEngineKafkaConfig kafkaConfig = consumerMethod.getAnnotation(MessageConsumer.class).engineConfig().kafka();
+                            return STR."groupId = [\{kafkaConfig.consumerConfig().groupId()}], " +
+                                    STR."flowId = [\{MessageFlows.getUniqueFlowId(MessageEngineType.KAFKA, consumerMethod)}]";
+                        })
+                        .collect(Collectors.joining("\n   "))
         );
 
         log.info("{}message engine kafka customizer initialized.", ModuleView.MESSAGE_ENGINE_SYSTEM);
