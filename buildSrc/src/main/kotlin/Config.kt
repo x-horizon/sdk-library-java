@@ -16,18 +16,6 @@ object GradleConfig {
     const val WITH_PARAMETERS_ARG = "-parameters"
     const val WITH_ENABLE_PREVIEW_ARG = "--enable-preview"
 
+    const val ACTIVE_ENVIRONMENT_FIELD_NAME = "activeEnvironmentName"
+    var activeEnvironmentName = activeEnvironment.handler.getActiveEnvironmentName()
 }
-
-enum class Environment(val handler: EnvironmentHandler) {
-    LOCALHOST(environmentLocalhostHandler),
-    DEVELOPMENT(environmentDevelopmentHandler),
-    PRODUCTION(environmentProductionHandler),
-}
-
-fun interface EnvironmentHandler {
-    fun getNexusUrl(): String
-}
-
-val environmentLocalhostHandler = EnvironmentHandler { GradleRepository.NEXUS_LOCALHOST_URL }
-val environmentDevelopmentHandler = EnvironmentHandler { GradleRepository.NEXUS_DEVELOPMENT_URL }
-val environmentProductionHandler = EnvironmentHandler { GradleRepository.NEXUS_PRODUCTION_URL }
