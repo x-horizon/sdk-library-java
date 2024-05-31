@@ -91,11 +91,6 @@ subprojects {
                     setSrcDirs(listOf("src/main/java", "src/main/resources"))
                 }
             }
-            test {
-                resources {
-                    setSrcDirs(listOf("src/test/java", "src/test/resources"))
-                }
-            }
         }
 
         publishing {
