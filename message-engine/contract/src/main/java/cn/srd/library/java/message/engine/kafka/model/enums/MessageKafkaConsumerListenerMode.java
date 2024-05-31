@@ -2,22 +2,22 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.message.engine.contract.model.enums;
+package cn.srd.library.java.message.engine.kafka.model.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * @author wjm
- * @since 2024-05-25 16:02
+ * @since 2024-05-31 17:41
  */
 @Getter
 @AllArgsConstructor
-public enum MessageQosType {
+public enum MessageKafkaConsumerListenerMode {
 
-    AT_MOST_ONCE(0),
-    AT_LEAST_ONCE(1),
-    EXACTLY_ONCE(2),
+    RECORD(1),
+
+    BATCH(2),
 
     ;
 

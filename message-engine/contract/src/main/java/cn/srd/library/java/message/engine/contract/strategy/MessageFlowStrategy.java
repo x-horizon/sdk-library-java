@@ -15,9 +15,9 @@ import org.springframework.messaging.support.GenericMessage;
  * @author wjm
  * @since 2024-05-27 11:53
  */
-public interface MessageEngineStrategy {
+public interface MessageFlowStrategy {
 
-    MessageEngineStrategy registerProducerFlowIfNeed(String flowId, MessageProducer producerAnnotation);
+    MessageFlowStrategy registerProducerFlowIfNeed(String flowId, MessageProducer producerAnnotation);
 
     @CanIgnoreReturnValue
     default <T> boolean send(String flowId, T message) {

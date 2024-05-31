@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.message.engine.contract.model.enums;
 
-import cn.srd.library.java.message.engine.contract.strategy.MessageEngineStrategy;
+import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
 import cn.srd.library.java.tool.enums.EnumAutowired;
 import lombok.Getter;
 
@@ -13,7 +13,7 @@ import lombok.Getter;
  * @since 2024-05-26 15:04
  */
 @Getter
-@EnumAutowired(rootClass = MessageEngineStrategy.class)
+@EnumAutowired(rootClass = MessageFlowStrategy.class)
 public enum MessageEngineType {
 
     KAFKA(1, "kafka"),
@@ -34,6 +34,6 @@ public enum MessageEngineType {
 
     private final String description;
 
-    private MessageEngineStrategy strategy;
+    private MessageFlowStrategy strategy;
 
 }

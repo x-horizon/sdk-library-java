@@ -5,7 +5,7 @@
 package cn.srd.library.java.message.engine.kafka.autoconfigure;
 
 import cn.srd.library.java.message.engine.kafka.properties.MessageEngineKafkaProperties;
-import cn.srd.library.java.message.engine.kafka.strategy.MessageEngineKafkaStrategy;
+import cn.srd.library.java.message.engine.kafka.strategy.MessageKafkaFlowStrategy;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -38,8 +38,8 @@ import org.springframework.kafka.support.DefaultKafkaHeaderMapper;
 public class MessageEngineKafkaAutoConfigurer<K, V> {
 
     @Bean
-    public MessageEngineKafkaStrategy<K, V> messageEngineKafkaStrategy() {
-        return new MessageEngineKafkaStrategy<>();
+    public MessageKafkaFlowStrategy<K, V> messageEngineKafkaStrategy() {
+        return new MessageKafkaFlowStrategy<>();
     }
 
     @Bean

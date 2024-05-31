@@ -33,7 +33,7 @@ public class MessageFlows {
     private static final Map<Method, String> FLOW_ID_CACHE = Collections.newConcurrentHashMap(256);
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
-    public static String getUniqueFlowId(MessageEngineType messageEngineType, Method annotatedMethod) {
+    public static String getFlowId(MessageEngineType messageEngineType, Method annotatedMethod) {
         return FLOW_ID_CACHE.computeIfAbsent(annotatedMethod, ignore -> {
             String annotatedMethodDeclaredClassName = annotatedMethod.getDeclaringClass().getName();
             String annotatedMethodName = annotatedMethod.getName();
@@ -43,7 +43,7 @@ public class MessageFlows {
     }
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
-    public static String getUniqueClientId(ClientIdGenerateType generateType, String flowId) {
+    public static String getDistributedUniqueClientId(ClientIdGenerateType generateType, String flowId) {
         return STR."\{flowId}-\{generateType.getStrategy().getId()}";
     }
 

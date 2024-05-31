@@ -5,7 +5,6 @@
 package cn.srd.library.java.message.engine.kafka.autoconfigure;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
@@ -13,11 +12,16 @@ import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateT
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
 import cn.srd.library.java.message.engine.kafka.MessageKafkaConfig;
+import cn.srd.library.java.message.engine.kafka.model.MessageKafkaConsumerConfig;
+import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerAdapterAckMode;
+import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerAdapterListenerMode;
 import cn.srd.library.java.message.engine.kafka.properties.MessageEngineKafkaProperties;
+import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
+import cn.srd.library.java.tool.lang.time.Times;
 import cn.srd.library.java.tool.spring.contract.Annotations;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import jakarta.annotation.PostConstruct;
@@ -29,17 +33,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.context.IntegrationFlowContext;
 import org.springframework.integration.kafka.dsl.Kafka;
-import org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter;
+import org.springframework.integration.kafka.dsl.KafkaMessageDrivenChannelAdapterSpec;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.listener.ContainerProperties;
-import org.springframework.retry.support.RetryTemplate;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * the global message engine kafka customizer
@@ -55,7 +56,6 @@ public class MessageEngineKafkaCustomizer<K, V> {
 
     private ClientIdGenerateType clientIdGenerateType;
 
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     @PostConstruct
     public void initialize() {
         log.info("{}message engine kafka customizer is enabled, starting initializing...", ModuleView.MESSAGE_ENGINE_SYSTEM);
@@ -63,8 +63,7 @@ public class MessageEngineKafkaCustomizer<K, V> {
         EnableMessageEngineKafka kafkaCustomizer = Annotations.getAnnotation(EnableMessageEngineKafka.class);
         this.clientIdGenerateType = kafkaCustomizer.clientIdGenerateType();
 
-        List<Method> consumerMethods = getConsumerMethods();
-        registerConsumer(consumerMethods);
+        List<MessageKafkaConsumerConfig> consumerConfigs = registerConsumer();
 
         log.info(""" 
                         {}message engine kafka customizer has loaded the following configurations:
@@ -74,62 +73,90 @@ public class MessageEngineKafkaCustomizer<K, V> {
                         Controller Broker Server Info:
                            serverUrls                              = [{}]
                         Consumer Info:
-                        [
-                           {}
-                        ]
+                        {}
                         --------------------------------------------------------------------------------------------------------------------------------""",
                 ModuleView.MESSAGE_ENGINE_SYSTEM,
                 kafkaCustomizer.clientIdGenerateType().name(),
                 Strings.join(Springs.getBean(MessageEngineKafkaProperties.class).getServerUrls(), SymbolConstant.COMMA + SymbolConstant.SPACE),
-                consumerMethods.stream().map(consumerMethod -> {
-                            MessageKafkaConfig kafkaConfig = consumerMethod.getAnnotation(MessageConsumer.class).config().kafka();
-                            return STR."groupId = [\{kafkaConfig.consumerConfig().groupId()}], " +
-                                    STR."flowId = [\{MessageFlows.getUniqueFlowId(MessageEngineType.KAFKA, consumerMethod)}]";
-                        })
-                        .collect(Collectors.joining("\n   "))
+                Converts.withJackson().toStringFormatted(consumerConfigs)
         );
 
         log.info("{}message engine kafka customizer initialized.", ModuleView.MESSAGE_ENGINE_SYSTEM);
     }
 
-    private List<Method> getConsumerMethods() {
+    private List<MessageKafkaConsumerConfig> registerConsumer() {
         return Annotations.getAnnotatedMethods(MessageConsumer.class)
                 .stream()
                 .filter(consumerMethod -> Comparators.equals(MessageEngineType.KAFKA, consumerMethod.getAnnotation(MessageConsumer.class).config().engineType()))
+                .map(consumerMethod -> {
+                    MessageKafkaConsumerConfig consumerConfig = buildConsumerConfig(consumerMethod);
+                    ConsumerFactory<K, V> consumerFactory = registerConsumerFactory(consumerMethod, consumerConfig);
+                    registerConsumerFlow(consumerMethod, consumerConfig, consumerFactory);
+                    return consumerConfig;
+                })
                 .toList();
     }
 
-    private void registerConsumer(List<Method> consumerMethods) {
-        consumerMethods.forEach(consumerMethod -> {
-            ConsumerFactory<K, V> consumerFactory = registerConsumerFactory(consumerMethod);
-            registerConsumerFlow(consumerMethod, consumerFactory);
-        });
+    private MessageKafkaConsumerConfig buildConsumerConfig(Method consumerMethod) {
+        MessageConsumer consumerConfig = consumerMethod.getAnnotation(MessageConsumer.class);
+        MessageKafkaConfig kafkaConfig = consumerConfig.config().kafka();
+        MessageKafkaConfig.ConsumerConfig kafkaConsumerConfig = kafkaConfig.consumerConfig();
+        MessageKafkaConsumerAdapterListenerMode listenerMode = MessageKafkaConsumerAdapterListenerMode.fromListenerMode(kafkaConsumerConfig.listenerMode());
+        MessageKafkaConsumerAdapterAckMode consumerAckMode = MessageKafkaConsumerAdapterAckMode.fromAckMode(kafkaConsumerConfig.ackMode());
+        return MessageKafkaConsumerConfig.builder()
+                .consumerPointer(MessageFlows.getFlowId(MessageEngineType.KAFKA, consumerMethod))
+                .groupId(kafkaConsumerConfig.groupId())
+                .topics(Converts.toList(consumerConfig.topic()))
+                .allowToAutoCreateTopic(kafkaConsumerConfig.allowToAutoCreateTopic())
+                .ackMode(kafkaConsumerConfig.ackMode())
+                .autoCommitOffsetInterval(kafkaConsumerConfig.autoCommitOffsetInterval())
+                .listenerMode(kafkaConsumerConfig.listenerMode())
+                .offsetResetMode(kafkaConsumerConfig.offsetResetMode())
+                .kafkaGroupId(kafkaConsumerConfig.groupId())
+                .kafkaAllowAutoCreateTopics(Converts.toString(kafkaConsumerConfig.allowToAutoCreateTopic()))
+                .kafkaAckMode(consumerAckMode.getKafkaAckMode())
+                .kafkaEnableAutoCommit(Converts.toString(consumerAckMode.getStrategy().needToEnableAutoCommitOffset()))
+                .kafkaAutoCommitIntervalMs(Converts.toString(Times.wrapper(kafkaConsumerConfig.autoCommitOffsetInterval()).toMillisecond().toMillis()))
+                .kafkaListenerMode(listenerMode.getKafkaListenerMode())
+                .kafkaAutoOffsetReset(kafkaConsumerConfig.offsetResetMode().getCode())
+                .build();
     }
 
-    private ConsumerFactory<K, V> registerConsumerFactory(Method consumerMethod) {
-        MessageConsumer consumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
+    private ConsumerFactory<K, V> registerConsumerFactory(Method consumerMethod, MessageKafkaConsumerConfig consumerConfig) {
         MessageEngineKafkaProperties libraryJavaKafkaProperties = Springs.getBean(MessageEngineKafkaProperties.class);
         Map<String, Object> kafkaProperties = new HashMap<>();
         kafkaProperties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, libraryJavaKafkaProperties.getServerUrls());
-        kafkaProperties.put(ConsumerConfig.GROUP_ID_CONFIG, consumerAnnotation.config().kafka().consumerConfig().groupId());
+        kafkaProperties.put(ConsumerConfig.GROUP_ID_CONFIG, consumerConfig.getKafkaGroupId());
+        kafkaProperties.put(ConsumerConfig.ALLOW_AUTO_CREATE_TOPICS_CONFIG, consumerConfig.getKafkaAllowAutoCreateTopics());
+        kafkaProperties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, consumerConfig.getKafkaEnableAutoCommit());
+        kafkaProperties.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, consumerConfig.getKafkaAutoCommitIntervalMs());
+        kafkaProperties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, consumerConfig.getKafkaAutoOffsetReset());
         kafkaProperties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         kafkaProperties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         ConsumerFactory<K, V> consumerFactory = new DefaultKafkaConsumerFactory<>(kafkaProperties);
-        Springs.registerBean(MessageFlows.getUniqueFlowId(MessageEngineType.KAFKA, consumerMethod), consumerFactory);
+        Springs.registerBean(MessageFlows.getFlowId(MessageEngineType.KAFKA, consumerMethod), consumerFactory);
         return consumerFactory;
     }
 
-    private void registerConsumerFlow(Method consumerMethod, ConsumerFactory<K, V> consumerFactory) {
-        MessageConsumer consumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
-        String flowId = MessageFlows.getUniqueFlowId(MessageEngineType.KAFKA, consumerMethod);
+    private void registerConsumerFlow(Method consumerMethod, MessageKafkaConsumerConfig consumerConfig, ConsumerFactory<K, V> consumerFactory) {
+        String flowId = MessageFlows.getFlowId(MessageEngineType.KAFKA, consumerMethod);
         if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
-            Object consumerInstance = Springs.getBean(consumerMethod.getDeclaringClass());
-            IntegrationFlow flow = IntegrationFlow.from(Kafka.messageDrivenChannelAdapter(consumerFactory, KafkaMessageDrivenChannelAdapter.ListenerMode.record, consumerAnnotation.topic())
-                            .configureListenerContainer(kafkaMessageListenerContainerSpec -> kafkaMessageListenerContainerSpec.ackMode(ContainerProperties.AckMode.RECORD).id(flowId))
-                            // .recoveryCallback(new ErrorMessageSendingRecoverer(errorChannel(), new RawRecordHeaderErrorMessageStrategy()))
-                            .retryTemplate(new RetryTemplate())
-                            .filterInRetry(true)
+            KafkaMessageDrivenChannelAdapterSpec.KafkaMessageDrivenChannelAdapterListenerContainerSpec<K, V> messageDrivenChannelAdapter = Kafka.messageDrivenChannelAdapter(
+                            consumerFactory,
+                            consumerConfig.getKafkaListenerMode(),
+                            Converts.toArray(consumerConfig.getTopics(), String.class)
                     )
+                    .configureListenerContainer(kafkaMessageListenerContainerSpec -> kafkaMessageListenerContainerSpec
+                            .ackMode(consumerConfig.getKafkaAckMode())
+                            .id(MessageFlows.getDistributedUniqueClientId(this.clientIdGenerateType, flowId))
+                    );
+            // .recoveryCallback(new ErrorMessageSendingRecoverer(errorChannel(), new RawRecordHeaderErrorMessageStrategy()))
+            // .retryTemplate(new RetryTemplate())
+            // .filterInRetry(true);
+
+            Object consumerInstance = Springs.getBean(consumerMethod.getDeclaringClass());
+            // TODO wjm 为什么是 MessageProducerSupport ？
+            IntegrationFlow flow = IntegrationFlow.from(messageDrivenChannelAdapter)
                     .handle(MessageFlows.getStringToObjectMessageHandler(consumerInstance, consumerMethod))
                     .get();
             Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, consumerMethod.getDeclaringClass().getName())

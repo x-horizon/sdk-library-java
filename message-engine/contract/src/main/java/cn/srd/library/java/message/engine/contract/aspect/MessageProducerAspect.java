@@ -22,7 +22,7 @@ public class MessageProducerAspect extends MessageAspect {
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
         Object message = doProceed(joinPoint);
         MessageProducer producerAnnotation = getAnnotationMarkedOnMethod(joinPoint, MessageProducer.class);
-        String flowId = MessageFlows.getUniqueFlowId(producerAnnotation.config().engineType(), getMethod(joinPoint));
+        String flowId = MessageFlows.getFlowId(producerAnnotation.config().engineType(), getMethod(joinPoint));
         producerAnnotation.config()
                 .engineType()
                 .getStrategy()

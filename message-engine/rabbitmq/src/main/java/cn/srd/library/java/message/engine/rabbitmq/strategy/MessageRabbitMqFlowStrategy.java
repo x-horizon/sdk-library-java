@@ -2,19 +2,19 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.message.engine.mqtt.v5.strategy;
+package cn.srd.library.java.message.engine.rabbitmq.strategy;
 
 import cn.srd.library.java.message.engine.contract.MessageProducer;
-import cn.srd.library.java.message.engine.contract.strategy.MessageEngineStrategy;
+import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
 
 /**
  * @author wjm
  * @since 2024-05-27 11:54
  */
-public class MessageEngineMqttV5Strategy implements MessageEngineStrategy {
+public class MessageRabbitMqFlowStrategy implements MessageFlowStrategy {
 
     @Override
-    public MessageEngineMqttV5Strategy registerProducerFlowIfNeed(String flowId, MessageProducer producerAnnotation) {
+    public MessageRabbitMqFlowStrategy registerProducerFlowIfNeed(String flowId, MessageProducer producerAnnotation) {
         throw new UnsupportedOperationException();
     }
 

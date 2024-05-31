@@ -81,7 +81,7 @@ public class MessageEngineMqttV3Customizer {
                 Strings.join(Springs.getBean(MessageEngineMqttV3Properties.class).getServerUrls(), SymbolConstant.COMMA + SymbolConstant.SPACE),
                 consumerMethods.stream().map(consumerMethod -> {
                             MessageMqttV3Config mqttV3Config = consumerMethod.getAnnotation(MessageConsumer.class).config().mqttV3();
-                            return STR."flowId = [\{MessageFlows.getUniqueFlowId(MessageEngineType.MQTT_V3, consumerMethod)}], " +
+                            return STR."flowId = [\{MessageFlows.getFlowId(MessageEngineType.MQTT_V3, consumerMethod)}], " +
                                     STR."qos = [\{mqttV3Config.qos()}], " +
                                     STR."completionTimeout = [\{mqttV3Config.completionTimeout()}], " +
                                     STR."disconnectCompletionTimeout = [\{mqttV3Config.disconnectCompletionTimeout()}]";
@@ -116,16 +116,18 @@ public class MessageEngineMqttV3Customizer {
     }
 
     private void registerConsumerFlow(Method consumerMethod, MqttPahoClientFactory mqttClientFactory) {
-        String flowId = MessageFlows.getUniqueFlowId(MessageEngineType.MQTT_V3, consumerMethod);
-        MessageConsumer consumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
+        String flowId = MessageFlows.getFlowId(MessageEngineType.MQTT_V3, consumerMethod);
         if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
+            MessageConsumer consumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
             MessageMqttV3Config mqttV3Config = consumerAnnotation.config().mqttV3();
-            String clientId = MessageFlows.getUniqueClientId(this.clientIdGenerateType, flowId);
+            String clientId = MessageFlows.getDistributedUniqueClientId(this.clientIdGenerateType, flowId);
+
             MqttPahoMessageDrivenChannelAdapter messageDrivenChannelAdapter = new MqttPahoMessageDrivenChannelAdapter(clientId, mqttClientFactory, consumerAnnotation.topic());
-            messageDrivenChannelAdapter.setQos(mqttV3Config.qos().getStatus());
+            messageDrivenChannelAdapter.setQos(mqttV3Config.qos().getCode());
             messageDrivenChannelAdapter.setConverter(new DefaultPahoMessageConverter());
             messageDrivenChannelAdapter.setCompletionTimeout(mqttV3Config.completionTimeout());
             messageDrivenChannelAdapter.setDisconnectCompletionTimeout(mqttV3Config.disconnectCompletionTimeout());
+
             Object consumerInstance = Springs.getBean(consumerMethod.getDeclaringClass());
             Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, consumerMethod.getDeclaringClass().getName())
                     .setThrowable(LibraryJavaInternalException.class)

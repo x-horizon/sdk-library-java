@@ -6,7 +6,7 @@ package cn.srd.library.java.message.engine.kafka.strategy;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
-import cn.srd.library.java.message.engine.contract.strategy.MessageEngineStrategy;
+import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
 import cn.srd.library.java.tool.lang.object.Nil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import org.springframework.kafka.support.KafkaHeaderMapper;
  * @author wjm
  * @since 2024-05-27 11:54
  */
-public class MessageEngineKafkaStrategy<K, V> implements MessageEngineStrategy {
+public class MessageKafkaFlowStrategy<K, V> implements MessageFlowStrategy {
 
     @Autowired private ProducerFactory<K, V> producerFactory;
 
@@ -31,7 +31,7 @@ public class MessageEngineKafkaStrategy<K, V> implements MessageEngineStrategy {
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     @Override
-    public MessageEngineKafkaStrategy<K, V> registerProducerFlowIfNeed(String flowId, MessageProducer producerAnnotation) {
+    public MessageKafkaFlowStrategy<K, V> registerProducerFlowIfNeed(String flowId, MessageProducer producerAnnotation) {
         if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
             KafkaProducerMessageHandlerSpec.KafkaProducerMessageHandlerTemplateSpec<K, V> messageHandler = Kafka.outboundChannelAdapter(producerFactory)
                     .messageKey(m -> m.getHeaders().get(IntegrationMessageHeaderAccessor.SEQUENCE_NUMBER))

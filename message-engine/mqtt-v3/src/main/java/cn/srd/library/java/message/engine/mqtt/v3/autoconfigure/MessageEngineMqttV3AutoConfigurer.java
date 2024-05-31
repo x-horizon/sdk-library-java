@@ -5,7 +5,7 @@
 package cn.srd.library.java.message.engine.mqtt.v3.autoconfigure;
 
 import cn.srd.library.java.message.engine.mqtt.v3.properties.MessageEngineMqttV3Properties;
-import cn.srd.library.java.message.engine.mqtt.v3.strategy.MessageEngineMqttV3Strategy;
+import cn.srd.library.java.message.engine.mqtt.v3.strategy.MessageMqttV3FlowStrategy;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -33,8 +33,8 @@ import org.springframework.integration.config.EnableIntegration;
 public class MessageEngineMqttV3AutoConfigurer {
 
     @Bean
-    public MessageEngineMqttV3Strategy messageEngineMqttStrategy() {
-        return new MessageEngineMqttV3Strategy();
+    public MessageMqttV3FlowStrategy messageEngineMqttStrategy() {
+        return new MessageMqttV3FlowStrategy();
     }
 
     @Bean
