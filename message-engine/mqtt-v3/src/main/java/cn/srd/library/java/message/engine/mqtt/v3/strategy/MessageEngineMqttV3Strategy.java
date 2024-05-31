@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.strategy;
 
-import cn.srd.library.java.message.engine.contract.MessageEngineMqttV3Config;
+import cn.srd.library.java.message.engine.contract.MessageMqttV3Config;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.strategy.MessageEngineStrategy;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
@@ -27,14 +27,14 @@ public class MessageEngineMqttV3Strategy implements MessageEngineStrategy {
     @Override
     public MessageEngineMqttV3Strategy registerProducerFlowIfNeed(String flowId, MessageProducer producerAnnotation) {
         if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
-            MessageEngineMqttV3Config messageEngineMqttV3Config = producerAnnotation.engineConfig().mqttV3();
+            MessageMqttV3Config mqttV3Config = producerAnnotation.config().mqttV3();
             String clientId = MessageFlows.getUniqueClientId(Springs.getBean(MessageEngineMqttV3Customizer.class).getClientIdGenerateType(), flowId);
             MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(clientId, Springs.getBean(MqttPahoClientFactory.class));
             messageHandler.setDefaultTopic(producerAnnotation.topic());
-            messageHandler.setDefaultQos(messageEngineMqttV3Config.qos().getStatus());
-            messageHandler.setAsync(messageEngineMqttV3Config.producerConfig().needToSendAsync());
-            messageHandler.setCompletionTimeout(messageEngineMqttV3Config.completionTimeout());
-            messageHandler.setDisconnectCompletionTimeout(messageEngineMqttV3Config.disconnectCompletionTimeout());
+            messageHandler.setDefaultQos(mqttV3Config.qos().getStatus());
+            messageHandler.setAsync(mqttV3Config.producerConfig().needToSendAsync());
+            messageHandler.setCompletionTimeout(mqttV3Config.completionTimeout());
+            messageHandler.setDisconnectCompletionTimeout(mqttV3Config.disconnectCompletionTimeout());
             this.flowContext
                     .registration(MessageFlows.getObjectToStringIntegrationFlow(messageHandler))
                     .id(flowId)

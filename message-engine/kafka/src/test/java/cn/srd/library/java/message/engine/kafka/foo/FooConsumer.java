@@ -4,9 +4,9 @@
 
 package cn.srd.library.java.message.engine.kafka.foo;
 
+import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
-import cn.srd.library.java.message.engine.contract.MessageEngineConfig;
-import cn.srd.library.java.message.engine.contract.MessageEngineKafkaConfig;
+import cn.srd.library.java.message.engine.contract.MessageKafkaConfig;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.tool.lang.time.Times;
 import org.springframework.stereotype.Component;
@@ -19,10 +19,10 @@ import org.springframework.stereotype.Component;
 public class FooConsumer {
 
     @MessageConsumer(
-            engineConfig = @MessageEngineConfig(
-                    type = MessageEngineType.KAFKA,
-                    kafka = @MessageEngineKafkaConfig(
-                            consumerConfig = @MessageEngineKafkaConfig.ConsumerConfig(groupId = "1")
+            config = @MessageConfig(
+                    engineType = MessageEngineType.KAFKA,
+                    kafka = @MessageKafkaConfig(
+                            consumerConfig = @MessageKafkaConfig.ConsumerConfig(groupId = "1")
                     )
             ),
             topic = {FooTopicConstant.TOPIC_TEST1}
@@ -33,10 +33,10 @@ public class FooConsumer {
     }
 
     @MessageConsumer(
-            engineConfig = @MessageEngineConfig(
-                    type = MessageEngineType.KAFKA,
-                    kafka = @MessageEngineKafkaConfig(
-                            consumerConfig = @MessageEngineKafkaConfig.ConsumerConfig(groupId = "1")
+            config = @MessageConfig(
+                    engineType = MessageEngineType.KAFKA,
+                    kafka = @MessageKafkaConfig(
+                            consumerConfig = @MessageKafkaConfig.ConsumerConfig(groupId = "1")
                     )
             ),
             topic = {FooTopicConstant.TOPIC_TEST1}

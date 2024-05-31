@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  */
 @Target({})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MessageEngineRocketmqConfig {
+public @interface MessageRedisConfig {
 
     ProducerConfig producerConfig() default @ProducerConfig();
 

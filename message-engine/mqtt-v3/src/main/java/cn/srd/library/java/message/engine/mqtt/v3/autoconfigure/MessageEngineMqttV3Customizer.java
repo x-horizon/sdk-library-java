@@ -9,7 +9,7 @@ import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
-import cn.srd.library.java.message.engine.contract.MessageEngineMqttV3Config;
+import cn.srd.library.java.message.engine.contract.MessageMqttV3Config;
 import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
@@ -80,7 +80,7 @@ public class MessageEngineMqttV3Customizer {
                 mqttV3Customizer.clientIdGenerateType().name(),
                 Strings.join(Springs.getBean(MessageEngineMqttV3Properties.class).getServerUrls(), SymbolConstant.COMMA + SymbolConstant.SPACE),
                 consumerMethods.stream().map(consumerMethod -> {
-                            MessageEngineMqttV3Config mqttV3Config = consumerMethod.getAnnotation(MessageConsumer.class).engineConfig().mqttV3();
+                            MessageMqttV3Config mqttV3Config = consumerMethod.getAnnotation(MessageConsumer.class).config().mqttV3();
                             return STR."flowId = [\{MessageFlows.getUniqueFlowId(MessageEngineType.MQTT_V3, consumerMethod)}], " +
                                     STR."qos = [\{mqttV3Config.qos()}], " +
                                     STR."completionTimeout = [\{mqttV3Config.completionTimeout()}], " +
@@ -95,7 +95,7 @@ public class MessageEngineMqttV3Customizer {
     private List<Method> getConsumerMethods() {
         return Annotations.getAnnotatedMethods(MessageConsumer.class)
                 .stream()
-                .filter(consumerMethod -> Comparators.equals(MessageEngineType.MQTT_V3, consumerMethod.getAnnotation(MessageConsumer.class).engineConfig().type()))
+                .filter(consumerMethod -> Comparators.equals(MessageEngineType.MQTT_V3, consumerMethod.getAnnotation(MessageConsumer.class).config().engineType()))
                 .toList();
     }
 
@@ -119,13 +119,13 @@ public class MessageEngineMqttV3Customizer {
         String flowId = MessageFlows.getUniqueFlowId(MessageEngineType.MQTT_V3, consumerMethod);
         MessageConsumer consumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
         if (Nil.isNull(this.flowContext.getRegistrationById(flowId))) {
-            MessageEngineMqttV3Config messageEngineMqttV3Config = consumerAnnotation.engineConfig().mqttV3();
+            MessageMqttV3Config mqttV3Config = consumerAnnotation.config().mqttV3();
             String clientId = MessageFlows.getUniqueClientId(this.clientIdGenerateType, flowId);
             MqttPahoMessageDrivenChannelAdapter messageDrivenChannelAdapter = new MqttPahoMessageDrivenChannelAdapter(clientId, mqttClientFactory, consumerAnnotation.topic());
-            messageDrivenChannelAdapter.setQos(messageEngineMqttV3Config.qos().getStatus());
+            messageDrivenChannelAdapter.setQos(mqttV3Config.qos().getStatus());
             messageDrivenChannelAdapter.setConverter(new DefaultPahoMessageConverter());
-            messageDrivenChannelAdapter.setCompletionTimeout(messageEngineMqttV3Config.completionTimeout());
-            messageDrivenChannelAdapter.setDisconnectCompletionTimeout(messageEngineMqttV3Config.disconnectCompletionTimeout());
+            messageDrivenChannelAdapter.setCompletionTimeout(mqttV3Config.completionTimeout());
+            messageDrivenChannelAdapter.setDisconnectCompletionTimeout(mqttV3Config.disconnectCompletionTimeout());
             Object consumerInstance = Springs.getBean(consumerMethod.getDeclaringClass());
             Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, consumerMethod.getDeclaringClass().getName())
                     .setThrowable(LibraryJavaInternalException.class)

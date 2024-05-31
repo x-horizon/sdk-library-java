@@ -9,7 +9,7 @@ import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
-import cn.srd.library.java.message.engine.contract.MessageEngineKafkaConfig;
+import cn.srd.library.java.message.engine.contract.MessageKafkaConfig;
 import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
@@ -82,7 +82,7 @@ public class MessageEngineKafkaCustomizer<K, V> {
                 kafkaCustomizer.clientIdGenerateType().name(),
                 Strings.join(Springs.getBean(MessageEngineKafkaProperties.class).getServerUrls(), SymbolConstant.COMMA + SymbolConstant.SPACE),
                 consumerMethods.stream().map(consumerMethod -> {
-                            MessageEngineKafkaConfig kafkaConfig = consumerMethod.getAnnotation(MessageConsumer.class).engineConfig().kafka();
+                            MessageKafkaConfig kafkaConfig = consumerMethod.getAnnotation(MessageConsumer.class).config().kafka();
                             return STR."groupId = [\{kafkaConfig.consumerConfig().groupId()}], " +
                                     STR."flowId = [\{MessageFlows.getUniqueFlowId(MessageEngineType.KAFKA, consumerMethod)}]";
                         })
@@ -95,7 +95,7 @@ public class MessageEngineKafkaCustomizer<K, V> {
     private List<Method> getConsumerMethods() {
         return Annotations.getAnnotatedMethods(MessageConsumer.class)
                 .stream()
-                .filter(consumerMethod -> Comparators.equals(MessageEngineType.KAFKA, consumerMethod.getAnnotation(MessageConsumer.class).engineConfig().type()))
+                .filter(consumerMethod -> Comparators.equals(MessageEngineType.KAFKA, consumerMethod.getAnnotation(MessageConsumer.class).config().engineType()))
                 .toList();
     }
 
@@ -111,7 +111,7 @@ public class MessageEngineKafkaCustomizer<K, V> {
         MessageEngineKafkaProperties libraryJavaKafkaProperties = Springs.getBean(MessageEngineKafkaProperties.class);
         Map<String, Object> kafkaProperties = new HashMap<>();
         kafkaProperties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, libraryJavaKafkaProperties.getServerUrls());
-        kafkaProperties.put(ConsumerConfig.GROUP_ID_CONFIG, consumerAnnotation.engineConfig().kafka().consumerConfig().groupId());
+        kafkaProperties.put(ConsumerConfig.GROUP_ID_CONFIG, consumerAnnotation.config().kafka().consumerConfig().groupId());
         kafkaProperties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         kafkaProperties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         ConsumerFactory<K, V> consumerFactory = new DefaultKafkaConsumerFactory<>(kafkaProperties);

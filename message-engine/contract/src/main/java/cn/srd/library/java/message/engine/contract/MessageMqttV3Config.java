@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
  */
 @Target({})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MessageEngineMqttV3Config {
+public @interface MessageMqttV3Config {
 
     MessageQosType qos() default MessageQosType.AT_MOST_ONCE;
 

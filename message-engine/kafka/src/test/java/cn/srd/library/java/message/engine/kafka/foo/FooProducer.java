@@ -4,8 +4,8 @@
 
 package cn.srd.library.java.message.engine.kafka.foo;
 
-import cn.srd.library.java.message.engine.contract.MessageEngineConfig;
-import cn.srd.library.java.message.engine.contract.MessageEngineKafkaConfig;
+import cn.srd.library.java.message.engine.contract.MessageConfig;
+import cn.srd.library.java.message.engine.contract.MessageKafkaConfig;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class FooProducer {
 
     @MessageProducer(
-            engineConfig = @MessageEngineConfig(type = MessageEngineType.KAFKA, kafka = @MessageEngineKafkaConfig),
+            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig),
             topic = FooTopicConstant.TOPIC_TEST1
     )
     public String send1() {
@@ -26,7 +26,7 @@ public class FooProducer {
     }
 
     @MessageProducer(
-            engineConfig = @MessageEngineConfig(type = MessageEngineType.KAFKA, kafka = @MessageEngineKafkaConfig),
+            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig),
             topic = FooTopicConstant.TOPIC_TEST2
     )
     public String send2() {

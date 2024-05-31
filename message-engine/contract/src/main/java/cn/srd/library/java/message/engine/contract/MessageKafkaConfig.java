@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
  */
 @Target({})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MessageEngineKafkaConfig {
+public @interface MessageKafkaConfig {
 
     ProducerConfig producerConfig() default @ProducerConfig();
 

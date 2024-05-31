@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  */
 @Target({})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MessageEngineMqttV5Config {
+public @interface MessageMqttV5Config {
 
     ProducerConfig producerConfig() default @ProducerConfig();
 
