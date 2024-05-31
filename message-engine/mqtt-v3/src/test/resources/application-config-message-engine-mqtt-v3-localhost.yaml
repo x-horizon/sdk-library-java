@@ -4,4 +4,4 @@ library-java:
       # username: ""
       # password: ""
       server-urls:
-        - "tcp://localhost:10017"
+        - "tcp://127.0.0.1:10017"

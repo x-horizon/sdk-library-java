@@ -7,13 +7,3 @@ spring:
       config-message-engine-mqtt-v3-${activeEnvironmentName},
       config-spring
     active: environment-${activeEnvironmentName}
-
-#spring:
-#  profiles:
-#    include: config-log,
-#      config-cache-redis,
-#      config-cache-redis-localhost,
-#      config-message-engine-mqtt-v3,
-#      config-message-engine-mqtt-v3-localhost,
-#      config-spring
-#    active: environment-localhost
