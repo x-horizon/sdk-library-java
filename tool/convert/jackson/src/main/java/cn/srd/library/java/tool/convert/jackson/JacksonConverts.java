@@ -223,6 +223,17 @@ public class JacksonConverts {
     }
 
     /**
+     * 转换为格式化后的 {@link String}
+     *
+     * @param object 待转换对象
+     * @return 转换后对象
+     */
+    @SneakyThrows
+    public String toStringFormatted(Object object) {
+        return defaultJacksonMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
+    }
+
+    /**
      * 转换为 {@link JsonNode}
      *
      * @param json 待转换对象

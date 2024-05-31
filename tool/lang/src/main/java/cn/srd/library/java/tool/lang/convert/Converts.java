@@ -195,6 +195,16 @@ public class Converts {
     /**
      * convert boolean to string
      *
+     * @param input the input element
+     * @return string
+     */
+    public static String toString(Boolean input) {
+        return Boolean.toString(input);
+    }
+
+    /**
+     * convert boolean to string
+     *
      * @param input         the input element
      * @param outputIfTrue  the string value if true
      * @param outputIfFalse the string value if false or null
@@ -392,6 +402,20 @@ public class Converts {
         return Action.<List<R>>ifEmpty(inputs)
                 .then(Collections::newArrayList)
                 .otherwise(() -> Collections.ofUnknownSizeStream(inputs).map(mappingAction).collect(Collectors.toList()))
+                .get();
+    }
+
+    /**
+     * convert array to list.
+     *
+     * @param inputs the input elements
+     * @param <T>    the element type
+     * @return after convert
+     */
+    public static <T> List<T> toList(T[] inputs) {
+        return Action.<List<T>>infer(Nil.isEmpty(inputs))
+                .then(Collections::newArrayList)
+                .otherwise(() -> Arrays.stream(inputs).collect(Collectors.toList()))
                 .get();
     }
 

@@ -5,8 +5,6 @@
 package cn.srd.library.java.tool.id.snowflake.strategy;
 
 import cn.srd.library.java.tool.id.snowflake.autoconfigure.EnableSnowflakeId;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 /**
  * single node strategy
@@ -14,7 +12,6 @@ import lombok.NoArgsConstructor;
  * @author wjm
  * @since 2023-11-13 10:42
  */
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SnowflakeIdOnSingleNodeStrategy implements SnowflakeIdEnvironmentStrategy {
 
     /**

@@ -12,8 +12,6 @@ import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
 import com.github.yitter.contract.IdGeneratorOptions;
 import com.github.yitter.idgen.DefaultIdGenerator;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 
 /**
@@ -22,7 +20,6 @@ import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
  * @author wjm
  * @since 2023-11-13 10:42
  */
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SnowflakeIdOnMultipleNodeStrategy implements SnowflakeIdEnvironmentStrategy {
 
     /**
