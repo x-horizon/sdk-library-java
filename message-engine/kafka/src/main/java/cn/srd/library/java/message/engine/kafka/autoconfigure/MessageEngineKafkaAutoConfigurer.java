@@ -4,7 +4,8 @@
 
 package cn.srd.library.java.message.engine.kafka.autoconfigure;
 
-import cn.srd.library.java.message.engine.kafka.properties.MessageEngineKafkaProperties;
+import cn.srd.library.java.message.engine.kafka.model.domain.MessageKafkaConfigDO;
+import cn.srd.library.java.message.engine.kafka.model.properties.MessageEngineKafkaProperties;
 import cn.srd.library.java.message.engine.kafka.strategy.MessageKafkaFlowStrategy;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import lombok.AllArgsConstructor;
@@ -44,8 +45,8 @@ public class MessageEngineKafkaAutoConfigurer<K, V> {
 
     @Bean
     @ConditionalOnBean(MessageEngineKafkaSwitcher.class)
-    public MessageEngineKafkaCustomizer<K, V> messageEngineKafkaCustomizer() {
-        return new MessageEngineKafkaCustomizer<>();
+    public MessageKafkaConfigDO<K, V> messageKafkaConfigDO() {
+        return new MessageKafkaConfigDO<>();
     }
 
     @Bean

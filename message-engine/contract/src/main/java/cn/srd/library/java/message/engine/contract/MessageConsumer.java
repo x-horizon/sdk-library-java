@@ -14,6 +14,6 @@ public @interface MessageConsumer {
 
     MessageConfig config();
 
-    String[] topic();
+    String[] topics();
 
 }

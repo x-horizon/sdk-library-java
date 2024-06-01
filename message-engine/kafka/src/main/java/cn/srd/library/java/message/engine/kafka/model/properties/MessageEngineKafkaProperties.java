@@ -2,9 +2,9 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.message.engine.kafka.properties;
+package cn.srd.library.java.message.engine.kafka.model.properties;
 
-import cn.srd.library.java.message.engine.contract.properties.MessageEngineProperties;
+import cn.srd.library.java.message.engine.contract.model.properties.MessageEngineProperties;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;

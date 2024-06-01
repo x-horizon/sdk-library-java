@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.message.engine.contract.properties;
+package cn.srd.library.java.message.engine.contract.model.properties;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -4,8 +4,9 @@
 
 package cn.srd.library.java.message.engine.rabbitmq.strategy;
 
-import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
+
+import java.lang.reflect.Method;
 
 /**
  * @author wjm
@@ -14,7 +15,7 @@ import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
 public class MessageRabbitMqFlowStrategy implements MessageFlowStrategy {
 
     @Override
-    public MessageRabbitMqFlowStrategy registerProducerFlowIfNeed(String flowId, MessageProducer producerAnnotation) {
+    public String getFlowId(Method producerMethod) {
         throw new UnsupportedOperationException();
     }
 

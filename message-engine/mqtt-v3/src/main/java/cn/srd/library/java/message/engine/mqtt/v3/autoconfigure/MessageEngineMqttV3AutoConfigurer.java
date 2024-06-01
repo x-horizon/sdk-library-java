@@ -4,7 +4,8 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.autoconfigure;
 
-import cn.srd.library.java.message.engine.mqtt.v3.properties.MessageEngineMqttV3Properties;
+import cn.srd.library.java.message.engine.mqtt.v3.model.domain.MessageMqttV3ConfigDO;
+import cn.srd.library.java.message.engine.mqtt.v3.model.properties.MessageEngineMqttV3Properties;
 import cn.srd.library.java.message.engine.mqtt.v3.strategy.MessageMqttV3FlowStrategy;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -39,8 +40,8 @@ public class MessageEngineMqttV3AutoConfigurer {
 
     @Bean
     @ConditionalOnBean(MessageEngineMqttV3Switcher.class)
-    public MessageEngineMqttV3Customizer messageEngineMqttV3Customizer() {
-        return new MessageEngineMqttV3Customizer();
+    public MessageMqttV3ConfigDO messageMqttV3ConfigDO() {
+        return new MessageMqttV3ConfigDO();
     }
 
 }
