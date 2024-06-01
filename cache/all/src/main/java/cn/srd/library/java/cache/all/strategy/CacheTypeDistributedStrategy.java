@@ -2,7 +2,7 @@ package cn.srd.library.java.cache.all.strategy;
 
 import cn.srd.library.java.cache.all.Caches;
 import cn.srd.library.java.cache.all.manager.CacheDataManager;
-import cn.srd.library.java.cache.all.properties.CacheProperties;
+import cn.srd.library.java.cache.all.model.properties.CacheProperties;
 import cn.srd.library.java.concurrent.redis.strategy.RedisNonFairLockHandler;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package cn.srd.library.java.cache.all.properties;
+package cn.srd.library.java.cache.all.model.properties;
 
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.time.Times;

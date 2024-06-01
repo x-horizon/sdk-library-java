@@ -1,6 +1,6 @@
 package cn.srd.library.java.cache.caffeine;
 
-import cn.srd.library.java.cache.caffeine.properties.CacheCaffeineProperties;
+import cn.srd.library.java.cache.caffeine.model.properties.CacheCaffeineProperties;
 import com.github.benmanes.caffeine.cache.Cache;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
