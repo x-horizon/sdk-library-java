@@ -157,7 +157,7 @@ public class Springs {
      */
     public static String getSpringBootApplicationPackagePath() {
         if (Nil.isBlank(springBootApplicationPackagePath)) {
-            springBootApplicationPackagePath = Classes.getPackagePath(Collections.getFirstValue(getBeansWithAnnotation(SpringBootApplication.class)).orElseThrow().getClass());
+            springBootApplicationPackagePath = Classes.getPackagePath(Collections.getMapFirstValue(getBeansWithAnnotation(SpringBootApplication.class)).orElseThrow().getClass());
         }
         return springBootApplicationPackagePath;
     }

@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.tool.id.snowflake.strategy;
 
-import cn.srd.library.java.cache.redis.properties.CacheRedisProperties;
+import cn.srd.library.java.cache.redis.model.properties.CacheRedisProperties;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.tool.id.snowflake.autoconfigure.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.support.SnowflakeIds;

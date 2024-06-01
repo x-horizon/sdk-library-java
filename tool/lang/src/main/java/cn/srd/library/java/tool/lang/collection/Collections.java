@@ -1240,30 +1240,6 @@ public class Collections {
     }
 
     /**
-     * get the first node key
-     *
-     * @param inputs the input elements
-     * @param <K>    the key type of map
-     * @param <V>    the value type of map
-     * @return the first node key
-     */
-    public static <K, V> Optional<K> getFirstKey(Map<K, V> inputs) {
-        return Nil.isNotEmpty(inputs) ? getFirst(inputs.keySet()) : Optional.empty();
-    }
-
-    /**
-     * get the first node value
-     *
-     * @param inputs the input elements
-     * @param <K>    the key type of map
-     * @param <V>    the value type of map
-     * @return the first node value
-     */
-    public static <K, V> Optional<V> getFirstValue(Map<K, V> inputs) {
-        return Nil.isNotEmpty(inputs) ? getFirstKey(inputs).map(inputs::get).or(Optional::empty) : Optional.empty();
-    }
-
-    /**
      * get the last element
      *
      * @param inputs the input elements
@@ -1477,6 +1453,54 @@ public class Collections {
      */
     public static <T, U extends Comparable<? super U>> Optional<T> getMax(Iterable<T> inputs, Function<T, U> mappingAction) {
         return getFirst(desc(inputs, mappingAction));
+    }
+
+    /**
+     * get the map first node key
+     *
+     * @param inputs the input elements
+     * @param <K>    the key type of map
+     * @param <V>    the value type of map
+     * @return the map first node key
+     */
+    public static <K, V> Optional<K> getMapFirstKey(Map<K, V> inputs) {
+        return Nil.isNotEmpty(inputs) ? getFirst(inputs.keySet()) : Optional.empty();
+    }
+
+    /**
+     * get the map first node value
+     *
+     * @param inputs the input elements
+     * @param <K>    the key type of map
+     * @param <V>    the value type of map
+     * @return the map first node value
+     */
+    public static <K, V> Optional<V> getMapFirstValue(Map<K, V> inputs) {
+        return Nil.isNotEmpty(inputs) ? getMapFirstKey(inputs).map(inputs::get).or(Optional::empty) : Optional.empty();
+    }
+
+    /**
+     * get all map keys
+     *
+     * @param inputs the input elements
+     * @param <K>    the key type of map
+     * @param <V>    the value type of map
+     * @return all map keys
+     */
+    public static <K, V> List<K> getMapKeys(Map<K, V> inputs) {
+        return Nil.isNotEmpty(inputs) ? ofArrayList(inputs.keySet()) : newArrayList();
+    }
+
+    /**
+     * get all map values
+     *
+     * @param inputs the input elements
+     * @param <K>    the key type of map
+     * @param <V>    the value type of map
+     * @return all map values
+     */
+    public static <K, V> List<V> getMapValues(Map<K, V> inputs) {
+        return Nil.isNotEmpty(inputs) ? ofArrayList(inputs.values()) : newArrayList();
     }
 
     /**
