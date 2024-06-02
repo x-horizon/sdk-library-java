@@ -40,21 +40,7 @@ public class MessageConfigDO implements Serializable {
         protected ClientIdGenerateType idGenerateType;
 
         @JsonIgnore
-        protected Method executeMethod;
-
-    }
-
-    @Getter
-    public static class ProducerDO extends ClientDO {
-
-        @Serial private static final long serialVersionUID = 8071627478384728903L;
-
-    }
-
-    @Getter
-    public static class ConsumerDO extends ClientDO {
-
-        @Serial private static final long serialVersionUID = -2472903545994899431L;
+        protected transient Method executeMethod;
 
     }
 

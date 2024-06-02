@@ -36,7 +36,6 @@ import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 
 import java.io.Serial;
-import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.AbstractMap;
 import java.util.List;
@@ -50,7 +49,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Getter
-public class MessageMqttV3ConfigDO implements Serializable {
+public class MessageMqttV3ConfigDO extends MessageConfigDO {
 
     @Serial private static final long serialVersionUID = 4736521459419470931L;
 
@@ -64,10 +63,10 @@ public class MessageMqttV3ConfigDO implements Serializable {
     private final List<ConsumerDO> consumerDOs;
 
     @JsonIgnore
-    private final Map<Method, ProducerDO> producerRouters;
+    private final transient Map<Method, ProducerDO> producerRouters;
 
     @JsonIgnore
-    private final Map<Method, ConsumerDO> consumerRouters;
+    private final transient Map<Method, ConsumerDO> consumerRouters;
 
     public MessageMqttV3ConfigDO() {
         log.info("{}message engine mqtt-v3 customizer is enabled, starting initializing...", ModuleView.MESSAGE_ENGINE_SYSTEM);
@@ -115,7 +114,7 @@ public class MessageMqttV3ConfigDO implements Serializable {
     }
 
     @Getter
-    public static class BrokerDO implements Serializable {
+    public static class BrokerDO extends MessageConfigDO.BrokerDO {
 
         @Serial private static final long serialVersionUID = 7988629260563027098L;
 

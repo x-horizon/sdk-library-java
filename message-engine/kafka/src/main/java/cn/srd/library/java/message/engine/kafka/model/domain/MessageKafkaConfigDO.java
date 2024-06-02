@@ -40,7 +40,6 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ContainerProperties;
 
 import java.io.Serial;
-import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.AbstractMap;
 import java.util.List;
@@ -53,7 +52,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Getter
-public class MessageKafkaConfigDO<K, V> implements Serializable {
+public class MessageKafkaConfigDO<K, V> extends MessageConfigDO {
 
     @Serial private static final long serialVersionUID = 1721566725873588079L;
 
@@ -119,7 +118,7 @@ public class MessageKafkaConfigDO<K, V> implements Serializable {
     }
 
     @Getter
-    public static class BrokerDO implements Serializable {
+    public static class BrokerDO extends MessageConfigDO.BrokerDO {
 
         @Serial private static final long serialVersionUID = 6478172587588977016L;
 
