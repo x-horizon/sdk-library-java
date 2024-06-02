@@ -37,12 +37,14 @@ allprojects {
         useJUnitPlatform()
         jvmArgs(
             GradleConfig.WITH_ENABLE_PREVIEW_ARG,
+            GradleConfig.WITH_ENABLE_DYNAMIC_AGENT_LOADING,
         )
     }
 
     tasks.withType<JavaExec> {
         jvmArgs(
             GradleConfig.WITH_ENABLE_PREVIEW_ARG,
+            GradleConfig.WITH_ENABLE_DYNAMIC_AGENT_LOADING,
         )
     }
 
