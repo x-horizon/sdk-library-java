@@ -8,6 +8,7 @@ import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.kafka.MessageKafkaConfig;
+import cn.srd.library.java.tool.lang.time.Times;
 import org.springframework.stereotype.Component;
 
 /**
@@ -22,6 +23,7 @@ public class FooProducer {
             topic = FooTopicConstant.TOPIC_TEST1
     )
     public String send1() {
+        System.out.println("生产者1 -------- " + Times.getCurrentDateTime() + "-producer-" + "send1");
         return "send1";
     }
 
@@ -30,6 +32,7 @@ public class FooProducer {
             topic = FooTopicConstant.TOPIC_TEST2
     )
     public String send2() {
+        System.out.println("生产者2 -------- " + Times.getCurrentDateTime() + "-producer-" + "send2");
         return "send2";
     }
 

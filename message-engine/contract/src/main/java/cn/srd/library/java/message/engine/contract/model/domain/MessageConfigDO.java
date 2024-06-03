@@ -32,7 +32,7 @@ public abstract class MessageConfigDO implements Serializable {
     }
 
     @Getter
-    public static class ClientDO implements Serializable {
+    public abstract static class ClientDO implements Serializable {
 
         @Serial private static final long serialVersionUID = 5434779839371423102L;
 

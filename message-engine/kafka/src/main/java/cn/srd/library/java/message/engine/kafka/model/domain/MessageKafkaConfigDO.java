@@ -30,7 +30,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
-import org.springframework.integration.IntegrationMessageHeaderAccessor;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.context.IntegrationFlowContext;
 import org.springframework.integration.kafka.dsl.Kafka;
@@ -41,7 +40,6 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.listener.ContainerProperties;
-import org.springframework.kafka.support.DefaultKafkaHeaderMapper;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -124,7 +122,6 @@ public class MessageKafkaConfigDO<K, V> extends MessageConfigDO {
             this.serverUrls = kafkaProperties.getServerUrls();
 
             registerProducerFactory();
-            registerHeaderMapper();
         }
 
         private <K, V> void registerProducerFactory() {
@@ -133,12 +130,6 @@ public class MessageKafkaConfigDO<K, V> extends MessageConfigDO {
             kafkaProperties.setBootstrapServers(libraryJavaKafkaProperties.getServerUrls());
             DefaultKafkaProducerFactory<K, V> producerFactory = new DefaultKafkaProducerFactory<>(kafkaProperties.buildProducerProperties(null));
             Springs.registerBean(DefaultKafkaProducerFactory.class.getName(), producerFactory);
-            System.out.println();
-        }
-
-        private void registerHeaderMapper() {
-            Springs.registerBean(DefaultKafkaHeaderMapper.class.getName(), new DefaultKafkaHeaderMapper());
-            System.out.println();
         }
 
     }
@@ -178,18 +169,17 @@ public class MessageKafkaConfigDO<K, V> extends MessageConfigDO {
             registerFlow();
         }
 
-        @SuppressWarnings({SuppressWarningConstant.PREVIEW, SuppressWarningConstant.UNCHECKED})
+        @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
         private <K, V> void registerFlow() {
             IntegrationFlowContext flowContext = Springs.getBean(IntegrationFlowContext.class);
             if (Nil.isNull(flowContext.getRegistrationById(this.clientDO.getFlowId()))) {
                 DefaultKafkaProducerFactory<K, V> producerFactory = Springs.getBean(DefaultKafkaProducerFactory.class.getName(), DefaultKafkaProducerFactory.class);
-                DefaultKafkaHeaderMapper headerMapper = Springs.getBean(DefaultKafkaHeaderMapper.class);
                 KafkaProducerMessageHandlerSpec.KafkaProducerMessageHandlerTemplateSpec<K, V> messageHandler = Kafka.outboundChannelAdapter(producerFactory)
-                        .messageKey(m -> m.getHeaders().get(IntegrationMessageHeaderAccessor.SEQUENCE_NUMBER))
-                        .headerMapper(headerMapper)
-                        .partitionId(m -> 10)
-                        .topicExpression(STR."headers[kafka_topic] ?: '\{this.topic}'")
-                        .configureKafkaTemplate(t -> t.id(STR."kafkaTemplate:\{this.topic}"));
+                        // .partitionId(m -> {
+                        //     System.out.println("partitionId ------- " + Converts.withJackson().toString(m));
+                        //     return 0;
+                        // })
+                        .topic(this.topic);
                 flowContext
                         .registration(MessageFlows.getObjectToStringIntegrationFlow(messageHandler))
                         .id(this.clientDO.getFlowId())
@@ -197,12 +187,6 @@ public class MessageKafkaConfigDO<K, V> extends MessageConfigDO {
                         .register();
                 // TODO wjm 此处涉及到发送到哪个分区的问题，要深入研究，需通过不同的分区来区分消息的顺序性，消息引擎只是逻辑队列，分区才是物理的先进先出队列
                 // KafkaProducerMessageHandler<K, V> producerMessageHandler = null;
-                // MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(MessageFlows.getUniqueClientId(flowId, producerAnnotation.clientId()), this.mqttClientFactory);
-                // messageHandler.setDefaultTopic(producerAnnotation.topic());
-                // messageHandler.setDefaultQos(producerAnnotation.qos().getStatus());
-                // messageHandler.setAsync(producerAnnotation.sendAsync());
-                // messageHandler.setCompletionTimeout(producerAnnotation.completionTimeout());
-                // messageHandler.setDisconnectCompletionTimeout(producerAnnotation.disconnectCompletionTimeout());
             }
         }
 

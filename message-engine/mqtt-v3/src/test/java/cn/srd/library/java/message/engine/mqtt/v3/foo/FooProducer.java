@@ -40,6 +40,7 @@ public class FooProducer {
             ))
     )
     public String send2() {
+        System.out.println("生产者2 -------- " + Times.getCurrentDateTime() + "-producer-" + "send2");
         return "send2";
     }
 

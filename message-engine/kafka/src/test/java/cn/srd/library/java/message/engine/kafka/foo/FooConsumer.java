@@ -32,7 +32,7 @@ public class FooConsumer {
             ))
     )
     public void receive1(String message) {
-        System.out.println(Times.getCurrentDateTime() + "-receive1-" + message);
+        System.out.println("消费者1 -------- " + Times.getCurrentDateTime() + "-receive-" + message);
     }
 
     @MessageConsumer(
@@ -43,7 +43,7 @@ public class FooConsumer {
             ))
     )
     public void receive2(String message) {
-        System.out.println(Times.getCurrentDateTime() + "-receive2-" + message);
+        System.out.println("消费者2 -------- " + Times.getCurrentDateTime() + "-receive-" + message);
     }
 
 }

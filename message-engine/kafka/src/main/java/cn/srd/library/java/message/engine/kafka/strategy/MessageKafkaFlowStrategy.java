@@ -18,7 +18,7 @@ public class MessageKafkaFlowStrategy implements MessageFlowStrategy {
 
     @Override
     public String getFlowId(Method producerMethod) {
-        return Springs.getBean(MessageKafkaConfigDO.class.getName(), MessageKafkaConfigDO.class).getProducerConfigDO(producerMethod).getClientDO().getFlowId();
+        return Springs.getBean(MessageKafkaConfigDO.class).getProducerConfigDO(producerMethod).getClientDO().getFlowId();
     }
 
 }
