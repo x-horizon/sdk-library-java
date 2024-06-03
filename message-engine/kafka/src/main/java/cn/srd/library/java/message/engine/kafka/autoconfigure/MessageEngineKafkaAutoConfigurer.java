@@ -7,21 +7,16 @@ package cn.srd.library.java.message.engine.kafka.autoconfigure;
 import cn.srd.library.java.message.engine.kafka.model.domain.MessageKafkaConfigDO;
 import cn.srd.library.java.message.engine.kafka.model.properties.MessageEngineKafkaProperties;
 import cn.srd.library.java.message.engine.kafka.strategy.MessageKafkaFlowStrategy;
-import cn.srd.library.java.tool.spring.contract.Springs;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.config.EnableIntegration;
-import org.springframework.kafka.core.DefaultKafkaProducerFactory;
-import org.springframework.kafka.core.ProducerFactory;
-import org.springframework.kafka.support.DefaultKafkaHeaderMapper;
 
 /**
  * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Message Engine Kafka
@@ -39,28 +34,14 @@ import org.springframework.kafka.support.DefaultKafkaHeaderMapper;
 public class MessageEngineKafkaAutoConfigurer<K, V> {
 
     @Bean
-    public MessageKafkaFlowStrategy<K, V> messageEngineKafkaStrategy() {
-        return new MessageKafkaFlowStrategy<>();
+    public MessageKafkaFlowStrategy messageEngineKafkaStrategy() {
+        return new MessageKafkaFlowStrategy();
     }
 
     @Bean
     @ConditionalOnBean(MessageEngineKafkaSwitcher.class)
     public MessageKafkaConfigDO<K, V> messageKafkaConfigDO() {
         return new MessageKafkaConfigDO<>();
-    }
-
-    @Bean
-    @ConditionalOnBean(MessageEngineKafkaSwitcher.class)
-    public ProducerFactory<K, V> kafkaProducerFactory(KafkaProperties kafkaProperties) {
-        MessageEngineKafkaProperties libraryJavaKafkaProperties = Springs.getBean(MessageEngineKafkaProperties.class);
-        kafkaProperties.setBootstrapServers(libraryJavaKafkaProperties.getServerUrls());
-        return new DefaultKafkaProducerFactory<>(kafkaProperties.buildProducerProperties(null));
-    }
-
-    @Bean
-    @ConditionalOnBean(MessageEngineKafkaSwitcher.class)
-    public DefaultKafkaHeaderMapper kafkaHeaderMapper() {
-        return new DefaultKafkaHeaderMapper();
     }
 
 }

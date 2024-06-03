@@ -36,6 +36,7 @@ import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 
 import java.io.Serial;
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.AbstractMap;
 import java.util.List;
@@ -105,20 +106,10 @@ public class MessageMqttV3ConfigDO extends MessageConfigDO {
         log.info("{}message engine mqtt-v3 customizer initialized.", ModuleView.MESSAGE_ENGINE_SYSTEM);
     }
 
-    public ProducerDO getProducerConfigDO(Method producerMethod) {
-        return producerRouters.get(producerMethod);
-    }
-
-    public ConsumerDO getConsumerConfigDO(Method consumerMethod) {
-        return consumerRouters.get(consumerMethod);
-    }
-
     @Getter
     public static class BrokerDO extends MessageConfigDO.BrokerDO {
 
         @Serial private static final long serialVersionUID = 7988629260563027098L;
-
-        private final List<String> serverUrls;
 
         private final String username;
 
@@ -146,7 +137,7 @@ public class MessageMqttV3ConfigDO extends MessageConfigDO {
     }
 
     @Getter
-    private static class ClientDO extends MessageConfigDO.ClientDO {
+    public static class ClientDO extends MessageConfigDO.ClientDO {
 
         @Serial private static final long serialVersionUID = 1647940393744696107L;
 
@@ -162,25 +153,10 @@ public class MessageMqttV3ConfigDO extends MessageConfigDO {
         @JsonProperty("mqttV3_disconnectCompletionTimeout")
         protected long originalDisconnectCompletionTimeout;
 
-    }
+        ClientDO(Method executeMethod, MessageMqttV3Config.ClientConfig clientConfig) {
+            this.flowId = MessageFlows.getFlowId(MessageEngineType.MQTT_V3, executeMethod);
+            this.executeMethod = executeMethod;
 
-    @Getter
-    public static class ProducerDO extends ClientDO {
-
-        @Serial private static final long serialVersionUID = 3866458534946916451L;
-
-        private final String topic;
-
-        private final boolean needToSendAsync;
-
-        ProducerDO(Method producerMethod) {
-            this.flowId = MessageFlows.getFlowId(MessageEngineType.MQTT_V3, producerMethod);
-            this.executeMethod = producerMethod;
-
-            MessageProducer producerAnnotation = producerMethod.getAnnotation(MessageProducer.class);
-            this.topic = producerAnnotation.topic();
-
-            MessageMqttV3Config.ClientConfig clientConfig = producerAnnotation.config().mqttV3().clientConfig();
             this.idGenerateType = clientConfig.idGenerateType();
             this.qosType = clientConfig.qosType();
             this.completionTimeout = clientConfig.completionTimeout();
@@ -188,6 +164,28 @@ public class MessageMqttV3ConfigDO extends MessageConfigDO {
             this.originalCompletionTimeout = Times.wrapper(clientConfig.completionTimeout()).toMillisecond().toMillis();
             this.originalDisconnectCompletionTimeout = Times.wrapper(clientConfig.disconnectCompletionTimeout()).toMillisecond().toMillis();
             this.clientId = MessageFlows.getDistributedUniqueClientId(this.idGenerateType, this.flowId);
+        }
+
+    }
+
+    @Getter
+    public static class ProducerDO implements Serializable {
+
+        @Serial private static final long serialVersionUID = 3866458534946916451L;
+
+        @JsonProperty("clientInfo")
+        private final ClientDO clientDO;
+
+        private final String topic;
+
+        private final boolean needToSendAsync;
+
+        ProducerDO(Method producerMethod) {
+            MessageProducer producerAnnotation = producerMethod.getAnnotation(MessageProducer.class);
+            this.topic = producerAnnotation.topic();
+
+            MessageMqttV3Config.ClientConfig clientConfig = producerAnnotation.config().mqttV3().clientConfig();
+            this.clientDO = new ClientDO(producerMethod, clientConfig);
 
             MessageMqttV3Config.ProducerConfig producerConfig = producerAnnotation.config().mqttV3().producerConfig();
             this.needToSendAsync = producerConfig.needToSendAsync();
@@ -197,16 +195,16 @@ public class MessageMqttV3ConfigDO extends MessageConfigDO {
 
         private void registerFlow() {
             IntegrationFlowContext flowContext = Springs.getBean(IntegrationFlowContext.class);
-            if (Nil.isNull(flowContext.getRegistrationById(this.flowId))) {
-                MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(this.clientId, Springs.getBean(MqttPahoClientFactory.class));
+            if (Nil.isNull(flowContext.getRegistrationById(this.clientDO.getFlowId()))) {
+                MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(this.clientDO.getClientId(), Springs.getBean(MqttPahoClientFactory.class));
                 messageHandler.setDefaultTopic(this.topic);
-                messageHandler.setDefaultQos(this.qosType.getCode());
+                messageHandler.setDefaultQos(this.clientDO.getQosType().getCode());
                 messageHandler.setAsync(this.needToSendAsync);
-                messageHandler.setCompletionTimeout(this.originalCompletionTimeout);
-                messageHandler.setDisconnectCompletionTimeout(this.originalDisconnectCompletionTimeout);
+                messageHandler.setCompletionTimeout(this.clientDO.getOriginalCompletionTimeout());
+                messageHandler.setDisconnectCompletionTimeout(this.clientDO.getOriginalDisconnectCompletionTimeout());
                 flowContext
                         .registration(MessageFlows.getObjectToStringIntegrationFlow(messageHandler))
-                        .id(this.flowId)
+                        .id(this.clientDO.getFlowId())
                         .useFlowIdAsPrefix()
                         .register();
             }
@@ -215,56 +213,58 @@ public class MessageMqttV3ConfigDO extends MessageConfigDO {
     }
 
     @Getter
-    public static class ConsumerDO extends ClientDO {
+    public static class ConsumerDO implements Serializable {
 
         @Serial private static final long serialVersionUID = -5886254179329714404L;
+
+        @JsonProperty("clientInfo")
+        private final ClientDO clientDO;
 
         private final List<String> topics;
 
         ConsumerDO(Method consumerMethod) {
-            this.flowId = MessageFlows.getFlowId(MessageEngineType.MQTT_V3, consumerMethod);
-            this.executeMethod = consumerMethod;
-
             MessageConsumer consumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
             this.topics = Converts.toList(consumerAnnotation.topics());
 
             MessageMqttV3Config.ClientConfig clientConfig = consumerAnnotation.config().mqttV3().clientConfig();
-            this.idGenerateType = clientConfig.idGenerateType();
-            this.qosType = clientConfig.qosType();
-            this.completionTimeout = clientConfig.completionTimeout();
-            this.disconnectCompletionTimeout = clientConfig.disconnectCompletionTimeout();
-            this.originalCompletionTimeout = Times.wrapper(clientConfig.completionTimeout()).toMillisecond().toMillis();
-            this.originalDisconnectCompletionTimeout = Times.wrapper(clientConfig.disconnectCompletionTimeout()).toMillisecond().toMillis();
-            this.clientId = MessageFlows.getDistributedUniqueClientId(this.idGenerateType, this.flowId);
+            this.clientDO = new ClientDO(consumerMethod, clientConfig);
 
             registerFlow();
         }
 
         private void registerFlow() {
             IntegrationFlowContext flowContext = Springs.getBean(IntegrationFlowContext.class);
-            if (Nil.isNull(flowContext.getRegistrationById(this.flowId))) {
+            if (Nil.isNull(flowContext.getRegistrationById(this.clientDO.getFlowId()))) {
                 DefaultMqttPahoClientFactory mqttClientFactory = Springs.getBean(DefaultMqttPahoClientFactory.class);
-                MqttPahoMessageDrivenChannelAdapter messageDrivenChannelAdapter = new MqttPahoMessageDrivenChannelAdapter(this.clientId, mqttClientFactory, Converts.toArray(this.topics, String.class));
-                messageDrivenChannelAdapter.setQos(this.qosType.getCode());
+                MqttPahoMessageDrivenChannelAdapter messageDrivenChannelAdapter = new MqttPahoMessageDrivenChannelAdapter(this.clientDO.getClientId(), mqttClientFactory, Converts.toArray(this.topics, String.class));
+                messageDrivenChannelAdapter.setQos(this.clientDO.getQosType().getCode());
                 messageDrivenChannelAdapter.setConverter(new DefaultPahoMessageConverter());
-                messageDrivenChannelAdapter.setCompletionTimeout(this.originalCompletionTimeout);
-                messageDrivenChannelAdapter.setDisconnectCompletionTimeout(this.originalDisconnectCompletionTimeout);
+                messageDrivenChannelAdapter.setCompletionTimeout(this.clientDO.getOriginalCompletionTimeout());
+                messageDrivenChannelAdapter.setDisconnectCompletionTimeout(this.clientDO.getOriginalDisconnectCompletionTimeout());
 
-                Object consumerInstance = Springs.getBean(this.executeMethod.getDeclaringClass());
-                Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, this.executeMethod.getDeclaringClass().getName())
+                Object consumerInstance = Springs.getBean(this.clientDO.getExecuteMethod().getDeclaringClass());
+                Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, this.getClientDO().getExecuteMethod().getDeclaringClass().getName())
                         .setThrowable(LibraryJavaInternalException.class)
                         .throwsIfNull(consumerInstance);
                 IntegrationFlow flow = IntegrationFlow.from(messageDrivenChannelAdapter)
-                        .handle(MessageFlows.getStringToObjectMessageHandler(consumerInstance, this.executeMethod))
+                        .handle(MessageFlows.getStringToObjectMessageHandler(consumerInstance, this.clientDO.getExecuteMethod()))
                         .get();
                 flowContext
                         .registration(flow)
-                        .id(this.flowId)
+                        .id(this.clientDO.getFlowId())
                         .useFlowIdAsPrefix()
                         .register();
             }
         }
 
+    }
+
+    public ProducerDO getProducerConfigDO(Method producerMethod) {
+        return this.producerRouters.get(producerMethod);
+    }
+
+    public ConsumerDO getConsumerConfigDO(Method consumerMethod) {
+        return this.consumerRouters.get(consumerMethod);
     }
 
 }

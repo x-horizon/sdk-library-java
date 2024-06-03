@@ -11,13 +11,14 @@ import lombok.Getter;
 import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * @author wjm
  * @since 2024-06-01 17:56
  */
 @Getter
-public class MessageConfigDO implements Serializable {
+public abstract class MessageConfigDO implements Serializable {
 
     @Serial private static final long serialVersionUID = 8893739317361752384L;
 
@@ -25,6 +26,8 @@ public class MessageConfigDO implements Serializable {
     public static class BrokerDO implements Serializable {
 
         @Serial private static final long serialVersionUID = -5861291771843201177L;
+
+        protected List<String> serverUrls;
 
     }
 

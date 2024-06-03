@@ -18,7 +18,7 @@ public class MessageMqttV3FlowStrategy implements MessageFlowStrategy {
 
     @Override
     public String getFlowId(Method producerMethod) {
-        return Springs.getBean(MessageMqttV3ConfigDO.class).getProducerConfigDO(producerMethod).getFlowId();
+        return Springs.getBean(MessageMqttV3ConfigDO.class).getProducerConfigDO(producerMethod).getClientDO().getFlowId();
     }
 
 }

@@ -10,7 +10,6 @@ import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.domain.MessageConfigDO;
-import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.support.MessageFlows;
 import cn.srd.library.java.message.engine.kafka.MessageKafkaConfig;
@@ -30,16 +29,22 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.integration.IntegrationMessageHeaderAccessor;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.context.IntegrationFlowContext;
 import org.springframework.integration.kafka.dsl.Kafka;
 import org.springframework.integration.kafka.dsl.KafkaMessageDrivenChannelAdapterSpec;
+import org.springframework.integration.kafka.dsl.KafkaProducerMessageHandlerSpec;
 import org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.listener.ContainerProperties;
+import org.springframework.kafka.support.DefaultKafkaHeaderMapper;
 
 import java.io.Serial;
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.AbstractMap;
 import java.util.List;
@@ -109,56 +114,44 @@ public class MessageKafkaConfigDO<K, V> extends MessageConfigDO {
         log.info("{}message engine kafka customizer initialized.", ModuleView.MESSAGE_ENGINE_SYSTEM);
     }
 
-    public ProducerDO getProducerConfigDO(Method producerMethod) {
-        return producerRouters.get(producerMethod);
-    }
-
-    public ConsumerDO<K, V> getConsumerConfigDO(Method consumerMethod) {
-        return consumerRouters.get(consumerMethod);
-    }
-
     @Getter
     public static class BrokerDO extends MessageConfigDO.BrokerDO {
 
         @Serial private static final long serialVersionUID = 6478172587588977016L;
 
-        private final List<String> serverUrls;
-
         BrokerDO() {
             MessageEngineKafkaProperties kafkaProperties = Springs.getBean(MessageEngineKafkaProperties.class);
             this.serverUrls = kafkaProperties.getServerUrls();
+
+            registerProducerFactory();
+            registerHeaderMapper();
+        }
+
+        private <K, V> void registerProducerFactory() {
+            MessageEngineKafkaProperties libraryJavaKafkaProperties = Springs.getBean(MessageEngineKafkaProperties.class);
+            KafkaProperties kafkaProperties = Springs.getBean(KafkaProperties.class);
+            kafkaProperties.setBootstrapServers(libraryJavaKafkaProperties.getServerUrls());
+            DefaultKafkaProducerFactory<K, V> producerFactory = new DefaultKafkaProducerFactory<>(kafkaProperties.buildProducerProperties(null));
+            Springs.registerBean(DefaultKafkaProducerFactory.class.getName(), producerFactory);
+            System.out.println();
+        }
+
+        private void registerHeaderMapper() {
+            Springs.registerBean(DefaultKafkaHeaderMapper.class.getName(), new DefaultKafkaHeaderMapper());
+            System.out.println();
         }
 
     }
 
     @Getter
-    private static class ClientDO extends MessageConfigDO.ClientDO {
+    public static class ClientDO extends MessageConfigDO.ClientDO {
 
         @Serial private static final long serialVersionUID = 7833921985689603695L;
 
-        protected String clientId;
+        ClientDO(Method executeMethod, MessageKafkaConfig.ClientConfig clientConfig) {
+            this.flowId = MessageFlows.getFlowId(MessageEngineType.KAFKA, executeMethod);
+            this.executeMethod = executeMethod;
 
-        protected String flowId;
-
-        protected ClientIdGenerateType idGenerateType;
-
-        ClientDO() {
-
-        }
-
-    }
-
-    @Getter
-    public static class ProducerDO extends ClientDO {
-
-        @Serial private static final long serialVersionUID = -7957770669868555274L;
-
-        ProducerDO(Method producerMethod) {
-            this.executeMethod = producerMethod;
-            this.flowId = MessageFlows.getFlowId(MessageEngineType.KAFKA, producerMethod);
-
-            MessageProducer producerAnnotation = producerMethod.getAnnotation(MessageProducer.class);
-            MessageKafkaConfig.ClientConfig clientConfig = producerAnnotation.config().kafka().clientConfig();
             this.idGenerateType = clientConfig.idGenerateType();
             this.clientId = MessageFlows.getDistributedUniqueClientId(this.idGenerateType, this.flowId);
         }
@@ -166,9 +159,62 @@ public class MessageKafkaConfigDO<K, V> extends MessageConfigDO {
     }
 
     @Getter
-    public static class ConsumerDO<K, V> extends ClientDO {
+    public static class ProducerDO implements Serializable {
+
+        @Serial private static final long serialVersionUID = -7957770669868555274L;
+
+        @JsonProperty("clientInfo")
+        private final ClientDO clientDO;
+
+        private final String topic;
+
+        ProducerDO(Method producerMethod) {
+            MessageProducer producerAnnotation = producerMethod.getAnnotation(MessageProducer.class);
+            this.topic = producerAnnotation.topic();
+
+            MessageKafkaConfig.ClientConfig clientConfig = producerAnnotation.config().kafka().clientConfig();
+            this.clientDO = new ClientDO(producerMethod, clientConfig);
+
+            registerFlow();
+        }
+
+        @SuppressWarnings({SuppressWarningConstant.PREVIEW, SuppressWarningConstant.UNCHECKED})
+        private <K, V> void registerFlow() {
+            IntegrationFlowContext flowContext = Springs.getBean(IntegrationFlowContext.class);
+            if (Nil.isNull(flowContext.getRegistrationById(this.clientDO.getFlowId()))) {
+                DefaultKafkaProducerFactory<K, V> producerFactory = Springs.getBean(DefaultKafkaProducerFactory.class.getName(), DefaultKafkaProducerFactory.class);
+                DefaultKafkaHeaderMapper headerMapper = Springs.getBean(DefaultKafkaHeaderMapper.class);
+                KafkaProducerMessageHandlerSpec.KafkaProducerMessageHandlerTemplateSpec<K, V> messageHandler = Kafka.outboundChannelAdapter(producerFactory)
+                        .messageKey(m -> m.getHeaders().get(IntegrationMessageHeaderAccessor.SEQUENCE_NUMBER))
+                        .headerMapper(headerMapper)
+                        .partitionId(m -> 10)
+                        .topicExpression(STR."headers[kafka_topic] ?: '\{this.topic}'")
+                        .configureKafkaTemplate(t -> t.id(STR."kafkaTemplate:\{this.topic}"));
+                flowContext
+                        .registration(MessageFlows.getObjectToStringIntegrationFlow(messageHandler))
+                        .id(this.clientDO.getFlowId())
+                        .useFlowIdAsPrefix()
+                        .register();
+                // TODO wjm 此处涉及到发送到哪个分区的问题，要深入研究，需通过不同的分区来区分消息的顺序性，消息引擎只是逻辑队列，分区才是物理的先进先出队列
+                // KafkaProducerMessageHandler<K, V> producerMessageHandler = null;
+                // MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(MessageFlows.getUniqueClientId(flowId, producerAnnotation.clientId()), this.mqttClientFactory);
+                // messageHandler.setDefaultTopic(producerAnnotation.topic());
+                // messageHandler.setDefaultQos(producerAnnotation.qos().getStatus());
+                // messageHandler.setAsync(producerAnnotation.sendAsync());
+                // messageHandler.setCompletionTimeout(producerAnnotation.completionTimeout());
+                // messageHandler.setDisconnectCompletionTimeout(producerAnnotation.disconnectCompletionTimeout());
+            }
+        }
+
+    }
+
+    @Getter
+    public static class ConsumerDO<K, V> implements Serializable {
 
         @Serial private static final long serialVersionUID = -3363832601343322864L;
+
+        @JsonProperty("clientInfo")
+        private final ClientDO clientDO;
 
         private final String groupId;
 
@@ -206,15 +252,11 @@ public class MessageKafkaConfigDO<K, V> extends MessageConfigDO {
         private final String originalAutoCommitIntervalMs;
 
         ConsumerDO(Method consumerMethod) {
-            this.flowId = MessageFlows.getFlowId(MessageEngineType.KAFKA, consumerMethod);
-            this.executeMethod = consumerMethod;
-
             MessageConsumer consumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
             this.topics = Converts.toList(consumerAnnotation.topics());
 
             MessageKafkaConfig.ClientConfig clientConfig = consumerAnnotation.config().kafka().clientConfig();
-            this.idGenerateType = clientConfig.idGenerateType();
-            this.clientId = MessageFlows.getDistributedUniqueClientId(this.idGenerateType, this.flowId);
+            this.clientDO = new ClientDO(consumerMethod, clientConfig);
 
             MessageKafkaConfig.ConsumerConfig consumerConfig = consumerAnnotation.config().kafka().consumerConfig();
             this.groupId = consumerConfig.groupId();
@@ -247,14 +289,14 @@ public class MessageKafkaConfigDO<K, V> extends MessageConfigDO {
                     ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
                     ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class
             ));
-            Springs.registerBean(MessageFlows.getFlowId(MessageEngineType.KAFKA, this.executeMethod), consumerFactory);
+            Springs.registerBean(MessageFlows.getFlowId(MessageEngineType.KAFKA, this.clientDO.getExecuteMethod()), consumerFactory);
         }
 
         @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
         private void registerFlow() {
             IntegrationFlowContext flowContext = Springs.getBean(IntegrationFlowContext.class);
-            if (Nil.isNull(flowContext.getRegistrationById(this.flowId))) {
-                ConsumerFactory<K, V> consumerFactory = Springs.getBean(MessageFlows.getFlowId(MessageEngineType.KAFKA, this.executeMethod), ConsumerFactory.class);
+            if (Nil.isNull(flowContext.getRegistrationById(this.clientDO.getFlowId()))) {
+                ConsumerFactory<K, V> consumerFactory = Springs.getBean(MessageFlows.getFlowId(MessageEngineType.KAFKA, this.clientDO.getExecuteMethod()), ConsumerFactory.class);
                 KafkaMessageDrivenChannelAdapterSpec.KafkaMessageDrivenChannelAdapterListenerContainerSpec<K, V> messageDrivenChannelAdapter = Kafka.messageDrivenChannelAdapter(
                                 consumerFactory,
                                 this.originalListenerMode,
@@ -262,23 +304,23 @@ public class MessageKafkaConfigDO<K, V> extends MessageConfigDO {
                         )
                         .configureListenerContainer(kafkaMessageListenerContainerSpec -> kafkaMessageListenerContainerSpec
                                 .ackMode(this.originalAckMode)
-                                .id(this.clientId)
+                                .id(this.clientDO.getClientId())
                         );
                 // .recoveryCallback(new ErrorMessageSendingRecoverer(errorChannel(), new RawRecordHeaderErrorMessageStrategy()))
                 // .retryTemplate(new RetryTemplate())
                 // .filterInRetry(true);
 
-                Object consumerInstance = Springs.getBean(executeMethod.getDeclaringClass());
+                Object consumerInstance = Springs.getBean(this.clientDO.getExecuteMethod().getDeclaringClass());
                 // TODO wjm 为什么是 MessageProducerSupport ？
                 IntegrationFlow flow = IntegrationFlow.from(messageDrivenChannelAdapter)
-                        .handle(MessageFlows.getStringToObjectMessageHandler(consumerInstance, executeMethod))
+                        .handle(MessageFlows.getStringToObjectMessageHandler(consumerInstance, this.clientDO.getExecuteMethod()))
                         .get();
-                Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, executeMethod.getDeclaringClass().getName())
+                Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, this.clientDO.getExecuteMethod().getDeclaringClass().getName())
                         .setThrowable(LibraryJavaInternalException.class)
                         .throwsIfNull(consumerInstance);
                 flowContext
                         .registration(flow)
-                        .id(this.flowId)
+                        .id(this.clientDO.getFlowId())
                         .useFlowIdAsPrefix()
                         .register();
 
@@ -292,6 +334,14 @@ public class MessageKafkaConfigDO<K, V> extends MessageConfigDO {
             }
         }
 
+    }
+
+    public ProducerDO getProducerConfigDO(Method producerMethod) {
+        return this.producerRouters.get(producerMethod);
+    }
+
+    public ConsumerDO<K, V> getConsumerConfigDO(Method consumerMethod) {
+        return this.consumerRouters.get(consumerMethod);
     }
 
 }
