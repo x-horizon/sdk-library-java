@@ -68,14 +68,16 @@ import java.util.List;
  *          }
  *      }
  * }
+ * </pre>
  *
+ * <pre>
  * when run the main function, it will happen:
  * 1. merge the main function root package path and the package paths define in {@link EnableEnumAutowired#scanPackagePaths()}.
  * 2. scan all package paths to find all enum classes marked with {@link EnumAutowired}, such as [GenderType] marked with @{@link EnumAutowired}(rootClass = GenderStrategy.class).
- * 3. set {@link EnumAutowired#autowiredFiledName()} to [strategy] because it was not explicitly specified and there is only one data type [GenderStrategy] field the same as {@link EnumAutowired#rootClass()},
- *    if the enum marked with {@link EnumAutowired} has multiple data type fields are same as {@link EnumAutowired#rootClass()}, you must specified {@link EnumAutowired#autowiredFiledName()},
+ * 3. set {@link EnumAutowired#autowiredFiledName()} to [strategy] because it was not explicitly specified and there is only one data type [GenderStrategy] field the same as {@link EnumAutowired#rootClasses()},
+ *    if the enum marked with {@link EnumAutowired} has multiple data type fields are same as {@link EnumAutowired#rootClasses()}, you must specified {@link EnumAutowired#autowiredFiledName()},
  *    otherwise will not be able to find the suitable field to autowired.
- * 4. scan the subclass simple names of {@link EnumAutowired#rootClass()}, such as ["GenderManStrategy", "GenderWomanStrategy", "GenderUnknownStrategy"].
+ * 4. scan the subclass simple names of {@link EnumAutowired#rootClasses()}, such as ["GenderManStrategy", "GenderWomanStrategy", "GenderUnknownStrategy"].
  * 5. compare the enum field name and the subclass simple name to get the most similar to the enum field name, such as enum field name ["WOMAN"] and the subclass simple name ["GenderWomanStrategy"].
  * 6. autowired [GenderWomanStrategy] instance in spring ioc to the enum field [WOMAN].
  * </pre>
@@ -97,12 +99,12 @@ public @interface EnumAutowired {
      *
      * @return the root interface to autowired into enum field
      */
-    Class<?> rootClass();
+    Class<?>[] rootClasses();
 
     /**
      * <pre>
      * the specified field name to autowired,
-     * it will find field name with the same data type as {@link #rootClass()} in the enum marked with {@link EnumAutowired} if it is blank.
+     * it will find field name with the same data type as {@link #rootClasses()} in the enum marked with {@link EnumAutowired} if it is blank.
      * </pre>
      *
      * @return the specified field name to autowired
@@ -110,7 +112,7 @@ public @interface EnumAutowired {
     String autowiredFiledName() default "";
 
     /**
-     * the rule to match the subclass name of {@link #rootClass()} and the field name in the enum marked with {@link EnumAutowired}
+     * the rule to match the subclass name of {@link #rootClasses()} and the field name in the enum marked with {@link EnumAutowired}
      *
      * @return the specified rule
      */

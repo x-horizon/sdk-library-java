@@ -17,10 +17,10 @@ import java.util.List;
 public interface EnumAutowiredFieldMatchRule {
 
     /**
-     * get the most suitable subclass simple name implemented by {@link EnumAutowired#rootClass()} to autowired the subclass instance in spring ioc
+     * get the most suitable subclass simple name implemented by {@link EnumAutowired#rootClasses()} to autowired the subclass instance in spring ioc
      *
      * @param enumField                  the enum marked with {@link EnumAutowired} field
-     * @param enumAutowiredSubclassNames all subclass simple names implement by {@link EnumAutowired#rootClass()}
+     * @param enumAutowiredSubclassNames all subclass simple names implement by {@link EnumAutowired#rootClasses()}
      * @param <E>                        the enum marked with {@link EnumAutowired} type
      * @return the most suitable subclass simple name
      */

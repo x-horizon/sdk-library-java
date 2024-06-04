@@ -163,6 +163,72 @@ public class Springs {
     }
 
     /**
+     * return true if the bean from spring ioc is existed.
+     *
+     * @param input the bean class
+     * @param <T>   the bean class type
+     * @return return true if the bean from spring ioc is existed
+     */
+    public static <T> boolean existBean(Class<T> input) {
+        return Nil.isNotNull(getBean(input));
+    }
+
+    /**
+     * return true if the bean from spring ioc is existed.
+     *
+     * @param input the bean name
+     * @return return true if the bean from spring ioc is existed
+     */
+    public static boolean existBean(String input) {
+        return Nil.isNotNull(getBean(input));
+    }
+
+    /**
+     * return true if the bean from spring ioc is existed.
+     *
+     * @param input     the bean name
+     * @param beanClass the bean class
+     * @param <T>       the bean class type
+     * @return return true if the bean from spring ioc is existed
+     */
+    public static <T> boolean existBean(String input, Class<T> beanClass) {
+        return Nil.isNotNull(getBean(input, beanClass));
+    }
+
+    /**
+     * return true if the bean from spring ioc is not existed.
+     *
+     * @param input the bean class
+     * @param <T>   the bean class type
+     * @return return true if the bean from spring ioc is not existed
+     */
+    public static <T> boolean notExistBean(Class<T> input) {
+        return !existBean(input);
+    }
+
+    /**
+     * return true if the bean from spring ioc is not existed.
+     *
+     * @param input the bean name
+     * @return return true if the bean from spring ioc is not existed
+     */
+    public static boolean notExistBean(String input) {
+        return !existBean(input);
+    }
+
+    /**
+     * return true if the bean from spring ioc is not existed.
+     *
+     * @param input     the bean name
+     * @param beanClass the bean class
+     * @param <T>       the bean class type
+     * @return return true if the bean from spring ioc is not existed
+     */
+    public static <T> boolean notExistBean(String input, Class<T> beanClass) {
+        return !existBean(input, beanClass);
+    }
+
+    /**
      * register bean(singleton) to spring ioc by bean class.
      *
      * @param input the class to register

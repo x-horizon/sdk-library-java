@@ -8,7 +8,7 @@ import cn.srd.library.java.tool.enums.EnumAutowired;
 import lombok.Getter;
 
 @Getter
-@EnumAutowired(rootClass = GenderStrategy.class)
+@EnumAutowired(rootClasses = GenderStrategy.class)
 public enum GenderType {
 
     WOMAN(1, "woman"),

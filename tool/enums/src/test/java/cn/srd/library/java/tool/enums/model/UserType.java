@@ -8,7 +8,7 @@ import cn.srd.library.java.tool.enums.EnumAutowired;
 import lombok.Getter;
 
 @Getter
-@EnumAutowired(rootClass = UserStrategy.class)
+@EnumAutowired(rootClasses = UserStrategy.class)
 public enum UserType {
 
     STUDENT(1, "student"),

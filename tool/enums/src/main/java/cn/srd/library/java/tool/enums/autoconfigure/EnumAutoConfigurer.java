@@ -21,7 +21,7 @@ public class EnumAutoConfigurer {
 
     @Bean
     @ConditionalOnBean(EnumAutowiredSwitcher.class)
-    public <E extends Enum<E>> EnumAutowiredCollector<E> enumAutowiredHandler() {
+    public <E extends Enum<E>> EnumAutowiredCollector<E> enumAutowiredCollector() {
         return new EnumAutowiredCollector<>();
     }
 
