@@ -32,8 +32,8 @@ import static cn.srd.library.java.message.engine.contract.autoconfigure.MessageE
 public class MessageEngineAutoConfigurer {
 
     @Bean
-    public MessageEngineCustomizer messageEngineCustomizer() {
-        return new MessageEngineCustomizer();
+    public MessageEngineCustomizeEvent messageEngineCustomizeEvent() {
+        return new MessageEngineCustomizeEvent();
     }
 
     @Bean

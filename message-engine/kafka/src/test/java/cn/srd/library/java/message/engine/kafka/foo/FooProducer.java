@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.message.engine.kafka.foo;
 
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
@@ -15,24 +16,25 @@ import org.springframework.stereotype.Component;
  * @author wjm
  * @since 2024-05-27 14:50
  */
+@SuppressWarnings(SuppressWarningConstant.PREVIEW)
 @Component
 public class FooProducer {
 
     @MessageProducer(
-            configs = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig),
-            topic = FooTopicConstant.TOPIC_TEST1
+            topic = FooTopicConstant.TOPIC_TEST1,
+            configs = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig)
     )
     public String send1() {
-        System.out.println("生产者1 -------- " + Times.getCurrentDateTime() + "-producer-" + "send1");
+        System.out.println(STR."生产者1 -------- \{Times.getCurrentDateTime()}-producer-send1");
         return "send1";
     }
 
     @MessageProducer(
-            configs = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig),
-            topic = FooTopicConstant.TOPIC_TEST2
+            topic = FooTopicConstant.TOPIC_TEST2,
+            configs = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig)
     )
     public String send2() {
-        System.out.println("生产者2 -------- " + Times.getCurrentDateTime() + "-producer-" + "send2");
+        System.out.println(STR."生产者2 -------- \{Times.getCurrentDateTime()}-producer-send2");
         return "send2";
     }
 

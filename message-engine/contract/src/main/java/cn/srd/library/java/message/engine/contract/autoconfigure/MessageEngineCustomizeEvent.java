@@ -16,7 +16,7 @@ import java.util.Arrays;
  * @author wjm
  * @since 2024-06-04 15:32
  */
-public class MessageEngineCustomizer implements ApplicationListener<ApplicationReadyEvent> {
+public class MessageEngineCustomizeEvent implements ApplicationListener<ApplicationReadyEvent> {
 
     @Override
     public void onApplicationEvent(@NonNull ApplicationReadyEvent event) {

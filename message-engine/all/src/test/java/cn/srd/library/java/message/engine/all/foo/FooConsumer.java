@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.message.engine.all.foo;
 
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
@@ -23,6 +24,7 @@ import static cn.srd.library.java.message.engine.kafka.MessageKafkaConfig.Consum
  * @author wjm
  * @since 2024-05-26 15:08
  */
+@SuppressWarnings(SuppressWarningConstant.PREVIEW)
 @Component
 public class FooConsumer {
 
@@ -36,7 +38,7 @@ public class FooConsumer {
             ))
     )
     public void kafkaReceive1(String message) {
-        System.out.println("kafka - 消费者1 -------- " + Times.getCurrentDateTime() + "-receive-" + message);
+        System.out.println(STR."kafka - 消费者1 -------- \{Times.getCurrentDateTime()}-receive-\{message}");
     }
 
     @MessageConsumer(
@@ -47,7 +49,7 @@ public class FooConsumer {
             ))
     )
     public void kafkaReceive2(String message) {
-        System.out.println("kafka - 消费者2 -------- " + Times.getCurrentDateTime() + "-receive-" + message);
+        System.out.println(STR."kafka - 消费者2 -------- \{Times.getCurrentDateTime()}-receive-\{message}");
     }
 
     @MessageConsumer(
@@ -58,7 +60,7 @@ public class FooConsumer {
             ))
     )
     public void kafkaReceive3(String message) {
-        System.out.println("kafka - 消费者3 -------- " + Times.getCurrentDateTime() + "-receive-" + message);
+        System.out.println(STR."kafka - 消费者3 -------- \{Times.getCurrentDateTime()}-receive-\{message}");
     }
 
     // --------------------------------------------- mqtt-v3 consumer ---------------------------------------------
@@ -70,7 +72,7 @@ public class FooConsumer {
             ))
     )
     public void mqttV3Receive1(String message) {
-        System.out.println("mqtt-v3 - 消费者1 -------- " + Times.getCurrentDateTime() + "-receive-" + message);
+        System.out.println(STR."mqtt-v3 - 消费者1 -------- \{Times.getCurrentDateTime()}-receive-\{message}");
     }
 
 }

@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.foo;
 
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
@@ -19,6 +20,7 @@ import static cn.srd.library.java.message.engine.mqtt.v3.MessageMqttV3Config.Cli
  * @author wjm
  * @since 2024-05-26 15:08
  */
+@SuppressWarnings(SuppressWarningConstant.PREVIEW)
 @Component
 public class FooConsumer {
 
@@ -29,7 +31,7 @@ public class FooConsumer {
             ))
     )
     public void receive(String message) {
-        System.out.println("消费者1 -------- " + Times.getCurrentDateTime() + "-receive-" + message);
+        System.out.println(STR."消费者1 -------- \{Times.getCurrentDateTime()}-receive-\{message}");
     }
 
 }
