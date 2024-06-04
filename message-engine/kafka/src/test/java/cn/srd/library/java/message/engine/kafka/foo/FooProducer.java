@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 public class FooProducer {
 
     @MessageProducer(
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig),
+            configs = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig),
             topic = FooTopicConstant.TOPIC_TEST1
     )
     public String send1() {
@@ -28,7 +28,7 @@ public class FooProducer {
     }
 
     @MessageProducer(
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig),
+            configs = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig),
             topic = FooTopicConstant.TOPIC_TEST2
     )
     public String send2() {

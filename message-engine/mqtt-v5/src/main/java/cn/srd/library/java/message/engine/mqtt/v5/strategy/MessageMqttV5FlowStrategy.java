@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.message.engine.mqtt.v5.strategy;
 
+import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
 
 import java.lang.reflect.Method;
@@ -15,7 +16,7 @@ import java.lang.reflect.Method;
 public class MessageMqttV5FlowStrategy implements MessageFlowStrategy {
 
     @Override
-    public String getFlowId(Method producerMethod) {
+    public String getFlowId(Method producerMethod, MessageConfig messageConfigAnnotation) {
         throw new UnsupportedOperationException();
     }
 

@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.model.dto;
 
+import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageQosType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -40,7 +41,7 @@ public class MessageMqttV3ConfigDTO extends MessageConfigDTO {
     private List<ConsumerDTO> consumerDTOs;
 
     @JsonIgnore
-    private transient Map<Method, ProducerDTO> producerRouters;
+    private transient Map<Method, Map<MessageConfig, ProducerDTO>> producerRouters;
 
     @JsonIgnore
     private transient Map<Method, ConsumerDTO> consumerRouters;

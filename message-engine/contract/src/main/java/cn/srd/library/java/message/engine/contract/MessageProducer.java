@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Inherited
 public @interface MessageProducer {
 
-    MessageConfig config();
+    MessageConfig[] configs();
 
     String topic();
 

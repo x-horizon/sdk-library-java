@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.message.engine.kafka.model.dto;
 
+import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerAckMode;
 import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerListenerMode;
@@ -44,7 +45,7 @@ public class MessageKafkaConfigDTO extends MessageConfigDTO {
     private List<ConsumerDTO> consumerDTOs;
 
     @JsonIgnore
-    private Map<Method, ProducerDTO> producerRouters;
+    private Map<Method, Map<MessageConfig, ProducerDTO>> producerRouters;
 
     @JsonIgnore
     private Map<Method, ConsumerDTO> consumerRouters;

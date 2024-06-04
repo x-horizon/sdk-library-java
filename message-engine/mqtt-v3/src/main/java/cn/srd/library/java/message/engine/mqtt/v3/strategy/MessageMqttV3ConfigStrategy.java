@@ -6,6 +6,7 @@ package cn.srd.library.java.message.engine.mqtt.v3.strategy;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
+import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
@@ -34,9 +35,7 @@ import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 
 import java.lang.reflect.Method;
-import java.util.AbstractMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -51,13 +50,13 @@ public class MessageMqttV3ConfigStrategy implements MessageConfigStrategy<Messag
         log.info("{}message engine mqtt-v3 customizer is enabled, starting initializing...", ModuleView.MESSAGE_ENGINE_SYSTEM);
 
         MessageMqttV3ConfigDTO.BrokerDTO brokerDTO = buildBrokerDTO();
-        Map<Method, MessageMqttV3ConfigDTO.ProducerDTO> producerRouters = buildProducerRouters();
+        Map<Method, Map<MessageConfig, MessageMqttV3ConfigDTO.ProducerDTO>> producerRouters = buildProducerRouters();
         Map<Method, MessageMqttV3ConfigDTO.ConsumerDTO> consumerRouters = buildConsumerRouters();
         MessageMqttV3ConfigDTO mqttV3ConfigDTO = MessageMqttV3ConfigDTO.builder()
                 .brokerDTO(brokerDTO)
                 .producerRouters(producerRouters)
                 .consumerRouters(consumerRouters)
-                .producerDTOs(Collections.getMapValues(producerRouters))
+                .producerDTOs(Collections.getMapValues(producerRouters).stream().map(Collections::getMapValues).flatMap(Collection::stream).toList())
                 .consumerDTOs(Collections.getMapValues(consumerRouters))
                 .build();
         Springs.registerBean(MessageMqttV3ConfigDTO.class.getName(), mqttV3ConfigDTO);
@@ -111,20 +110,26 @@ public class MessageMqttV3ConfigStrategy implements MessageConfigStrategy<Messag
                 .build();
     }
 
-    private Map<Method, MessageMqttV3ConfigDTO.ProducerDTO> buildProducerRouters() {
+    private Map<Method, Map<MessageConfig, MessageMqttV3ConfigDTO.ProducerDTO>> buildProducerRouters() {
         return Annotations.getAnnotatedMethods(MessageProducer.class)
                 .stream()
-                .filter(producerMethod -> Comparators.equals(MessageEngineType.MQTT_V3, producerMethod.getAnnotation(MessageProducer.class).config().engineType()))
+                .filter(producerMethod -> Collections.contains(Converts.toList(producerMethod.getAnnotation(MessageProducer.class).configs(), MessageConfig::engineType), MessageEngineType.MQTT_V3))
                 .map(producerMethod -> {
                     MessageProducer producerAnnotation = producerMethod.getAnnotation(MessageProducer.class);
-                    MessageMqttV3Config.ProducerConfig producerConfig = producerAnnotation.config().mqttV3().producerConfig();
-                    MessageMqttV3ConfigDTO.ProducerDTO producerDTO = MessageMqttV3ConfigDTO.ProducerDTO.builder()
-                            .clientDTO(buildClientDTO(producerAnnotation.config().mqttV3().clientConfig(), producerMethod))
-                            .topic(producerAnnotation.topic())
-                            .needToSendAsync(producerConfig.needToSendAsync())
-                            .build();
-                    registerProducerFlow(producerDTO);
-                    return Collections.ofPair(producerMethod, producerDTO);
+                    return Collections.ofPair(producerMethod, Arrays.stream(producerAnnotation.configs())
+                            .filter(configAnnotation -> Comparators.equals(MessageEngineType.MQTT_V3, configAnnotation.engineType()))
+                            .map(configAnnotation -> {
+                                MessageMqttV3Config.ProducerConfig producerConfig = configAnnotation.mqttV3().producerConfig();
+                                MessageMqttV3ConfigDTO.ProducerDTO producerDTO = MessageMqttV3ConfigDTO.ProducerDTO.builder()
+                                        .clientDTO(buildClientDTO(configAnnotation.mqttV3().clientConfig(), producerMethod))
+                                        .topic(producerAnnotation.topic())
+                                        .needToSendAsync(producerConfig.needToSendAsync())
+                                        .build();
+                                registerProducerFlow(producerDTO);
+                                return Collections.ofPair(configAnnotation, producerDTO);
+                            })
+                            .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue))
+                    );
                 })
                 .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
     }

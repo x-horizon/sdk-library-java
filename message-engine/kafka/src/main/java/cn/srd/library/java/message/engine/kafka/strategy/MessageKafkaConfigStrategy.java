@@ -7,6 +7,7 @@ package cn.srd.library.java.message.engine.kafka.strategy;
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
+import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
@@ -41,6 +42,8 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 
 import java.lang.reflect.Method;
 import java.util.AbstractMap;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -56,13 +59,13 @@ public class MessageKafkaConfigStrategy<K, V> implements MessageConfigStrategy<M
         log.info("{}message engine kafka customizer is enabled, starting initializing...", ModuleView.MESSAGE_ENGINE_SYSTEM);
 
         MessageKafkaConfigDTO.BrokerDTO brokerDTO = buildBrokerDTO();
-        Map<Method, MessageKafkaConfigDTO.ProducerDTO> producerRouters = buildProducerRouters();
+        Map<Method, Map<MessageConfig, MessageKafkaConfigDTO.ProducerDTO>> producerRouters = buildProducerRouters();
         Map<Method, MessageKafkaConfigDTO.ConsumerDTO> consumerRouters = buildConsumerRouters();
         MessageKafkaConfigDTO kafkaConfigDTO = MessageKafkaConfigDTO.builder()
                 .brokerDTO(brokerDTO)
                 .producerRouters(producerRouters)
+                .producerDTOs(Collections.getMapValues(producerRouters).stream().map(Collections::getMapValues).flatMap(Collection::stream).toList())
                 .consumerRouters(consumerRouters)
-                .producerDTOs(Collections.getMapValues(producerRouters))
                 .consumerDTOs(Collections.getMapValues(consumerRouters))
                 .build();
         Springs.registerBean(MessageKafkaConfigDTO.class.getName(), kafkaConfigDTO);
@@ -107,18 +110,24 @@ public class MessageKafkaConfigStrategy<K, V> implements MessageConfigStrategy<M
                 .build();
     }
 
-    private Map<Method, MessageKafkaConfigDTO.ProducerDTO> buildProducerRouters() {
+    private Map<Method, Map<MessageConfig, MessageKafkaConfigDTO.ProducerDTO>> buildProducerRouters() {
         return Annotations.getAnnotatedMethods(MessageProducer.class)
                 .stream()
-                .filter(producerMethod -> Comparators.equals(MessageEngineType.KAFKA, producerMethod.getAnnotation(MessageProducer.class).config().engineType()))
+                .filter(producerMethod -> Collections.contains(Converts.toList(producerMethod.getAnnotation(MessageProducer.class).configs(), MessageConfig::engineType), MessageEngineType.KAFKA))
                 .map(producerMethod -> {
                     MessageProducer producerAnnotation = producerMethod.getAnnotation(MessageProducer.class);
-                    MessageKafkaConfigDTO.ProducerDTO producerDTO = MessageKafkaConfigDTO.ProducerDTO.builder()
-                            .clientDTO(buildClientDTO(producerAnnotation.config().kafka().clientConfig(), producerMethod))
-                            .topic(producerAnnotation.topic())
-                            .build();
-                    registerProducerFlow(producerDTO);
-                    return Collections.ofPair(producerMethod, producerDTO);
+                    return Collections.ofPair(producerMethod, Arrays.stream(producerAnnotation.configs())
+                            .filter(configAnnotation -> Comparators.equals(MessageEngineType.KAFKA, configAnnotation.engineType()))
+                            .map(configAnnotation -> {
+                                MessageKafkaConfigDTO.ProducerDTO producerDTO = MessageKafkaConfigDTO.ProducerDTO.builder()
+                                        .clientDTO(buildClientDTO(configAnnotation.kafka().clientConfig(), producerMethod))
+                                        .topic(producerAnnotation.topic())
+                                        .build();
+                                registerProducerFlow(producerDTO);
+                                return Collections.ofPair(configAnnotation, producerDTO);
+                            })
+                            .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue))
+                    );
                 })
                 .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
     }

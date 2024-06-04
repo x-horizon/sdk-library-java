@@ -10,6 +10,8 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
+import java.util.Arrays;
+
 /**
  * @author wjm
  * @since 2023-05-25 17:02
@@ -25,10 +27,12 @@ public class MessageProducerAspect extends MessageAspect {
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
         Object message = doProceed(joinPoint);
         MessageProducer messageProducer = getAnnotationMarkedOnMethod(joinPoint, MessageProducer.class);
-        MessageEngineType messageEngineType = messageProducer.config().engineType();
-        Assert.of().setMessage("{}send message failed, the message engine type is [{}], the topic is [{}], please check!", ModuleView.MESSAGE_ENGINE_SYSTEM, messageEngineType.getDescription(), messageProducer.topic())
-                .setThrowable(LibraryJavaInternalException.class)
-                .throwsIfFalse(messageEngineType.getFlowStrategy().send(getMethod(joinPoint), message));
+        Arrays.stream(messageProducer.configs()).forEach(messageConfigAnnotation -> {
+            MessageEngineType messageEngineType = messageConfigAnnotation.engineType();
+            Assert.of().setMessage("{}send message failed, the message engine type is [{}], the topic is [{}], please check!", ModuleView.MESSAGE_ENGINE_SYSTEM, messageEngineType.getDescription(), messageProducer.topic())
+                    .setThrowable(LibraryJavaInternalException.class)
+                    .throwsIfFalse(messageEngineType.getFlowStrategy().send(getMethod(joinPoint), messageConfigAnnotation, message));
+        });
         return message;
     }
 
