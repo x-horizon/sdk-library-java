@@ -1,7 +1,10 @@
 package cn.srd.library.java.message.engine.contract.aspect;
 
+import cn.srd.library.java.contract.constant.module.ModuleView;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
-import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
+import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
+import cn.srd.library.java.tool.lang.functional.Assert;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,9 +24,11 @@ public class MessageProducerAspect extends MessageAspect {
     @Around("pointcut()")
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
         Object message = doProceed(joinPoint);
-        MessageProducer producerAnnotation = getAnnotationMarkedOnMethod(joinPoint, MessageProducer.class);
-        MessageFlowStrategy producerStrategy = producerAnnotation.config().engineType().getStrategy();
-        producerStrategy.send(producerStrategy.getFlowId(getMethod(joinPoint)), message);
+        MessageProducer messageProducer = getAnnotationMarkedOnMethod(joinPoint, MessageProducer.class);
+        MessageEngineType messageEngineType = messageProducer.config().engineType();
+        Assert.of().setMessage("{}send message failed, the message engine type is [{}], the topic is [{}], please check!", ModuleView.MESSAGE_ENGINE_SYSTEM, messageEngineType.getDescription(), messageProducer.topic())
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfFalse(messageEngineType.getFlowStrategy().send(getMethod(joinPoint), message));
         return message;
     }
 

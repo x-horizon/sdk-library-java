@@ -40,10 +40,12 @@ object GradleModule {
 
     const val GATEWAY_SPRING = "gateway-spring"
 
+    const val MESSAGE_ENGINE_ALL = "message-engine-all"
     const val MESSAGE_ENGINE_CONTRACT = "message-engine-contract"
     const val MESSAGE_ENGINE_KAFKA = "message-engine-kafka"
     const val MESSAGE_ENGINE_MQTT_V3 = "message-engine-mqtt-v3"
     const val MESSAGE_ENGINE_MQTT_V5 = "message-engine-mqtt-v5"
+    const val MESSAGE_ENGINE_NIL = "message-engine-nil"
     const val MESSAGE_ENGINE_RABBITMQ = "message-engine-rabbitmq"
     const val MESSAGE_ENGINE_REDIS = "message-engine-redis"
     const val MESSAGE_ENGINE_ROCKETMQ = "message-engine-rocketmq"

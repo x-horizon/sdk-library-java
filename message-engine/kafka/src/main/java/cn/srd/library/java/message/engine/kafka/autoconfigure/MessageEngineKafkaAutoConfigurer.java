@@ -4,19 +4,13 @@
 
 package cn.srd.library.java.message.engine.kafka.autoconfigure;
 
-import cn.srd.library.java.message.engine.kafka.model.domain.MessageKafkaConfigDO;
-import cn.srd.library.java.message.engine.kafka.model.properties.MessageEngineKafkaProperties;
+import cn.srd.library.java.message.engine.kafka.model.properties.MessageKafkaProperties;
+import cn.srd.library.java.message.engine.kafka.strategy.MessageKafkaConfigStrategy;
 import cn.srd.library.java.message.engine.kafka.strategy.MessageKafkaFlowStrategy;
-import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.integration.annotation.IntegrationComponentScan;
-import org.springframework.integration.config.EnableIntegration;
 
 /**
  * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Message Engine Kafka
@@ -24,24 +18,18 @@ import org.springframework.integration.config.EnableIntegration;
  * @author wjm
  * @since 2024-05-24 16:56
  */
-@AllArgsConstructor
 @AutoConfiguration
-@Configuration
-@EnableAspectJAutoProxy(exposeProxy = true)
-@EnableIntegration
-@EnableConfigurationProperties(MessageEngineKafkaProperties.class)
-@IntegrationComponentScan
+@EnableConfigurationProperties(MessageKafkaProperties.class)
 public class MessageEngineKafkaAutoConfigurer<K, V> {
 
     @Bean
-    public MessageKafkaFlowStrategy messageEngineKafkaStrategy() {
-        return new MessageKafkaFlowStrategy();
+    public MessageKafkaConfigStrategy<K, V> messageKafkaConfigStrategy() {
+        return new MessageKafkaConfigStrategy<>();
     }
 
     @Bean
-    @ConditionalOnBean(MessageEngineKafkaSwitcher.class)
-    public MessageKafkaConfigDO<K, V> messageKafkaConfigDO() {
-        return new MessageKafkaConfigDO<>();
+    public MessageKafkaFlowStrategy messageEngineKafkaFlowStrategy() {
+        return new MessageKafkaFlowStrategy();
     }
 
 }

@@ -5,7 +5,7 @@
 package cn.srd.library.java.message.engine.kafka.strategy;
 
 import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
-import cn.srd.library.java.message.engine.kafka.model.domain.MessageKafkaConfigDO;
+import cn.srd.library.java.message.engine.kafka.model.dto.MessageKafkaConfigDTO;
 import cn.srd.library.java.tool.spring.contract.Springs;
 
 import java.lang.reflect.Method;
@@ -18,7 +18,7 @@ public class MessageKafkaFlowStrategy implements MessageFlowStrategy {
 
     @Override
     public String getFlowId(Method producerMethod) {
-        return Springs.getBean(MessageKafkaConfigDO.class).getProducerConfigDO(producerMethod).getClientDO().getFlowId();
+        return Springs.getBean(MessageKafkaConfigDTO.class).getProducerRouters().get(producerMethod).getClientDTO().getFlowId();
     }
 
 }

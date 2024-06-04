@@ -49,10 +49,12 @@ include(":doc:knife4j:spring-webflux")
 
 include(":gateway:spring")
 
+include(":message-engine:all")
 include(":message-engine:contract")
 include(":message-engine:kafka")
 include(":message-engine:mqtt-v3")
 include(":message-engine:mqtt-v5")
+include(":message-engine:nil")
 include(":message-engine:rabbitmq")
 include(":message-engine:redis")
 include(":message-engine:rocketmq")

@@ -8,6 +8,7 @@ import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType
 import cn.srd.library.java.message.engine.kafka.MessageKafkaConfig;
 import cn.srd.library.java.message.engine.mqtt.v3.MessageMqttV3Config;
 import cn.srd.library.java.message.engine.mqtt.v5.MessageMqttV5Config;
+import cn.srd.library.java.message.engine.nil.MessageNilConfig;
 import cn.srd.library.java.message.engine.rabbitmq.MessageRabbitmqConfig;
 import cn.srd.library.java.message.engine.redis.MessageRedisConfig;
 import cn.srd.library.java.message.engine.rocketmq.MessageRocketmqConfig;
@@ -31,6 +32,8 @@ public @interface MessageConfig {
     MessageMqttV3Config mqttV3() default @MessageMqttV3Config();
 
     MessageMqttV5Config mqttV5() default @MessageMqttV5Config();
+
+    MessageNilConfig nil() default @MessageNilConfig();
 
     MessageRabbitmqConfig rabbitmq() default @MessageRabbitmqConfig();
 

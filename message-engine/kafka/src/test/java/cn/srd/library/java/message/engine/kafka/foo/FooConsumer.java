@@ -46,4 +46,15 @@ public class FooConsumer {
         System.out.println("消费者2 -------- " + Times.getCurrentDateTime() + "-receive-" + message);
     }
 
+    @MessageConsumer(
+            topics = FooTopicConstant.TOPIC_TEST1,
+            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig(
+                    clientConfig = @ClientConfig(idGenerateType = ClientIdGenerateType.SNOWFLAKE),
+                    consumerConfig = @ConsumerConfig(groupId = "2", ackMode = MessageKafkaConsumerAckMode.COMMIT_EACH_OFFSET_AFTER_CONSUME, offsetResetMode = MessageKafkaConsumerOffsetResetMode.LATEST)
+            ))
+    )
+    public void receive3(String message) {
+        System.out.println("消费者3 -------- " + Times.getCurrentDateTime() + "-receive-" + message);
+    }
+
 }

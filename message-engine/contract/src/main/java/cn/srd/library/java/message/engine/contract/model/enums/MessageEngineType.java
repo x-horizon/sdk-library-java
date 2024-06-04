@@ -4,7 +4,17 @@
 
 package cn.srd.library.java.message.engine.contract.model.enums;
 
+import cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineSwitcher;
+import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
+import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
 import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
+import cn.srd.library.java.message.engine.kafka.autoconfigure.MessageEngineKafkaSwitcher;
+import cn.srd.library.java.message.engine.mqtt.v3.autoconfigure.MessageEngineMqttV3Switcher;
+import cn.srd.library.java.message.engine.mqtt.v5.autoconfigure.MessageEngineMqttV5Switcher;
+import cn.srd.library.java.message.engine.nil.autoconfigure.MessageEngineNilSwitcher;
+import cn.srd.library.java.message.engine.rabbitmq.autoconfigure.MessageEngineRabbitMqSwitcher;
+import cn.srd.library.java.message.engine.redis.autoconfigure.MessageEngineRedisSwitcher;
+import cn.srd.library.java.message.engine.rocketmq.autoconfigure.MessageEngineRocketMqSwitcher;
 import cn.srd.library.java.tool.enums.EnumAutowired;
 import lombok.Getter;
 
@@ -13,27 +23,33 @@ import lombok.Getter;
  * @since 2024-05-26 15:04
  */
 @Getter
-@EnumAutowired(rootClass = MessageFlowStrategy.class)
+@EnumAutowired(rootClasses = {MessageConfigStrategy.class, MessageFlowStrategy.class})
 public enum MessageEngineType {
 
-    KAFKA(1, "kafka"),
-    MQTT_V3(2, "mqttV3"),
-    MQTT_V5(3, "mattV5"),
-    RABBITMQ(4, "rabbitmq"),
-    REDIS(5, "redis"),
-    ROCKETMQ(6, "rocketmq"),
+    KAFKA(1, "kafka", MessageEngineKafkaSwitcher.class),
+    MQTT_V3(2, "mqttV3", MessageEngineMqttV3Switcher.class),
+    MQTT_V5(3, "mattV5", MessageEngineMqttV5Switcher.class),
+    NIL(4, "nil", MessageEngineNilSwitcher.class),
+    RABBITMQ(5, "rabbitmq", MessageEngineRabbitMqSwitcher.class),
+    REDIS(6, "redis", MessageEngineRedisSwitcher.class),
+    ROCKETMQ(7, "rocketmq", MessageEngineRocketMqSwitcher.class),
 
     ;
 
-    MessageEngineType(int code, String description) {
+    MessageEngineType(int code, String description, Class<? extends MessageEngineSwitcher> systemSwitcher) {
         this.code = code;
         this.description = description;
+        this.systemSwitcher = systemSwitcher;
     }
 
     private final int code;
 
     private final String description;
 
-    private MessageFlowStrategy strategy;
+    private final Class<? extends MessageEngineSwitcher> systemSwitcher;
+
+    private MessageConfigStrategy<MessageConfigDTO> configStrategy;
+
+    private MessageFlowStrategy flowStrategy;
 
 }

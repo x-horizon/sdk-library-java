@@ -140,10 +140,12 @@ dependencies {
 
         api(project(GradleModule.toReferenceName(GradleModule.GATEWAY_SPRING)))
 
+        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_ALL)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_CONTRACT)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_KAFKA)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_MQTT_V3)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_MQTT_V5)))
+        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_NIL)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_RABBITMQ)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_REDIS)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_ROCKETMQ)))

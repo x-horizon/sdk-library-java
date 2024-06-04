@@ -6,7 +6,6 @@ package cn.srd.library.java.message.engine.contract.strategy;
 
 import cn.srd.library.java.contract.model.protocol.MessageModel;
 import cn.srd.library.java.tool.spring.contract.Springs;
-import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.springframework.integration.dsl.context.IntegrationFlowContext;
 import org.springframework.messaging.support.GenericMessage;
 
@@ -20,7 +19,10 @@ public interface MessageFlowStrategy {
 
     String getFlowId(Method producerMethod);
 
-    @CanIgnoreReturnValue
+    default <T> boolean send(Method executeMethod, T message) {
+        return send(getFlowId(executeMethod), message);
+    }
+
     default <T> boolean send(String flowId, T message) {
         return Springs.getBean(IntegrationFlowContext.class)
                 .getRegistrationById(flowId)
