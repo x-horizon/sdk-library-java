@@ -5,7 +5,6 @@
 package cn.srd.library.java.message.engine.contract.strategy;
 
 import cn.srd.library.java.contract.model.protocol.MessageModel;
-import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import org.springframework.integration.dsl.context.IntegrationFlowContext;
 import org.springframework.messaging.support.GenericMessage;
@@ -18,10 +17,10 @@ import java.lang.reflect.Method;
  */
 public interface MessageFlowStrategy {
 
-    String getFlowId(Method producerMethod, MessageConfig messageConfigAnnotation);
+    String getFlowId(Method producerMethod);
 
-    default <T> boolean send(Method executeMethod, MessageConfig messageConfigAnnotation, T message) {
-        return send(getFlowId(executeMethod, messageConfigAnnotation), message);
+    default <T> boolean send(Method executeMethod, T message) {
+        return send(getFlowId(executeMethod), message);
     }
 
     default <T> boolean send(String flowId, T message) {

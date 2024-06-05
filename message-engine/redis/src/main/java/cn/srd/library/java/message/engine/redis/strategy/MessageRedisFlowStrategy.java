@@ -4,7 +4,6 @@
 
 package cn.srd.library.java.message.engine.redis.strategy;
 
-import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
 
 import java.lang.reflect.Method;
@@ -16,7 +15,7 @@ import java.lang.reflect.Method;
 public class MessageRedisFlowStrategy implements MessageFlowStrategy {
 
     @Override
-    public String getFlowId(Method producerMethod, MessageConfig messageConfigAnnotation) {
+    public String getFlowId(Method producerMethod) {
         throw new UnsupportedOperationException();
     }
 

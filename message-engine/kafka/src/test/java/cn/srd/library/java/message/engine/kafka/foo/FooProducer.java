@@ -22,7 +22,7 @@ public class FooProducer {
 
     @MessageProducer(
             topic = FooTopicConstant.TOPIC_TEST1,
-            configs = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig)
+            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig)
     )
     public String send1() {
         System.out.println(STR."生产者1 -------- \{Times.getCurrentDateTime()}-producer-send1");
@@ -31,7 +31,7 @@ public class FooProducer {
 
     @MessageProducer(
             topic = FooTopicConstant.TOPIC_TEST2,
-            configs = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig)
+            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig)
     )
     public String send2() {
         System.out.println(STR."生产者2 -------- \{Times.getCurrentDateTime()}-producer-send2");

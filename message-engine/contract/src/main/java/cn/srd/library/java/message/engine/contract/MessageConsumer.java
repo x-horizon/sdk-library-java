@@ -19,6 +19,6 @@ public @interface MessageConsumer {
 
     String[] topics();
 
-    MessageProducer forwardTo() default @MessageProducer(configs = @MessageConfig(engineType = MessageEngineType.NIL), topic = SymbolConstant.EMPTY);
+    MessageProducer forwardTo() default @MessageProducer(config = @MessageConfig(engineType = MessageEngineType.NIL), topic = SymbolConstant.EMPTY);
 
 }

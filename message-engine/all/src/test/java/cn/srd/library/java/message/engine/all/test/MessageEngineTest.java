@@ -44,11 +44,10 @@ class MessageEngineTest {
     @Test
     void test() {
         while (true) {
-            fooProducer.kafkaAndMqttV3Send1();
-            // fooProducer.kafkaSend1();
-            // fooProducer.kafkaSend2();
-            // fooProducer.mqttV3Send1();
-            // fooProducer.mqttV3Send2();
+            fooProducer.kafkaSend1();
+            fooProducer.kafkaSend2();
+            fooProducer.mqttV3Send1();
+            fooProducer.mqttV3Send2();
             TimeUnit.SECONDS.sleep(1);
         }
     }

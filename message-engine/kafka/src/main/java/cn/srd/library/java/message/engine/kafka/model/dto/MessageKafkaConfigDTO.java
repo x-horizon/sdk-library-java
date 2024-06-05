@@ -44,7 +44,7 @@ public class MessageKafkaConfigDTO extends MessageConfigDTO {
     private List<ConsumerDTO> consumerDTOs;
 
     @JsonIgnore
-    private Map<Method, Map<String, ProducerDTO>> producerRouters;
+    private Map<Method, ProducerDTO> producerRouters;
 
     @JsonIgnore
     private Map<Method, ConsumerDTO> consumerRouters;
