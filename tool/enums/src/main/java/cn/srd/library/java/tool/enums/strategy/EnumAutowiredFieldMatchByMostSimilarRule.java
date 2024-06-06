@@ -19,8 +19,8 @@ import java.util.List;
 public class EnumAutowiredFieldMatchByMostSimilarRule implements EnumAutowiredFieldMatchRule {
 
     @Override
-    public <E extends Enum<E>> String getMostSuitableAutowiredClassName(Enum<E> enumField, List<String> enumAutowiredSubclassNames) {
-        return Strings.getMostSimilar(Strings.removeAll(enumField.name(), SymbolConstant.UNDERLINE), enumAutowiredSubclassNames);
+    public <E extends Enum<E>> String getMostSuitableAutowiredClassSimpleName(Enum<E> enumField, List<String> enumAutowiredSubclassSimpleNames) {
+        return Strings.getMostSimilar(Strings.removeAll(enumField.name(), SymbolConstant.UNDERLINE), enumAutowiredSubclassSimpleNames);
     }
 
 }

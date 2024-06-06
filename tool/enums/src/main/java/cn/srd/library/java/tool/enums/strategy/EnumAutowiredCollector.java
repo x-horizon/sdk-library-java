@@ -85,7 +85,12 @@ public class EnumAutowiredCollector<E extends Enum<E>> implements SmartInitializ
 
                 for (E enumField : Enums.getAllInstances((Class<E>) enumAutowiredAnnotatedClass)) {
                     EnumAutowiredFieldMatchRule enumAutowiredFieldMatchRule = Reflects.newInstance(enumAutowired.matchRule());
-                    String theMostSuitableAutowiredClassSimpleName = enumAutowiredFieldMatchRule.getMostSuitableAutowiredClassName(enumField, Collections.getMapKeys(enumAutowiredSubclassSimpleNameMappingNameMap));
+                    String theMostSuitableAutowiredClassSimpleName = enumAutowiredFieldMatchRule.getMostSuitableAutowiredClassSimpleName(enumField, Collections.getMapKeys(enumAutowiredSubclassSimpleNameMappingNameMap));
+                    if (Nil.isNull(theMostSuitableAutowiredClassSimpleName) && enumAutowired.allowNull()) {
+                        Reflects.setFieldValue(enumField, autowiredFiledName, null);
+                        log.info("{}find class [null] and autowired it into enum [{}]-[{}] filed [{}]", ModuleView.TOOL_ENUM_SYSTEM, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName);
+                        continue;
+                    }
                     Object theMostSuitableAutowiredClass = Springs.getBean(Classes.ofName(enumAutowiredSubclassSimpleNameMappingNameMap.get(theMostSuitableAutowiredClassSimpleName)));
                     Assert.of().setMessage("{}find class [{}] and autowired it into enum [{}]-[{}] filed [{}], but the [{}] instance is null, you need to consider adding it to Spring IOC", ModuleView.TOOL_ENUM_SYSTEM, theMostSuitableAutowiredClassSimpleName, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName, theMostSuitableAutowiredClassSimpleName)
                             .setThrowable(LibraryJavaInternalException.class)

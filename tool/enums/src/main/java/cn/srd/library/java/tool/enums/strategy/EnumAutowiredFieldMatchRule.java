@@ -19,11 +19,11 @@ public interface EnumAutowiredFieldMatchRule {
     /**
      * get the most suitable subclass simple name implemented by {@link EnumAutowired#rootClasses()} to autowired the subclass instance in spring ioc
      *
-     * @param enumField                  the enum marked with {@link EnumAutowired} field
-     * @param enumAutowiredSubclassNames all subclass simple names implement by {@link EnumAutowired#rootClasses()}
-     * @param <E>                        the enum marked with {@link EnumAutowired} type
+     * @param enumField                        the enum marked with {@link EnumAutowired} field
+     * @param enumAutowiredSubclassSimpleNames all subclass simple names implement by {@link EnumAutowired#rootClasses()}
+     * @param <E>                              the enum marked with {@link EnumAutowired} type
      * @return the most suitable subclass simple name
      */
-    <E extends Enum<E>> String getMostSuitableAutowiredClassName(Enum<E> enumField, List<String> enumAutowiredSubclassNames);
+    <E extends Enum<E>> String getMostSuitableAutowiredClassSimpleName(Enum<E> enumField, List<String> enumAutowiredSubclassSimpleNames);
 
 }
