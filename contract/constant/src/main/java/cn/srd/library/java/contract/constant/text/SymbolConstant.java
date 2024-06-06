@@ -122,6 +122,11 @@ public class SymbolConstant {
     public static final String DOLLAR = "$";
 
     /**
+     * {@code "#"}
+     */
+    public static final String WELL_NUMBER = "#";
+
+    /**
      * {@code "@"}
      */
     public static final String AT = "@";

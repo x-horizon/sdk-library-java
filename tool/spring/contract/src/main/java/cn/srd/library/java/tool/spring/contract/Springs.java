@@ -128,26 +128,39 @@ public class Springs {
     }
 
     /**
-     * get config item value from project config file, like application.yaml, application.properties
+     * get the spring property value from project config file, like application.yaml, application.properties
      *
-     * @param key config item key
-     * @return config item value
+     * @param key spring property key
+     * @return spring property value
      * @see SpringUtil#getProperty(String)
      */
     public static String getProperty(String key) {
-        return SpringUtil.getProperty(key);
+        return getApplicationContext().getEnvironment().getProperty(removePropertyKeyPlaceholder(key));
     }
 
     /**
-     * get config item value from project config file, like application.yaml, application.properties
+     * get the spring property value from project config file, like application.yaml, application.properties
      *
-     * @param key       config item key
+     * @param key       spring property key
      * @param valueType value class
      * @param <T>       value class type
-     * @return config item value
+     * @return spring property value
      */
     public static <T> T getProperty(String key, Class<T> valueType) {
-        return getApplicationContext().getEnvironment().getProperty(key, valueType);
+        return getApplicationContext().getEnvironment().getProperty(removePropertyKeyPlaceholder(key), valueType);
+    }
+
+    /**
+     * get the spring property value from project config file, like application.yaml, application.properties
+     *
+     * @param key          spring property key
+     * @param valueType    value class
+     * @param defaultValue return default value if the spring property value is null
+     * @param <T>          value class type
+     * @return spring property value
+     */
+    public static <T> T getProperty(String key, Class<T> valueType, T defaultValue) {
+        return getApplicationContext().getEnvironment().getProperty(removePropertyKeyPlaceholder(key), valueType, defaultValue);
     }
 
     /**
@@ -264,6 +277,22 @@ public class Springs {
      */
     public static <T> void registerBean(String beanName, T input) {
         SpringUtil.registerBean(beanName, input);
+    }
+
+    /**
+     * remove the possible spring property placeholders.
+     *
+     * @param key spring property key
+     * @return after remove the possible spring property placeholders key.
+     */
+    private static String removePropertyKeyPlaceholder(String key) {
+        key = Strings.removeIfStartWith(key, SymbolConstant.DOLLAR);
+        key = Strings.removeIfStartWith(key, SymbolConstant.WELL_NUMBER);
+        key = Strings.removeIfStartWith(key, SymbolConstant.PERCENT);
+        key = Strings.removeIfStartWith(key, SymbolConstant.AT);
+        key = Strings.removeIfStartAndEndWith(key, SymbolConstant.DELIM_START, SymbolConstant.DELIM_END);
+        key = Strings.removeIfStartAndEndWith(key, SymbolConstant.BRACKET_START, SymbolConstant.BRACKET_END);
+        return key;
     }
 
 }
