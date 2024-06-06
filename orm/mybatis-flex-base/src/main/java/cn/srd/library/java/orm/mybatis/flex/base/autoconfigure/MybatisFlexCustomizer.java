@@ -5,6 +5,7 @@
 package cn.srd.library.java.orm.mybatis.flex.base.autoconfigure;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.orm.mybatis.flex.base.audit.AuditLogConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.audit.UnsupportedAuditLogTelemeter;
 import cn.srd.library.java.orm.mybatis.flex.base.id.IdConfig;
@@ -14,6 +15,7 @@ import cn.srd.library.java.orm.mybatis.flex.base.logic.DeleteLogicConfig;
 import cn.srd.library.java.orm.mybatis.flex.base.property.PropertyConfig;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.convert.Converts;
+import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.object.Objects;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
@@ -80,7 +82,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
         handleDeleteLogicConfig(mybatisFlexCustomizer.globalDeleteLogicConfig());
         handleListenerConfig(globalConfig, mybatisFlexCustomizer.globalListenerConfig());
         handleOptimisticLockConfig(globalConfig, mybatisFlexCustomizer.globalOptimisticLockConfig());
-        handleAuditConfig(mybatisFlexCustomizer.globalAuditConfig());
+        handleAuditLogConfig(mybatisFlexCustomizer.globalAuditConfig());
         handleMybatisFlexProperties(mybatisFlexCustomizer.globalPropertyConfig());
 
         log.info(""" 
@@ -98,6 +100,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
                         Global Optimistic Lock Config:
                            columnName                              = [{}]
                         Global Audit Config:
+                           enable                                  = [{}]
                            constructor                             = [{}]
                            printer                                 = [{}]
                            telemeter                               = [{}]
@@ -111,7 +114,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
                 mybatisFlexCustomizer.globalDeleteLogicConfig().processor().getName(),
                 mybatisFlexCustomizer.globalListenerConfig().whenInsert().getName(), mybatisFlexCustomizer.globalListenerConfig().whenUpdate().getName(),
                 mybatisFlexCustomizer.globalOptimisticLockConfig().columnName(),
-                mybatisFlexCustomizer.globalAuditConfig().constructor().getName(), mybatisFlexCustomizer.globalAuditConfig().printer().getName(), mybatisFlexCustomizer.globalAuditConfig().telemeter().getName(),
+                parseEnableAuditLogBooleanValue(mybatisFlexCustomizer.globalAuditConfig()), mybatisFlexCustomizer.globalAuditConfig().constructor().getName(), mybatisFlexCustomizer.globalAuditConfig().printer().getName(), mybatisFlexCustomizer.globalAuditConfig().telemeter().getName(),
                 mybatisFlexCustomizer.globalPropertyConfig().nativeMybatisLog().getName(), mybatisFlexCustomizer.globalPropertyConfig().xmlMapperClassPaths(), mybatisFlexCustomizer.globalPropertyConfig().xmlMapperEntityPackageAliasPackagePaths()
         );
 
@@ -179,8 +182,8 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
      *
      * @param auditLogConfig the audit log config
      */
-    private void handleAuditConfig(AuditLogConfig auditLogConfig) {
-        if (auditLogConfig.enable()) {
+    private void handleAuditLogConfig(AuditLogConfig auditLogConfig) {
+        if (parseEnableAuditLogBooleanValue(auditLogConfig)) {
             AuditManager.setAuditEnable(true);
             AuditManager.setMessageFactory(Reflects.newInstance(auditLogConfig.constructor()));
             AuditManager.setMessageCollector(Reflects.newInstance(auditLogConfig.printer()));
@@ -252,6 +255,14 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
                     nativeMybatisLog
             );
         }
+    }
+
+    private Boolean parseEnableAuditLogBooleanValue(AuditLogConfig auditLogConfig) {
+        Boolean needToEnableAuditLog = Nil.isBlank(auditLogConfig.enableFrom()) ? auditLogConfig.enable() : Springs.getProperty(auditLogConfig.enableFrom(), Boolean.class);
+        Assert.of().setMessage("{}could not parse the boolean value to enable audit log, please check your configuration uri!", ModuleView.ORM_MYBATIS_SYSTEM)
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfNull(needToEnableAuditLog);
+        return needToEnableAuditLog;
     }
 
     /**

@@ -28,6 +28,13 @@ public @interface AuditLogConfig {
     boolean enable() default false;
 
     /**
+     * enable audit log or not from the spring config yaml file.
+     *
+     * @return enable audit log or not
+     */
+    String enableFrom() default "";
+
+    /**
      * provide a class implement by {@link AuditLogConstructor} to expand extra audit log model.
      *
      * <p>the default info in audit log as following:
