@@ -7,6 +7,7 @@ package cn.srd.library.java.orm.mybatis.flex.postgresql.chain;
 import cn.srd.library.java.contract.constant.database.PostgresqlFunctionType;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
+import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.base.POJO;
 import cn.srd.library.java.orm.mybatis.flex.base.cache.MybatisFlexSystemCache;
@@ -147,11 +148,11 @@ public class JsonbQueryFunctionChainer<PJ extends POJO> extends BaseQueryChainer
         //         .select("1")
         // )).toSQL();
         // return this;
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     public <PJ1 extends POJO> JsonbQueryFunctionCaster<PJ> or(ColumnNameGetter<PJ1> columnNameGetter) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     private <PJ1 extends POJO> JsonbQueryFunctionCaster<PJ> connect(SqlConnector sqlConnector, ColumnNameGetter<PJ1> columnNameGetter, ColumnNameGetter<?>... jsonKeyGetters) {

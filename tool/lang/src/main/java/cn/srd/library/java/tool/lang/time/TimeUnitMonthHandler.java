@@ -1,5 +1,6 @@
 package cn.srd.library.java.tool.lang.time;
 
+import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -25,27 +26,27 @@ public class TimeUnitMonthHandler extends TimeUnitHandler {
 
     @Override
     public Duration toMillisecond() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     @Override
     public Duration toSecond() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     @Override
     public Duration toMinute() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     @Override
     public Duration toHour() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     @Override
     public Duration toDay() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
 }

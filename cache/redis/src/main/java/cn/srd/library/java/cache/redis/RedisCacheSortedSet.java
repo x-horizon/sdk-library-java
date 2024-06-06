@@ -1,5 +1,6 @@
 package cn.srd.library.java.cache.redis;
 
+import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import cn.srd.library.java.tool.lang.time.DurationWrapper;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -23,67 +24,67 @@ public class RedisCacheSortedSet implements RedisCacheTemplate {
 
     @Override
     public Object get(String key) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     @Override
     public <V> Map<String, V> getMapByNamespace(String namespace) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     @Override
     public void delete(String key) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     @Override
     public long deleteAll(String namespace) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     @Override
     public <V> boolean compareAndSet(String key, V expectedValue, V updateValue) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     @Override
     public <V> Map<String, V> getMapByPattern(String pattern) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     @Override
     public long deleteByNamespace(String namespace) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     @Override
     public long deleteByPattern(String pattern) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     @Override
     public <V> void set(String key, V value, Duration expiration) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     @Override
     public <V> boolean setIfExists(String key, V value, Duration expiration) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     @Override
     public <V> boolean setIfAbsent(String key, V value, Duration expiration) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     @Override
     public DurationWrapper getExpirationTime(String key) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     @Override
     public DurationWrapper getTimeToLive(String key) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
 }

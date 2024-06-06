@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.chain;
 
+import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import cn.srd.library.java.orm.contract.constant.GenericTableAlias;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.contract.model.base.POJO;
@@ -160,11 +161,11 @@ public class JsonbQueryChainer<P extends PO, PJ extends POJO> extends BaseQueryC
     }
 
     public <PJ1 extends POJO, PJ2 extends POJO> JsonbQueryCaster<P, PJ> or(ColumnNameGetter<PJ1> columnNameGetter, ColumnNameGetter<PJ2> jsonKeyGetter) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     public <PJ1 extends POJO> JsonbQueryChainer<P, PJ> orExist(JsonbQueryFunctionChainer<PJ1> chainer) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
     public NormalQueryChainer<P, PJ> switchToNormalQuery() {
