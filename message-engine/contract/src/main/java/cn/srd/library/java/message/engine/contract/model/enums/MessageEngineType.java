@@ -4,8 +4,9 @@
 
 package cn.srd.library.java.message.engine.contract.model.enums;
 
+import cn.srd.library.java.contract.constant.module.ModuleView;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineSwitcher;
-import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
 import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
 import cn.srd.library.java.message.engine.kafka.autoconfigure.MessageEngineKafkaSwitcher;
@@ -16,6 +17,8 @@ import cn.srd.library.java.message.engine.rabbitmq.autoconfigure.MessageEngineRa
 import cn.srd.library.java.message.engine.redis.autoconfigure.MessageEngineRedisSwitcher;
 import cn.srd.library.java.message.engine.rocketmq.autoconfigure.MessageEngineRocketMqSwitcher;
 import cn.srd.library.java.tool.enums.EnumAutowired;
+import cn.srd.library.java.tool.enums.strategy.EnumAutowiredFieldMatchByContainIgnoreCaseRule;
+import cn.srd.library.java.tool.lang.functional.Assert;
 import lombok.Getter;
 
 /**
@@ -23,7 +26,7 @@ import lombok.Getter;
  * @since 2024-05-26 15:04
  */
 @Getter
-@EnumAutowired(rootClasses = {MessageConfigStrategy.class, MessageFlowStrategy.class})
+@EnumAutowired(rootClasses = {MessageConfigStrategy.class, MessageFlowStrategy.class}, allowNull = true, matchRule = EnumAutowiredFieldMatchByContainIgnoreCaseRule.class)
 public enum MessageEngineType {
 
     KAFKA(1, "kafka", MessageEngineKafkaSwitcher.class),
@@ -48,8 +51,21 @@ public enum MessageEngineType {
 
     private final Class<? extends MessageEngineSwitcher> systemSwitcher;
 
-    private MessageConfigStrategy<MessageConfigDTO> configStrategy;
+    private MessageConfigStrategy configStrategy;
 
     private MessageFlowStrategy flowStrategy;
 
+    public MessageConfigStrategy getConfigStrategy() {
+        Assert.of().setMessage("{}could not find the config strategy by message engine type [{}], please add the related library path to your classpath.", ModuleView.MESSAGE_ENGINE_SYSTEM, this.name())
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfNull(this.configStrategy);
+        return this.configStrategy;
+    }
+
+    public MessageFlowStrategy getFlowStrategy() {
+        Assert.of().setMessage("{}could not find the flow strategy by message engine type [{}], please add the related library path to your classpath.", ModuleView.MESSAGE_ENGINE_SYSTEM, this.name())
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfNull(this.flowStrategy);
+        return this.flowStrategy;
+    }
 }

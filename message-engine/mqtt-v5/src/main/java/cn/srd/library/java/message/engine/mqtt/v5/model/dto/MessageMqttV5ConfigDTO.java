@@ -53,7 +53,7 @@ public class MessageMqttV5ConfigDTO extends MessageConfigDTO {
     @Accessors(chain = true)
     @SuperBuilder(toBuilder = true)
     @NoArgsConstructor
-    public static class ProducerDTO implements Serializable {
+    public static class ProducerDTO implements MessageConfigDTO.ProducerDTO {
 
         @Serial private static final long serialVersionUID = -4450021328129932093L;
 

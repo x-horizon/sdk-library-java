@@ -5,6 +5,7 @@
 package cn.srd.library.java.message.engine.kafka.model.dto;
 
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
+import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerAckMode;
 import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerListenerMode;
 import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerOffsetResetMode;
@@ -44,10 +45,10 @@ public class MessageKafkaConfigDTO extends MessageConfigDTO {
     private List<ConsumerDTO> consumerDTOs;
 
     @JsonIgnore
-    private Map<Method, ProducerDTO> producerRouters;
+    private Map<Method, ProducerDTO> producerRouter;
 
     @JsonIgnore
-    private Map<Method, ConsumerDTO> consumerRouters;
+    private Map<Method, ConsumerDTO> consumerRouter;
 
     @Data
     @Accessors(chain = true)
@@ -75,12 +76,14 @@ public class MessageKafkaConfigDTO extends MessageConfigDTO {
     @Accessors(chain = true)
     @SuperBuilder(toBuilder = true)
     @NoArgsConstructor
-    public static class ProducerDTO implements Serializable {
+    public static class ProducerDTO implements MessageConfigDTO.ProducerDTO {
 
         @Serial private static final long serialVersionUID = -7957770669868555274L;
 
         @JsonProperty("clientInfo")
         private ClientDTO clientDTO;
+
+        private MessageEngineType engineType;
 
         private String topic;
 
@@ -97,7 +100,8 @@ public class MessageKafkaConfigDTO extends MessageConfigDTO {
         @JsonProperty("clientInfo")
         private ClientDTO clientDTO;
 
-        private ProducerDTO forwardProducerDTO;
+        @JsonProperty("forwardProducerInfo")
+        private MessageConfigDTO.ProducerDTO forwardProducerDTO;
 
         private String groupId;
 

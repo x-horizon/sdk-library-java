@@ -7,6 +7,7 @@ package cn.srd.library.java.message.engine.all.foo;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
+import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageQosType;
@@ -46,10 +47,17 @@ public class FooConsumer {
             config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig(
                     clientConfig = @ClientConfig(idGenerateType = ClientIdGenerateType.SNOWFLAKE),
                     consumerConfig = @ConsumerConfig(groupId = "1", ackMode = MessageKafkaConsumerAckMode.COMMIT_EACH_OFFSET_AFTER_CONSUME, offsetResetMode = MessageKafkaConsumerOffsetResetMode.LATEST)
-            ))
+            )),
+            forwardTo = @MessageProducer(
+                    topic = FooTopicConstant.TOPIC_TEST1,
+                    config = @MessageConfig(engineType = MessageEngineType.MQTT_V3, mqttV3 = @MessageMqttV3Config(
+                            clientConfig = @MessageMqttV3Config.ClientConfig(idGenerateType = ClientIdGenerateType.SNOWFLAKE, qosType = MessageQosType.EXACTLY_ONCE)
+                    ))
+            )
     )
-    public void kafkaReceive2(String message) {
+    public String kafkaReceive2(String message) {
         System.out.println(STR."kafka - 消费者2 -------- \{Times.getCurrentDateTime()}-receive-\{message}");
+        return "forward2";
     }
 
     @MessageConsumer(

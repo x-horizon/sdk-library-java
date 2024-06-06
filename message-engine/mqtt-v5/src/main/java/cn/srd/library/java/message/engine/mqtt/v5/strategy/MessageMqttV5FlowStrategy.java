@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.message.engine.mqtt.v5.strategy;
 
+import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
 
 import java.lang.reflect.Method;
@@ -16,12 +17,7 @@ public class MessageMqttV5FlowStrategy implements MessageFlowStrategy {
 
     @Override
     public String getFlowId(Method producerMethod) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> boolean send(String flowId, T message) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedException();
     }
 
 }

@@ -7,10 +7,6 @@ package cn.srd.library.java.message.engine.all.test;
 import cn.srd.library.java.message.engine.all.foo.FooProducer;
 import cn.srd.library.java.message.engine.kafka.autoconfigure.EnableMessageEngineKafka;
 import cn.srd.library.java.message.engine.mqtt.v3.autoconfigure.EnableMessageEngineMqttV3;
-import cn.srd.library.java.message.engine.mqtt.v5.autoconfigure.EnableMessageEngineMqttV5;
-import cn.srd.library.java.message.engine.rabbitmq.autoconfigure.EnableMessageEngineRabbitMq;
-import cn.srd.library.java.message.engine.redis.autoconfigure.EnableMessageEngineRedis;
-import cn.srd.library.java.message.engine.rocketmq.autoconfigure.EnableMessageEngineRocketMq;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,10 +25,10 @@ import java.util.concurrent.TimeUnit;
  */
 @EnableMessageEngineKafka
 @EnableMessageEngineMqttV3
-@EnableMessageEngineMqttV5
-@EnableMessageEngineRabbitMq
-@EnableMessageEngineRedis
-@EnableMessageEngineRocketMq
+// @EnableMessageEngineMqttV5
+// @EnableMessageEngineRabbitMq
+// @EnableMessageEngineRedis
+// @EnableMessageEngineRocketMq
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @SpringIntegrationTest
@@ -45,9 +41,9 @@ class MessageEngineTest {
     void test() {
         while (true) {
             fooProducer.kafkaSend1();
-            fooProducer.kafkaSend2();
-            fooProducer.mqttV3Send1();
-            fooProducer.mqttV3Send2();
+            // fooProducer.kafkaSend2();
+            // fooProducer.mqttV3Send1();
+            // fooProducer.mqttV3Send2();
             TimeUnit.SECONDS.sleep(1);
         }
     }

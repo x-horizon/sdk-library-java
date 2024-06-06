@@ -4,14 +4,21 @@
 
 package cn.srd.library.java.message.engine.contract.strategy;
 
+import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
+
+import java.lang.reflect.Method;
 
 /**
  * @author wjm
  * @since 2024-06-04 11:55
  */
-public interface MessageConfigStrategy<T extends MessageConfigDTO> {
+public interface MessageConfigStrategy {
 
-    T customize();
+    void customize();
+
+    void registerProducerRouter(Method executeMethod, MessageConfigDTO.ProducerDTO producerDTO);
+
+    MessageConfigDTO.ProducerDTO registerProducer(Method executeMethod, MessageProducer producerAnnotation);
 
 }

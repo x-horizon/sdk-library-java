@@ -40,10 +40,10 @@ public class MessageMqttV3ConfigDTO extends MessageConfigDTO {
     private List<ConsumerDTO> consumerDTOs;
 
     @JsonIgnore
-    private transient Map<Method, ProducerDTO> producerRouters;
+    private transient Map<Method, ProducerDTO> producerRouter;
 
     @JsonIgnore
-    private transient Map<Method, ConsumerDTO> consumerRouters;
+    private transient Map<Method, ConsumerDTO> consumerRouter;
 
     @Data
     @Accessors(chain = true)
@@ -87,7 +87,7 @@ public class MessageMqttV3ConfigDTO extends MessageConfigDTO {
     @Accessors(chain = true)
     @SuperBuilder(toBuilder = true)
     @NoArgsConstructor
-    public static class ProducerDTO implements Serializable {
+    public static class ProducerDTO implements MessageConfigDTO.ProducerDTO {
 
         @Serial private static final long serialVersionUID = 3866458534946916451L;
 
@@ -110,6 +110,9 @@ public class MessageMqttV3ConfigDTO extends MessageConfigDTO {
 
         @JsonProperty("clientInfo")
         private ClientDTO clientDTO;
+
+        @JsonProperty("forwardProducerInfo")
+        private MessageConfigDTO.ProducerDTO forwardProducerDTO;
 
         private List<String> topics;
 

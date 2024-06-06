@@ -59,4 +59,8 @@ public abstract class MessageConfigDTO implements Serializable {
 
     }
 
+    public interface ProducerDTO extends Serializable {
+        
+    }
+
 }

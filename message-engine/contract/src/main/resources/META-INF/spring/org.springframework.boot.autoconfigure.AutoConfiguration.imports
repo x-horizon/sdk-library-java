@@ -1,1 +1,2 @@
 cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineAutoConfigurer
+cn.srd.library.java.message.engine.nil.autoconfigure.MessageEngineNilAutoConfigurer

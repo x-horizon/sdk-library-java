@@ -27,7 +27,7 @@ public interface MessageFlowStrategy {
         return Springs.getBean(IntegrationFlowContext.class)
                 .getRegistrationById(flowId)
                 .getInputChannel()
-                .send(new GenericMessage<>(MessageModel.builder().data(message).build()));
+                .send(new GenericMessage<>(message instanceof MessageModel ? message : MessageModel.builder().data(message).build()));
     }
 
 }

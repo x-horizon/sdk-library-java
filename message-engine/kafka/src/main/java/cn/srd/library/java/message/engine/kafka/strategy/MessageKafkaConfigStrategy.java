@@ -9,6 +9,7 @@ import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
+import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
@@ -41,6 +42,7 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 
 import java.lang.reflect.Method;
 import java.util.AbstractMap;
+import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -49,21 +51,21 @@ import java.util.stream.Collectors;
  * @since 2024-06-04 14:16
  */
 @Slf4j
-public class MessageKafkaConfigStrategy<K, V> implements MessageConfigStrategy<MessageKafkaConfigDTO> {
+public class MessageKafkaConfigStrategy<K, V> implements MessageConfigStrategy {
 
     @Override
-    public MessageKafkaConfigDTO customize() {
+    public void customize() {
         log.info("{}message engine kafka customizer is enabled, starting initializing...", ModuleView.MESSAGE_ENGINE_SYSTEM);
 
-        MessageKafkaConfigDTO.BrokerDTO brokerDTO = buildBrokerDTO();
-        Map<Method, MessageKafkaConfigDTO.ProducerDTO> producerRouters = buildProducerRouters();
-        Map<Method, MessageKafkaConfigDTO.ConsumerDTO> consumerRouters = buildConsumerRouters();
+        MessageKafkaConfigDTO.BrokerDTO brokerDTO = registerBroker();
+        Map<Method, MessageKafkaConfigDTO.ProducerDTO> producerRouter = registerProducerRouter();
+        Map<Method, MessageKafkaConfigDTO.ConsumerDTO> consumerRouter = registerConsumerRouter();
         MessageKafkaConfigDTO kafkaConfigDTO = MessageKafkaConfigDTO.builder()
                 .brokerDTO(brokerDTO)
-                .producerRouters(producerRouters)
-                .producerDTOs(Collections.getMapValues(producerRouters))
-                .consumerRouters(consumerRouters)
-                .consumerDTOs(Collections.getMapValues(consumerRouters))
+                .producerRouter(producerRouter)
+                .producerDTOs(Collections.getMapValues(producerRouter))
+                .consumerRouter(consumerRouter)
+                .consumerDTOs(Collections.getMapValues(consumerRouter))
                 .build();
         Springs.registerBean(MessageKafkaConfigDTO.class.getName(), kafkaConfigDTO);
 
@@ -85,18 +87,19 @@ public class MessageKafkaConfigStrategy<K, V> implements MessageConfigStrategy<M
                 Converts.withJackson().toStringFormatted(kafkaConfigDTO.getConsumerDTOs())
         );
         log.info("{}message engine kafka customizer initialized.", ModuleView.MESSAGE_ENGINE_SYSTEM);
-
-        return kafkaConfigDTO;
     }
 
-    private MessageKafkaConfigDTO.BrokerDTO buildBrokerDTO() {
-        registerProducerFactory();
+    private MessageKafkaConfigDTO.BrokerDTO registerBroker() {
         MessageKafkaProperties kafkaProperties = Springs.getBean(MessageKafkaProperties.class);
-        return MessageKafkaConfigDTO.BrokerDTO.builder().serverUrls(kafkaProperties.getServerUrls()).build();
-
+        Assert.of().setMessage("{}could not find the kafka server url, please provide the kafka server url in the config yaml, see [{}].", ModuleView.MESSAGE_ENGINE_SYSTEM, MessageKafkaProperties.class.getName())
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfNull(kafkaProperties.getServerUrls());
+        MessageKafkaConfigDTO.BrokerDTO brokerDTO = MessageKafkaConfigDTO.BrokerDTO.builder().serverUrls(kafkaProperties.getServerUrls()).build();
+        registerProducerFactory(brokerDTO);
+        return brokerDTO;
     }
 
-    private MessageKafkaConfigDTO.ClientDTO buildClientDTO(MessageKafkaConfig.ClientConfig clientConfig, Method executeMethod) {
+    private MessageKafkaConfigDTO.ClientDTO registerClient(MessageKafkaConfig.ClientConfig clientConfig, Method executeMethod) {
         String flowId = MessageFlows.getFlowId(MessageEngineType.KAFKA, executeMethod);
         ClientIdGenerateType idGenerateType = clientConfig.idGenerateType();
         return MessageKafkaConfigDTO.ClientDTO.builder()
@@ -107,31 +110,72 @@ public class MessageKafkaConfigStrategy<K, V> implements MessageConfigStrategy<M
                 .build();
     }
 
-    private Map<Method, MessageKafkaConfigDTO.ProducerDTO> buildProducerRouters() {
-        return Annotations.getAnnotatedMethods(MessageProducer.class)
-                .stream()
+    private Map<Method, MessageKafkaConfigDTO.ProducerDTO> registerProducerRouter() {
+        return registerProducerRouter(Annotations.getAnnotatedMethods(MessageProducer.class));
+    }
+
+    private Map<Method, MessageKafkaConfigDTO.ProducerDTO> registerProducerRouter(Collection<Method> producerMethods) {
+        return producerMethods.stream()
                 .filter(producerMethod -> Comparators.equals(MessageEngineType.KAFKA, producerMethod.getAnnotation(MessageProducer.class).config().engineType()))
-                .map(producerMethod -> {
-                    MessageProducer producerAnnotation = producerMethod.getAnnotation(MessageProducer.class);
-                    MessageKafkaConfigDTO.ProducerDTO producerDTO = MessageKafkaConfigDTO.ProducerDTO.builder()
-                            .clientDTO(buildClientDTO(producerAnnotation.config().kafka().clientConfig(), producerMethod))
-                            .topic(producerAnnotation.topic())
-                            .build();
-                    registerProducerFlow(producerDTO);
-                    return Collections.ofPair(producerMethod, producerDTO);
-                })
+                .map(producerMethod -> Collections.ofPair(producerMethod, registerProducer(producerMethod)))
                 .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
     }
 
-    private Map<Method, MessageKafkaConfigDTO.ConsumerDTO> buildConsumerRouters() {
+    @Override
+    public void registerProducerRouter(Method executeMethod, MessageConfigDTO.ProducerDTO producerDTO) {
+        Map<Method, MessageKafkaConfigDTO.ProducerDTO> producerRouter = Springs.getBean(MessageKafkaConfigDTO.class).getProducerRouter();
+        producerRouter.put(executeMethod, (MessageKafkaConfigDTO.ProducerDTO) producerDTO);
+    }
+
+    private MessageKafkaConfigDTO.ProducerDTO registerProducer(Method producerMethod) {
+        return registerProducer(producerMethod, producerMethod.getAnnotation(MessageProducer.class));
+    }
+
+    @Override
+    public MessageKafkaConfigDTO.ProducerDTO registerProducer(Method executeMethod, MessageProducer producerAnnotation) {
+        MessageKafkaConfigDTO.ProducerDTO producerDTO = MessageKafkaConfigDTO.ProducerDTO.builder()
+                .clientDTO(registerClient(producerAnnotation.config().kafka().clientConfig(), executeMethod))
+                .engineType(producerAnnotation.config().engineType())
+                .topic(producerAnnotation.topic())
+                .build();
+        registerProducerFlow(producerDTO);
+        return producerDTO;
+    }
+
+    private void registerProducerFactory(MessageKafkaConfigDTO.BrokerDTO brokerDTO) {
+        KafkaProperties kafkaProperties = Springs.getBean(KafkaProperties.class);
+        kafkaProperties.setBootstrapServers(brokerDTO.getServerUrls());
+        DefaultKafkaProducerFactory<K, V> producerFactory = new DefaultKafkaProducerFactory<>(kafkaProperties.buildProducerProperties(null));
+        Springs.registerBean(DefaultKafkaProducerFactory.class.getName(), producerFactory);
+    }
+
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    private void registerProducerFlow(MessageKafkaConfigDTO.ProducerDTO producerDTO) {
+        IntegrationFlowContext flowContext = Springs.getBean(IntegrationFlowContext.class);
+        if (Nil.isNull(flowContext.getRegistrationById(producerDTO.getClientDTO().getFlowId()))) {
+            DefaultKafkaProducerFactory<K, V> producerFactory = Springs.getBean(DefaultKafkaProducerFactory.class.getName(), DefaultKafkaProducerFactory.class);
+            KafkaProducerMessageHandlerSpec.KafkaProducerMessageHandlerTemplateSpec<K, V> messageHandler = Kafka.outboundChannelAdapter(producerFactory).topic(producerDTO.getTopic());
+            flowContext.registration(MessageFlows.getObjectToStringIntegrationFlow(messageHandler))
+                    .id(producerDTO.getClientDTO().getFlowId())
+                    .useFlowIdAsPrefix()
+                    .register();
+        }
+    }
+
+    private Map<Method, MessageKafkaConfigDTO.ConsumerDTO> registerConsumerRouter() {
         return Annotations.getAnnotatedMethods(MessageConsumer.class)
                 .stream()
                 .filter(consumerMethod -> Comparators.equals(MessageEngineType.KAFKA, consumerMethod.getAnnotation(MessageConsumer.class).config().engineType()))
                 .map(consumerMethod -> {
                     MessageConsumer consumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
+                    MessageConfigStrategy configStrategy = consumerAnnotation.forwardTo().config().engineType().getConfigStrategy();
+                    MessageConfigDTO.ProducerDTO forwardProducerDTO = configStrategy.registerProducer(consumerMethod, consumerAnnotation.forwardTo());
+                    configStrategy.registerProducerRouter(consumerMethod, forwardProducerDTO);
+
                     MessageKafkaConfig.ConsumerConfig consumerConfig = consumerAnnotation.config().kafka().consumerConfig();
                     MessageKafkaConfigDTO.ConsumerDTO consumerDTO = MessageKafkaConfigDTO.ConsumerDTO.builder()
-                            .clientDTO(buildClientDTO(consumerAnnotation.config().kafka().clientConfig(), consumerMethod))
+                            .clientDTO(registerClient(consumerAnnotation.config().kafka().clientConfig(), consumerMethod))
+                            .forwardProducerDTO(forwardProducerDTO)
                             .topics(Converts.toList(consumerAnnotation.topics()))
                             .groupId(consumerConfig.groupId())
                             .allowToAutoCreateTopic(consumerConfig.allowToAutoCreateTopic())
@@ -152,27 +196,6 @@ public class MessageKafkaConfigStrategy<K, V> implements MessageConfigStrategy<M
                     return Collections.ofPair(consumerMethod, consumerDTO);
                 })
                 .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
-    }
-
-    private void registerProducerFactory() {
-        MessageKafkaProperties libraryJavaKafkaProperties = Springs.getBean(MessageKafkaProperties.class);
-        KafkaProperties kafkaProperties = Springs.getBean(KafkaProperties.class);
-        kafkaProperties.setBootstrapServers(libraryJavaKafkaProperties.getServerUrls());
-        DefaultKafkaProducerFactory<K, V> producerFactory = new DefaultKafkaProducerFactory<>(kafkaProperties.buildProducerProperties(null));
-        Springs.registerBean(DefaultKafkaProducerFactory.class.getName(), producerFactory);
-    }
-
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    private void registerProducerFlow(MessageKafkaConfigDTO.ProducerDTO producerDTO) {
-        IntegrationFlowContext flowContext = Springs.getBean(IntegrationFlowContext.class);
-        if (Nil.isNull(flowContext.getRegistrationById(producerDTO.getClientDTO().getFlowId()))) {
-            DefaultKafkaProducerFactory<K, V> producerFactory = Springs.getBean(DefaultKafkaProducerFactory.class.getName(), DefaultKafkaProducerFactory.class);
-            KafkaProducerMessageHandlerSpec.KafkaProducerMessageHandlerTemplateSpec<K, V> messageHandler = Kafka.outboundChannelAdapter(producerFactory).topic(producerDTO.getTopic());
-            flowContext.registration(MessageFlows.getObjectToStringIntegrationFlow(messageHandler))
-                    .id(producerDTO.getClientDTO().getFlowId())
-                    .useFlowIdAsPrefix()
-                    .register();
-        }
     }
 
     private void registerConsumerFactory(MessageKafkaConfigDTO.ConsumerDTO consumerDTO) {
