@@ -26,6 +26,10 @@ allprojects {
         configFile = file("$rootDir" + GradlePlugin.CHECK_STYLE_CONFIG_PATH)
     }
 
+    tasks.withType<Jar> {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+
     tasks.withType<JavaCompile> {
         options.release = Integer.valueOf(GradleConfig.JAVA_VERSION)
         options.encoding = GradleConfig.PROJECT_CHARSET
