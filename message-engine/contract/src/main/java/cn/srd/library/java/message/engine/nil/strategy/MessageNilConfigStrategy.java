@@ -25,7 +25,12 @@ public class MessageNilConfigStrategy implements MessageConfigStrategy {
 
     @Override
     public void registerProducerRouter(Method executeMethod, MessageConfigDTO.ProducerDTO producerDTO) {
-        
+
+    }
+
+    @Override
+    public void registerForwardProducerRouter() {
+
     }
 
     @Override

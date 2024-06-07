@@ -18,9 +18,6 @@ import cn.srd.library.java.message.engine.mqtt.v3.MessageMqttV3Config;
 import cn.srd.library.java.tool.lang.time.Times;
 import org.springframework.stereotype.Component;
 
-import static cn.srd.library.java.message.engine.kafka.MessageKafkaConfig.ClientConfig;
-import static cn.srd.library.java.message.engine.kafka.MessageKafkaConfig.ConsumerConfig;
-
 /**
  * @author wjm
  * @since 2024-05-26 15:08
@@ -34,8 +31,8 @@ public class FooConsumer {
     @MessageConsumer(
             topics = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2},
             config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig(
-                    clientConfig = @ClientConfig(idGenerateType = ClientIdGenerateType.SNOWFLAKE),
-                    consumerConfig = @ConsumerConfig(groupId = "1", ackMode = MessageKafkaConsumerAckMode.COMMIT_EACH_OFFSET_AFTER_CONSUME, offsetResetMode = MessageKafkaConsumerOffsetResetMode.LATEST)
+                    clientConfig = @MessageKafkaConfig.ClientConfig(idGenerateType = ClientIdGenerateType.SNOWFLAKE),
+                    consumerConfig = @MessageKafkaConfig.ConsumerConfig(groupId = "1", ackMode = MessageKafkaConsumerAckMode.COMMIT_EACH_OFFSET_AFTER_CONSUME, offsetResetMode = MessageKafkaConsumerOffsetResetMode.LATEST)
             ))
     )
     public void kafkaReceive1(String message) {
@@ -45,8 +42,19 @@ public class FooConsumer {
     @MessageConsumer(
             topics = FooTopicConstant.TOPIC_TEST1,
             config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig(
-                    clientConfig = @ClientConfig(idGenerateType = ClientIdGenerateType.SNOWFLAKE),
-                    consumerConfig = @ConsumerConfig(groupId = "1", ackMode = MessageKafkaConsumerAckMode.COMMIT_EACH_OFFSET_AFTER_CONSUME, offsetResetMode = MessageKafkaConsumerOffsetResetMode.LATEST)
+                    clientConfig = @MessageKafkaConfig.ClientConfig(idGenerateType = ClientIdGenerateType.SNOWFLAKE),
+                    consumerConfig = @MessageKafkaConfig.ConsumerConfig(groupId = "1", ackMode = MessageKafkaConsumerAckMode.COMMIT_EACH_OFFSET_AFTER_CONSUME, offsetResetMode = MessageKafkaConsumerOffsetResetMode.LATEST)
+            ))
+    )
+    public void kafkaReceive2(String message) {
+        System.out.println(STR."kafka - 消费者2 -------- \{Times.getCurrentDateTime()}-receive-\{message}");
+    }
+
+    @MessageConsumer(
+            topics = FooTopicConstant.TOPIC_TEST1,
+            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig(
+                    clientConfig = @MessageKafkaConfig.ClientConfig(idGenerateType = ClientIdGenerateType.SNOWFLAKE),
+                    consumerConfig = @MessageKafkaConfig.ConsumerConfig(groupId = "2", ackMode = MessageKafkaConsumerAckMode.COMMIT_EACH_OFFSET_AFTER_CONSUME, offsetResetMode = MessageKafkaConsumerOffsetResetMode.LATEST)
             )),
             forwardTo = @MessageProducer(
                     topic = FooTopicConstant.TOPIC_TEST1,
@@ -55,20 +63,9 @@ public class FooConsumer {
                     ))
             )
     )
-    public String kafkaReceive2(String message) {
-        System.out.println(STR."kafka - 消费者2 -------- \{Times.getCurrentDateTime()}-receive-\{message}");
-        return "forward2";
-    }
-
-    @MessageConsumer(
-            topics = FooTopicConstant.TOPIC_TEST1,
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig(
-                    clientConfig = @ClientConfig(idGenerateType = ClientIdGenerateType.SNOWFLAKE),
-                    consumerConfig = @ConsumerConfig(groupId = "2", ackMode = MessageKafkaConsumerAckMode.COMMIT_EACH_OFFSET_AFTER_CONSUME, offsetResetMode = MessageKafkaConsumerOffsetResetMode.LATEST)
-            ))
-    )
-    public void kafkaReceive3(String message) {
+    public String kafkaReceive3(String message) {
         System.out.println(STR."kafka - 消费者3 -------- \{Times.getCurrentDateTime()}-receive-\{message}");
+        return "forward3";
     }
 
     // --------------------------------------------- mqtt-v3 consumer ---------------------------------------------

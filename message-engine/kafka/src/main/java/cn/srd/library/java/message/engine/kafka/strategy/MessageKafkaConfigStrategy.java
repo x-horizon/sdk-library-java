@@ -118,6 +118,7 @@ public class MessageKafkaConfigStrategy<K, V> implements MessageConfigStrategy {
         return producerMethods.stream()
                 .filter(producerMethod -> Comparators.equals(MessageEngineType.KAFKA, producerMethod.getAnnotation(MessageProducer.class).config().engineType()))
                 .map(producerMethod -> Collections.ofPair(producerMethod, registerProducer(producerMethod)))
+                .peek(producerRouter -> registerProducerFlow(producerRouter.getValue()))
                 .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
     }
 
@@ -125,6 +126,19 @@ public class MessageKafkaConfigStrategy<K, V> implements MessageConfigStrategy {
     public void registerProducerRouter(Method executeMethod, MessageConfigDTO.ProducerDTO producerDTO) {
         Map<Method, MessageKafkaConfigDTO.ProducerDTO> producerRouter = Springs.getBean(MessageKafkaConfigDTO.class).getProducerRouter();
         producerRouter.put(executeMethod, (MessageKafkaConfigDTO.ProducerDTO) producerDTO);
+        registerProducerFlow((MessageKafkaConfigDTO.ProducerDTO) producerDTO);
+    }
+
+    @Override
+    public void registerForwardProducerRouter() {
+        Annotations.getAnnotatedMethods(MessageConsumer.class)
+                .stream()
+                .filter(consumerMethod -> Comparators.equals(MessageEngineType.KAFKA, consumerMethod.getAnnotation(MessageConsumer.class).config().engineType()))
+                .forEach(consumerMethod -> {
+                    MessageConsumer consumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
+                    MessageConfigStrategy configStrategy = consumerAnnotation.forwardTo().config().engineType().getConfigStrategy();
+                    configStrategy.registerProducerRouter(consumerMethod, Springs.getBean(MessageKafkaConfigDTO.class).getConsumerRouter().get(consumerMethod).getForwardProducerDTO());
+                });
     }
 
     private MessageKafkaConfigDTO.ProducerDTO registerProducer(Method producerMethod) {
@@ -133,13 +147,11 @@ public class MessageKafkaConfigStrategy<K, V> implements MessageConfigStrategy {
 
     @Override
     public MessageKafkaConfigDTO.ProducerDTO registerProducer(Method executeMethod, MessageProducer producerAnnotation) {
-        MessageKafkaConfigDTO.ProducerDTO producerDTO = MessageKafkaConfigDTO.ProducerDTO.builder()
+        return MessageKafkaConfigDTO.ProducerDTO.builder()
                 .clientDTO(registerClient(producerAnnotation.config().kafka().clientConfig(), executeMethod))
                 .engineType(producerAnnotation.config().engineType())
                 .topic(producerAnnotation.topic())
                 .build();
-        registerProducerFlow(producerDTO);
-        return producerDTO;
     }
 
     private void registerProducerFactory(MessageKafkaConfigDTO.BrokerDTO brokerDTO) {
@@ -170,7 +182,6 @@ public class MessageKafkaConfigStrategy<K, V> implements MessageConfigStrategy {
                     MessageConsumer consumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
                     MessageConfigStrategy configStrategy = consumerAnnotation.forwardTo().config().engineType().getConfigStrategy();
                     MessageConfigDTO.ProducerDTO forwardProducerDTO = configStrategy.registerProducer(consumerMethod, consumerAnnotation.forwardTo());
-                    configStrategy.registerProducerRouter(consumerMethod, forwardProducerDTO);
 
                     MessageKafkaConfig.ConsumerConfig consumerConfig = consumerAnnotation.config().kafka().consumerConfig();
                     MessageKafkaConfigDTO.ConsumerDTO consumerDTO = MessageKafkaConfigDTO.ConsumerDTO.builder()

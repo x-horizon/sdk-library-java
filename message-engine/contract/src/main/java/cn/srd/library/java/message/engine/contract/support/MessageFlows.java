@@ -30,15 +30,15 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MessageFlows {
 
-    private static final Map<Method, String> FLOW_ID_CACHE = Collections.newConcurrentHashMap(256);
+    private static final Map<Method, Map<MessageEngineType, String>> FLOW_ID_CACHE = Collections.newConcurrentHashMap(256);
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
-    public static String getFlowId(MessageEngineType messageEngineType, Method annotatedMethod) {
-        return FLOW_ID_CACHE.computeIfAbsent(annotatedMethod, ignore -> {
+    public static String getFlowId(MessageEngineType engineType, Method annotatedMethod) {
+        return FLOW_ID_CACHE.computeIfAbsent(annotatedMethod, _ -> Collections.newConcurrentHashMap()).computeIfAbsent(engineType, _ -> {
             String annotatedMethodDeclaredClassName = annotatedMethod.getDeclaringClass().getName();
             String annotatedMethodName = annotatedMethod.getName();
             String annotatedMethodParameterTypeName = Arrays.stream(annotatedMethod.getParameters()).map(parameter -> STR."\{parameter.getType().getSimpleName()} \{parameter.getName()}").collect(Collectors.joining(", "));
-            return STR."\{messageEngineType.getDescription()}-\{annotatedMethodDeclaredClassName}.\{annotatedMethodName}(\{annotatedMethodParameterTypeName})";
+            return STR."\{engineType.getDescription()}-\{annotatedMethodDeclaredClassName}.\{annotatedMethodName}(\{annotatedMethodParameterTypeName})";
         });
     }
 

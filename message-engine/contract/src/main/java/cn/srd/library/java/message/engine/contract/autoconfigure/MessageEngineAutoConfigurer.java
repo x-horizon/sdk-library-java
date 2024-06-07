@@ -6,6 +6,7 @@ package cn.srd.library.java.message.engine.contract.autoconfigure;
 
 import cn.srd.library.java.message.engine.contract.aspect.MessageConsumerAspect;
 import cn.srd.library.java.message.engine.contract.aspect.MessageProducerAspect;
+import cn.srd.library.java.message.engine.contract.event.MessageEngineConfigEvent;
 import cn.srd.library.java.tool.enums.autoconfigure.EnableEnumAutowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -32,8 +33,8 @@ import static cn.srd.library.java.message.engine.contract.autoconfigure.MessageE
 public class MessageEngineAutoConfigurer {
 
     @Bean
-    public MessageEngineCustomizeEvent messageEngineCustomizeEvent() {
-        return new MessageEngineCustomizeEvent();
+    public MessageEngineConfigEvent messageEngineConfigEvent() {
+        return new MessageEngineConfigEvent();
     }
 
     @Bean

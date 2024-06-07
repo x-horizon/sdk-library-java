@@ -30,6 +30,11 @@ public class MessageRedisConfigStrategy implements MessageConfigStrategy {
     }
 
     @Override
+    public void registerForwardProducerRouter() {
+        throw new UnsupportedException();
+    }
+
+    @Override
     public MessageConfigDTO.ProducerDTO registerProducer(Method executeMethod, MessageProducer producerAnnotation) {
         throw new UnsupportedException();
     }

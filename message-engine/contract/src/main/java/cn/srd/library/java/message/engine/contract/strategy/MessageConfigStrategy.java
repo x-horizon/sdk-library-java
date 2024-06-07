@@ -19,6 +19,8 @@ public interface MessageConfigStrategy {
 
     void registerProducerRouter(Method executeMethod, MessageConfigDTO.ProducerDTO producerDTO);
 
+    void registerForwardProducerRouter();
+
     MessageConfigDTO.ProducerDTO registerProducer(Method executeMethod, MessageProducer producerAnnotation);
 
 }

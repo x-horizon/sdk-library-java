@@ -132,6 +132,7 @@ public class MessageMqttV3ConfigStrategy implements MessageConfigStrategy {
         return producerMethods.stream()
                 .filter(producerMethod -> Comparators.equals(MessageEngineType.MQTT_V3, producerMethod.getAnnotation(MessageProducer.class).config().engineType()))
                 .map(producerMethod -> Collections.ofPair(producerMethod, registerProducer(producerMethod)))
+                .peek(producerRouter -> registerProducerFlow(producerRouter.getValue()))
                 .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
     }
 
@@ -139,7 +140,19 @@ public class MessageMqttV3ConfigStrategy implements MessageConfigStrategy {
     public void registerProducerRouter(Method executeMethod, MessageConfigDTO.ProducerDTO producerDTO) {
         Map<Method, MessageMqttV3ConfigDTO.ProducerDTO> producerRouter = Springs.getBean(MessageMqttV3ConfigDTO.class).getProducerRouter();
         producerRouter.put(executeMethod, (MessageMqttV3ConfigDTO.ProducerDTO) producerDTO);
-        System.out.println();
+        registerProducerFlow((MessageMqttV3ConfigDTO.ProducerDTO) producerDTO);
+    }
+
+    @Override
+    public void registerForwardProducerRouter() {
+        Annotations.getAnnotatedMethods(MessageConsumer.class)
+                .stream()
+                .filter(consumerMethod -> Comparators.equals(MessageEngineType.MQTT_V3, consumerMethod.getAnnotation(MessageConsumer.class).config().engineType()))
+                .forEach(consumerMethod -> {
+                    MessageConsumer consumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
+                    MessageConfigStrategy configStrategy = consumerAnnotation.forwardTo().config().engineType().getConfigStrategy();
+                    configStrategy.registerProducerRouter(consumerMethod, Springs.getBean(MessageMqttV3ConfigDTO.class).getConsumerRouter().get(consumerMethod).getForwardProducerDTO());
+                });
     }
 
     private MessageMqttV3ConfigDTO.ProducerDTO registerProducer(Method producerMethod) {
@@ -149,13 +162,11 @@ public class MessageMqttV3ConfigStrategy implements MessageConfigStrategy {
     @Override
     public MessageMqttV3ConfigDTO.ProducerDTO registerProducer(Method executeMethod, MessageProducer producerAnnotation) {
         MessageMqttV3Config.ProducerConfig producerConfig = producerAnnotation.config().mqttV3().producerConfig();
-        MessageMqttV3ConfigDTO.ProducerDTO producerDTO = MessageMqttV3ConfigDTO.ProducerDTO.builder()
+        return MessageMqttV3ConfigDTO.ProducerDTO.builder()
                 .clientDTO(registerClient(producerAnnotation.config().mqttV3().clientConfig(), executeMethod))
                 .topic(producerAnnotation.topic())
                 .needToSendAsync(producerConfig.needToSendAsync())
                 .build();
-        registerProducerFlow(producerDTO);
-        return producerDTO;
     }
 
     private void registerProducerFlow(MessageMqttV3ConfigDTO.ProducerDTO producerDTO) {
@@ -182,10 +193,10 @@ public class MessageMqttV3ConfigStrategy implements MessageConfigStrategy {
                     MessageConsumer consumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
                     MessageConfigStrategy configStrategy = consumerAnnotation.forwardTo().config().engineType().getConfigStrategy();
                     MessageConfigDTO.ProducerDTO forwardProducerDTO = configStrategy.registerProducer(consumerMethod, consumerAnnotation.forwardTo());
-                    configStrategy.registerProducerRouter(consumerMethod, forwardProducerDTO);
 
                     MessageMqttV3ConfigDTO.ConsumerDTO consumerDTO = MessageMqttV3ConfigDTO.ConsumerDTO.builder()
                             .clientDTO(registerClient(consumerAnnotation.config().mqttV3().clientConfig(), consumerMethod))
+                            .forwardProducerDTO(forwardProducerDTO)
                             .topics(Converts.toList(consumerAnnotation.topics()))
                             .build();
                     registerConsumerFlow(consumerDTO);
