@@ -31,7 +31,7 @@ public @interface MessageKafkaConfig {
     @interface ClientConfig {
 
         // TODO wjm 此处实现不够好，与 snowflake id 强绑定，客户端不一定需要用到 snowflake id，目前客户端必须提供正确的 redis 配置，否则项目启动报错
-        ClientIdGenerateType idGenerateType() default ClientIdGenerateType.UUID;
+        ClientIdGenerateType idGenerateType() default ClientIdGenerateType.SNOWFLAKE;
 
     }
 
@@ -45,13 +45,13 @@ public @interface MessageKafkaConfig {
 
         boolean allowToAutoCreateTopic() default true;
 
-        MessageKafkaConsumerAckMode ackMode() default MessageKafkaConsumerAckMode.COMMIT_BATCH_OFFSET_AFTER_CONSUME;
+        MessageKafkaConsumerAckMode ackMode() default MessageKafkaConsumerAckMode.COMMIT_EACH_OFFSET_AFTER_CONSUME;
 
         String autoCommitOffsetInterval() default "5s";
 
         MessageKafkaConsumerListenerMode listenerMode() default MessageKafkaConsumerListenerMode.RECORD;
 
-        MessageKafkaConsumerOffsetResetMode offsetResetMode() default MessageKafkaConsumerOffsetResetMode.THROW_IF_OFFSET_NOT_EXIST;
+        MessageKafkaConsumerOffsetResetMode offsetResetMode() default MessageKafkaConsumerOffsetResetMode.LATEST;
 
     }
 

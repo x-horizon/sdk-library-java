@@ -20,7 +20,6 @@ import org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAd
 import org.springframework.kafka.listener.ContainerProperties;
 
 import java.io.Serial;
-import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
@@ -93,7 +92,7 @@ public class MessageKafkaConfigDTO extends MessageConfigDTO {
     @Accessors(chain = true)
     @SuperBuilder(toBuilder = true)
     @NoArgsConstructor
-    public static class ConsumerDTO implements Serializable {
+    public static class ConsumerDTO implements MessageConfigDTO.ConsumerDTO {
 
         @Serial private static final long serialVersionUID = -3363832601343322864L;
 

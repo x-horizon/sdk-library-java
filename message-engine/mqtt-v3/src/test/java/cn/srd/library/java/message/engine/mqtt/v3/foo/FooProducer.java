@@ -7,14 +7,11 @@ package cn.srd.library.java.message.engine.mqtt.v3.foo;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
-import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageQosType;
 import cn.srd.library.java.message.engine.mqtt.v3.MessageMqttV3Config;
 import cn.srd.library.java.tool.lang.time.Times;
 import org.springframework.stereotype.Component;
-
-import static cn.srd.library.java.message.engine.mqtt.v3.MessageMqttV3Config.ClientConfig;
 
 /**
  * @author wjm
@@ -27,7 +24,7 @@ public class FooProducer {
     @MessageProducer(
             topic = FooTopicConstant.TOPIC_TEST1,
             config = @MessageConfig(engineType = MessageEngineType.MQTT_V3, mqttV3 = @MessageMqttV3Config(
-                    clientConfig = @ClientConfig(idGenerateType = ClientIdGenerateType.SNOWFLAKE, qosType = MessageQosType.EXACTLY_ONCE)
+                    clientConfig = @MessageMqttV3Config.ClientConfig(qosType = MessageQosType.EXACTLY_ONCE)
             ))
     )
     public String send1() {
@@ -38,7 +35,7 @@ public class FooProducer {
     @MessageProducer(
             topic = FooTopicConstant.TOPIC_TEST2,
             config = @MessageConfig(engineType = MessageEngineType.MQTT_V3, mqttV3 = @MessageMqttV3Config(
-                    clientConfig = @ClientConfig(idGenerateType = ClientIdGenerateType.SNOWFLAKE, qosType = MessageQosType.EXACTLY_ONCE)
+                    clientConfig = @MessageMqttV3Config.ClientConfig(qosType = MessageQosType.EXACTLY_ONCE)
             ))
     )
     public String send2() {

@@ -60,7 +60,11 @@ public abstract class MessageConfigDTO implements Serializable {
     }
 
     public interface ProducerDTO extends Serializable {
-        
+
+    }
+
+    public interface ConsumerDTO extends Serializable {
+
     }
 
 }

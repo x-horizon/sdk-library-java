@@ -8,6 +8,7 @@ import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
+import cn.srd.library.java.message.engine.redis.model.dto.MessageRedisConfigDTO;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Method;
@@ -17,10 +18,10 @@ import java.lang.reflect.Method;
  * @since 2024-06-04 17:10
  */
 @Slf4j
-public class MessageRedisConfigStrategy implements MessageConfigStrategy {
+public class MessageRedisConfigStrategy implements MessageConfigStrategy<MessageRedisConfigDTO> {
 
     @Override
-    public void customize() {
+    public MessageRedisConfigDTO initialize() {
         throw new UnsupportedException();
     }
 
@@ -30,7 +31,7 @@ public class MessageRedisConfigStrategy implements MessageConfigStrategy {
     }
 
     @Override
-    public void registerForwardProducerRouter() {
+    public void onInitializeComplete() {
         throw new UnsupportedException();
     }
 

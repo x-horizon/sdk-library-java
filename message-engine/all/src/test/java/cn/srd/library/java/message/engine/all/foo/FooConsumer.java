@@ -8,12 +8,9 @@ import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
-import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageQosType;
 import cn.srd.library.java.message.engine.kafka.MessageKafkaConfig;
-import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerAckMode;
-import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerOffsetResetMode;
 import cn.srd.library.java.message.engine.mqtt.v3.MessageMqttV3Config;
 import cn.srd.library.java.tool.lang.time.Times;
 import org.springframework.stereotype.Component;
@@ -31,8 +28,8 @@ public class FooConsumer {
     @MessageConsumer(
             topics = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2},
             config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig(
-                    clientConfig = @MessageKafkaConfig.ClientConfig(idGenerateType = ClientIdGenerateType.SNOWFLAKE),
-                    consumerConfig = @MessageKafkaConfig.ConsumerConfig(groupId = "1", ackMode = MessageKafkaConsumerAckMode.COMMIT_EACH_OFFSET_AFTER_CONSUME, offsetResetMode = MessageKafkaConsumerOffsetResetMode.LATEST)
+                    clientConfig = @MessageKafkaConfig.ClientConfig,
+                    consumerConfig = @MessageKafkaConfig.ConsumerConfig(groupId = "1")
             ))
     )
     public void kafkaReceive1(String message) {
@@ -42,8 +39,8 @@ public class FooConsumer {
     @MessageConsumer(
             topics = FooTopicConstant.TOPIC_TEST1,
             config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig(
-                    clientConfig = @MessageKafkaConfig.ClientConfig(idGenerateType = ClientIdGenerateType.SNOWFLAKE),
-                    consumerConfig = @MessageKafkaConfig.ConsumerConfig(groupId = "1", ackMode = MessageKafkaConsumerAckMode.COMMIT_EACH_OFFSET_AFTER_CONSUME, offsetResetMode = MessageKafkaConsumerOffsetResetMode.LATEST)
+                    clientConfig = @MessageKafkaConfig.ClientConfig,
+                    consumerConfig = @MessageKafkaConfig.ConsumerConfig(groupId = "1")
             ))
     )
     public void kafkaReceive2(String message) {
@@ -53,13 +50,13 @@ public class FooConsumer {
     @MessageConsumer(
             topics = FooTopicConstant.TOPIC_TEST1,
             config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig(
-                    clientConfig = @MessageKafkaConfig.ClientConfig(idGenerateType = ClientIdGenerateType.SNOWFLAKE),
-                    consumerConfig = @MessageKafkaConfig.ConsumerConfig(groupId = "2", ackMode = MessageKafkaConsumerAckMode.COMMIT_EACH_OFFSET_AFTER_CONSUME, offsetResetMode = MessageKafkaConsumerOffsetResetMode.LATEST)
+                    clientConfig = @MessageKafkaConfig.ClientConfig,
+                    consumerConfig = @MessageKafkaConfig.ConsumerConfig(groupId = "2")
             )),
             forwardTo = @MessageProducer(
                     topic = FooTopicConstant.TOPIC_TEST1,
                     config = @MessageConfig(engineType = MessageEngineType.MQTT_V3, mqttV3 = @MessageMqttV3Config(
-                            clientConfig = @MessageMqttV3Config.ClientConfig(idGenerateType = ClientIdGenerateType.SNOWFLAKE, qosType = MessageQosType.EXACTLY_ONCE)
+                            clientConfig = @MessageMqttV3Config.ClientConfig(qosType = MessageQosType.EXACTLY_ONCE)
                     ))
             )
     )
@@ -73,7 +70,7 @@ public class FooConsumer {
     @MessageConsumer(
             topics = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2},
             config = @MessageConfig(engineType = MessageEngineType.MQTT_V3, mqttV3 = @MessageMqttV3Config(
-                    clientConfig = @MessageMqttV3Config.ClientConfig(idGenerateType = ClientIdGenerateType.SNOWFLAKE, qosType = MessageQosType.EXACTLY_ONCE)
+                    clientConfig = @MessageMqttV3Config.ClientConfig(qosType = MessageQosType.EXACTLY_ONCE)
             ))
     )
     public void mqttV3Receive1(String message) {

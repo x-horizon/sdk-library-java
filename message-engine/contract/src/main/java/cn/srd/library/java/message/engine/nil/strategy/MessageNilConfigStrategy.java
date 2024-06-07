@@ -17,10 +17,11 @@ import java.lang.reflect.Method;
  * @since 2024-06-04 17:10
  */
 @Slf4j
-public class MessageNilConfigStrategy implements MessageConfigStrategy {
+public class MessageNilConfigStrategy implements MessageConfigStrategy<MessageNilConfigDTO> {
 
     @Override
-    public void customize() {
+    public MessageNilConfigDTO initialize() {
+        return null;
     }
 
     @Override
@@ -29,7 +30,7 @@ public class MessageNilConfigStrategy implements MessageConfigStrategy {
     }
 
     @Override
-    public void registerForwardProducerRouter() {
+    public void onInitializeComplete() {
 
     }
 

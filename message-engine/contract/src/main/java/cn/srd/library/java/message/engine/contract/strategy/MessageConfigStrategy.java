@@ -13,13 +13,13 @@ import java.lang.reflect.Method;
  * @author wjm
  * @since 2024-06-04 11:55
  */
-public interface MessageConfigStrategy {
+public interface MessageConfigStrategy<C extends MessageConfigDTO> {
 
-    void customize();
+    C initialize();
+
+    void onInitializeComplete();
 
     void registerProducerRouter(Method executeMethod, MessageConfigDTO.ProducerDTO producerDTO);
-
-    void registerForwardProducerRouter();
 
     MessageConfigDTO.ProducerDTO registerProducer(Method executeMethod, MessageProducer producerAnnotation);
 
