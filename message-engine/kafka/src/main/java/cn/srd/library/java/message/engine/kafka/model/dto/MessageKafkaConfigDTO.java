@@ -9,7 +9,6 @@ import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType
 import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerAckMode;
 import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerListenerMode;
 import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerOffsetResetMode;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,9 +19,7 @@ import org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAd
 import org.springframework.kafka.listener.ContainerProperties;
 
 import java.io.Serial;
-import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author wjm
@@ -37,17 +34,17 @@ public class MessageKafkaConfigDTO extends MessageConfigDTO {
 
     @Serial private static final long serialVersionUID = 1721566725873588079L;
 
-    private BrokerDTO brokerDTO;
-
-    private List<ProducerDTO> producerDTOs;
-
-    private List<ConsumerDTO> consumerDTOs;
-
-    @JsonIgnore
-    private Map<Method, ProducerDTO> producerRouter;
-
-    @JsonIgnore
-    private Map<Method, ConsumerDTO> consumerRouter;
+    // private BrokerDTO brokerDTO;
+    //
+    // private List<ProducerDTO> producerDTOs;
+    //
+    // private List<ConsumerDTO> consumerDTOs;
+    //
+    // @JsonIgnore
+    // private Map<Method, ProducerDTO> producerRouter;
+    //
+    // @JsonIgnore
+    // private Map<Method, ConsumerDTO> consumerRouter;
 
     @Data
     @Accessors(chain = true)

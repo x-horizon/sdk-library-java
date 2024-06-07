@@ -52,11 +52,11 @@ public enum MessageEngineType {
 
     private final Class<? extends MessageEngineSwitcher> systemSwitcher;
 
-    private MessageConfigStrategy<MessageConfigDTO> configStrategy;
+    private MessageConfigStrategy<MessageConfigDTO, MessageConfigDTO.BrokerDTO, MessageConfigDTO.ClientDTO, MessageConfigDTO.ProducerDTO, MessageConfigDTO.ConsumerDTO> configStrategy;
 
     private MessageFlowStrategy flowStrategy;
 
-    public MessageConfigStrategy<MessageConfigDTO> getConfigStrategy() {
+    public MessageConfigStrategy<MessageConfigDTO, MessageConfigDTO.BrokerDTO, MessageConfigDTO.ClientDTO, MessageConfigDTO.ProducerDTO, MessageConfigDTO.ConsumerDTO> getConfigStrategy() {
         Assert.of().setMessage("{}could not find the config strategy by message engine type [{}], please add the related library path to your classpath.", ModuleView.MESSAGE_ENGINE_SYSTEM, this.name())
                 .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfNull(this.configStrategy);

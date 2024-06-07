@@ -17,7 +17,7 @@ import java.lang.reflect.Method;
  * @since 2024-06-04 17:10
  */
 @Slf4j
-public class MessageNilConfigStrategy implements MessageConfigStrategy<MessageNilConfigDTO> {
+public class MessageNilConfigStrategy extends MessageConfigStrategy<MessageNilConfigDTO, MessageNilConfigDTO.BrokerDTO, MessageNilConfigDTO.ClientDTO, MessageNilConfigDTO.ProducerDTO, MessageNilConfigDTO.ConsumerDTO> {
 
     @Override
     public MessageNilConfigDTO initialize() {

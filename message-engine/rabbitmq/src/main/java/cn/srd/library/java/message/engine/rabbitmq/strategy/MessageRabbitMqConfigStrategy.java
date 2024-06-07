@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
  * @since 2024-06-04 17:10
  */
 @Slf4j
-public class MessageRabbitMqConfigStrategy implements MessageConfigStrategy<MessageRabbitMqConfigDTO> {
+public class MessageRabbitMqConfigStrategy extends MessageConfigStrategy<MessageRabbitMqConfigDTO, MessageRabbitMqConfigDTO.BrokerDTO, MessageRabbitMqConfigDTO.ClientDTO, MessageRabbitMqConfigDTO.ProducerDTO, MessageRabbitMqConfigDTO.ConsumerDTO> {
 
     @Override
     public MessageRabbitMqConfigDTO initialize() {

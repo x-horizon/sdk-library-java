@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
  * @since 2024-06-04 17:10
  */
 @Slf4j
-public class MessageMqttV5ConfigStrategy implements MessageConfigStrategy<MessageMqttV5ConfigDTO> {
+public class MessageMqttV5ConfigStrategy extends MessageConfigStrategy<MessageMqttV5ConfigDTO, MessageMqttV5ConfigDTO.BrokerDTO, MessageMqttV5ConfigDTO.ClientDTO, MessageMqttV5ConfigDTO.ProducerDTO, MessageMqttV5ConfigDTO.ConsumerDTO> {
 
     @Override
     public MessageMqttV5ConfigDTO initialize() {

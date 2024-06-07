@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
  * @since 2024-06-04 17:10
  */
 @Slf4j
-public class MessageRocketMqConfigStrategy implements MessageConfigStrategy<MessageRocketMqConfigDTO> {
+public class MessageRocketMqConfigStrategy extends MessageConfigStrategy<MessageRocketMqConfigDTO, MessageRocketMqConfigDTO.BrokerDTO, MessageRocketMqConfigDTO.ClientDTO, MessageRocketMqConfigDTO.ProducerDTO, MessageRocketMqConfigDTO.ConsumerDTO> {
 
     @Override
     public MessageRocketMqConfigDTO initialize() {

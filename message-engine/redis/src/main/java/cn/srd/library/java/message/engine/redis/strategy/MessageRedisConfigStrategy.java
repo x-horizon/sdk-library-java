@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
  * @since 2024-06-04 17:10
  */
 @Slf4j
-public class MessageRedisConfigStrategy implements MessageConfigStrategy<MessageRedisConfigDTO> {
+public class MessageRedisConfigStrategy extends MessageConfigStrategy<MessageRedisConfigDTO, MessageRedisConfigDTO.BrokerDTO, MessageRedisConfigDTO.ClientDTO, MessageRedisConfigDTO.ProducerDTO, MessageRedisConfigDTO.ConsumerDTO> {
 
     @Override
     public MessageRedisConfigDTO initialize() {

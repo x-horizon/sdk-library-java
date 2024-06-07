@@ -6,7 +6,6 @@ package cn.srd.library.java.message.engine.mqtt.v3.model.dto;
 
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageQosType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,10 +14,7 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
-import java.io.Serializable;
-import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author wjm
@@ -33,17 +29,17 @@ public class MessageMqttV3ConfigDTO extends MessageConfigDTO {
 
     @Serial private static final long serialVersionUID = 4736521459419470931L;
 
-    private BrokerDTO brokerDTO;
-
-    private List<ProducerDTO> producerDTOs;
-
-    private List<ConsumerDTO> consumerDTOs;
-
-    @JsonIgnore
-    private transient Map<Method, ProducerDTO> producerRouter;
-
-    @JsonIgnore
-    private transient Map<Method, ConsumerDTO> consumerRouter;
+    // private BrokerDTO brokerDTO;
+    //
+    // private List<ProducerDTO> producerDTOs;
+    //
+    // private List<ConsumerDTO> consumerDTOs;
+    //
+    // @JsonIgnore
+    // private transient Map<Method, ProducerDTO> producerRouter;
+    //
+    // @JsonIgnore
+    // private transient Map<Method, ConsumerDTO> consumerRouter;
 
     @Data
     @Accessors(chain = true)
@@ -104,7 +100,7 @@ public class MessageMqttV3ConfigDTO extends MessageConfigDTO {
     @Accessors(chain = true)
     @SuperBuilder(toBuilder = true)
     @NoArgsConstructor
-    public static class ConsumerDTO implements Serializable {
+    public static class ConsumerDTO implements MessageConfigDTO.ConsumerDTO {
 
         @Serial private static final long serialVersionUID = -5886254179329714404L;
 

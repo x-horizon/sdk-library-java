@@ -15,6 +15,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wjm
@@ -24,9 +25,21 @@ import java.util.List;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
-public abstract class MessageConfigDTO implements Serializable {
+public class MessageConfigDTO implements Serializable {
 
     @Serial private static final long serialVersionUID = 8893739317361752384L;
+
+    private BrokerDTO brokerDTO;
+
+    private List<? extends ProducerDTO> producerDTOs;
+
+    private List<? extends ConsumerDTO> consumerDTOs;
+
+    @JsonIgnore
+    private Map<Method, ? extends ProducerDTO> producerRouter;
+
+    @JsonIgnore
+    private Map<Method, ? extends ConsumerDTO> consumerRouter;
 
     @Data
     @Accessors(chain = true)
@@ -44,7 +57,7 @@ public abstract class MessageConfigDTO implements Serializable {
     @Accessors(chain = true)
     @SuperBuilder(toBuilder = true)
     @NoArgsConstructor
-    public abstract static class ClientDTO implements Serializable {
+    public static class ClientDTO implements Serializable {
 
         @Serial private static final long serialVersionUID = 5434779839371423102L;
 
@@ -61,9 +74,15 @@ public abstract class MessageConfigDTO implements Serializable {
 
     public interface ProducerDTO extends Serializable {
 
+        ClientDTO getClientDTO();
+
     }
 
     public interface ConsumerDTO extends Serializable {
+
+        ClientDTO getClientDTO();
+
+        MessageConfigDTO.ProducerDTO getForwardProducerDTO();
 
     }
 

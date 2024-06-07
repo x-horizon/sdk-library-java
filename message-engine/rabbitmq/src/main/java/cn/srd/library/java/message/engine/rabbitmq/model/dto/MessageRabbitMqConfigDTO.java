@@ -5,6 +5,7 @@
 package cn.srd.library.java.message.engine.rabbitmq.model.dto;
 
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,6 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
-import java.io.Serializable;
 
 /**
  * @author wjm
@@ -57,15 +57,24 @@ public class MessageRabbitMqConfigDTO extends MessageConfigDTO {
 
         @Serial private static final long serialVersionUID = 1777294829702718096L;
 
+        @JsonProperty("clientInfo")
+        private ClientDTO clientDTO;
+
     }
 
     @Data
     @Accessors(chain = true)
     @SuperBuilder(toBuilder = true)
     @NoArgsConstructor
-    public static class ConsumerDTO implements Serializable {
+    public static class ConsumerDTO implements MessageConfigDTO.ConsumerDTO {
 
         @Serial private static final long serialVersionUID = 5051387101298720688L;
+
+        @JsonProperty("clientInfo")
+        private ClientDTO clientDTO;
+
+        @JsonProperty("forwardProducerInfo")
+        private MessageConfigDTO.ProducerDTO forwardProducerDTO;
 
     }
 

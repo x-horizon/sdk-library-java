@@ -5,6 +5,7 @@
 package cn.srd.library.java.message.engine.mqtt.v5.model.dto;
 
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,6 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
-import java.io.Serializable;
 
 /**
  * @author wjm
@@ -57,15 +57,24 @@ public class MessageMqttV5ConfigDTO extends MessageConfigDTO {
 
         @Serial private static final long serialVersionUID = -4450021328129932093L;
 
+        @JsonProperty("clientInfo")
+        private ClientDTO clientDTO;
+
     }
 
     @Data
     @Accessors(chain = true)
     @SuperBuilder(toBuilder = true)
     @NoArgsConstructor
-    public static class ConsumerDTO implements Serializable {
+    public static class ConsumerDTO implements MessageConfigDTO.ConsumerDTO {
 
         @Serial private static final long serialVersionUID = 3688570547157125372L;
+
+        @JsonProperty("clientInfo")
+        private ClientDTO clientDTO;
+
+        @JsonProperty("forwardProducerInfo")
+        private MessageConfigDTO.ProducerDTO forwardProducerDTO;
 
     }
 
