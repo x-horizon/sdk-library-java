@@ -29,18 +29,6 @@ public class MessageMqttV3ConfigDTO extends MessageConfigDTO {
 
     @Serial private static final long serialVersionUID = 4736521459419470931L;
 
-    // private BrokerDTO brokerDTO;
-    //
-    // private List<ProducerDTO> producerDTOs;
-    //
-    // private List<ConsumerDTO> consumerDTOs;
-    //
-    // @JsonIgnore
-    // private transient Map<Method, ProducerDTO> producerRouter;
-    //
-    // @JsonIgnore
-    // private transient Map<Method, ConsumerDTO> consumerRouter;
-
     @Data
     @Accessors(chain = true)
     @SuperBuilder(toBuilder = true)

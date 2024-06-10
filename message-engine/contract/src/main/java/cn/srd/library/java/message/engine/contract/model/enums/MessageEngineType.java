@@ -29,6 +29,14 @@ import lombok.Getter;
 @Getter
 @EnumAutowired(rootClasses = {MessageConfigStrategy.class, MessageFlowStrategy.class}, allowNull = true, matchRule = EnumAutowiredFieldMatchByContainIgnoreCaseRule.class)
 public enum MessageEngineType {
+    //
+    // KAFKA(1, "Kafka", "kafka", MessageEngineKafkaSwitcher.class),
+    // MQTT_V3(2, "Mqtt-V3", "mqttV3", MessageEngineMqttV3Switcher.class),
+    // MQTT_V5(3, "Mqtt-V5", "mqttV5", MessageEngineMqttV5Switcher.class),
+    // NIL(4, "Nil", "nil", MessageEngineNilSwitcher.class),
+    // RABBITMQ(5, "RabbitMQ", "rabbitmq", MessageEngineRabbitMqSwitcher.class),
+    // REDIS(6, "Redis", "redis", MessageEngineRedisSwitcher.class),
+    // ROCKETMQ(7, "RocketMQ", "rocketmq", MessageEngineRocketMqSwitcher.class),
 
     KAFKA(1, "kafka", MessageEngineKafkaSwitcher.class),
     MQTT_V3(2, "mqttV3", MessageEngineMqttV3Switcher.class),
@@ -46,9 +54,18 @@ public enum MessageEngineType {
         this.systemSwitcher = systemSwitcher;
     }
 
+    // MessageEngineType(int code, String description, String beanName, Class<? extends MessageEngineSwitcher> systemSwitcher) {
+    //     this.code = code;
+    //     this.description = description;
+    //     this.beanName = beanName;
+    //     this.systemSwitcher = systemSwitcher;
+    // }
+
     private final int code;
 
     private final String description;
+
+    // private final String beanName;
 
     private final Class<? extends MessageEngineSwitcher> systemSwitcher;
 

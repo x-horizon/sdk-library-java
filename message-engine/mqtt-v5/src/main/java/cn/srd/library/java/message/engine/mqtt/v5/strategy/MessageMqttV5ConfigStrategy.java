@@ -5,12 +5,14 @@
 package cn.srd.library.java.message.engine.mqtt.v5.strategy;
 
 import cn.srd.library.java.contract.model.throwable.UnsupportedException;
+import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
 import cn.srd.library.java.message.engine.mqtt.v5.model.dto.MessageMqttV5ConfigDTO;
 import lombok.extern.slf4j.Slf4j;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 /**
@@ -21,22 +23,47 @@ import java.lang.reflect.Method;
 public class MessageMqttV5ConfigStrategy extends MessageConfigStrategy<MessageMqttV5ConfigDTO, MessageMqttV5ConfigDTO.BrokerDTO, MessageMqttV5ConfigDTO.ClientDTO, MessageMqttV5ConfigDTO.ProducerDTO, MessageMqttV5ConfigDTO.ConsumerDTO> {
 
     @Override
-    public MessageMqttV5ConfigDTO initialize() {
+    protected Class<MessageMqttV5ConfigDTO> getConfigType() {
         throw new UnsupportedException();
     }
 
     @Override
-    public void registerProducerRouter(Method executeMethod, MessageConfigDTO.ProducerDTO producerDTO) {
+    protected MessageMqttV5ConfigDTO.BrokerDTO getBrokerDTO() {
         throw new UnsupportedException();
     }
 
     @Override
-    public void onInitializeComplete() {
+    protected void registerClientFactory(MessageMqttV5ConfigDTO.BrokerDTO brokerDTO) {
         throw new UnsupportedException();
     }
 
     @Override
-    public MessageConfigDTO.ProducerDTO registerProducer(Method executeMethod, MessageProducer producerAnnotation) {
+    protected MessageMqttV5ConfigDTO.ClientDTO getClientDTO(Annotation clientConfig, Method executeMethod) {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected void registerProducerFlow(MessageMqttV5ConfigDTO.ProducerDTO producerDTO) {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected void registerConsumerFactory(MessageMqttV5ConfigDTO.ConsumerDTO consumerDTO) {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected void registerConsumerFlow(MessageMqttV5ConfigDTO.ConsumerDTO consumerDTO) {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected MessageMqttV5ConfigDTO.ProducerDTO getProducerDTO(Method executeMethod, MessageProducer producerAnnotation) {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected MessageMqttV5ConfigDTO.ConsumerDTO getConsumerDTO(Method executeMethod, MessageConsumer consumerAnnotation, MessageConfigDTO.ProducerDTO forwardProducerDTO) {
         throw new UnsupportedException();
     }
 

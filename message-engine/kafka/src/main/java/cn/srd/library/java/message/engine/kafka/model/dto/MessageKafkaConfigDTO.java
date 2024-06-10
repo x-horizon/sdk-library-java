@@ -34,18 +34,6 @@ public class MessageKafkaConfigDTO extends MessageConfigDTO {
 
     @Serial private static final long serialVersionUID = 1721566725873588079L;
 
-    // private BrokerDTO brokerDTO;
-    //
-    // private List<ProducerDTO> producerDTOs;
-    //
-    // private List<ConsumerDTO> consumerDTOs;
-    //
-    // @JsonIgnore
-    // private Map<Method, ProducerDTO> producerRouter;
-    //
-    // @JsonIgnore
-    // private Map<Method, ConsumerDTO> consumerRouter;
-
     @Data
     @Accessors(chain = true)
     @SuperBuilder(toBuilder = true)

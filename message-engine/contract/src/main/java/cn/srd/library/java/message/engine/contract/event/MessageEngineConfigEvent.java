@@ -5,7 +5,6 @@
 package cn.srd.library.java.message.engine.contract.event;
 
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
-import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -25,11 +24,8 @@ public class MessageEngineConfigEvent implements ApplicationListener<Application
         List<MessageEngineType> enableEngineTypes = Arrays.stream(MessageEngineType.values())
                 .filter(messageEngineType -> Springs.existBean(messageEngineType.getSystemSwitcher()))
                 .toList();
-        enableEngineTypes.stream()
-                .map(enableEngineType -> enableEngineType.getConfigStrategy().initialize())
-                .filter(Nil::isNotNull)
-                .forEach(messageConfigDTO -> Springs.registerBean(messageConfigDTO.getClass().getName(), messageConfigDTO));
-        enableEngineTypes.forEach(enableEngineType -> enableEngineType.getConfigStrategy().onInitializeComplete());
+        enableEngineTypes.forEach(enableEngineType -> enableEngineType.getConfigStrategy().initialize(enableEngineType));
+        enableEngineTypes.forEach(enableEngineType -> enableEngineType.getConfigStrategy().onInitializeComplete(enableEngineType));
     }
 
 }

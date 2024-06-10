@@ -5,7 +5,6 @@
 package cn.srd.library.java.message.engine.mqtt.v3.strategy;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
@@ -18,12 +17,9 @@ import cn.srd.library.java.message.engine.mqtt.v3.MessageMqttV3Config;
 import cn.srd.library.java.message.engine.mqtt.v3.model.dto.MessageMqttV3ConfigDTO;
 import cn.srd.library.java.message.engine.mqtt.v3.model.properties.MessageMqttV3Properties;
 import cn.srd.library.java.tool.convert.all.Converts;
-import cn.srd.library.java.tool.lang.collection.Collections;
-import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.time.Times;
-import cn.srd.library.java.tool.spring.contract.Annotations;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
@@ -35,12 +31,10 @@ import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannel
 import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.AbstractMap;
-import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @author wjm
@@ -50,73 +44,24 @@ import java.util.stream.Collectors;
 public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMqttV3ConfigDTO, MessageMqttV3ConfigDTO.BrokerDTO, MessageMqttV3ConfigDTO.ClientDTO, MessageMqttV3ConfigDTO.ProducerDTO, MessageMqttV3ConfigDTO.ConsumerDTO> {
 
     @Override
-    public MessageMqttV3ConfigDTO initialize() {
-        log.info("{}message engine mqtt-v3 customizer is enabled, starting initializing...", ModuleView.MESSAGE_ENGINE_SYSTEM);
-
-        MessageMqttV3ConfigDTO.BrokerDTO brokerDTO = registerBroker();
-        Map<Method, MessageMqttV3ConfigDTO.ProducerDTO> producerRouter = registerProducerRouter();
-        Map<Method, MessageMqttV3ConfigDTO.ConsumerDTO> consumerRouter = registerConsumerRouter();
-        MessageMqttV3ConfigDTO mqttV3ConfigDTO = MessageMqttV3ConfigDTO.builder()
-                .brokerDTO(brokerDTO)
-                .producerRouter(producerRouter)
-                .producerDTOs(Collections.getMapValues(producerRouter))
-                .consumerRouter(consumerRouter)
-                .consumerDTOs(Collections.getMapValues(consumerRouter))
-                .build();
-
-        log.info("""
-                        {}message engine mqtt-v3 customizer has loaded the following configurations:
-                        --------------------------------------------------------------------------------------------------------------------------------
-                        MqttV3 Broker Info:
-                        {}
-                        --------------------------------------------------------------------------------------------------------------------------------
-                        MqttV3 Producer Infos:
-                        {}
-                        --------------------------------------------------------------------------------------------------------------------------------
-                        MqttV3 Consumer Infos:
-                        {}
-                        --------------------------------------------------------------------------------------------------------------------------------""",
-                ModuleView.MESSAGE_ENGINE_SYSTEM,
-                Converts.withJackson().toStringFormatted(mqttV3ConfigDTO.getBrokerDTO()),
-                Converts.withJackson().toStringFormatted(mqttV3ConfigDTO.getProducerDTOs()),
-                Converts.withJackson().toStringFormatted(mqttV3ConfigDTO.getConsumerDTOs())
-        );
-        log.info("{}message engine mqtt-v3 customizer initialized.", ModuleView.MESSAGE_ENGINE_SYSTEM);
-
-        return mqttV3ConfigDTO;
+    protected Class<MessageMqttV3ConfigDTO> getConfigType() {
+        return MessageMqttV3ConfigDTO.class;
     }
 
-    private MessageMqttV3ConfigDTO.BrokerDTO registerBroker() {
+    @Override
+    protected MessageMqttV3ConfigDTO.BrokerDTO getBrokerDTO() {
         MessageMqttV3Properties mqttV3Properties = Springs.getBean(MessageMqttV3Properties.class);
         Assert.of().setMessage("{}could not find the mqtt-v3 server url, please provide the mqtt-v3 server url in the config yaml, see [{}].", ModuleView.MESSAGE_ENGINE_SYSTEM, MessageMqttV3Properties.class.getName())
                 .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfNull(mqttV3Properties.getServerUrls());
-        MessageMqttV3ConfigDTO.BrokerDTO brokerDTO = MessageMqttV3ConfigDTO.BrokerDTO.builder()
+        return MessageMqttV3ConfigDTO.BrokerDTO.builder()
                 .serverUrls(mqttV3Properties.getServerUrls())
                 .username(mqttV3Properties.getUsername())
                 .password(mqttV3Properties.getPassword())
                 .build();
-        registerClientFactory(brokerDTO);
-        return brokerDTO;
     }
 
-    private MessageMqttV3ConfigDTO.ClientDTO registerClient(MessageMqttV3Config.ClientConfig clientConfig, Method executeMethod) {
-        String flowId = MessageFlows.getFlowId(MessageEngineType.MQTT_V3, executeMethod);
-        ClientIdGenerateType idGenerateType = clientConfig.idGenerateType();
-        return MessageMqttV3ConfigDTO.ClientDTO.builder()
-                .clientId(MessageFlows.getDistributedUniqueClientId(idGenerateType, flowId))
-                .flowId(flowId)
-                .idGenerateType(idGenerateType)
-                .executeMethod(executeMethod)
-                .qosType(clientConfig.qosType())
-                .completionTimeout(clientConfig.completionTimeout())
-                .disconnectCompletionTimeout(clientConfig.disconnectCompletionTimeout())
-                .originalCompletionTimeout(Times.wrapper(clientConfig.completionTimeout()).toMillisecond().toMillis())
-                .originalDisconnectCompletionTimeout(Times.wrapper(clientConfig.disconnectCompletionTimeout()).toMillisecond().toMillis())
-                .build();
-    }
-
-    private void registerClientFactory(MessageMqttV3ConfigDTO.BrokerDTO brokerDTO) {
+    protected void registerClientFactory(MessageMqttV3ConfigDTO.BrokerDTO brokerDTO) {
         MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
         mqttConnectOptions.setServerURIs(Converts.toArray(brokerDTO.getServerUrls(), String.class));
         Optional.ofNullable(brokerDTO.getUsername()).ifPresent(mqttConnectOptions::setUserName);
@@ -126,56 +71,49 @@ public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMq
         Springs.registerBean(DefaultMqttPahoClientFactory.class.getName(), mqttClientFactory);
     }
 
+    @Override
+    protected MessageMqttV3ConfigDTO.ClientDTO getClientDTO(Annotation clientConfig, Method executeMethod) {
+        MessageMqttV3Config.ClientConfig clientConfigAnnotation = (MessageMqttV3Config.ClientConfig) clientConfig;
+        String flowId = MessageFlows.getFlowId(MessageEngineType.MQTT_V3, executeMethod);
+        ClientIdGenerateType idGenerateType = clientConfigAnnotation.idGenerateType();
+        return MessageMqttV3ConfigDTO.ClientDTO.builder()
+                .clientId(MessageFlows.getDistributedUniqueClientId(idGenerateType, flowId))
+                .flowId(flowId)
+                .idGenerateType(idGenerateType)
+                .executeMethod(executeMethod)
+                .qosType(clientConfigAnnotation.qosType())
+                .completionTimeout(clientConfigAnnotation.completionTimeout())
+                .disconnectCompletionTimeout(clientConfigAnnotation.disconnectCompletionTimeout())
+                .originalCompletionTimeout(Times.wrapper(clientConfigAnnotation.completionTimeout()).toMillisecond().toMillis())
+                .originalDisconnectCompletionTimeout(Times.wrapper(clientConfigAnnotation.disconnectCompletionTimeout()).toMillisecond().toMillis())
+                .build();
+    }
+
     private Map<Method, MessageMqttV3ConfigDTO.ProducerDTO> registerProducerRouter() {
-        return registerProducerRouter(Annotations.getAnnotatedMethods(MessageProducer.class));
-    }
-
-    private Map<Method, MessageMqttV3ConfigDTO.ProducerDTO> registerProducerRouter(Collection<Method> producerMethods) {
-        return producerMethods.stream()
-                .filter(producerMethod -> Comparators.equals(MessageEngineType.MQTT_V3, producerMethod.getAnnotation(MessageProducer.class).config().engineType()))
-                .map(producerMethod -> Collections.ofPair(producerMethod, registerProducer(producerMethod)))
-                .peek(producerRouter -> registerProducerFlow(producerRouter.getValue()))
-                .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
-    }
-
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    @Override
-    public void registerProducerRouter(Method executeMethod, MessageConfigDTO.ProducerDTO producerDTO) {
-        Map<Method, MessageMqttV3ConfigDTO.ProducerDTO> producerRouter = (Map<Method, MessageMqttV3ConfigDTO.ProducerDTO>) Springs.getBean(MessageMqttV3ConfigDTO.class).getProducerRouter();
-        producerRouter.put(executeMethod, (MessageMqttV3ConfigDTO.ProducerDTO) producerDTO);
-        registerProducerFlow((MessageMqttV3ConfigDTO.ProducerDTO) producerDTO);
+        return registerProducerRouter(MessageEngineType.MQTT_V3);
     }
 
     @Override
-    public void onInitializeComplete() {
-        Annotations.getAnnotatedMethods(MessageConsumer.class)
-                .stream()
-                .filter(consumerMethod -> Comparators.equals(MessageEngineType.MQTT_V3, consumerMethod.getAnnotation(MessageConsumer.class).config().engineType()))
-                .forEach(consumerMethod -> {
-                    MessageConsumer consumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
-                    consumerAnnotation.forwardTo()
-                            .config()
-                            .engineType()
-                            .getConfigStrategy()
-                            .registerProducerRouter(consumerMethod, Springs.getBean(MessageMqttV3ConfigDTO.class).getConsumerRouter().get(consumerMethod).getForwardProducerDTO());
-                });
-    }
-
-    private MessageMqttV3ConfigDTO.ProducerDTO registerProducer(Method producerMethod) {
-        return registerProducer(producerMethod, producerMethod.getAnnotation(MessageProducer.class));
-    }
-
-    @Override
-    public MessageMqttV3ConfigDTO.ProducerDTO registerProducer(Method executeMethod, MessageProducer producerAnnotation) {
+    protected MessageMqttV3ConfigDTO.ProducerDTO getProducerDTO(Method executeMethod, MessageProducer producerAnnotation) {
         MessageMqttV3Config.ProducerConfig producerConfig = producerAnnotation.config().mqttV3().producerConfig();
         return MessageMqttV3ConfigDTO.ProducerDTO.builder()
-                .clientDTO(registerClient(producerAnnotation.config().mqttV3().clientConfig(), executeMethod))
+                .clientDTO(getClientDTO(producerAnnotation.config().mqttV3().clientConfig(), executeMethod))
                 .topic(producerAnnotation.topic())
                 .needToSendAsync(producerConfig.needToSendAsync())
                 .build();
     }
 
-    private void registerProducerFlow(MessageMqttV3ConfigDTO.ProducerDTO producerDTO) {
+    @Override
+    protected MessageMqttV3ConfigDTO.ConsumerDTO getConsumerDTO(Method executeMethod, MessageConsumer consumerAnnotation, MessageConfigDTO.ProducerDTO forwardProducerDTO) {
+        return MessageMqttV3ConfigDTO.ConsumerDTO.builder()
+                .clientDTO(getClientDTO(consumerAnnotation.config().mqttV3().clientConfig(), executeMethod))
+                .forwardProducerDTO(forwardProducerDTO)
+                .topics(Converts.toList(consumerAnnotation.topics()))
+                .build();
+    }
+
+    @Override
+    protected void registerProducerFlow(MessageMqttV3ConfigDTO.ProducerDTO producerDTO) {
         IntegrationFlowContext flowContext = Springs.getBean(IntegrationFlowContext.class);
         if (Nil.isNull(flowContext.getRegistrationById(producerDTO.getClientDTO().getFlowId()))) {
             MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(producerDTO.getClientDTO().getClientId(), Springs.getBean(MqttPahoClientFactory.class));
@@ -191,30 +129,13 @@ public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMq
         }
     }
 
-    private Map<Method, MessageMqttV3ConfigDTO.ConsumerDTO> registerConsumerRouter() {
-        return Annotations.getAnnotatedMethods(MessageConsumer.class)
-                .stream()
-                .filter(consumerMethod -> Comparators.equals(MessageEngineType.MQTT_V3, consumerMethod.getAnnotation(MessageConsumer.class).config().engineType()))
-                .map(consumerMethod -> {
-                    MessageConsumer consumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
-                    MessageConfigDTO.ProducerDTO forwardProducerDTO = consumerAnnotation.forwardTo()
-                            .config()
-                            .engineType()
-                            .getConfigStrategy()
-                            .registerProducer(consumerMethod, consumerAnnotation.forwardTo());
+    @Override
+    protected void registerConsumerFactory(MessageMqttV3ConfigDTO.ConsumerDTO consumerDTO) {
 
-                    MessageMqttV3ConfigDTO.ConsumerDTO consumerDTO = MessageMqttV3ConfigDTO.ConsumerDTO.builder()
-                            .clientDTO(registerClient(consumerAnnotation.config().mqttV3().clientConfig(), consumerMethod))
-                            .forwardProducerDTO(forwardProducerDTO)
-                            .topics(Converts.toList(consumerAnnotation.topics()))
-                            .build();
-                    registerConsumerFlow(consumerDTO);
-                    return Collections.ofPair(consumerMethod, consumerDTO);
-                })
-                .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
     }
 
-    private void registerConsumerFlow(MessageMqttV3ConfigDTO.ConsumerDTO consumerDTO) {
+    @Override
+    protected void registerConsumerFlow(MessageMqttV3ConfigDTO.ConsumerDTO consumerDTO) {
         IntegrationFlowContext flowContext = Springs.getBean(IntegrationFlowContext.class);
         if (Nil.isNull(flowContext.getRegistrationById(consumerDTO.getClientDTO().getFlowId()))) {
             DefaultMqttPahoClientFactory mqttClientFactory = Springs.getBean(DefaultMqttPahoClientFactory.class);
