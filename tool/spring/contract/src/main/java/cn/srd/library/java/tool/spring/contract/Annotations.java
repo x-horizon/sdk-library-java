@@ -6,6 +6,7 @@ package cn.srd.library.java.tool.spring.contract;
 
 import cn.srd.library.java.contract.constant.annotation.AnnotationConstant;
 import cn.srd.library.java.contract.constant.module.ModuleView;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;
@@ -31,31 +32,36 @@ import java.util.stream.Collectors;
 public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annotations {
 
     /**
+     * the one-to-one relationship for the annotation class and the annotation instance cache
+     */
+    private static final Map<String, Annotation> ANNOTATION_CLASS_MAPPING_ANNOTATED_INSTANCE_CACHE = Collections.newConcurrentHashMap();
+
+    /**
      * get the annotation in the default package path.
      *
-     * @param annotationType the annotation class
-     * @param <T>            the field type in annotation
+     * @param annotationClass the annotation class
+     * @param <T>             the field type in annotation
      * @return the annotation in the default package path
      * @see #getAnnotation(Class, Collection)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see Classes#getBasePackagePath()
      */
-    public static <T extends Annotation> T getAnnotation(Class<T> annotationType) {
-        return getAnnotation(annotationType, Classes.getBasePackagePath());
+    public static <T extends Annotation> T getAnnotation(Class<T> annotationClass) {
+        return getAnnotation(annotationClass, Classes.getBasePackagePath());
     }
 
     /**
      * get the annotation in the specified package path.
      *
-     * @param annotationType   the annotation class
+     * @param annotationClass  the annotation class
      * @param scanPackagePaths the package path to be scanned
      * @param <T>              the field type in annotation
      * @return the annotation in the specified package path
      * @see #getAnnotation(Class, Collection)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      */
-    public static <T extends Annotation> T getAnnotation(Class<T> annotationType, String... scanPackagePaths) {
-        return getAnnotation(annotationType, Collections.ofHashSet(scanPackagePaths));
+    public static <T extends Annotation> T getAnnotation(Class<T> annotationClass, String... scanPackagePaths) {
+        return getAnnotation(annotationClass, Collections.ofHashSet(scanPackagePaths));
     }
 
     /**
@@ -96,62 +102,65 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * note: throw if there are more than one specified annotation in the specified package paths
      * </pre>
      *
-     * @param annotationType   the annotation class
+     * @param annotationClass  the annotation class
      * @param scanPackagePaths the package path to be scanned
      * @param <T>              the field type in annotation
      * @return the annotation in the specified package path
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see #getAnnotation(AnnotatedElement, Class)
      */
-    public static <T extends Annotation> T getAnnotation(Class<T> annotationType, Collection<String> scanPackagePaths) {
-        Set<BeanDefinition> beanDefinitions = Classes.scanByAnnotationTypeFilter(annotationType, scanPackagePaths);
-        if (Collections.hasMoreThanOneElement(beanDefinitions)) {
-            throw new LibraryJavaInternalException(Strings.format("{}found more than one annotations {} in package paths {}, please check!", ModuleView.TOOL_ANNOTATION_SYSTEM, beanDefinitions.stream().map(BeanDefinition::getBeanClassName).toList(), scanPackagePaths));
-        }
-        return beanDefinitions.stream()
-                .findFirst()
-                .map(beanDefinition -> Classes.ofName(beanDefinition.getBeanClassName()))
-                .map(annotatedClass -> getAnnotation(annotatedClass, annotationType))
-                .orElse(null);
+    @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.PREVIEW})
+    public static <T extends Annotation> T getAnnotation(Class<T> annotationClass, Collection<String> scanPackagePaths) {
+        return (T) ANNOTATION_CLASS_MAPPING_ANNOTATED_INSTANCE_CACHE.computeIfAbsent(STR."\{annotationClass.getName()} in [\{Strings.joinWithCommaAndSpace(scanPackagePaths)}]", ignore -> {
+            Set<BeanDefinition> beanDefinitions = Classes.scanByAnnotationTypeFilter(annotationClass, scanPackagePaths);
+            if (Collections.hasMoreThanOneElement(beanDefinitions)) {
+                throw new LibraryJavaInternalException(Strings.format("{}found more than one annotations {} in package paths {}, please check!", ModuleView.TOOL_ANNOTATION_SYSTEM, beanDefinitions.stream().map(BeanDefinition::getBeanClassName).toList(), scanPackagePaths));
+            }
+            return beanDefinitions.stream()
+                    .findFirst()
+                    .map(beanDefinition -> Classes.ofName(beanDefinition.getBeanClassName()))
+                    .map(annotatedClass -> getAnnotation(annotatedClass, annotationClass))
+                    .orElse(null);
+        });
     }
 
     /**
      * get the annotation default field value in the default package path.
      *
-     * @param annotationType the annotation class
-     * @param fieldType      the field class in annotation
-     * @param <T>            the field type in annotation
+     * @param annotationClass the annotation class
+     * @param fieldClass      the field class in annotation
+     * @param <T>             the field type in annotation
      * @return the annotation default field value in the default package path
      * @see #getAnnotationValue(Class, Class, String, Collection)
      * @see AnnotationConstant#DEFAULT_FIELD_NAME
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see Classes#getBasePackagePath()
      */
-    public static <T> T getAnnotationValue(Class<? extends Annotation> annotationType, Class<T> fieldType) {
-        return getAnnotationValue(annotationType, fieldType, AnnotationConstant.DEFAULT_FIELD_NAME);
+    public static <T> T getAnnotationValue(Class<? extends Annotation> annotationClass, Class<T> fieldClass) {
+        return getAnnotationValue(annotationClass, fieldClass, AnnotationConstant.DEFAULT_FIELD_NAME);
     }
 
     /**
      * get the annotation field value in the default package path.
      *
-     * @param annotationType the annotation class
-     * @param fieldType      the field class in annotation
-     * @param fieldName      the field name in annotation
-     * @param <T>            the field type in annotation
+     * @param annotationClass the annotation class
+     * @param fieldClass      the field class in annotation
+     * @param fieldName       the field name in annotation
+     * @param <T>             the field type in annotation
      * @return the annotation field value in the default package path
      * @see #getAnnotationValue(Class, Class, String, Collection)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see Classes#getBasePackagePath()
      */
-    public static <T> T getAnnotationValue(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName) {
-        return getAnnotationValue(annotationType, fieldType, fieldName, Classes.getBasePackagePath());
+    public static <T> T getAnnotationValue(Class<? extends Annotation> annotationClass, Class<T> fieldClass, String fieldName) {
+        return getAnnotationValue(annotationClass, fieldClass, fieldName, Classes.getBasePackagePath());
     }
 
     /**
      * get the annotation field value in the specified package path.
      *
-     * @param annotationType   the annotation class
-     * @param fieldType        the field class in annotation
+     * @param annotationClass  the annotation class
+     * @param fieldClass       the field class in annotation
      * @param fieldName        the field name in annotation
      * @param scanPackagePaths the package path to be scanned
      * @param <T>              the field type in annotation
@@ -159,8 +168,8 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationValue(Class, Class, String, Collection)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      */
-    public static <T> T getAnnotationValue(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName, String... scanPackagePaths) {
-        return getAnnotationValue(annotationType, fieldType, fieldName, Collections.ofHashSet(scanPackagePaths));
+    public static <T> T getAnnotationValue(Class<? extends Annotation> annotationClass, Class<T> fieldClass, String fieldName, String... scanPackagePaths) {
+        return getAnnotationValue(annotationClass, fieldClass, fieldName, Collections.ofHashSet(scanPackagePaths));
     }
 
     /**
@@ -200,8 +209,8 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * note: throw if there are more than one specified annotation field value in the specified package paths
      * </pre>
      *
-     * @param annotationType   the annotation class
-     * @param fieldType        the field class in annotation
+     * @param annotationClass  the annotation class
+     * @param fieldClass       the field class in annotation
      * @param fieldName        the field name in annotation
      * @param scanPackagePaths the package path to be scanned
      * @param <T>              the field type in annotation
@@ -209,55 +218,55 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see #getAnnotationValue(AnnotatedElement, Class, Class, String)
      */
-    public static <T> T getAnnotationValue(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName, Collection<String> scanPackagePaths) {
-        Set<BeanDefinition> beanDefinitions = Classes.scanByAnnotationTypeFilter(annotationType, scanPackagePaths);
+    public static <T> T getAnnotationValue(Class<? extends Annotation> annotationClass, Class<T> fieldClass, String fieldName, Collection<String> scanPackagePaths) {
+        Set<BeanDefinition> beanDefinitions = Classes.scanByAnnotationTypeFilter(annotationClass, scanPackagePaths);
         if (Collections.hasMoreThanOneElement(beanDefinitions)) {
             throw new LibraryJavaInternalException(Strings.format("{}found more than one annotations {} in package paths {}, please check!", ModuleView.TOOL_ANNOTATION_SYSTEM, beanDefinitions.stream().map(BeanDefinition::getBeanClassName).toList(), scanPackagePaths));
         }
         return beanDefinitions.stream()
                 .findFirst()
                 .map(beanDefinition -> Classes.ofName(beanDefinition.getBeanClassName()))
-                .map(annotatedClass -> getAnnotationValue(annotatedClass, annotationType, fieldType, fieldName))
-                .orElse(null);
+                .map(annotatedClass -> getAnnotationValue(annotatedClass, annotationClass, fieldClass, fieldName))
+                .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}the annotation value must not be null, please check the detail info: the package paths:{}, [annotation class:{}], [field class:{}], [field name:{}]", ModuleView.TOOL_ANNOTATION_SYSTEM, scanPackagePaths, annotationClass.getName(), fieldClass.getName(), fieldName)));
     }
 
     /**
      * get the annotation default field values in the default package path.
      *
-     * @param annotationType the annotation class
-     * @param fieldType      the field class in annotation
-     * @param <T>            the field type in annotation
+     * @param annotationClass the annotation class
+     * @param fieldClass      the field class in annotation
+     * @param <T>             the field type in annotation
      * @return the annotation default field value in the default package path
      * @see #getAnnotationValues(Class, Class, String, Collection)
      * @see AnnotationConstant#DEFAULT_FIELD_NAME
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see Classes#getBasePackagePath()
      */
-    public static <T> Set<T> getAnnotationValues(Class<? extends Annotation> annotationType, Class<T> fieldType) {
-        return getAnnotationValues(annotationType, fieldType, AnnotationConstant.DEFAULT_FIELD_NAME);
+    public static <T> Set<T> getAnnotationValues(Class<? extends Annotation> annotationClass, Class<T> fieldClass) {
+        return getAnnotationValues(annotationClass, fieldClass, AnnotationConstant.DEFAULT_FIELD_NAME);
     }
 
     /**
      * get the annotation field values in the default package path.
      *
-     * @param annotationType the annotation class
-     * @param fieldType      the field class in annotation
-     * @param fieldName      the field name in annotation
-     * @param <T>            the field type in annotation
+     * @param annotationClass the annotation class
+     * @param fieldClass      the field class in annotation
+     * @param fieldName       the field name in annotation
+     * @param <T>             the field type in annotation
      * @return the annotation field value in the default package path
      * @see #getAnnotationValues(Class, Class, String, Collection)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see Classes#getBasePackagePath()
      */
-    public static <T> Set<T> getAnnotationValues(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName) {
-        return getAnnotationValues(annotationType, fieldType, fieldName, Classes.getBasePackagePath());
+    public static <T> Set<T> getAnnotationValues(Class<? extends Annotation> annotationClass, Class<T> fieldClass, String fieldName) {
+        return getAnnotationValues(annotationClass, fieldClass, fieldName, Classes.getBasePackagePath());
     }
 
     /**
      * get the annotation field values in the specified package path.
      *
-     * @param annotationType   the annotation class
-     * @param fieldType        the field class in annotation
+     * @param annotationClass  the annotation class
+     * @param fieldClass       the field class in annotation
      * @param fieldName        the field name in annotation
      * @param scanPackagePaths the package path to be scanned
      * @param <T>              the field type in annotation
@@ -265,8 +274,8 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationValues(Class, Class, String, Collection)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      */
-    public static <T> Set<T> getAnnotationValues(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName, String... scanPackagePaths) {
-        return getAnnotationValues(annotationType, fieldType, fieldName, Collections.ofHashSet(scanPackagePaths));
+    public static <T> Set<T> getAnnotationValues(Class<? extends Annotation> annotationClass, Class<T> fieldClass, String fieldName, String... scanPackagePaths) {
+        return getAnnotationValues(annotationClass, fieldClass, fieldName, Collections.ofHashSet(scanPackagePaths));
     }
 
     /**
@@ -310,8 +319,8 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * }
      * </pre>
      *
-     * @param annotationType   the annotation class
-     * @param fieldType        the field class in annotation
+     * @param annotationClass  the annotation class
+     * @param fieldClass       the field class in annotation
      * @param fieldName        the field name in annotation
      * @param scanPackagePaths the package path to be scanned
      * @param <T>              the field type in annotation
@@ -319,20 +328,20 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see #getAnnotationValue(AnnotatedElement, Class, Class, String)
      */
-    public static <T> Set<T> getAnnotationValues(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName, Collection<String> scanPackagePaths) {
-        return Classes.scanByAnnotationTypeFilter(annotationType, scanPackagePaths)
+    public static <T> Set<T> getAnnotationValues(Class<? extends Annotation> annotationClass, Class<T> fieldClass, String fieldName, Collection<String> scanPackagePaths) {
+        return Classes.scanByAnnotationTypeFilter(annotationClass, scanPackagePaths)
                 .stream()
                 .map(beanDefinition -> Classes.ofName(beanDefinition.getBeanClassName()))
-                .map(annotatedClass -> getAnnotationValue(annotatedClass, annotationType, fieldType, fieldName))
+                .map(annotatedClass -> getAnnotationValue(annotatedClass, annotationClass, fieldClass, fieldName))
                 .collect(Collectors.toSet());
     }
 
     /**
      * get the annotation default field value in the default package path, the default field type is an array type.
      *
-     * @param annotationType the annotation class
-     * @param fieldType      the field class in annotation
-     * @param <T>            the field type in annotation
+     * @param annotationClass the annotation class
+     * @param fieldClass      the field class in annotation
+     * @param <T>             the field type in annotation
      * @return the annotation default field value in the default package path
      * @see #getAnnotationNestValue(Class, Class, String, Collection)
      * @see #getAnnotationValue(Class, Class, String, Collection)
@@ -340,31 +349,31 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see Classes#getBasePackagePath()
      */
-    public static <T> Set<T> getAnnotationNestValue(Class<? extends Annotation> annotationType, Class<T[]> fieldType) {
-        return getAnnotationNestValue(annotationType, fieldType, AnnotationConstant.DEFAULT_FIELD_NAME);
+    public static <T> Set<T> getAnnotationNestValue(Class<? extends Annotation> annotationClass, Class<T[]> fieldClass) {
+        return getAnnotationNestValue(annotationClass, fieldClass, AnnotationConstant.DEFAULT_FIELD_NAME);
     }
 
     /**
      * get the annotation field value in the default package path.
      *
-     * @param annotationType the annotation class
-     * @param fieldType      the field class in annotation
-     * @param <T>            the field type in annotation
+     * @param annotationClass the annotation class
+     * @param fieldClass      the field class in annotation
+     * @param <T>             the field type in annotation
      * @return the annotation field value in the default package path
      * @see #getAnnotationNestValue(Class, Class, String, Collection)
      * @see #getAnnotationValue(Class, Class, String, Collection)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see Classes#getBasePackagePath()
      */
-    public static <T> Set<T> getAnnotationNestValue(Class<? extends Annotation> annotationType, Class<T[]> fieldType, String fieldName) {
-        return getAnnotationNestValue(annotationType, fieldType, fieldName, Classes.getBasePackagePath());
+    public static <T> Set<T> getAnnotationNestValue(Class<? extends Annotation> annotationClass, Class<T[]> fieldClass, String fieldName) {
+        return getAnnotationNestValue(annotationClass, fieldClass, fieldName, Classes.getBasePackagePath());
     }
 
     /**
      * get the annotation field value in the specified package path.
      *
-     * @param annotationType   the annotation class
-     * @param fieldType        the field class in annotation
+     * @param annotationClass  the annotation class
+     * @param fieldClass       the field class in annotation
      * @param fieldName        the field name in annotation
      * @param scanPackagePaths the package path to be scanned
      * @param <T>              the field type in annotation
@@ -373,8 +382,8 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationValue(Class, Class, String, Collection)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      */
-    public static <T> Set<T> getAnnotationNestValue(Class<? extends Annotation> annotationType, Class<T[]> fieldType, String fieldName, String... scanPackagePaths) {
-        return getAnnotationNestValue(annotationType, fieldType, fieldName, Collections.ofHashSet(scanPackagePaths));
+    public static <T> Set<T> getAnnotationNestValue(Class<? extends Annotation> annotationClass, Class<T[]> fieldClass, String fieldName, String... scanPackagePaths) {
+        return getAnnotationNestValue(annotationClass, fieldClass, fieldName, Collections.ofHashSet(scanPackagePaths));
     }
 
     /**
@@ -414,8 +423,8 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * note: throw if there are more than one specified annotation field value in the specified package paths
      * </pre>
      *
-     * @param annotationType   the annotation class
-     * @param fieldType        the field class in annotation
+     * @param annotationClass  the annotation class
+     * @param fieldClass       the field class in annotation
      * @param fieldName        the field name in annotation
      * @param scanPackagePaths the package path to be scanned
      * @param <T>              the field type in annotation
@@ -423,16 +432,16 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationValue(Class, Class, String, Collection)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      */
-    public static <T> Set<T> getAnnotationNestValue(Class<? extends Annotation> annotationType, Class<T[]> fieldType, String fieldName, Collection<String> scanPackagePaths) {
-        return Converts.toSet(getAnnotationValue(annotationType, fieldType, fieldName, scanPackagePaths));
+    public static <T> Set<T> getAnnotationNestValue(Class<? extends Annotation> annotationClass, Class<T[]> fieldClass, String fieldName, Collection<String> scanPackagePaths) {
+        return Converts.toSet(getAnnotationValue(annotationClass, fieldClass, fieldName, scanPackagePaths));
     }
 
     /**
      * get the annotation default field value in the default package path, the default field type is an array type.
      *
-     * @param annotationType the annotation class
-     * @param fieldType      the field class in annotation
-     * @param <T>            the field type in annotation
+     * @param annotationClass the annotation class
+     * @param fieldClass      the field class in annotation
+     * @param <T>             the field type in annotation
      * @return the annotation default field value in the default package path
      * @see #getAnnotationNestValues(Class, Class, String, Collection)
      * @see #getAnnotationValues(Class, Class, String, Collection)
@@ -440,31 +449,31 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see Classes#getBasePackagePath()
      */
-    public static <T> Set<T> getAnnotationNestValues(Class<? extends Annotation> annotationType, Class<T[]> fieldType) {
-        return getAnnotationNestValues(annotationType, fieldType, AnnotationConstant.DEFAULT_FIELD_NAME);
+    public static <T> Set<T> getAnnotationNestValues(Class<? extends Annotation> annotationClass, Class<T[]> fieldClass) {
+        return getAnnotationNestValues(annotationClass, fieldClass, AnnotationConstant.DEFAULT_FIELD_NAME);
     }
 
     /**
      * get the annotation field value in the default package path.
      *
-     * @param annotationType the annotation class
-     * @param fieldType      the field class in annotation
-     * @param <T>            the field type in annotation
+     * @param annotationClass the annotation class
+     * @param fieldClass      the field class in annotation
+     * @param <T>             the field type in annotation
      * @return the annotation field value in the default package path
      * @see #getAnnotationNestValues(Class, Class, String, Collection)
      * @see #getAnnotationValues(Class, Class, String, Collection)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see Classes#getBasePackagePath()
      */
-    public static <T> Set<T> getAnnotationNestValues(Class<? extends Annotation> annotationType, Class<T[]> fieldType, String fieldName) {
-        return getAnnotationNestValues(annotationType, fieldType, fieldName, Classes.getBasePackagePath());
+    public static <T> Set<T> getAnnotationNestValues(Class<? extends Annotation> annotationClass, Class<T[]> fieldClass, String fieldName) {
+        return getAnnotationNestValues(annotationClass, fieldClass, fieldName, Classes.getBasePackagePath());
     }
 
     /**
      * get the annotation field value in the specified package path.
      *
-     * @param annotationType   the annotation class
-     * @param fieldType        the field class in annotation
+     * @param annotationClass  the annotation class
+     * @param fieldClass       the field class in annotation
      * @param fieldName        the field name in annotation
      * @param scanPackagePaths the package path to be scanned
      * @param <T>              the field type in annotation
@@ -473,8 +482,8 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationValues(Class, Class, String, Collection)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      */
-    public static <T> Set<T> getAnnotationNestValues(Class<? extends Annotation> annotationType, Class<T[]> fieldType, String fieldName, String... scanPackagePaths) {
-        return getAnnotationNestValues(annotationType, fieldType, fieldName, Collections.ofHashSet(scanPackagePaths));
+    public static <T> Set<T> getAnnotationNestValues(Class<? extends Annotation> annotationClass, Class<T[]> fieldClass, String fieldName, String... scanPackagePaths) {
+        return getAnnotationNestValues(annotationClass, fieldClass, fieldName, Collections.ofHashSet(scanPackagePaths));
     }
 
     /**
@@ -518,8 +527,8 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * }
      * </pre>
      *
-     * @param annotationType   the annotation class
-     * @param fieldType        the field class in annotation
+     * @param annotationClass  the annotation class
+     * @param fieldClass       the field class in annotation
      * @param fieldName        the field name in annotation
      * @param scanPackagePaths the package path to be scanned
      * @param <T>              the field type in annotation
@@ -527,8 +536,8 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationValues(Class, Class, String, Collection)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      */
-    public static <T> Set<T> getAnnotationNestValues(Class<? extends Annotation> annotationType, Class<T[]> fieldType, String fieldName, Collection<String> scanPackagePaths) {
-        return getAnnotationValues(annotationType, fieldType, fieldName, scanPackagePaths)
+    public static <T> Set<T> getAnnotationNestValues(Class<? extends Annotation> annotationClass, Class<T[]> fieldClass, String fieldName, Collection<String> scanPackagePaths) {
+        return getAnnotationValues(annotationClass, fieldClass, fieldName, scanPackagePaths)
                 .stream()
                 .map(Collections::ofArrayList)
                 .flatMap(Collection::stream)
@@ -538,9 +547,9 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
     /**
      * get the annotated class mapping the annotation default field value in the default package path.
      *
-     * @param annotationType the annotation class
-     * @param fieldType      the field class in annotation
-     * @param <T>            the field type in annotation
+     * @param annotationClass the annotation class
+     * @param fieldClass      the field class in annotation
+     * @param <T>             the field type in annotation
      * @return the annotated class mapping the annotation default field value in the default package path
      * @see #getAnnotatedClassMappingAnnotationValueMap(Class, Class, String, Collection)
      * @see #getAnnotationValue(AnnotatedElement, Class, Class, String)
@@ -548,32 +557,32 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see Classes#getBasePackagePath()
      */
-    public static <T> Map<Class<?>, T> getAnnotatedClassMappingAnnotationValueMap(Class<? extends Annotation> annotationType, Class<T> fieldType) {
-        return getAnnotatedClassMappingAnnotationValueMap(annotationType, fieldType, AnnotationConstant.DEFAULT_FIELD_NAME);
+    public static <T> Map<Class<?>, T> getAnnotatedClassMappingAnnotationValueMap(Class<? extends Annotation> annotationClass, Class<T> fieldClass) {
+        return getAnnotatedClassMappingAnnotationValueMap(annotationClass, fieldClass, AnnotationConstant.DEFAULT_FIELD_NAME);
     }
 
     /**
      * get the annotated class mapping the annotation field value in the default package path.
      *
-     * @param annotationType the annotation class
-     * @param fieldType      the field class in annotation
-     * @param fieldName      the field name in annotation
-     * @param <T>            the field type in annotation
+     * @param annotationClass the annotation class
+     * @param fieldClass      the field class in annotation
+     * @param fieldName       the field name in annotation
+     * @param <T>             the field type in annotation
      * @return the annotated class mapping the annotation field value in the default package path
      * @see #getAnnotatedClassMappingAnnotationValueMap(Class, Class, String, Collection)
      * @see #getAnnotationValue(AnnotatedElement, Class, Class, String)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see Classes#getBasePackagePath()
      */
-    public static <T> Map<Class<?>, T> getAnnotatedClassMappingAnnotationValueMap(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName) {
-        return getAnnotatedClassMappingAnnotationValueMap(annotationType, fieldType, fieldName, Classes.getBasePackagePath());
+    public static <T> Map<Class<?>, T> getAnnotatedClassMappingAnnotationValueMap(Class<? extends Annotation> annotationClass, Class<T> fieldClass, String fieldName) {
+        return getAnnotatedClassMappingAnnotationValueMap(annotationClass, fieldClass, fieldName, Classes.getBasePackagePath());
     }
 
     /**
      * get the annotated class mapping the annotation field value in the specified package path.
      *
-     * @param annotationType   the annotation class
-     * @param fieldType        the field class in annotation
+     * @param annotationClass  the annotation class
+     * @param fieldClass       the field class in annotation
      * @param fieldName        the field name in annotation
      * @param scanPackagePaths the package path to be scanned
      * @param <T>              the field type in annotation
@@ -582,8 +591,8 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationValue(AnnotatedElement, Class, Class, String)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      */
-    public static <T> Map<Class<?>, T> getAnnotatedClassMappingAnnotationValueMap(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName, String... scanPackagePaths) {
-        return getAnnotatedClassMappingAnnotationValueMap(annotationType, fieldType, fieldName, Collections.ofHashSet(scanPackagePaths));
+    public static <T> Map<Class<?>, T> getAnnotatedClassMappingAnnotationValueMap(Class<? extends Annotation> annotationClass, Class<T> fieldClass, String fieldName, String... scanPackagePaths) {
+        return getAnnotatedClassMappingAnnotationValueMap(annotationClass, fieldClass, fieldName, Collections.ofHashSet(scanPackagePaths));
     }
 
     /**
@@ -621,8 +630,8 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * }
      * </pre>
      *
-     * @param annotationType   the annotation class
-     * @param fieldType        the field class in annotation
+     * @param annotationClass  the annotation class
+     * @param fieldClass       the field class in annotation
      * @param fieldName        the field name in annotation
      * @param scanPackagePaths the package path to be scanned
      * @param <T>              the field type in annotation
@@ -630,19 +639,19 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationValue(AnnotatedElement, Class, Class, String)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      */
-    public static <T> Map<Class<?>, T> getAnnotatedClassMappingAnnotationValueMap(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName, Collection<String> scanPackagePaths) {
-        return Classes.scanByAnnotationTypeFilter(annotationType, scanPackagePaths)
+    public static <T> Map<Class<?>, T> getAnnotatedClassMappingAnnotationValueMap(Class<? extends Annotation> annotationClass, Class<T> fieldClass, String fieldName, Collection<String> scanPackagePaths) {
+        return Classes.scanByAnnotationTypeFilter(annotationClass, scanPackagePaths)
                 .stream()
                 .map(beanDefinition -> Classes.ofName(beanDefinition.getBeanClassName()))
-                .collect(Collectors.toMap(annotatedClass -> annotatedClass, annotatedClass -> getAnnotationValue(annotatedClass, annotationType, fieldType, fieldName)));
+                .collect(Collectors.toMap(annotatedClass -> annotatedClass, annotatedClass -> getAnnotationValue(annotatedClass, annotationClass, fieldClass, fieldName)));
     }
 
     /**
      * get the annotation default field value mapping the annotated class in the default package path.
      *
-     * @param annotationType the annotation class
-     * @param fieldType      the field class in annotation
-     * @param <T>            the field type in annotation
+     * @param annotationClass the annotation class
+     * @param fieldClass      the field class in annotation
+     * @param <T>             the field type in annotation
      * @return the annotation default field value mapping the annotated class in the default package path
      * @see #getAnnotationValueMappingAnnotatedClassMap(Class, Class, String, Collection)
      * @see #getAnnotationValue(AnnotatedElement, Class, Class, String)
@@ -650,32 +659,32 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see Classes#getBasePackagePath()
      */
-    public static <T> Map<T, Class<?>> getAnnotationValueMappingAnnotatedClassMap(Class<? extends Annotation> annotationType, Class<T> fieldType) {
-        return getAnnotationValueMappingAnnotatedClassMap(annotationType, fieldType, AnnotationConstant.DEFAULT_FIELD_NAME);
+    public static <T> Map<T, Class<?>> getAnnotationValueMappingAnnotatedClassMap(Class<? extends Annotation> annotationClass, Class<T> fieldClass) {
+        return getAnnotationValueMappingAnnotatedClassMap(annotationClass, fieldClass, AnnotationConstant.DEFAULT_FIELD_NAME);
     }
 
     /**
      * get the annotation field value mapping the annotated class in the default package path.
      *
-     * @param annotationType the annotation class
-     * @param fieldType      the field class in annotation
-     * @param fieldName      the field name in annotation
-     * @param <T>            the field type in annotation
+     * @param annotationClass the annotation class
+     * @param fieldClass      the field class in annotation
+     * @param fieldName       the field name in annotation
+     * @param <T>             the field type in annotation
      * @return the annotation field value mapping the annotated class in the default package path
      * @see #getAnnotationValueMappingAnnotatedClassMap(Class, Class, String, Collection)
      * @see #getAnnotationValue(AnnotatedElement, Class, Class, String)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see Classes#getBasePackagePath()
      */
-    public static <T> Map<T, Class<?>> getAnnotationValueMappingAnnotatedClassMap(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName) {
-        return getAnnotationValueMappingAnnotatedClassMap(annotationType, fieldType, fieldName, Classes.getBasePackagePath());
+    public static <T> Map<T, Class<?>> getAnnotationValueMappingAnnotatedClassMap(Class<? extends Annotation> annotationClass, Class<T> fieldClass, String fieldName) {
+        return getAnnotationValueMappingAnnotatedClassMap(annotationClass, fieldClass, fieldName, Classes.getBasePackagePath());
     }
 
     /**
      * get the annotation field value mapping the annotated class in the specified package path.
      *
-     * @param annotationType   the annotation class
-     * @param fieldType        the field class in annotation
+     * @param annotationClass  the annotation class
+     * @param fieldClass       the field class in annotation
      * @param fieldName        the field name in annotation
      * @param scanPackagePaths the package path to be scanned
      * @param <T>              the field type in annotation
@@ -684,8 +693,8 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationValue(AnnotatedElement, Class, Class, String)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      */
-    public static <T> Map<T, Class<?>> getAnnotationValueMappingAnnotatedClassMap(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName, String... scanPackagePaths) {
-        return getAnnotationValueMappingAnnotatedClassMap(annotationType, fieldType, fieldName, Collections.ofHashSet(scanPackagePaths));
+    public static <T> Map<T, Class<?>> getAnnotationValueMappingAnnotatedClassMap(Class<? extends Annotation> annotationClass, Class<T> fieldClass, String fieldName, String... scanPackagePaths) {
+        return getAnnotationValueMappingAnnotatedClassMap(annotationClass, fieldClass, fieldName, Collections.ofHashSet(scanPackagePaths));
     }
 
     /**
@@ -723,8 +732,8 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * }
      * </pre>
      *
-     * @param annotationType   the annotation class
-     * @param fieldType        the field class in annotation
+     * @param annotationClass  the annotation class
+     * @param fieldClass       the field class in annotation
      * @param fieldName        the field name in annotation
      * @param scanPackagePaths the package path to be scanned
      * @param <T>              the field type in annotation
@@ -732,11 +741,11 @@ public class Annotations extends cn.srd.library.java.tool.lang.annotation.Annota
      * @see #getAnnotationValue(AnnotatedElement, Class, Class, String)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      */
-    public static <T> Map<T, Class<?>> getAnnotationValueMappingAnnotatedClassMap(Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName, Collection<String> scanPackagePaths) {
-        return Classes.scanByAnnotationTypeFilter(annotationType, scanPackagePaths)
+    public static <T> Map<T, Class<?>> getAnnotationValueMappingAnnotatedClassMap(Class<? extends Annotation> annotationClass, Class<T> fieldClass, String fieldName, Collection<String> scanPackagePaths) {
+        return Classes.scanByAnnotationTypeFilter(annotationClass, scanPackagePaths)
                 .stream()
                 .map(beanDefinition -> Classes.ofName(beanDefinition.getBeanClassName()))
-                .collect(Collectors.toMap(annotatedClass -> getAnnotationValue(annotatedClass, annotationType, fieldType, fieldName), annotatedClass -> annotatedClass));
+                .collect(Collectors.toMap(annotatedClass -> getAnnotationValue(annotatedClass, annotationClass, fieldClass, fieldName), annotatedClass -> annotatedClass));
     }
 
 }

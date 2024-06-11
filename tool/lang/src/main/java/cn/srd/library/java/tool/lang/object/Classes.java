@@ -5,6 +5,7 @@
 package cn.srd.library.java.tool.lang.object;
 
 import cn.hutool.core.util.ClassUtil;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.functional.Action;
@@ -26,6 +27,16 @@ import java.util.stream.Collectors;
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Classes {
+
+    /**
+     * the annotation class and the annotated class cache
+     */
+    private static final Map<String, Set<Class<?>>> ANNOTATION_CLASS_MAPPING_ANNOTATED_CLASSES_CACHE = Collections.newConcurrentHashMap();
+
+    /**
+     * the class and all its subclasses or implementation classes cache
+     */
+    private static final Map<String, Set<Class<?>>> CLASS_MAPPING_SUBCLASSES_OR_IMPLEMENTATION_CLASSES_CACHE = Collections.newConcurrentHashMap();
 
     /**
      * check the target class is assignable from the source class
@@ -281,12 +292,15 @@ public class Classes {
      * @return all classes containing the specified annotation in the specified package paths
      * @see ClassUtil#scanPackageByAnnotation(String, Class)
      */
+    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static Set<Class<?>> scanByAnnotation(Class<? extends Annotation> annotationClass, Collection<String> scanPackagePaths) {
-        return Collections.emptyIfNull(scanPackagePaths)
-                .stream()
-                .map(path -> ClassUtil.scanPackageByAnnotation(path, annotationClass))
-                .flatMap(Collection::stream)
-                .collect(Collectors.toSet());
+        return ANNOTATION_CLASS_MAPPING_ANNOTATED_CLASSES_CACHE.computeIfAbsent(STR."\{annotationClass.getName()} in [\{Strings.joinWithCommaAndSpace(scanPackagePaths)}]", ignore ->
+                Collections.emptyIfNull(scanPackagePaths)
+                        .stream()
+                        .map(path -> ClassUtil.scanPackageByAnnotation(path, annotationClass))
+                        .flatMap(Collection::stream)
+                        .collect(Collectors.toSet())
+        );
     }
 
     /**
@@ -298,9 +312,7 @@ public class Classes {
      * @return all subclasses or implementation classes of the specified class or interface in the specified package paths
      */
     public static <T> Set<Class<? extends T>> scanBySuper(Class<T> rootClass, String... scanPackagePaths) {
-        Set<Class<? extends T>> subClasses = Collections.newHashSet();
-        Arrays.stream(Objects.setIfNull(scanPackagePaths, Collections.newArray(String.class))).forEach(packageName -> Collections.add(subClasses, ClassUtil.scanPackageBySuper(packageName, rootClass)));
-        return subClasses;
+        return scanBySuper(rootClass, Collections.ofArrayList(scanPackagePaths));
     }
 
     /**
@@ -311,10 +323,13 @@ public class Classes {
      * @param <T>              the specified class type
      * @return all subclasses or implementation classes of the specified class or interface in the specified package paths
      */
+    @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.PREVIEW})
     public static <T> Set<Class<? extends T>> scanBySuper(Class<T> rootClass, Collection<String> scanPackagePaths) {
-        Set<Class<? extends T>> subClasses = Collections.newHashSet();
-        Collections.emptyIfNull(scanPackagePaths).forEach(packageName -> Collections.add(subClasses, ClassUtil.scanPackageBySuper(packageName, rootClass)));
-        return subClasses;
+        return (Set<Class<? extends T>>) (Set<?>) CLASS_MAPPING_SUBCLASSES_OR_IMPLEMENTATION_CLASSES_CACHE.computeIfAbsent(STR."\{rootClass.getName()} in [\{Strings.joinWithCommaAndSpace(scanPackagePaths)}]", ignore -> {
+            Set<Class<?>> subClasses = Collections.newHashSet();
+            Collections.emptyIfNull(scanPackagePaths).forEach(packageName -> Collections.add(subClasses, ClassUtil.scanPackageBySuper(packageName, rootClass)));
+            return subClasses;
+        });
     }
 
     /**

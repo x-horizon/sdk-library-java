@@ -7,6 +7,7 @@ package cn.srd.library.java.tool.lang.annotation;
 import cn.hutool.core.annotation.AnnotationUtil;
 import cn.srd.library.java.contract.constant.annotation.AnnotationConstant;
 import cn.srd.library.java.contract.constant.module.ModuleView;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.object.BasePackagePath;
@@ -23,6 +24,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,6 +34,11 @@ import java.util.stream.Collectors;
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Annotations {
+
+    /**
+     * the annotation class and the annotated methods cache
+     */
+    private static final Map<String, Set<Method>> ANNOTATION_CLASS_MAPPING_ANNOTATED_CLASSES_CACHE = Collections.newConcurrentHashMap();
 
     /**
      * see {@link AnnotationUtil#hasAnnotation(AnnotatedElement, Class)}
@@ -51,7 +58,7 @@ public class Annotations {
      * </pre>
      *
      * @param annotationClass the specified annotation class
-     * @return all classes containing the specified annotation in the default package path
+     * @return the one-to-one relationship annotated class in the specified package paths
      * @see BasePackagePath#get()
      * @see Classes#scanByAnnotation(Class, Collection)
      * @see #getAnnotatedClasses(Class, Collection)
@@ -68,7 +75,7 @@ public class Annotations {
      *
      * @param annotationClass  the specified annotation class
      * @param scanPackagePaths the specified packages path
-     * @return all classes containing the specified annotation in the specified package paths
+     * @return the one-to-one relationship annotated class in the specified package paths
      * @see Classes#scanByAnnotation(Class, Collection)
      * @see #getAnnotatedClasses(Class, Collection)
      */
@@ -84,7 +91,7 @@ public class Annotations {
      *
      * @param annotationClass  the specified annotation class
      * @param scanPackagePaths the specified packages path
-     * @return all classes containing the specified annotation in the specified package paths
+     * @return the one-to-one relationship annotated class in the specified package paths
      * @see Classes#scanByAnnotation(Class, Collection)
      * @see #getAnnotatedClasses(Class, Collection)
      */
@@ -163,14 +170,18 @@ public class Annotations {
      * @param scanPackagePaths the specified packages path
      * @return all methods containing the specified annotation in the specified package paths
      */
+    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static Set<Method> getAnnotatedMethods(Class<? extends Annotation> annotationClass, Collection<String> scanPackagePaths) {
-        return scanPackagePaths.stream()
-                .map(scanPackagePath -> new Reflections(new ConfigurationBuilder()
-                        .setUrls(ClasspathHelper.forPackage(scanPackagePath))
-                        .setScanners(Scanners.MethodsAnnotated, Scanners.ConstructorsAnnotated)
-                ).getMethodsAnnotatedWith(annotationClass))
-                .flatMap(Collection::stream)
-                .collect(Collectors.toSet());
+        return ANNOTATION_CLASS_MAPPING_ANNOTATED_CLASSES_CACHE.computeIfAbsent(STR."\{annotationClass.getName()} in [\{Strings.joinWithCommaAndSpace(scanPackagePaths)}]", ignore ->
+                scanPackagePaths.stream()
+                        .map(scanPackagePath -> new Reflections(new ConfigurationBuilder()
+                                .setUrls(ClasspathHelper.forPackage(scanPackagePath))
+                                .setScanners(Scanners.MethodsAnnotated, Scanners.ConstructorsAnnotated))
+                                .getMethodsAnnotatedWith(annotationClass)
+                        )
+                        .flatMap(Collection::stream)
+                        .collect(Collectors.toSet())
+        );
     }
 
     /**

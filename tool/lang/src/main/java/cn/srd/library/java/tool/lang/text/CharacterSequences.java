@@ -314,6 +314,35 @@ public class CharacterSequences extends Characters {
     }
 
     /**
+     * see {@link #joinWithCommaAndSpace(Iterable)}
+     *
+     * @param inputs the input elements
+     * @param <T>    the input element type
+     * @return after join
+     */
+    @SafeVarargs
+    public static <T> String joinWithCommaAndSpace(T... inputs) {
+        return joinWithCommaAndSpace(Collections.ofArrayList(inputs));
+    }
+
+    /**
+     * <pre>
+     * convert collection to strings using {@link SymbolConstant#COMMA} and {@link SymbolConstant#SPACE} as a separator.
+     *
+     * example:
+     *   the inputs are:       ["1", "2", "345"]
+     *   after join:           "1, 2, 345"
+     * </pre>
+     *
+     * @param inputs the input elements
+     * @param <T>    the input element type
+     * @return after join
+     */
+    public static <T> String joinWithCommaAndSpace(Iterable<T> inputs) {
+        return join(inputs, SymbolConstant.COMMA + SymbolConstant.SPACE);
+    }
+
+    /**
      * see {@link #joinWithSingleQuoteAndComma(Iterable)}
      *
      * @param inputs the input elements
