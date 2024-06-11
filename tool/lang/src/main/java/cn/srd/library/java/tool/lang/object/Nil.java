@@ -51,7 +51,7 @@ public class Nil {
      * @return return true if the checked element is zero value
      */
     public static boolean isZeroValue(Number input) {
-        return Nil.isNull(input) || Comparators.equals(NumberConstant.ZERO_NUMBER_VALUE, input);
+        return Nil.isNull(input) || Comparators.equals(NumberConstant.ZERO_LONG_VALUE, input.longValue());
     }
 
     /**
