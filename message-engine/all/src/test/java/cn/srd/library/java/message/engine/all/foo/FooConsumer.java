@@ -13,13 +13,14 @@ import cn.srd.library.java.message.engine.contract.model.enums.MessageQosType;
 import cn.srd.library.java.message.engine.kafka.MessageKafkaConfig;
 import cn.srd.library.java.message.engine.mqtt.v3.MessageMqttV3Config;
 import cn.srd.library.java.tool.lang.time.Times;
+import org.springframework.stereotype.Component;
 
 /**
  * @author wjm
  * @since 2024-05-26 15:08
  */
 @SuppressWarnings(SuppressWarningConstant.PREVIEW)
-// @Component
+@Component
 public class FooConsumer {
 
     // --------------------------------------------- kafka consumer ---------------------------------------------

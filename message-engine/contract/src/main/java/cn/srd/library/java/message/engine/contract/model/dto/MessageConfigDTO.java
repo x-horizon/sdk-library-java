@@ -76,6 +76,8 @@ public class MessageConfigDTO implements Serializable {
 
         ClientDTO getClientDTO();
 
+        String getTopic();
+
     }
 
     public interface ConsumerDTO extends Serializable {
@@ -83,6 +85,8 @@ public class MessageConfigDTO implements Serializable {
         ClientDTO getClientDTO();
 
         MessageConfigDTO.ProducerDTO getForwardProducerDTO();
+
+        List<String> getTopics();
 
     }
 

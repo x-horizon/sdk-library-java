@@ -13,6 +13,7 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
+import java.util.List;
 
 /**
  * @author wjm
@@ -60,6 +61,8 @@ public class MessageRabbitMqConfigDTO extends MessageConfigDTO {
         @JsonProperty("clientInfo")
         private ClientDTO clientDTO;
 
+        private String topic;
+
     }
 
     @Data
@@ -75,6 +78,8 @@ public class MessageRabbitMqConfigDTO extends MessageConfigDTO {
 
         @JsonProperty("forwardProducerInfo")
         private MessageConfigDTO.ProducerDTO forwardProducerDTO;
+
+        private List<String> topics;
 
     }
 
