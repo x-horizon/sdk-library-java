@@ -143,6 +143,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_ALL)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_CONTRACT)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_KAFKA)))
+        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_MQTT_CONTRACT)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_MQTT_V3)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_MQTT_V5)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_RABBITMQ)))
