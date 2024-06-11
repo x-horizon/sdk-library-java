@@ -7,8 +7,10 @@ package cn.srd.library.java.message.engine.nil.strategy;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
+import cn.srd.library.java.message.engine.contract.model.dto.MessageVerificationConfigDTO;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
 import cn.srd.library.java.message.engine.nil.model.dto.MessageNilConfigDTO;
+import cn.srd.library.java.message.engine.nil.model.properties.MessageNilProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.integration.dsl.IntegrationFlow;
 
@@ -20,11 +22,21 @@ import java.lang.reflect.Method;
  * @since 2024-06-04 17:10
  */
 @Slf4j
-public class MessageNilConfigStrategy extends MessageConfigStrategy<MessageNilConfigDTO, MessageNilConfigDTO.BrokerDTO, MessageNilConfigDTO.ClientDTO, MessageNilConfigDTO.ProducerDTO, MessageNilConfigDTO.ConsumerDTO> {
+public class MessageNilConfigStrategy extends MessageConfigStrategy<MessageNilProperties, MessageNilConfigDTO, MessageNilConfigDTO.BrokerDTO, MessageNilConfigDTO.ClientDTO, MessageNilConfigDTO.ProducerDTO, MessageNilConfigDTO.ConsumerDTO> {
+
+    @Override
+    protected MessageVerificationConfigDTO getVerificationConfigDTO(MessageNilConfigDTO configDTO) {
+        return new MessageVerificationConfigDTO();
+    }
 
     @Override
     protected Class<MessageNilConfigDTO> getConfigType() {
         return MessageNilConfigDTO.class;
+    }
+
+    @Override
+    protected Class<MessageNilProperties> getPropertiesType() {
+        return MessageNilProperties.class;
     }
 
     @Override
@@ -59,6 +71,11 @@ public class MessageNilConfigStrategy extends MessageConfigStrategy<MessageNilCo
 
     @Override
     protected void registerClientFactory(MessageNilConfigDTO.BrokerDTO brokerDTO) {
+
+    }
+
+    @Override
+    protected void registerProducerFactory(MessageNilConfigDTO.ProducerDTO producerDTO) {
 
     }
 

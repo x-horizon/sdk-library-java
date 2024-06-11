@@ -8,8 +8,10 @@ import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
+import cn.srd.library.java.message.engine.contract.model.dto.MessageVerificationConfigDTO;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
 import cn.srd.library.java.message.engine.redis.model.dto.MessageRedisConfigDTO;
+import cn.srd.library.java.message.engine.redis.model.properties.MessageRedisProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.integration.dsl.IntegrationFlow;
 
@@ -21,10 +23,20 @@ import java.lang.reflect.Method;
  * @since 2024-06-04 17:10
  */
 @Slf4j
-public class MessageRedisConfigStrategy extends MessageConfigStrategy<MessageRedisConfigDTO, MessageRedisConfigDTO.BrokerDTO, MessageRedisConfigDTO.ClientDTO, MessageRedisConfigDTO.ProducerDTO, MessageRedisConfigDTO.ConsumerDTO> {
+public class MessageRedisConfigStrategy extends MessageConfigStrategy<MessageRedisProperties, MessageRedisConfigDTO, MessageRedisConfigDTO.BrokerDTO, MessageRedisConfigDTO.ClientDTO, MessageRedisConfigDTO.ProducerDTO, MessageRedisConfigDTO.ConsumerDTO> {
+
+    @Override
+    protected MessageVerificationConfigDTO getVerificationConfigDTO(MessageRedisConfigDTO configDTO) {
+        throw new UnsupportedException();
+    }
 
     @Override
     protected Class<MessageRedisConfigDTO> getConfigType() {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected Class<MessageRedisProperties> getPropertiesType() {
         throw new UnsupportedException();
     }
 
@@ -60,6 +72,11 @@ public class MessageRedisConfigStrategy extends MessageConfigStrategy<MessageRed
 
     @Override
     protected void registerClientFactory(MessageRedisConfigDTO.BrokerDTO brokerDTO) {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected void registerProducerFactory(MessageRedisConfigDTO.ProducerDTO producerDTO) {
         throw new UnsupportedException();
     }
 

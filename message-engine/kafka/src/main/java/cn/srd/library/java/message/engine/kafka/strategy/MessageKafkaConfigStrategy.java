@@ -10,6 +10,7 @@ import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
+import cn.srd.library.java.message.engine.contract.model.dto.MessageVerificationConfigDTO;
 import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
@@ -45,11 +46,17 @@ import java.util.Map;
  * @since 2024-06-04 14:16
  */
 @Slf4j
-public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<MessageKafkaConfigDTO, MessageKafkaConfigDTO.BrokerDTO, MessageKafkaConfigDTO.ClientDTO, MessageKafkaConfigDTO.ProducerDTO, MessageKafkaConfigDTO.ConsumerDTO> {
+public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<MessageKafkaProperties, MessageKafkaConfigDTO, MessageKafkaConfigDTO.BrokerDTO, MessageKafkaConfigDTO.ClientDTO, MessageKafkaConfigDTO.ProducerDTO, MessageKafkaConfigDTO.ConsumerDTO> {
 
     @Autowired KafkaProperties kafkaProperties;
 
     @Autowired MessageKafkaProperties messageKafkaProperties;
+
+    @Override
+    protected MessageVerificationConfigDTO getVerificationConfigDTO(MessageKafkaConfigDTO configDTO) {
+        MessageVerificationConfigDTO verificationConfigDTO = new MessageVerificationConfigDTO();
+        return verificationConfigDTO;
+    }
 
     @Override
     protected Class<MessageKafkaConfigDTO> getConfigType() {
@@ -57,10 +64,12 @@ public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<Mess
     }
 
     @Override
+    protected Class<MessageKafkaProperties> getPropertiesType() {
+        return MessageKafkaProperties.class;
+    }
+
+    @Override
     protected MessageKafkaConfigDTO.BrokerDTO getBrokerDTO() {
-        Assert.of().setMessage("{}could not find the kafka server url, please provide the kafka server url in the config yaml, see [{}].", ModuleView.MESSAGE_ENGINE_SYSTEM, MessageKafkaProperties.class.getName())
-                .setThrowable(LibraryJavaInternalException.class)
-                .throwsIfNull(this.messageKafkaProperties.getServerUrls());
         return MessageKafkaConfigDTO.BrokerDTO.builder().serverUrls(this.messageKafkaProperties.getServerUrls()).build();
     }
 
@@ -81,7 +90,6 @@ public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<Mess
     protected MessageKafkaConfigDTO.ProducerDTO getProducerDTO(Method executeMethod, MessageProducer producerAnnotation) {
         return MessageKafkaConfigDTO.ProducerDTO.builder()
                 .clientDTO(getClientDTO(producerAnnotation.config().kafka().clientConfig(), executeMethod))
-                .engineType(producerAnnotation.config().engineType())
                 .topic(producerAnnotation.topic())
                 .build();
     }
@@ -148,6 +156,11 @@ public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<Mess
     }
 
     @Override
+    protected void registerProducerFactory(MessageKafkaConfigDTO.ProducerDTO producerDTO) {
+
+    }
+
+    @Override
     protected void registerConsumerFactory(MessageKafkaConfigDTO.ConsumerDTO consumerDTO) {
         Springs.registerBean(consumerDTO.getClientDTO().getFlowId(), new DefaultKafkaConsumerFactory<>(Map.of(
                 ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, this.messageKafkaProperties.getServerUrls(),
@@ -159,6 +172,7 @@ public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<Mess
                 ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
                 ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class
         )));
+        System.out.println();
     }
 
 }

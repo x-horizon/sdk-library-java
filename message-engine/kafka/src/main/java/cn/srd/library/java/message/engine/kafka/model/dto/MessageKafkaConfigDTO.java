@@ -5,7 +5,6 @@
 package cn.srd.library.java.message.engine.kafka.model.dto;
 
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
-import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerAckMode;
 import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerListenerMode;
 import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerOffsetResetMode;
@@ -66,8 +65,6 @@ public class MessageKafkaConfigDTO extends MessageConfigDTO {
 
         @JsonProperty("clientInfo")
         private ClientDTO clientDTO;
-
-        private MessageEngineType engineType;
 
         private String topic;
 

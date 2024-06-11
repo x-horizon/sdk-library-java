@@ -9,6 +9,7 @@ import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
+import cn.srd.library.java.message.engine.contract.model.dto.MessageVerificationConfigDTO;
 import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
@@ -39,9 +40,15 @@ import java.util.Optional;
  * @since 2024-06-04 17:10
  */
 @Slf4j
-public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMqttV3ConfigDTO, MessageMqttV3ConfigDTO.BrokerDTO, MessageMqttV3ConfigDTO.ClientDTO, MessageMqttV3ConfigDTO.ProducerDTO, MessageMqttV3ConfigDTO.ConsumerDTO> {
+public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMqttV3Properties, MessageMqttV3ConfigDTO, MessageMqttV3ConfigDTO.BrokerDTO, MessageMqttV3ConfigDTO.ClientDTO, MessageMqttV3ConfigDTO.ProducerDTO, MessageMqttV3ConfigDTO.ConsumerDTO> {
 
     @Autowired MessageMqttV3Properties mqttV3Properties;
+
+    @Override
+    protected MessageVerificationConfigDTO getVerificationConfigDTO(MessageMqttV3ConfigDTO configDTO) {
+        MessageVerificationConfigDTO verificationConfigDTO = new MessageVerificationConfigDTO();
+        return verificationConfigDTO;
+    }
 
     @Override
     protected Class<MessageMqttV3ConfigDTO> getConfigType() {
@@ -49,10 +56,12 @@ public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMq
     }
 
     @Override
+    protected Class<MessageMqttV3Properties> getPropertiesType() {
+        return MessageMqttV3Properties.class;
+    }
+
+    @Override
     protected MessageMqttV3ConfigDTO.BrokerDTO getBrokerDTO() {
-        Assert.of().setMessage("{}could not find the mqtt-v3 server url, please provide the mqtt-v3 server url in the config yaml, see [{}].", ModuleView.MESSAGE_ENGINE_SYSTEM, MessageMqttV3Properties.class.getName())
-                .setThrowable(LibraryJavaInternalException.class)
-                .throwsIfNull(this.mqttV3Properties.getServerUrls());
         return MessageMqttV3ConfigDTO.BrokerDTO.builder()
                 .serverUrls(this.mqttV3Properties.getServerUrls())
                 .username(this.mqttV3Properties.getUsername())
@@ -135,6 +144,11 @@ public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMq
         DefaultMqttPahoClientFactory mqttClientFactory = new DefaultMqttPahoClientFactory();
         mqttClientFactory.setConnectionOptions(mqttConnectOptions);
         Springs.registerBean(DefaultMqttPahoClientFactory.class.getName(), mqttClientFactory);
+    }
+
+    @Override
+    protected void registerProducerFactory(MessageMqttV3ConfigDTO.ProducerDTO producerDTO) {
+
     }
 
     @Override

@@ -8,6 +8,7 @@ import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineSwitcher;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
+import cn.srd.library.java.message.engine.contract.model.properties.MessageEngineProperties;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
 import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
 import cn.srd.library.java.message.engine.kafka.autoconfigure.MessageEngineKafkaSwitcher;
@@ -29,18 +30,10 @@ import lombok.Getter;
 @Getter
 @EnumAutowired(rootClasses = {MessageConfigStrategy.class, MessageFlowStrategy.class}, allowNull = true, matchRule = EnumAutowiredFieldMatchByContainIgnoreCaseRule.class)
 public enum MessageEngineType {
-    //
-    // KAFKA(1, "Kafka", "kafka", MessageEngineKafkaSwitcher.class),
-    // MQTT_V3(2, "Mqtt-V3", "mqttV3", MessageEngineMqttV3Switcher.class),
-    // MQTT_V5(3, "Mqtt-V5", "mqttV5", MessageEngineMqttV5Switcher.class),
-    // NIL(4, "Nil", "nil", MessageEngineNilSwitcher.class),
-    // RABBITMQ(5, "RabbitMQ", "rabbitmq", MessageEngineRabbitMqSwitcher.class),
-    // REDIS(6, "Redis", "redis", MessageEngineRedisSwitcher.class),
-    // ROCKETMQ(7, "RocketMQ", "rocketmq", MessageEngineRocketMqSwitcher.class),
 
     KAFKA(1, "kafka", MessageEngineKafkaSwitcher.class),
     MQTT_V3(2, "mqttV3", MessageEngineMqttV3Switcher.class),
-    MQTT_V5(3, "mattV5", MessageEngineMqttV5Switcher.class),
+    MQTT_V5(3, "mqttV5", MessageEngineMqttV5Switcher.class),
     NIL(4, "nil", MessageEngineNilSwitcher.class),
     RABBITMQ(5, "rabbitmq", MessageEngineRabbitMqSwitcher.class),
     REDIS(6, "redis", MessageEngineRedisSwitcher.class),
@@ -54,26 +47,17 @@ public enum MessageEngineType {
         this.systemSwitcher = systemSwitcher;
     }
 
-    // MessageEngineType(int code, String description, String beanName, Class<? extends MessageEngineSwitcher> systemSwitcher) {
-    //     this.code = code;
-    //     this.description = description;
-    //     this.beanName = beanName;
-    //     this.systemSwitcher = systemSwitcher;
-    // }
-
     private final int code;
 
     private final String description;
 
-    // private final String beanName;
-
     private final Class<? extends MessageEngineSwitcher> systemSwitcher;
 
-    private MessageConfigStrategy<MessageConfigDTO, MessageConfigDTO.BrokerDTO, MessageConfigDTO.ClientDTO, MessageConfigDTO.ProducerDTO, MessageConfigDTO.ConsumerDTO> configStrategy;
+    private MessageConfigStrategy<MessageEngineProperties, MessageConfigDTO, MessageConfigDTO.BrokerDTO, MessageConfigDTO.ClientDTO, MessageConfigDTO.ProducerDTO, MessageConfigDTO.ConsumerDTO> configStrategy;
 
     private MessageFlowStrategy flowStrategy;
 
-    public MessageConfigStrategy<MessageConfigDTO, MessageConfigDTO.BrokerDTO, MessageConfigDTO.ClientDTO, MessageConfigDTO.ProducerDTO, MessageConfigDTO.ConsumerDTO> getConfigStrategy() {
+    public MessageConfigStrategy<MessageEngineProperties, MessageConfigDTO, MessageConfigDTO.BrokerDTO, MessageConfigDTO.ClientDTO, MessageConfigDTO.ProducerDTO, MessageConfigDTO.ConsumerDTO> getConfigStrategy() {
         Assert.of().setMessage("{}could not find the config strategy by message engine type [{}], please add the related library path to your classpath.", ModuleView.MESSAGE_ENGINE_SYSTEM, this.name())
                 .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfNull(this.configStrategy);
