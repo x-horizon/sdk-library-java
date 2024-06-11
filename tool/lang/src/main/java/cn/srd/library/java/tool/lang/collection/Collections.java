@@ -730,14 +730,26 @@ public class Collections {
     }
 
     /**
-     * return {@link #newImmutableList()} if the provide collection is null
+     * return {@link #newArrayList()} if the provide collection is null
      *
      * @param inputs the specified elements
      * @param <T>    the specified element type
-     * @return return {@link #newImmutableList()} if the provide collection is null
+     * @return return {@link #newArrayList()} if the provide collection is null
      */
     public static <T> Collection<T> emptyIfNull(Collection<T> inputs) {
-        return Nil.isNull(inputs) ? newImmutableList() : inputs;
+        return Nil.isNull(inputs) ? newArrayList() : inputs;
+    }
+
+    /**
+     * return {@link #newHashMap()} if the provide map is null
+     *
+     * @param inputs the specified map
+     * @param <K>    the key type of map
+     * @param <V>    the value type of map
+     * @return return {@link #newHashMap()} if the provide collection is null
+     */
+    public static <K, V> Map<K, V> emptyIfNull(Map<K, V> inputs) {
+        return Nil.isNull(inputs) ? newHashMap() : inputs;
     }
 
     /**
@@ -1073,6 +1085,20 @@ public class Collections {
      */
     public static <T> Collection<T> add(Collection<T> inputs, Object appendElements) {
         return CollectionUtil.addAll(inputs, appendElements);
+    }
+
+    /**
+     * return the specified map after add node
+     *
+     * @param inputs the input map
+     * @param <K>    the key type of map
+     * @param <V>    the value type of map
+     * @return the specified map after add node
+     */
+    public static <K, V> Map<K, V> put(Map<K, V> inputs, K key, V value) {
+        inputs = emptyIfNull(inputs);
+        inputs.put(key, value);
+        return inputs;
     }
 
     /**
