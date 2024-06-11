@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.message.engine.rabbitmq;
+package cn.srd.library.java.message.engine.rocketmq;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  */
 @Target({})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MessageRabbitmqConfig {
+public @interface MessageRocketMqConfig {
 
     ProducerConfig producerConfig() default @ProducerConfig();
 

@@ -4,11 +4,11 @@
 
 package cn.srd.library.java.message.engine.kafka;
 
-import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
 import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerAckMode;
 import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerListenerMode;
 import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerOffsetResetMode;
+import cn.srd.library.java.message.engine.kafka.support.MessageKafkaDefaultConfigConstant;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -41,13 +41,13 @@ public @interface MessageKafkaConfig {
 
     @interface ConsumerConfig {
 
-        String groupId() default SymbolConstant.EMPTY;
+        String groupId() default MessageKafkaDefaultConfigConstant.Consumer.GROUP_ID;
 
-        boolean allowToAutoCreateTopic() default true;
+        boolean allowToAutoCreateTopic() default MessageKafkaDefaultConfigConstant.Consumer.ALLOW_TO_AUTO_CREATE_TOPIC;
 
-        MessageKafkaConsumerAckMode ackMode() default MessageKafkaConsumerAckMode.COMMIT_EACH_OFFSET_AFTER_CONSUME;
+        String autoCommitOffsetInterval() default MessageKafkaDefaultConfigConstant.Consumer.AUTO_COMMIT_OFFSET_INTERVAL;
 
-        String autoCommitOffsetInterval() default "5s";
+        MessageKafkaConsumerAckMode ackMode() default MessageKafkaConsumerAckMode.RECORD;
 
         MessageKafkaConsumerListenerMode listenerMode() default MessageKafkaConsumerListenerMode.RECORD;
 

@@ -9,9 +9,9 @@ import cn.srd.library.java.message.engine.kafka.MessageKafkaConfig;
 import cn.srd.library.java.message.engine.mqtt.v3.MessageMqttV3Config;
 import cn.srd.library.java.message.engine.mqtt.v5.MessageMqttV5Config;
 import cn.srd.library.java.message.engine.nil.MessageNilConfig;
-import cn.srd.library.java.message.engine.rabbitmq.MessageRabbitmqConfig;
+import cn.srd.library.java.message.engine.rabbitmq.MessageRabbitMqConfig;
 import cn.srd.library.java.message.engine.redis.MessageRedisConfig;
-import cn.srd.library.java.message.engine.rocketmq.MessageRocketmqConfig;
+import cn.srd.library.java.message.engine.rocketmq.MessageRocketMqConfig;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -35,10 +35,10 @@ public @interface MessageConfig {
 
     MessageNilConfig nil() default @MessageNilConfig();
 
-    MessageRabbitmqConfig rabbitmq() default @MessageRabbitmqConfig();
+    MessageRabbitMqConfig rabbitmq() default @MessageRabbitMqConfig();
 
     MessageRedisConfig redis() default @MessageRedisConfig();
 
-    MessageRocketmqConfig rocketmq() default @MessageRocketmqConfig();
+    MessageRocketMqConfig rocketmq() default @MessageRocketMqConfig();
 
 }

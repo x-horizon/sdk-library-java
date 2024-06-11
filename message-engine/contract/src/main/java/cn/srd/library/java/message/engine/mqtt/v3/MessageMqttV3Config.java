@@ -6,6 +6,7 @@ package cn.srd.library.java.message.engine.mqtt.v3;
 
 import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageQosType;
+import cn.srd.library.java.message.engine.mqtt.contract.support.MessageMqttDefaultConfigConstant;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -32,15 +33,15 @@ public @interface MessageMqttV3Config {
 
         MessageQosType qosType() default MessageQosType.AT_MOST_ONCE;
 
-        String completionTimeout() default "30s";
+        String completionTimeout() default MessageMqttDefaultConfigConstant.Client.COMPLETION_TIMEOUT;
 
-        String disconnectCompletionTimeout() default "5s";
+        String disconnectCompletionTimeout() default MessageMqttDefaultConfigConstant.Client.DISCONNECT_COMPLETION_TIMEOUT;
 
     }
 
     @interface ProducerConfig {
 
-        boolean needToSendAsync() default false;
+        boolean needToSendAsync() default MessageMqttDefaultConfigConstant.Producer.NEED_TO_SEND_ASYNC;
 
     }
 

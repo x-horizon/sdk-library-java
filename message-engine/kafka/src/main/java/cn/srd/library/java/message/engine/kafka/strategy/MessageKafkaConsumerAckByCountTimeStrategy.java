@@ -6,13 +6,8 @@ package cn.srd.library.java.message.engine.kafka.strategy;
 
 /**
  * @author wjm
- * @since 2024-05-31 15:39
+ * @since 2024-05-31 15:38
  */
-public class MessageKafkaConsumerAckByManualCommitBatchOffsetImmediateStrategy implements MessageKafkaConsumerAckStrategy {
-
-    @Override
-    public boolean needToEnableAutoCommitOffset() {
-        return false;
-    }
+public class MessageKafkaConsumerAckByCountTimeStrategy implements MessageKafkaConsumerAckStrategy {
 
 }

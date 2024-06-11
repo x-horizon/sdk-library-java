@@ -18,47 +18,19 @@ import org.springframework.kafka.listener.ContainerProperties;
 @AllArgsConstructor
 public enum MessageKafkaConsumerAdapterAckMode {
 
-    COMMIT_EACH_OFFSET_AFTER_CONSUME(
-            MessageKafkaConsumerAckMode.COMMIT_EACH_OFFSET_AFTER_CONSUME.getCode(),
-            ContainerProperties.AckMode.RECORD,
-            new MessageKafkaConsumerAckByCommitEachOffsetAfterConsumeStrategy()
-    ),
+    RECORD(MessageKafkaConsumerAckMode.RECORD.getCode(), ContainerProperties.AckMode.RECORD, new MessageKafkaConsumerAckByRecordStrategy()),
 
-    COMMIT_BATCH_OFFSET_AFTER_CONSUME(
-            MessageKafkaConsumerAckMode.COMMIT_BATCH_OFFSET_AFTER_CONSUME.getCode(),
-            ContainerProperties.AckMode.BATCH,
-            new MessageKafkaConsumerAckByCommitBatchOffsetAfterConsumeStrategy()
-    ),
+    BATCH(MessageKafkaConsumerAckMode.BATCH.getCode(), ContainerProperties.AckMode.BATCH, new MessageKafkaConsumerAckByBatchStrategy()),
 
-    COMMIT_BATCH_OFFSET_BY_LAST_ACK_TIME(
-            MessageKafkaConsumerAckMode.COMMIT_BATCH_OFFSET_BY_LAST_ACK_TIME.getCode(),
-            ContainerProperties.AckMode.TIME,
-            new MessageKafkaConsumerAckByCommitBatchOffsetByLastAckTimeStrategy()
-    ),
+    TIME(MessageKafkaConsumerAckMode.TIME.getCode(), ContainerProperties.AckMode.TIME, new MessageKafkaConsumerAckByTimeStrategy()),
 
-    COMMIT_BATCH_OFFSET_BY_ACK_COUNT(
-            MessageKafkaConsumerAckMode.COMMIT_BATCH_OFFSET_BY_ACK_COUNT.getCode(),
-            ContainerProperties.AckMode.COUNT,
-            new MessageKafkaConsumerAckByCommitBatchOffsetByAckCountStrategy()
-    ),
+    COUNT(MessageKafkaConsumerAckMode.COUNT.getCode(), ContainerProperties.AckMode.COUNT, new MessageKafkaConsumerAckByCountStrategy()),
 
-    COMMIT_BATCH_OFFSET_BY_ACK_COUNT_OR_LAST_ACK_TIME(
-            MessageKafkaConsumerAckMode.COMMIT_BATCH_OFFSET_BY_ACK_COUNT_OR_LAST_ACK_TIME.getCode(),
-            ContainerProperties.AckMode.COUNT_TIME,
-            new MessageKafkaConsumerAckByCommitBatchOffsetByAckCountOrLastAckTimeStrategy()
-    ),
+    COUNT_TIME(MessageKafkaConsumerAckMode.COUNT_TIME.getCode(), ContainerProperties.AckMode.COUNT_TIME, new MessageKafkaConsumerAckByCountTimeStrategy()),
 
-    MANUAL_COMMIT_BATCH_OFFSET_IMMEDIATE(
-            MessageKafkaConsumerAckMode.MANUAL_COMMIT_BATCH_OFFSET_IMMEDIATE.getCode(),
-            ContainerProperties.AckMode.MANUAL_IMMEDIATE,
-            new MessageKafkaConsumerAckByManualCommitBatchOffsetImmediateStrategy()
-    ),
+    MANUAL_IMMEDIATE(MessageKafkaConsumerAckMode.MANUAL_IMMEDIATE.getCode(), ContainerProperties.AckMode.MANUAL_IMMEDIATE, new MessageKafkaConsumerAckByManualImmediateStrategy()),
 
-    MANUAL_COMMIT_BATCH_OFFSET_AFTER_NEXT_POLL(
-            MessageKafkaConsumerAckMode.MANUAL_COMMIT_BATCH_OFFSET_AFTER_NEXT_POLL.getCode(),
-            ContainerProperties.AckMode.MANUAL,
-            new MessageKafkaConsumerAckByManualCommitBatchOffsetAfterNextPollStrategy()
-    ),
+    MANUAL(MessageKafkaConsumerAckMode.MANUAL.getCode(), ContainerProperties.AckMode.MANUAL, new MessageKafkaConsumerAckByManualStrategy()),
 
     ;
 
