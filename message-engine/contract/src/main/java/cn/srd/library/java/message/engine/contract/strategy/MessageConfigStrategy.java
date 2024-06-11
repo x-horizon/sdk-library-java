@@ -13,10 +13,15 @@ import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
+import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.spring.contract.Annotations;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.integration.dsl.IntegrationFlow;
+import org.springframework.integration.dsl.context.IntegrationFlowContext;
+import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -29,7 +34,28 @@ import java.util.stream.Collectors;
  * @since 2024-06-04 11:55
  */
 @Slf4j
+@Component
 public abstract class MessageConfigStrategy<F extends MessageConfigDTO, B extends MessageConfigDTO.BrokerDTO, L extends MessageConfigDTO.ClientDTO, P extends MessageConfigDTO.ProducerDTO, C extends MessageConfigDTO.ConsumerDTO> {
+
+    @Autowired private IntegrationFlowContext flowContext;
+
+    protected abstract Class<F> getConfigType();
+
+    protected abstract B getBrokerDTO();
+
+    protected abstract L getClientDTO(Annotation clientConfig, Method executeMethod);
+
+    protected abstract P getProducerDTO(Method executeMethod, MessageProducer producerAnnotation);
+
+    protected abstract C getConsumerDTO(Method executeMethod, MessageConsumer consumerAnnotation, MessageConfigDTO.ProducerDTO forwardProducerDTO);
+
+    protected abstract IntegrationFlow getProducerFlow(P producerDTO);
+
+    protected abstract IntegrationFlow getConsumerFlow(C consumerDTO);
+
+    protected abstract void registerClientFactory(B brokerDTO);
+
+    protected abstract void registerConsumerFactory(C consumerDTO);
 
     public void initialize(MessageEngineType engineType) {
         log.info("{}message engine {} customizer is enabled, starting initializing...", ModuleView.MESSAGE_ENGINE_SYSTEM, engineType.getDescription());
@@ -68,14 +94,6 @@ public abstract class MessageConfigStrategy<F extends MessageConfigDTO, B extend
         log.info("{}message engine {} customizer initialized.", ModuleView.MESSAGE_ENGINE_SYSTEM, engineType.getDescription());
     }
 
-    protected abstract Class<F> getConfigType();
-
-    protected abstract B getBrokerDTO();
-
-    protected abstract void registerClientFactory(B brokerDTO);
-
-    protected abstract L getClientDTO(Annotation clientConfig, Method executeMethod);
-
     public void onInitializeComplete(MessageEngineType engineType) {
         Annotations.getAnnotatedMethods(MessageConsumer.class)
                 .stream()
@@ -83,7 +101,7 @@ public abstract class MessageConfigStrategy<F extends MessageConfigDTO, B extend
                 .forEach(consumerMethod -> {
                     MessageConsumer consumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
                     MessageEngineType forwardProducerEngineType = consumerAnnotation.forwardTo().config().engineType();
-                    if (MessageEngineType.NIL != forwardProducerEngineType) {
+                    if (Comparators.notEquals(MessageEngineType.NIL, forwardProducerEngineType)) {
                         forwardProducerEngineType.getConfigStrategy().registerProducerRouter(consumerMethod, Springs.getBean(getConfigType()).getConsumerRouter().get(consumerMethod).getForwardProducerDTO());
                     }
                 });
@@ -95,44 +113,26 @@ public abstract class MessageConfigStrategy<F extends MessageConfigDTO, B extend
         return brokerDTO;
     }
 
-    protected Map<Method, P> registerProducerRouter(MessageEngineType engineType) {
+    private Map<Method, P> registerProducerRouter(MessageEngineType engineType) {
         return Annotations.getAnnotatedMethods(MessageProducer.class).stream()
                 .filter(producerMethod -> Comparators.equals(engineType, producerMethod.getAnnotation(MessageProducer.class).config().engineType()))
-                .map(producerMethod -> Collections.ofPair(producerMethod, getProducerDTO(producerMethod)))
+                .map(producerMethod -> Collections.ofPair(producerMethod, getProducerDTO(producerMethod, producerMethod.getAnnotation(MessageProducer.class))))
                 .peek(producerRouter -> registerProducerFlow(producerRouter.getValue()))
                 .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    protected void registerProducerRouter(Method executeMethod, MessageConfigDTO.ProducerDTO producerDTO) {
+    private void registerProducerRouter(Method executeMethod, MessageConfigDTO.ProducerDTO producerDTO) {
         Map<Method, P> producerRouter = (Map<Method, P>) Springs.getBean(getConfigType()).getProducerRouter();
         producerRouter.put(executeMethod, (P) producerDTO);
         registerProducerFlow((P) producerDTO);
     }
 
-    private P getProducerDTO(Method producerMethod) {
-        return getProducerDTO(producerMethod, producerMethod.getAnnotation(MessageProducer.class));
+    private void registerProducerFlow(P producerDTO) {
+        if (Nil.isNull(this.flowContext.getRegistrationById(producerDTO.getClientDTO().getFlowId()))) {
+            registerFlow(producerDTO.getClientDTO().getFlowId(), getProducerFlow(producerDTO));
+        }
     }
-
-    protected abstract void registerProducerFlow(P producerDTO);
-
-    protected abstract void registerConsumerFactory(C consumerDTO);
-
-    protected abstract void registerConsumerFlow(C consumerDTO);
-
-    protected abstract P getProducerDTO(Method executeMethod, MessageProducer producerAnnotation);
-
-    // protected void registerFlow(IntegrationFlow flow, String flowId) {
-    //     IntegrationFlowContext flowContext = Springs.getBean(IntegrationFlowContext.class);
-    //     if (Nil.isNull(flowContext.getRegistrationById(flowId))) {
-    //         flowContext.registration(flow)
-    //                 .id(flowId)
-    //                 .useFlowIdAsPrefix()
-    //                 .register();
-    //     }
-    // }
-
-    protected abstract C getConsumerDTO(Method executeMethod, MessageConsumer consumerAnnotation, MessageConfigDTO.ProducerDTO forwardProducerDTO);
 
     private Map<Method, C> registerConsumerRouter(MessageEngineType engineType) {
         return Annotations.getAnnotatedMethods(MessageConsumer.class)
@@ -140,18 +140,30 @@ public abstract class MessageConfigStrategy<F extends MessageConfigDTO, B extend
                 .filter(consumerMethod -> Comparators.equals(engineType, consumerMethod.getAnnotation(MessageConsumer.class).config().engineType()))
                 .map(consumerMethod -> {
                     MessageConsumer consumerAnnotation = consumerMethod.getAnnotation(MessageConsumer.class);
-                    MessageConfigDTO.ProducerDTO forwardProducerDTO = consumerAnnotation.forwardTo()
+                    C consumerDTO = getConsumerDTO(consumerMethod, consumerAnnotation, consumerAnnotation.forwardTo()
                             .config()
                             .engineType()
                             .getConfigStrategy()
-                            .getProducerDTO(consumerMethod, consumerAnnotation.forwardTo());
-
-                    C consumerDTO = getConsumerDTO(consumerMethod, consumerAnnotation, forwardProducerDTO);
+                            .getProducerDTO(consumerMethod, consumerAnnotation.forwardTo())
+                    );
                     registerConsumerFactory(consumerDTO);
                     registerConsumerFlow(consumerDTO);
                     return Collections.ofPair(consumerMethod, consumerDTO);
                 })
                 .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
+    }
+
+    private void registerConsumerFlow(C consumerDTO) {
+        if (Nil.isNull(this.flowContext.getRegistrationById(consumerDTO.getClientDTO().getFlowId()))) {
+            registerFlow(consumerDTO.getClientDTO().getFlowId(), getConsumerFlow(consumerDTO));
+        }
+    }
+
+    private void registerFlow(String flowId, IntegrationFlow flow) {
+        this.flowContext.registration(flow)
+                .id(flowId)
+                .useFlowIdAsPrefix()
+                .register();
     }
 
 }

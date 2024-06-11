@@ -71,7 +71,11 @@ public class FooConsumer {
             topics = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2},
             config = @MessageConfig(engineType = MessageEngineType.MQTT_V3, mqttV3 = @MessageMqttV3Config(
                     clientConfig = @MessageMqttV3Config.ClientConfig(qosType = MessageQosType.EXACTLY_ONCE)
-            ))
+            )),
+            forwardTo = @MessageProducer(
+                    topic = FooTopicConstant.TOPIC_TEST2,
+                    config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig)
+            )
     )
     public void mqttV3Receive1(String message) {
         System.out.println(STR."mqtt-v3 - 消费者1 -------- \{Times.getCurrentDateTime()}-receive-\{message}");

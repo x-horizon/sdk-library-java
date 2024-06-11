@@ -11,6 +11,7 @@ import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
 import cn.srd.library.java.message.engine.rabbitmq.model.dto.MessageRabbitMqConfigDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.integration.dsl.IntegrationFlow;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -33,27 +34,7 @@ public class MessageRabbitMqConfigStrategy extends MessageConfigStrategy<Message
     }
 
     @Override
-    protected void registerClientFactory(MessageRabbitMqConfigDTO.BrokerDTO brokerDTO) {
-        throw new UnsupportedException();
-    }
-
-    @Override
     protected MessageRabbitMqConfigDTO.ClientDTO getClientDTO(Annotation clientConfig, Method executeMethod) {
-        throw new UnsupportedException();
-    }
-
-    @Override
-    protected void registerProducerFlow(MessageRabbitMqConfigDTO.ProducerDTO producerDTO) {
-        throw new UnsupportedException();
-    }
-
-    @Override
-    protected void registerConsumerFactory(MessageRabbitMqConfigDTO.ConsumerDTO consumerDTO) {
-        throw new UnsupportedException();
-    }
-
-    @Override
-    protected void registerConsumerFlow(MessageRabbitMqConfigDTO.ConsumerDTO consumerDTO) {
         throw new UnsupportedException();
     }
 
@@ -64,6 +45,26 @@ public class MessageRabbitMqConfigStrategy extends MessageConfigStrategy<Message
 
     @Override
     protected MessageRabbitMqConfigDTO.ConsumerDTO getConsumerDTO(Method executeMethod, MessageConsumer consumerAnnotation, MessageConfigDTO.ProducerDTO forwardProducerDTO) {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected IntegrationFlow getProducerFlow(MessageRabbitMqConfigDTO.ProducerDTO producerDTO) {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected IntegrationFlow getConsumerFlow(MessageRabbitMqConfigDTO.ConsumerDTO consumerDTO) {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected void registerClientFactory(MessageRabbitMqConfigDTO.BrokerDTO brokerDTO) {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected void registerConsumerFactory(MessageRabbitMqConfigDTO.ConsumerDTO consumerDTO) {
         throw new UnsupportedException();
     }
 

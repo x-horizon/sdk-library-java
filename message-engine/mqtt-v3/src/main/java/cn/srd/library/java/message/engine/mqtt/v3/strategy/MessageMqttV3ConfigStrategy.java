@@ -16,15 +16,14 @@ import cn.srd.library.java.message.engine.contract.support.MessageFlows;
 import cn.srd.library.java.message.engine.mqtt.v3.MessageMqttV3Config;
 import cn.srd.library.java.message.engine.mqtt.v3.model.dto.MessageMqttV3ConfigDTO;
 import cn.srd.library.java.message.engine.mqtt.v3.model.properties.MessageMqttV3Properties;
-import cn.srd.library.java.tool.convert.all.Converts;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.functional.Assert;
-import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.time.Times;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.dsl.IntegrationFlow;
-import org.springframework.integration.dsl.context.IntegrationFlowContext;
 import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
 import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
@@ -33,7 +32,6 @@ import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -43,6 +41,8 @@ import java.util.Optional;
 @Slf4j
 public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMqttV3ConfigDTO, MessageMqttV3ConfigDTO.BrokerDTO, MessageMqttV3ConfigDTO.ClientDTO, MessageMqttV3ConfigDTO.ProducerDTO, MessageMqttV3ConfigDTO.ConsumerDTO> {
 
+    @Autowired MessageMqttV3Properties mqttV3Properties;
+
     @Override
     protected Class<MessageMqttV3ConfigDTO> getConfigType() {
         return MessageMqttV3ConfigDTO.class;
@@ -50,25 +50,14 @@ public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMq
 
     @Override
     protected MessageMqttV3ConfigDTO.BrokerDTO getBrokerDTO() {
-        MessageMqttV3Properties mqttV3Properties = Springs.getBean(MessageMqttV3Properties.class);
         Assert.of().setMessage("{}could not find the mqtt-v3 server url, please provide the mqtt-v3 server url in the config yaml, see [{}].", ModuleView.MESSAGE_ENGINE_SYSTEM, MessageMqttV3Properties.class.getName())
                 .setThrowable(LibraryJavaInternalException.class)
-                .throwsIfNull(mqttV3Properties.getServerUrls());
+                .throwsIfNull(this.mqttV3Properties.getServerUrls());
         return MessageMqttV3ConfigDTO.BrokerDTO.builder()
-                .serverUrls(mqttV3Properties.getServerUrls())
-                .username(mqttV3Properties.getUsername())
-                .password(mqttV3Properties.getPassword())
+                .serverUrls(this.mqttV3Properties.getServerUrls())
+                .username(this.mqttV3Properties.getUsername())
+                .password(this.mqttV3Properties.getPassword())
                 .build();
-    }
-
-    protected void registerClientFactory(MessageMqttV3ConfigDTO.BrokerDTO brokerDTO) {
-        MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
-        mqttConnectOptions.setServerURIs(Converts.toArray(brokerDTO.getServerUrls(), String.class));
-        Optional.ofNullable(brokerDTO.getUsername()).ifPresent(mqttConnectOptions::setUserName);
-        Optional.ofNullable(brokerDTO.getPassword()).ifPresent(value -> mqttConnectOptions.setPassword(value.toCharArray()));
-        DefaultMqttPahoClientFactory mqttClientFactory = new DefaultMqttPahoClientFactory();
-        mqttClientFactory.setConnectionOptions(mqttConnectOptions);
-        Springs.registerBean(DefaultMqttPahoClientFactory.class.getName(), mqttClientFactory);
     }
 
     @Override
@@ -87,10 +76,6 @@ public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMq
                 .originalCompletionTimeout(Times.wrapper(clientConfigAnnotation.completionTimeout()).toMillisecond().toMillis())
                 .originalDisconnectCompletionTimeout(Times.wrapper(clientConfigAnnotation.disconnectCompletionTimeout()).toMillisecond().toMillis())
                 .build();
-    }
-
-    private Map<Method, MessageMqttV3ConfigDTO.ProducerDTO> registerProducerRouter() {
-        return registerProducerRouter(MessageEngineType.MQTT_V3);
     }
 
     @Override
@@ -113,50 +98,48 @@ public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMq
     }
 
     @Override
-    protected void registerProducerFlow(MessageMqttV3ConfigDTO.ProducerDTO producerDTO) {
-        IntegrationFlowContext flowContext = Springs.getBean(IntegrationFlowContext.class);
-        if (Nil.isNull(flowContext.getRegistrationById(producerDTO.getClientDTO().getFlowId()))) {
-            MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(producerDTO.getClientDTO().getClientId(), Springs.getBean(MqttPahoClientFactory.class));
-            messageHandler.setDefaultTopic(producerDTO.getTopic());
-            messageHandler.setDefaultQos(producerDTO.getClientDTO().getQosType().getCode());
-            messageHandler.setAsync(producerDTO.isNeedToSendAsync());
-            messageHandler.setCompletionTimeout(producerDTO.getClientDTO().getOriginalCompletionTimeout());
-            messageHandler.setDisconnectCompletionTimeout(producerDTO.getClientDTO().getOriginalDisconnectCompletionTimeout());
-            flowContext.registration(MessageFlows.getObjectToStringIntegrationFlow(messageHandler))
-                    .id(producerDTO.getClientDTO().getFlowId())
-                    .useFlowIdAsPrefix()
-                    .register();
-        }
+    protected IntegrationFlow getProducerFlow(MessageMqttV3ConfigDTO.ProducerDTO producerDTO) {
+        MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(producerDTO.getClientDTO().getClientId(), Springs.getBean(MqttPahoClientFactory.class));
+        messageHandler.setDefaultTopic(producerDTO.getTopic());
+        messageHandler.setDefaultQos(producerDTO.getClientDTO().getQosType().getCode());
+        messageHandler.setAsync(producerDTO.isNeedToSendAsync());
+        messageHandler.setCompletionTimeout(producerDTO.getClientDTO().getOriginalCompletionTimeout());
+        messageHandler.setDisconnectCompletionTimeout(producerDTO.getClientDTO().getOriginalDisconnectCompletionTimeout());
+        return MessageFlows.getObjectToStringIntegrationFlow(messageHandler);
+    }
+
+    @Override
+    protected IntegrationFlow getConsumerFlow(MessageMqttV3ConfigDTO.ConsumerDTO consumerDTO) {
+        DefaultMqttPahoClientFactory mqttClientFactory = Springs.getBean(DefaultMqttPahoClientFactory.class);
+        MqttPahoMessageDrivenChannelAdapter messageDrivenChannelAdapter = new MqttPahoMessageDrivenChannelAdapter(consumerDTO.getClientDTO().getClientId(), mqttClientFactory, Converts.toArray(consumerDTO.getTopics(), String.class));
+        messageDrivenChannelAdapter.setQos(consumerDTO.getClientDTO().getQosType().getCode());
+        messageDrivenChannelAdapter.setConverter(new DefaultPahoMessageConverter());
+        messageDrivenChannelAdapter.setCompletionTimeout(consumerDTO.getClientDTO().getOriginalCompletionTimeout());
+        messageDrivenChannelAdapter.setDisconnectCompletionTimeout(consumerDTO.getClientDTO().getOriginalDisconnectCompletionTimeout());
+
+        Object consumerInstance = Springs.getBean(consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass());
+        Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass().getName())
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfNull(consumerInstance);
+        return IntegrationFlow.from(messageDrivenChannelAdapter)
+                .handle(MessageFlows.getStringToObjectMessageHandler(consumerInstance, consumerDTO.getClientDTO().getExecuteMethod()))
+                .get();
+    }
+
+    @Override
+    protected void registerClientFactory(MessageMqttV3ConfigDTO.BrokerDTO brokerDTO) {
+        MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
+        mqttConnectOptions.setServerURIs(Converts.toArray(brokerDTO.getServerUrls(), String.class));
+        Optional.ofNullable(brokerDTO.getUsername()).ifPresent(mqttConnectOptions::setUserName);
+        Optional.ofNullable(brokerDTO.getPassword()).ifPresent(value -> mqttConnectOptions.setPassword(value.toCharArray()));
+        DefaultMqttPahoClientFactory mqttClientFactory = new DefaultMqttPahoClientFactory();
+        mqttClientFactory.setConnectionOptions(mqttConnectOptions);
+        Springs.registerBean(DefaultMqttPahoClientFactory.class.getName(), mqttClientFactory);
     }
 
     @Override
     protected void registerConsumerFactory(MessageMqttV3ConfigDTO.ConsumerDTO consumerDTO) {
 
-    }
-
-    @Override
-    protected void registerConsumerFlow(MessageMqttV3ConfigDTO.ConsumerDTO consumerDTO) {
-        IntegrationFlowContext flowContext = Springs.getBean(IntegrationFlowContext.class);
-        if (Nil.isNull(flowContext.getRegistrationById(consumerDTO.getClientDTO().getFlowId()))) {
-            DefaultMqttPahoClientFactory mqttClientFactory = Springs.getBean(DefaultMqttPahoClientFactory.class);
-            MqttPahoMessageDrivenChannelAdapter messageDrivenChannelAdapter = new MqttPahoMessageDrivenChannelAdapter(consumerDTO.getClientDTO().getClientId(), mqttClientFactory, Converts.toArray(consumerDTO.getTopics(), String.class));
-            messageDrivenChannelAdapter.setQos(consumerDTO.getClientDTO().getQosType().getCode());
-            messageDrivenChannelAdapter.setConverter(new DefaultPahoMessageConverter());
-            messageDrivenChannelAdapter.setCompletionTimeout(consumerDTO.getClientDTO().getOriginalCompletionTimeout());
-            messageDrivenChannelAdapter.setDisconnectCompletionTimeout(consumerDTO.getClientDTO().getOriginalDisconnectCompletionTimeout());
-
-            Object consumerInstance = Springs.getBean(consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass());
-            Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass().getName())
-                    .setThrowable(LibraryJavaInternalException.class)
-                    .throwsIfNull(consumerInstance);
-            IntegrationFlow flow = IntegrationFlow.from(messageDrivenChannelAdapter)
-                    .handle(MessageFlows.getStringToObjectMessageHandler(consumerInstance, consumerDTO.getClientDTO().getExecuteMethod()))
-                    .get();
-            flowContext.registration(flow)
-                    .id(consumerDTO.getClientDTO().getFlowId())
-                    .useFlowIdAsPrefix()
-                    .register();
-        }
     }
 
 }

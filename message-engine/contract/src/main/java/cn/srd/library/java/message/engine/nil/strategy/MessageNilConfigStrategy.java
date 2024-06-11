@@ -10,6 +10,7 @@ import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
 import cn.srd.library.java.message.engine.nil.model.dto.MessageNilConfigDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.integration.dsl.IntegrationFlow;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -32,28 +33,8 @@ public class MessageNilConfigStrategy extends MessageConfigStrategy<MessageNilCo
     }
 
     @Override
-    protected void registerClientFactory(MessageNilConfigDTO.BrokerDTO brokerDTO) {
-
-    }
-
-    @Override
     protected MessageNilConfigDTO.ClientDTO getClientDTO(Annotation clientConfig, Method executeMethod) {
         return null;
-    }
-
-    @Override
-    protected void registerProducerFlow(MessageNilConfigDTO.ProducerDTO producerDTO) {
-
-    }
-
-    @Override
-    protected void registerConsumerFactory(MessageNilConfigDTO.ConsumerDTO consumerDTO) {
-
-    }
-
-    @Override
-    protected void registerConsumerFlow(MessageNilConfigDTO.ConsumerDTO consumerDTO) {
-
     }
 
     @Override
@@ -64,6 +45,26 @@ public class MessageNilConfigStrategy extends MessageConfigStrategy<MessageNilCo
     @Override
     protected MessageNilConfigDTO.ConsumerDTO getConsumerDTO(Method executeMethod, MessageConsumer consumerAnnotation, MessageConfigDTO.ProducerDTO forwardProducerDTO) {
         return null;
+    }
+
+    @Override
+    protected IntegrationFlow getProducerFlow(MessageNilConfigDTO.ProducerDTO producerDTO) {
+        return null;
+    }
+
+    @Override
+    protected IntegrationFlow getConsumerFlow(MessageNilConfigDTO.ConsumerDTO consumerDTO) {
+        return null;
+    }
+
+    @Override
+    protected void registerClientFactory(MessageNilConfigDTO.BrokerDTO brokerDTO) {
+
+    }
+
+    @Override
+    protected void registerConsumerFactory(MessageNilConfigDTO.ConsumerDTO consumerDTO) {
+
     }
 
 }

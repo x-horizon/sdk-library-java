@@ -11,6 +11,7 @@ import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
 import cn.srd.library.java.message.engine.rocketmq.model.dto.MessageRocketMqConfigDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.integration.dsl.IntegrationFlow;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -33,27 +34,7 @@ public class MessageRocketMqConfigStrategy extends MessageConfigStrategy<Message
     }
 
     @Override
-    protected void registerClientFactory(MessageRocketMqConfigDTO.BrokerDTO brokerDTO) {
-        throw new UnsupportedException();
-    }
-
-    @Override
     protected MessageRocketMqConfigDTO.ClientDTO getClientDTO(Annotation clientConfig, Method executeMethod) {
-        throw new UnsupportedException();
-    }
-
-    @Override
-    protected void registerProducerFlow(MessageRocketMqConfigDTO.ProducerDTO producerDTO) {
-        throw new UnsupportedException();
-    }
-
-    @Override
-    protected void registerConsumerFactory(MessageRocketMqConfigDTO.ConsumerDTO consumerDTO) {
-        throw new UnsupportedException();
-    }
-
-    @Override
-    protected void registerConsumerFlow(MessageRocketMqConfigDTO.ConsumerDTO consumerDTO) {
         throw new UnsupportedException();
     }
 
@@ -64,6 +45,26 @@ public class MessageRocketMqConfigStrategy extends MessageConfigStrategy<Message
 
     @Override
     protected MessageRocketMqConfigDTO.ConsumerDTO getConsumerDTO(Method executeMethod, MessageConsumer consumerAnnotation, MessageConfigDTO.ProducerDTO forwardProducerDTO) {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected IntegrationFlow getProducerFlow(MessageRocketMqConfigDTO.ProducerDTO producerDTO) {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected IntegrationFlow getConsumerFlow(MessageRocketMqConfigDTO.ConsumerDTO consumerDTO) {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected void registerClientFactory(MessageRocketMqConfigDTO.BrokerDTO brokerDTO) {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected void registerConsumerFactory(MessageRocketMqConfigDTO.ConsumerDTO consumerDTO) {
         throw new UnsupportedException();
     }
 

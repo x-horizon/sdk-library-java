@@ -19,17 +19,16 @@ import cn.srd.library.java.message.engine.kafka.model.dto.MessageKafkaConfigDTO;
 import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerAdapterAckMode;
 import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumerAdapterListenerMode;
 import cn.srd.library.java.message.engine.kafka.model.properties.MessageKafkaProperties;
-import cn.srd.library.java.tool.convert.all.Converts;
+import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.functional.Assert;
-import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.time.Times;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.integration.dsl.IntegrationFlow;
-import org.springframework.integration.dsl.context.IntegrationFlowContext;
 import org.springframework.integration.kafka.dsl.Kafka;
 import org.springframework.integration.kafka.dsl.KafkaMessageDrivenChannelAdapterSpec;
 import org.springframework.integration.kafka.dsl.KafkaProducerMessageHandlerSpec;
@@ -48,6 +47,10 @@ import java.util.Map;
 @Slf4j
 public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<MessageKafkaConfigDTO, MessageKafkaConfigDTO.BrokerDTO, MessageKafkaConfigDTO.ClientDTO, MessageKafkaConfigDTO.ProducerDTO, MessageKafkaConfigDTO.ConsumerDTO> {
 
+    @Autowired KafkaProperties kafkaProperties;
+
+    @Autowired MessageKafkaProperties messageKafkaProperties;
+
     @Override
     protected Class<MessageKafkaConfigDTO> getConfigType() {
         return MessageKafkaConfigDTO.class;
@@ -55,19 +58,10 @@ public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<Mess
 
     @Override
     protected MessageKafkaConfigDTO.BrokerDTO getBrokerDTO() {
-        MessageKafkaProperties kafkaProperties = Springs.getBean(MessageKafkaProperties.class);
         Assert.of().setMessage("{}could not find the kafka server url, please provide the kafka server url in the config yaml, see [{}].", ModuleView.MESSAGE_ENGINE_SYSTEM, MessageKafkaProperties.class.getName())
                 .setThrowable(LibraryJavaInternalException.class)
-                .throwsIfNull(kafkaProperties.getServerUrls());
-        return MessageKafkaConfigDTO.BrokerDTO.builder().serverUrls(kafkaProperties.getServerUrls()).build();
-    }
-
-    @Override
-    protected void registerClientFactory(MessageKafkaConfigDTO.BrokerDTO brokerDTO) {
-        KafkaProperties kafkaProperties = Springs.getBean(KafkaProperties.class);
-        kafkaProperties.setBootstrapServers(brokerDTO.getServerUrls());
-        DefaultKafkaProducerFactory<K, V> producerFactory = new DefaultKafkaProducerFactory<>(kafkaProperties.buildProducerProperties(null));
-        Springs.registerBean(DefaultKafkaProducerFactory.class.getName(), producerFactory);
+                .throwsIfNull(this.messageKafkaProperties.getServerUrls());
+        return MessageKafkaConfigDTO.BrokerDTO.builder().serverUrls(this.messageKafkaProperties.getServerUrls()).build();
     }
 
     @Override
@@ -81,50 +75,6 @@ public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<Mess
                 .idGenerateType(idGenerateType)
                 .executeMethod(executeMethod)
                 .build();
-    }
-
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    @Override
-    protected void registerProducerFlow(MessageKafkaConfigDTO.ProducerDTO producerDTO) {
-        IntegrationFlowContext flowContext = Springs.getBean(IntegrationFlowContext.class);
-        if (Nil.isNull(flowContext.getRegistrationById(producerDTO.getClientDTO().getFlowId()))) {
-            DefaultKafkaProducerFactory<K, V> producerFactory = Springs.getBean(DefaultKafkaProducerFactory.class.getName(), DefaultKafkaProducerFactory.class);
-            KafkaProducerMessageHandlerSpec.KafkaProducerMessageHandlerTemplateSpec<K, V> messageHandler = Kafka.outboundChannelAdapter(producerFactory).topic(producerDTO.getTopic());
-            flowContext.registration(MessageFlows.getObjectToStringIntegrationFlow(messageHandler))
-                    .id(producerDTO.getClientDTO().getFlowId())
-                    .useFlowIdAsPrefix()
-                    .register();
-        }
-    }
-
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    @Override
-    protected void registerConsumerFlow(MessageKafkaConfigDTO.ConsumerDTO consumerDTO) {
-        IntegrationFlowContext flowContext = Springs.getBean(IntegrationFlowContext.class);
-        if (Nil.isNull(flowContext.getRegistrationById(consumerDTO.getClientDTO().getFlowId()))) {
-            ConsumerFactory<K, V> consumerFactory = Springs.getBean(MessageFlows.getFlowId(MessageEngineType.KAFKA, consumerDTO.getClientDTO().getExecuteMethod()), ConsumerFactory.class);
-            KafkaMessageDrivenChannelAdapterSpec.KafkaMessageDrivenChannelAdapterListenerContainerSpec<K, V> messageDrivenChannelAdapter = Kafka.messageDrivenChannelAdapter(
-                            consumerFactory,
-                            consumerDTO.getOriginalListenerMode(),
-                            Converts.toArray(consumerDTO.getTopics(), String.class)
-                    )
-                    .configureListenerContainer(kafkaMessageListenerContainerSpec -> kafkaMessageListenerContainerSpec
-                            .ackMode(consumerDTO.getOriginalAckMode())
-                            .id(consumerDTO.getClientDTO().getClientId())
-                    );
-
-            Object consumerInstance = Springs.getBean(consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass());
-            IntegrationFlow flow = IntegrationFlow.from(messageDrivenChannelAdapter)
-                    .handle(MessageFlows.getStringToObjectMessageHandler(consumerInstance, consumerDTO.getClientDTO().getExecuteMethod()))
-                    .get();
-            Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass().getName())
-                    .setThrowable(LibraryJavaInternalException.class)
-                    .throwsIfNull(consumerInstance);
-            flowContext.registration(flow)
-                    .id(consumerDTO.getClientDTO().getFlowId())
-                    .useFlowIdAsPrefix()
-                    .register();
-        }
     }
 
     @Override
@@ -159,11 +109,48 @@ public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<Mess
                 .build();
     }
 
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    @Override
+    protected IntegrationFlow getProducerFlow(MessageKafkaConfigDTO.ProducerDTO producerDTO) {
+        DefaultKafkaProducerFactory<K, V> producerFactory = Springs.getBean(DefaultKafkaProducerFactory.class.getName(), DefaultKafkaProducerFactory.class);
+        KafkaProducerMessageHandlerSpec.KafkaProducerMessageHandlerTemplateSpec<K, V> messageHandler = Kafka.outboundChannelAdapter(producerFactory).topic(producerDTO.getTopic());
+        return MessageFlows.getObjectToStringIntegrationFlow(messageHandler);
+    }
+
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    @Override
+    protected IntegrationFlow getConsumerFlow(MessageKafkaConfigDTO.ConsumerDTO consumerDTO) {
+        ConsumerFactory<K, V> consumerFactory = Springs.getBean(consumerDTO.getClientDTO().getFlowId(), ConsumerFactory.class);
+        KafkaMessageDrivenChannelAdapterSpec.KafkaMessageDrivenChannelAdapterListenerContainerSpec<K, V> messageDrivenChannelAdapter = Kafka.messageDrivenChannelAdapter(
+                        consumerFactory,
+                        consumerDTO.getOriginalListenerMode(),
+                        Converts.toArray(consumerDTO.getTopics(), String.class)
+                )
+                .configureListenerContainer(kafkaMessageListenerContainerSpec -> kafkaMessageListenerContainerSpec
+                        .ackMode(consumerDTO.getOriginalAckMode())
+                        .id(consumerDTO.getClientDTO().getClientId())
+                );
+
+        Object consumerInstance = Springs.getBean(consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass());
+        Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass().getName())
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfNull(consumerInstance);
+        return IntegrationFlow.from(messageDrivenChannelAdapter)
+                .handle(MessageFlows.getStringToObjectMessageHandler(consumerInstance, consumerDTO.getClientDTO().getExecuteMethod()))
+                .get();
+    }
+
+    @Override
+    protected void registerClientFactory(MessageKafkaConfigDTO.BrokerDTO brokerDTO) {
+        this.kafkaProperties.setBootstrapServers(brokerDTO.getServerUrls());
+        DefaultKafkaProducerFactory<K, V> producerFactory = new DefaultKafkaProducerFactory<>(this.kafkaProperties.buildProducerProperties(null));
+        Springs.registerBean(DefaultKafkaProducerFactory.class.getName(), producerFactory);
+    }
+
     @Override
     protected void registerConsumerFactory(MessageKafkaConfigDTO.ConsumerDTO consumerDTO) {
-        MessageKafkaProperties kafkaProperties = Springs.getBean(MessageKafkaProperties.class);
-        ConsumerFactory<K, V> consumerFactory = new DefaultKafkaConsumerFactory<>(Map.of(
-                ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getServerUrls(),
+        Springs.registerBean(consumerDTO.getClientDTO().getFlowId(), new DefaultKafkaConsumerFactory<>(Map.of(
+                ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, this.messageKafkaProperties.getServerUrls(),
                 ConsumerConfig.GROUP_ID_CONFIG, consumerDTO.getOriginalGroupId(),
                 ConsumerConfig.ALLOW_AUTO_CREATE_TOPICS_CONFIG, consumerDTO.getOriginalAllowAutoCreateTopics(),
                 ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, consumerDTO.getOriginalEnableAutoCommit(),
@@ -171,8 +158,7 @@ public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<Mess
                 ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, consumerDTO.getOriginalAutoOffsetReset(),
                 ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
                 ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class
-        ));
-        Springs.registerBean(MessageFlows.getFlowId(MessageEngineType.KAFKA, consumerDTO.getClientDTO().getExecuteMethod()), consumerFactory);
+        )));
     }
 
 }
