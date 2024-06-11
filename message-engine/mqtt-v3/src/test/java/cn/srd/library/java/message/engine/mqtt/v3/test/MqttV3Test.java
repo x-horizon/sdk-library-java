@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @SpringIntegrationTest
-class MqttTest {
+class MqttV3Test {
 
     @Autowired private FooProducer fooProducer;
 
