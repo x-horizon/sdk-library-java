@@ -9,6 +9,9 @@ object GradlePlugin {
 
     const val MAVEN_PUBLISH = "maven-publish"
 
+    const val PROTOBUF = "com.google.protobuf"
+    const val PROTOBUF_VERSION = "0.9.4"
+
     const val CHECK_STYLE = "checkstyle"
     const val CHECK_STYLE_VERSION = "8.22"
     const val CHECK_STYLE_CONFIG_PATH = "/config/checkstyle/checkstyle.xml"

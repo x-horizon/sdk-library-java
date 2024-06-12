@@ -22,7 +22,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_TOOL_APACHE_TIKA("org.apache.tika:tika-bom", "2.9.2"),
     BOM_TOOL_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-pom", "1.4.0"), // TODO wjm support spring-boot version to 2.7.9
     BOM_TOOL_SERIALIZATION_FASTERXML_JACKSON("com.fasterxml.jackson:jackson-bom", "2.17.1"), // support spring-boot version to 3.3.0
-    BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF("com.google.protobuf:protobuf-bom", "4.26.1"),
+    BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF("com.google.protobuf:protobuf-bom", "4.27.1"),
     BOM_TOOL_SERIALIZATION_SQUAREUP_WIRE("com.squareup.wire:wire-bom", "4.9.9"),
     BOM_WEB_FEIGN("io.github.openfeign:feign-bom", "13.2.1"), // need to synchronize with "org.springframework.cloud:spring-cloud-starter-openfeign"
     BOM_WEB_NETTY("io.netty:netty-bom", "4.1.110.Final"), // support spring-boot version to 3.3.0
@@ -54,8 +54,6 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     LOG_SPRING_BOOT("org.springframework.boot:spring-boot-starter-logging", ""),
 
-    // MESSAGE_SPRING_CLOUD_STREAM("org.springframework.cloud:spring-cloud-stream", ""),
-    // MESSAGE_KAFKA_SPRING_CLOUD_STREAM("org.springframework.cloud:spring-cloud-starter-stream-kafka", ""),
     MESSAGE_KAFKA_SPRING_INTEGRATION("org.springframework.integration:spring-integration-kafka", ""),
     MESSAGE_MQTT_SPRING_INTEGRATION("org.springframework.integration:spring-integration-mqtt", ""),
     MESSAGE_MQTT_V5_ECLIPSE_PAHO("org.eclipse.paho:org.eclipse.paho.mqttv5.client", BOM_ECLIPSE_PAHO.version), // TODO wjm bom is not invalid
@@ -138,6 +136,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_SERIALIZATION_JACKSON_ANNOTATION("com.fasterxml.jackson.core:jackson-annotations", ""),
     TOOL_SERIALIZATION_PROTOBUF_GOOGLE_JAVA("com.google.protobuf:protobuf-java", ""),
     TOOL_SERIALIZATION_PROTOBUF_GOOGLE_JAVA_UTIL("com.google.protobuf:protobuf-java-util", ""),
+    TOOL_SERIALIZATION_PROTOBUF_GOOGLE_PROTOC("com.google.protobuf:protoc", BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF.version),
     TOOL_SERIALIZATION_PROTOBUF_SQUAREUP_WIRE("com.squareup.wire:wire-schema", ""),
     TOOL_STREAM_JDFRAME("io.github.burukeyou:jdframe", "0.0.2"),
     TOOL_VALIDATION_HIBERNATE("org.hibernate.validator:hibernate-validator", "8.0.1.Final"),
