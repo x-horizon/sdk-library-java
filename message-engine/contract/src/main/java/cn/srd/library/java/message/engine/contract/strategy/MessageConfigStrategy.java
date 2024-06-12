@@ -106,11 +106,11 @@ public abstract class MessageConfigStrategy<S extends MessageEngineProperties, F
                         --------------------------------------------------------------------------------------------------------------------------------""",
                 ModuleView.MESSAGE_ENGINE_SYSTEM, engineType.getDescription(),
                 engineType.getDescription(),
-                Converts.withJackson().toStringFormatted(configDTO.getBrokerDTO()),
+                Converts.withJackson().toJsonString(configDTO.getBrokerDTO()),
                 engineType.getDescription(),
-                Converts.withJackson().toStringFormatted(configDTO.getProducerDTOs()),
+                Converts.withJackson().toJsonString(configDTO.getProducerDTOs()),
                 engineType.getDescription(),
-                Converts.withJackson().toStringFormatted(configDTO.getConsumerDTOs())
+                Converts.withJackson().toJsonString(configDTO.getConsumerDTOs())
         );
         log.info("{}message engine {} customizer initialized.", ModuleView.MESSAGE_ENGINE_SYSTEM, engineType.getDescription());
     }
@@ -265,7 +265,7 @@ public abstract class MessageConfigStrategy<S extends MessageEngineProperties, F
                 .setEngineType(engineType)
                 .setVerifyPassed(Nil.isEmpty(verificationConfigDTO.getBrokerFailedReason()) && Nil.isAllEmpty(verificationConfigDTO.getProducerFailedReasons(), verificationConfigDTO.getConsumerFailedReasons()));
 
-        Assert.of().setMessage("{}message engine {} initialize failed, the failed reason as following: \n{}", ModuleView.MESSAGE_ENGINE_SYSTEM, engineType.getDescription(), Converts.withJackson().toStringFormatted(verificationConfigDTO))
+        Assert.of().setMessage("{}message engine {} initialize failed, the failed reason as following: \n{}", ModuleView.MESSAGE_ENGINE_SYSTEM, engineType.getDescription(), Converts.withJackson().toJsonString(verificationConfigDTO))
                 .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfFalse(verificationConfigDTO.isVerifyPassed());
     }
