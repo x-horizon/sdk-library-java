@@ -4,9 +4,7 @@
 
 package cn.srd.library.java.message.engine.kafka.strategy;
 
-import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
-import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
@@ -22,7 +20,6 @@ import cn.srd.library.java.message.engine.kafka.model.enums.MessageKafkaConsumer
 import cn.srd.library.java.message.engine.kafka.model.properties.MessageKafkaProperties;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;
-import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.time.Times;
 import cn.srd.library.java.tool.spring.contract.Springs;
@@ -54,31 +51,6 @@ public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<Mess
     @Autowired KafkaProperties kafkaProperties;
 
     @Autowired MessageKafkaProperties messageKafkaProperties;
-
-    @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.PREVIEW})
-    @Override
-    protected MessageVerificationConfigDTO getVerificationConfigDTO(MessageKafkaConfigDTO configDTO) {
-        MessageVerificationConfigDTO verificationConfigDTO = new MessageVerificationConfigDTO();
-
-        List<MessageKafkaConfigDTO.ConsumerDTO> consumerDTOs = (List<MessageKafkaConfigDTO.ConsumerDTO>) configDTO.getConsumerDTOs();
-        verificationConfigDTO.setConsumerFailedReasons(consumerDTOs
-                .stream()
-                .map(consumerDTO -> {
-                    Map<String, String> consumerFailedReasons = Collections.newHashMap();
-                    if (Nil.isBlank(consumerDTO.getGroupId())) {
-                        consumerFailedReasons.put("invalid group id!", "the group id should not be blank, please check!");
-                    }
-                    return (MessageVerificationConfigDTO.ConsumerDTO) MessageVerificationConfigDTO.ConsumerDTO.builder()
-                            .methodPoint(consumerDTO.getClientDTO().getFlowId())
-                            .failedReason(Collections.ofHashMap(consumerFailedReasons))
-                            .build();
-                })
-                .filter(consumerFailedReasonDTO -> Nil.isNotEmpty(consumerFailedReasonDTO.getFailedReason()))
-                .toList()
-        );
-
-        return verificationConfigDTO;
-    }
 
     @Override
     protected Class<MessageKafkaConfigDTO> getConfigType() {
@@ -162,9 +134,6 @@ public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<Mess
                 );
 
         Object consumerInstance = Springs.getBean(consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass());
-        Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass().getName())
-                .setThrowable(LibraryJavaInternalException.class)
-                .throwsIfNull(consumerInstance);
         return IntegrationFlow.from(messageDrivenChannelAdapter)
                 .handle(MessageFlows.getStringToObjectMessageHandler(consumerInstance, consumerDTO.getClientDTO().getExecuteMethod()))
                 .get();
@@ -194,7 +163,31 @@ public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<Mess
                 ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
                 ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class
         )));
-        System.out.println();
+    }
+
+    @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.PREVIEW})
+    @Override
+    protected MessageVerificationConfigDTO getVerificationConfigDTO(MessageKafkaConfigDTO configDTO) {
+        MessageVerificationConfigDTO verificationConfigDTO = new MessageVerificationConfigDTO();
+
+        List<MessageKafkaConfigDTO.ConsumerDTO> consumerDTOs = (List<MessageKafkaConfigDTO.ConsumerDTO>) configDTO.getConsumerDTOs();
+        verificationConfigDTO.setConsumerFailedReasons(consumerDTOs
+                .stream()
+                .map(consumerDTO -> {
+                    Map<String, String> consumerFailedReasons = Collections.newHashMap();
+                    if (Nil.isBlank(consumerDTO.getGroupId())) {
+                        consumerFailedReasons.put("invalid group id", "the group id should not be blank, please check!");
+                    }
+                    return (MessageVerificationConfigDTO.ConsumerDTO) MessageVerificationConfigDTO.ConsumerDTO.builder()
+                            .methodPoint(consumerDTO.getClientDTO().getFlowId())
+                            .failedReason(Collections.ofHashMap(consumerFailedReasons))
+                            .build();
+                })
+                .filter(consumerFailedReasonDTO -> Nil.isNotEmpty(consumerFailedReasonDTO.getFailedReason()))
+                .toList()
+        );
+
+        return verificationConfigDTO;
     }
 
 }

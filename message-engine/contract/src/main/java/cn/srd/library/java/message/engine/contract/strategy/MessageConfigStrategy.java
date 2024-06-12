@@ -128,79 +128,6 @@ public abstract class MessageConfigStrategy<S extends MessageEngineProperties, F
                 });
     }
 
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
-    private void verifyConfig(MessageEngineType engineType, F configDTO) {
-        MessageVerificationConfigDTO verificationConfigDTO = getVerificationConfigDTO(configDTO);
-        if (Nil.isEmpty(configDTO.getBrokerDTO().getServerUrls())) {
-            verificationConfigDTO.getBrokerFailedReason().put("invalid server urls", STR."invalid server urls, you must provide them in the config file, see [\{getPropertiesType().getName()}].");
-        }
-
-        Map<String, MessageVerificationConfigDTO.ProducerDTO> producerMethodPointCache = Converts.toMap(verificationConfigDTO.getProducerFailedReasons(), MessageVerificationConfigDTO.ProducerDTO::getMethodPoint);
-        verificationConfigDTO.setProducerFailedReasons(configDTO.getProducerDTOs()
-                .stream()
-                .map(producerDTO -> {
-                    Map<String, String> producerFailedReasons = Collections.newHashMap();
-                    if (Nil.isBlank(producerDTO.getTopic())) {
-                        producerFailedReasons.put("invalid topic name!", "the topic name should not be blank, please check!");
-                    }
-                    Class<?> producerDeclaringClass = producerDTO.getClientDTO().getExecuteMethod().getDeclaringClass();
-                    if (Nil.isNull(Springs.getBean(producerDeclaringClass))) {
-                        producerFailedReasons.put("producer instance not found!", STR."could not find the producer [\{producerDeclaringClass.getName()}] instance in spring ioc, please add it into spring ioc!");
-                    }
-
-                    MessageVerificationConfigDTO.ProducerDTO producerFailedReasonDTO = producerMethodPointCache.computeIfAbsent(
-                            producerDTO.getClientDTO().getFlowId(),
-                            flowId -> MessageVerificationConfigDTO.ProducerDTO.builder()
-                                    .methodPoint(flowId)
-                                    .failedReason(Collections.ofHashMap(producerFailedReasons))
-                                    .build()
-                    );
-                    producerFailedReasonDTO.getFailedReason().putAll(producerFailedReasons);
-                    return producerFailedReasonDTO;
-                })
-                .filter(producerFailedReasonDTO -> Nil.isNotEmpty(producerFailedReasonDTO.getFailedReason()))
-                .toList()
-        );
-
-        Map<String, MessageVerificationConfigDTO.ConsumerDTO> consumerMethodPointCache = Converts.toMap(verificationConfigDTO.getConsumerFailedReasons(), MessageVerificationConfigDTO.ConsumerDTO::getMethodPoint);
-        verificationConfigDTO.setConsumerFailedReasons(configDTO.getConsumerDTOs()
-                .stream()
-                .map(consumerDTO -> {
-                    Map<String, String> consumerFailedReasons = Collections.newHashMap();
-                    if (Nil.isEmpty(consumerDTO.getTopics())) {
-                        consumerFailedReasons.put("topics not found!", "could not find topics to consume, please check!");
-                    }
-                    if (Nil.isNotZeroValue(consumerDTO.getTopics().stream().filter(Strings::isBlank).count())) {
-                        consumerFailedReasons.put("invalid topic names!", STR."found blank topic name in \{consumerDTO.getTopics()}, please check!");
-                    }
-                    Class<?> consumerDeclaringClass = consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass();
-                    if (Nil.isNull(Springs.getBean(consumerDeclaringClass))) {
-                        consumerFailedReasons.put("consumer instance not found!", STR."could not find the consumer [\{consumerDeclaringClass.getName()}] instance in spring ioc, please add it into spring ioc!");
-                    }
-
-                    MessageVerificationConfigDTO.ConsumerDTO consumerFailedReasonDTO = consumerMethodPointCache.computeIfAbsent(
-                            consumerDTO.getClientDTO().getFlowId(),
-                            flowId -> MessageVerificationConfigDTO.ConsumerDTO.builder()
-                                    .methodPoint(flowId)
-                                    .failedReason(Collections.ofHashMap(consumerFailedReasons))
-                                    .build()
-                    );
-                    consumerFailedReasonDTO.getFailedReason().putAll(consumerFailedReasons);
-                    return consumerFailedReasonDTO;
-                })
-                .filter(consumerFailedReasonDTO -> Nil.isNotEmpty(consumerFailedReasonDTO.getFailedReason()))
-                .toList()
-        );
-
-        verificationConfigDTO
-                .setEngineType(engineType)
-                .setVerifyPassed(Nil.isEmpty(verificationConfigDTO.getBrokerFailedReason()) && Nil.isAllEmpty(verificationConfigDTO.getProducerFailedReasons(), verificationConfigDTO.getConsumerFailedReasons()));
-
-        Assert.of().setMessage("{}message engine {} initialize failed, the failed reason as following: \n{}", ModuleView.MESSAGE_ENGINE_SYSTEM, engineType.getDescription(), Converts.withJackson().toStringFormatted(verificationConfigDTO))
-                .setThrowable(LibraryJavaInternalException.class)
-                .throwsIfFalse(verificationConfigDTO.isVerifyPassed());
-    }
-
     private List<P> getProducerDTOs(MessageEngineType engineType) {
         return Annotations.getAnnotatedMethods(MessageProducer.class).stream()
                 .filter(producerMethod -> Comparators.equals(engineType, producerMethod.getAnnotation(MessageProducer.class).config().engineType()))
@@ -268,6 +195,79 @@ public abstract class MessageConfigStrategy<S extends MessageEngineProperties, F
                 .id(flowId)
                 .useFlowIdAsPrefix()
                 .register();
+    }
+
+    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
+    private void verifyConfig(MessageEngineType engineType, F configDTO) {
+        MessageVerificationConfigDTO verificationConfigDTO = getVerificationConfigDTO(configDTO);
+        if (Nil.isEmpty(configDTO.getBrokerDTO().getServerUrls())) {
+            verificationConfigDTO.getBrokerFailedReason().put("invalid server urls", STR."invalid server urls, you must provide them in the config file, see [\{getPropertiesType().getName()}].");
+        }
+
+        Map<String, MessageVerificationConfigDTO.ProducerDTO> producerMethodPointCache = Converts.toMap(verificationConfigDTO.getProducerFailedReasons(), MessageVerificationConfigDTO.ProducerDTO::getMethodPoint);
+        verificationConfigDTO.setProducerFailedReasons(configDTO.getProducerDTOs()
+                .stream()
+                .map(producerDTO -> {
+                    Map<String, String> producerFailedReasons = Collections.newHashMap();
+                    if (Nil.isBlank(producerDTO.getTopic())) {
+                        producerFailedReasons.put("invalid topic name", "the topic name should not be blank, please check!");
+                    }
+                    Class<?> producerDeclaringClass = producerDTO.getClientDTO().getExecuteMethod().getDeclaringClass();
+                    if (Nil.isNull(Springs.getBean(producerDeclaringClass))) {
+                        producerFailedReasons.put("producer instance not found", STR."could not find the producer [\{producerDeclaringClass.getName()}] instance in spring ioc, please add it into spring ioc!");
+                    }
+
+                    MessageVerificationConfigDTO.ProducerDTO producerFailedReasonDTO = producerMethodPointCache.computeIfAbsent(
+                            producerDTO.getClientDTO().getFlowId(),
+                            flowId -> MessageVerificationConfigDTO.ProducerDTO.builder()
+                                    .methodPoint(flowId)
+                                    .failedReason(Collections.ofHashMap(producerFailedReasons))
+                                    .build()
+                    );
+                    producerFailedReasonDTO.getFailedReason().putAll(producerFailedReasons);
+                    return producerFailedReasonDTO;
+                })
+                .filter(producerFailedReasonDTO -> Nil.isNotEmpty(producerFailedReasonDTO.getFailedReason()))
+                .toList()
+        );
+
+        Map<String, MessageVerificationConfigDTO.ConsumerDTO> consumerMethodPointCache = Converts.toMap(verificationConfigDTO.getConsumerFailedReasons(), MessageVerificationConfigDTO.ConsumerDTO::getMethodPoint);
+        verificationConfigDTO.setConsumerFailedReasons(configDTO.getConsumerDTOs()
+                .stream()
+                .map(consumerDTO -> {
+                    Map<String, String> consumerFailedReasons = Collections.newHashMap();
+                    if (Nil.isEmpty(consumerDTO.getTopics())) {
+                        consumerFailedReasons.put("topics not found", "could not find topics to consume, please check!");
+                    }
+                    if (Nil.isNotZeroValue(consumerDTO.getTopics().stream().filter(Strings::isBlank).count())) {
+                        consumerFailedReasons.put("invalid topic names", STR."found blank topic name in \{consumerDTO.getTopics()}, please check!");
+                    }
+                    Class<?> consumerDeclaringClass = consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass();
+                    if (Nil.isNull(Springs.getBean(consumerDeclaringClass))) {
+                        consumerFailedReasons.put("consumer instance not found", STR."could not find the consumer [\{consumerDeclaringClass.getName()}] instance in spring ioc, please add it into spring ioc!");
+                    }
+
+                    MessageVerificationConfigDTO.ConsumerDTO consumerFailedReasonDTO = consumerMethodPointCache.computeIfAbsent(
+                            consumerDTO.getClientDTO().getFlowId(),
+                            flowId -> MessageVerificationConfigDTO.ConsumerDTO.builder()
+                                    .methodPoint(flowId)
+                                    .failedReason(Collections.ofHashMap(consumerFailedReasons))
+                                    .build()
+                    );
+                    consumerFailedReasonDTO.getFailedReason().putAll(consumerFailedReasons);
+                    return consumerFailedReasonDTO;
+                })
+                .filter(consumerFailedReasonDTO -> Nil.isNotEmpty(consumerFailedReasonDTO.getFailedReason()))
+                .toList()
+        );
+
+        verificationConfigDTO
+                .setEngineType(engineType)
+                .setVerifyPassed(Nil.isEmpty(verificationConfigDTO.getBrokerFailedReason()) && Nil.isAllEmpty(verificationConfigDTO.getProducerFailedReasons(), verificationConfigDTO.getConsumerFailedReasons()));
+
+        Assert.of().setMessage("{}message engine {} initialize failed, the failed reason as following: \n{}", ModuleView.MESSAGE_ENGINE_SYSTEM, engineType.getDescription(), Converts.withJackson().toStringFormatted(verificationConfigDTO))
+                .setThrowable(LibraryJavaInternalException.class)
+                .throwsIfFalse(verificationConfigDTO.isVerifyPassed());
     }
 
 }

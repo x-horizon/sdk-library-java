@@ -4,8 +4,6 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.strategy;
 
-import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
@@ -18,7 +16,6 @@ import cn.srd.library.java.message.engine.mqtt.v3.MessageMqttV3Config;
 import cn.srd.library.java.message.engine.mqtt.v3.model.dto.MessageMqttV3ConfigDTO;
 import cn.srd.library.java.message.engine.mqtt.v3.model.properties.MessageMqttV3Properties;
 import cn.srd.library.java.tool.lang.convert.Converts;
-import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.time.Times;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import lombok.extern.slf4j.Slf4j;
@@ -43,12 +40,6 @@ import java.util.Optional;
 public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMqttV3Properties, MessageMqttV3ConfigDTO, MessageMqttV3ConfigDTO.BrokerDTO, MessageMqttV3ConfigDTO.ClientDTO, MessageMqttV3ConfigDTO.ProducerDTO, MessageMqttV3ConfigDTO.ConsumerDTO> {
 
     @Autowired MessageMqttV3Properties mqttV3Properties;
-
-    @Override
-    protected MessageVerificationConfigDTO getVerificationConfigDTO(MessageMqttV3ConfigDTO configDTO) {
-        MessageVerificationConfigDTO verificationConfigDTO = new MessageVerificationConfigDTO();
-        return verificationConfigDTO;
-    }
 
     @Override
     protected Class<MessageMqttV3ConfigDTO> getConfigType() {
@@ -127,9 +118,6 @@ public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMq
         messageDrivenChannelAdapter.setDisconnectCompletionTimeout(consumerDTO.getClientDTO().getOriginalDisconnectCompletionTimeout());
 
         Object consumerInstance = Springs.getBean(consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass());
-        Assert.of().setMessage("{}could not find the consumer instance in spring ioc, the class info is: [{}], please add it into spring ioc!", ModuleView.MESSAGE_ENGINE_SYSTEM, consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass().getName())
-                .setThrowable(LibraryJavaInternalException.class)
-                .throwsIfNull(consumerInstance);
         return IntegrationFlow.from(messageDrivenChannelAdapter)
                 .handle(MessageFlows.getStringToObjectMessageHandler(consumerInstance, consumerDTO.getClientDTO().getExecuteMethod()))
                 .get();
@@ -154,6 +142,11 @@ public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMq
     @Override
     protected void registerConsumerFactory(MessageMqttV3ConfigDTO.ConsumerDTO consumerDTO) {
 
+    }
+
+    @Override
+    protected MessageVerificationConfigDTO getVerificationConfigDTO(MessageMqttV3ConfigDTO configDTO) {
+        return MessageVerificationConfigDTO.builder().build();
     }
 
 }
