@@ -5,9 +5,8 @@
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_JACKSON)))
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_MAPSTRUCT)))
+    api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_PROTOBUF)))
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_SPRING)))
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_CONTRACT)))
 
     annotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING)))
     annotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PLUS)))

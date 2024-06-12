@@ -201,6 +201,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_ALL)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_JACKSON)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_MAPSTRUCT)))
+        api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_PROTOBUF)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_SPRING)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_ENUMS)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_EXCEL)))

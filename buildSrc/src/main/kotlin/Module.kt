@@ -100,6 +100,7 @@ object GradleModule {
     const val TOOL_CONVERT_ALL = "tool-convert-all"
     const val TOOL_CONVERT_JACKSON = "tool-convert-jackson"
     const val TOOL_CONVERT_MAPSTRUCT = "tool-convert-mapstruct"
+    const val TOOL_CONVERT_PROTOBUF = "tool-convert-protobuf"
     const val TOOL_CONVERT_SPRING = "tool-convert-spring"
     const val TOOL_ENUMS = "tool-enums"
     const val TOOL_EXCEL = "tool-excel"
