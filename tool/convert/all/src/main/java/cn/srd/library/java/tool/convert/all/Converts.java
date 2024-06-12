@@ -6,6 +6,7 @@ package cn.srd.library.java.tool.convert.all;
 
 import cn.srd.library.java.tool.convert.jackson.JacksonConverts;
 import cn.srd.library.java.tool.convert.mapstruct.MapstructConverts;
+import cn.srd.library.java.tool.convert.protobuf.ProtobufConverts;
 import cn.srd.library.java.tool.convert.spring.SpringConverts;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -44,6 +45,15 @@ public class Converts extends cn.srd.library.java.tool.lang.convert.Converts {
      */
     public static MapstructConverts withMapstruct() {
         return MapstructConverts.getInstance();
+    }
+
+    /**
+     * apply protobuf converter
+     *
+     * @return protobuf converter
+     */
+    public static ProtobufConverts withProtobuf() {
+        return ProtobufConverts.getInstance();
     }
 
 }
