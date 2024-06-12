@@ -62,7 +62,6 @@ import java.util.function.Consumer;
  * @since 2021-05-01 14:13
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-
 public class JacksonConverts {
 
     /**
@@ -224,13 +223,13 @@ public class JacksonConverts {
     }
 
     /**
-     * 转换为格式化后的 {@link String}
+     * 转换为 json 格式化后的 {@link String}
      *
      * @param object 待转换对象
      * @return 转换后对象
      */
     @SneakyThrows
-    public String toStringFormatted(Object object) {
+    public String toJsonString(Object object) {
         return defaultJacksonMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
     }
 
