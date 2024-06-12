@@ -1,6 +1,7 @@
 syntax = "proto3";
 
-option java_package = "cn.srd.library.java.tool.serialization.protobuf.google";
+package cn.srd.library.java.tool.serialization.protobuf.google;
+
 option java_outer_classname = "PersonProto";
 
 message Person {

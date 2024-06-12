@@ -19,6 +19,5 @@ protobuf {
     }
     generateProtoTasks {
         ofSourceSet("main")
-        ofSourceSet("test")
     }
 }
