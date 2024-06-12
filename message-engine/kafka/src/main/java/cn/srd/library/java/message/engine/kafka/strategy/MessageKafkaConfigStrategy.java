@@ -165,7 +165,7 @@ public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<Mess
         )));
     }
 
-    @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.PREVIEW})
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     @Override
     protected MessageVerificationConfigDTO getVerificationConfigDTO(MessageKafkaConfigDTO configDTO) {
         MessageVerificationConfigDTO verificationConfigDTO = new MessageVerificationConfigDTO();
