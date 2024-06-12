@@ -140,6 +140,7 @@ include(":tool:xml")
 
 include(":transaction:spring")
 
+include(":web:grpc")
 include(":web:http:okhttps")
 include(":web:netty")
 include(":web:openfeign")

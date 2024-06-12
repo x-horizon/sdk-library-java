@@ -106,6 +106,7 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.TEST_JUNIT))
         api(GradleDependency.withVersion(GradleDependency.TEST_OPENJDK_JMH_CORE))
 
+        api(GradleDependency.withVersion(GradleDependency.WEB_GRPC))
         api(GradleDependency.withVersion(GradleDependency.WEB_OKHTTPS))
 
         api(project(GradleModule.toReferenceName(GradleModule.BOM)))
@@ -232,6 +233,7 @@ dependencies {
 
         api(project(GradleModule.toReferenceName(GradleModule.TRANSACTION_SPRING)))
 
+        api(project(GradleModule.toReferenceName(GradleModule.WEB_GRPC)))
         api(project(GradleModule.toReferenceName(GradleModule.WEB_NETTY)))
         api(project(GradleModule.toReferenceName(GradleModule.WEB_HTTP_OKHTTPS)))
         api(project(GradleModule.toReferenceName(GradleModule.WEB_OPEN_FEIGN)))

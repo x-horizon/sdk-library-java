@@ -156,9 +156,10 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TEST_SPRING_BOOT_TEST("org.springframework.boot:spring-boot-starter-test", ""),
     TEST_SPRING_INTEGRATION_TEST("org.springframework.integration:spring-integration-test", ""),
 
-    WEB_OKHTTPS("cn.zhxu:okhttps-jackson", "4.0.2"),
+    WEB_GRPC("net.devh:grpc-spring-boot-starter", "3.1.0.RELEASE"), // TODO wjm support spring-boot version to 3.2.4, spring-cloud version to 2023.0.0
     WEB_IO_NETTY("io.netty:netty-all", ""), // TODO wjm org.springframework.integration
     WEB_IO_REACTOR("io.projectreactor:reactor-core", ""),
+    WEB_OKHTTPS("cn.zhxu:okhttps-jackson", "4.0.2"),
     WEB_OPEN_FEIGN_OKHTTP("io.github.openfeign:feign-okhttp", ""), // TODO wjm org.springframework.integration
     WEB_SPRING_CLOUD_OPEN_FEIGN("org.springframework.cloud:spring-cloud-starter-openfeign", ""),
     WEB_SPRING_BOOT_WEBSOCKET("org.springframework.boot:spring-boot-starter-websocket", ""),

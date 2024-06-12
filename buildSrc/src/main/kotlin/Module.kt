@@ -131,6 +131,7 @@ object GradleModule {
 
     const val TRANSACTION_SPRING = "transaction-spring"
 
+    const val WEB_GRPC = "web-grpc"
     const val WEB_NETTY = "web-netty"
     const val WEB_HTTP_OKHTTPS = "web-http-okhttps"
     const val WEB_OPEN_FEIGN = "web-openfeign"
