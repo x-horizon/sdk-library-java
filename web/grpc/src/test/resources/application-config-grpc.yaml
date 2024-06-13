@@ -1,0 +1,7 @@
+grpc:
+  server:
+    port: 9090
+    in-process-name: test-server
+  client:
+    inProcess:
+      address: in-process:test-server

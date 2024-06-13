@@ -1,4 +1,6 @@
 spring:
   profiles:
-    include: config-spring
+    include:
+      config-grpc,
+      config-spring
     active: environment-${activeEnvironmentName}

@@ -14,6 +14,10 @@ dependencies {
 
     api(GradleDependency.TOOL_ANNOTATION_API_JAVAX.withoutVersion)
     api(GradleDependency.WEB_GRPC.withoutVersion)
+
+    testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_WEBMVC)))
+    testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_JUNIT)))
+    testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING_BOOT)))
 }
 
 protobuf {
