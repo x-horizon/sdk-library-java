@@ -66,4 +66,14 @@ public class ModuleView {
      */
     public static final String TOOL_SPRING_WEBMVC_SYSTEM = ROOT_MODULE + "Tool Spring WebMVC System - ";
 
+    /**
+     * the spring webflux system module name
+     */
+    public static final String TOOL_SPRING_WEBFLUX_SYSTEM = ROOT_MODULE + "Tool Spring WebFlux System - ";
+
+    /**
+     * the web grpc system module name
+     */
+    public static final String WEB_GRPC_SYSTEM = ROOT_MODULE + "Web Grpc System - ";
+
 }
