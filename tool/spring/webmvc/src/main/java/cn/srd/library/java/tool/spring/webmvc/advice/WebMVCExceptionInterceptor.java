@@ -4,6 +4,9 @@
 
 package cn.srd.library.java.tool.spring.webmvc.advice;
 
+import cn.srd.library.java.contract.constant.module.ModuleView;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.constant.web.HttpStatus;
 import cn.srd.library.java.contract.model.protocol.WebResponse;
 import cn.srd.library.java.contract.model.throwable.DataNotFoundException;
@@ -51,8 +54,9 @@ public class WebMVCExceptionInterceptor {
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public WebResponse<Void> handleHttpMessageNotReadableException(HttpServletRequest httpServletRequest, HttpMessageNotReadableException exception) {
-        log.warn("请求资源地址：'{}'，错误信息：参数格式错误，相关信息：", httpServletRequest.getRequestURI(), exception);
-        return error(HttpStatus.BAD_REQUEST, "参数格式错误，请检查，相关信息：" + exception.getMessage());
+        String message = "参数格式错误：";
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), message), exception);
+        return error(HttpStatus.BAD_REQUEST, message + exception.getMessage());
     }
 
     /**
@@ -65,7 +69,7 @@ public class WebMVCExceptionInterceptor {
     @ExceptionHandler(BindException.class)
     public WebResponse<Void> handleBindException(HttpServletRequest httpServletRequest, BindException exception) {
         String message = Strings.joinWithComma(Converts.toList(exception.getFieldErrors(), DefaultMessageSourceResolvable::getDefaultMessage));
-        log.warn("请求资源地址：'{}'，错误信息：'{}'", httpServletRequest.getRequestURI(), message);
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
         return error(HttpStatus.BAD_REQUEST, message);
     }
 
@@ -79,7 +83,7 @@ public class WebMVCExceptionInterceptor {
     @ExceptionHandler(ConstraintViolationException.class)
     public WebResponse<Void> handleValidationException(HttpServletRequest httpServletRequest, ConstraintViolationException exception) {
         String message = exception.getConstraintViolations().stream().map(ConstraintViolation::getMessage).distinct().collect(Collectors.joining("，"));
-        log.warn("请求资源地址：'{}'，错误信息：'{}'", httpServletRequest.getRequestURI(), message);
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
         return error(HttpStatus.BAD_REQUEST, message);
     }
 
@@ -93,7 +97,7 @@ public class WebMVCExceptionInterceptor {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public WebResponse<Void> handleMethodArgumentNotValidException(HttpServletRequest httpServletRequest, MethodArgumentNotValidException exception) {
         String message = exception.getBindingResult().getFieldErrors().stream().map(FieldError::getDefaultMessage).distinct().collect(Collectors.joining("，"));
-        log.warn("请求资源地址：'{}'，错误信息：'{}'", httpServletRequest.getRequestURI(), message);
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
         return error(HttpStatus.BAD_REQUEST, message);
     }
 
@@ -106,8 +110,8 @@ public class WebMVCExceptionInterceptor {
      */
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public WebResponse<Void> handleMissingServletRequestParameterException(HttpServletRequest httpServletRequest, MissingServletRequestParameterException exception) {
-        String message = String.format("[%s]参数缺失", exception.getParameterName());
-        log.warn("请求资源地址：'{}'，错误信息：'{}'", httpServletRequest.getRequestURI(), message);
+        String message = Strings.format("[{}]参数缺失", exception.getParameterName());
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
         return error(HttpStatus.BAD_REQUEST, message);
     }
 
@@ -120,8 +124,8 @@ public class WebMVCExceptionInterceptor {
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public WebResponse<Void> handleMethodArgumentTypeMismatchException(HttpServletRequest httpServletRequest, MethodArgumentTypeMismatchException exception) {
-        String message = String.format("[%s]参数类型错误", exception.getName());
-        log.warn("请求资源地址：'{}'，错误信息：'{}'", httpServletRequest.getRequestURI(), message);
+        String message = Strings.format("[{}]参数类型错误", exception.getName());
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
         return error(HttpStatus.BAD_REQUEST, message);
     }
 
@@ -135,22 +139,8 @@ public class WebMVCExceptionInterceptor {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public WebResponse<Void> handleHttpRequestMethodNotSupportedException(HttpServletRequest httpServletRequest, HttpRequestMethodNotSupportedException exception) {
         String message = exception.getMessage();
-        log.warn("请求资源地址：'{}'，错误信息：'{}'", httpServletRequest.getRequestURI(), message);
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
         return error(HttpStatus.BAD_METHOD, message);
-    }
-
-    /**
-     * 出现 {@link WarningException} 时的处理；
-     *
-     * @param httpServletRequest Servlet 上下文信息
-     * @param exception          抛出的异常
-     * @return 响应结果
-     */
-    @ExceptionHandler(WarningException.class)
-    public WebResponse<Void> handleWarnOperationException(HttpServletRequest httpServletRequest, WarningException exception) {
-        String message = exception.getMessage();
-        log.warn("请求资源地址：'{}'，错误信息：'{}'", httpServletRequest.getRequestURI(), message);
-        return error(exception.getStatus(), message);
     }
 
     /**
@@ -163,7 +153,21 @@ public class WebMVCExceptionInterceptor {
     @ExceptionHandler(DataNotFoundException.class)
     public WebResponse<Void> handleDataNotFoundException(HttpServletRequest httpServletRequest, DataNotFoundException exception) {
         String message = "操作失败，数据不存在";
-        log.warn("请求资源地址：'{}'，错误信息：", httpServletRequest.getRequestURI(), message);
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
+        return error(exception.getStatus(), message);
+    }
+
+    /**
+     * 出现 {@link WarningException} 时的处理；
+     *
+     * @param httpServletRequest Servlet 上下文信息
+     * @param exception          抛出的异常
+     * @return 响应结果
+     */
+    @ExceptionHandler(WarningException.class)
+    public WebResponse<Void> handleWarnOperationException(HttpServletRequest httpServletRequest, WarningException exception) {
+        String message = exception.getMessage();
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
         return error(exception.getStatus(), message);
     }
 
@@ -176,7 +180,7 @@ public class WebMVCExceptionInterceptor {
      */
     @ExceptionHandler(RunningException.class)
     public WebResponse<Void> handleRunningException(HttpServletRequest httpServletRequest, RunningException exception) {
-        log.warn("请求资源地址：'{}'，错误信息：", httpServletRequest.getRequestURI(), exception);
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), SymbolConstant.EMPTY), exception);
         return error(exception.getStatus(), exception.getMessage());
     }
 
@@ -189,7 +193,7 @@ public class WebMVCExceptionInterceptor {
      */
     @ExceptionHandler(RuntimeException.class)
     public WebResponse<Void> handleRuntimeException(HttpServletRequest httpServletRequest, RuntimeException exception) {
-        log.error("请求资源地址：'{}'，错误信息：", httpServletRequest.getRequestURI(), exception);
+        log.error(formatMessage(httpServletRequest.getRequestURI(), SymbolConstant.EMPTY), exception);
         return error(HttpStatus.INTERNAL_ERROR);
     }
 
@@ -202,7 +206,7 @@ public class WebMVCExceptionInterceptor {
      */
     @ExceptionHandler(Exception.class)
     public WebResponse<Void> handleException(HttpServletRequest httpServletRequest, Exception exception) {
-        log.error("请求资源地址：'{}'，错误信息：", httpServletRequest.getRequestURI(), exception);
+        log.error(formatMessage(httpServletRequest.getRequestURI(), SymbolConstant.EMPTY), exception);
         return error(HttpStatus.INTERNAL_ERROR);
     }
 
@@ -215,8 +219,13 @@ public class WebMVCExceptionInterceptor {
      */
     @ExceptionHandler(Throwable.class)
     public WebResponse<Void> handleThrowable(HttpServletRequest httpServletRequest, Throwable exception) {
-        log.error("请求资源地址：'{}'，错误信息：", httpServletRequest.getRequestURI(), exception);
+        log.error(formatMessage(httpServletRequest.getRequestURI(), SymbolConstant.EMPTY), exception);
         return error(HttpStatus.INTERNAL_ERROR);
+    }
+
+    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
+    private String formatMessage(String requestUri, String message) {
+        return STR."\{ModuleView.TOOL_SPRING_WEBMVC_SYSTEM}请求资源地址：'\{requestUri}'，错误信息：\{message}";
     }
 
 }
