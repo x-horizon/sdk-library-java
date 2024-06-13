@@ -753,4 +753,17 @@ public class Times {
         throw new LibraryJavaInternalException(Strings.format("invalid time format by input [{}]", timeFormat));
     }
 
+    public static boolean isValidTimeFormat(String timeFormat) {
+        try {
+            wrapper(timeFormat);
+            return true;
+        } catch (Exception ignore) {
+            return false;
+        }
+    }
+
+    public static boolean isInvalidTimeFormat(String timeFormat) {
+        return !isValidTimeFormat(timeFormat);
+    }
+
 }
