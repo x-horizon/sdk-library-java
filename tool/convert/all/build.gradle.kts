@@ -19,10 +19,9 @@ dependencies {
 }
 
 protobuf {
-    protoc {
-        artifact = GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_PROTOBUF_GOOGLE_PROTOC)
-    }
+    protoc { artifact = GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_PROTOBUF_GOOGLE_PROTOC) }
     generateProtoTasks {
         ofSourceSet("main")
+        ofSourceSet("test")
     }
 }

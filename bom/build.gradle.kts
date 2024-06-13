@@ -28,6 +28,7 @@ dependencies {
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_TOOL_SERIALIZATION_SQUAREUP_WIRE)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_WEB_FEIGN)))
+    api(platform(GradleDependency.withVersion(GradleDependency.BOM_WEB_GRPC)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_WEB_NETTY)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_WEB_REACTOR)))
 
@@ -74,6 +75,7 @@ dependencies {
 
         api(GradleDependency.withVersion(GradleDependency.TOOL_ALIBABA_EASY_EXCEL))
         api(GradleDependency.withVersion(GradleDependency.TOOL_ALIBABA_TRANSMITTABLE_THREAD_LOCAL))
+        api(GradleDependency.withVersion(GradleDependency.TOOL_ANNOTATION_API_JAVAX))
         api(GradleDependency.withVersion(GradleDependency.TOOL_AUTOWIRED_SMART_SPRING))
         api(GradleDependency.withVersion(GradleDependency.TOOL_APACHE_FILE_ANALYSIS_TIKA_PARSER))
         api(GradleDependency.withVersion(GradleDependency.TOOL_APACHE_TEMPLATE_ENGINE_VELOCITY))
@@ -107,6 +109,7 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.TEST_OPENJDK_JMH_CORE))
 
         api(GradleDependency.withVersion(GradleDependency.WEB_GRPC))
+        api(GradleDependency.withVersion(GradleDependency.WEB_GRPC_PROTO_GEN))
         api(GradleDependency.withVersion(GradleDependency.WEB_OKHTTPS))
 
         api(project(GradleModule.toReferenceName(GradleModule.BOM)))

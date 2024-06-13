@@ -22,9 +22,10 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_TOOL_APACHE_TIKA("org.apache.tika:tika-bom", "2.9.2"),
     BOM_TOOL_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-pom", "1.4.0"), // TODO wjm support spring-boot version to 2.7.9
     BOM_TOOL_SERIALIZATION_FASTERXML_JACKSON("com.fasterxml.jackson:jackson-bom", "2.17.1"), // support spring-boot version to 3.3.0
-    BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF("com.google.protobuf:protobuf-bom", "4.27.1"),
+    BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF("com.google.protobuf:protobuf-bom", "3.25.1"), // need to synchronize with "io.grpc:grpc-bom", "net.devh:grpc-spring-boot-starter"
     BOM_TOOL_SERIALIZATION_SQUAREUP_WIRE("com.squareup.wire:wire-bom", "4.9.9"),
     BOM_WEB_FEIGN("io.github.openfeign:feign-bom", "13.2.1"), // need to synchronize with "org.springframework.cloud:spring-cloud-starter-openfeign"
+    BOM_WEB_GRPC("io.grpc:grpc-bom", "1.63.0"), // need to synchronize with "net.devh:grpc-spring-boot-starter"
     BOM_WEB_NETTY("io.netty:netty-bom", "4.1.110.Final"), // support spring-boot version to 3.3.0
     BOM_WEB_REACTOR("io.projectreactor:reactor-bom", "2023.0.6"), // support spring-boot version to 3.3.0
 
@@ -109,6 +110,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     TOOL_ALIBABA_EASY_EXCEL("com.alibaba:easyexcel", "3.3.2"),
     TOOL_ALIBABA_TRANSMITTABLE_THREAD_LOCAL("com.alibaba:transmittable-thread-local", "2.14.5"),
+    TOOL_ANNOTATION_API_JAVAX("javax.annotation:javax.annotation-api", "1.3.2"),
     TOOL_AOP_SPRING_BOOT("org.springframework.boot:spring-boot-starter-aop", ""),
     TOOL_APACHE_FILE_ANALYSIS_TIKA_CORE("org.apache.tika:tika-core", ""),
     TOOL_APACHE_FILE_ANALYSIS_TIKA_PARSER("org.apache.tika:tika-parsers", BOM_TOOL_APACHE_TIKA.version),
@@ -157,6 +159,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TEST_SPRING_INTEGRATION_TEST("org.springframework.integration:spring-integration-test", ""),
 
     WEB_GRPC("net.devh:grpc-spring-boot-starter", "3.1.0.RELEASE"), // TODO wjm support spring-boot version to 3.2.4, spring-cloud version to 2023.0.0
+    WEB_GRPC_PROTO_GEN("io.grpc:protoc-gen-grpc-java", BOM_WEB_GRPC.version),
     WEB_IO_NETTY("io.netty:netty-all", ""), // TODO wjm org.springframework.integration
     WEB_IO_REACTOR("io.projectreactor:reactor-core", ""),
     WEB_OKHTTPS("cn.zhxu:okhttps-jackson", "4.0.2"),
