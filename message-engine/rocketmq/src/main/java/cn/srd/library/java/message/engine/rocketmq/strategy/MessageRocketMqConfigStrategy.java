@@ -71,6 +71,11 @@ public class MessageRocketMqConfigStrategy extends MessageConfigStrategy<Message
     }
 
     @Override
+    protected void completeNativeConfigDTO(MessageRocketMqConfigDTO configDTO) {
+        throw new UnsupportedException();
+    }
+
+    @Override
     protected void registerClientFactory(MessageRocketMqConfigDTO.BrokerDTO brokerDTO) {
         throw new UnsupportedException();
     }

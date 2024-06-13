@@ -99,25 +99,25 @@ public class MessageKafkaConfigDTO extends MessageConfigDTO {
         private MessageKafkaConsumerOffsetResetMode offsetResetMode;
 
         @JsonProperty("kafka_auto.offset.reset")
-        private String originalAutoOffsetReset;
+        private String nativeAutoOffsetReset;
 
         @JsonProperty("kafka_group.id")
-        private String originalGroupId;
+        private String nativeGroupId;
 
         @JsonProperty("kafka_allow.auto.create.topics")
-        private String originalAllowAutoCreateTopics;
+        private String nativeAllowAutoCreateTopics;
 
         @JsonProperty("kafka_listenerMode")
-        private KafkaMessageDrivenChannelAdapter.ListenerMode originalListenerMode;
+        private KafkaMessageDrivenChannelAdapter.ListenerMode nativeListenerMode;
 
         @JsonProperty("kafka_ackMode")
-        private ContainerProperties.AckMode originalAckMode;
+        private ContainerProperties.AckMode nativeAckMode;
 
         @JsonProperty("kafka_enable.auto.commit")
-        private String originalEnableAutoCommit;
+        private String nativeEnableAutoCommit;
 
         @JsonProperty("kafka_auto.commit.interval.ms")
-        private String originalAutoCommitIntervalMs;
+        private String nativeAutoCommitIntervalMs;
 
     }
 

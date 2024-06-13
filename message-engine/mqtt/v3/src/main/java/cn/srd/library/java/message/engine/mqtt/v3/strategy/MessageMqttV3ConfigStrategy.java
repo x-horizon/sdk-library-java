@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.message.engine.mqtt.v3.strategy;
 
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
@@ -15,7 +16,9 @@ import cn.srd.library.java.message.engine.contract.support.MessageFlows;
 import cn.srd.library.java.message.engine.mqtt.v3.MessageMqttV3Config;
 import cn.srd.library.java.message.engine.mqtt.v3.model.dto.MessageMqttV3ConfigDTO;
 import cn.srd.library.java.message.engine.mqtt.v3.model.properties.MessageMqttV3Properties;
+import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;
+import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.time.Times;
 import cn.srd.library.java.tool.spring.contract.Springs;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +33,8 @@ import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -73,8 +78,6 @@ public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMq
                 .qosType(clientConfigAnnotation.qosType())
                 .completionTimeout(clientConfigAnnotation.completionTimeout())
                 .disconnectCompletionTimeout(clientConfigAnnotation.disconnectCompletionTimeout())
-                .originalCompletionTimeout(Times.wrapper(clientConfigAnnotation.completionTimeout()).toMillisecond().toMillis())
-                .originalDisconnectCompletionTimeout(Times.wrapper(clientConfigAnnotation.disconnectCompletionTimeout()).toMillisecond().toMillis())
                 .build();
     }
 
@@ -103,8 +106,8 @@ public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMq
         messageHandler.setDefaultTopic(producerDTO.getTopic());
         messageHandler.setDefaultQos(producerDTO.getClientDTO().getQosType().getCode());
         messageHandler.setAsync(producerDTO.isNeedToSendAsync());
-        messageHandler.setCompletionTimeout(producerDTO.getClientDTO().getOriginalCompletionTimeout());
-        messageHandler.setDisconnectCompletionTimeout(producerDTO.getClientDTO().getOriginalDisconnectCompletionTimeout());
+        messageHandler.setCompletionTimeout(producerDTO.getClientDTO().getNativeCompletionTimeout());
+        messageHandler.setDisconnectCompletionTimeout(producerDTO.getClientDTO().getNativeDisconnectCompletionTimeout());
         return MessageFlows.getObjectToStringIntegrationFlow(messageHandler);
     }
 
@@ -114,13 +117,29 @@ public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMq
         MqttPahoMessageDrivenChannelAdapter messageDrivenChannelAdapter = new MqttPahoMessageDrivenChannelAdapter(consumerDTO.getClientDTO().getClientId(), mqttClientFactory, Converts.toArray(consumerDTO.getTopics(), String.class));
         messageDrivenChannelAdapter.setQos(consumerDTO.getClientDTO().getQosType().getCode());
         messageDrivenChannelAdapter.setConverter(new DefaultPahoMessageConverter());
-        messageDrivenChannelAdapter.setCompletionTimeout(consumerDTO.getClientDTO().getOriginalCompletionTimeout());
-        messageDrivenChannelAdapter.setDisconnectCompletionTimeout(consumerDTO.getClientDTO().getOriginalDisconnectCompletionTimeout());
+        messageDrivenChannelAdapter.setCompletionTimeout(consumerDTO.getClientDTO().getNativeCompletionTimeout());
+        messageDrivenChannelAdapter.setDisconnectCompletionTimeout(consumerDTO.getClientDTO().getNativeDisconnectCompletionTimeout());
 
         Object consumerInstance = Springs.getBean(consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass());
         return IntegrationFlow.from(messageDrivenChannelAdapter)
                 .handle(MessageFlows.getStringToObjectMessageHandler(consumerInstance, consumerDTO.getClientDTO().getExecuteMethod()))
                 .get();
+    }
+
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    @Override
+    protected void completeNativeConfigDTO(MessageMqttV3ConfigDTO configDTO) {
+        List<MessageMqttV3ConfigDTO.ProducerDTO> producerDTOs = (List<MessageMqttV3ConfigDTO.ProducerDTO>) configDTO.getProducerDTOs();
+        producerDTOs.forEach(producerDTO -> producerDTO.getClientDTO()
+                .setNativeCompletionTimeout(Times.wrapper(producerDTO.getClientDTO().getCompletionTimeout()).toMillisecond().toMillis())
+                .setNativeDisconnectCompletionTimeout(Times.wrapper(producerDTO.getClientDTO().getDisconnectCompletionTimeout()).toMillisecond().toMillis())
+        );
+
+        List<MessageMqttV3ConfigDTO.ConsumerDTO> consumerDTOs = (List<MessageMqttV3ConfigDTO.ConsumerDTO>) configDTO.getConsumerDTOs();
+        consumerDTOs.forEach(consumerDTO -> consumerDTO.getClientDTO()
+                .setNativeCompletionTimeout(Times.wrapper(consumerDTO.getClientDTO().getCompletionTimeout()).toMillisecond().toMillis())
+                .setNativeDisconnectCompletionTimeout(Times.wrapper(consumerDTO.getClientDTO().getDisconnectCompletionTimeout()).toMillisecond().toMillis())
+        );
     }
 
     @Override
@@ -144,9 +163,48 @@ public class MessageMqttV3ConfigStrategy extends MessageConfigStrategy<MessageMq
 
     }
 
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     @Override
     protected MessageVerificationConfigDTO getVerificationConfigDTO(MessageMqttV3ConfigDTO configDTO) {
-        return MessageVerificationConfigDTO.builder().build();
+        MessageVerificationConfigDTO verificationConfigDTO = new MessageVerificationConfigDTO();
+
+        List<MessageMqttV3ConfigDTO.ProducerDTO> producerDTOs = (List<MessageMqttV3ConfigDTO.ProducerDTO>) configDTO.getProducerDTOs();
+        verificationConfigDTO.setProducerFailedReasons(producerDTOs
+                .stream()
+                .map(producerDTO -> (MessageVerificationConfigDTO.ProducerDTO) MessageVerificationConfigDTO.ProducerDTO.builder()
+                        .methodPoint(producerDTO.getClientDTO().getFlowId())
+                        .failedReason(verifyClientConfig(producerDTO.getClientDTO()))
+                        .build()
+                )
+                .filter(failedReasonDTO -> Nil.isNotEmpty(failedReasonDTO.getFailedReason()))
+                .toList()
+        );
+
+        List<MessageMqttV3ConfigDTO.ConsumerDTO> consumerDTOs = (List<MessageMqttV3ConfigDTO.ConsumerDTO>) configDTO.getConsumerDTOs();
+        verificationConfigDTO.setConsumerFailedReasons(consumerDTOs
+                .stream()
+                .map(consumerDTO -> (MessageVerificationConfigDTO.ConsumerDTO) MessageVerificationConfigDTO.ConsumerDTO.builder()
+                        .methodPoint(consumerDTO.getClientDTO().getFlowId())
+                        .failedReason(verifyClientConfig(consumerDTO.getClientDTO()))
+                        .build()
+                )
+                .filter(failedReasonDTO -> Nil.isNotEmpty(failedReasonDTO.getFailedReason()))
+                .toList()
+        );
+
+        return verificationConfigDTO;
+    }
+
+    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
+    private Map<String, String> verifyClientConfig(MessageMqttV3ConfigDTO.ClientDTO clientDTO) {
+        Map<String, String> failedReasons = Collections.newHashMap();
+        if (Times.isInvalidTimeFormat(clientDTO.getCompletionTimeout())) {
+            failedReasons.put("invalid completion timeout", STR."could not parse time from completion timeout value [\{clientDTO.getCompletionTimeout()}], please check!");
+        }
+        if (Times.isInvalidTimeFormat(clientDTO.getDisconnectCompletionTimeout())) {
+            failedReasons.put("invalid disconnect completion timeout", STR."could not parse time from disconnect completion timeout value [\{clientDTO.getDisconnectCompletionTimeout()}], please check!");
+        }
+        return failedReasons;
     }
 
 }

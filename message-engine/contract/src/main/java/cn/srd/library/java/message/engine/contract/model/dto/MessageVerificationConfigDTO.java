@@ -54,6 +54,7 @@ public class MessageVerificationConfigDTO implements Serializable {
 
         protected String methodPoint;
 
+        @Builder.Default
         private Map<String, String> failedReason = Collections.newHashMap();
 
     }

@@ -71,6 +71,11 @@ public class MessageMqttV5ConfigStrategy extends MessageConfigStrategy<MessageMq
     }
 
     @Override
+    protected void completeNativeConfigDTO(MessageMqttV5ConfigDTO configDTO) {
+        throw new UnsupportedException();
+    }
+
+    @Override
     protected void registerClientFactory(MessageMqttV5ConfigDTO.BrokerDTO brokerDTO) {
         throw new UnsupportedException();
     }

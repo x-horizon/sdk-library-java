@@ -70,6 +70,11 @@ public class MessageNilConfigStrategy extends MessageConfigStrategy<MessageNilPr
     }
 
     @Override
+    protected void completeNativeConfigDTO(MessageNilConfigDTO configDTO) {
+        
+    }
+
+    @Override
     protected void registerClientFactory(MessageNilConfigDTO.BrokerDTO brokerDTO) {
 
     }

@@ -63,6 +63,8 @@ public abstract class MessageConfigStrategy<S extends MessageEngineProperties, F
 
     protected abstract IntegrationFlow getConsumerFlow(C consumerDTO);
 
+    protected abstract void completeNativeConfigDTO(F configDTO);
+
     protected abstract void registerClientFactory(B brokerDTO);
 
     protected abstract void registerProducerFactory(P producerDTO);
@@ -83,6 +85,7 @@ public abstract class MessageConfigStrategy<S extends MessageEngineProperties, F
                 .setConsumerDTOs(consumerDTOs);
 
         verifyConfig(engineType, configDTO);
+        completeNativeConfigDTO(configDTO);
 
         registerClientFactory(brokerDTO);
         registerProducerFactory(producerDTOs);
@@ -213,7 +216,7 @@ public abstract class MessageConfigStrategy<S extends MessageEngineProperties, F
                         producerFailedReasons.put("invalid topic name", "the topic name should not be blank, please check!");
                     }
                     Class<?> producerDeclaringClass = producerDTO.getClientDTO().getExecuteMethod().getDeclaringClass();
-                    if (Nil.isNull(Springs.getBean(producerDeclaringClass))) {
+                    if (Springs.notExistBean(producerDeclaringClass)) {
                         producerFailedReasons.put("producer instance not found", STR."could not find the producer [\{producerDeclaringClass.getName()}] instance in spring ioc, please add it into spring ioc!");
                     }
 
@@ -243,7 +246,7 @@ public abstract class MessageConfigStrategy<S extends MessageEngineProperties, F
                         consumerFailedReasons.put("invalid topic names", STR."found blank topic name in \{consumerDTO.getTopics()}, please check!");
                     }
                     Class<?> consumerDeclaringClass = consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass();
-                    if (Nil.isNull(Springs.getBean(consumerDeclaringClass))) {
+                    if (Springs.notExistBean(consumerDeclaringClass)) {
                         consumerFailedReasons.put("consumer instance not found", STR."could not find the consumer [\{consumerDeclaringClass.getName()}] instance in spring ioc, please add it into spring ioc!");
                     }
 

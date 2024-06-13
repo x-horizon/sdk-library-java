@@ -101,13 +101,6 @@ public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<Mess
                 .autoCommitOffsetInterval(consumerConfig.autoCommitOffsetInterval())
                 .listenerMode(consumerConfig.listenerMode())
                 .offsetResetMode(consumerConfig.offsetResetMode())
-                .originalGroupId(consumerConfig.groupId())
-                .originalAllowAutoCreateTopics(Converts.toString(consumerConfig.allowToAutoCreateTopic()))
-                .originalAckMode(MessageKafkaConsumerAdapterAckMode.fromAckMode(consumerConfig.ackMode()).getKafkaAckMode())
-                .originalEnableAutoCommit(Converts.toString(MessageKafkaConsumerAdapterAckMode.fromAckMode(consumerConfig.ackMode()).getStrategy().needToEnableAutoCommitOffset()))
-                .originalAutoCommitIntervalMs(Converts.toString(Times.wrapper(consumerConfig.autoCommitOffsetInterval()).toMillisecond().toMillis()))
-                .originalListenerMode(MessageKafkaConsumerAdapterListenerMode.fromListenerMode(consumerConfig.listenerMode()).getKafkaListenerMode())
-                .originalAutoOffsetReset(consumerConfig.offsetResetMode().getCode())
                 .build();
     }
 
@@ -125,11 +118,11 @@ public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<Mess
         ConsumerFactory<K, V> consumerFactory = Springs.getBean(consumerDTO.getClientDTO().getFlowId(), ConsumerFactory.class);
         KafkaMessageDrivenChannelAdapterSpec.KafkaMessageDrivenChannelAdapterListenerContainerSpec<K, V> messageDrivenChannelAdapter = Kafka.messageDrivenChannelAdapter(
                         consumerFactory,
-                        consumerDTO.getOriginalListenerMode(),
+                        consumerDTO.getNativeListenerMode(),
                         Converts.toArray(consumerDTO.getTopics(), String.class)
                 )
                 .configureListenerContainer(kafkaMessageListenerContainerSpec -> kafkaMessageListenerContainerSpec
-                        .ackMode(consumerDTO.getOriginalAckMode())
+                        .ackMode(consumerDTO.getNativeAckMode())
                         .id(consumerDTO.getClientDTO().getClientId())
                 );
 
@@ -137,6 +130,21 @@ public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<Mess
         return IntegrationFlow.from(messageDrivenChannelAdapter)
                 .handle(MessageFlows.getStringToObjectMessageHandler(consumerInstance, consumerDTO.getClientDTO().getExecuteMethod()))
                 .get();
+    }
+
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    @Override
+    protected void completeNativeConfigDTO(MessageKafkaConfigDTO configDTO) {
+        List<MessageKafkaConfigDTO.ConsumerDTO> consumerDTOs = (List<MessageKafkaConfigDTO.ConsumerDTO>) configDTO.getConsumerDTOs();
+        consumerDTOs.forEach(consumerDTO -> consumerDTO
+                .setNativeGroupId(consumerDTO.getGroupId())
+                .setNativeAllowAutoCreateTopics(Converts.toString(consumerDTO.isAllowToAutoCreateTopic()))
+                .setNativeAckMode(MessageKafkaConsumerAdapterAckMode.fromAckMode(consumerDTO.getAckMode()).getKafkaAckMode())
+                .setNativeEnableAutoCommit(Converts.toString(MessageKafkaConsumerAdapterAckMode.fromAckMode(consumerDTO.getAckMode()).getStrategy().needToEnableAutoCommitOffset()))
+                .setNativeAutoCommitIntervalMs(Converts.toString(Times.wrapper(consumerDTO.getAutoCommitOffsetInterval()).toMillisecond().toMillis()))
+                .setNativeListenerMode(MessageKafkaConsumerAdapterListenerMode.fromListenerMode(consumerDTO.getListenerMode()).getKafkaListenerMode())
+                .setNativeAutoOffsetReset(consumerDTO.getOffsetResetMode().getCode())
+        );
     }
 
     @Override
@@ -155,11 +163,11 @@ public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<Mess
     protected void registerConsumerFactory(MessageKafkaConfigDTO.ConsumerDTO consumerDTO) {
         Springs.registerBean(consumerDTO.getClientDTO().getFlowId(), new DefaultKafkaConsumerFactory<>(Map.of(
                 ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, this.messageKafkaProperties.getServerUrls(),
-                ConsumerConfig.GROUP_ID_CONFIG, consumerDTO.getOriginalGroupId(),
-                ConsumerConfig.ALLOW_AUTO_CREATE_TOPICS_CONFIG, consumerDTO.getOriginalAllowAutoCreateTopics(),
-                ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, consumerDTO.getOriginalEnableAutoCommit(),
-                ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, consumerDTO.getOriginalAutoCommitIntervalMs(),
-                ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, consumerDTO.getOriginalAutoOffsetReset(),
+                ConsumerConfig.GROUP_ID_CONFIG, consumerDTO.getNativeGroupId(),
+                ConsumerConfig.ALLOW_AUTO_CREATE_TOPICS_CONFIG, consumerDTO.getNativeAllowAutoCreateTopics(),
+                ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, consumerDTO.getNativeEnableAutoCommit(),
+                ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, consumerDTO.getNativeAutoCommitIntervalMs(),
+                ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, consumerDTO.getNativeAutoOffsetReset(),
                 ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
                 ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class
         )));
@@ -180,7 +188,7 @@ public class MessageKafkaConfigStrategy<K, V> extends MessageConfigStrategy<Mess
                     }
                     return (MessageVerificationConfigDTO.ConsumerDTO) MessageVerificationConfigDTO.ConsumerDTO.builder()
                             .methodPoint(consumerDTO.getClientDTO().getFlowId())
-                            .failedReason(Collections.ofHashMap(consumerFailedReasons))
+                            .failedReason(consumerFailedReasons)
                             .build();
                 })
                 .filter(consumerFailedReasonDTO -> Nil.isNotEmpty(consumerFailedReasonDTO.getFailedReason()))

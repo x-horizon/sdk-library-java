@@ -60,10 +60,10 @@ public class MessageMqttV3ConfigDTO extends MessageConfigDTO {
         protected String disconnectCompletionTimeout;
 
         @JsonProperty("mqttV3_completionTimeout")
-        protected long originalCompletionTimeout;
+        protected long nativeCompletionTimeout;
 
         @JsonProperty("mqttV3_disconnectCompletionTimeout")
-        protected long originalDisconnectCompletionTimeout;
+        protected long nativeDisconnectCompletionTimeout;
 
     }
 

@@ -71,6 +71,11 @@ public class MessageRedisConfigStrategy extends MessageConfigStrategy<MessageRed
     }
 
     @Override
+    protected void completeNativeConfigDTO(MessageRedisConfigDTO configDTO) {
+        throw new UnsupportedException();
+    }
+
+    @Override
     protected void registerClientFactory(MessageRedisConfigDTO.BrokerDTO brokerDTO) {
         throw new UnsupportedException();
     }

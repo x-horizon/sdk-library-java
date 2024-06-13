@@ -71,6 +71,11 @@ public class MessageRabbitMqConfigStrategy extends MessageConfigStrategy<Message
     }
 
     @Override
+    protected void completeNativeConfigDTO(MessageRabbitMqConfigDTO configDTO) {
+        throw new UnsupportedException();
+    }
+
+    @Override
     protected void registerClientFactory(MessageRabbitMqConfigDTO.BrokerDTO brokerDTO) {
         throw new UnsupportedException();
     }
