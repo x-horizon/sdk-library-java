@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: web-grpc-client
+  threads:
+    virtual:
+      enabled: true
+
+server:
+  port: 10000
