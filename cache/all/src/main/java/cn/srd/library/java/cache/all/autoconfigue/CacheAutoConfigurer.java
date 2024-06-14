@@ -1,8 +1,8 @@
 package cn.srd.library.java.cache.all.autoconfigue;
 
 import cn.srd.library.java.cache.all.aspect.*;
-import cn.srd.library.java.cache.all.model.properties.CacheMultilevelProperties;
-import cn.srd.library.java.cache.all.model.properties.CacheProperties;
+import cn.srd.library.java.cache.all.model.property.CacheProperty;
+import cn.srd.library.java.cache.all.model.property.MultilevelCacheProperty;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Bean;
  * @since 2023-06-07 16:48
  */
 @AutoConfiguration
-@EnableConfigurationProperties({CacheProperties.class, CacheMultilevelProperties.class})
+@EnableConfigurationProperties({CacheProperty.class, MultilevelCacheProperty.class})
 public class CacheAutoConfigurer {
 
     @Bean

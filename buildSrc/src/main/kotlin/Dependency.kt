@@ -158,8 +158,13 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TEST_SPRING_BOOT_TEST("org.springframework.boot:spring-boot-starter-test", ""),
     TEST_SPRING_INTEGRATION_TEST("org.springframework.integration:spring-integration-test", ""),
 
-    WEB_GRPC("net.devh:grpc-spring-boot-starter", "3.1.0.RELEASE"), // TODO wjm support spring-boot version to 3.2.4, spring-cloud version to 2023.0.0
+    WEB_GRPC_API("io.grpc:grpc-api", ""),
+    WEB_GRPC_PROTOBUF("io.grpc:grpc-protobuf", ""),
     WEB_GRPC_PROTO_GEN("io.grpc:protoc-gen-grpc-java", BOM_WEB_GRPC.version),
+    WEB_GRPC_STUB("io.grpc:grpc-stub", ""),
+    WEB_GRPC_SPRING_BOOT_VERSION("", "3.1.0.RELEASE"), // TODO wjm support spring-boot version to 3.2.4, spring-cloud version to 2023.0.0
+    WEB_GRPC_SPRING_BOOT_CLIENT("net.devh:grpc-client-spring-boot-starter", WEB_GRPC_SPRING_BOOT_VERSION.version),
+    WEB_GRPC_SPRING_BOOT_SERVER("net.devh:grpc-server-spring-boot-starter", WEB_GRPC_SPRING_BOOT_VERSION.version),
     WEB_IO_NETTY("io.netty:netty-all", ""), // TODO wjm org.springframework.integration
     WEB_IO_REACTOR("io.projectreactor:reactor-core", ""),
     WEB_OKHTTPS("cn.zhxu:okhttps-jackson", "4.0.2"),

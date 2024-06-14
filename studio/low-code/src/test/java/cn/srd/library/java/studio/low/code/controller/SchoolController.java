@@ -13,7 +13,7 @@ import cn.srd.library.java.studio.low.code.service.SchoolService;
 import cn.srd.library.java.tool.validation.jakarta.ValidList;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,12 +29,11 @@ import java.util.List;
  * @since 2024-04-15 23:57
  */
 @Tag(name = "学校信息管理")
-@AllArgsConstructor
 @RestController
 @RequestMapping("/school")
 public class SchoolController {
 
-    private final SchoolService schoolService;
+    @Autowired private SchoolService schoolService;
 
     @Operation(summary = "保存数据")
     @PostMapping("/save")

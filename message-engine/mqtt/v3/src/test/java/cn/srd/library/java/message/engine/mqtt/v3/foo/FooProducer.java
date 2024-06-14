@@ -9,7 +9,7 @@ import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageQosType;
-import cn.srd.library.java.message.engine.mqtt.v3.MessageMqttV3Config;
+import cn.srd.library.java.message.engine.mqtt.v3.MqttV3Config;
 import cn.srd.library.java.tool.lang.time.Times;
 import org.springframework.stereotype.Component;
 
@@ -23,8 +23,8 @@ public class FooProducer {
 
     @MessageProducer(
             topic = FooTopicConstant.TOPIC_TEST1,
-            config = @MessageConfig(engineType = MessageEngineType.MQTT_V3, mqttV3 = @MessageMqttV3Config(
-                    clientConfig = @MessageMqttV3Config.ClientConfig(qosType = MessageQosType.EXACTLY_ONCE)
+            config = @MessageConfig(engineType = MessageEngineType.MQTT_V3, mqttV3 = @MqttV3Config(
+                    clientConfig = @MqttV3Config.ClientConfig(qosType = MessageQosType.EXACTLY_ONCE)
             ))
     )
     public String send1() {
@@ -34,8 +34,8 @@ public class FooProducer {
 
     @MessageProducer(
             topic = FooTopicConstant.TOPIC_TEST2,
-            config = @MessageConfig(engineType = MessageEngineType.MQTT_V3, mqttV3 = @MessageMqttV3Config(
-                    clientConfig = @MessageMqttV3Config.ClientConfig(qosType = MessageQosType.EXACTLY_ONCE)
+            config = @MessageConfig(engineType = MessageEngineType.MQTT_V3, mqttV3 = @MqttV3Config(
+                    clientConfig = @MqttV3Config.ClientConfig(qosType = MessageQosType.EXACTLY_ONCE)
             ))
     )
     public String send2() {

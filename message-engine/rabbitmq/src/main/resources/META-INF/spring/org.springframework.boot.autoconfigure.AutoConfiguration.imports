@@ -1,1 +1,1 @@
-cn.srd.library.java.message.engine.rabbitmq.autoconfigure.MessageEngineRabbitMqAutoConfigurer
+cn.srd.library.java.message.engine.rabbitmq.autoconfigure.RabbitMqAutoConfigurer

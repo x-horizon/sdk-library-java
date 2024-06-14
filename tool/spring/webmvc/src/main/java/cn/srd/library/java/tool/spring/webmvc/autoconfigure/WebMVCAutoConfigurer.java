@@ -4,8 +4,8 @@
 
 package cn.srd.library.java.tool.spring.webmvc.autoconfigure;
 
-import cn.srd.library.java.tool.spring.webmvc.advice.WebMVCExceptionInterceptor;
 import cn.srd.library.java.tool.spring.webmvc.advice.WebMVCResponseBodyAdvice;
+import cn.srd.library.java.tool.spring.webmvc.interceptor.WebMVCExceptionInterceptor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

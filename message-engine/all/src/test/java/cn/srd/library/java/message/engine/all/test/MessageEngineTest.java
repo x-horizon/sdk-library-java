@@ -18,7 +18,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.concurrent.TimeUnit;
 
 /**
- * kafka test
+ * message engine test
  *
  * @author wjm
  * @since 2024-05-21 21:55
@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 @EnableMessageEngineMqttV3
 // @EnableMessageEngineMqttV5
 // @EnableMessageEngineRabbitMq
-// @EnableMessageEngineRedis
+// @EnableMessageEngineRedisStream
 // @EnableMessageEngineRocketMq
 @ExtendWith(SpringExtension.class)
 @SpringBootTest

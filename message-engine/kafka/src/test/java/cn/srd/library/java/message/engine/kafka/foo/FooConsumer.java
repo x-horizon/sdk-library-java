@@ -8,7 +8,7 @@ import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
-import cn.srd.library.java.message.engine.kafka.MessageKafkaConfig;
+import cn.srd.library.java.message.engine.kafka.KafkaConfig;
 import cn.srd.library.java.tool.lang.time.Times;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +22,9 @@ public class FooConsumer {
 
     @MessageConsumer(
             topics = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2},
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig(
-                    clientConfig = @MessageKafkaConfig.ClientConfig,
-                    consumerConfig = @MessageKafkaConfig.ConsumerConfig(groupId = "1")
+            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @KafkaConfig(
+                    clientConfig = @KafkaConfig.ClientConfig,
+                    consumerConfig = @KafkaConfig.ConsumerConfig(groupId = "1")
             ))
     )
     public void receive1(String message) {
@@ -33,9 +33,9 @@ public class FooConsumer {
 
     @MessageConsumer(
             topics = FooTopicConstant.TOPIC_TEST1,
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig(
-                    clientConfig = @MessageKafkaConfig.ClientConfig,
-                    consumerConfig = @MessageKafkaConfig.ConsumerConfig(groupId = "1")
+            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @KafkaConfig(
+                    clientConfig = @KafkaConfig.ClientConfig,
+                    consumerConfig = @KafkaConfig.ConsumerConfig(groupId = "1")
             ))
     )
     public void receive2(String message) {
@@ -44,9 +44,9 @@ public class FooConsumer {
 
     @MessageConsumer(
             topics = FooTopicConstant.TOPIC_TEST1,
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig(
-                    clientConfig = @MessageKafkaConfig.ClientConfig,
-                    consumerConfig = @MessageKafkaConfig.ConsumerConfig(groupId = "2")
+            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @KafkaConfig(
+                    clientConfig = @KafkaConfig.ClientConfig,
+                    consumerConfig = @KafkaConfig.ConsumerConfig(groupId = "2")
             ))
     )
     public void receive3(String message) {

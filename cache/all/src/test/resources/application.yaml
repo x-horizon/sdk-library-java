@@ -1,6 +1,7 @@
 spring:
   profiles:
-    include: config-cache,
+    include:
+      config-cache,
       config-cache-redis,
       config-cache-redis-${activeEnvironmentName},
       config-log,

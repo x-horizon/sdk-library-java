@@ -7,7 +7,7 @@ dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_MQTT_V3)))
     api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_MQTT_V5)))
     api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_RABBITMQ)))
-    api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_REDIS)))
+    api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_REDIS_STREAM)))
     api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_ROCKETMQ)))
 
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING_INTEGRATION)))

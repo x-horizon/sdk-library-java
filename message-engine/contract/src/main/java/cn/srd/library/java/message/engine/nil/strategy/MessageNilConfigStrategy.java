@@ -10,7 +10,7 @@ import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageVerificationConfigDTO;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
 import cn.srd.library.java.message.engine.nil.model.dto.MessageNilConfigDTO;
-import cn.srd.library.java.message.engine.nil.model.properties.MessageNilProperties;
+import cn.srd.library.java.message.engine.nil.model.property.MessageNilProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.integration.dsl.IntegrationFlow;
 
@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
  * @since 2024-06-04 17:10
  */
 @Slf4j
-public class MessageNilConfigStrategy extends MessageConfigStrategy<MessageNilProperties, MessageNilConfigDTO, MessageNilConfigDTO.BrokerDTO, MessageNilConfigDTO.ClientDTO, MessageNilConfigDTO.ProducerDTO, MessageNilConfigDTO.ConsumerDTO> {
+public class MessageNilConfigStrategy extends MessageConfigStrategy<MessageNilProperty, MessageNilConfigDTO, MessageNilConfigDTO.BrokerDTO, MessageNilConfigDTO.ClientDTO, MessageNilConfigDTO.ProducerDTO, MessageNilConfigDTO.ConsumerDTO> {
 
     @Override
     protected MessageVerificationConfigDTO getVerificationConfigDTO(MessageNilConfigDTO configDTO) {
@@ -35,8 +35,8 @@ public class MessageNilConfigStrategy extends MessageConfigStrategy<MessageNilPr
     }
 
     @Override
-    protected Class<MessageNilProperties> getPropertiesType() {
-        return MessageNilProperties.class;
+    protected Class<MessageNilProperty> getPropertyType() {
+        return MessageNilProperty.class;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class MessageNilConfigStrategy extends MessageConfigStrategy<MessageNilPr
 
     @Override
     protected void completeNativeConfigDTO(MessageNilConfigDTO configDTO) {
-        
+
     }
 
     @Override

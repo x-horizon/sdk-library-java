@@ -1,6 +1,6 @@
 package cn.srd.library.java.cache.redis.autoconfigue;
 
-import cn.srd.library.java.cache.redis.model.properties.CacheRedisProperties;
+import cn.srd.library.java.cache.redis.model.property.RedisCacheProperty;
 import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -13,7 +13,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @since 2023-06-13 09:24
  */
 @AutoConfigureBefore(RedissonAutoConfiguration.class)
-@EnableConfigurationProperties(CacheRedisProperties.class)
+@EnableConfigurationProperties(RedisCacheProperty.class)
 public class RedisCacheAutoConfigurer {
 
     // private static final String REDIS_PROTOCOL_PREFIX = "redis://";

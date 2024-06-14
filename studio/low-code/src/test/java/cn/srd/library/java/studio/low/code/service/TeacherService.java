@@ -13,7 +13,7 @@ import cn.srd.library.java.studio.low.code.model.vo.TeacherListConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.TeacherPageConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.TeacherVO;
 import cn.srd.library.java.studio.low.code.repository.TeacherRepository;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,11 +24,10 @@ import java.util.List;
  * @author TODO 请填写作者名字
  * @since 2024-04-15 23:57
  */
-@AllArgsConstructor
 @Service
 public class TeacherService extends GenericService<TeacherPO, TeacherVO, TeacherRepository> {
 
-    private final TeacherRepository teacherRepository;
+    @Autowired private TeacherRepository teacherRepository;
 
     public TeacherVO getByCondition(TeacherGetConditionVO conditionVO) {
         return teacherRepository.openNormalQuery()

@@ -6,6 +6,7 @@ object GradlePlugin {
 
     const val JAVA_LIBRARY = "java-library"
     const val JAVA_PLATFORM = "java-platform"
+    const val JAVA_TEST_FIXTURES = "java-test-fixtures"
 
     const val MAVEN_PUBLISH = "maven-publish"
 

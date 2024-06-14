@@ -8,7 +8,7 @@ import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineSwitcher;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
-import cn.srd.library.java.message.engine.contract.model.properties.MessageEngineProperties;
+import cn.srd.library.java.message.engine.contract.model.property.MessageEngineProperty;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
 import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
 import cn.srd.library.java.message.engine.kafka.autoconfigure.MessageEngineKafkaSwitcher;
@@ -16,7 +16,7 @@ import cn.srd.library.java.message.engine.mqtt.v3.autoconfigure.MessageEngineMqt
 import cn.srd.library.java.message.engine.mqtt.v5.autoconfigure.MessageEngineMqttV5Switcher;
 import cn.srd.library.java.message.engine.nil.autoconfigure.MessageEngineNilSwitcher;
 import cn.srd.library.java.message.engine.rabbitmq.autoconfigure.MessageEngineRabbitMqSwitcher;
-import cn.srd.library.java.message.engine.redis.autoconfigure.MessageEngineRedisSwitcher;
+import cn.srd.library.java.message.engine.redis.stream.autoconfigure.MessageEngineRedisStreamSwitcher;
 import cn.srd.library.java.message.engine.rocketmq.autoconfigure.MessageEngineRocketMqSwitcher;
 import cn.srd.library.java.tool.enums.EnumAutowired;
 import cn.srd.library.java.tool.enums.strategy.EnumAutowiredFieldMatchByContainIgnoreCaseRule;
@@ -36,7 +36,7 @@ public enum MessageEngineType {
     MQTT_V5(3, "mqttV5", MessageEngineMqttV5Switcher.class),
     NIL(4, "nil", MessageEngineNilSwitcher.class),
     RABBITMQ(5, "rabbitmq", MessageEngineRabbitMqSwitcher.class),
-    REDIS(6, "redis", MessageEngineRedisSwitcher.class),
+    REDIS(6, "redis", MessageEngineRedisStreamSwitcher.class),
     ROCKETMQ(7, "rocketmq", MessageEngineRocketMqSwitcher.class),
 
     ;
@@ -53,11 +53,11 @@ public enum MessageEngineType {
 
     private final Class<? extends MessageEngineSwitcher> systemSwitcher;
 
-    private MessageConfigStrategy<MessageEngineProperties, MessageConfigDTO, MessageConfigDTO.BrokerDTO, MessageConfigDTO.ClientDTO, MessageConfigDTO.ProducerDTO, MessageConfigDTO.ConsumerDTO> configStrategy;
+    private MessageConfigStrategy<MessageEngineProperty, MessageConfigDTO, MessageConfigDTO.BrokerDTO, MessageConfigDTO.ClientDTO, MessageConfigDTO.ProducerDTO, MessageConfigDTO.ConsumerDTO> configStrategy;
 
     private MessageFlowStrategy flowStrategy;
 
-    public MessageConfigStrategy<MessageEngineProperties, MessageConfigDTO, MessageConfigDTO.BrokerDTO, MessageConfigDTO.ClientDTO, MessageConfigDTO.ProducerDTO, MessageConfigDTO.ConsumerDTO> getConfigStrategy() {
+    public MessageConfigStrategy<MessageEngineProperty, MessageConfigDTO, MessageConfigDTO.BrokerDTO, MessageConfigDTO.ClientDTO, MessageConfigDTO.ProducerDTO, MessageConfigDTO.ConsumerDTO> getConfigStrategy() {
         Assert.of().setMessage("{}could not find the config strategy by message engine type [{}], please add the related library path to your classpath.", ModuleView.MESSAGE_ENGINE_SYSTEM, this.name())
                 .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfNull(this.configStrategy);

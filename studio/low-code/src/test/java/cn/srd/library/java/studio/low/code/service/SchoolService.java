@@ -13,7 +13,7 @@ import cn.srd.library.java.studio.low.code.model.vo.SchoolListConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.SchoolPageConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.SchoolVO;
 import cn.srd.library.java.studio.low.code.repository.SchoolRepository;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,11 +24,10 @@ import java.util.List;
  * @author TODO 请填写作者名字
  * @since 2024-04-15 23:57
  */
-@AllArgsConstructor
 @Service
 public class SchoolService extends GenericService<SchoolPO, SchoolVO, SchoolRepository> {
 
-    private final SchoolRepository schoolRepository;
+    @Autowired private SchoolRepository schoolRepository;
 
     public SchoolVO getByCondition(SchoolGetConditionVO conditionVO) {
         return schoolRepository.openNormalQuery()

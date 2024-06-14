@@ -1,4 +1,5 @@
 spring:
   profiles:
-    include: config-cache
+    include:
+      config-cache
     active: environment-${activeEnvironmentName}

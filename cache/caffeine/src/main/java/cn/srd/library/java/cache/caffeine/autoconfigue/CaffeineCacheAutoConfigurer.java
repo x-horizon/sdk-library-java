@@ -1,6 +1,6 @@
 package cn.srd.library.java.cache.caffeine.autoconfigue;
 
-import cn.srd.library.java.cache.caffeine.model.properties.CacheCaffeineProperties;
+import cn.srd.library.java.cache.caffeine.model.property.CaffeineCacheProperty;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -12,7 +12,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @since 2023-06-05 17:01
  */
 @AutoConfiguration
-@EnableConfigurationProperties(CacheCaffeineProperties.class)
+@EnableConfigurationProperties(CaffeineCacheProperty.class)
 public class CaffeineCacheAutoConfigurer {
 
 }

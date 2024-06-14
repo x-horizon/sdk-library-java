@@ -8,7 +8,7 @@ import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
-import cn.srd.library.java.message.engine.kafka.MessageKafkaConfig;
+import cn.srd.library.java.message.engine.kafka.KafkaConfig;
 import cn.srd.library.java.tool.lang.time.Times;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ public class FooProducer {
 
     @MessageProducer(
             topic = FooTopicConstant.TOPIC_TEST1,
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig)
+            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @KafkaConfig)
     )
     public String send1() {
         System.out.println(STR."生产者1 -------- \{Times.getCurrentDateTime()}-producer-send1");
@@ -31,7 +31,7 @@ public class FooProducer {
 
     @MessageProducer(
             topic = FooTopicConstant.TOPIC_TEST2,
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @MessageKafkaConfig)
+            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @KafkaConfig)
     )
     public String send2() {
         System.out.println(STR."生产者2 -------- \{Times.getCurrentDateTime()}-producer-send2");

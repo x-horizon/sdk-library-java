@@ -108,7 +108,8 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.TEST_JUNIT))
         api(GradleDependency.withVersion(GradleDependency.TEST_OPENJDK_JMH_CORE))
 
-        api(GradleDependency.withVersion(GradleDependency.WEB_GRPC))
+        api(GradleDependency.withVersion(GradleDependency.WEB_GRPC_SPRING_BOOT_SERVER))
+        api(GradleDependency.withVersion(GradleDependency.WEB_GRPC_SPRING_BOOT_CLIENT))
         api(GradleDependency.withVersion(GradleDependency.WEB_GRPC_PROTO_GEN))
         api(GradleDependency.withVersion(GradleDependency.WEB_OKHTTPS))
 
@@ -152,7 +153,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_MQTT_V3)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_MQTT_V5)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_RABBITMQ)))
-        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_REDIS)))
+        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_REDIS_STREAM)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_ROCKETMQ)))
 
         api(project(GradleModule.toReferenceName(GradleModule.METRIC_DROP_WIZARD)))
@@ -236,7 +237,9 @@ dependencies {
 
         api(project(GradleModule.toReferenceName(GradleModule.TRANSACTION_SPRING)))
 
-        api(project(GradleModule.toReferenceName(GradleModule.WEB_GRPC)))
+        api(project(GradleModule.toReferenceName(GradleModule.WEB_GRPC_CLIENT)))
+        api(project(GradleModule.toReferenceName(GradleModule.WEB_GRPC_CONTRACT)))
+        api(project(GradleModule.toReferenceName(GradleModule.WEB_GRPC_SERVER)))
         api(project(GradleModule.toReferenceName(GradleModule.WEB_NETTY)))
         api(project(GradleModule.toReferenceName(GradleModule.WEB_HTTP_OKHTTPS)))
         api(project(GradleModule.toReferenceName(GradleModule.WEB_OPEN_FEIGN)))

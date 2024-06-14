@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.tool.id.snowflake.strategy;
 
-import cn.srd.library.java.cache.redis.model.properties.CacheRedisProperties;
+import cn.srd.library.java.cache.redis.model.property.RedisCacheProperty;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.tool.id.snowflake.autoconfigure.EnableSnowflakeId;
 import cn.srd.library.java.tool.id.snowflake.support.SnowflakeIds;
@@ -29,7 +29,7 @@ public class SnowflakeIdOnMultipleNodeStrategy implements SnowflakeIdEnvironment
 
     @Override
     public short getWorkerId(EnableSnowflakeId snowflakeIdConfig) {
-        RedisProperties redisProperties = CacheRedisProperties.getInstance().getBaseInfo();
+        RedisProperties redisProperties = RedisCacheProperty.getInstance().getBaseInfo();
         return (short) SnowflakeIds.WorkerId.INSTANCE.RegisterWorkerId(
                 Nil.isBlank(redisProperties.getUrl()) ? Strings.format("{}:{}", redisProperties.getHost(), redisProperties.getPort()) : redisProperties.getUrl(),
                 redisProperties.getPassword(),

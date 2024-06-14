@@ -12,7 +12,7 @@ import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageVerificationConfigDTO;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
-import cn.srd.library.java.message.engine.contract.model.properties.MessageEngineProperties;
+import cn.srd.library.java.message.engine.contract.model.property.MessageEngineProperty;
 import cn.srd.library.java.tool.convert.all.Converts;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
@@ -41,13 +41,13 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Component
-public abstract class MessageConfigStrategy<S extends MessageEngineProperties, F extends MessageConfigDTO, B extends MessageConfigDTO.BrokerDTO, L extends MessageConfigDTO.ClientDTO, P extends MessageConfigDTO.ProducerDTO, C extends MessageConfigDTO.ConsumerDTO> {
+public abstract class MessageConfigStrategy<S extends MessageEngineProperty, F extends MessageConfigDTO, B extends MessageConfigDTO.BrokerDTO, L extends MessageConfigDTO.ClientDTO, P extends MessageConfigDTO.ProducerDTO, C extends MessageConfigDTO.ConsumerDTO> {
 
     @Autowired private IntegrationFlowContext flowContext;
 
     protected abstract Class<F> getConfigType();
 
-    protected abstract Class<S> getPropertiesType();
+    protected abstract Class<S> getPropertyType();
 
     protected abstract MessageVerificationConfigDTO getVerificationConfigDTO(F configDTO);
 
@@ -204,7 +204,7 @@ public abstract class MessageConfigStrategy<S extends MessageEngineProperties, F
     private void verifyConfig(MessageEngineType engineType, F configDTO) {
         MessageVerificationConfigDTO verificationConfigDTO = getVerificationConfigDTO(configDTO);
         if (Nil.isEmpty(configDTO.getBrokerDTO().getServerUrls())) {
-            verificationConfigDTO.getBrokerFailedReason().put("invalid server urls", STR."invalid server urls, you must provide them in the config file, see [\{getPropertiesType().getName()}].");
+            verificationConfigDTO.getBrokerFailedReason().put("invalid server urls", STR."invalid server urls, you must provide them in the config file, see [\{getPropertyType().getName()}].");
         }
 
         Map<String, MessageVerificationConfigDTO.ProducerDTO> producerMethodPointCache = Converts.toMap(verificationConfigDTO.getProducerFailedReasons(), MessageVerificationConfigDTO.ProducerDTO::getMethodPoint);

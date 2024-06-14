@@ -2,7 +2,7 @@ package cn.srd.library.java.cache.all.strategy;
 
 import cn.srd.library.java.cache.all.Caches;
 import cn.srd.library.java.cache.all.manager.CacheDataManager;
-import cn.srd.library.java.cache.all.model.properties.CacheProperties;
+import cn.srd.library.java.cache.all.model.property.CacheProperty;
 import cn.srd.library.java.concurrent.redis.strategy.RedisNonFairLockHandler;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -44,8 +44,8 @@ public class CacheTypeDistributedStrategy implements CacheTypeStrategy {
                 dataManager, namespace, key, findCacheTypeNameIndex,
                 (t1, t2, t3, t4) -> CacheTypeLocalStrategy.getInstance().get(dataManager, namespace, key, findCacheTypeNameIndex),
                 LOCK_NAME_PREFIX + Caches.withRedis().withBucket().resolveKey(key, namespace),
-                CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheWaitTime(),
-                CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheLeaseTime(),
+                CacheProperty.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheWaitTime(),
+                CacheProperty.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheLeaseTime(),
                 TimeUnit.MILLISECONDS
         );
     }
@@ -56,8 +56,8 @@ public class CacheTypeDistributedStrategy implements CacheTypeStrategy {
                 dataManager, namespace, findCacheTypeNameIndex,
                 (t1, t2, t3) -> CacheTypeLocalStrategy.getInstance().getMapByNamespace(dataManager, namespace, findCacheTypeNameIndex),
                 LOCK_NAME_PREFIX + Caches.withRedis().withBucket().resolveFuzzyKey(namespace),
-                CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheWaitTime(),
-                CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheLeaseTime(),
+                CacheProperty.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheWaitTime(),
+                CacheProperty.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheLeaseTime(),
                 TimeUnit.MILLISECONDS
         );
     }
@@ -68,8 +68,8 @@ public class CacheTypeDistributedStrategy implements CacheTypeStrategy {
                 dataManager, namespace, findCacheTypeNameIndex,
                 (t1, t2, t3) -> CacheTypeLocalStrategy.getInstance().getMapByNamespaceWithoutNullValue(dataManager, namespace, findCacheTypeNameIndex),
                 LOCK_NAME_PREFIX + Caches.withRedis().withBucket().resolveFuzzyKey(namespace),
-                CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheWaitTime(),
-                CacheProperties.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheLeaseTime(),
+                CacheProperty.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheWaitTime(),
+                CacheProperty.getInstance().getMultilevel().getInternalBlockToHitDistributedCacheLeaseTime(),
                 TimeUnit.MILLISECONDS
         );
     }

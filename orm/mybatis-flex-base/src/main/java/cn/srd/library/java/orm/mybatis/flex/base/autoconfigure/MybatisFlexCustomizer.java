@@ -83,7 +83,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
         handleListenerConfig(globalConfig, mybatisFlexCustomizer.globalListenerConfig());
         handleOptimisticLockConfig(globalConfig, mybatisFlexCustomizer.globalOptimisticLockConfig());
         handleAuditLogConfig(mybatisFlexCustomizer.globalAuditConfig());
-        handleMybatisFlexProperties(mybatisFlexCustomizer.globalPropertyConfig());
+        handleMybatisFlexProperty(mybatisFlexCustomizer.globalPropertyConfig());
 
         log.info(""" 
                         {}mybatis flex customizer has loaded the following configurations:
@@ -198,10 +198,10 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
      *
      * @param propertyConfig the global property config
      */
-    private void handleMybatisFlexProperties(PropertyConfig propertyConfig) {
-        handleMybatisFlexPropertiesXMLMapperClassPathsIfNeed(propertyConfig.xmlMapperClassPaths());
-        handleMybatisFlexPropertiesEntityPackageAliasPackagePathsIfNeed(propertyConfig.xmlMapperEntityPackageAliasPackagePaths());
-        handleMybatisFlexPropertiesCoreConfigurationIfNeed(propertyConfig);
+    private void handleMybatisFlexProperty(PropertyConfig propertyConfig) {
+        handleMybatisFlexPropertyXMLMapperClassPathsIfNeed(propertyConfig.xmlMapperClassPaths());
+        handleMybatisFlexPropertyEntityPackageAliasPackagePathsIfNeed(propertyConfig.xmlMapperEntityPackageAliasPackagePaths());
+        handleMybatisFlexPropertyCoreConfigurationIfNeed(propertyConfig);
     }
 
     /**
@@ -209,7 +209,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
      *
      * @param xmlMapperClassPaths xml mapper class paths
      */
-    private void handleMybatisFlexPropertiesXMLMapperClassPathsIfNeed(String[] xmlMapperClassPaths) {
+    private void handleMybatisFlexPropertyXMLMapperClassPathsIfNeed(String[] xmlMapperClassPaths) {
         MybatisFlexProperties mybatisFlexProperties = Springs.getBean(MybatisFlexProperties.class);
         if (Comparators.equals(MYBATIS_FLEX_PROPERTIES_XML_MAPPER_CLASS_PATHS_DEFAULT_FIELD_VALUE, mybatisFlexProperties.getMapperLocations())) {
             Reflects.setFieldValue(mybatisFlexProperties,
@@ -224,7 +224,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
      *
      * @param xmlMapperEntityPackageAliasPackagePaths xml mapper entity package alias package paths
      */
-    private void handleMybatisFlexPropertiesEntityPackageAliasPackagePathsIfNeed(String[] xmlMapperEntityPackageAliasPackagePaths) {
+    private void handleMybatisFlexPropertyEntityPackageAliasPackagePathsIfNeed(String[] xmlMapperEntityPackageAliasPackagePaths) {
         MybatisFlexProperties mybatisFlexProperties = Springs.getBean(MybatisFlexProperties.class);
         if (Nil.isNull(mybatisFlexProperties.getTypeAliasesPackage())) {
             Reflects.setFieldValue(mybatisFlexProperties,
@@ -237,7 +237,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
     /**
      * handle configuration on {@link MybatisFlexProperties.CoreConfiguration}
      */
-    private void handleMybatisFlexPropertiesCoreConfigurationIfNeed(PropertyConfig propertyConfig) {
+    private void handleMybatisFlexPropertyCoreConfigurationIfNeed(PropertyConfig propertyConfig) {
         initMybatisFlexPropertiesCoreConfigurationIfNeed();
         handleMybatisFlexPropertiesCoreConfigurationNativeMybatisLogIfNeed(propertyConfig.nativeMybatisLog());
     }

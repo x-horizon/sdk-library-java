@@ -1,6 +1,6 @@
 package cn.srd.library.java.cache.caffeine;
 
-import cn.srd.library.java.cache.caffeine.model.properties.CacheCaffeineProperties;
+import cn.srd.library.java.cache.caffeine.model.property.CaffeineCacheProperty;
 import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import cn.srd.library.java.tool.lang.functional.Functional;
 import cn.srd.library.java.tool.lang.number.Numbers;
@@ -21,32 +21,32 @@ import lombok.NoArgsConstructor;
 public class CaffeineCacheBuilder {
 
     /**
-     * build {@link Cache} by {@link CacheCaffeineProperties}
+     * build {@link Cache} by {@link CaffeineCacheProperty}
      *
      * @param <K> key 类型
      * @param <V> value 类型
      * @return {@link Cache}
      */
     public static <K, V> Cache<K, V> build() {
-        return build(CacheCaffeineProperties.getInstance());
+        return build(CaffeineCacheProperty.getInstance());
     }
 
     /**
-     * build {@link Cache} by {@link CacheCaffeineProperties}
+     * build {@link Cache} by {@link CaffeineCacheProperty}
      *
-     * @param cacheCaffeineProperties {@link CacheCaffeineProperties}
-     * @param <K>                     key 类型
-     * @param <V>                     value 类型
+     * @param caffeineCacheProperty {@link CaffeineCacheProperty}
+     * @param <K>                   key 类型
+     * @param <V>                   value 类型
      * @return {@link Cache}
      */
-    public static <K, V> Cache<K, V> build(CacheCaffeineProperties cacheCaffeineProperties) {
+    public static <K, V> Cache<K, V> build(CaffeineCacheProperty caffeineCacheProperty) {
         Caffeine<Object, Object> cacheBuilder = Caffeine.newBuilder();
-        Functional.acceptIfNeed(Nil.isNull(cacheCaffeineProperties.getExpireAfterAccess()) ? null : Times.wrapper(cacheCaffeineProperties.getExpireAfterAccess()).toMillisecond(), Times::isPositive, cacheBuilder::expireAfterAccess);
-        Functional.acceptIfNeed(Nil.isNull(cacheCaffeineProperties.getExpireAfterWrite()) ? null : Times.wrapper(cacheCaffeineProperties.getExpireAfterWrite()).toMillisecond(), Times::isPositive, cacheBuilder::expireAfterWrite);
-        Functional.acceptIfNeed(Nil.isNull(cacheCaffeineProperties.getRefreshAfterWrite()) ? null : Times.wrapper(cacheCaffeineProperties.getRefreshAfterWrite()).toMillisecond(), Times::isPositive, cacheBuilder::refreshAfterWrite);
-        Functional.acceptIfNeed(cacheCaffeineProperties.getInitialCapacity(), Numbers::isPositive, cacheBuilder::initialCapacity);
-        Functional.acceptIfNeed(cacheCaffeineProperties.getMaximumSize(), Numbers::isPositive, cacheBuilder::maximumSize);
-        Functional.acceptIfNeed(cacheCaffeineProperties.getKeyReferenceLevel(), Nil::isNotNull, referenceLevel -> {
+        Functional.acceptIfNeed(Nil.isNull(caffeineCacheProperty.getExpireAfterAccess()) ? null : Times.wrapper(caffeineCacheProperty.getExpireAfterAccess()).toMillisecond(), Times::isPositive, cacheBuilder::expireAfterAccess);
+        Functional.acceptIfNeed(Nil.isNull(caffeineCacheProperty.getExpireAfterWrite()) ? null : Times.wrapper(caffeineCacheProperty.getExpireAfterWrite()).toMillisecond(), Times::isPositive, cacheBuilder::expireAfterWrite);
+        Functional.acceptIfNeed(Nil.isNull(caffeineCacheProperty.getRefreshAfterWrite()) ? null : Times.wrapper(caffeineCacheProperty.getRefreshAfterWrite()).toMillisecond(), Times::isPositive, cacheBuilder::refreshAfterWrite);
+        Functional.acceptIfNeed(caffeineCacheProperty.getInitialCapacity(), Numbers::isPositive, cacheBuilder::initialCapacity);
+        Functional.acceptIfNeed(caffeineCacheProperty.getMaximumSize(), Numbers::isPositive, cacheBuilder::maximumSize);
+        Functional.acceptIfNeed(caffeineCacheProperty.getKeyReferenceLevel(), Nil::isNotNull, referenceLevel -> {
             switch (referenceLevel) {
                 case SOFT -> throw new UnsupportedException("unsupported [soft] reference type with caffeine key");
                 case WEAK -> cacheBuilder.weakKeys();
@@ -55,7 +55,7 @@ public class CaffeineCacheBuilder {
                 }
             }
         });
-        Functional.acceptIfNeed(cacheCaffeineProperties.getValueReferenceLevel(), Nil::isNotNull, referenceLevel -> {
+        Functional.acceptIfNeed(caffeineCacheProperty.getValueReferenceLevel(), Nil::isNotNull, referenceLevel -> {
             switch (referenceLevel) {
                 case SOFT -> cacheBuilder.softValues();
                 case WEAK -> cacheBuilder.weakValues();

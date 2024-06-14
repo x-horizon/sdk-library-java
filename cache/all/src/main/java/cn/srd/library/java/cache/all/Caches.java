@@ -6,7 +6,7 @@ package cn.srd.library.java.cache.all;
 
 import cn.srd.library.java.cache.caffeine.CaffeineCache;
 import cn.srd.library.java.cache.caffeine.CaffeineCacheTemplate;
-import cn.srd.library.java.cache.caffeine.model.properties.CacheCaffeineProperties;
+import cn.srd.library.java.cache.caffeine.model.property.CaffeineCacheProperty;
 import cn.srd.library.java.cache.map.MapCache;
 import cn.srd.library.java.cache.map.MapCacheTemplate;
 import cn.srd.library.java.cache.redis.RedisCache;
@@ -56,12 +56,12 @@ public class Caches {
     /**
      * caffeine implement
      *
-     * @param cacheCaffeineProperties {@link CacheCaffeineProperties}
-     * @param <K>                     cache key type
+     * @param caffeineCacheProperty {@link CaffeineCacheProperty}
+     * @param <K>                   cache key type
      * @return cache operation object
      */
-    public static <K> CaffeineCacheTemplate<K> withCaffeine(CacheCaffeineProperties cacheCaffeineProperties) {
-        return CaffeineCache.newInstance(cacheCaffeineProperties);
+    public static <K> CaffeineCacheTemplate<K> withCaffeine(CaffeineCacheProperty caffeineCacheProperty) {
+        return CaffeineCache.newInstance(caffeineCacheProperty);
     }
 
     /**

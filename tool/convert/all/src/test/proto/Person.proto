@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package cn.srd.library.java.tool.convert.all.protobuf.test;
 
+option java_multiple_files = true;
 option java_outer_classname = "PersonProto";
 
 message Person {

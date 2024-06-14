@@ -5,13 +5,13 @@
 package cn.srd.library.java.message.engine.contract;
 
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
-import cn.srd.library.java.message.engine.kafka.MessageKafkaConfig;
-import cn.srd.library.java.message.engine.mqtt.v3.MessageMqttV3Config;
-import cn.srd.library.java.message.engine.mqtt.v5.MessageMqttV5Config;
+import cn.srd.library.java.message.engine.kafka.KafkaConfig;
+import cn.srd.library.java.message.engine.mqtt.v3.MqttV3Config;
+import cn.srd.library.java.message.engine.mqtt.v5.MqttV5Config;
 import cn.srd.library.java.message.engine.nil.MessageNilConfig;
-import cn.srd.library.java.message.engine.rabbitmq.MessageRabbitMqConfig;
-import cn.srd.library.java.message.engine.redis.MessageRedisConfig;
-import cn.srd.library.java.message.engine.rocketmq.MessageRocketMqConfig;
+import cn.srd.library.java.message.engine.rabbitmq.RabbitMqConfig;
+import cn.srd.library.java.message.engine.redis.stream.RedisStreamConfig;
+import cn.srd.library.java.message.engine.rocketmq.RocketMqConfig;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -27,18 +27,18 @@ public @interface MessageConfig {
 
     MessageEngineType engineType();
 
-    MessageKafkaConfig kafka() default @MessageKafkaConfig();
+    KafkaConfig kafka() default @KafkaConfig();
 
-    MessageMqttV3Config mqttV3() default @MessageMqttV3Config();
+    MqttV3Config mqttV3() default @MqttV3Config();
 
-    MessageMqttV5Config mqttV5() default @MessageMqttV5Config();
+    MqttV5Config mqttV5() default @MqttV5Config();
 
     MessageNilConfig nil() default @MessageNilConfig();
 
-    MessageRabbitMqConfig rabbitmq() default @MessageRabbitMqConfig();
+    RabbitMqConfig rabbitmq() default @RabbitMqConfig();
 
-    MessageRedisConfig redis() default @MessageRedisConfig();
+    RedisStreamConfig redis() default @RedisStreamConfig();
 
-    MessageRocketMqConfig rocketmq() default @MessageRocketMqConfig();
+    RocketMqConfig rocketmq() default @RocketMqConfig();
 
 }
