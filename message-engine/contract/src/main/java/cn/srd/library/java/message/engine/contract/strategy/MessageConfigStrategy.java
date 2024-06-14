@@ -41,43 +41,43 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Component
-public abstract class MessageConfigStrategy<S extends MessageEngineProperty, F extends MessageConfigDTO, B extends MessageConfigDTO.BrokerDTO, L extends MessageConfigDTO.ClientDTO, P extends MessageConfigDTO.ProducerDTO, C extends MessageConfigDTO.ConsumerDTO> {
+public abstract class MessageConfigStrategy<Property extends MessageEngineProperty, Config extends MessageConfigDTO, BrokerConfig extends MessageConfigDTO.BrokerDTO, ClientConfig extends MessageConfigDTO.ClientDTO, ProducerConfig extends MessageConfigDTO.ProducerDTO, ConsumerConfig extends MessageConfigDTO.ConsumerDTO> {
 
     @Autowired private IntegrationFlowContext flowContext;
 
-    protected abstract Class<F> getConfigType();
+    protected abstract Class<Config> getConfigType();
 
-    protected abstract Class<S> getPropertyType();
+    protected abstract Class<Property> getPropertyType();
 
-    protected abstract MessageVerificationConfigDTO getVerificationConfigDTO(F configDTO);
+    protected abstract MessageVerificationConfigDTO getVerificationConfigDTO(Config configDTO);
 
-    protected abstract B getBrokerDTO();
+    protected abstract BrokerConfig getBrokerDTO();
 
-    protected abstract L getClientDTO(Annotation clientConfig, Method executeMethod);
+    protected abstract ClientConfig getClientDTO(Annotation clientConfig, Method executeMethod);
 
-    protected abstract P getProducerDTO(Method executeMethod, MessageProducer producerAnnotation);
+    protected abstract ProducerConfig getProducerDTO(Method executeMethod, MessageProducer producerAnnotation);
 
-    protected abstract C getConsumerDTO(Method executeMethod, MessageConsumer consumerAnnotation, MessageConfigDTO.ProducerDTO forwardProducerDTO);
+    protected abstract ConsumerConfig getConsumerDTO(Method executeMethod, MessageConsumer consumerAnnotation, MessageConfigDTO.ProducerDTO forwardProducerDTO);
 
-    protected abstract IntegrationFlow getProducerFlow(P producerDTO);
+    protected abstract IntegrationFlow getProducerFlow(ProducerConfig producerDTO);
 
-    protected abstract IntegrationFlow getConsumerFlow(C consumerDTO);
+    protected abstract IntegrationFlow getConsumerFlow(ConsumerConfig consumerDTO);
 
-    protected abstract void completeNativeConfigDTO(F configDTO);
+    protected abstract void completeNativeConfigDTO(Config configDTO);
 
-    protected abstract void registerClientFactory(B brokerDTO);
+    protected abstract void registerClientFactory(BrokerConfig brokerDTO);
 
-    protected abstract void registerProducerFactory(P producerDTO);
+    protected abstract void registerProducerFactory(ProducerConfig producerDTO);
 
-    protected abstract void registerConsumerFactory(C consumerDTO);
+    protected abstract void registerConsumerFactory(ConsumerConfig consumerDTO);
 
     public void initialize(MessageEngineType engineType) {
         log.info("{}message engine {} customizer is enabled, starting initializing...", ModuleView.MESSAGE_ENGINE_SYSTEM, engineType.getDescription());
 
-        B brokerDTO = getBrokerDTO();
-        List<P> producerDTOs = getProducerDTOs(engineType);
-        List<C> consumerDTOs = getConsumerDTOs(engineType);
-        F configDTO = Reflects.newInstance(getConfigType());
+        BrokerConfig brokerDTO = getBrokerDTO();
+        List<ProducerConfig> producerDTOs = getProducerDTOs(engineType);
+        List<ConsumerConfig> consumerDTOs = getConsumerDTOs(engineType);
+        Config configDTO = Reflects.newInstance(getConfigType());
         configDTO.setBrokerDTO(brokerDTO)
                 .setProducerRouter(getProducerRouter(producerDTOs))
                 .setConsumerRouter(getConsumerRouter(consumerDTOs))
@@ -131,14 +131,14 @@ public abstract class MessageConfigStrategy<S extends MessageEngineProperty, F e
                 });
     }
 
-    private List<P> getProducerDTOs(MessageEngineType engineType) {
+    private List<ProducerConfig> getProducerDTOs(MessageEngineType engineType) {
         return Annotations.getAnnotatedMethods(MessageProducer.class).stream()
                 .filter(producerMethod -> Comparators.equals(engineType, producerMethod.getAnnotation(MessageProducer.class).config().engineType()))
                 .map(producerMethod -> getProducerDTO(producerMethod, producerMethod.getAnnotation(MessageProducer.class)))
                 .toList();
     }
 
-    private Map<Method, P> getProducerRouter(List<P> producerDTOs) {
+    private Map<Method, ProducerConfig> getProducerRouter(List<ProducerConfig> producerDTOs) {
         return producerDTOs.stream()
                 .map(producerDTO -> Collections.ofPair(producerDTO.getClientDTO().getExecuteMethod(), producerDTO))
                 .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
@@ -146,22 +146,22 @@ public abstract class MessageConfigStrategy<S extends MessageEngineProperty, F e
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     private void registerForwardProducerRouter(Method executeMethod, MessageConfigDTO.ProducerDTO producerDTO) {
-        Map<Method, P> producerRouter = (Map<Method, P>) Springs.getBean(getConfigType()).getProducerRouter();
-        producerRouter.put(executeMethod, (P) producerDTO);
-        registerProducerFlow(Collections.ofArrayList((P) producerDTO));
+        Map<Method, ProducerConfig> producerRouter = (Map<Method, ProducerConfig>) Springs.getBean(getConfigType()).getProducerRouter();
+        producerRouter.put(executeMethod, (ProducerConfig) producerDTO);
+        registerProducerFlow(Collections.ofArrayList((ProducerConfig) producerDTO));
     }
 
-    private void registerProducerFactory(List<P> producerDTOs) {
+    private void registerProducerFactory(List<ProducerConfig> producerDTOs) {
         producerDTOs.forEach(this::registerProducerFactory);
     }
 
-    private void registerProducerFlow(List<P> producerDTOs) {
+    private void registerProducerFlow(List<ProducerConfig> producerDTOs) {
         producerDTOs.stream()
                 .filter(producerDTO -> Nil.isNull(this.flowContext.getRegistrationById(producerDTO.getClientDTO().getFlowId())))
                 .forEach(producerDTO -> registerFlow(producerDTO.getClientDTO().getFlowId(), getProducerFlow(producerDTO)));
     }
 
-    private List<C> getConsumerDTOs(MessageEngineType engineType) {
+    private List<ConsumerConfig> getConsumerDTOs(MessageEngineType engineType) {
         return Annotations.getAnnotatedMethods(MessageConsumer.class)
                 .stream()
                 .filter(consumerMethod -> Comparators.equals(engineType, consumerMethod.getAnnotation(MessageConsumer.class).config().engineType()))
@@ -177,17 +177,17 @@ public abstract class MessageConfigStrategy<S extends MessageEngineProperty, F e
                 .toList();
     }
 
-    private Map<Method, C> getConsumerRouter(List<C> consumerDTOs) {
+    private Map<Method, ConsumerConfig> getConsumerRouter(List<ConsumerConfig> consumerDTOs) {
         return consumerDTOs.stream()
                 .map(consumerDTO -> Collections.ofPair(consumerDTO.getClientDTO().getExecuteMethod(), consumerDTO))
                 .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
     }
 
-    private void registerConsumerFactory(List<C> consumerDTOs) {
+    private void registerConsumerFactory(List<ConsumerConfig> consumerDTOs) {
         consumerDTOs.forEach(this::registerConsumerFactory);
     }
 
-    private void registerConsumerFlow(List<C> consumerDTOs) {
+    private void registerConsumerFlow(List<ConsumerConfig> consumerDTOs) {
         consumerDTOs.stream()
                 .filter(consumerDTO -> Nil.isNull(this.flowContext.getRegistrationById(consumerDTO.getClientDTO().getFlowId())))
                 .forEach(consumerDTO -> registerFlow(consumerDTO.getClientDTO().getFlowId(), getConsumerFlow(consumerDTO)));
@@ -201,7 +201,7 @@ public abstract class MessageConfigStrategy<S extends MessageEngineProperty, F e
     }
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
-    private void verifyConfig(MessageEngineType engineType, F configDTO) {
+    private void verifyConfig(MessageEngineType engineType, Config configDTO) {
         MessageVerificationConfigDTO verificationConfigDTO = getVerificationConfigDTO(configDTO);
         if (Nil.isEmpty(configDTO.getBrokerDTO().getServerUrls())) {
             verificationConfigDTO.getBrokerFailedReason().put("invalid server urls", STR."invalid server urls, you must provide them in the config file, see [\{getPropertyType().getName()}].");
