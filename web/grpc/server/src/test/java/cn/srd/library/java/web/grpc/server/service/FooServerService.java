@@ -19,12 +19,12 @@ public class FooServerService extends FooGrpc.FooImplBase {
 
     @Override
     public void sayHello(FooRequest request, StreamObserver<FooResponse> responseObserver) {
-        throw new RuntimeException();
-        // FooResponse response = FooResponse.newBuilder()
-        //         .setMessage("Hello ==> " + request.getName())
-        //         .build();
-        // responseObserver.onNext(response);
-        // responseObserver.onCompleted();
+        // throw new RuntimeException();
+        FooResponse response = FooResponse.newBuilder()
+                .setMessage("Hello ==> " + request.getName())
+                .build();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
     }
 
 }

@@ -1,4 +1,4 @@
-package cn.srd.library.java.tool.spring.webflux;
+package cn.srd.library.java.tool.spring.webflux.filter;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Configuration;

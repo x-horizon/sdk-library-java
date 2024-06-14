@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: web-grpc-server
   threads:
     virtual:
       enabled: true
