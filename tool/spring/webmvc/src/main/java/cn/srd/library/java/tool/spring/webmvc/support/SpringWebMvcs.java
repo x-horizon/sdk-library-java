@@ -19,7 +19,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @since 2022-08-05 22:53
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class SpringWebMVCs {
+public class SpringWebMvcs {
 
     /**
      * get {@link ServletRequestAttributes}

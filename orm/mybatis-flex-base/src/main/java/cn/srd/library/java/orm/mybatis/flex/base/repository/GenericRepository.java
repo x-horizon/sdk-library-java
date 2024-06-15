@@ -21,7 +21,7 @@ import cn.srd.library.java.tool.lang.functional.Action;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.lang.text.Strings;
-import cn.srd.library.java.tool.spring.contract.Springs;
+import cn.srd.library.java.tool.spring.contract.support.Springs;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.keygen.CustomKeyGenerator;

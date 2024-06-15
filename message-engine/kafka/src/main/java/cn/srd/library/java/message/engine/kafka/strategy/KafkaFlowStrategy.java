@@ -6,7 +6,7 @@ package cn.srd.library.java.message.engine.kafka.strategy;
 
 import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
 import cn.srd.library.java.message.engine.kafka.model.dto.KafkaConfigDTO;
-import cn.srd.library.java.tool.spring.contract.Springs;
+import cn.srd.library.java.tool.spring.contract.support.Springs;
 
 import java.lang.reflect.Method;
 

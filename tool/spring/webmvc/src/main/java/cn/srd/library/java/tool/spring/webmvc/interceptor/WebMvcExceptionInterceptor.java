@@ -42,7 +42,7 @@ import static cn.srd.library.java.contract.model.protocol.WebResponse.error;
 @Slf4j
 @Order
 @RestControllerAdvice
-public class WebMVCExceptionInterceptor {
+public class WebMvcExceptionInterceptor {
 
     /**
      * 格式错误的处理，如：接收数据的 JSON 格式错误；

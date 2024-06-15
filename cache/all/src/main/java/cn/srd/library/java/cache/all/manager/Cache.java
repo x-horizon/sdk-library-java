@@ -3,7 +3,7 @@ package cn.srd.library.java.cache.all.manager;
 import cn.srd.library.java.cache.contract.CacheTemplate;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.object.Nil;
-import cn.srd.library.java.tool.spring.contract.NullValues;
+import cn.srd.library.java.tool.spring.contract.support.NullValues;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;

@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.contract.component.redis;
 
-import cn.srd.library.java.tool.spring.contract.Springs;
+import cn.srd.library.java.tool.spring.contract.support.Springs;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.redisson.api.RedissonClient;

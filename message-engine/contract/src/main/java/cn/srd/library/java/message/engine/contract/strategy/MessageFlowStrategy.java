@@ -5,7 +5,7 @@
 package cn.srd.library.java.message.engine.contract.strategy;
 
 import cn.srd.library.java.contract.model.protocol.MessageModel;
-import cn.srd.library.java.tool.spring.contract.Springs;
+import cn.srd.library.java.tool.spring.contract.support.Springs;
 import org.springframework.integration.dsl.context.IntegrationFlowContext;
 import org.springframework.messaging.support.GenericMessage;
 

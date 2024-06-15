@@ -7,7 +7,7 @@ package cn.srd.library.java.web.openfeign.autoconfigue;
 import cn.srd.library.java.contract.constant.booleans.BooleanConstant;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.object.Nil;
-import cn.srd.library.java.tool.spring.contract.Annotations;
+import cn.srd.library.java.tool.spring.contract.support.Annotations;
 import cn.srd.library.java.web.openfeign.cache.OpenFeignClientResponseModelCache;
 import cn.srd.library.java.web.openfeign.interceptor.OpenFeignClientResponseInterceptor;
 import okhttp3.OkHttpClient;

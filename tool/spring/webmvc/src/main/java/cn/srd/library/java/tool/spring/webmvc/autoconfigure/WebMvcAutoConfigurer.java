@@ -4,8 +4,8 @@
 
 package cn.srd.library.java.tool.spring.webmvc.autoconfigure;
 
-import cn.srd.library.java.tool.spring.webmvc.advice.WebMVCResponseBodyAdvice;
-import cn.srd.library.java.tool.spring.webmvc.interceptor.WebMVCExceptionInterceptor;
+import cn.srd.library.java.tool.spring.webmvc.advice.WebMvcResponseBodyAdvice;
+import cn.srd.library.java.tool.spring.webmvc.interceptor.WebMvcExceptionInterceptor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -18,18 +18,18 @@ import org.springframework.context.annotation.Bean;
  * @since 2023-11-09 21:01
  */
 @AutoConfiguration
-public class WebMVCAutoConfigurer {
+public class WebMvcAutoConfigurer {
 
     @Bean
-    @ConditionalOnBean(WebMVCResponseBodyAdviceSwitcher.class)
-    public WebMVCResponseBodyAdvice webMVCResponseBodyAdvice() {
-        return new WebMVCResponseBodyAdvice();
+    @ConditionalOnBean(WebMvcResponseBodyAdviceSwitcher.class)
+    public WebMvcResponseBodyAdvice webMVCResponseBodyAdvice() {
+        return new WebMvcResponseBodyAdvice();
     }
 
     @Bean
-    @ConditionalOnBean(WebMVCExceptionHandlerSwitcher.class)
-    public WebMVCExceptionInterceptor webMVCExceptionHandler() {
-        return new WebMVCExceptionInterceptor();
+    @ConditionalOnBean(WebMvcExceptionHandlerSwitcher.class)
+    public WebMvcExceptionInterceptor webMVCExceptionInterceptor() {
+        return new WebMvcExceptionInterceptor();
     }
 
 }

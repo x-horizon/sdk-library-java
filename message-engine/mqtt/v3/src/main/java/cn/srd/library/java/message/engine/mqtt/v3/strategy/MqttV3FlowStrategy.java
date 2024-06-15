@@ -6,7 +6,7 @@ package cn.srd.library.java.message.engine.mqtt.v3.strategy;
 
 import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
 import cn.srd.library.java.message.engine.mqtt.v3.model.dto.MqttV3ConfigDTO;
-import cn.srd.library.java.tool.spring.contract.Springs;
+import cn.srd.library.java.tool.spring.contract.support.Springs;
 
 import java.lang.reflect.Method;
 

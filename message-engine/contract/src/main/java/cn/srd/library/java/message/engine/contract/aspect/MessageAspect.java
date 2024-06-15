@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.message.engine.contract.aspect;
 
-import cn.srd.library.java.tool.spring.contract.AopCaptor;
+import cn.srd.library.java.tool.spring.contract.support.AopCaptor;
 
 /**
  * @author wjm

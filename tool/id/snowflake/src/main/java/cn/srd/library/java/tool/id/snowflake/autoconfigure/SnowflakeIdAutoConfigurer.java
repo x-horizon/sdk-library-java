@@ -7,7 +7,7 @@ package cn.srd.library.java.tool.id.snowflake.autoconfigure;
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.functional.Assert;
-import cn.srd.library.java.tool.spring.contract.Annotations;
+import cn.srd.library.java.tool.spring.contract.support.Annotations;
 import com.github.yitter.contract.IdGeneratorOptions;
 import com.github.yitter.idgen.YitIdHelper;
 import lombok.extern.slf4j.Slf4j;

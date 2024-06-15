@@ -5,12 +5,12 @@
 package cn.srd.library.java.tool.spring.webmvc.autoconfigure;
 
 /**
- * the {@link EnableWebMVCExceptionInterceptor spring webmvc exception handler} switcher
+ * the {@link EnableWebMvcResponseBodyAdvice spring webmvc response body advice} switcher
  *
  * @author wjm
- * @see WebMVCAutoConfigurer#webMVCExceptionHandler()
+ * @see WebMvcAutoConfigurer#webMVCResponseBodyAdvice()
  * @since 2023-11-09 21:01
  */
-public class WebMVCExceptionHandlerSwitcher {
+public class WebMvcResponseBodyAdviceSwitcher {
 
 }

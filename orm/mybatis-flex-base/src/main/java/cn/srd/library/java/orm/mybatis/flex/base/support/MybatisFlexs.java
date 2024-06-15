@@ -12,7 +12,7 @@ import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
-import cn.srd.library.java.tool.spring.contract.Classes;
+import cn.srd.library.java.tool.spring.contract.support.Classes;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.mybatis.Mappers;

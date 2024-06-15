@@ -12,8 +12,8 @@ import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.object.Types;
 import cn.srd.library.java.tool.lang.text.Strings;
-import cn.srd.library.java.tool.spring.contract.Annotations;
-import cn.srd.library.java.tool.spring.contract.Classes;
+import cn.srd.library.java.tool.spring.contract.support.Annotations;
+import cn.srd.library.java.tool.spring.contract.support.Classes;
 import lombok.Getter;
 import org.apache.ibatis.type.TypeHandler;
 

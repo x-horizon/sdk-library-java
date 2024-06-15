@@ -9,7 +9,7 @@ import cn.srd.library.java.contract.model.protocol.WebResponse;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.text.Strings;
-import cn.srd.library.java.tool.spring.webmvc.support.SpringWebMVCs;
+import cn.srd.library.java.tool.spring.webmvc.support.SpringWebMvcs;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.core.MethodParameter;
@@ -35,7 +35,7 @@ import static cn.srd.library.java.contract.model.protocol.WebResponse.success;
  * @since 2020-06-13 20:05
  */
 @RestControllerAdvice
-public class WebMVCResponseBodyAdvice implements ResponseBodyAdvice<Object> {
+public class WebMvcResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(@NonNull MethodParameter methodParameter, @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
@@ -85,7 +85,7 @@ public class WebMVCResponseBodyAdvice implements ResponseBodyAdvice<Object> {
         }
 
         private static boolean support(MethodParameter methodParameter) {
-            String requestURI = SpringWebMVCs.getHttpServletRequest().getRequestURI();
+            String requestURI = SpringWebMvcs.getHttpServletRequest().getRequestURI();
             return RESPONSE_BODY_MODEL_TYPES.stream().noneMatch(unsupportedType -> Comparators.equals(unsupportedType, methodParameter.getParameterType())) &&
                     CONTROLLER_TYPES.stream().noneMatch(unsupportedType -> Comparators.equals(unsupportedType, methodParameter.getContainingClass())) &&
                     CONTAIN_MATCH_URIS.stream().noneMatch(containMatchURI -> Strings.containsAny(requestURI, containMatchURI)) &&

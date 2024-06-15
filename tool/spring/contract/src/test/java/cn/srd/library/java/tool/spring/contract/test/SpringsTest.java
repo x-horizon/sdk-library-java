@@ -4,9 +4,9 @@
 
 package cn.srd.library.java.tool.spring.contract.test;
 
-import cn.srd.library.java.tool.spring.contract.Springs;
 import cn.srd.library.java.tool.spring.contract.model.WithAutoConfigurationBean;
 import cn.srd.library.java.tool.spring.contract.model.WithComponentBean;
+import cn.srd.library.java.tool.spring.contract.support.Springs;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;

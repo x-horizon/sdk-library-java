@@ -3,7 +3,7 @@ package cn.srd.library.java.cache.contract;
 import cn.srd.library.java.tool.lang.time.DurationWrapper;
 import cn.srd.library.java.tool.lang.time.TimeUnitHandler;
 import cn.srd.library.java.tool.lang.time.Times;
-import cn.srd.library.java.tool.spring.contract.NullValues;
+import cn.srd.library.java.tool.spring.contract.support.NullValues;
 import org.springframework.cache.support.NullValue;
 
 import java.time.Duration;

@@ -4,8 +4,8 @@
 
 package cn.srd.library.java.doc.knife4j.spring.webmvc;
 
-import cn.srd.library.java.tool.spring.webmvc.advice.WebMVCResponseBodyAdvice;
-import cn.srd.library.java.tool.spring.webmvc.autoconfigure.WebMVCResponseBodyAdviceSwitcher;
+import cn.srd.library.java.tool.spring.webmvc.advice.WebMvcResponseBodyAdvice;
+import cn.srd.library.java.tool.spring.webmvc.autoconfigure.WebMvcResponseBodyAdviceSwitcher;
 import org.springdoc.webmvc.api.MultipleOpenApiActuatorResource;
 import org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource;
 import org.springdoc.webmvc.api.OpenApiActuatorResource;
@@ -26,12 +26,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
  * @since 2023-11-27 17:13
  */
 @AutoConfiguration
-@ConditionalOnBean(WebMVCResponseBodyAdviceSwitcher.class)
+@ConditionalOnBean(WebMvcResponseBodyAdviceSwitcher.class)
 public class Knife4jSpringWebMVCAutoConfigurer implements SmartInitializingSingleton {
 
     @Override
     public void afterSingletonsInstantiated() {
-        WebMVCResponseBodyAdvice.Unsupported.registerControllers(
+        WebMvcResponseBodyAdvice.Unsupported.registerControllers(
                 SwaggerUiHome.class,
                 SwaggerWelcomeWebMvc.class,
                 SwaggerWelcomeActuator.class,

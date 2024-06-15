@@ -12,14 +12,14 @@ import java.lang.annotation.*;
  * enable spring webmvc exception interceptor
  *
  * @author wjm
- * @see WebMVCExceptionHandlerSwitcher
- * @see WebMVCAutoConfigurer#webMVCExceptionHandler()
+ * @see WebMvcExceptionHandlerSwitcher
+ * @see WebMvcAutoConfigurer#webMVCExceptionInterceptor()
  * @since 2022-07-16 18:16
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(WebMVCExceptionHandlerSwitcher.class)
-public @interface EnableWebMVCExceptionInterceptor {
+@Import(WebMvcExceptionHandlerSwitcher.class)
+public @interface EnableWebMvcExceptionInterceptor {
 
 }

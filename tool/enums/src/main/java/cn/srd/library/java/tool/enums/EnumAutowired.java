@@ -10,7 +10,7 @@ import cn.srd.library.java.tool.enums.strategy.EnumAutowiredFieldMatchByContainI
 import cn.srd.library.java.tool.enums.strategy.EnumAutowiredFieldMatchByMostSimilarRule;
 import cn.srd.library.java.tool.enums.strategy.EnumAutowiredFieldMatchRule;
 import cn.srd.library.java.tool.lang.text.Strings;
-import cn.srd.library.java.tool.spring.contract.Classes;
+import cn.srd.library.java.tool.spring.contract.support.Classes;
 import org.springframework.core.type.filter.TypeFilter;
 
 import java.lang.annotation.*;
