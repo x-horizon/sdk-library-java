@@ -28,6 +28,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.stream.Collectors;
 
@@ -156,6 +157,12 @@ public class WebMvcExceptionInterceptor {
         return error(exception.getStatus(), message);
     }
 
+    @ExceptionHandler(NoResourceFoundException.class)
+    public WebResponse<Void> handleNoResourceFoundException(HttpServletRequest httpServletRequest, NoResourceFoundException exception) {
+        log.error(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()), exception);
+        return error(HttpStatus.NOT_FOUND);
+    }
+
     /**
      * 出现 {@link WarningException} 时的处理；
      *
@@ -164,7 +171,7 @@ public class WebMvcExceptionInterceptor {
      * @return 响应结果
      */
     @ExceptionHandler(WarningException.class)
-    public WebResponse<Void> handleWarnOperationException(HttpServletRequest httpServletRequest, WarningException exception) {
+    public WebResponse<Void> handleWarningException(HttpServletRequest httpServletRequest, WarningException exception) {
         String message = exception.getMessage();
         log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
         return error(exception.getStatus(), message);
@@ -183,31 +190,31 @@ public class WebMvcExceptionInterceptor {
         return error(exception.getStatus(), exception.getMessage());
     }
 
-    /**
-     * 出现 {@link RuntimeException} 时的处理；
-     *
-     * @param httpServletRequest Servlet 上下文信息
-     * @param exception          抛出的异常
-     * @return 响应结果
-     */
-    @ExceptionHandler(RuntimeException.class)
-    public WebResponse<Void> handleRuntimeException(HttpServletRequest httpServletRequest, RuntimeException exception) {
-        log.error(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()), exception);
-        return error(HttpStatus.INTERNAL_ERROR);
-    }
-
-    /**
-     * 兜底处理所有未翻译异常；
-     *
-     * @param httpServletRequest Servlet 上下文信息
-     * @param exception          抛出的异常
-     * @return 响应结果
-     */
-    @ExceptionHandler(Exception.class)
-    public WebResponse<Void> handleException(HttpServletRequest httpServletRequest, Exception exception) {
-        log.error(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()), exception);
-        return error(HttpStatus.INTERNAL_ERROR);
-    }
+    // /**
+    //  * 出现 {@link RuntimeException} 时的处理；
+    //  *
+    //  * @param httpServletRequest Servlet 上下文信息
+    //  * @param exception          抛出的异常
+    //  * @return 响应结果
+    //  */
+    // @ExceptionHandler(RuntimeException.class)
+    // public WebResponse<Void> handleRuntimeException(HttpServletRequest httpServletRequest, RuntimeException exception) {
+    //     log.error(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()), exception);
+    //     return error(HttpStatus.INTERNAL_ERROR);
+    // }
+    //
+    // /**
+    //  * 兜底处理所有未翻译异常；
+    //  *
+    //  * @param httpServletRequest Servlet 上下文信息
+    //  * @param exception          抛出的异常
+    //  * @return 响应结果
+    //  */
+    // @ExceptionHandler(Exception.class)
+    // public WebResponse<Void> handleException(HttpServletRequest httpServletRequest, Exception exception) {
+    //     log.error(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()), exception);
+    //     return error(HttpStatus.INTERNAL_ERROR);
+    // }
 
     /**
      * 兜底处理所有未翻译异常，该处理主要是针对调用 RPC、二方包、或动态生成类的相关方法时，可能直接抛出的是 Error，而 catch Exception 无法捕获；

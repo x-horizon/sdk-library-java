@@ -20,6 +20,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -34,8 +35,7 @@ public class RestControllerAdvicePackagePathAutoConfigurer implements Applicatio
     public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {
         log.info("{}rest controller advice package path starting optimizing...", ModuleView.TOOL_SPRING_WEBMVC_SYSTEM);
 
-        EnableWebMvcResponseBodyAdvice webMVCResponseBodyAdvice = Annotations.getAnnotation(EnableWebMvcResponseBodyAdvice.class);
-        if (Nil.isNotNull(webMVCResponseBodyAdvice)) {
+        Optional.ofNullable(Annotations.getAnnotation(EnableWebMvcResponseBodyAdvice.class)).ifPresent(webMVCResponseBodyAdvice -> {
             Set<String> advicePackagePaths = Classes.parseAntStylePackagePathsToPackagePaths(webMVCResponseBodyAdvice.advicePackagePaths());
             if (Nil.isNotEmpty(advicePackagePaths)) {
                 RestControllerAdvice restControllerAdvice = Annotations.getAnnotation(WebMvcResponseBodyAdvice.class, RestControllerAdvice.class);
@@ -50,7 +50,7 @@ public class RestControllerAdvicePackagePathAutoConfigurer implements Applicatio
                         advicePackagePaths
                 );
             }
-        }
+        });
 
         log.info("{}rest controller advice package path has been optimized.", ModuleView.TOOL_SPRING_WEBMVC_SYSTEM);
     }
