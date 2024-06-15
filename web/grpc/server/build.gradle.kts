@@ -11,8 +11,6 @@ dependencies {
 
     api(GradleDependency.WEB_GRPC_SPRING_BOOT_SERVER.withoutVersion)
 
-    testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_JUNIT)))
-    testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING_BOOT)))
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_WEBMVC)))
     testImplementation(testFixtures(project(GradleModule.toReferenceName(GradleModule.WEB_GRPC_CONTRACT))))
 }
