@@ -5,6 +5,7 @@
 package cn.srd.library.java.tool.spring.webmvc.controller;
 
 import cn.srd.library.java.tool.spring.webmvc.model.vo.FooVO;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class FooController {
 
     @PostMapping("/hello")
-    public void sayHello(@RequestBody FooVO fooVO) {
+    public void sayHello(@Validated @RequestBody FooVO fooVO) {
         System.out.println(fooVO);
     }
 
