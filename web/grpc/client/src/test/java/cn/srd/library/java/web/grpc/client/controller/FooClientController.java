@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2024-06-14 12:02
  */
 @RestController
-@RequestMapping("/testGrpc")
+@RequestMapping("/foo")
 public class FooClientController {
 
     @Autowired private FooClientService fooClientService;
 
-    @PostMapping("/hello")
+    @PostMapping("/sayHello")
     public FooResponse sayHello() {
         return fooClientService.sayHello();
     }

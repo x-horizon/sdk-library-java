@@ -20,8 +20,8 @@ public class FooClientService {
     @GrpcClient("fooClientBlockingStub") private FooGrpc.FooBlockingStub fooBlockingStub;
 
     public FooResponse sayHello() {
-        FooResponse response = this.fooBlockingStub.sayHello(FooRequest.newBuilder().setName("name").build());
-        return response;
+        FooResponse fooResponse = this.fooBlockingStub.sayHello(FooRequest.newBuilder().setName("name").build());
+        return fooResponse;
     }
 
 }

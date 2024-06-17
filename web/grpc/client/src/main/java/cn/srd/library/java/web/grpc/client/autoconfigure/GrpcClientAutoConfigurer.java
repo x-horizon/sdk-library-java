@@ -5,9 +5,11 @@
 package cn.srd.library.java.web.grpc.client.autoconfigure;
 
 import cn.srd.library.java.web.grpc.client.interceptor.GrpcClientResponseInterceptor;
+import cn.srd.library.java.web.grpc.client.interceptor.GrpcWebMvcExceptionInterceptor;
 import net.devh.boot.grpc.client.interceptor.GrpcGlobalClientInterceptor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -23,6 +25,11 @@ public class GrpcClientAutoConfigurer {
     @GrpcGlobalClientInterceptor
     public GrpcClientResponseInterceptor grpcClientResponseInterceptor() {
         return new GrpcClientResponseInterceptor();
+    }
+
+    @Bean
+    public GrpcWebMvcExceptionInterceptor grpcWebMvcExceptionInterceptor() {
+        return new GrpcWebMvcExceptionInterceptor();
     }
 
 }
