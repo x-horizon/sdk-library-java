@@ -9,6 +9,7 @@ import cn.srd.library.java.web.grpc.client.interceptor.GrpcWebMvcExceptionInterc
 import net.devh.boot.grpc.client.interceptor.GrpcGlobalClientInterceptor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -28,6 +29,7 @@ public class GrpcClientAutoConfigurer {
     }
 
     @Bean
+    @ConditionalOnBean(GrpcWebMvcExceptionInterceptorRegistrar.class)
     public GrpcWebMvcExceptionInterceptor grpcWebMvcExceptionInterceptor() {
         return new GrpcWebMvcExceptionInterceptor();
     }
