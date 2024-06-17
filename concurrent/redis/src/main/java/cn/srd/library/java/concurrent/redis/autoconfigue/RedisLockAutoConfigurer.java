@@ -19,25 +19,25 @@ import org.springframework.context.annotation.Bean;
 public class RedisLockAutoConfigurer {
 
     @Bean
-    @ConditionalOnBean(RedisLockSwitcher.class)
+    @ConditionalOnBean(RedisLockRegistrar.class)
     public RedisFairLockHandler redisFairLockHandler() {
         return new RedisFairLockHandler();
     }
 
     @Bean
-    @ConditionalOnBean(RedisLockSwitcher.class)
+    @ConditionalOnBean(RedisLockRegistrar.class)
     public RedisFairLockAspect redisFairLockAspect() {
         return new RedisFairLockAspect();
     }
 
     @Bean
-    @ConditionalOnBean(RedisLockSwitcher.class)
+    @ConditionalOnBean(RedisLockRegistrar.class)
     public RedisNonFairLockHandler redisNonFairLockHandler() {
         return new RedisNonFairLockHandler();
     }
 
     @Bean
-    @ConditionalOnBean(RedisLockSwitcher.class)
+    @ConditionalOnBean(RedisLockRegistrar.class)
     public RedisNonFairLockAspect redisNonFairLockAspect() {
         return new RedisNonFairLockAspect();
     }

@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.message.engine.rabbitmq.autoconfigure;
 
-import cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineSwitcher;
+import cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineRegistrar;
 
 /**
  * the {@link EnableMessageEngineRabbitMq message engine rabbitmq system} switcher
@@ -12,6 +12,6 @@ import cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineSw
  * @author wjm
  * @since 2024-05-24 16:55
  */
-public class MessageEngineRabbitMqSwitcher implements MessageEngineSwitcher {
+public class MessageEngineRabbitMqRegistrar implements MessageEngineRegistrar {
 
 }

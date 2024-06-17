@@ -14,6 +14,6 @@ package cn.srd.library.java.concurrent.redis.autoconfigue;
  * @see RedisLockAutoConfigurer#redisNonFairLockHandler()
  * @since 2023-11-09 21:01
  */
-public class RedisLockSwitcher {
+public class RedisLockRegistrar {
 
 }

@@ -8,6 +8,6 @@ package cn.srd.library.java.message.engine.contract.autoconfigure;
  * @author wjm
  * @since 2024-06-04 15:48
  */
-public interface MessageEngineSwitcher {
+public interface MessageEngineRegistrar {
 
 }

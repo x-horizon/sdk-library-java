@@ -10,6 +10,6 @@ package cn.srd.library.java.tool.id.snowflake.autoconfigure;
  * @author wjm
  * @since 2023-11-13 10:26
  */
-public class SnowflakeIdSwitcher {
+public class SnowflakeIdRegistrar {
 
 }

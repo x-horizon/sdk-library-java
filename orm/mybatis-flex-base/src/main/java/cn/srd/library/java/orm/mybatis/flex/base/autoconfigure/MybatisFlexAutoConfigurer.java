@@ -30,7 +30,7 @@ public class MybatisFlexAutoConfigurer {
      * @return the mybatis flex customer bean
      */
     @Bean
-    @ConditionalOnBean(MybatisFlexCustomizerSwitcher.class)
+    @ConditionalOnBean(MybatisFlexCustomizerRegistrar.class)
     public MybatisFlexCustomizer mybatisFlexCapableCustomizer() {
         return new MybatisFlexCustomizer();
     }

@@ -21,13 +21,13 @@ import org.springframework.context.annotation.Bean;
 public class WebMvcAutoConfigurer {
 
     @Bean
-    @ConditionalOnBean(WebMvcResponseBodyAdviceSwitcher.class)
+    @ConditionalOnBean(WebMvcResponseBodyAdviceRegistrar.class)
     public WebMvcResponseBodyAdvice webMVCResponseBodyAdvice() {
         return new WebMvcResponseBodyAdvice();
     }
 
     @Bean
-    @ConditionalOnBean(WebMvcExceptionHandlerSwitcher.class)
+    @ConditionalOnBean(WebMvcExceptionInterceptorRegistrar.class)
     public WebMvcExceptionInterceptor webMVCExceptionInterceptor() {
         return new WebMvcExceptionInterceptor();
     }

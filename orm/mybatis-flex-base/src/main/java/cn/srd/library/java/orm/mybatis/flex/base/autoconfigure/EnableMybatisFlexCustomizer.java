@@ -19,7 +19,7 @@ import java.lang.annotation.*;
  * enable the global config of orm mybatis flex system
  *
  * @author wjm
- * @see MybatisFlexCustomizerSwitcher
+ * @see MybatisFlexCustomizerRegistrar
  * @see MybatisFlexCustomizer
  * @see MybatisFlexAutoConfigurer#mybatisFlexCapableCustomizer()
  * @see IdConfig
@@ -32,7 +32,7 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(MybatisFlexCustomizerSwitcher.class)
+@Import(MybatisFlexCustomizerRegistrar.class)
 public @interface EnableMybatisFlexCustomizer {
 
     /**

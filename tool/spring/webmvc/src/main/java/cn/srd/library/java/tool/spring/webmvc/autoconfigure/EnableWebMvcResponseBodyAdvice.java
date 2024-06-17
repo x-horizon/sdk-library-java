@@ -12,14 +12,14 @@ import java.lang.annotation.*;
  * enable webmvc response body advice
  *
  * @author wjm
- * @see WebMvcResponseBodyAdviceSwitcher
+ * @see WebMvcResponseBodyAdviceRegistrar
  * @see WebMvcAutoConfigurer#webMVCResponseBodyAdvice()
  * @since 2020-07-16 18:16
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(WebMvcResponseBodyAdviceSwitcher.class)
+@Import(WebMvcResponseBodyAdviceRegistrar.class)
 public @interface EnableWebMvcResponseBodyAdvice {
 
     String[] advicePackagePaths() default {};

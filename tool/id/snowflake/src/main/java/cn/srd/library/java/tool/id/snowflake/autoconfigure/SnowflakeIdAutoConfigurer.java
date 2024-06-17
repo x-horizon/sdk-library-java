@@ -26,7 +26,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
  */
 @Slf4j
 @AutoConfigureAfter(RedissonAutoConfiguration.class)
-@ConditionalOnBean(SnowflakeIdSwitcher.class)
+@ConditionalOnBean(SnowflakeIdRegistrar.class)
 public class SnowflakeIdAutoConfigurer implements SmartInitializingSingleton {
 
     /**

@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.message.engine.nil.autoconfigure;
 
-import cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineSwitcher;
+import cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineRegistrar;
 import cn.srd.library.java.message.engine.rabbitmq.autoconfigure.EnableMessageEngineRabbitMq;
 
 /**
@@ -13,6 +13,6 @@ import cn.srd.library.java.message.engine.rabbitmq.autoconfigure.EnableMessageEn
  * @author wjm
  * @since 2024-05-24 16:55
  */
-public class MessageEngineNilSwitcher implements MessageEngineSwitcher {
+public class MessageEngineNilRegistrar implements MessageEngineRegistrar {
 
 }

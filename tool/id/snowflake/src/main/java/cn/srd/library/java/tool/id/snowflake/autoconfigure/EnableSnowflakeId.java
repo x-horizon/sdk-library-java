@@ -19,14 +19,14 @@ import java.lang.annotation.*;
  * </pre>
  *
  * @author wjm
- * @see SnowflakeIdSwitcher
+ * @see SnowflakeIdRegistrar
  * @see SnowflakeIdAutoConfigurer
  * @since 2023-11-13 10:26
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(SnowflakeIdSwitcher.class)
+@Import(SnowflakeIdRegistrar.class)
 public @interface EnableSnowflakeId {
 
     /**

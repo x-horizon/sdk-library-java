@@ -8,14 +8,14 @@ import java.lang.annotation.*;
  * provide an annotation to enable redis lock system
  *
  * @author wjm
- * @see RedisLockSwitcher
+ * @see RedisLockRegistrar
  * @see RedisLockAutoConfigurer
  * @since 2023-06-13 17:26
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(RedisLockSwitcher.class)
+@Import(RedisLockRegistrar.class)
 public @interface EnableRedisLock {
 
 }

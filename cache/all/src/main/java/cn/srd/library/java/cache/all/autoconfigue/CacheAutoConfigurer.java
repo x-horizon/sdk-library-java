@@ -25,37 +25,37 @@ import org.springframework.context.annotation.Bean;
 public class CacheAutoConfigurer {
 
     @Bean
-    @ConditionalOnBean(CacheSwitcher.class)
+    @ConditionalOnBean(CacheRegistrar.class)
     public CacheReadAspect cacheReadAspect() {
         return new CacheReadAspect();
     }
 
     @Bean
-    @ConditionalOnBean(CacheSwitcher.class)
+    @ConditionalOnBean(CacheRegistrar.class)
     public CacheReadAllAspect cacheReadAllAspect() {
         return new CacheReadAllAspect();
     }
 
     @Bean
-    @ConditionalOnBean(CacheSwitcher.class)
+    @ConditionalOnBean(CacheRegistrar.class)
     public CacheWriteAspect cacheWriteAspect() {
         return new CacheWriteAspect();
     }
 
     @Bean
-    @ConditionalOnBean(CacheSwitcher.class)
+    @ConditionalOnBean(CacheRegistrar.class)
     public CacheWriteBatchAspect cacheWriteBatchAspect() {
         return new CacheWriteBatchAspect();
     }
 
     @Bean
-    @ConditionalOnBean(CacheSwitcher.class)
+    @ConditionalOnBean(CacheRegistrar.class)
     public CacheEvictAspect cacheEvictAspect() {
         return new CacheEvictAspect();
     }
 
     @Bean
-    @ConditionalOnBean(CacheSwitcher.class)
+    @ConditionalOnBean(CacheRegistrar.class)
     public CachingAspect cachingAspect() {
         return new CachingAspect();
     }

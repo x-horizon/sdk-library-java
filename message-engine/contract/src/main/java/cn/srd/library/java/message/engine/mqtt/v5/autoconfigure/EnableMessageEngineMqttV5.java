@@ -12,13 +12,13 @@ import java.lang.annotation.*;
  * provide an annotation to enable message engine mqtt-v5 system.
  *
  * @author wjm
- * @see MessageEngineMqttV5Switcher
+ * @see MessageEngineMqttV5Registrar
  * @since 2024-05-24 16:54
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(MessageEngineMqttV5Switcher.class)
+@Import(MessageEngineMqttV5Registrar.class)
 public @interface EnableMessageEngineMqttV5 {
 
 }

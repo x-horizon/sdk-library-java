@@ -12,13 +12,13 @@ import java.lang.annotation.*;
  * provide an annotation to enable message engine redis system.
  *
  * @author wjm
- * @see MessageEngineRedisStreamSwitcher
+ * @see MessageEngineRedisStreamRegistrar
  * @since 2024-05-24 16:54
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(MessageEngineRedisStreamSwitcher.class)
+@Import(MessageEngineRedisStreamRegistrar.class)
 public @interface EnableMessageEngineRedisStream {
 
 }

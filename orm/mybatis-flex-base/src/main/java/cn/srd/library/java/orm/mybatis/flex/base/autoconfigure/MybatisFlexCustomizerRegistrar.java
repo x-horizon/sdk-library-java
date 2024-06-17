@@ -11,6 +11,6 @@ package cn.srd.library.java.orm.mybatis.flex.base.autoconfigure;
  * @see MybatisFlexAutoConfigurer#mybatisFlexCapableCustomizer()
  * @since 2023-11-10 10:12
  */
-public class MybatisFlexCustomizerSwitcher {
+public class MybatisFlexCustomizerRegistrar {
 
 }

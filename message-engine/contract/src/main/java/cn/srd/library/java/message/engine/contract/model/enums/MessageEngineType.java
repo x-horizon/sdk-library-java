@@ -6,18 +6,18 @@ package cn.srd.library.java.message.engine.contract.model.enums;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
-import cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineSwitcher;
+import cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineRegistrar;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.model.property.MessageEngineProperty;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
 import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
-import cn.srd.library.java.message.engine.kafka.autoconfigure.MessageEngineKafkaSwitcher;
-import cn.srd.library.java.message.engine.mqtt.v3.autoconfigure.MessageEngineMqttV3Switcher;
-import cn.srd.library.java.message.engine.mqtt.v5.autoconfigure.MessageEngineMqttV5Switcher;
-import cn.srd.library.java.message.engine.nil.autoconfigure.MessageEngineNilSwitcher;
-import cn.srd.library.java.message.engine.rabbitmq.autoconfigure.MessageEngineRabbitMqSwitcher;
-import cn.srd.library.java.message.engine.redis.stream.autoconfigure.MessageEngineRedisStreamSwitcher;
-import cn.srd.library.java.message.engine.rocketmq.autoconfigure.MessageEngineRocketMqSwitcher;
+import cn.srd.library.java.message.engine.kafka.autoconfigure.MessageEngineKafkaRegistrar;
+import cn.srd.library.java.message.engine.mqtt.v3.autoconfigure.MessageEngineMqttV3Registrar;
+import cn.srd.library.java.message.engine.mqtt.v5.autoconfigure.MessageEngineMqttV5Registrar;
+import cn.srd.library.java.message.engine.nil.autoconfigure.MessageEngineNilRegistrar;
+import cn.srd.library.java.message.engine.rabbitmq.autoconfigure.MessageEngineRabbitMqRegistrar;
+import cn.srd.library.java.message.engine.redis.stream.autoconfigure.MessageEngineRedisStreamRegistrar;
+import cn.srd.library.java.message.engine.rocketmq.autoconfigure.MessageEngineRocketMqRegistrar;
 import cn.srd.library.java.tool.enums.EnumAutowired;
 import cn.srd.library.java.tool.enums.strategy.EnumAutowiredFieldMatchByContainIgnoreCaseRule;
 import cn.srd.library.java.tool.lang.functional.Assert;
@@ -31,17 +31,17 @@ import lombok.Getter;
 @EnumAutowired(rootClasses = {MessageConfigStrategy.class, MessageFlowStrategy.class}, allowNull = true, matchRule = EnumAutowiredFieldMatchByContainIgnoreCaseRule.class)
 public enum MessageEngineType {
 
-    KAFKA(1, "kafka", MessageEngineKafkaSwitcher.class),
-    MQTT_V3(2, "mqttV3", MessageEngineMqttV3Switcher.class),
-    MQTT_V5(3, "mqttV5", MessageEngineMqttV5Switcher.class),
-    NIL(4, "nil", MessageEngineNilSwitcher.class),
-    RABBITMQ(5, "rabbitmq", MessageEngineRabbitMqSwitcher.class),
-    REDIS(6, "redis", MessageEngineRedisStreamSwitcher.class),
-    ROCKETMQ(7, "rocketmq", MessageEngineRocketMqSwitcher.class),
+    KAFKA(1, "kafka", MessageEngineKafkaRegistrar.class),
+    MQTT_V3(2, "mqttV3", MessageEngineMqttV3Registrar.class),
+    MQTT_V5(3, "mqttV5", MessageEngineMqttV5Registrar.class),
+    NIL(4, "nil", MessageEngineNilRegistrar.class),
+    RABBITMQ(5, "rabbitmq", MessageEngineRabbitMqRegistrar.class),
+    REDIS(6, "redis", MessageEngineRedisStreamRegistrar.class),
+    ROCKETMQ(7, "rocketmq", MessageEngineRocketMqRegistrar.class),
 
     ;
 
-    MessageEngineType(int code, String description, Class<? extends MessageEngineSwitcher> systemSwitcher) {
+    MessageEngineType(int code, String description, Class<? extends MessageEngineRegistrar> systemSwitcher) {
         this.code = code;
         this.description = description;
         this.systemSwitcher = systemSwitcher;
@@ -51,7 +51,7 @@ public enum MessageEngineType {
 
     private final String description;
 
-    private final Class<? extends MessageEngineSwitcher> systemSwitcher;
+    private final Class<? extends MessageEngineRegistrar> systemSwitcher;
 
     private MessageConfigStrategy<MessageEngineProperty, MessageConfigDTO, MessageConfigDTO.BrokerDTO, MessageConfigDTO.ClientDTO, MessageConfigDTO.ProducerDTO, MessageConfigDTO.ConsumerDTO> configStrategy;
 

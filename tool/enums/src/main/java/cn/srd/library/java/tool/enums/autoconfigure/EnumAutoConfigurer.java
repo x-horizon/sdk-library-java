@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Bean;
 public class EnumAutoConfigurer {
 
     @Bean
-    @ConditionalOnBean(EnumAutowiredSwitcher.class)
+    @ConditionalOnBean(EnumAutowiredRegistrar.class)
     public <E extends Enum<E>> EnumAutowiredCollector<E> enumAutowiredCollector() {
         return new EnumAutowiredCollector<>();
     }

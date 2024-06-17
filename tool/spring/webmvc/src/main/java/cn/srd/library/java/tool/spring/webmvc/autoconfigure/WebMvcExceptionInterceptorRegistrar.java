@@ -11,6 +11,6 @@ package cn.srd.library.java.tool.spring.webmvc.autoconfigure;
  * @see WebMvcAutoConfigurer#webMVCExceptionInterceptor()
  * @since 2023-11-09 21:01
  */
-public class WebMvcExceptionHandlerSwitcher {
+public class WebMvcExceptionInterceptorRegistrar {
 
 }

@@ -16,6 +16,6 @@ package cn.srd.library.java.cache.all.autoconfigue;
  * @see CacheAutoConfigurer#cachingAspect()
  * @since 2023-11-09 21:01
  */
-public class CacheSwitcher {
+public class CacheRegistrar {
 
 }

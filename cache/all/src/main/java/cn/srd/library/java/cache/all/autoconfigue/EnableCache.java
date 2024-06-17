@@ -8,14 +8,14 @@ import java.lang.annotation.*;
  * provide an annotation to enable cache system
  *
  * @author wjm
- * @see CacheSwitcher
+ * @see CacheRegistrar
  * @see CacheAutoConfigurer
  * @since 2023-06-09 15:06
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(CacheSwitcher.class)
+@Import(CacheRegistrar.class)
 public @interface EnableCache {
 
 }
