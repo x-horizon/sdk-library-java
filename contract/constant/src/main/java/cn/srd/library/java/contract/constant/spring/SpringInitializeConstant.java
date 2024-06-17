@@ -23,4 +23,10 @@ public class SpringInitializeConstant {
 
     public static final int HIGH_INITIALIZE_PRIORITY = HIGHER_INITIALIZE_PRIORITY + 1;
 
+    public static final int LOWEST_INITIALIZE_PRIORITY = NumberConstant.MAX_INTEGER_VALUE;
+
+    public static final int LOWER_INITIALIZE_PRIORITY = LOWEST_INITIALIZE_PRIORITY - 1;
+
+    public static final int LOW_INITIALIZE_PRIORITY = LOWER_INITIALIZE_PRIORITY - 1;
+
 }

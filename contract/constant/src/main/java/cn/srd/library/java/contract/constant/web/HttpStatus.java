@@ -50,9 +50,13 @@ public enum HttpStatus {
     REQUEST_ENTITY_TOO_LARGE(413, "client error - request entity too large"),
     REQUEST_URI_TOO_LONG(414, "client error - request-uri too large"),
     UNSUPPORTED_MEDIA_TYPE(415, "client error - unsupported media type"),
-    NOT_LOGIN(430, "client error - not login"),
+    // extra - permission
+    NOT_LOGGED_IN(430, "client error - not logged in"),
     WITHOUT_PERMISSION(431, "client error - without permission"),
     WITHOUT_ROLE(432, "client error - without role"),
+    // extra - request parameter
+    MISSING_REQUEST_PARAMETER(450, "client error - missing request param"),
+    WRONG_REQUEST_PARAMETER(451, "client error - wrong request param"),
 
     INTERNAL_ERROR(500, "server error - internal server error"),
     NOT_IMPLEMENTED(501, "server error - not implemented"),
@@ -60,6 +64,8 @@ public enum HttpStatus {
     UNAVAILABLE(503, "server error - service unavailable"),
     GATEWAY_TIMEOUT(504, "server error - gateway timeout"),
     NOT_SUPPORTED_VERSION(505, "server error - http version not supported"),
+    // extra
+    DATA_NOT_FOUND(530, "server error - data not found"),
 
     ;
 
