@@ -7,6 +7,7 @@ package cn.srd.library.java.web.grpc.client.interceptor;
 import cn.srd.library.java.contract.constant.spring.SpringInitializeConstant;
 import cn.srd.library.java.contract.constant.web.HttpStatus;
 import cn.srd.library.java.contract.model.protocol.WebResponse;
+import io.grpc.StatusException;
 import io.grpc.StatusRuntimeException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,12 @@ public class GrpcWebMvcExceptionInterceptor {
 
     @ExceptionHandler(StatusRuntimeException.class)
     public WebResponse<Void> handleStatusRuntimeException(HttpServletRequest httpServletRequest, StatusRuntimeException exception) {
+        // log.error(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()), exception);
+        return error(HttpStatus.INTERNAL_ERROR);
+    }
+
+    @ExceptionHandler(StatusException.class)
+    public WebResponse<Void> handleStatusException(HttpServletRequest httpServletRequest, StatusException exception) {
         // log.error(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()), exception);
         return error(HttpStatus.INTERNAL_ERROR);
     }
