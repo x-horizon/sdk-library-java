@@ -6,22 +6,24 @@ package cn.srd.library.java.tool.spring.webmvc.controller;
 
 import cn.srd.library.java.tool.spring.webmvc.model.vo.FooVO;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author wjm
  * @since 2024-06-15 14:54
  */
 @RestController
-@RequestMapping("/testSpringWebMvc")
+@RequestMapping("/foo")
 public class FooController {
 
-    @PostMapping("/hello")
-    public void sayHello(@Validated @RequestBody FooVO fooVO) {
+    @PostMapping("/sayHello1")
+    public void sayHello1(@Validated @RequestBody FooVO fooVO) {
         System.out.println(fooVO);
+    }
+
+    @RequestMapping(path = "/sayHello2", method = {RequestMethod.GET, RequestMethod.POST})
+    public void sayHello2(@RequestParam(required = true) Long id, @RequestParam(required = true) String name) {
+        System.out.println(id + name);
     }
 
 }

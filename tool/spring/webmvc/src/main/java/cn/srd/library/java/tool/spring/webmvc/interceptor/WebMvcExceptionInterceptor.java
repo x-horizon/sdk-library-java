@@ -12,16 +12,14 @@ import cn.srd.library.java.contract.model.throwable.DataNotFoundException;
 import cn.srd.library.java.contract.model.throwable.RunningException;
 import cn.srd.library.java.contract.model.throwable.WarningException;
 import cn.srd.library.java.tool.lang.convert.Converts;
-import cn.srd.library.java.tool.lang.text.Strings;
+import cn.srd.library.java.tool.lang.object.Classes;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -35,154 +33,338 @@ import java.util.stream.Collectors;
 import static cn.srd.library.java.contract.model.protocol.WebResponse.error;
 
 /**
- * spring webmvc exception handler
+ * spring webmvc exception interceptor
  *
  * @author wjm
  * @since 2020-06-13 20:05
  */
+@SuppressWarnings(SuppressWarningConstant.PREVIEW)
 @Slf4j
 @Order
 @RestControllerAdvice
 public class WebMvcExceptionInterceptor {
 
     /**
-     * 格式错误的处理，如：接收数据的 JSON 格式错误；
+     * <pre>
+     * handle the exception sample as following:
      *
-     * @param httpServletRequest Servlet 上下文信息
-     * @param exception          抛出的异常
-     * @return 响应结果
+     *  1. define a controller.
+     *  {@code
+     *     @RestController
+     *     @RequestMapping("/foo")
+     *     public class FooController {
+     *
+     *         @PostMapping("/sayHello")
+     *         public void sayHello(@RequestBody FooVO fooVO) {
+     *             System.out.println(fooVO);
+     *         }
+     *
+     *     }
+     *  }
+     *
+     *  2. send a post request to /foo/sayHello2, will throw {@link NoResourceFoundException} and handled by this method.
+     * </pre>
+     *
+     * @param httpServletRequest the http servlet request
+     * @param exception          the exception
+     * @return the web response
      */
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public WebResponse<Void> handleHttpMessageNotReadableException(HttpServletRequest httpServletRequest, HttpMessageNotReadableException exception) {
-        String message = "参数格式错误：";
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), message), exception);
-        return error(HttpStatus.BAD_REQUEST, message + exception.getMessage());
+    @ExceptionHandler(NoResourceFoundException.class)
+    public WebResponse<Void> handleNoResourceFoundException(HttpServletRequest httpServletRequest, NoResourceFoundException exception) {
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()));
+        return error(HttpStatus.NOT_FOUND, STR."the resource path [\{exception.getResourcePath()}] not found");
     }
 
     /**
-     * Validator：{@link org.springframework.validation.annotation.Validated Validated} 校验不通过时的处理；
+     * <pre>
+     * handle the exception sample as following:
      *
-     * @param httpServletRequest Servlet 上下文信息
-     * @param exception          抛出的异常
-     * @return 响应结果
-     */
-    @ExceptionHandler(BindException.class)
-    public WebResponse<Void> handleBindException(HttpServletRequest httpServletRequest, BindException exception) {
-        String message = Strings.joinWithComma(Converts.toList(exception.getFieldErrors(), DefaultMessageSourceResolvable::getDefaultMessage));
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
-        return error(HttpStatus.BAD_REQUEST, message);
-    }
-
-    /**
-     * Validator：{@link org.springframework.validation.annotation.Validated Validated} + {@link org.springframework.web.bind.annotation.RequestBody RequestBody} 校验不通过时的处理；
+     *  1. define a view object.
+     *  {@code
+     *     @Data
+     *     @NoArgsConstructor
+     *     @Accessors(chain = true)
+     *     @SuperBuilder(toBuilder = true)
+     *     public class FooVO implements Serializable {
      *
-     * @param httpServletRequest Servlet 上下文信息
-     * @param exception          抛出的异常
-     * @return 响应结果
-     */
-    @ExceptionHandler(ConstraintViolationException.class)
-    public WebResponse<Void> handleValidationException(HttpServletRequest httpServletRequest, ConstraintViolationException exception) {
-        String message = exception.getConstraintViolations().stream().map(ConstraintViolation::getMessage).distinct().collect(Collectors.joining("，"));
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
-        return error(HttpStatus.BAD_REQUEST, message);
-    }
-
-    /**
-     * SpringMVC 参数校验不正确的处理；
+     *         @Serial private static final long serialVersionUID = -7576755740450265152L;
      *
-     * @param httpServletRequest Servlet 上下文信息
-     * @param exception          抛出的异常
-     * @return 响应结果
-     */
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public WebResponse<Void> handleMethodArgumentNotValidException(HttpServletRequest httpServletRequest, MethodArgumentNotValidException exception) {
-        String message = exception.getBindingResult().getFieldErrors().stream().map(FieldError::getDefaultMessage).distinct().collect(Collectors.joining("，"));
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
-        return error(HttpStatus.BAD_REQUEST, message);
-    }
-
-    /**
-     * SpringMVC 请求参数缺失的处理，如：设置了 &#064;{@link org.springframework.web.bind.annotation.RequestParam RequestParam}("xx") 参数，结果未传递 xx 参数；
+     *         private Long id;
      *
-     * @param httpServletRequest Servlet 上下文信息
-     * @param exception          抛出的异常
-     * @return 响应结果
-     */
-    @ExceptionHandler(MissingServletRequestParameterException.class)
-    public WebResponse<Void> handleMissingServletRequestParameterException(HttpServletRequest httpServletRequest, MissingServletRequestParameterException exception) {
-        String message = Strings.format("[{}]参数缺失", exception.getParameterName());
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
-        return error(HttpStatus.BAD_REQUEST, message);
-    }
-
-    /**
-     * SpringMVC 请求参数类型错误的处理，如：设置了 &#064;{@link org.springframework.web.bind.annotation.RequestParam RequestParam}("xx") 参数类型为 Integer，结果传递 xx 参数的类型为 String；
+     *         private String name;
      *
-     * @param httpServletRequest Servlet 上下文信息
-     * @param exception          抛出的异常
-     * @return 响应结果
-     */
-    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public WebResponse<Void> handleMethodArgumentTypeMismatchException(HttpServletRequest httpServletRequest, MethodArgumentTypeMismatchException exception) {
-        String message = Strings.format("[{}]参数类型错误", exception.getName());
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
-        return error(HttpStatus.BAD_REQUEST, message);
-    }
-
-    /**
-     * SpringMVC 请求方法不正确时的处理，如：接口方法为 GET，请求时为 POST；
+     *     }
+     *  }
      *
-     * @param httpServletRequest Servlet 上下文信息
-     * @param exception          抛出的异常
-     * @return 响应结果
+     *  2. define a controller.
+     *  {@code
+     *     @RestController
+     *     @RequestMapping("/foo")
+     *     public class FooController {
+     *
+     *         @RequestMapping(path = "/sayHello", method = {RequestMethod.GET, RequestMethod.POST})
+     *         public void sayHello(@RequestBody FooVO fooVO) {
+     *             System.out.println(fooVO);
+     *         }
+     *
+     *     }
+     *  }
+     *
+     *  3. send a put request to /foo/sayHello, will throw {@link HttpRequestMethodNotSupportedException} and handled by this method.
+     * </pre>
+     *
+     * @param httpServletRequest the http servlet request
+     * @param exception          the exception
+     * @return the web response
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public WebResponse<Void> handleHttpRequestMethodNotSupportedException(HttpServletRequest httpServletRequest, HttpRequestMethodNotSupportedException exception) {
-        String message = exception.getMessage();
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
-        return error(HttpStatus.BAD_METHOD, message);
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()));
+        return error(HttpStatus.BAD_METHOD, STR."supported request methods are \{Converts.toList(exception.getSupportedMethods())}, but current request method is [\{exception.getMethod()}]");
     }
 
     /**
-     * 出现 {@link DataNotFoundException} 时的处理；
+     * <pre>
+     * handle the exception sample as following:
      *
-     * @param httpServletRequest Servlet 上下文信息
-     * @param exception          抛出的异常
-     * @return 响应结果
+     *  1. define a view object.
+     *  {@code
+     *     @Data
+     *     @NoArgsConstructor
+     *     @Accessors(chain = true)
+     *     @SuperBuilder(toBuilder = true)
+     *     public class FooVO implements Serializable {
+     *
+     *         @Serial private static final long serialVersionUID = -7576755740450265152L;
+     *
+     *         private Long id;
+     *
+     *         private String name;
+     *
+     *     }
+     *  }
+     *
+     *  2. define a controller.
+     *  {@code
+     *     @RestController
+     *     @RequestMapping("/foo")
+     *     public class FooController {
+     *
+     *         @PostMapping("/sayHello")
+     *         public void sayHello(@RequestBody FooVO fooVO) {
+     *             System.out.println(fooVO);
+     *         }
+     *
+     *     }
+     *  }
+     *
+     *  3. send a post request to /foo/sayHello with null data, this means that the data cannot be deserialized to FooVO, will throw {@link HttpMessageNotReadableException} and handled by this method.
+     * </pre>
+     *
+     * @param httpServletRequest the http servlet request
+     * @param exception          the exception
+     * @return the web response
+     */
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public WebResponse<Void> handleHttpMessageNotReadableException(HttpServletRequest httpServletRequest, HttpMessageNotReadableException exception) {
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()));
+        return error(HttpStatus.MISSING_REQUEST_PARAMETER, "failed to parse request body");
+    }
+
+    /**
+     * <pre>
+     * handle the exception sample as following:
+     *
+     *  1. define a view object.
+     *  {@code
+     *     @Data
+     *     @NoArgsConstructor
+     *     @Accessors(chain = true)
+     *     @SuperBuilder(toBuilder = true)
+     *     public class FooVO implements Serializable {
+     *
+     *         @Serial private static final long serialVersionUID = -7576755740450265152L;
+     *
+     *         private Long id;
+     *
+     *         private String name;
+     *
+     *     }
+     *  }
+     *
+     *  2. define a controller.
+     *  {@code
+     *     @RestController
+     *     @RequestMapping("/foo")
+     *     public class FooController {
+     *
+     *         @PostMapping("/sayHello")
+     *         public void sayHello(@RequestParam(required = true) Long id, @RequestParam(required = true) String name) {
+     *             System.out.println(id + name);
+     *         }
+     *
+     *     }
+     *  }
+     * </pre>
+     *
+     * <p>sample 1: send a post request to /foo/sayHello,              will throw {@link MissingServletRequestParameterException} and handled by this method because of the parameter [id] is missing.
+     * <p>sample 2: send a post request to /foo/sayHello?name="",      will throw {@link MissingServletRequestParameterException} and handled by this method because of the parameter [id] is missing.
+     * <p>sample 3: send a post request to /foo/sayHello?id=1,         will throw {@link MissingServletRequestParameterException} and handled by this method because of the parameter [name] is missing.
+     * <p>sample 4: send a post request to /foo/sayHello?id=1&name="", request success.
+     *
+     * @param httpServletRequest the http servlet request
+     * @param exception          the exception
+     * @return the web response
+     */
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public WebResponse<Void> handleMissingServletRequestParameterException(HttpServletRequest httpServletRequest, MissingServletRequestParameterException exception) {
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()));
+        return error(HttpStatus.MISSING_REQUEST_PARAMETER, STR."the parameter [\{exception.getParameterName()}] with type [\{exception.getParameterType()}] is missing");
+    }
+
+    /**
+     * <pre>
+     * handle the exception sample as following:
+     *
+     *  1. define a view object.
+     *  {@code
+     *     @Data
+     *     @NoArgsConstructor
+     *     @Accessors(chain = true)
+     *     @SuperBuilder(toBuilder = true)
+     *     public class FooVO implements Serializable {
+     *
+     *         @Serial private static final long serialVersionUID = -7576755740450265152L;
+     *
+     *         private Long id;
+     *
+     *         private String name;
+     *
+     *     }
+     *  }
+     *
+     *  2. define a controller.
+     *  {@code
+     *     @RestController
+     *     @RequestMapping("/foo")
+     *     public class FooController {
+     *
+     *         @PostMapping("/sayHello")
+     *         public void sayHello(@RequestParam(required = true) Long id, @RequestParam(required = true) String name) {
+     *             System.out.println(id + name);
+     *         }
+     *
+     *     }
+     *  }
+     * </pre>
+     *
+     * <p>sample 1: send a post request to /foo/sayHello?id=null&name=null, the null value will be convert to "null", will throw {@link MethodArgumentTypeMismatchException} and handled by this method because of the parameter [id] type is wrong.
+     * <p>sample 2: send a post request to /foo/sayHello?id=null&name="",   the null value will be convert to "null", will throw {@link MethodArgumentTypeMismatchException} and handled by this method because of the parameter [id] type is wrong.
+     * <p>sample 3: send a post request to /foo/sayHello?id=1&name=null,    the null value will be convert to "null", request success.
+     * <p>sample 4: send a post request to /foo/sayHello?id=1&name="",      request success.
+     *
+     * @param httpServletRequest the http servlet request
+     * @param exception          the exception
+     * @return the web response
+     */
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public WebResponse<Void> handleMethodArgumentTypeMismatchException(HttpServletRequest httpServletRequest, MethodArgumentTypeMismatchException exception) {
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()));
+        return error(HttpStatus.WRONG_REQUEST_PARAMETER, STR."failed to convert [\{exception.getValue()}] to parameter [\{exception.getName()}] with type [\{Classes.getClassSimpleName(exception.getRequiredType())}]");
+    }
+
+    /**
+     * <pre>
+     * handle the exception sample as following:
+     *
+     *  1. define a view object and marked the validation annotation like @{@link NotNull} on the specified field.
+     *  {@code
+     *     @Data
+     *     @NoArgsConstructor
+     *     @Accessors(chain = true)
+     *     @SuperBuilder(toBuilder = true)
+     *     public class FooVO implements Serializable {
+     *
+     *         @Serial private static final long serialVersionUID = -7576755740450265152L;
+     *
+     *         @NotNull(message = "the field [id] value is not allow to be null")
+     *         private Long id;
+     *
+     *         @NotBlank(message = "the field [name] value is not allow to be blank")
+     *         private String name;
+     *
+     *     }
+     *  }
+     *
+     *  2. define a controller and marked @{@link Validated} on the view object.
+     *  {@code
+     *     @RestController
+     *     @RequestMapping("/foo")
+     *     public class FooController {
+     *
+     *         @PostMapping("/sayHello")
+     *         public void sayHello(@Validated @RequestBody FooVO fooVO) {
+     *             System.out.println(fooVO);
+     *         }
+     *
+     *     }
+     *  }
+     *
+     *  3. send a post request to /foo/sayHello with data like:
+     *  {@code
+     *     {
+     *         "id": null,
+     *         "name": "  "
+     *     }
+     *  }
+     *
+     *  4. will throw {@link MethodArgumentNotValidException} and handled by this method.
+     * </pre>
+     *
+     * @param httpServletRequest the http servlet request
+     * @param exception          the exception
+     * @return the web response
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public WebResponse<Void> handleMethodArgumentNotValidException(HttpServletRequest httpServletRequest, MethodArgumentNotValidException exception) {
+        String message = exception.getBindingResult().getFieldErrors().stream().map(FieldError::getDefaultMessage).distinct().collect(Collectors.joining(", "));
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
+        return error(HttpStatus.WRONG_REQUEST_PARAMETER, message);
+    }
+
+    /**
+     * handle the exception when throw {@link DataNotFoundException}
+     *
+     * @param httpServletRequest the http servlet request
+     * @param exception          the exception
+     * @return the web response
      */
     @ExceptionHandler(DataNotFoundException.class)
     public WebResponse<Void> handleDataNotFoundException(HttpServletRequest httpServletRequest, DataNotFoundException exception) {
         String message = "操作失败，数据不存在";
         log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
-        return error(exception.getStatus(), message);
-    }
-
-    @ExceptionHandler(NoResourceFoundException.class)
-    public WebResponse<Void> handleNoResourceFoundException(HttpServletRequest httpServletRequest, NoResourceFoundException exception) {
-        log.error(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()), exception);
-        return error(HttpStatus.NOT_FOUND);
+        return error(HttpStatus.DATA_NOT_FOUND, message);
     }
 
     /**
-     * 出现 {@link WarningException} 时的处理；
+     * handle the exception when throw {@link WarningException}
      *
-     * @param httpServletRequest Servlet 上下文信息
-     * @param exception          抛出的异常
-     * @return 响应结果
+     * @param httpServletRequest the http servlet request
+     * @param exception          the exception
+     * @return the web response
      */
     @ExceptionHandler(WarningException.class)
     public WebResponse<Void> handleWarningException(HttpServletRequest httpServletRequest, WarningException exception) {
-        String message = exception.getMessage();
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
-        return error(exception.getStatus(), message);
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()));
+        return error(exception.getStatus(), exception.getMessage());
     }
 
     /**
-     * 出现 {@link RunningException} 时的处理；
+     * handle the exception when throw {@link RunningException}
      *
-     * @param httpServletRequest Servlet 上下文信息
-     * @param exception          抛出的异常
-     * @return 响应结果
+     * @param httpServletRequest the http servlet request
+     * @param exception          the exception
+     * @return the web response
      */
     @ExceptionHandler(RunningException.class)
     public WebResponse<Void> handleRunningException(HttpServletRequest httpServletRequest, RunningException exception) {
@@ -190,38 +372,12 @@ public class WebMvcExceptionInterceptor {
         return error(exception.getStatus(), exception.getMessage());
     }
 
-    // /**
-    //  * 出现 {@link RuntimeException} 时的处理；
-    //  *
-    //  * @param httpServletRequest Servlet 上下文信息
-    //  * @param exception          抛出的异常
-    //  * @return 响应结果
-    //  */
-    // @ExceptionHandler(RuntimeException.class)
-    // public WebResponse<Void> handleRuntimeException(HttpServletRequest httpServletRequest, RuntimeException exception) {
-    //     log.error(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()), exception);
-    //     return error(HttpStatus.INTERNAL_ERROR);
-    // }
-    //
-    // /**
-    //  * 兜底处理所有未翻译异常；
-    //  *
-    //  * @param httpServletRequest Servlet 上下文信息
-    //  * @param exception          抛出的异常
-    //  * @return 响应结果
-    //  */
-    // @ExceptionHandler(Exception.class)
-    // public WebResponse<Void> handleException(HttpServletRequest httpServletRequest, Exception exception) {
-    //     log.error(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()), exception);
-    //     return error(HttpStatus.INTERNAL_ERROR);
-    // }
-
     /**
-     * 兜底处理所有未翻译异常，该处理主要是针对调用 RPC、二方包、或动态生成类的相关方法时，可能直接抛出的是 Error，而 catch Exception 无法捕获；
+     * all exceptions handled when no matching exception by this class other methods
      *
-     * @param httpServletRequest Servlet 上下文信息
-     * @param exception          抛出的异常
-     * @return 响应结果
+     * @param httpServletRequest the http servlet request
+     * @param exception          the exception
+     * @return the web response
      */
     @ExceptionHandler(Throwable.class)
     public WebResponse<Void> handleThrowable(HttpServletRequest httpServletRequest, Throwable exception) {
@@ -229,7 +385,6 @@ public class WebMvcExceptionInterceptor {
         return error(HttpStatus.INTERNAL_ERROR);
     }
 
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     private String formatMessage(String requestUri, String message) {
         return STR."\{ModuleView.TOOL_SPRING_WEBMVC_SYSTEM}请求资源地址：'\{requestUri}'，错误信息：\{message}";
     }
