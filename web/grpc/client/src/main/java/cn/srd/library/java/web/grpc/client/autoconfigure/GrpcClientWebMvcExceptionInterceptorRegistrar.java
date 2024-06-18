@@ -4,13 +4,10 @@
 
 package cn.srd.library.java.web.grpc.client.autoconfigure;
 
-import org.springframework.context.annotation.Import;
-
 /**
  * @author wjm
  * @since 2024-06-17 17:56
  */
-@Import(GrpcWebMvcExceptionInterceptorRegistrar.class)
-public class GrpcWebMvcExceptionInterceptorRegistrar {
+public class GrpcClientWebMvcExceptionInterceptorRegistrar {
 
 }

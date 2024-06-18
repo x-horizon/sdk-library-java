@@ -4,14 +4,11 @@
 
 package cn.srd.library.java.web.grpc.client.autoconfigure;
 
-import cn.srd.library.java.web.grpc.client.interceptor.GrpcClientResponseInterceptor;
-import cn.srd.library.java.web.grpc.client.interceptor.GrpcWebMvcExceptionInterceptor;
-import net.devh.boot.grpc.client.interceptor.GrpcGlobalClientInterceptor;
+import cn.srd.library.java.web.grpc.client.interceptor.GrpcClientWebMvcExceptionInterceptor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Web Grpc Client
@@ -20,18 +17,12 @@ import org.springframework.context.annotation.Configuration;
  * @since 2024-06-14 16:28
  */
 @AutoConfiguration
-@Configuration
 public class GrpcClientAutoConfigurer {
 
-    @GrpcGlobalClientInterceptor
-    public GrpcClientResponseInterceptor grpcClientResponseInterceptor() {
-        return new GrpcClientResponseInterceptor();
-    }
-
     @Bean
-    @ConditionalOnBean(GrpcWebMvcExceptionInterceptorRegistrar.class)
-    public GrpcWebMvcExceptionInterceptor grpcWebMvcExceptionInterceptor() {
-        return new GrpcWebMvcExceptionInterceptor();
+    @ConditionalOnBean(GrpcClientWebMvcExceptionInterceptorRegistrar.class)
+    public GrpcClientWebMvcExceptionInterceptor grpcClientWebMvcExceptionInterceptor() {
+        return new GrpcClientWebMvcExceptionInterceptor();
     }
 
 }

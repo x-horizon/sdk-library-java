@@ -6,13 +6,13 @@ package cn.srd.library.java.web.grpc.client;
 
 import cn.srd.library.java.tool.spring.webmvc.autoconfigure.EnableWebMvcExceptionInterceptor;
 import cn.srd.library.java.tool.spring.webmvc.autoconfigure.EnableWebMvcResponseBodyAdvice;
-import cn.srd.library.java.web.grpc.client.autoconfigure.EnableGrpcWebMvcExceptionInterceptor;
+import cn.srd.library.java.web.grpc.client.autoconfigure.EnableGrpcClientWebMvcExceptionInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @EnableWebMvcResponseBodyAdvice
 @EnableWebMvcExceptionInterceptor
-@EnableGrpcWebMvcExceptionInterceptor
+@EnableGrpcClientWebMvcExceptionInterceptor
 @SpringBootApplication
 public class WebGrpcClientApplication {
 

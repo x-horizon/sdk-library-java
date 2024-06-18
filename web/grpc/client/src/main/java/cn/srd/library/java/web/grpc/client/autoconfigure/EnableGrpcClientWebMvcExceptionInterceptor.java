@@ -4,19 +4,22 @@
 
 package cn.srd.library.java.web.grpc.client.autoconfigure;
 
+import org.springframework.context.annotation.Import;
+
 import java.lang.annotation.*;
 
 /**
- * enable spring webmvc exception interceptor
+ * enable grpc client spring webmvc exception interceptor
  *
  * @author wjm
- * @see GrpcWebMvcExceptionInterceptorRegistrar
- * @see GrpcClientAutoConfigurer#grpcWebMvcExceptionInterceptor()
+ * @see GrpcClientWebMvcExceptionInterceptorRegistrar
+ * @see GrpcClientAutoConfigurer#grpcClientWebMvcExceptionInterceptor()
  * @since 2024-06-17 17:56
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-public @interface EnableGrpcWebMvcExceptionInterceptor {
+@Import(GrpcClientWebMvcExceptionInterceptorRegistrar.class)
+public @interface EnableGrpcClientWebMvcExceptionInterceptor {
 
 }

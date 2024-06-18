@@ -4,11 +4,11 @@
 
 package cn.srd.library.java.web.grpc.server.service;
 
-import cn.srd.library.java.tool.lang.object.Nil;
+import cn.srd.library.java.contract.model.throwable.RunningException;
+import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.web.grpc.contract.service.FooGrpc;
 import cn.srd.library.java.web.grpc.contract.service.FooRequest;
 import cn.srd.library.java.web.grpc.contract.service.FooResponse;
-import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 
@@ -21,16 +21,17 @@ public class FooServerService extends FooGrpc.FooImplBase {
 
     @Override
     public void sayHello(FooRequest request, StreamObserver<FooResponse> responseObserver) {
-        // Assert.of().setMessage("名词不可为空").throwsIfBlank(request.getName());
-        if (Nil.isBlank(request.getName())) {
-            responseObserver.onError(Status.INVALID_ARGUMENT.withDescription("名词不可为空").asRuntimeException());
-        } else {
-            FooResponse response = FooResponse.newBuilder()
-                    .setMessage("Hello ==> " + request.getName())
-                    .build();
-            responseObserver.onNext(response);
-            responseObserver.onCompleted();
-        }
+        Assert.of().setThrowable(RunningException.class).setMessage("dsjcbndjksnds").doThrows();
+        // throw Status.UNIMPLEMENTED.asRuntimeException();
+        // if (Nil.isBlank(request.getName())) {
+        //     responseObserver.onError(Status.INVALID_ARGUMENT.withDescription("名词不可为空").asRuntimeException());
+        // } else {
+        //     FooResponse response = FooResponse.newBuilder()
+        //             .setMessage("Hello ==> " + request.getName())
+        //             .build();
+        //     responseObserver.onNext(response);
+        //     responseObserver.onCompleted();
+        // }
     }
 
 }
