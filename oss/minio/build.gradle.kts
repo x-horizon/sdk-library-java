@@ -4,6 +4,7 @@
 
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
+    api(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_CONTRACT)))
 
-    api(GradleDependency.OSS_MINIO.withoutVersion)
+    api(GradleDependency.OSS_MINIO_PLUS.withoutVersion)
 }

@@ -16,6 +16,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_METRIC_MICROMETER("io.micrometer:micrometer-bom", "1.13.0"), // support spring-boot version to 3.3.0
     BOM_ORM_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-dependencies", "1.8.9"), // support spring-boot version to 3.2.4
     BOM_ORM_MYBATIS_PLUS("com.baomidou:mybatis-plus-bom", "3.5.6"), // TODO wjm support spring-boot version to 3.2.0
+    BOM_OSS_MINIO_PLUS("me.liuxp:minio-plus-parent", "0.1.2"), // TODO wjm support spring-boot version to 2.6.11
     BOM_SECURITY_DEV33_SA_TOKEN("cn.dev33:sa-token-bom", "1.38.0"), // TODO wjm support spring-boot version to 2.5.15
     BOM_TEST_MOCKITO("org.mockito:mockito-bom", "5.11.0"),
     BOM_TEST_TESTCONTAINERS("org.testcontainers:testcontainers-bom", "1.19.8"), // TODO wjm support spring-boot version to 3.2.4
@@ -81,7 +82,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     ORM_SPRING_INTEGRATION_CASSANDRA("org.springframework.integration:spring-integration-cassandra", ""),
     ORM_TD_ENGINE_JDBC("com.taosdata.jdbc:taos-jdbcdriver", "3.2.5"), // TODO wjm org.springframework.integration
 
-    OSS_MINIO("io.minio:minio", "8.5.9"),
+    OSS_MINIO_PLUS("me.liuxp:minio-plus-all-spring-boot-starter", ""),
 
     PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK("org.projectlombok:lombok", "1.18.32"), // support spring-boot version to 3.3.0
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING("org.projectlombok:lombok-mapstruct-binding", "0.2.0"),
