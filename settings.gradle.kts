@@ -75,6 +75,7 @@ include(":orm:spring-jdbc")
 include(":orm:spring-jpa")
 include(":orm:td-engine-jdbc")
 
+include(":oss:contract")
 include(":oss:minio")
 
 include(":pluggable-annotation-api:lombok")

@@ -66,6 +66,7 @@ object GradleModule {
     const val ORM_SPRING_JPA = "orm-spring-jpa"
     const val ORM_TD_ENGINE_JDBC = "orm-td-engine-jdbc"
 
+    const val OSS_CONTRACT = "oss-contract"
     const val OSS_MINIO = "oss-minio"
 
     const val PLUGGABLE_ANNOTATION_API_LOMBOK = "pluggable-annotation-api-lombok"

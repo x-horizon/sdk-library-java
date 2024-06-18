@@ -19,6 +19,7 @@ dependencies {
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_METRIC_MICROMETER)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_ORM_MYBATIS_FLEX)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_ORM_MYBATIS_PLUS)))
+    api(platform(GradleDependency.withVersion(GradleDependency.BOM_OSS_ALL_FACED)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_SECURITY_DEV33_SA_TOKEN)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_TEST_MOCKITO)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_TEST_TESTCONTAINERS)))
@@ -49,8 +50,6 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.ORM_MYBATIS_PLUS_DYNAMIC_DATASOURCE))
         api(GradleDependency.withVersion(GradleDependency.ORM_SPRING_INTEGRATION_CASSANDRA))
         api(GradleDependency.withVersion(GradleDependency.ORM_TD_ENGINE_JDBC))
-
-        api(GradleDependency.withVersion(GradleDependency.OSS_MINIO))
 
         api(GradleDependency.withVersion(GradleDependency.MESSAGE_MQTT_V5_ECLIPSE_PAHO)) // TODO wjm need to remove
         api(GradleDependency.withVersion(GradleDependency.MESSAGE_ROCKETMQ_TODO)) // TODO wjm need to remove
@@ -172,6 +171,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.ORM_SPRING_JPA)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_TD_ENGINE_JDBC)))
 
+        api(project(GradleModule.toReferenceName(GradleModule.OSS_CONTRACT)))
         api(project(GradleModule.toReferenceName(GradleModule.OSS_MINIO)))
 
         api(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK)))
