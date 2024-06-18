@@ -12,6 +12,7 @@ object GradlePlugin {
 
     const val PROTOBUF = "com.google.protobuf"
     const val PROTOBUF_VERSION = "0.9.4"
+
     const val GRPC = "grpc"
 
     const val CHECK_STYLE = "checkstyle"
