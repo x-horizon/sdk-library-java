@@ -8,9 +8,10 @@ import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.web.HttpStatus;
 import cn.srd.library.java.contract.model.protocol.WebResponse;
+import cn.srd.library.java.contract.model.throwable.ClientException;
 import cn.srd.library.java.contract.model.throwable.DataNotFoundException;
 import cn.srd.library.java.contract.model.throwable.RunningException;
-import cn.srd.library.java.contract.model.throwable.WarningException;
+import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.object.Classes;
 import jakarta.servlet.http.HttpServletRequest;
@@ -72,7 +73,7 @@ public class WebMvcExceptionInterceptor {
     @ExceptionHandler(NoResourceFoundException.class)
     public WebResponse<Void> handleNoResourceFoundException(HttpServletRequest httpServletRequest, NoResourceFoundException exception) {
         log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()));
-        return error(HttpStatus.NOT_FOUND, STR."the resource path [\{exception.getResourcePath()}] not found");
+        return error(HttpStatus.RESOURCE_NOT_FOUND, STR."the resource path [\{exception.getResourcePath()}] not found");
     }
 
     /**
@@ -157,9 +158,17 @@ public class WebMvcExceptionInterceptor {
      *
      *     }
      *  }
+     *  </pre>
      *
-     *  3. send a post request to /foo/sayHello with null data, this means that the data cannot be deserialized to FooVO, will throw {@link HttpMessageNotReadableException} and handled by this method.
-     * </pre>
+     * <p>3. send a post request to /foo/sayHello with null data, this means that the data cannot be deserialized to FooVO, will throw {@link HttpMessageNotReadableException} and handled by this method.
+     * <p>4. send a post request to /foo/sayHello with data like:
+     * <p>{@code
+     * {
+     * "id": "a wrong type id",
+     * "name": "normal name"
+     * }
+     * }</p>
+     * <p>this means that the id string value cannot be deserialized to FooVO long id, will throw {@link HttpMessageNotReadableException} and handled by this method.
      *
      * @param httpServletRequest the http servlet request
      * @param exception          the exception
@@ -168,7 +177,7 @@ public class WebMvcExceptionInterceptor {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public WebResponse<Void> handleHttpMessageNotReadableException(HttpServletRequest httpServletRequest, HttpMessageNotReadableException exception) {
         log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()));
-        return error(HttpStatus.MISSING_REQUEST_PARAMETER, "failed to parse request body");
+        return error(HttpStatus.MESSAGE_NOT_READABLE, "http message not readable");
     }
 
     /**
@@ -270,7 +279,7 @@ public class WebMvcExceptionInterceptor {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public WebResponse<Void> handleMethodArgumentTypeMismatchException(HttpServletRequest httpServletRequest, MethodArgumentTypeMismatchException exception) {
         log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()));
-        return error(HttpStatus.WRONG_REQUEST_PARAMETER, STR."failed to convert [\{exception.getValue()}] to parameter [\{exception.getName()}] with type [\{Classes.getClassSimpleName(exception.getRequiredType())}]");
+        return error(HttpStatus.WRONG_REQUEST_PARAMETER_TYPE, STR."failed to convert [\{exception.getValue()}] to parameter [\{exception.getName()}] with type [\{Classes.getClassSimpleName(exception.getRequiredType())}]");
     }
 
     /**
@@ -329,7 +338,21 @@ public class WebMvcExceptionInterceptor {
     public WebResponse<Void> handleMethodArgumentNotValidException(HttpServletRequest httpServletRequest, MethodArgumentNotValidException exception) {
         String message = exception.getBindingResult().getFieldErrors().stream().map(FieldError::getDefaultMessage).distinct().collect(Collectors.joining(", "));
         log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
-        return error(HttpStatus.WRONG_REQUEST_PARAMETER, message);
+        return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, message);
+    }
+
+    /**
+     * handle the exception when throw {@link UnsupportedException}
+     *
+     * @param httpServletRequest the http servlet request
+     * @param exception          the exception
+     * @return the web response
+     */
+    @ExceptionHandler(UnsupportedException.class)
+    public WebResponse<Void> handleUnsupportedException(HttpServletRequest httpServletRequest, UnsupportedException exception) {
+        String message = "操作失败：不支持该操作";
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), message), exception);
+        return error(HttpStatus.UNSUPPORTED, message);
     }
 
     /**
@@ -341,22 +364,22 @@ public class WebMvcExceptionInterceptor {
      */
     @ExceptionHandler(DataNotFoundException.class)
     public WebResponse<Void> handleDataNotFoundException(HttpServletRequest httpServletRequest, DataNotFoundException exception) {
-        String message = "操作失败，数据不存在";
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
+        String message = "操作失败：数据不存在";
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), message), exception);
         return error(HttpStatus.DATA_NOT_FOUND, message);
     }
 
     /**
-     * handle the exception when throw {@link WarningException}
+     * handle the exception when throw {@link ClientException}
      *
      * @param httpServletRequest the http servlet request
      * @param exception          the exception
      * @return the web response
      */
-    @ExceptionHandler(WarningException.class)
-    public WebResponse<Void> handleWarningException(HttpServletRequest httpServletRequest, WarningException exception) {
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()));
-        return error(exception.getStatus(), exception.getMessage());
+    @ExceptionHandler(ClientException.class)
+    public WebResponse<Void> handleClientException(HttpServletRequest httpServletRequest, ClientException exception) {
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()), exception);
+        return error(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 
     /**

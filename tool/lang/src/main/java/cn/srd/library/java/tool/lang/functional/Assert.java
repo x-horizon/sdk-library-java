@@ -7,7 +7,7 @@ package cn.srd.library.java.tool.lang.functional;
 import cn.srd.library.java.contract.constant.throwable.AssertMessage;
 import cn.srd.library.java.contract.constant.web.HttpStatus;
 import cn.srd.library.java.contract.model.throwable.AbstractRuntimeException;
-import cn.srd.library.java.contract.model.throwable.RunningException;
+import cn.srd.library.java.contract.model.throwable.ClientException;
 import cn.srd.library.java.tool.lang.booleans.Booleans;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.number.Numbers;
@@ -1642,10 +1642,10 @@ public class Assert {
     @SneakyThrows
     @CanIgnoreReturnValue
     public Void doThrows() {
-        throw Objects.setIfNull(this.throwable, () -> RunningException.class)
+        throw Objects.setIfNull(this.throwable, () -> ClientException.class)
                 .getConstructor(String.class)
                 .newInstance(Nil.isNull(this.messageTemplateParams) ? this.messageTemplate : Strings.format(this.messageTemplate, this.messageTemplateParams))
-                .setStatus(Objects.setIfNull(this.status, HttpStatus.INTERNAL_ERROR::getStatus));
+                .setStatus(Objects.setIfNull(this.status, HttpStatus.BAD_REQUEST::getStatus));
     }
 
 }

@@ -9,14 +9,14 @@ import lombok.experimental.StandardException;
 import java.io.Serial;
 
 /**
- * warning exception
+ * standard client exception
  *
  * @author wjm
- * @since 2021-05-06 17:27
+ * @since 2024-06-18 10:53
  */
 @StandardException
-public class WarningException extends AbstractRuntimeException {
+public class ClientException extends AbstractRuntimeException {
 
-    @Serial private static final long serialVersionUID = 5255390150143370707L;
+    @Serial private static final long serialVersionUID = -5061184430024294179L;
 
 }
