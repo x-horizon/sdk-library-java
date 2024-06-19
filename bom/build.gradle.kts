@@ -51,7 +51,10 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.ORM_SPRING_INTEGRATION_CASSANDRA))
         api(GradleDependency.withVersion(GradleDependency.ORM_TD_ENGINE_JDBC))
 
-        api(GradleDependency.withVersion(GradleDependency.MESSAGE_MQTT_V5_ECLIPSE_PAHO)) // TODO wjm need to remove
+        api(GradleDependency.withVersion(GradleDependency.OSS_ALL_FACED))
+        api(GradleDependency.withVersion(GradleDependency.OSS_MINIO))
+
+        api(GradleDependency.withVersion(GradleDependency.MESSAGE_MQTT_V5_ECLIPSE_PAHO))
         api(GradleDependency.withVersion(GradleDependency.MESSAGE_ROCKETMQ_TODO)) // TODO wjm need to remove
 
         api(GradleDependency.withVersion(GradleDependency.METRIC_BIT_WALKER_USER_AGENT))
