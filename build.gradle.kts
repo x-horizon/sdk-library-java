@@ -33,8 +33,10 @@ allprojects {
     tasks.withType<JavaCompile> {
         options.release = Integer.valueOf(GradleConfig.JAVA_VERSION)
         options.encoding = GradleConfig.PROJECT_CHARSET
-        options.compilerArgs.plusAssign((GradleConfig.WITH_PARAMETERS_ARG))
-        options.compilerArgs.plusAssign((GradleConfig.WITH_ENABLE_PREVIEW_ARG))
+        options.compilerArgs = listOf(
+            GradleConfig.WITH_PARAMETERS_ARG,
+            GradleConfig.WITH_ENABLE_PREVIEW_ARG,
+        )
     }
 
     tasks.withType<Test> {
