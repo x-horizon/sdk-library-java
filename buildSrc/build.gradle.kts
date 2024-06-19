@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 plugins {
-    kotlin("jvm") version "1.9.20"
+    kotlin("jvm") version "1.9.22"
 }
 
 repositories {
