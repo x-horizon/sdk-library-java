@@ -36,6 +36,7 @@ allprojects {
         options.compilerArgs = listOf(
             GradleConfig.WITH_PARAMETERS_ARG,
             GradleConfig.WITH_ENABLE_PREVIEW_ARG,
+            // "-Xlint:all",
         )
     }
 
