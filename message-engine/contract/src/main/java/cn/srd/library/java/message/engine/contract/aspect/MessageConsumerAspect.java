@@ -12,6 +12,8 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
+import java.io.Serializable;
+
 /**
  * @author wjm
  * @since 2023-06-04 10:07
@@ -25,7 +27,7 @@ public class MessageConsumerAspect extends MessageAspect {
 
     @Around("pointcut()")
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
-        Object message = doProceed(joinPoint);
+        Serializable message = (Serializable) doProceed(joinPoint);
         MessageConsumer consumerAnnotation = getAnnotationMarkedOnMethod(joinPoint, MessageConsumer.class);
         MessageProducer forwardMessageProducer = consumerAnnotation.forwardTo();
         MessageEngineType forwardMessageEngineType = forwardMessageProducer.config().engineType();

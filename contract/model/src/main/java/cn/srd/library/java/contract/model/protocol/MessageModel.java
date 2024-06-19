@@ -13,6 +13,7 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * message specification
@@ -24,7 +25,7 @@ import java.io.Serial;
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class MessageModel<T> implements TransportModel<T> {
+public class MessageModel<T extends Serializable> implements TransportModel<T> {
 
     @Serial private static final long serialVersionUID = -3530554978681104595L;
 

@@ -9,6 +9,7 @@ import cn.srd.library.java.tool.spring.contract.support.Springs;
 import org.springframework.integration.dsl.context.IntegrationFlowContext;
 import org.springframework.messaging.support.GenericMessage;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 
 /**
@@ -19,11 +20,11 @@ public interface MessageFlowStrategy {
 
     String getFlowId(Method producerMethod);
 
-    default <T> boolean send(Method executeMethod, T message) {
+    default <T extends Serializable> boolean send(Method executeMethod, T message) {
         return send(getFlowId(executeMethod), message);
     }
 
-    default <T> boolean send(String flowId, T message) {
+    default <T extends Serializable> boolean send(String flowId, T message) {
         return Springs.getBean(IntegrationFlowContext.class)
                 .getRegistrationById(flowId)
                 .getInputChannel()
