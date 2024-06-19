@@ -2,6 +2,7 @@ spring:
   profiles:
     include:
       config-log,
+      config-oss-minio,
       config-server,
       config-spring
     active: environment-${activeEnvironmentName}

@@ -6,4 +6,6 @@ dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.OSS_CONTRACT)))
 
     api(GradleDependency.OSS_MINIO.withoutVersion)
+
+    testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_WEBMVC)))
 }
