@@ -3,6 +3,7 @@ spring:
     include:
       config-log,
       config-oss-minio,
+      config-oss-minio-${activeEnvironmentName},
       config-server,
       config-spring
     active: environment-${activeEnvironmentName}

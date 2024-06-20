@@ -1,0 +1,11 @@
+dromara:
+  x-file-storage:
+    minio:
+      -
+        platform: minio-1
+        enable-storage: true
+        bucket-name: wjm-test
+        base-path: test/
+        access-key: MIJ2ve0v2ebWPJXZWqL1
+        secret-key: FkPJQvWbvFBKqghDMKQzhr81vHG8pCX7Jvx9sCbc
+        end-point: http://127.0.0.1:10010
