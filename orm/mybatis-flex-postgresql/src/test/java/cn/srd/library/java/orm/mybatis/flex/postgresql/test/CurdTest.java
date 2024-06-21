@@ -154,11 +154,11 @@ class CurdTest {
         //        (536748152329160, 'home9', 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL),
         //        (536748152329161, 'home10', 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL);
         homeRepository.saveBatch(Collections.ofArrayList(
-                HomePO.builder().name(HOME_NAME_6).build(),
-                HomePO.builder().name(HOME_NAME_7).build(),
-                HomePO.builder().name(HOME_NAME_8).build(),
-                HomePO.builder().name(HOME_NAME_9).build(),
-                HomePO.builder().name(HOME_NAME_10).build()
+                HomePO.builder().name(HOME_NAME_6).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build(),
+                HomePO.builder().name(HOME_NAME_7).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build(),
+                HomePO.builder().name(HOME_NAME_8).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build(),
+                HomePO.builder().name(HOME_NAME_9).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build(),
+                HomePO.builder().name(HOME_NAME_10).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build()
         ));
 
         // INSERT INTO "home"("id", "name", "creator_id", "updater_id", "create_time", "update_time", "delete_time")
@@ -170,11 +170,11 @@ class CurdTest {
         // INSERT INTO "home"("id", "name", "creator_id", "updater_id", "create_time", "update_time", "delete_time")
         // VALUES (536748152439749, 'home15', 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL);
         homeRepository.saveBatch(Collections.ofArrayList(
-                HomePO.builder().name(HOME_NAME_11).build(),
-                HomePO.builder().name(HOME_NAME_12).build(),
-                HomePO.builder().name(HOME_NAME_13).build(),
-                HomePO.builder().name(HOME_NAME_14).build(),
-                HomePO.builder().name(HOME_NAME_15).build()
+                HomePO.builder().name(HOME_NAME_11).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build(),
+                HomePO.builder().name(HOME_NAME_12).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build(),
+                HomePO.builder().name(HOME_NAME_13).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build(),
+                HomePO.builder().name(HOME_NAME_14).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build(),
+                HomePO.builder().name(HOME_NAME_15).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build()
         ), 2);
 
         // INSERT INTO "people"("id", "home_id", "name1", "name2", "name3", "name4", "name5", "name6", "name7", "version", "creator_id", "updater_id", "create_time", "update_time")
@@ -202,11 +202,11 @@ class CurdTest {
         //        (536748152595400, 536748152329160, 'people9', 'people9', 'people9', 'people9', 'people9', 'people9', 'people9', 0, 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL),
         //        (536748152595401, 536748152329161, 'people10', 'people10', 'people10', 'people10', 'people10', 'people10', 'people10', 0, 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL);
         peopleRepository.saveBatch(Collections.ofArrayList(
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_6)).build().setAllName(PEOPLE_NAME_6),
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_7)).build().setAllName(PEOPLE_NAME_7),
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_8)).build().setAllName(PEOPLE_NAME_8),
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_9)).build().setAllName(PEOPLE_NAME_9),
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_10)).build().setAllName(PEOPLE_NAME_10)
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_6)).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build().setAllName(PEOPLE_NAME_6),
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_7)).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build().setAllName(PEOPLE_NAME_7),
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_8)).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build().setAllName(PEOPLE_NAME_8),
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_9)).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build().setAllName(PEOPLE_NAME_9),
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_10)).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build().setAllName(PEOPLE_NAME_10)
         ));
 
         // INSERT INTO "people"("id", "home_id", "name1", "name2", "name3", "name4", "name5", "name6", "name7", "version", "creator_id", "updater_id", "create_time", "update_time", "delete_time")
@@ -218,11 +218,11 @@ class CurdTest {
         // INSERT INTO "people"("id", "home_id", "name1", "name2", "name3", "name4", "name5", "name6", "name7", "version", "creator_id", "updater_id", "create_time", "update_time", "delete_time")
         // VALUES (536748152660933, 536748152439749, 'people15', 'people15', 'people15', 'people15', 'people15', 'people15', 'people15', 0, 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51', NULL);
         peopleRepository.saveBatch(Collections.ofArrayList(
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_11)).build().setAllName(PEOPLE_NAME_11),
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_12)).build().setAllName(PEOPLE_NAME_12),
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_13)).build().setAllName(PEOPLE_NAME_13),
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_14)).build().setAllName(PEOPLE_NAME_14),
-                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_15)).build().setAllName(PEOPLE_NAME_15)
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_11)).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build().setAllName(PEOPLE_NAME_11),
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_12)).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build().setAllName(PEOPLE_NAME_12),
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_13)).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build().setAllName(PEOPLE_NAME_13),
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_14)).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build().setAllName(PEOPLE_NAME_14),
+                PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_15)).creatorId(1L).creatorName("wjm").updaterId(1L).updaterName("wjm").build().setAllName(PEOPLE_NAME_15)
         ), 2);
     }
 
