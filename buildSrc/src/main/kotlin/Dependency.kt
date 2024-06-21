@@ -6,33 +6,33 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     BOM_CLOUD_NATIVE_DOCKER("com.github.docker-java:docker-java-bom", "3.3.6"),
     BOM_DOC_XIAOYMIN_KNIFE4J("com.github.xiaoymin:knife4j-dependencies", "4.5.0"), // TODO wjm support spring-boot version to 3.0.4
-    BOM_ECLIPSE_PAHO("org.eclipse.paho:java-parent", "1.2.5"), // support spring-boot version to 3.5.0, need to synchronize with "org.springframework.boot:spring-boot-dependencies"
+    BOM_ECLIPSE_PAHO("org.eclipse.paho:java-parent", "1.2.5"), // support spring-boot version to 3.3.1, need to synchronize with "org.springframework.boot:spring-boot-dependencies"
     BOM_FRAMEWORK_ALIBABA_SPRING_CLOUD("com.alibaba.cloud:spring-cloud-alibaba-dependencies", "2023.0.1.0"), // TODO wjm support spring-boot version to 3.2.4
-    BOM_FRAMEWORK_SPRING("org.springframework:spring-framework-bom", "6.1.8"), // support spring-boot version to 3.3.0
-    BOM_FRAMEWORK_SPRING_BOOT("org.springframework.boot:spring-boot-dependencies", "3.3.0"),
-    BOM_FRAMEWORK_SPRING_CLOUD("org.springframework.cloud:spring-cloud-dependencies", "2023.0.1"), // TODO wjm support spring-boot version to 3.2.4
-    BOM_FRAMEWORK_SPRING_INTEGRATION("org.springframework.integration:spring-integration-bom", "6.3.0"), // support spring-boot version to 3.3.0
+    BOM_FRAMEWORK_SPRING("org.springframework:spring-framework-bom", "6.1.10"), // support spring-boot version to 3.3.1
+    BOM_FRAMEWORK_SPRING_BOOT("org.springframework.boot:spring-boot-dependencies", "3.3.1"),
+    BOM_FRAMEWORK_SPRING_CLOUD("org.springframework.cloud:spring-cloud-dependencies", "2023.0.2"), // TODO wjm support spring-boot version to 3.2.4
+    BOM_FRAMEWORK_SPRING_INTEGRATION("org.springframework.integration:spring-integration-bom", "6.3.1"), // support spring-boot version to 3.3.1
     BOM_METRIC_DROPWIZARD("io.dropwizard.metrics:metrics-bom", "4.2.25"), // TODO wjm support spring-boot version to 3.2.4
-    BOM_METRIC_MICROMETER("io.micrometer:micrometer-bom", "1.13.0"), // support spring-boot version to 3.3.0
-    BOM_ORM_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-dependencies", "1.8.9"), // support spring-boot version to 3.2.4
-    BOM_ORM_MYBATIS_PLUS("com.baomidou:mybatis-plus-bom", "3.5.6"), // TODO wjm support spring-boot version to 3.2.0
+    BOM_METRIC_MICROMETER("io.micrometer:micrometer-bom", "1.13.1"), // support spring-boot version to 3.3.1
+    BOM_ORM_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-dependencies", "1.9.3"), // TODO wjm support spring-boot version to 2.7.11
+    BOM_ORM_MYBATIS_PLUS("com.baomidou:mybatis-plus-bom", "3.5.7"), // TODO wjm support spring-boot version to 2.7.18
     BOM_OSS_ALL_FACED("org.dromara.x-file-storage:x-file-storage-parent", "2.1.0"), // TODO wjm support spring-boot version to 2.7.2
     BOM_SECURITY_DEV33_SA_TOKEN("cn.dev33:sa-token-bom", "1.38.0"), // TODO wjm support spring-boot version to 2.5.15
     BOM_TEST_MOCKITO("org.mockito:mockito-bom", "5.11.0"),
     BOM_TEST_TESTCONTAINERS("org.testcontainers:testcontainers-bom", "1.19.8"), // TODO wjm support spring-boot version to 3.2.4
     BOM_TOOL_APACHE_TIKA("org.apache.tika:tika-bom", "2.9.2"),
-    BOM_TOOL_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-pom", "1.4.0"), // TODO wjm support spring-boot version to 2.7.9
-    BOM_TOOL_SERIALIZATION_FASTERXML_JACKSON("com.fasterxml.jackson:jackson-bom", "2.17.1"), // support spring-boot version to 3.3.0
+    BOM_TOOL_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-pom", "1.4.2"), // TODO wjm support spring-boot version to 2.7.9
+    BOM_TOOL_SERIALIZATION_FASTERXML_JACKSON("com.fasterxml.jackson:jackson-bom", "2.17.1"), // support spring-boot version to 3.3.1
     BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF("com.google.protobuf:protobuf-bom", "3.25.1"), // need to synchronize with "io.grpc:grpc-bom", "net.devh:grpc-spring-boot-starter"
     BOM_TOOL_SERIALIZATION_SQUAREUP_WIRE("com.squareup.wire:wire-bom", "4.9.9"),
     BOM_WEB_FEIGN("io.github.openfeign:feign-bom", "13.2.1"), // need to synchronize with "org.springframework.cloud:spring-cloud-starter-openfeign"
     BOM_WEB_GRPC("io.grpc:grpc-bom", "1.63.0"), // need to synchronize with "net.devh:grpc-spring-boot-starter"
-    BOM_WEB_NETTY("io.netty:netty-bom", "4.1.110.Final"), // support spring-boot version to 3.3.0
-    BOM_WEB_REACTOR("io.projectreactor:reactor-bom", "2023.0.6"), // support spring-boot version to 3.3.0
+    BOM_WEB_NETTY("io.netty:netty-bom", "4.1.111.Final"), // support spring-boot version to 3.3.1
+    BOM_WEB_REACTOR("io.projectreactor:reactor-bom", "2023.0.7"), // support spring-boot version to 3.3.1
 
-    CACHE_CAFFEINE("com.github.ben-manes.caffeine:caffeine", "3.1.8"), // support spring-boot version to 3.3.0
-    CACHE_LETTUCE("io.lettuce:lettuce-core", "6.3.2.RELEASE"), // support spring-boot version to 3.3.0
-    CACHE_REDISSON("org.redisson:redisson-spring-boot-starter", "3.30.0"), // TODO wjm support spring-boot version to 3.2.2
+    CACHE_CAFFEINE("com.github.ben-manes.caffeine:caffeine", "3.1.8"), // TODO wjm support spring-boot version to 3.3.0
+    CACHE_LETTUCE("io.lettuce:lettuce-core", "6.3.2.RELEASE"), // TODO wjm support spring-boot version to 3.3.0
+    CACHE_REDISSON("org.redisson:redisson-spring-boot-starter", "3.31.0"), // TODO wjm support spring-boot version to 3.3.0
 
     CLOUD_COMMUNICATION_JAKARTA_MAIL("com.sun.mail:jakarta.mail", "2.0.1"),
     CLOUD_COMMUNICATION_DROMARA_SMS("org.dromara.sms4j:sms4j-spring-boot-starter", "3.2.1"), // TODO wjm support spring-boot version to 2.7.18
@@ -42,9 +42,9 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     DATA_CASSANDRA("org.springframework.boot:spring-boot-starter-data-cassandra", ""),
     DATA_ELASTICSEARCH("org.springframework.boot:spring-boot-starter-data-elasticsearch", ""),
-    DATA_HSQLDB("org.hsqldb:hsqldb", "2.7.2"), // support spring-boot version to 3.3.0
-    DATA_MYSQL("com.mysql:mysql-connector-j", "8.3.0"), // support spring-boot version to 3.3.0
-    DATA_POSTGRESQL("org.postgresql:postgresql", "42.7.3"), // support spring-boot version to 3.3.0
+    DATA_HSQLDB("org.hsqldb:hsqldb", "2.7.3"), // support spring-boot version to 3.3.1
+    DATA_MYSQL("com.mysql:mysql-connector-j", "8.3.0"), // TODO wjm support spring-boot version to 3.3.0
+    DATA_POSTGRESQL("org.postgresql:postgresql", "42.7.3"), // TODO wjm support spring-boot version to 3.3.0
 
     DOC_XIAOYMIN_KNIFE4J_OPENAPI3_JAKARTA_SPRING_BOOT("com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter", ""),
 
@@ -76,23 +76,23 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     ORM_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-spring-boot-starter", ""),
     ORM_MYBATIS_FLEX_ANNOTATION("com.mybatis-flex:mybatis-flex-annotation", ""),
     ORM_MYBATIS_PLUS("com.baomidou:mybatis-plus-spring-boot3-starter", ""),
-    ORM_MYBATIS_PLUS_DYNAMIC_DATASOURCE("com.baomidou:dynamic-datasource-spring-boot3-starter", "4.3.0"),  // TODO wjm support spring-boot version to 2.7.16, using bom
+    ORM_MYBATIS_PLUS_DYNAMIC_DATASOURCE("com.baomidou:dynamic-datasource-spring-boot3-starter", "4.3.1"),  // TODO wjm support spring-boot version to 2.7.18, using bom
     ORM_SPRING_BOOT_JPA("org.springframework.boot:spring-boot-starter-data-jpa", ""),
     ORM_SPRING_JDBC("org.springframework:spring-jdbc", ""),
     ORM_SPRING_INTEGRATION_CASSANDRA("org.springframework.integration:spring-integration-cassandra", ""),
     ORM_TD_ENGINE_JDBC("com.taosdata.jdbc:taos-jdbcdriver", "3.2.5"), // TODO wjm org.springframework.integration
 
-    OSS_ALL_FACED("org.dromara.x-file-storage:x-file-storage-spring", BOM_OSS_ALL_FACED.version),
+    OSS_ALL_FACED("org.dromara.x-file-storage:x-file-storage-spring", BOM_OSS_ALL_FACED.version), // TODO wjm bom is not invalid
     OSS_MINIO("io.minio:minio", "8.5.2"), // need to synchronize with "org.dromara.x-file-storage:x-file-storage-parent"
 
-    PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK("org.projectlombok:lombok", "1.18.32"), // support spring-boot version to 3.3.0
+    PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK("org.projectlombok:lombok", "1.18.32"), // support spring-boot version to 3.3.1
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING("org.projectlombok:lombok-mapstruct-binding", "0.2.0"),
-    PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-processor", BOM_TOOL_MAPSTRUCT_PLUS.version),
+    PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-processor", BOM_TOOL_MAPSTRUCT_PLUS.version), // TODO wjm bom is not invalid
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MICA_AUTO("net.dreamlu:mica-auto", "3.1.2"),
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-processor", ""),
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_OPENJDK_JMH("org.openjdk.jmh:jmh-generator-annprocess", "1.37"),
-    PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_SPRING_AUTOCONFIGURE("org.springframework.boot:spring-boot-autoconfigure-processor", BOM_FRAMEWORK_SPRING_BOOT.version),
-    PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_SPRING_CONFIGURATION("org.springframework.boot:spring-boot-configuration-processor", BOM_FRAMEWORK_SPRING_BOOT.version),
+    PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_SPRING_AUTOCONFIGURE("org.springframework.boot:spring-boot-autoconfigure-processor", BOM_FRAMEWORK_SPRING_BOOT.version), // TODO wjm bom is not invalid
+    PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_SPRING_CONFIGURATION("org.springframework.boot:spring-boot-configuration-processor", BOM_FRAMEWORK_SPRING_BOOT.version), // TODO wjm bom is not invalid
 
     POOL_DATABASE_HIKARICP("com.zaxxer:HikariCP", "5.1.0"), // support spring-boot version to 3.3.0
     POOL_APACHE("org.apache.commons:commons-pool2", "2.12.0"), // support spring-boot version to 3.3.0
@@ -115,7 +115,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_ANNOTATION_API_JAVAX("javax.annotation:javax.annotation-api", "1.3.2"),
     TOOL_AOP_SPRING_BOOT("org.springframework.boot:spring-boot-starter-aop", ""),
     TOOL_APACHE_FILE_ANALYSIS_TIKA_CORE("org.apache.tika:tika-core", ""),
-    TOOL_APACHE_FILE_ANALYSIS_TIKA_PARSER("org.apache.tika:tika-parsers", BOM_TOOL_APACHE_TIKA.version),
+    TOOL_APACHE_FILE_ANALYSIS_TIKA_PARSER("org.apache.tika:tika-parsers", BOM_TOOL_APACHE_TIKA.version), // TODO wjm bom is not invalid
     TOOL_APACHE_TEMPLATE_ENGINE_VELOCITY("org.apache.velocity:velocity", "1.7"), // TODO wjm 该包 1.7 版本后破坏性更新极大，暂使用旧版本，新版本为：TOOL_APACHE_TEMPLATE_ENGINE_VELOCITY("org.apache.velocity:velocity-engine-core", "2.3")，升级链接：https://velocity.apache.org/engine/2.3/upgrading.html#upgrading-from-velocity-17-to-velocity-20，目前暂使用旧版本
     TOOL_AUTOWIRED_SMART_SPRING("io.github.burukeyou:spring-smart-di-all", "0.2.0"),
     TOOL_GEOMETRY_LOCATION_TECH_JTS("org.locationtech.jts:jts-core", "1.19.0"),
@@ -140,7 +140,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_SERIALIZATION_JACKSON_ANNOTATION("com.fasterxml.jackson.core:jackson-annotations", ""),
     TOOL_SERIALIZATION_PROTOBUF_GOOGLE_JAVA("com.google.protobuf:protobuf-java", ""),
     TOOL_SERIALIZATION_PROTOBUF_GOOGLE_JAVA_UTIL("com.google.protobuf:protobuf-java-util", ""),
-    TOOL_SERIALIZATION_PROTOBUF_GOOGLE_PROTOC("com.google.protobuf:protoc", BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF.version),
+    TOOL_SERIALIZATION_PROTOBUF_GOOGLE_PROTOC("com.google.protobuf:protoc", BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF.version), // TODO wjm bom is not invalid
     TOOL_SERIALIZATION_PROTOBUF_SQUAREUP_WIRE("com.squareup.wire:wire-schema", ""),
     TOOL_STREAM_JDFRAME("io.github.burukeyou:jdframe", "0.0.2"),
     TOOL_VALIDATION_HIBERNATE("org.hibernate.validator:hibernate-validator", "8.0.1.Final"),
