@@ -73,7 +73,7 @@ public class WebMvcExceptionInterceptor {
     @ExceptionHandler(NoResourceFoundException.class)
     public WebResponse<Void> handleNoResourceFoundException(HttpServletRequest httpServletRequest, NoResourceFoundException exception) {
         log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()));
-        return error(HttpStatus.RESOURCE_NOT_FOUND, STR."the resource path [\{exception.getResourcePath()}] not found");
+        return error(HttpStatus.NOT_FOUND, STR."the resource path [\{exception.getResourcePath()}] not found");
     }
 
     /**
@@ -352,7 +352,7 @@ public class WebMvcExceptionInterceptor {
     public WebResponse<Void> handleUnsupportedException(HttpServletRequest httpServletRequest, UnsupportedException exception) {
         String message = "操作失败：不支持该操作";
         log.warn(formatMessage(httpServletRequest.getRequestURI(), message), exception);
-        return error(HttpStatus.UNSUPPORTED, message);
+        return error(HttpStatus.NOT_IMPLEMENTED, message);
     }
 
     /**
