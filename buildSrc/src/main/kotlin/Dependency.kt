@@ -45,6 +45,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     DATA_HSQLDB("org.hsqldb:hsqldb", "2.7.3"), // support spring-boot version to 3.3.1
     DATA_MYSQL("com.mysql:mysql-connector-j", "8.3.0"), // TODO wjm support spring-boot version to 3.3.0
     DATA_POSTGRESQL("org.postgresql:postgresql", "42.7.3"), // TODO wjm support spring-boot version to 3.3.0
+    DATA_TDENGINE("com.taosdata.jdbc:taos-jdbcdriver", "3.2.11"),
 
     DOC_XIAOYMIN_KNIFE4J_OPENAPI3_JAKARTA_SPRING_BOOT("com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter", ""),
 
@@ -80,7 +81,6 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     ORM_SPRING_BOOT_JPA("org.springframework.boot:spring-boot-starter-data-jpa", ""),
     ORM_SPRING_JDBC("org.springframework:spring-jdbc", ""),
     ORM_SPRING_INTEGRATION_CASSANDRA("org.springframework.integration:spring-integration-cassandra", ""),
-    ORM_TD_ENGINE_JDBC("com.taosdata.jdbc:taos-jdbcdriver", "3.2.5"), // TODO wjm org.springframework.integration
 
     OSS_ALL_FACED("org.dromara.x-file-storage:x-file-storage-spring", BOM_OSS_ALL_FACED.version), // TODO wjm bom is not invalid
     OSS_MINIO("io.minio:minio", "8.5.2"), // need to synchronize with "org.dromara.x-file-storage:x-file-storage-parent"

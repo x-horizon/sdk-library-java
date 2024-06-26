@@ -44,12 +44,12 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.DATA_HSQLDB))
         api(GradleDependency.withVersion(GradleDependency.DATA_MYSQL))
         api(GradleDependency.withVersion(GradleDependency.DATA_POSTGRESQL))
+        api(GradleDependency.withVersion(GradleDependency.DATA_TDENGINE))
 
         api(GradleDependency.withVersion(GradleDependency.ORM_MYBATIS))
         api(GradleDependency.withVersion(GradleDependency.ORM_MYBATIS_PLUS))
         api(GradleDependency.withVersion(GradleDependency.ORM_MYBATIS_PLUS_DYNAMIC_DATASOURCE))
         api(GradleDependency.withVersion(GradleDependency.ORM_SPRING_INTEGRATION_CASSANDRA))
-        api(GradleDependency.withVersion(GradleDependency.ORM_TD_ENGINE_JDBC))
 
         api(GradleDependency.withVersion(GradleDependency.OSS_ALL_FACED))
         api(GradleDependency.withVersion(GradleDependency.OSS_MINIO))
@@ -141,6 +141,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.DATA_HSQLDB)))
         api(project(GradleModule.toReferenceName(GradleModule.DATA_MYSQL)))
         api(project(GradleModule.toReferenceName(GradleModule.DATA_POSTGRESQL)))
+        api(project(GradleModule.toReferenceName(GradleModule.DATA_TDENGINE)))
 
         api(project(GradleModule.toReferenceName(GradleModule.DOC_KNIFE4J_CONTRACT)))
         api(project(GradleModule.toReferenceName(GradleModule.DOC_KNIFE4J_SPRING_WEBFLUX)))
@@ -169,10 +170,10 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.ORM_CONTRACT_MYBATIS_FLEX)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_FLEX_BASE)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_FLEX_POSTGRESQL)))
+        api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_FLEX_TDENGINE)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_PLUS)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_SPRING_JDBC)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_SPRING_JPA)))
-        api(project(GradleModule.toReferenceName(GradleModule.ORM_TD_ENGINE_JDBC)))
 
         api(project(GradleModule.toReferenceName(GradleModule.OSS_CONTRACT)))
         api(project(GradleModule.toReferenceName(GradleModule.OSS_MINIO)))

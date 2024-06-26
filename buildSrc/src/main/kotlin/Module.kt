@@ -33,6 +33,7 @@ object GradleModule {
     const val DATA_HSQLDB = "data-hsqldb"
     const val DATA_MYSQL = "data-mysql"
     const val DATA_POSTGRESQL = "data-postgresql"
+    const val DATA_TDENGINE = "data-tdengine"
 
     const val DOC_KNIFE4J_CONTRACT = "doc-knife4j-contract"
     const val DOC_KNIFE4J_SPRING_WEBMVC = "doc-knife4j-spring-webmvc"
@@ -61,10 +62,10 @@ object GradleModule {
     const val ORM_CONTRACT_MYBATIS_FLEX = "orm-contract-mybatis-flex"
     const val ORM_MYBATIS_FLEX_BASE = "orm-mybatis-flex-base"
     const val ORM_MYBATIS_FLEX_POSTGRESQL = "orm-mybatis-flex-postgresql"
+    const val ORM_MYBATIS_FLEX_TDENGINE = "orm-mybatis-flex-tdengine"
     const val ORM_MYBATIS_PLUS = "orm-mybatis-plus"
     const val ORM_SPRING_JDBC = "orm-spring-jdbc"
     const val ORM_SPRING_JPA = "orm-spring-jpa"
-    const val ORM_TD_ENGINE_JDBC = "orm-td-engine-jdbc"
 
     const val OSS_CONTRACT = "oss-contract"
     const val OSS_MINIO = "oss-minio"
