@@ -1,5 +1,5 @@
 spring:
   datasource:
-    url: jdbc:TAOS://127.0.0.1:10024
+    url: jdbc:TAOS-RS://192.168.10.91:32608
     username: root
-    password: taosdata
+    password: M73wgfq8GuDkqN

@@ -139,6 +139,7 @@ class CurdTest {
         // VALUES (536748152255429, 'home4', 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51');
         // INSERT INTO "home"("id", "name", "creator_id", "updater_id", "create_time", "update_time")
         // VALUES (536748152271813, 'home5', 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51');
+        // RowUtil.
         homeRepository.save(HomePO.builder().name(HOME_NAME_1).build());
         homeRepository.save(HomePO.builder().name(HOME_NAME_2).build());
         homeRepository.save(HomePO.builder().name(HOME_NAME_3).build());

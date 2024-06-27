@@ -1,6 +1,6 @@
 spring:
   datasource:
-    driverClassName: com.taosdata.jdbc.TSDBDriver
+    driverClassName: com.taosdata.jdbc.rs.RestfulDriver
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       connection-timeout: 3000
