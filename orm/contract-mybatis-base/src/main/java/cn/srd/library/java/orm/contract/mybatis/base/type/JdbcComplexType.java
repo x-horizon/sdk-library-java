@@ -15,7 +15,7 @@ import lombok.Getter;
  * @since 2023-11-08 17:07
  */
 @Getter
-@EnumAutowired(rootClasses = ColumnMappingJavaTypeCache.class)
+@EnumAutowired(rootClasses = ColumnMappingJavaTypeCache.class, allowNull = true)
 public enum JdbcComplexType {
 
     JSON,
