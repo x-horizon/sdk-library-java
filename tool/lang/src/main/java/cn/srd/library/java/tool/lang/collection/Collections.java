@@ -907,6 +907,17 @@ public class Collections {
     }
 
     /**
+     * return true if the input map is not null and the map contains the searched key
+     *
+     * @param input       the checked element
+     * @param searchedKey the searched key
+     * @return return true if the input map is not null and the map contains the searched key
+     */
+    public static <K, V> boolean containsKey(Map<K, V> input, K searchedKey) {
+        return Nil.isNotNull(input) && input.containsKey(searchedKey);
+    }
+
+    /**
      * reverse {@link #contains(Collection, Object)}
      *
      * @param input           the checked element
@@ -916,6 +927,17 @@ public class Collections {
      */
     public static <T> boolean notContains(Collection<T> input, T searchedElement) {
         return !contains(input, searchedElement);
+    }
+
+    /**
+     * return true if the input map is null or the map not contains the searched key
+     *
+     * @param input       the checked element
+     * @param searchedKey the searched key
+     * @return return true if the checked element contains the searched element and return false if not contains or occur throwable
+     */
+    public static <K, V> boolean notContainsKey(Map<K, V> input, K searchedKey) {
+        return !containsKey(input, searchedKey);
     }
 
     /**

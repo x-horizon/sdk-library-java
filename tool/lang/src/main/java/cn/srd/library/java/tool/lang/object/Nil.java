@@ -65,6 +65,21 @@ public class Nil {
     }
 
     /**
+     * return true if the checked element is null or {@link #isZeroValue(Number)} or {@link #isZeroValue(Boolean)} or {@link #isZeroValue(CharSequence)}
+     *
+     * @param input the checked element
+     * @return return true if the checked element is null
+     */
+    public static boolean isZeroValue(Object input) {
+        return Nil.isNull(input) || switch (input) {
+            case Number numberTypeInput -> isZeroValue(numberTypeInput);
+            case Boolean booleanTypeInput -> isZeroValue(booleanTypeInput);
+            case CharSequence charSequenceTypeInput -> isZeroValue(charSequenceTypeInput);
+            default -> false;
+        };
+    }
+
+    /**
      * return true if the checked element is null or zero size
      *
      * @param inputs the checked elements

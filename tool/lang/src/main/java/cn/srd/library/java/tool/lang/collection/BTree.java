@@ -4,7 +4,6 @@
 
 package cn.srd.library.java.tool.lang.collection;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.object.Nil;
 
 import java.util.List;
@@ -12,18 +11,18 @@ import java.util.List;
 /**
  * the balanced multi-way search tree defined, BTree is a tree with infinite leaf nodes
  *
+ * @param <T> the children element type
  * @author wjm
  * @since 2023-06-26 15:56
  */
-public interface BalancedMultiWaySearchTree {
+public interface BTree<R extends T, T extends BTree<R, T>> {
 
     /**
      * get children
      *
-     * @param <T> the children element type
      * @return children
      */
-    <T extends BalancedMultiWaySearchTree> List<T> getChildren();
+    List<R> getChildren();
 
     /**
      * <pre>
@@ -48,10 +47,9 @@ public interface BalancedMultiWaySearchTree {
      * </pre>
      *
      * @param root the root node
-     * @param <T>  the children element type
      * @return all the BTree paths
      */
-    default <T extends BalancedMultiWaySearchTree> List<List<T>> getAllPaths(T root) {
+    default List<List<T>> getAllPaths(T root) {
         List<List<T>> paths = Collections.newArrayList();
         if (Nil.isNull(root)) {
             return paths;
@@ -95,10 +93,9 @@ public interface BalancedMultiWaySearchTree {
      * </pre>
      *
      * @param root the root node
-     * @param <T>  the children element type
      * @return all node and child
      */
-    default <T extends BalancedMultiWaySearchTree> List<List<T>> getAllNodeAndChild(T root) {
+    default List<List<T>> getAllNodeAndChild(T root) {
         List<List<T>> result = Collections.newArrayList();
         dfsSupportGetAllNodeAndChild(root, result);
         return result;
@@ -122,10 +119,9 @@ public interface BalancedMultiWaySearchTree {
      * </pre>
      *
      * @param root the root node
-     * @param <T>  the children element type
      * @return after flatten result
      */
-    default <T extends BalancedMultiWaySearchTree> List<T> flatten(T root) {
+    default List<T> flatten(T root) {
         List<T> output = Collections.newArrayList();
         dfsSupportFlatten(root, output);
         return output;
@@ -137,17 +133,15 @@ public interface BalancedMultiWaySearchTree {
      * @param node  the tree node
      * @param path  one path
      * @param paths all paths
-     * @param <T>   the children element type
      */
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    private <T extends BalancedMultiWaySearchTree> void dfsSupportGetAllPaths(T node, List<T> path, List<List<T>> paths) {
+    private void dfsSupportGetAllPaths(T node, List<T> path, List<List<T>> paths) {
         path.add(node);
         if (Nil.isEmpty(node.getChildren())) {
             paths.add(Collections.ofArrayList(path));
         } else {
-            node.getChildren().forEach(child -> dfsSupportGetAllPaths((T) child, path, paths));
+            node.getChildren().forEach(child -> dfsSupportGetAllPaths(child, path, paths));
         }
-        path.remove(path.size() - 1);
+        path.removeLast();
     }
 
     /**
@@ -155,19 +149,17 @@ public interface BalancedMultiWaySearchTree {
      *
      * @param node   the tree node
      * @param output all node and child
-     * @param <T>    the children element type
      */
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    private <T extends BalancedMultiWaySearchTree> void dfsSupportGetAllNodeAndChild(T node, List<List<T>> output) {
+    private void dfsSupportGetAllNodeAndChild(T node, List<List<T>> output) {
         if (Nil.isNull(node)) {
             return;
         }
         node.getChildren().forEach(child -> {
             List<T> nodeAndChild = Collections.newArrayList();
             nodeAndChild.add(node);
-            nodeAndChild.add((T) child);
+            nodeAndChild.add(child);
             output.add(nodeAndChild);
-            dfsSupportGetAllNodeAndChild((T) child, output);
+            dfsSupportGetAllNodeAndChild(child, output);
         });
     }
 
@@ -176,15 +168,13 @@ public interface BalancedMultiWaySearchTree {
      *
      * @param node   the tree node
      * @param output after flatten
-     * @param <T>    the children element type
      */
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    private <T extends BalancedMultiWaySearchTree> void dfsSupportFlatten(T node, List<T> output) {
+    private void dfsSupportFlatten(T node, List<T> output) {
         if (Nil.isNull(node)) {
             return;
         }
         output.add(node);
-        node.getChildren().forEach(child -> dfsSupportFlatten((T) child, output));
+        node.getChildren().forEach(child -> dfsSupportFlatten(child, output));
     }
 
 }

@@ -5,7 +5,6 @@
 package cn.srd.library.java.tool.lang.convert;
 
 import cn.hutool.core.convert.Convert;
-import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.EnumUtil;
 import cn.hutool.core.util.HexUtil;
 import cn.srd.library.java.contract.constant.booleans.BooleanConstant;
@@ -15,6 +14,7 @@ import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.booleans.Booleans;
+import cn.srd.library.java.tool.lang.collection.BTreeNode;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.enums.Enums;
@@ -290,6 +290,21 @@ public class Converts {
     }
 
     /**
+     * convert collection to array.
+     *
+     * @param inputs    the input elements
+     * @param inputType the input element class
+     * @param <T>       the element type
+     * @return after convert
+     */
+    public static <T> T[] toArray(Collection<T> inputs, Class<T> inputType) {
+        return Action.<T[]>ifEmpty(inputs)
+                .then(() -> Collections.newArray(inputType))
+                .otherwise(() -> Collections.ofUnknownSizeStream(inputs).toArray(ignore -> Collections.newArray(inputType)))
+                .get();
+    }
+
+    /**
      * <pre>
      * convert collection to array.
      *
@@ -308,19 +323,10 @@ public class Converts {
      * @return after convert
      */
     public static Object[] toArray(Iterable<?> inputs) {
-        return Collections.ofUnknownSizeStream(inputs).toArray();
-    }
-
-    /**
-     * convert collection to array.
-     *
-     * @param inputs    the input elements
-     * @param inputType the input element class
-     * @param <T>       the element type
-     * @return after convert
-     */
-    public static <T> T[] toArray(Collection<T> inputs, Class<T> inputType) {
-        return ArrayUtil.toArray(inputs, inputType);
+        return Action.<Object[]>ifEmpty(inputs)
+                .then(() -> Collections.newArray(Object.class))
+                .otherwise(() -> Collections.ofUnknownSizeStream(inputs).toArray())
+                .get();
     }
 
     /**
@@ -783,6 +789,31 @@ public class Converts {
                 .then(Collections::newHashMap)
                 .otherwise(() -> Collections.ofUnknownSizeStream(inputs).collect(Collectors.groupingBy(getKeyAction, Collectors.mapping(getValueAction, Collectors.toList()))))
                 .get();
+    }
+
+    /**
+     * convert the element implement {@link BTreeNode} list to tree list
+     *
+     * @param nodes the element implement {@link BTreeNode} list
+     * @param <Key> the {@link BTreeNode#getId()}, {@link BTreeNode#getParentId()} type
+     * @param <T>   the element type
+     * @return tree list
+     */
+    public static <Key, T extends BTreeNode<Key, T>> List<T> toTree(List<T> nodes) {
+        Map<Key, T> nodeIdMappingNodeMap = toMap(nodes, T::getId);
+        List<T> treeNodes = new ArrayList<>();
+        nodes.forEach(node -> {
+            if (Nil.isZeroValue(node.getParentId()) || Collections.notContainsKey(nodeIdMappingNodeMap, node.getParentId())) {
+                treeNodes.add(node);
+            } else {
+                T parentNode = nodeIdMappingNodeMap.get(node.getParentId());
+                if (Nil.isNull(parentNode.getChildren())) {
+                    parentNode.setChildren(new ArrayList<>());
+                }
+                parentNode.getChildren().add(node);
+            }
+        });
+        return treeNodes;
     }
 
     /**
