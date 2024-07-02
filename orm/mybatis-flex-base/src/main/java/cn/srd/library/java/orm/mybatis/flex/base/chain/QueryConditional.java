@@ -7,7 +7,6 @@ package cn.srd.library.java.orm.mybatis.flex.base.chain;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
 import cn.srd.library.java.orm.mybatis.flex.base.support.MybatisFlexs;
-import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.functional.If;
 import cn.srd.library.java.tool.lang.object.Nil;
@@ -736,9 +735,6 @@ public class QueryConditional<C extends BaseChainer, W extends QueryWrapper> ext
      * @return in condition
      */
     public C in(Object[] values, boolean condition) {
-        if (Nil.isEmpty(values)) {
-            values = Collections.ofArray(Object.class, (Object) null);
-        }
         getNativeQueryConditional().in(values, condition);
         return getChainer();
     }
@@ -855,9 +851,6 @@ public class QueryConditional<C extends BaseChainer, W extends QueryWrapper> ext
      * @return not in condition
      */
     public C notIn(Object[] values, boolean condition) {
-        if (Nil.isEmpty(values)) {
-            values = Collections.ofArray(Object.class, (Object) null);
-        }
         getNativeQueryConditional().notIn(values, condition);
         return getChainer();
     }
