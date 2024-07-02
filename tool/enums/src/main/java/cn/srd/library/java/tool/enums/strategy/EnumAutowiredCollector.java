@@ -61,7 +61,7 @@ public class EnumAutowiredCollector<E extends Enum<E>> implements SmartInitializ
                 Set<BeanDefinition> enumAutowiredChildrenClassDefinitions = Classes.scanByAssignableTypeFilter(enumAutowiredRootClass, scanPackagePaths);
                 Assert.of().setMessage("{}the class [{}] marked with [@{}] bound interface [{}] has no implementation class, please check!", ModuleView.TOOL_ENUM_SYSTEM, enumAutowiredAnnotatedClassName, EnumAutowired.class.getName(), enumAutowiredRootClassName)
                         .setThrowable(LibraryJavaInternalException.class)
-                        .throwsIfEmpty(enumAutowiredChildrenClassDefinitions);
+                        .throwsIfTrue(!enumAutowired.allowNull() && Nil.isEmpty(enumAutowiredChildrenClassDefinitions));
 
                 String autowiredFiledName = enumAutowired.autowiredFiledName();
                 if (Nil.isBlank(autowiredFiledName)) {
@@ -86,7 +86,7 @@ public class EnumAutowiredCollector<E extends Enum<E>> implements SmartInitializ
                 for (E enumField : Enums.getAllInstances((Class<E>) enumAutowiredAnnotatedClass)) {
                     EnumAutowiredFieldMatchRule enumAutowiredFieldMatchRule = Reflects.newInstance(enumAutowired.matchRule());
                     String theMostSuitableAutowiredClassSimpleName = enumAutowiredFieldMatchRule.getMostSuitableAutowiredClassSimpleName(enumField, Collections.getMapKeys(enumAutowiredSubclassSimpleNameMappingNameMap));
-                    if (Nil.isNull(theMostSuitableAutowiredClassSimpleName) && enumAutowired.allowNull()) {
+                    if (enumAutowired.allowNull() && Nil.isBlank(theMostSuitableAutowiredClassSimpleName)) {
                         Reflects.setFieldValue(enumField, autowiredFiledName, null);
                         log.info("{}find class [null] and autowired it into enum [{}]-[{}] filed [{}]", ModuleView.TOOL_ENUM_SYSTEM, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName);
                         continue;

@@ -6,7 +6,6 @@ package cn.srd.library.java.tool.enums;
 
 import cn.srd.library.java.tool.enums.autoconfigure.EnableEnumAutowired;
 import cn.srd.library.java.tool.enums.strategy.EnumAutowiredCollector;
-import cn.srd.library.java.tool.enums.strategy.EnumAutowiredFieldMatchByContainIgnoreCaseRule;
 import cn.srd.library.java.tool.enums.strategy.EnumAutowiredFieldMatchByMostSimilarRule;
 import cn.srd.library.java.tool.enums.strategy.EnumAutowiredFieldMatchRule;
 import cn.srd.library.java.tool.lang.text.Strings;
@@ -113,13 +112,7 @@ public @interface EnumAutowired {
     String autowiredFiledName() default "";
 
     /**
-     * <pre>
      * if set it to true, will never autowired the instance to spring ioc when the {@link #matchRule()} cannot find the suitable class.
-     * 1. if set {@link #matchRule()} to {@link EnumAutowiredFieldMatchByMostSimilarRule}.class,
-     *    the enum autowired system will always find the suitable class.
-     * 2. if set {@link #matchRule()} to {@link EnumAutowiredFieldMatchByContainIgnoreCaseRule}.class,
-     *    the enum autowired system may not find the suitable class and leading to throw exception if set {@link #allowNull()} to false.
-     * </pre>
      *
      * @return the specified field name to autowired
      */
