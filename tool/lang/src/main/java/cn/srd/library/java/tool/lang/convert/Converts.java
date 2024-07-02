@@ -5,6 +5,7 @@
 package cn.srd.library.java.tool.lang.convert;
 
 import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.EnumUtil;
 import cn.hutool.core.util.HexUtil;
 import cn.srd.library.java.contract.constant.booleans.BooleanConstant;
@@ -300,7 +301,7 @@ public class Converts {
     public static <T> T[] toArray(Collection<T> inputs, Class<T> inputType) {
         return Action.<T[]>ifEmpty(inputs)
                 .then(() -> Collections.newArray(inputType))
-                .otherwise(() -> Collections.ofUnknownSizeStream(inputs).toArray(ignore -> Collections.newArray(inputType)))
+                .otherwise(() -> ArrayUtil.toArray(inputs, inputType))
                 .get();
     }
 
