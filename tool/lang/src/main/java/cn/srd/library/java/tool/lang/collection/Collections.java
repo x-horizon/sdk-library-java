@@ -328,6 +328,20 @@ public class Collections {
     }
 
     /**
+     * create a containing the specified elements immutable list
+     *
+     * @param inputs the specified elements
+     * @param <T>    the specified element type
+     * @return a containing the specified elements immutable list
+     */
+    public static <T> List<T> ofImmutableList(Iterable<T> inputs) {
+        return Action.<List<T>>ifEmpty(inputs)
+                .then(Collections::newImmutableList)
+                .otherwise(() -> ofUnknownSizeStream(inputs).toList())
+                .get();
+    }
+
+    /**
      * create a containing the specified elements hash set
      *
      * @param inputs the specified elements

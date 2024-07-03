@@ -5,8 +5,6 @@
 package cn.srd.library.java.tool.lang.functional;
 
 import cn.srd.library.java.contract.constant.throwable.AssertMessage;
-import cn.srd.library.java.contract.constant.web.HttpStatus;
-import cn.srd.library.java.contract.model.throwable.AbstractRuntimeException;
 import cn.srd.library.java.contract.model.throwable.ClientException;
 import cn.srd.library.java.tool.lang.booleans.Booleans;
 import cn.srd.library.java.tool.lang.compare.Comparators;
@@ -53,11 +51,6 @@ import java.util.Map;
 public class Assert {
 
     /**
-     * the status of exception
-     */
-    @Setter private Integer status;
-
-    /**
      * the message template of exception
      */
     private String messageTemplate;
@@ -68,9 +61,9 @@ public class Assert {
     private Object[] messageTemplateParams;
 
     /**
-     * the exception extends {@link AbstractRuntimeException}
+     * the exception extends {@link Throwable}
      */
-    @Setter private Class<? extends AbstractRuntimeException> throwable;
+    @Setter private Class<? extends Throwable> throwable;
 
     public Assert setMessage(String template, Object... params) {
         this.messageTemplate = template;
@@ -85,6 +78,29 @@ public class Assert {
      */
     public static Assert of() {
         return new Assert();
+    }
+
+    /**
+     * return {@link Assert} instance
+     *
+     * @param template the message template of exception
+     * @param params   the message template params of exception
+     * @return {@link Assert} instance
+     */
+    public static Assert of(String template, Object... params) {
+        return of().setMessage(template, params);
+    }
+
+    /**
+     * return {@link Assert} instance
+     *
+     * @param throwableClass the exception extends {@link Throwable}
+     * @param template       the message template of exception
+     * @param params         the message template params of exception
+     * @return {@link Assert} instance
+     */
+    public static Assert of(Class<? extends Throwable> throwableClass, String template, Object... params) {
+        return of().setMessage(template, params).setThrowable(throwableClass);
     }
 
     /**
@@ -1644,8 +1660,7 @@ public class Assert {
     public Void doThrows() {
         throw Objects.setIfNull(this.throwable, () -> ClientException.class)
                 .getConstructor(String.class)
-                .newInstance(Nil.isNull(this.messageTemplateParams) ? this.messageTemplate : Strings.format(this.messageTemplate, this.messageTemplateParams))
-                .setStatus(Objects.setIfNull(this.status, HttpStatus.BAD_REQUEST::getStatus));
+                .newInstance(Nil.isNull(this.messageTemplateParams) ? this.messageTemplate : Strings.format(this.messageTemplate, this.messageTemplateParams));
     }
 
 }
