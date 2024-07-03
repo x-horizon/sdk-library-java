@@ -16,7 +16,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_METRIC_MICROMETER("io.micrometer:micrometer-bom", "1.13.1"), // support spring-boot version to 3.3.1
     BOM_ORM_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-dependencies", "1.9.3"), // TODO wjm support spring-boot version to 2.7.11
     BOM_ORM_MYBATIS_PLUS("com.baomidou:mybatis-plus-bom", "3.5.7"), // TODO wjm support spring-boot version to 2.7.18
-    BOM_OSS_ALL_FACED("org.dromara.x-file-storage:x-file-storage-parent", "2.1.0"), // TODO wjm support spring-boot version to 2.7.2
+    BOM_OSS_ALL_FACED("org.dromara.x-file-storage:x-file-storage-parent", "2.2.0"), // TODO wjm support spring-boot version to 2.7.2
     BOM_SECURITY_DEV33_SA_TOKEN("cn.dev33:sa-token-bom", "1.38.0"), // TODO wjm support spring-boot version to 2.5.15
     BOM_TEST_MOCKITO("org.mockito:mockito-bom", "5.11.0"),
     BOM_TEST_TESTCONTAINERS("org.testcontainers:testcontainers-bom", "1.19.8"), // TODO wjm support spring-boot version to 3.2.4
