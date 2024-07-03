@@ -36,6 +36,7 @@ object GradleModule {
     const val DATA_TDENGINE = "data-tdengine"
 
     const val DOC_KNIFE4J_CONTRACT = "doc-knife4j-contract"
+    const val DOC_KNIFE4J_SPRING_GATEWAY = "doc-knife4j-spring-gateway"
     const val DOC_KNIFE4J_SPRING_WEBMVC = "doc-knife4j-spring-webmvc"
     const val DOC_KNIFE4J_SPRING_WEBFLUX = "doc-knife4j-spring-webflux"
 
@@ -179,6 +180,7 @@ internal object ModuleHelper {
 
     private val moduleNameMappingReferenceModuleNameMap = ConcurrentHashMap<String, String>().apply {
         // cache the special reference module name that cannot parse
+        put(GradleModule.DOC_KNIFE4J_SPRING_GATEWAY, ":doc:knife4j:spring-gateway")
         put(GradleModule.DOC_KNIFE4J_SPRING_WEBFLUX, ":doc:knife4j:spring-webflux")
         put(GradleModule.DOC_KNIFE4J_SPRING_WEBMVC, ":doc:knife4j:spring-webmvc")
         put(GradleModule.MESSAGE_ENGINE_REDIS_STREAM, ":message-engine:redis-stream")

@@ -48,6 +48,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     DATA_TDENGINE("com.taosdata.jdbc:taos-jdbcdriver", "3.2.11"),
 
     DOC_XIAOYMIN_KNIFE4J_OPENAPI3_JAKARTA_SPRING_BOOT("com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter", ""),
+    DOC_XIAOYMIN_KNIFE4J_SPRING_GATEWAY("com.github.xiaoymin:knife4j-gateway-spring-boot-starter", ""),
 
     FRAMEWORK_SPRING_BOOT("org.springframework.boot:spring-boot-starter", ""),
     FRAMEWORK_SPRING_BOOT_WEBMVC("org.springframework.boot:spring-boot-starter-web", ""),

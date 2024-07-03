@@ -144,6 +144,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.DATA_TDENGINE)))
 
         api(project(GradleModule.toReferenceName(GradleModule.DOC_KNIFE4J_CONTRACT)))
+        api(project(GradleModule.toReferenceName(GradleModule.DOC_KNIFE4J_SPRING_GATEWAY)))
         api(project(GradleModule.toReferenceName(GradleModule.DOC_KNIFE4J_SPRING_WEBFLUX)))
         api(project(GradleModule.toReferenceName(GradleModule.DOC_KNIFE4J_SPRING_WEBMVC)))
 

@@ -45,6 +45,7 @@ include(":data:postgresql")
 include(":data:tdengine")
 
 include(":doc:knife4j:contract")
+include(":doc:knife4j:spring-gateway")
 include(":doc:knife4j:spring-webmvc")
 include(":doc:knife4j:spring-webflux")
 
