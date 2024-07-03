@@ -802,14 +802,14 @@ public class Converts {
      */
     public static <Key, T extends BTreeNode<Key, T>> List<T> toTree(List<T> nodes) {
         Map<Key, T> nodeIdMappingNodeMap = toMap(nodes, T::getId);
-        List<T> treeNodes = new ArrayList<>();
+        List<T> treeNodes = Collections.newArrayList();
         nodes.forEach(node -> {
             if (Nil.isZeroValue(node.getParentId()) || Collections.notContainsKey(nodeIdMappingNodeMap, node.getParentId())) {
                 treeNodes.add(node);
             } else {
                 T parentNode = nodeIdMappingNodeMap.get(node.getParentId());
                 if (Nil.isNull(parentNode.getChildren())) {
-                    parentNode.setChildren(new ArrayList<>());
+                    parentNode.setChildren(Collections.newArrayList());
                 }
                 parentNode.getChildren().add(node);
             }

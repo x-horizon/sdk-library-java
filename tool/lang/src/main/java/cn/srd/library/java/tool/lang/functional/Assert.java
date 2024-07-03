@@ -83,6 +83,16 @@ public class Assert {
     /**
      * return {@link Assert} instance
      *
+     * @param throwableClass the exception extends {@link Throwable}
+     * @return {@link Assert} instance
+     */
+    public static Assert of(Class<? extends Throwable> throwableClass) {
+        return of().setThrowable(throwableClass);
+    }
+
+    /**
+     * return {@link Assert} instance
+     *
      * @param template the message template of exception
      * @param params   the message template params of exception
      * @return {@link Assert} instance

@@ -66,9 +66,7 @@ public abstract class RedisLockAspect {
                 // 根据 fieldOrder 获取方法形参列表上的第 fieldOrder 个参数，fieldOrder 为 0 时获取第 1 个，为 n 时获取第 n 个；
                 Object lockAnnotationMethodParameter = fieldOrder > 0 ? lockAnnotationMethodParameters[fieldOrder - 1] : lockAnnotationMethodParameters[0];
                 String fieldValue = Reflects.getFieldValue(lockAnnotationMethodParameter, fieldName, String.class);
-                Assert.of().setMessage("无法根据给定参数生成锁名：获取到的方法参数上对应的字段值为空，请检查！")
-                        .setThrowable(LibraryJavaInternalException.class)
-                        .throwsIfBlank(fieldValue);
+                Assert.of(LibraryJavaInternalException.class, "无法根据给定参数生成锁名：获取到的方法参数上对应的字段值为空，请检查！").throwsIfBlank(fieldValue);
                 return fieldValue;
             }
         }
@@ -88,9 +86,7 @@ public abstract class RedisLockAspect {
      * @return 临界区响应值
      */
     private <T extends RedisLockTemplate> Object doLock(String lockName, long waitTime, long leaseTime, TimeUnit timeUnit, Class<T> redisLockTemplateClass, ProceedingJoinPoint joinPoint) {
-        Assert.of().setMessage("非法的 waitTime 值，请检查！")
-                .setThrowable(LibraryJavaInternalException.class)
-                .throwsIfTrue(waitTime < 0);
+        Assert.of(LibraryJavaInternalException.class, "非法的 waitTime 值，请检查！").throwsIfTrue(waitTime < 0);
         RedisLockTemplate redisLockTemplate = getRedisLockTemplate(redisLockTemplateClass);
         return redisLockTemplate.tryLock(() -> this.proceed(joinPoint), lockName, waitTime, leaseTime, timeUnit);
     }

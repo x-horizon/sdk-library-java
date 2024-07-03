@@ -8,10 +8,7 @@ import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.web.HttpStatus;
 import cn.srd.library.java.contract.model.protocol.WebResponse;
-import cn.srd.library.java.contract.model.throwable.ClientException;
-import cn.srd.library.java.contract.model.throwable.DataNotFoundException;
-import cn.srd.library.java.contract.model.throwable.RunningException;
-import cn.srd.library.java.contract.model.throwable.UnsupportedException;
+import cn.srd.library.java.contract.model.throwable.*;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.object.Classes;
 import jakarta.servlet.http.HttpServletRequest;
@@ -339,6 +336,33 @@ public class WebMvcExceptionInterceptor {
         String message = exception.getBindingResult().getFieldErrors().stream().map(FieldError::getDefaultMessage).distinct().collect(Collectors.joining(", "));
         log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
         return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, message);
+    }
+
+    /**
+     * handle the exception when throw {@link InvalidIdException}
+     *
+     * @param httpServletRequest the http servlet request
+     * @param exception          the exception
+     * @return the web response
+     */
+    @ExceptionHandler(InvalidIdException.class)
+    public WebResponse<Void> handleInvalidIdException(HttpServletRequest httpServletRequest, InvalidIdException exception) {
+        String message = "操作失败：未提供 id";
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), message), exception);
+        return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, message);
+    }
+
+    /**
+     * handle the exception when throw {@link InvalidArgumentException}
+     *
+     * @param httpServletRequest the http servlet request
+     * @param exception          the exception
+     * @return the web response
+     */
+    @ExceptionHandler(InvalidArgumentException.class)
+    public WebResponse<Void> handleInvalidArgumentException(HttpServletRequest httpServletRequest, InvalidArgumentException exception) {
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()), exception.getMessage());
+        return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, exception.getMessage());
     }
 
     /**
