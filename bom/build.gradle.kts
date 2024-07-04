@@ -8,6 +8,7 @@ plugins {
 
 dependencies {
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_CLOUD_NATIVE_DOCKER)))
+    api(platform(GradleDependency.withVersion(GradleDependency.BOM_DOC_SPRING_OPENAPI)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_DOC_XIAOYMIN_KNIFE4J)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_ECLIPSE_PAHO)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_FRAMEWORK_ALIBABA_SPRING_CLOUD)))

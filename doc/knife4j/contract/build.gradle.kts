@@ -5,5 +5,5 @@
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
 
-    api(GradleDependency.DOC_XIAOYMIN_KNIFE4J_OPENAPI3_JAKARTA_SPRING_BOOT.withoutVersion)
+    api(GradleDependency.DOC_SPRING_OPENAPI_COMMON.withoutVersion)
 }

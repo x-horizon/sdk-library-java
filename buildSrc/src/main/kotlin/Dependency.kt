@@ -5,6 +5,7 @@
 enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     BOM_CLOUD_NATIVE_DOCKER("com.github.docker-java:docker-java-bom", "3.3.6"),
+    BOM_DOC_SPRING_OPENAPI("org.springdoc:springdoc-openapi", "2.3.0"), // need to synchronize with "com.github.xiaoymin:knife4j-dependencies"
     BOM_DOC_XIAOYMIN_KNIFE4J("com.github.xiaoymin:knife4j-dependencies", "4.5.0"), // TODO wjm support spring-boot version to 3.0.4
     BOM_ECLIPSE_PAHO("org.eclipse.paho:java-parent", "1.2.5"), // support spring-boot version to 3.3.1, need to synchronize with "org.springframework.boot:spring-boot-dependencies"
     BOM_FRAMEWORK_ALIBABA_SPRING_CLOUD("com.alibaba.cloud:spring-cloud-alibaba-dependencies", "2023.0.1.0"), // TODO wjm support spring-boot version to 3.2.4
@@ -47,12 +48,14 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     DATA_POSTGRESQL("org.postgresql:postgresql", "42.7.3"), // TODO wjm support spring-boot version to 3.3.0
     DATA_TDENGINE("com.taosdata.jdbc:taos-jdbcdriver", "3.2.11"),
 
-    DOC_XIAOYMIN_KNIFE4J_OPENAPI3_JAKARTA_SPRING_BOOT("com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter", ""),
+    DOC_SPRING_OPENAPI_COMMON("org.springdoc:springdoc-openapi-starter-common", ""),
+    DOC_XIAOYMIN_KNIFE4J_OPENAPI3_JAKARTA_SPRING_WEBFLUX("com.github.xiaoymin:knife4j-openapi3-webflux-jakarta-spring-boot-starter", ""),
+    DOC_XIAOYMIN_KNIFE4J_OPENAPI3_JAKARTA_SPRING_WEBMVC("com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter", ""),
     DOC_XIAOYMIN_KNIFE4J_SPRING_GATEWAY("com.github.xiaoymin:knife4j-gateway-spring-boot-starter", ""),
 
     FRAMEWORK_SPRING_BOOT("org.springframework.boot:spring-boot-starter", ""),
-    FRAMEWORK_SPRING_BOOT_WEBMVC("org.springframework.boot:spring-boot-starter-web", ""),
     FRAMEWORK_SPRING_BOOT_WEBFLUX("org.springframework.boot:spring-boot-starter-webflux", ""),
+    FRAMEWORK_SPRING_BOOT_WEBMVC("org.springframework.boot:spring-boot-starter-web", ""),
 
     GATEWAY_SPRING_CLOUD("org.springframework.cloud:spring-cloud-starter-gateway", ""),
 
