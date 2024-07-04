@@ -165,7 +165,7 @@ public class Converts {
      *     {@code
      *        public static void main(String[] args) {
      *            // the output is [1, 2, 3, 4], data type is {@link Integer}
-     *           splitToNumbers("1,2,3,4", ",", Integer.class);
+     *           Converts.toNumbers("1,2,3,4", ",", Integer.class);
      *        }
      *     }
      * </pre>
@@ -273,7 +273,7 @@ public class Converts {
      *        public static void main(String[] args) {
      *            List<Integer> inputs = List.of(1, 2, 3, 4, 5);
      *            // the output is [1, 2, 3, 4, 5]
-     *            Integer[] outputs = Collections.toArray(inputs, Integer[]::new);
+     *            Integer[] outputs = Converts.toArray(inputs, Integer[]::new);
      *        }
      *     }
      * </pre>
@@ -315,7 +315,7 @@ public class Converts {
      *        public static void main(String[] args) {
      *            List<Integer> inputs = List.of(1, 2, 3, 4, 5);
      *            // the output is [1, 2, 3, 4, 5]
-     *            Object[] outputs = Collections.toArray(inputs);
+     *            Object[] outputs = Converts.toArray(inputs);
      *        }
      *     }
      * </pre>
@@ -392,7 +392,7 @@ public class Converts {
      *                        Person.builder().name("name4").age(13).build()
      *                );
      *                // the output is [10, 11, 12, 13]
-     *                List<Integer> outputs = Collections.toList(inputs, Person::getAge);
+     *                List<Integer> outputs = Converts.toList(inputs, Person::getAge);
      *            }
      *
      *        }
@@ -449,7 +449,7 @@ public class Converts {
      *                        Person.builder().name("name4").age(13).build()
      *                );
      *                // the output is [10, 11, 12, 13]
-     *                List<Integer> outputs = Collections.toList(inputs, Person::getAge);
+     *                List<Integer> outputs = Converts.toList(inputs, Person::getAge);
      *            }
      *
      *        }
@@ -490,7 +490,7 @@ public class Converts {
      *        public static void main(String[] args) {
      *            Integer[] inputs = ofArray(1, 2, 3, 3, 4);
      *            // the output is [1, 2, 3, 4]
-     *            Set<Integer> outputs = Collections.toSet(inputs);
+     *            Set<Integer> outputs = Converts.toSet(inputs);
      *        }
      *     }
      * </pre>
@@ -555,7 +555,7 @@ public class Converts {
      *                        Person.builder().name("name4").age(12).build()
      *                );
      *                // the output is [10, 11, 12]
-     *                Set<Integer> outputs = Collections.toSet(inputs, Person::getAge);
+     *                Set<Integer> outputs = Converts.toSet(inputs, Person::getAge);
      *            }
      *
      *        }
@@ -639,7 +639,7 @@ public class Converts {
      *                        Person.builder().name("name4").age(13).build()
      *                );
      *                // the output is {10:Person(name="name1", age=10), 11:Person(name="name2", age=11), 12:Person(name="name3", age=12), 13:Person(name="name4", age=13)}
-     *                Map<Integer, Person> outputs = Collections.toMap(inputs, Person::getAge);
+     *                Map<Integer, Person> outputs = Converts.toMap(inputs, Person::getAge);
      *            }
      *
      *        }
@@ -682,7 +682,7 @@ public class Converts {
      *                        Person.builder().name("name4").age(13).build()
      *                );
      *                // the output is {10:"name1", 11:"name2", 12:"name3", 13:"name4"}
-     *                Map<Integer, String> outputs = Collections.toMap(inputs, Person::getAge, Person::getName);
+     *                Map<Integer, String> outputs = Converts.toMap(inputs, Person::getAge, Person::getName);
      *            }
      *
      *        }
@@ -727,7 +727,7 @@ public class Converts {
      *                        Person.builder().name("name4").age(12).build()
      *                );
      *                // the output is {10:[Person(name="name1", age=10)], 11:[Person(name="name2", age=11), Person(name="name3", age=11)], 12:[Person(name="name4", age=12)]}
-     *                Map<Integer, List<Person>> outputs = Collections.toMultiMap(inputs, Person::getAge);
+     *                Map<Integer, List<Person>> outputs = Converts.toMultiMap(inputs, Person::getAge);
      *            }
      *
      *        }
@@ -770,7 +770,7 @@ public class Converts {
      *                        Person.builder().name("name4").age(12).build()
      *                );
      *                // the output is {10:["name1"], 11:["name2", "name3"], 12:["name4"]}
-     *                Map<Integer, List<String>> outputs = Collections.toMultiMap(inputs, Person::getAge, Person::getName);
+     *                Map<Integer, List<String>> outputs = Converts.toMultiMap(inputs, Person::getAge, Person::getName);
      *            }
      *
      *        }
@@ -1040,7 +1040,7 @@ public class Converts {
      *
      *            public static void main(String[] args) {
      *                // the output is [GenderType.MAN, GenderType.WOMAN, GenderType.UNKNOWN]
-     *                Strings.splitToEnums("1, 2, 3", ",", GenderType.class);
+     *                Converts.toEnumsByString("1, 2, 3", ",", GenderType.class);
      *            }
      *
      *        }
@@ -1067,9 +1067,9 @@ public class Converts {
      *
      *            public static void main(String[] args) {
      *                // the output is [GenderType.MAN, GenderType.WOMAN, GenderType.UNKNOWN]
-     *                Strings.splitToEnums("1, 2, 3", ",", GenderType.class);
+     *                Converts.toEnumsByString("1, 2, 3", ",", GenderType.class);
      *                // the output is [GenderType.MAN, GenderType.WOMAN, GenderType.UNKNOWN]
-     *                Strings.splitToEnums("10, 11, 12", ",", GenderType.class);
+     *                Converts.toEnumsByString("10, 11, 12", ",", GenderType.class);
      *            }
      *
      *        }
@@ -1088,7 +1088,7 @@ public class Converts {
      *
      *            public static void main(String[] args) {
      *                // the output is [null, null, null]
-     *                Strings.splitToEnums("1, 2, 3", ",", GenderType.class);
+     *                Converts.toEnumsByString("1, 2, 3", ",", GenderType.class);
      *            }
      *
      *        }

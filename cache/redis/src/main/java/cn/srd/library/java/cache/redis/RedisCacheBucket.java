@@ -160,7 +160,7 @@ public class RedisCacheBucket implements RedisCacheTemplate {
     //  * @param <T>            操作集合中元素的类型
     //  */
     // public <T> void set(List<T> values, Function<T, String> getKeyFunction) {
-    //     RedissonManager.getClient().getBuckets().set(Collections.toMap(values, getKeyFunction));
+    //     RedissonManager.getClient().getBuckets().set(Converts.toMap(values, getKeyFunction));
     // }
     //
     // /**
@@ -173,7 +173,7 @@ public class RedisCacheBucket implements RedisCacheTemplate {
     //  * @param <V>              要缓存对象的类型
     //  */
     // public <T, V> void set(List<T> values, Function<T, String> getKeyFunction, Function<T, V> getValueFunction) {
-    //     RedissonManager.getClient().getBuckets().set(Collections.toMap(values, getKeyFunction, getValueFunction));
+    //     RedissonManager.getClient().getBuckets().set(Converts.toMap(values, getKeyFunction, getValueFunction));
     // }
 
     // cache.set(CACHE_NAME1, CACHE_OBJECT1);
