@@ -193,6 +193,7 @@ dependencies {
 
         api(project(GradleModule.toReferenceName(GradleModule.PROTOCOL_JAVAX_SIP)))
 
+        api(project(GradleModule.toReferenceName(GradleModule.REGISTRATION_NACOS)))
         api(project(GradleModule.toReferenceName(GradleModule.REGISTRATION_ZOOKEEPER)))
 
         api(project(GradleModule.toReferenceName(GradleModule.SECURITY_CONTRACT)))

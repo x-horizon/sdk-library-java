@@ -93,6 +93,7 @@ include(":pool:database:hikaricp")
 
 include(":protocol:javax-sip")
 
+include(":registration:nacos")
 include(":registration:zookeeper")
 
 include(":security:contract")

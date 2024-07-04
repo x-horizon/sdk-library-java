@@ -103,6 +103,8 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     PROTOCOL_JAVAX_SIP("javax.sip:jain-sip-ri", "1.3.0-91"), // TODO wjm org.springframework.integration
 
+    REGISTRATION_SPRING_CLOUD_ALIBABA_NACOS_CONFIG("com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config", ""),
+    REGISTRATION_SPRING_CLOUD_ALIBABA_NACOS_DISCOVERY("com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery", ""),
     REGISTRATION_SPRING_CLOUD_ZOOKEEPER("org.springframework.cloud:spring-cloud-starter-zookeeper-discovery", ""),
 
     SECURITY_PASSAY("org.passay:passay", "1.6.4"),

@@ -84,6 +84,7 @@ object GradleModule {
 
     const val PROTOCOL_JAVAX_SIP = "protocol-javax-sip"
 
+    const val REGISTRATION_NACOS = "registration-nacos"
     const val REGISTRATION_ZOOKEEPER = "registration-zookeeper"
 
     const val SECURITY_CONTRACT = "security-contract"
