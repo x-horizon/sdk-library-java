@@ -41,7 +41,7 @@ public final class WebResponse<T> implements TransportModel<T> {
      * @return response model
      */
     public static <T> WebResponse<T> success() {
-        return response(HttpStatus.OK.getStatus(), HttpStatus.OK.getDescription(), null);
+        return response(HttpStatus.OK, null);
     }
 
     /**
@@ -52,7 +52,7 @@ public final class WebResponse<T> implements TransportModel<T> {
      * @return response model
      */
     public static <T> WebResponse<T> success(T data) {
-        return response(HttpStatus.OK.getStatus(), HttpStatus.OK.getDescription(), data);
+        return response(HttpStatus.OK, data);
     }
 
     /**
@@ -63,7 +63,7 @@ public final class WebResponse<T> implements TransportModel<T> {
      * @return response model
      */
     public static <T> WebResponse<T> success(String message) {
-        return response(HttpStatus.OK.getStatus(), message, null);
+        return success(message, null);
     }
 
     /**
@@ -85,7 +85,7 @@ public final class WebResponse<T> implements TransportModel<T> {
      * @return response model
      */
     public static <T> WebResponse<T> error() {
-        return response(HttpStatus.INTERNAL_ERROR.getStatus(), HttpStatus.INTERNAL_ERROR.getDescription(), null);
+        return response(HttpStatus.INTERNAL_ERROR, null);
     }
 
     /**
@@ -96,7 +96,7 @@ public final class WebResponse<T> implements TransportModel<T> {
      * @return response model
      */
     public static <T> WebResponse<T> error(T data) {
-        return response(HttpStatus.INTERNAL_ERROR.getStatus(), HttpStatus.INTERNAL_ERROR.getDescription(), data);
+        return response(HttpStatus.INTERNAL_ERROR, data);
     }
 
     /**
@@ -107,7 +107,7 @@ public final class WebResponse<T> implements TransportModel<T> {
      * @return response model
      */
     public static <T> WebResponse<T> error(String message) {
-        return response(HttpStatus.INTERNAL_ERROR.getStatus(), message, null);
+        return error(message, null);
     }
 
     /**
@@ -130,7 +130,7 @@ public final class WebResponse<T> implements TransportModel<T> {
      * @return response model
      */
     public static <T> WebResponse<T> error(HttpStatus httpStatus) {
-        return response(httpStatus.getStatus(), httpStatus.getDescription(), null);
+        return response(httpStatus, null);
     }
 
     /**
