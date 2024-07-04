@@ -7,7 +7,7 @@ package cn.srd.library.java.message.engine.kafka.autoconfigure;
 import cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineRegistrar;
 
 /**
- * the {@link EnableMessageEngineKafka message engine kafka system} switcher
+ * the {@link EnableMessageEngineKafka message engine kafka system} registrar
  *
  * @author wjm
  * @since 2024-05-24 16:55

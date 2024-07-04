@@ -5,7 +5,7 @@
 package cn.srd.library.java.tool.spring.webflux.autoconfigure;
 
 /**
- * the {@link EnableWebFluxExceptionInterceptor spring flux exception handler} switcher
+ * the {@link EnableWebFluxExceptionInterceptor spring flux exception handler} registrar
  *
  * @author wjm
  * @see WebFluxAutoConfigurer#webFluxExceptionInterceptor()

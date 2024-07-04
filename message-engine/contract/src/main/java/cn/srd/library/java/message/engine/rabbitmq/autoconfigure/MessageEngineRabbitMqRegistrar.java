@@ -7,7 +7,7 @@ package cn.srd.library.java.message.engine.rabbitmq.autoconfigure;
 import cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineRegistrar;
 
 /**
- * the {@link EnableMessageEngineRabbitMq message engine rabbitmq system} switcher
+ * the {@link EnableMessageEngineRabbitMq message engine rabbitmq system} registrar
  *
  * @author wjm
  * @since 2024-05-24 16:55

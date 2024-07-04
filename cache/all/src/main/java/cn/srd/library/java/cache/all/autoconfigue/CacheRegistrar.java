@@ -5,7 +5,7 @@
 package cn.srd.library.java.cache.all.autoconfigue;
 
 /**
- * the {@link EnableCache cache system} switcher
+ * the {@link EnableCache cache system} registrar
  *
  * @author wjm
  * @see CacheAutoConfigurer#cacheReadAspect()

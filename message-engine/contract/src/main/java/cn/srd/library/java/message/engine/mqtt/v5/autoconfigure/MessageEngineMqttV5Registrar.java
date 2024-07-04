@@ -7,7 +7,7 @@ package cn.srd.library.java.message.engine.mqtt.v5.autoconfigure;
 import cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineRegistrar;
 
 /**
- * the {@link EnableMessageEngineMqttV5 message engine mqtt-v5 system} switcher
+ * the {@link EnableMessageEngineMqttV5 message engine mqtt-v5 system} registrar
  *
  * @author wjm
  * @since 2024-05-24 16:55

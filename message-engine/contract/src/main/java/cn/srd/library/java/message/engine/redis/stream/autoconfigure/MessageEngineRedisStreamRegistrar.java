@@ -7,7 +7,7 @@ package cn.srd.library.java.message.engine.redis.stream.autoconfigure;
 import cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineRegistrar;
 
 /**
- * the {@link EnableMessageEngineRedisStream message engine redis system} switcher
+ * the {@link EnableMessageEngineRedisStream message engine redis system} registrar
  *
  * @author wjm
  * @since 2024-05-24 16:55

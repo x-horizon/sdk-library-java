@@ -5,7 +5,7 @@
 package cn.srd.library.java.concurrent.redis.autoconfigue;
 
 /**
- * the {@link EnableRedisLock redis lock system} switcher
+ * the {@link EnableRedisLock redis lock system} registrar
  *
  * @author wjm
  * @see RedisLockAutoConfigurer#redisFairLockAspect()

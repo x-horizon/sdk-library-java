@@ -5,7 +5,7 @@
 package cn.srd.library.java.tool.enums.autoconfigure;
 
 /**
- * the {@link EnableEnumAutowired enum autowired system} switcher
+ * the {@link EnableEnumAutowired enum autowired system} registrar
  *
  * @author wjm
  * @see EnumAutoConfigurer#enumAutowiredCollector()

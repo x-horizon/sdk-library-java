@@ -5,7 +5,7 @@
 package cn.srd.library.java.tool.spring.webmvc.autoconfigure;
 
 /**
- * the {@link EnableWebMvcExceptionInterceptor spring webmvc exception handler} switcher
+ * the {@link EnableWebMvcExceptionInterceptor spring webmvc exception handler} registrar
  *
  * @author wjm
  * @see WebMvcAutoConfigurer#webMVCExceptionInterceptor()

@@ -8,7 +8,7 @@ import cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineRe
 import cn.srd.library.java.message.engine.rabbitmq.autoconfigure.EnableMessageEngineRabbitMq;
 
 /**
- * the {@link EnableMessageEngineRabbitMq message engine meaningless system} switcher
+ * the {@link EnableMessageEngineRabbitMq message engine meaningless system} registrar
  *
  * @author wjm
  * @since 2024-05-24 16:55
