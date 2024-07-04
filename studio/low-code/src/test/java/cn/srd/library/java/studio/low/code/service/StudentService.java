@@ -19,7 +19,7 @@ import cn.srd.library.java.studio.low.code.model.vo.StudentVO;
 import cn.srd.library.java.studio.low.code.repository.SchoolRepository;
 import cn.srd.library.java.studio.low.code.repository.StudentRepository;
 import cn.srd.library.java.studio.low.code.repository.TeacherRepository;
-import cn.srd.library.java.tool.convert.all.Converts;
+import cn.srd.library.java.tool.convert.api.Converts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

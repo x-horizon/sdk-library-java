@@ -109,7 +109,7 @@ include(":test:spring-boot")
 include(":test:spring-integration")
 
 include(":tool:content-analysis")
-include(":tool:convert:all")
+include(":tool:convert:api")
 include(":tool:convert:jackson")
 include(":tool:convert:mapstruct")
 include(":tool:convert:protobuf")

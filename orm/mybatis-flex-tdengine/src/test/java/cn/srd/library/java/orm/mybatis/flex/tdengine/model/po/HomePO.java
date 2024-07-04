@@ -7,7 +7,7 @@ package cn.srd.library.java.orm.mybatis.flex.tdengine.model.po;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.mybatis.flex.tdengine.model.bo.HomeBO;
 import cn.srd.library.java.orm.mybatis.flex.tdengine.model.vo.HomeVO;
-import cn.srd.library.java.tool.convert.all.Converts;
+import cn.srd.library.java.tool.convert.api.Converts;
 import com.mybatisflex.annotation.Table;
 import io.github.linpeilie.annotations.AutoMapper;
 import io.github.linpeilie.annotations.AutoMappers;

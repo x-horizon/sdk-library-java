@@ -4,7 +4,7 @@
 
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.ORM_CONTRACT_MYBATIS_BASE)))
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_ALL)))
+    api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_API)))
 
     api(GradleDependency.ORM_MYBATIS_FLEX.withoutVersion)
 

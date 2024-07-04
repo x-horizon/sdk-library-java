@@ -100,7 +100,7 @@ object GradleModule {
     const val TEST_SPRING_INTEGRATION = "test-spring-integration"
 
     const val TOOL_CONTENT_ANALYSIS = "tool-content-analysis"
-    const val TOOL_CONVERT_ALL = "tool-convert-all"
+    const val TOOL_CONVERT_API = "tool-convert-api"
     const val TOOL_CONVERT_JACKSON = "tool-convert-jackson"
     const val TOOL_CONVERT_MAPSTRUCT = "tool-convert-mapstruct"
     const val TOOL_CONVERT_PROTOBUF = "tool-convert-protobuf"

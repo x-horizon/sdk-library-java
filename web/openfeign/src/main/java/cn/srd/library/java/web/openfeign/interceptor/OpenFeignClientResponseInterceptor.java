@@ -7,7 +7,7 @@ package cn.srd.library.java.web.openfeign.interceptor;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.protocol.TransportModel;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
-import cn.srd.library.java.tool.convert.all.Converts;
+import cn.srd.library.java.tool.convert.api.Converts;
 import cn.srd.library.java.tool.lang.object.Classes;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;

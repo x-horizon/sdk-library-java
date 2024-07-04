@@ -208,7 +208,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING_INTEGRATION)))
 
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONTENT_ANALYSIS)))
-        api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_ALL)))
+        api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_API)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_JACKSON)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_MAPSTRUCT)))
         api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_PROTOBUF)))

@@ -8,7 +8,7 @@ import cn.srd.library.java.studio.low.code.model.vo.SchoolGetConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.SchoolListConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.SchoolPageConditionVO;
 import cn.srd.library.java.studio.low.code.model.vo.SchoolVO;
-import cn.srd.library.java.tool.convert.all.Converts;
+import cn.srd.library.java.tool.convert.api.Converts;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
