@@ -1,0 +1,70 @@
+// Copyright (C) 2021-2026 thinkingto.com Ltd. All rights reserved.
+// Use of this source code is governed by SRD.
+// license that can be found in the LICENSE file.
+
+package cn.srd.library.java.tool.spring.contract.interceptor;
+
+import cn.srd.library.java.contract.constant.module.ModuleView;
+import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.web.HttpStatus;
+import cn.srd.library.java.contract.model.protocol.WebResponse;
+import cn.srd.library.java.contract.model.throwable.ClientException;
+import cn.srd.library.java.contract.model.throwable.InvalidArgumentException;
+import cn.srd.library.java.contract.model.throwable.RunningException;
+import lombok.extern.slf4j.Slf4j;
+
+import static cn.srd.library.java.contract.model.protocol.WebResponse.error;
+
+/**
+ * generic spring exception interceptor
+ *
+ * @author wjm
+ * @since 2024-07-04 11:32
+ */
+@Slf4j
+@SuppressWarnings(SuppressWarningConstant.PREVIEW)
+public class WebExceptionInterceptor {
+
+    protected WebResponse<Void> whenInvalidIdException(String uri) {
+        String message = "操作失败：未提供 id";
+        log.warn(formatMessage(uri, message));
+        return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, message);
+    }
+
+    protected WebResponse<Void> whenInvalidArgumentException(String uri, InvalidArgumentException exception) {
+        log.warn(formatMessage(uri, exception.getMessage()));
+        return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, exception.getMessage());
+    }
+
+    protected WebResponse<Void> whenUnsupportedException(String uri) {
+        String message = "操作失败：不支持该操作";
+        log.warn(formatMessage(uri, message));
+        return error(HttpStatus.NOT_IMPLEMENTED, message);
+    }
+
+    protected WebResponse<Void> whenDataNotFoundException(String uri) {
+        String message = "操作失败：数据不存在";
+        log.warn(formatMessage(uri, message));
+        return error(HttpStatus.DATA_NOT_FOUND, message);
+    }
+
+    protected WebResponse<Void> whenClientException(String uri, ClientException exception) {
+        log.warn(formatMessage(uri, exception.getMessage()), exception);
+        return error(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    protected WebResponse<Void> whenRunningException(String uri, RunningException exception) {
+        log.warn(formatMessage(uri, exception.getMessage()), exception);
+        return error(exception.getStatus(), exception.getMessage());
+    }
+
+    protected WebResponse<Void> whenThrowable(String uri, Throwable exception) {
+        log.error(formatMessage(uri, exception.getMessage()), exception);
+        return error(HttpStatus.INTERNAL_ERROR, "服务繁忙，请稍后再试！");
+    }
+
+    protected String formatMessage(String requestUri, String message) {
+        return STR."\{ModuleView.TOOL_SPRING_WEBMVC_SYSTEM}请求资源地址：'\{requestUri}'，错误信息：\{message}";
+    }
+
+}

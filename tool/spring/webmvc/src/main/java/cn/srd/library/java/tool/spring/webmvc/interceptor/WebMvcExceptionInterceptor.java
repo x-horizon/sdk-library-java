@@ -4,13 +4,13 @@
 
 package cn.srd.library.java.tool.spring.webmvc.interceptor;
 
-import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.web.HttpStatus;
 import cn.srd.library.java.contract.model.protocol.WebResponse;
 import cn.srd.library.java.contract.model.throwable.*;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.object.Classes;
+import cn.srd.library.java.tool.spring.contract.interceptor.WebExceptionInterceptor;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +40,7 @@ import static cn.srd.library.java.contract.model.protocol.WebResponse.error;
 @Slf4j
 @Order
 @RestControllerAdvice
-public class WebMvcExceptionInterceptor {
+public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
 
     /**
      * <pre>
@@ -342,14 +342,11 @@ public class WebMvcExceptionInterceptor {
      * handle the exception when throw {@link InvalidIdException}
      *
      * @param httpServletRequest the http servlet request
-     * @param exception          the exception
      * @return the web response
      */
     @ExceptionHandler(InvalidIdException.class)
-    public WebResponse<Void> handleInvalidIdException(HttpServletRequest httpServletRequest, InvalidIdException exception) {
-        String message = "操作失败：未提供 id";
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), message), exception);
-        return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, message);
+    public WebResponse<Void> handleInvalidIdException(HttpServletRequest httpServletRequest, InvalidIdException ignore) {
+        return whenInvalidIdException(httpServletRequest.getRequestURI());
     }
 
     /**
@@ -361,36 +358,29 @@ public class WebMvcExceptionInterceptor {
      */
     @ExceptionHandler(InvalidArgumentException.class)
     public WebResponse<Void> handleInvalidArgumentException(HttpServletRequest httpServletRequest, InvalidArgumentException exception) {
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()), exception.getMessage());
-        return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, exception.getMessage());
+        return whenInvalidArgumentException(httpServletRequest.getRequestURI(), exception);
     }
 
     /**
      * handle the exception when throw {@link UnsupportedException}
      *
      * @param httpServletRequest the http servlet request
-     * @param exception          the exception
      * @return the web response
      */
     @ExceptionHandler(UnsupportedException.class)
-    public WebResponse<Void> handleUnsupportedException(HttpServletRequest httpServletRequest, UnsupportedException exception) {
-        String message = "操作失败：不支持该操作";
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), message), exception);
-        return error(HttpStatus.NOT_IMPLEMENTED, message);
+    public WebResponse<Void> handleUnsupportedException(HttpServletRequest httpServletRequest, UnsupportedException ignore) {
+        return whenUnsupportedException(httpServletRequest.getRequestURI());
     }
 
     /**
      * handle the exception when throw {@link DataNotFoundException}
      *
      * @param httpServletRequest the http servlet request
-     * @param exception          the exception
      * @return the web response
      */
     @ExceptionHandler(DataNotFoundException.class)
-    public WebResponse<Void> handleDataNotFoundException(HttpServletRequest httpServletRequest, DataNotFoundException exception) {
-        String message = "操作失败：数据不存在";
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), message), exception);
-        return error(HttpStatus.DATA_NOT_FOUND, message);
+    public WebResponse<Void> handleDataNotFoundException(HttpServletRequest httpServletRequest, DataNotFoundException ignore) {
+        return whenDataNotFoundException(httpServletRequest.getRequestURI());
     }
 
     /**
@@ -402,8 +392,7 @@ public class WebMvcExceptionInterceptor {
      */
     @ExceptionHandler(ClientException.class)
     public WebResponse<Void> handleClientException(HttpServletRequest httpServletRequest, ClientException exception) {
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()), exception);
-        return error(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return whenClientException(httpServletRequest.getRequestURI(), exception);
     }
 
     /**
@@ -415,8 +404,7 @@ public class WebMvcExceptionInterceptor {
      */
     @ExceptionHandler(RunningException.class)
     public WebResponse<Void> handleRunningException(HttpServletRequest httpServletRequest, RunningException exception) {
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()), exception);
-        return error(exception.getStatus(), exception.getMessage());
+        return whenRunningException(httpServletRequest.getRequestURI(), exception);
     }
 
     /**
@@ -428,12 +416,7 @@ public class WebMvcExceptionInterceptor {
      */
     @ExceptionHandler(Throwable.class)
     public WebResponse<Void> handleThrowable(HttpServletRequest httpServletRequest, Throwable exception) {
-        log.error(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()), exception);
-        return error(HttpStatus.INTERNAL_ERROR);
-    }
-
-    private String formatMessage(String requestUri, String message) {
-        return STR."\{ModuleView.TOOL_SPRING_WEBMVC_SYSTEM}请求资源地址：'\{requestUri}'，错误信息：\{message}";
+        return whenThrowable(httpServletRequest.getRequestURI(), exception);
     }
 
 }
