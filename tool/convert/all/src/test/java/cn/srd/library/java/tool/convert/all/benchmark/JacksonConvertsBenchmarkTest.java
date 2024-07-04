@@ -86,67 +86,67 @@ public class JacksonConvertsBenchmarkTest {
 
     private static final Map<String, List<GradeDO>> STRING_MAPPING_GRADE_DOS_MAP = ImmutableMap.of("Grade", GRADE_DOS);
 
-    private static final String GRADE_DO_JSON = Converts.withJackson().toString(GRADE_DO);
+    private static final String GRADE_DO_JSON = Converts.onJackson().toString(GRADE_DO);
 
-    private static final String GRADE_DOS_JSON_ARRAY = Converts.withJackson().toString(GRADE_DOS);
+    private static final String GRADE_DOS_JSON_ARRAY = Converts.onJackson().toString(GRADE_DOS);
 
-    private static final String STRING_MAPPING_GRADE_DO_MAP_JSON = Converts.withJackson().toString(STRING_MAPPING_GRADE_DO_MAP);
+    private static final String STRING_MAPPING_GRADE_DO_MAP_JSON = Converts.onJackson().toString(STRING_MAPPING_GRADE_DO_MAP);
 
-    private static final String STRING_MAPPING_GRADE_DOS_MAP_JSON = Converts.withJackson().toString(STRING_MAPPING_GRADE_DOS_MAP);
+    private static final String STRING_MAPPING_GRADE_DOS_MAP_JSON = Converts.onJackson().toString(STRING_MAPPING_GRADE_DOS_MAP);
 
     @Benchmark
     public void testStringToBeanWithToBean() {
         for (int i = 1; i <= dataSize; ++i) {
-            Converts.withJackson().toBean(GRADE_DO_JSON, GradeDO.class);
+            Converts.onJackson().toBean(GRADE_DO_JSON, GradeDO.class);
         }
     }
 
     @Benchmark
     public void testStringToBeanWithToAnything() {
         for (int i = 1; i <= dataSize; ++i) {
-            Converts.withJackson().toAnything(GRADE_DO_JSON, Jacksons.<GradeDO>newTypeReference());
+            Converts.onJackson().toAnything(GRADE_DO_JSON, Jacksons.<GradeDO>newTypeReference());
         }
     }
 
     @Benchmark
     public void testStringToBeansWithToBean() {
         for (int i = 1; i <= dataSize; ++i) {
-            Converts.withJackson().toBeans(GRADE_DOS_JSON_ARRAY, GradeDO.class);
+            Converts.onJackson().toBeans(GRADE_DOS_JSON_ARRAY, GradeDO.class);
         }
     }
 
     @Benchmark
     public void testStringToBeansWithToAnything() {
         for (int i = 1; i <= dataSize; ++i) {
-            Converts.withJackson().toAnything(GRADE_DOS_JSON_ARRAY, Jacksons.<List<GradeDO>>newTypeReference());
+            Converts.onJackson().toAnything(GRADE_DOS_JSON_ARRAY, Jacksons.<List<GradeDO>>newTypeReference());
         }
     }
 
     @Benchmark
     public void testStringToMapWithToBean() {
         for (int i = 1; i <= dataSize; ++i) {
-            Converts.withJackson().toMap(STRING_MAPPING_GRADE_DO_MAP_JSON, GradeDO.class);
+            Converts.onJackson().toMap(STRING_MAPPING_GRADE_DO_MAP_JSON, GradeDO.class);
         }
     }
 
     @Benchmark
     public void testStringToMapWithToAnything() {
         for (int i = 1; i <= dataSize; ++i) {
-            Converts.withJackson().toAnything(STRING_MAPPING_GRADE_DO_MAP_JSON, Jacksons.<Map<String, GradeDO>>newTypeReference());
+            Converts.onJackson().toAnything(STRING_MAPPING_GRADE_DO_MAP_JSON, Jacksons.<Map<String, GradeDO>>newTypeReference());
         }
     }
 
     @Benchmark
     public void testStringToMapsWithToBean() {
         for (int i = 1; i <= dataSize; ++i) {
-            Converts.withJackson().toMaps(STRING_MAPPING_GRADE_DOS_MAP_JSON, GradeDO.class);
+            Converts.onJackson().toMaps(STRING_MAPPING_GRADE_DOS_MAP_JSON, GradeDO.class);
         }
     }
 
     @Benchmark
     public void testStringToMapsWithToAnything() {
         for (int i = 1; i <= dataSize; ++i) {
-            Converts.withJackson().toAnything(STRING_MAPPING_GRADE_DOS_MAP_JSON, Jacksons.<Map<String, List<GradeDO>>>newTypeReference());
+            Converts.onJackson().toAnything(STRING_MAPPING_GRADE_DOS_MAP_JSON, Jacksons.<Map<String, List<GradeDO>>>newTypeReference());
         }
     }
 

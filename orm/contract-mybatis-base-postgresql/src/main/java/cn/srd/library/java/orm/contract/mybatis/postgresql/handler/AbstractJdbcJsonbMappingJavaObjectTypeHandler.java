@@ -30,7 +30,7 @@ public abstract class AbstractJdbcJsonbMappingJavaObjectTypeHandler<T> extends A
     @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.RAW_TYPE})
     @Override
     protected T doConvertToJavaObject(String columnValue, Class javaType) {
-        return (T) Converts.withJackson().toBean(columnValue, javaType);
+        return (T) Converts.onJackson().toBean(columnValue, javaType);
     }
 
 }

@@ -36,7 +36,7 @@ public class TeacherVO extends TeacherBO implements VO {
 
     @Override
     public TeacherPO toPO() {
-        return Converts.withMapstruct().toBean(this, TeacherPO.class);
+        return Converts.onMapstruct().toBean(this, TeacherPO.class);
     }
 
 }

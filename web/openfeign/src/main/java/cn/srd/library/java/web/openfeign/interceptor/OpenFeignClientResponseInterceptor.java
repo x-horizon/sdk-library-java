@@ -53,7 +53,7 @@ public class OpenFeignClientResponseInterceptor implements Interceptor {
     public String resolve(String responseBody) {
         TransportModel<?> responseModel = null;
         for (Class<? extends TransportModel> responseModelClass : OpenFeignClientResponseModelCache.get()) {
-            responseModel = Try.of(() -> Converts.withJackson().toBean(responseBody, responseModelClass)).getOrNull();
+            responseModel = Try.of(() -> Converts.onJackson().toBean(responseBody, responseModelClass)).getOrNull();
             if (Nil.isNotNull(responseModel)) {
                 break;
             }
@@ -69,7 +69,7 @@ public class OpenFeignClientResponseInterceptor implements Interceptor {
         if (responseModel.notSuccessIs()) {
             throw responseModel.buildRunningException();
         }
-        return Converts.withJackson().toString(responseModel.getData());
+        return Converts.onJackson().toString(responseModel.getData());
     }
 
 }

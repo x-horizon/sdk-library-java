@@ -41,7 +41,7 @@ public class PeoplePO extends PeopleBO implements PO {
 
     @Override
     public PeopleVO toVO() {
-        return Converts.withMapstruct().toBean(this, PeopleVO.class);
+        return Converts.onMapstruct().toBean(this, PeopleVO.class);
     }
 
 }

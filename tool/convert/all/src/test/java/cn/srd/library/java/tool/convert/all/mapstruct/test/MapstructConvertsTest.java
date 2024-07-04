@@ -38,15 +38,15 @@ class MapstructConvertsTest {
 
     @Test
     void testMapstructConverts() {
-        GradeVO gradeVO = Converts.withMapstruct().toBean(GRADE_DO, GradeVO.class);
-        GradeDO gradeDO = Converts.withMapstruct().toBean(GRADE_VO, GradeDO.class);
-        List<GradeVO> gradeVOs = Converts.withMapstruct().toBeans(GRADE_DOS, GradeVO.class);
-        List<GradeDO> gradeDOs = Converts.withMapstruct().toBeans(GRADE_VOS, GradeDO.class);
+        GradeVO gradeVO = Converts.onMapstruct().toBean(GRADE_DO, GradeVO.class);
+        GradeDO gradeDO = Converts.onMapstruct().toBean(GRADE_VO, GradeDO.class);
+        List<GradeVO> gradeVOs = Converts.onMapstruct().toBeans(GRADE_DOS, GradeVO.class);
+        List<GradeDO> gradeDOs = Converts.onMapstruct().toBeans(GRADE_VOS, GradeDO.class);
 
-        StudentVO studentVO = Converts.withMapstruct().toBean(STUDENT_DO, StudentVO.class);
-        StudentDO studentDO = Converts.withMapstruct().toBean(STUDENT_VO, StudentDO.class);
-        List<StudentVO> studentVOs = Converts.withMapstruct().toBeans(STUDENT_DOS, StudentVO.class);
-        List<StudentDO> studentDOs = Converts.withMapstruct().toBeans(STUDENT_VOS, StudentDO.class);
+        StudentVO studentVO = Converts.onMapstruct().toBean(STUDENT_DO, StudentVO.class);
+        StudentDO studentDO = Converts.onMapstruct().toBean(STUDENT_VO, StudentDO.class);
+        List<StudentVO> studentVOs = Converts.onMapstruct().toBeans(STUDENT_DOS, StudentVO.class);
+        List<StudentDO> studentDOs = Converts.onMapstruct().toBeans(STUDENT_VOS, StudentDO.class);
     }
 
 }

@@ -66,7 +66,7 @@ public abstract class AbstractJdbcJsonbTypeHandler<T> extends AbstractJdbcComple
     @SneakyThrows
     @Override
     protected Object toJdbcObject(T javaObject) {
-        return toPostgresqlObject(Converts.withJackson().toString(doConvertToJdbcObject(javaObject)));
+        return toPostgresqlObject(Converts.onJackson().toString(doConvertToJdbcObject(javaObject)));
     }
 
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)

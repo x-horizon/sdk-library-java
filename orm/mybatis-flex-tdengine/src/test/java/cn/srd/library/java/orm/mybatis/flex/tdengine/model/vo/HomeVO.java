@@ -34,7 +34,7 @@ public class HomeVO extends HomeBO implements VO {
 
     @Override
     public HomePO toPO() {
-        return Converts.withMapstruct().toBean(this, HomePO.class);
+        return Converts.onMapstruct().toBean(this, HomePO.class);
     }
 
 }

@@ -28,12 +28,12 @@ class ProtobufConvertsTest {
         byte[] bytes = person.toByteArray();
         PersonProto.Person deserializedPerson = PersonProto.Person.parseFrom(bytes);
 
-        String d = Converts.withProtobuf().toString(person);
+        String d = Converts.onProtobuf().toString(person);
         System.out.println(d);
-        String a = Converts.withProtobuf().toJsonString(person);
+        String a = Converts.onProtobuf().toJsonString(person);
         System.out.println(a);
-        PersonProto.Person.Builder b = Converts.withProtobuf().toBuilder(a, PersonProto.Person.newBuilder());
-        PersonProto.Person c = Converts.withProtobuf().toBean(a, PersonProto.Person.newBuilder());
+        PersonProto.Person.Builder b = Converts.onProtobuf().toBuilder(a, PersonProto.Person.newBuilder());
+        PersonProto.Person c = Converts.onProtobuf().toBean(a, PersonProto.Person.newBuilder());
 
         System.out.println();
     }

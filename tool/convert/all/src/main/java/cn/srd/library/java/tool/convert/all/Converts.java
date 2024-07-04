@@ -25,7 +25,7 @@ public class Converts extends cn.srd.library.java.tool.lang.convert.Converts {
      *
      * @return spring converter
      */
-    public static SpringConverts withSpring() {
+    public static SpringConverts onSpring() {
         return SpringConverts.getInstance();
     }
 
@@ -34,7 +34,7 @@ public class Converts extends cn.srd.library.java.tool.lang.convert.Converts {
      *
      * @return jackson converter
      */
-    public static JacksonConverts withJackson() {
+    public static JacksonConverts onJackson() {
         return JacksonConverts.getInstance();
     }
 
@@ -43,7 +43,7 @@ public class Converts extends cn.srd.library.java.tool.lang.convert.Converts {
      *
      * @return mapstruct converter
      */
-    public static MapstructConverts withMapstruct() {
+    public static MapstructConverts onMapstruct() {
         return MapstructConverts.getInstance();
     }
 
@@ -52,7 +52,7 @@ public class Converts extends cn.srd.library.java.tool.lang.convert.Converts {
      *
      * @return protobuf converter
      */
-    public static ProtobufConverts withProtobuf() {
+    public static ProtobufConverts onProtobuf() {
         return ProtobufConverts.getInstance();
     }
 

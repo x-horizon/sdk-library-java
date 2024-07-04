@@ -30,14 +30,14 @@ class TeacherServiceTest {
     @Test
     void testSave() {
         String teacherData = "";
-        TeacherVO teacherVO = Converts.withJackson().toBean(teacherData, TeacherVO.class);
+        TeacherVO teacherVO = Converts.onJackson().toBean(teacherData, TeacherVO.class);
         teacherService.save(teacherVO);
     }
 
     @Test
     void testUpdate() {
         String teacherData = "";
-        TeacherVO teacherVO = Converts.withJackson().toBean(teacherData, TeacherVO.class);
+        TeacherVO teacherVO = Converts.onJackson().toBean(teacherData, TeacherVO.class);
         teacherService.updateById(teacherVO);
     }
 
@@ -54,21 +54,21 @@ class TeacherServiceTest {
     @Test
     void testGetByCondition() {
         String teacherGetConditionData = "";
-        TeacherGetConditionVO teacherGetConditionVO = Converts.withJackson().toBean(teacherGetConditionData, TeacherGetConditionVO.class);
+        TeacherGetConditionVO teacherGetConditionVO = Converts.onJackson().toBean(teacherGetConditionData, TeacherGetConditionVO.class);
         teacherService.getByCondition(teacherGetConditionVO);
     }
 
     @Test
     void testListByCondition() {
         String teacherListConditionData = "";
-        TeacherListConditionVO teacherListConditionVO = Converts.withJackson().toBean(teacherListConditionData, TeacherListConditionVO.class);
+        TeacherListConditionVO teacherListConditionVO = Converts.onJackson().toBean(teacherListConditionData, TeacherListConditionVO.class);
         teacherService.listByCondition(teacherListConditionVO);
     }
 
     @Test
     void testPageByCondition() {
         String teacherPageConditionData = "";
-        TeacherPageConditionVO teacherPageConditionVO = Converts.withJackson().toBean(teacherPageConditionData, TeacherPageConditionVO.class);
+        TeacherPageConditionVO teacherPageConditionVO = Converts.onJackson().toBean(teacherPageConditionData, TeacherPageConditionVO.class);
         teacherService.pageByCondition(teacherPageConditionVO);
     }
 

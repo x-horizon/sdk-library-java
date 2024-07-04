@@ -38,7 +38,7 @@ public class SchoolPO extends SchoolBO implements PO {
 
     @Override
     public SchoolVO toVO() {
-        return Converts.withMapstruct().toBean(this, SchoolVO.class);
+        return Converts.onMapstruct().toBean(this, SchoolVO.class);
     }
 
 }

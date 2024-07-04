@@ -48,7 +48,7 @@ public class MessageFlows {
     }
 
     public static MessageHandler getStringToObjectMessageHandler(Object consumerInstance, Method consumerMethod) {
-        return message -> Reflects.invoke(consumerInstance, consumerMethod, Converts.withJackson().toBean((String) message.getPayload(), MessageModel.class).requireSuccessAndGetData());
+        return message -> Reflects.invoke(consumerInstance, consumerMethod, Converts.onJackson().toBean((String) message.getPayload(), MessageModel.class).requireSuccessAndGetData());
     }
 
     public static IntegrationFlow getObjectToStringIntegrationFlow(MessageHandler messageHandler) {
@@ -60,7 +60,7 @@ public class MessageFlows {
     }
 
     public static GenericTransformer<?, ?> getObjectToStringTransformer() {
-        return messageData -> Converts.withJackson().toString(messageData);
+        return messageData -> Converts.onJackson().toString(messageData);
     }
 
 }
