@@ -18,6 +18,8 @@ import org.springframework.web.reactive.resource.NoResourceFoundException;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.StandardCharsets;
+
 import static cn.srd.library.java.contract.model.protocol.WebResponse.error;
 
 /**
@@ -43,7 +45,7 @@ public class WebFluxExceptionInterceptor extends WebExceptionInterceptor impleme
                     case ClientException exception -> whenClientException(requestUri, exception);
                     case RunningException exception -> whenRunningException(requestUri, exception);
                     default -> whenThrowable(requestUri, throwable);
-                }).getBytes()))
+                }).getBytes(StandardCharsets.UTF_8)))
         );
     }
 
