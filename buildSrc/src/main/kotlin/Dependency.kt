@@ -59,6 +59,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     GATEWAY_SPRING_CLOUD("org.springframework.cloud:spring-cloud-starter-gateway", ""),
 
+    LOADBALANCER_SPRING_CLOUD("org.springframework.cloud:spring-cloud-loadbalancer", ""),
     LOG_SPRING_BOOT("org.springframework.boot:spring-boot-starter-logging", ""),
 
     MESSAGE_KAFKA_SPRING_INTEGRATION("org.springframework.integration:spring-integration-kafka", ""),
