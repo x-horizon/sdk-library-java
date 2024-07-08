@@ -22,16 +22,11 @@ public class FooServerService extends FooGrpc.FooImplBase {
     @Override
     public void sayHello(FooRequest request, StreamObserver<FooResponse> responseObserver) {
         Assert.of().setThrowable(RunningException.class).setMessage("dsjcbndjksnds").doThrows();
-        // throw Status.UNIMPLEMENTED.asRuntimeException();
-        // if (Nil.isBlank(request.getName())) {
-        //     responseObserver.onError(Status.INVALID_ARGUMENT.withDescription("名词不可为空").asRuntimeException());
-        // } else {
-        //     FooResponse response = FooResponse.newBuilder()
-        //             .setMessage("Hello ==> " + request.getName())
-        //             .build();
-        //     responseObserver.onNext(response);
-        //     responseObserver.onCompleted();
-        // }
+        FooResponse response = FooResponse.newBuilder()
+                .setMessage("Hello ==> " + request.getName())
+                .build();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
     }
 
 }
