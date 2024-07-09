@@ -76,6 +76,7 @@ object GradleModule {
     const val PLUGGABLE_ANNOTATION_API_PROCESSOR_JMH = "pluggable-annotation-api-processor-jmh"
     const val PLUGGABLE_ANNOTATION_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING = "pluggable-annotation-api-processor-lombok-mapstruct-binding"
     const val PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PLUS = "pluggable-annotation-api-processor-mapstruct-plus"
+    const val PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PROTOBUF = "pluggable-annotation-api-processor-mapstruct-protobuf"
     const val PLUGGABLE_ANNOTATION_API_PROCESSOR_MYBATIS_FLEX = "pluggable-annotation-api-processor-mybatis-flex"
     const val PLUGGABLE_ANNOTATION_API_PROCESSOR_SPRING = "pluggable-annotation-api-processor-spring"
 
@@ -103,7 +104,8 @@ object GradleModule {
     const val TOOL_CONTENT_ANALYSIS = "tool-content-analysis"
     const val TOOL_CONVERT_API = "tool-convert-api"
     const val TOOL_CONVERT_JACKSON = "tool-convert-jackson"
-    const val TOOL_CONVERT_MAPSTRUCT = "tool-convert-mapstruct"
+    const val TOOL_CONVERT_MAPSTRUCT_PLUS = "tool-convert-mapstruct-plus"
+    const val TOOL_CONVERT_MAPSTRUCT_PROTOBUF = "tool-convert-mapstruct-protobuf"
     const val TOOL_CONVERT_PROTOBUF = "tool-convert-protobuf"
     const val TOOL_CONVERT_SPRING = "tool-convert-spring"
     const val TOOL_ENUMS = "tool-enums"
@@ -192,6 +194,9 @@ internal object ModuleHelper {
         put(GradleModule.ORM_MYBATIS_FLEX_BASE, ":orm:mybatis-flex-base")
         put(GradleModule.ORM_MYBATIS_FLEX_POSTGRESQL, ":orm:mybatis-flex-postgresql")
         put(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PLUS, ":pluggable-annotation-api:processor:mapstruct-plus")
+        put(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PROTOBUF, ":pluggable-annotation-api:processor:mapstruct-protobuf")
+        put(GradleModule.TOOL_CONVERT_MAPSTRUCT_PLUS, ":tool:convert:mapstruct-plus")
+        put(GradleModule.TOOL_CONVERT_MAPSTRUCT_PROTOBUF, ":tool:convert:mapstruct-protobuf")
         put(GradleModule.TOOL_SERIALIZATION_FASTJSON2, ":tool:serialization:fastjson2")
     }
 

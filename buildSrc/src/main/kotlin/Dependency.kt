@@ -23,6 +23,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_TEST_TESTCONTAINERS("org.testcontainers:testcontainers-bom", "1.19.8"), // TODO wjm support spring-boot version to 3.2.4
     BOM_TOOL_APACHE_TIKA("org.apache.tika:tika-bom", "2.9.2"),
     BOM_TOOL_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-pom", "1.4.2"), // TODO wjm support spring-boot version to 2.7.9
+    BOM_TOOL_MAPSTRUCT_PROTOBUF("no.entur.mapstruct.spi:spi-protobuf-parent", "1.44"), // TODO wjm support com.google.protobuf:protobuf-bom version to 3.23.0
     BOM_TOOL_SERIALIZATION_FASTERXML_JACKSON("com.fasterxml.jackson:jackson-bom", "2.17.1"), // support spring-boot version to 3.3.1
     BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF("com.google.protobuf:protobuf-bom", "3.25.1"), // need to synchronize with "io.grpc:grpc-bom", "net.devh:grpc-spring-boot-starter"
     BOM_TOOL_SERIALIZATION_SQUAREUP_WIRE("com.squareup.wire:wire-bom", "4.9.9"),
@@ -92,12 +93,13 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK("org.projectlombok:lombok", "1.18.32"), // support spring-boot version to 3.3.1
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING("org.projectlombok:lombok-mapstruct-binding", "0.2.0"),
-    PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-processor", BOM_TOOL_MAPSTRUCT_PLUS.version), // TODO wjm bom is not invalid
+    PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-processor", BOM_TOOL_MAPSTRUCT_PLUS.version),
+    PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MAPSTRUCT_PROTOBUF("no.entur.mapstruct.spi:protobuf-spi-impl", BOM_TOOL_MAPSTRUCT_PROTOBUF.version),
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MICA_AUTO("net.dreamlu:mica-auto", "3.1.2"),
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-processor", ""),
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_OPENJDK_JMH("org.openjdk.jmh:jmh-generator-annprocess", "1.37"),
-    PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_SPRING_AUTOCONFIGURE("org.springframework.boot:spring-boot-autoconfigure-processor", BOM_FRAMEWORK_SPRING_BOOT.version), // TODO wjm bom is not invalid
-    PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_SPRING_CONFIGURATION("org.springframework.boot:spring-boot-configuration-processor", BOM_FRAMEWORK_SPRING_BOOT.version), // TODO wjm bom is not invalid
+    PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_SPRING_AUTOCONFIGURE("org.springframework.boot:spring-boot-autoconfigure-processor", BOM_FRAMEWORK_SPRING_BOOT.version),
+    PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_SPRING_CONFIGURATION("org.springframework.boot:spring-boot-configuration-processor", BOM_FRAMEWORK_SPRING_BOOT.version),
 
     POOL_DATABASE_HIKARICP("com.zaxxer:HikariCP", "5.1.0"), // support spring-boot version to 3.3.0
     POOL_APACHE("org.apache.commons:commons-pool2", "2.12.0"), // support spring-boot version to 3.3.0
