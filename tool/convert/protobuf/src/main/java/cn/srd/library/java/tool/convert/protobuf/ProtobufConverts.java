@@ -5,12 +5,18 @@
 package cn.srd.library.java.tool.convert.protobuf;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.time.TimeZoneType;
 import com.google.protobuf.Message;
 import com.google.protobuf.TextFormat;
+import com.google.protobuf.Timestamp;
 import com.google.protobuf.util.JsonFormat;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 /**
  * @author wjm
@@ -33,6 +39,25 @@ public class ProtobufConverts {
     @SneakyThrows
     public String toJsonString(Message source) {
         return JsonFormat.printer().print(source);
+    }
+
+    public Timestamp toTimestamp(LocalDateTime time) {
+        return toTimestamp(time, TimeZoneType.SHANG_HAI);
+    }
+
+    public Timestamp toTimestamp(LocalDateTime time, TimeZoneType timeZoneType) {
+        return Timestamp.newBuilder()
+                .setSeconds(time.atZone(ZoneId.of(timeZoneType.getValue())).toEpochSecond())
+                .setNanos(time.getNano())
+                .build();
+    }
+
+    public LocalDateTime toLocalDateTime(Timestamp timestamp) {
+        return toLocalDateTime(timestamp, TimeZoneType.SHANG_HAI);
+    }
+
+    public LocalDateTime toLocalDateTime(Timestamp timestamp, TimeZoneType timeZoneType) {
+        return LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp.getSeconds(), timestamp.getNanos()), ZoneId.of(timeZoneType.getValue()));
     }
 
     @SneakyThrows

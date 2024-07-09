@@ -11,7 +11,7 @@ import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.constant.time.TimeConstant;
 import cn.srd.library.java.contract.constant.time.TimePatternConstant;
 import cn.srd.library.java.contract.constant.time.TimeUnitType;
-import cn.srd.library.java.contract.constant.time.TimeZoneConstant;
+import cn.srd.library.java.contract.constant.time.TimeZoneType;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.object.Nil;
@@ -51,7 +51,7 @@ public class Times {
     /**
      * 时间格式化器 - RFC3339 标准，see {@link TimePatternConstant#DATETIME_RFC3339_EAST_EIGHTH_TIMEZONE}
      */
-    private static final DateTimeFormatter RFC3339_FORMATTER = DateTimeFormatter.ofPattern(TimePatternConstant.DATETIME_RFC3339_EAST_EIGHTH_TIMEZONE).withZone(ZoneId.of(TimeZoneConstant.SHANG_HAI));
+    private static final DateTimeFormatter RFC3339_FORMATTER = DateTimeFormatter.ofPattern(TimePatternConstant.DATETIME_RFC3339_EAST_EIGHTH_TIMEZONE).withZone(ZoneId.of(TimeZoneType.SHANG_HAI.getValue()));
 
     /**
      * 持续时间是否为正数，不包括 0

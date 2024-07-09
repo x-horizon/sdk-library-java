@@ -69,6 +69,6 @@ public class TimePatternConstant {
     /**
      * east eighth RFC3339 standard: {@code "yyyy-MM-dd'T'HH:mm:ss+08:00"}
      */
-    public static final String DATETIME_RFC3339_EAST_EIGHTH_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss" + TimeZoneConstant.EAST_EIGHTH;
+    public static final String DATETIME_RFC3339_EAST_EIGHTH_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss" + TimeZoneOffsetType.EAST_EIGHTH.getValue();
 
 }
