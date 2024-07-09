@@ -4,8 +4,10 @@
 
 package cn.srd.library.java.orm.contract.model.page;
 
+import cn.srd.library.java.contract.constant.number.NumberConstant;
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
 import cn.srd.library.java.orm.contract.model.base.DTO;
+import cn.srd.library.java.tool.lang.collection.Collections;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +15,7 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -27,7 +30,7 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder(toBuilder = true)
-public class PageResult<T> implements DTO {
+public class PageResult<T extends Serializable> implements DTO {
 
     @Serial private static final long serialVersionUID = -6490851620278359181L;
 
@@ -47,6 +50,16 @@ public class PageResult<T> implements DTO {
     private List<T> data;
 
     @Schema(description = "object record")
-    private Object datum;
+    private Serializable datum;
+
+    public static <T extends Serializable> PageResult<T> empty() {
+        return PageResult.<T>builder()
+                .totalNumber(NumberConstant.ZERO_LONG_VALUE)
+                .totalPageNumber(NumberConstant.ZERO_LONG_VALUE)
+                .currentPageNumber(NumberConstant.ZERO_LONG_VALUE)
+                .pageSize(NumberConstant.ZERO_LONG_VALUE)
+                .data(Collections.newArrayList())
+                .build();
+    }
 
 }
