@@ -169,6 +169,7 @@ public class JsonbQueryChainer<P extends PO, PJ extends POJO> extends BaseQueryC
     }
 
     public NormalQueryChainer<P, PJ> switchToNormalQuery() {
+        this.normalQueryChainer.setValidCondition(this.isValidCondition());
         return this.normalQueryChainer;
     }
 

@@ -238,6 +238,9 @@ public interface GenericRepository<P extends PO> {
     @Transactional(rollbackFor = Throwable.class)
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     default List<P> updateBatchById(Iterable<P> entities, int batchSizeEachTime) {
+        if(Nil.isEmpty(entities)){
+            return Collections.newArrayList();
+        }
         List<P> needToUpdateEntities = entities instanceof List<P> actualEntities ? actualEntities : Converts.toList(entities);
         Db.executeBatch(
                 needToUpdateEntities,
@@ -401,6 +404,9 @@ public interface GenericRepository<P extends PO> {
      * @param ids the primary key values
      */
     default void deleteByIds(Iterable<? extends Serializable> ids) {
+        if(Nil.isEmpty(ids)){
+            return;
+        }
         getBaseMapper().deleteBatchByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toSet(ids));
     }
 
@@ -464,6 +470,9 @@ public interface GenericRepository<P extends PO> {
      * @param ids the primary key values
      */
     default void deleteSkipLogicByIds(Iterable<? extends Serializable> ids) {
+        if(Nil.isEmpty(ids)){
+            return;
+        }
         LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids instanceof Collection<? extends Serializable> ? ids : Converts.toSet(ids)));
     }
 
@@ -480,6 +489,9 @@ public interface GenericRepository<P extends PO> {
     }
 
     default List<P> listByIds(Iterable<? extends Serializable> ids) {
+        if(Nil.isEmpty(ids)){
+            return Collections.newArrayList();
+        }
         return getBaseMapper().selectListByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toSet(ids));
     }
 
