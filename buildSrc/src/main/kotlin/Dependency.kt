@@ -152,7 +152,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_STREAM_JDFRAME("io.github.burukeyou:jdframe", "0.0.2"),
     TOOL_VALIDATION_HIBERNATE("org.hibernate.validator:hibernate-validator", "8.0.1.Final"),
     TOOL_VALIDATION_JAKARTA("jakarta.validation:jakarta.validation-api", "3.0.2"), // support spring-boot version to 3.3.0
-    TOOL_VALIDATION_JSON_SCHEMA("com.github.java-json-tools:json-schema-validator", "2.2.14"),
+    TOOL_VALIDATION_JSON_SCHEMA("com.networknt:json-schema-validator", "1.5.0"),
     TOOL_VALIDATION_SPRING_BOOT("org.springframework.boot:spring-boot-starter-validation", ""),
     TOOL_VJTOOL("com.vip.vjtools:vjkit", "1.0.8"),
     TOOL_XML_DOM4J("org.dom4j:dom4j", "2.1.4"),
