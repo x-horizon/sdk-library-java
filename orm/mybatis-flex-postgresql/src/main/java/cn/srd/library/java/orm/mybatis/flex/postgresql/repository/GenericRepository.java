@@ -31,6 +31,8 @@ public interface GenericRepository<P extends PO> extends cn.srd.library.java.orm
     }
 
     default <PJ extends POJO, R extends GenericRepository<P>> JsonbQueryChainer<P, PJ> openJsonbQuery() {
+        // warm up first to cache the proxy class
+        this.getBaseMapper();
         MybatisFlexSystemCacheDTO<P, R> systemCache = MybatisFlexSystemCache.getInstance().getByRepositoryProxyClass(this.getClass());
         String tableName = systemCache.getTableName();
         Class<P> poClass = systemCache.getPoClass();
