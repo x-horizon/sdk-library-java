@@ -13,7 +13,7 @@ dependencies {
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_API)))
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_JACKSON)))
-    testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_MAPSTRUCT)))
+    testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_MAPSTRUCT_PLUS)))
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_SERIALIZATION_JACKSON)))
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_WEBMVC)))
     testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_VALIDATION_JAKARTA)))

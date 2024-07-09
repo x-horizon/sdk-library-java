@@ -1,0 +1,19 @@
+// Copyright (C) 2021-2026 thinkingto.com Ltd. All rights reserved.
+// Use of this source code is governed by SRD.
+// license that can be found in the LICENSE file.
+
+package cn.srd.library.java.tool.convert.mapstruct.plus.support;
+
+import org.mapstruct.MapperConfig;
+import org.mapstruct.ReportingPolicy;
+
+/**
+ * Mapstruct 忽略未映射的字段配置器
+ *
+ * @author wjm
+ * @since 2023-01-26 16:44
+ */
+@MapperConfig(unmappedSourcePolicy = ReportingPolicy.IGNORE, unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface IgnoreUnmappedMapperConfigurator {
+
+}

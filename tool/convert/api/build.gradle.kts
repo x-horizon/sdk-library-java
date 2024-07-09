@@ -8,7 +8,7 @@ plugins {
 
 dependencies {
     implementation(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_JACKSON)))
-    implementation(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_MAPSTRUCT)))
+    implementation(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_MAPSTRUCT_PLUS)))
     implementation(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_PROTOBUF)))
     implementation(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_SPRING)))
 

@@ -5,7 +5,7 @@
 package cn.srd.library.java.tool.convert.api;
 
 import cn.srd.library.java.tool.convert.jackson.JacksonConverts;
-import cn.srd.library.java.tool.convert.mapstruct.MapstructConverts;
+import cn.srd.library.java.tool.convert.mapstruct.plus.MapstructConverts;
 import cn.srd.library.java.tool.convert.protobuf.ProtobufConverts;
 import cn.srd.library.java.tool.convert.spring.SpringConverts;
 import lombok.AccessLevel;
