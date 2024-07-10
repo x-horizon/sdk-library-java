@@ -183,6 +183,10 @@ public interface GenericRepository<P extends PO> {
         return entity;
     }
 
+    default P updateByIdIgnoreLogicDelete(P entity) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> updateById(entity));
+    }
+
     /**
      * update batch by id.
      *
@@ -251,6 +255,18 @@ public interface GenericRepository<P extends PO> {
         return needToUpdateEntities;
     }
 
+    default List<P> updateBatchByIdIgnoreLogicDelete(P... entities) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> updateBatchById(entities));
+    }
+
+    default List<P> updateBatchByIdIgnoreLogicDelete(Iterable<P> entities) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> updateBatchById(entities));
+    }
+
+    default List<P> updateBatchByIdIgnoreLogicDelete(Iterable<P> entities, int batchSizeEachTime) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> updateBatchById(entities, batchSizeEachTime));
+    }
+
     /**
      * update with version by id.
      * <ul>
@@ -280,6 +296,10 @@ public interface GenericRepository<P extends PO> {
         setVersionFieldValue(getEntityToUpdateVersion(entity), entity);
         updateById(entity);
         return entity;
+    }
+
+    default P updateWithVersionByIdIgnoreLogicDelete(P entity) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> updateWithVersionById(entity));
     }
 
     /**
@@ -324,6 +344,14 @@ public interface GenericRepository<P extends PO> {
     default List<P> updateBatchWithVersionById(Iterable<P> entities, Function<P, ? extends Serializable> getIdAction, int batchSizeEachTime) {
         setVersionFieldValues(entities, getIdAction);
         return Springs.getProxy(GenericRepository.class).updateBatchById(entities, batchSizeEachTime);
+    }
+
+    default List<P> updateBatchWithVersionByIdIgnoreLogicDelete(Iterable<P> entities, Function<P, ? extends Serializable> getIdAction) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> updateBatchWithVersionById(entities, getIdAction));
+    }
+
+    default List<P> updateBatchWithVersionByIdIgnoreLogicDelete(Iterable<P> entities, Function<P, ? extends Serializable> getIdAction, int batchSizeEachTime) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> updateBatchWithVersionById(entities, getIdAction, batchSizeEachTime));
     }
 
     /**
@@ -371,6 +399,41 @@ public interface GenericRepository<P extends PO> {
     }
 
     /**
+     * delete ignore logic delete, recommended for the entity with multiple primary keys.
+     * <ul>
+     *   <li>
+     *       no matter of whether the entity has the logic delete column:<br/>
+     *       <ul>
+     *         <li>
+     *              the entity with two primary keys: TestTablePO(id1=1L, id2=2L, rowIsDeleted=null).
+     *         </li>
+     *         <li>
+     *              the generated delete sql like:<br/><br/>
+     *              DELETE<br/>
+     *              FROM "test_table"<br/>
+     *              WHERE "id1" = 1 AND "id2" = 2 AND "row_is_deleted" = FALSE;
+     *         </li>
+     *       </ul>
+     *   </li>
+     * </ul>
+     *
+     * @param entity the entity
+     */
+    default void deleteByIdIgnoreLogicDelete(P entity) {
+        LogicDeleteManager.execWithoutLogicDelete(() -> deleteById(entity));
+    }
+
+    /**
+     * delete ignore logic delete.
+     *
+     * @param id the primary key value
+     * @see #deleteByIdsIgnoreLogicDelete(Iterable)
+     */
+    default void deleteByIdIgnoreLogicDelete(Serializable id) {
+        LogicDeleteManager.execWithoutLogicDelete(() -> deleteById(id));
+    }
+
+    /**
      * delete batch by ids.
      *
      * @param ids the primary key values
@@ -411,52 +474,17 @@ public interface GenericRepository<P extends PO> {
     }
 
     /**
-     * delete without logic delete, recommended for the entity with multiple primary keys.
-     * <ul>
-     *   <li>
-     *       no matter of whether the entity has the logic delete column:<br/>
-     *       <ul>
-     *         <li>
-     *              the entity with two primary keys: TestTablePO(id1=1L, id2=2L, rowIsDeleted=null).
-     *         </li>
-     *         <li>
-     *              the generated delete sql like:<br/><br/>
-     *              DELETE<br/>
-     *              FROM "test_table"<br/>
-     *              WHERE "id1" = 1 AND "id2" = 2 AND "row_is_deleted" = FALSE;
-     *         </li>
-     *       </ul>
-     *   </li>
-     * </ul>
-     *
-     * @param entity the entity
-     */
-    default void deleteByIdWithoutLogicDelete(P entity) {
-        LogicDeleteManager.execWithoutLogicDelete(() -> deleteById(entity));
-    }
-
-    /**
-     * delete without logic delete.
-     *
-     * @param id the primary key value
-     * @see #deleteByIdsWithoutLogicDelete(Iterable)
-     */
-    default void deleteByIdWithoutLogicDelete(Serializable id) {
-        LogicDeleteManager.execWithoutLogicDelete(() -> deleteById(id));
-    }
-
-    /**
-     * delete batch without logic delete.
+     * delete batch ignore logic delete.
      *
      * @param ids the primary key values
-     * @see #deleteByIdsWithoutLogicDelete(Iterable)
+     * @see #deleteByIdsIgnoreLogicDelete(Iterable)
      */
-    default void deleteByIdsWithoutLogicDelete(Serializable... ids) {
-        deleteByIdsWithoutLogicDelete(Collections.ofHashSet(ids));
+    default void deleteByIdsIgnoreLogicDelete(Serializable... ids) {
+        deleteByIdsIgnoreLogicDelete(Collections.ofHashSet(ids));
     }
 
     /**
-     * delete batch without logic delete.
+     * delete batch ignore logic delete.
      * <ul>
      *   <li>
      *       no matter of whether the entity has the logic delete column, the generated delete sql like:<br/>
@@ -469,7 +497,7 @@ public interface GenericRepository<P extends PO> {
      *
      * @param ids the primary key values
      */
-    default void deleteByIdsWithoutLogicDelete(Iterable<? extends Serializable> ids) {
+    default void deleteByIdsIgnoreLogicDelete(Iterable<? extends Serializable> ids) {
         LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids instanceof Collection<? extends Serializable> ? ids : Converts.toSet(ids)));
     }
 
@@ -481,11 +509,11 @@ public interface GenericRepository<P extends PO> {
         return Optional.ofNullable(getBaseMapper().selectOneByEntityId(entity));
     }
 
-    default Optional<P> getByIdWithoutLogicDelete(Serializable id) {
+    default Optional<P> getByIdIgnoreLogicDelete(Serializable id) {
         return LogicDeleteManager.execWithoutLogicDelete(() -> getById(id));
     }
 
-    default Optional<P> getByIdWithoutLogicDelete(P entity) {
+    default Optional<P> getByIdIgnoreLogicDelete(P entity) {
         return LogicDeleteManager.execWithoutLogicDelete(() -> getById(entity));
     }
 
@@ -493,7 +521,7 @@ public interface GenericRepository<P extends PO> {
         return Optional.ofNullable(getBaseMapper().selectOneByMap(Collections.ofImmutableMap(MybatisFlexs.getColumnName(columnNameGetter), value)));
     }
 
-    default Optional<P> getByFieldWithoutLogicDelete(ColumnNameGetter<P> columnNameGetter, Object value) {
+    default Optional<P> getByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, Object value) {
         return LogicDeleteManager.execWithoutLogicDelete(() -> getByField(columnNameGetter, value));
     }
 
@@ -504,23 +532,23 @@ public interface GenericRepository<P extends PO> {
         return getBaseMapper().selectListByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toSet(ids));
     }
 
-    default List<P> listByIdsWithoutLogicDelete(Iterable<? extends Serializable> ids) {
-        return LogicDeleteManager.execWithoutLogicDelete(() -> listByIdsWithoutLogicDelete(ids));
+    default List<P> listByIdsIgnoreLogicDelete(Iterable<? extends Serializable> ids) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> listByIdsIgnoreLogicDelete(ids));
     }
 
     default List<P> listByField(ColumnNameGetter<P> columnNameGetter, Object value) {
         return getBaseMapper().selectListByMap(Collections.ofImmutableMap(MybatisFlexs.getColumnName(columnNameGetter), value));
     }
 
-    default List<P> listByFieldWithoutLogicDelete(ColumnNameGetter<P> columnNameGetter, Object value) {
-        return LogicDeleteManager.execWithoutLogicDelete(() -> listByFieldWithoutLogicDelete(columnNameGetter, value));
+    default List<P> listByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> listByFieldIgnoreLogicDelete(columnNameGetter, value));
     }
 
     default List<P> listLikeByField(ColumnNameGetter<P> columnNameGetter, String value) {
         return getBaseMapper().selectListByQuery(QueryWrapper.create().like(MybatisFlexs.getColumnName(columnNameGetter), value));
     }
 
-    default List<P> listLikeByFieldWithoutLogicDelete(ColumnNameGetter<P> columnNameGetter, String value) {
+    default List<P> listLikeByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, String value) {
         return LogicDeleteManager.execWithoutLogicDelete(() -> listLikeByField(columnNameGetter, value));
     }
 
@@ -528,7 +556,7 @@ public interface GenericRepository<P extends PO> {
         return getBaseMapper().selectListByQuery(QueryWrapper.create());
     }
 
-    default List<P> listAllWithoutLogicDelete() {
+    default List<P> listAllIgnoreLogicDelete() {
         return LogicDeleteManager.execWithoutLogicDelete(this::listAll);
     }
 
@@ -536,7 +564,7 @@ public interface GenericRepository<P extends PO> {
         return getBaseMapper().selectCountByQuery(QueryWrapper.create());
     }
 
-    default long countAllWithoutLogicDelete() {
+    default long countAllIgnoreLogicDelete() {
         return LogicDeleteManager.execWithoutLogicDelete(this::countAll);
     }
 

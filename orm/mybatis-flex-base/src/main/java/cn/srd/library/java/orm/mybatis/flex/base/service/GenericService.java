@@ -11,6 +11,7 @@ import cn.srd.library.java.orm.mybatis.flex.base.repository.GenericRepository;
 import cn.srd.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import com.mybatisflex.core.logicdelete.LogicDeleteManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
@@ -57,6 +58,10 @@ public class GenericService<P extends PO, V extends VO, R extends GenericReposit
         return (V) repository.updateById((P) entity.toPO()).toVO();
     }
 
+    public V updateByIdIgnoreLogicDelete(V entity) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> updateById(entity));
+    }
+
     public List<V> updateBatchById(V... entities) {
         return repository.updateBatchById(Arrays.stream(entities).map(vo -> (P) vo.toPO()).collect(Collectors.toList()))
                 .stream()
@@ -78,8 +83,24 @@ public class GenericService<P extends PO, V extends VO, R extends GenericReposit
                 .collect(Collectors.toList());
     }
 
+    public List<V> updateBatchByIdIgnoreLogicDelete(V... entities) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> updateBatchById(entities));
+    }
+
+    public List<V> updateBatchByIdIgnoreLogicDelete(Iterable<V> entities) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> updateBatchById(entities));
+    }
+
+    public List<V> updateBatchByIdIgnoreLogicDelete(Iterable<V> entities, int batchSizeEachTime) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> updateBatchById(entities, batchSizeEachTime));
+    }
+
     public V updateWithVersionById(V entity) {
         return (V) repository.updateWithVersionById((P) entity.toPO()).toVO();
+    }
+
+    public V updateWithVersionByIdIgnoreLogicDelete(V entity) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> updateWithVersionById(entity));
     }
 
     public List<V> updateBatchWithVersionById(Iterable<V> entities, Function<P, ? extends Serializable> getIdAction) {
@@ -96,12 +117,28 @@ public class GenericService<P extends PO, V extends VO, R extends GenericReposit
                 .collect(Collectors.toList());
     }
 
+    public List<V> updateBatchWithVersionByIdIgnoreLogicDelete(Iterable<V> entities, Function<P, ? extends Serializable> getIdAction) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> updateBatchWithVersionById(entities, getIdAction));
+    }
+
+    public List<V> updateBatchWithVersionByIdIgnoreLogicDelete(Iterable<V> entities, Function<P, ? extends Serializable> getIdAction, int batchSizeEachTime) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> updateBatchWithVersionById(entities, getIdAction, batchSizeEachTime));
+    }
+
     public void deleteById(V entity) {
         repository.deleteById((P) entity.toPO());
     }
 
     public void deleteById(Serializable id) {
         repository.deleteById(id);
+    }
+
+    public void deleteByIdIgnoreLogicDelete(V entity) {
+        LogicDeleteManager.execWithoutLogicDelete(() -> deleteById(entity));
+    }
+
+    public void deleteByIdIgnoreLogicDelete(Serializable id) {
+        LogicDeleteManager.execWithoutLogicDelete(() -> deleteById(id));
     }
 
     public void deleteByIds(Serializable... ids) {
@@ -112,20 +149,12 @@ public class GenericService<P extends PO, V extends VO, R extends GenericReposit
         repository.deleteByIds(ids);
     }
 
-    public void deleteSkipLogicById(V entity) {
-        repository.deleteByIdWithoutLogicDelete((P) entity.toPO());
+    public void deleteByIdsIgnoreLogicDelete(Serializable... ids) {
+        LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids));
     }
 
-    public void deleteSkipLogicById(Serializable id) {
-        repository.deleteByIdWithoutLogicDelete(id);
-    }
-
-    public void deleteSkipLogicByIds(Serializable... ids) {
-        repository.deleteByIdsWithoutLogicDelete(ids);
-    }
-
-    public void deleteSkipLogicByIds(Iterable<? extends Serializable> ids) {
-        repository.deleteByIdsWithoutLogicDelete(ids);
+    public void deleteByIdsIgnoreLogicDelete(Iterable<? extends Serializable> ids) {
+        LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids));
     }
 
     public Optional<V> getById(Serializable id) {
@@ -144,12 +173,24 @@ public class GenericService<P extends PO, V extends VO, R extends GenericReposit
         return Optional.empty();
     }
 
+    public Optional<V> getByIdIgnoreLogicDelete(Serializable id) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> getById(id));
+    }
+
+    public Optional<V> getByIdIgnoreLogicDelete(V entity) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> getById(entity));
+    }
+
     public Optional<V> getByField(ColumnNameGetter<P> columnNameGetter, String name) {
         Optional<P> po = repository.getByField(columnNameGetter, name);
         if (po.isPresent()) {
             return Optional.ofNullable((V) po.orElseThrow().toVO());
         }
         return Optional.empty();
+    }
+
+    public Optional<V> getByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, String name) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> getByField(columnNameGetter, name));
     }
 
     public List<V> listByIds(Iterable<? extends Serializable> ids) {
@@ -159,11 +200,19 @@ public class GenericService<P extends PO, V extends VO, R extends GenericReposit
                 .collect(Collectors.toList());
     }
 
+    public List<V> listByIdsIgnoreLogicDelete(Iterable<? extends Serializable> ids) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> listByIds(ids));
+    }
+
     public List<V> listByField(ColumnNameGetter<P> columnNameGetter, Object value) {
         return repository.listByField(columnNameGetter, value)
                 .stream()
                 .map(po -> (V) po.toVO())
                 .collect(Collectors.toList());
+    }
+
+    public List<V> listByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> listByField(columnNameGetter, value));
     }
 
     public List<V> listLikeByField(ColumnNameGetter<P> columnNameGetter, String value) {
@@ -173,6 +222,10 @@ public class GenericService<P extends PO, V extends VO, R extends GenericReposit
                 .collect(Collectors.toList());
     }
 
+    public List<V> listLikeByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, String value) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> listLikeByField(columnNameGetter, value));
+    }
+
     public List<V> listAll() {
         return repository.listAll()
                 .stream()
@@ -180,8 +233,16 @@ public class GenericService<P extends PO, V extends VO, R extends GenericReposit
                 .collect(Collectors.toList());
     }
 
+    public List<V> listAllIgnoreLogicDelete() {
+        return LogicDeleteManager.execWithoutLogicDelete(this::listAll);
+    }
+
     public long countAll() {
         return repository.countAll();
+    }
+
+    public long countAllIgnoreLogicDelete() {
+        return LogicDeleteManager.execWithoutLogicDelete(this::countAll);
     }
 
 }

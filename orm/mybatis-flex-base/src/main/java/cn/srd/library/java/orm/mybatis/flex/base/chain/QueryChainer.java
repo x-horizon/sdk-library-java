@@ -157,31 +157,31 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
         return this;
     }
 
-    public QueryChainer<P> skipLogicDelete() {
-        this.needToSkipLogicDelete = true;
+    public QueryChainer<P> ignoreLogicDelete() {
+        this.needToIgnoreLogicDelete = true;
         return this;
     }
 
     public Optional<P> get() {
-        return this.needToSkipLogicDelete ?
+        return this.needToIgnoreLogicDelete ?
                 LogicDeleteManager.execWithoutLogicDelete(this::doGet) :
                 doGet();
     }
 
     public <V extends VO> Optional<V> getToVO() {
-        return this.needToSkipLogicDelete ?
+        return this.needToIgnoreLogicDelete ?
                 LogicDeleteManager.execWithoutLogicDelete(() -> doGetToVO()) :
                 doGetToVO();
     }
 
     public List<P> list() {
-        return this.needToSkipLogicDelete ?
+        return this.needToIgnoreLogicDelete ?
                 LogicDeleteManager.execWithoutLogicDelete(this::doList) :
                 doList();
     }
 
     public <V extends VO> List<V> listToVOs() {
-        return this.needToSkipLogicDelete ?
+        return this.needToIgnoreLogicDelete ?
                 LogicDeleteManager.execWithoutLogicDelete(() -> doListToVOs()) :
                 doListToVOs();
     }
@@ -203,7 +203,7 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     private PageResult<P> page(Page<P> page) {
-        return this.needToSkipLogicDelete ?
+        return this.needToIgnoreLogicDelete ?
                 LogicDeleteManager.execWithoutLogicDelete(() -> doPage(page)) :
                 doPage(page);
     }
@@ -225,19 +225,19 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     private <V extends VO> PageResult<V> pageToVO(Page<P> page) {
-        return this.needToSkipLogicDelete ?
+        return this.needToIgnoreLogicDelete ?
                 LogicDeleteManager.execWithoutLogicDelete(() -> doPageToVO(page)) :
                 doPageToVO(page);
     }
 
     public long count() {
-        return this.needToSkipLogicDelete ?
+        return this.needToIgnoreLogicDelete ?
                 LogicDeleteManager.execWithoutLogicDelete(this::doCount) :
                 doCount();
     }
 
     public boolean exists() {
-        return this.needToSkipLogicDelete ?
+        return this.needToIgnoreLogicDelete ?
                 LogicDeleteManager.execWithoutLogicDelete(this::doExists) :
                 doExists();
     }

@@ -71,12 +71,12 @@ public class UpdateChainer<P extends PO> extends BaseUpdateChainer<P> {
     }
 
     public UpdateChainer<P> skipLogicDelete() {
-        this.needToSkipLogicDelete = true;
+        this.needToIgnoreLogicDelete = true;
         return this;
     }
 
     public void update() {
-        if (this.needToSkipLogicDelete) {
+        if (this.needToIgnoreLogicDelete) {
             LogicDeleteManager.execWithoutLogicDelete(this::doUpdate);
         } else {
             doUpdate();

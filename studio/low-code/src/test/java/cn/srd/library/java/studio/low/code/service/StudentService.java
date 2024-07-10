@@ -88,7 +88,7 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
                         // ))
                 )
                 .switchToNormalQuery()
-                .skipLogicDelete()
+                .ignoreLogicDelete()
                 .listToVOs();
     }
 

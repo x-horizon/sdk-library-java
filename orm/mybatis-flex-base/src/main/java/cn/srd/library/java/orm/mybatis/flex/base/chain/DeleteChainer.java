@@ -34,12 +34,12 @@ public class DeleteChainer<P extends PO> extends BaseDeleteChainer<P> {
     }
 
     public DeleteChainer<P> skipLogicDelete() {
-        this.needToSkipLogicDelete = true;
+        this.needToIgnoreLogicDelete = true;
         return this;
     }
 
     public void delete() {
-        if (this.needToSkipLogicDelete) {
+        if (this.needToIgnoreLogicDelete) {
             LogicDeleteManager.execWithoutLogicDelete(this::doDelete);
         } else {
             doDelete();
