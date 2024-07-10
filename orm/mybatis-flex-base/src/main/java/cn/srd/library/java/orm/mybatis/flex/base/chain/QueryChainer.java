@@ -4,7 +4,6 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
-import cn.srd.library.java.contract.constant.number.NumberConstant;
 import cn.srd.library.java.contract.constant.page.PageConstant;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.orm.contract.model.base.PO;
@@ -14,7 +13,6 @@ import cn.srd.library.java.orm.contract.model.page.PageParam;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.orm.mybatis.flex.base.converter.PageConverter;
 import cn.srd.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
-import cn.srd.library.java.tool.lang.collection.Collections;
 import com.mybatisflex.core.paginate.Page;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -172,9 +170,7 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     public List<P> list() {
-        return isAllowToRunSql() ?
-                getNativeQueryChain().list() :
-                Collections.newArrayList();
+        return getNativeQueryChain().list();
     }
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
@@ -199,9 +195,7 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     private PageResult<P> page(Page<P> page) {
-        return isAllowToRunSql() ?
-                PageConverter.INSTANCE.toPageResult(getNativeQueryChain().page(page)) :
-                PageResult.empty(page.getPageNumber(), page.getPageSize());
+        return PageConverter.INSTANCE.toPageResult(getNativeQueryChain().page(page));
     }
 
     public <V extends VO> PageResult<V> pageToVO() {
@@ -221,19 +215,15 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     private <V extends VO> PageResult<V> pageToVO(Page<P> page) {
-        return isAllowToRunSql() ?
-                PageConverter.INSTANCE.toPageResultVO(getNativeQueryChain().page(page)) :
-                PageResult.empty(page.getPageNumber(), page.getPageSize());
+        return PageConverter.INSTANCE.toPageResultVO(getNativeQueryChain().page(page));
     }
 
     public long count() {
-        return isAllowToRunSql() ?
-                getNativeQueryChain().count() :
-                NumberConstant.ZERO_LONG_VALUE;
+        return getNativeQueryChain().count();
     }
 
     public boolean exists() {
-        return isAllowToRunSql() && getNativeQueryChain().exists();
+        return getNativeQueryChain().exists();
     }
 
     public boolean notExists() {

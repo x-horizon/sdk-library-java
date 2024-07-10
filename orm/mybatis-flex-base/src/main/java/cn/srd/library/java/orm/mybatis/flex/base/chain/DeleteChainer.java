@@ -34,15 +34,11 @@ public class DeleteChainer<P extends PO> extends BaseDeleteChainer<P> {
     }
 
     public void delete() {
-        if (isAllowToRunSql()) {
-            getNativeUpdateChainer().remove();
-        }
+        getNativeUpdateChainer().remove();
     }
 
     public void deleteSkipLogic() {
-        if (isAllowToRunSql()) {
-            LogicDeleteManager.execWithoutLogicDelete(this::delete);
-        }
+        LogicDeleteManager.execWithoutLogicDelete(this::delete);
     }
 
     public String toSQL() {

@@ -12,6 +12,7 @@ import cn.srd.library.java.orm.mybatis.flex.base.chain.BaseQueryChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChain;
 import cn.srd.library.java.orm.mybatis.flex.base.constant.MybatisFlexDefaultDML;
 import cn.srd.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
+import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
 import cn.srd.library.java.tool.lang.text.Strings;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
@@ -156,8 +157,11 @@ public class JsonbQueryChainer<P extends PO, PJ extends POJO> extends BaseQueryC
     }
 
     public <PJ1 extends POJO> JsonbQueryChainer<P, PJ> andExist(JsonbQueryFunctionChainer<PJ1> chainer) {
+        QueryCondition queryCondition = Reflects.getFieldValue(chainer.getNativeQueryChain(), "whereQueryCondition");
+        if (Nil.isNull(queryCondition.getColumn())) {
+            return this;
+        }
         this.nativeQueryChain.and(getJsonbFunctionExistQueryConditional(chainer));
-        this.setAllowToRunSql(chainer.isAllowToRunSql());
         return this;
     }
 
@@ -170,7 +174,6 @@ public class JsonbQueryChainer<P extends PO, PJ extends POJO> extends BaseQueryC
     }
 
     public NormalQueryChainer<P, PJ> switchToNormalQuery() {
-        this.normalQueryChainer.setAllowToRunSql(this.isAllowToRunSql());
         return this.normalQueryChainer;
     }
 

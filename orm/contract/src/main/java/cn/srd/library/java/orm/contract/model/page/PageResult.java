@@ -4,10 +4,8 @@
 
 package cn.srd.library.java.orm.contract.model.page;
 
-import cn.srd.library.java.contract.constant.number.NumberConstant;
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
 import cn.srd.library.java.orm.contract.model.base.DTO;
-import cn.srd.library.java.tool.lang.collection.Collections;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -51,15 +49,5 @@ public class PageResult<T extends Serializable> implements DTO {
 
     @Schema(description = "object record")
     private Serializable datum;
-
-    public static <T extends Serializable> PageResult<T> empty(Number pageIndex, Number pageSize) {
-        return PageResult.<T>builder()
-                .totalNumber(NumberConstant.ZERO_LONG_VALUE)
-                .totalPageNumber(NumberConstant.ZERO_LONG_VALUE)
-                .currentPageNumber(pageIndex.longValue())
-                .pageSize(pageSize.longValue())
-                .data(Collections.newArrayList())
-                .build();
-    }
 
 }
