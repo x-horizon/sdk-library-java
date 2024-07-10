@@ -70,7 +70,9 @@ public class UpdateChainer<P extends PO> extends BaseUpdateChainer<P> {
     }
 
     public void update() {
-        getNativeUpdateChainer().update();
+        if (isAllowToRunSql()) {
+            getNativeUpdateChainer().update();
+        }
     }
 
     public String toSQL() {
