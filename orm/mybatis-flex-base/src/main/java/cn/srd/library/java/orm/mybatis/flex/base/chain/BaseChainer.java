@@ -10,4 +10,6 @@ package cn.srd.library.java.orm.mybatis.flex.base.chain;
  */
 public abstract class BaseChainer {
 
+    protected boolean needToSkipLogicDelete = false;
+
 }

@@ -425,12 +425,12 @@ class CurdTest {
             homeRepository.deleteByIds(homeIds);
             Long theThirdHomeId = Collections.getThird(homeIds).orElseThrow();
             // DELETE FROM "home" WHERE "id" = 536757777872453;
-            homeRepository.deleteSkipLogicById(theThirdHomeId);
+            homeRepository.deleteByIdWithoutLogicDelete(theThirdHomeId);
             HomePO theForthHomePO = Collections.getForth(homePOs).orElseThrow();
             // DELETE FROM "home" WHERE "id" = 536757777901125;
-            homeRepository.deleteSkipLogicById(theForthHomePO);
+            homeRepository.deleteByIdWithoutLogicDelete(theForthHomePO);
             // DELETE FROM "home" WHERE "id" IS NOT NULL;
-            homeRepository.openDelete().where(HomePO::getId).isNotNull().deleteSkipLogic();
+            homeRepository.openDelete().where(HomePO::getId).isNotNull().skipLogicDelete().delete();
             // DELETE
             // FROM "home"
             // WHERE "id" = 536757777798725
@@ -448,7 +448,7 @@ class CurdTest {
             //    OR "id" = 536757778032197
             //    OR "id" = 536757778032198
             //    OR "id" = 536757778052677;
-            homeRepository.deleteSkipLogicByIds(homeIds);
+            homeRepository.deleteByIdsWithoutLogicDelete(homeIds);
         }
 
         List<PeoplePO> peoplePOs = peopleRepository.listAll();
@@ -492,12 +492,12 @@ class CurdTest {
             peopleRepository.deleteByIds(peopleIds);
             Long theThirdPeopleId = Collections.getThird(peopleIds).orElseThrow();
             // DELETE FROM "people" WHERE "id" = 536757778175557;
-            peopleRepository.deleteSkipLogicById(theThirdPeopleId);
+            peopleRepository.deleteByIdWithoutLogicDelete(theThirdPeopleId);
             PeoplePO theForthPeoplePO = Collections.getForth(peoplePOs).orElseThrow();
             // DELETE FROM "people" WHERE "id" = 536757778196037;
-            peopleRepository.deleteSkipLogicById(theForthPeoplePO);
+            peopleRepository.deleteByIdWithoutLogicDelete(theForthPeoplePO);
             // DELETE FROM "people" WHERE "id" IS NOT NULL;
-            peopleRepository.openDelete().where(PeoplePO::getId).isNotNull().deleteSkipLogic();
+            peopleRepository.openDelete().where(PeoplePO::getId).isNotNull().skipLogicDelete().delete();
             // DELETE
             // FROM "people"
             // WHERE "id" = 536757778110021
@@ -515,7 +515,7 @@ class CurdTest {
             //    OR "id" = 536757778302533
             //    OR "id" = 536757778302534
             //    OR "id" = 536757778323013;
-            peopleRepository.deleteSkipLogicByIds(peopleIds);
+            peopleRepository.deleteByIdsWithoutLogicDelete(peopleIds);
         }
     }
 

@@ -7,6 +7,7 @@ package cn.srd.library.java.orm.mybatis.flex.base.chain;
 import cn.srd.library.java.orm.contract.model.base.PO;
 import cn.srd.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
 import cn.srd.library.java.tool.lang.functional.If;
+import com.mybatisflex.core.logicdelete.LogicDeleteManager;
 import com.mybatisflex.core.update.UpdateChain;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -69,7 +70,20 @@ public class UpdateChainer<P extends PO> extends BaseUpdateChainer<P> {
         return new QueryConditional<>(this, getNativeUpdateChainer().or(columnNameGetter));
     }
 
+    public UpdateChainer<P> skipLogicDelete() {
+        this.needToSkipLogicDelete = true;
+        return this;
+    }
+
     public void update() {
+        if (this.needToSkipLogicDelete) {
+            LogicDeleteManager.execWithoutLogicDelete(this::doUpdate);
+        } else {
+            doUpdate();
+        }
+    }
+
+    private void doUpdate() {
         getNativeUpdateChainer().update();
     }
 

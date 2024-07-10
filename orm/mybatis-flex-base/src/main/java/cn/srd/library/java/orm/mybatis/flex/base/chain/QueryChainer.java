@@ -13,10 +13,11 @@ import cn.srd.library.java.orm.contract.model.page.PageParam;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.orm.mybatis.flex.base.converter.PageConverter;
 import cn.srd.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
+import com.mybatisflex.core.logicdelete.LogicDeleteManager;
 import com.mybatisflex.core.paginate.Page;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,10 +30,10 @@ import java.util.stream.Collectors;
  * @since 2023-11-28 22:57
  */
 @Getter(AccessLevel.PROTECTED)
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
 
-    private final QueryChain<P> nativeQueryChain;
+    @Getter(AccessLevel.PROTECTED) private final QueryChain<P> nativeQueryChain;
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public <P1 extends PO> QueryChainer<P> select(ColumnNameGetter<P1>... columnNameGetters) {
@@ -156,26 +157,33 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
         return this;
     }
 
-    public Optional<P> get() {
-        return getNativeQueryChain().oneOpt();
+    public QueryChainer<P> skipLogicDelete() {
+        this.needToSkipLogicDelete = true;
+        return this;
     }
 
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public Optional<P> get() {
+        return this.needToSkipLogicDelete ?
+                LogicDeleteManager.execWithoutLogicDelete(this::doGet) :
+                doGet();
+    }
+
     public <V extends VO> Optional<V> getToVO() {
-        Optional<P> po = get();
-        if (po.isPresent()) {
-            return Optional.ofNullable((V) po.orElseThrow().toVO());
-        }
-        return Optional.empty();
+        return this.needToSkipLogicDelete ?
+                LogicDeleteManager.execWithoutLogicDelete(() -> doGetToVO()) :
+                doGetToVO();
     }
 
     public List<P> list() {
-        return getNativeQueryChain().list();
+        return this.needToSkipLogicDelete ?
+                LogicDeleteManager.execWithoutLogicDelete(this::doList) :
+                doList();
     }
 
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public <V extends VO> List<V> listToVOs() {
-        return list().stream().map(po -> (V) po.toVO()).collect(Collectors.toList());
+        return this.needToSkipLogicDelete ?
+                LogicDeleteManager.execWithoutLogicDelete(() -> doListToVOs()) :
+                doListToVOs();
     }
 
     public PageResult<P> page() {
@@ -195,7 +203,9 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     private PageResult<P> page(Page<P> page) {
-        return PageConverter.INSTANCE.toPageResult(getNativeQueryChain().page(page));
+        return this.needToSkipLogicDelete ?
+                LogicDeleteManager.execWithoutLogicDelete(() -> doPage(page)) :
+                doPage(page);
     }
 
     public <V extends VO> PageResult<V> pageToVO() {
@@ -215,19 +225,63 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     private <V extends VO> PageResult<V> pageToVO(Page<P> page) {
-        return PageConverter.INSTANCE.toPageResultVO(getNativeQueryChain().page(page));
+        return this.needToSkipLogicDelete ?
+                LogicDeleteManager.execWithoutLogicDelete(() -> doPageToVO(page)) :
+                doPageToVO(page);
     }
 
     public long count() {
-        return getNativeQueryChain().count();
+        return this.needToSkipLogicDelete ?
+                LogicDeleteManager.execWithoutLogicDelete(this::doCount) :
+                doCount();
     }
 
     public boolean exists() {
-        return getNativeQueryChain().exists();
+        return this.needToSkipLogicDelete ?
+                LogicDeleteManager.execWithoutLogicDelete(this::doExists) :
+                doExists();
     }
 
     public boolean notExists() {
         return !exists();
+    }
+
+    private Optional<P> doGet() {
+        return getNativeQueryChain().oneOpt();
+    }
+
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    private <V extends VO> Optional<V> doGetToVO() {
+        Optional<P> po = get();
+        if (po.isPresent()) {
+            return Optional.ofNullable((V) po.orElseThrow().toVO());
+        }
+        return Optional.empty();
+    }
+
+    private List<P> doList() {
+        return getNativeQueryChain().list();
+    }
+
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    private <V extends VO> List<V> doListToVOs() {
+        return list().stream().map(po -> (V) po.toVO()).collect(Collectors.toList());
+    }
+
+    private PageResult<P> doPage(Page<P> page) {
+        return PageConverter.INSTANCE.toPageResult(getNativeQueryChain().page(page));
+    }
+
+    private <V extends VO> PageResult<V> doPageToVO(Page<P> page) {
+        return PageConverter.INSTANCE.toPageResultVO(getNativeQueryChain().page(page));
+    }
+
+    private long doCount() {
+        return getNativeQueryChain().count();
+    }
+
+    private boolean doExists() {
+        return getNativeQueryChain().exists();
     }
 
     public String toSQL() {

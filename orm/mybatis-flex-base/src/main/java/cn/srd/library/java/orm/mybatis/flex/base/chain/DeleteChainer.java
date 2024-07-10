@@ -33,12 +33,21 @@ public class DeleteChainer<P extends PO> extends BaseDeleteChainer<P> {
         return new QueryConditional<>(this, getNativeUpdateChainer().or(columnNameGetter));
     }
 
-    public void delete() {
-        getNativeUpdateChainer().remove();
+    public DeleteChainer<P> skipLogicDelete() {
+        this.needToSkipLogicDelete = true;
+        return this;
     }
 
-    public void deleteSkipLogic() {
-        LogicDeleteManager.execWithoutLogicDelete(this::delete);
+    public void delete() {
+        if (this.needToSkipLogicDelete) {
+            LogicDeleteManager.execWithoutLogicDelete(this::doDelete);
+        } else {
+            doDelete();
+        }
+    }
+
+    private void doDelete() {
+        getNativeUpdateChainer().remove();
     }
 
     public String toSQL() {

@@ -113,19 +113,19 @@ public class GenericService<P extends PO, V extends VO, R extends GenericReposit
     }
 
     public void deleteSkipLogicById(V entity) {
-        repository.deleteSkipLogicById((P) entity.toPO());
+        repository.deleteByIdWithoutLogicDelete((P) entity.toPO());
     }
 
     public void deleteSkipLogicById(Serializable id) {
-        repository.deleteSkipLogicById(id);
+        repository.deleteByIdWithoutLogicDelete(id);
     }
 
     public void deleteSkipLogicByIds(Serializable... ids) {
-        repository.deleteSkipLogicByIds(ids);
+        repository.deleteByIdsWithoutLogicDelete(ids);
     }
 
     public void deleteSkipLogicByIds(Iterable<? extends Serializable> ids) {
-        repository.deleteSkipLogicByIds(ids);
+        repository.deleteByIdsWithoutLogicDelete(ids);
     }
 
     public Optional<V> getById(Serializable id) {

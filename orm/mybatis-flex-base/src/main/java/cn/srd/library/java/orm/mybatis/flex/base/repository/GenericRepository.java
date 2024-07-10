@@ -238,7 +238,7 @@ public interface GenericRepository<P extends PO> {
     @Transactional(rollbackFor = Throwable.class)
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     default List<P> updateBatchById(Iterable<P> entities, int batchSizeEachTime) {
-        if(Nil.isEmpty(entities)){
+        if (Nil.isEmpty(entities)) {
             return Collections.newArrayList();
         }
         List<P> needToUpdateEntities = entities instanceof List<P> actualEntities ? actualEntities : Converts.toList(entities);
@@ -404,14 +404,14 @@ public interface GenericRepository<P extends PO> {
      * @param ids the primary key values
      */
     default void deleteByIds(Iterable<? extends Serializable> ids) {
-        if(Nil.isEmpty(ids)){
+        if (Nil.isEmpty(ids)) {
             return;
         }
         getBaseMapper().deleteBatchByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toSet(ids));
     }
 
     /**
-     * delete skip logic anyway, recommended for the entity with multiple primary keys.
+     * delete without logic delete, recommended for the entity with multiple primary keys.
      * <ul>
      *   <li>
      *       no matter of whether the entity has the logic delete column:<br/>
@@ -431,32 +431,32 @@ public interface GenericRepository<P extends PO> {
      *
      * @param entity the entity
      */
-    default void deleteSkipLogicById(P entity) {
+    default void deleteByIdWithoutLogicDelete(P entity) {
         LogicDeleteManager.execWithoutLogicDelete(() -> deleteById(entity));
     }
 
     /**
-     * delete skip logic anyway.
+     * delete without logic delete.
      *
      * @param id the primary key value
-     * @see #deleteSkipLogicByIds(Iterable)
+     * @see #deleteByIdsWithoutLogicDelete(Iterable)
      */
-    default void deleteSkipLogicById(Serializable id) {
+    default void deleteByIdWithoutLogicDelete(Serializable id) {
         LogicDeleteManager.execWithoutLogicDelete(() -> deleteById(id));
     }
 
     /**
-     * delete batch skip logic anyway.
+     * delete batch without logic delete.
      *
      * @param ids the primary key values
-     * @see #deleteSkipLogicByIds(Iterable)
+     * @see #deleteByIdsWithoutLogicDelete(Iterable)
      */
-    default void deleteSkipLogicByIds(Serializable... ids) {
-        deleteSkipLogicByIds(Collections.ofHashSet(ids));
+    default void deleteByIdsWithoutLogicDelete(Serializable... ids) {
+        deleteByIdsWithoutLogicDelete(Collections.ofHashSet(ids));
     }
 
     /**
-     * delete batch skip logic anyway.
+     * delete batch without logic delete.
      * <ul>
      *   <li>
      *       no matter of whether the entity has the logic delete column, the generated delete sql like:<br/>
@@ -469,10 +469,7 @@ public interface GenericRepository<P extends PO> {
      *
      * @param ids the primary key values
      */
-    default void deleteSkipLogicByIds(Iterable<? extends Serializable> ids) {
-        if(Nil.isEmpty(ids)){
-            return;
-        }
+    default void deleteByIdsWithoutLogicDelete(Iterable<? extends Serializable> ids) {
         LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids instanceof Collection<? extends Serializable> ? ids : Converts.toSet(ids)));
     }
 
@@ -484,31 +481,63 @@ public interface GenericRepository<P extends PO> {
         return Optional.ofNullable(getBaseMapper().selectOneByEntityId(entity));
     }
 
+    default Optional<P> getByIdWithoutLogicDelete(Serializable id) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> getById(id));
+    }
+
+    default Optional<P> getByIdWithoutLogicDelete(P entity) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> getById(entity));
+    }
+
     default Optional<P> getByField(ColumnNameGetter<P> columnNameGetter, Object value) {
         return Optional.ofNullable(getBaseMapper().selectOneByMap(Collections.ofImmutableMap(MybatisFlexs.getColumnName(columnNameGetter), value)));
     }
 
+    default Optional<P> getByFieldWithoutLogicDelete(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> getByField(columnNameGetter, value));
+    }
+
     default List<P> listByIds(Iterable<? extends Serializable> ids) {
-        if(Nil.isEmpty(ids)){
+        if (Nil.isEmpty(ids)) {
             return Collections.newArrayList();
         }
         return getBaseMapper().selectListByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toSet(ids));
+    }
+
+    default List<P> listByIdsWithoutLogicDelete(Iterable<? extends Serializable> ids) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> listByIdsWithoutLogicDelete(ids));
     }
 
     default List<P> listByField(ColumnNameGetter<P> columnNameGetter, Object value) {
         return getBaseMapper().selectListByMap(Collections.ofImmutableMap(MybatisFlexs.getColumnName(columnNameGetter), value));
     }
 
+    default List<P> listByFieldWithoutLogicDelete(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> listByFieldWithoutLogicDelete(columnNameGetter, value));
+    }
+
     default List<P> listLikeByField(ColumnNameGetter<P> columnNameGetter, String value) {
         return getBaseMapper().selectListByQuery(QueryWrapper.create().like(MybatisFlexs.getColumnName(columnNameGetter), value));
+    }
+
+    default List<P> listLikeByFieldWithoutLogicDelete(ColumnNameGetter<P> columnNameGetter, String value) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> listLikeByField(columnNameGetter, value));
     }
 
     default List<P> listAll() {
         return getBaseMapper().selectListByQuery(QueryWrapper.create());
     }
 
+    default List<P> listAllWithoutLogicDelete() {
+        return LogicDeleteManager.execWithoutLogicDelete(this::listAll);
+    }
+
     default long countAll() {
         return getBaseMapper().selectCountByQuery(QueryWrapper.create());
+    }
+
+    default long countAllWithoutLogicDelete() {
+        return LogicDeleteManager.execWithoutLogicDelete(this::countAll);
     }
 
     default QueryChainer<P> openQuery() {
