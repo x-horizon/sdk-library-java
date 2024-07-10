@@ -172,7 +172,6 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     public List<P> list() {
-        // log.warn("{}mybatis flex jdbc jsonb type caching system is enabled, starting initializing...", ModuleView.ORM_MYBATIS_SYSTEM);
         return isAllowToRunSql() ?
                 getNativeQueryChain().list() :
                 Collections.newArrayList();
