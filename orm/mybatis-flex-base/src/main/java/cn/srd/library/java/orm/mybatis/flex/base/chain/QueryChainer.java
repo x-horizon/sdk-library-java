@@ -172,7 +172,8 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     public List<P> list() {
-        return isValidCondition() ?
+        // log.warn("{}mybatis flex jdbc jsonb type caching system is enabled, starting initializing...", ModuleView.ORM_MYBATIS_SYSTEM);
+        return isAllowToRunSql() ?
                 getNativeQueryChain().list() :
                 Collections.newArrayList();
     }
@@ -199,9 +200,9 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     private PageResult<P> page(Page<P> page) {
-        return isValidCondition() ?
+        return isAllowToRunSql() ?
                 PageConverter.INSTANCE.toPageResult(getNativeQueryChain().page(page)) :
-                PageResult.empty();
+                PageResult.empty(page.getPageNumber(), page.getPageSize());
     }
 
     public <V extends VO> PageResult<V> pageToVO() {
@@ -221,19 +222,19 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     private <V extends VO> PageResult<V> pageToVO(Page<P> page) {
-        return isValidCondition() ?
+        return isAllowToRunSql() ?
                 PageConverter.INSTANCE.toPageResultVO(getNativeQueryChain().page(page)) :
-                PageResult.empty();
+                PageResult.empty(page.getPageNumber(), page.getPageSize());
     }
 
     public long count() {
-        return isValidCondition() ?
+        return isAllowToRunSql() ?
                 getNativeQueryChain().count() :
                 NumberConstant.ZERO_LONG_VALUE;
     }
 
     public boolean exists() {
-        return isValidCondition() && getNativeQueryChain().exists();
+        return isAllowToRunSql() && getNativeQueryChain().exists();
     }
 
     public boolean notExists() {

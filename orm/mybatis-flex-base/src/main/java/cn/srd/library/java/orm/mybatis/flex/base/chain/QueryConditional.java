@@ -736,7 +736,7 @@ public class QueryConditional<C extends BaseChainer, W extends QueryWrapper> ext
      */
     public C in(Object[] values, boolean condition) {
         if (Nil.isEmpty(values)) {
-            getChainer().setValidCondition(false);
+            getChainer().setAllowToRunSql(false);
         }
         getNativeQueryConditional().in(values, condition);
         return getChainer();

@@ -157,6 +157,7 @@ public class JsonbQueryChainer<P extends PO, PJ extends POJO> extends BaseQueryC
 
     public <PJ1 extends POJO> JsonbQueryChainer<P, PJ> andExist(JsonbQueryFunctionChainer<PJ1> chainer) {
         this.nativeQueryChain.and(getJsonbFunctionExistQueryConditional(chainer));
+        this.setAllowToRunSql(chainer.isAllowToRunSql());
         return this;
     }
 
@@ -169,7 +170,7 @@ public class JsonbQueryChainer<P extends PO, PJ extends POJO> extends BaseQueryC
     }
 
     public NormalQueryChainer<P, PJ> switchToNormalQuery() {
-        this.normalQueryChainer.setValidCondition(this.isValidCondition());
+        this.normalQueryChainer.setAllowToRunSql(this.isAllowToRunSql());
         return this.normalQueryChainer;
     }
 

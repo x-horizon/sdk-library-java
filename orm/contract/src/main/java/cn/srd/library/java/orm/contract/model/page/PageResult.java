@@ -52,12 +52,12 @@ public class PageResult<T extends Serializable> implements DTO {
     @Schema(description = "object record")
     private Serializable datum;
 
-    public static <T extends Serializable> PageResult<T> empty() {
+    public static <T extends Serializable> PageResult<T> empty(Number pageIndex, Number pageSize) {
         return PageResult.<T>builder()
                 .totalNumber(NumberConstant.ZERO_LONG_VALUE)
                 .totalPageNumber(NumberConstant.ZERO_LONG_VALUE)
-                .currentPageNumber(NumberConstant.ZERO_LONG_VALUE)
-                .pageSize(NumberConstant.ZERO_LONG_VALUE)
+                .currentPageNumber(pageIndex.longValue())
+                .pageSize(pageSize.longValue())
                 .data(Collections.newArrayList())
                 .build();
     }

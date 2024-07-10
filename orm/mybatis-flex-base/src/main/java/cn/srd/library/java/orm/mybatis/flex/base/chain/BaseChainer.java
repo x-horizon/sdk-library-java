@@ -4,18 +4,23 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author wjm
  * @since 2023-12-05 16:38
  */
-@Getter(AccessLevel.PROTECTED)
-@Setter
+@Getter
+@Slf4j
 public abstract class BaseChainer {
 
-    private boolean isValidCondition = true;
+    private boolean allowToRunSql = true;
+
+    public void setAllowToRunSql(boolean allowToRunSql) {
+        if (this.allowToRunSql) {
+            this.allowToRunSql = allowToRunSql;
+        }
+    }
 
 }
