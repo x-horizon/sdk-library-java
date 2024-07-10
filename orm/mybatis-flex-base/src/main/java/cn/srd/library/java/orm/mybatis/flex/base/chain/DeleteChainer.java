@@ -33,7 +33,7 @@ public class DeleteChainer<P extends PO> extends BaseDeleteChainer<P> {
         return new QueryConditional<>(this, getNativeUpdateChainer().or(columnNameGetter));
     }
 
-    public DeleteChainer<P> skipLogicDelete() {
+    public DeleteChainer<P> ignoreLogicDelete() {
         this.needToIgnoreLogicDelete = true;
         return this;
     }

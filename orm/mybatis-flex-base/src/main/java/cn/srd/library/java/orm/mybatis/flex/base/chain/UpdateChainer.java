@@ -70,7 +70,7 @@ public class UpdateChainer<P extends PO> extends BaseUpdateChainer<P> {
         return new QueryConditional<>(this, getNativeUpdateChainer().or(columnNameGetter));
     }
 
-    public UpdateChainer<P> skipLogicDelete() {
+    public UpdateChainer<P> ignoreLogicDelete() {
         this.needToIgnoreLogicDelete = true;
         return this;
     }

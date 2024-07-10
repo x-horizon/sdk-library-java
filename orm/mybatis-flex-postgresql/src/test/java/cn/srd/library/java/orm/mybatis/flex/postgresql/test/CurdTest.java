@@ -430,7 +430,7 @@ class CurdTest {
             // DELETE FROM "home" WHERE "id" = 536757777901125;
             homeRepository.deleteByIdIgnoreLogicDelete(theForthHomePO);
             // DELETE FROM "home" WHERE "id" IS NOT NULL;
-            homeRepository.openDelete().where(HomePO::getId).isNotNull().skipLogicDelete().delete();
+            homeRepository.openDelete().where(HomePO::getId).isNotNull().ignoreLogicDelete().delete();
             // DELETE
             // FROM "home"
             // WHERE "id" = 536757777798725
@@ -497,7 +497,7 @@ class CurdTest {
             // DELETE FROM "people" WHERE "id" = 536757778196037;
             peopleRepository.deleteByIdIgnoreLogicDelete(theForthPeoplePO);
             // DELETE FROM "people" WHERE "id" IS NOT NULL;
-            peopleRepository.openDelete().where(PeoplePO::getId).isNotNull().skipLogicDelete().delete();
+            peopleRepository.openDelete().where(PeoplePO::getId).isNotNull().ignoreLogicDelete().delete();
             // DELETE
             // FROM "people"
             // WHERE "id" = 536757778110021
