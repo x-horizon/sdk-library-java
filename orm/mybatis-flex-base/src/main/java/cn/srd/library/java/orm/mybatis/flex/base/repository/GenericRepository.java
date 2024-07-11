@@ -50,6 +50,7 @@ import java.util.function.Function;
  * @author wjm
  * @since 2023-11-04 00:19
  */
+@SuppressWarnings(SuppressWarningConstant.UNUSED)
 @CanIgnoreReturnValue
 public interface GenericRepository<P extends PO> {
 
@@ -255,6 +256,7 @@ public interface GenericRepository<P extends PO> {
         return needToUpdateEntities;
     }
 
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     default List<P> updateBatchByIdIgnoreLogicDelete(P... entities) {
         return LogicDeleteManager.execWithoutLogicDelete(() -> updateBatchById(entities));
     }
@@ -263,8 +265,9 @@ public interface GenericRepository<P extends PO> {
         return LogicDeleteManager.execWithoutLogicDelete(() -> updateBatchById(entities));
     }
 
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     default List<P> updateBatchByIdIgnoreLogicDelete(Iterable<P> entities, int batchSizeEachTime) {
-        return LogicDeleteManager.execWithoutLogicDelete(() -> updateBatchById(entities, batchSizeEachTime));
+        return LogicDeleteManager.execWithoutLogicDelete(() -> Springs.getProxy(GenericRepository.class).updateBatchById(entities, batchSizeEachTime));
     }
 
     /**
