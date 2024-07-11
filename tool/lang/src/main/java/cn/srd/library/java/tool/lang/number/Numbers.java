@@ -7,6 +7,7 @@ package cn.srd.library.java.tool.lang.number;
 import cn.hutool.core.util.NumberUtil;
 import cn.srd.library.java.contract.constant.number.NumberConstant;
 import cn.srd.library.java.contract.constant.time.TimeUnitConstant;
+import cn.srd.library.java.contract.model.throwable.InvalidArgumentException;
 import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -172,6 +173,48 @@ public class Numbers {
      */
     public static double getPercent(double input) {
         return NumberUtil.div(input, NumberConstant.ONE_HUNDRED);
+    }
+
+    /**
+     * self increase
+     *
+     * @param input the value to + 1
+     * @return after self increase
+     */
+    public static Number selfIncrease(Number input) {
+        return switch (input) {
+            case Integer _, Long _, Short _, Byte _ -> input.longValue() + 1;
+            case Double _, Float _ -> new BigDecimal(input.toString()).add(BigDecimal.ONE).doubleValue();
+            default -> throw new InvalidArgumentException("unsupported number type to self reduce!");
+        };
+    }
+
+    /**
+     * self reduce
+     *
+     * @param input the value to - 1
+     * @return after self reduce
+     */
+    public static Number selfReduce(Number input) {
+        return switch (input) {
+            case Integer _, Long _, Short _, Byte _ -> input.longValue() - 1;
+            case Double _, Float _ -> new BigDecimal(input.toString()).subtract(BigDecimal.ONE).doubleValue();
+            default -> throw new InvalidArgumentException("unsupported number type to self reduce!");
+        };
+    }
+
+    /**
+     * self reduce and ensure after reduce value is not less than 0
+     *
+     * @param input the value to - 1
+     * @return after self reduce
+     */
+    public static Number selfReduceEnsureMinZeroValue(Number input) {
+        Number output = selfReduce(input);
+        if (isNotPositive(output)) {
+            output = NumberConstant.ZERO_LONG_VALUE;
+        }
+        return output;
     }
 
     /**
