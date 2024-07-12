@@ -176,92 +176,28 @@ public class Numbers {
     }
 
     /**
-     * self increase
+     * return the value of adding originalValue and increaseValue together
+     *
+     * @param originalValue original value
+     * @param increaseValue the value to increase
+     * @return the value of adding originalValue and increaseValue together
+     */
+    public static Long add(Long originalValue, Long increaseValue) {
+        return originalValue + increaseValue;
+    }
+
+    /**
+     * add one
      *
      * @param input the value to + 1
-     * @return after self increase
+     * @return after add one
      */
-    public static Number selfIncrease(Number input) {
+    public static Number addOne(Number input) {
         return switch (input) {
             case Integer _, Long _, Short _, Byte _ -> input.longValue() + 1;
             case Double _, Float _ -> new BigDecimal(input.toString()).add(BigDecimal.ONE).doubleValue();
             default -> throw new InvalidArgumentException("unsupported number type to self reduce!");
         };
-    }
-
-    /**
-     * self reduce
-     *
-     * @param input the value to - 1
-     * @return after self reduce
-     */
-    public static Number selfReduce(Number input) {
-        return switch (input) {
-            case Integer _, Long _, Short _, Byte _ -> input.longValue() - 1;
-            case Double _, Float _ -> new BigDecimal(input.toString()).subtract(BigDecimal.ONE).doubleValue();
-            default -> throw new InvalidArgumentException("unsupported number type to self reduce!");
-        };
-    }
-
-    /**
-     * self reduce and ensure after reduce value is not less than 0
-     *
-     * @param input the value to - 1
-     * @return after self reduce
-     */
-    public static Number selfReduceEnsureMinZeroValue(Number input) {
-        Number output = selfReduce(input);
-        if (isNotPositive(output)) {
-            output = NumberConstant.ZERO_LONG_VALUE;
-        }
-        return output;
-    }
-
-    /**
-     * see {@link #roundWithScale0ToBigDecimal(double)}
-     *
-     * @param input input number
-     * @return number after half adjust with 0 scale
-     */
-    public static short roundWithScale0ToShort(double input) {
-        return roundWithScale0ToBigDecimal(input).shortValue();
-    }
-
-    /**
-     * see {@link #roundWithScale0ToBigDecimal(double)}
-     *
-     * @param input input number
-     * @return number after half adjust with 0 scale
-     */
-    public static int roundWithScale0ToInt(double input) {
-        return roundWithScale0ToBigDecimal(input).intValue();
-    }
-
-    /**
-     * see {@link #roundWithScale0ToBigDecimal(double)}
-     *
-     * @param input input number
-     * @return number after half adjust with 0 scale
-     */
-    public static long roundWithScale0ToLong(double input) {
-        return roundWithScale0ToBigDecimal(input).longValue();
-    }
-
-    /**
-     * this function will return number after half adjust with 0 scale
-     * <pre>
-     * example:
-     * 10           => 10
-     * 10.1         => 10
-     * 10.5         => 11
-     * 10.6         => 11
-     * </pre>
-     *
-     * @param input input number
-     * @return number after half adjust with 0 scale
-     */
-    public static BigDecimal roundWithScale0ToBigDecimal(double input) {
-        return NumberUtil.round(input, NumberConstant.ZERO_INT_SCALE);
     }
 
     /**
@@ -321,36 +257,90 @@ public class Numbers {
     }
 
     /**
-     * see {@link #subRoundWithScale0ToBigDecimal(double, double)}
+     * return the value of subtracting originalValue and increaseValue together
      *
-     * @param input1 subtract1
-     * @param input2 subtract2
-     * @return number after half adjust with 0 scale
+     * @param originalValue original value
+     * @param reduceValue   the value to subtract
+     * @return the value of subtracting originalValue and increaseValue together
      */
-    public static int subRoundWithScale0ToShort(double input1, double input2) {
-        return subRoundWithScale0ToBigDecimal(input1, input2).shortValue();
+    public static Long subtract(Long originalValue, Long reduceValue) {
+        return originalValue - reduceValue;
     }
 
     /**
-     * see {@link #subRoundWithScale0ToBigDecimal(double, double)}
+     * return the value of subtracting originalValue and increaseValue together and after {@link #subtract(Long, Long)} value is not less than 0
      *
-     * @param input1 subtract1
-     * @param input2 subtract2
-     * @return number after half adjust with 0 scale
+     * @param originalValue original value
+     * @param reduceValue   the value to subtract
+     * @return the value of subtracting originalValue and increaseValue together and after {@link #subtract(Long, Long)} value is not less than 0
      */
-    public static int subRoundWithScale0ToInt(double input1, double input2) {
-        return subRoundWithScale0ToBigDecimal(input1, input2).intValue();
+    public static Long subtractNotLessThanZero(Long originalValue, Long reduceValue) {
+        Long output = subtract(originalValue, reduceValue);
+        if (isNotPositive(output)) {
+            output = NumberConstant.ZERO_LONG_VALUE;
+        }
+        return output;
     }
 
     /**
-     * see {@link #subRoundWithScale0ToBigDecimal(double, double)}
+     * subtract one
+     *
+     * @param input the value to - 1
+     * @return after subtract one
+     */
+    public static Number subtractOne(Number input) {
+        return switch (input) {
+            case Integer _, Long _, Short _, Byte _ -> input.longValue() - 1;
+            case Double _, Float _ -> new BigDecimal(input.toString()).subtract(BigDecimal.ONE).doubleValue();
+            default -> throw new InvalidArgumentException("unsupported number type to self reduce!");
+        };
+    }
+
+    /**
+     * subtract one and after {@link #subtractOne(Number)} value is not less than 0
+     *
+     * @param input the value to - 1
+     * @return after subtract one
+     */
+    public static Number subtractOneNotLessThanZero(Number input) {
+        Number output = subtractOne(input);
+        if (isNotPositive(output)) {
+            output = NumberConstant.ZERO_LONG_VALUE;
+        }
+        return output;
+    }
+
+    /**
+     * see {@link #subtractRoundWithScale0ToBigDecimal(double, double)}
      *
      * @param input1 subtract1
      * @param input2 subtract2
      * @return number after half adjust with 0 scale
      */
-    public static long subRoundWithScale0ToLong(double input1, double input2) {
-        return subRoundWithScale0ToBigDecimal(input1, input2).longValue();
+    public static int subtractRoundWithScale0ToShort(double input1, double input2) {
+        return subtractRoundWithScale0ToBigDecimal(input1, input2).shortValue();
+    }
+
+    /**
+     * see {@link #subtractRoundWithScale0ToBigDecimal(double, double)}
+     *
+     * @param input1 subtract1
+     * @param input2 subtract2
+     * @return number after half adjust with 0 scale
+     */
+    public static int subtractRoundWithScale0ToInt(double input1, double input2) {
+        return subtractRoundWithScale0ToBigDecimal(input1, input2).intValue();
+    }
+
+    /**
+     * see {@link #subtractRoundWithScale0ToBigDecimal(double, double)}
+     *
+     * @param input1 subtract1
+     * @param input2 subtract2
+     * @return number after half adjust with 0 scale
+     */
+    public static long subtractRoundWithScale0ToLong(double input1, double input2) {
+        return subtractRoundWithScale0ToBigDecimal(input1, input2).longValue();
     }
 
     /**
@@ -366,41 +356,41 @@ public class Numbers {
      * @param input2 subtract2
      * @return number after half adjust with 0 scale
      */
-    public static BigDecimal subRoundWithScale0ToBigDecimal(double input1, double input2) {
+    public static BigDecimal subtractRoundWithScale0ToBigDecimal(double input1, double input2) {
         return NumberUtil.sub(Double.toString(input1), Double.toString(input2)).setScale(NumberConstant.ZERO_INT_SCALE, RoundingMode.HALF_UP);
     }
 
     /**
-     * see {@link #mulRoundWithScale0ToBigDecimal(float, double)}
+     * see {@link #multiplyRoundWithScale0ToBigDecimal(float, double)}
      *
      * @param input1 multiplier1
      * @param input2 multiplier2
      * @return number after half adjust with 0 scale
      */
-    public static int mulRoundWithScale0ToShort(float input1, double input2) {
-        return mulRoundWithScale0ToBigDecimal(input1, input2).shortValue();
+    public static int multiplyRoundWithScale0ToShort(float input1, double input2) {
+        return multiplyRoundWithScale0ToBigDecimal(input1, input2).shortValue();
     }
 
     /**
-     * see {@link #mulRoundWithScale0ToBigDecimal(float, double)}
+     * see {@link #multiplyRoundWithScale0ToBigDecimal(float, double)}
      *
      * @param input1 multiplier1
      * @param input2 multiplier2
      * @return number after half adjust with 0 scale
      */
-    public static int mulRoundWithScale0ToInt(float input1, double input2) {
-        return mulRoundWithScale0ToBigDecimal(input1, input2).intValue();
+    public static int multiplyRoundWithScale0ToInt(float input1, double input2) {
+        return multiplyRoundWithScale0ToBigDecimal(input1, input2).intValue();
     }
 
     /**
-     * see {@link #mulRoundWithScale0ToBigDecimal(float, double)}
+     * see {@link #multiplyRoundWithScale0ToBigDecimal(float, double)}
      *
      * @param input1 multiplier1
      * @param input2 multiplier2
      * @return number after half adjust with 0 scale
      */
-    public static long mulRoundWithScale0ToLong(float input1, double input2) {
-        return mulRoundWithScale0ToBigDecimal(input1, input2).longValue();
+    public static long multiplyRoundWithScale0ToLong(float input1, double input2) {
+        return multiplyRoundWithScale0ToBigDecimal(input1, input2).longValue();
     }
 
     /**
@@ -417,41 +407,41 @@ public class Numbers {
      * @param input2 multiplier2
      * @return number after half adjust with 0 scale
      */
-    public static BigDecimal mulRoundWithScale0ToBigDecimal(float input1, double input2) {
+    public static BigDecimal multiplyRoundWithScale0ToBigDecimal(float input1, double input2) {
         return NumberUtil.mul(Float.toString(input1), Double.toString(input2)).setScale(NumberConstant.ZERO_INT_SCALE, RoundingMode.HALF_UP);
     }
 
     /**
-     * see {@link #divRoundWithScale0ToBigDecimal(double, double)}
+     * see {@link #divideRoundWithScale0ToBigDecimal(double, double)}
      *
      * @param input1 divisor1
      * @param input2 divisor2
      * @return number after half adjust with 0 scale
      */
-    public static int divRoundWithScale0ToShort(double input1, double input2) {
-        return divRoundWithScale0ToBigDecimal(input1, input2).shortValue();
+    public static int divideRoundWithScale0ToShort(double input1, double input2) {
+        return divideRoundWithScale0ToBigDecimal(input1, input2).shortValue();
     }
 
     /**
-     * see {@link #divRoundWithScale0ToBigDecimal(double, double)}
+     * see {@link #divideRoundWithScale0ToBigDecimal(double, double)}
      *
      * @param input1 divisor1
      * @param input2 divisor2
      * @return number after half adjust with 0 scale
      */
-    public static int divRoundWithScale0ToInt(double input1, double input2) {
-        return divRoundWithScale0ToBigDecimal(input1, input2).intValue();
+    public static int divideRoundWithScale0ToInt(double input1, double input2) {
+        return divideRoundWithScale0ToBigDecimal(input1, input2).intValue();
     }
 
     /**
-     * see {@link #divRoundWithScale0ToBigDecimal(double, double)}
+     * see {@link #divideRoundWithScale0ToBigDecimal(double, double)}
      *
      * @param input1 divisor1
      * @param input2 divisor2
      * @return number after half adjust with 0 scale
      */
-    public static long divRoundWithScale0ToLong(double input1, double input2) {
-        return divRoundWithScale0ToBigDecimal(input1, input2).longValue();
+    public static long divideRoundWithScale0ToLong(double input1, double input2) {
+        return divideRoundWithScale0ToBigDecimal(input1, input2).longValue();
     }
 
     /**
@@ -468,8 +458,55 @@ public class Numbers {
      * @param input2 divisor2
      * @return number after half adjust with 0 scale
      */
-    public static BigDecimal divRoundWithScale0ToBigDecimal(double input1, double input2) {
+    public static BigDecimal divideRoundWithScale0ToBigDecimal(double input1, double input2) {
         return NumberUtil.div(Double.toString(input1), Double.toString(input2)).setScale(NumberConstant.ZERO_INT_SCALE, RoundingMode.HALF_UP);
+    }
+
+    /**
+     * see {@link #roundWithScale0ToBigDecimal(double)}
+     *
+     * @param input input number
+     * @return number after half adjust with 0 scale
+     */
+    public static short roundWithScale0ToShort(double input) {
+        return roundWithScale0ToBigDecimal(input).shortValue();
+    }
+
+    /**
+     * see {@link #roundWithScale0ToBigDecimal(double)}
+     *
+     * @param input input number
+     * @return number after half adjust with 0 scale
+     */
+    public static int roundWithScale0ToInt(double input) {
+        return roundWithScale0ToBigDecimal(input).intValue();
+    }
+
+    /**
+     * see {@link #roundWithScale0ToBigDecimal(double)}
+     *
+     * @param input input number
+     * @return number after half adjust with 0 scale
+     */
+    public static long roundWithScale0ToLong(double input) {
+        return roundWithScale0ToBigDecimal(input).longValue();
+    }
+
+    /**
+     * this function will return number after half adjust with 0 scale
+     * <pre>
+     * example:
+     * 10           => 10
+     * 10.1         => 10
+     * 10.5         => 11
+     * 10.6         => 11
+     * </pre>
+     *
+     * @param input input number
+     * @return number after half adjust with 0 scale
+     */
+    public static BigDecimal roundWithScale0ToBigDecimal(double input) {
+        return NumberUtil.round(input, NumberConstant.ZERO_INT_SCALE);
     }
 
 }
