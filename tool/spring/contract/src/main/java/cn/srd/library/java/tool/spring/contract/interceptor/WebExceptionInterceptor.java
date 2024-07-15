@@ -4,7 +4,6 @@
 
 package cn.srd.library.java.tool.spring.contract.interceptor;
 
-import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.web.HttpStatus;
 import cn.srd.library.java.contract.model.protocol.WebResponse;
@@ -23,7 +22,9 @@ import static cn.srd.library.java.contract.model.protocol.WebResponse.error;
  */
 @Slf4j
 @SuppressWarnings(SuppressWarningConstant.PREVIEW)
-public class WebExceptionInterceptor {
+public abstract class WebExceptionInterceptor {
+
+    protected abstract String getModuleView();
 
     protected WebResponse<Void> whenInvalidIdException(String uri) {
         String message = "操作失败：未提供 id";
@@ -64,7 +65,7 @@ public class WebExceptionInterceptor {
     }
 
     protected String formatMessage(String requestUri, String message) {
-        return STR."\{ModuleView.TOOL_SPRING_WEBMVC_SYSTEM}请求资源地址：'\{requestUri}'，错误信息：\{message}";
+        return STR."\{getModuleView()}请求资源地址：'\{requestUri}'，错误信息：\{message}";
     }
 
 }

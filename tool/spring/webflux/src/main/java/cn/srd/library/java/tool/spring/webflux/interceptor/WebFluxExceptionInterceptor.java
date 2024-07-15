@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.tool.spring.webflux.interceptor;
 
+import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.spring.SpringInitializeConstant;
 import cn.srd.library.java.contract.constant.web.HttpStatus;
 import cn.srd.library.java.contract.model.protocol.WebResponse;
@@ -31,6 +32,11 @@ import static cn.srd.library.java.contract.model.protocol.WebResponse.error;
 @Slf4j
 @Order(SpringInitializeConstant.HIGH_INITIALIZE_PRIORITY)
 public class WebFluxExceptionInterceptor extends WebExceptionInterceptor implements ErrorWebExceptionHandler {
+
+    @Override
+    protected String getModuleView() {
+        return ModuleView.TOOL_SPRING_WEBFLUX_SYSTEM;
+    }
 
     @Override
     @NonNull

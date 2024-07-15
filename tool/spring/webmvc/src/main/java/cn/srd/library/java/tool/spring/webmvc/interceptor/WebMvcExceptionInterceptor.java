@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.tool.spring.webmvc.interceptor;
 
+import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.web.HttpStatus;
 import cn.srd.library.java.contract.model.protocol.WebResponse;
@@ -41,6 +42,11 @@ import static cn.srd.library.java.contract.model.protocol.WebResponse.error;
 @Order
 @RestControllerAdvice
 public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
+
+    @Override
+    protected String getModuleView() {
+        return ModuleView.TOOL_SPRING_WEBMVC_SYSTEM;
+    }
 
     /**
      * <pre>

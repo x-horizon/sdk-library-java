@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.web.grpc.client.interceptor;
 
+import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.spring.SpringInitializeConstant;
 import cn.srd.library.java.contract.constant.web.HttpStatus;
 import cn.srd.library.java.contract.model.protocol.WebResponse;
@@ -30,6 +31,11 @@ import static cn.srd.library.java.contract.model.protocol.WebResponse.error;
 @Order(SpringInitializeConstant.LOWER_INITIALIZE_PRIORITY)
 @RestControllerAdvice
 public class GrpcClientWebMvcExceptionInterceptor extends WebMvcExceptionInterceptor {
+
+    @Override
+    protected String getModuleView() {
+        return ModuleView.WEB_GRPC_SYSTEM;
+    }
 
     @ExceptionHandler({StatusRuntimeException.class, StatusException.class})
     public WebResponse<Void> handleStatusException(HttpServletRequest httpServletRequest, StatusRuntimeException exception) {
