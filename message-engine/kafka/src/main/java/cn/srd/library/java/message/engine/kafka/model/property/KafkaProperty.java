@@ -5,7 +5,6 @@
 package cn.srd.library.java.message.engine.kafka.model.property;
 
 import cn.srd.library.java.message.engine.contract.model.property.MessageEngineProperty;
-import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -20,12 +19,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 @ConfigurationProperties(prefix = "library-java.message-engine.kafka")
 public class KafkaProperty extends MessageEngineProperty {
-
-    @Getter private static KafkaProperty instance = null;
-
-    @PostConstruct
-    public void initialize() {
-        instance = this;
-    }
 
 }

@@ -5,7 +5,6 @@
 package cn.srd.library.java.message.engine.mqtt.v5.model.property;
 
 import cn.srd.library.java.message.engine.contract.model.property.MessageEngineProperty;
-import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -20,12 +19,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 @ConfigurationProperties(prefix = "library-java.message-engine.mqtt-v5")
 public class MqttV5Property extends MessageEngineProperty {
-
-    @Getter private static MqttV5Property instance = null;
-
-    @PostConstruct
-    public void initialize() {
-        instance = this;
-    }
 
 }
