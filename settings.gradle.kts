@@ -77,6 +77,7 @@ include(":orm:mybatis-plus")
 include(":orm:spring-jdbc")
 include(":orm:spring-jpa")
 
+include(":oss:all")
 include(":oss:contract")
 include(":oss:minio")
 

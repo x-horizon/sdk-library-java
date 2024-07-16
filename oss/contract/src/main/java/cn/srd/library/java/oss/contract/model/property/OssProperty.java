@@ -4,8 +4,10 @@
 
 package cn.srd.library.java.oss.contract.model.property;
 
+import cn.srd.library.java.oss.minio.model.property.MinioProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author wjm
@@ -13,10 +15,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@ConfigurationProperties(prefix = "library-java.oss")
 public class OssProperty {
 
-    private String accessKey;
-
-    private String secretKey;
+    private MinioProperty minio;
 
 }

@@ -2,18 +2,16 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.oss.minio;
+package cn.srd.library.java.oss.all;
 
-import org.dromara.x.file.storage.spring.EnableFileStorage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@EnableFileStorage
 @SpringBootApplication
-public class OssMinioApplication {
+public class OssAllApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OssMinioApplication.class, args);
+        SpringApplication.run(OssAllApplication.class, args);
     }
 
 }
