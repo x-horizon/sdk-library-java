@@ -38,7 +38,7 @@ public class Oss {
         OssType ossType = Optional.ofNullable(Converts.toEnumByValue(protocol, OssType.class))
                 .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}unsupported oss type [{}], current supported oss types are {}, please check!", ModuleView.OSS_SYSTEM, protocol, Arrays.stream(OssType.values()).map(OssType::getDescription).toList())));
         CharSequence bucketName = Optional.ofNullable(Urls.getQueryParam(url, OssConstant.BUCKET_NAME))
-                .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}could not parse bucket name from url [{}], example url like: [minio://my.minio.com?{}=myBucketName], please check!", ModuleView.OSS_SYSTEM, url, OssConstant.BUCKET_NAME)));
+                .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}could not parse bucket name from url [{}], example url like: [minio://foo/test?{}=myBucketName], please check!", ModuleView.OSS_SYSTEM, url, OssConstant.BUCKET_NAME)));
         OssProperty.Config ossConfigProperty = ossType.getStorage().getOssConfigProperty();
         String actualUrl = Strings.insertFirst(url, ProtocolConstant.SEPARATOR, Urls.getAuthority(ossConfigProperty.getServerUrl()) + SymbolConstant.SLASH);
         String path = Urls.getUri(actualUrl);
@@ -50,19 +50,15 @@ public class Oss {
     }
 
     public static void upload(OssType ossType, String bucketName, Object file, String filename, String path) {
-        if (needToRegisterPlatform(ossType, bucketName)) {
+        alreadyRegisterPlatforms.computeIfAbsent(getPlatform(ossType, bucketName), ignore -> {
             ossType.getStorage().registerFileStorageProperties(bucketName);
-            alreadyRegisterPlatforms.put(getPlatform(ossType, bucketName), Boolean.TRUE);
-        }
+            return Boolean.TRUE;
+        });
         ossType.getStorage().upload(file, path, filename);
     }
 
     public static String getPlatform(OssType ossType, String bucketName) {
         return STR."\{ossType.getDescription()}-\{bucketName}";
-    }
-
-    private static boolean needToRegisterPlatform(OssType ossType, String bucketName) {
-        return Collections.notContainsKey(alreadyRegisterPlatforms, getPlatform(ossType, bucketName));
     }
 
 }
