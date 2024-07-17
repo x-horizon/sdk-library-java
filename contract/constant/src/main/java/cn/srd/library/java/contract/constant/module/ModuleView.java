@@ -42,6 +42,11 @@ public class ModuleView {
     public static final String ORM_MYBATIS_SYSTEM = ROOT_MODULE + "ORM Mybatis System - ";
 
     /**
+     * the oss system module name
+     */
+    public static final String OSS_SYSTEM = ROOT_MODULE + "Oss System - ";
+
+    /**
      * the annotation system module name
      */
     public static final String TOOL_ANNOTATION_SYSTEM = ROOT_MODULE + "Tool Annotation System - ";
