@@ -4,8 +4,7 @@
 
 package cn.srd.library.java.oss.api.test;
 
-import cn.srd.library.java.oss.contract.model.domain.OssFileDO;
-import cn.srd.library.java.oss.contract.model.enums.OssType;
+import cn.srd.library.java.oss.contract.Oss;
 import cn.srd.library.java.oss.local.autoconfigure.EnableOssLocal;
 import cn.srd.library.java.oss.minio.autoconfigure.EnableOssMinio;
 import cn.srd.library.java.tool.lang.file.Files;
@@ -31,13 +30,15 @@ class OssTest {
     void test() {
         File file = Files.of("/Users/jimmy/Desktop/v2.6-refactor/bit-land-se5-video-resource-verify-v1.0（deprecated）.zip");
 
-        OssFileDO ossFileDO = OssType.MINIO.getStorage().put(file, "/wjm/test/upload", file.getName());
+        // OssFileDO ossFileDO = OssType.MINIO.getStorage().upload(file, "/wjm/test/upload", file.getName());
 
-        byte[] bytes = OssType.MINIO.getStorage().get(ossFileDO.toFileInfo())
-                .setProgressListener(progressSize ->
-                        System.out.println("download progress：" + progressSize)
-                )
-                .bytes();
+        Oss.upload(file, "minio://wjm10/test?bucketName=wjm-test");
+
+        // byte[] bytes = OssType.MINIO.getStorage().download(ossFileDO.toFileInfo())
+        //         .setProgressListener(progressSize ->
+        //                 System.out.println("download progress：" + progressSize)
+        //         )
+        //         .bytes();
 
         System.out.println();
     }

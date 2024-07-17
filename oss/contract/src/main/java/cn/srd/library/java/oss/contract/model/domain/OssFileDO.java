@@ -29,7 +29,7 @@ public class OssFileDO implements DO {
 
     private String platform;
 
-    private String path;
+    private String directoryPath;
 
     private String fullPath;
 
@@ -46,7 +46,7 @@ public class OssFileDO implements DO {
     public static OssFileDO from(FileInfo fileInfo) {
         return OssFileDO.builder()
                 .platform(fileInfo.getPlatform())
-                .path(SymbolConstant.SLASH + Strings.removeHeadTailSlash(fileInfo.getPath()))
+                .directoryPath(SymbolConstant.SLASH + Strings.removeHeadTailSlash(fileInfo.getPath()))
                 .fullPath(SymbolConstant.SLASH + Strings.removeHeadSlash(fileInfo.getUrl()))
                 .name(fileInfo.getFilename())
                 .originalName(fileInfo.getOriginalFilename())
@@ -59,7 +59,7 @@ public class OssFileDO implements DO {
     public FileInfo toFileInfo() {
         return new FileInfo()
                 .setPlatform(getPlatform())
-                .setPath(Strings.removeHeadTailSlash(getPath()) + SymbolConstant.SLASH)
+                .setPath(Strings.removeHeadTailSlash(getDirectoryPath()) + SymbolConstant.SLASH)
                 .setUrl(Strings.removeHeadSlash(getFullPath()))
                 .setFilename(getName())
                 .setOriginalFilename(getOriginalName())

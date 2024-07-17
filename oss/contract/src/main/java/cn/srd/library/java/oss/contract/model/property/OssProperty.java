@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.oss.contract.model.property;
 
-import cn.srd.library.java.oss.minio.model.property.MinioProperty;
+import cn.srd.library.java.oss.contract.model.enums.OssType;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -20,6 +20,20 @@ import java.util.List;
 @ConfigurationProperties(prefix = "library-java.oss")
 public class OssProperty {
 
-    private List<MinioProperty> minio;
+    private List<Config> configs;
+
+    @Getter
+    @Setter
+    public static class Config {
+
+        private OssType type;
+
+        private String serverUrl;
+
+        private String accessKey;
+
+        private String secretKey;
+
+    }
 
 }
