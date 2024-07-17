@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.tool.convert.jackson;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;

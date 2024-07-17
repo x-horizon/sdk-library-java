@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.tool.convert.mapstruct.plus;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.tool.spring.contract.support.Springs;
 import io.github.linpeilie.Converter;
 import jakarta.annotation.PostConstruct;

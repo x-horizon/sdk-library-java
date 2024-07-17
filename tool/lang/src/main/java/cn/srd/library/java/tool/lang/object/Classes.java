@@ -5,7 +5,7 @@
 package cn.srd.library.java.tool.lang.object;
 
 import cn.hutool.core.util.ClassUtil;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.functional.Action;

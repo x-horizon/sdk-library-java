@@ -9,7 +9,7 @@ import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.core.collection.IterUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.srd.library.java.contract.constant.collection.CollectionConstant;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.functional.Action;

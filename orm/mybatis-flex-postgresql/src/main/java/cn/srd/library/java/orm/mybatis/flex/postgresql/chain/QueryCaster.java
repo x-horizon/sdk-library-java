@@ -6,7 +6,7 @@ package cn.srd.library.java.orm.mybatis.flex.postgresql.chain;
 
 import cn.srd.library.java.contract.constant.database.PostgresqlDataType;
 import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.base.POJO;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.BaseQueryChainer;

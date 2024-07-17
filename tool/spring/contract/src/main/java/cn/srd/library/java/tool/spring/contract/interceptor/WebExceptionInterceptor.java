@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.tool.spring.contract.interceptor;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.web.HttpStatus;
 import cn.srd.library.java.contract.model.protocol.WebResponse;
 import cn.srd.library.java.contract.model.throwable.ClientException;

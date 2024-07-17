@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.adapter;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import com.mybatisflex.core.constant.SqlConnector;
 import com.mybatisflex.core.query.QueryColumn;
 import com.mybatisflex.core.query.QueryConditionBuilder;

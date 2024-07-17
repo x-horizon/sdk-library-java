@@ -11,7 +11,7 @@ import cn.hutool.core.util.HexUtil;
 import cn.srd.library.java.contract.constant.booleans.BooleanConstant;
 import cn.srd.library.java.contract.constant.collection.CollectionConstant;
 import cn.srd.library.java.contract.constant.number.NumberConstant;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.booleans.Booleans;

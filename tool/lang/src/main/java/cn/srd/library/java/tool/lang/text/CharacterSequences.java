@@ -575,6 +575,22 @@ public class CharacterSequences extends Characters {
     }
 
     /**
+     * <pre>
+     * remove head slash
+     *
+     * example:
+     *   the input is: "/test1, test2, test3/"
+     *   after remove: "test1, test2, test3/"
+     * </pre>
+     *
+     * @param input the input element
+     * @return after remove
+     */
+    public static String removeHeadSlash(CharSequence input) {
+        return removeIfStartWith(input, SymbolConstant.SLASH);
+    }
+
+    /**
      * see {@link CharSequenceUtil#trim(CharSequence)}
      *
      * @param input the input element

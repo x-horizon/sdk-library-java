@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.message.engine.kafka.foo;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.message.engine.contract.MessageConfig;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;

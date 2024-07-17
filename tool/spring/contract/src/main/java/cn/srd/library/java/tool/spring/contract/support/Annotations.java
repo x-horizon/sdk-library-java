@@ -6,7 +6,7 @@ package cn.srd.library.java.tool.spring.contract.support;
 
 import cn.srd.library.java.contract.constant.annotation.AnnotationConstant;
 import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;

@@ -1,6 +1,6 @@
 package cn.srd.library.java.cache.caffeine.model.property;
 
-import cn.srd.library.java.contract.constant.text.JavaObjectReferenceLevel;
+import cn.srd.library.java.contract.constant.java.JavaObjectReferenceLevel;
 import cn.srd.library.java.tool.lang.time.TimeUnitHandler;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;

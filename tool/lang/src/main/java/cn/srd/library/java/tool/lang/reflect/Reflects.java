@@ -5,7 +5,7 @@
 package cn.srd.library.java.tool.lang.reflect;
 
 import cn.hutool.core.util.ReflectUtil;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.annotation.Annotations;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import io.vavr.control.Try;

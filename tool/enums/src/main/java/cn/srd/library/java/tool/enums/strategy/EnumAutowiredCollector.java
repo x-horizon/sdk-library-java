@@ -5,7 +5,7 @@
 package cn.srd.library.java.tool.enums.strategy;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.tool.enums.EnumAutowired;
 import cn.srd.library.java.tool.enums.autoconfigure.EnableEnumAutowired;

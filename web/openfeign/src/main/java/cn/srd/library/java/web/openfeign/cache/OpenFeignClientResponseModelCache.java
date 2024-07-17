@@ -1,6 +1,6 @@
 package cn.srd.library.java.web.openfeign.cache;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.protocol.TransportModel;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import lombok.AccessLevel;

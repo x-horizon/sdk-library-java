@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.chain;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.base.POJO;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChain;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryConditional;

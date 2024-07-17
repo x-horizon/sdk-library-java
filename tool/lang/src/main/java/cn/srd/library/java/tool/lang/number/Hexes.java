@@ -1,7 +1,6 @@
 package cn.srd.library.java.tool.lang.number;
 
 import cn.hutool.core.util.HexUtil;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

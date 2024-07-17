@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.contract.model.base.PO;
 import cn.srd.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
 import cn.srd.library.java.tool.lang.reflect.Reflects;

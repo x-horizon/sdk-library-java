@@ -5,7 +5,7 @@
 package cn.srd.library.java.tool.spring.webmvc.interceptor;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.web.HttpStatus;
 import cn.srd.library.java.contract.model.protocol.WebResponse;
 import cn.srd.library.java.contract.model.throwable.*;

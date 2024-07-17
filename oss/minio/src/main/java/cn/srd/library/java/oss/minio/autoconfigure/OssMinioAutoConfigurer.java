@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.oss.minio.autoconfigure;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.oss.contract.autoconfigure.OssAutoConfigurer;
 import cn.srd.library.java.oss.contract.model.enums.OssType;
 import cn.srd.library.java.oss.contract.model.property.OssProperty;

@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.tool.convert.protobuf;
 
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.time.TimeZoneType;
 import com.google.protobuf.Message;
 import com.google.protobuf.TextFormat;

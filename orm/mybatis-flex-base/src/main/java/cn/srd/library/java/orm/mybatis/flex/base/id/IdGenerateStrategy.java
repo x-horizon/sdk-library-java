@@ -5,7 +5,7 @@
 package cn.srd.library.java.orm.mybatis.flex.base.id;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.object.Nil;
 import com.mybatisflex.core.FlexGlobalConfig;

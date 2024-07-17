@@ -5,7 +5,7 @@
 package cn.srd.library.java.tool.convert.api.mapstruct.model.domain;
 
 import cn.hutool.core.util.RandomUtil;
-import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.tool.convert.api.mapstruct.model.vo.GradeVO;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;

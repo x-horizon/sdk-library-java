@@ -20,6 +20,16 @@ import java.io.File;
 public class Files {
 
     /**
+     * see {@link FileUtil#file(String)}
+     *
+     * @param path the absolute path or relative class path
+     * @return {@link File}
+     */
+    public static File of(String path) {
+        return FileUtil.file(path);
+    }
+
+    /**
      * return true if the specified file exist
      *
      * @param input the specified file
