@@ -734,7 +734,7 @@ public class CharacterSequences extends Characters {
         if (matcher.find()) {
             return matcher.group(1);
         }
-        return SymbolConstant.EMPTY;
+        return null;
     }
 
     /**

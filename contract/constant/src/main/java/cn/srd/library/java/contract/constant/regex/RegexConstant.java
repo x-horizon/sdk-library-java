@@ -86,4 +86,29 @@ public class RegexConstant {
 
     public static final Pattern THE_LAST_DOUBLE_QUOTE_PATTERN = Pattern.compile(THE_LAST_DOUBLE_QUOTE);
 
+    /**
+     * <pre>
+     * matching example: "http://example.com" -> can be matched
+     * matching example: "ftp://example.com" -> can be matched
+     * matching example: "example://example.com" -> can be matched
+     * matching example: "invalid_url" -> could not be matched
+     * </pre>
+     */
+    public static final String URL = "^[a-zA-Z][a-zA-Z0-9+.-]*://[^\\s/$.?#].\\S*$";
+
+    public static final Pattern URL_PATTERN = Pattern.compile(URL);
+
+    /**
+     * <pre>
+     * matching example: "http://example.com" -> matching 'http'
+     * matching example: "ftp://example.com" -> matching 'ftp'
+     * matching example: "example://example.com" -> matching 'example'
+     * matching example: "example://example.com.example2://example.com" -> matching 'example'
+     * matching example: "invalid_url" -> could not be matched
+     * </pre>
+     */
+    public static final String URL_PROTOCOL = "^(.*?):\\/\\/";
+
+    public static final Pattern URL_PROTOCOL_PATTERN = Pattern.compile(URL_PROTOCOL);
+
 }

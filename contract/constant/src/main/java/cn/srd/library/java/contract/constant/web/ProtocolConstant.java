@@ -17,19 +17,24 @@ import lombok.NoArgsConstructor;
 public class ProtocolConstant {
 
     /**
+     * {@code "://"}
+     */
+    public static final String SEPARATOR = "://";
+
+    /**
      * {@code "http://"}
      */
-    public static final String HTTP = "http://";
+    public static final String HTTP = "http" + SEPARATOR;
 
     /**
      * {@code "https://"}
      */
-    public static final String HTTPS = "https://";
+    public static final String HTTPS = "https://" + SEPARATOR;
 
     /**
      * {@code "rtsp://"}
      */
-    public static final String RTSP = "rtsp://";
+    public static final String RTSP = "rtsp://" + SEPARATOR;
 
     /**
      * {@code "file:"}

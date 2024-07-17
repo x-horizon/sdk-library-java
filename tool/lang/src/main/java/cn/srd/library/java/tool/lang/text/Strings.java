@@ -177,4 +177,13 @@ public class Strings extends CharacterSequences {
         return StringUtils.lowerCase(input);
     }
 
+    public static String insertFirst(String originalContent, String toFindContent, String toInsertContent) {
+        int index = originalContent.indexOf(toFindContent);
+        if (index == -1) {
+            return originalContent;
+        }
+        int insertPosition = index + toFindContent.length();
+        return originalContent.substring(0, insertPosition) + toInsertContent + originalContent.substring(insertPosition);
+    }
+
 }

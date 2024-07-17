@@ -47,32 +47,37 @@ public class ModuleView {
     public static final String OSS_SYSTEM = ROOT_MODULE + "Oss System - ";
 
     /**
-     * the annotation system module name
+     * the tool annotation system module name
      */
     public static final String TOOL_ANNOTATION_SYSTEM = ROOT_MODULE + "Tool Annotation System - ";
 
     /**
-     * the class system module name
+     * the tool class system module name
      */
     public static final String TOOL_CLASS_SYSTEM = ROOT_MODULE + "Tool Class System - ";
 
     /**
-     * the enum system module name
+     * the tool enum system module name
      */
     public static final String TOOL_ENUM_SYSTEM = ROOT_MODULE + "Tool Enum System - ";
 
     /**
-     * the snowflake id system module name
+     * the tool net system module name
+     */
+    public static final String TOOL_NET_SYSTEM = ROOT_MODULE + "Tool Net System - ";
+
+    /**
+     * the tool snowflake id system module name
      */
     public static final String TOOL_SNOWFLAKE_ID_SYSTEM = ROOT_MODULE + "Tool Snowflake ID System - ";
 
     /**
-     * the spring webmvc system module name
+     * the tool spring webmvc system module name
      */
     public static final String TOOL_SPRING_WEBMVC_SYSTEM = ROOT_MODULE + "Tool Spring WebMVC System - ";
 
     /**
-     * the spring webflux system module name
+     * the tool spring webflux system module name
      */
     public static final String TOOL_SPRING_WEBFLUX_SYSTEM = ROOT_MODULE + "Tool Spring WebFlux System - ";
 
