@@ -4,8 +4,8 @@
 
 package cn.srd.library.java.studio.low.code.model.bo;
 
+import cn.srd.library.java.contract.model.base.BO;
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
-import cn.srd.library.java.orm.contract.model.base.BO;
 import cn.srd.library.java.studio.low.code.model.enums.StudentHobbyAchievementType;
 import cn.srd.library.java.studio.low.code.model.enums.StudentHobbyParticipationLevelType;
 import cn.srd.library.java.tool.convert.jackson.NullableObject;

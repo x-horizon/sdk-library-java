@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.studio.low.code.model.vo;
 
-import cn.srd.library.java.orm.contract.model.base.VO;
+import cn.srd.library.java.contract.model.base.VO;
 import cn.srd.library.java.studio.low.code.model.bo.TeacherBO;
 import cn.srd.library.java.studio.low.code.model.po.TeacherPO;
 import cn.srd.library.java.tool.convert.api.Converts;

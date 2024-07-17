@@ -4,10 +4,10 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.chain;
 
+import cn.srd.library.java.contract.model.base.PO;
+import cn.srd.library.java.contract.model.base.POJO;
 import cn.srd.library.java.contract.model.throwable.UnsupportedException;
 import cn.srd.library.java.orm.contract.constant.GenericTableAlias;
-import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.contract.model.base.POJO;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.BaseQueryChainer;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChain;
 import cn.srd.library.java.orm.mybatis.flex.base.constant.MybatisFlexDefaultDML;

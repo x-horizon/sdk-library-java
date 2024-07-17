@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.orm.contract.mybatis.flex.model.bo;
 
-import cn.srd.library.java.orm.contract.model.base.BO;
+import cn.srd.library.java.contract.model.base.BO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mybatisflex.annotation.Column;
 import io.swagger.v3.oas.annotations.media.Schema;

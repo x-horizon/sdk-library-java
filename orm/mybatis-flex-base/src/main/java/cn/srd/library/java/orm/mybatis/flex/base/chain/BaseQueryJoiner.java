@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
-import cn.srd.library.java.orm.contract.model.base.POJO;
+import cn.srd.library.java.contract.model.base.POJO;
 import com.mybatisflex.core.query.Joiner;
 
 /**

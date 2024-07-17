@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.model.vo;
 
-import cn.srd.library.java.orm.contract.model.base.VO;
+import cn.srd.library.java.contract.model.base.VO;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.bo.PeopleBO;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.PeoplePO;
 import cn.srd.library.java.tool.convert.api.Converts;
@@ -32,6 +32,7 @@ public class PeopleVO extends PeopleBO implements VO {
 
     @Serial private static final long serialVersionUID = -2621402998719572653L;
 
+    @Override
     public PeopleVO setAllName(String name) {
         super.setAllName(name);
         return this;

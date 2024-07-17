@@ -5,8 +5,8 @@
 package cn.srd.library.java.orm.mybatis.flex.base.converter;
 
 import cn.srd.library.java.contract.constant.text.SuppressWarningConstant;
-import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.contract.model.base.VO;
+import cn.srd.library.java.contract.model.base.PO;
+import cn.srd.library.java.contract.model.base.VO;
 import cn.srd.library.java.orm.contract.model.page.PageResult;
 import cn.srd.library.java.tool.convert.mapstruct.plus.support.IgnoreUnmappedMapperConfigurator;
 import cn.srd.library.java.tool.convert.mapstruct.plus.support.MapstructMappingManager;

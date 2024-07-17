@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.model.vo;
 
-import cn.srd.library.java.orm.contract.model.base.VO;
+import cn.srd.library.java.contract.model.base.VO;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.bo.HomeBO;
 import cn.srd.library.java.orm.mybatis.flex.postgresql.model.po.HomePO;
 import cn.srd.library.java.tool.convert.api.Converts;

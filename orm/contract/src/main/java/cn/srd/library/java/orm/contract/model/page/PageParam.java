@@ -5,7 +5,7 @@
 package cn.srd.library.java.orm.contract.model.page;
 
 import cn.srd.library.java.contract.constant.page.PageConstant;
-import cn.srd.library.java.orm.contract.model.base.DTO;
+import cn.srd.library.java.contract.model.base.DTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

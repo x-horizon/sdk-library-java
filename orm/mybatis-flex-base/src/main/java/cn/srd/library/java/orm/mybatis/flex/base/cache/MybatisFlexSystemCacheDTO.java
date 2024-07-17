@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.cache;
 
-import cn.srd.library.java.orm.contract.model.base.PO;
+import cn.srd.library.java.contract.model.base.PO;
 import cn.srd.library.java.orm.mybatis.flex.base.repository.GenericRepository;
 import com.mybatisflex.core.BaseMapper;
 import lombok.AccessLevel;

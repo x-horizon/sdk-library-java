@@ -4,8 +4,8 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.service;
 
-import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.contract.model.base.VO;
+import cn.srd.library.java.contract.model.base.PO;
+import cn.srd.library.java.contract.model.base.VO;
 import cn.srd.library.java.orm.mybatis.flex.base.repository.GenericRepository;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.springframework.beans.factory.annotation.Autowired;

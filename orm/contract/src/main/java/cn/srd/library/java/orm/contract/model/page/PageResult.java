@@ -4,8 +4,8 @@
 
 package cn.srd.library.java.orm.contract.model.page;
 
+import cn.srd.library.java.contract.model.base.DTO;
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
-import cn.srd.library.java.orm.contract.model.base.DTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;

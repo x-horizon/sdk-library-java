@@ -1,8 +1,8 @@
 package cn.srd.library.java.orm.contract.mybatis.flex.model.bo;
 
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
+import cn.srd.library.java.contract.model.base.BO;
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
-import cn.srd.library.java.orm.contract.model.base.BO;
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonLongToLocalDateTimeDeserializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonLocalDateTimeToLongSerializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonLongToStringSerializer;

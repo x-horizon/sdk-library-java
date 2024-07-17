@@ -4,8 +4,8 @@
 
 package cn.srd.library.java.orm.mybatis.flex.postgresql.repository;
 
-import cn.srd.library.java.orm.contract.model.base.PO;
-import cn.srd.library.java.orm.contract.model.base.POJO;
+import cn.srd.library.java.contract.model.base.PO;
+import cn.srd.library.java.contract.model.base.POJO;
 import cn.srd.library.java.orm.mybatis.flex.base.cache.MybatisFlexSystemCache;
 import cn.srd.library.java.orm.mybatis.flex.base.cache.MybatisFlexSystemCacheDTO;
 import cn.srd.library.java.orm.mybatis.flex.base.chain.QueryChain;
