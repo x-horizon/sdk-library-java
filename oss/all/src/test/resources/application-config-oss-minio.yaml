@@ -1,4 +1,0 @@
-dromara:
-  x-file-storage:
-    default-platform: minio-1
-    thumbnail-suffix: ".min.jpg"

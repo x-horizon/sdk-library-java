@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.List;
+
 /**
  * @author wjm
  * @since 2024-06-19 23:51
@@ -18,6 +20,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "library-java.oss")
 public class OssProperty {
 
-    private MinioProperty minio;
+    private List<MinioProperty> minio;
 
 }

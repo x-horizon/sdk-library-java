@@ -179,7 +179,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.ORM_SPRING_JDBC)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_SPRING_JPA)))
 
-        api(project(GradleModule.toReferenceName(GradleModule.OSS_ALL)))
+        api(project(GradleModule.toReferenceName(GradleModule.OSS_API)))
         api(project(GradleModule.toReferenceName(GradleModule.OSS_CONTRACT)))
         api(project(GradleModule.toReferenceName(GradleModule.OSS_MINIO)))
 

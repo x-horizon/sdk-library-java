@@ -29,33 +29,38 @@ import java.util.List;
  */
 @AutoConfigureBefore(FileStorageAutoConfiguration.class)
 @AutoConfigureAfter(OssAutoConfigurer.class)
+@ConditionalOnBean(OssMinioRegistrar.class)
 public class MinioAutoConfigurer {
 
     @Autowired private OssProperty ossProperty;
 
     @Bean
-    @ConditionalOnBean(OssMinioRegistrar.class)
     public SpringFileStorageProperties springFileStorageProperties() {
         SpringFileStorageProperties fileStorageProperties = getFileStorageProperties();
         List<SpringFileStorageProperties.SpringMinioConfig> fileStorageMinioConfigs = Collections.newArrayList();
-        ossProperty.getMinio().getConfigs().stream()
-                .map(config -> Collections.ofPair(config, config.getBuckets()))
-                .map(configMappingBucketsMap -> {
-                    MinioProperty.ConfigProperty config = configMappingBucketsMap.getKey();
-                    List<MinioProperty.ConfigProperty.BucketProperty> buckets = configMappingBucketsMap.getValue();
-                    buckets.forEach(bucket -> {
-                        SpringFileStorageProperties.SpringMinioConfig fileStorageMinioConfig = new SpringFileStorageProperties.SpringMinioConfig();
-                        fileStorageMinioConfig.setEnableStorage(true)
-                                .setEndPoint(ossProperty.getMinio().getServerUrl())
-                                .setAccessKey(config.getAccessKey())
-                                .setSecretKey(config.getSecretKey())
-                                .setBasePath(bucket.getBasePath())
-                                .setBucketName(bucket.getName())
-                                .setPlatform(getPlatform(OssType.MINIO, bucket.getName()));
-                        fileStorageMinioConfigs.add(fileStorageMinioConfig);
-                    });
-                    return buckets;
-                })
+        ossProperty.getMinio().stream()
+                .map(minioProperty -> Collections.ofPair(minioProperty, minioProperty.getConfigs()))
+                .map(minioPropertyMappingConfigsMap -> minioPropertyMappingConfigsMap.getValue().stream()
+                        .map(config -> Collections.ofPair(config, config.getBuckets()))
+                        .map(configMappingBucketsMap -> {
+                            MinioProperty.ConfigProperty config = configMappingBucketsMap.getKey();
+                            List<MinioProperty.ConfigProperty.BucketProperty> buckets = configMappingBucketsMap.getValue();
+                            buckets.forEach(bucket -> {
+                                SpringFileStorageProperties.SpringMinioConfig fileStorageMinioConfig = new SpringFileStorageProperties.SpringMinioConfig();
+                                fileStorageMinioConfig.setEnableStorage(true)
+                                        .setEndPoint(minioPropertyMappingConfigsMap.getKey().getServerUrl())
+                                        .setAccessKey(config.getAccessKey())
+                                        .setSecretKey(config.getSecretKey())
+                                        .setBasePath(bucket.getBasePath())
+                                        .setBucketName(bucket.getName())
+                                        .setPlatform(getPlatform(OssType.MINIO, bucket.getName()));
+                                fileStorageMinioConfigs.add(fileStorageMinioConfig);
+                            });
+                            return buckets;
+                        })
+                        .flatMap(Collection::stream)
+                        .toList()
+                )
                 .flatMap(Collection::stream)
                 .toList()
                 .stream()

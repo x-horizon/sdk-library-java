@@ -3,5 +3,5 @@
 // license that can be found in the LICENSE file.
 
 dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.OSS_MINIO)))
+    implementation(project(GradleModule.toReferenceName(GradleModule.OSS_MINIO)))
 }

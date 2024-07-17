@@ -68,7 +68,7 @@ object GradleModule {
     const val ORM_SPRING_JDBC = "orm-spring-jdbc"
     const val ORM_SPRING_JPA = "orm-spring-jpa"
 
-    const val OSS_ALL = "oss-all"
+    const val OSS_API = "oss-api"
     const val OSS_CONTRACT = "oss-contract"
     const val OSS_MINIO = "oss-minio"
 
