@@ -32,12 +32,12 @@ public class MybatisFlexPostgresqlAutoConfigurer {
      */
     @Bean
     public ColumnJsonbMappingJavaTypeCache mybatisFlexColumnJsonbMappingRelationCache() {
-        log.info("{}mybatis flex jdbc jsonb type caching system is enabled, starting initializing...", ModuleView.ORM_MYBATIS_SYSTEM);
+        log.debug("{}mybatis flex jdbc jsonb type caching system is enabled, starting initializing...", ModuleView.ORM_MYBATIS_SYSTEM);
 
         ColumnJsonbMappingJavaTypeCache columnJsonbMappingJavaTypeCache = new ColumnJsonbMappingJavaTypeCache();
 
         if (Nil.isNotEmpty(columnJsonbMappingJavaTypeCache.getCache())) {
-            log.info(""" 
+            log.debug(""" 
                             {}mybatis flex jdbc jsonb type caching system has loaded the following cache:
                             --------------------------------------------------------------------------------------------------------------------------------
                             {}
@@ -52,7 +52,7 @@ public class MybatisFlexPostgresqlAutoConfigurer {
             );
         }
 
-        log.info("{}mybatis flex jdbc jsonb type caching system initialized.", ModuleView.ORM_MYBATIS_SYSTEM);
+        log.debug("{}mybatis flex jdbc jsonb type caching system initialized.", ModuleView.ORM_MYBATIS_SYSTEM);
 
         return columnJsonbMappingJavaTypeCache;
     }

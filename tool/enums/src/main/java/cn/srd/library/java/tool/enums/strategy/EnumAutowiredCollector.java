@@ -40,12 +40,12 @@ public class EnumAutowiredCollector<E extends Enum<E>> implements SmartInitializ
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     @Override
     public void afterSingletonsInstantiated() {
-        log.info("{}enum autowired system is enabled, starting initializing...", ModuleView.TOOL_ENUM_SYSTEM);
+        log.debug("{}enum autowired system is enabled, starting initializing...", ModuleView.TOOL_ENUM_SYSTEM);
 
         Set<String> scanPackagePaths = Classes.optimizeAnnotationAntStylePackagePaths(EnableEnumAutowired.class, "scanPackagePaths");
         Set<BeanDefinition> enumAutowiredBeanDefinitions = Classes.scanByAnnotationTypeFilter(EnumAutowired.class, scanPackagePaths);
         if (Nil.isEmpty(enumAutowiredBeanDefinitions)) {
-            log.info("{}no class marked with [@{}].", ModuleView.TOOL_ENUM_SYSTEM, EnumAutowired.class.getName());
+            log.debug("{}no class marked with [@{}].", ModuleView.TOOL_ENUM_SYSTEM, EnumAutowired.class.getName());
         }
 
         enumAutowiredBeanDefinitions.forEach(enumAutowiredBeanDefinition -> {
@@ -88,7 +88,7 @@ public class EnumAutowiredCollector<E extends Enum<E>> implements SmartInitializ
                     String theMostSuitableAutowiredClassSimpleName = enumAutowiredFieldMatchRule.getMostSuitableAutowiredClassSimpleName(enumField, Collections.getMapKeys(enumAutowiredSubclassSimpleNameMappingNameMap));
                     if (enumAutowired.allowNull() && Nil.isBlank(theMostSuitableAutowiredClassSimpleName)) {
                         Reflects.setFieldValue(enumField, autowiredFiledName, null);
-                        log.info("{}find class [null] and autowired it into enum [{}]-[{}] filed [{}]", ModuleView.TOOL_ENUM_SYSTEM, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName);
+                        log.debug("{}find class [null] and autowired it into enum [{}]-[{}] filed [{}]", ModuleView.TOOL_ENUM_SYSTEM, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName);
                         continue;
                     }
                     Object theMostSuitableAutowiredClass = Springs.getBean(Classes.ofName(enumAutowiredSubclassSimpleNameMappingNameMap.get(theMostSuitableAutowiredClassSimpleName)));
@@ -96,12 +96,12 @@ public class EnumAutowiredCollector<E extends Enum<E>> implements SmartInitializ
                             .setThrowable(LibraryJavaInternalException.class)
                             .throwsIfNull(theMostSuitableAutowiredClass);
                     Reflects.setFieldValue(enumField, autowiredFiledName, theMostSuitableAutowiredClass);
-                    log.info("{}find class [{}] and autowired it into enum [{}]-[{}] filed [{}]", ModuleView.TOOL_ENUM_SYSTEM, theMostSuitableAutowiredClassSimpleName, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName);
+                    log.debug("{}find class [{}] and autowired it into enum [{}]-[{}] filed [{}]", ModuleView.TOOL_ENUM_SYSTEM, theMostSuitableAutowiredClassSimpleName, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName);
                 }
             });
         });
 
-        log.info("{}enum autowired system initialized.", ModuleView.TOOL_ENUM_SYSTEM);
+        log.debug("{}enum autowired system initialized.", ModuleView.TOOL_ENUM_SYSTEM);
     }
 
 }
