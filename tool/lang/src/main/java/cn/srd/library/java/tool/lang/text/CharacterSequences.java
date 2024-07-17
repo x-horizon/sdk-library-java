@@ -600,7 +600,23 @@ public class CharacterSequences extends Characters {
      * @return after remove
      */
     public static String removeHeadTailDoubleQuote(CharSequence input) {
-        return subBetween(input, SymbolConstant.DOUBLE_QUOTE);
+        return removeIfStartAndEndWith(input, SymbolConstant.DOUBLE_QUOTE, SymbolConstant.DOUBLE_QUOTE);
+    }
+
+    /**
+     * <pre>
+     * remove head tail slash
+     *
+     * example:
+     *   the input is: "/test1, test2, test3/"
+     *   after remove: "test1, test2, test3"
+     * </pre>
+     *
+     * @param input the input element
+     * @return after remove
+     */
+    public static String removeHeadTailSlash(CharSequence input) {
+        return removeIfStartAndEndWith(input, SymbolConstant.SLASH, SymbolConstant.SLASH);
     }
 
     /**
