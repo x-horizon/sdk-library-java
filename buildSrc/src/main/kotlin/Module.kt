@@ -70,6 +70,7 @@ object GradleModule {
 
     const val OSS_API = "oss-api"
     const val OSS_CONTRACT = "oss-contract"
+    const val OSS_LOCAL = "oss-local"
     const val OSS_MINIO = "oss-minio"
 
     const val PLUGGABLE_ANNOTATION_API_LOMBOK = "pluggable-annotation-api-lombok"

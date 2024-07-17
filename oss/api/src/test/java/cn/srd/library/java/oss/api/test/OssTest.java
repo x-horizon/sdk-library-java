@@ -4,41 +4,40 @@
 
 package cn.srd.library.java.oss.api.test;
 
-import cn.srd.library.java.oss.api.Oss;
+import cn.srd.library.java.oss.contract.model.domain.OssFileDO;
+import cn.srd.library.java.oss.contract.model.enums.OssType;
+import cn.srd.library.java.oss.local.autoconfigure.EnableOssLocal;
 import cn.srd.library.java.oss.minio.autoconfigure.EnableOssMinio;
-import lombok.Cleanup;
-import lombok.SneakyThrows;
-import org.dromara.x.file.storage.core.FileInfo;
-import org.dromara.x.file.storage.core.FileStorageService;
+import cn.srd.library.java.tool.lang.file.Files;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.File;
-import java.io.FileWriter;
 
 /**
  * @author wjm
  * @since 2024-07-16 18:58
  */
 // @EnableFileStorage
+@EnableOssLocal
 @EnableOssMinio
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 class OssTest {
 
-    @Autowired private FileStorageService fileStorageService;
-
-    @SneakyThrows
     @Test
     void test() {
-        File file = new File("newFile.txt");
-        @Cleanup FileWriter writer = new FileWriter(file);
-        writer.write("test");
+        File file = Files.of("/Users/jimmy/Desktop/v2.6-refactor/bit-land-se5-video-resource-verify-v1.0（deprecated）.zip");
 
-        FileInfo fileInfo = Oss.onMinio().setFile(file).setFilename("newFile23123123.txt").setPath("/wjm/test/upload").upload();
+        OssFileDO ossFileDO = OssType.MINIO.getStorage().put(file, "/wjm/test/upload", file.getName());
+
+        byte[] bytes = OssType.MINIO.getStorage().get(ossFileDO.toFileInfo())
+                .setProgressListener(progressSize ->
+                        System.out.println("download progress：" + progressSize)
+                )
+                .bytes();
 
         System.out.println();
     }

@@ -79,6 +79,7 @@ include(":orm:spring-jpa")
 
 include(":oss:api")
 include(":oss:contract")
+include(":oss:local")
 include(":oss:minio")
 
 include(":pluggable-annotation-api:lombok")

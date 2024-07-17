@@ -4,7 +4,9 @@
 
 package cn.srd.library.java.oss.contract.model.enums;
 
-import lombok.AllArgsConstructor;
+import cn.srd.library.java.oss.contract.strategy.OssStorage;
+import cn.srd.library.java.tool.enums.EnumAutowired;
+import cn.srd.library.java.tool.enums.strategy.EnumAutowiredFieldMatchByContainIgnoreCaseRule;
 import lombok.Getter;
 
 /**
@@ -12,13 +14,23 @@ import lombok.Getter;
  * @since 2024-07-16 19:45
  */
 @Getter
-@AllArgsConstructor
+@EnumAutowired(rootClasses = OssStorage.class, allowNull = true, matchRule = EnumAutowiredFieldMatchByContainIgnoreCaseRule.class)
 public enum OssType {
 
-    MINIO(1),
+    LOCAL(1, "local"),
+    MINIO(2, "minio"),
 
     ;
 
+    OssType(int code, String description) {
+        this.code = code;
+        this.description = description;
+    }
+
     private final int code;
+
+    private final String description;
+
+    private OssStorage storage;
 
 }

@@ -181,6 +181,7 @@ dependencies {
 
         api(project(GradleModule.toReferenceName(GradleModule.OSS_API)))
         api(project(GradleModule.toReferenceName(GradleModule.OSS_CONTRACT)))
+        api(project(GradleModule.toReferenceName(GradleModule.OSS_LOCAL)))
         api(project(GradleModule.toReferenceName(GradleModule.OSS_MINIO)))
 
         api(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK)))

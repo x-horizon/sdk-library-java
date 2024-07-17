@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 dependencies {
+    api(project(GradleModule.toReferenceName(GradleModule.TOOL_ENUMS)))
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_CONTRACT)))
 

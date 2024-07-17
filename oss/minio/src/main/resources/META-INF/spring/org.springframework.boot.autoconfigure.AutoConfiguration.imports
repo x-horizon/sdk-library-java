@@ -1,1 +1,1 @@
-cn.srd.library.java.oss.minio.autoconfigure.MinioAutoConfigurer
+cn.srd.library.java.oss.minio.autoconfigure.OssMinioAutoConfigurer

@@ -9,30 +9,39 @@ import cn.srd.library.java.oss.contract.autoconfigure.OssAutoConfigurer;
 import cn.srd.library.java.oss.contract.model.enums.OssType;
 import cn.srd.library.java.oss.contract.model.property.OssProperty;
 import cn.srd.library.java.oss.minio.model.property.MinioProperty;
+import cn.srd.library.java.oss.minio.strategy.OssMinioStorage;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.spring.contract.support.Springs;
 import org.dromara.x.file.storage.spring.FileStorageAutoConfiguration;
 import org.dromara.x.file.storage.spring.SpringFileStorageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Collection;
 import java.util.List;
 
 /**
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Oss Minio
+ *
  * @author wjm
  * @since 2024-06-20 00:02
  */
-@AutoConfigureBefore(FileStorageAutoConfiguration.class)
-@AutoConfigureAfter(OssAutoConfigurer.class)
+@AutoConfigureBefore({OssAutoConfigurer.class, FileStorageAutoConfiguration.class})
 @ConditionalOnBean(OssMinioRegistrar.class)
-public class MinioAutoConfigurer {
+@EnableConfigurationProperties(OssProperty.class)
+public class OssMinioAutoConfigurer {
 
     @Autowired private OssProperty ossProperty;
+
+    @Bean
+    public OssMinioStorage ossMinioStorage() {
+        return new OssMinioStorage();
+    }
 
     @Bean
     public SpringFileStorageProperties springFileStorageProperties() {
@@ -77,7 +86,7 @@ public class MinioAutoConfigurer {
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     private String getPlatform(OssType ossType, String bucketName) {
-        return STR."\{ossType.name()}-\{bucketName}";
+        return STR."\{ossType.getDescription()}-\{bucketName}";
     }
 
 }
