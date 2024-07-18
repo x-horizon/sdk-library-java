@@ -36,7 +36,7 @@ class OssTest {
                 .scale()
                 .thumbnail()
                 .progressListener((alreadyUploadSize, totalSize) -> System.out.println(STR."upload already size：\{alreadyUploadSize}, total size: \{totalSize}"))
-                .upload(file, "模型校验样张3", "minio:///wjm-test2/wjm10/test4?bucketName=wjm-test");
+                .upload(file, "模型校验样张3.jpg", "minio:///wjm-test2/wjm10/test4?bucketName=wjm-test");
 
         byte[] originalBytes = Oss.download(ossFileDO)
                 .setProgressListener((currentDownSize, totalSize) -> System.out.println(STR."current download original size：\{currentDownSize}, total size: \{totalSize}"))
