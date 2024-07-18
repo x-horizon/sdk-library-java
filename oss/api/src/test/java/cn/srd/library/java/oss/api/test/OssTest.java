@@ -39,11 +39,11 @@ class OssTest {
                 .upload(file, "模型校验样张3", "minio:///wjm-test2/wjm10/test4?bucketName=wjm-test");
 
         byte[] originalBytes = Oss.download(ossFileDO)
-                .setProgressListener((alreadyUploadSize, totalSize) -> System.out.println(STR."download original size：\{alreadyUploadSize}, total size: \{totalSize}"))
+                .setProgressListener((currentDownSize, totalSize) -> System.out.println(STR."current download original size：\{currentDownSize}, total size: \{totalSize}"))
                 .bytes();
 
         byte[] thumbnailBytes = Oss.downloadThumbnail(ossFileDO)
-                .setProgressListener((alreadyUploadSize, totalSize) -> System.out.println(STR."download thumbnail size：\{alreadyUploadSize}, total size: \{totalSize}"))
+                .setProgressListener((currentDownSize, totalSize) -> System.out.println(STR."current download thumbnail size：\{currentDownSize}, total size: \{totalSize}"))
                 .bytes();
 
         boolean isExistBeforeDelete = Oss.exist(ossFileDO);
