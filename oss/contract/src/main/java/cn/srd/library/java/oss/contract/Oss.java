@@ -126,10 +126,6 @@ public class Oss {
             return this;
         }
 
-        public OssFileDO upload(File file, String url) {
-            return upload(file, file.getName(), url);
-        }
-
         public OssFileDO upload(Object file, String url) {
             return upload(file, null, url);
         }
