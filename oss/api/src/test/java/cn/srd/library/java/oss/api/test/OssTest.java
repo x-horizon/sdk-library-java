@@ -4,7 +4,9 @@
 
 package cn.srd.library.java.oss.api.test;
 
+import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.oss.contract.Oss;
+import cn.srd.library.java.oss.contract.model.domain.OssFileDO;
 import cn.srd.library.java.oss.local.autoconfigure.EnableOssLocal;
 import cn.srd.library.java.oss.minio.autoconfigure.EnableOssMinio;
 import cn.srd.library.java.tool.lang.file.Files;
@@ -19,7 +21,7 @@ import java.io.File;
  * @author wjm
  * @since 2024-07-16 18:58
  */
-// @EnableFileStorage
+@SuppressWarnings(SuppressWarningConstant.PREVIEW)
 @EnableOssLocal
 @EnableOssMinio
 @ExtendWith(SpringExtension.class)
@@ -28,17 +30,25 @@ class OssTest {
 
     @Test
     void test() {
-        File file = Files.of("/Users/jimmy/Desktop/v2.6-refactor/bit-land-se5-video-resource-verify-v1.0（deprecated）.zip");
+        File file = Files.of("/Users/jimmy/Desktop/场景照片/模型校验样张.jpg");
 
-        // OssFileDO ossFileDO = OssType.MINIO.getStorage().upload(file, "/wjm/test/upload", file.getName());
+        OssFileDO ossFileDO = Oss.openUpload()
+                .scale()
+                .thumbnail()
+                .progressListener((alreadyUploadSize, totalSize) -> System.out.println(STR."upload already size：\{alreadyUploadSize}, total size: \{totalSize}"))
+                .upload(file, "模型校验样张3", "minio:///wjm-test2/wjm10/test4?bucketName=wjm-test");
 
-        Oss.upload(file, "minio://wjm10/test?bucketName=wjm-test");
+        byte[] originalBytes = Oss.download(ossFileDO)
+                .setProgressListener((alreadyUploadSize, totalSize) -> System.out.println(STR."download original size：\{alreadyUploadSize}, total size: \{totalSize}"))
+                .bytes();
 
-        // byte[] bytes = OssType.MINIO.getStorage().download(ossFileDO.toFileInfo())
-        //         .setProgressListener(progressSize ->
-        //                 System.out.println("download progress：" + progressSize)
-        //         )
-        //         .bytes();
+        byte[] thumbnailBytes = Oss.downloadThumbnail(ossFileDO)
+                .setProgressListener((alreadyUploadSize, totalSize) -> System.out.println(STR."download thumbnail size：\{alreadyUploadSize}, total size: \{totalSize}"))
+                .bytes();
+
+        boolean isExistBeforeDelete = Oss.exist(ossFileDO);
+        boolean isSuccess = Oss.delete(ossFileDO);
+        boolean isExistAfterDelete = Oss.exist(ossFileDO);
 
         System.out.println();
     }

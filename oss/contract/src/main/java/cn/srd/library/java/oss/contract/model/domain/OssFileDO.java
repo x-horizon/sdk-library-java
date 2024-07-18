@@ -29,43 +29,59 @@ public class OssFileDO implements DO {
 
     private String platform;
 
-    private String directoryPath;
-
-    private String fullPath;
-
     private String name;
 
     private String originalName;
 
-    private String extensionType;
+    private String directoryPath;
 
-    private String contentType;
+    private String fullPath;
+
+    private String extension;
+
+    private String mime;
 
     private Long size;
+
+    private String thumbnailName;
+
+    private String thumbnailFullPath;
+
+    private String thumbnailMime;
+
+    private Long thumbnailSize;
 
     public static OssFileDO from(FileInfo fileInfo) {
         return OssFileDO.builder()
                 .platform(fileInfo.getPlatform())
-                .directoryPath(SymbolConstant.SLASH + Strings.removeHeadTailSlash(fileInfo.getPath()))
-                .fullPath(SymbolConstant.SLASH + Strings.removeHeadSlash(fileInfo.getUrl()))
                 .name(fileInfo.getFilename())
                 .originalName(fileInfo.getOriginalFilename())
-                .extensionType(fileInfo.getExt())
-                .contentType(fileInfo.getContentType())
+                .directoryPath(SymbolConstant.SLASH + Strings.removeHeadTailSlash(fileInfo.getPath()))
+                .fullPath(SymbolConstant.SLASH + Strings.removeHeadSlash(fileInfo.getUrl()))
+                .extension(fileInfo.getExt())
+                .mime(fileInfo.getContentType())
                 .size(fileInfo.getSize())
+                .thumbnailName(fileInfo.getThFilename())
+                .thumbnailFullPath(SymbolConstant.SLASH + Strings.removeHeadSlash(fileInfo.getThUrl()))
+                .thumbnailMime(fileInfo.getThContentType())
+                .thumbnailSize(fileInfo.getThSize())
                 .build();
     }
 
     public FileInfo toFileInfo() {
         return new FileInfo()
                 .setPlatform(getPlatform())
-                .setPath(Strings.removeHeadTailSlash(getDirectoryPath()) + SymbolConstant.SLASH)
-                .setUrl(Strings.removeHeadSlash(getFullPath()))
                 .setFilename(getName())
                 .setOriginalFilename(getOriginalName())
-                .setExt(getExtensionType())
-                .setContentType(getContentType())
-                .setSize(getSize());
+                .setPath(Strings.removeHeadTailSlash(getDirectoryPath()) + SymbolConstant.SLASH)
+                .setUrl(Strings.removeHeadSlash(getFullPath()))
+                .setExt(getExtension())
+                .setContentType(getMime())
+                .setSize(getSize())
+                .setThFilename(getThumbnailName())
+                .setThUrl(getThumbnailFullPath())
+                .setThContentType(getThumbnailMime())
+                .setThSize(getThumbnailSize());
     }
 
 }

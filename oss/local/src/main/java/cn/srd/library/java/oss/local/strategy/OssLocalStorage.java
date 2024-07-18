@@ -5,8 +5,6 @@
 package cn.srd.library.java.oss.local.strategy;
 
 import cn.srd.library.java.contract.model.throwable.UnsupportedException;
-import cn.srd.library.java.oss.contract.model.domain.OssFileDO;
-import cn.srd.library.java.oss.contract.model.property.OssProperty;
 import cn.srd.library.java.oss.contract.strategy.OssStorage;
 import org.dromara.x.file.storage.core.Downloader;
 import org.dromara.x.file.storage.core.FileInfo;
@@ -18,17 +16,7 @@ import org.dromara.x.file.storage.core.FileInfo;
 public class OssLocalStorage implements OssStorage {
 
     @Override
-    public OssProperty.Config getOssConfigProperty() {
-        throw new UnsupportedException();
-    }
-
-    @Override
     public void registerFileStorageProperties(String bucketName) {
-        throw new UnsupportedException();
-    }
-
-    @Override
-    public OssFileDO upload(Object file, String path, String filename) {
         throw new UnsupportedException();
     }
 

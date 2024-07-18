@@ -7,58 +7,185 @@ package cn.srd.library.java.oss.contract;
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
-import cn.srd.library.java.contract.constant.web.ProtocolConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.oss.contract.constant.OssConstant;
+import cn.srd.library.java.oss.contract.model.domain.OssFileDO;
 import cn.srd.library.java.oss.contract.model.enums.OssType;
-import cn.srd.library.java.oss.contract.model.property.OssProperty;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.net.Urls;
+import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
-import lombok.SneakyThrows;
+import cn.srd.library.java.tool.spring.contract.support.Springs;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import net.coobird.thumbnailator.Thumbnails;
+import org.dromara.x.file.storage.core.Downloader;
+import org.dromara.x.file.storage.core.FileStorageService;
+import org.dromara.x.file.storage.core.ProgressListener;
+import org.dromara.x.file.storage.core.upload.UploadPretreatment;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * @author wjm
  * @since 2024-07-17 19:12
  */
-@SuppressWarnings(SuppressWarningConstant.PREVIEW)
 public class Oss {
 
-    private static final Map<String, Boolean> alreadyRegisterPlatforms = Collections.newConcurrentHashMap();
+    private static final Map<String, Boolean> alreadyRegisterPlatformCache = Collections.newConcurrentHashMap();
 
-    @SneakyThrows
-    public static void upload(File file, String url) {
-        String protocol = Urls.getProtocol(url);
-        OssType ossType = Optional.ofNullable(Converts.toEnumByValue(protocol, OssType.class))
-                .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}unsupported oss type [{}], current supported oss types are {}, please check!", ModuleView.OSS_SYSTEM, protocol, Arrays.stream(OssType.values()).map(OssType::getDescription).toList())));
-        CharSequence bucketName = Optional.ofNullable(Urls.getQueryParam(url, OssConstant.BUCKET_NAME))
-                .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}could not parse bucket name from url [{}], example url like: [minio://foo/test?{}=myBucketName], please check!", ModuleView.OSS_SYSTEM, url, OssConstant.BUCKET_NAME)));
-        OssProperty.Config ossConfigProperty = ossType.getStorage().getOssConfigProperty();
-        String actualUrl = Strings.insertFirst(url, ProtocolConstant.SEPARATOR, Urls.getAuthority(ossConfigProperty.getServerUrl()) + SymbolConstant.SLASH);
-        String path = Urls.getUri(actualUrl);
-        upload(ossType, bucketName.toString(), file, file.getName(), path);
+    private static final int DEFAULT_SCALE_SIZE = 1000;
+
+    private static final int DEFAULT_THUMBNAIL_SIZE = 200;
+
+    public static UploadChainer openUpload() {
+        return new UploadChainer();
     }
 
-    public static void upload(OssType ossType, String bucketName, File file, String path) {
-        upload(ossType, bucketName, file, file.getName(), path);
+    public static Downloader download(OssFileDO ossFileDO) {
+        return Springs.getBean(FileStorageService.class).download(ossFileDO.toFileInfo());
     }
 
-    public static void upload(OssType ossType, String bucketName, Object file, String filename, String path) {
-        alreadyRegisterPlatforms.computeIfAbsent(getPlatform(ossType, bucketName), ignore -> {
-            ossType.getStorage().registerFileStorageProperties(bucketName);
-            return Boolean.TRUE;
-        });
-        ossType.getStorage().upload(file, path, filename);
+    public static Downloader downloadThumbnail(OssFileDO ossFileDO) {
+        return Springs.getBean(FileStorageService.class).downloadTh(ossFileDO.toFileInfo());
     }
 
+    public static boolean delete(OssFileDO ossFileDO) {
+        return Springs.getBean(FileStorageService.class).delete(ossFileDO.toFileInfo());
+    }
+
+    public static boolean exist(OssFileDO ossFileDO) {
+        return Springs.getBean(FileStorageService.class).exists(ossFileDO.toFileInfo());
+    }
+
+    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static String getPlatform(OssType ossType, String bucketName) {
         return STR."\{ossType.getDescription()}-\{bucketName}";
+    }
+
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public static class UploadChainer {
+
+        private Consumer<Thumbnails.Builder<? extends InputStream>> scale;
+
+        private Consumer<Thumbnails.Builder<? extends InputStream>> thumbnail;
+
+        private ProgressListener progressListener;
+
+        public UploadChainer scale() {
+            this.scale = image -> image.size(DEFAULT_SCALE_SIZE, DEFAULT_SCALE_SIZE);
+            return this;
+        }
+
+        public UploadChainer scale(Consumer<Thumbnails.Builder<? extends InputStream>> scale) {
+            this.scale = scale;
+            return this;
+        }
+
+        public UploadChainer thumbnail() {
+            this.thumbnail = image -> image.size(DEFAULT_THUMBNAIL_SIZE, DEFAULT_THUMBNAIL_SIZE);
+            return this;
+        }
+
+        public UploadChainer thumbnail(Consumer<Thumbnails.Builder<? extends InputStream>> thumbnail) {
+            this.thumbnail = thumbnail;
+            return this;
+        }
+
+        public UploadChainer progressListener(Consumer<Thumbnails.Builder<? extends InputStream>> thumbnail) {
+            this.thumbnail = thumbnail;
+            return this;
+        }
+
+        public UploadChainer progressListener(BiConsumer<Long, Long> progressListener) {
+            return progressListener(new ProgressListener() {
+                @Override
+                public void start() {
+                }
+
+                @Override
+                public void progress(long alreadyUploadSize, Long totalSize) {
+                    progressListener.accept(alreadyUploadSize, totalSize);
+                }
+
+                @Override
+                public void finish() {
+                }
+            });
+        }
+
+        public UploadChainer progressListener(ProgressListener progressListener) {
+            this.progressListener = progressListener;
+            return this;
+        }
+
+        public OssFileDO upload(File file, String url) {
+            return upload(file, file.getName(), url);
+        }
+
+        public OssFileDO upload(Object file, String url) {
+            return upload(file, null, url);
+        }
+
+        public OssFileDO upload(Object file, String filename, String url) {
+            return upload(parseOssType(url), parseBucketName(url), file, filename, parsePath(url));
+        }
+
+        public OssFileDO upload(OssType ossType, String bucketName, File file, String path) {
+            return upload(ossType, bucketName, file, file.getName(), path);
+        }
+
+        public OssFileDO upload(OssType ossType, String bucketName, Object file, String path) {
+            return upload(ossType, bucketName, file, null, path);
+        }
+
+        public OssFileDO upload(OssType ossType, String bucketName, Object file, String filename, String path) {
+            registerFileStoragePropertiesIfNeed(ossType, bucketName);
+            UploadPretreatment uploadPretreatment = Springs.getBean(FileStorageService.class)
+                    .of(file)
+                    .setPlatform(getPlatform(ossType, bucketName))
+                    .setPath(Nil.isBlank(path) ? SymbolConstant.EMPTY : Strings.removeHeadTailSlash(path) + SymbolConstant.SLASH)
+                    .setSaveFilename(filename)
+                    .setProgressListener(this.progressListener);
+            if (Nil.isNotNull(this.scale)) {
+                uploadPretreatment.image(this.scale);
+            }
+            if (Nil.isNotNull(this.thumbnail)) {
+                uploadPretreatment.thumbnail(this.thumbnail);
+            }
+            return OssFileDO.from(uploadPretreatment.upload());
+        }
+
+        private OssType parseOssType(String url) {
+            String protocol = Urls.getProtocol(url);
+            return Optional.ofNullable(Converts.toEnumByValue(protocol, OssType.class))
+                    .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}unsupported oss type [{}], current supported oss types are {}, please check!", ModuleView.OSS_SYSTEM, protocol, Arrays.stream(OssType.values()).map(OssType::getDescription).toList())));
+        }
+
+        private String parseBucketName(String url) {
+            return Optional.ofNullable(Urls.getQueryParam(url, OssConstant.BUCKET_NAME))
+                    .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}could not parse bucket name from url [{}], example url like: [minio:///foo/test?{}=myBucketName], please check!", ModuleView.OSS_SYSTEM, url, OssConstant.BUCKET_NAME)))
+                    .toString();
+        }
+
+        private String parsePath(String url) {
+            return Urls.getUri(url);
+        }
+
+        private void registerFileStoragePropertiesIfNeed(OssType ossType, String bucketName) {
+            alreadyRegisterPlatformCache.computeIfAbsent(getPlatform(ossType, bucketName), ignore -> {
+                ossType.getStorage().registerFileStorageProperties(bucketName);
+                return Boolean.TRUE;
+            });
+        }
+
     }
 
 }
