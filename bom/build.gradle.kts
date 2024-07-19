@@ -136,6 +136,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.CONCURRENT_REDIS)))
 
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_REDIS)))
+        api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_COMPONENT_OSS)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_CONSTANT)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_MODEL)))
 

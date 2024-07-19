@@ -9,7 +9,6 @@ import cn.srd.library.java.oss.contract.model.property.OssProperty;
 import cn.srd.library.java.oss.minio.strategy.OssMinioStorage;
 import org.dromara.x.file.storage.spring.FileStorageAutoConfiguration;
 import org.dromara.x.file.storage.spring.SpringFileStorageProperties;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -26,8 +25,6 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnBean(OssMinioRegistrar.class)
 @EnableConfigurationProperties(OssProperty.class)
 public class OssMinioAutoConfigurer {
-
-    @Autowired private OssProperty ossProperty;
 
     @Bean
     public OssMinioStorage ossMinioStorage() {

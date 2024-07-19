@@ -22,9 +22,11 @@ public class OssBasePackagePathAutoConfigurer implements ApplicationContextIniti
 
     static final String BASE_PACKAGE_PATH = "cn.srd.library.java.oss";
 
+    static final String BASE_CONTRACT_PACKAGE_PATH = "cn.srd.library.java.contract.component.oss";
+
     @Override
     public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {
-        BasePackagePath.register(BASE_PACKAGE_PATH);
+        BasePackagePath.register(BASE_PACKAGE_PATH, BASE_CONTRACT_PACKAGE_PATH);
     }
 
 }

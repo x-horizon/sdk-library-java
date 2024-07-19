@@ -2,9 +2,9 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.oss.contract.model.enums;
+package cn.srd.library.java.contract.component.oss.model.enums;
 
-import cn.srd.library.java.oss.contract.strategy.OssStorage;
+import cn.srd.library.java.contract.component.oss.strategy.OssStorage;
 import cn.srd.library.java.tool.enums.EnumAutowired;
 import cn.srd.library.java.tool.enums.strategy.EnumAutowiredFieldMatchByContainIgnoreCaseRule;
 import lombok.Getter;
@@ -22,14 +22,14 @@ public enum OssType {
 
     ;
 
-    OssType(int code, String description) {
+    OssType(int code, String value) {
         this.code = code;
-        this.description = description;
+        this.value = value;
     }
 
     private final int code;
 
-    private final String description;
+    private final String value;
 
     private OssStorage storage;
 

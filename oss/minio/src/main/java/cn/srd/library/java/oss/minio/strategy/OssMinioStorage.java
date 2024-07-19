@@ -4,16 +4,14 @@
 
 package cn.srd.library.java.oss.minio.strategy;
 
+import cn.srd.library.java.contract.component.oss.model.enums.OssType;
+import cn.srd.library.java.contract.component.oss.strategy.OssStorage;
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.oss.contract.Oss;
-import cn.srd.library.java.oss.contract.model.enums.OssType;
 import cn.srd.library.java.oss.contract.model.property.OssProperty;
-import cn.srd.library.java.oss.contract.strategy.OssStorage;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.text.Strings;
-import org.dromara.x.file.storage.core.Downloader;
-import org.dromara.x.file.storage.core.FileInfo;
 import org.dromara.x.file.storage.core.FileStorageService;
 import org.dromara.x.file.storage.core.FileStorageServiceBuilder;
 import org.dromara.x.file.storage.spring.SpringFileStorageProperties;
@@ -36,7 +34,7 @@ public class OssMinioStorage implements OssStorage {
         OssProperty.Config ossConfigProperty = ossProperty.getConfigs().stream()
                 .filter(ossConfig -> Comparators.equals(OssType.MINIO, ossConfig.getType()))
                 .findFirst()
-                .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}could not find the oss config, please provide the configuration for oss [{}].", ModuleView.OSS_SYSTEM, OssType.MINIO.getDescription())));
+                .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}could not find the oss config, please provide the configuration for oss [{}].", ModuleView.OSS_SYSTEM, OssType.MINIO.getValue())));
         SpringFileStorageProperties.SpringMinioConfig fileStorageMinioConfig = new SpringFileStorageProperties.SpringMinioConfig();
         fileStorageMinioConfig.setEnableStorage(true)
                 .setEndPoint(ossConfigProperty.getServerUrl())
@@ -45,11 +43,6 @@ public class OssMinioStorage implements OssStorage {
                 .setBucketName(bucketName)
                 .setPlatform(Oss.getPlatform(OssType.MINIO, bucketName));
         fileStorageService.getFileStorageList().addAll(FileStorageServiceBuilder.buildMinioFileStorage(List.of(fileStorageMinioConfig), null));
-    }
-
-    @Override
-    public Downloader download(FileInfo fileInfo) {
-        return fileStorageService.download(fileInfo);
     }
 
 }

@@ -6,6 +6,7 @@ package cn.srd.library.java.oss.contract.model.domain;
 
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.model.base.DO;
+import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -56,13 +57,13 @@ public class OssFileDO implements DO {
                 .platform(fileInfo.getPlatform())
                 .name(fileInfo.getFilename())
                 .originalName(fileInfo.getOriginalFilename())
-                .directoryPath(SymbolConstant.SLASH + Strings.removeHeadTailSlash(fileInfo.getPath()))
-                .fullPath(SymbolConstant.SLASH + Strings.removeHeadSlash(fileInfo.getUrl()))
+                .directoryPath(Nil.isBlank(fileInfo.getPath()) ? SymbolConstant.EMPTY : SymbolConstant.SLASH + Strings.removeHeadTailSlash(fileInfo.getPath()))
+                .fullPath(Nil.isBlank(fileInfo.getUrl()) ? SymbolConstant.EMPTY : SymbolConstant.SLASH + Strings.removeHeadSlash(fileInfo.getUrl()))
                 .extension(fileInfo.getExt())
                 .mime(fileInfo.getContentType())
                 .size(fileInfo.getSize())
                 .thumbnailName(fileInfo.getThFilename())
-                .thumbnailFullPath(SymbolConstant.SLASH + Strings.removeHeadSlash(fileInfo.getThUrl()))
+                .thumbnailFullPath(Nil.isBlank(fileInfo.getThUrl()) ? null : SymbolConstant.SLASH + Strings.removeHeadSlash(fileInfo.getThUrl()))
                 .thumbnailMime(fileInfo.getThContentType())
                 .thumbnailSize(fileInfo.getThSize())
                 .build();
@@ -73,8 +74,8 @@ public class OssFileDO implements DO {
                 .setPlatform(getPlatform())
                 .setFilename(getName())
                 .setOriginalFilename(getOriginalName())
-                .setPath(Strings.removeHeadTailSlash(getDirectoryPath()) + SymbolConstant.SLASH)
-                .setUrl(Strings.removeHeadSlash(getFullPath()))
+                .setPath(Nil.isBlank(getDirectoryPath()) ? SymbolConstant.EMPTY : Strings.removeHeadTailSlash(getDirectoryPath()) + SymbolConstant.SLASH)
+                .setUrl(Nil.isBlank(getFullPath()) ? SymbolConstant.EMPTY : Strings.removeHeadSlash(getFullPath()))
                 .setExt(getExtension())
                 .setContentType(getMime())
                 .setSize(getSize())

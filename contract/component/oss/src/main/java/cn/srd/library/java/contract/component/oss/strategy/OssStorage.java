@@ -2,10 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.oss.contract.strategy;
-
-import org.dromara.x.file.storage.core.Downloader;
-import org.dromara.x.file.storage.core.FileInfo;
+package cn.srd.library.java.contract.component.oss.strategy;
 
 /**
  * @author wjm
@@ -14,7 +11,5 @@ import org.dromara.x.file.storage.core.FileInfo;
 public interface OssStorage {
 
     void registerFileStorageProperties(String bucketName);
-
-    Downloader download(FileInfo fileInfo);
 
 }

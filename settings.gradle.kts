@@ -34,6 +34,7 @@ include(":concurrent:actor")
 include(":concurrent:redis")
 
 include(":contract:component:redis")
+include(":contract:component:oss")
 include(":contract:constant")
 include(":contract:model")
 

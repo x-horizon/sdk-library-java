@@ -4,13 +4,13 @@
 
 package cn.srd.library.java.oss.contract;
 
+import cn.srd.library.java.contract.component.oss.model.enums.OssType;
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.oss.contract.constant.OssConstant;
 import cn.srd.library.java.oss.contract.model.domain.OssFileDO;
-import cn.srd.library.java.oss.contract.model.enums.OssType;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.net.Urls;
@@ -67,7 +67,7 @@ public class Oss {
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static String getPlatform(OssType ossType, String bucketName) {
-        return STR."\{ossType.getDescription()}-\{bucketName}";
+        return STR."\{ossType.getValue()}-\{bucketName}";
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -162,7 +162,7 @@ public class Oss {
         private OssType parseOssType(String url) {
             String protocol = Urls.getProtocol(url);
             return Optional.ofNullable(Converts.toEnumByValue(protocol, OssType.class))
-                    .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}unsupported oss type [{}], current supported oss types are {}, please check!", ModuleView.OSS_SYSTEM, protocol, Arrays.stream(OssType.values()).map(OssType::getDescription).toList())));
+                    .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}unsupported oss type [{}], current supported oss types are {}, please check!", ModuleView.OSS_SYSTEM, protocol, Arrays.stream(OssType.values()).map(OssType::getValue).toList())));
         }
 
         private String parseBucketName(String url) {

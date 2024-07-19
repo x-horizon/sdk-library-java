@@ -25,6 +25,7 @@ object GradleModule {
     const val CONCURRENT_REDIS = "concurrent-redis"
 
     const val CONTRACT_COMPONENT_REDIS = "contract-component-redis"
+    const val CONTRACT_COMPONENT_OSS = "contract-component-oss"
     const val CONTRACT_CONSTANT = "contract-constant"
     const val CONTRACT_MODEL = "contract-model"
 
