@@ -5,6 +5,7 @@
 package cn.srd.library.java.tool.lang.file;
 
 import cn.hutool.core.io.FileUtil;
+import com.vip.vjtools.vjkit.io.FilePathUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -57,6 +58,17 @@ public class Files {
      */
     public static boolean delete(File input) {
         return FileUtil.del(input);
+    }
+
+    /**
+     * see {@link FilePathUtil#concat(String, String...)}
+     *
+     * @param basePath    the base path
+     * @param concatPaths the concat paths
+     * @return the concat path
+     */
+    public static String concatPath(String basePath, String... concatPaths) {
+        return FilePathUtil.concat(basePath, concatPaths);
     }
 
 }
