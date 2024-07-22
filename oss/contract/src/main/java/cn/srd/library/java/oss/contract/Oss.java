@@ -39,7 +39,7 @@ import java.util.function.Consumer;
  */
 public class Oss {
 
-    private static final Map<String, Boolean> alreadyRegisterPlatformCache = Collections.newConcurrentHashMap();
+    private static final Map<String, Boolean> ALREADY_REGISTER_PLATFORM_CACHE = Collections.newConcurrentHashMap();
 
     private static final int DEFAULT_SCALE_SIZE = 1000;
 
@@ -92,7 +92,7 @@ public class Oss {
     }
 
     private static void registerFileStoragePropertiesIfNeed(OssType ossType, String bucketName) {
-        alreadyRegisterPlatformCache.computeIfAbsent(getPlatform(ossType, bucketName), ignore -> {
+        ALREADY_REGISTER_PLATFORM_CACHE.computeIfAbsent(getPlatform(ossType, bucketName), ignore -> {
             ossType.getStorage().registerFileStorageProperties(bucketName);
             return Boolean.TRUE;
         });
