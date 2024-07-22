@@ -6,6 +6,7 @@ package cn.srd.library.java.oss.contract.model.domain;
 
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.model.base.DO;
+import cn.srd.library.java.tool.lang.file.Files;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
 import lombok.Data;
@@ -59,7 +60,7 @@ public class OssFileDO implements DO {
                 .originalName(fileInfo.getOriginalFilename())
                 .directoryPath(Nil.isBlank(fileInfo.getPath()) ? SymbolConstant.EMPTY : SymbolConstant.SLASH + Strings.removeHeadTailSlash(fileInfo.getPath()))
                 .fullPath(Nil.isBlank(fileInfo.getUrl()) ? SymbolConstant.EMPTY : SymbolConstant.SLASH + Strings.removeHeadSlash(fileInfo.getUrl()))
-                .extension(fileInfo.getExt())
+                .extension(Nil.isBlank(fileInfo.getExt()) ? Files.getExtension(fileInfo.getFilename()) : fileInfo.getExt())
                 .mime(fileInfo.getContentType())
                 .size(fileInfo.getSize())
                 .thumbnailName(fileInfo.getThFilename())

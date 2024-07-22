@@ -71,4 +71,22 @@ public class Files {
         return FilePathUtil.concat(basePath, concatPaths);
     }
 
+    /**
+     * <pre>
+     * get the file extension type.
+     * example:
+     *    1. the input is null or blank, return empty string.
+     *    2. the input has no ".", return empty string.
+     *    3. the input first char is ".", return the file name.
+     *    4. return remain char after the last ".".
+     * </pre>
+     *
+     * @param fileName the file name
+     * @return the file extension type
+     */
+
+    public static String getExtension(String fileName) {
+        return com.google.common.io.Files.getFileExtension(fileName);
+    }
+
 }
