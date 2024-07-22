@@ -49,25 +49,53 @@ public class Oss {
         return new UploadChainer();
     }
 
-    public static Downloader download(OssFileDO ossFileDO) {
+    public static Downloader download(String url, OssFileDO ossFileDO) {
+        registerFileStoragePropertiesIfNeed(url);
         return Springs.getBean(FileStorageService.class).download(ossFileDO.toFileInfo());
     }
 
-    public static Downloader downloadThumbnail(OssFileDO ossFileDO) {
+    public static Downloader downloadThumbnail(String url, OssFileDO ossFileDO) {
         return Springs.getBean(FileStorageService.class).downloadTh(ossFileDO.toFileInfo());
     }
 
-    public static boolean delete(OssFileDO ossFileDO) {
+    public static boolean delete(String url, OssFileDO ossFileDO) {
         return Springs.getBean(FileStorageService.class).delete(ossFileDO.toFileInfo());
     }
 
-    public static boolean exist(OssFileDO ossFileDO) {
+    public static boolean exist(String url, OssFileDO ossFileDO) {
         return Springs.getBean(FileStorageService.class).exists(ossFileDO.toFileInfo());
     }
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static String getPlatform(OssType ossType, String bucketName) {
         return STR."\{ossType.getValue()}-\{bucketName}";
+    }
+
+    private static OssType parseOssType(String url) {
+        String protocol = Urls.getProtocol(url);
+        return Optional.ofNullable(Converts.toEnumByValue(protocol, OssType.class))
+                .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}unsupported oss type [{}], current supported oss types are {}, please check!", ModuleView.OSS_SYSTEM, protocol, Arrays.stream(OssType.values()).map(OssType::getValue).toList())));
+    }
+
+    private static String parseBucketName(String url) {
+        return Optional.ofNullable(Urls.getQueryParam(url, OssConstant.BUCKET_NAME))
+                .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}could not parse bucket name from url [{}], example url like: [minio:///foo/test?{}=myBucketName], please check!", ModuleView.OSS_SYSTEM, url, OssConstant.BUCKET_NAME)))
+                .toString();
+    }
+
+    private static String parsePath(String url) {
+        return Urls.getUri(url);
+    }
+
+    private static void registerFileStoragePropertiesIfNeed(String url) {
+        registerFileStoragePropertiesIfNeed(parseOssType(url), parseBucketName(url));
+    }
+
+    private static void registerFileStoragePropertiesIfNeed(OssType ossType, String bucketName) {
+        alreadyRegisterPlatformCache.computeIfAbsent(getPlatform(ossType, bucketName), ignore -> {
+            ossType.getStorage().registerFileStorageProperties(bucketName);
+            return Boolean.TRUE;
+        });
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -157,29 +185,6 @@ public class Oss {
                 uploadPretreatment.thumbnail(this.thumbnail);
             }
             return OssFileDO.from(uploadPretreatment.upload());
-        }
-
-        private OssType parseOssType(String url) {
-            String protocol = Urls.getProtocol(url);
-            return Optional.ofNullable(Converts.toEnumByValue(protocol, OssType.class))
-                    .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}unsupported oss type [{}], current supported oss types are {}, please check!", ModuleView.OSS_SYSTEM, protocol, Arrays.stream(OssType.values()).map(OssType::getValue).toList())));
-        }
-
-        private String parseBucketName(String url) {
-            return Optional.ofNullable(Urls.getQueryParam(url, OssConstant.BUCKET_NAME))
-                    .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}could not parse bucket name from url [{}], example url like: [minio:///foo/test?{}=myBucketName], please check!", ModuleView.OSS_SYSTEM, url, OssConstant.BUCKET_NAME)))
-                    .toString();
-        }
-
-        private String parsePath(String url) {
-            return Urls.getUri(url);
-        }
-
-        private void registerFileStoragePropertiesIfNeed(OssType ossType, String bucketName) {
-            alreadyRegisterPlatformCache.computeIfAbsent(getPlatform(ossType, bucketName), ignore -> {
-                ossType.getStorage().registerFileStorageProperties(bucketName);
-                return Boolean.TRUE;
-            });
         }
 
     }

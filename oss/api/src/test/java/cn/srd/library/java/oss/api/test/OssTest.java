@@ -31,24 +31,25 @@ class OssTest {
     @Test
     void test() {
         File file = Files.of("/Users/jimmy/Desktop/场景照片/模型校验样张.jpg");
+        String url = "minio:///wjm-test2/wjm10/test4?bucketName=wjm-test";
 
         OssFileDO ossFileDO = Oss.openUpload()
                 .scale()
                 .thumbnail()
                 .progressListener((alreadyUploadSize, totalSize) -> System.out.println(STR."upload already size：\{alreadyUploadSize}, total size: \{totalSize}"))
-                .upload(file, "模型校验样张3.jpg", "minio:///wjm-test2/wjm10/test4?bucketName=wjm-test");
+                .upload(file, "模型校验样张3.jpg", url);
 
-        byte[] originalBytes = Oss.download(ossFileDO)
+        byte[] originalBytes = Oss.download(url, ossFileDO)
                 .setProgressListener((currentDownSize, totalSize) -> System.out.println(STR."current download original size：\{currentDownSize}, total size: \{totalSize}"))
                 .bytes();
 
-        byte[] thumbnailBytes = Oss.downloadThumbnail(ossFileDO)
+        byte[] thumbnailBytes = Oss.downloadThumbnail(url, ossFileDO)
                 .setProgressListener((currentDownSize, totalSize) -> System.out.println(STR."current download thumbnail size：\{currentDownSize}, total size: \{totalSize}"))
                 .bytes();
 
-        boolean isExistBeforeDelete = Oss.exist(ossFileDO);
-        boolean isSuccess = Oss.delete(ossFileDO);
-        boolean isExistAfterDelete = Oss.exist(ossFileDO);
+        boolean isExistBeforeDelete = Oss.exist(url, ossFileDO);
+        boolean isSuccess = Oss.delete(url, ossFileDO);
+        boolean isExistAfterDelete = Oss.exist(url, ossFileDO);
 
         System.out.println();
     }
