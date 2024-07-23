@@ -17,14 +17,44 @@ import lombok.NoArgsConstructor;
 public class NumberConstant {
 
     /**
-     * the max integer value
+     * the max int value
      */
     public static final int MAX_INTEGER_VALUE = Integer.MAX_VALUE;
 
     /**
-     * the min integer value
+     * the max long value
+     */
+    public static final long MAX_LONG_VALUE = Long.MAX_VALUE;
+
+    /**
+     * the max float value
+     */
+    public static final float MAX_FLOAT_VALUE = Float.MAX_VALUE;
+
+    /**
+     * the max double value
+     */
+    public static final double MAX_DOUBLE_VALUE = Double.MAX_VALUE;
+
+    /**
+     * the min int value
      */
     public static final int MIN_INTEGER_VALUE = Integer.MIN_VALUE;
+
+    /**
+     * the min long value
+     */
+    public static final long MIN_LONG_VALUE = Long.MIN_VALUE;
+
+    /**
+     * the min float value
+     */
+    public static final float MIN_FLOAT_VALUE = Float.MIN_VALUE;
+
+    /**
+     * the min double value
+     */
+    public static final double MIN_DOUBLE_VALUE = Double.MIN_VALUE;
 
     /**
      * the number when two big decimal are equal
