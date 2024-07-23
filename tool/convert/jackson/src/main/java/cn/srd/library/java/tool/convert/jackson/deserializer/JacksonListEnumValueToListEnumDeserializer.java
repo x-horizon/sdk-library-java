@@ -19,7 +19,7 @@ import lombok.SneakyThrows;
 import java.util.List;
 
 /**
- * Jackson 反序列化处理器：List&lt;Enum 属性值&gt; =&gt; List&lt;Enum&gt;
+ * the jackson deserializer to convert {@link List}&lt;the enum internal int value&gt; to {@link List}<{@link Enum}<?>>, see {@link Converts#toEnumByValue(Object, Class)}
  *
  * @param <E> the data type after deserialize
  * @author wjm
@@ -31,7 +31,7 @@ public class JacksonListEnumValueToListEnumDeserializer<E extends Enum<E>> exten
     @Override
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public List<E> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) {
-        String jsonFieldName = jsonParser.getCurrentName();
+        String jsonFieldName = jsonParser.currentName();
         Class<?> fieldOfClass = jsonParser.getParsingContext().getParent().getCurrentValue().getClass();
         Class<?> fieldGenericType = Types.getEmbedGenericTypeClass(fieldOfClass, jsonFieldName);
 

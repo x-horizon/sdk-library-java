@@ -16,7 +16,7 @@ import lombok.SneakyThrows;
 import java.time.LocalDateTime;
 
 /**
- * Jackson 序列化处理器：LocalDateTime =&gt; Long
+ * the jackson serializer to convert {@link LocalDateTime} to {@link Long}
  *
  * @author wjm
  * @since 2022-10-14 18:16

@@ -16,7 +16,7 @@ import lombok.SneakyThrows;
 import java.time.LocalTime;
 
 /**
- * Jackson 序列化处理器：LocalTime =&gt; String，如：14:12
+ * the jackson serializer to convert {@link LocalTime} to {@link String} like "14:12"
  *
  * @author wjm
  * @since 2023-06-21 12:01

@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.util.StdConverter;
 import java.time.LocalDateTime;
 
 /**
- * Jackson 反序列化处理器：String =&gt; LocalDateTime（仅支持如：2023-03-27 21:41:07.76971）
+ * the jackson deserializer to convert {@link String} like "2023-03-27 21:41:07.76971" to {@link LocalDateTime}
  *
  * @author wjm
  * @since 2023-03-28 10:00

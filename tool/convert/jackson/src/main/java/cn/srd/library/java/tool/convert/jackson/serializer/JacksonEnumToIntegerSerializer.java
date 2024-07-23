@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import lombok.SneakyThrows;
 
 /**
- * Jackson 序列化处理器：Enum =&gt; Enum 内部 Integer 类型的值
+ * the jackson serializer to convert {@link Enum}<?> to the enum internal int value, see {@link Enums#getFieldValue(Enum, Class)}
  *
  * @author wjm
  * @since 2020-12-15 17:02

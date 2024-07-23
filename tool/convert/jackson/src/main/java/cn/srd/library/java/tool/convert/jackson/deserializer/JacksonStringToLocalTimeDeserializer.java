@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.util.StdConverter;
 import java.time.LocalTime;
 
 /**
- * Jackson 反序列化处理器：String =&gt; LocalTime
+ * the jackson deserializer to convert {@link String} to {@link LocalTime}
  *
  * @author wjm
  * @since 2023-06-21 12:01

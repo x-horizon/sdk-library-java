@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Jackson 序列化处理器：List&lt;Enum&gt; =&gt; List&lt;Enum 内部 String 类型的值&gt;
+ * the jackson serializer to convert {@link List}<{@link Enum}<?>> to {@link List}&lt;the string value in the enum, see {@link Enums#getFieldValue(Enum, Class)}&gt;
  *
  * @author wjm
  * @since 2024-04-16 21:32

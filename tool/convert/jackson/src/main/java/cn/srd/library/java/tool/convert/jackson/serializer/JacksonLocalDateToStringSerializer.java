@@ -16,7 +16,7 @@ import lombok.SneakyThrows;
 import java.time.LocalDate;
 
 /**
- * Jackson 序列化处理器：LocalDate =&gt; String
+ * the jackson serializer to convert {@link LocalDate} to {@link String} like "2023-03-27"
  *
  * @author wjm
  * @since 2023-06-21 12:01

@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Jackson 反序列化处理器：String =&gt; LocalDate（仅支持如：2023-03-27）
+ * the jackson deserializer to convert {@link String} like "2023-03-27" to {@link LocalDate}
  *
  * @author wjm
  * @since 2022-07-20 11:37

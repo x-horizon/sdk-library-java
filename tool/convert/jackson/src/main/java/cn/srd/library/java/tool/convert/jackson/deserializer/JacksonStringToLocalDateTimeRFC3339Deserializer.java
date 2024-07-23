@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.util.StdConverter;
 import java.time.LocalDateTime;
 
 /**
- * Jackson 反序列化处理器：String =&gt; LocalDateTime（遵循 RFC3339 标准，仅支持如：2006-01-02T15:04:05Z07:00）
+ * the jackson deserializer to convert RFC3339 {@link String} like "2006-01-02T15:04:05Z07:00" to {@link LocalDateTime}
  *
  * @author wjm
  * @since 2023-03-28 10:00

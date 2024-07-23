@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import lombok.SneakyThrows;
 
 /**
- * Jackson 反序列化处理器：Enum 属性值 =&gt; Enum
+ * the jackson deserializer to convert the enum internal int value to {@link Enum}<?>, see {@link Converts#toEnumByValue(Object, Class)}
  *
  * @param <E> the data type after deserialize
  * @author wjm
@@ -29,8 +29,8 @@ public class JacksonEnumValueToEnumDeserializer<E extends Enum<E>> extends JsonD
     @Override
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public E deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) {
-        String jsonFieldName = jsonParser.getCurrentName();
-        Class<?> fieldOfClass = jsonParser.getCurrentValue().getClass();
+        String jsonFieldName = jsonParser.currentName();
+        Class<?> fieldOfClass = jsonParser.currentValue().getClass();
         Class<?> fieldType = Types.getTypeClass(fieldOfClass, jsonFieldName);
         Assert.of().setMessage("jackson deserializer: cannot deserializer field [{}] on class [{}] because the generic type in List.class is not Enum, please check!", jsonFieldName, fieldOfClass.getSimpleName())
                 .setThrowable(LibraryJavaInternalException.class)

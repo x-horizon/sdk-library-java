@@ -23,9 +23,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 /**
- * Jackson 反序列化处理器：List&lt;Enum 属性值&gt; =&gt; List&lt;Enum&gt;（适用于 json 字段名与类字段名不同时的场景）
- * TODO wjm 这些类的实现逻辑高度相似，待优化：{@link JacksonEnumValueToEnumFuzzyDeserializer} {@link JacksonListEnumValueToListEnumFuzzyDeserializer} {@link JacksonEnumValueToEnumDeserializer} {@link JacksonListEnumValueToListEnumDeserializer}
- * TODO wjm 待优化：应支持提前配置好，遇到某个字段名时直接获取对应要匹配的哪个类字段，而不是每次都要匹配，EnumAutowired 这种相关的匹配都可以这样优化
+ * the jackson deserializer to convert {@link List}&lt;the enum internal int value&gt; to {@link List}<{@link Enum}<?>>, it suitable for scenarios where the json field name is different from the class field name, see {@link Converts#toEnumByValue(Object, Class)}
  *
  * @param <E> the data type after deserialize
  * @author wjm
@@ -37,7 +35,7 @@ public class JacksonListEnumValueToListEnumFuzzyDeserializer<E extends Enum<E>> 
     @Override
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public List<E> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) {
-        String jsonFieldName = jsonParser.getCurrentName();
+        String jsonFieldName = jsonParser.currentName();
         Class<?> fieldOfClass = jsonParser.getParsingContext().getParent().getCurrentValue().getClass();
 
         Field matchField = null;

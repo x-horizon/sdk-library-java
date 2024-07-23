@@ -21,7 +21,7 @@ import lombok.SneakyThrows;
 import java.lang.reflect.Field;
 
 /**
- * Jackson 反序列化处理器：Enum 属性值 =&gt; Enum（适用于 json 字段名与类字段名不同时的场景）
+ * the jackson deserializer to convert the enum internal int value to {@link Enum}<?>, it suitable for scenarios where the json field name is different from the class field name, see {@link Converts#toEnumByValue(Object, Class)}
  *
  * @param <E> the data type after deserialize
  * @author wjm
@@ -33,8 +33,8 @@ public class JacksonEnumValueToEnumFuzzyDeserializer<E extends Enum<E>> extends 
     @SneakyThrows
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public E deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) {
-        String jsonFieldName = jsonParser.getCurrentName();
-        Class<?> fieldOfClass = jsonParser.getCurrentValue().getClass();
+        String jsonFieldName = jsonParser.currentName();
+        Class<?> fieldOfClass = jsonParser.currentValue().getClass();
 
         Field matchField = null;
         String actualFieldName = JacksonFieldNameRegister.getInstance().getClassFieldName(jsonFieldName);

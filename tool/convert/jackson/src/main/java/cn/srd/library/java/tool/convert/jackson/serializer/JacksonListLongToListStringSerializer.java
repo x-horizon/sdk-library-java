@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Jackson 序列化处理器：List&lt;Long&gt; =&gt; List&lt;String&gt;
+ * the jackson serializer to convert {@link List}<{@link Long}> to {@link List}<{@link String}>
  *
  * @author xiongjing
  * @since 2023-03-14 17:57
