@@ -14,22 +14,22 @@ import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import lombok.SneakyThrows;
 
 /**
- * the jackson serializer to convert {@link Long} to {@link String}
+ * the jackson serializer to convert {@link Double} to {@link String}
  *
  * @author wjm
- * @since 2022-10-13 10:26
+ * @since 2024-07-23 19:46
  */
-public class JacksonLongToStringSerializer extends JsonSerializer<Long> {
+public class JacksonDoubleToStringSerializer extends JsonSerializer<Double> {
 
     @Override
     @SneakyThrows
-    public void serialize(Long from, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
+    public void serialize(Double from, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
         jsonGenerator.writeObject(Converts.toString(from));
     }
 
     @Override
     @SneakyThrows
-    public void serializeWithType(Long value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) {
+    public void serializeWithType(Double value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) {
         WritableTypeId typeIdDef = typeSerializer.writeTypePrefix(jsonGenerator, typeSerializer.typeId(value, JsonToken.VALUE_STRING));
         serialize(value, jsonGenerator, serializerProvider);
         typeSerializer.writeTypeSuffix(jsonGenerator, typeIdDef);
