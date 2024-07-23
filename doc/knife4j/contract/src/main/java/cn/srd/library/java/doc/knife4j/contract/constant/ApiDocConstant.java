@@ -18,6 +18,10 @@ public class ApiDocConstant {
 
     public static final String NUMBER = "1";
 
+    public static final String FLOAT = "0.1";
+
+    public static final String DOUBLE = "0.01";
+
     public static final String STRING = "example-string";
 
     public static final String TIMESTAMP = "1713341740";
