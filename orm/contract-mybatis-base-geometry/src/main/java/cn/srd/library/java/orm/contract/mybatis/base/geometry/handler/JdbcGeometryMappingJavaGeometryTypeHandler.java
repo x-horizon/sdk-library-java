@@ -12,7 +12,7 @@ import java.sql.PreparedStatement;
 
 /**
  * @author wjm
- * @since 2023-03-14 15:39:11
+ * @since 2023-03-14 15:39
  */
 public class JdbcGeometryMappingJavaGeometryTypeHandler extends AbstractJdbcComplexTypeHandler<Geometry> {
 
