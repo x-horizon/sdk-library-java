@@ -8,7 +8,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_DOC_SPRING_OPENAPI("org.springdoc:springdoc-openapi", "2.3.0"), // need to synchronize with "com.github.xiaoymin:knife4j-dependencies"
     BOM_DOC_XIAOYMIN_KNIFE4J("com.github.xiaoymin:knife4j-dependencies", "4.5.0"), // TODO wjm support spring-boot version to 3.0.4
     BOM_ECLIPSE_PAHO("org.eclipse.paho:java-parent", "1.2.5"), // support spring-boot version to 3.3.1, need to synchronize with "org.springframework.boot:spring-boot-dependencies"
-    BOM_FRAMEWORK_ALIBABA_SPRING_CLOUD("com.alibaba.cloud:spring-cloud-alibaba-dependencies", "2023.0.1.0"), // TODO wjm support spring-boot version to 3.2.4
+    BOM_FRAMEWORK_ALIBABA_SPRING_CLOUD("com.alibaba.cloud:spring-cloud-alibaba-dependencies", "2023.0.1.2"), // TODO wjm support spring-boot version to 3.2.4
     BOM_FRAMEWORK_SPRING("org.springframework:spring-framework-bom", "6.1.10"), // support spring-boot version to 3.3.1
     BOM_FRAMEWORK_SPRING_BOOT("org.springframework.boot:spring-boot-dependencies", "3.3.1"),
     BOM_FRAMEWORK_SPRING_CLOUD("org.springframework.cloud:spring-cloud-dependencies", "2023.0.2"), // TODO wjm support spring-boot version to 3.2.4
