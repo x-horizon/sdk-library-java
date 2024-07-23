@@ -19,7 +19,7 @@ public class NumberConstant {
     /**
      * the max int value
      */
-    public static final int MAX_INTEGER_VALUE = Integer.MAX_VALUE;
+    public static final int MAX_INT_VALUE = Integer.MAX_VALUE;
 
     /**
      * the max long value
@@ -39,7 +39,7 @@ public class NumberConstant {
     /**
      * the min int value
      */
-    public static final int MIN_INTEGER_VALUE = Integer.MIN_VALUE;
+    public static final int MIN_INT_VALUE = Integer.MIN_VALUE;
 
     /**
      * the min long value

@@ -17,13 +17,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SpringInitializeConstant {
 
-    public static final int HIGHEST_INITIALIZE_PRIORITY = NumberConstant.MIN_INTEGER_VALUE;
+    public static final int HIGHEST_INITIALIZE_PRIORITY = NumberConstant.MIN_INT_VALUE;
 
     public static final int HIGHER_INITIALIZE_PRIORITY = HIGHEST_INITIALIZE_PRIORITY + 1;
 
     public static final int HIGH_INITIALIZE_PRIORITY = HIGHER_INITIALIZE_PRIORITY + 1;
 
-    public static final int LOWEST_INITIALIZE_PRIORITY = NumberConstant.MAX_INTEGER_VALUE;
+    public static final int LOWEST_INITIALIZE_PRIORITY = NumberConstant.MAX_INT_VALUE;
 
     public static final int LOWER_INITIALIZE_PRIORITY = LOWEST_INITIALIZE_PRIORITY - 1;
 
