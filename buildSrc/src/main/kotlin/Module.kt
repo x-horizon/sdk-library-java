@@ -60,6 +60,7 @@ object GradleModule {
 
     const val ORM_CONTRACT = "orm-contract"
     const val ORM_CONTRACT_MYBATIS_BASE = "orm-contract-mybatis-base"
+    const val ORM_CONTRACT_MYBATIS_BASE_GEOMETRY = "orm-contract-mybatis-base-geometry"
     const val ORM_CONTRACT_MYBATIS_BASE_POSTGRESQL = "orm-contract-mybatis-base-postgresql"
     const val ORM_CONTRACT_MYBATIS_FLEX = "orm-contract-mybatis-flex"
     const val ORM_MYBATIS_FLEX_BASE = "orm-mybatis-flex-base"
@@ -107,6 +108,7 @@ object GradleModule {
     const val TOOL_CONTENT_ANALYSIS = "tool-content-analysis"
     const val TOOL_CONVERT_API = "tool-convert-api"
     const val TOOL_CONVERT_JACKSON = "tool-convert-jackson"
+    const val TOOL_CONVERT_JACKSON_GEOMETRY = "tool-convert-jackson-geometry"
     const val TOOL_CONVERT_MAPSTRUCT_PLUS = "tool-convert-mapstruct-plus"
     const val TOOL_CONVERT_MAPSTRUCT_PROTOBUF = "tool-convert-mapstruct-protobuf"
     const val TOOL_CONVERT_PROTOBUF = "tool-convert-protobuf"
@@ -192,12 +194,15 @@ internal object ModuleHelper {
         put(GradleModule.MESSAGE_ENGINE_REDIS_STREAM, ":message-engine:redis-stream")
         put(GradleModule.ORM_CONTRACT, ":orm:contract")
         put(GradleModule.ORM_CONTRACT_MYBATIS_BASE, ":orm:contract-mybatis-base")
+        put(GradleModule.ORM_CONTRACT_MYBATIS_BASE_GEOMETRY, ":orm:contract-mybatis-base-geometry")
         put(GradleModule.ORM_CONTRACT_MYBATIS_BASE_POSTGRESQL, ":orm:contract-mybatis-base-postgresql")
         put(GradleModule.ORM_CONTRACT_MYBATIS_FLEX, ":orm:contract-mybatis-flex")
         put(GradleModule.ORM_MYBATIS_FLEX_BASE, ":orm:mybatis-flex-base")
         put(GradleModule.ORM_MYBATIS_FLEX_POSTGRESQL, ":orm:mybatis-flex-postgresql")
         put(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PLUS, ":pluggable-annotation-api:processor:mapstruct-plus")
         put(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PROTOBUF, ":pluggable-annotation-api:processor:mapstruct-protobuf")
+        put(GradleModule.TOOL_CONVERT_JACKSON, ":tool:convert:jackson")
+        put(GradleModule.TOOL_CONVERT_JACKSON_GEOMETRY, ":tool:convert:jackson-geometry")
         put(GradleModule.TOOL_CONVERT_MAPSTRUCT_PLUS, ":tool:convert:mapstruct-plus")
         put(GradleModule.TOOL_CONVERT_MAPSTRUCT_PROTOBUF, ":tool:convert:mapstruct-protobuf")
         put(GradleModule.TOOL_SERIALIZATION_FASTJSON2, ":tool:serialization:fastjson2")

@@ -21,7 +21,8 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_SECURITY_DEV33_SA_TOKEN("cn.dev33:sa-token-bom", "1.38.0"), // TODO wjm support spring-boot version to 2.5.15
     BOM_TEST_MOCKITO("org.mockito:mockito-bom", "5.11.0"),
     BOM_TEST_TESTCONTAINERS("org.testcontainers:testcontainers-bom", "1.19.8"), // TODO wjm support spring-boot version to 3.2.4
-    BOM_TOOL_APACHE_TIKA("org.apache.tika:tika-bom", "2.4.1"), // need to synchronize with "org.dromara.x-file-storage:x-file-storage-parent"
+    BOM_TOOL_CONTENT_ANALYSIS_APACHE_TIKA("org.apache.tika:tika-bom", "2.4.1"), // need to synchronize with "org.dromara.x-file-storage:x-file-storage-parent"
+    BOM_TOOL_GEOMETRY_JTS("org.locationtech.jts:jts", "1.19.0"),
     BOM_TOOL_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-pom", "1.4.2"), // TODO wjm support spring-boot version to 2.7.9
     BOM_TOOL_MAPSTRUCT_PROTOBUF("no.entur.mapstruct.spi:spi-protobuf-parent", "1.44"), // TODO wjm support com.google.protobuf:protobuf-bom version to 3.23.0
     BOM_TOOL_SERIALIZATION_FASTERXML_JACKSON("com.fasterxml.jackson:jackson-bom", "2.17.1"), // support spring-boot version to 3.3.1
@@ -123,11 +124,10 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_ALIBABA_TRANSMITTABLE_THREAD_LOCAL("com.alibaba:transmittable-thread-local", "2.14.5"),
     TOOL_ANNOTATION_API_JAVAX("javax.annotation:javax.annotation-api", "1.3.2"),
     TOOL_AOP_SPRING_BOOT("org.springframework.boot:spring-boot-starter-aop", ""),
-    TOOL_APACHE_FILE_ANALYSIS_TIKA_CORE("org.apache.tika:tika-core", ""),
-    TOOL_APACHE_FILE_ANALYSIS_TIKA_PARSER("org.apache.tika:tika-parsers", BOM_TOOL_APACHE_TIKA.version), // TODO wjm bom is not invalid
-    TOOL_APACHE_TEMPLATE_ENGINE_VELOCITY("org.apache.velocity:velocity", "1.7"), // TODO wjm 该包 1.7 版本后破坏性更新极大，暂使用旧版本，新版本为：TOOL_APACHE_TEMPLATE_ENGINE_VELOCITY("org.apache.velocity:velocity-engine-core", "2.3")，升级链接：https://velocity.apache.org/engine/2.3/upgrading.html#upgrading-from-velocity-17-to-velocity-20，目前暂使用旧版本
+    TOOL_CONTENT_ANALYSIS_APACHE_TIKA_CORE("org.apache.tika:tika-core", ""),
+    TOOL_CONTENT_ANALYSIS_APACHE_TIKA_PARSER("org.apache.tika:tika-parsers", BOM_TOOL_CONTENT_ANALYSIS_APACHE_TIKA.version), // TODO wjm bom is not invalid
     TOOL_AUTOWIRED_SMART_SPRING("io.github.burukeyou:spring-smart-di-all", "0.2.0"),
-    TOOL_GEOMETRY_LOCATION_TECH_JTS("org.locationtech.jts:jts-core", "1.19.0"),
+    TOOL_GEOMETRY_LOCATION_TECH_JTS("org.locationtech.jts:jts-core", BOM_TOOL_GEOMETRY_JTS.version), // TODO wjm bom is not invalid
     TOOL_GEOMETRY_LOCATION_TECH_SPATIAL4J("org.locationtech.spatial4j:spatial4j", "0.8"),
     TOOL_GOOGLE_GUAVA("com.google.guava:guava", "32.1.2-jre"), // support spring-boot version to 3.3.0
     TOOL_HUTOOL("cn.hutool:hutool-all", "5.8.26"),
@@ -152,6 +152,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_SERIALIZATION_PROTOBUF_GOOGLE_PROTOC("com.google.protobuf:protoc", BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF.version), // TODO wjm bom is not invalid
     TOOL_SERIALIZATION_PROTOBUF_SQUAREUP_WIRE("com.squareup.wire:wire-schema", ""),
     TOOL_STREAM_JDFRAME("io.github.burukeyou:jdframe", "0.0.2"),
+    TOOL_TEMPLATE_ENGINE_APACHE_VELOCITY("org.apache.velocity:velocity", "1.7"), // TODO wjm 该包 1.7 版本后破坏性更新极大，暂使用旧版本，新版本为：TOOL_APACHE_TEMPLATE_ENGINE_VELOCITY("org.apache.velocity:velocity-engine-core", "2.3")，升级链接：https://velocity.apache.org/engine/2.3/upgrading.html#upgrading-from-velocity-17-to-velocity-20，目前暂使用旧版本
     TOOL_VALIDATION_HIBERNATE("org.hibernate.validator:hibernate-validator", "8.0.1.Final"),
     TOOL_VALIDATION_JAKARTA("jakarta.validation:jakarta.validation-api", "3.0.2"), // support spring-boot version to 3.3.0
     TOOL_VALIDATION_JSON_SCHEMA("com.networknt:json-schema-validator", "1.5.0"),
