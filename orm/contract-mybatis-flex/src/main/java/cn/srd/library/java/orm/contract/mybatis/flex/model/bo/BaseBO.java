@@ -1,6 +1,5 @@
 package cn.srd.library.java.orm.contract.mybatis.flex.model.bo;
 
-import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.model.base.BO;
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonLongToLocalDateTimeDeserializer;
@@ -11,7 +10,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mybatisflex.annotation.Column;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -35,8 +33,7 @@ public class BaseBO implements BO {
 
     @Schema(description = "备注", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
     @Column(value = "remark")
-    @Builder.Default
-    private String remark = SymbolConstant.EMPTY;
+    private String remark;
 
     @Schema(description = "创建人id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
     @Column(value = "creator_id")
