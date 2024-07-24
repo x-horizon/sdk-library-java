@@ -1577,6 +1577,40 @@ public class Collections {
     }
 
     /**
+     * get the duplicate values
+     *
+     * @param inputs the input elements
+     * @param <T>    the element type
+     * @return the duplicate values
+     */
+    public static <T> List<T> getDuplicate(List<T> inputs) {
+        return getDuplicate(inputs, duplicateFiled -> duplicateFiled);
+    }
+
+    /**
+     * get the duplicate values
+     *
+     * @param inputs               the input elements
+     * @param duplicateFiledGetter the duplicate filed getter
+     * @param <T>                  the element type
+     * @param <R>                  the duplicate filed type
+     * @return the duplicate values
+     */
+    public static <T, R> List<R> getDuplicate(List<T> inputs, Function<T, R> duplicateFiledGetter) {
+        return Action.<List<R>>ifEmpty(inputs)
+                .then(Collections::newArrayList)
+                .otherwise(() -> inputs.stream()
+                        .collect(Collectors.groupingBy(duplicateFiledGetter, Collectors.counting()))
+                        .entrySet()
+                        .stream()
+                        .filter(inputName -> inputName.getValue() > 1)
+                        .map(Map.Entry::getKey)
+                        .collect(Collectors.toList())
+                )
+                .get();
+    }
+
+    /**
      * <pre>
      * asc the given {@link Comparable} collection.
      *
