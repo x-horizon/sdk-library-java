@@ -5,5 +5,5 @@
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
 
-    api(GradleDependency.DATA_CASSANDRA.withoutVersion)
+    api(GradleDependency.JDBC_MYSQL.withoutVersion)
 }

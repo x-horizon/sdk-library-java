@@ -5,5 +5,5 @@
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
 
-    api(GradleDependency.DATA_TDENGINE.withoutVersion) { exclude(group = "commons-logging", module = "commons-logging") }
+    api(GradleDependency.JDBC_HSQLDB.withoutVersion)
 }

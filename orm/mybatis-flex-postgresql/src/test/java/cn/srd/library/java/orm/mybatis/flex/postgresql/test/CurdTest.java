@@ -51,7 +51,7 @@ import java.util.Map;
         globalAuditConfig = @AuditLogConfig(enable = true),
         globalPropertyConfig = @PropertyConfig(
                 nativeMybatisLog = NoLoggingImpl.class,
-                xmlMapperClassPaths = {"classpath*:cn/srd/library/java/orm/mybatis/base/customer/repository/impl/*.xml"},
+                xmlMapperClassPaths = {"classpath*:cn/srd/library/java/orm/mybatis/flex/postgresql/repository/impl/*.xml"},
                 xmlMapperEntityPackageAliasPackagePaths = {"cn.srd.library.java.orm.mybatis.**.po"}
         )
 )

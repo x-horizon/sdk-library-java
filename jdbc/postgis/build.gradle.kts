@@ -5,5 +5,5 @@
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
 
-    api(GradleDependency.DATA_MYSQL.withoutVersion)
+    api(GradleDependency.JDBC_POSTGIS.withoutVersion)
 }
