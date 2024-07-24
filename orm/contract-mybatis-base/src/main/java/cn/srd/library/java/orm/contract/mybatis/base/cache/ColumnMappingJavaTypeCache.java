@@ -110,7 +110,13 @@ public abstract class ColumnMappingJavaTypeCache {
      * @return the field actual data type
      */
     private Class<?> getTypeHandlerAnnotatedFieldType(Field annotatedField) {
-        return Types.hasGeneric(annotatedField) ? Types.getEmbedGenericTypeClass(annotatedField.getDeclaringClass(), annotatedField.getName()) : annotatedField.getType();
+        if (Classes.isAssignable(annotatedField.getType(), Map.class)) {
+            return Map.class;
+        }
+        if (Types.hasGeneric(annotatedField)) {
+            return Types.getEmbedGenericTypeClass(annotatedField.getDeclaringClass(), annotatedField.getName());
+        }
+        return annotatedField.getType();
     }
 
     /**
