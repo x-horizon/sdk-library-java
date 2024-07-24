@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 dependencies {
-    testImplementation(project(GradleModule.toReferenceName(GradleModule.DATA_POSTGRESQL)))
+    testImplementation(project(GradleModule.toReferenceName(GradleModule.JDBC_POSTGRESQL)))
 
     testImplementation(project(GradleModule.toReferenceName(GradleModule.DOC_KNIFE4J_SPRING_WEBMVC)))
 
