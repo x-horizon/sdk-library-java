@@ -13,6 +13,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_FRAMEWORK_SPRING_BOOT("org.springframework.boot:spring-boot-dependencies", "3.3.1"),
     BOM_FRAMEWORK_SPRING_CLOUD("org.springframework.cloud:spring-cloud-dependencies", "2023.0.2"), // TODO wjm support spring-boot version to 3.2.4
     BOM_FRAMEWORK_SPRING_INTEGRATION("org.springframework.integration:spring-integration-bom", "6.3.1"), // support spring-boot version to 3.3.1
+    BOM_JDBC_POSTGIS("net.postgis:postgis-java-aggregator", "2023.1.0"),
     BOM_METRIC_DROPWIZARD("io.dropwizard.metrics:metrics-bom", "4.2.25"), // TODO wjm support spring-boot version to 3.2.4
     BOM_METRIC_MICROMETER("io.micrometer:micrometer-bom", "1.13.1"), // support spring-boot version to 3.3.1
     BOM_ORM_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-dependencies", "1.9.4"), // TODO wjm support spring-boot version to 2.7.11
@@ -43,13 +44,6 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     CLOUD_NATIVE_DOCKER_TRANSPORT_OKHTTP("com.github.docker-java:docker-java-transport-okhttp", ""),
     CLOUD_NATIVE_KUBERNETES("org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8-all", ""),
 
-    DATA_CASSANDRA("org.springframework.boot:spring-boot-starter-data-cassandra", ""),
-    DATA_ELASTICSEARCH("org.springframework.boot:spring-boot-starter-data-elasticsearch", ""),
-    DATA_HSQLDB("org.hsqldb:hsqldb", "2.7.3"), // support spring-boot version to 3.3.1
-    DATA_MYSQL("com.mysql:mysql-connector-j", "8.3.0"), // TODO wjm support spring-boot version to 3.3.0
-    DATA_POSTGRESQL("org.postgresql:postgresql", "42.7.3"), // TODO wjm support spring-boot version to 3.3.0
-    DATA_TDENGINE("com.taosdata.jdbc:taos-jdbcdriver", "3.2.11"),
-
     DOC_SPRING_OPENAPI_COMMON("org.springdoc:springdoc-openapi-starter-common", ""),
     DOC_XIAOYMIN_KNIFE4J_OPENAPI3_JAKARTA_SPRING_WEBFLUX("com.github.xiaoymin:knife4j-openapi3-webflux-jakarta-spring-boot-starter", ""),
     DOC_XIAOYMIN_KNIFE4J_OPENAPI3_JAKARTA_SPRING_WEBMVC("com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter", ""),
@@ -60,6 +54,14 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     FRAMEWORK_SPRING_BOOT_WEBMVC("org.springframework.boot:spring-boot-starter-web", ""),
 
     GATEWAY_SPRING_CLOUD("org.springframework.cloud:spring-cloud-starter-gateway", ""),
+
+    JDBC_CASSANDRA("org.springframework.boot:spring-boot-starter-data-cassandra", ""),
+    JDBC_ELASTICSEARCH("org.springframework.boot:spring-boot-starter-data-elasticsearch", ""),
+    JDBC_HSQLDB("org.hsqldb:hsqldb", "2.7.3"), // support spring-boot version to 3.3.1
+    JDBC_MYSQL("com.mysql:mysql-connector-j", "8.3.0"), // TODO wjm support spring-boot version to 3.3.0
+    JDBC_POSTGIS("net.postgis:postgis-jdbc-jts", BOM_JDBC_POSTGIS.version), // TODO wjm bom is not invalid
+    JDBC_POSTGRESQL("org.postgresql:postgresql", "42.7.3"), // need to synchronize with "net.postgis:postgis-jdbc-jts"
+    JDBC_TDENGINE("com.taosdata.jdbc:taos-jdbcdriver", "3.2.11"),
 
     LOADBALANCER_SPRING_CLOUD("org.springframework.cloud:spring-cloud-loadbalancer", ""),
     LOG_SPRING_BOOT("org.springframework.boot:spring-boot-starter-logging", ""),
@@ -127,8 +129,8 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_CONTENT_ANALYSIS_APACHE_TIKA_CORE("org.apache.tika:tika-core", ""),
     TOOL_CONTENT_ANALYSIS_APACHE_TIKA_PARSER("org.apache.tika:tika-parsers", BOM_TOOL_CONTENT_ANALYSIS_APACHE_TIKA.version), // TODO wjm bom is not invalid
     TOOL_AUTOWIRED_SMART_SPRING("io.github.burukeyou:spring-smart-di-all", "0.2.0"),
-    TOOL_GEOMETRY_LOCATION_TECH_JTS("org.locationtech.jts:jts-core", BOM_TOOL_GEOMETRY_JTS.version), // TODO wjm bom is not invalid
-    TOOL_GEOMETRY_LOCATION_TECH_SPATIAL4J("org.locationtech.spatial4j:spatial4j", "0.8"),
+    TOOL_GEOMETRY_LOCATION_TECH_JTS("org.locationtech.jts:jts-core", BOM_TOOL_GEOMETRY_JTS.version), // need to synchronize with "net.postgis:postgis-jdbc-jts" TODO wjm bom is not invalid
+    TOOL_GEOMETRY_LOCATION_TECH_SPATIAL4J("org.locationtech.spatial4j:spatial4j", "0.8"), // need to synchronize with "net.postgis:postgis-jdbc-jts"
     TOOL_GOOGLE_GUAVA("com.google.guava:guava", "32.1.2-jre"), // support spring-boot version to 3.3.0
     TOOL_HUTOOL("cn.hutool:hutool-all", "5.8.26"),
     TOOL_IO_VAVR("io.vavr:vavr", "0.10.4"),

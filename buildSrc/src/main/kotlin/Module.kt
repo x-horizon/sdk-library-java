@@ -29,19 +29,20 @@ object GradleModule {
     const val CONTRACT_CONSTANT = "contract-constant"
     const val CONTRACT_MODEL = "contract-model"
 
-    const val DATA_CASSANDRA = "data-cassandra"
-    const val DATA_ELASTICSEARCH = "data-elasticsearch"
-    const val DATA_HSQLDB = "data-hsqldb"
-    const val DATA_MYSQL = "data-mysql"
-    const val DATA_POSTGRESQL = "data-postgresql"
-    const val DATA_TDENGINE = "data-tdengine"
-
     const val DOC_KNIFE4J_CONTRACT = "doc-knife4j-contract"
     const val DOC_KNIFE4J_SPRING_GATEWAY = "doc-knife4j-spring-gateway"
     const val DOC_KNIFE4J_SPRING_WEBMVC = "doc-knife4j-spring-webmvc"
     const val DOC_KNIFE4J_SPRING_WEBFLUX = "doc-knife4j-spring-webflux"
 
     const val GATEWAY_SPRING = "gateway-spring"
+
+    const val JDBC_CASSANDRA = "jdbc-cassandra"
+    const val JDBC_ELASTICSEARCH = "jdbc-elasticsearch"
+    const val JDBC_HSQLDB = "jdbc-hsqldb"
+    const val JDBC_MYSQL = "jdbc-mysql"
+    const val JDBC_POSTGIS = "jdbc-postgis"
+    const val JDBC_POSTGRESQL = "jdbc-postgresql"
+    const val JDBC_TDENGINE = "jdbc-tdengine"
 
     const val MESSAGE_ENGINE_ALL = "message-engine-all"
     const val MESSAGE_ENGINE_CONTRACT = "message-engine-contract"
@@ -60,10 +61,11 @@ object GradleModule {
 
     const val ORM_CONTRACT = "orm-contract"
     const val ORM_CONTRACT_MYBATIS_BASE = "orm-contract-mybatis-base"
-    const val ORM_CONTRACT_MYBATIS_BASE_GEOMETRY = "orm-contract-mybatis-base-geometry"
+    const val ORM_CONTRACT_MYBATIS_BASE_POSTGIS = "orm-contract-mybatis-base-postgis"
     const val ORM_CONTRACT_MYBATIS_BASE_POSTGRESQL = "orm-contract-mybatis-base-postgresql"
     const val ORM_CONTRACT_MYBATIS_FLEX = "orm-contract-mybatis-flex"
     const val ORM_MYBATIS_FLEX_BASE = "orm-mybatis-flex-base"
+    const val ORM_MYBATIS_FLEX_POSTGIS = "orm-mybatis-flex-postgis"
     const val ORM_MYBATIS_FLEX_POSTGRESQL = "orm-mybatis-flex-postgresql"
     const val ORM_MYBATIS_FLEX_TDENGINE = "orm-mybatis-flex-tdengine"
     const val ORM_MYBATIS_PLUS = "orm-mybatis-plus"
@@ -194,10 +196,11 @@ internal object ModuleHelper {
         put(GradleModule.MESSAGE_ENGINE_REDIS_STREAM, ":message-engine:redis-stream")
         put(GradleModule.ORM_CONTRACT, ":orm:contract")
         put(GradleModule.ORM_CONTRACT_MYBATIS_BASE, ":orm:contract-mybatis-base")
-        put(GradleModule.ORM_CONTRACT_MYBATIS_BASE_GEOMETRY, ":orm:contract-mybatis-base-geometry")
+        put(GradleModule.ORM_CONTRACT_MYBATIS_BASE_POSTGIS, ":orm:contract-mybatis-base-postgis")
         put(GradleModule.ORM_CONTRACT_MYBATIS_BASE_POSTGRESQL, ":orm:contract-mybatis-base-postgresql")
         put(GradleModule.ORM_CONTRACT_MYBATIS_FLEX, ":orm:contract-mybatis-flex")
         put(GradleModule.ORM_MYBATIS_FLEX_BASE, ":orm:mybatis-flex-base")
+        put(GradleModule.ORM_MYBATIS_FLEX_POSTGIS, ":orm:mybatis-flex-postgis")
         put(GradleModule.ORM_MYBATIS_FLEX_POSTGRESQL, ":orm:mybatis-flex-postgresql")
         put(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PLUS, ":pluggable-annotation-api:processor:mapstruct-plus")
         put(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PROTOBUF, ":pluggable-annotation-api:processor:mapstruct-protobuf")

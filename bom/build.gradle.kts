@@ -16,6 +16,7 @@ dependencies {
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_FRAMEWORK_SPRING_BOOT)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_FRAMEWORK_SPRING_CLOUD)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_FRAMEWORK_SPRING_INTEGRATION)))
+    api(platform(GradleDependency.withVersion(GradleDependency.BOM_JDBC_POSTGIS)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_METRIC_DROPWIZARD)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_METRIC_MICROMETER)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_ORM_MYBATIS_FLEX)))
@@ -44,10 +45,11 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.CLOUD_COMMUNICATION_DROMARA_SMS))
         api(GradleDependency.withVersion(GradleDependency.CLOUD_COMMUNICATION_JAKARTA_MAIL))
 
-        api(GradleDependency.withVersion(GradleDependency.DATA_HSQLDB))
-        api(GradleDependency.withVersion(GradleDependency.DATA_MYSQL))
-        api(GradleDependency.withVersion(GradleDependency.DATA_POSTGRESQL))
-        api(GradleDependency.withVersion(GradleDependency.DATA_TDENGINE))
+        api(GradleDependency.withVersion(GradleDependency.JDBC_HSQLDB))
+        api(GradleDependency.withVersion(GradleDependency.JDBC_MYSQL))
+        api(GradleDependency.withVersion(GradleDependency.JDBC_POSTGIS))
+        api(GradleDependency.withVersion(GradleDependency.JDBC_POSTGRESQL))
+        api(GradleDependency.withVersion(GradleDependency.JDBC_TDENGINE))
 
         api(GradleDependency.withVersion(GradleDependency.ORM_MYBATIS))
         api(GradleDependency.withVersion(GradleDependency.ORM_MYBATIS_PLUS))
@@ -141,19 +143,19 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_CONSTANT)))
         api(project(GradleModule.toReferenceName(GradleModule.CONTRACT_MODEL)))
 
-        api(project(GradleModule.toReferenceName(GradleModule.DATA_CASSANDRA)))
-        api(project(GradleModule.toReferenceName(GradleModule.DATA_ELASTICSEARCH)))
-        api(project(GradleModule.toReferenceName(GradleModule.DATA_HSQLDB)))
-        api(project(GradleModule.toReferenceName(GradleModule.DATA_MYSQL)))
-        api(project(GradleModule.toReferenceName(GradleModule.DATA_POSTGRESQL)))
-        api(project(GradleModule.toReferenceName(GradleModule.DATA_TDENGINE)))
-
         api(project(GradleModule.toReferenceName(GradleModule.DOC_KNIFE4J_CONTRACT)))
         api(project(GradleModule.toReferenceName(GradleModule.DOC_KNIFE4J_SPRING_GATEWAY)))
         api(project(GradleModule.toReferenceName(GradleModule.DOC_KNIFE4J_SPRING_WEBFLUX)))
         api(project(GradleModule.toReferenceName(GradleModule.DOC_KNIFE4J_SPRING_WEBMVC)))
 
         api(project(GradleModule.toReferenceName(GradleModule.GATEWAY_SPRING)))
+
+        api(project(GradleModule.toReferenceName(GradleModule.JDBC_CASSANDRA)))
+        api(project(GradleModule.toReferenceName(GradleModule.JDBC_ELASTICSEARCH)))
+        api(project(GradleModule.toReferenceName(GradleModule.JDBC_HSQLDB)))
+        api(project(GradleModule.toReferenceName(GradleModule.JDBC_MYSQL)))
+        api(project(GradleModule.toReferenceName(GradleModule.JDBC_POSTGRESQL)))
+        api(project(GradleModule.toReferenceName(GradleModule.JDBC_TDENGINE)))
 
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_ALL)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_CONTRACT)))
@@ -172,10 +174,11 @@ dependencies {
 
         api(project(GradleModule.toReferenceName(GradleModule.ORM_CONTRACT)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_CONTRACT_MYBATIS_BASE)))
-        api(project(GradleModule.toReferenceName(GradleModule.ORM_CONTRACT_MYBATIS_BASE_GEOMETRY)))
+        api(project(GradleModule.toReferenceName(GradleModule.ORM_CONTRACT_MYBATIS_BASE_POSTGIS)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_CONTRACT_MYBATIS_BASE_POSTGRESQL)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_CONTRACT_MYBATIS_FLEX)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_FLEX_BASE)))
+        api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_FLEX_POSTGIS)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_FLEX_POSTGRESQL)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_FLEX_TDENGINE)))
         api(project(GradleModule.toReferenceName(GradleModule.ORM_MYBATIS_PLUS)))
