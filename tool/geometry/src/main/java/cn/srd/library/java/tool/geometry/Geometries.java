@@ -1,6 +1,7 @@
 package cn.srd.library.java.tool.geometry;
 
-import cn.srd.library.java.contract.constant.number.NumberConstant;
+import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
+import cn.srd.library.java.tool.lang.functional.Assert;
 import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -33,9 +34,7 @@ public class Geometries {
     }
 
     public static int getDimension(Geometry input) {
-        if (Nil.isNull(input)) {
-            return NumberConstant.ZERO_INT_SCALE;
-        }
+        Assert.of(LibraryJavaInternalException.class).throwsIfNull(input);
         return !Double.isNaN(input.getCoordinates()[0].z) ? THREE_DIMENSION : TWO_DIMENSION;
     }
 
