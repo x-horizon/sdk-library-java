@@ -8,8 +8,10 @@ import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.contract.constant.web.HttpStatus;
 import cn.srd.library.java.contract.model.protocol.WebResponse;
 import cn.srd.library.java.contract.model.throwable.ClientException;
+import cn.srd.library.java.contract.model.throwable.DataNotFoundException;
 import cn.srd.library.java.contract.model.throwable.InvalidArgumentException;
 import cn.srd.library.java.contract.model.throwable.RunningException;
+import cn.srd.library.java.tool.lang.object.Nil;
 import lombok.extern.slf4j.Slf4j;
 
 import static cn.srd.library.java.contract.model.protocol.WebResponse.error;
@@ -43,8 +45,8 @@ public abstract class WebExceptionInterceptor {
         return error(HttpStatus.NOT_IMPLEMENTED, message);
     }
 
-    protected WebResponse<Void> whenDataNotFoundException(String uri) {
-        String message = "操作失败：数据不存在";
+    protected WebResponse<Void> whenDataNotFoundException(String uri, DataNotFoundException exception) {
+        String message = Nil.isBlank(exception.getMessage()) ? "操作失败：数据不存在" : exception.getMessage();
         log.warn(formatMessage(uri, message));
         return error(HttpStatus.DATA_NOT_FOUND, message);
     }

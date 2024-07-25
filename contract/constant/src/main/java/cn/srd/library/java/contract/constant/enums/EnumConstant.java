@@ -21,6 +21,6 @@ public class EnumConstant {
     /**
      * enum internal field name
      */
-    public static final Set<String> INTERNAL_FIELD_NAMES = Set.of("ENUM$VALUES", "$VALUES", "name", "ordinal");
+    public static final Set<String> INTERNAL_FIELD_NAMES = Set.of("ENUM$VALUES", "$VALUES", "name", "ordinal", "hash");
 
 }

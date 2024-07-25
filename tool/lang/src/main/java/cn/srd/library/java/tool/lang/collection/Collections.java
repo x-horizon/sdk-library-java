@@ -1068,11 +1068,13 @@ public class Collections {
      *
      * @param inputs         the input element
      * @param appendElements the elements to append
-     * @param <T>            the element type
+     * @param <T>            the collection type
+     * @param <E>            the element type
      * @return after add
      */
-    public static <T> Collection<T> add(Collection<T> inputs, T[] appendElements) {
-        return CollectionUtil.addAll(inputs, appendElements);
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public static <T extends Collection<E>, E> T add(T inputs, E[] appendElements) {
+        return (T) CollectionUtil.addAll(inputs, appendElements);
     }
 
     /**
@@ -1080,11 +1082,13 @@ public class Collections {
      *
      * @param inputs         the input element
      * @param appendElements the elements to append
-     * @param <T>            the element type
+     * @param <T>            the collection type
+     * @param <E>            the element type
      * @return after add
      */
-    public static <T> Collection<T> add(Collection<T> inputs, Iterator<T> appendElements) {
-        return CollectionUtil.addAll(inputs, appendElements);
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public static <T extends Collection<E>, E> T add(T inputs, Iterator<E> appendElements) {
+        return (T) CollectionUtil.addAll(inputs, appendElements);
     }
 
     /**
@@ -1092,11 +1096,13 @@ public class Collections {
      *
      * @param inputs         the input element
      * @param appendElements the elements to append
-     * @param <T>            the element type
+     * @param <T>            the collection type
+     * @param <E>            the element type
      * @return after add
      */
-    public static <T> Collection<T> add(Collection<T> inputs, Iterable<T> appendElements) {
-        return CollectionUtil.addAll(inputs, appendElements);
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public static <T extends Collection<E>, E> T add(T inputs, Iterable<E> appendElements) {
+        return (T) CollectionUtil.addAll(inputs, appendElements);
     }
 
     /**
@@ -1104,11 +1110,13 @@ public class Collections {
      *
      * @param inputs         the input element
      * @param appendElements the elements to append
-     * @param <T>            the element type
+     * @param <T>            the collection type
+     * @param <E>            the element type
      * @return after add
      */
-    public static <T> Collection<T> add(Collection<T> inputs, Enumeration<T> appendElements) {
-        return CollectionUtil.addAll(inputs, appendElements);
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public static <T extends Collection<E>, E> T add(T inputs, Enumeration<E> appendElements) {
+        return (T) CollectionUtil.addAll(inputs, appendElements);
     }
 
     /**
@@ -1116,11 +1124,13 @@ public class Collections {
      *
      * @param inputs         the input element
      * @param appendElements the elements to append
-     * @param <T>            the element type
+     * @param <T>            the collection type
+     * @param <E>            the element type
      * @return after add
      */
-    public static <T> Collection<T> add(Collection<T> inputs, Object appendElements) {
-        return CollectionUtil.addAll(inputs, appendElements);
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public static <T extends Collection<E>, E> T add(T inputs, Object appendElements) {
+        return (T) CollectionUtil.addAll(inputs, appendElements);
     }
 
     /**
@@ -1142,15 +1152,36 @@ public class Collections {
      *
      * @param inputs         the input element
      * @param removeElements the elements to remove
-     * @param <T>            the element type
+     * @param <T>            the collection type
+     * @param <E>            the element type
      * @return after remove
      */
     @SafeVarargs
-    public static <T> Collection<T> remove(Collection<T> inputs, T... removeElements) {
-        return Action.<Collection<T>>ifEmpty(inputs)
-                .then(Collections::ofArrayList)
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public static <T extends Collection<E>, E> T remove(T inputs, E... removeElements) {
+        return (T) Action.<Collection<E>>ifEmpty(inputs)
+                .then(Collections::newArrayList)
                 .otherwise(() -> CollectionUtil.removeAny(inputs, removeElements))
                 .get();
+    }
+
+    /**
+     * see {@link CollectionUtil#removeAny(Collection, Object[])}
+     *
+     * @param inputs         the input element
+     * @param removeElements the elements to remove
+     * @param <T1>           the collection type
+     * @param <T2>           the collection type
+     * @param <E>            the element type
+     * @return after remove
+     */
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public static <T1 extends Collection<E>, T2 extends Collection<E>, E> T1 remove(T1 inputs, T2 removeElements) {
+        if (Nil.isEmpty(inputs)) {
+            return (T1) Collections.newArrayList();
+        }
+        removeElements.forEach(removeElement -> CollectionUtil.removeAny(inputs, removeElement));
+        return inputs;
     }
 
     /**

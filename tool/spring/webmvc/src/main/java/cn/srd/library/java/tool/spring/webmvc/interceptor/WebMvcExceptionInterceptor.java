@@ -385,8 +385,8 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
      * @return the web response
      */
     @ExceptionHandler(DataNotFoundException.class)
-    public WebResponse<Void> handleDataNotFoundException(HttpServletRequest httpServletRequest, DataNotFoundException ignore) {
-        return whenDataNotFoundException(httpServletRequest.getRequestURI());
+    public WebResponse<Void> handleDataNotFoundException(HttpServletRequest httpServletRequest, DataNotFoundException exception) {
+        return whenDataNotFoundException(httpServletRequest.getRequestURI(), exception);
     }
 
     /**

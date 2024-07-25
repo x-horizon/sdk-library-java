@@ -47,7 +47,7 @@ public class WebFluxExceptionInterceptor extends WebExceptionInterceptor impleme
                     case InvalidIdException ignore -> whenInvalidIdException(requestUri);
                     case InvalidArgumentException exception -> whenInvalidArgumentException(requestUri, exception);
                     case UnsupportedException ignore -> whenUnsupportedException(requestUri);
-                    case DataNotFoundException ignore -> whenDataNotFoundException(requestUri);
+                    case DataNotFoundException exception -> whenDataNotFoundException(requestUri, exception);
                     case ClientException exception -> whenClientException(requestUri, exception);
                     case RunningException exception -> whenRunningException(requestUri, exception);
                     default -> whenThrowable(requestUri, throwable);
