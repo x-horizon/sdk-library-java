@@ -191,7 +191,7 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     public PageResult<P> page(PageParam pageParam) {
-        return page(pageParam.getPageNumber(), pageParam.getPageSize(), pageParam.getTotalNumber());
+        return page(pageParam.getPageIndex(), pageParam.getPageSize(), pageParam.getTotalNumber());
     }
 
     public PageResult<P> page(Number pageIndex, Number pageSize) {
@@ -213,7 +213,7 @@ public class QueryChainer<P extends PO> extends BaseQueryChainer<P> {
     }
 
     public <V extends VO> PageResult<V> pageToVO(PageParam pageParam) {
-        return pageToVO(pageParam.getPageNumber(), pageParam.getPageSize(), pageParam.getTotalNumber());
+        return pageToVO(pageParam.getPageIndex(), pageParam.getPageSize(), pageParam.getTotalNumber());
     }
 
     public <V extends VO> PageResult<V> pageToVO(Number pageIndex, Number pageSize) {

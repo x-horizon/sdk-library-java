@@ -95,7 +95,7 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
     public PageResult<StudentVO> pageByCondition(StudentPageConditionVO conditionVO) {
         return studentRepository.openNormalQuery()
                 .where(StudentPO::getName).likeIfNotBlank(conditionVO.getName())
-                .pageToVO(conditionVO.getPageNumber(), conditionVO.getPageSize());
+                .pageToVO(conditionVO.getPageIndex(), conditionVO.getPageSize());
     }
 
 }

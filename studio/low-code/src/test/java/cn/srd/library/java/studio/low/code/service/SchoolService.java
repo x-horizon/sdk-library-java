@@ -48,7 +48,7 @@ public class SchoolService extends GenericService<SchoolPO, SchoolVO, SchoolRepo
     public PageResult<SchoolVO> pageByCondition(SchoolPageConditionVO conditionVO) {
         return schoolRepository.openNormalQuery()
                 .where(SchoolPO::getName).likeIfNotBlank(conditionVO.getName())
-                .pageToVO(conditionVO.getPageNumber(), conditionVO.getPageSize());
+                .pageToVO(conditionVO.getPageIndex(), conditionVO.getPageSize());
     }
 
 }

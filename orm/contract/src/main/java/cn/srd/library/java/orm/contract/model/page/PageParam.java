@@ -35,10 +35,10 @@ public class PageParam implements DTO {
 
     @Serial private static final long serialVersionUID = -2956893884714618641L;
 
-    @Schema(description = "page number", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
-    @Min(value = 1, message = "the minimum page number is 1")
+    @Schema(description = "page index", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
+    @Min(value = 1, message = "the minimum page index is 1")
     @Builder.Default
-    private Integer pageNumber = PageConstant.DEFAULT_PAGE_INDEX;
+    private Integer pageIndex = PageConstant.DEFAULT_PAGE_INDEX;
 
     @Schema(description = "record number per page", requiredMode = Schema.RequiredMode.REQUIRED, example = "10")
     @Range(min = 1, max = 100, message = "the range of record number per page is [1, 100]")

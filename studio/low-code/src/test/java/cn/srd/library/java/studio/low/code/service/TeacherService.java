@@ -46,7 +46,7 @@ public class TeacherService extends GenericService<TeacherPO, TeacherVO, Teacher
     public PageResult<TeacherVO> pageByCondition(TeacherPageConditionVO conditionVO) {
         return teacherRepository.openNormalQuery()
                 .where(TeacherPO::getName).likeIfNotBlank(conditionVO.getName())
-                .pageToVO(conditionVO.getPageNumber(), conditionVO.getPageSize());
+                .pageToVO(conditionVO.getPageIndex(), conditionVO.getPageSize());
     }
 
 }

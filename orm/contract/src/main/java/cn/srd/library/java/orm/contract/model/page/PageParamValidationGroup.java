@@ -23,7 +23,7 @@ public class PageParamValidationGroup implements DefaultGroupSequenceProvider<Pa
         // the default validation group must be added
         List<Class<?>> defaultValidationGroups = Collections.ofArrayList(PageParam.class);
         // must ensure the instance being validated is not null
-        if (Nil.isNotNull(pageParam) && pageParam.getPageNumber() > 1 && Nil.isNull(pageParam.getTotalNumber())) {
+        if (Nil.isNotNull(pageParam) && pageParam.getPageIndex() > 1 && Nil.isNull(pageParam.getTotalNumber())) {
             defaultValidationGroups.add(TotalRecordNumberValidator.class);
         }
         return defaultValidationGroups;
