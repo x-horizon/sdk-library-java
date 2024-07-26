@@ -7,7 +7,6 @@ import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonLongToLocalDateTimeDeserializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonLocalDateTimeToLongSerializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonLongToStringSerializer;
-import cn.srd.library.java.tool.lang.time.Times;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -64,17 +63,15 @@ public class BaseBO implements BO {
 
     @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.TIMESTAMP)
     @Column(value = "create_time")
-    @Builder.Default
     @JsonSerialize(using = JacksonLocalDateTimeToLongSerializer.class)
     @JsonDeserialize(converter = JacksonLongToLocalDateTimeDeserializer.class)
-    private LocalDateTime createTime = Times.getCurrentDateTime();
+    private LocalDateTime createTime;
 
     @Schema(description = "更新时间", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.TIMESTAMP)
     @Column(value = "update_time")
-    @Builder.Default
     @JsonSerialize(using = JacksonLocalDateTimeToLongSerializer.class)
     @JsonDeserialize(converter = JacksonLongToLocalDateTimeDeserializer.class)
-    private LocalDateTime updateTime = Times.getCurrentDateTime();
+    private LocalDateTime updateTime;
 
     @Schema(description = "删除时间")
     @Column(value = "delete_time", isLogicDelete = true)
