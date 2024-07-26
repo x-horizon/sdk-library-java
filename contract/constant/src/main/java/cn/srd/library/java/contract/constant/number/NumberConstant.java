@@ -74,10 +74,10 @@ public class NumberConstant {
     /**
      * zero long value
      */
-    public static final long ZERO_LONG_VALUE = 0;
+    public static final long ZERO_LONG_VALUE = 0L;
 
     /**
-     * zero int value
+     * zero double value
      */
     public static final double ZERO_DOUBLE_VALUE = 0;
 
@@ -85,6 +85,26 @@ public class NumberConstant {
      * zero number value
      */
     public static final Number ZERO_NUMBER_VALUE = 0;
+
+    /**
+     * one int value
+     */
+    public static final int ONE_INT_VALUE = 1;
+
+    /**
+     * one long value
+     */
+    public static final long ONE_LONG_VALUE = 1L;
+
+    /**
+     * one double value
+     */
+    public static final double ONE_DOUBLE_VALUE = 1;
+
+    /**
+     * one number value
+     */
+    public static final Number ONE_NUMBER_VALUE = 1;
 
     /**
      * one hundred
