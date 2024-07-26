@@ -4,6 +4,7 @@
 
 package cn.srd.library.java.orm.mybatis.flex.base.chain;
 
+import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.model.base.PO;
 import cn.srd.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
 import cn.srd.library.java.orm.mybatis.flex.base.support.MybatisFlexs;
@@ -1091,7 +1092,7 @@ public class QueryConditional<C extends BaseChainer, W extends QueryWrapper> ext
      * @return like {@code "%value%"} condition
      */
     public C like(Object value, boolean condition) {
-        getNativeQueryConditional().like(value, condition);
+        getNativeQueryConditional().like(Nil.isNull(value) ? SymbolConstant.EMPTY : value, condition);
         return getChainer();
     }
 
@@ -1159,7 +1160,7 @@ public class QueryConditional<C extends BaseChainer, W extends QueryWrapper> ext
      * @return like {@code "value%"} condition
      */
     public C likeLeft(Object value, boolean condition) {
-        getNativeQueryConditional().likeLeft(value, condition);
+        getNativeQueryConditional().likeLeft(Nil.isNull(value) ? SymbolConstant.EMPTY : value, condition);
         return getChainer();
     }
 
@@ -1226,7 +1227,7 @@ public class QueryConditional<C extends BaseChainer, W extends QueryWrapper> ext
      * @return like {@code "%value"} condition
      */
     public C likeRight(Object value, boolean condition) {
-        getNativeQueryConditional().likeRight(value, condition);
+        getNativeQueryConditional().likeRight(Nil.isNull(value) ? SymbolConstant.EMPTY : value, condition);
         return getChainer();
     }
 
@@ -1294,7 +1295,7 @@ public class QueryConditional<C extends BaseChainer, W extends QueryWrapper> ext
      */
     public C likeRaw(Object value, boolean condition) {
         QueryColumn queryColumn = Reflects.getFieldValue(getNativeQueryConditional(), QUERY_COLUMN_FIELD_NAME);
-        QueryCondition queryCondition = Reflects.invoke(queryColumn, LIKE_RAW_METHOD_NAME, value, condition);
+        QueryCondition queryCondition = Reflects.invoke(queryColumn, LIKE_RAW_METHOD_NAME, Nil.isNull(value) ? SymbolConstant.EMPTY : value, condition);
         Reflects.invoke(nativeQueryConditional, ADD_WHERE_QUERY_CONDITION_METHOD_NAME, queryCondition);
         return getChainer();
     }
@@ -1362,7 +1363,7 @@ public class QueryConditional<C extends BaseChainer, W extends QueryWrapper> ext
      * @return not like {@code "%value%"} condition
      */
     public C notLike(Object value, boolean condition) {
-        getNativeQueryConditional().notLike(value, condition);
+        getNativeQueryConditional().notLike(Nil.isNull(value) ? SymbolConstant.EMPTY : value, condition);
         return getChainer();
     }
 
@@ -1430,7 +1431,7 @@ public class QueryConditional<C extends BaseChainer, W extends QueryWrapper> ext
      * @return not like {@code "value%"} condition
      */
     public C notLikeLeft(Object value, boolean condition) {
-        getNativeQueryConditional().notLikeLeft(value, condition);
+        getNativeQueryConditional().notLikeLeft(Nil.isNull(value) ? SymbolConstant.EMPTY : value, condition);
         return getChainer();
     }
 
@@ -1497,7 +1498,7 @@ public class QueryConditional<C extends BaseChainer, W extends QueryWrapper> ext
      * @return not like {@code "%value"} condition
      */
     public C notLikeRight(Object value, boolean condition) {
-        getNativeQueryConditional().notLikeRight(value, condition);
+        getNativeQueryConditional().notLikeRight(Nil.isNull(value) ? SymbolConstant.EMPTY : value, condition);
         return getChainer();
     }
 
@@ -1566,7 +1567,7 @@ public class QueryConditional<C extends BaseChainer, W extends QueryWrapper> ext
      */
     public C notLikeRaw(Object value, boolean condition) {
         QueryColumn queryColumn = Reflects.getFieldValue(getNativeQueryConditional(), QUERY_COLUMN_FIELD_NAME);
-        QueryCondition queryCondition = Reflects.invoke(queryColumn, NOT_LIKE_RAW_METHOD_NAME, value, condition);
+        QueryCondition queryCondition = Reflects.invoke(queryColumn, NOT_LIKE_RAW_METHOD_NAME, Nil.isNull(value) ? SymbolConstant.EMPTY : value, condition);
         Reflects.invoke(nativeQueryConditional, ADD_WHERE_QUERY_CONDITION_METHOD_NAME, queryCondition);
         return getChainer();
     }

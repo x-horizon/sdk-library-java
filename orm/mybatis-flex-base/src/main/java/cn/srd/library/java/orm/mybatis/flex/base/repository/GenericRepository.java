@@ -6,6 +6,7 @@ package cn.srd.library.java.orm.mybatis.flex.base.repository;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.model.base.PO;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.orm.mybatis.flex.base.cache.MybatisFlexSystemCache;
@@ -548,7 +549,7 @@ public interface GenericRepository<P extends PO> {
     }
 
     default List<P> listLikeByField(ColumnNameGetter<P> columnNameGetter, String value) {
-        return getBaseMapper().selectListByQuery(QueryWrapper.create().like(MybatisFlexs.getColumnName(columnNameGetter), value));
+        return getBaseMapper().selectListByQuery(QueryWrapper.create().like(MybatisFlexs.getColumnName(columnNameGetter), Nil.isNull(value) ? SymbolConstant.EMPTY : value));
     }
 
     default List<P> listLikeByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, String value) {
