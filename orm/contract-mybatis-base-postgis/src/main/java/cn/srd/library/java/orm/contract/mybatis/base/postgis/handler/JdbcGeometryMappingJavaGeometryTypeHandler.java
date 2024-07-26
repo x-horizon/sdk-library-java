@@ -25,7 +25,7 @@ public class JdbcGeometryMappingJavaGeometryTypeHandler extends AbstractJdbcComp
     @SneakyThrows
     @Override
     protected Geometry toJavaObject(String columnName, String columnValue) {
-        return JtsGeometry.geomFromString(columnValue);
+        return Nil.isBlank(columnValue) ? null : JtsGeometry.geomFromString(columnValue);
     }
 
     @SneakyThrows
