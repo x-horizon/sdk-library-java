@@ -1,15 +1,19 @@
 package cn.srd.library.java.orm.contract.mybatis.flex.model.bo;
 
+import cn.srd.library.java.contract.constant.number.NumberConstant;
+import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.model.base.BO;
 import cn.srd.library.java.doc.knife4j.contract.constant.ApiDocConstant;
 import cn.srd.library.java.tool.convert.jackson.deserializer.JacksonLongToLocalDateTimeDeserializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonLocalDateTimeToLongSerializer;
 import cn.srd.library.java.tool.convert.jackson.serializer.JacksonLongToStringSerializer;
+import cn.srd.library.java.tool.lang.time.Times;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mybatisflex.annotation.Column;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -33,37 +37,44 @@ public class BaseBO implements BO {
 
     @Schema(description = "备注", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
     @Column(value = "remark")
-    private String remark;
+    @Builder.Default
+    private String remark = SymbolConstant.EMPTY;
 
     @Schema(description = "创建人id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
     @Column(value = "creator_id")
+    @Builder.Default
     @JsonSerialize(using = JacksonLongToStringSerializer.class)
-    private Long creatorId;
+    private Long creatorId = NumberConstant.ZERO_LONG_VALUE;
 
     @Schema(description = "创建人名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
     @Column(value = "creator_name")
-    private String creatorName;
+    @Builder.Default
+    private String creatorName = SymbolConstant.EMPTY;
 
     @Schema(description = "更新人id", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
     @Column(value = "updater_id")
+    @Builder.Default
     @JsonSerialize(using = JacksonLongToStringSerializer.class)
-    private Long updaterId;
+    private Long updaterId = NumberConstant.ZERO_LONG_VALUE;
 
     @Schema(description = "更新人名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
     @Column(value = "updater_name")
-    private String updaterName;
+    @Builder.Default
+    private String updaterName = SymbolConstant.EMPTY;
 
     @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.TIMESTAMP)
     @Column(value = "create_time")
+    @Builder.Default
     @JsonSerialize(using = JacksonLocalDateTimeToLongSerializer.class)
     @JsonDeserialize(converter = JacksonLongToLocalDateTimeDeserializer.class)
-    private LocalDateTime createTime;
+    private LocalDateTime createTime = Times.getCurrentDateTime();
 
     @Schema(description = "更新时间", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.TIMESTAMP)
     @Column(value = "update_time")
+    @Builder.Default
     @JsonSerialize(using = JacksonLocalDateTimeToLongSerializer.class)
     @JsonDeserialize(converter = JacksonLongToLocalDateTimeDeserializer.class)
-    private LocalDateTime updateTime;
+    private LocalDateTime updateTime = Times.getCurrentDateTime();
 
     @Schema(description = "删除时间")
     @Column(value = "delete_time", isLogicDelete = true)
