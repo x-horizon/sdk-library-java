@@ -1780,47 +1780,6 @@ public class Collections {
     }
 
     /**
-     * <pre>
-     * get the difference from the given collections.
-     *
-     *  example:
-     *  null      and null         => []
-     *
-     *  null      and [1,2,3]      => [1,2,3]
-     *  []        and [1,2,3]      => [1,2,3]
-     *
-     *  [1,2,3]   and null         => [1,2,3]
-     *  [1,2,3]   and []           => [1,2,3]
-     *
-     *  [1]       and [1,2,3,4]    => [2,3,4]
-     *  [1,2,3,4] and [1]          => [2,3,4]
-     *
-     *  [1,2,3,4] and [1,5]        => [2,3,4,5]
-     *  [1,5]     and [1,2,3,4]    => [2,3,4,5]
-     * </pre>
-     *
-     * @param input            the input elements
-     * @param comparedElements the elements to compare
-     * @param <T>              the element type
-     * @return the difference from the given collections
-     */
-    public static <T> List<T> difference(List<T> input, List<T> comparedElements) {
-        if (Nil.isAllNull(input, comparedElements)) {
-            return newArrayList();
-        }
-        if (Nil.isEmpty(input)) {
-            return comparedElements;
-        }
-        if (Nil.isEmpty(comparedElements)) {
-            return input;
-        }
-        return Stream.concat(input.stream(), comparedElements.stream())
-                .distinct()
-                .filter(value -> notContains(input, value) || notContains(comparedElements, value))
-                .collect(Collectors.toList());
-    }
-
-    /**
      * the same as {@link Converts#toMultiMap(Iterable, Function)}
      *
      * @param inputs       the input elements
@@ -2022,6 +1981,73 @@ public class Collections {
                         .collect(Collectors.toList())
                 )
                 .get();
+    }
+
+    /**
+     * <pre>
+     * get the difference from the given collections.
+     *
+     *  example:
+     *
+     *  []        and [1,2,3]      => [1,2,3]
+     *  [1,2,3]   and null         => [1,2,3]
+     *  [1,2,3]   and []           => [1,2,3]
+     *  [1]       and [1,2,3,4]    => [2,3,4]
+     *  [1,2,3,4] and [1]          => [2,3,4]
+     *  [1,2,3,4] and [1,5]        => [2,3,4,5]
+     *  [1,5]     and [1,2,3,4]    => [2,3,4,5]
+     *
+     *  null      and null         => []
+     *  null      and [1,2,3]      => [1,2,3]
+     * </pre>
+     *
+     * @param input            the input elements
+     * @param comparedElements the elements to compare
+     * @param <T>              the element type
+     * @return the difference from the given collections
+     */
+    public static <T> List<T> difference(List<T> input, List<T> comparedElements) {
+        if (Nil.isAllNull(input, comparedElements)) {
+            return newArrayList();
+        }
+        if (Nil.isEmpty(input)) {
+            return comparedElements;
+        }
+        if (Nil.isEmpty(comparedElements)) {
+            return input;
+        }
+        return Stream.concat(input.stream(), comparedElements.stream())
+                .distinct()
+                .filter(value -> notContains(input, value) || notContains(comparedElements, value))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * <pre>
+     * get the different set from the given collections.
+     * different set refers to the collection of all elements in one set that are not in another set.
+     *
+     * example:
+     *
+     *  [2,3,4] and [3,4,5]      => [2]
+     *  [2,3,4] and [4,5,6]      => [2,3]
+     *  [2,3,4] and [5,6,7]      => [2,3,4]
+     *  [2,3,4] and [2,3,4]      => []
+     *
+     *  null    and null         => []
+     *  [null]  and null         => []
+     *  [null]  and [1,2,3]      => []
+     *  [1,2,3] and [null]       => [1,2,3]
+     * </pre>
+     *
+     * @param input1 the one collection
+     * @param input2 the another collection
+     * @param <T>    the collection element type
+     * @return the different set from the given collections
+     * @see CollectionUtil#subtract(Collection, Collection)
+     */
+    public static <T> List<T> differenceSet(Collection<T> input1, Collection<T> input2) {
+        return CollectionUtil.subtractToList(input1, input2);
     }
 
 }
