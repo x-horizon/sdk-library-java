@@ -11,6 +11,7 @@ import cn.srd.library.java.contract.model.protocol.WebResponse;
 import cn.srd.library.java.contract.model.throwable.*;
 import cn.srd.library.java.tool.convert.api.Converts;
 import cn.srd.library.java.tool.spring.contract.interceptor.WebExceptionInterceptor;
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.core.annotation.Order;
@@ -44,6 +45,7 @@ public class WebFluxExceptionInterceptor extends WebExceptionInterceptor impleme
         String requestUri = exchange.getRequest().getPath().toString();
         return exchange.getResponse().writeWith(Mono.just(exchange.getResponse().bufferFactory().wrap(Converts.onJackson().toString(switch (throwable) {
                     case NoResourceFoundException exception -> whenNoResourceFoundException(requestUri, exception);
+                    case UnrecognizedPropertyException exception -> whenUnrecognizedPropertyException(requestUri, exception);
                     case InvalidIdException ignore -> whenInvalidIdException(requestUri);
                     case InvalidArgumentException exception -> whenInvalidArgumentException(requestUri, exception);
                     case UnsupportedException ignore -> whenUnsupportedException(requestUri);

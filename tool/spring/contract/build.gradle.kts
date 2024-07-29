@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 dependencies {
+    api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_JACKSON)))
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_VALIDATION_HIBERNATE)))
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_VALIDATION_JAKARTA)))

@@ -12,6 +12,8 @@ import cn.srd.library.java.contract.model.throwable.DataNotFoundException;
 import cn.srd.library.java.contract.model.throwable.InvalidArgumentException;
 import cn.srd.library.java.contract.model.throwable.RunningException;
 import cn.srd.library.java.tool.lang.object.Nil;
+import cn.srd.library.java.tool.lang.text.Strings;
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import lombok.extern.slf4j.Slf4j;
 
 import static cn.srd.library.java.contract.model.protocol.WebResponse.error;
@@ -27,6 +29,12 @@ import static cn.srd.library.java.contract.model.protocol.WebResponse.error;
 public abstract class WebExceptionInterceptor {
 
     protected abstract String getModuleView();
+
+    protected WebResponse<Void> whenUnrecognizedPropertyException(String uri, UnrecognizedPropertyException exception) {
+        String message = STR."操作失败：遇到错误的字段名“\{exception.getPropertyName()}”，正确的字段名可能为“\{Strings.joinWithCommaAndSpace(exception.getKnownPropertyIds())}”，请检查！";
+        log.warn(formatMessage(uri, message));
+        return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, message);
+    }
 
     protected WebResponse<Void> whenInvalidIdException(String uri) {
         String message = "操作失败：未提供 id";

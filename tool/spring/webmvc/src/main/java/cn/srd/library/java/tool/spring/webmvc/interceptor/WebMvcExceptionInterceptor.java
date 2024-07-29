@@ -12,8 +12,8 @@ import cn.srd.library.java.contract.model.throwable.*;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import cn.srd.library.java.tool.lang.object.Classes;
 import cn.srd.library.java.tool.spring.contract.interceptor.WebExceptionInterceptor;
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -342,6 +342,18 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
         String message = exception.getBindingResult().getFieldErrors().stream().map(FieldError::getDefaultMessage).distinct().collect(Collectors.joining(", "));
         log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
         return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, message);
+    }
+
+    /**
+     * handle the exception when throw {@link UnrecognizedPropertyException}
+     *
+     * @param httpServletRequest the http servlet request
+     * @param exception          the exception
+     * @return the web response
+     */
+    @ExceptionHandler(UnrecognizedPropertyException.class)
+    public WebResponse<Void> handleUnrecognizedPropertyException(HttpServletRequest httpServletRequest, UnrecognizedPropertyException exception) {
+        return whenUnrecognizedPropertyException(httpServletRequest.getRequestURI(), exception);
     }
 
     /**
