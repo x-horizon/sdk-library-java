@@ -55,15 +55,22 @@ public class Oss {
     }
 
     public static Downloader downloadThumbnail(String url, OssFileDO ossFileDO) {
+        registerFileStoragePropertiesIfNeed(url);
         return Springs.getBean(FileStorageService.class).downloadTh(ossFileDO.toFileInfo());
     }
 
     public static boolean delete(String url, OssFileDO ossFileDO) {
+        registerFileStoragePropertiesIfNeed(url);
         return Springs.getBean(FileStorageService.class).delete(ossFileDO.toFileInfo());
     }
 
     public static boolean exist(String url, OssFileDO ossFileDO) {
+        registerFileStoragePropertiesIfNeed(url);
         return Springs.getBean(FileStorageService.class).exists(ossFileDO.toFileInfo());
+    }
+
+    public static boolean notExist(String url, OssFileDO ossFileDO) {
+        return !exist(url, ossFileDO);
     }
 
     @SuppressWarnings(SuppressWarningConstant.PREVIEW)
