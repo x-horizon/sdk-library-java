@@ -20,4 +20,8 @@ public class Base64s {
         return Base64.getDecoder().decode(base64);
     }
 
+    public static String toString(byte[] data) {
+        return Base64.getEncoder().encodeToString(data);
+    }
+
 }
