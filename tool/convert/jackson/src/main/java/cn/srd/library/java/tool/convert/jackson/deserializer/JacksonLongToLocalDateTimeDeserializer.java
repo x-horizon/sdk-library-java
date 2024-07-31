@@ -7,11 +7,10 @@ package cn.srd.library.java.tool.convert.jackson.deserializer;
 import cn.srd.library.java.tool.lang.time.Times;
 import com.fasterxml.jackson.databind.util.StdConverter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * the jackson deserializer to convert {@link Long} to {@link LocalDate}
+ * the jackson deserializer to convert {@link Long} to {@link LocalDateTime}
  *
  * @author wjm
  * @since 2022-10-28 11:18
