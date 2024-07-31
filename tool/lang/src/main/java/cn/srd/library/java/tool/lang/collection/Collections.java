@@ -1615,6 +1615,19 @@ public class Collections {
     }
 
     /**
+     * get map values, return empty list if null.
+     *
+     * @param input the input elements
+     * @param key   the key
+     * @param <K>   the key type of map
+     * @param <V>   the value type of map
+     * @return values
+     */
+    public static <K, V> List<V> getMapValuesNotNull(Map<K, List<V>> input, K key) {
+        return getMapValues(input, key, newArrayList());
+    }
+
+    /**
      * get the {@link Iterable#iterator() iterator} of {@link Iterable}
      *
      * @param inputs the input elements
