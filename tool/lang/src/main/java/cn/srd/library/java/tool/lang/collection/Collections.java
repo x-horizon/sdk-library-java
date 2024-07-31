@@ -2081,4 +2081,19 @@ public class Collections {
         return CollectionUtil.subtractToList(input1, input2);
     }
 
+    /**
+     * get the intersection from the given collections.
+     *
+     * @param input1 the given collection
+     * @param input2 the given collection
+     * @param <T>    the collection type
+     * @param <E>    the collection element type
+     * @return the intersection from the given collections
+     * @see CollectionUtil#intersection(Collection, Collection, Collection[])
+     */
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public static <T extends Collection<E>, E> T intersection(T input1, T input2) {
+        return (T) CollectionUtil.intersection(input1, input2);
+    }
+
 }
