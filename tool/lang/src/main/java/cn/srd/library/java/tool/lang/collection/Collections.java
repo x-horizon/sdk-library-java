@@ -1597,12 +1597,14 @@ public class Collections {
     }
 
     /**
-     * get all map values
+     * get map values
      *
-     * @param input the input elements
-     * @param <K>   the key type of map
-     * @param <V>   the value type of map
-     * @return all map values
+     * @param input        the input elements
+     * @param key          the key
+     * @param valuesIfNull the result if null
+     * @param <K>          the key type of map
+     * @param <V>          the value type of map
+     * @return values
      */
     public static <K, V> List<V> getMapValues(Map<K, List<V>> input, K key, List<V> valuesIfNull) {
         if (Nil.isEmpty(input)) {
