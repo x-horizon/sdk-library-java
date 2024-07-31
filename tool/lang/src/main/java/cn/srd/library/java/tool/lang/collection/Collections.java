@@ -757,13 +757,13 @@ public class Collections {
     /**
      * return {@link #newHashMap()} if the provide map is null
      *
-     * @param inputs the specified map
-     * @param <K>    the key type of map
-     * @param <V>    the value type of map
+     * @param input the specified map
+     * @param <K>   the key type of map
+     * @param <V>   the value type of map
      * @return return {@link #newHashMap()} if the provide collection is null
      */
-    public static <K, V> Map<K, V> emptyIfNull(Map<K, V> inputs) {
-        return Nil.isNull(inputs) ? newHashMap() : inputs;
+    public static <K, V> Map<K, V> emptyIfNull(Map<K, V> input) {
+        return Nil.isNull(input) ? newHashMap() : input;
     }
 
     /**
@@ -1136,15 +1136,15 @@ public class Collections {
     /**
      * return the specified map after add node
      *
-     * @param inputs the input map
-     * @param <K>    the key type of map
-     * @param <V>    the value type of map
+     * @param input the input map
+     * @param <K>   the key type of map
+     * @param <V>   the value type of map
      * @return the specified map after add node
      */
-    public static <K, V> Map<K, V> put(Map<K, V> inputs, K key, V value) {
-        inputs = emptyIfNull(inputs);
-        inputs.put(key, value);
-        return inputs;
+    public static <K, V> Map<K, V> put(Map<K, V> input, K key, V value) {
+        input = emptyIfNull(input);
+        input.put(key, value);
+        return input;
     }
 
     /**
@@ -1215,13 +1215,13 @@ public class Collections {
     /**
      * reverse the key value map to value key map
      *
-     * @param inputs the input key value map
-     * @param <K>    the key type of map
-     * @param <V>    the value type of map
+     * @param input the input key value map
+     * @param <K>   the key type of map
+     * @param <V>   the value type of map
      * @return the value key map
      */
-    public static <K, V> Map<V, K> reverse(Map<K, V> inputs) {
-        return inputs.entrySet()
+    public static <K, V> Map<V, K> reverse(Map<K, V> input) {
+        return input.entrySet()
                 .stream()
                 .map(entry -> Collections.ofPair(entry.getValue(), entry.getKey()))
                 .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
@@ -1551,49 +1551,65 @@ public class Collections {
     /**
      * get the map first node key
      *
-     * @param inputs the input elements
-     * @param <K>    the key type of map
-     * @param <V>    the value type of map
+     * @param input the input elements
+     * @param <K>   the key type of map
+     * @param <V>   the value type of map
      * @return the map first node key
      */
-    public static <K, V> Optional<K> getMapFirstKey(Map<K, V> inputs) {
-        return Nil.isNotEmpty(inputs) ? getFirst(inputs.keySet()) : Optional.empty();
+    public static <K, V> Optional<K> getMapFirstKey(Map<K, V> input) {
+        return Nil.isNotEmpty(input) ? getFirst(input.keySet()) : Optional.empty();
     }
 
     /**
      * get the map first node value
      *
-     * @param inputs the input elements
-     * @param <K>    the key type of map
-     * @param <V>    the value type of map
+     * @param input the input elements
+     * @param <K>   the key type of map
+     * @param <V>   the value type of map
      * @return the map first node value
      */
-    public static <K, V> Optional<V> getMapFirstValue(Map<K, V> inputs) {
-        return Nil.isNotEmpty(inputs) ? getMapFirstKey(inputs).map(inputs::get).or(Optional::empty) : Optional.empty();
+    public static <K, V> Optional<V> getMapFirstValue(Map<K, V> input) {
+        return Nil.isNotEmpty(input) ? getMapFirstKey(input).map(input::get).or(Optional::empty) : Optional.empty();
     }
 
     /**
      * get all map keys
      *
-     * @param inputs the input elements
-     * @param <K>    the key type of map
-     * @param <V>    the value type of map
+     * @param input the input elements
+     * @param <K>   the key type of map
+     * @param <V>   the value type of map
      * @return all map keys
      */
-    public static <K, V> List<K> getMapKeys(Map<K, V> inputs) {
-        return Nil.isNotEmpty(inputs) ? ofArrayList(inputs.keySet()) : newArrayList();
+    public static <K, V> List<K> getMapKeys(Map<K, V> input) {
+        return Nil.isNotEmpty(input) ? ofArrayList(input.keySet()) : newArrayList();
     }
 
     /**
      * get all map values
      *
-     * @param inputs the input elements
-     * @param <K>    the key type of map
-     * @param <V>    the value type of map
+     * @param input the input elements
+     * @param <K>   the key type of map
+     * @param <V>   the value type of map
      * @return all map values
      */
-    public static <K, V> List<V> getMapValues(Map<K, V> inputs) {
-        return Nil.isNotEmpty(inputs) ? ofArrayList(inputs.values()) : newArrayList();
+    public static <K, V> List<V> getMapValues(Map<K, V> input) {
+        return Nil.isNotEmpty(input) ? ofArrayList(input.values()) : newArrayList();
+    }
+
+    /**
+     * get all map values
+     *
+     * @param input the input elements
+     * @param <K>   the key type of map
+     * @param <V>   the value type of map
+     * @return all map values
+     */
+    public static <K, V> List<V> getMapValues(Map<K, List<V>> input, K key, List<V> valuesIfNull) {
+        if (Nil.isEmpty(input)) {
+            return newArrayList();
+        }
+        List<V> values = input.get(key);
+        return Nil.isNull(values) ? valuesIfNull : values;
     }
 
     /**
