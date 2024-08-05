@@ -245,6 +245,16 @@ public class JacksonConverts {
     }
 
     /**
+     * 转换为 {@link JsonNode}
+     *
+     * @param object 待转换对象
+     * @return 转换后对象
+     */
+    public JsonNode toJsonNode(Object object) {
+        return toJsonNode(toString(object));
+    }
+
+    /**
      * 转换为实体对象
      *
      * @param json        待转换对象
