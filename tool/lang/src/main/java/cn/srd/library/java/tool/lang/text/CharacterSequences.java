@@ -314,6 +314,23 @@ public class CharacterSequences extends Characters {
     }
 
     /**
+     * <pre>
+     * convert collection to strings using {@link SymbolConstant#COMMA_CHINESE} as a separator.
+     *
+     * example:
+     *   the inputs are:       ["1", "2", "345"]
+     *   after join:           "1、2、345"
+     * </pre>
+     *
+     * @param inputs the input elements
+     * @param <T>    the input element type
+     * @return after join
+     */
+    public static <T> String joinWithChineseComma(Iterable<T> inputs) {
+        return join(inputs, SymbolConstant.COMMA_CHINESE);
+    }
+
+    /**
      * see {@link #joinWithCommaAndSpace(Iterable)}
      *
      * @param inputs the input elements

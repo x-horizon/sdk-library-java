@@ -87,6 +87,11 @@ public class SymbolConstant {
     public static final String COMMA = ",";
 
     /**
+     * {@code "、"}
+     */
+    public static final String COMMA_CHINESE = "、";
+
+    /**
      * {@code ":"}
      */
     public static final String COLON = ":";
