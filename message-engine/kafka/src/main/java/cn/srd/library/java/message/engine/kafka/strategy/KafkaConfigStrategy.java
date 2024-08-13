@@ -63,6 +63,16 @@ public class KafkaConfigStrategy<K, V> extends MessageConfigStrategy<KafkaProper
     }
 
     @Override
+    protected MessageEngineType getMessageEngineType() {
+        return MessageEngineType.KAFKA;
+    }
+
+    @Override
+    protected KafkaConfigDTO getMessageConfigDTO() {
+        return Springs.getBean(KafkaConfigDTO.class);
+    }
+
+    @Override
     protected KafkaConfigDTO.BrokerDTO getBrokerDTO() {
         return KafkaConfigDTO.BrokerDTO.builder().serverUrls(this.kafkaProperty.getServerUrls()).build();
     }
@@ -70,7 +80,7 @@ public class KafkaConfigStrategy<K, V> extends MessageConfigStrategy<KafkaProper
     @Override
     protected KafkaConfigDTO.ClientDTO getClientDTO(Annotation clientConfig, Method executeMethod) {
         KafkaConfig.ClientConfig clientConfigAnnotation = (KafkaConfig.ClientConfig) clientConfig;
-        String flowId = MessageFlows.getFlowId(MessageEngineType.KAFKA, executeMethod);
+        String flowId = MessageFlows.getStaticFlowId(MessageEngineType.KAFKA, executeMethod);
         ClientIdGenerateType idGenerateType = clientConfigAnnotation.idGenerateType();
         return KafkaConfigDTO.ClientDTO.builder()
                 .clientId(MessageFlows.getDistributedUniqueClientId(idGenerateType, flowId))
@@ -85,6 +95,7 @@ public class KafkaConfigStrategy<K, V> extends MessageConfigStrategy<KafkaProper
         return KafkaConfigDTO.ProducerDTO.builder()
                 .clientDTO(getClientDTO(producerAnnotation.config().kafka().clientConfig(), executeMethod))
                 .topic(producerAnnotation.topic())
+                .dynamicIs(computeDynamicIs(producerAnnotation.topic()))
                 .build();
     }
 

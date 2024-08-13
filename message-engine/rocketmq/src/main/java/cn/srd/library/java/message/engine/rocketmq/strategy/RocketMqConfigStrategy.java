@@ -9,6 +9,7 @@ import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageVerificationConfigDTO;
+import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
 import cn.srd.library.java.message.engine.rocketmq.model.dto.RocketMqConfigDTO;
 import cn.srd.library.java.message.engine.rocketmq.model.property.RocketMqProperty;
@@ -37,6 +38,16 @@ public class RocketMqConfigStrategy extends MessageConfigStrategy<RocketMqProper
 
     @Override
     protected Class<RocketMqProperty> getPropertyType() {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected MessageEngineType getMessageEngineType() {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected RocketMqConfigDTO getMessageConfigDTO() {
         throw new UnsupportedException();
     }
 

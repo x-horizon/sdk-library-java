@@ -43,6 +43,7 @@ class MessageEngineTest {
             // fooProducer.kafkaSend1();
             // fooProducer.kafkaSend2();
             fooProducer.mqttV3Send1();
+            fooProducer.mqttV3SendDynamic("library-java-foo-dynamic-topic");
             // fooProducer.mqttV3Send2();
             TimeUnit.SECONDS.sleep(1);
         }

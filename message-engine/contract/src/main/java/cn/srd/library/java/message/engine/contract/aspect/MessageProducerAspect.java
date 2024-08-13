@@ -30,7 +30,7 @@ public class MessageProducerAspect extends MessageAspect {
         MessageEngineType messageEngineType = messageProducer.config().engineType();
         Assert.of().setMessage("{}send message failed, the message engine type is [{}], the topic is [{}], please check!", ModuleView.MESSAGE_ENGINE_SYSTEM, messageEngineType.getDescription(), messageProducer.topic())
                 .setThrowable(LibraryJavaInternalException.class)
-                .throwsIfFalse(messageEngineType.getFlowStrategy().send(getMethod(joinPoint), message));
+                .throwsIfFalse(sendMessage(joinPoint, messageEngineType, message));
         return message;
     }
 

@@ -36,7 +36,7 @@ public class MessageConsumerAspect extends MessageAspect {
         }
         Assert.of().setMessage("{}forward message failed, the forward message engine type is [{}], the forward topic is [{}], please check!", ModuleView.MESSAGE_ENGINE_SYSTEM, forwardMessageEngineType.getDescription(), forwardMessageProducer.topic())
                 .setThrowable(LibraryJavaInternalException.class)
-                .throwsIfFalse(forwardMessageEngineType.getFlowStrategy().send(getMethod(joinPoint), message));
+                .throwsIfFalse(sendMessage(joinPoint, forwardMessageEngineType, message));
         return message;
     }
 

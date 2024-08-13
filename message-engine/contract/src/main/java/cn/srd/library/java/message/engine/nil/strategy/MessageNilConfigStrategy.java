@@ -8,6 +8,7 @@ import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageVerificationConfigDTO;
+import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
 import cn.srd.library.java.message.engine.nil.model.dto.MessageNilConfigDTO;
 import cn.srd.library.java.message.engine.nil.model.property.MessageNilProperty;
@@ -37,6 +38,16 @@ public class MessageNilConfigStrategy extends MessageConfigStrategy<MessageNilPr
     @Override
     protected Class<MessageNilProperty> getPropertyType() {
         return MessageNilProperty.class;
+    }
+
+    @Override
+    protected MessageEngineType getMessageEngineType() {
+        return MessageEngineType.NIL;
+    }
+
+    @Override
+    protected MessageNilConfigDTO getMessageConfigDTO() {
+        return null;
     }
 
     @Override

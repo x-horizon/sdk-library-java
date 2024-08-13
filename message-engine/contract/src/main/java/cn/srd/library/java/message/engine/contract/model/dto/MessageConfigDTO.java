@@ -5,6 +5,7 @@
 package cn.srd.library.java.message.engine.contract.model.dto;
 
 import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
+import cn.srd.library.java.tool.lang.collection.Collections;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,9 @@ public class MessageConfigDTO implements Serializable {
     private List<? extends ProducerDTO> producerDTOs;
 
     private List<? extends ConsumerDTO> consumerDTOs;
+
+    @JsonIgnore
+    private Map<String, ProducerDTO> dynamicProducerRouter = Collections.newConcurrentHashMap();
 
     @JsonIgnore
     private Map<Method, ? extends ProducerDTO> producerRouter;
@@ -77,6 +81,10 @@ public class MessageConfigDTO implements Serializable {
         ClientDTO getClientDTO();
 
         String getTopic();
+
+        Boolean getDynamicIs();
+
+        ProducerDTO setTopic(String topic);
 
     }
 

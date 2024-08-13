@@ -4,12 +4,6 @@
 
 package cn.srd.library.java.message.engine.contract.strategy;
 
-import cn.srd.library.java.contract.model.protocol.MessageModel;
-import cn.srd.library.java.tool.spring.contract.support.Springs;
-import org.springframework.integration.dsl.context.IntegrationFlowContext;
-import org.springframework.messaging.support.GenericMessage;
-
-import java.io.Serializable;
 import java.lang.reflect.Method;
 
 /**
@@ -19,16 +13,5 @@ import java.lang.reflect.Method;
 public interface MessageFlowStrategy {
 
     String getFlowId(Method producerMethod);
-
-    default <T extends Serializable> boolean send(Method executeMethod, T message) {
-        return send(getFlowId(executeMethod), message);
-    }
-
-    default <T extends Serializable> boolean send(String flowId, T message) {
-        return Springs.getBean(IntegrationFlowContext.class)
-                .getRegistrationById(flowId)
-                .getInputChannel()
-                .send(new GenericMessage<>(message instanceof MessageModel ? message : MessageModel.builder().data(message).build()));
-    }
 
 }

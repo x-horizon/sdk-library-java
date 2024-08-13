@@ -9,6 +9,7 @@ import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageVerificationConfigDTO;
+import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
 import cn.srd.library.java.message.engine.mqtt.v5.model.dto.MqttV5ConfigDTO;
 import cn.srd.library.java.message.engine.mqtt.v5.model.property.MqttV5Property;
@@ -37,6 +38,16 @@ public class MqttV5ConfigStrategy extends MessageConfigStrategy<MqttV5Property, 
 
     @Override
     protected Class<MqttV5Property> getPropertyType() {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected MessageEngineType getMessageEngineType() {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected MqttV5ConfigDTO getMessageConfigDTO() {
         throw new UnsupportedException();
     }
 

@@ -9,6 +9,7 @@ import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageVerificationConfigDTO;
+import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
 import cn.srd.library.java.message.engine.rabbitmq.model.dto.RabbitMqConfigDTO;
 import cn.srd.library.java.message.engine.rabbitmq.model.property.RabbitMqProperty;
@@ -37,6 +38,16 @@ public class RabbitMqConfigStrategy extends MessageConfigStrategy<RabbitMqProper
 
     @Override
     protected Class<RabbitMqProperty> getPropertyType() {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected MessageEngineType getMessageEngineType() {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected RabbitMqConfigDTO getMessageConfigDTO() {
         throw new UnsupportedException();
     }
 

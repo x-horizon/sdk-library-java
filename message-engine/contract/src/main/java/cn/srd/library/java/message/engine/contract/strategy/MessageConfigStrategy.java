@@ -6,6 +6,7 @@ package cn.srd.library.java.message.engine.contract.strategy;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
+import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.contract.model.throwable.LibraryJavaInternalException;
 import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
@@ -13,16 +14,20 @@ import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageVerificationConfigDTO;
 import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.model.property.MessageEngineProperty;
+import cn.srd.library.java.message.engine.contract.support.MessageFlows;
 import cn.srd.library.java.tool.convert.api.Converts;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import cn.srd.library.java.tool.lang.compare.Comparators;
 import cn.srd.library.java.tool.lang.functional.Assert;
+import cn.srd.library.java.tool.lang.object.Methods;
 import cn.srd.library.java.tool.lang.object.Nil;
+import cn.srd.library.java.tool.lang.object.Objects;
 import cn.srd.library.java.tool.lang.reflect.Reflects;
+import cn.srd.library.java.tool.lang.text.Strings;
 import cn.srd.library.java.tool.spring.contract.support.Annotations;
+import cn.srd.library.java.tool.spring.contract.support.Expressions;
 import cn.srd.library.java.tool.spring.contract.support.Springs;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.context.IntegrationFlowContext;
@@ -33,6 +38,7 @@ import java.lang.reflect.Method;
 import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -48,6 +54,10 @@ public abstract class MessageConfigStrategy<Property extends MessageEngineProper
     protected abstract Class<Config> getConfigType();
 
     protected abstract Class<Property> getPropertyType();
+
+    protected abstract MessageEngineType getMessageEngineType();
+
+    protected abstract Config getMessageConfigDTO();
 
     protected abstract MessageVerificationConfigDTO getVerificationConfigDTO(Config configDTO);
 
@@ -71,11 +81,17 @@ public abstract class MessageConfigStrategy<Property extends MessageEngineProper
 
     protected abstract void registerConsumerFactory(ConsumerConfig consumerDTO);
 
+    protected boolean computeDynamicIs(String topic) {
+        return Strings.startWith(topic, SymbolConstant.WELL_NUMBER);
+    }
+
     public void initialize(MessageEngineType engineType) {
         log.debug("{}message engine {} customizer is enabled, starting initializing...", ModuleView.MESSAGE_ENGINE_SYSTEM, engineType.getDescription());
 
         BrokerConfig brokerDTO = getBrokerDTO();
         List<ProducerConfig> producerDTOs = getProducerDTOs(engineType);
+        List<ProducerConfig> dynamicProducerDTOs = producerDTOs.stream().filter(ProducerConfig::getDynamicIs).toList();
+        List<ProducerConfig> staticProducerDTOs = producerDTOs.stream().filter(producerDTO -> !producerDTO.getDynamicIs()).toList();
         List<ConsumerConfig> consumerDTOs = getConsumerDTOs(engineType);
         Config configDTO = Reflects.newInstance(getConfigType());
         configDTO.setBrokerDTO(brokerDTO)
@@ -88,8 +104,8 @@ public abstract class MessageConfigStrategy<Property extends MessageEngineProper
         completeNativeConfigDTO(configDTO);
 
         registerClientFactory(brokerDTO);
-        registerProducerFactory(producerDTOs);
-        registerProducerFlow(producerDTOs);
+        registerProducerFactory(staticProducerDTOs);
+        registerProducerFlow(staticProducerDTOs);
         registerConsumerFactory(consumerDTOs);
         registerConsumerFlow(consumerDTOs);
 
@@ -98,20 +114,25 @@ public abstract class MessageConfigStrategy<Property extends MessageEngineProper
         log.debug("""
                         {}message engine {} customizer has loaded the following configurations:
                         --------------------------------------------------------------------------------------------------------------------------------
-                        {} Broker Info:
+                        {} broker info:
                         {}
                         --------------------------------------------------------------------------------------------------------------------------------
-                        {} Producer Infos:
+                        {} static producer infos:
                         {}
                         --------------------------------------------------------------------------------------------------------------------------------
-                        {} Consumer Infos:
+                        {} dynamic producer infos:
+                        {}
+                        --------------------------------------------------------------------------------------------------------------------------------
+                        {} consumer infos:
                         {}
                         --------------------------------------------------------------------------------------------------------------------------------""",
                 ModuleView.MESSAGE_ENGINE_SYSTEM, engineType.getDescription(),
                 engineType.getDescription(),
                 Converts.onJackson().toJsonString(configDTO.getBrokerDTO()),
                 engineType.getDescription(),
-                Converts.onJackson().toJsonString(configDTO.getProducerDTOs()),
+                Converts.onJackson().toJsonString(staticProducerDTOs),
+                engineType.getDescription(),
+                Converts.onJackson().toJsonString(dynamicProducerDTOs),
                 engineType.getDescription(),
                 Converts.onJackson().toJsonString(configDTO.getConsumerDTOs())
         );
@@ -129,6 +150,47 @@ public abstract class MessageConfigStrategy<Property extends MessageEngineProper
                         forwardProducerEngineType.getConfigStrategy().registerForwardProducerRouter(consumerMethod, Springs.getBean(getConfigType()).getConsumerRouter().get(consumerMethod).getForwardProducerDTO());
                     }
                 });
+    }
+
+    @SuppressWarnings({SuppressWarningConstant.PREVIEW, SuppressWarningConstant.UNCHECKED})
+    public IntegrationFlowContext.IntegrationFlowRegistration getIntegrationFlowRegistration(Method producerMethod, String[] producerMethodParameterNames, Object[] producerMethodParameterValues, String staticFlowId) {
+        IntegrationFlowContext integrationFlowContext = Springs.getBean(IntegrationFlowContext.class);
+        IntegrationFlowContext.IntegrationFlowRegistration integrationFlowRegistration = integrationFlowContext.getRegistrationById(staticFlowId);
+        if (Nil.isNotNull(integrationFlowRegistration)) {
+            return integrationFlowRegistration;
+        }
+
+        Config messageConfigDTO = getMessageConfigDTO();
+        ProducerConfig producerDTO = (ProducerConfig) messageConfigDTO.getProducerRouter().get(producerMethod);
+        MessageEngineType messageEngineType = getMessageEngineType();
+        String topic = Optional.ofNullable(Expressions.getInstance().parse(producerMethodParameterNames, producerMethodParameterValues, producerDTO.getTopic()))
+                .map(Object::toString)
+                .orElseThrow(() -> new LibraryJavaInternalException(STR."\{ModuleView.MESSAGE_ENGINE_SYSTEM}could not parse the topic from method [\{Methods.getFullName(producerMethod)}], the method parameter names are \{producerMethodParameterNames}, the method parameter value are \{producerMethodParameterValues}, the topic expression is [\{producerDTO.getTopic()}], please check!"));
+        String dynamicFlowId = MessageFlows.getDynamicFlowId(messageEngineType, producerMethod, topic);
+        integrationFlowRegistration = integrationFlowContext.getRegistrationById(dynamicFlowId);
+        if (Nil.isNotNull(integrationFlowRegistration)) {
+            return integrationFlowRegistration;
+        }
+
+        ProducerConfig dynamicProducerDTO = Objects.clone(producerDTO);
+        dynamicProducerDTO
+                .setTopic(topic)
+                .getClientDTO()
+                .setClientId(MessageFlows.getDistributedUniqueClientId(dynamicProducerDTO.getClientDTO().getIdGenerateType(), dynamicFlowId))
+                .setFlowId(dynamicFlowId);
+        messageConfigDTO.getDynamicProducerRouter().put(dynamicFlowId, dynamicProducerDTO);
+
+        registerProducerFactory(List.of(dynamicProducerDTO));
+        registerProducerFlow(List.of(dynamicProducerDTO));
+
+        log.debug("""
+                        {}message engine {} has loaded the the dynamic producer info:
+                        {}""",
+                ModuleView.MESSAGE_ENGINE_SYSTEM, messageEngineType.getDescription(),
+                Converts.onJackson().toJsonString(dynamicProducerDTO)
+        );
+
+        return integrationFlowContext.getRegistrationById(dynamicFlowId);
     }
 
     private List<ProducerConfig> getProducerDTOs(MessageEngineType engineType) {
@@ -242,7 +304,7 @@ public abstract class MessageConfigStrategy<Property extends MessageEngineProper
                     if (Nil.isEmpty(consumerDTO.getTopics())) {
                         consumerFailedReasons.put("topics not found", "could not find topics to consume, please check!");
                     }
-                    if (Nil.isNotZeroValue(consumerDTO.getTopics().stream().filter(Strings::isBlank).count())) {
+                    if (Nil.isNotZeroValue(consumerDTO.getTopics().stream().filter(Nil::isBlank).count())) {
                         consumerFailedReasons.put("invalid topic names", STR."found blank topic name in \{consumerDTO.getTopics()}, please check!");
                     }
                     Class<?> consumerDeclaringClass = consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass();

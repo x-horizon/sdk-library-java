@@ -63,6 +63,8 @@ public class RocketMqConfigDTO extends MessageConfigDTO {
 
         private String topic;
 
+        private Boolean dynamicIs;
+
     }
 
     @Data

@@ -7,7 +7,6 @@ package cn.srd.library.java.message.engine.nil.strategy;
 import cn.srd.library.java.contract.constant.text.SymbolConstant;
 import cn.srd.library.java.message.engine.contract.strategy.MessageFlowStrategy;
 
-import java.io.Serializable;
 import java.lang.reflect.Method;
 
 /**
@@ -19,11 +18,6 @@ public class MessageNilFlowStrategy implements MessageFlowStrategy {
     @Override
     public String getFlowId(Method producerMethod) {
         return SymbolConstant.EMPTY;
-    }
-
-    @Override
-    public <T extends Serializable> boolean send(String flowId, T message) {
-        return true;
     }
 
 }

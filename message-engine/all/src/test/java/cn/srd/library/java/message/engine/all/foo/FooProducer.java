@@ -66,4 +66,15 @@ public class FooProducer {
         return "send2";
     }
 
+    @MessageProducer(
+            topic = "#topic",
+            config = @MessageConfig(engineType = MessageEngineType.MQTT_V3, mqttV3 = @MqttV3Config(
+                    clientConfig = @MqttV3Config.ClientConfig(qosType = MessageQosType.EXACTLY_ONCE)
+            ))
+    )
+    public String mqttV3SendDynamic(String topic) {
+        System.out.println(STR."mqtt-v3 - 动态生产者 -------- \{Times.getCurrentDateTime()}-dynamic-producer-send");
+        return "send2";
+    }
+
 }

@@ -57,6 +57,16 @@ public class MqttV3ConfigStrategy extends MessageConfigStrategy<MqttV3Property, 
     }
 
     @Override
+    protected MessageEngineType getMessageEngineType() {
+        return MessageEngineType.MQTT_V3;
+    }
+
+    @Override
+    protected MqttV3ConfigDTO getMessageConfigDTO() {
+        return Springs.getBean(MqttV3ConfigDTO.class);
+    }
+
+    @Override
     protected MqttV3ConfigDTO.BrokerDTO getBrokerDTO() {
         return MqttV3ConfigDTO.BrokerDTO.builder()
                 .serverUrls(this.mqttV3Property.getServerUrls())
@@ -68,7 +78,7 @@ public class MqttV3ConfigStrategy extends MessageConfigStrategy<MqttV3Property, 
     @Override
     protected MqttV3ConfigDTO.ClientDTO getClientDTO(Annotation clientConfig, Method executeMethod) {
         MqttV3Config.ClientConfig clientConfigAnnotation = (MqttV3Config.ClientConfig) clientConfig;
-        String flowId = MessageFlows.getFlowId(MessageEngineType.MQTT_V3, executeMethod);
+        String flowId = MessageFlows.getStaticFlowId(MessageEngineType.MQTT_V3, executeMethod);
         ClientIdGenerateType idGenerateType = clientConfigAnnotation.idGenerateType();
         return MqttV3ConfigDTO.ClientDTO.builder()
                 .clientId(MessageFlows.getDistributedUniqueClientId(idGenerateType, flowId))
@@ -87,6 +97,7 @@ public class MqttV3ConfigStrategy extends MessageConfigStrategy<MqttV3Property, 
         return MqttV3ConfigDTO.ProducerDTO.builder()
                 .clientDTO(getClientDTO(producerAnnotation.config().mqttV3().clientConfig(), executeMethod))
                 .topic(producerAnnotation.topic())
+                .dynamicIs(computeDynamicIs(producerAnnotation.topic()))
                 .needToSendAsync(producerConfig.needToSendAsync())
                 .build();
     }

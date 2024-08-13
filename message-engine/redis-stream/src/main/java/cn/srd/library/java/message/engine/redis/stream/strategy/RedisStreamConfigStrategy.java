@@ -9,6 +9,7 @@ import cn.srd.library.java.message.engine.contract.MessageConsumer;
 import cn.srd.library.java.message.engine.contract.MessageProducer;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageConfigDTO;
 import cn.srd.library.java.message.engine.contract.model.dto.MessageVerificationConfigDTO;
+import cn.srd.library.java.message.engine.contract.model.enums.MessageEngineType;
 import cn.srd.library.java.message.engine.contract.strategy.MessageConfigStrategy;
 import cn.srd.library.java.message.engine.redis.stream.model.dto.RedisStreamConfigDTO;
 import cn.srd.library.java.message.engine.redis.stream.model.property.RedisStreamProperty;
@@ -37,6 +38,16 @@ public class RedisStreamConfigStrategy extends MessageConfigStrategy<RedisStream
 
     @Override
     protected Class<RedisStreamProperty> getPropertyType() {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected MessageEngineType getMessageEngineType() {
+        throw new UnsupportedException();
+    }
+
+    @Override
+    protected RedisStreamConfigDTO getMessageConfigDTO() {
         throw new UnsupportedException();
     }
 

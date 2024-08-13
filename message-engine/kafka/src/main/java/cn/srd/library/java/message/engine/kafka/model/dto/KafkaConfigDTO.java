@@ -68,6 +68,8 @@ public class KafkaConfigDTO extends MessageConfigDTO {
 
         private String topic;
 
+        private Boolean dynamicIs;
+
     }
 
     @Data

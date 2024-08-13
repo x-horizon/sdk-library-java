@@ -80,6 +80,8 @@ public class MqttV3ConfigDTO extends MessageConfigDTO {
 
         private String topic;
 
+        private Boolean dynamicIs;
+
         private boolean needToSendAsync;
 
     }
