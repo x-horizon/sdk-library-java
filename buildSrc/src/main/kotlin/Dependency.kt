@@ -132,7 +132,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_GEOMETRY_LOCATION_TECH_JTS("org.locationtech.jts:jts-core", BOM_TOOL_GEOMETRY_JTS.version), // need to synchronize with "net.postgis:postgis-jdbc-jts" TODO wjm bom is not invalid
     TOOL_GEOMETRY_LOCATION_TECH_SPATIAL4J("org.locationtech.spatial4j:spatial4j", "0.8"), // need to synchronize with "net.postgis:postgis-jdbc-jts"
     TOOL_GOOGLE_GUAVA("com.google.guava:guava", "32.1.2-jre"), // support spring-boot version to 3.3.0
-    TOOL_HUTOOL("cn.hutool:hutool-all", "5.8.26"),
+    TOOL_HUTOOL("cn.hutool:hutool-all", "5.8.31"),
     TOOL_IO_VAVR("io.vavr:vavr", "0.10.4"),
     TOOL_JDK_BURNING_WAVE_CORE("org.burningwave:core", "12.64.3"),
     TOOL_JNA_VERSION("", "5.13.0"),
