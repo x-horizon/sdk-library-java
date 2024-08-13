@@ -257,7 +257,7 @@ public class MybatisFlexCustomizer implements ConfigurationCustomizer, MyBatisFl
         }
     }
 
-    private Boolean parseEnableAuditLogBooleanValue(AuditLogConfig auditLogConfig) {
+    private boolean parseEnableAuditLogBooleanValue(AuditLogConfig auditLogConfig) {
         Boolean needToEnableAuditLog = Nil.isBlank(auditLogConfig.enableFrom()) ? auditLogConfig.enable() : Springs.getProperty(auditLogConfig.enableFrom(), Boolean.class);
         Assert.of().setMessage("{}could not parse the boolean value to enable audit log, please check your configuration uri!", ModuleView.ORM_MYBATIS_SYSTEM)
                 .setThrowable(LibraryJavaInternalException.class)
