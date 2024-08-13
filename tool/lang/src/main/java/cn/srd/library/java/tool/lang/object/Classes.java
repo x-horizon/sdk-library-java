@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -143,16 +142,6 @@ public class Classes {
                 .filter(pair -> pair[0].startsWith(pair[1]))
                 .forEach(pair -> Collections.remove(theMostLargerRangePackagePaths, pair[0]));
         return theMostLargerRangePackagePaths;
-    }
-
-    /**
-     * get class of the method define
-     *
-     * @param input the method
-     * @return the class of the method
-     */
-    public static Class<?> getClass(Method input) {
-        return Action.<Class<?>>ifNull(input).then(() -> null).otherwise(input::getDeclaringClass).get();
     }
 
     /**
