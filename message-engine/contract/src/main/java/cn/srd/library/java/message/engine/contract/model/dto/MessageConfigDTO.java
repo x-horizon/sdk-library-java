@@ -7,6 +7,7 @@ package cn.srd.library.java.message.engine.contract.model.dto;
 import cn.srd.library.java.message.engine.contract.model.enums.ClientIdGenerateType;
 import cn.srd.library.java.tool.lang.collection.Collections;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -37,6 +38,7 @@ public class MessageConfigDTO implements Serializable {
     private List<? extends ConsumerDTO> consumerDTOs;
 
     @JsonIgnore
+    @Builder.Default
     private Map<String, ProducerDTO> dynamicProducerRouter = Collections.newConcurrentHashMap();
 
     @JsonIgnore
