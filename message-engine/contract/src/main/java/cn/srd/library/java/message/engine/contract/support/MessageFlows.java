@@ -26,22 +26,20 @@ import java.util.Map;
  * @author wjm
  * @since 2024-05-27 18:11
  */
+@SuppressWarnings(SuppressWarningConstant.PREVIEW)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MessageFlows {
 
     private static final Map<Method, Map<MessageEngineType, String>> STATIC_FLOW_ID_CACHE = Collections.newConcurrentHashMap(256);
 
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static String getStaticFlowId(MessageEngineType engineType, Method annotatedMethod) {
         return STATIC_FLOW_ID_CACHE.computeIfAbsent(annotatedMethod, _ -> Collections.newConcurrentHashMap()).computeIfAbsent(engineType, _ -> STR."\{engineType.getDescription()}-\{Methods.getFullName(annotatedMethod)}");
     }
 
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static String getDynamicFlowId(MessageEngineType engineType, Method annotatedMethod, String topic) {
         return STR."\{getStaticFlowId(engineType, annotatedMethod)}-\{topic}";
     }
 
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static String getDistributedUniqueClientId(ClientIdGenerateType generateType, String flowId) {
         return STR."\{flowId}-\{generateType.getStrategy().getId()}";
     }
