@@ -23,6 +23,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_TEST_MOCKITO("org.mockito:mockito-bom", "5.11.0"), // support spring-boot version to 3.3.4
     BOM_TEST_TESTCONTAINERS("org.testcontainers:testcontainers-bom", "1.20.1"),
     BOM_TOOL_CONTENT_ANALYSIS_APACHE_TIKA("org.apache.tika:tika-bom", "2.4.1"), // need to synchronize with "org.dromara.x-file-storage:x-file-storage-parent"
+    BOM_TOOL_DYNAMIC_TP("org.dromara.dynamictp:dynamic-tp-dependencies", "1.1.8.1-3.x"), // TODO wjm support spring-boot version to 3.1.4、support spring-cloud-alibaba version to 2022.0.0.0
     BOM_TOOL_GEOMETRY_JTS("org.locationtech.jts:jts", "1.20.0"),
     BOM_TOOL_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-pom", "1.4.5"), // TODO wjm support spring-boot version to 2.7.9
     BOM_TOOL_MAPSTRUCT_PROTOBUF("no.entur.mapstruct.spi:spi-protobuf-parent", "1.44"), // TODO wjm support com.google.protobuf:protobuf-bom version to 3.23.0
@@ -155,6 +156,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_SERIALIZATION_PROTOBUF_SQUAREUP_WIRE("com.squareup.wire:wire-schema", ""),
     TOOL_STREAM_JDFRAME("io.github.burukeyou:jdframe", "0.0.2"),
     TOOL_TEMPLATE_ENGINE_APACHE_VELOCITY("org.apache.velocity:velocity", "1.7"), // TODO wjm 该包 1.7 版本后破坏性更新极大，暂使用旧版本，新版本为：TOOL_APACHE_TEMPLATE_ENGINE_VELOCITY("org.apache.velocity:velocity-engine-core", "2.3")，升级链接：https://velocity.apache.org/engine/2.3/upgrading.html#upgrading-from-velocity-17-to-velocity-20，目前暂使用旧版本
+    TOOL_THREAD_POOL_DYNAMIC_TP_NACOS("org.dromara.dynamictp:dynamic-tp-spring-cloud-starter-nacos", ""),
     TOOL_VALIDATION_HIBERNATE("org.hibernate.validator:hibernate-validator", "8.0.1.Final"),
     TOOL_VALIDATION_JAKARTA("jakarta.validation:jakarta.validation-api", "3.0.2"), // support spring-boot version to 3.3.4
     TOOL_VALIDATION_JSON_SCHEMA("com.networknt:json-schema-validator", "1.5.0"),

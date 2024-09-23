@@ -136,6 +136,7 @@ object GradleModule {
     const val TOOL_SPRING_WEBFLUX = "tool-spring-webflux"
     const val TOOL_SPRING_WEBMVC = "tool-spring-webmvc"
     const val TOOL_TEMPLATE_ENGINE = "tool-template-engine"
+    const val TOOL_THREAD_POOL_NACOS = "tool-thread-pool-nacos"
     const val TOOL_VALIDATION_HIBERNATE = "tool-validation-hibernate"
     const val TOOL_VALIDATION_JAKARTA = "tool-validation-jakarta"
     const val TOOL_VALIDATION_JSON_SCHEMA = "tool-validation-json-schema"
