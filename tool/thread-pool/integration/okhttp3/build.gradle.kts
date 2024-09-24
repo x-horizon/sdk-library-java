@@ -5,5 +5,5 @@
 dependencies {
     api(project(GradleModule.toReferenceName(GradleModule.TOOL_THREAD_POOL_CONTRACT)))
 
-    api(GradleDependency.TOOL_THREAD_POOL_DYNAMIC_TP_THIRD_PARTY_GRPC.withoutVersion)
+    api(GradleDependency.TOOL_THREAD_POOL_DYNAMIC_TP_INTEGRATION_OKHTTP3.withoutVersion)
 }

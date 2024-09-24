@@ -31,7 +31,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF("com.google.protobuf:protobuf-bom", "3.25.1"), // need to synchronize with "io.grpc:grpc-bom", "net.devh:grpc-spring-boot-starter"
     BOM_TOOL_SERIALIZATION_SQUAREUP_WIRE("com.squareup.wire:wire-bom", "5.1.0"),
     BOM_WEB_FEIGN("io.github.openfeign:feign-bom", "13.2.1"), // need to synchronize with "org.springframework.cloud:spring-cloud-starter-openfeign"
-    BOM_WEB_GRPC("io.grpc:grpc-bom", "1.63.0"), // need to synchronize with "net.devh:grpc-spring-boot-starter"
+    BOM_WEB_GRPC("io.grpc:grpc-bom", "1.63.0"), // need to synchronize with "net.devh:grpc-spring-boot-starter", TODO wjm support "dynamic-tp-spring-boot-starter-adapter-grpc" version to 1.36.0
     BOM_WEB_NETTY("io.netty:netty-bom", "4.1.113.Final"), // support spring-boot version to 3.3.4
     BOM_WEB_REACTOR("io.projectreactor:reactor-bom", "2023.0.10"), // support spring-boot version to 3.3.4
 
@@ -156,12 +156,11 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_SERIALIZATION_PROTOBUF_SQUAREUP_WIRE("com.squareup.wire:wire-schema", ""),
     TOOL_STREAM_JDFRAME("io.github.burukeyou:jdframe", "0.0.2"),
     TOOL_TEMPLATE_ENGINE_APACHE_VELOCITY("org.apache.velocity:velocity", "1.7"), // TODO wjm 该包 1.7 版本后破坏性更新极大，暂使用旧版本，新版本为：TOOL_APACHE_TEMPLATE_ENGINE_VELOCITY("org.apache.velocity:velocity-engine-core", "2.3")，升级链接：https://velocity.apache.org/engine/2.3/upgrading.html#upgrading-from-velocity-17-to-velocity-20，目前暂使用旧版本
-
-    //    TOOL_THREAD_POOL_DYNAMIC_TP_COMMON("org.dromara.dynamictp:dynamic-tp-common", ""),
-//    TOOL_THREAD_POOL_DYNAMIC_TP_CORE("org.dromara.dynamictp:dynamic-tp-core", ""),
     TOOL_THREAD_POOL_DYNAMIC_TP_COMMON("org.dromara.dynamictp:dynamic-tp-spring-boot-starter-common", ""),
     TOOL_THREAD_POOL_DYNAMIC_TP_CONFIG_NACOS("org.dromara.dynamictp:dynamic-tp-spring-cloud-starter-nacos", ""),
-    TOOL_THREAD_POOL_DYNAMIC_TP_THIRD_PARTY_GRPC("org.dromara.dynamictp:dynamic-tp-spring-boot-starter-adapter-grpc", ""),
+    TOOL_THREAD_POOL_DYNAMIC_TP_INTEGRATION_GRPC("org.dromara.dynamictp:dynamic-tp-spring-boot-starter-adapter-grpc", ""),
+    TOOL_THREAD_POOL_DYNAMIC_TP_INTEGRATION_OKHTTP3("org.dromara.dynamictp:dynamic-tp-spring-boot-starter-adapter-okhttp3", ""),
+    TOOL_THREAD_POOL_DYNAMIC_TP_INTEGRATION_TOMCAT("org.dromara.dynamictp:dynamic-tp-spring-boot-starter-adapter-webserver", ""),
     TOOL_VALIDATION_HIBERNATE("org.hibernate.validator:hibernate-validator", "8.0.1.Final"),
     TOOL_VALIDATION_JAKARTA("jakarta.validation:jakarta.validation-api", "3.0.2"), // support spring-boot version to 3.3.4
     TOOL_VALIDATION_JSON_SCHEMA("com.networknt:json-schema-validator", "1.5.0"),

@@ -138,7 +138,9 @@ object GradleModule {
     const val TOOL_TEMPLATE_ENGINE = "tool-template-engine"
     const val TOOL_THREAD_POOL_CONTRACT = "tool-thread-pool-contract"
     const val TOOL_THREAD_POOL_CONFIG_NACOS = "tool-thread-pool-config-nacos"
-    const val TOOL_THREAD_POOL_THIRD_PARTY_GRPC = "tool-thread-pool-third-party-grpc"
+    const val TOOL_THREAD_POOL_INTEGRATION_GRPC = "tool-thread-pool-integration-grpc"
+    const val TOOL_THREAD_POOL_INTEGRATION_OKHTTP3 = "tool-thread-pool-integration-okhttp3"
+    const val TOOL_THREAD_POOL_INTEGRATION_TOMCAT = "tool-thread-pool-integration-tomcat"
     const val TOOL_VALIDATION_HIBERNATE = "tool-validation-hibernate"
     const val TOOL_VALIDATION_JAKARTA = "tool-validation-jakarta"
     const val TOOL_VALIDATION_JSON_SCHEMA = "tool-validation-json-schema"
@@ -214,7 +216,9 @@ internal object ModuleHelper {
         put(GradleModule.TOOL_SERIALIZATION_FASTJSON2, ":tool:serialization:fastjson2")
         put(GradleModule.TOOL_THREAD_POOL_CONTRACT, ":tool:thread-pool:contract")
         put(GradleModule.TOOL_THREAD_POOL_CONFIG_NACOS, ":tool:thread-pool:config:nacos")
-        put(GradleModule.TOOL_THREAD_POOL_THIRD_PARTY_GRPC, ":tool:thread-pool:third-party:grpc")
+        put(GradleModule.TOOL_THREAD_POOL_INTEGRATION_GRPC, ":tool:thread-pool:integration:grpc")
+        put(GradleModule.TOOL_THREAD_POOL_INTEGRATION_OKHTTP3, ":tool:thread-pool:integration:okhttp3")
+        put(GradleModule.TOOL_THREAD_POOL_INTEGRATION_TOMCAT, ":tool:thread-pool:integration:tomcat")
     }
 
     private var rootModuleTreeNode: ModuleTreeNode? = null
