@@ -136,7 +136,9 @@ object GradleModule {
     const val TOOL_SPRING_WEBFLUX = "tool-spring-webflux"
     const val TOOL_SPRING_WEBMVC = "tool-spring-webmvc"
     const val TOOL_TEMPLATE_ENGINE = "tool-template-engine"
-    const val TOOL_THREAD_POOL_NACOS = "tool-thread-pool-nacos"
+    const val TOOL_THREAD_POOL_CONTRACT = "tool-thread-pool-contract"
+    const val TOOL_THREAD_POOL_CONFIG_NACOS = "tool-thread-pool-config-nacos"
+    const val TOOL_THREAD_POOL_THIRD_PARTY_GRPC = "tool-thread-pool-third-party-grpc"
     const val TOOL_VALIDATION_HIBERNATE = "tool-validation-hibernate"
     const val TOOL_VALIDATION_JAKARTA = "tool-validation-jakarta"
     const val TOOL_VALIDATION_JSON_SCHEMA = "tool-validation-json-schema"
@@ -210,6 +212,9 @@ internal object ModuleHelper {
         put(GradleModule.TOOL_CONVERT_MAPSTRUCT_PLUS, ":tool:convert:mapstruct-plus")
         put(GradleModule.TOOL_CONVERT_MAPSTRUCT_PROTOBUF, ":tool:convert:mapstruct-protobuf")
         put(GradleModule.TOOL_SERIALIZATION_FASTJSON2, ":tool:serialization:fastjson2")
+        put(GradleModule.TOOL_THREAD_POOL_CONTRACT, ":tool:thread-pool:contract")
+        put(GradleModule.TOOL_THREAD_POOL_CONFIG_NACOS, ":tool:thread-pool:config:nacos")
+        put(GradleModule.TOOL_THREAD_POOL_THIRD_PARTY_GRPC, ":tool:thread-pool:third-party:grpc")
     }
 
     private var rootModuleTreeNode: ModuleTreeNode? = null

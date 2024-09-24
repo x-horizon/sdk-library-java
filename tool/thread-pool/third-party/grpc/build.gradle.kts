@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.REGISTRATION_NACOS)))
+    api(project(GradleModule.toReferenceName(GradleModule.TOOL_THREAD_POOL_CONTRACT)))
 
-    api(GradleDependency.TOOL_THREAD_POOL_DYNAMIC_TP_NACOS.withoutVersion)
+    api(GradleDependency.TOOL_THREAD_POOL_DYNAMIC_TP_THIRD_PARTY_GRPC.withoutVersion)
 }

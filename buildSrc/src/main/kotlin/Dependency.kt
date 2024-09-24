@@ -156,7 +156,12 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_SERIALIZATION_PROTOBUF_SQUAREUP_WIRE("com.squareup.wire:wire-schema", ""),
     TOOL_STREAM_JDFRAME("io.github.burukeyou:jdframe", "0.0.2"),
     TOOL_TEMPLATE_ENGINE_APACHE_VELOCITY("org.apache.velocity:velocity", "1.7"), // TODO wjm 该包 1.7 版本后破坏性更新极大，暂使用旧版本，新版本为：TOOL_APACHE_TEMPLATE_ENGINE_VELOCITY("org.apache.velocity:velocity-engine-core", "2.3")，升级链接：https://velocity.apache.org/engine/2.3/upgrading.html#upgrading-from-velocity-17-to-velocity-20，目前暂使用旧版本
-    TOOL_THREAD_POOL_DYNAMIC_TP_NACOS("org.dromara.dynamictp:dynamic-tp-spring-cloud-starter-nacos", ""),
+
+    //    TOOL_THREAD_POOL_DYNAMIC_TP_COMMON("org.dromara.dynamictp:dynamic-tp-common", ""),
+//    TOOL_THREAD_POOL_DYNAMIC_TP_CORE("org.dromara.dynamictp:dynamic-tp-core", ""),
+    TOOL_THREAD_POOL_DYNAMIC_TP_COMMON("org.dromara.dynamictp:dynamic-tp-spring-boot-starter-common", ""),
+    TOOL_THREAD_POOL_DYNAMIC_TP_CONFIG_NACOS("org.dromara.dynamictp:dynamic-tp-spring-cloud-starter-nacos", ""),
+    TOOL_THREAD_POOL_DYNAMIC_TP_THIRD_PARTY_GRPC("org.dromara.dynamictp:dynamic-tp-spring-boot-starter-adapter-grpc", ""),
     TOOL_VALIDATION_HIBERNATE("org.hibernate.validator:hibernate-validator", "8.0.1.Final"),
     TOOL_VALIDATION_JAKARTA("jakarta.validation:jakarta.validation-api", "3.0.2"), // support spring-boot version to 3.3.4
     TOOL_VALIDATION_JSON_SCHEMA("com.networknt:json-schema-validator", "1.5.0"),
