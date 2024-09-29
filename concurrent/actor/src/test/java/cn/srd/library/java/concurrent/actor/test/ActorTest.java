@@ -7,6 +7,7 @@ package cn.srd.library.java.concurrent.actor.test;
 import cn.srd.library.java.concurrent.actor.foo.TelemetryActorEvent;
 import cn.srd.library.java.concurrent.actor.foo.TelemetryActorType;
 import cn.srd.library.java.tool.enums.autoconfigure.EnableEnumAutowired;
+import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -46,7 +47,7 @@ class ActorTest {
         // Thread.startVirtualThread(runnable);
         // Thread.ofVirtual().name(name).start(runnable);
         CountDownLatch countDownLatch = new CountDownLatch(5);
-        ExecutorService cachedThreadPool = Executors.newVirtualThreadPerTaskExecutor();
+        @Cleanup ExecutorService cachedThreadPool = Executors.newVirtualThreadPerTaskExecutor();
 
         for (int i = 0; i < 5; i++) {
             cachedThreadPool.execute(() -> {
