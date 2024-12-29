@@ -62,6 +62,7 @@ include(":message-engine:client:mqtt:v5")
 include(":message-engine:client:rabbitmq")
 include(":message-engine:client:redis-stream")
 include(":message-engine:client:rocketmq")
+include(":message-engine:server:contract")
 include(":message-engine:server:mqtt")
 
 include(":metric:drop-wizard")

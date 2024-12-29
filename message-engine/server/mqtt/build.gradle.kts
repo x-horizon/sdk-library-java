@@ -3,7 +3,5 @@
 // license that can be found in the LICENSE file.
 
 dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
-
-    api(GradleDependency.WEB_IO_NETTY.withoutVersion)
+    api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_SERVER_CONTRACT)))
 }

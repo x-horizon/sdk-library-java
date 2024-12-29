@@ -167,6 +167,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_CLIENT_RABBITMQ)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_CLIENT_REDIS_STREAM)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_CLIENT_ROCKETMQ)))
+        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_SERVER_CONTRACT)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_SERVER_MQTT)))
 
         api(project(GradleModule.toReferenceName(GradleModule.METRIC_DROP_WIZARD)))

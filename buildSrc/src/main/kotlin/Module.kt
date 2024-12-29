@@ -53,6 +53,7 @@ object GradleModule {
     const val MESSAGE_ENGINE_CLIENT_RABBITMQ = "message-engine-client-rabbitmq"
     const val MESSAGE_ENGINE_CLIENT_REDIS_STREAM = "message-engine-client-redis-stream"
     const val MESSAGE_ENGINE_CLIENT_ROCKETMQ = "message-engine-client-rocketmq"
+    const val MESSAGE_ENGINE_SERVER_CONTRACT = "message-engine-server-contract"
     const val MESSAGE_ENGINE_SERVER_MQTT = "message-engine-server-mqtt"
 
     const val METRIC_DROP_WIZARD = "metric-drop-wizard"
