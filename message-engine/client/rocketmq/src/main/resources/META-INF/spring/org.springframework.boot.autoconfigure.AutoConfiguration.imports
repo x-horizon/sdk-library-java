@@ -1,1 +1,1 @@
-cn.srd.library.java.message.engine.client.rocketmq.autoconfigure.RocketMqAutoConfigurer
+cn.srd.library.java.message.engine.client.rocketmq.autoconfigure.RocketMqClientAutoConfigurer

@@ -4,7 +4,7 @@
 
 package cn.srd.library.java.message.engine.client.kafka;
 
-import cn.srd.library.java.message.engine.client.contract.model.enums.ClientIdGenerateType;
+import cn.srd.library.java.message.engine.client.contract.model.enums.MessageClientIdGenerateType;
 import cn.srd.library.java.message.engine.client.kafka.model.enums.KafkaConsumerAckMode;
 import cn.srd.library.java.message.engine.client.kafka.model.enums.KafkaConsumerListenerMode;
 import cn.srd.library.java.message.engine.client.kafka.model.enums.KafkaConsumerOffsetResetMode;
@@ -31,7 +31,7 @@ public @interface KafkaConfig {
     @interface ClientConfig {
 
         // TODO wjm 此处实现不够好，与 snowflake id 强绑定，客户端不一定需要用到 snowflake id，目前客户端必须提供正确的 redis 配置，否则项目启动报错
-        ClientIdGenerateType idGenerateType() default ClientIdGenerateType.SNOWFLAKE;
+        MessageClientIdGenerateType idGenerateType() default MessageClientIdGenerateType.SNOWFLAKE;
 
     }
 

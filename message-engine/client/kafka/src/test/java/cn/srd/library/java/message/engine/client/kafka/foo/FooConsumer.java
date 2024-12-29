@@ -5,9 +5,9 @@
 package cn.srd.library.java.message.engine.client.kafka.foo;
 
 import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
-import cn.srd.library.java.message.engine.client.contract.MessageConfig;
-import cn.srd.library.java.message.engine.client.contract.MessageConsumer;
-import cn.srd.library.java.message.engine.client.contract.model.enums.MessageEngineType;
+import cn.srd.library.java.message.engine.client.contract.MessageClientConfig;
+import cn.srd.library.java.message.engine.client.contract.MessageClientConsumer;
+import cn.srd.library.java.message.engine.client.contract.model.enums.MessageClientType;
 import cn.srd.library.java.message.engine.client.kafka.KafkaConfig;
 import cn.srd.library.java.tool.lang.time.Times;
 import org.springframework.stereotype.Component;
@@ -20,9 +20,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class FooConsumer {
 
-    @MessageConsumer(
+    @MessageClientConsumer(
             topics = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2},
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @KafkaConfig(
+            config = @MessageClientConfig(engineType = MessageClientType.KAFKA, kafka = @KafkaConfig(
                     clientConfig = @KafkaConfig.ClientConfig,
                     consumerConfig = @KafkaConfig.ConsumerConfig(groupId = "1")
             ))
@@ -31,9 +31,9 @@ public class FooConsumer {
         System.out.println(STR."消费者1 -------- \{Times.getCurrentDateTime()}-receive-\{message}");
     }
 
-    @MessageConsumer(
+    @MessageClientConsumer(
             topics = FooTopicConstant.TOPIC_TEST1,
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @KafkaConfig(
+            config = @MessageClientConfig(engineType = MessageClientType.KAFKA, kafka = @KafkaConfig(
                     clientConfig = @KafkaConfig.ClientConfig,
                     consumerConfig = @KafkaConfig.ConsumerConfig(groupId = "1")
             ))
@@ -42,9 +42,9 @@ public class FooConsumer {
         System.out.println(STR."消费者2 -------- \{Times.getCurrentDateTime()}-receive-\{message}");
     }
 
-    @MessageConsumer(
+    @MessageClientConsumer(
             topics = FooTopicConstant.TOPIC_TEST1,
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @KafkaConfig(
+            config = @MessageClientConfig(engineType = MessageClientType.KAFKA, kafka = @KafkaConfig(
                     clientConfig = @KafkaConfig.ClientConfig,
                     consumerConfig = @KafkaConfig.ConsumerConfig(groupId = "2")
             ))

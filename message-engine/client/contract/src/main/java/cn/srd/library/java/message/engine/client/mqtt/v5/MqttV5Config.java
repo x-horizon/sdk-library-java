@@ -4,9 +4,9 @@
 
 package cn.srd.library.java.message.engine.client.mqtt.v5;
 
-import cn.srd.library.java.message.engine.client.contract.model.enums.ClientIdGenerateType;
+import cn.srd.library.java.message.engine.client.contract.model.enums.MessageClientIdGenerateType;
 import cn.srd.library.java.message.engine.client.contract.model.enums.MessageQosType;
-import cn.srd.library.java.message.engine.client.mqtt.contract.support.MqttDefaultConfigConstant;
+import cn.srd.library.java.message.engine.client.mqtt.contract.support.MqttClientDefaultConfigConstant;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -29,19 +29,19 @@ public @interface MqttV5Config {
     @interface ClientConfig {
 
         // TODO wjm 此处实现不够好，与 snowflake id 强绑定，客户端不一定需要用到 snowflake id，目前客户端必须提供正确的 redis 配置，否则项目启动报错
-        ClientIdGenerateType idGenerateType() default ClientIdGenerateType.SNOWFLAKE;
+        MessageClientIdGenerateType idGenerateType() default MessageClientIdGenerateType.SNOWFLAKE;
 
         MessageQosType qosType() default MessageQosType.AT_MOST_ONCE;
 
-        String completionTimeout() default MqttDefaultConfigConstant.Client.COMPLETION_TIMEOUT;
+        String completionTimeout() default MqttClientDefaultConfigConstant.Client.COMPLETION_TIMEOUT;
 
-        String disconnectCompletionTimeout() default MqttDefaultConfigConstant.Client.DISCONNECT_COMPLETION_TIMEOUT;
+        String disconnectCompletionTimeout() default MqttClientDefaultConfigConstant.Client.DISCONNECT_COMPLETION_TIMEOUT;
 
     }
 
     @interface ProducerConfig {
 
-        boolean needToSendAsync() default MqttDefaultConfigConstant.Producer.NEED_TO_SEND_ASYNC;
+        boolean needToSendAsync() default MqttClientDefaultConfigConstant.Producer.NEED_TO_SEND_ASYNC;
 
     }
 

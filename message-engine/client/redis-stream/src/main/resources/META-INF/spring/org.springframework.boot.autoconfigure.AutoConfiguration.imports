@@ -1,1 +1,1 @@
-cn.srd.library.java.message.engine.client.redis.stream.autoconfigure.RedisStreamAutoConfigurer
+cn.srd.library.java.message.engine.client.redis.stream.autoconfigure.RedisStreamClientAutoConfigurer

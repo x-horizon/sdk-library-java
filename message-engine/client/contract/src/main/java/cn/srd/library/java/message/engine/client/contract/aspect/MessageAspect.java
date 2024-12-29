@@ -5,7 +5,7 @@
 package cn.srd.library.java.message.engine.client.contract.aspect;
 
 import cn.srd.library.java.contract.model.protocol.MessageModel;
-import cn.srd.library.java.message.engine.client.contract.model.enums.MessageEngineType;
+import cn.srd.library.java.message.engine.client.contract.model.enums.MessageClientType;
 import cn.srd.library.java.tool.spring.contract.support.AopCaptor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.messaging.support.GenericMessage;
@@ -19,15 +19,15 @@ import java.lang.reflect.Method;
  */
 public abstract class MessageAspect implements AopCaptor {
 
-    public boolean sendMessage(ProceedingJoinPoint joinPoint, MessageEngineType messageEngineType, Serializable message) {
+    public boolean sendMessage(ProceedingJoinPoint joinPoint, MessageClientType messageClientType, Serializable message) {
         Method producerMethod = getMethod(joinPoint);
-        return messageEngineType
+        return messageClientType
                 .getConfigStrategy()
                 .getIntegrationFlowRegistration(
                         producerMethod,
                         getMethodParameterNames(joinPoint),
                         joinPoint.getArgs(),
-                        messageEngineType.getFlowStrategy().getFlowId(producerMethod)
+                        messageClientType.getFlowStrategy().getFlowId(producerMethod)
                 )
                 .getInputChannel()
                 .send(new GenericMessage<>(message instanceof MessageModel ? message : MessageModel.builder().data(message).build()));

@@ -1,1 +1,1 @@
-org.springframework.context.ApplicationContextInitializer=cn.srd.library.java.message.engine.client.contract.autoconfigure.MessageEngineBasePackagePathAutoConfigurer
+org.springframework.context.ApplicationContextInitializer=cn.srd.library.java.message.engine.client.contract.autoconfigure.MessageClientBasePackagePathAutoConfigurer

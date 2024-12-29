@@ -1,1 +1,1 @@
-cn.srd.library.java.message.engine.client.kafka.autoconfigure.KafkaAutoConfigurer
+cn.srd.library.java.message.engine.client.kafka.autoconfigure.KafkaClientAutoConfigurer

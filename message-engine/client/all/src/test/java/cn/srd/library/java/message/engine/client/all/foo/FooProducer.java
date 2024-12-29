@@ -5,9 +5,9 @@
 package cn.srd.library.java.message.engine.client.all.foo;
 
 import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
-import cn.srd.library.java.message.engine.client.contract.MessageConfig;
-import cn.srd.library.java.message.engine.client.contract.MessageProducer;
-import cn.srd.library.java.message.engine.client.contract.model.enums.MessageEngineType;
+import cn.srd.library.java.message.engine.client.contract.MessageClientConfig;
+import cn.srd.library.java.message.engine.client.contract.MessageClientProducer;
+import cn.srd.library.java.message.engine.client.contract.model.enums.MessageClientType;
 import cn.srd.library.java.message.engine.client.contract.model.enums.MessageQosType;
 import cn.srd.library.java.message.engine.client.kafka.KafkaConfig;
 import cn.srd.library.java.message.engine.client.mqtt.v3.MqttV3Config;
@@ -24,18 +24,18 @@ public class FooProducer {
 
     // --------------------------------------------- kafka producer ---------------------------------------------
 
-    @MessageProducer(
+    @MessageClientProducer(
             topic = FooTopicConstant.TOPIC_TEST1,
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @KafkaConfig)
+            config = @MessageClientConfig(engineType = MessageClientType.KAFKA, kafka = @KafkaConfig)
     )
     public String kafkaSend1() {
         System.out.println(STR."kafka - 生产者1 -------- \{Times.getCurrentDateTime()}-producer-send1");
         return "send1";
     }
 
-    @MessageProducer(
+    @MessageClientProducer(
             topic = FooTopicConstant.TOPIC_TEST2,
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @KafkaConfig)
+            config = @MessageClientConfig(engineType = MessageClientType.KAFKA, kafka = @KafkaConfig)
     )
     public String kafkaSend2() {
         System.out.println(STR."kafka - 生产者2 -------- \{Times.getCurrentDateTime()}-producer-send2");
@@ -44,9 +44,9 @@ public class FooProducer {
 
     // --------------------------------------------- mqtt-v3 producer ---------------------------------------------
 
-    @MessageProducer(
+    @MessageClientProducer(
             topic = FooTopicConstant.TOPIC_TEST1,
-            config = @MessageConfig(engineType = MessageEngineType.MQTT_V3, mqttV3 = @MqttV3Config(
+            config = @MessageClientConfig(engineType = MessageClientType.MQTT_V3, mqttV3 = @MqttV3Config(
                     clientConfig = @MqttV3Config.ClientConfig(qosType = MessageQosType.EXACTLY_ONCE)
             ))
     )
@@ -55,9 +55,9 @@ public class FooProducer {
         return "send1";
     }
 
-    @MessageProducer(
+    @MessageClientProducer(
             topic = FooTopicConstant.TOPIC_TEST2,
-            config = @MessageConfig(engineType = MessageEngineType.MQTT_V3, mqttV3 = @MqttV3Config(
+            config = @MessageClientConfig(engineType = MessageClientType.MQTT_V3, mqttV3 = @MqttV3Config(
                     clientConfig = @MqttV3Config.ClientConfig(qosType = MessageQosType.EXACTLY_ONCE)
             ))
     )
@@ -66,9 +66,9 @@ public class FooProducer {
         return "send2";
     }
 
-    @MessageProducer(
+    @MessageClientProducer(
             topic = "#topic",
-            config = @MessageConfig(engineType = MessageEngineType.MQTT_V3, mqttV3 = @MqttV3Config(
+            config = @MessageClientConfig(engineType = MessageClientType.MQTT_V3, mqttV3 = @MqttV3Config(
                     clientConfig = @MqttV3Config.ClientConfig(qosType = MessageQosType.EXACTLY_ONCE)
             ))
     )

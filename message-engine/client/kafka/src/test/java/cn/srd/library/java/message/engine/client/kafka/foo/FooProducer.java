@@ -5,9 +5,9 @@
 package cn.srd.library.java.message.engine.client.kafka.foo;
 
 import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
-import cn.srd.library.java.message.engine.client.contract.MessageConfig;
-import cn.srd.library.java.message.engine.client.contract.MessageProducer;
-import cn.srd.library.java.message.engine.client.contract.model.enums.MessageEngineType;
+import cn.srd.library.java.message.engine.client.contract.MessageClientConfig;
+import cn.srd.library.java.message.engine.client.contract.MessageClientProducer;
+import cn.srd.library.java.message.engine.client.contract.model.enums.MessageClientType;
 import cn.srd.library.java.message.engine.client.kafka.KafkaConfig;
 import cn.srd.library.java.tool.lang.time.Times;
 import org.springframework.stereotype.Component;
@@ -20,18 +20,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class FooProducer {
 
-    @MessageProducer(
+    @MessageClientProducer(
             topic = FooTopicConstant.TOPIC_TEST1,
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @KafkaConfig)
+            config = @MessageClientConfig(engineType = MessageClientType.KAFKA, kafka = @KafkaConfig)
     )
     public String send1() {
         System.out.println(STR."生产者1 -------- \{Times.getCurrentDateTime()}-producer-send1");
         return "send1";
     }
 
-    @MessageProducer(
+    @MessageClientProducer(
             topic = FooTopicConstant.TOPIC_TEST2,
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @KafkaConfig)
+            config = @MessageClientConfig(engineType = MessageClientType.KAFKA, kafka = @KafkaConfig)
     )
     public String send2() {
         System.out.println(STR."生产者2 -------- \{Times.getCurrentDateTime()}-producer-send2");

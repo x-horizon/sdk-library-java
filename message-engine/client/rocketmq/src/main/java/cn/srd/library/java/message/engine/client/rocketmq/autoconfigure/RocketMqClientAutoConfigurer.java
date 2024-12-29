@@ -1,0 +1,35 @@
+// Copyright (C) 2021-2026 thinkingto.com Ltd. All rights reserved.
+// Use of this source code is governed by SRD.
+// license that can be found in the LICENSE file.
+
+package cn.srd.library.java.message.engine.client.rocketmq.autoconfigure;
+
+import cn.srd.library.java.message.engine.client.rocketmq.model.property.RocketMqClientProperty;
+import cn.srd.library.java.message.engine.client.rocketmq.strategy.RocketMqClientConfigStrategy;
+import cn.srd.library.java.message.engine.client.rocketmq.strategy.RocketMqClientFlowStrategy;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+
+/**
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Message Engine RocketMQ
+ *
+ * @author wjm
+ * @since 2024-05-24 16:56
+ */
+@AutoConfiguration
+@EnableConfigurationProperties(RocketMqClientProperty.class)
+public class RocketMqClientAutoConfigurer {
+
+    @Bean
+    public RocketMqClientConfigStrategy rocketMqConfigStrategy() {
+        return new RocketMqClientConfigStrategy();
+    }
+
+    @Bean
+    public RocketMqClientFlowStrategy rocketMqFlowStrategy() {
+        return new RocketMqClientFlowStrategy();
+    }
+
+}

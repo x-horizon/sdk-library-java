@@ -5,10 +5,10 @@
 package cn.srd.library.java.message.engine.client.all.foo;
 
 import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
-import cn.srd.library.java.message.engine.client.contract.MessageConfig;
-import cn.srd.library.java.message.engine.client.contract.MessageConsumer;
-import cn.srd.library.java.message.engine.client.contract.MessageProducer;
-import cn.srd.library.java.message.engine.client.contract.model.enums.MessageEngineType;
+import cn.srd.library.java.message.engine.client.contract.MessageClientConfig;
+import cn.srd.library.java.message.engine.client.contract.MessageClientConsumer;
+import cn.srd.library.java.message.engine.client.contract.MessageClientProducer;
+import cn.srd.library.java.message.engine.client.contract.model.enums.MessageClientType;
 import cn.srd.library.java.message.engine.client.contract.model.enums.MessageQosType;
 import cn.srd.library.java.message.engine.client.kafka.KafkaConfig;
 import cn.srd.library.java.message.engine.client.mqtt.v3.MqttV3Config;
@@ -25,9 +25,9 @@ public class FooConsumer {
 
     // --------------------------------------------- kafka consumer ---------------------------------------------
 
-    @MessageConsumer(
+    @MessageClientConsumer(
             topics = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2},
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @KafkaConfig(
+            config = @MessageClientConfig(engineType = MessageClientType.KAFKA, kafka = @KafkaConfig(
                     clientConfig = @KafkaConfig.ClientConfig,
                     consumerConfig = @KafkaConfig.ConsumerConfig(groupId = "1")
             ))
@@ -36,9 +36,9 @@ public class FooConsumer {
         System.out.println(STR."kafka - 消费者1 -------- \{Times.getCurrentDateTime()}-receive-\{message}");
     }
 
-    @MessageConsumer(
+    @MessageClientConsumer(
             topics = FooTopicConstant.TOPIC_TEST1,
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @KafkaConfig(
+            config = @MessageClientConfig(engineType = MessageClientType.KAFKA, kafka = @KafkaConfig(
                     clientConfig = @KafkaConfig.ClientConfig,
                     consumerConfig = @KafkaConfig.ConsumerConfig(groupId = "1")
             ))
@@ -47,15 +47,15 @@ public class FooConsumer {
         System.out.println(STR."kafka - 消费者2 -------- \{Times.getCurrentDateTime()}-receive-\{message}");
     }
 
-    @MessageConsumer(
+    @MessageClientConsumer(
             topics = FooTopicConstant.TOPIC_TEST1,
-            config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @KafkaConfig(
+            config = @MessageClientConfig(engineType = MessageClientType.KAFKA, kafka = @KafkaConfig(
                     clientConfig = @KafkaConfig.ClientConfig,
                     consumerConfig = @KafkaConfig.ConsumerConfig(groupId = "2")
             )),
-            forwardTo = @MessageProducer(
+            forwardTo = @MessageClientProducer(
                     topic = FooTopicConstant.TOPIC_TEST1,
-                    config = @MessageConfig(engineType = MessageEngineType.MQTT_V3, mqttV3 = @MqttV3Config(
+                    config = @MessageClientConfig(engineType = MessageClientType.MQTT_V3, mqttV3 = @MqttV3Config(
                             clientConfig = @MqttV3Config.ClientConfig(qosType = MessageQosType.EXACTLY_ONCE)
                     ))
             )
@@ -67,14 +67,14 @@ public class FooConsumer {
 
     // --------------------------------------------- mqtt-v3 consumer ---------------------------------------------
 
-    @MessageConsumer(
+    @MessageClientConsumer(
             topics = {FooTopicConstant.TOPIC_TEST1, FooTopicConstant.TOPIC_TEST2},
-            config = @MessageConfig(engineType = MessageEngineType.MQTT_V3, mqttV3 = @MqttV3Config(
+            config = @MessageClientConfig(engineType = MessageClientType.MQTT_V3, mqttV3 = @MqttV3Config(
                     clientConfig = @MqttV3Config.ClientConfig(qosType = MessageQosType.EXACTLY_ONCE)
             )),
-            forwardTo = @MessageProducer(
+            forwardTo = @MessageClientProducer(
                     topic = FooTopicConstant.TOPIC_TEST2,
-                    config = @MessageConfig(engineType = MessageEngineType.KAFKA, kafka = @KafkaConfig)
+                    config = @MessageClientConfig(engineType = MessageClientType.KAFKA, kafka = @KafkaConfig)
             )
     )
     public void mqttV3Receive1(String message) {
