@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.message.engine.client.client.all.foo;
+package cn.srd.library.java.message.engine.client.all.foo;
 
 import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.srd.library.java.message.engine.client.contract.MessageConfig;

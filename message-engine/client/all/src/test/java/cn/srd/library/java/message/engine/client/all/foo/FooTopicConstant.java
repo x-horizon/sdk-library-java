@@ -2,7 +2,7 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.message.engine.client.client.all.foo;
+package cn.srd.library.java.message.engine.client.all.foo;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

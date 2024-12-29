@@ -2,9 +2,9 @@
 // Use of this source code is governed by SRD.
 // license that can be found in the LICENSE file.
 
-package cn.srd.library.java.message.engine.client.client.all.test;
+package cn.srd.library.java.message.engine.client.all.test;
 
-import cn.srd.library.java.message.engine.client.client.all.foo.FooProducer;
+import cn.srd.library.java.message.engine.client.all.foo.FooProducer;
 import cn.srd.library.java.message.engine.client.kafka.autoconfigure.EnableMessageEngineKafka;
 import cn.srd.library.java.message.engine.client.mqtt.v3.autoconfigure.EnableMessageEngineMqttV3;
 import lombok.SneakyThrows;
