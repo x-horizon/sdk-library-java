@@ -53,6 +53,7 @@ object GradleModule {
     const val MESSAGE_ENGINE_CLIENT_RABBITMQ = "message-engine-client-rabbitmq"
     const val MESSAGE_ENGINE_CLIENT_REDIS_STREAM = "message-engine-client-redis-stream"
     const val MESSAGE_ENGINE_CLIENT_ROCKETMQ = "message-engine-client-rocketmq"
+    const val MESSAGE_ENGINE_SERVER_MQTT = "message-engine-server-mqtt"
 
     const val METRIC_DROP_WIZARD = "metric-drop-wizard"
     const val METRIC_MICROMETER_PROMETHEUS = "metric-micrometer-prometheus"
@@ -152,7 +153,6 @@ object GradleModule {
     const val WEB_GRPC_CLIENT = "web-grpc-client"
     const val WEB_GRPC_CONTRACT = "web-grpc-contract"
     const val WEB_GRPC_SERVER = "web-grpc-server"
-    const val WEB_NETTY = "web-netty"
     const val WEB_HTTP_OKHTTPS = "web-http-okhttps"
     const val WEB_OPEN_FEIGN = "web-openfeign"
     const val WEB_REACTOR = "web-reactor"
