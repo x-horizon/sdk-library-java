@@ -44,15 +44,15 @@ object GradleModule {
     const val JDBC_POSTGRESQL = "jdbc-postgresql"
     const val JDBC_TDENGINE = "jdbc-tdengine"
 
-    const val MESSAGE_ENGINE_ALL = "message-engine-all"
-    const val MESSAGE_ENGINE_CONTRACT = "message-engine-contract"
-    const val MESSAGE_ENGINE_KAFKA = "message-engine-kafka"
-    const val MESSAGE_ENGINE_MQTT_CONTRACT = "message-engine-mqtt-contract"
-    const val MESSAGE_ENGINE_MQTT_V3 = "message-engine-mqtt-v3"
-    const val MESSAGE_ENGINE_MQTT_V5 = "message-engine-mqtt-v5"
-    const val MESSAGE_ENGINE_RABBITMQ = "message-engine-rabbitmq"
-    const val MESSAGE_ENGINE_REDIS_STREAM = "message-engine-redis-stream"
-    const val MESSAGE_ENGINE_ROCKETMQ = "message-engine-rocketmq"
+    const val MESSAGE_ENGINE_CLIENT_ALL = "message-engine-client-all"
+    const val MESSAGE_ENGINE_CLIENT_CONTRACT = "message-engine-client-contract"
+    const val MESSAGE_ENGINE_CLIENT_KAFKA = "message-engine-client-kafka"
+    const val MESSAGE_ENGINE_CLIENT_MQTT_CONTRACT = "message-engine-client-mqtt-contract"
+    const val MESSAGE_ENGINE_CLIENT_MQTT_V3 = "message-engine-client-mqtt-v3"
+    const val MESSAGE_ENGINE_CLIENT_MQTT_V5 = "message-engine-client-mqtt-v5"
+    const val MESSAGE_ENGINE_CLIENT_RABBITMQ = "message-engine-client-rabbitmq"
+    const val MESSAGE_ENGINE_CLIENT_REDIS_STREAM = "message-engine-client-redis-stream"
+    const val MESSAGE_ENGINE_CLIENT_ROCKETMQ = "message-engine-client-rocketmq"
 
     const val METRIC_DROP_WIZARD = "metric-drop-wizard"
     const val METRIC_MICROMETER_PROMETHEUS = "metric-micrometer-prometheus"
@@ -198,7 +198,7 @@ internal object ModuleHelper {
         put(GradleModule.DOC_KNIFE4J_SPRING_GATEWAY, ":doc:knife4j:spring-gateway")
         put(GradleModule.DOC_KNIFE4J_SPRING_WEBFLUX, ":doc:knife4j:spring-webflux")
         put(GradleModule.DOC_KNIFE4J_SPRING_WEBMVC, ":doc:knife4j:spring-webmvc")
-        put(GradleModule.MESSAGE_ENGINE_REDIS_STREAM, ":message-engine:redis-stream")
+        put(GradleModule.MESSAGE_ENGINE_CLIENT_REDIS_STREAM, ":message-engine:client:redis-stream")
         put(GradleModule.ORM_CONTRACT, ":orm:contract")
         put(GradleModule.ORM_CONTRACT_MYBATIS_BASE, ":orm:contract-mybatis-base")
         put(GradleModule.ORM_CONTRACT_MYBATIS_BASE_POSTGIS, ":orm:contract-mybatis-base-postgis")
