@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 /**
- * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Message Engine MQTT-V3
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Message Client MQTT-V3
  *
  * @author wjm
  * @since 2024-05-24 16:56

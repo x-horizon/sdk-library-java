@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 /**
- * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Message Engine RocketMQ
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Message Client RocketMQ
  *
  * @author wjm
  * @since 2024-05-24 16:56

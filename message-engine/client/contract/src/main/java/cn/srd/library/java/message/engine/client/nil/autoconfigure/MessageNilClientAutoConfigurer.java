@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
 /**
- * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Message Engine Meaningless
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Message Client Meaningless
  *
  * @author wjm
  * @since 2024-05-24 16:56
