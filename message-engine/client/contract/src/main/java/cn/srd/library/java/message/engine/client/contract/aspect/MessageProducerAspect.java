@@ -28,7 +28,7 @@ public class MessageProducerAspect extends MessageAspect {
         Serializable message = (Serializable) doProceed(joinPoint);
         MessageClientProducer messageClientProducer = getAnnotationMarkedOnMethod(joinPoint, MessageClientProducer.class);
         MessageClientType messageClientType = messageClientProducer.config().engineType();
-        Assert.of().setMessage("{}send message failed, the message engine type is [{}], the topic is [{}], please check!", ModuleView.MESSAGE_ENGINE_SYSTEM, messageClientType.getDescription(), messageClientProducer.topic())
+        Assert.of().setMessage("{}send message failed, the message engine type is [{}], the topic is [{}], please check!", ModuleView.MESSAGE_ENGINE_CLIENT_SYSTEM, messageClientType.getDescription(), messageClientProducer.topic())
                 .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfFalse(sendMessage(joinPoint, messageClientType, message));
         return message;

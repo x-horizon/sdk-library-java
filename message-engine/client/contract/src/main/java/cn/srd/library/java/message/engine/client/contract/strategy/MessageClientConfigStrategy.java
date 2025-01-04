@@ -82,7 +82,7 @@ public abstract class MessageClientConfigStrategy<Property extends MessageClient
     }
 
     public void initialize(MessageClientType engineType) {
-        log.debug("{}message engine {} customizer is enabled, starting initializing...", ModuleView.MESSAGE_ENGINE_SYSTEM, engineType.getDescription());
+        log.debug("{}message engine {} client customizer is enabled, starting initializing...", ModuleView.MESSAGE_ENGINE_CLIENT_SYSTEM, engineType.getDescription());
 
         BrokerConfig brokerDTO = getBrokerDTO();
         List<ProducerConfig> producerDTOs = getProducerDTOs(engineType);
@@ -108,7 +108,7 @@ public abstract class MessageClientConfigStrategy<Property extends MessageClient
         Springs.registerBean(configDTO.getClass().getName(), configDTO);
 
         log.debug("""
-                        {}message engine {} customizer has loaded the following configurations:
+                        {}message engine {} client customizer has loaded the following configurations:
                         --------------------------------------------------------------------------------------------------------------------------------
                         {} broker info:
                         {}
@@ -122,7 +122,7 @@ public abstract class MessageClientConfigStrategy<Property extends MessageClient
                         {} consumer infos:
                         {}
                         --------------------------------------------------------------------------------------------------------------------------------""",
-                ModuleView.MESSAGE_ENGINE_SYSTEM, engineType.getDescription(),
+                ModuleView.MESSAGE_ENGINE_CLIENT_SYSTEM, engineType.getDescription(),
                 engineType.getDescription(),
                 Converts.onJackson().toJsonString(configDTO.getBrokerDTO()),
                 engineType.getDescription(),
@@ -132,7 +132,7 @@ public abstract class MessageClientConfigStrategy<Property extends MessageClient
                 engineType.getDescription(),
                 Converts.onJackson().toJsonString(configDTO.getConsumerDTOs())
         );
-        log.debug("{}message engine {} customizer initialized.", ModuleView.MESSAGE_ENGINE_SYSTEM, engineType.getDescription());
+        log.debug("{}message engine {} client customizer initialized.", ModuleView.MESSAGE_ENGINE_CLIENT_SYSTEM, engineType.getDescription());
     }
 
     public void onInitializeComplete(MessageClientType engineType) {
@@ -161,7 +161,7 @@ public abstract class MessageClientConfigStrategy<Property extends MessageClient
         MessageClientType messageClientType = getMessageEngineType();
         String topic = Optional.ofNullable(Expressions.getInstance().parse(producerMethodParameterNames, producerMethodParameterValues, producerDTO.getTopic()))
                 .map(Object::toString)
-                .orElseThrow(() -> new LibraryJavaInternalException(STR."\{ModuleView.MESSAGE_ENGINE_SYSTEM}could not parse the topic from method [\{Methods.getFullName(producerMethod)}], the method parameter names are \{producerMethodParameterNames}, the method parameter value are \{producerMethodParameterValues}, the topic expression is [\{producerDTO.getTopic()}], please check!"));
+                .orElseThrow(() -> new LibraryJavaInternalException(STR."\{ModuleView.MESSAGE_ENGINE_CLIENT_SYSTEM}could not parse the topic from method [\{Methods.getFullName(producerMethod)}], the method parameter names are \{producerMethodParameterNames}, the method parameter value are \{producerMethodParameterValues}, the topic expression is [\{producerDTO.getTopic()}], please check!"));
         String dynamicFlowId = MessageClientFlows.getDynamicFlowId(messageClientType, producerMethod, topic);
         integrationFlowRegistration = integrationFlowContext.getRegistrationById(dynamicFlowId);
         if (Nil.isNotNull(integrationFlowRegistration)) {
@@ -180,9 +180,9 @@ public abstract class MessageClientConfigStrategy<Property extends MessageClient
         registerProducerFlow(List.of(dynamicProducerDTO));
 
         log.debug("""
-                        {}message engine {} has loaded the the dynamic producer info:
+                        {}message engine {} client has loaded the the dynamic producer info:
                         {}""",
-                ModuleView.MESSAGE_ENGINE_SYSTEM, messageClientType.getDescription(),
+                ModuleView.MESSAGE_ENGINE_CLIENT_SYSTEM, messageClientType.getDescription(),
                 Converts.onJackson().toJsonString(dynamicProducerDTO)
         );
 
@@ -326,7 +326,7 @@ public abstract class MessageClientConfigStrategy<Property extends MessageClient
                 .setEngineType(engineType)
                 .setVerifyPassed(Nil.isEmpty(verificationConfigDTO.getBrokerFailedReason()) && Nil.isAllEmpty(verificationConfigDTO.getProducerFailedReasons(), verificationConfigDTO.getConsumerFailedReasons()));
 
-        Assert.of().setMessage("{}message engine {} initialize failed, the failed reason as following: \n{}", ModuleView.MESSAGE_ENGINE_SYSTEM, engineType.getDescription(), Converts.onJackson().toJsonString(verificationConfigDTO))
+        Assert.of().setMessage("{}message engine {} client initialize failed, the failed reason as following: \n{}", ModuleView.MESSAGE_ENGINE_CLIENT_SYSTEM, engineType.getDescription(), Converts.onJackson().toJsonString(verificationConfigDTO))
                 .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfFalse(verificationConfigDTO.isVerifyPassed());
     }

@@ -28,9 +28,14 @@ public class ModuleView {
     public static final String CONCURRENT_ACTOR_SYSTEM = ROOT_MODULE + "Concurrent Actor System - ";
 
     /**
-     * the message engine system module name
+     * the message engine client system module name
      */
-    public static final String MESSAGE_ENGINE_SYSTEM = ROOT_MODULE + "Message Engine System - ";
+    public static final String MESSAGE_ENGINE_CLIENT_SYSTEM = ROOT_MODULE + "Message Engine Client System - ";
+
+    /**
+     * the message engine server system module name
+     */
+    public static final String MESSAGE_ENGINE_SERVER_SYSTEM = ROOT_MODULE + "Message Engine Server System - ";
 
     /**
      * the orm mybatis system module name
