@@ -49,6 +49,7 @@ include(":jdbc:postgis")
 include(":jdbc:postgresql")
 include(":jdbc:tdengine")
 
+include(":message-engine:contract")
 include(":message-engine:client:all")
 include(":message-engine:client:contract")
 include(":message-engine:client:kafka")

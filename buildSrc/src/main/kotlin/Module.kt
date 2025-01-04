@@ -40,6 +40,7 @@ object GradleModule {
     const val JDBC_POSTGRESQL = "jdbc-postgresql"
     const val JDBC_TDENGINE = "jdbc-tdengine"
 
+    const val MESSAGE_ENGINE_CONTRACT = "message-engine-contract"
     const val MESSAGE_ENGINE_CLIENT_ALL = "message-engine-client-all"
     const val MESSAGE_ENGINE_CLIENT_CONTRACT = "message-engine-client-contract"
     const val MESSAGE_ENGINE_CLIENT_KAFKA = "message-engine-client-kafka"

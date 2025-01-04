@@ -154,6 +154,7 @@ dependencies {
         api(project(GradleModule.toReferenceName(GradleModule.JDBC_POSTGRESQL)))
         api(project(GradleModule.toReferenceName(GradleModule.JDBC_TDENGINE)))
 
+        api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_CONTRACT)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_CLIENT_ALL)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_CLIENT_CONTRACT)))
         api(project(GradleModule.toReferenceName(GradleModule.MESSAGE_ENGINE_CLIENT_KAFKA)))
