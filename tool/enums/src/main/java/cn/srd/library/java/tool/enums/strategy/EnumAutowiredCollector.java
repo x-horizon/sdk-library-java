@@ -82,16 +82,24 @@ public class EnumAutowiredCollector<E extends Enum<E>> implements SmartInitializ
                 for (E enumField : Enums.getAllInstances((Class<E>) enumAutowiredAnnotatedClass)) {
                     EnumAutowiredFieldMatchRule enumAutowiredFieldMatchRule = Reflects.newInstance(enumAutowired.matchRule());
                     String theMostSuitableAutowiredClassSimpleName = enumAutowiredFieldMatchRule.getMostSuitableAutowiredClassSimpleName(enumField, Collections.getMapKeys(enumAutowiredSubclassSimpleNameMappingNameMap));
-                    if (enumAutowired.allowNull() && Nil.isBlank(theMostSuitableAutowiredClassSimpleName)) {
+                    if (Nil.isBlank(theMostSuitableAutowiredClassSimpleName)) {
+                        Assert.of().setMessage("{} could not find class to autowired into enum [{}]-[{}], if allow null value, you should set allowNull = true, please check!", ModuleView.TOOL_ENUM_SYSTEM, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName)
+                                .setThrowable(LibraryJavaInternalException.class)
+                                .throwsIfFalse(enumAutowired.allowNull());
                         Reflects.setFieldValue(enumField, autowiredFiledName, null);
                         log.debug("{}find class [null] and autowired it into enum [{}]-[{}] filed [{}]", ModuleView.TOOL_ENUM_SYSTEM, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName);
                         continue;
                     }
-                    Object theMostSuitableAutowiredClass = Springs.getBean(Classes.ofName(enumAutowiredSubclassSimpleNameMappingNameMap.get(theMostSuitableAutowiredClassSimpleName)));
-                    Assert.of().setMessage("{}find class [{}] and autowired it into enum [{}]-[{}] filed [{}], but the [{}] instance is null, you need to consider adding it to Spring IOC", ModuleView.TOOL_ENUM_SYSTEM, theMostSuitableAutowiredClassSimpleName, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName, theMostSuitableAutowiredClassSimpleName)
+                    Class<?> theMostSuitableAutowiredClass = Classes.ofName(enumAutowiredSubclassSimpleNameMappingNameMap.get(theMostSuitableAutowiredClassSimpleName));
+                    Object theMostSuitableAutowiredClassInstance = Springs.getBean(theMostSuitableAutowiredClass);
+                    if (Nil.isNull(theMostSuitableAutowiredClassInstance)) {
+                        Springs.registerBean(theMostSuitableAutowiredClass);
+                        theMostSuitableAutowiredClassInstance = Springs.getBean(theMostSuitableAutowiredClass);
+                    }
+                    Assert.of().setMessage("{}find class [{}] and autowired it into enum [{}]-[{}] filed [{}], but failed to register to spring ioc, you need to add it into spring ioc by yourself.", ModuleView.TOOL_ENUM_SYSTEM, theMostSuitableAutowiredClassSimpleName, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName, theMostSuitableAutowiredClassSimpleName)
                             .setThrowable(LibraryJavaInternalException.class)
-                            .throwsIfNull(theMostSuitableAutowiredClass);
-                    Reflects.setFieldValue(enumField, autowiredFiledName, theMostSuitableAutowiredClass);
+                            .throwsIfNull(theMostSuitableAutowiredClassInstance);
+                    Reflects.setFieldValue(enumField, autowiredFiledName, theMostSuitableAutowiredClassInstance);
                     log.debug("{}find class [{}] and autowired it into enum [{}]-[{}] filed [{}]", ModuleView.TOOL_ENUM_SYSTEM, theMostSuitableAutowiredClassSimpleName, enumAutowiredAnnotatedClassName, enumField.name(), autowiredFiledName);
                 }
             });
