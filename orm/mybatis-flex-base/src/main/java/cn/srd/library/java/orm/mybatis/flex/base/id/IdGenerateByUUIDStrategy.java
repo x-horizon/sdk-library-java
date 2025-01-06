@@ -17,7 +17,7 @@ public class IdGenerateByUUIDStrategy implements IdGenerateStrategy {
 
     @Override
     public void registerIdGenerator(IdConfig idConfig) {
-        KeyGeneratorFactory.register(getGeneratorName(), (IdGenerator) (entity, keyColumn) -> UUIDs.fastGet());
+        KeyGeneratorFactory.register(getGeneratorName(), (IdGenerator) (entity, keyColumn) -> UUIDs.fastGetString());
     }
 
 }

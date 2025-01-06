@@ -11,11 +11,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UUIDs {
 
-    public static String get() {
+    public static java.util.UUID get() {
+        return java.util.UUID.randomUUID();
+    }
+
+    public static String getString() {
         return UUID.randomUUID().toString();
     }
 
-    public static String fastGet() {
+    public static String fastGetString() {
         return UUID.fastUUID().toString();
     }
 

@@ -10,7 +10,7 @@ public class MessageClientUniqueIdGenerateByUUIDStrategy implements MessageClien
 
     @Override
     public String getId() {
-        return UUIDs.fastGet();
+        return UUIDs.fastGetString();
     }
 
 }
