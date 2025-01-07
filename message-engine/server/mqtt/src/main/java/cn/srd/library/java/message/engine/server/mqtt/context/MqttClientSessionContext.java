@@ -13,7 +13,7 @@ import java.util.UUID;
  * @since 2025-01-05 22:10
  */
 @Getter
-public class ClientSessionContext extends MqttClientAwareSessionContext {
+public class MqttClientSessionContext extends MqttClientAwareSessionContext {
 
     private final MqttServerContext mqttServerContext;
 
@@ -29,7 +29,7 @@ public class ClientSessionContext extends MqttClientAwareSessionContext {
     @Setter
     private boolean provisionOnlyIs = false;
 
-    public ClientSessionContext(UUID sessionId, MqttServerContext mqttServerContext) {
+    public MqttClientSessionContext(UUID sessionId, MqttServerContext mqttServerContext) {
         super(sessionId);
         this.mqttServerContext = mqttServerContext;
     }

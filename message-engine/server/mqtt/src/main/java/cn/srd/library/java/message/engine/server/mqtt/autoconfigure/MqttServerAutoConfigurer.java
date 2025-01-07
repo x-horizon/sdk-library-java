@@ -4,9 +4,7 @@ import cn.srd.library.java.message.engine.server.mqtt.context.MqttServerContext;
 import cn.srd.library.java.message.engine.server.mqtt.model.property.MqttServerCommonProperty;
 import cn.srd.library.java.message.engine.server.mqtt.model.property.MqttServerNonSslProperty;
 import cn.srd.library.java.message.engine.server.mqtt.model.property.MqttServerSslProperty;
-import cn.srd.library.java.message.engine.server.mqtt.strategy.ClientConnectAuthStrategy;
-import cn.srd.library.java.message.engine.server.mqtt.strategy.ClientConnectNonAuthStrategy;
-import cn.srd.library.java.message.engine.server.mqtt.strategy.MqttMessageConnectStrategy;
+import cn.srd.library.java.message.engine.server.mqtt.strategy.*;
 import cn.srd.library.java.tool.enums.autoconfigure.EnableEnumAutowired;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -49,9 +47,53 @@ public class MqttServerAutoConfigurer {
     }
 
     @Bean
+    public MqttMessagePublishStrategy mqttMessagePublishStrategy() {
+        return new MqttMessagePublishStrategy();
+    }
+
+    @Bean
+    public MqttMessagePublishAckOnQos1Strategy mqttMessagePublishAckOnQos1Strategy() {
+        return new MqttMessagePublishAckOnQos1Strategy();
+    }
+
+    @Bean
+    public MqttMessageSubscribeStrategy mqttMessageSubscribeStrategy() {
+        return new MqttMessageSubscribeStrategy();
+    }
+
+    @Bean
+    public MqttMessageUnsubscribeStrategy mqttMessageUnsubscribeStrategy() {
+        return new MqttMessageUnsubscribeStrategy();
+    }
+
+    @Bean
     @ConditionalOnMissingBean(ClientConnectAuthStrategy.class)
     public ClientConnectNonAuthStrategy clientConnectNonAuthStrategy() {
         return new ClientConnectNonAuthStrategy();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(ClientPublishStrategy.class)
+    public ClientPublishNonHandleStrategy clientPublishNonHandleStrategy() {
+        return new ClientPublishNonHandleStrategy();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(ClientPublishAckOnQos1Strategy.class)
+    public ClientPublishAckOnQos1NonHandleStrategy clientPublishAckOnQos1NonHandleStrategy() {
+        return new ClientPublishAckOnQos1NonHandleStrategy();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(ClientSubscribeStrategy.class)
+    public ClientSubscribeNonHandleStrategy clientSubscribeNonHandleStrategy() {
+        return new ClientSubscribeNonHandleStrategy();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(ClientUnsubscribeStrategy.class)
+    public ClientUnsubscribeNonHandleStrategy clientUnsubscribeNonHandleStrategy() {
+        return new ClientUnsubscribeNonHandleStrategy();
     }
 
 }

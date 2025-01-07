@@ -16,7 +16,7 @@ public class ClientConnectTokenAuthStrategy implements ClientConnectAuthStrategy
 
     @Override
     public ClientConnectAuthResponseDTO process(ClientConnectAuthRequestDTO requestDTO) {
-        log.trace("{}[clientId:{}] - [username:{}] - [password:{}] - token auth and success directly.", ModuleView.MESSAGE_ENGINE_MQTT_SERVER_SYSTEM, requestDTO.getClientId(), requestDTO.getUsername(), requestDTO.getPassword());
+        log.trace("{}[clientId:{}] - [username:{}] - [password:{}] - token auth client connect message and success directly.", ModuleView.MESSAGE_ENGINE_MQTT_SERVER_SYSTEM, requestDTO.getClientId(), requestDTO.getUsername(), requestDTO.getPassword());
         return new ClientConnectAuthResponseDTO();
     }
 

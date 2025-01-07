@@ -21,11 +21,17 @@ public abstract class ClientAwareSessionContext implements SessionContext {
     }
 
     public void disconnect() {
-        this.isConnected = false;
+        if (this.isConnected) {
+            this.isConnected = false;
+        }
     }
 
     public boolean isConnected() {
         return isConnected;
+    }
+
+    public boolean isDisconnected() {
+        return !isConnected();
     }
 
 }

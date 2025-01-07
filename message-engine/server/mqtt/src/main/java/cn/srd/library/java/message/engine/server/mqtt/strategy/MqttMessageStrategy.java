@@ -1,6 +1,6 @@
 package cn.srd.library.java.message.engine.server.mqtt.strategy;
 
-import cn.srd.library.java.message.engine.server.mqtt.context.ClientSessionContext;
+import cn.srd.library.java.message.engine.server.mqtt.context.MqttClientSessionContext;
 import cn.srd.library.java.message.engine.server.mqtt.context.MqttServerContext;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.mqtt.MqttMessage;
@@ -11,8 +11,6 @@ import io.netty.handler.codec.mqtt.MqttMessage;
  */
 public interface MqttMessageStrategy<M extends MqttMessage> {
 
-    default void process(ChannelHandlerContext channelHandlerContext, MqttServerContext mqttServerContext, ClientSessionContext clientSessionContext, M mqttMessage) {
-
-    }
+    void process(ChannelHandlerContext channelHandlerContext, MqttServerContext mqttServerContext, MqttClientSessionContext mqttClientSessionContext, M mqttMessage);
 
 }

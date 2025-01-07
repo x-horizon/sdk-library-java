@@ -16,7 +16,7 @@ import java.util.UUID;
 @Getter
 public abstract class MqttClientAwareSessionContext extends ClientAwareSessionContext {
 
-    private final Map<MqttTopicMatcher, MqttQoS> topicMappingQoSMap = Collections.newConcurrentHashMap();
+    private final Map<MqttTopicMatcher, MqttQoS> topicMappingSupportedQosMap = Collections.newConcurrentHashMap();
 
     private final Map<Integer, RpcRequestDTO> rpcAwaitingAckMap = Collections.newConcurrentHashMap();
 
@@ -24,8 +24,8 @@ public abstract class MqttClientAwareSessionContext extends ClientAwareSessionCo
         super(sessionId);
     }
 
-    public MqttQoS getQoSForTopic(String topic) {
-        return topicMappingQoSMap.entrySet().stream()
+    public MqttQoS getQosForTopic(String topic) {
+        return topicMappingSupportedQosMap.entrySet().stream()
                 .filter(entry -> entry.getKey().match(topic))
                 .map(Map.Entry::getValue)
                 .findFirst()

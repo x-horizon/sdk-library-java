@@ -9,37 +9,22 @@ import java.util.function.Consumer;
 
 /**
  * @author wjm
- * @since 2025-01-06 22:26
+ * @since 2025-01-07 21:25
  */
-public interface MessageCallback<R> extends MessageFocusOnSuccessCallback<R>, MessageFocusOnFailureCallback<R> {
+public interface MessageFocusOnSuccessCallback<R> {
 
-    MessageCallback<Void> EMPTY = new MessageCallback<>() {
-        @Override
-        public void onSuccess(Void result) {
-        }
+    void onSuccess(R result);
 
-        @Override
-        public void onFailure(Throwable throwable) {
-        }
-    };
-
-    @Override
     default void process(ListeningExecutorService executorService, Callable<R> task) {
         Consumer<R> onSuccess = this::onSuccess;
-        Consumer<Throwable> onFailure = this::onFailure;
         FutureCallback<R> callback = new FutureCallback<>() {
             @Override
             public void onSuccess(R result) {
-                try {
-                    onSuccess.accept(result);
-                } catch (Throwable throwable) {
-                    onFailure(throwable);
-                }
+                onSuccess.accept(result);
             }
 
             @Override
             public void onFailure(Throwable throwable) {
-                onFailure.accept(throwable);
             }
         };
         Futures.addCallback(executorService.submit(task), callback, executorService);

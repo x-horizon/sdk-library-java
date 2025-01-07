@@ -2,19 +2,20 @@ package cn.srd.library.java.message.engine.server.mqtt.tool;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.contract.constant.suppress.SuppressWarningConstant;
-import cn.srd.library.java.message.engine.server.mqtt.context.ClientSessionContext;
+import cn.srd.library.java.message.engine.server.mqtt.constant.MqttServerConstant;
+import cn.srd.library.java.message.engine.server.mqtt.context.MqttClientSessionContext;
 import cn.srd.library.java.message.engine.server.mqtt.context.MqttServerContext;
 import cn.srd.library.java.message.engine.server.mqtt.model.enums.MqttVersionType;
 import cn.srd.library.java.tool.lang.object.Nil;
 import cn.srd.library.java.tool.lang.text.Strings;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelId;
 import io.netty.handler.codec.mqtt.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -26,12 +27,8 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class NettyMqtts {
 
-    public static ChannelId getChannelId(ChannelHandlerContext channelHandlerContext) {
-        return channelHandlerContext.channel().id();
-    }
-
-    public static int getMqttPacketId(MqttMessage mqttMessage) {
-        return ((MqttPublishMessage) mqttMessage).variableHeader().packetId();
+    public static MqttQoS getMaxSupportQos(MqttQoS requestQoS) {
+        return MqttQoS.valueOf(Math.min(requestQoS.value(), MqttServerConstant.MAX_SUPPORTED_QOS.value()));
     }
 
     public static MqttConnectReturnCode getMqttConnectReturnCode(MqttVersionType mqttVersionType, MqttConnectReturnCode returnCode) {
@@ -52,8 +49,8 @@ public class NettyMqtts {
         return MqttConnectReturnCode.valueOf(returnCode.byteValue());
     }
 
-    public static int getMqttSubscribeReturnCode(MqttVersion mqttVersion, MqttReasonCodes.SubAck returnCode) {
-        if (!MqttVersion.MQTT_5.equals(mqttVersion)
+    public static int getMqttSubscribeReturnCode(MqttVersionType mqttVersionType, MqttReasonCodes.SubAck returnCode) {
+        if (!MqttVersion.MQTT_5.equals(mqttVersionType.getNettyMqttVersion())
                 && !(MqttReasonCodes.SubAck.GRANTED_QOS_0.equals(returnCode)
                 || MqttReasonCodes.SubAck.GRANTED_QOS_1.equals(returnCode)
                 || MqttReasonCodes.SubAck.GRANTED_QOS_2.equals(returnCode))
@@ -75,38 +72,64 @@ public class NettyMqtts {
 
     public static MqttMessage createMqttDisconnectMessage(MqttVersionType mqttVersionType, byte returnCode) {
         MqttMessageBuilders.DisconnectBuilder disconnectBuilder = MqttMessageBuilders.disconnect();
-        mqttVersionType.getStrategy().setChannelDisconnectReasonCode(disconnectBuilder, returnCode);
+        mqttVersionType.getStrategy().setClientDisconnectReasonCode(disconnectBuilder, returnCode);
         return disconnectBuilder.build();
     }
 
-    public static void closeChannelHandlerContext(ChannelHandlerContext channelHandlerContext, MqttServerContext mqttServerContext, ClientSessionContext clientSessionContext, MqttReasonCodes.Disconnect returnCode) {
-        closeChannelHandlerContext(channelHandlerContext, mqttServerContext, clientSessionContext, returnCode.byteValue());
+    public static MqttSubAckMessage createMqttSubscribeAckMessage(int messageId, List<Integer> reasonCodes) {
+        MqttFixedHeader mqttFixedHeader = new MqttFixedHeader(MqttMessageType.SUBACK, false, MqttQoS.AT_MOST_ONCE, false, 0);
+        MqttMessageIdVariableHeader mqttMessageIdVariableHeader = MqttMessageIdVariableHeader.from(messageId);
+        MqttSubAckPayload mqttSubAckPayload = new MqttSubAckPayload(reasonCodes);
+        return new MqttSubAckMessage(mqttFixedHeader, mqttMessageIdVariableHeader, mqttSubAckPayload);
     }
 
-    public static void closeChannelHandlerContext(ChannelHandlerContext channelHandlerContext, MqttServerContext mqttServerContext, ClientSessionContext clientSessionContext, MqttConnectReturnCode returnCode) {
-        closeChannelHandlerContext(channelHandlerContext, mqttServerContext, clientSessionContext, getMqttConnectReturnCode(clientSessionContext.getMqttVersionType(), returnCode).byteValue());
+    public static MqttUnsubAckMessage createMqttUnsubscribeAckMessage(MqttVersionType mqttVersionType, int messageId, List<Short> resultCodes) {
+        MqttMessageBuilders.UnsubAckBuilder unsubAckBuilder = MqttMessageBuilders.unsubAck();
+        unsubAckBuilder.packetId(messageId);
+        mqttVersionType.getStrategy().setClientUnsubscribeReasonCode(unsubAckBuilder, resultCodes);
+        return unsubAckBuilder.build();
     }
 
-    public static void closeChannelHandlerContext(ChannelHandlerContext channelHandlerContext, MqttServerContext mqttServerContext, ClientSessionContext clientSessionContext, byte returnCode) {
-        closeChannelHandlerContext(channelHandlerContext, mqttServerContext, clientSessionContext, createMqttDisconnectMessage(clientSessionContext.getMqttVersionType(), returnCode));
+    public static void closeChannelHandlerContext(ChannelHandlerContext channelHandlerContext, MqttServerContext mqttServerContext, MqttClientSessionContext mqttClientSessionContext, MqttReasonCodes.Disconnect returnCode) {
+        closeChannelHandlerContext(channelHandlerContext, mqttServerContext, mqttClientSessionContext, returnCode.byteValue());
     }
 
-    public static void closeChannelHandlerContext(ChannelHandlerContext channelHandlerContext, MqttServerContext mqttServerContext, ClientSessionContext clientSessionContext, MqttMessage mqttMessage) {
-        if (Nil.isNotEmpty(clientSessionContext.getRpcAwaitingAckMap())) {
-            logTrace(channelHandlerContext, clientSessionContext.getAddress(), clientSessionContext.getSessionId(), "cleanup rpc awaiting ack map because need to close the channel.");
-            clientSessionContext.getRpcAwaitingAckMap().clear();
+    public static void closeChannelHandlerContext(ChannelHandlerContext channelHandlerContext, MqttServerContext mqttServerContext, MqttClientSessionContext mqttClientSessionContext, MqttConnectReturnCode returnCode) {
+        closeChannelHandlerContext(channelHandlerContext, mqttServerContext, mqttClientSessionContext, getMqttConnectReturnCode(mqttClientSessionContext.getMqttVersionType(), returnCode).byteValue());
+    }
+
+    public static void closeChannelHandlerContext(ChannelHandlerContext channelHandlerContext, MqttServerContext mqttServerContext, MqttClientSessionContext mqttClientSessionContext, byte returnCode) {
+        closeChannelHandlerContext(channelHandlerContext, mqttServerContext, mqttClientSessionContext, createMqttDisconnectMessage(mqttClientSessionContext.getMqttVersionType(), returnCode));
+    }
+
+    public static void closeChannelHandlerContext(ChannelHandlerContext channelHandlerContext, MqttServerContext mqttServerContext, MqttClientSessionContext mqttClientSessionContext, MqttMessage mqttMessage) {
+        if (Nil.isNotEmpty(mqttClientSessionContext.getRpcAwaitingAckMap())) {
+            logTrace(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "cleanup rpc awaiting ack map because need to close the channel.");
+            mqttClientSessionContext.getRpcAwaitingAckMap().clear();
         }
         if (Nil.isNull(channelHandlerContext.channel())) {
-            logTrace(channelHandlerContext, clientSessionContext.getAddress(), clientSessionContext.getSessionId(), "the channel handler context has no channel, closing channel...");
+            logTrace(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "the channel handler context has no channel, closing channel...");
             channelHandlerContext.close();
         } else if (channelHandlerContext.channel().isOpen()) {
-            clientSessionContext.getMqttVersionType().getStrategy().closeChannelHandlerContext(channelHandlerContext, mqttServerContext, clientSessionContext, mqttMessage);
+            mqttClientSessionContext.getMqttVersionType().getStrategy().closeChannelHandlerContext(channelHandlerContext, mqttServerContext, mqttClientSessionContext, mqttMessage);
         }
-        logTrace(channelHandlerContext, clientSessionContext.getAddress(), clientSessionContext.getSessionId(), "channel is closed.");
+        logTrace(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "channel is closed.");
     }
 
     public static void logTrace(ChannelHandlerContext channelHandlerContext, InetSocketAddress clientAddress, UUID sessionId, String logMessage, Object... logParams) {
         log.trace(Strings.format(STR."\{getBaseLog(channelHandlerContext, clientAddress, sessionId)} - \{logMessage}", logParams));
+    }
+
+    public static void logDebug(ChannelHandlerContext channelHandlerContext, InetSocketAddress clientAddress, UUID sessionId, String logMessage, Object... logParams) {
+        log.debug(Strings.format(STR."\{getBaseLog(channelHandlerContext, clientAddress, sessionId)} - \{logMessage}", logParams));
+    }
+
+    public static void logInfo(ChannelHandlerContext channelHandlerContext, InetSocketAddress clientAddress, UUID sessionId, String logMessage, Object... logParams) {
+        log.info(Strings.format(STR."\{getBaseLog(channelHandlerContext, clientAddress, sessionId)} - \{logMessage}", logParams));
+    }
+
+    public static void logWarn(ChannelHandlerContext channelHandlerContext, InetSocketAddress clientAddress, UUID sessionId, String logMessage, Object... logParams) {
+        log.warn(Strings.format(STR."\{getBaseLog(channelHandlerContext, clientAddress, sessionId)} - \{logMessage}", logParams));
     }
 
     public static void logError(ChannelHandlerContext channelHandlerContext, InetSocketAddress clientAddress, UUID sessionId, String logMessage, Object... logParams) {
@@ -114,10 +137,17 @@ public class NettyMqtts {
     }
 
     private static String getBaseLog(ChannelHandlerContext channelHandlerContext, InetSocketAddress clientAddress, UUID sessionId) {
-        if (Nil.isNull(clientAddress)) {
-            return Strings.format("{}[sessionId:{}] - [channelId:{}]", ModuleView.MESSAGE_ENGINE_MQTT_SERVER_SYSTEM, sessionId, getChannelId(channelHandlerContext));
+        String baseLog = ModuleView.MESSAGE_ENGINE_MQTT_SERVER_SYSTEM;
+        if (Nil.isNotNull(clientAddress)) {
+            baseLog = baseLog + Strings.format("[ip:{}] - [port:{}]", clientAddress.getAddress(), clientAddress.getPort());
         }
-        return Strings.format("{}[ip:{}] - [port:{}] - [sessionId:{}] - [channelId:{}]", ModuleView.MESSAGE_ENGINE_MQTT_SERVER_SYSTEM, clientAddress.getAddress(), clientAddress.getPort(), sessionId, getChannelId(channelHandlerContext));
+        if (Nil.isNotNull(sessionId)) {
+            baseLog = baseLog + Strings.format(" - [sessionId:{}]", sessionId);
+        }
+        if (Nil.isNotNull(channelHandlerContext)) {
+            baseLog = baseLog + Strings.format(" - [channelId:{}]", channelHandlerContext.channel().id());
+        }
+        return baseLog;
     }
 
 }

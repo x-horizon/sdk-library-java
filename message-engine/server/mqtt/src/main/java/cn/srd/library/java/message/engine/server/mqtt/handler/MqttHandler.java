@@ -1,7 +1,7 @@
 package cn.srd.library.java.message.engine.server.mqtt.handler;
 
 import cn.srd.library.java.message.engine.server.mqtt.constant.NettyMqttConstant;
-import cn.srd.library.java.message.engine.server.mqtt.context.ClientSessionContext;
+import cn.srd.library.java.message.engine.server.mqtt.context.MqttClientSessionContext;
 import cn.srd.library.java.message.engine.server.mqtt.context.MqttServerContext;
 import cn.srd.library.java.message.engine.server.mqtt.model.enums.MqttMessageType;
 import cn.srd.library.java.message.engine.server.mqtt.tool.NettyMqtts;
@@ -33,12 +33,12 @@ public class MqttHandler extends ChannelInboundHandlerAdapter implements Generic
 
     private final MqttServerContext mqttServerContext;
 
-    private final ClientSessionContext clientSessionContext;
+    private final MqttClientSessionContext mqttClientSessionContext;
 
     public MqttHandler(MqttServerContext mqttServerContext) {
         this.sessionId = UUIDs.get();
         this.mqttServerContext = mqttServerContext;
-        this.clientSessionContext = new ClientSessionContext(sessionId, mqttServerContext);
+        this.mqttClientSessionContext = new MqttClientSessionContext(sessionId, mqttServerContext);
     }
 
     @Override
@@ -55,28 +55,28 @@ public class MqttHandler extends ChannelInboundHandlerAdapter implements Generic
 
     @Override
     public void channelRead(ChannelHandlerContext channelHandlerContext, Object message) {
-        NettyMqtts.logTrace(channelHandlerContext, clientSessionContext.getAddress(), sessionId, "receive message: {}", message);
+        NettyMqtts.logTrace(channelHandlerContext, mqttClientSessionContext.getAddress(), sessionId, "receive message: {}", message);
         if (Nil.isNull(clientAddress)) {
             clientAddress = getClientAddress(channelHandlerContext);
-            clientSessionContext.setAddress(clientAddress);
+            mqttClientSessionContext.setAddress(clientAddress);
         }
         try {
             if (message instanceof MqttMessage mqttMessage) {
                 if (mqttMessage.decoderResult().isFailure()) {
                     NettyMqtts.logError(channelHandlerContext, clientAddress, sessionId, "decode mqtt message failed: {}", mqttMessage.decoderResult().cause().getMessage());
-                    NettyMqtts.closeChannelHandlerContext(channelHandlerContext, mqttServerContext, clientSessionContext, MqttReasonCodes.Disconnect.MALFORMED_PACKET);
+                    NettyMqtts.closeChannelHandlerContext(channelHandlerContext, mqttServerContext, mqttClientSessionContext, MqttReasonCodes.Disconnect.MALFORMED_PACKET);
                     return;
                 }
                 if (Nil.isNull(mqttMessage.fixedHeader())) {
                     NettyMqtts.logError(channelHandlerContext, clientAddress, sessionId, "receive mqtt message without fixed header: {}", mqttMessage);
-                    NettyMqtts.closeChannelHandlerContext(channelHandlerContext, mqttServerContext, clientSessionContext, MqttReasonCodes.Disconnect.PROTOCOL_ERROR);
+                    NettyMqtts.closeChannelHandlerContext(channelHandlerContext, mqttServerContext, mqttClientSessionContext, MqttReasonCodes.Disconnect.PROTOCOL_ERROR);
                     return;
                 }
-                clientSessionContext.setChannelHandlerContext(channelHandlerContext);
+                mqttClientSessionContext.setChannelHandlerContext(channelHandlerContext);
                 processMqttMessage(channelHandlerContext, mqttMessage);
             } else {
                 NettyMqtts.logTrace(channelHandlerContext, clientAddress, sessionId, "receive non mqtt message: {}", message.getClass().getSimpleName());
-                NettyMqtts.closeChannelHandlerContext(channelHandlerContext, mqttServerContext, clientSessionContext, (MqttMessage) null);
+                NettyMqtts.closeChannelHandlerContext(channelHandlerContext, mqttServerContext, mqttClientSessionContext, (MqttMessage) null);
             }
         } finally {
             ReferenceCountUtil.safeRelease(message);
@@ -91,7 +91,7 @@ public class MqttHandler extends ChannelInboundHandlerAdapter implements Generic
     @Override
     public void exceptionCaught(ChannelHandlerContext channelHandlerContext, Throwable cause) {
         NettyMqtts.logError(channelHandlerContext, clientAddress, sessionId, "unexpected exception: ", cause);
-        NettyMqtts.closeChannelHandlerContext(channelHandlerContext, mqttServerContext, clientSessionContext, MqttReasonCodes.Disconnect.SERVER_SHUTTING_DOWN);
+        NettyMqtts.closeChannelHandlerContext(channelHandlerContext, mqttServerContext, mqttClientSessionContext, MqttReasonCodes.Disconnect.SERVER_SHUTTING_DOWN);
         if (cause instanceof OutOfMemoryError) {
             NettyMqtts.logError(channelHandlerContext, clientAddress, sessionId, "received out of memory error, going to shutdown server.");
             System.exit(1);
@@ -100,11 +100,12 @@ public class MqttHandler extends ChannelInboundHandlerAdapter implements Generic
 
     @Override
     public void operationComplete(Future<? super Void> future) {
-
+        mqttClientSessionContext.disconnect();
+        NettyMqtts.logTrace(null, clientAddress, sessionId, "operate complete, channel is closed.");
     }
 
     void processMqttMessage(ChannelHandlerContext channelHandlerContext, MqttMessage mqttMessage) {
-        MqttMessageType.from(mqttMessage.fixedHeader().messageType()).getStrategy().process(channelHandlerContext, mqttServerContext, clientSessionContext, mqttMessage);
+        MqttMessageType.from(mqttMessage.fixedHeader().messageType()).getStrategy().process(channelHandlerContext, mqttServerContext, mqttClientSessionContext, mqttMessage);
     }
 
     private InetSocketAddress getClientAddress(ChannelHandlerContext channelHandlerContext) {
