@@ -102,13 +102,13 @@ public class MqttServerHandler extends SimpleChannelInboundHandler<MqttMessage> 
     // 创建订阅响应
     private MqttSubAckMessage createSubAckMessage(int messageId, List<MqttTopicSubscription> topicSubscriptions) {
         log.debug("创建订阅 ack");
-        List<Integer> grantedQoSLevels = topicSubscriptions.stream()
+        List<Integer> grantedQosLevels = topicSubscriptions.stream()
                 .map(sub -> sub.qualityOfService().value())
                 .collect(Collectors.toList());
 
         MqttFixedHeader mqttFixedHeader = new MqttFixedHeader(MqttMessageType.SUBACK, false, MqttQoS.AT_MOST_ONCE, false, 0);
         MqttMessageIdVariableHeader mqttMessageIdVariableHeader = MqttMessageIdVariableHeader.from(messageId);
-        return new MqttSubAckMessage(mqttFixedHeader, mqttMessageIdVariableHeader, new MqttSubAckPayload(grantedQoSLevels));
+        return new MqttSubAckMessage(mqttFixedHeader, mqttMessageIdVariableHeader, new MqttSubAckPayload(grantedQosLevels));
     }
 
 }

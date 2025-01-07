@@ -69,31 +69,31 @@ public class MqttServerAutoConfigurer {
 
     @Bean
     @ConditionalOnMissingBean(ClientConnectAuthHandler.class)
-    public ClientConnectAuthNonHandler clientConnectNonAuthStrategy() {
+    public ClientConnectAuthNonHandler clientConnectAuthNonHandler() {
         return new ClientConnectAuthNonHandler();
     }
 
     @Bean
     @ConditionalOnMissingBean(ClientPublishHandler.class)
-    public ClientPublishNonHandler clientPublishNonHandleStrategy() {
+    public ClientPublishNonHandler clientPublishNonHandler() {
         return new ClientPublishNonHandler();
     }
 
     @Bean
     @ConditionalOnMissingBean(ClientPublishAckOnQos1Handler.class)
-    public ClientPublishAckOnQos1NonHandler clientPublishAckOnQos1NonHandleStrategy() {
+    public ClientPublishAckOnQos1NonHandler clientPublishAckOnQos1NonHandler() {
         return new ClientPublishAckOnQos1NonHandler();
     }
 
     @Bean
     @ConditionalOnMissingBean(ClientSubscribeHandler.class)
-    public ClientSubscribeNonHandler clientSubscribeNonHandleStrategy() {
+    public ClientSubscribeNonHandler clientSubscribeNonHandler() {
         return new ClientSubscribeNonHandler();
     }
 
     @Bean
     @ConditionalOnMissingBean(ClientUnsubscribeHandler.class)
-    public ClientUnsubscribeNonHandler clientUnsubscribeNonHandleStrategy() {
+    public ClientUnsubscribeNonHandler clientUnsubscribeNonHandler() {
         return new ClientUnsubscribeNonHandler();
     }
 
