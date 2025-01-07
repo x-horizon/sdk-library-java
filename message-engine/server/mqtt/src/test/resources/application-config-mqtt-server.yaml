@@ -1,0 +1,16 @@
+library-java:
+  message-engine:
+    mqtt:
+      server:
+        common:
+          need-to-enable-proxy-protocol-support: false
+          need-to-keep-alive: true
+          netty-acceptor-thread-count: 3
+          netty-worker-thread-count: 10
+        non-ssl:
+          host: "127.0.0.1"
+          port: 1883
+        ssl:
+          host: "127.0.0.1"
+          port: 8883
+          need-to-enable: false
