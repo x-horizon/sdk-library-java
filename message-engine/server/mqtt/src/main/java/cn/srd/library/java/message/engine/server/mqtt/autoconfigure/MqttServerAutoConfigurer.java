@@ -1,6 +1,7 @@
 package cn.srd.library.java.message.engine.server.mqtt.autoconfigure;
 
 import cn.srd.library.java.message.engine.server.mqtt.context.MqttServerContext;
+import cn.srd.library.java.message.engine.server.mqtt.handler.*;
 import cn.srd.library.java.message.engine.server.mqtt.model.property.MqttServerCommonProperty;
 import cn.srd.library.java.message.engine.server.mqtt.model.property.MqttServerNonSslProperty;
 import cn.srd.library.java.message.engine.server.mqtt.model.property.MqttServerSslProperty;
@@ -67,33 +68,33 @@ public class MqttServerAutoConfigurer {
     }
 
     @Bean
-    @ConditionalOnMissingBean(ClientConnectAuthStrategy.class)
-    public ClientConnectNonAuthStrategy clientConnectNonAuthStrategy() {
-        return new ClientConnectNonAuthStrategy();
+    @ConditionalOnMissingBean(ClientConnectAuthHandler.class)
+    public ClientConnectAuthNonHandler clientConnectNonAuthStrategy() {
+        return new ClientConnectAuthNonHandler();
     }
 
     @Bean
-    @ConditionalOnMissingBean(ClientPublishStrategy.class)
-    public ClientPublishNonHandleStrategy clientPublishNonHandleStrategy() {
-        return new ClientPublishNonHandleStrategy();
+    @ConditionalOnMissingBean(ClientPublishHandler.class)
+    public ClientPublishNonHandler clientPublishNonHandleStrategy() {
+        return new ClientPublishNonHandler();
     }
 
     @Bean
-    @ConditionalOnMissingBean(ClientPublishAckOnQos1Strategy.class)
-    public ClientPublishAckOnQos1NonHandleStrategy clientPublishAckOnQos1NonHandleStrategy() {
-        return new ClientPublishAckOnQos1NonHandleStrategy();
+    @ConditionalOnMissingBean(ClientPublishAckOnQos1Handler.class)
+    public ClientPublishAckOnQos1NonHandler clientPublishAckOnQos1NonHandleStrategy() {
+        return new ClientPublishAckOnQos1NonHandler();
     }
 
     @Bean
-    @ConditionalOnMissingBean(ClientSubscribeStrategy.class)
-    public ClientSubscribeNonHandleStrategy clientSubscribeNonHandleStrategy() {
-        return new ClientSubscribeNonHandleStrategy();
+    @ConditionalOnMissingBean(ClientSubscribeHandler.class)
+    public ClientSubscribeNonHandler clientSubscribeNonHandleStrategy() {
+        return new ClientSubscribeNonHandler();
     }
 
     @Bean
-    @ConditionalOnMissingBean(ClientUnsubscribeStrategy.class)
-    public ClientUnsubscribeNonHandleStrategy clientUnsubscribeNonHandleStrategy() {
-        return new ClientUnsubscribeNonHandleStrategy();
+    @ConditionalOnMissingBean(ClientUnsubscribeHandler.class)
+    public ClientUnsubscribeNonHandler clientUnsubscribeNonHandleStrategy() {
+        return new ClientUnsubscribeNonHandler();
     }
 
 }

@@ -3,6 +3,7 @@ package cn.srd.library.java.message.engine.server.mqtt.strategy;
 import cn.srd.library.java.message.engine.server.mqtt.callback.MessageCallback;
 import cn.srd.library.java.message.engine.server.mqtt.context.MqttClientSessionContext;
 import cn.srd.library.java.message.engine.server.mqtt.context.MqttServerContext;
+import cn.srd.library.java.message.engine.server.mqtt.handler.ClientUnsubscribeHandler;
 import cn.srd.library.java.message.engine.server.mqtt.matcher.MqttTopicMatcher;
 import cn.srd.library.java.message.engine.server.mqtt.tool.NettyMqtts;
 import cn.srd.library.java.tool.lang.collection.Collections;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class MqttMessageUnsubscribeStrategy implements MqttMessageStrategy<MqttUnsubscribeMessage> {
 
-    @Autowired private ClientUnsubscribeStrategy clientUnsubscribeStrategy;
+    @Autowired private ClientUnsubscribeHandler clientUnsubscribeHandler;
 
     @Override
     public void process(ChannelHandlerContext channelHandlerContext, MqttServerContext mqttServerContext, MqttClientSessionContext mqttClientSessionContext, MqttUnsubscribeMessage mqttUnsubscribeMessage) {
@@ -46,7 +47,7 @@ public class MqttMessageUnsubscribeStrategy implements MqttMessageStrategy<MqttU
                         unsubscribeResultCodes.add((short) MqttReasonCodes.UnsubAck.IMPLEMENTATION_SPECIFIC_ERROR.byteValue());
                     }
                 };
-                callback.process(mqttServerContext.getMessageCallbackExecutor(), () -> clientUnsubscribeStrategy.process(unsubscribeTopic));
+                callback.process(mqttServerContext.getMessageCallbackExecutor(), () -> clientUnsubscribeHandler.process(unsubscribeTopic));
             } else {
                 NettyMqtts.logDebug(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "failed to unsubscribe topic - [{}] because not found.", unsubscribeTopic);
                 unsubscribeResultCodes.add((short) MqttReasonCodes.UnsubAck.NO_SUBSCRIPTION_EXISTED.byteValue());

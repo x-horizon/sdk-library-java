@@ -1,4 +1,4 @@
-package cn.srd.library.java.message.engine.server.mqtt.strategy;
+package cn.srd.library.java.message.engine.server.mqtt.handler;
 
 import cn.srd.library.java.message.engine.server.mqtt.model.dto.RpcRequestDTO;
 
@@ -6,7 +6,7 @@ import cn.srd.library.java.message.engine.server.mqtt.model.dto.RpcRequestDTO;
  * @author wjm
  * @since 2025-01-07 22:21
  */
-public class ClientPublishAckOnQos1NonHandleStrategy implements ClientPublishAckOnQos1Strategy {
+public class ClientPublishAckOnQos1NonHandler implements ClientPublishAckOnQos1Handler {
 
     @Override
     public Void process(RpcRequestDTO rpcRequestDTO) {

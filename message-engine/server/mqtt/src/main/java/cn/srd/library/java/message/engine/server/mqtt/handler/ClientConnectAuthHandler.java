@@ -1,4 +1,4 @@
-package cn.srd.library.java.message.engine.server.mqtt.strategy;
+package cn.srd.library.java.message.engine.server.mqtt.handler;
 
 import cn.srd.library.java.message.engine.server.mqtt.model.dto.ClientConnectAuthRequestDTO;
 import cn.srd.library.java.message.engine.server.mqtt.model.dto.ClientConnectAuthResponseDTO;
@@ -7,7 +7,7 @@ import cn.srd.library.java.message.engine.server.mqtt.model.dto.ClientConnectAut
  * @author wjm
  * @since 2025-01-06 22:18
  */
-public interface ClientConnectAuthStrategy {
+public interface ClientConnectAuthHandler {
 
     ClientConnectAuthResponseDTO process(ClientConnectAuthRequestDTO requestDTO);
 

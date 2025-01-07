@@ -1,6 +1,7 @@
-package cn.srd.library.java.message.engine.server.mqtt.strategy;
+package cn.srd.library.java.message.engine.server.mqtt.manager.handler;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
+import cn.srd.library.java.message.engine.server.mqtt.handler.ClientConnectAuthHandler;
 import cn.srd.library.java.message.engine.server.mqtt.model.dto.ClientConnectAuthRequestDTO;
 import cn.srd.library.java.message.engine.server.mqtt.model.dto.ClientConnectAuthResponseDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class ClientConnectTokenAuthStrategy implements ClientConnectAuthStrategy {
+public class DeviceConnectAuthByTokenHandler implements ClientConnectAuthHandler {
 
     @Override
     public ClientConnectAuthResponseDTO process(ClientConnectAuthRequestDTO requestDTO) {

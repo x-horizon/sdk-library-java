@@ -1,4 +1,4 @@
-package cn.srd.library.java.message.engine.server.mqtt.strategy;
+package cn.srd.library.java.message.engine.server.mqtt.handler;
 
 import io.netty.handler.codec.mqtt.MqttTopicSubscription;
 
@@ -6,7 +6,7 @@ import io.netty.handler.codec.mqtt.MqttTopicSubscription;
  * @author wjm
  * @since 2025-01-07 20:33
  */
-public interface ClientSubscribeStrategy {
+public interface ClientSubscribeHandler {
 
     Void process(MqttTopicSubscription mqttTopicSubscription);
 

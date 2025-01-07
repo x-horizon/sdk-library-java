@@ -4,6 +4,7 @@ import cn.srd.library.java.message.engine.server.mqtt.callback.MessageCallback;
 import cn.srd.library.java.message.engine.server.mqtt.constant.ClientConnectConstant;
 import cn.srd.library.java.message.engine.server.mqtt.context.MqttClientSessionContext;
 import cn.srd.library.java.message.engine.server.mqtt.context.MqttServerContext;
+import cn.srd.library.java.message.engine.server.mqtt.handler.ClientConnectAuthHandler;
 import cn.srd.library.java.message.engine.server.mqtt.model.dto.ClientConnectAuthRequestDTO;
 import cn.srd.library.java.message.engine.server.mqtt.model.dto.ClientConnectAuthResponseDTO;
 import cn.srd.library.java.message.engine.server.mqtt.model.enums.MqttVersionType;
@@ -24,7 +25,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class MqttMessageConnectStrategy implements MqttMessageStrategy<MqttConnectMessage> {
 
-    @Autowired private ClientConnectAuthStrategy clientConnectAuthStrategy;
+    @Autowired private ClientConnectAuthHandler clientConnectAuthHandler;
 
     @Override
     public void process(ChannelHandlerContext channelHandlerContext, MqttServerContext mqttServerContext, MqttClientSessionContext mqttClientSessionContext, MqttConnectMessage mqttConnectMessage) {
@@ -56,7 +57,7 @@ public class MqttMessageConnectStrategy implements MqttMessageStrategy<MqttConne
                     NettyMqtts.closeChannelHandlerContext(channelHandlerContext, mqttServerContext, mqttClientSessionContext, MqttReasonCodes.Disconnect.SERVER_BUSY);
                 }
             };
-            callback.process(mqttServerContext.getMessageCallbackExecutor(), () -> clientConnectAuthStrategy.process(authRequestDTO));
+            callback.process(mqttServerContext.getMessageCallbackExecutor(), () -> clientConnectAuthHandler.process(authRequestDTO));
         }
         NettyMqtts.logTrace(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "client [{}] has connected.", clientId);
     }

@@ -1,4 +1,4 @@
-package cn.srd.library.java.message.engine.server.mqtt.strategy;
+package cn.srd.library.java.message.engine.server.mqtt.handler;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import io.netty.handler.codec.mqtt.MqttReasonCodes;
@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2025-01-07 21:39
  */
 @Slf4j
-public class ClientUnsubscribeNonHandleStrategy implements ClientUnsubscribeStrategy {
+public class ClientUnsubscribeNonHandler implements ClientUnsubscribeHandler {
 
     @Override
     public short process(String unsubscribeTopic) {

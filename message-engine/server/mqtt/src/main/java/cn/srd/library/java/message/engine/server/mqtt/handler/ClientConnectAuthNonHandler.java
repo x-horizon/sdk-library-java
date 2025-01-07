@@ -1,4 +1,4 @@
-package cn.srd.library.java.message.engine.server.mqtt.strategy;
+package cn.srd.library.java.message.engine.server.mqtt.handler;
 
 import cn.srd.library.java.contract.constant.module.ModuleView;
 import cn.srd.library.java.message.engine.server.mqtt.model.dto.ClientConnectAuthRequestDTO;
@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2025-01-06 22:19
  */
 @Slf4j
-public class ClientConnectNonAuthStrategy implements ClientConnectAuthStrategy {
+public class ClientConnectAuthNonHandler implements ClientConnectAuthHandler {
 
     @Override
     public ClientConnectAuthResponseDTO process(ClientConnectAuthRequestDTO requestDTO) {

@@ -3,6 +3,7 @@ package cn.srd.library.java.message.engine.server.mqtt.strategy;
 import cn.srd.library.java.message.engine.server.mqtt.callback.MessageFocusOnFailureCallback;
 import cn.srd.library.java.message.engine.server.mqtt.context.MqttClientSessionContext;
 import cn.srd.library.java.message.engine.server.mqtt.context.MqttServerContext;
+import cn.srd.library.java.message.engine.server.mqtt.handler.ClientSubscribeHandler;
 import cn.srd.library.java.message.engine.server.mqtt.matcher.MqttTopicMatcher;
 import cn.srd.library.java.message.engine.server.mqtt.tool.NettyMqtts;
 import cn.srd.library.java.tool.lang.collection.Collections;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public class MqttMessageSubscribeStrategy implements MqttMessageStrategy<MqttSubscribeMessage> {
 
-    @Autowired private ClientSubscribeStrategy clientSubscribeStrategy;
+    @Autowired private ClientSubscribeHandler clientSubscribeHandler;
 
     @Override
     public void process(ChannelHandlerContext channelHandlerContext, MqttServerContext mqttServerContext, MqttClientSessionContext mqttClientSessionContext, MqttSubscribeMessage mqttSubscribeMessage) {
@@ -44,7 +45,7 @@ public class MqttMessageSubscribeStrategy implements MqttMessageStrategy<MqttSub
                 NettyMqtts.logWarn(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "failed to subscribe topic: {}, request qos: {}, reason: {}", topicName, requestQoS, throwable);
                 grantedQoses.add(NettyMqtts.getMqttSubscribeReturnCode(mqttClientSessionContext.getMqttVersionType(), MqttReasonCodes.SubAck.IMPLEMENTATION_SPECIFIC_ERROR));
             };
-            callback.process(mqttServerContext.getMessageCallbackExecutor(), () -> clientSubscribeStrategy.process(topicSubscription));
+            callback.process(mqttServerContext.getMessageCallbackExecutor(), () -> clientSubscribeHandler.process(topicSubscription));
         });
         channelHandlerContext.writeAndFlush(NettyMqtts.createMqttSubscribeAckMessage(messageId, grantedQoses));
         NettyMqtts.logTrace(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "mqtt subscribe message has been processed.");
