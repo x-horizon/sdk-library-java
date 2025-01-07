@@ -252,6 +252,16 @@ public class Collections {
     }
 
     /**
+     * create an empty array list
+     *
+     * @param <T> the output type
+     * @return an empty array list
+     */
+    public static <T> List<T> ofSingletonList(T input) {
+        return java.util.Collections.singletonList(input);
+    }
+
+    /**
      * create a containing the specified elements array list
      *
      * @param inputs the specified elements
