@@ -1,4 +1,4 @@
-package cn.srd.library.java.message.engine.client.contract.autoconfigure;
+package cn.srd.library.java.message.engine.contract.autoconfigure;
 
 import cn.srd.library.java.contract.constant.spring.SpringInitializeConstant;
 import cn.srd.library.java.tool.lang.object.BasePackagePath;
@@ -14,9 +14,9 @@ import org.springframework.lang.NonNull;
  * @since 2024-05-24 16:56
  */
 @Order(SpringInitializeConstant.HIGHER_INITIALIZE_PRIORITY)
-public class MessageClientBasePackagePathAutoConfigurer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+public class MessageEngineBasePackagePathAutoConfigurer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
-    static final String BASE_PACKAGE_PATH = "cn.srd.library.java.message.engine";
+    public static final String BASE_PACKAGE_PATH = "cn.srd.library.java.message.engine";
 
     @Override
     public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {

@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * provide an annotation to enable message engine rabbitmq system.
+ * provide an annotation to enable message engine rabbitmq client system.
  *
  * @author wjm
  * @see MessageRabbitMqClientRegistrar

@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * provide an annotation to enable message engine mqtt-v3 system.
+ * provide an annotation to enable message engine mqtt-v3 client system.
  *
  * @author wjm
  * @see MessageMqttV3ClientRegistrar

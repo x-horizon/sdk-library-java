@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * provide an annotation to enable message engine rocketmq system.
+ * provide an annotation to enable message engine rocketmq client system.
  *
  * @author wjm
  * @see MessageRocketMqClientRegistrar

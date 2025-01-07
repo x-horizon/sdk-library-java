@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * provide an annotation to enable message engine redis system.
+ * provide an annotation to enable message engine redis client system.
  *
  * @author wjm
  * @see MessageRedisStreamClientRegistrar

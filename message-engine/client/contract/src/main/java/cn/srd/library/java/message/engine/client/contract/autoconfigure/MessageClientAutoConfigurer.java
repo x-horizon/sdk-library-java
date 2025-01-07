@@ -12,10 +12,10 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.config.EnableIntegration;
 
-import static cn.srd.library.java.message.engine.client.contract.autoconfigure.MessageClientBasePackagePathAutoConfigurer.BASE_PACKAGE_PATH;
+import static cn.srd.library.java.message.engine.contract.autoconfigure.MessageEngineBasePackagePathAutoConfigurer.BASE_PACKAGE_PATH;
 
 /**
- * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Message Engine
+ * {@link EnableAutoConfiguration AutoConfiguration} for Library Java Message Engine Client
  *
  * @author wjm
  * @since 2024-05-24 16:56
