@@ -979,7 +979,7 @@ public class Converts {
                 ignore -> {
                     for (Field field : Reflects.getFields(enumClass)) {
                         // skip enum internal field
-                        if (Enums.isEnum(field.getType()) || Enums.isInternalFieldName(field)) {
+                        if (Enums.isInternalFieldName(field)) {
                             continue;
                         }
                         for (E enumObj : enumClass.getEnumConstants()) {
