@@ -81,7 +81,7 @@ public class MqttV3ClientConfigStrategy extends MessageClientConfigStrategy<Mqtt
                 .flowId(flowId)
                 .idGenerateType(idGenerateType)
                 .executeMethod(executeMethod)
-                .qualityOfServiceType(clientConfigAnnotation.qosType())
+                .qualityOfServiceType(clientConfigAnnotation.qualityOfServiceType())
                 .completionTimeout(clientConfigAnnotation.completionTimeout())
                 .disconnectCompletionTimeout(clientConfigAnnotation.disconnectCompletionTimeout())
                 .build();

@@ -35,14 +35,14 @@ public class MqttMessageSubscribeStrategy implements MqttMessageStrategy<MqttSub
         mqttSubscribeMessage.payload().topicSubscriptions().forEach(topicSubscription -> {
             String topicName = topicSubscription.topicFilter();
             MqttQoS requestQualityOfService = topicSubscription.qualityOfService();
-            NettyMqtts.logTrace(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "processing client mqtt subscribe message, message id: {}, subscribe topic name: {}, request qos: {}", messageId, topicName, requestQualityOfService);
+            NettyMqtts.logTrace(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "processing client mqtt subscribe message, message id: {}, subscribe topic name: {}, request quality of service: {}", messageId, topicName, requestQualityOfService);
 
             MqttQoS maxSupportQualityOfService = NettyMqtts.getMaxSupportQualityOfService(requestQualityOfService);
             mqttClientSessionContext.getTopicMappingSupportedQualityOfServiceMap().put(new MqttTopicMatcher(topicName), maxSupportQualityOfService);
             grantedQualityOfServices.add(maxSupportQualityOfService.value());
 
             MessageFocusOnFailureCallback<Void> callback = throwable -> {
-                NettyMqtts.logWarn(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "failed to subscribe topic: {}, request qos: {}, reason: {}", topicName, requestQualityOfService, throwable);
+                NettyMqtts.logWarn(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "failed to subscribe topic: {}, request quality of service: {}, reason: {}", topicName, requestQualityOfService, throwable);
                 grantedQualityOfServices.add(NettyMqtts.getMqttSubscribeReturnCode(mqttClientSessionContext.getMqttVersionType(), MqttReasonCodes.SubAck.IMPLEMENTATION_SPECIFIC_ERROR));
             };
             callback.process(mqttServerContext.getMessageCallbackExecutor(), () -> clientSubscribeHandler.process(topicSubscription));

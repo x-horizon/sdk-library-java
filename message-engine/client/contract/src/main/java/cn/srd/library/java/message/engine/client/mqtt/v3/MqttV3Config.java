@@ -27,7 +27,7 @@ public @interface MqttV3Config {
         // TODO wjm 此处实现不够好，与 snowflake id 强绑定，客户端不一定需要用到 snowflake id，目前客户端必须提供正确的 redis 配置，否则项目启动报错
         MessageClientIdGenerateType idGenerateType() default MessageClientIdGenerateType.SNOWFLAKE;
 
-        MessageQualityOfServiceType qosType() default MessageQualityOfServiceType.AT_MOST_ONCE;
+        MessageQualityOfServiceType qualityOfServiceType() default MessageQualityOfServiceType.AT_MOST_ONCE;
 
         String completionTimeout() default MqttClientDefaultConfigConstant.Client.COMPLETION_TIMEOUT;
 

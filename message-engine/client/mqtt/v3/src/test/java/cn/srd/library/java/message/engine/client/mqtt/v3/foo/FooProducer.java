@@ -20,7 +20,7 @@ public class FooProducer {
     @MessageClientProducer(
             topic = FooTopicConstant.TOPIC_TEST1,
             config = @MessageClientConfig(engineType = MessageClientType.MQTT_V3, mqttV3 = @MqttV3Config(
-                    clientConfig = @MqttV3Config.ClientConfig(qosType = MessageQualityOfServiceType.EXACTLY_ONCE)
+                    clientConfig = @MqttV3Config.ClientConfig(qualityOfServiceType = MessageQualityOfServiceType.EXACTLY_ONCE)
             ))
     )
     public String send1() {
@@ -31,7 +31,7 @@ public class FooProducer {
     @MessageClientProducer(
             topic = FooTopicConstant.TOPIC_TEST2,
             config = @MessageClientConfig(engineType = MessageClientType.MQTT_V3, mqttV3 = @MqttV3Config(
-                    clientConfig = @MqttV3Config.ClientConfig(qosType = MessageQualityOfServiceType.EXACTLY_ONCE)
+                    clientConfig = @MqttV3Config.ClientConfig(qualityOfServiceType = MessageQualityOfServiceType.EXACTLY_ONCE)
             ))
     )
     public String send2() {
