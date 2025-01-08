@@ -33,8 +33,8 @@ public class MqttMessageUnsubscribeStrategy implements MqttMessageStrategy<MqttU
         List<Short> unsubscribeResultCodes = Collections.newArrayList(mqttUnsubscribeMessage.payload().topics().size());
         mqttUnsubscribeMessage.payload().topics().forEach(unsubscribeTopic -> {
             MqttTopicMatcher mqttTopicMatcher = new MqttTopicMatcher(unsubscribeTopic);
-            if (mqttClientSessionContext.getTopicMappingSupportedQosMap().containsKey(mqttTopicMatcher)) {
-                mqttClientSessionContext.getTopicMappingSupportedQosMap().remove(mqttTopicMatcher);
+            if (mqttClientSessionContext.getTopicMappingSupportedQualityOfServiceMap().containsKey(mqttTopicMatcher)) {
+                mqttClientSessionContext.getTopicMappingSupportedQualityOfServiceMap().remove(mqttTopicMatcher);
                 MessageCallback<Short> callback = new MessageCallback<>() {
                     @Override
                     public void onSuccess(Short unsubscribeResultCode) {

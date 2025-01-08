@@ -1,7 +1,7 @@
 package cn.srd.library.java.message.engine.client.mqtt.v3;
 
 import cn.srd.library.java.message.engine.client.contract.model.enums.MessageClientIdGenerateType;
-import cn.srd.library.java.message.engine.client.contract.model.enums.MessageQosType;
+import cn.srd.library.java.message.engine.client.contract.model.enums.MessageQualityOfServiceType;
 import cn.srd.library.java.message.engine.client.mqtt.contract.support.MqttClientDefaultConfigConstant;
 
 import java.lang.annotation.Retention;
@@ -27,7 +27,7 @@ public @interface MqttV3Config {
         // TODO wjm 此处实现不够好，与 snowflake id 强绑定，客户端不一定需要用到 snowflake id，目前客户端必须提供正确的 redis 配置，否则项目启动报错
         MessageClientIdGenerateType idGenerateType() default MessageClientIdGenerateType.SNOWFLAKE;
 
-        MessageQosType qosType() default MessageQosType.AT_MOST_ONCE;
+        MessageQualityOfServiceType qosType() default MessageQualityOfServiceType.AT_MOST_ONCE;
 
         String completionTimeout() default MqttClientDefaultConfigConstant.Client.COMPLETION_TIMEOUT;
 

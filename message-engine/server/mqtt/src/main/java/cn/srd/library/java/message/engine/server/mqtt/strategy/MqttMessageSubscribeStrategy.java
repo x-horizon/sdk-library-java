@@ -31,23 +31,23 @@ public class MqttMessageSubscribeStrategy implements MqttMessageStrategy<MqttSub
             channelHandlerContext.writeAndFlush(NettyMqtts.createMqttSubscribeAckMessage(messageId, Collections.ofSingletonList(MqttReasonCodes.SubAck.NOT_AUTHORIZED.byteValue() & 0xFF)));
             return;
         }
-        List<Integer> grantedQoses = Collections.newArrayList(mqttSubscribeMessage.payload().topicSubscriptions().size());
+        List<Integer> grantedQualityOfServices = Collections.newArrayList(mqttSubscribeMessage.payload().topicSubscriptions().size());
         mqttSubscribeMessage.payload().topicSubscriptions().forEach(topicSubscription -> {
             String topicName = topicSubscription.topicFilter();
-            MqttQoS requestQos = topicSubscription.qualityOfService();
-            NettyMqtts.logTrace(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "processing client mqtt subscribe message, message id: {}, subscribe topic name: {}, request qos: {}", messageId, topicName, requestQos);
+            MqttQoS requestQualityOfService = topicSubscription.qualityOfService();
+            NettyMqtts.logTrace(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "processing client mqtt subscribe message, message id: {}, subscribe topic name: {}, request qos: {}", messageId, topicName, requestQualityOfService);
 
-            MqttQoS maxSupportQos = NettyMqtts.getMaxSupportQos(requestQos);
-            mqttClientSessionContext.getTopicMappingSupportedQosMap().put(new MqttTopicMatcher(topicName), maxSupportQos);
-            grantedQoses.add(maxSupportQos.value());
+            MqttQoS maxSupportQualityOfService = NettyMqtts.getMaxSupportQualityOfService(requestQualityOfService);
+            mqttClientSessionContext.getTopicMappingSupportedQualityOfServiceMap().put(new MqttTopicMatcher(topicName), maxSupportQualityOfService);
+            grantedQualityOfServices.add(maxSupportQualityOfService.value());
 
             MessageFocusOnFailureCallback<Void> callback = throwable -> {
-                NettyMqtts.logWarn(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "failed to subscribe topic: {}, request qos: {}, reason: {}", topicName, requestQos, throwable);
-                grantedQoses.add(NettyMqtts.getMqttSubscribeReturnCode(mqttClientSessionContext.getMqttVersionType(), MqttReasonCodes.SubAck.IMPLEMENTATION_SPECIFIC_ERROR));
+                NettyMqtts.logWarn(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "failed to subscribe topic: {}, request qos: {}, reason: {}", topicName, requestQualityOfService, throwable);
+                grantedQualityOfServices.add(NettyMqtts.getMqttSubscribeReturnCode(mqttClientSessionContext.getMqttVersionType(), MqttReasonCodes.SubAck.IMPLEMENTATION_SPECIFIC_ERROR));
             };
             callback.process(mqttServerContext.getMessageCallbackExecutor(), () -> clientSubscribeHandler.process(topicSubscription));
         });
-        channelHandlerContext.writeAndFlush(NettyMqtts.createMqttSubscribeAckMessage(messageId, grantedQoses));
+        channelHandlerContext.writeAndFlush(NettyMqtts.createMqttSubscribeAckMessage(messageId, grantedQualityOfServices));
         NettyMqtts.logTrace(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "mqtt subscribe message has been processed.");
     }
 

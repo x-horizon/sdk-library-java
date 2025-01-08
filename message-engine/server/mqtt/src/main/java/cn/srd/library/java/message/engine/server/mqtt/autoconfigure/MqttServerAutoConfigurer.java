@@ -53,8 +53,8 @@ public class MqttServerAutoConfigurer {
     }
 
     @Bean
-    public MqttMessagePublishAckOnQos1Strategy mqttMessagePublishAckOnQos1Strategy() {
-        return new MqttMessagePublishAckOnQos1Strategy();
+    public MqttMessagePublishAckOnQualityOfService1Strategy mqttMessagePublishAckOnQualityOfService1Strategy() {
+        return new MqttMessagePublishAckOnQualityOfService1Strategy();
     }
 
     @Bean
@@ -80,9 +80,9 @@ public class MqttServerAutoConfigurer {
     }
 
     @Bean
-    @ConditionalOnMissingBean(ClientPublishAckOnQos1Handler.class)
-    public ClientPublishAckOnQos1NonHandler clientPublishAckOnQos1NonHandler() {
-        return new ClientPublishAckOnQos1NonHandler();
+    @ConditionalOnMissingBean(ClientPublishAckOnQualityOfService1Handler.class)
+    public ClientPublishAckOnQualityOfService1NonHandler clientPublishAckOnQualityOfService1NonHandler() {
+        return new ClientPublishAckOnQualityOfService1NonHandler();
     }
 
     @Bean

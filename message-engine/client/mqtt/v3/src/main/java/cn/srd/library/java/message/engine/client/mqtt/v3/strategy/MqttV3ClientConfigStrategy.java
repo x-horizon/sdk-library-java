@@ -81,7 +81,7 @@ public class MqttV3ClientConfigStrategy extends MessageClientConfigStrategy<Mqtt
                 .flowId(flowId)
                 .idGenerateType(idGenerateType)
                 .executeMethod(executeMethod)
-                .qosType(clientConfigAnnotation.qosType())
+                .qualityOfServiceType(clientConfigAnnotation.qosType())
                 .completionTimeout(clientConfigAnnotation.completionTimeout())
                 .disconnectCompletionTimeout(clientConfigAnnotation.disconnectCompletionTimeout())
                 .build();
@@ -111,7 +111,7 @@ public class MqttV3ClientConfigStrategy extends MessageClientConfigStrategy<Mqtt
     protected IntegrationFlow getProducerFlow(MqttV3ClientConfigDTO.ProducerDTO producerDTO) {
         MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(producerDTO.getClientDTO().getClientId(), Springs.getBean(MqttPahoClientFactory.class));
         messageHandler.setDefaultTopic(producerDTO.getTopic());
-        messageHandler.setDefaultQos(producerDTO.getClientDTO().getQosType().getCode());
+        messageHandler.setDefaultQos(producerDTO.getClientDTO().getQualityOfServiceType().getCode());
         messageHandler.setAsync(producerDTO.isNeedToSendAsync());
         messageHandler.setCompletionTimeout(producerDTO.getClientDTO().getNativeCompletionTimeout());
         messageHandler.setDisconnectCompletionTimeout(producerDTO.getClientDTO().getNativeDisconnectCompletionTimeout());
@@ -122,7 +122,7 @@ public class MqttV3ClientConfigStrategy extends MessageClientConfigStrategy<Mqtt
     protected IntegrationFlow getConsumerFlow(MqttV3ClientConfigDTO.ConsumerDTO consumerDTO) {
         DefaultMqttPahoClientFactory mqttClientFactory = Springs.getBean(DefaultMqttPahoClientFactory.class);
         MqttPahoMessageDrivenChannelAdapter messageDrivenChannelAdapter = new MqttPahoMessageDrivenChannelAdapter(consumerDTO.getClientDTO().getClientId(), mqttClientFactory, Converts.toArray(consumerDTO.getTopics(), String.class));
-        messageDrivenChannelAdapter.setQos(consumerDTO.getClientDTO().getQosType().getCode());
+        messageDrivenChannelAdapter.setQos(consumerDTO.getClientDTO().getQualityOfServiceType().getCode());
         messageDrivenChannelAdapter.setConverter(new DefaultPahoMessageConverter());
         messageDrivenChannelAdapter.setCompletionTimeout(consumerDTO.getClientDTO().getNativeCompletionTimeout());
         messageDrivenChannelAdapter.setDisconnectCompletionTimeout(consumerDTO.getClientDTO().getNativeDisconnectCompletionTimeout());

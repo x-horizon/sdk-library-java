@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum MessageQosType {
+public enum MessageQualityOfServiceType {
 
     AT_MOST_ONCE(0),
     AT_LEAST_ONCE(1),

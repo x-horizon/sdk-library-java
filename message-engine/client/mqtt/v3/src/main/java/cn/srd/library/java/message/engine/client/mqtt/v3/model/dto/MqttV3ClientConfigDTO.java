@@ -1,7 +1,7 @@
 package cn.srd.library.java.message.engine.client.mqtt.v3.model.dto;
 
 import cn.srd.library.java.message.engine.client.contract.model.dto.MessageClientConfigDTO;
-import cn.srd.library.java.message.engine.client.contract.model.enums.MessageQosType;
+import cn.srd.library.java.message.engine.client.contract.model.enums.MessageQualityOfServiceType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -49,7 +49,7 @@ public class MqttV3ClientConfigDTO extends MessageClientConfigDTO {
 
         @Serial private static final long serialVersionUID = 1647940393744696107L;
 
-        protected MessageQosType qosType;
+        protected MessageQualityOfServiceType qualityOfServiceType;
 
         protected String completionTimeout;
 

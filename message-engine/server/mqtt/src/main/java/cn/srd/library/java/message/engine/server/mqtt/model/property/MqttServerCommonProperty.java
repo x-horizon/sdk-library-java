@@ -23,7 +23,7 @@ public class MqttServerCommonProperty {
 
     private Integer nettyAcceptorThreadCount = 1;
 
-    private Integer nettyWorkerThreadCount = 10;
+    private Integer nettyWorkerThreadCount = 12;
 
     private Integer messageCallbackThreadCount = 20;
 

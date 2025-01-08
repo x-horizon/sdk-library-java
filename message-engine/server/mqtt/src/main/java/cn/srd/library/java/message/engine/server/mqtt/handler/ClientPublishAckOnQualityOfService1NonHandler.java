@@ -6,7 +6,7 @@ import cn.srd.library.java.message.engine.server.mqtt.model.dto.RpcRequestDTO;
  * @author wjm
  * @since 2025-01-07 22:21
  */
-public class ClientPublishAckOnQos1NonHandler implements ClientPublishAckOnQos1Handler {
+public class ClientPublishAckOnQualityOfService1NonHandler implements ClientPublishAckOnQualityOfService1Handler {
 
     @Override
     public Void process(RpcRequestDTO rpcRequestDTO) {

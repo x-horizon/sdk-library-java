@@ -9,7 +9,7 @@ import io.netty.handler.codec.mqtt.MqttPubAckMessage;
  * @author wjm
  * @since 2025-01-06 17:37
  */
-public class MqttMessagePublishReceiveAckOnQos2Strategy implements MqttMessageStrategy<MqttPubAckMessage> {
+public class MqttMessagePublishReceiveAckOnQualityOfService2Strategy implements MqttMessageStrategy<MqttPubAckMessage> {
 
     @Override
     public void process(ChannelHandlerContext channelHandlerContext, MqttServerContext mqttServerContext, MqttClientSessionContext mqttClientSessionContext, MqttPubAckMessage mqttMessage) {
