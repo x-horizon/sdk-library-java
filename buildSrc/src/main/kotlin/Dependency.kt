@@ -58,7 +58,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     JDBC_MYSQL("com.mysql:mysql-connector-j", "8.3.0"), // support spring-boot version to 3.4.1
     JDBC_POSTGIS("net.postgis:postgis-jdbc-jts", BOM_JDBC_POSTGIS.version), // TODO wjm bom is not invalid
     JDBC_POSTGRESQL("org.postgresql:postgresql", "42.7.4"), // support spring-boot version to 3.4.1, need to synchronize with "net.postgis:postgis-jdbc-jts"
-    JDBC_TDENGINE("com.taosdata.jdbc:taos-jdbcdriver", "3.3.2"),
+    JDBC_TDENGINE("com.taosdata.jdbc:taos-jdbcdriver", "3.5.1"),
 
     LOADBALANCER_SPRING_CLOUD("org.springframework.cloud:spring-cloud-loadbalancer", ""),
     LOG_SPRING_BOOT("org.springframework.boot:spring-boot-starter-logging", ""),
