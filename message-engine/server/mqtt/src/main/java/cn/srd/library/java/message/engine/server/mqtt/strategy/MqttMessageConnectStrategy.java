@@ -52,7 +52,7 @@ public class MqttMessageConnectStrategy implements MqttMessageStrategy<MqttConne
 
                 @Override
                 public void onFailure(Throwable throwable) {
-                    NettyMqtts.logTrace(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "client [{}] auth failed.", clientId);
+                    NettyMqtts.logTrace(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "client [{}] auth failed: {}", clientId, throwable);
                     channelHandlerContext.writeAndFlush(NettyMqtts.createMqttConnectAckMessage(mqttClientSessionContext.getMqttVersionType(), MqttConnectReturnCode.CONNECTION_REFUSED_SERVER_UNAVAILABLE_5, mqttConnectMessage));
                     NettyMqtts.closeChannelHandlerContext(channelHandlerContext, mqttServerContext, mqttClientSessionContext, MqttReasonCodes.Disconnect.SERVER_BUSY);
                 }

@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MqttServerConstant {
 
-    public static final MqttQoS MAX_SUPPORTED_QOS = MqttQoS.AT_LEAST_ONCE;
+    public static final MqttQoS MAX_SUPPORTED_QUALITY_OF_SERVICE = MqttQoS.AT_LEAST_ONCE;
 
 }

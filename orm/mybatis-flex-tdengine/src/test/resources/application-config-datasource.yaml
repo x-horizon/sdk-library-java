@@ -1,6 +1,6 @@
 spring:
   datasource:
-    driverClassName: com.taosdata.jdbc.rs.RestfulDriver
+    driverClassName: com.taosdata.jdbc.TSDBDriver
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       connection-timeout: 3000
@@ -9,4 +9,4 @@ spring:
       idle-timeout: 60000
       auto-commit: true
       max-lifetime: 1800000
-      connection-test-query: select 1
+      connection-test-query: select SERVER_VERSION()

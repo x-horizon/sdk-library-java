@@ -25,8 +25,19 @@ public class MqttMessagePublishStrategy implements MqttMessageStrategy<MqttPubli
         }
         String topicName = mqttPublishMessage.variableHeader().topicName();
         NettyMqtts.logTrace(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "processing client mqtt publish message, topic name: {}", topicName);
-        MessageCallback.EMPTY.process(mqttServerContext.getMessageCallbackExecutor(), () -> clientPublishHandler.process(mqttPublishMessage));
-        NettyMqtts.logTrace(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "mqtt publish message has been processed.}");
+
+        MessageCallback<Void> callback = new MessageCallback<>() {
+            @Override
+            public void onSuccess(Void responseDTO) {
+                NettyMqtts.logTrace(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "mqtt publish message has been processed.");
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                NettyMqtts.logError(channelHandlerContext, mqttClientSessionContext.getAddress(), mqttClientSessionContext.getSessionId(), "failed to handle publish message, topic name: {}, reason: {}", topicName, throwable);
+            }
+        };
+        callback.process(mqttServerContext.getMessageCallbackExecutor(), () -> clientPublishHandler.process(mqttPublishMessage));
     }
 
 }

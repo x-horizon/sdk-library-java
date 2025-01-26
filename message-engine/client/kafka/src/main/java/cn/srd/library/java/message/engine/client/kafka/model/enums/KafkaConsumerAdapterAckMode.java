@@ -1,7 +1,6 @@
 package cn.srd.library.java.message.engine.client.kafka.model.enums;
 
 import cn.srd.library.java.message.engine.client.kafka.strategy.*;
-import cn.srd.library.java.message.engine.kafka.strategy.*;
 import cn.srd.library.java.tool.lang.convert.Converts;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

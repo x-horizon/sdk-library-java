@@ -28,7 +28,7 @@ import java.util.UUID;
 public class NettyMqtts {
 
     public static MqttQoS getMaxSupportQualityOfService(MqttQoS requestQualityOfService) {
-        return MqttQoS.valueOf(Math.min(requestQualityOfService.value(), MqttServerConstant.MAX_SUPPORTED_QOS.value()));
+        return MqttQoS.valueOf(Math.min(requestQualityOfService.value(), MqttServerConstant.MAX_SUPPORTED_QUALITY_OF_SERVICE.value()));
     }
 
     public static MqttConnectReturnCode getMqttConnectReturnCode(MqttVersionType mqttVersionType, MqttConnectReturnCode returnCode) {
