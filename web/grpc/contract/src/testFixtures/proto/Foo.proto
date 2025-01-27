@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package cn.srd.library.java.web.grpc.contract.service;
+package cn.library.java.web.grpc.contract.service;
 
 option java_multiple_files = true;
 option java_outer_classname = "FooProto";

@@ -2,5 +2,5 @@ debug: false
 
 logging:
   level:
-    cn.srd.library.java: debug
+    cn.library.java: debug
     com.sun.jna: debug

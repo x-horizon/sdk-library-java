@@ -1,0 +1,31 @@
+package cn.library.java.studio.low.code.model.bo;
+
+import cn.library.java.contract.model.base.BO;
+import cn.library.java.doc.knife4j.contract.constant.ApiDocConstant;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+
+/**
+ * 学生课程工具信息 model
+ *
+ * @author TODO 请填写作者名字
+ * @since 2024-04-15 23:57
+ */
+@Schema(description = "学生课程工具信息")
+@Data
+@NoArgsConstructor
+@Accessors(chain = true)
+@SuperBuilder(toBuilder = true)
+public class StudentCourseToolBO implements BO {
+
+    @Serial private static final long serialVersionUID = 3433901337199709785L;
+
+    @Schema(description = "名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
+    private String name;
+
+}

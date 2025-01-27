@@ -2,5 +2,5 @@ debug: false
 
 logging:
   level:
-    cn.srd.library.java: trace
+    cn.library.java: trace
 #    io.netty: trace
