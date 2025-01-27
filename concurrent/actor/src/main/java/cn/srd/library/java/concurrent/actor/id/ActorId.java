@@ -1,30 +1,11 @@
 package cn.srd.library.java.concurrent.actor.id;
 
-import cn.srd.library.java.concurrent.actor.core.ActorType;
-
-import java.io.Serializable;
-import java.util.UUID;
-
 /**
- * actor id
- *
  * @author wjm
- * @since 2023-03-20 11:04:19
+ * @since 2025-01-26 22:36
  */
-public interface ActorId extends Serializable {
+public interface ActorId {
 
-    /**
-     * 获取 id
-     *
-     * @return id
-     */
-    UUID getId();
-
-    /**
-     * 获取 {@link ActorType}
-     *
-     * @return {@link ActorType}
-     */
-    ActorType getActorType();
+    String getId();
 
 }

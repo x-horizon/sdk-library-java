@@ -1,0 +1,11 @@
+package cn.srd.library.java.concurrent.actor.foo;
+
+import cn.srd.library.java.concurrent.actor.message.ActorMessage;
+
+/**
+ * @author wjm
+ * @since 2025-01-26 21:13
+ */
+public class RuleChainToRuleNodeActorMessage implements ActorMessage {
+
+}
