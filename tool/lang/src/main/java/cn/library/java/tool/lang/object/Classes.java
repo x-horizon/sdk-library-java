@@ -1,6 +1,5 @@
 package cn.library.java.tool.lang.object;
 
-import cn.hutool.core.util.ClassUtil;
 import cn.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.library.java.tool.lang.collection.Collections;
 import cn.library.java.tool.lang.compare.Comparators;
@@ -8,6 +7,8 @@ import cn.library.java.tool.lang.functional.Action;
 import cn.library.java.tool.lang.text.Strings;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.dromara.hutool.core.reflect.ClassUtil;
+import org.dromara.hutool.core.reflect.FieldUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -146,10 +147,10 @@ public class Classes {
      * @param input     the specified class
      * @param fieldName the field name
      * @return the field
-     * @see ClassUtil#getDeclaredField(Class, String)
+     * @see FieldUtil#getDeclaredField(Class, String)
      */
     public static Field getField(Class<?> input, String fieldName) {
-        return ClassUtil.getDeclaredField(input, fieldName);
+        return FieldUtil.getDeclaredField(input, fieldName);
     }
 
     /**

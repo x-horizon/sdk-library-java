@@ -1,6 +1,6 @@
 package cn.library.java.tool.lang.object;
 
-import cn.hutool.core.text.CharSequenceUtil;
+import org.dromara.hutool.core.text.CharSequenceUtil;
 import cn.library.java.contract.constant.number.NumberConstant;
 import cn.library.java.tool.lang.booleans.Booleans;
 import cn.library.java.tool.lang.compare.Comparators;

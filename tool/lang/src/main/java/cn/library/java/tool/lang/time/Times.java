@@ -1,8 +1,5 @@
 package cn.library.java.tool.lang.time;
 
-import cn.hutool.core.date.LocalDateTimeUtil;
-import cn.hutool.core.date.TemporalAccessorUtil;
-import cn.hutool.core.date.Week;
 import cn.library.java.contract.constant.text.SymbolConstant;
 import cn.library.java.contract.constant.time.TimeConstant;
 import cn.library.java.contract.constant.time.TimePatternConstant;
@@ -16,8 +13,12 @@ import io.vavr.control.Try;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.dromara.hutool.core.date.TemporalAccessorUtil;
+import org.dromara.hutool.core.date.TimeUtil;
+import org.dromara.hutool.core.date.Week;
 
 import java.time.*;
+import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.Comparator;
@@ -151,13 +152,13 @@ public class Times {
     }
 
     /**
-     * see {@link LocalDateTimeUtil#formatNormal(LocalDate)}
+     * see {@link TimeUtil#formatNormal(ChronoLocalDate)}
      *
      * @param input the input element
      * @return after convert
      */
-    public static String toStringYearMonthDay(LocalDate input) {
-        return LocalDateTimeUtil.formatNormal(input);
+    public static String toStringYearMonthDay(ChronoLocalDate input) {
+        return TimeUtil.formatNormal(input);
     }
 
     /**
@@ -342,25 +343,25 @@ public class Times {
     }
 
     /**
-     * see {@link LocalDateTimeUtil#parseDate(CharSequence, DateTimeFormatter)}
+     * see {@link TimeUtil#parseDate(CharSequence, DateTimeFormatter)}
      *
      * @param input     the input element
      * @param formatter the formatter
      * @return after convert
      */
     public static LocalDate toLocalDate(CharSequence input, DateTimeFormatter formatter) {
-        return LocalDateTimeUtil.parseDate(input, formatter);
+        return TimeUtil.parseDate(input, formatter);
     }
 
     /**
-     * see {@link LocalDateTimeUtil#parse(CharSequence, String)}
+     * see {@link TimeUtil#parse(CharSequence, String)}
      *
      * @param input  the input element
      * @param format the format string
      * @return after convert
      */
     public static LocalDateTime toLocalDateTime(CharSequence input, String format) {
-        return LocalDateTimeUtil.parse(input, format);
+        return TimeUtil.parse(input, format);
     }
 
     /**
@@ -404,7 +405,7 @@ public class Times {
      * @return between the beginning time and the end time or not
      */
     public static boolean isIn(LocalDateTime beginTime, LocalDateTime endTime) {
-        return LocalDateTimeUtil.isIn(getCurrentDateTime(), beginTime, endTime, true, true);
+        return TimeUtil.isIn(getCurrentDateTime(), beginTime, endTime, true, true);
     }
 
     /**
@@ -417,7 +418,7 @@ public class Times {
      * @return between the beginning time and the end time or not
      */
     public static boolean isIn(LocalDateTime beginTime, LocalDateTime endTime, boolean includeBeginTime, boolean includeEndTime) {
-        return LocalDateTimeUtil.isIn(getCurrentDateTime(), beginTime, endTime, includeBeginTime, includeEndTime);
+        return TimeUtil.isIn(getCurrentDateTime(), beginTime, endTime, includeBeginTime, includeEndTime);
     }
 
     /**

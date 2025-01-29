@@ -1,12 +1,12 @@
 package cn.library.java.tool.lang.number;
 
-import cn.hutool.core.util.NumberUtil;
 import cn.library.java.contract.constant.number.NumberConstant;
 import cn.library.java.contract.constant.time.TimeUnitConstant;
 import cn.library.java.contract.model.throwable.InvalidArgumentException;
 import cn.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.dromara.hutool.core.math.NumberUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -148,7 +148,7 @@ public class Numbers {
      * @return meter per second
      */
     public static double kilometersPerHourToMeterPerSecond(long input) {
-        return NumberUtil.div(NumberUtil.mul(input, NumberConstant.ONE_THOUSAND), TimeUnitConstant.ONE_HOUR_SECOND);
+        return NumberUtil.div(NumberUtil.mul(input, NumberConstant.ONE_THOUSAND), TimeUnitConstant.ONE_HOUR_SECOND).doubleValue();
     }
 
     /**
@@ -158,7 +158,7 @@ public class Numbers {
      * @return number after percent
      */
     public static double getPercent(short input) {
-        return NumberUtil.div(input, NumberConstant.ONE_HUNDRED);
+        return NumberUtil.div(input, NumberConstant.ONE_HUNDRED).doubleValue();
     }
 
     /**
@@ -168,7 +168,7 @@ public class Numbers {
      * @return number after percent
      */
     public static double getPercent(double input) {
-        return NumberUtil.div(input, NumberConstant.ONE_HUNDRED);
+        return NumberUtil.div(input, NumberConstant.ONE_HUNDRED).doubleValue();
     }
 
     /**
@@ -390,7 +390,7 @@ public class Numbers {
     }
 
     /**
-     * see {@link NumberUtil#mul(String, String)}, this function will return number after half adjust with 0 scale
+     * see {@link NumberUtil#mul(String...)}, this function will return number after half adjust with 0 scale
      * <pre>
      * example:
      * 10     * 0.8 = 8        => 8

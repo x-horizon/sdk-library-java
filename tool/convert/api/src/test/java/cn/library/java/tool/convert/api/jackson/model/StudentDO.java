@@ -1,6 +1,6 @@
 package cn.library.java.tool.convert.api.jackson.model;
 
-import cn.hutool.core.util.RandomUtil;
+import org.dromara.hutool.core.util.RandomUtil;
 import cn.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToEnumDeserializer;
 import cn.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

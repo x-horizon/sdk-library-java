@@ -1,9 +1,9 @@
 package cn.library.java.tool.lang.number;
 
-import cn.hutool.core.util.HexUtil;
 import cn.library.java.tool.lang.collection.Collections;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.dromara.hutool.core.codec.binary.HexUtil;
 
 /**
  * toolkit for hex
@@ -53,7 +53,7 @@ public class Hexes {
      * @return hex string
      */
     public static String toString(byte[] inputs, boolean needLowercase) {
-        return HexUtil.encodeHexStr(inputs, needLowercase);
+        return HexUtil.encodeStr(inputs, needLowercase);
     }
 
 }

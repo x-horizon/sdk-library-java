@@ -1,6 +1,6 @@
 package cn.library.java.tool.convert.api.jackson.model;
 
-import cn.hutool.core.util.RandomUtil;
+import org.dromara.hutool.core.util.RandomUtil;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NegativeOrZero;
 import jakarta.validation.constraints.NotEmpty;

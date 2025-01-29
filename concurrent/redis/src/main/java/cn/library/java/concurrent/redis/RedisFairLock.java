@@ -1,10 +1,10 @@
 package cn.library.java.concurrent.redis;
 
-import cn.hutool.core.lang.Snowflake;
-import cn.hutool.core.util.IdUtil;
 import cn.library.java.concurrent.redis.aspect.RedisFairLockAspect;
 import cn.library.java.concurrent.redis.strategy.RedisFairLockHandler;
 import cn.library.java.concurrent.redis.strategy.RedisLockTemplate;
+import org.dromara.hutool.core.data.id.IdUtil;
+import org.dromara.hutool.core.data.id.Snowflake;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
@@ -61,7 +61,7 @@ import java.util.function.Supplier;
  *          显式指定 fieldName = "id"，表示使用方法形参列表的第一个参数中的 id 字段值作为锁名，即 person 中 id 的值作为锁名；
  *          显式指定 fieldName = "id", fieldOrder = "2"，表示使用方法形参列表的第二个参数中的 id 字段值作为锁名，即 book 中 id 的值作为锁名；若 id 的值为空，则抛出异常；
  *          当同时指定 lockName = "name", fieldName = "id", fieldOrder = "2"，只有 lockName 属性生效；
- *          当这三个参数都不显式指定时，将自动生成一个分布式 ID 作为锁名，分布式 ID 的生成使用 {@link IdUtil#getSnowflake()} + {@link Snowflake#nextIdStr()}；
+ *          当这三个参数都不显式指定时，将自动生成一个分布式 ID 作为锁名，分布式 ID 的生成使用 {@link IdUtil#getSnowflake()} + {@link Snowflake#nextStr()}；
  *       3、waitTime：
  *          表示客户端获取锁时若该锁已被占用，则进行等待的最大时间，当超过该时间后获取锁失败，放弃获取；
  *          当 waitTime 的值为 0 时（默认），使用 {@link RedisLockTemplate#lock(Supplier, String, long, TimeUnit)} 的方式上锁；

@@ -1,9 +1,5 @@
 package cn.library.java.tool.lang.convert;
 
-import cn.hutool.core.convert.Convert;
-import cn.hutool.core.util.ArrayUtil;
-import cn.hutool.core.util.EnumUtil;
-import cn.hutool.core.util.HexUtil;
 import cn.library.java.contract.constant.booleans.BooleanConstant;
 import cn.library.java.contract.constant.collection.CollectionConstant;
 import cn.library.java.contract.constant.number.NumberConstant;
@@ -16,6 +12,7 @@ import cn.library.java.tool.lang.collection.Collections;
 import cn.library.java.tool.lang.compare.Comparators;
 import cn.library.java.tool.lang.enums.Enums;
 import cn.library.java.tool.lang.functional.Action;
+import cn.library.java.tool.lang.number.Hexes;
 import cn.library.java.tool.lang.number.NumberType;
 import cn.library.java.tool.lang.object.Nil;
 import cn.library.java.tool.lang.reflect.Reflects;
@@ -26,6 +23,9 @@ import io.vavr.Function4;
 import io.vavr.control.Try;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.dromara.hutool.core.array.ArrayUtil;
+import org.dromara.hutool.core.convert.ConvertUtil;
+import org.dromara.hutool.core.util.EnumUtil;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -108,7 +108,7 @@ public class Converts {
      * @return after convert
      */
     public static Integer toInteger(Object input) {
-        return Convert.toInt(input);
+        return ConvertUtil.toInt(input);
     }
 
     /**
@@ -118,7 +118,7 @@ public class Converts {
      * @return after convert
      */
     public static Number toNumber(Object input) {
-        return Convert.toNumber(input);
+        return ConvertUtil.toNumber(input);
     }
 
     /**
@@ -229,10 +229,10 @@ public class Converts {
      *
      * @param input the input element
      * @return after convert
-     * @see Convert#toStr(Object)
+     * @see ConvertUtil#toStr(Object)
      */
     public static String toString(Object input) {
-        return Convert.toStr(input);
+        return ConvertUtil.toStr(input);
     }
 
     /**
@@ -241,7 +241,7 @@ public class Converts {
      * @param inputs          the input elements
      * @param needToLowerCase need lower case or not
      * @return after convert
-     * @see HexUtil#encodeHexStr(byte[], boolean)
+     * @see Hexes#toString(byte[], boolean)
      */
     public static String toHexString(Byte[] inputs, boolean needToLowerCase) {
         return Nil.isNull(inputs) ? SymbolConstant.EMPTY : toHexString(Collections.unWrap(inputs), needToLowerCase);
@@ -253,10 +253,10 @@ public class Converts {
      * @param inputs          the input elements
      * @param needToLowerCase need lower case or not
      * @return after convert
-     * @see HexUtil#encodeHexStr(byte[], boolean)
+     * @see Hexes#toString(byte[], boolean)
      */
     public static String toHexString(byte[] inputs, boolean needToLowerCase) {
-        return HexUtil.encodeHexStr(inputs, needToLowerCase);
+        return Hexes.toString(inputs, needToLowerCase);
     }
 
     /**
@@ -297,7 +297,7 @@ public class Converts {
     public static <T> T[] toArray(Collection<T> inputs, Class<T> inputType) {
         return Action.<T[]>ifEmpty(inputs)
                 .then(() -> Collections.newArray(inputType))
-                .otherwise(() -> ArrayUtil.toArray(inputs, inputType))
+                .otherwise(() -> ArrayUtil.ofArray(inputs, inputType))
                 .get();
     }
 
@@ -473,7 +473,7 @@ public class Converts {
      */
     @SuppressWarnings(SuppressWarningConstant.ALL)
     public static List<?> toList(Object input) {
-        return Convert.convert(List.class, input);
+        return ConvertUtil.convert(List.class, input);
     }
 
     /**
@@ -579,7 +579,7 @@ public class Converts {
      */
     @SuppressWarnings(SuppressWarningConstant.ALL)
     public static Set<?> toSet(Object input) {
-        return Convert.convert(Set.class, input);
+        return ConvertUtil.convert(Set.class, input);
     }
 
     /**

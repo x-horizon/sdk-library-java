@@ -1,6 +1,6 @@
 package cn.library.java.tool.lang.time;
 
-import cn.hutool.core.date.Week;
+import org.dromara.hutool.core.date.Week;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -1,9 +1,9 @@
 package cn.library.java.tool.lang.object;
 
-import cn.hutool.core.util.ObjectUtil;
 import cn.library.java.tool.lang.number.Numbers;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.dromara.hutool.core.util.ObjUtil;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -59,14 +59,14 @@ public class Objects {
     }
 
     /**
-     * see {@link ObjectUtil#clone(Object)}
+     * see {@link ObjUtil#clone(Object)}
      *
      * @param input the cloned object
      * @param <T>   the cloned object type
      * @return object after clone
      */
     public static <T> T clone(T input) {
-        return ObjectUtil.clone(input);
+        return ObjUtil.clone(input);
     }
 
     /**

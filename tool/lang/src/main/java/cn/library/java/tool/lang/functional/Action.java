@@ -1,14 +1,13 @@
 package cn.library.java.tool.lang.functional;
 
-import cn.hutool.core.text.CharSequenceUtil;
 import cn.library.java.tool.lang.booleans.Booleans;
 import cn.library.java.tool.lang.compare.Comparators;
 import cn.library.java.tool.lang.number.Numbers;
 import cn.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.dromara.hutool.core.text.CharSequenceUtil;
 
-import java.math.BigDecimal;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
@@ -682,58 +681,6 @@ public class Action<V> {
      * @param comparedElement the compared element
      * @param <T>             the infer value type
      * @return after infer action
-     * @see Comparators#equals(long, long)
-     */
-    public static <T> Action<T> ifEquals(long input, long comparedElement) {
-        return infer(Comparators.equals(input, comparedElement));
-    }
-
-    /**
-     * infer the checked element equals compared element
-     *
-     * @param input           the checked element
-     * @param comparedElement the compared element
-     * @param <T>             the infer value type
-     * @return after infer action
-     * @see Comparators#equals(float, float)
-     */
-    public static <T> Action<T> ifEquals(float input, float comparedElement) {
-        return infer(Comparators.equals(input, comparedElement));
-    }
-
-    /**
-     * infer the checked element equals compared element
-     *
-     * @param input           the checked element
-     * @param comparedElement the compared element
-     * @param <T>             the infer value type
-     * @return after infer action
-     * @see Comparators#equals(double, double)
-     */
-    public static <T> Action<T> ifEquals(double input, double comparedElement) {
-        return infer(Comparators.equals(input, comparedElement));
-    }
-
-    /**
-     * infer the checked element equals compared element
-     *
-     * @param input           the checked element
-     * @param comparedElement the compared element
-     * @param <T>             the infer value type
-     * @return after infer action
-     * @see Comparators#equals(BigDecimal, BigDecimal)
-     */
-    public static <T> Action<T> ifEquals(BigDecimal input, BigDecimal comparedElement) {
-        return infer(Comparators.equals(input, comparedElement));
-    }
-
-    /**
-     * infer the checked element equals compared element
-     *
-     * @param input           the checked element
-     * @param comparedElement the compared element
-     * @param <T>             the infer value type
-     * @return after infer action
      * @see Comparators#equals(Number, Number)
      */
     public static <T> Action<T> ifEquals(Number input, Number comparedElement) {
@@ -1292,58 +1239,6 @@ public class Action<V> {
      */
     public static <T> Action<T> ifAllNotPositive(Number... inputs) {
         return infer(Numbers.isAllNotPositive(inputs));
-    }
-
-    /**
-     * infer the checked element not equals compared element
-     *
-     * @param input           the checked element
-     * @param comparedElement the compared element
-     * @param <T>             the infer value type
-     * @return after infer action
-     * @see Comparators#notEquals(long, long)
-     */
-    public static <T> Action<T> ifNotEquals(long input, long comparedElement) {
-        return infer(Comparators.notEquals(input, comparedElement));
-    }
-
-    /**
-     * infer the checked element not equals compared element
-     *
-     * @param input           the checked element
-     * @param comparedElement the compared element
-     * @param <T>             the infer value type
-     * @return after infer action
-     * @see Comparators#notEquals(float, float)
-     */
-    public static <T> Action<T> ifNotEquals(float input, float comparedElement) {
-        return infer(Comparators.notEquals(input, comparedElement));
-    }
-
-    /**
-     * infer the checked element not equals compared element
-     *
-     * @param input           the checked element
-     * @param comparedElement the compared element
-     * @param <T>             the infer value type
-     * @return after infer action
-     * @see Comparators#notEquals(double, double)
-     */
-    public static <T> Action<T> ifNotEquals(double input, double comparedElement) {
-        return infer(Comparators.notEquals(input, comparedElement));
-    }
-
-    /**
-     * infer the checked element not equals compared element
-     *
-     * @param input           the checked element
-     * @param comparedElement the compared element
-     * @param <T>             the infer value type
-     * @return after infer action
-     * @see Comparators#notEquals(BigDecimal, BigDecimal)
-     */
-    public static <T> Action<T> ifNotEquals(BigDecimal input, BigDecimal comparedElement) {
-        return infer(Comparators.notEquals(input, comparedElement));
     }
 
     /**

@@ -1,6 +1,6 @@
 package cn.library.java.tool.lang.net;
 
-import cn.hutool.core.net.url.UrlQuery;
+import org.dromara.hutool.core.net.url.UrlQuery;
 import cn.library.java.contract.constant.module.ModuleView;
 import cn.library.java.contract.constant.regex.RegexConstant;
 import cn.library.java.contract.model.throwable.LibraryJavaInternalException;

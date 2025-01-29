@@ -1,6 +1,6 @@
 package cn.library.java.tool.validation.jakarta;
 
-import cn.hutool.json.JSONUtil;
+import org.dromara.hutool.json.JSONUtil;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

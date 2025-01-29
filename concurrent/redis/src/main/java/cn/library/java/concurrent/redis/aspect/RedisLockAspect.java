@@ -1,6 +1,5 @@
 package cn.library.java.concurrent.redis.aspect;
 
-import cn.hutool.core.util.IdUtil;
 import cn.library.java.concurrent.redis.RedisFairLock;
 import cn.library.java.concurrent.redis.strategy.RedisLockTemplate;
 import cn.library.java.contract.model.throwable.LibraryJavaInternalException;
@@ -10,6 +9,7 @@ import cn.library.java.tool.lang.reflect.Reflects;
 import cn.library.java.tool.spring.contract.support.Springs;
 import lombok.SneakyThrows;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.dromara.hutool.core.data.id.IdUtil;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -58,7 +58,7 @@ public abstract class RedisLockAspect {
     private String generateLockName(String lockName, String fieldName, int fieldOrder, ProceedingJoinPoint joinPoint) {
         if (Nil.isBlank(lockName)) {
             if (Nil.isBlank(fieldName)) {
-                return IdUtil.getSnowflake().nextIdStr();
+                return IdUtil.getSnowflake().nextStr();
             }
             // 被注解方法的形参列表
             Object[] lockAnnotationMethodParameters = joinPoint.getArgs();

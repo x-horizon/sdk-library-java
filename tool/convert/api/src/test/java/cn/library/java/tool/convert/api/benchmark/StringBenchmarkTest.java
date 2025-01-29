@@ -1,8 +1,8 @@
 package cn.library.java.tool.convert.api.benchmark;
 
-import cn.hutool.core.text.StrBuilder;
 import cn.library.java.contract.constant.text.SymbolConstant;
 import cn.library.java.tool.lang.text.Strings;
+import org.dromara.hutool.core.text.StrJoiner;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +26,7 @@ class StringBenchmarkTest {
      * 字符串拼接考虑三种方式：
      * 1、使用 + 拼接，编码不友好，性能最快；
      * 2、使用 {@link Strings#format(CharSequence, Object...)} 拼接，编码友好，性能最慢，不适合此处；
-     * 3、使用 {@link StrBuilder#append(char)} 拼接，编码较友好，性能略逊于第一种方式；
+     * 3、使用 {@link StrJoiner#append(char)} 拼接，编码较友好，性能略逊于第一种方式；
      * </pre>
      */
 
@@ -52,7 +52,7 @@ class StringBenchmarkTest {
 
         Instant now3 = Instant.now();
         for (int i = 0; i < DATA_SIZE; i++) {
-            String b = StrBuilder.create().append(CONCAT_STR_1).append("/").append(CONCAT_STR_2).toString();
+            String b = new StrJoiner(null).append(CONCAT_STR_1).append("/").append(CONCAT_STR_2).toString();
         }
         System.out.println("StrBuilder.append, " + DATA_SIZE + "条数据，耗时：" + ChronoUnit.MILLIS.between(now3, Instant.now()) + "ms");
 

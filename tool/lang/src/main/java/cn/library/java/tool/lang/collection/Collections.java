@@ -1,9 +1,5 @@
 package cn.library.java.tool.lang.collection;
 
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.collection.ConcurrentHashSet;
-import cn.hutool.core.collection.IterUtil;
-import cn.hutool.core.util.ArrayUtil;
 import cn.library.java.contract.constant.collection.CollectionConstant;
 import cn.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.library.java.tool.lang.compare.Comparators;
@@ -13,6 +9,12 @@ import cn.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.dromara.hutool.core.array.ArrayUtil;
+import org.dromara.hutool.core.collection.CollUtil;
+import org.dromara.hutool.core.collection.ListUtil;
+import org.dromara.hutool.core.collection.iter.IterUtil;
+import org.dromara.hutool.core.collection.set.ConcurrentHashSet;
+import org.dromara.hutool.core.collection.set.SetUtil;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
@@ -270,7 +272,7 @@ public class Collections {
      */
     @SafeVarargs
     public static <T> List<T> ofArrayList(T... inputs) {
-        return CollectionUtil.newArrayList(inputs);
+        return ListUtil.of(inputs);
     }
 
     /**
@@ -293,7 +295,7 @@ public class Collections {
      */
     @SafeVarargs
     public static <T> List<T> ofLinkedList(T... inputs) {
-        return CollectionUtil.newLinkedList(inputs);
+        return ListUtil.ofLinked(inputs);
     }
 
     /**
@@ -356,7 +358,7 @@ public class Collections {
      */
     @SafeVarargs
     public static <T> Set<T> ofHashSet(T... inputs) {
-        return CollectionUtil.newHashSet(inputs);
+        return SetUtil.of(inputs);
     }
 
     /**
@@ -379,7 +381,7 @@ public class Collections {
      */
     @SafeVarargs
     public static <T> Set<T> ofLinkedHashSet(T... inputs) {
-        return CollectionUtil.newLinkedHashSet(inputs);
+        return SetUtil.ofLinked(inputs);
     }
 
     /**
@@ -904,7 +906,7 @@ public class Collections {
     }
 
     /**
-     * see {@link CollectionUtil#contains(Collection, Object)}
+     * see {@link CollUtil#contains(Collection, Object)}
      *
      * @param input           the checked element
      * @param searchedElement the searched elements
@@ -912,18 +914,18 @@ public class Collections {
      * @return return true if the checked element contains the searched element
      */
     public static <T> boolean contains(Collection<T> input, T searchedElement) {
-        return CollectionUtil.contains(input, searchedElement);
+        return CollUtil.contains(input, searchedElement);
     }
 
     /**
-     * see {@link CollectionUtil#safeContains(Collection, Object)}
+     * see {@link CollUtil#safeContains(Collection, Object)}
      *
      * @param input           the checked element
      * @param searchedElement the searched elements
      * @return return true if the checked element contains the searched element and return false if not contains or occur throwable
      */
     public static boolean containsIgnoreThrowable(Collection<?> input, Object searchedElement) {
-        return CollectionUtil.safeContains(input, searchedElement);
+        return CollUtil.safeContains(input, searchedElement);
     }
 
     /**
@@ -1070,7 +1072,7 @@ public class Collections {
     }
 
     /**
-     * see {@link CollectionUtil#addAll(Collection, Object[])}
+     * see {@link CollUtil#addAll(Collection, Object[])}
      *
      * @param inputs         the input element
      * @param appendElements the elements to append
@@ -1080,11 +1082,11 @@ public class Collections {
      */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public static <T extends Collection<E>, E> T add(T inputs, E[] appendElements) {
-        return (T) CollectionUtil.addAll(inputs, appendElements);
+        return (T) CollUtil.addAll(inputs, appendElements);
     }
 
     /**
-     * see {@link CollectionUtil#addAll(Collection, Iterator)}
+     * see {@link CollUtil#addAll(Collection, Iterator)}
      *
      * @param inputs         the input element
      * @param appendElements the elements to append
@@ -1094,11 +1096,11 @@ public class Collections {
      */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public static <T extends Collection<E>, E> T add(T inputs, Iterator<E> appendElements) {
-        return (T) CollectionUtil.addAll(inputs, appendElements);
+        return (T) CollUtil.addAll(inputs, appendElements);
     }
 
     /**
-     * see {@link CollectionUtil#addAll(Collection, Iterable)}
+     * see {@link CollUtil#addAll(Collection, Iterable)}
      *
      * @param inputs         the input element
      * @param appendElements the elements to append
@@ -1108,11 +1110,11 @@ public class Collections {
      */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public static <T extends Collection<E>, E> T add(T inputs, Iterable<E> appendElements) {
-        return (T) CollectionUtil.addAll(inputs, appendElements);
+        return (T) CollUtil.addAll(inputs, appendElements);
     }
 
     /**
-     * see {@link CollectionUtil#addAll(Collection, Enumeration)}
+     * see {@link CollUtil#addAll(Collection, Enumeration)}
      *
      * @param inputs         the input element
      * @param appendElements the elements to append
@@ -1122,11 +1124,11 @@ public class Collections {
      */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public static <T extends Collection<E>, E> T add(T inputs, Enumeration<E> appendElements) {
-        return (T) CollectionUtil.addAll(inputs, appendElements);
+        return (T) CollUtil.addAll(inputs, appendElements);
     }
 
     /**
-     * see {@link CollectionUtil#addAll(Collection, Object)}
+     * see {@link CollUtil#addAll(Collection, Object)}
      *
      * @param inputs         the input element
      * @param appendElements the elements to append
@@ -1136,7 +1138,7 @@ public class Collections {
      */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public static <T extends Collection<E>, E> T add(T inputs, Object appendElements) {
-        return (T) CollectionUtil.addAll(inputs, appendElements);
+        return (T) CollUtil.addAll(inputs, appendElements);
     }
 
     /**
@@ -1154,7 +1156,7 @@ public class Collections {
     }
 
     /**
-     * see {@link CollectionUtil#removeAny(Collection, Object[])}
+     * see {@link CollUtil#removeAny(Collection, Object[])}
      *
      * @param inputs         the input element
      * @param removeElements the elements to remove
@@ -1167,12 +1169,12 @@ public class Collections {
     public static <T extends Collection<E>, E> T remove(T inputs, E... removeElements) {
         return (T) Action.<Collection<E>>ifEmpty(inputs)
                 .then(Collections::newArrayList)
-                .otherwise(() -> CollectionUtil.removeAny(inputs, removeElements))
+                .otherwise(() -> CollUtil.removeAny(inputs, removeElements))
                 .get();
     }
 
     /**
-     * see {@link CollectionUtil#removeAny(Collection, Object[])}
+     * see {@link CollUtil#removeAny(Collection, Object[])}
      *
      * @param inputs         the input element
      * @param removeElements the elements to remove
@@ -1186,7 +1188,7 @@ public class Collections {
         if (Nil.isEmpty(inputs)) {
             return (T1) Collections.newArrayList();
         }
-        removeElements.forEach(removeElement -> CollectionUtil.removeAny(inputs, removeElement));
+        removeElements.forEach(removeElement -> CollUtil.removeAny(inputs, removeElement));
         return inputs;
     }
 
@@ -1274,13 +1276,13 @@ public class Collections {
     }
 
     /**
-     * see {@link CollectionUtil#size(Object)}
+     * see {@link CollUtil#size(Object)}
      *
      * @param input the input element
      * @return the size of input element
      */
     public static int getSize(Object input) {
-        return CollectionUtil.size(input);
+        return CollUtil.size(input);
     }
 
     /**
@@ -1361,7 +1363,7 @@ public class Collections {
      * @return the last element
      */
     public static <T> Optional<T> getLast(Collection<T> inputs) {
-        return Optional.ofNullable(CollectionUtil.getLast(inputs));
+        return Optional.ofNullable(CollUtil.getLast(inputs));
     }
 
     /**
@@ -2081,25 +2083,24 @@ public class Collections {
      * @param input2 the another collection
      * @param <T>    the collection element type
      * @return the different set from the given collections
-     * @see CollectionUtil#subtract(Collection, Collection)
+     * @see CollUtil#subtract(Collection, Collection)
      */
     public static <T> List<T> differenceSet(Collection<T> input1, Collection<T> input2) {
-        return CollectionUtil.subtractToList(input1, input2);
+        return CollUtil.subtractToList(input1, input2);
     }
 
     /**
      * get the intersection from the given collections.
      *
-     * @param input1 the given collection
-     * @param input2 the given collection
+     * @param inputs the given collection
      * @param <T>    the collection type
      * @param <E>    the collection element type
      * @return the intersection from the given collections
-     * @see CollectionUtil#intersection(Collection, Collection, Collection[])
+     * @see CollUtil#intersection(Collection[])
      */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public static <T extends Collection<E>, E> T intersection(T input1, T input2) {
-        return (T) CollectionUtil.intersection(input1, input2);
+    public static <T extends Collection<E>, E> T intersection(T... inputs) {
+        return (T) CollUtil.intersection(inputs);
     }
 
 }

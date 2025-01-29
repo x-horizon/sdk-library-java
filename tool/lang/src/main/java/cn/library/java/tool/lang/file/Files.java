@@ -1,9 +1,9 @@
 package cn.library.java.tool.lang.file;
 
-import cn.hutool.core.io.FileUtil;
 import com.vip.vjtools.vjkit.io.FilePathUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.dromara.hutool.core.io.file.FileUtil;
 
 import java.io.File;
 
@@ -33,7 +33,7 @@ public class Files {
      * @return return true if the specified file exist
      */
     public static boolean exist(File input) {
-        return FileUtil.exist(input);
+        return FileUtil.exists(input);
     }
 
     /**
@@ -50,10 +50,9 @@ public class Files {
      * see {@link FileUtil#del(File)}
      *
      * @param input the specified file
-     * @return return true if {@link FileUtil#del(File)}
      */
-    public static boolean delete(File input) {
-        return FileUtil.del(input);
+    public static void delete(File input) {
+        FileUtil.del(input);
     }
 
     /**

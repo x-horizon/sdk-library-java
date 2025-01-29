@@ -1,8 +1,8 @@
 package cn.library.java.tool.id.uuid.support;
 
-import cn.hutool.core.lang.UUID;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.dromara.hutool.core.data.id.UUID;
 
 /**
  * @author wjm

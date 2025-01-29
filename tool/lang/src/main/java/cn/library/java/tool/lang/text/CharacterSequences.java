@@ -1,7 +1,5 @@
 package cn.library.java.tool.lang.text;
 
-import cn.hutool.core.text.CharSequenceUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.library.java.contract.constant.regex.RegexConstant;
 import cn.library.java.contract.constant.text.SymbolConstant;
 import cn.library.java.tool.lang.collection.Collections;
@@ -9,6 +7,9 @@ import cn.library.java.tool.lang.object.Nil;
 import io.vavr.control.Try;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.dromara.hutool.core.text.CharSequenceUtil;
+import org.dromara.hutool.core.text.StrUtil;
+import org.dromara.hutool.core.text.split.SplitUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -445,7 +446,7 @@ public class CharacterSequences extends Characters {
     }
 
     /**
-     * see {@link CharSequenceUtil#split(CharSequence, CharSequence)}
+     * see {@link SplitUtil#split(CharSequence, CharSequence)}
      *
      * @param input the input element
      * @return after split
@@ -455,14 +456,14 @@ public class CharacterSequences extends Characters {
     }
 
     /**
-     * see {@link CharSequenceUtil#split(CharSequence, CharSequence)}
+     * see {@link SplitUtil#split(CharSequence, CharSequence)}
      *
      * @param input     the input element
      * @param separator the separator
      * @return after split
      */
     public static List<String> split(CharSequence input, CharSequence separator) {
-        return CharSequenceUtil.split(input, separator);
+        return SplitUtil.split(input, separator);
     }
 
     /**
@@ -511,14 +512,14 @@ public class CharacterSequences extends Characters {
     }
 
     /**
-     * see {@link CharSequenceUtil#removeAny(CharSequence, CharSequence...)}
+     * see {@link CharSequenceUtil#removeAll(CharSequence, CharSequence...)}
      *
      * @param input           the input element
      * @param removedElements the elements to be removed
      * @return after remove
      */
     public static String removeAll(CharSequence input, CharSequence... removedElements) {
-        return CharSequenceUtil.removeAny(input, removedElements);
+        return CharSequenceUtil.removeAll(input, removedElements);
     }
 
     /**

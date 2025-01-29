@@ -1,12 +1,15 @@
 package cn.library.java.tool.lang.reflect;
 
-import cn.hutool.core.util.ReflectUtil;
 import cn.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.library.java.tool.lang.annotation.Annotations;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import io.vavr.control.Try;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.dromara.hutool.core.reflect.ConstructorUtil;
+import org.dromara.hutool.core.reflect.FieldUtil;
+import org.dromara.hutool.core.reflect.ReflectUtil;
+import org.dromara.hutool.core.reflect.method.MethodUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
@@ -24,7 +27,7 @@ import java.lang.reflect.Method;
 public class Reflects {
 
     /**
-     * see {@link ReflectUtil#getMethod(Class, String, Class[])}
+     * see {@link MethodUtil#getMethod(Class, String, Class[])}
      *
      * @param input        the input element
      * @param methodName   the method name
@@ -32,21 +35,21 @@ public class Reflects {
      * @return the specified method
      */
     public static Method getMethod(Class<?> input, String methodName, Class<?>... methodParams) {
-        return ReflectUtil.getMethod(input, methodName, methodParams);
+        return MethodUtil.getMethod(input, methodName, methodParams);
     }
 
     /**
-     * see {@link ReflectUtil#getFields(Class)}
+     * see {@link FieldUtil#getFields(Class)}
      *
      * @param input the input element
      * @return all fields including parent classes in the input element
      */
     public static Field[] getFields(Class<?> input) {
-        return ReflectUtil.getFields(input);
+        return FieldUtil.getFields(input);
     }
 
     /**
-     * see {@link ReflectUtil#getFieldValue(Object, String)}
+     * see {@link FieldUtil#getFieldValue(Object, String)}
      *
      * @param input     the input element
      * @param fieldName the field name to find value
@@ -54,11 +57,11 @@ public class Reflects {
      */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public static <T> T getFieldValue(Object input, String fieldName) {
-        return (T) ReflectUtil.getFieldValue(input, fieldName);
+        return (T) FieldUtil.getFieldValue(input, fieldName);
     }
 
     /**
-     * see {@link ReflectUtil#getFieldValue(Object, String)}
+     * see {@link FieldUtil#getFieldValue(Object, String)}
      *
      * @param input      the input element
      * @param fieldName  the field name to find value
@@ -68,11 +71,11 @@ public class Reflects {
      * @return the field value
      */
     public static <T, R> R getFieldValue(T input, String fieldName, Class<R> fieldClass) {
-        return fieldClass.cast(ReflectUtil.getFieldValue(input, fieldName));
+        return fieldClass.cast(FieldUtil.getFieldValue(input, fieldName));
     }
 
     /**
-     * see {@link ReflectUtil#getFieldValue(Object, Field)}
+     * see {@link FieldUtil#getFieldValue(Object, Field)}
      *
      * @param input      the input element
      * @param field      the field to find value
@@ -82,11 +85,11 @@ public class Reflects {
      * @return the field value
      */
     public static <T, R> R getFieldValue(T input, Field field, Class<R> fieldClass) {
-        return fieldClass.cast(ReflectUtil.getFieldValue(input, field));
+        return fieldClass.cast(FieldUtil.getFieldValue(input, field));
     }
 
     /**
-     * see {@link ReflectUtil#getFieldValue(Object, Field)}
+     * see {@link FieldUtil#getFieldValue(Object, Field)}
      *
      * @param input the input element
      * @param field the field
@@ -97,7 +100,7 @@ public class Reflects {
      * please confirm if necessary before calling this function.
      */
     public static Object getFieldValueIgnoreThrowable(Object input, Field field) {
-        return Try.of(() -> ReflectUtil.getFieldValue(input, field)).getOrNull();
+        return Try.of(() -> FieldUtil.getFieldValue(input, field)).getOrNull();
     }
 
     /**
@@ -105,10 +108,10 @@ public class Reflects {
      *
      * @param input the input element
      * @return all methods in a class and parent classes.
-     * @see ReflectUtil#getMethods(Class)
+     * @see MethodUtil#getMethods(Class)
      */
     public static Method[] getMethods(Class<?> input) {
-        return ReflectUtil.getMethods(input);
+        return MethodUtil.getMethods(input);
     }
 
     /**
@@ -122,14 +125,14 @@ public class Reflects {
     }
 
     /**
-     * see {@link ReflectUtil#setFieldValue(Object, String, Object)}
+     * see {@link FieldUtil#setFieldValue(Object, String, Object)}
      *
      * @param input      the object of field
      * @param fieldName  the field name
      * @param fieldValue the field value to set
      */
     public static void setFieldValue(Object input, String fieldName, Object fieldValue) {
-        ReflectUtil.setFieldValue(input, fieldName, fieldValue);
+        FieldUtil.setFieldValue(input, fieldName, fieldValue);
     }
 
     /**
@@ -154,18 +157,18 @@ public class Reflects {
     }
 
     /**
-     * see {@link ReflectUtil#newInstance(String)}
+     * see {@link ConstructorUtil#newInstance(String)}
      *
      * @param className the class name
      * @param <T>       the class type
      * @return the class instance
      */
     public static <T> T newInstance(String className) {
-        return ReflectUtil.newInstance(className);
+        return ConstructorUtil.newInstance(className);
     }
 
     /**
-     * see {@link ReflectUtil#newInstance(Class, Object...)}
+     * see {@link ConstructorUtil#newInstance(Class, Object...)}
      *
      * @param input  the class name
      * @param params the constructor params
@@ -173,7 +176,7 @@ public class Reflects {
      * @return the class instance
      */
     public static <T> T newInstance(Class<T> input, Object... params) {
-        return ReflectUtil.newInstance(input, params);
+        return ConstructorUtil.newInstance(input, params);
     }
 
     /**
@@ -184,10 +187,10 @@ public class Reflects {
      * @param params     the method params
      * @param <T>        the return type
      * @return the method result
-     * @see ReflectUtil#invoke(Object, String, Object...)
+     * @see MethodUtil#invoke(Object, String, Object...)
      */
     public static <T> T invoke(Object input, String methodName, Object... params) {
-        return ReflectUtil.invoke(input, methodName, params);
+        return MethodUtil.invoke(input, methodName, params);
     }
 
     /**
@@ -198,10 +201,10 @@ public class Reflects {
      * @param params the method params
      * @param <T>    the return type
      * @return the method result
-     * @see ReflectUtil#invoke(Object, Method, Object...)
+     * @see MethodUtil#invoke(Object, Method, Object...)
      */
     public static <T> T invoke(Object input, Method method, Object... params) {
-        return ReflectUtil.invoke(input, method, params);
+        return MethodUtil.invoke(input, method, params);
     }
 
     /**
@@ -211,10 +214,10 @@ public class Reflects {
      * @param params the static method params
      * @param <T>    the return type
      * @return the static method result
-     * @see ReflectUtil#invokeStatic(Method, Object...)
+     * @see MethodUtil#invokeStatic(Method, Object...)
      */
     public static <T> T invokeStatic(Method method, Object... params) {
-        return ReflectUtil.invokeStatic(method, params);
+        return MethodUtil.invokeStatic(method, params);
     }
 
 }

@@ -1,6 +1,6 @@
 package cn.library.java.tool.lang.random;
 
-import cn.hutool.core.util.RandomUtil;
+import org.dromara.hutool.core.util.RandomUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

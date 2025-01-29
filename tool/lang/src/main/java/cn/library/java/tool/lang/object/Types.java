@@ -1,6 +1,5 @@
 package cn.library.java.tool.lang.object;
 
-import cn.hutool.core.util.TypeUtil;
 import cn.library.java.contract.constant.text.SymbolConstant;
 import cn.library.java.tool.lang.collection.Collections;
 import cn.library.java.tool.lang.convert.Converts;
@@ -10,6 +9,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
+import org.dromara.hutool.core.reflect.TypeUtil;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -84,7 +84,7 @@ public class Types {
      */
     public static List<Type> getParameterTypes(Method input) {
         return Action.<List<Type>>ifNull(input)
-                .then(() -> Collections.newArrayList())
+                .then(Collections::newArrayList)
                 .otherwise(() -> Collections.ofArrayList(input.getGenericParameterTypes()))
                 .get();
     }
@@ -99,10 +99,7 @@ public class Types {
     public static String getFirstParameterTypeName(Method input) {
         return Action.<String>ifNull(input)
                 .then(() -> SymbolConstant.EMPTY)
-                .otherwise(() -> {
-                    Type firstParameterType = input.getGenericParameterTypes()[0];
-                    return Nil.isNull(firstParameterType) ? SymbolConstant.EMPTY : firstParameterType.getTypeName();
-                })
+                .otherwise(() -> input.getGenericParameterTypes()[0].getTypeName())
                 .get();
     }
 

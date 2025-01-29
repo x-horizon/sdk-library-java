@@ -1,6 +1,6 @@
 package cn.library.java.tool.lang.annotation;
 
-import cn.hutool.core.annotation.AnnotationUtil;
+import org.dromara.hutool.core.annotation.AnnotationUtil;
 import cn.library.java.contract.constant.annotation.AnnotationConstant;
 import cn.library.java.contract.constant.module.ModuleView;
 import cn.library.java.contract.constant.suppress.SuppressWarningConstant;

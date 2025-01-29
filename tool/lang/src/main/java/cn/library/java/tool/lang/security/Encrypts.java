@@ -1,6 +1,6 @@
 package cn.library.java.tool.lang.security;
 
-import cn.hutool.crypto.SecureUtil;
+import org.dromara.hutool.crypto.SecureUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

@@ -1,6 +1,6 @@
 package cn.library.java.tool.convert.api.mapstruct.model.vo;
 
-import cn.hutool.core.util.RandomUtil;
+import org.dromara.hutool.core.util.RandomUtil;
 import cn.library.java.contract.constant.suppress.SuppressWarningConstant;
 import cn.library.java.tool.convert.api.mapstruct.model.domain.GradeDO;
 import io.github.linpeilie.annotations.AutoMapper;
