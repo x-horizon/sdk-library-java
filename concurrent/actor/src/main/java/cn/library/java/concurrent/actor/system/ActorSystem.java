@@ -14,7 +14,6 @@ import cn.library.java.contract.constant.number.NumberConstant;
 import cn.library.java.tool.lang.concurrent.Threads;
 import cn.library.java.tool.lang.functional.Assert;
 import cn.library.java.tool.lang.object.Nil;
-import cn.library.java.tool.spring.contract.support.Springs;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +30,7 @@ import java.util.function.Predicate;
  * @since 2025-01-26 23:30
  */
 @Slf4j
-public class ActorSystem<T extends ActorMessage> {
+public class ActorSystem {
 
     private static final int SHUTDOWN_EACH_DISPATCHER_MAX_WAIT_TIME = 3;
 
@@ -39,7 +38,7 @@ public class ActorSystem<T extends ActorMessage> {
 
     private final Map<String, ActorDispatcher> dispatcherIdMappingDispatcherMap = new ConcurrentHashMap<>();
 
-    private final Map<ActorId, ActorMailbox<T>> actorIdMappingActorMailboxMap = new ConcurrentHashMap<>();
+    private final Map<ActorId, ActorMailbox> actorIdMappingActorMailboxMap = new ConcurrentHashMap<>();
 
     private final Map<ActorId, ReentrantLock> actorIdMappingActorCreateLockMap = new ConcurrentHashMap<>();
 
@@ -69,49 +68,48 @@ public class ActorSystem<T extends ActorMessage> {
         actorDispatcher.getExecutor().shutdownNow();
     }
 
-    public ActorReference<T> getActorReference(ActorId actorId) {
+    public ActorReference getActorReference(ActorId actorId) {
         return actorIdMappingActorMailboxMap.get(actorId);
     }
 
-    public ActorReference<T> createRootActorReference(String dispatcherId, ActorCreator<T> actorCreator) {
-        return createActor(dispatcherId, actorCreator, null);
+    public ActorReference createRootActorReference(String dispatcherId, ActorCreator actorCreator) {
+        return createActorReference(dispatcherId, actorCreator, null);
     }
 
-    public ActorReference<T> createChildActorReference(String dispatcherId, ActorCreator<T> actorCreator, ActorId parentActorId) {
-        return createActor(dispatcherId, actorCreator, parentActorId);
+    public ActorReference createChildActorReference(String dispatcherId, ActorCreator actorCreator, ActorId parentActorId) {
+        return createActorReference(dispatcherId, actorCreator, parentActorId);
     }
 
-    private ActorReference<T> createActor(String dispatcherId, ActorCreator<T> actorCreator, ActorId parentActorId) {
+    private ActorReference createActorReference(String dispatcherId, ActorCreator actorCreator, ActorId parentActorId) {
         ActorId actorId = actorCreator.createActorId();
-        ActorMailbox<T> actorMailbox = actorIdMappingActorMailboxMap.get(actorId);
+        ActorMailbox actorMailbox = actorIdMappingActorMailboxMap.get(actorId);
         if (Nil.isNotNull(actorMailbox)) {
-            log.debug("{}create actor reference nothing to do because the actor mailbox [{}] is already registered.", ModuleView.CONCURRENT_ACTOR_SYSTEM, actorId);
+            log.debug("{}create actor mailbox nothing to do because the actor mailbox [{}] is already registered.", ModuleView.CONCURRENT_ACTOR_SYSTEM, actorId);
             return actorMailbox;
         }
 
-        Lock actorCreateLock = actorIdMappingActorCreateLockMap.computeIfAbsent(actorId, id -> new ReentrantLock());
+        Lock actorCreateLock = actorIdMappingActorCreateLockMap.computeIfAbsent(actorId, _ -> new ReentrantLock());
         actorCreateLock.lock();
         try {
             actorMailbox = actorIdMappingActorMailboxMap.get(actorId);
             if (Nil.isNotNull(actorMailbox)) {
-                log.debug("{}create actor reference nothing to do because the actor mailbox [{}] is already registered.", ModuleView.CONCURRENT_ACTOR_SYSTEM, actorId);
+                log.debug("{}create actor mailbox nothing to do because the actor mailbox [{}] is already registered.", ModuleView.CONCURRENT_ACTOR_SYSTEM, actorId);
                 return actorMailbox;
             }
 
-            log.debug("{}creating actor reference [{}].", ModuleView.CONCURRENT_ACTOR_SYSTEM, actorId);
+            log.debug("{}creating actor mailbox [{}].", ModuleView.CONCURRENT_ACTOR_SYSTEM, actorId);
 
-            ActorReference<T> parentActorReference = null;
+            ActorReference parentActorReference = null;
             if (Nil.isNotNull(parentActorId)) {
                 parentActorReference = getActorReference(parentActorId);
-                Assert.of().setMessage("{}create actor reference failed because the actor [{}] parent actor [{}] is not registered.", ModuleView.CONCURRENT_ACTOR_SYSTEM, actorId, parentActorId).throwsIfNull(parentActorReference);
+                Assert.of().setMessage("{}create actor mailbox failed because the actor [{}] parent actor [{}] is not registered.", ModuleView.CONCURRENT_ACTOR_SYSTEM, actorId, parentActorId).throwsIfNull(parentActorReference);
                 actorIdMappingChildActorIdsMap.computeIfAbsent(parentActorId, _ -> ConcurrentHashMap.newKeySet()).add(actorId);
             }
 
             ActorDispatcher actorDispatcher = dispatcherIdMappingDispatcherMap.get(dispatcherId);
-            Assert.of().setMessage("{}create actor reference failed because the actor dispatcher [{}] is not registered.", ModuleView.CONCURRENT_ACTOR_SYSTEM, dispatcherId).throwsIfNull(actorDispatcher);
-            Actor<T> actor = actorCreator.createActor();
-            ActorProperty actorProperty = Springs.getBean(ActorProperty.class);
-            actorMailbox = new ActorMailbox<>(this, actorProperty, actorId, actor, parentActorReference, actorDispatcher);
+            Assert.of().setMessage("{}create actor mailbox failed because the actor dispatcher [{}] is not registered.", ModuleView.CONCURRENT_ACTOR_SYSTEM, dispatcherId).throwsIfNull(actorDispatcher);
+            Actor actor = actorCreator.createActor();
+            actorMailbox = new ActorMailbox(this, actorProperty, actorId, actor, parentActorReference, actorDispatcher);
             actorIdMappingActorMailboxMap.put(actorId, actorMailbox);
             actorMailbox.initActor();
         } finally {
@@ -122,54 +120,54 @@ public class ActorSystem<T extends ActorMessage> {
         return actorMailbox;
     }
 
-    public void tellWithNormalPriority(ActorId targetActorId, T actorMessage) {
-        tell(targetActorId, actorMessage, false);
+    public void tellWithNormalPriority(ActorId targetActorId, ActorMessage message) {
+        tell(targetActorId, message, false);
     }
 
-    public void tellWithHighPriority(ActorId targetActorId, T actorMessage) {
-        tell(targetActorId, actorMessage, true);
+    public void tellWithHighPriority(ActorId targetActorId, ActorMessage message) {
+        tell(targetActorId, message, true);
     }
 
-    public void tell(ActorId targetActorId, T actorMessage, boolean isHighPriority) {
-        ActorMailbox<T> actorMailbox = actorIdMappingActorMailboxMap.get(targetActorId);
+    public void tell(ActorId targetActorId, ActorMessage message, boolean isHighPriority) {
+        ActorMailbox actorMailbox = actorIdMappingActorMailboxMap.get(targetActorId);
         Assert.of()
                 .setThrowable(ActorNotRegisteredException.class)
                 .setMessage("{}tell actor message failed because the actor mailbox [{}] is not registered.", ModuleView.CONCURRENT_ACTOR_SYSTEM, targetActorId)
                 .throwsIfNull(actorMailbox);
         if (isHighPriority) {
-            actorMailbox.tellWithHighPriority(actorMessage);
+            actorMailbox.tellWithHighPriority(message);
         } else {
-            actorMailbox.tellWithNormalPriority(actorMessage);
+            actorMailbox.tellWithNormalPriority(message);
         }
     }
 
-    public void broadcastToChildrenWithNormalPriority(ActorId parentActorId, T actorMessage) {
-        broadcastToChildren(parentActorId, actorMessage, false);
+    public void broadcastToChildrenWithNormalPriority(ActorId parentActorId, ActorMessage message) {
+        broadcastToChildren(parentActorId, message, false);
     }
 
-    public void broadcastToChildrenWithNormalPriority(ActorId parentActorId, T actorMessage, Predicate<ActorId> childActorFilter) {
-        broadcastToChildren(parentActorId, actorMessage, childActorFilter, false);
+    public void broadcastToChildrenWithNormalPriority(ActorId parentActorId, ActorMessage message, Predicate<ActorId> childActorFilter) {
+        broadcastToChildren(parentActorId, message, childActorFilter, false);
     }
 
-    public void broadcastToChildrenWithHighPriority(ActorId parentActorId, T actorMessage) {
-        broadcastToChildren(parentActorId, actorMessage, true);
+    public void broadcastToChildrenWithHighPriority(ActorId parentActorId, ActorMessage message) {
+        broadcastToChildren(parentActorId, message, true);
     }
 
-    public void broadcastToChildrenWithHighPriority(ActorId parentActorId, T actorMessage, Predicate<ActorId> childActorFilter) {
-        broadcastToChildren(parentActorId, actorMessage, childActorFilter, true);
+    public void broadcastToChildrenWithHighPriority(ActorId parentActorId, ActorMessage message, Predicate<ActorId> childActorFilter) {
+        broadcastToChildren(parentActorId, message, childActorFilter, true);
     }
 
-    public void broadcastToChildren(ActorId parentActorId, T actorMessage, boolean highPriority) {
-        broadcastToChildren(parentActorId, actorMessage, ignore -> true, highPriority);
+    public void broadcastToChildren(ActorId parentActorId, ActorMessage message, boolean highPriority) {
+        broadcastToChildren(parentActorId, message, ignore -> true, highPriority);
     }
 
-    public void broadcastToChildren(ActorId parentActorId, T actorMessage, Predicate<ActorId> childActorFilter, boolean highPriority) {
+    public void broadcastToChildren(ActorId parentActorId, ActorMessage message, Predicate<ActorId> childActorFilter, boolean highPriority) {
         Optional.ofNullable(actorIdMappingChildActorIdsMap.get(parentActorId)).ifPresent(childActorIds -> childActorIds
                 .stream()
                 .filter(childActorFilter)
                 .forEach(childActorId -> {
                     try {
-                        tell(childActorId, actorMessage, highPriority);
+                        tell(childActorId, message, highPriority);
                     } catch (ActorNotRegisteredException ignore) {
                         log.warn("{}tell actor message failed because the actor mailbox [{}] is not registered.", ModuleView.CONCURRENT_ACTOR_SYSTEM, childActorId);
                     }
@@ -177,7 +175,7 @@ public class ActorSystem<T extends ActorMessage> {
         );
     }
 
-    public void stop(ActorReference<T> actorReference) {
+    public void stop(ActorReference actorReference) {
         stop(actorReference.getSelfId());
     }
 

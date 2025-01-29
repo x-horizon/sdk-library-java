@@ -7,18 +7,18 @@ import cn.library.java.concurrent.actor.message.ActorMessage;
  * @author wjm
  * @since 2025-01-26 21:07
  */
-public interface ActorReference<T extends ActorMessage> {
+public interface ActorReference {
 
     ActorId getSelfId();
 
-    void tell(T actorMessage, boolean isHighPriority);
+    void tell(ActorMessage message, boolean isHighPriority);
 
-    default void tellWithNormalPriority(T actorMessage) {
-        tell(actorMessage, false);
+    default void tellWithNormalPriority(ActorMessage message) {
+        tell(message, false);
     }
 
-    default void tellWithHighPriority(T actorMessage) {
-        tell(actorMessage, true);
+    default void tellWithHighPriority(ActorMessage message) {
+        tell(message, true);
     }
 
 }

@@ -1,7 +1,6 @@
 package cn.library.java.concurrent.actor.foo;
 
 import cn.library.java.concurrent.actor.autoconfigure.ActorAutoConfigurer;
-import cn.library.java.concurrent.actor.message.ActorMessage;
 import cn.library.java.concurrent.actor.system.ActorSystem;
 import cn.library.java.tool.lang.concurrent.Threads;
 import cn.library.java.tool.lang.object.Nil;
@@ -25,7 +24,7 @@ import java.util.concurrent.Executors;
 @Component
 @AutoConfigureAfter(ActorAutoConfigurer.class)
 @EnableConfigurationProperties(IotActorProperty.class)
-public class ActorInitializer<T extends ActorMessage> {
+public class ActorInitializer {
 
     private static final String APP_DISPATCHER_NAME = "app-dispatcher";
 
@@ -35,19 +34,20 @@ public class ActorInitializer<T extends ActorMessage> {
 
     private static final String RULE_ENGINE_DISPATCHER_NAME = "rule-engine-dispatcher";
 
-    @Autowired private ActorSystem<T> actorSystem;
+    private ActorSystem actorSystem;
 
     @Autowired private IotActorProperty iotActorProperty;
 
     @PostConstruct
     public void init() {
+        actorSystem = new ActorSystem(iotActorProperty);
         actorSystem.createDispatcher(APP_DISPATCHER_NAME, initDispatcherExecutor(APP_DISPATCHER_NAME, iotActorProperty.getAppDispatcherPoolSize(), iotActorProperty.getNeedToEnableVirtualThread()));
         actorSystem.createDispatcher(TENANT_DISPATCHER_NAME, initDispatcherExecutor(TENANT_DISPATCHER_NAME, iotActorProperty.getTenantDispatcherPoolSize(), iotActorProperty.getNeedToEnableVirtualThread()));
         actorSystem.createDispatcher(DEVICE_DISPATCHER_NAME, initDispatcherExecutor(DEVICE_DISPATCHER_NAME, iotActorProperty.getDeviceDispatcherPoolSize(), iotActorProperty.getNeedToEnableVirtualThread()));
         actorSystem.createDispatcher(RULE_ENGINE_DISPATCHER_NAME, initDispatcherExecutor(RULE_ENGINE_DISPATCHER_NAME, iotActorProperty.getRuleEngineDispatcherPoolSize(), iotActorProperty.getNeedToEnableVirtualThread()));
 
-        appActor = actorSystem.createRootActorReference(APP_DISPATCHER_NAME, new AppActor.ActorCreator(actorContext));
-        actorContext.setAppActor(appActor);
+        var a = actorSystem.createRootActorReference(APP_DISPATCHER_NAME, new AppActor.ActorCreator());
+        a.tell(new AppActorMessage(), false);
     }
 
     @PreDestroy

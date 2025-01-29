@@ -23,23 +23,23 @@ import java.util.function.Predicate;
  */
 @Slf4j
 @RequiredArgsConstructor
-public class ActorMailbox<T extends ActorMessage> implements ActorContext<T> {
+public class ActorMailbox implements ActorContext {
 
-    private final ActorSystem<T> actorSystem;
+    private final ActorSystem actorSystem;
 
     private final ActorProperty actorProperty;
 
     @Getter private final ActorId selfId;
 
-    private final Actor<T> selfActor;
+    private final Actor selfActor;
 
-    @Getter private final ActorReference<T> parentReference;
+    @Getter private final ActorReference parentReference;
 
     private final ActorDispatcher dispatcher;
 
-    private final ConcurrentLinkedQueue<T> highPriorityMessageQueue = new ConcurrentLinkedQueue<>();
+    private final ConcurrentLinkedQueue<ActorMessage> highPriorityMessageQueue = new ConcurrentLinkedQueue<>();
 
-    private final ConcurrentLinkedQueue<T> normalPriorityMessageQueue = new ConcurrentLinkedQueue<>();
+    private final ConcurrentLinkedQueue<ActorMessage> normalPriorityMessageQueue = new ConcurrentLinkedQueue<>();
 
     private final AtomicBoolean isReadyNow = new AtomicBoolean(false);
 
@@ -88,46 +88,46 @@ public class ActorMailbox<T extends ActorMessage> implements ActorContext<T> {
     }
 
     @Override
-    public ActorReference<T> getOrCreateChildActorReference(ActorId actorId, String dispatcherId, ActorCreator<T> creator) {
+    public ActorReference getOrCreateChildActorReference(ActorId actorId, String dispatcherId, ActorCreator creator) {
         return null;
     }
 
-    public void tellWithNormalPriority(ActorId targetActorId, T actorMessage) {
-        tell(targetActorId, actorMessage, false);
+    public void tellWithNormalPriority(ActorId targetActorId, ActorMessage message) {
+        tell(targetActorId, message, false);
     }
 
-    public void tellWithHighPriority(ActorId targetActorId, T actorMessage) {
-        tell(targetActorId, actorMessage, true);
-    }
-
-    @Override
-    public void tell(ActorId targetActorId, T actorMessage, boolean highPriority) {
-        actorSystem.tell(targetActorId, actorMessage, highPriority);
-    }
-
-    public void broadcastToChildrenWithNormalPriority(ActorId parentActorId, T actorMessage) {
-        broadcastToChildren(parentActorId, actorMessage, false);
-    }
-
-    public void broadcastToChildrenWithNormalPriority(ActorId parentActorId, T actorMessage, Predicate<ActorId> childActorFilter) {
-        broadcastToChildren(parentActorId, actorMessage, childActorFilter, false);
-    }
-
-    public void broadcastToChildrenWithHighPriority(ActorId parentActorId, T actorMessage) {
-        broadcastToChildren(parentActorId, actorMessage, true);
-    }
-
-    public void broadcastToChildrenWithHighPriority(ActorId parentActorId, T actorMessage, Predicate<ActorId> childActorFilter) {
-        broadcastToChildren(parentActorId, actorMessage, childActorFilter, true);
-    }
-
-    public void broadcastToChildren(ActorId parentActorId, T actorMessage, boolean highPriority) {
-        actorSystem.broadcastToChildren(parentActorId, actorMessage, highPriority);
+    public void tellWithHighPriority(ActorId targetActorId, ActorMessage message) {
+        tell(targetActorId, message, true);
     }
 
     @Override
-    public void broadcastToChildren(ActorId parentActorId, T actorMessage, Predicate<ActorId> childActorFilter, boolean highPriority) {
-        actorSystem.broadcastToChildren(parentActorId, actorMessage, childActorFilter, highPriority);
+    public void tell(ActorId targetActorId, ActorMessage message, boolean highPriority) {
+        actorSystem.tell(targetActorId, message, highPriority);
+    }
+
+    public void broadcastToChildrenWithNormalPriority(ActorId parentActorId, ActorMessage message) {
+        broadcastToChildren(parentActorId, message, false);
+    }
+
+    public void broadcastToChildrenWithNormalPriority(ActorId parentActorId, ActorMessage message, Predicate<ActorId> childActorFilter) {
+        broadcastToChildren(parentActorId, message, childActorFilter, false);
+    }
+
+    public void broadcastToChildrenWithHighPriority(ActorId parentActorId, ActorMessage message) {
+        broadcastToChildren(parentActorId, message, true);
+    }
+
+    public void broadcastToChildrenWithHighPriority(ActorId parentActorId, ActorMessage message, Predicate<ActorId> childActorFilter) {
+        broadcastToChildren(parentActorId, message, childActorFilter, true);
+    }
+
+    public void broadcastToChildren(ActorId parentActorId, ActorMessage message, boolean highPriority) {
+        actorSystem.broadcastToChildren(parentActorId, message, highPriority);
+    }
+
+    @Override
+    public void broadcastToChildren(ActorId parentActorId, ActorMessage message, Predicate<ActorId> childActorFilter, boolean highPriority) {
+        actorSystem.broadcastToChildren(parentActorId, message, childActorFilter, highPriority);
     }
 
     @Override
@@ -136,14 +136,14 @@ public class ActorMailbox<T extends ActorMessage> implements ActorContext<T> {
     }
 
     @Override
-    public void tell(T actorMessage, boolean isHighPriority) {
+    public void tell(ActorMessage message, boolean isHighPriority) {
         if (isDestroyNow.get()) {
-            actorMessage.onActorStopped();
+            message.onActorStopped();
         } else {
             if (isHighPriority) {
-                highPriorityMessageQueue.add(actorMessage);
+                highPriorityMessageQueue.add(message);
             } else {
-                normalPriorityMessageQueue.add(actorMessage);
+                normalPriorityMessageQueue.add(message);
             }
             tryProcessQueue(true);
         }
@@ -158,13 +158,13 @@ public class ActorMailbox<T extends ActorMessage> implements ActorContext<T> {
     private void processMailbox() {
         boolean isQueueEmpty = false;
         for (int index = 0; index < actorProperty.getThroughput(); index++) {
-            T actorMessage = highPriorityMessageQueue.poll();
-            if (Nil.isNull(actorMessage)) {
-                actorMessage = normalPriorityMessageQueue.poll();
+            ActorMessage message = highPriorityMessageQueue.poll();
+            if (Nil.isNull(message)) {
+                message = normalPriorityMessageQueue.poll();
             }
-            if (Nil.isNotNull(actorMessage)) {
-                log.trace("{}actor [{}] going to process message [{}].", ModuleView.CONCURRENT_ACTOR_SYSTEM, selfId, actorMessage);
-                selfActor.process(actorMessage);
+            if (Nil.isNotNull(message)) {
+                log.trace("{}actor [{}] going to process message [{}].", ModuleView.CONCURRENT_ACTOR_SYSTEM, selfId, message);
+                selfActor.process(message);
             } else {
                 isQueueEmpty = true;
                 break;
@@ -188,8 +188,8 @@ public class ActorMailbox<T extends ActorMessage> implements ActorContext<T> {
             try {
                 isReadyNow.set(false);
                 selfActor.destroy(cause);
-                highPriorityMessageQueue.forEach(T::onActorStopped);
-                normalPriorityMessageQueue.forEach(T::onActorStopped);
+                highPriorityMessageQueue.forEach(ActorMessage::onActorStopped);
+                normalPriorityMessageQueue.forEach(ActorMessage::onActorStopped);
             } catch (Throwable throwable) {
                 log.warn("{}failed to destroy actor [{}].", ModuleView.CONCURRENT_ACTOR_SYSTEM, selfId, throwable);
             }

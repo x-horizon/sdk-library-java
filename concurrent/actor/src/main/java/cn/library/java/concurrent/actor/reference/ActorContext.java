@@ -10,15 +10,15 @@ import java.util.function.Predicate;
  * @author wjm
  * @since 2025-01-26 22:49
  */
-public interface ActorContext<T extends ActorMessage> extends ActorReference<T> {
+public interface ActorContext extends ActorReference {
 
-    ActorReference<T> getParentReference();
+    ActorReference getParentReference();
 
-    ActorReference<T> getOrCreateChildActorReference(ActorId actorId, String dispatcherId, ActorCreator<T> creator);
+    ActorReference getOrCreateChildActorReference(ActorId actorId, String dispatcherId, ActorCreator creator);
 
-    void tell(ActorId targetActorId, T actorMessage, boolean highPriority);
+    void tell(ActorId targetActorId, ActorMessage message, boolean highPriority);
 
-    void broadcastToChildren(ActorId parentActorId, T actorMessage, Predicate<ActorId> childActorFilter, boolean highPriority);
+    void broadcastToChildren(ActorId parentActorId, ActorMessage message, Predicate<ActorId> childActorFilter, boolean highPriority);
 
     void stop(ActorId targetActorId);
 
