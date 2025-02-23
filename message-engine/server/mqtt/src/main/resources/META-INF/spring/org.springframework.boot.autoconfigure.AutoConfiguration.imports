@@ -1,1 +1,1 @@
-cn.library.java.message.engine.server.mqtt.autoconfigure.MqttServerAutoConfigurer
+org.horizon.library.java.message.engine.server.mqtt.autoconfigure.MqttServerAutoConfigurer

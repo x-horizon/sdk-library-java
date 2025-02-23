@@ -1,1 +1,1 @@
-cn.library.java.tool.spring.webmvc.autoconfigure.WebMvcAutoConfigurer
+org.horizon.library.java.tool.spring.webmvc.autoconfigure.WebMvcAutoConfigurer

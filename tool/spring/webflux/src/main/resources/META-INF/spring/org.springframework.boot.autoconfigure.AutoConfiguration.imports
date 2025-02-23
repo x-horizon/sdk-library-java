@@ -1,1 +1,1 @@
-cn.library.java.tool.spring.webflux.autoconfigure.WebFluxAutoConfigurer
+org.horizon.library.java.tool.spring.webflux.autoconfigure.WebFluxAutoConfigurer

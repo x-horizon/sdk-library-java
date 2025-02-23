@@ -1,1 +1,1 @@
-cn.library.java.concurrent.actor.autoconfigure.ActorAutoConfigurer
+org.horizon.library.java.concurrent.actor.autoconfigure.ActorAutoConfigurer

@@ -3,7 +3,7 @@
 
     <contextName>logback</contextName>
 
-    <conversionRule conversionWord="logColorConfig" class="cn.library.java.tool.log.config.LogColorConfig"/>
+    <conversionRule conversionWord="logColorConfig" class="org.horizon.library.java.tool.log.config.LogColorConfig"/>
 
     <!--  支持自定义配置的选项，可在 spring 配置文件中配置  -->
     <!--  按本日志配置文件生效输出日志的包路径，必须配置，如：cn.xxx.xxx  -->

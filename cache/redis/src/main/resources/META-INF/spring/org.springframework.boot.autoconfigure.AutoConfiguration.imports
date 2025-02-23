@@ -1,1 +1,1 @@
-cn.library.java.cache.redis.autoconfigue.RedisCacheAutoConfigurer
+org.horizon.library.java.cache.redis.autoconfigue.RedisCacheAutoConfigurer

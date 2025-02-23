@@ -1,1 +1,1 @@
-cn.library.java.message.engine.client.redis.stream.autoconfigure.RedisStreamClientAutoConfigurer
+org.horizon.library.java.message.engine.client.redis.stream.autoconfigure.RedisStreamClientAutoConfigurer

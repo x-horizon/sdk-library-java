@@ -1,1 +1,1 @@
-cn.library.java.oss.minio.autoconfigure.OssMinioAutoConfigurer
+org.horizon.library.java.oss.minio.autoconfigure.OssMinioAutoConfigurer

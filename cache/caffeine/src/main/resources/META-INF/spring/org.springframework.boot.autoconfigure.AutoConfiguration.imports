@@ -1,1 +1,1 @@
-cn.library.java.cache.caffeine.autoconfigue.CaffeineCacheAutoConfigurer
+org.horizon.library.java.cache.caffeine.autoconfigue.CaffeineCacheAutoConfigurer

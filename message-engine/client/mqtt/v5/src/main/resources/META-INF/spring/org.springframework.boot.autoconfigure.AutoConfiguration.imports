@@ -1,1 +1,1 @@
-cn.library.java.message.engine.client.mqtt.v5.autoconfigure.MqttV5ClientAutoConfigurer
+org.horizon.library.java.message.engine.client.mqtt.v5.autoconfigure.MqttV5ClientAutoConfigurer

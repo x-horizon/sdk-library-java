@@ -1,1 +1,1 @@
-cn.library.java.tool.id.snowflake.autoconfigure.SnowflakeIdAutoConfigurer
+org.horizon.library.java.tool.id.snowflake.autoconfigure.SnowflakeIdAutoConfigurer

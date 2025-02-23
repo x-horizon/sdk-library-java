@@ -1,1 +1,1 @@
-cn.library.java.orm.contract.autoconfigure.ORMContractAutoConfigurer
+org.horizon.library.java.orm.contract.autoconfigure.ORMContractAutoConfigurer

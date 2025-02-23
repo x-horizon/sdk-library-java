@@ -1,6 +1,6 @@
 object GradleRepository {
 
-    const val GROUP_ID = "cn.library.java"
+    const val GROUP_ID = "org.horizon.library.java"
 
     const val REPOSITORY_DEFAULT_NAME = "Maven"
 

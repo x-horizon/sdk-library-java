@@ -1,1 +1,1 @@
-cn.library.java.oss.local.autoconfigure.OssLocalAutoConfigurer
+org.horizon.library.java.oss.local.autoconfigure.OssLocalAutoConfigurer

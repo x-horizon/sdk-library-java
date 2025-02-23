@@ -1,1 +1,1 @@
-cn.library.java.message.engine.client.kafka.autoconfigure.KafkaClientAutoConfigurer
+org.horizon.library.java.message.engine.client.kafka.autoconfigure.KafkaClientAutoConfigurer

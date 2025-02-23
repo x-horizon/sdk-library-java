@@ -1,1 +1,1 @@
-org.springframework.context.ApplicationContextInitializer=cn.library.java.orm.contract.autoconfigure.ORMContractBasePackagePathAutoConfigurer
+org.springframework.context.ApplicationContextInitializer=org.horizon.library.java.orm.contract.autoconfigure.ORMContractBasePackagePathAutoConfigurer

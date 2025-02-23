@@ -1,1 +1,1 @@
-cn.library.java.message.engine.client.rocketmq.autoconfigure.RocketMqClientAutoConfigurer
+org.horizon.library.java.message.engine.client.rocketmq.autoconfigure.RocketMqClientAutoConfigurer
