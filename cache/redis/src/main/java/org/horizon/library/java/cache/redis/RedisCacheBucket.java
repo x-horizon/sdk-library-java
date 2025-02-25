@@ -1,16 +1,17 @@
 package org.horizon.library.java.cache.redis;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
 import org.horizon.library.java.contract.component.redis.RedisManager;
 import org.horizon.library.java.tool.lang.collection.Collections;
 import org.horizon.library.java.tool.lang.compare.Comparators;
 import org.horizon.library.java.tool.lang.convert.Converts;
 import org.horizon.library.java.tool.lang.time.DurationWrapper;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import lombok.SneakyThrows;
 import org.redisson.api.RBatch;
 import org.redisson.api.RBucket;
 import org.redisson.api.RFuture;
+import org.redisson.api.options.KeysScanOptions;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -96,7 +97,7 @@ public class RedisCacheBucket implements RedisCacheTemplate {
 
     @Override
     public <V> Map<String, V> getMapByPattern(String pattern) {
-        return getMap(Collections.ofUnknownSizeStream(RedisManager.getClient().getKeys().getKeysByPattern(pattern)).toList());
+        return getMap(Collections.ofUnknownSizeStream(RedisManager.getClient().getKeys().getKeys(KeysScanOptions.defaults().pattern(pattern))).toList());
     }
 
     @Override
