@@ -6,7 +6,7 @@ object GradleConfig {
 
     const val JAVA_VERSION = "21"
 
-    const val PROJECT_VERSION = "3.0100"
+    const val PROJECT_VERSION = "1.0"
     const val PROJECT_CHARSET = "UTF-8"
 
     const val WITH_PARAMETERS_ARG = "-parameters"
