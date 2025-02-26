@@ -1,0 +1,16 @@
+package ${packageName}.dao;
+
+import ${packageName}.bean.po.${ClassName}PO;
+import org.horizon.library.java.orm.mybatis.plus.core.GenericCurdDao;
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ * ${tableComment}(${tableName}) dao
+ *
+ * @author TODO 请填写名字
+ * @since ${currentTimeAccurateToSecond}
+ */
+@Mapper
+public interface ${ClassName}Dao extends GenericCurdDao<${ClassName}PO> {
+
+}

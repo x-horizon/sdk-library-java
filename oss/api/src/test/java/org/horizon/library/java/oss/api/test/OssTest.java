@@ -1,0 +1,53 @@
+package org.horizon.library.java.oss.api.test;
+
+import org.horizon.library.java.contract.constant.suppress.SuppressWarningConstant;
+import org.horizon.library.java.oss.contract.Oss;
+import org.horizon.library.java.oss.contract.model.domain.OssFileDO;
+import org.horizon.library.java.oss.local.autoconfigure.EnableOssLocal;
+import org.horizon.library.java.oss.minio.autoconfigure.EnableOssMinio;
+import org.horizon.library.java.tool.lang.file.Files;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.io.File;
+
+/**
+ * @author wjm
+ * @since 2024-07-16 18:58
+ */
+@SuppressWarnings(SuppressWarningConstant.PREVIEW)
+@EnableOssLocal
+@EnableOssMinio
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+class OssTest {
+
+    @Test
+    void test() {
+        File file = Files.of("/Users/jimmy/Desktop/场景照片/模型校验样张.jpg");
+        String url = "minio:///wjm-test2/wjm10/test4?bucketName=wjm-test";
+
+        OssFileDO ossFileDO = Oss.openUpload()
+                .scale()
+                .thumbnail()
+                .progressListener((alreadyUploadSize, totalSize) -> System.out.println(STR."upload already size：\{alreadyUploadSize}, total size: \{totalSize}"))
+                .upload(file, "模型校验样张3.jpg", url);
+
+        byte[] originalBytes = Oss.download(url, ossFileDO)
+                .setProgressListener((currentDownSize, totalSize) -> System.out.println(STR."current download original size：\{currentDownSize}, total size: \{totalSize}"))
+                .bytes();
+
+        byte[] thumbnailBytes = Oss.downloadThumbnail(url, ossFileDO)
+                .setProgressListener((currentDownSize, totalSize) -> System.out.println(STR."current download thumbnail size：\{currentDownSize}, total size: \{totalSize}"))
+                .bytes();
+
+        boolean isExistBeforeDelete = Oss.exist(url, ossFileDO);
+        boolean isSuccess = Oss.delete(url, ossFileDO);
+        boolean isExistAfterDelete = Oss.exist(url, ossFileDO);
+
+        System.out.println();
+    }
+
+}

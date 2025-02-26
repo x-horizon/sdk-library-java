@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    include:
+      config-cache-redis,
+      config-cache-redis-${activeEnvironmentName},
+      config-datasource,
+      config-datasource-${activeEnvironmentName},
+      config-doc,
+      config-log,
+      config-spring
+    active: environment-${activeEnvironmentName}

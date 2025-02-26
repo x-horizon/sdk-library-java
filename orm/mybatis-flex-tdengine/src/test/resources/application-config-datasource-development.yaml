@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:TAOS://192.168.10.91:32608
+    username: root
+    password: M73wgfq8GuDkqN

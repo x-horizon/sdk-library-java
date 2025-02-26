@@ -1,0 +1,6 @@
+debug: false
+
+logging:
+  level:
+    org.horizon.library.java: trace
+#    io.netty: trace

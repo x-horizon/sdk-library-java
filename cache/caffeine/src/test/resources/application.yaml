@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    include:
+      config-cache
+    active: environment-${activeEnvironmentName}
