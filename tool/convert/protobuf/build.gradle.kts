@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_SERIALIZATION_PROTOBUF_GOOGLE)))
+    api(project(GradleModule.TOOL_SERIALIZATION_PROTOBUF_GOOGLE))
 }
 
 protobuf {

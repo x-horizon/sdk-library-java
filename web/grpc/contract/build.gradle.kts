@@ -6,8 +6,8 @@ plugins {
 }
 
 dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_PROTOBUF)))
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
+    api(project(GradleModule.TOOL_CONVERT_PROTOBUF))
+    api(project(GradleModule.TOOL_LANG))
 
     api(GradleDependency.TOOL_ANNOTATION_API_JAVAX.withoutVersion)
     api(GradleDependency.WEB_GRPC_API.withoutVersion)

@@ -4,8 +4,8 @@ object EnvironmentLocalhostHandler : EnvironmentHandler {
         return Environment.LOCALHOST.code
     }
 
-    override fun getNexusUrl(): String {
-        return GradleRepository.NEXUS_LOCALHOST_URL
+    override fun getMavenPersonalUrlEnvironmentName(): String {
+        return GradleRepository.MAVEN_PERSONAL_LOCALHOST_URL_ENVIRONMENT_NAME
     }
 
 }

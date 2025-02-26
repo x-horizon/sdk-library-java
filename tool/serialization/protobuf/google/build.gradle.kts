@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
+    api(project(GradleModule.TOOL_LANG))
 
     api(GradleDependency.TOOL_SERIALIZATION_PROTOBUF_GOOGLE_JAVA.withoutVersion)
     api(GradleDependency.TOOL_SERIALIZATION_PROTOBUF_GOOGLE_JAVA_UTIL.withoutVersion)

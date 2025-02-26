@@ -1,3 +1,3 @@
 dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_SPRING_CONTRACT)))
+    api(project(GradleModule.TOOL_SPRING_CONTRACT))
 }
