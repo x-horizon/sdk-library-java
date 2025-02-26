@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    include:
+      config-cache-redis,
+      config-cache-redis-localhost,
+      config-datasource,
+      config-log,
+      config-mqtt-server,
+      config-spring
+    active: environment-localhost

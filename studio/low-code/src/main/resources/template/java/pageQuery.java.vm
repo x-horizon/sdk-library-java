@@ -1,0 +1,27 @@
+package ${packageName}.bean.query;
+
+import org.horizon.library.java.doc.knife4j.model.PageParam;
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+
+/**
+ * ${tableComment}(${tableName}) 分页列表查询模型
+ *
+ * @author TODO 请填写名字
+ * @since ${currentTimeAccurateToSecond}
+ */
+@Schema(description = "${tableComment}(${tableName}) 分页列表查询模型")
+@Data
+@NoArgsConstructor
+@Accessors(chain = true)
+@SuperBuilder(toBuilder = true)
+@EqualsAndHashCode(callSuper = true)
+public class ${ClassName}PageQuery extends PageParam implements Serializable {
+
+    // TODO 请添加 serialVersionUID、检查 Validator、检查 @ApiModelProperty 的 required、example 属性、添加查询条件
+
+}

@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    include:
+      config-log
+    active: environment-${activeEnvironmentName}

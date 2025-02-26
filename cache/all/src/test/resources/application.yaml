@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    include:
+      config-cache,
+      config-cache-redis,
+      config-cache-redis-${activeEnvironmentName},
+      config-log,
+      config-spring
+    active: environment-${activeEnvironmentName}

@@ -1,0 +1,85 @@
+package ${packageName}.controller;
+
+import ${packageName}.bean.convert.${ClassName}Converter;
+import ${packageName}.bean.dto.${ClassName}SaveDTO;
+import ${packageName}.bean.dto.${ClassName}UpdateDTO;
+import ${packageName}.bean.query.${ClassName}CollectionQuery;
+import ${packageName}.bean.query.${ClassName}PageQuery;
+import ${packageName}.bean.query.${ClassName}SingleQuery;
+import ${packageName}.bean.vo.${ClassName}VO;
+import ${packageName}.service.${ClassName}Service;
+import org.horizon.library.java.orm.mybatis.plus.utils.Converts;
+import org.horizon.library.java.security.sa.token.core.RequireLogin;
+import org.horizon.library.java.tool.lang.core.validation.ValidList;
+import org.horizon.library.java.doc.knife4j.model.PageResult;
+import org.horizon.library.java.tool.lang.web.WebResponse;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static org.horizon.library.java.tool.lang.web.WebResponse.success;
+
+/**
+ * ${tableComment}(${tableName}) controller
+ *
+ * @author TODO 请填写名字
+ * @since ${currentTimeAccurateToSecond}
+ */
+@Tag(name = "${tableComment}")
+@RestController
+@RequestMapping("/${className}")
+public class ${ClassName}Controller {
+
+    @Autowired
+    private ${ClassName}Service ${className}Service;
+
+    @Operation(summary = "新增单条数据")
+    @RequireLogin
+    @PostMapping("/save")
+    public WebResponse<Void> save(@Validated @RequestBody ${ClassName}SaveDTO ${className}SaveDTO) {
+            ${className}Service.save(${className}SaveDTO);
+        return success();
+    }
+
+    @Operation(summary = "根据主键更新单条数据")
+    @RequireLogin
+    @PostMapping("/updateById")
+    public WebResponse<Void> updateById(@Validated @RequestBody ${ClassName}UpdateDTO ${className}UpdateDTO) {
+            ${className}Service.updateById(${className}UpdateDTO);
+        return success();
+    }
+
+    @Operation(summary = "根据主键批量逻辑删除数据")
+    @RequireLogin
+    @PostMapping("/removeByIds")
+    public WebResponse<Void> removeByIds(@Validated @RequestBody ValidList<Long> ids) {
+            ${className}Service.removeByIds(ids);
+        return success();
+    }
+
+    @Operation(summary = "查询单条数据")
+    @RequireLogin
+    @PostMapping("/getByCondition")
+    public WebResponse<${ClassName}VO> getByCondition(@Validated @RequestBody ${ClassName}SingleQuery ${className}SingleQuery) {
+        return success(${ClassName}Converter.INSTANCE.to${ClassName}VO(${className}Service.getByCondition(${className}SingleQuery)));
+    }
+
+    @Operation(summary = "查询列表数据")
+    @RequireLogin
+    @PostMapping("/listByCondition")
+    public WebResponse<List<${ClassName}VO>> listByCondition(@Validated @RequestBody ${ClassName}CollectionQuery ${className}CollectionQuery) {
+        return success(${ClassName}Converter.INSTANCE.to${ClassName}VOs(${className}Service.listByCondition(${className}CollectionQuery)));
+    }
+
+    @Operation(summary = "查询分页列表数据")
+    @RequireLogin
+    @PostMapping("/pageByCondition")
+    public WebResponse<PageResult<${ClassName}VO>> pageByCondition(@Validated @RequestBody ${ClassName}PageQuery ${className}PageQuery) {
+        return success(${ClassName}Converter.INSTANCE.to${ClassName}PageResultVO(${className}Service.pageByCondition(${className}PageQuery)));
+    }
+
+}
