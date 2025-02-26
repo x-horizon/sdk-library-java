@@ -1,7 +1,7 @@
 dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.CACHE_LETTUCE)))
-    api(project(GradleModule.toReferenceName(GradleModule.POOL_APACHE)))
-    api(project(GradleModule.toReferenceName(GradleModule.SECURITY_CONTRACT)))
+    api(project(GradleModule.CACHE_LETTUCE))
+    api(project(GradleModule.POOL_APACHE))
+    api(project(GradleModule.SECURITY_CONTRACT))
 
     api(GradleDependency.SECURITY_SA_TOKEN_ALONE_REDIS.withoutVersion)
     api(GradleDependency.SECURITY_SA_TOKEN_DAO_REDIS_JACKSON.withoutVersion)

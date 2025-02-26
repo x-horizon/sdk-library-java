@@ -3,15 +3,15 @@ plugins {
 }
 
 dependencies {
-    implementation(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_JACKSON)))
-    implementation(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_MAPSTRUCT_PLUS)))
-    implementation(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_PROTOBUF)))
-    implementation(project(GradleModule.toReferenceName(GradleModule.TOOL_CONVERT_SPRING)))
+    implementation(project(GradleModule.TOOL_CONVERT_JACKSON))
+    implementation(project(GradleModule.TOOL_CONVERT_MAPSTRUCT_PLUS))
+    implementation(project(GradleModule.TOOL_CONVERT_PROTOBUF))
+    implementation(project(GradleModule.TOOL_CONVERT_SPRING))
 
-    annotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING)))
-    annotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PLUS)))
-    testAnnotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING)))
-    testAnnotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PLUS)))
+    annotationProcessor(project(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING))
+    annotationProcessor(project(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PLUS))
+    testAnnotationProcessor(project(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING))
+    testAnnotationProcessor(project(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PLUS))
 }
 
 protobuf {

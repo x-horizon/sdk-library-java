@@ -57,27 +57,27 @@ allprojects {
 }
 
 subprojects {
-    if (GradleModule.toModuleName(project.toString()) != GradleModule.BOM) {
+    if (project.path != GradleModule.BOM) {
         apply(plugin = GradlePlugin.JAVA_LIBRARY)
 
         dependencies {
-            api(enforcedPlatform(project(GradleModule.toReferenceName(GradleModule.BOM))))
-            annotationProcessor(enforcedPlatform(project(GradleModule.toReferenceName(GradleModule.BOM))))
-            testAnnotationProcessor(enforcedPlatform(project(GradleModule.toReferenceName(GradleModule.BOM))))
+            api(enforcedPlatform(project(GradleModule.BOM)))
+            annotationProcessor(enforcedPlatform(project(GradleModule.BOM)))
+            testAnnotationProcessor(enforcedPlatform(project(GradleModule.BOM)))
 
-            if (GradleModule.toModuleName(project.toString()) != GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK) {
-                compileOnly(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK)))
-                annotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK)))
-                testCompileOnly(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK)))
-                testAnnotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK)))
+            if (project.path != GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK) {
+                compileOnly(project(GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK))
+                annotationProcessor(project(GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK))
+                testCompileOnly(project(GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK))
+                testAnnotationProcessor(project(GradleModule.PLUGGABLE_ANNOTATION_API_LOMBOK))
             }
 
-            testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_JMH)))
-            testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_JUNIT)))
-            testImplementation(project(GradleModule.toReferenceName(GradleModule.TOOL_LOG)))
-            testImplementation(project(GradleModule.toReferenceName(GradleModule.TEST_SPRING_BOOT)))
-            testAnnotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_JMH)))
-            testAnnotationProcessor(project(GradleModule.toReferenceName(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_SPRING)))
+            testImplementation(project(GradleModule.TEST_JMH))
+            testImplementation(project(GradleModule.TEST_JUNIT))
+            testImplementation(project(GradleModule.TOOL_LOG))
+            testImplementation(project(GradleModule.TEST_SPRING_BOOT))
+            testAnnotationProcessor(project(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_JMH))
+            testAnnotationProcessor(project(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_SPRING))
         }
 
         java {
@@ -103,7 +103,7 @@ subprojects {
                 create<MavenPublication>(GradleRepository.REPOSITORY_DEFAULT_NAME) {
                     from(components[GradleRepository.COMPONENT_JAVA])
                     groupId = GradleRepository.GROUP_ID
-                    artifactId = GradleModule.toModuleName(project.toString())
+                    artifactId = project.name
                     version = GradleConfig.PROJECT_VERSION
                 }
                 repositories {

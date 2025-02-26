@@ -1,4 +1,4 @@
 dependencies {
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_ENUMS)))
-    api(project(GradleModule.toReferenceName(GradleModule.TOOL_LANG)))
+    api(project(GradleModule.TOOL_ENUMS))
+    api(project(GradleModule.TOOL_LANG))
 }
