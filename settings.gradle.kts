@@ -11,13 +11,11 @@ pluginManagement {
 rootProject.name = "library-java"
 rootDir.walkTopDown()
     .filter {
-        it.isDirectory &&
-                it.name != "buildSrc" &&
-                (it.resolve("build.gradle.kts").exists() || it.resolve("build.gradle").exists())
+        it.isDirectory && it.name != "buildSrc" && (it.resolve("build.gradle.kts").exists() || it.resolve("build.gradle").exists())
     }
-    .forEach { moduleDir ->
-        val relativePath = moduleDir.relativeTo(rootDir).path
-        val modulePath = relativePath.replace(File.separator, "-")
-        include(":$modulePath")
-        project(":$modulePath").projectDir = moduleDir
+    .forEach { moduleAbsolutePath ->
+        val moduleRelativePath = moduleAbsolutePath.relativeTo(rootDir).path
+        val moduleName = moduleRelativePath.replace(File.separator, "-")
+        include(":$moduleName")
+        project(":$moduleName").projectDir = moduleAbsolutePath
     }
