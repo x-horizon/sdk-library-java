@@ -128,21 +128,46 @@ javaPlatform {
     allowDependencies()
 }
 
-publishing {
-    publications {
-        create<MavenPublication>(GradleRepository.REPOSITORY_DEFAULT_NAME) {
-            from(components[GradleRepository.COMPONENT_JAVA_PLATFORM])
-            groupId = GradleRepository.GROUP_ID
-            artifactId = GradleModule.BOM
-            version = GradleConfig.PROJECT_VERSION
-        }
-        repositories {
-            maven {
-                isAllowInsecureProtocol = true
-                url = uri(GradleRepository.nexusUrl)
-                credentials { username = GradleRepository.NEXUS_USERNAME }
-                credentials { password = GradleRepository.NEXUS_PASSWORD }
+mavenPublishing {
+    configure(com.vanniktech.maven.publish.JavaPlatform())
+    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
+    signAllPublications()
+    pom {
+        name.set(project.name)
+        description.set(GradleConfig.PROJECT_DESCRIPTION)
+        inceptionYear.set(GradleConfig.PROJECT_INCEPTION_YEAR)
+        url.set(GradleConfig.PROJECT_URL)
+        licenses {
+            license {
+                name.set(GradleConfig.PROJECT_LICENSE_NAME)
+                url.set(GradleConfig.PROJECT_LICENSE_URL)
+                distribution.set(GradleConfig.PROJECT_LICENSE_URL)
             }
+        }
+        developers {
+            developer {
+                id.set(GradleConfig.AUTHOR_NAME)
+                name.set(GradleConfig.AUTHOR_NAME)
+                email.set(GradleConfig.AUTHOR_EMAIL)
+                url.set(GradleConfig.AUTHOR_URL)
+            }
+        }
+        scm {
+            url.set(GradleConfig.PROJECT_URL)
+            connection.set(GradleConfig.PROJECT_CONNECTION)
+            developerConnection.set(GradleConfig.PROJECT_DEVELOPER_CONNECTION)
+        }
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = GradleRepository.MAVEN_PERSONAL_NAME
+            url = uri(project.findProperty(GradleRepository.mavenPersonalUrlEnvironmentName) as? String ?: GradleRepository.FAKE_VALUE)
+            isAllowInsecureProtocol = true
+            credentials { username = project.findProperty(GradleRepository.MAVEN_PERSONAL_USERNAME_ENVIRONMENT_NAME) as? String ?: GradleRepository.FAKE_VALUE }
+            credentials { password = project.findProperty(GradleRepository.MAVEN_PERSONAL_PASSWORD_ENVIRONMENT_NAME) as? String ?: GradleRepository.FAKE_VALUE }
         }
     }
 }

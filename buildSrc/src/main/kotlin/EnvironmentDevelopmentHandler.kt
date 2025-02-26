@@ -4,8 +4,8 @@ object EnvironmentDevelopmentHandler : EnvironmentHandler {
         return Environment.DEVELOPMENT.code
     }
 
-    override fun getNexusUrl(): String {
-        return GradleRepository.NEXUS_DEVELOPMENT_URL
+    override fun getMavenPersonalUrlEnvironmentName(): String {
+        return GradleRepository.MAVEN_PERSONAL_DEVELOPMENT_URL_ENVIRONMENT_NAME
     }
 
 }
