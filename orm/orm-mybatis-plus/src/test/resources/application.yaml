@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    #    active: mysql
+    active: postgresql
+
+mybatis-plus:
+  typeAliasesPackage: cn.srd.library.java.orm.mybatis.plus
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
