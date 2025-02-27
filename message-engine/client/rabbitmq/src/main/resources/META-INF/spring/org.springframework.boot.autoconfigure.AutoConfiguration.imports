@@ -1,1 +1,1 @@
-org.horizon.library.java.message.engine.client.rabbitmq.autoconfigure.RabbitMqClientAutoConfigurer
+org.horizon.sdk.library.java.message.engine.client.rabbitmq.autoconfigure.RabbitMqClientAutoConfigurer

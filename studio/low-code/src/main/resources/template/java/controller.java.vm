@@ -8,11 +8,11 @@ import ${packageName}.bean.query.${ClassName}PageQuery;
 import ${packageName}.bean.query.${ClassName}SingleQuery;
 import ${packageName}.bean.vo.${ClassName}VO;
 import ${packageName}.service.${ClassName}Service;
-import org.horizon.library.java.orm.mybatis.plus.utils.Converts;
-import org.horizon.library.java.security.sa.token.core.RequireLogin;
-import org.horizon.library.java.tool.lang.core.validation.ValidList;
-import org.horizon.library.java.doc.knife4j.model.PageResult;
-import org.horizon.library.java.tool.lang.web.WebResponse;
+import org.horizon.sdk.library.java.orm.mybatis.plus.utils.Converts;
+import org.horizon.sdk.library.java.security.sa.token.core.RequireLogin;
+import org.horizon.sdk.library.java.tool.lang.core.validation.ValidList;
+import org.horizon.sdk.library.java.doc.knife4j.model.PageResult;
+import org.horizon.sdk.library.java.tool.lang.web.WebResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.horizon.library.java.tool.lang.web.WebResponse.success;
+import static org.horizon.sdk.library.java.tool.lang.web.WebResponse.success;
 
 /**
  * ${tableComment}(${tableName}) controller

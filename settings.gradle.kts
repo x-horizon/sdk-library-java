@@ -8,14 +8,17 @@ pluginManagement {
     }
 }
 
-rootProject.name = "library-java"
+rootProject.name = "sdk-library-java"
 rootDir.walkTopDown()
     .filter {
         it.isDirectory && it.name != "buildSrc" && (it.resolve("build.gradle.kts").exists() || it.resolve("build.gradle").exists())
     }
     .forEach { moduleAbsolutePath ->
         val moduleRelativePath = moduleAbsolutePath.relativeTo(rootDir).path
-        val moduleName = moduleRelativePath.replace(File.separator, "-")
+        var moduleName = moduleRelativePath.replace(File.separator, "-")
+        if (moduleName.isNotEmpty()) {
+            moduleName = rootProject.name + "-$moduleName"
+        }
         include(":$moduleName")
         project(":$moduleName").projectDir = moduleAbsolutePath
     }

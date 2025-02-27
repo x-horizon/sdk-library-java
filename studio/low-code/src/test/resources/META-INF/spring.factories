@@ -1,1 +1,1 @@
-org.springframework.context.ApplicationContextInitializer=org.horizon.library.java.studio.low.code.autoconfigure.BasePackagePathConfigurer
+org.springframework.context.ApplicationContextInitializer=org.horizon.sdk.library.java.studio.low.code.autoconfigure.BasePackagePathConfigurer

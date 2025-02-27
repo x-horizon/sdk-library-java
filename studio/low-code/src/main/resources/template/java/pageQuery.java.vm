@@ -1,6 +1,6 @@
 package ${packageName}.bean.query;
 
-import org.horizon.library.java.doc.knife4j.model.PageParam;
+import org.horizon.sdk.library.java.doc.knife4j.model.PageParam;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -2,5 +2,5 @@ debug: false
 
 logging:
   level:
-    org.horizon.library.java: debug
+    org.horizon.sdk.library.java: debug
     com.sun.jna: debug

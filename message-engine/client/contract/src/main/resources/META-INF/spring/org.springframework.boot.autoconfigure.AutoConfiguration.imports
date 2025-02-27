@@ -1,2 +1,2 @@
-org.horizon.library.java.message.engine.client.contract.autoconfigure.MessageClientAutoConfigurer
-org.horizon.library.java.message.engine.client.nil.autoconfigure.MessageNilClientAutoConfigurer
+org.horizon.sdk.library.java.message.engine.client.contract.autoconfigure.MessageClientAutoConfigurer
+org.horizon.sdk.library.java.message.engine.client.nil.autoconfigure.MessageNilClientAutoConfigurer
