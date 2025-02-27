@@ -8,7 +8,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = "library-java"
+rootProject.name = "sdk-library-java"
 rootDir.walkTopDown()
     .filter {
         it.isDirectory && it.name != "buildSrc" && (it.resolve("build.gradle.kts").exists() || it.resolve("build.gradle").exists())

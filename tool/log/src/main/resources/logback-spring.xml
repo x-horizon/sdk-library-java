@@ -3,7 +3,8 @@
 
     <contextName>logback</contextName>
 
-    <conversionRule conversionWord="logColorConfig" class="org.horizon.library.java.tool.log.config.LogColorConfig"/>
+    <conversionRule conversionWord="logColorConfig"
+                    class="org.horizon.sdk.library.java.tool.log.config.LogColorConfig"/>
 
     <!--  支持自定义配置的选项，可在 spring 配置文件中配置  -->
     <!--  按本日志配置文件生效输出日志的包路径，必须配置，如：cn.xxx.xxx  -->
@@ -54,41 +55,64 @@
               %-20.30(%c)  ：表示最短 20 位，最长 30 位，若 %c 的内容不足 20 位，则在右侧以空格填充满 20 长度，若 %c 的内容超过 30 位，则截取掉左侧的内容，只留下 30 位长度；
               %-20.-30(%c) ：表示最短 20 位，最长 30 位，若 %c 的内容不足 20 位，则在右侧以空格填充满 20 长度，若 %c 的内容超过 30 位，则截取掉右侧的内容，只留下 30 位长度；
     -->
-    <springProperty scope="context" name="logPattern" source="library.java.tool.log.pattern" defaultValue="%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level - %-50.50(%logger{50}) - [%thread]: %message%n"/>
+    <springProperty scope="context" name="logPattern" source="library.java.tool.log.pattern"
+                    defaultValue="%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level - %-50.50(%logger{50}) - [%thread]: %message%n"/>
     <!--  日志字符集，可选配置，默认：UTF-8  -->
     <springProperty scope="context" name="logCharset" source="library.java.tool.log.charset" defaultValue="UTF-8"/>
     <!--  记录 TRACE 级别的日志文件名，可选配置，默认：trace.log  -->
-    <springProperty scope="context" name="logTraceFileName" source="library.java.tool.log.file-name.trace" defaultValue="trace.log"/>
+    <springProperty scope="context" name="logTraceFileName" source="library.java.tool.log.file-name.trace"
+                    defaultValue="trace.log"/>
     <!--  记录 DEBUG 级别的日志文件名，可选配置，默认：debug.log  -->
-    <springProperty scope="context" name="logDebugFileName" source="library.java.tool.log.file-name.debug" defaultValue="debug.log"/>
+    <springProperty scope="context" name="logDebugFileName" source="library.java.tool.log.file-name.debug"
+                    defaultValue="debug.log"/>
     <!--  记录 INFO 级别的日志文件名，可选配置，默认：info.log  -->
-    <springProperty scope="context" name="logInfoFileName" source="library.java.tool.log.file-name.info" defaultValue="info.log"/>
+    <springProperty scope="context" name="logInfoFileName" source="library.java.tool.log.file-name.info"
+                    defaultValue="info.log"/>
     <!--  记录 WARN 级别的日志文件名，可选配置，默认：warn.log  -->
-    <springProperty scope="context" name="logWarnFileName" source="library.java.tool.log.file-name.warn" defaultValue="warn.log"/>
+    <springProperty scope="context" name="logWarnFileName" source="library.java.tool.log.file-name.warn"
+                    defaultValue="warn.log"/>
     <!--  记录 ERROR 级别的日志文件名，可选配置，默认：error.log  -->
-    <springProperty scope="context" name="logErrorFileName" source="library.java.tool.log.file-name.error" defaultValue="error.log"/>
+    <springProperty scope="context" name="logErrorFileName" source="library.java.tool.log.file-name.error"
+                    defaultValue="error.log"/>
     <!--  记录所有级别的日志文件名，可选配置，默认：all.log  -->
-    <springProperty scope="context" name="logAllLogFileName" source="library.java.tool.log.file-name.all" defaultValue="all.log"/>
+    <springProperty scope="context" name="logAllLogFileName" source="library.java.tool.log.file-name.all"
+                    defaultValue="all.log"/>
     <!--  日志轮动配置：当日志文件达到指定的大小时，轮动一次，可选配置，默认：30MB  -->
-    <springProperty scope="context" name="logRollingMaxFileSize" source="library.java.tool.log.rolling.max-file-size" defaultValue="30MB"/>
+    <springProperty scope="context" name="logRollingMaxFileSize" source="library.java.tool.log.rolling.max-file-size"
+                    defaultValue="30MB"/>
     <!--  日志轮动配置：日志文件保留的时间，超过该时间的日志将被物理删除，单位：天，可选配置，默认：30 天  -->
-    <springProperty scope="context" name="logRollingMaxHistoryDay" source="library.java.tool.log.rolling.max-history-day" defaultValue="30"/>
+    <springProperty scope="context" name="logRollingMaxHistoryDay"
+                    source="library.java.tool.log.rolling.max-history-day" defaultValue="30"/>
     <!--  日志轮动配置：限制所有日志文件的总大小上限。当超过总大小上限时，将异步删除旧的日志文件  -->
-    <springProperty scope="context" name="logRollingMaxTotalSize" source="library.java.tool.log.rolling.max-total-size" defaultValue="100GB"/>
+    <springProperty scope="context" name="logRollingMaxTotalSize" source="library.java.tool.log.rolling.max-total-size"
+                    defaultValue="100GB"/>
     <!--  日志轮动配置：轮动日志的存放路径，可选配置，默认：项目根路径/log/年/月/日/  -->
-    <springProperty scope="context" name="logRollingFolderPath" source="library.java.tool.log.rolling.folder-path" defaultValue="%d{yyyy,aux}/%d{MM,aux}/%d{dd,aux}"/>
+    <springProperty scope="context" name="logRollingFolderPath" source="library.java.tool.log.rolling.folder-path"
+                    defaultValue="%d{yyyy,aux}/%d{MM,aux}/%d{dd,aux}"/>
     <!--  日志轮动配置：记录 TRACE 级别的轮动日志文件名，可选配置，默认：trace-yyyy-MM-dd.轮动次数.log，按天记录，若需要其他级别记录，例如按小时记录，可设置为：trace-%d{yyyy-MM-dd;HH}.%i.log  -->
-    <springProperty scope="context" name="logRollingTraceFileNamePattern" source="library.java.tool.log.rolling.file-name-pattern.trace" defaultValue="trace-%d{yyyy-MM-dd}.%i.log"/>
+    <springProperty scope="context" name="logRollingTraceFileNamePattern"
+                    source="library.java.tool.log.rolling.file-name-pattern.trace"
+                    defaultValue="trace-%d{yyyy-MM-dd}.%i.log"/>
     <!--  日志轮动配置：记录 DEBUG 级别的轮动日志文件名，可选配置，默认：debug-yyyy-MM-dd.轮动次数.log，按天记录，若需要其他级别记录，例如按小时记录，可设置为：debug-%d{yyyy-MM-dd;HH}.%i.log  -->
-    <springProperty scope="context" name="logRollingDebugFileNamePattern" source="library.java.tool.log.rolling.file-name-pattern.debug" defaultValue="debug-%d{yyyy-MM-dd}.%i.log"/>
+    <springProperty scope="context" name="logRollingDebugFileNamePattern"
+                    source="library.java.tool.log.rolling.file-name-pattern.debug"
+                    defaultValue="debug-%d{yyyy-MM-dd}.%i.log"/>
     <!--  日志轮动配置：记录 INFO 级别的轮动日志文件名，可选配置，默认：info-yyyy-MM-dd.轮动次数.log，按天记录，若需要其他级别记录，例如按小时记录，可设置为：info-%d{yyyy-MM-dd;HH}.%i.log  -->
-    <springProperty scope="context" name="logRollingInfoFileNamePattern" source="library.java.tool.log.rolling.file-name-pattern.info" defaultValue="info-%d{yyyy-MM-dd}.%i.log"/>
+    <springProperty scope="context" name="logRollingInfoFileNamePattern"
+                    source="library.java.tool.log.rolling.file-name-pattern.info"
+                    defaultValue="info-%d{yyyy-MM-dd}.%i.log"/>
     <!--  日志轮动配置：记录 WARN 级别的轮动日志文件名，可选配置，默认：warn-yyyy-MM-dd.轮动次数.log，按天记录，若需要其他级别记录，例如按小时记录，可设置为：warn-%d{yyyy-MM-dd;HH}.%i.log  -->
-    <springProperty scope="context" name="logRollingWarnFileNamePattern" source="library.java.tool.log.rolling.file-name-pattern.warn" defaultValue="warn-%d{yyyy-MM-dd}.%i.log"/>
+    <springProperty scope="context" name="logRollingWarnFileNamePattern"
+                    source="library.java.tool.log.rolling.file-name-pattern.warn"
+                    defaultValue="warn-%d{yyyy-MM-dd}.%i.log"/>
     <!--  日志轮动配置：记录 ERROR 级别的轮动日志文件名，可选配置，默认：error-yyyy-MM-dd.轮动次数.log，按天记录，若需要其他级别记录，例如按小时记录，可设置为：error-%d{yyyy-MM-dd;HH}.%i.log  -->
-    <springProperty scope="context" name="logRollingErrorFileNamePattern" source="library.java.tool.log.rolling.file-name-pattern.error" defaultValue="error-%d{yyyy-MM-dd}.%i.log"/>
+    <springProperty scope="context" name="logRollingErrorFileNamePattern"
+                    source="library.java.tool.log.rolling.file-name-pattern.error"
+                    defaultValue="error-%d{yyyy-MM-dd}.%i.log"/>
     <!--  日志轮动配置：记录所有级别的轮动日志文件名，可选配置，默认：all-yyyy-MM-dd.轮动次数.log，按天记录，若需要其他级别记录，例如按小时记录，可设置为：all-%d{yyyy-MM-dd;HH}.%i.log  -->
-    <springProperty scope="context" name="logRollingAllLogFileNamePattern" source="library.java.tool.log.rolling.file-name-pattern.all" defaultValue="all-%d{yyyy-MM-dd}.%i.log"/>
+    <springProperty scope="context" name="logRollingAllLogFileNamePattern"
+                    source="library.java.tool.log.rolling.file-name-pattern.all"
+                    defaultValue="all-%d{yyyy-MM-dd}.%i.log"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">

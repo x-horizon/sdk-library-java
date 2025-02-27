@@ -2,5 +2,5 @@ debug: false
 
 logging:
   level:
-    org.horizon.library.java: trace
+    org.horizon.sdk.library.java: trace
 #    io.netty: trace

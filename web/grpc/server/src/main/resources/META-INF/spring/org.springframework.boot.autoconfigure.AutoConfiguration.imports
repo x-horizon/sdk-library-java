@@ -1,1 +1,1 @@
-org.horizon.library.java.web.grpc.server.autoconfigure.GrpcServerAutoConfigurer
+org.horizon.sdk.library.java.web.grpc.server.autoconfigure.GrpcServerAutoConfigurer

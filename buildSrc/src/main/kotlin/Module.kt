@@ -1,6 +1,6 @@
 object GradleModule {
 
-    const val ROOT_PROJECT_NAME = "library-java"
+    const val ROOT_PROJECT_NAME = "sdk-library-java"
 
     const val BOM = ":$ROOT_PROJECT_NAME-bom"
 
