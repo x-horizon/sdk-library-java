@@ -88,7 +88,7 @@ subprojects {
                 vendor = JvmVendorSpec.AMAZON
                 languageVersion = JavaLanguageVersion.of(GradleConfig.JAVA_VERSION)
             }
-//            withJavadocJar()
+            // withJavadocJar()
             withSourcesJar()
             modularity.inferModulePath = true
         }
@@ -102,10 +102,12 @@ subprojects {
         }
 
         mavenPublishing {
-            configure(com.vanniktech.maven.publish.JavaLibrary(
-                javadocJar = com.vanniktech.maven.publish.JavadocJar.Empty(),
-                sourcesJar = true,
-            ))
+            configure(
+                com.vanniktech.maven.publish.JavaLibrary(
+                    javadocJar = com.vanniktech.maven.publish.JavadocJar.Empty(),
+                    sourcesJar = true,
+                )
+            )
             publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
             signAllPublications()
             pom {

@@ -18,7 +18,7 @@ object GradleConfig {
     const val PROJECT_LICENSE_NAME = "The Apache License, Version 2.0"
     const val PROJECT_LICENSE_URL = "http://www.apache.org/licenses/LICENSE-2.0.txt"
     const val PROJECT_DESCRIPTION = "the library java sdk for all."
-    const val PROJECT_INCEPTION_YEAR = "2022"
+    const val PROJECT_INCEPTION_YEAR = "2021"
 
     const val JAVA_VERSION = "21"
 
