@@ -53,11 +53,14 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     GATEWAY_SPRING_CLOUD("org.springframework.cloud:spring-cloud-starter-gateway", ""),
 
     JDBC_CASSANDRA("org.springframework.boot:spring-boot-starter-data-cassandra", ""),
+    JDBC_DA_MENG("com.dameng:DmJdbcDriver18", "8.1.3.140"),
     JDBC_ELASTICSEARCH("org.springframework.boot:spring-boot-starter-data-elasticsearch", ""),
     JDBC_HSQLDB("org.hsqldb:hsqldb", "2.7.3"), // support spring-boot version to 3.4.1
+    JDBC_MARIADB("org.mariadb.jdbc:mariadb-java-client", "3.5.2"),
     JDBC_MYSQL("com.mysql:mysql-connector-j", "8.3.0"), // support spring-boot version to 3.4.1
     JDBC_POSTGIS("net.postgis:postgis-jdbc-jts", BOM_JDBC_POSTGIS.version), // TODO wjm bom is not invalid
     JDBC_POSTGRESQL("org.postgresql:postgresql", "42.7.4"), // support spring-boot version to 3.4.1, need to synchronize with "net.postgis:postgis-jdbc-jts"
+    JDBC_SQL_SERVER("com.microsoft.sqlserver:mssql-jdbc", "12.8.1.jre11"),
     JDBC_TDENGINE("com.taosdata.jdbc:taos-jdbcdriver", "3.5.1"),
 
     LOADBALANCER_SPRING_CLOUD("org.springframework.cloud:spring-cloud-loadbalancer", ""),

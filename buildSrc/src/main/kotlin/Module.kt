@@ -32,11 +32,14 @@ object GradleModule {
     const val GATEWAY_SPRING = ":$ROOT_PROJECT_NAME-gateway-spring"
 
     const val JDBC_CASSANDRA = ":$ROOT_PROJECT_NAME-jdbc-cassandra"
+    const val JDBC_DA_MENG = ":$ROOT_PROJECT_NAME-jdbc-da-meng"
     const val JDBC_ELASTICSEARCH = ":$ROOT_PROJECT_NAME-jdbc-elasticsearch"
     const val JDBC_HSQLDB = ":$ROOT_PROJECT_NAME-jdbc-hsqldb"
+    const val JDBC_MARIADB = ":$ROOT_PROJECT_NAME-jdbc-mariadb"
     const val JDBC_MYSQL = ":$ROOT_PROJECT_NAME-jdbc-mysql"
     const val JDBC_POSTGIS = ":$ROOT_PROJECT_NAME-jdbc-postgis"
     const val JDBC_POSTGRESQL = ":$ROOT_PROJECT_NAME-jdbc-postgresql"
+    const val JDBC_SQL_SERVER = ":$ROOT_PROJECT_NAME-jdbc-sql-server"
     const val JDBC_TDENGINE = ":$ROOT_PROJECT_NAME-jdbc-tdengine"
 
     const val MESSAGE_ENGINE_CONTRACT = ":$ROOT_PROJECT_NAME-message-engine-contract"
