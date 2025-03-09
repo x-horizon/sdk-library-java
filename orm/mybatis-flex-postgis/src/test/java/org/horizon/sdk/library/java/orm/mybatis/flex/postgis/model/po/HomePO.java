@@ -1,14 +1,14 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.postgis.model.po;
 
-import org.horizon.sdk.library.java.contract.model.base.PO;
-import org.horizon.sdk.library.java.contract.model.base.VO;
-import org.horizon.sdk.library.java.orm.mybatis.flex.postgis.model.bo.HomeBO;
 import com.mybatisflex.annotation.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.contract.model.base.PO;
+import org.horizon.sdk.library.java.contract.model.base.VO;
+import org.horizon.sdk.library.java.orm.mybatis.flex.postgis.model.bo.HomeBO;
 
 import java.io.Serial;
 

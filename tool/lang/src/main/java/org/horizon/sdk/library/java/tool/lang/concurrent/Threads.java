@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.tool.lang.concurrent;
 
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 
 import java.util.concurrent.*;
 

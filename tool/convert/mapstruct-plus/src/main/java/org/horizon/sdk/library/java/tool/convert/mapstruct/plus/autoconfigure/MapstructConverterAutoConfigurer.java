@@ -1,7 +1,7 @@
 package org.horizon.sdk.library.java.tool.convert.mapstruct.plus.autoconfigure;
 
-import org.horizon.sdk.library.java.tool.convert.mapstruct.plus.MapstructConverts;
 import io.github.linpeilie.Converter;
+import org.horizon.sdk.library.java.tool.convert.mapstruct.plus.MapstructConverts;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 

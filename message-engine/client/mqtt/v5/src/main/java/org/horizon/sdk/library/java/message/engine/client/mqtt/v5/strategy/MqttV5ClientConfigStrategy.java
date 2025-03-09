@@ -1,5 +1,6 @@
 package org.horizon.sdk.library.java.message.engine.client.mqtt.v5.strategy;
 
+import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.contract.model.throwable.UnsupportedException;
 import org.horizon.sdk.library.java.message.engine.client.contract.MessageClientConsumer;
 import org.horizon.sdk.library.java.message.engine.client.contract.MessageClientProducer;
@@ -9,7 +10,6 @@ import org.horizon.sdk.library.java.message.engine.client.contract.model.enums.M
 import org.horizon.sdk.library.java.message.engine.client.contract.strategy.MessageClientConfigStrategy;
 import org.horizon.sdk.library.java.message.engine.client.mqtt.v5.model.dto.MqttV5ClientConfigDTO;
 import org.horizon.sdk.library.java.message.engine.client.mqtt.v5.model.property.MqttV5ClientProperty;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.integration.dsl.IntegrationFlow;
 
 import java.lang.annotation.Annotation;

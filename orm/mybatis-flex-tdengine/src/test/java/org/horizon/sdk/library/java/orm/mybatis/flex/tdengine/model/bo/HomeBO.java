@@ -1,9 +1,5 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.tdengine.model.bo;
 
-import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
-import org.horizon.sdk.library.java.orm.contract.mybatis.flex.model.bo.BaseBO;
-import org.horizon.sdk.library.java.orm.mybatis.flex.tdengine.model.po.HomePO;
-import org.horizon.sdk.library.java.orm.mybatis.flex.tdengine.model.vo.HomeVO;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import io.github.linpeilie.annotations.AutoMapper;
@@ -14,6 +10,10 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
+import org.horizon.sdk.library.java.orm.contract.mybatis.flex.model.bo.BaseBO;
+import org.horizon.sdk.library.java.orm.mybatis.flex.tdengine.model.po.HomePO;
+import org.horizon.sdk.library.java.orm.mybatis.flex.tdengine.model.vo.HomeVO;
 
 import java.io.Serial;
 

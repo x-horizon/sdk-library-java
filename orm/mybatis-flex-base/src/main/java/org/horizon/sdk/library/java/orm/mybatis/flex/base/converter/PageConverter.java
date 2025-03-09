@@ -1,5 +1,6 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.converter;
 
+import com.mybatisflex.core.paginate.Page;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.model.base.PO;
 import org.horizon.sdk.library.java.contract.model.base.VO;
@@ -7,7 +8,6 @@ import org.horizon.sdk.library.java.orm.contract.model.page.PageResult;
 import org.horizon.sdk.library.java.tool.convert.mapstruct.plus.support.IgnoreUnmappedMapperConfigurator;
 import org.horizon.sdk.library.java.tool.convert.mapstruct.plus.support.MapstructMappingManager;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
-import com.mybatisflex.core.paginate.Page;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

@@ -1,12 +1,12 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.id;
 
+import com.mybatisflex.core.keygen.KeyGeneratorFactory;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.contract.model.throwable.LibraryJavaInternalException;
 import org.horizon.sdk.library.java.tool.lang.functional.Assert;
 import org.horizon.sdk.library.java.tool.lang.reflect.Reflects;
-import com.mybatisflex.core.keygen.KeyGeneratorFactory;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 /**
  * the customer type id generate strategy

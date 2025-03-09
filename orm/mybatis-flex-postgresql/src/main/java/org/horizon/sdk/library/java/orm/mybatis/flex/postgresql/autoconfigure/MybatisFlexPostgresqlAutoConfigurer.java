@@ -1,10 +1,10 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.autoconfigure;
 
+import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.cache.ColumnJsonbMappingJavaTypeCache;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;

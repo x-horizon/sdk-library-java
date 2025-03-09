@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.concurrent.actor.foo;
 
-import org.horizon.sdk.library.java.concurrent.actor.model.property.ActorProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.horizon.sdk.library.java.concurrent.actor.model.property.ActorProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**

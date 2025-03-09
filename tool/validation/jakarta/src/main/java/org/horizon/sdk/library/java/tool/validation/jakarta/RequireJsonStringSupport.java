@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.tool.validation.jakarta;
 
-import org.dromara.hutool.json.JSONUtil;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.dromara.hutool.json.JSONUtil;
 
 /**
  * 用于验证数据类型必须为可转换为 JSON 对象的字符串

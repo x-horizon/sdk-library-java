@@ -1,9 +1,5 @@
 package org.horizon.sdk.library.java.message.engine.server.mqtt.autoconfigure;
 
-import org.horizon.sdk.library.java.message.engine.server.mqtt.context.MqttServerContext;
-import org.horizon.sdk.library.java.message.engine.server.mqtt.handler.IpLimitFlowChannelInboundHandler;
-import org.horizon.sdk.library.java.message.engine.server.mqtt.handler.MqttHandler;
-import org.horizon.sdk.library.java.message.engine.server.mqtt.handler.ProxyIpLimitFlowChannelInboundHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -11,6 +7,10 @@ import io.netty.handler.codec.haproxy.HAProxyMessageDecoder;
 import io.netty.handler.codec.mqtt.MqttDecoder;
 import io.netty.handler.codec.mqtt.MqttEncoder;
 import lombok.AllArgsConstructor;
+import org.horizon.sdk.library.java.message.engine.server.mqtt.context.MqttServerContext;
+import org.horizon.sdk.library.java.message.engine.server.mqtt.handler.IpLimitFlowChannelInboundHandler;
+import org.horizon.sdk.library.java.message.engine.server.mqtt.handler.MqttHandler;
+import org.horizon.sdk.library.java.message.engine.server.mqtt.handler.ProxyIpLimitFlowChannelInboundHandler;
 
 /**
  * @author wjm

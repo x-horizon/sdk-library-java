@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.oss.local.autoconfigure;
 
+import org.dromara.x.file.storage.spring.FileStorageAutoConfiguration;
 import org.horizon.sdk.library.java.oss.contract.autoconfigure.OssAutoConfigurer;
 import org.horizon.sdk.library.java.oss.contract.model.property.OssProperty;
 import org.horizon.sdk.library.java.oss.local.strategy.OssLocalStorage;
-import org.dromara.x.file.storage.spring.FileStorageAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

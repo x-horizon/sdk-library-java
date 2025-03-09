@@ -1,12 +1,12 @@
 package org.horizon.sdk.library.java.tool.id.snowflake.support;
 
-import org.horizon.sdk.library.java.tool.id.snowflake.autoconfigure.EnableSnowflakeId;
-import org.horizon.sdk.library.java.tool.lang.convert.Converts;
 import com.github.yitter.idgen.YitIdHelper;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.horizon.sdk.library.java.tool.id.snowflake.autoconfigure.EnableSnowflakeId;
+import org.horizon.sdk.library.java.tool.lang.convert.Converts;
 
 /**
  * toolkit for snowflake id

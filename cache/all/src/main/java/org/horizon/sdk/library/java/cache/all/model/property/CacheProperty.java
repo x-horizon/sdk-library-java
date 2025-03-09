@@ -1,11 +1,11 @@
 package org.horizon.sdk.library.java.cache.all.model.property;
 
-import org.horizon.sdk.library.java.cache.caffeine.model.property.CaffeineCacheProperty;
-import org.horizon.sdk.library.java.cache.redis.model.property.RedisCacheProperty;
-import org.horizon.sdk.library.java.tool.spring.contract.support.Springs;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
+import org.horizon.sdk.library.java.cache.caffeine.model.property.CaffeineCacheProperty;
+import org.horizon.sdk.library.java.cache.redis.model.property.RedisCacheProperty;
+import org.horizon.sdk.library.java.tool.spring.contract.support.Springs;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.DependsOn;
 

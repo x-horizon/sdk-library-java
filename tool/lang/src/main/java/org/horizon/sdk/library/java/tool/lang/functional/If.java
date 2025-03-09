@@ -1,11 +1,11 @@
 package org.horizon.sdk.library.java.tool.lang.functional;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.horizon.sdk.library.java.tool.lang.booleans.Booleans;
 import org.horizon.sdk.library.java.tool.lang.compare.Comparators;
 import org.horizon.sdk.library.java.tool.lang.number.Numbers;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Enumeration;

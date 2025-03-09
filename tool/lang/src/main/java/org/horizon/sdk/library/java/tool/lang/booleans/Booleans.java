@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.tool.lang.booleans;
 
-import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.horizon.sdk.library.java.tool.lang.object.Nil;
 
 /**
  * toolkit for boolean

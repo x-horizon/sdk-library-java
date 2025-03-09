@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.message.engine.server.mqtt.model.property;
 
-import org.horizon.sdk.library.java.tool.lang.time.Times;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
+import org.horizon.sdk.library.java.tool.lang.time.Times;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**

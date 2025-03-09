@@ -1,5 +1,7 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.chain;
 
+import com.mybatisflex.core.constant.SqlConnector;
+import com.mybatisflex.core.query.RawQueryCondition;
 import org.horizon.sdk.library.java.contract.constant.database.PostgresqlDataType;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
@@ -9,8 +11,6 @@ import org.horizon.sdk.library.java.orm.mybatis.flex.base.chain.BaseQueryChainer
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.chain.QueryChain;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.chain.QueryConditional;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
-import com.mybatisflex.core.constant.SqlConnector;
-import com.mybatisflex.core.query.RawQueryCondition;
 
 /**
  * @author wjm

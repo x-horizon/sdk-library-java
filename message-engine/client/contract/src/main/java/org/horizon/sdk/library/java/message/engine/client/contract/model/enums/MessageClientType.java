@@ -1,5 +1,6 @@
 package org.horizon.sdk.library.java.message.engine.client.contract.model.enums;
 
+import lombok.Getter;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.contract.model.throwable.LibraryJavaInternalException;
 import org.horizon.sdk.library.java.message.engine.client.contract.autoconfigure.MessageClientRegistrar;
@@ -18,7 +19,6 @@ import org.horizon.sdk.library.java.message.engine.contract.model.enums.MessageE
 import org.horizon.sdk.library.java.tool.enums.EnumAutowired;
 import org.horizon.sdk.library.java.tool.enums.strategy.EnumAutowiredFieldMatchByContainIgnoreCaseRule;
 import org.horizon.sdk.library.java.tool.lang.functional.Assert;
-import lombok.Getter;
 
 /**
  * @author wjm

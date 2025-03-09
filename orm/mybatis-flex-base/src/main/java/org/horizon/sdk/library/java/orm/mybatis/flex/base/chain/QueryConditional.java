@@ -1,13 +1,5 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.chain;
 
-import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
-import org.horizon.sdk.library.java.contract.model.base.PO;
-import org.horizon.sdk.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
-import org.horizon.sdk.library.java.orm.mybatis.flex.base.support.MybatisFlexs;
-import org.horizon.sdk.library.java.tool.lang.convert.Converts;
-import org.horizon.sdk.library.java.tool.lang.functional.If;
-import org.horizon.sdk.library.java.tool.lang.object.Nil;
-import org.horizon.sdk.library.java.tool.lang.reflect.Reflects;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.mybatisflex.core.query.QueryColumn;
 import com.mybatisflex.core.query.QueryCondition;
@@ -16,6 +8,14 @@ import com.mybatisflex.core.query.QueryWrapper;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
+import org.horizon.sdk.library.java.contract.model.base.PO;
+import org.horizon.sdk.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
+import org.horizon.sdk.library.java.orm.mybatis.flex.base.support.MybatisFlexs;
+import org.horizon.sdk.library.java.tool.lang.convert.Converts;
+import org.horizon.sdk.library.java.tool.lang.functional.If;
+import org.horizon.sdk.library.java.tool.lang.object.Nil;
+import org.horizon.sdk.library.java.tool.lang.reflect.Reflects;
 
 import java.util.Collection;
 import java.util.function.BiPredicate;

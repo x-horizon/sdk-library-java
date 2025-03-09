@@ -1,10 +1,10 @@
 package org.horizon.sdk.library.java.concurrent.redis;
 
+import org.dromara.hutool.core.data.id.IdUtil;
+import org.dromara.hutool.core.data.id.Snowflake;
 import org.horizon.sdk.library.java.concurrent.redis.aspect.RedisFairLockAspect;
 import org.horizon.sdk.library.java.concurrent.redis.strategy.RedisFairLockHandler;
 import org.horizon.sdk.library.java.concurrent.redis.strategy.RedisLockTemplate;
-import org.dromara.hutool.core.data.id.IdUtil;
-import org.dromara.hutool.core.data.id.Snowflake;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;

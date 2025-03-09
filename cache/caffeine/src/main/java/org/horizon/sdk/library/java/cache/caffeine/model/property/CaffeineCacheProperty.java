@@ -1,10 +1,10 @@
 package org.horizon.sdk.library.java.cache.caffeine.model.property;
 
-import org.horizon.sdk.library.java.contract.constant.java.JavaObjectReferenceLevel;
-import org.horizon.sdk.library.java.tool.lang.time.TimeUnitHandler;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
+import org.horizon.sdk.library.java.contract.constant.java.JavaObjectReferenceLevel;
+import org.horizon.sdk.library.java.tool.lang.time.TimeUnitHandler;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**

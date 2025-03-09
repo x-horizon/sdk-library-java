@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.message.engine.client.contract.aspect;
 
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.horizon.sdk.library.java.contract.model.protocol.MessageModel;
 import org.horizon.sdk.library.java.message.engine.client.contract.model.enums.MessageClientType;
 import org.horizon.sdk.library.java.tool.spring.contract.support.AopCaptor;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.messaging.support.GenericMessage;
 
 import java.io.Serializable;

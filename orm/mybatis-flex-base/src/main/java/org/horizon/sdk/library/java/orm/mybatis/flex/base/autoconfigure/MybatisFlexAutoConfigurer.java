@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.autoconfigure;
 
+import com.mybatisflex.core.BaseMapper;
 import org.horizon.sdk.library.java.contract.model.base.PO;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.cache.MybatisFlexSystemCache;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.repository.GenericRepository;
-import com.mybatisflex.core.BaseMapper;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

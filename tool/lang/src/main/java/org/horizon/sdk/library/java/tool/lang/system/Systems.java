@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.tool.lang.system;
 
-import org.horizon.sdk.library.java.contract.constant.system.SystemProperty;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.horizon.sdk.library.java.contract.constant.system.SystemProperty;
 
 /**
  * system toolkit

@@ -1,5 +1,7 @@
 package org.horizon.sdk.library.java.message.engine.client.contract.support;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.model.protocol.MessageModel;
 import org.horizon.sdk.library.java.message.engine.client.contract.model.enums.MessageClientIdGenerateType;
@@ -8,8 +10,6 @@ import org.horizon.sdk.library.java.tool.convert.api.Converts;
 import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 import org.horizon.sdk.library.java.tool.lang.object.Methods;
 import org.horizon.sdk.library.java.tool.lang.reflect.Reflects;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.springframework.integration.core.GenericTransformer;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.MessageHandlerSpec;

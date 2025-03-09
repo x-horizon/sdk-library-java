@@ -1,12 +1,12 @@
 package org.horizon.sdk.library.java.tool.lang.text;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 import org.horizon.sdk.library.java.tool.lang.functional.Action;
 import org.horizon.sdk.library.java.tool.lang.functional.Functional;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 

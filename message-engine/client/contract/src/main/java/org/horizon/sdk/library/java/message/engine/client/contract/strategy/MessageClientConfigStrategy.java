@@ -1,5 +1,6 @@
 package org.horizon.sdk.library.java.message.engine.client.contract.strategy;
 
+import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
@@ -23,7 +24,6 @@ import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import org.horizon.sdk.library.java.tool.spring.contract.support.Annotations;
 import org.horizon.sdk.library.java.tool.spring.contract.support.Expressions;
 import org.horizon.sdk.library.java.tool.spring.contract.support.Springs;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.context.IntegrationFlowContext;

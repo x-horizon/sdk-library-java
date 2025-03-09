@@ -1,5 +1,8 @@
 package org.horizon.sdk.library.java.message.engine.client.kafka.strategy;
 
+import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.message.engine.client.contract.MessageClientConsumer;
 import org.horizon.sdk.library.java.message.engine.client.contract.MessageClientProducer;
@@ -19,9 +22,6 @@ import org.horizon.sdk.library.java.tool.lang.convert.Converts;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.time.Times;
 import org.horizon.sdk.library.java.tool.spring.contract.support.Springs;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.integration.dsl.IntegrationFlow;

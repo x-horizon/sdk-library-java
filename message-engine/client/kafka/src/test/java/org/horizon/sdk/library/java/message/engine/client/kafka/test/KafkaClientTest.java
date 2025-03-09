@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.message.engine.client.kafka.test;
 
+import lombok.SneakyThrows;
 import org.horizon.sdk.library.java.message.engine.client.kafka.autoconfigure.EnableMessageKafkaClient;
 import org.horizon.sdk.library.java.message.engine.client.kafka.foo.FooProducer;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

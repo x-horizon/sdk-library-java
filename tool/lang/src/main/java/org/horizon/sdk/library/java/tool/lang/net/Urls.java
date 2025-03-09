@@ -1,13 +1,13 @@
 package org.horizon.sdk.library.java.tool.lang.net;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.dromara.hutool.core.net.url.UrlQuery;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.contract.constant.regex.RegexConstant;
 import org.horizon.sdk.library.java.contract.model.throwable.LibraryJavaInternalException;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 import java.net.URI;
 import java.util.Map;

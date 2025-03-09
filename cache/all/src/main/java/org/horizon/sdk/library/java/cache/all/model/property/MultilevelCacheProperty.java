@@ -1,11 +1,11 @@
 package org.horizon.sdk.library.java.cache.all.model.property;
 
-import org.horizon.sdk.library.java.concurrent.redis.RedisFairLock;
-import org.horizon.sdk.library.java.tool.lang.object.Nil;
-import org.horizon.sdk.library.java.tool.lang.time.Times;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
+import org.horizon.sdk.library.java.concurrent.redis.RedisFairLock;
+import org.horizon.sdk.library.java.tool.lang.object.Nil;
+import org.horizon.sdk.library.java.tool.lang.time.Times;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**

@@ -1,10 +1,10 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.id;
 
+import com.mybatisflex.core.FlexGlobalConfig;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.tool.lang.compare.Comparators;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
-import com.mybatisflex.core.FlexGlobalConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

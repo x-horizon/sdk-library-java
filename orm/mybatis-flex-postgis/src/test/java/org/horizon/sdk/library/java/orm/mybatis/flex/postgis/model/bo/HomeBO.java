@@ -1,8 +1,5 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.postgis.model.bo;
 
-import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
-import org.horizon.sdk.library.java.orm.contract.mybatis.base.postgis.handler.JdbcGeometryMappingJavaGeometryTypeHandler;
-import org.horizon.sdk.library.java.orm.contract.mybatis.flex.model.bo.BaseBO;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -11,6 +8,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
+import org.horizon.sdk.library.java.orm.contract.mybatis.base.postgis.handler.JdbcGeometryMappingJavaGeometryTypeHandler;
+import org.horizon.sdk.library.java.orm.contract.mybatis.flex.model.bo.BaseBO;
 import org.locationtech.jts.geom.Geometry;
 
 import java.io.Serial;

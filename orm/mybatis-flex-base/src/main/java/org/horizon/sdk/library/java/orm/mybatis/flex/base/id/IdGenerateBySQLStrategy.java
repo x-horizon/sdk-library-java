@@ -1,10 +1,10 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.id;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.contract.model.throwable.LibraryJavaInternalException;
 import org.horizon.sdk.library.java.tool.lang.functional.Assert;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 /**
  * the sql type id generate strategy

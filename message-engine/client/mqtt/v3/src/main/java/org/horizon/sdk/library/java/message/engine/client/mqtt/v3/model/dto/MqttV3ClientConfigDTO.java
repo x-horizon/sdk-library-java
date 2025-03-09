@@ -1,13 +1,13 @@
 package org.horizon.sdk.library.java.message.engine.client.mqtt.v3.model.dto;
 
-import org.horizon.sdk.library.java.message.engine.client.contract.model.dto.MessageClientConfigDTO;
-import org.horizon.sdk.library.java.message.engine.client.contract.model.enums.MessageQualityOfServiceType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.message.engine.client.contract.model.dto.MessageClientConfigDTO;
+import org.horizon.sdk.library.java.message.engine.client.contract.model.enums.MessageQualityOfServiceType;
 
 import java.io.Serial;
 import java.util.List;

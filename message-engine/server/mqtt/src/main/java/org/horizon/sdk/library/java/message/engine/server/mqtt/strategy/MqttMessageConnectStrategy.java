@@ -1,5 +1,9 @@
 package org.horizon.sdk.library.java.message.engine.server.mqtt.strategy;
 
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.mqtt.MqttConnectMessage;
+import io.netty.handler.codec.mqtt.MqttConnectReturnCode;
+import io.netty.handler.codec.mqtt.MqttReasonCodes;
 import org.horizon.sdk.library.java.message.engine.server.mqtt.callback.MessageCallback;
 import org.horizon.sdk.library.java.message.engine.server.mqtt.constant.ClientConnectConstant;
 import org.horizon.sdk.library.java.message.engine.server.mqtt.context.MqttClientSessionContext;
@@ -11,10 +15,6 @@ import org.horizon.sdk.library.java.message.engine.server.mqtt.model.enums.MqttV
 import org.horizon.sdk.library.java.message.engine.server.mqtt.tool.NettyMqtts;
 import org.horizon.sdk.library.java.tool.lang.compare.Comparators;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.mqtt.MqttConnectMessage;
-import io.netty.handler.codec.mqtt.MqttConnectReturnCode;
-import io.netty.handler.codec.mqtt.MqttReasonCodes;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.nio.charset.StandardCharsets;

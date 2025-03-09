@@ -1,10 +1,10 @@
 package org.horizon.sdk.library.java.message.engine.client.contract.model.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.horizon.sdk.library.java.message.engine.client.contract.strategy.MessageClientUniqueIdGenerateBySnowflakeStrategy;
 import org.horizon.sdk.library.java.message.engine.client.contract.strategy.MessageClientUniqueIdGenerateByUUIDStrategy;
 import org.horizon.sdk.library.java.message.engine.client.contract.strategy.MessageClientUniqueIdGenerateStrategy;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 /**
  * @author wjm

@@ -1,13 +1,5 @@
 package org.horizon.sdk.library.java.studio.low.code.model.bo;
 
-import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
-import org.horizon.sdk.library.java.orm.contract.mybatis.flex.model.bo.BaseWithVersionBO;
-import org.horizon.sdk.library.java.studio.low.code.model.enums.SchoolType;
-import org.horizon.sdk.library.java.studio.low.code.model.po.SchoolPO;
-import org.horizon.sdk.library.java.studio.low.code.model.vo.SchoolVO;
-import org.horizon.sdk.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToEnumDeserializer;
-import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
-import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonLongToStringSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mybatisflex.annotation.Column;
@@ -20,6 +12,14 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
+import org.horizon.sdk.library.java.orm.contract.mybatis.flex.model.bo.BaseWithVersionBO;
+import org.horizon.sdk.library.java.studio.low.code.model.enums.SchoolType;
+import org.horizon.sdk.library.java.studio.low.code.model.po.SchoolPO;
+import org.horizon.sdk.library.java.studio.low.code.model.vo.SchoolVO;
+import org.horizon.sdk.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToEnumDeserializer;
+import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
+import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonLongToStringSerializer;
 
 import java.io.Serial;
 

@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.message.engine.client.all.test;
 
-import org.horizon.sdk.library.java.message.engine.client.kafka.autoconfigure.EnableMessageKafkaClient;
-import org.horizon.sdk.library.java.message.engine.client.mqtt.v3.autoconfigure.EnableMessageMqttV3Client;
 import lombok.SneakyThrows;
 import org.horizon.sdk.library.java.message.engine.client.all.foo.FooProducer;
+import org.horizon.sdk.library.java.message.engine.client.kafka.autoconfigure.EnableMessageKafkaClient;
+import org.horizon.sdk.library.java.message.engine.client.mqtt.v3.autoconfigure.EnableMessageMqttV3Client;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

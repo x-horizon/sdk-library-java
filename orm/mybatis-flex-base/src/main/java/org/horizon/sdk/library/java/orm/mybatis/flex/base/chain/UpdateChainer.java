@@ -1,13 +1,13 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.chain;
 
-import org.horizon.sdk.library.java.contract.model.base.PO;
-import org.horizon.sdk.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
-import org.horizon.sdk.library.java.tool.lang.functional.If;
 import com.mybatisflex.core.logicdelete.LogicDeleteManager;
 import com.mybatisflex.core.update.UpdateChain;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.horizon.sdk.library.java.contract.model.base.PO;
+import org.horizon.sdk.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
+import org.horizon.sdk.library.java.tool.lang.functional.If;
 
 import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;

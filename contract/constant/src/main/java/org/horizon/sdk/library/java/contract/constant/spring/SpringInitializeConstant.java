@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.contract.constant.spring;
 
-import org.horizon.sdk.library.java.contract.constant.number.NumberConstant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.horizon.sdk.library.java.contract.constant.number.NumberConstant;
 
 /**
  * spring initialize constant

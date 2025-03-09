@@ -1,10 +1,10 @@
 package org.horizon.sdk.library.java.cache.all.model;
 
-import org.horizon.sdk.library.java.tool.lang.random.Randoms;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.tool.lang.random.Randoms;
 
 import java.io.Serial;
 import java.io.Serializable;

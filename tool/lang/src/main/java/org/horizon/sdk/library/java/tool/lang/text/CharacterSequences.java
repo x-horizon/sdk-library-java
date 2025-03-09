@@ -1,15 +1,15 @@
 package org.horizon.sdk.library.java.tool.lang.text;
 
-import org.horizon.sdk.library.java.contract.constant.regex.RegexConstant;
-import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
-import org.horizon.sdk.library.java.tool.lang.collection.Collections;
-import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import io.vavr.control.Try;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.dromara.hutool.core.text.CharSequenceUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.dromara.hutool.core.text.split.SplitUtil;
+import org.horizon.sdk.library.java.contract.constant.regex.RegexConstant;
+import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
+import org.horizon.sdk.library.java.tool.lang.collection.Collections;
+import org.horizon.sdk.library.java.tool.lang.object.Nil;
 
 import java.util.List;
 import java.util.Optional;

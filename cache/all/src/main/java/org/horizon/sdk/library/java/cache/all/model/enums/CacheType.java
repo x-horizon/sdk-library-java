@@ -1,12 +1,12 @@
 package org.horizon.sdk.library.java.cache.all.model.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.horizon.sdk.library.java.cache.all.Caches;
 import org.horizon.sdk.library.java.cache.all.strategy.CacheTypeDistributedStrategy;
 import org.horizon.sdk.library.java.cache.all.strategy.CacheTypeLocalStrategy;
 import org.horizon.sdk.library.java.cache.all.strategy.CacheTypeStrategy;
 import org.horizon.sdk.library.java.cache.contract.CacheTemplate;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 import java.util.Map;
 import java.util.function.Supplier;

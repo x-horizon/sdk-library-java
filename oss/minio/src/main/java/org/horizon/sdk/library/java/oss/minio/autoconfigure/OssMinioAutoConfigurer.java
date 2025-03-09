@@ -1,10 +1,10 @@
 package org.horizon.sdk.library.java.oss.minio.autoconfigure;
 
+import org.dromara.x.file.storage.spring.FileStorageAutoConfiguration;
+import org.dromara.x.file.storage.spring.SpringFileStorageProperties;
 import org.horizon.sdk.library.java.oss.contract.autoconfigure.OssAutoConfigurer;
 import org.horizon.sdk.library.java.oss.contract.model.property.OssProperty;
 import org.horizon.sdk.library.java.oss.minio.strategy.OssMinioStorage;
-import org.dromara.x.file.storage.spring.FileStorageAutoConfiguration;
-import org.dromara.x.file.storage.spring.SpringFileStorageProperties;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

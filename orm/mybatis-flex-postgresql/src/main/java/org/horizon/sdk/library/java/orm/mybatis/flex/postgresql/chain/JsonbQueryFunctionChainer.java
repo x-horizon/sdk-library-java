@@ -1,5 +1,11 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.chain;
 
+import com.mybatisflex.core.constant.SqlConnector;
+import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.core.query.RawQueryCondition;
+import com.mybatisflex.core.query.RawQueryTable;
+import lombok.AccessLevel;
+import lombok.Getter;
 import org.horizon.sdk.library.java.contract.constant.database.PostgresqlFunctionType;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
@@ -13,12 +19,6 @@ import org.horizon.sdk.library.java.orm.mybatis.flex.base.constant.MybatisFlexDe
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.support.MybatisFlexs;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
-import com.mybatisflex.core.constant.SqlConnector;
-import com.mybatisflex.core.query.QueryWrapper;
-import com.mybatisflex.core.query.RawQueryCondition;
-import com.mybatisflex.core.query.RawQueryTable;
-import lombok.AccessLevel;
-import lombok.Getter;
 
 import static com.mybatisflex.core.query.QueryMethods.selectOne;
 

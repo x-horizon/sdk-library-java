@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.listener;
 
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import com.mybatisflex.annotation.InsertListener;
 import com.mybatisflex.annotation.UpdateListener;
+import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 
 /**
  * the base listener when operate database

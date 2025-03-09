@@ -1,7 +1,5 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.chain;
 
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
-import org.horizon.sdk.library.java.orm.mybatis.flex.base.adapter.QueryWrapperAdapter;
 import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.mybatis.Mappers;
 import com.mybatisflex.core.query.CPI;
@@ -9,6 +7,8 @@ import com.mybatisflex.core.query.MapperQueryChain;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.table.TableInfo;
 import com.mybatisflex.core.table.TableInfoFactory;
+import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
+import org.horizon.sdk.library.java.orm.mybatis.flex.base.adapter.QueryWrapperAdapter;
 
 /**
  * @author wjm

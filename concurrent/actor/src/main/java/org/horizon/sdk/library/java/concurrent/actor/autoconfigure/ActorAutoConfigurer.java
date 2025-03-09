@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.concurrent.actor.autoconfigure;
 
+import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.concurrent.actor.message.ActorMessage;
 import org.horizon.sdk.library.java.concurrent.actor.model.property.ActorProperty;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

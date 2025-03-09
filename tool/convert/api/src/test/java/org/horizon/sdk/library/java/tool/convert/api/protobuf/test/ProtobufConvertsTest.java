@@ -1,7 +1,7 @@
 package org.horizon.sdk.library.java.tool.convert.api.protobuf.test;
 
-import org.horizon.sdk.library.java.tool.convert.api.Converts;
 import lombok.SneakyThrows;
+import org.horizon.sdk.library.java.tool.convert.api.Converts;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;

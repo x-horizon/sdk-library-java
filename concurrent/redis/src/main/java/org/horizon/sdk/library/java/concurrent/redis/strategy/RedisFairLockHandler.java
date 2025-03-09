@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.concurrent.redis.strategy;
 
-import org.horizon.sdk.library.java.concurrent.redis.RedisFairLock;
-import org.horizon.sdk.library.java.contract.component.redis.RedisManager;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
+import org.horizon.sdk.library.java.concurrent.redis.RedisFairLock;
+import org.horizon.sdk.library.java.contract.component.redis.RedisManager;
 import org.redisson.api.RLock;
 
 /**

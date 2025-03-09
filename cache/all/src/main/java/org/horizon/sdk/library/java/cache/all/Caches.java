@@ -1,13 +1,13 @@
 package org.horizon.sdk.library.java.cache.all;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.horizon.sdk.library.java.cache.caffeine.CaffeineCache;
 import org.horizon.sdk.library.java.cache.caffeine.CaffeineCacheTemplate;
 import org.horizon.sdk.library.java.cache.caffeine.model.property.CaffeineCacheProperty;
 import org.horizon.sdk.library.java.cache.map.MapCache;
 import org.horizon.sdk.library.java.cache.map.MapCacheTemplate;
 import org.horizon.sdk.library.java.cache.redis.RedisCache;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 /**
  * all cache can be used

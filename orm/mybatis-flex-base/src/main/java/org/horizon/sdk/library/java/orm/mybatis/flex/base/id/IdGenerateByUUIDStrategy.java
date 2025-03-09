@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.id;
 
-import org.horizon.sdk.library.java.tool.id.uuid.support.UUIDs;
 import com.mybatisflex.core.keygen.KeyGeneratorFactory;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.horizon.sdk.library.java.tool.id.uuid.support.UUIDs;
 
 /**
  * the uuid type id generate strategy

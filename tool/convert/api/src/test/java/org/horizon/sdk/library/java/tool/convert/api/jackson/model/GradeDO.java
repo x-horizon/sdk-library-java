@@ -1,6 +1,5 @@
 package org.horizon.sdk.library.java.tool.convert.api.jackson.model;
 
-import org.dromara.hutool.core.util.RandomUtil;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NegativeOrZero;
 import jakarta.validation.constraints.NotEmpty;
@@ -9,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.dromara.hutool.core.util.RandomUtil;
 
 import java.io.Serial;
 import java.io.Serializable;

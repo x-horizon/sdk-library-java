@@ -1,11 +1,11 @@
 package org.horizon.sdk.library.java.cache.all.strategy;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.horizon.sdk.library.java.cache.all.Caches;
 import org.horizon.sdk.library.java.cache.all.manager.CacheDataManager;
 import org.horizon.sdk.library.java.cache.all.model.property.CacheProperty;
 import org.horizon.sdk.library.java.concurrent.redis.strategy.RedisNonFairLockHandler;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;

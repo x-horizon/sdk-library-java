@@ -1,7 +1,5 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.cache;
 
-import org.horizon.sdk.library.java.contract.model.base.PO;
-import org.horizon.sdk.library.java.orm.mybatis.flex.base.repository.GenericRepository;
 import com.mybatisflex.core.BaseMapper;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -9,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.contract.model.base.PO;
+import org.horizon.sdk.library.java.orm.mybatis.flex.base.repository.GenericRepository;
 
 /**
  * @author wjm

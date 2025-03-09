@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.tool.validation.jakarta;
 
-import org.horizon.sdk.library.java.tool.lang.object.Nil;
-import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.horizon.sdk.library.java.tool.lang.object.Nil;
+import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
 /**
  * 验证字符串的格式不能有中文，可以为空字符串

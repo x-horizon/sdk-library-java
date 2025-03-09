@@ -1,5 +1,12 @@
 package org.horizon.sdk.library.java.oss.contract;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import net.coobird.thumbnailator.Thumbnails;
+import org.dromara.x.file.storage.core.Downloader;
+import org.dromara.x.file.storage.core.FileStorageService;
+import org.dromara.x.file.storage.core.ProgressListener;
+import org.dromara.x.file.storage.core.upload.UploadPretreatment;
 import org.horizon.sdk.library.java.contract.component.oss.model.enums.OssType;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
@@ -13,13 +20,6 @@ import org.horizon.sdk.library.java.tool.lang.net.Urls;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import org.horizon.sdk.library.java.tool.spring.contract.support.Springs;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import net.coobird.thumbnailator.Thumbnails;
-import org.dromara.x.file.storage.core.Downloader;
-import org.dromara.x.file.storage.core.FileStorageService;
-import org.dromara.x.file.storage.core.ProgressListener;
-import org.dromara.x.file.storage.core.upload.UploadPretreatment;
 
 import java.io.File;
 import java.io.InputStream;

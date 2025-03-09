@@ -1,8 +1,5 @@
 package org.horizon.sdk.library.java.tool.convert.api.jackson.model;
 
-import org.dromara.hutool.core.util.RandomUtil;
-import org.horizon.sdk.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToEnumDeserializer;
-import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.validation.constraints.NegativeOrZero;
@@ -13,6 +10,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.dromara.hutool.core.util.RandomUtil;
+import org.horizon.sdk.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToEnumDeserializer;
+import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
 
 import java.io.Serial;
 import java.io.Serializable;

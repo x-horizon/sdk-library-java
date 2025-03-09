@@ -1,14 +1,14 @@
 package org.horizon.sdk.library.java.studio.low.code.model.bo;
 
-import org.horizon.sdk.library.java.contract.model.base.BO;
-import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
-import org.horizon.sdk.library.java.tool.convert.jackson.NullableObject;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.contract.model.base.BO;
+import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
+import org.horizon.sdk.library.java.tool.convert.jackson.NullableObject;
 
 import java.io.Serial;
 import java.util.List;

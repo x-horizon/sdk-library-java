@@ -1,10 +1,10 @@
 package org.horizon.sdk.library.java.contract.model.throwable;
 
-import org.horizon.sdk.library.java.contract.constant.web.HttpStatus;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.experimental.StandardException;
+import org.horizon.sdk.library.java.contract.constant.web.HttpStatus;
 
 import java.io.Serial;
 

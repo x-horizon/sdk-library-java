@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.orm.contract.mybatis.base.type;
 
+import lombok.Getter;
 import org.horizon.sdk.library.java.orm.contract.mybatis.base.cache.ColumnMappingJavaTypeCache;
 import org.horizon.sdk.library.java.tool.enums.EnumAutowired;
-import lombok.Getter;
 
 /**
  * the jdbc complex type

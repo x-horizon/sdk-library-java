@@ -1,11 +1,11 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.adapter;
 
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import com.mybatisflex.core.constant.SqlConnector;
 import com.mybatisflex.core.query.QueryColumn;
 import com.mybatisflex.core.query.QueryConditionBuilder;
 import com.mybatisflex.core.query.RawQueryColumn;
 import com.mybatisflex.core.query.RawQueryCondition;
+import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 
 /**
  * @author wjm

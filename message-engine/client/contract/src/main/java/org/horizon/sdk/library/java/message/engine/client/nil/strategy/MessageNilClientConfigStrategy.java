@@ -1,5 +1,6 @@
 package org.horizon.sdk.library.java.message.engine.client.nil.strategy;
 
+import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.message.engine.client.contract.MessageClientConsumer;
 import org.horizon.sdk.library.java.message.engine.client.contract.MessageClientProducer;
 import org.horizon.sdk.library.java.message.engine.client.contract.model.dto.MessageClientConfigDTO;
@@ -8,7 +9,6 @@ import org.horizon.sdk.library.java.message.engine.client.contract.model.enums.M
 import org.horizon.sdk.library.java.message.engine.client.contract.strategy.MessageClientConfigStrategy;
 import org.horizon.sdk.library.java.message.engine.client.nil.model.dto.MessageNilClientConfigDTO;
 import org.horizon.sdk.library.java.message.engine.client.nil.model.property.MessageNilClientProperty;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.integration.dsl.IntegrationFlow;
 
 import java.lang.annotation.Annotation;

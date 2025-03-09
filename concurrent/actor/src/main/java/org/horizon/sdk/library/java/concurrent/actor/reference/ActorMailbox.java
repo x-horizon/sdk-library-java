@@ -1,5 +1,8 @@
 package org.horizon.sdk.library.java.concurrent.actor.reference;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.concurrent.actor.id.ActorId;
 import org.horizon.sdk.library.java.concurrent.actor.message.ActorMessage;
 import org.horizon.sdk.library.java.concurrent.actor.model.property.ActorProperty;
@@ -9,9 +12,6 @@ import org.horizon.sdk.library.java.concurrent.actor.system.ActorDispatcher;
 import org.horizon.sdk.library.java.concurrent.actor.system.ActorSystem;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;

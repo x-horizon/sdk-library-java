@@ -1,7 +1,7 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.chain;
 
-import org.horizon.sdk.library.java.contract.model.base.POJO;
 import com.mybatisflex.core.query.Joiner;
+import org.horizon.sdk.library.java.contract.model.base.POJO;
 
 /**
  * @author wjm

@@ -1,10 +1,9 @@
 package org.horizon.sdk.library.java.message.engine.client.kafka.model.enums;
 
-import org.horizon.sdk.library.java.tool.lang.convert.Converts;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.horizon.sdk.library.java.message.engine.client.kafka.strategy.*;
-import org.horizon.sdk.library.java.message.engine.client.kafka.strategy.*;
+import org.horizon.sdk.library.java.tool.lang.convert.Converts;
 import org.springframework.kafka.listener.ContainerProperties;
 
 /**

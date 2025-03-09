@@ -1,7 +1,7 @@
 package org.horizon.sdk.library.java.tool.enums.model;
 
-import org.horizon.sdk.library.java.tool.enums.EnumAutowired;
 import lombok.Getter;
+import org.horizon.sdk.library.java.tool.enums.EnumAutowired;
 
 @Getter
 @EnumAutowired(rootClasses = GenderStrategy.class)

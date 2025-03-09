@@ -1,12 +1,12 @@
 package org.horizon.sdk.library.java.orm.contract.model.base;
 
-import org.horizon.sdk.library.java.contract.model.base.POJO;
-import org.horizon.sdk.library.java.orm.contract.model.page.PageParam;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.contract.model.base.POJO;
+import org.horizon.sdk.library.java.orm.contract.model.page.PageParam;
 
 import java.io.Serial;
 

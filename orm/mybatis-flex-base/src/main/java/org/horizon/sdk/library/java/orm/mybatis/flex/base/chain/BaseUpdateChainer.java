@@ -1,7 +1,7 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.chain;
 
-import org.horizon.sdk.library.java.contract.model.base.PO;
 import com.mybatisflex.core.update.UpdateChain;
+import org.horizon.sdk.library.java.contract.model.base.PO;
 
 /**
  * @author wjm

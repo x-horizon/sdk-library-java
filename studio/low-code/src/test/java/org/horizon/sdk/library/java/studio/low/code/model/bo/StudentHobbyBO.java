@@ -1,5 +1,13 @@
 package org.horizon.sdk.library.java.studio.low.code.model.bo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 import org.horizon.sdk.library.java.contract.model.base.BO;
 import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
 import org.horizon.sdk.library.java.studio.low.code.model.enums.StudentHobbyAchievementType;
@@ -9,14 +17,6 @@ import org.horizon.sdk.library.java.tool.convert.jackson.deserializer.JacksonEnu
 import org.horizon.sdk.library.java.tool.convert.jackson.deserializer.JacksonListEnumValueToListEnumDeserializer;
 import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
 import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonListEnumToListIntegerSerializer;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
-import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.util.List;

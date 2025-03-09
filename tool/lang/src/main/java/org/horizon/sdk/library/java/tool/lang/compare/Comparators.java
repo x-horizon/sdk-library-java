@@ -1,10 +1,10 @@
 package org.horizon.sdk.library.java.tool.lang.compare;
 
-import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.dromara.hutool.core.math.NumberUtil;
 import org.dromara.hutool.core.text.CharSequenceUtil;
+import org.horizon.sdk.library.java.tool.lang.object.Nil;
 
 import java.util.Arrays;
 

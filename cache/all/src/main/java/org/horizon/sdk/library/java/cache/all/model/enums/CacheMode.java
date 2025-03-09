@@ -1,10 +1,10 @@
 package org.horizon.sdk.library.java.cache.all.model.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.horizon.sdk.library.java.cache.all.strategy.CacheModeReadOnlyStrategy;
 import org.horizon.sdk.library.java.cache.all.strategy.CacheModeReadWriteStrategy;
 import org.horizon.sdk.library.java.cache.all.strategy.CacheModeStrategy;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 /**
  * the cache mode

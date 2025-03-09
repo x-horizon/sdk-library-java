@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.tool.lang.number;
 
-import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.dromara.hutool.core.codec.binary.HexUtil;
+import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 
 /**
  * toolkit for hex

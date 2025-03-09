@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.message.engine.client.kafka.support;
 
-import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
 
 /**
  * @author wjm

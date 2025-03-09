@@ -1,11 +1,5 @@
 package org.horizon.sdk.library.java.tool.lang.collection;
 
-import org.horizon.sdk.library.java.contract.constant.collection.CollectionConstant;
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
-import org.horizon.sdk.library.java.tool.lang.compare.Comparators;
-import org.horizon.sdk.library.java.tool.lang.convert.Converts;
-import org.horizon.sdk.library.java.tool.lang.functional.Action;
-import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -15,6 +9,12 @@ import org.dromara.hutool.core.collection.ListUtil;
 import org.dromara.hutool.core.collection.iter.IterUtil;
 import org.dromara.hutool.core.collection.set.ConcurrentHashSet;
 import org.dromara.hutool.core.collection.set.SetUtil;
+import org.horizon.sdk.library.java.contract.constant.collection.CollectionConstant;
+import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
+import org.horizon.sdk.library.java.tool.lang.compare.Comparators;
+import org.horizon.sdk.library.java.tool.lang.convert.Converts;
+import org.horizon.sdk.library.java.tool.lang.functional.Action;
+import org.horizon.sdk.library.java.tool.lang.object.Nil;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;

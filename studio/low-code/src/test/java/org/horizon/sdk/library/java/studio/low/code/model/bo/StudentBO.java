@@ -1,14 +1,5 @@
 package org.horizon.sdk.library.java.studio.low.code.model.bo;
 
-import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
-import org.horizon.sdk.library.java.orm.contract.mybatis.flex.model.bo.BaseWithVersionBO;
-import org.horizon.sdk.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaEntityTypeHandler;
-import org.horizon.sdk.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListEntityTypeHandler;
-import org.horizon.sdk.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListLongTypeHandler;
-import org.horizon.sdk.library.java.studio.low.code.model.po.StudentPO;
-import org.horizon.sdk.library.java.studio.low.code.model.vo.StudentVO;
-import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonListLongToListStringSerializer;
-import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonLongToStringSerializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mybatisflex.annotation.Column;
@@ -21,6 +12,15 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
+import org.horizon.sdk.library.java.orm.contract.mybatis.flex.model.bo.BaseWithVersionBO;
+import org.horizon.sdk.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaEntityTypeHandler;
+import org.horizon.sdk.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListEntityTypeHandler;
+import org.horizon.sdk.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListLongTypeHandler;
+import org.horizon.sdk.library.java.studio.low.code.model.po.StudentPO;
+import org.horizon.sdk.library.java.studio.low.code.model.vo.StudentVO;
+import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonListLongToListStringSerializer;
+import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonLongToStringSerializer;
 
 import java.io.Serial;
 import java.util.List;
