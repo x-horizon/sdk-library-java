@@ -1,10 +1,10 @@
 package org.horizon.sdk.library.java.tool.convert.mapstruct.protobuf.support;
 
-import org.horizon.sdk.library.java.tool.convert.mapstruct.plus.support.MapstructMappingQualify;
-import org.horizon.sdk.library.java.tool.convert.protobuf.ProtobufConverts;
 import com.google.protobuf.Timestamp;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.horizon.sdk.library.java.tool.convert.mapstruct.plus.support.MapstructMappingQualify;
+import org.horizon.sdk.library.java.tool.convert.protobuf.ProtobufConverts;
 
 import java.time.LocalDateTime;
 

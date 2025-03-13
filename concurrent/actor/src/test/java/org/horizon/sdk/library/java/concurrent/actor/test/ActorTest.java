@@ -1,11 +1,11 @@
 package org.horizon.sdk.library.java.concurrent.actor.test;
 
-import org.horizon.sdk.library.java.concurrent.actor.foo.TelemetryActorEvent;
-import org.horizon.sdk.library.java.concurrent.actor.foo.TelemetryActorType;
-import org.horizon.sdk.library.java.tool.enums.autoconfigure.EnableEnumAutowired;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.horizon.sdk.library.java.concurrent.actor.foo.TelemetryActorEvent;
+import org.horizon.sdk.library.java.concurrent.actor.foo.TelemetryActorType;
+import org.horizon.sdk.library.java.tool.enums.autoconfigure.EnableEnumAutowired;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;

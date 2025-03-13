@@ -1,13 +1,5 @@
 package org.horizon.sdk.library.java.studio.low.code.model.vo;
 
-import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
-import org.horizon.sdk.library.java.orm.contract.model.base.BaseListConditionVO;
-import org.horizon.sdk.library.java.studio.low.code.model.enums.StudentHobbyAchievementType;
-import org.horizon.sdk.library.java.studio.low.code.model.enums.StudentHobbyParticipationLevelType;
-import org.horizon.sdk.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToEnumDeserializer;
-import org.horizon.sdk.library.java.tool.convert.jackson.deserializer.JacksonListEnumValueToListEnumDeserializer;
-import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
-import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonListEnumToListStringSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -16,6 +8,14 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
+import org.horizon.sdk.library.java.orm.contract.model.base.BaseListConditionVO;
+import org.horizon.sdk.library.java.studio.low.code.model.enums.StudentHobbyAchievementType;
+import org.horizon.sdk.library.java.studio.low.code.model.enums.StudentHobbyParticipationLevelType;
+import org.horizon.sdk.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToEnumDeserializer;
+import org.horizon.sdk.library.java.tool.convert.jackson.deserializer.JacksonListEnumValueToListEnumDeserializer;
+import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
+import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonListEnumToListStringSerializer;
 
 import java.io.Serial;
 import java.io.Serializable;

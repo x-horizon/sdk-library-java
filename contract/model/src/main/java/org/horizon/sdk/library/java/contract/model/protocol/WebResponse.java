@@ -1,11 +1,11 @@
 package org.horizon.sdk.library.java.contract.model.protocol;
 
-import org.horizon.sdk.library.java.contract.constant.web.HttpStatus;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.contract.constant.web.HttpStatus;
 
 import java.io.Serial;
 

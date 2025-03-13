@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.message.engine.server.mqtt.manager.handler;
 
-import org.horizon.sdk.library.java.message.engine.server.mqtt.handler.ClientPublishHandler;
-import org.horizon.sdk.library.java.message.engine.server.mqtt.repository.JunctionSignalStepRepository;
 import io.netty.handler.codec.mqtt.MqttPublishMessage;
 import lombok.SneakyThrows;
+import org.horizon.sdk.library.java.message.engine.server.mqtt.handler.ClientPublishHandler;
+import org.horizon.sdk.library.java.message.engine.server.mqtt.repository.JunctionSignalStepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

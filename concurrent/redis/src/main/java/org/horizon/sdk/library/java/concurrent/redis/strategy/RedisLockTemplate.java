@@ -1,15 +1,15 @@
 package org.horizon.sdk.library.java.concurrent.redis.strategy;
 
+import io.vavr.Function3;
+import io.vavr.Function4;
+import io.vavr.control.Try;
+import lombok.NonNull;
 import org.horizon.sdk.library.java.concurrent.redis.RedisFairLock;
 import org.horizon.sdk.library.java.concurrent.redis.RedisNonFairLock;
 import org.horizon.sdk.library.java.concurrent.redis.aspect.RedisFairLockAspect;
 import org.horizon.sdk.library.java.concurrent.redis.aspect.RedisLockAspect;
 import org.horizon.sdk.library.java.concurrent.redis.aspect.RedisNonFairLockAspect;
 import org.horizon.sdk.library.java.tool.lang.convert.Converts;
-import io.vavr.Function3;
-import io.vavr.Function4;
-import io.vavr.control.Try;
-import lombok.NonNull;
 import org.redisson.api.RLock;
 
 import java.util.concurrent.TimeUnit;

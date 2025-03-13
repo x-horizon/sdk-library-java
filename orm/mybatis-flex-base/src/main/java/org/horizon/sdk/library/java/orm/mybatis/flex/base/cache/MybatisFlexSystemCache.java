@@ -1,5 +1,9 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.cache;
 
+import com.mybatisflex.annotation.Table;
+import com.mybatisflex.core.BaseMapper;
+import jakarta.annotation.PostConstruct;
+import lombok.Getter;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.model.base.PO;
@@ -12,10 +16,6 @@ import org.horizon.sdk.library.java.tool.lang.object.Types;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import org.horizon.sdk.library.java.tool.spring.contract.support.Classes;
 import org.horizon.sdk.library.java.tool.spring.contract.support.Springs;
-import com.mybatisflex.annotation.Table;
-import com.mybatisflex.core.BaseMapper;
-import jakarta.annotation.PostConstruct;
-import lombok.Getter;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 
 import java.util.AbstractMap;

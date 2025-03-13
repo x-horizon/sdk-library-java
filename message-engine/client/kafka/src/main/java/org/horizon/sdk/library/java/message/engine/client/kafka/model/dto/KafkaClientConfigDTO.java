@@ -1,15 +1,15 @@
 package org.horizon.sdk.library.java.message.engine.client.kafka.model.dto;
 
-import org.horizon.sdk.library.java.message.engine.client.contract.model.dto.MessageClientConfigDTO;
-import org.horizon.sdk.library.java.message.engine.client.kafka.model.enums.KafkaConsumerAckMode;
-import org.horizon.sdk.library.java.message.engine.client.kafka.model.enums.KafkaConsumerListenerMode;
-import org.horizon.sdk.library.java.message.engine.client.kafka.model.enums.KafkaConsumerOffsetResetMode;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.message.engine.client.contract.model.dto.MessageClientConfigDTO;
+import org.horizon.sdk.library.java.message.engine.client.kafka.model.enums.KafkaConsumerAckMode;
+import org.horizon.sdk.library.java.message.engine.client.kafka.model.enums.KafkaConsumerListenerMode;
+import org.horizon.sdk.library.java.message.engine.client.kafka.model.enums.KafkaConsumerOffsetResetMode;
 import org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter;
 import org.springframework.kafka.listener.ContainerProperties;
 

@@ -1,9 +1,5 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.model.po;
 
-import org.horizon.sdk.library.java.contract.model.base.PO;
-import org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.model.bo.HomeBO;
-import org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.model.vo.HomeVO;
-import org.horizon.sdk.library.java.tool.convert.api.Converts;
 import com.mybatisflex.annotation.Table;
 import io.github.linpeilie.annotations.AutoMapper;
 import io.github.linpeilie.annotations.AutoMappers;
@@ -12,6 +8,10 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.contract.model.base.PO;
+import org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.model.bo.HomeBO;
+import org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.model.vo.HomeVO;
+import org.horizon.sdk.library.java.tool.convert.api.Converts;
 
 import java.io.Serial;
 

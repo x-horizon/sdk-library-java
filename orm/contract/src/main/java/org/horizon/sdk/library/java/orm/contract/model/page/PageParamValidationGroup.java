@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.orm.contract.model.page;
 
+import org.hibernate.validator.spi.group.DefaultGroupSequenceProvider;
 import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
-import org.hibernate.validator.spi.group.DefaultGroupSequenceProvider;
 
 import java.util.List;
 

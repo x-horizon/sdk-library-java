@@ -1,5 +1,6 @@
 package org.horizon.sdk.library.java.tool.enums.strategy;
 
+import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.model.throwable.LibraryJavaInternalException;
@@ -14,7 +15,6 @@ import org.horizon.sdk.library.java.tool.lang.reflect.Reflects;
 import org.horizon.sdk.library.java.tool.spring.contract.support.Annotations;
 import org.horizon.sdk.library.java.tool.spring.contract.support.Classes;
 import org.horizon.sdk.library.java.tool.spring.contract.support.Springs;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.core.annotation.Order;

@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.tool.validation.jakarta;
 
-import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
 /**
  * 用于验证字符串类型的字段不包含中文字符

@@ -1,11 +1,11 @@
 package org.horizon.sdk.library.java.message.engine.server.mqtt.model.enums;
 
+import io.netty.handler.codec.mqtt.MqttMessage;
+import lombok.Getter;
 import org.horizon.sdk.library.java.message.engine.server.mqtt.strategy.MqttMessageStrategy;
 import org.horizon.sdk.library.java.tool.enums.EnumAutowired;
 import org.horizon.sdk.library.java.tool.enums.strategy.EnumAutowiredFieldMatchByContainIgnoreCaseAndMinLengthRule;
 import org.horizon.sdk.library.java.tool.lang.convert.Converts;
-import io.netty.handler.codec.mqtt.MqttMessage;
-import lombok.Getter;
 
 /**
  * @author wjm

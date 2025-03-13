@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.listener;
 
+import com.mybatisflex.core.FlexGlobalConfig;
 import org.horizon.sdk.library.java.contract.model.throwable.UnsupportedException;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
-import com.mybatisflex.core.FlexGlobalConfig;
 
 /**
  * the invalid {@link BaseInsertListener} implement, will not add it to {@link FlexGlobalConfig#getEntityInsertListeners()}.

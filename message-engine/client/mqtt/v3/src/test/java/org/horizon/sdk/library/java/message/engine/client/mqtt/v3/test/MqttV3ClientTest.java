@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.message.engine.client.mqtt.v3.test;
 
+import lombok.SneakyThrows;
 import org.horizon.sdk.library.java.message.engine.client.mqtt.v3.autoconfigure.EnableMessageMqttV3Client;
 import org.horizon.sdk.library.java.message.engine.client.mqtt.v3.foo.FooProducer;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

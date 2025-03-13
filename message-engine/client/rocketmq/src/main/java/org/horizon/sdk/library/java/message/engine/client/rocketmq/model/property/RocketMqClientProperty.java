@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.message.engine.client.rocketmq.model.property;
 
-import org.horizon.sdk.library.java.message.engine.client.contract.model.property.MessageClientProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.horizon.sdk.library.java.message.engine.client.contract.model.property.MessageClientProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**

@@ -1,5 +1,7 @@
 package org.horizon.sdk.library.java.tool.spring.contract.support;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.horizon.sdk.library.java.contract.constant.annotation.AnnotationConstant;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
@@ -7,8 +9,6 @@ import org.horizon.sdk.library.java.contract.model.throwable.LibraryJavaInternal
 import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 import org.horizon.sdk.library.java.tool.lang.convert.Converts;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.config.BeanDefinition;
 
 import java.lang.annotation.Annotation;

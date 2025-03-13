@@ -1,6 +1,5 @@
 package org.horizon.sdk.library.java.tool.convert.jackson.serializer;
 
-import org.horizon.sdk.library.java.tool.lang.enums.Enums;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.core.type.WritableTypeId;
@@ -8,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import lombok.SneakyThrows;
+import org.horizon.sdk.library.java.tool.lang.enums.Enums;
 
 /**
  * the jackson serializer to convert {@link Enum}<?> to the enum internal long value, see {@link Enums#getFieldValue(Enum, Class)}

@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.id;
 
-import org.horizon.sdk.library.java.tool.id.snowflake.support.SnowflakeIds;
 import com.mybatisflex.core.keygen.KeyGeneratorFactory;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.horizon.sdk.library.java.tool.id.snowflake.support.SnowflakeIds;
 
 /**
  * the snowflake type id generate strategy

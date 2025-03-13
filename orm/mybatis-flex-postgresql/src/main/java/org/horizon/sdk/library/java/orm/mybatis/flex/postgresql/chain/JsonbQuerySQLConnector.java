@@ -1,12 +1,12 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.chain;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.horizon.sdk.library.java.contract.constant.collection.CollectionConstant;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.support.MybatisFlexs;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

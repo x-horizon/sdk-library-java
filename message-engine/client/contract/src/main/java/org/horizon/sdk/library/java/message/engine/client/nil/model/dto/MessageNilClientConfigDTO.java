@@ -1,12 +1,12 @@
 package org.horizon.sdk.library.java.message.engine.client.nil.model.dto;
 
-import org.horizon.sdk.library.java.message.engine.client.contract.model.dto.MessageClientConfigDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.message.engine.client.contract.model.dto.MessageClientConfigDTO;
 
 import java.io.Serial;
 import java.util.List;

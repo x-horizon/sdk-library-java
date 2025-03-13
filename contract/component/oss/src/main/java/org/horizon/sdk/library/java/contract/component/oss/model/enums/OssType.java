@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.contract.component.oss.model.enums;
 
+import lombok.Getter;
 import org.horizon.sdk.library.java.contract.component.oss.strategy.OssStorage;
 import org.horizon.sdk.library.java.tool.enums.EnumAutowired;
 import org.horizon.sdk.library.java.tool.enums.strategy.EnumAutowiredFieldMatchByContainIgnoreCaseRule;
-import lombok.Getter;
 
 /**
  * @author wjm

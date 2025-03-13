@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.message.engine.server.mqtt.context;
 
-import org.horizon.sdk.library.java.message.engine.server.mqtt.model.enums.MqttVersionType;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.Getter;
 import lombok.Setter;
+import org.horizon.sdk.library.java.message.engine.server.mqtt.model.enums.MqttVersionType;
 
 import java.net.InetSocketAddress;
 import java.util.UUID;

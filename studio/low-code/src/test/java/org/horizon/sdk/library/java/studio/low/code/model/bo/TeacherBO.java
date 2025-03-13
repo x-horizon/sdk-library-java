@@ -1,17 +1,5 @@
 package org.horizon.sdk.library.java.studio.low.code.model.bo;
 
-import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
-import org.horizon.sdk.library.java.orm.contract.mybatis.flex.model.bo.BaseWithVersionBO;
-import org.horizon.sdk.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListEnumIntegerTypeHandler;
-import org.horizon.sdk.library.java.studio.low.code.model.enums.TeacherLevelType;
-import org.horizon.sdk.library.java.studio.low.code.model.enums.TeacherStatus;
-import org.horizon.sdk.library.java.studio.low.code.model.po.TeacherPO;
-import org.horizon.sdk.library.java.studio.low.code.model.vo.TeacherVO;
-import org.horizon.sdk.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToEnumDeserializer;
-import org.horizon.sdk.library.java.tool.convert.jackson.deserializer.JacksonListEnumValueToListEnumDeserializer;
-import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
-import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonListEnumToListIntegerSerializer;
-import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonLongToStringSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mybatisflex.annotation.Column;
@@ -24,6 +12,18 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
+import org.horizon.sdk.library.java.orm.contract.mybatis.flex.model.bo.BaseWithVersionBO;
+import org.horizon.sdk.library.java.orm.contract.mybatis.postgresql.handler.JdbcJsonbMappingJavaListEnumIntegerTypeHandler;
+import org.horizon.sdk.library.java.studio.low.code.model.enums.TeacherLevelType;
+import org.horizon.sdk.library.java.studio.low.code.model.enums.TeacherStatus;
+import org.horizon.sdk.library.java.studio.low.code.model.po.TeacherPO;
+import org.horizon.sdk.library.java.studio.low.code.model.vo.TeacherVO;
+import org.horizon.sdk.library.java.tool.convert.jackson.deserializer.JacksonEnumValueToEnumDeserializer;
+import org.horizon.sdk.library.java.tool.convert.jackson.deserializer.JacksonListEnumValueToListEnumDeserializer;
+import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonEnumToIntegerSerializer;
+import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonListEnumToListIntegerSerializer;
+import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonLongToStringSerializer;
 
 import java.io.Serial;
 import java.util.List;

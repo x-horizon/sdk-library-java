@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.tool.lang.number;
 
-import org.horizon.sdk.library.java.tool.lang.object.Classes;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.horizon.sdk.library.java.tool.lang.object.Classes;
 
 /**
  * double number handler

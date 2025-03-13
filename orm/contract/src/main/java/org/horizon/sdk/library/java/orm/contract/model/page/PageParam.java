@@ -1,7 +1,5 @@
 package org.horizon.sdk.library.java.orm.contract.model.page;
 
-import org.horizon.sdk.library.java.contract.constant.page.PageConstant;
-import org.horizon.sdk.library.java.contract.model.base.DTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +10,8 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.group.GroupSequenceProvider;
+import org.horizon.sdk.library.java.contract.constant.page.PageConstant;
+import org.horizon.sdk.library.java.contract.model.base.DTO;
 
 import java.io.Serial;
 

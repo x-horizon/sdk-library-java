@@ -1,5 +1,7 @@
 package org.horizon.sdk.library.java.tool.lang.enums;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.horizon.sdk.library.java.contract.constant.enums.EnumConstant;
 import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
 import org.horizon.sdk.library.java.tool.lang.collection.Collections;
@@ -12,8 +14,6 @@ import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.object.Types;
 import org.horizon.sdk.library.java.tool.lang.reflect.Reflects;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 import java.lang.reflect.Field;
 import java.util.Collection;

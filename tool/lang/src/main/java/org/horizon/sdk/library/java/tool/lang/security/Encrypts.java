@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.tool.lang.security;
 
-import org.dromara.hutool.crypto.SecureUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.dromara.hutool.crypto.SecureUtil;
 
 /**
  * encrypt toolkit

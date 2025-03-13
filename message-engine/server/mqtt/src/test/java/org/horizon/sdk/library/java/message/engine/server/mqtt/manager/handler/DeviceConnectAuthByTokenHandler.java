@@ -1,10 +1,10 @@
 package org.horizon.sdk.library.java.message.engine.server.mqtt.manager.handler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.message.engine.server.mqtt.handler.ClientConnectAuthHandler;
 import org.horizon.sdk.library.java.message.engine.server.mqtt.model.dto.ClientConnectAuthRequestDTO;
 import org.horizon.sdk.library.java.message.engine.server.mqtt.model.dto.ClientConnectAuthResponseDTO;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**

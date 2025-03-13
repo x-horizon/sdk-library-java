@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.tool.validation.jakarta;
 
-import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.horizon.sdk.library.java.tool.lang.object.Nil;
 
 /**
  * 校验一个字符串是否为rtsp格式，例如：rtsp://127.0.0.1:8080/ch01/0

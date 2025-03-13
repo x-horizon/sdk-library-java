@@ -1,15 +1,13 @@
 package org.horizon.sdk.library.java.message.engine.server.mqtt.autoconfigure;
 
+import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.message.engine.server.mqtt.context.MqttServerContext;
-import org.horizon.sdk.library.java.message.engine.server.mqtt.handler.*;
 import org.horizon.sdk.library.java.message.engine.server.mqtt.handler.*;
 import org.horizon.sdk.library.java.message.engine.server.mqtt.model.property.MqttServerCommonProperty;
 import org.horizon.sdk.library.java.message.engine.server.mqtt.model.property.MqttServerNonSslProperty;
 import org.horizon.sdk.library.java.message.engine.server.mqtt.model.property.MqttServerSslProperty;
 import org.horizon.sdk.library.java.message.engine.server.mqtt.strategy.*;
 import org.horizon.sdk.library.java.tool.enums.autoconfigure.EnableEnumAutowired;
-import lombok.extern.slf4j.Slf4j;
-import org.horizon.sdk.library.java.message.engine.server.mqtt.strategy.*;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

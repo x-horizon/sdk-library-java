@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.contract.component.redis;
 
-import org.horizon.sdk.library.java.tool.spring.contract.support.Springs;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.horizon.sdk.library.java.tool.spring.contract.support.Springs;
 import org.redisson.api.RedissonClient;
 
 /**

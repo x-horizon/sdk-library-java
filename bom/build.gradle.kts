@@ -46,11 +46,14 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.CLOUD_COMMUNICATION_DROMARA_SMS))
         api(GradleDependency.withVersion(GradleDependency.CLOUD_COMMUNICATION_JAKARTA_MAIL))
 
+        api(GradleDependency.withVersion(GradleDependency.JDBC_DA_MENG))
         api(GradleDependency.withVersion(GradleDependency.JDBC_HSQLDB))
+        api(GradleDependency.withVersion(GradleDependency.JDBC_MARIADB))
         api(GradleDependency.withVersion(GradleDependency.JDBC_MYSQL))
         api(GradleDependency.withVersion(GradleDependency.JDBC_POSTGIS))
         api(GradleDependency.withVersion(GradleDependency.JDBC_POSTGRESQL))
         api(GradleDependency.withVersion(GradleDependency.JDBC_TDENGINE))
+        api(GradleDependency.withVersion(GradleDependency.JDBC_SQL_SERVER))
 
         api(GradleDependency.withVersion(GradleDependency.ORM_MYBATIS))
         api(GradleDependency.withVersion(GradleDependency.ORM_MYBATIS_PLUS))

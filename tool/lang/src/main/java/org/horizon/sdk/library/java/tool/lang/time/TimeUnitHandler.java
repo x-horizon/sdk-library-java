@@ -1,11 +1,11 @@
 package org.horizon.sdk.library.java.tool.lang.time;
 
-import org.horizon.sdk.library.java.contract.constant.time.TimeUnitType;
-import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.horizon.sdk.library.java.contract.constant.time.TimeUnitType;
+import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
 import java.time.Duration;
 import java.util.*;

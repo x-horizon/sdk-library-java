@@ -1,6 +1,5 @@
 package org.horizon.sdk.library.java.orm.contract.mybatis.flex.model.bo;
 
-import org.horizon.sdk.library.java.contract.model.base.BO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mybatisflex.annotation.Column;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -8,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.contract.model.base.BO;
 
 import java.io.Serial;
 

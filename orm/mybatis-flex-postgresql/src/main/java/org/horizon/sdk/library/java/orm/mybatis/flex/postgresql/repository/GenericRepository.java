@@ -1,5 +1,6 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.repository;
 
+import com.mybatisflex.core.BaseMapper;
 import org.horizon.sdk.library.java.contract.model.base.PO;
 import org.horizon.sdk.library.java.contract.model.base.POJO;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.cache.MybatisFlexSystemCache;
@@ -7,7 +8,6 @@ import org.horizon.sdk.library.java.orm.mybatis.flex.base.cache.MybatisFlexSyste
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.chain.QueryChain;
 import org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.chain.JsonbQueryChainer;
 import org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.chain.NormalQueryChainer;
-import com.mybatisflex.core.BaseMapper;
 
 /**
  * the generic repository

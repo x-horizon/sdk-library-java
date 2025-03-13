@@ -1,9 +1,5 @@
 package org.horizon.sdk.library.java.message.engine.server.mqtt.model.po;
 
-import org.horizon.sdk.library.java.contract.model.base.PO;
-import org.horizon.sdk.library.java.contract.model.base.VO;
-import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
-import org.horizon.sdk.library.java.message.engine.server.mqtt.model.bo.JunctionSignalStepBO;
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Table;
 import io.github.linpeilie.annotations.AutoMapper;
@@ -13,6 +9,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.contract.model.base.PO;
+import org.horizon.sdk.library.java.contract.model.base.VO;
+import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
+import org.horizon.sdk.library.java.message.engine.server.mqtt.model.bo.JunctionSignalStepBO;
 
 import java.io.Serial;
 

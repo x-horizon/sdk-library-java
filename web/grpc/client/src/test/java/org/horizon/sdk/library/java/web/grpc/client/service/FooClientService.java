@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.web.grpc.client.service;
 
+import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.horizon.sdk.library.java.web.grpc.contract.service.FooGrpc;
 import org.horizon.sdk.library.java.web.grpc.contract.service.FooRequest;
 import org.horizon.sdk.library.java.web.grpc.contract.service.FooResponse;
-import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
 
 /**

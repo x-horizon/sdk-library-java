@@ -1,5 +1,16 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.repository;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import com.mybatisflex.core.BaseMapper;
+import com.mybatisflex.core.keygen.CustomKeyGenerator;
+import com.mybatisflex.core.logicdelete.LogicDeleteManager;
+import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.core.row.Db;
+import com.mybatisflex.core.service.IService;
+import com.mybatisflex.core.update.UpdateChain;
+import com.mybatisflex.core.util.ClassUtil;
+import org.apache.ibatis.executor.Executor;
+import org.apache.ibatis.mapping.MappedStatement;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
@@ -19,17 +30,6 @@ import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.reflect.Reflects;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import org.horizon.sdk.library.java.tool.spring.contract.support.Springs;
-import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import com.mybatisflex.core.BaseMapper;
-import com.mybatisflex.core.keygen.CustomKeyGenerator;
-import com.mybatisflex.core.logicdelete.LogicDeleteManager;
-import com.mybatisflex.core.query.QueryWrapper;
-import com.mybatisflex.core.row.Db;
-import com.mybatisflex.core.service.IService;
-import com.mybatisflex.core.update.UpdateChain;
-import com.mybatisflex.core.util.ClassUtil;
-import org.apache.ibatis.executor.Executor;
-import org.apache.ibatis.mapping.MappedStatement;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
@@ -115,7 +115,7 @@ public interface GenericRepository<P extends PO> {
      * @see #save(PO)
      * @see #saveBatch(Iterable, int)
      * @see BaseMapper#insertSelective(Object)
-     * @see BaseMapper#insertBatch(List, int)
+     * @see BaseMapper#insertBatch(Collection, int)
      * @see IService#saveBatch(Collection, int)
      * @see CustomKeyGenerator#processBefore(Executor, MappedStatement, Statement, Object)
      */
@@ -129,7 +129,7 @@ public interface GenericRepository<P extends PO> {
      * insert batch.
      * <ol>
      *   <li>
-     *       using {@link BaseMapper#insertBatch(List, int)} if the entities size <= {@link #GENERATE_FULL_SQL_BATCH_SIZE}, the generated insert sql like:<br/>
+     *       using {@link BaseMapper#insertBatch(Collection, int)} if the entities size <= {@link #GENERATE_FULL_SQL_BATCH_SIZE}, the generated insert sql like:<br/>
      *       <br/>
      *       INSERT INTO "test_table"("id", "name") VALUES<br/>
      *       (487223443892741, 'test1'),<br/>
@@ -149,11 +149,11 @@ public interface GenericRepository<P extends PO> {
      * @param entities          the operate entities
      * @param batchSizeEachTime insert size each time
      * @return the entities with primary key
-     * @apiNote about the different between {@link BaseMapper#insertBatch(List, int)} and {@link IService#saveBatch(Collection, int)}, you should see <a href="https://mybatis-flex.com/zh/base/batch.html">"the batch operation guide"</a>.
+     * @apiNote about the different between {@link BaseMapper#insertBatch(Collection, int)} and {@link IService#saveBatch(Collection, int)}, you should see <a href="https://mybatis-flex.com/zh/base/batch.html">"the batch operation guide"</a>.
      * @see #GENERATE_FULL_SQL_BATCH_SIZE
      * @see #save(PO)
      * @see BaseMapper#insertSelective(Object)
-     * @see BaseMapper#insertBatch(List, int)
+     * @see BaseMapper#insertBatch(Collection, int)
      * @see IService#saveBatch(Collection, int)
      * @see CustomKeyGenerator#processBefore(Executor, MappedStatement, Statement, Object)
      */

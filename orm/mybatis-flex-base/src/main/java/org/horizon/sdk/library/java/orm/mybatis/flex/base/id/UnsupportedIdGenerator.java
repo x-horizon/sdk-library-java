@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.id;
 
-import org.horizon.sdk.library.java.contract.model.throwable.UnsupportedException;
-import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.horizon.sdk.library.java.contract.model.throwable.UnsupportedException;
+import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
 /**
  * the invalid type id generator

@@ -1,11 +1,11 @@
 package org.horizon.sdk.library.java.concurrent.redis.aspect;
 
-import org.horizon.sdk.library.java.concurrent.redis.RedisFairLock;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.horizon.sdk.library.java.concurrent.redis.RedisFairLock;
 
 /**
  * 基于 {@link RedisFairLock} 的切面

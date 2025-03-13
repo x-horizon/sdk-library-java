@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.service;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.horizon.sdk.library.java.contract.model.base.PO;
 import org.horizon.sdk.library.java.contract.model.base.VO;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.repository.GenericRepository;
-import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

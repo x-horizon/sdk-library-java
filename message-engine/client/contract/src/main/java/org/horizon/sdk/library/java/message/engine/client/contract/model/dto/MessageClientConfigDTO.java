@@ -1,13 +1,13 @@
 package org.horizon.sdk.library.java.message.engine.client.contract.model.dto;
 
-import org.horizon.sdk.library.java.message.engine.client.contract.model.enums.MessageClientIdGenerateType;
-import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.message.engine.client.contract.model.enums.MessageClientIdGenerateType;
+import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 
 import java.io.Serial;
 import java.io.Serializable;

@@ -1,7 +1,5 @@
 package org.horizon.sdk.library.java.tool.convert.protobuf;
 
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
-import org.horizon.sdk.library.java.contract.constant.time.TimeZoneType;
 import com.google.protobuf.Message;
 import com.google.protobuf.TextFormat;
 import com.google.protobuf.Timestamp;
@@ -9,6 +7,8 @@ import com.google.protobuf.util.JsonFormat;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
+import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
+import org.horizon.sdk.library.java.contract.constant.time.TimeZoneType;
 
 import java.time.Instant;
 import java.time.LocalDateTime;

@@ -1,7 +1,7 @@
 package org.horizon.sdk.library.java.tool.jdk;
 
-import org.horizon.sdk.library.java.contract.constant.spring.SpringInitializeConstant;
 import org.burningwave.core.assembler.StaticComponentContainer;
+import org.horizon.sdk.library.java.contract.constant.spring.SpringInitializeConstant;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.annotation.Order;

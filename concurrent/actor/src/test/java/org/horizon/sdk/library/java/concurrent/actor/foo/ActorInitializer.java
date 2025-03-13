@@ -1,13 +1,13 @@
 package org.horizon.sdk.library.java.concurrent.actor.foo;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.concurrent.actor.autoconfigure.ActorAutoConfigurer;
 import org.horizon.sdk.library.java.concurrent.actor.system.ActorSystem;
 import org.horizon.sdk.library.java.tool.lang.concurrent.Threads;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.system.Systems;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

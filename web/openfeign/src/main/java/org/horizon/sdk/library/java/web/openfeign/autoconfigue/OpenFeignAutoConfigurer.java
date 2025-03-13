@@ -1,12 +1,12 @@
 package org.horizon.sdk.library.java.web.openfeign.autoconfigue;
 
+import okhttp3.OkHttpClient;
 import org.horizon.sdk.library.java.contract.constant.booleans.BooleanConstant;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.spring.contract.support.Annotations;
 import org.horizon.sdk.library.java.web.openfeign.cache.OpenFeignClientResponseModelCache;
 import org.horizon.sdk.library.java.web.openfeign.interceptor.OpenFeignClientResponseInterceptor;
-import okhttp3.OkHttpClient;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

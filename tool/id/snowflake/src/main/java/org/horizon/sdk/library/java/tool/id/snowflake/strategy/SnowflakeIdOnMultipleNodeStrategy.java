@@ -1,13 +1,13 @@
 package org.horizon.sdk.library.java.tool.id.snowflake.strategy;
 
+import com.github.yitter.contract.IdGeneratorOptions;
+import com.github.yitter.idgen.DefaultIdGenerator;
 import org.horizon.sdk.library.java.cache.redis.model.property.RedisCacheProperty;
 import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
 import org.horizon.sdk.library.java.tool.id.snowflake.autoconfigure.EnableSnowflakeId;
 import org.horizon.sdk.library.java.tool.id.snowflake.support.SnowflakeIds;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
-import com.github.yitter.contract.IdGeneratorOptions;
-import com.github.yitter.idgen.DefaultIdGenerator;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 
 /**

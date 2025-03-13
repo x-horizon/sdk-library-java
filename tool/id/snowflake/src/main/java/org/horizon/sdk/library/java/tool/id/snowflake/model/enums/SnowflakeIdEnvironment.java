@@ -1,11 +1,11 @@
 package org.horizon.sdk.library.java.tool.id.snowflake.model.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.horizon.sdk.library.java.tool.id.snowflake.autoconfigure.EnableSnowflakeId;
 import org.horizon.sdk.library.java.tool.id.snowflake.strategy.SnowflakeIdEnvironmentStrategy;
 import org.horizon.sdk.library.java.tool.id.snowflake.strategy.SnowflakeIdOnMultipleNodeStrategy;
 import org.horizon.sdk.library.java.tool.id.snowflake.strategy.SnowflakeIdOnSingleNodeStrategy;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 /**
  * current node instance environment

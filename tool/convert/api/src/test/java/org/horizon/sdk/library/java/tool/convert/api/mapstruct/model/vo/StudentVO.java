@@ -1,14 +1,14 @@
 package org.horizon.sdk.library.java.tool.convert.api.mapstruct.model.vo;
 
-import org.dromara.hutool.core.util.RandomUtil;
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
-import org.horizon.sdk.library.java.tool.convert.api.mapstruct.model.domain.StudentDO;
 import io.github.linpeilie.annotations.AutoMapper;
 import io.github.linpeilie.annotations.AutoMapping;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.dromara.hutool.core.util.RandomUtil;
+import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
+import org.horizon.sdk.library.java.tool.convert.api.mapstruct.model.domain.StudentDO;
 
 import java.io.Serial;
 import java.io.Serializable;

@@ -1,12 +1,12 @@
 package org.horizon.sdk.library.java.tool.id.snowflake.autoconfigure;
 
+import com.github.yitter.contract.IdGeneratorOptions;
+import com.github.yitter.idgen.YitIdHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.contract.model.throwable.LibraryJavaInternalException;
 import org.horizon.sdk.library.java.tool.lang.functional.Assert;
 import org.horizon.sdk.library.java.tool.spring.contract.support.Annotations;
-import com.github.yitter.contract.IdGeneratorOptions;
-import com.github.yitter.idgen.YitIdHelper;
-import lombok.extern.slf4j.Slf4j;
 import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;

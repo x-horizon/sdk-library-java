@@ -1,7 +1,7 @@
 package org.horizon.sdk.library.java.tool.convert.jackson.geometry.deserializer;
 
-import org.horizon.sdk.library.java.tool.geometry.Geometries;
 import com.fasterxml.jackson.databind.util.StdConverter;
+import org.horizon.sdk.library.java.tool.geometry.Geometries;
 import org.locationtech.jts.geom.Geometry;
 
 /**

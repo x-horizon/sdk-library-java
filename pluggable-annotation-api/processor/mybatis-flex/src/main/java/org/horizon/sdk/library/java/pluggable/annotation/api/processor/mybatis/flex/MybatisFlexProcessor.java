@@ -16,6 +16,9 @@
 
 package org.horizon.sdk.library.java.pluggable.annotation.api.processor.mybatis.flex;
 
+import com.mybatisflex.annotation.Column;
+import com.mybatisflex.annotation.ColumnAlias;
+import com.mybatisflex.annotation.Table;
 import org.horizon.sdk.library.java.pluggable.annotation.api.processor.mybatis.flex.builder.ContentBuilder;
 import org.horizon.sdk.library.java.pluggable.annotation.api.processor.mybatis.flex.config.ConfigurationKey;
 import org.horizon.sdk.library.java.pluggable.annotation.api.processor.mybatis.flex.config.MybatisFlexConfig;
@@ -23,9 +26,6 @@ import org.horizon.sdk.library.java.pluggable.annotation.api.processor.mybatis.f
 import org.horizon.sdk.library.java.pluggable.annotation.api.processor.mybatis.flex.entity.TableInfo;
 import org.horizon.sdk.library.java.pluggable.annotation.api.processor.mybatis.flex.util.FileUtil;
 import org.horizon.sdk.library.java.pluggable.annotation.api.processor.mybatis.flex.util.StrUtil;
-import com.mybatisflex.annotation.Column;
-import com.mybatisflex.annotation.ColumnAlias;
-import com.mybatisflex.annotation.Table;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;

@@ -1,12 +1,12 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.autoconfigure;
 
+import com.mybatisflex.spring.boot.MybatisFlexProperties;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.audit.AuditLogConfig;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.id.IdConfig;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.listener.ListenerConfig;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.lock.OptimisticLockConfig;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.logic.DeleteLogicConfig;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.property.PropertyConfig;
-import com.mybatisflex.spring.boot.MybatisFlexProperties;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

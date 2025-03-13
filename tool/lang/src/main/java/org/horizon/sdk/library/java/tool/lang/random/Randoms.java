@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.tool.lang.random;
 
-import org.dromara.hutool.core.util.RandomUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.dromara.hutool.core.util.RandomUtil;
 
 /**
  * random toolkit

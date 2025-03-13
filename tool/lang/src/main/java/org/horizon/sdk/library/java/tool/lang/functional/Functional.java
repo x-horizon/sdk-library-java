@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.tool.lang.functional;
 
-import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
 
 import java.util.function.Consumer;
 import java.util.function.Function;

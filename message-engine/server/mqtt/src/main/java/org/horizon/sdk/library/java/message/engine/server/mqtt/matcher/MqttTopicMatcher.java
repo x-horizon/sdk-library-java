@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.message.engine.server.mqtt.matcher;
 
+import lombok.Getter;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.tool.lang.functional.Assert;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
-import lombok.Getter;
 
 import java.util.regex.Pattern;
 

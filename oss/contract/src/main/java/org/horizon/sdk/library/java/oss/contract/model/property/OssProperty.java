@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.oss.contract.model.property;
 
-import org.horizon.sdk.library.java.contract.component.oss.model.enums.OssType;
-import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 import lombok.Getter;
 import lombok.Setter;
+import org.horizon.sdk.library.java.contract.component.oss.model.enums.OssType;
+import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.List;

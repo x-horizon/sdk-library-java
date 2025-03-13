@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.tool.convert.api.benchmark;
 
+import org.dromara.hutool.core.text.StrJoiner;
 import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
-import org.dromara.hutool.core.text.StrJoiner;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,5 +1,8 @@
 package org.horizon.sdk.library.java.oss.minio.strategy;
 
+import org.dromara.x.file.storage.core.FileStorageService;
+import org.dromara.x.file.storage.core.FileStorageServiceBuilder;
+import org.dromara.x.file.storage.spring.SpringFileStorageProperties;
 import org.horizon.sdk.library.java.contract.component.oss.model.enums.OssType;
 import org.horizon.sdk.library.java.contract.component.oss.strategy.OssStorage;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
@@ -8,9 +11,6 @@ import org.horizon.sdk.library.java.oss.contract.Oss;
 import org.horizon.sdk.library.java.oss.contract.model.property.OssProperty;
 import org.horizon.sdk.library.java.tool.lang.compare.Comparators;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
-import org.dromara.x.file.storage.core.FileStorageService;
-import org.dromara.x.file.storage.core.FileStorageServiceBuilder;
-import org.dromara.x.file.storage.spring.SpringFileStorageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

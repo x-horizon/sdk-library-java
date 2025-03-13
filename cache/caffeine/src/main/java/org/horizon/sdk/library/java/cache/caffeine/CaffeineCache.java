@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.cache.caffeine;
 
-import org.horizon.sdk.library.java.cache.caffeine.model.property.CaffeineCacheProperty;
 import com.github.benmanes.caffeine.cache.Cache;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import org.horizon.sdk.library.java.cache.caffeine.model.property.CaffeineCacheProperty;
 
 import java.util.Collection;
 import java.util.Map;

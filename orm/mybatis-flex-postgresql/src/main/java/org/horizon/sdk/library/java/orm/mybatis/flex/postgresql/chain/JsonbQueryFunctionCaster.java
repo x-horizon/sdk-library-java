@@ -1,12 +1,12 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.chain;
 
+import com.mybatisflex.core.constant.SqlConnector;
+import lombok.AccessLevel;
+import lombok.Getter;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.model.base.POJO;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.chain.QueryChain;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.chain.QueryConditional;
-import com.mybatisflex.core.constant.SqlConnector;
-import lombok.AccessLevel;
-import lombok.Getter;
 
 /**
  * @author wjm

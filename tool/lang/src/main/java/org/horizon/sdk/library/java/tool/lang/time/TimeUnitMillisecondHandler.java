@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.tool.lang.time;
 
-import org.horizon.sdk.library.java.contract.constant.time.TimeUnitConstant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.horizon.sdk.library.java.contract.constant.time.TimeUnitConstant;
 
 import java.time.Duration;
 

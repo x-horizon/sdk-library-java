@@ -1,12 +1,12 @@
 package org.horizon.sdk.library.java.tool.lang.number;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.dromara.hutool.core.math.NumberUtil;
 import org.horizon.sdk.library.java.contract.constant.number.NumberConstant;
 import org.horizon.sdk.library.java.contract.constant.time.TimeUnitConstant;
 import org.horizon.sdk.library.java.contract.model.throwable.InvalidArgumentException;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import org.dromara.hutool.core.math.NumberUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

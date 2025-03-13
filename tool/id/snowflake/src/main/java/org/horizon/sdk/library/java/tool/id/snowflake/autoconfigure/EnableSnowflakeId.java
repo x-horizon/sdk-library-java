@@ -1,7 +1,7 @@
 package org.horizon.sdk.library.java.tool.id.snowflake.autoconfigure;
 
-import org.horizon.sdk.library.java.tool.id.snowflake.model.enums.SnowflakeIdEnvironment;
 import com.github.yitter.contract.IdGeneratorOptions;
+import org.horizon.sdk.library.java.tool.id.snowflake.model.enums.SnowflakeIdEnvironment;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

@@ -1,5 +1,6 @@
 package org.horizon.sdk.library.java.message.engine.client.all.foo;
 
+import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.message.engine.client.contract.MessageClientConfig;
 import org.horizon.sdk.library.java.message.engine.client.contract.MessageClientProducer;
 import org.horizon.sdk.library.java.message.engine.client.contract.model.enums.MessageClientType;
@@ -7,7 +8,6 @@ import org.horizon.sdk.library.java.message.engine.client.contract.model.enums.M
 import org.horizon.sdk.library.java.message.engine.client.kafka.KafkaConfig;
 import org.horizon.sdk.library.java.message.engine.client.mqtt.v3.MqttV3Config;
 import org.horizon.sdk.library.java.tool.lang.time.Times;
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.springframework.stereotype.Component;
 
 /**

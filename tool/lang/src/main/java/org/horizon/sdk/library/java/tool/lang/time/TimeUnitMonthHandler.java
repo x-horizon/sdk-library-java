@@ -1,8 +1,8 @@
 package org.horizon.sdk.library.java.tool.lang.time;
 
-import org.horizon.sdk.library.java.contract.model.throwable.UnsupportedException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.horizon.sdk.library.java.contract.model.throwable.UnsupportedException;
 
 import java.time.Duration;
 

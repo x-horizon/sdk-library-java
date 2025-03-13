@@ -1,10 +1,5 @@
 package org.horizon.sdk.library.java.message.engine.server.mqtt.model.bo;
 
-import org.horizon.sdk.library.java.contract.model.base.BO;
-import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
-import org.horizon.sdk.library.java.message.engine.server.mqtt.model.po.JunctionSignalStepPO;
-import org.horizon.sdk.library.java.tool.convert.jackson.deserializer.JacksonLongToLocalDateTimeDeserializer;
-import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonLocalDateTimeToLongSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mybatisflex.annotation.Column;
@@ -16,6 +11,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.contract.model.base.BO;
+import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
+import org.horizon.sdk.library.java.message.engine.server.mqtt.model.po.JunctionSignalStepPO;
+import org.horizon.sdk.library.java.tool.convert.jackson.deserializer.JacksonLongToLocalDateTimeDeserializer;
+import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonLocalDateTimeToLongSerializer;
 
 import java.io.Serial;
 import java.time.LocalDateTime;

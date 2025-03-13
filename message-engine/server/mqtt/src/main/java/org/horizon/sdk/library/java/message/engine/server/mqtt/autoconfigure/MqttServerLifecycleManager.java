@@ -1,12 +1,5 @@
 package org.horizon.sdk.library.java.message.engine.server.mqtt.autoconfigure;
 
-import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
-import org.horizon.sdk.library.java.message.engine.contract.model.enums.MessageEngineType;
-import org.horizon.sdk.library.java.message.engine.server.mqtt.context.MqttServerContext;
-import org.horizon.sdk.library.java.message.engine.server.mqtt.model.property.MqttServerCommonProperty;
-import org.horizon.sdk.library.java.message.engine.server.mqtt.model.property.MqttServerNonSslProperty;
-import org.horizon.sdk.library.java.message.engine.server.mqtt.model.property.MqttServerSslProperty;
-import org.horizon.sdk.library.java.tool.lang.booleans.Booleans;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelOption;
@@ -17,6 +10,13 @@ import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
+import org.horizon.sdk.library.java.message.engine.contract.model.enums.MessageEngineType;
+import org.horizon.sdk.library.java.message.engine.server.mqtt.context.MqttServerContext;
+import org.horizon.sdk.library.java.message.engine.server.mqtt.model.property.MqttServerCommonProperty;
+import org.horizon.sdk.library.java.message.engine.server.mqtt.model.property.MqttServerNonSslProperty;
+import org.horizon.sdk.library.java.message.engine.server.mqtt.model.property.MqttServerSslProperty;
+import org.horizon.sdk.library.java.tool.lang.booleans.Booleans;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

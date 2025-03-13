@@ -1,16 +1,16 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.chain;
 
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
-import org.horizon.sdk.library.java.contract.model.throwable.UnsupportedException;
-import org.horizon.sdk.library.java.tool.lang.convert.Converts;
-import org.horizon.sdk.library.java.tool.lang.functional.If;
-import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.mybatisflex.core.query.QueryColumn;
 import com.mybatisflex.core.query.QueryCondition;
 import com.mybatisflex.core.query.QueryTable;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.table.TableDef;
+import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
+import org.horizon.sdk.library.java.contract.model.throwable.UnsupportedException;
+import org.horizon.sdk.library.java.tool.lang.convert.Converts;
+import org.horizon.sdk.library.java.tool.lang.functional.If;
+import org.horizon.sdk.library.java.tool.lang.object.Nil;
 
 import java.io.Serial;
 import java.util.Collection;
