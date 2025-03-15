@@ -62,10 +62,12 @@ object GradleModule {
 
     const val ORM_CONTRACT = ":$ROOT_PROJECT_NAME-orm-contract"
     const val ORM_CONTRACT_MYBATIS_BASE = ":$ROOT_PROJECT_NAME-orm-contract-mybatis-base"
+    const val ORM_CONTRACT_MYBATIS_BASE_MYSQL = ":$ROOT_PROJECT_NAME-orm-contract-mybatis-base-mysql"
     const val ORM_CONTRACT_MYBATIS_BASE_POSTGIS = ":$ROOT_PROJECT_NAME-orm-contract-mybatis-base-postgis"
     const val ORM_CONTRACT_MYBATIS_BASE_POSTGRESQL = ":$ROOT_PROJECT_NAME-orm-contract-mybatis-base-postgresql"
     const val ORM_CONTRACT_MYBATIS_FLEX = ":$ROOT_PROJECT_NAME-orm-contract-mybatis-flex"
     const val ORM_MYBATIS_FLEX_BASE = ":$ROOT_PROJECT_NAME-orm-mybatis-flex-base"
+    const val ORM_MYBATIS_FLEX_MYSQL = ":$ROOT_PROJECT_NAME-orm-mybatis-flex-mysql"
     const val ORM_MYBATIS_FLEX_POSTGIS = ":$ROOT_PROJECT_NAME-orm-mybatis-flex-postgis"
     const val ORM_MYBATIS_FLEX_POSTGRESQL = ":$ROOT_PROJECT_NAME-orm-mybatis-flex-postgresql"
     const val ORM_MYBATIS_FLEX_TDENGINE = ":$ROOT_PROJECT_NAME-orm-mybatis-flex-tdengine"
