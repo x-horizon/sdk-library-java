@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * the jackson serializer to convert {@link List}<{@link Long}> to {@link List}<{@link String}>
+ * the jackson serializer to convert {@code List<Long>} to {@code List<String>}
  *
- * @author xiongjing
+ * @author wjm
  * @since 2023-03-14 17:57
  */
 public class JacksonListLongToListStringSerializer extends JsonSerializer<List<Long>> {

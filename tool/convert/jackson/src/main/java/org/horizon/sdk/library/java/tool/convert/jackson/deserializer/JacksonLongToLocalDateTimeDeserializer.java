@@ -6,7 +6,7 @@ import org.horizon.sdk.library.java.tool.lang.time.Times;
 import java.time.LocalDateTime;
 
 /**
- * the jackson deserializer to convert {@link Long} to {@link LocalDateTime}
+ * the jackson deserializer to convert {@code Long} to {@code LocalDateTime}
  *
  * @author wjm
  * @since 2022-10-28 11:18

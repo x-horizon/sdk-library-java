@@ -1,65 +1,65 @@
 package org.horizon.sdk.library.java.orm.contract.mybatis.postgresql.handler;
 
 /**
- * <pre>
- * the postgresql jdbc jsonb data type and java list enum string value mapping relation type handler.
+ * <p>the postgresql jdbc jsonb data type and java list enum string value mapping relation type handler.</p>
  *
- * 1. the postgresql sql contain jsonb like array [] as following:
- * {@code
- *     CREATE TABLE example
- *     (
- *         id    BIGINT                     NOT NULL,
- *         types JSONB  DEFAULT '[]'::JSONB NOT NULL, -- the value like ["a", "b", "c"]
- *         PRIMARY KEY (id)
- *     );
- * }
+ * <p>typical usage scenario:</p>
+ * <ol>
+ *  <li><p>postgresql table definition:</p>
+ *  <pre>{@code
+ *  CREATE TABLE example (
+ *      id    BIGINT              NOT NULL,
+ *      types JSONB DEFAULT '[]'  NOT NULL,  -- value format: ["a", "b", "c"]
+ *      PRIMARY KEY (id)
+ *  );
+ *  }</pre></li>
  *
- * 2. the java object as following:
- * {@code
- *     @Data
- *     // need to replace this annotation from the specified orm framework
- *     @OrmFrameworkTableMarkedDemo(tableName = "example")
- *     public class ExamplePO implements Serializable {
+ *  <li><p>java entity mapping:</p>
+ *  <pre>{@code
+ *  @Data
+ *  @OrmFrameworkTableMarkedDemo(tableName = "example")
+ *  public class ExamplePO implements Serializable {
+ *      @Serial
+ *      private static final long serialVersionUID = -7680901283684311918L;
  *
- *         @Serial private static final long serialVersionUID = -7680901283684311918L;
+ *      @OrmFrameworkIdMarkedDemo
+ *      @OrmFrameworkColumnMarkedDemo(columnName = "id")
+ *      private Long id;
  *
- *         // need to replace this annotation from the specified orm framework
- *         @OrmFrameworkIdMarkedDemo
- *         @OrmFrameworkColumnMarkedDemo(columnName = "id")
- *         private Long id;
+ *      @OrmFrameworkColumnMarkedDemo(
+ *          columnName = "types",
+ *          typeHandler = JdbcJsonbMappingJavaListEnumStringTypeHandler.class
+ *      )
+ *      private List<TypeEnum> types;
+ *  }
+ *  }</pre></li>
  *
- *         // need to replace this annotation from the specified orm framework
- *         // add the type handler
- *         @OrmFrameworkColumnMarkedDemo(columnName = "types", typeHandler = JdbcJsonbMappingJavaListEnumStringTypeHandler.class)
- *         private List<TypeEnum> types;
+ *  <li><p>enum definition:</p>
+ *  <pre>{@code
+ *  public enum TypeEnum {
+ *      A("a"),
+ *      B("b"),
+ *      C("c");
  *
- *     }
- * }
+ *      @EnumValue
+ *      private final String code;
  *
- * 3. the enum mapping postgresql jdbc jsonb as following:
- * {@code
- *     @Getter
- *     @AllArgsConstructor
- *     public class TypeEnum {
+ *      TypeEnum(String code) {
+ *          this.code = code;
+ *      }
+ *  }
+ *  }</pre></li>
+ * </ol>
  *
- *         A("a"),
- *         B("b"),
- *         C("c"),
+ * <p><strong>core configuration:</strong></p>
+ * <pre>{@code
+ * @OrmFrameworkColumnMarkedDemo(
+ *     columnName = "types",
+ *     typeHandler = JdbcJsonbMappingJavaListEnumStringTypeHandler.class
+ * )
+ * }</pre>
  *
- *         ;
- *
- *         @EnumValue
- *         private final int code;
- *
- *     }
- * }
- * </pre>
- *
- * <h2>note: the core of the postgresql jdbc jsonb data type and java list enum string value mapping relation is:</h2>
- * <strong><em>@OrmFrameworkColumnMarkedDemo(columnName = "types", typeHandler = JdbcJsonbMappingJavaListEnumStringTypeHandler.class)</em></strong>
- * <p>
- *
- * @param <E> the enum data type
+ * @param <E> the enum type that maps to jsonb array values
  * @author wjm
  * @since 2023-11-09 18:45
  */

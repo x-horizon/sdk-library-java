@@ -17,33 +17,30 @@ import java.util.List;
 public abstract class AbstractJdbcJsonbMappingJavaListEnumTypeHandler<E extends Enum<E>> extends AbstractJdbcJsonbMappingJavaListObjectTypeHandler<E> {
 
     /**
-     * <pre>
-     * select the enum field type to persist.
+     * <p>select the enum field type to persist.</p>
      *
-     * for example, there is an enum as following:
+     * <p>example enum structure:</p>
+     * <pre>{@code
+     * @Getter
+     * @AllArgsConstructor
+     * public enum GenderType {
+     *     MAN(1, "man", "Man"),
+     *     WOMAN(2, "woman", "Woman"),
+     *     UNKNOWN(3, "unknown", "Unknown");
      *
-     * {@code
-     *    @Getter
-     *    @AllArgsConstructor
-     *    public enum GenderType {
-     *
-     *        MAN(1, "man", "Man"),
-     *        WOMAN(2, "woman", "Woman"),
-     *        UNKNOWN(3, "unknown", "Unknown"),
-     *
-     *        ;
-     *
-     *        private final int code;
-     *        private final String description1;
-     *        private final String description2;
-     *
-     *    }
+     *     private final int code;
+     *     private final String description1;
+     *     private final String description2;
      * }
-     * <li>if this function return Integer.class, the data in jdbc jsonb is [1, 2, 3].</li>
-     * <li>if this function return String.class, the data in jdbc jsonb is ["man", "woman", "unknown"].</li>
-     * </pre>
+     * }</pre>
      *
-     * @return the enum field type to persist
+     * <p>persistence behavior:</p>
+     * <ul>
+     *     <li>when returning {@code Integer.class} -> JDBC JSONB stores [1, 2, 3]</li>
+     *     <li>when returning {@code String.class} -> JDBC JSONB stores ["man", "woman", "unknown"]</li>
+     * </ul>
+     *
+     * @return the field type used for enum persistence
      */
     protected abstract Class<?> selectEnumFieldType();
 

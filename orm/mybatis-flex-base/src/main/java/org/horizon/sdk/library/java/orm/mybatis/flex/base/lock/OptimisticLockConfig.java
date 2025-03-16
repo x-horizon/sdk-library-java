@@ -17,19 +17,16 @@ import java.lang.annotation.Target;
 public @interface OptimisticLockConfig {
 
     /**
-     * <pre>
-     * the optimistic lock column name.
-     * it can replace {@link Column#version()} marked on the field, like:
+     * <p>the optimistic lock column name.</p>
      *
-     * {@code
-     *     @Column(value = "version", version = true)
-     *     private Long version;
-     * }
+     * <p>can replace {@link Column#version()} field annotation. example:</p>
+     * <pre>{@code
+     * @Column(value = "version", version = true)
+     * private Long version;
+     * }</pre>
+     * <p>this configuration is equivalent to setting this field value to "version".</p>
      *
-     * above code is equivalent to set this field value to "version".
-     * </pre>
-     *
-     * @return the optimistic lock column name.
+     * @return the optimistic lock column name
      */
     String columnName() default "";
 

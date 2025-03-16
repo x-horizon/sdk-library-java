@@ -15,7 +15,7 @@ import org.horizon.sdk.library.java.tool.lang.object.Types;
 import java.util.List;
 
 /**
- * the jackson deserializer to convert {@link List}&lt;the enum internal int value&gt; to {@link List}<{@link Enum}<?>>, see {@link Converts#toEnumByValue(Object, Class)}
+ * the jackson deserializer to convert {@code List<the enum internal int value type>} to {@code List<Enum<?>>}, see {@link Converts#toEnumByValue(Object, Class)}
  *
  * @param <E> the data type after deserialize
  * @author wjm

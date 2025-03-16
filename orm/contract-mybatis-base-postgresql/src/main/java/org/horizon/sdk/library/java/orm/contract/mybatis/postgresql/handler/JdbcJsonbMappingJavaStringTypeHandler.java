@@ -3,45 +3,58 @@ package org.horizon.sdk.library.java.orm.contract.mybatis.postgresql.handler;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 
 /**
- * <pre>
- * the postgresql jdbc jsonb data type and java string mapping relation type handler.
+ * <p>the postgresql jdbc jsonb data type and Java string mapping relation type handler.</p>
  *
- * 1. the postgresql sql contain jsonb like map {} as following:
- * {@code
- *     CREATE TABLE example
- *     (
- *         id          BIGINT                     NOT NULL,
- *         detail_info JSONB  DEFAULT '{}'::JSONB NOT NULL, -- the value like {"name": "myName", "age": 18}, also using: detail_info JSONB  DEFAULT '[]'::JSONB NOT NULL, -- the value like [{"name": "myName1", "age": 18}, {"name": "myName2", "age": 18}]
- *         PRIMARY KEY (id)
- *     );
- * }
+ * <p>typical usage scenarios:</p>
+ * <ol>
+ *  <li><p>postgresql table definition:</p>
+ *  <pre>{@code
+ *  CREATE TABLE example (
+ *      id          BIGINT              NOT NULL,
+ *      detail_info JSONB DEFAULT '{}'  NOT NULL,  -- value example: {"name": "myName", "age": 18}
+ *      PRIMARY KEY (id)
+ *  );
+ *  }</pre>
+ *  <p>or:</p>
+ *  <pre>{@code
+ *  detail_info JSONB DEFAULT '[]' NOT NULL  -- value example: [{"name":"myName1"},{"name":"myName2"}]
+ *  }</pre></li>
  *
- * 2. the java object as following:
- * {@code
- *     @Data
- *     // need to replace this annotation from the specified orm framework
- *     @OrmFrameworkTableMarkedDemo(tableName = "example")
- *     public class ExamplePO implements Serializable {
+ *  <li><p>Java entity mapping:</p>
+ *  <pre>{@code
+ *  @Data
+ *  @OrmFrameworkTableMarkedDemo(tableName = "example")
+ *  public class ExamplePO implements Serializable {
+ *      @Serial
+ *      private static final long serialVersionUID = -7680901283684311918L;
  *
- *         @Serial private static final long serialVersionUID = -7680901283684311918L;
+ *      @OrmFrameworkIdMarkedDemo
+ *      @OrmFrameworkColumnMarkedDemo(columnName = "id")
+ *      private Long id;
  *
- *         // need to replace this annotation from the specified orm framework
- *         @OrmFrameworkIdMarkedDemo
- *         @OrmFrameworkColumnMarkedDemo(columnName = "id")
- *         private Long id;
+ *      @OrmFrameworkColumnMarkedDemo(
+ *          columnName = "detail_info",
+ *          typeHandler = JdbcJsonbMappingJavaStringTypeHandler.class
+ *      )
+ *      private String detailInfo;
+ *  }
+ *  }</pre></li>
+ * </ol>
  *
- *         // need to replace this annotation from the specified orm framework
- *         // add the type handler
- *         @OrmFrameworkColumnMarkedDemo(columnName = "detail_info", typeHandler = JdbcJsonbMappingJavaStringTypeHandler.class)
- *         private String detailInfo;
+ * <p><strong>core configuration:</strong></p>
+ * <pre>{@code
+ * @OrmFrameworkColumnMarkedDemo(
+ *     columnName = "detail_info",
+ *     typeHandler = JdbcJsonbMappingJavaStringTypeHandler.class
+ * )
+ * }</pre>
  *
- *     }
- * }
- * </pre>
- *
- * <h2>note: the core of the postgresql jdbc jsonb data type and java string mapping relation is:</h2>
- * <strong><em>@OrmFrameworkColumnMarkedDemo(columnName = "detail_info", typeHandler = JdbcJsonbMappingJavaStringTypeHandler.class)</em></strong>
- * <p>
+ * <p><strong>implementation requirements:</strong></p>
+ * <ul>
+ *  <li>Java string field must contain valid JSON format data</li>
+ *  <li>Supports both JSON object ({@code {}}) and array ({@code []}) storage formats</li>
+ *  <li>Automatic conversion between JSONB and String types during persistence</li>
+ * </ul>
  *
  * @author wjm
  * @since 2023-11-10 14:35

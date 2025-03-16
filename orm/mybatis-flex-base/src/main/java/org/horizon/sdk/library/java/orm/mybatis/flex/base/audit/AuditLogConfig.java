@@ -31,37 +31,31 @@ public @interface AuditLogConfig {
     String enableFrom() default "";
 
     /**
-     * provide a class implement by {@link AuditLogConstructor} to expand extra audit log model.
+     * <p>provides a class implementing {@link AuditLogConstructor} to extend audit log models.</p>
      *
-     * <p>the default info in audit log as following:
+     * <p>default audit log contains:</p>
      * <ul>
      *   <li>{@link AuditMessage#getQuery()}</li>
      *   <li>{@link AuditMessage#getQueryParams()}</li>
      *   <li>{@link AuditMessage#getQueryCount()}</li>
      *   <li>{@link AuditMessage#getQueryTime()}</li>
-     *   <li>{@link AuditMessage#getQuery()}</li>
      *   <li>{@link AuditMessage#getElapsedTime()}</li>
      * </ul>
      *
-     * <pre>
-     * you can build a {@link AuditLogDTO} by implement {@link AuditLogConstructor} to expand more audit log, example code:
-     *
-     * {@code
-     *   public class TestAuditLogConstructor implements AuditLogConstructor {
-     *
-     *       @Override
-     *       public AuditLogDTO build() {
-     *           return AuditLogDTO.builder()
-     *                   .platformName("myPlatform")
-     *                   .build();
-     *       }
-     *
-     *   }
+     * <p>you can build a {@link AuditLogDTO} by implement {@link AuditLogConstructor} to expand more audit log, example code:</p>
+     * <pre>{@code
+     * public class TestAuditLogConstructor implements AuditLogConstructor {
+     *     @Override
+     *     public AuditLogDTO build() {
+     *         return AuditLogDTO.builder()
+     *             .platformName("myPlatform")
+     *             .build();
+     *     }
      * }
-     * </pre>
+     * }</pre>
      *
-     * @return the class implement by {@link AuditLogConstructor} to expand extra audit log model
-     * @apiNote the audit log model can be used to {@link #printer()}, {@link #telemeter()}.
+     * @return implementation class for audit log model extension
+     * @apiNote extended models can be consumed by {@link #printer()} and {@link #telemeter()}
      * @see AuditLogConstructor#create()
      * @see SimpleAuditLogConstructor
      * @see AuditMessage
@@ -70,23 +64,22 @@ public @interface AuditLogConfig {
     Class<? extends AuditLogConstructor> constructor() default SimpleAuditLogConstructor.class;
 
     /**
-     * <pre>
-     * provide a class implement by {@link AuditLogPrinter} to print {@link AuditMessage audit log}, example code:
+     * <p>provides a class implementing {@link AuditLogPrinter} to handle audit log output.</p>
      *
-     * {@code
-     *   @Slf4j
-     *   public class TestAuditLogPrinter implements AuditLogPrinter {
-     *
-     *       @Override
-     *       public void print(AuditMessage auditMessage) {
-     *           log.debug("exec sql took {} ms >>> {}", auditMessage.getElapsedTime(), auditMessage.getFullSql());
-     *       }
-     *
-     *   }
+     * <p>implementation example:</p>
+     * <pre>{@code
+     * @Slf4j
+     * public class CustomAuditPrinter implements AuditLogPrinter {
+     *     @Override
+     *     public void print(AuditMessage auditMessage) {
+     *         log.debug("executed SQL in {} ms >>> {}",
+     *             auditMessage.getElapsedTime(),
+     *             auditMessage.getFullSql());
+     *     }
      * }
-     * </pre>
+     * }</pre>
      *
-     * @return the class implement by {@link AuditLogPrinter} to print {@link AuditMessage audit log}
+     * @return audit log printer implementation class
      * @see AuditLogPrinter
      * @see SimpleAuditLogPrinter
      * @see AuditLogConstructor#create()

@@ -7,7 +7,7 @@ import org.horizon.sdk.library.java.tool.lang.time.Times;
 import java.time.LocalDateTime;
 
 /**
- * the jackson deserializer to convert RFC3339 {@link String} like "2006-01-02T15:04:05Z07:00" to {@link LocalDateTime}
+ * the jackson deserializer to convert RFC3339 {@code String} like "2006-01-02T15:04:05Z07:00" to {@code LocalDateTime}
  *
  * @author wjm
  * @since 2023-03-28 10:00

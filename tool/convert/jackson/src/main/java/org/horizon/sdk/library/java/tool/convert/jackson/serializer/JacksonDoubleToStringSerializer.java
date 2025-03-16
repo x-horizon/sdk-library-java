@@ -10,7 +10,7 @@ import lombok.SneakyThrows;
 import org.horizon.sdk.library.java.tool.lang.convert.Converts;
 
 /**
- * the jackson serializer to convert {@link Double} to {@link String}
+ * the jackson serializer to convert {@code Double} to {@code String}
  *
  * @author wjm
  * @since 2024-07-23 19:46

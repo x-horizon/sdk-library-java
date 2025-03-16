@@ -13,7 +13,7 @@ import org.horizon.sdk.library.java.tool.lang.time.Times;
 import java.time.LocalDateTime;
 
 /**
- * the jackson serializer to convert {@link LocalDateTime} to ISO {@link String} like "2011-12-03T10:15:30"
+ * the jackson serializer to convert {@code LocalDateTime} to ISO {@code String} like "2011-12-03T10:15:30"
  *
  * @author wjm
  * @since 2022-11-14 21:16

@@ -6,7 +6,7 @@ import org.horizon.sdk.library.java.tool.lang.time.Times;
 import java.time.LocalTime;
 
 /**
- * the jackson deserializer to convert {@link String} to {@link LocalTime}
+ * the jackson deserializer to convert {@code String} to {@code LocalTime}
  *
  * @author wjm
  * @since 2023-06-21 12:01

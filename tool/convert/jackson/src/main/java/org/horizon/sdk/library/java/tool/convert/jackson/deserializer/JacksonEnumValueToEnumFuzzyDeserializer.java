@@ -17,7 +17,7 @@ import org.horizon.sdk.library.java.tool.lang.object.Objects;
 import java.lang.reflect.Field;
 
 /**
- * the jackson deserializer to convert the enum internal int value to {@link Enum}<?>, it suitable for scenarios where the json field name is different from the class field name, see {@link Converts#toEnumByValue(Object, Class)}
+ * the jackson deserializer to convert the enum internal int value to {@code Enum<?>}, it suitable for scenarios where the json field name is different from the class field name, see {@link Converts#toEnumByValue(Object, Class)}
  *
  * @param <E> the data type after deserialize
  * @author wjm

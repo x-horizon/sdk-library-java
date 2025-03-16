@@ -15,52 +15,48 @@ import java.lang.annotation.Target;
 public @interface ListenerConfig {
 
     /**
-     * <pre>
-     * the action before data insert.
+     * <p>the action before data insert.</p>
      *
-     * example code:
-     * {@code
-     *     public class TestInsertListener implements BaseInsertListener<TestPO> {
+     * <p>example code:</p>
+     * <pre>{@code
+     * public class TestInsertListener implements BaseInsertListener<TestPO> {
      *
-     *         @Override
-     *         public Class<TestPO> getEntityType() {
-     *             return TestPO.class;
-     *         }
-     *
-     *         @Override
-     *         public void action(TestPO entity) {
-     *             entity.setCreateTime(LocalDateTime.now()).setCreatorId(1L);
-     *         }
-     *
+     *     @Override
+     *     public Class<TestPO> getEntityType() {
+     *         return TestPO.class;
      *     }
+     *
+     *     @Override
+     *     public void action(TestPO entity) {
+     *         entity.setCreateTime(LocalDateTime.now()).setCreatorId(1L);
+     *     }
+     *
      * }
-     * </pre>
+     * }</pre>
      *
      * @return the action before data insert
      */
     Class<? extends BaseInsertListener> whenInsert() default UnsupportedInsertListener.class;
 
     /**
-     * <pre>
-     * the action before data update.
+     * <p>the action before data update.</p>
      *
-     * example code:
-     * {@code
-     *     public class TestUpdateListener implements BaseUpdateListener<TestPO> {
+     * <p>example code:</p>
+     * <pre>{@code
+     * public class TestUpdateListener implements BaseUpdateListener<TestPO> {
      *
-     *         @Override
-     *         public Class<TestPO> getEntityType() {
-     *             return TestPO.class;
-     *         }
-     *
-     *         @Override
-     *         public void action(TestPO entity) {
-     *             entity.setUpdateTime(LocalDateTime.now()).setUpdaterId(1L);
-     *         }
-     *
+     *     @Override
+     *     public Class<TestPO> getEntityType() {
+     *         return TestPO.class;
      *     }
+     *
+     *     @Override
+     *     public void action(TestPO entity) {
+     *         entity.setUpdateTime(LocalDateTime.now()).setUpdaterId(1L);
+     *     }
+     *
      * }
-     * </pre>
+     * }</pre>
      *
      * @return the action before data update
      */

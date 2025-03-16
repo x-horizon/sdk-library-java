@@ -67,19 +67,28 @@ public class Files {
     }
 
     /**
-     * <pre>
-     * get the file extension type.
-     * example:
-     *    1. the input is null or blank, return empty string.
-     *    2. the input has no ".", return empty string.
-     *    3. the input first char is ".", return the file name.
-     *    4. return remain char after the last ".".
-     * </pre>
+     * <p>get the file extension type based on the following rules:</p>
      *
-     * @param fileName the file name
-     * @return the file extension type
+     * <ol>
+     *  <li>if input is {@code null} or blank → returns empty string</li>
+     *  <li>if input contains no {@code "."} → returns empty string</li>
+     *  <li>if input starts with {@code "."} → returns entire filename</li>
+     *  <li>otherwise → returns substring after last {@code "."}</li>
+     * </ol>
+     *
+     * <p>example results:</p>
+     * <pre>{@code
+     * getFileExtension(null)       → ""
+     * getFileExtension("")         → ""
+     * getFileExtension("file")     → ""
+     * getFileExtension(".gitignore") → ".gitignore"
+     * getFileExtension("file.txt") → "txt"
+     * getFileExtension("file.tar.gz") → "gz"
+     * }</pre>
+     *
+     * @param fileName the file name to analyze (may contain path information)
+     * @return the file extension in lowercase, or empty string if no valid extension
      */
-
     public static String getExtension(String fileName) {
         return com.google.common.io.Files.getFileExtension(fileName);
     }

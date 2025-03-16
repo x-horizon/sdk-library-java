@@ -101,27 +101,21 @@ public class Enums {
     }
 
     /**
-     * <pre>
-     * get all enum instances.
+     * <p>get all enum instances.</p>
      *
-     * example code:
-     *     {@code
-     *        public enum GenderType {
+     * <p>example code:</p>
+     * <pre>{@code
+     * public enum GenderType {
+     *     MAN,
+     *     WOMAN,
+     *     UNKNOWN;
      *
-     *            MAN,
-     *            WOMAN,
-     *            UNKNOWN,
-     *
-     *            ;
-     *
-     *            public static void main(String[] args) {
-     *                // the output is [MAN, WOMAN, UNKNOWN]
-     *                List<GenderType> genderTypes = Enums.getAllFields(GenderType.class);
-     *            }
-     *
-     *        }
+     *     public static void main(String[] args) {
+     *         // returns [MAN, WOMAN, UNKNOWN]
+     *         List<GenderType> genderTypes = Enums.getAllFields(GenderType.class);
      *     }
-     * </pre>
+     * }
+     * }</pre>
      *
      * @param input the enum class
      * @param <E>   the enum type
@@ -129,123 +123,102 @@ public class Enums {
      */
     public static <E extends Enum<E>> List<E> getAllInstances(Class<E> input) {
         return Action.<List<E>>ifNull(input)
-                .then(() -> Collections.newArrayList())
+                .then(Collections::newArrayList)
                 .otherwise(() -> Collections.ofArrayList(input.getEnumConstants()))
                 .get();
     }
 
     /**
-     * <pre>
-     * get enum field value.
+     * <p>get enum field value.</p>
      *
-     *  note 1. the most usually condition:
+     * <p>usage examples:</p>
+     * <ul>
+     *     <li><b>Typical usage:</b>
+     *         <pre>{@code
+     * @Getter
+     * @AllArgsConstructor
+     * public enum GenderType {
+     *     MAN(1, "man"),
+     *     WOMAN(2, "woman"),
+     *     UNKNOWN(3, "unknown");
      *
-     *     {@code
-     *        @Getter
-     *        @AllArgsConstructor
-     *        public enum GenderType {
+     *     private final int code;
+     *     private final String description;
      *
-     *            MAN(1, "man"),
-     *            WOMAN(2, "woman"),
-     *            UNKNOWN(3, "unknown"),
+     *     public static void main(String[] args) {
+     *         // prints "woman"
+     *         System.out.println(Enums.getValue(GenderType.WOMAN, String.class));
+     *         // prints 2
+     *         System.out.println(Enums.getValue(GenderType.WOMAN, Integer.class));
+     *     }
+     * }
+     *         }</pre>
+     *     </li>
      *
-     *            ;
+     *     <li><b>Multiple fields:</b> returns first matching type
+     *         <pre>{@code
+     * @Getter
+     * @AllArgsConstructor
+     * public enum GenderType {
+     *     MAN(1, "man", "Man"),
+     *     WOMAN(2, "woman", "Woman"),
+     *     UNKNOWN(3, "unknown", "Unknown");
      *
-     *            private final int code;
-     *            private final String description;
+     *     private final int code;
+     *     private final String description1;
+     *     private final String description2;
      *
-     *            public static void main(String[] args) {
-     *                // it will print "woman"
-     *                System.out.println(Enums.getValue(GenderType.WOMAN, String.class));
-     *                // it will print 2
-     *                System.out.println(Enums.getValue(GenderType.WOMAN, Integer.class));
-     *            }
+     *     public static void main(String[] args) {
+     *         // prints "woman" (first String field)
+     *         System.out.println(Enums.getValue(GenderType.WOMAN, String.class));
+     *     }
+     * }
+     *         }</pre>
+     *     </li>
      *
-     *        }
+     *     <li><b>Varargs field:</b> handles array types
+     *         <pre>{@code
+     * @Getter
+     * @AllArgsConstructor
+     * public enum GenderType {
+     *     MAN("man"),
+     *     WOMAN("woman", "Woman", "WOMAN"),
+     *     UNKNOWN("unknown", "Unknown");
+     *
+     *     GenderType(String... names) {
+     *         this.names = names;
      *     }
      *
-     *  note 2. if there are multiple field data type, it will always get the first one:
+     *     private final String[] names;
      *
-     *     {@code
-     *        @Getter
-     *        @AllArgsConstructor
-     *        public enum GenderType {
-     *
-     *            MAN(1, "man", "Man"),
-     *            WOMAN(2, "woman", "Woman"),
-     *            UNKNOWN(3, "unknown", "Unknown"),
-     *
-     *            ;
-     *
-     *            private final int code;
-     *            private final String description1;
-     *            private final String description2;
-     *
-     *            public static void main(String[] args) {
-     *                // it will print "woman"
-     *                System.out.println(Enums.getValue(GenderType.WOMAN, String.class));
-     *                // it will print 2
-     *                System.out.println(Enums.getValue(GenderType.WOMAN, Integer.class));
-     *            }
-     *
-     *        }
+     *     public static void main(String[] args) {
+     *         // prints "woman" (first array element)
+     *         System.out.println(Enums.getValue(GenderType.WOMAN, String.class));
      *     }
+     * }
+     *         }</pre>
+     *     </li>
      *
-     *  note 3. if there are varargs field data type, it will always get the first one:
+     *     <li><b>No fields:</b> returns null
+     *         <pre>{@code
+     * public enum GenderType {
+     *     MAN,
+     *     WOMAN,
+     *     UNKNOWN;
      *
-     *     {@code
-     *        @Getter
-     *        @AllArgsConstructor
-     *        public enum GenderType {
-     *
-     *            MAN("man"),
-     *            WOMAN("woman", "Woman", "WOMAN"),
-     *            UNKNOWN("unknown", "Unknown"),
-     *
-     *            ;
-     *
-     *            TimeUnitType(String... names) {
-     *                this.names = names;
-     *            }
-     *
-     *            private final String[] names;
-     *
-     *            public static void main(String[] args) {
-     *                // it will print "woman"
-     *                System.out.println(Enums.getValue(GenderType.WOMAN, String.class));
-     *                // it will print "unknown"
-     *                System.out.println(Enums.getValue(GenderType.UNKNOWN, Integer.class));
-     *            }
-     *
-     *        }
+     *     public static void main(String[] args) {
+     *         // prints null (no fields)
+     *         System.out.println(Enums.getValue(GenderType.WOMAN, String.class));
      *     }
+     * }
+     *         }</pre>
+     *     </li>
+     * </ul>
      *
-     *  note 4. it will always return null if the enum does not have additional fields.
-     *
-     *     {@code
-     *        public enum GenderType {
-     *
-     *            MAN,
-     *            WOMAN,
-     *            UNKNOWN,
-     *
-     *            ;
-     *
-     *            public static void main(String[] args) {
-     *                // it will print null
-     *                System.out.println(Enums.getValue(GenderType.WOMAN, String.class));
-     *                // it will print null
-     *                System.out.println(Enums.getValue(GenderType.WOMAN, Integer.class));
-     *            }
-     *
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param input                  the enum instance
-     * @param enumFieldDataTypeClass the enum field data type class
-     * @param <T>                    the enum field data type
-     * @return the enum field value
+     * @param input                  the enum instance to inspect
+     * @param enumFieldDataTypeClass target field type to retrieve
+     * @param <T>                    field data type generic
+     * @return the first matching field value, or {@code null} if no fields exist
      */
     public static <T> T getFieldValue(Enum<?> input, Class<T> enumFieldDataTypeClass) {
         if (Nil.isAnyNull(input, enumFieldDataTypeClass)) {
@@ -272,89 +245,74 @@ public class Enums {
     }
 
     /**
-     * <pre>
-     * convert enum collection to string by field data type, using {@link SymbolConstant#COMMA} as separator
+     * <p>convert enum collection to string by field data type, using {@link SymbolConstant#COMMA} as separator.</p>
      *
-     *  note 1. the most usually condition:
+     * <p>usage examples:</p>
+     * <ul>
+     *     <li><b>Typical usage:</b>
+     *         <pre>{@code
+     * @Getter
+     * @AllArgsConstructor
+     * public enum GenderType {
+     *     MAN(1, "man"),
+     *     WOMAN(2, "woman"),
+     *     UNKNOWN(3, "unknown");
      *
-     *     {@code
-     *        @Getter
-     *        @AllArgsConstructor
-     *        public enum GenderType {
+     *     private final int code;
+     *     private final String description;
      *
-     *            MAN(1, "man"),
-     *            WOMAN(2, "woman"),
-     *            UNKNOWN(3, "unknown"),
-     *
-     *            ;
-     *
-     *            private final int code;
-     *            private final String description;
-     *
-     *            public static void main(String[] args) {
-     *                // it will print "man,woman"
-     *                System.out.println(Enums.toString(List.of(GenderType.MAN, GenderType.WOMAN), String.class));
-     *                // it will print "1,2"
-     *                System.out.println(Enums.toString(List.of(GenderType.MAN, GenderType.WOMAN), Integer.class));
-     *            }
-     *
-     *        }
+     *     public static void main(String[] args) {
+     *         // prints "man,woman"
+     *         System.out.println(Enums.toString(List.of(MAN, WOMAN), String.class));
+     *         // prints "1,2"
+     *         System.out.println(Enums.toString(List.of(MAN, WOMAN), Integer.class));
      *     }
+     * }
+     *         }</pre>
+     *     </li>
      *
-     *  note 2. if there are multiple field data type, it will always get the first one:
+     *     <li><b>Multiple fields:</b> selects first matching type
+     *         <pre>{@code
+     * @Getter
+     * @AllArgsConstructor
+     * public enum GenderType {
+     *     MAN(1, "man", "Man"),
+     *     WOMAN(2, "woman", "Woman"),
+     *     UNKNOWN(3, "unknown", "Unknown");
      *
-     *     {@code
-     *        @Getter
-     *        @AllArgsConstructor
-     *        public enum GenderType {
+     *     private final int code;
+     *     private final String description1;
+     *     private final String description2;
      *
-     *            MAN(1, "man", "Man"),
-     *            WOMAN(2, "woman", "Woman"),
-     *            UNKNOWN(3, "unknown", "Unknown"),
-     *
-     *            ;
-     *
-     *            private final int code;
-     *            private final String description1;
-     *            private final String description2;
-     *
-     *            public static void main(String[] args) {
-     *                // it will print "man,woman"
-     *                System.out.println(Enums.toString(List.of(GenderType.MAN, GenderType.WOMAN), String.class));
-     *                // it will print "1,2"
-     *                System.out.println(Enums.toString(List.of(GenderType.MAN, GenderType.WOMAN), Integer.class));
-     *            }
-     *
-     *        }
+     *     public static void main(String[] args) {
+     *         // prints "man,woman" (first String field)
+     *         System.out.println(Enums.toString(List.of(MAN, WOMAN), String.class));
      *     }
+     * }
+     *         }</pre>
+     *     </li>
      *
-     *  note 3. it will always return null if the enum does not have additional fields.
+     *     <li><b>No fields:</b> returns null values
+     *         <pre>{@code
+     * public enum GenderType {
+     *     MAN,
+     *     WOMAN,
+     *     UNKNOWN;
      *
-     *     {@code
-     *        public enum GenderType {
-     *
-     *            MAN,
-     *            WOMAN,
-     *            UNKNOWN,
-     *
-     *            ;
-     *
-     *            public static void main(String[] args) {
-     *                // it will print "null,null"
-     *                System.out.println(Enums.toString(List.of(GenderType.MAN, GenderType.WOMAN), String.class));
-     *                // it will print "null,null"
-     *                System.out.println(Enums.toString(List.of(GenderType.MAN, GenderType.WOMAN), Integer.class));
-     *            }
-     *
-     *        }
+     *     public static void main(String[] args) {
+     *         // prints "null,null"
+     *         System.out.println(Enums.toString(List.of(MAN, WOMAN), String.class));
      *     }
-     * </pre>
+     * }
+     *         }</pre>
+     *     </li>
+     * </ul>
      *
-     * @param inputs                 the enum collection
-     * @param enumFieldDataTypeClass the enum field data type class
-     * @param <U>                    the enum field data type
-     * @param <E>                    the enum type
-     * @return string after convert
+     * @param inputs                 enum collection to convert
+     * @param enumFieldDataTypeClass target field type to extract
+     * @param <U>                    field data type generic
+     * @param <E>                    enum type generic
+     * @return comma-separated string of field values, returns "null" entries when no fields exist
      * @see #getFieldValue(Enum, Class)
      */
     public static <U, E extends Enum<E>> String toStringByFieldDataType(Collection<E> inputs, Class<U> enumFieldDataTypeClass) {

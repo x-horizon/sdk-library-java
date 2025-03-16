@@ -13,7 +13,7 @@ import org.horizon.sdk.library.java.tool.lang.object.Objects;
 import org.horizon.sdk.library.java.tool.lang.object.Types;
 
 /**
- * the jackson deserializer to convert the enum internal int value to {@link Enum}<?>, see {@link Converts#toEnumByValue(Object, Class)}
+ * the jackson deserializer to convert the enum internal int value to {@code Enum<?>}, see {@link Converts#toEnumByValue(Object, Class)}
  *
  * @param <E> the data type after deserialize
  * @author wjm

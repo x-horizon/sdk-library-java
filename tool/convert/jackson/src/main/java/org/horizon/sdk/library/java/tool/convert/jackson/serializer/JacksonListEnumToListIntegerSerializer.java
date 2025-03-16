@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * the jackson serializer to convert {@link List}<{@link Enum}<?>> to {@link List}&lt;the int value in the enum, see {@link Enums#getFieldValue(Enum, Class)}&gt;
+ * the jackson serializer to convert {@code List<Enum<?>>} to {@code List<the int value type in the enum, see {@link Enums#getFieldValue(Enum, Class)}>};
  *
  * @author wjm
  * @since 2022-09-16 16:24

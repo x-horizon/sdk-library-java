@@ -1,88 +1,89 @@
 package org.horizon.sdk.library.java.tool.enums;
 
 import org.horizon.sdk.library.java.tool.enums.autoconfigure.EnableEnumAutowired;
+import org.horizon.sdk.library.java.tool.enums.autoconfigure.EnumAutoConfigurer;
+import org.horizon.sdk.library.java.tool.enums.autoconfigure.EnumAutowiredRegistrar;
 import org.horizon.sdk.library.java.tool.enums.strategy.EnumAutowiredCollector;
 import org.horizon.sdk.library.java.tool.enums.strategy.EnumAutowiredFieldMatchByMostSimilarRule;
 import org.horizon.sdk.library.java.tool.enums.strategy.EnumAutowiredFieldMatchRule;
-import org.horizon.sdk.library.java.tool.lang.text.Strings;
-import org.horizon.sdk.library.java.tool.spring.contract.support.Classes;
-import org.springframework.core.type.filter.TypeFilter;
 
 import java.lang.annotation.*;
-import java.util.Collection;
-import java.util.List;
 
 /**
- * <pre>
- * autowired spring bean to enum field.
+ * <p>autowired spring bean to enum field.</p>
  *
- * example code:
- * {@code
- *      // define an root interface
- *      public interface GenderStrategy {}
+ * <p>example code:</p>
+ * <pre>{@code
+ * // define an root interface
+ * public interface GenderStrategy {}
  *
- *      // a spring ioc subclass bean implement by root interface
- *      @Component
- *      public class GenderManStrategy implements GenderStrategy {}
+ * // a spring ioc subclass bean implement by root interface
+ * @Component
+ * public class GenderManStrategy implements GenderStrategy {}
  *
- *      // a spring ioc subclass bean implement by root interface
- *      @Component
- *      public class GenderWomanStrategy implements GenderStrategy {}
+ * // a spring ioc subclass bean implement by root interface
+ * @Component
+ * public class GenderWomanStrategy implements GenderStrategy {}
  *
- *      // a spring ioc subclass bean implement by root interface
- *      @Component
- *      public class GenderUnknownStrategy implements GenderStrategy {}
+ * // a spring ioc subclass bean implement by root interface
+ * @Component
+ * public class GenderUnknownStrategy implements GenderStrategy {}
  *
- *      // define an enum and set the root interface
- *      @Getter
- *      @EnumAutowired(rootClass = GenderStrategy.class)
- *      public enum GenderType {
+ * // define an enum and set the root interface
+ * @Getter
+ * @EnumAutowired(rootClass = GenderStrategy.class)
+ * public enum GenderType {
+ *     WOMAN(1, "woman"),
+ *     MAN(2, "man"),
+ *     UNKNOWN(3, "unknown");
  *
- *          WOMAN(1, "woman"),
- *          MAN(2, "man"),
- *          UNKNOWN(3, "unknown"),
+ *     GenderType(int code, String description) {
+ *         this.code = code;
+ *         this.description = description;
+ *     }
  *
- *          ;
- *
- *          GenderType(int code, String description) {
- *              this.code = code;
- *              this.description = description;
- *          }
- *
- *          private final int code;
- *          private final String description;
- *          private GenderStrategy strategy;
- *
- *      }
- *
- *      // define the spring boot main function
- *      @EnableEnumAutowired
- *      @SpringBootApplication
- *      public class Test {
- *          public static void main(String[] args) {
- *              SpringApplication.run(Test.class, args);
- *          }
- *      }
+ *     private final int code;
+ *     private final String description;
+ *     private GenderStrategy strategy;
  * }
- * </pre>
  *
- * <pre>
- * when run the main function, it will happen:
- * 1. merge the main function root package path and the package paths define in {@link EnableEnumAutowired#scanPackagePaths()}.
- * 2. scan all package paths to find all enum classes marked with {@link EnumAutowired}, such as [GenderType] marked with @{@link EnumAutowired}(rootClass = GenderStrategy.class).
- * 3. set {@link EnumAutowired#autowiredFiledName()} to [strategy] because it was not explicitly specified and there is only one data type [GenderStrategy] field the same as {@link EnumAutowired#rootClasses()},
- *    if the enum marked with {@link EnumAutowired} has multiple data type fields are same as {@link EnumAutowired#rootClasses()}, you must specified {@link EnumAutowired#autowiredFiledName()},
- *    otherwise will not be able to find the suitable field to autowired.
- * 4. scan the subclass simple names of {@link EnumAutowired#rootClasses()}, such as ["GenderManStrategy", "GenderWomanStrategy", "GenderUnknownStrategy"].
- * 5. compare the enum field name and the subclass simple name to get the most similar to the enum field name, such as enum field name ["WOMAN"] and the subclass simple name ["GenderWomanStrategy"].
- * 6. autowired [GenderWomanStrategy] instance in spring ioc to the enum field [WOMAN].
- * </pre>
+ * // define the spring boot main function
+ * @EnableEnumAutowired
+ * @SpringBootApplication
+ * public class Test {
+ *     public static void main(String[] args) {
+ *         SpringApplication.run(Test.class, args);
+ *     }
+ * }
+ * }</pre>
+ *
+ * <p>when run the main function, it will happen:</p>
+ * <ol>
+ *     <li>merge the main function root package path and the package paths define in
+ *         {@link org.horizon.sdk.library.java.tool.enums.autoconfigure.EnableEnumAutowired#scanPackagePaths()}</li>
+ *     <li>scan all package paths to find enum classes marked with
+ *         {@link EnumAutowired}, such as [GenderType] marked with
+ *         {@code @}{@link EnumAutowired}{@code (rootClass = GenderStrategy.class)}</li>
+ *     <li>set {@link EnumAutowired#autowiredFiledName()} to [strategy] when:
+ *         <ul>
+ *             <li>not explicitly specified</li>
+ *             <li>only one data type GenderStrategy field matches
+ *                 {@link EnumAutowired#rootClasses()}</li>
+ *         </ul>
+ *         (multiple matching fields require explicit specification of autowiredFiledName)</li>
+ *     <li>scan subclass simple names of
+ *         {@link EnumAutowired#rootClasses()},
+ *         e.g. ["GenderManStrategy", "GenderWomanStrategy", "GenderUnknownStrategy"]</li>
+ *     <li>find the most similar name between enum field name and subclass simple name,
+ *         e.g. enum field "WOMAN" matches "GenderWomanStrategy"</li>
+ *     <li>autowired GenderWomanStrategy instance to enum field [WOMAN]</li>
+ * </ol>
  *
  * @author wjm
- * @see Classes#scanByTypeFilter(TypeFilter, String...)
- * @see Strings#getMostSimilar(String, Collection)
+ * @see EnableEnumAutowired
+ * @see EnumAutowiredRegistrar
+ * @see EnumAutoConfigurer#enumAutowiredCollector()
  * @see EnumAutowiredCollector
- * @see EnumAutowiredFieldMatchByMostSimilarRule#getMostSuitableAutowiredClassSimpleName(Enum, List)
  * @since 2021-09-08 16:07
  */
 @Target({ElementType.TYPE})

@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * the jackson deserializer to convert {@link String} like "2023-03-27" to {@link LocalDate}
+ * the jackson deserializer to convert {@code String} like "2023-03-27" to {@code LocalDate}
  *
  * @author wjm
  * @since 2022-07-20 11:37

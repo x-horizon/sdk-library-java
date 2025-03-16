@@ -19,7 +19,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 /**
- * the jackson deserializer to convert {@link List}&lt;the enum internal int value&gt; to {@link List}<{@link Enum}<?>>, it suitable for scenarios where the json field name is different from the class field name, see {@link Converts#toEnumByValue(Object, Class)}
+ * the jackson deserializer to convert {@code List<the enum internal int value type>} to {@code List<Enum<?>>}, it suitable for scenarios where the json field name is different from the class field name, see {@link Converts#toEnumByValue(Object, Class)}
  *
  * @param <E> the data type after deserialize
  * @author wjm

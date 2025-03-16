@@ -57,15 +57,25 @@ public class SnowflakeIds {
     }
 
     /**
-     * <pre>
-     * the jna function to build a worker id.
+     * <p>the JNA function to build a worker ID.</p>
      *
-     *   see the document as following:
-     *     <img width="640" height="577" src="https://github.com/yitter/IdGenerator/blob/master/Tools/AutoRegisterWorkerId/regprocess.jpg" alt="">
-     *     <a href="https://github.com/yitter/IdGenerator/blob/master/Tools/AutoRegisterWorkerId/regprocess.jpg">the worker id generate flow chart.</a>
-     *     <a href="https://github.com/yitter/IdGenerator/blob/master/Tools/AutoRegisterWorkerId/README.md">the worker id generate document.</a>
-     *     <a href="https://github.com/yitter/IdGenerator/tree/master/Go/regworkerid">the worker id generate source code.</a>
-     * </pre>
+     * <p>related resources:</p>
+     * <ul>
+     *  <li><p>workflow diagram:</p>
+     *  <a href="https://github.com/yitter/IdGenerator/blob/master/Tools/AutoRegisterWorkerId/regprocess.jpg">
+     *  worker ID generation process
+     *  </a></li>
+     *
+     *  <li><p>implementation document:</p>
+     *  <a href="https://github.com/yitter/IdGenerator/blob/master/Tools/AutoRegisterWorkerId/README.md">
+     *  worker ID generation documentation
+     *  </a></li>
+     *
+     *  <li><p>source code reference:</p>
+     *  <a href="https://github.com/yitter/IdGenerator/tree/master/Go/regworkerid">
+     *  worker ID generation implementation
+     *  </a></li>
+     * </ul>
      */
     public interface WorkerId extends Library {
 

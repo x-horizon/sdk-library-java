@@ -12,7 +12,7 @@ import org.horizon.sdk.library.java.tool.lang.time.Times;
 import java.time.LocalDate;
 
 /**
- * the jackson serializer to convert {@link LocalDate} to {@link String} like "2023-03-27"
+ * the jackson serializer to convert {@code LocalDate} to {@code String} like "2023-03-27"
  *
  * @author wjm
  * @since 2023-06-21 12:01
