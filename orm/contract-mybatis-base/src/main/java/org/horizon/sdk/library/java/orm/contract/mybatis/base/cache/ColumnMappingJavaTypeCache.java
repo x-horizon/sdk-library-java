@@ -27,13 +27,13 @@ import java.util.stream.Collectors;
  * @author wjm
  * @since 2023-11-07 16:50
  */
+@Getter
 public abstract class ColumnMappingJavaTypeCache {
 
     /**
      * the database column name and java type mapping cache, like: {"detail_info": [org.horizon.sdk.library.java.test.DetailPO]}
      */
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
-    @Getter
     private final Map<String, Set<Class>> cache =
             Classes.scanByBasePackagePath()
                     .stream()
@@ -87,23 +87,28 @@ public abstract class ColumnMappingJavaTypeCache {
     }
 
     /**
-     * <pre>
-     * get the field data type with the orm framework annotation marked column
-     * for example:
+     * <p>get the field data type with the ORM framework annotation marked column.</p>
      *
-     * {@code
-     *     // will return cn.xxx.DetailPO from the field detailPO
-     *     @OrmFrameworkColumnMarkedDemo(typeHandler = ComplexTypeHandlerDemo.class)
-     *     private DetailPO detailPO;
+     * <p>usage examples:</p>
+     * <pre>{@code
+     * // return cn.xxx.DetailPO for detailPO field
+     * @OrmFrameworkColumnMarkedDemo(typeHandler = ComplexTypeHandlerDemo.class)
+     * private DetailPO detailPO;
      *
-     *     // will return cn.xxx.DetailPO from the field detailPOs
-     *     @OrmFrameworkColumnMarkedDemo(typeHandler = ComplexTypeHandlerDemo.class)
-     *     private List<DetailPO> detailPOs;
-     * }
-     * </pre>
+     * // return cn.xxx.DetailPO for detailPOs field (generic type resolution)
+     * @OrmFrameworkColumnMarkedDemo(typeHandler = ComplexTypeHandlerDemo.class)
+     * private List<DetailPO> detailPOs;
+     * }</pre>
      *
-     * @param annotatedField the field with the orm framework annotation marked column
-     * @return the field actual data type
+     * <p>key features:</p>
+     * <ul>
+     *  <li>supports both simple types and generic collection types</li>
+     *  <li>automatically resolves actual type arguments for generic fields</li>
+     *  <li>works with various ORM framework annotations</li>
+     * </ul>
+     *
+     * @param annotatedField the field annotated with ORM framework column marker
+     * @return the resolved actual data type of the field, including generic information
      */
     private Class<?> getTypeHandlerAnnotatedFieldType(Field annotatedField) {
         if (Classes.isAssignable(annotatedField.getType(), Map.class)) {
@@ -116,23 +121,31 @@ public abstract class ColumnMappingJavaTypeCache {
     }
 
     /**
-     * <pre>
-     * get the column name with the orm framework annotation marked column
-     * for example:
+     * <p>get the column name with the ORM framework annotation marked column.</p>
      *
-     * {@code
-     *     // will return "detail_info" from the orm framework annotation field columnName value
-     *     @OrmFrameworkColumnMarkedDemo(columnName = "detail_info", typeHandler = ComplexTypeHandlerDemo.class)
-     *     private DetailPO detailPO;
+     * <p>usage examples:</p>
+     * <pre>{@code
+     * // return "detail_info" (explicit columnName value)
+     * @OrmFrameworkColumnMarkedDemo(
+     *     columnName = "detail_info",
+     *     typeHandler = ComplexTypeHandlerDemo.class
+     * )
+     * private DetailPO detailPO;
      *
-     *     // will return "detail_pos" from the field under line case name because the orm framework annotation field columnName is not specified
-     *     @OrmFrameworkColumnMarkedDemo(typeHandler = ComplexTypeHandlerDemo.class)
-     *     private List<DetailPO> detailPOs;
-     * }
-     * </pre>
+     * // return "detail_pos" (auto-converted camelCase to snake_case)
+     * @OrmFrameworkColumnMarkedDemo(typeHandler = ComplexTypeHandlerDemo.class)
+     * private List<DetailPO> detailPOs;
+     * }</pre>
      *
-     * @param annotatedField the field with the orm framework annotation marked column
-     * @return the column name
+     * <p>key features:</p>
+     * <ul>
+     *  <li>priority use of explicit columnName from annotation</li>
+     *  <li>auto-convert camelCase field names to snake_case when columnName not specified</li>
+     *  <li>support both simple fields and generic collection types</li>
+     * </ul>
+     *
+     * @param annotatedField the field annotated with ORM framework column marker
+     * @return the resolved column name, either explicitly defined or automatically converted
      */
     private String getTypeHandlerAnnotatedFieldColumnName(Field annotatedField) {
         String columnName = Annotations.getAnnotationValue(annotatedField, getTypeHandlerLocatedAnnotation(), String.class);

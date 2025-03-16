@@ -10,7 +10,7 @@ import lombok.SneakyThrows;
 import org.horizon.sdk.library.java.tool.lang.convert.Converts;
 
 /**
- * the jackson serializer to convert {@link Float} to {@link String}
+ * the jackson serializer to convert {@code Float} to {@code String}
  *
  * @author wjm
  * @since 2024-07-23 19:46

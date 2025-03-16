@@ -11,6 +11,8 @@ import java.lang.annotation.*;
  *
  * @author wjm
  * @see EnumAutowired
+ * @see EnumAutowiredRegistrar
+ * @see EnumAutoConfigurer#enumAutowiredCollector()
  * @see EnumAutowiredCollector
  * @since 2021-09-08 16:07
  */

@@ -12,7 +12,7 @@ import org.horizon.sdk.library.java.tool.lang.time.Times;
 import java.time.LocalDateTime;
 
 /**
- * the jackson serializer to convert {@link LocalDateTime} to {@link Long}
+ * the jackson serializer to convert {@code LocalDateTime} to {@code Long}
  *
  * @author wjm
  * @since 2022-10-14 18:16

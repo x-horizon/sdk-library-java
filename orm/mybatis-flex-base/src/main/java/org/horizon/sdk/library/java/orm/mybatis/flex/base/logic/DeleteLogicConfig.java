@@ -19,17 +19,14 @@ import java.lang.annotation.Target;
 public @interface DeleteLogicConfig {
 
     /**
-     * the logic deleted processor when data in database to be deleted, see <a href="https://mybatis-flex.com/zh/core/logic-delete.html#%E9%80%BB%E8%BE%91%E5%88%A0%E9%99%A4">official document</url>.
+     * <p>logic delete processor for database records. see <a href="https://mybatis-flex.com/zh/core/logic-delete.html#%E9%80%BB%E8%BE%91%E5%88%A0%E9%99%A4">official document</a>.</p>
      *
-     * @return the logic deleted processor when data in database to be deleted.
-     * @apiNote only when {@link Column#isLogicDelete()} = true on the field will it take effect, like:
-     * <p>
-     * <pre>
-     * {@code
-     *  @Column(value = "row_is_deleted", isLogicDelete = true)
-     *  private Boolean rowIsDeleted;
-     * }
-     * </pre>
+     * @return logic delete handler implementation
+     * @apiNote only works when {@link Column#isLogicDelete()} is enabled on field. example:
+     * <pre>{@code
+     * @Column(value = "row_is_deleted", isLogicDelete = true)
+     * private Boolean rowIsDeleted;
+     * }</pre>
      */
     Class<? extends LogicDeleteProcessor> processor() default BooleanLogicDeleteProcessor.class;
 

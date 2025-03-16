@@ -10,7 +10,7 @@ import lombok.SneakyThrows;
 import org.horizon.sdk.library.java.tool.lang.enums.Enums;
 
 /**
- * the jackson serializer to convert {@link Enum}<?> to the enum internal long value, see {@link Enums#getFieldValue(Enum, Class)}
+ * the jackson serializer to convert {@code Enum<?>} to the enum internal long value, see {@link Enums#getFieldValue(Enum, Class)}
  *
  * @author wjm
  * @since 2020-12-15 17:02

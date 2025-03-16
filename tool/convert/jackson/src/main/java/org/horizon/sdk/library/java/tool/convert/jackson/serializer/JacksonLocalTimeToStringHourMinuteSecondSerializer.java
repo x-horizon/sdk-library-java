@@ -12,7 +12,7 @@ import org.horizon.sdk.library.java.tool.lang.time.Times;
 import java.time.LocalTime;
 
 /**
- * the jackson serializer to convert {@link LocalTime} to {@link String} like "14:12:11"
+ * the jackson serializer to convert {@code LocalTime} to {@code String} like "14:12:11"
  *
  * @author wjm
  * @since 2023-06-21 12:01

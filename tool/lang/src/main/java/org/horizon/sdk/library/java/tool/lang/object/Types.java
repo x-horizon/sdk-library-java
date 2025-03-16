@@ -157,34 +157,40 @@ public class Types {
     }
 
     /**
-     * <pre>
-     * get the embed generic types
+     * <p>retrieves the embedded generic types of the specified field.</p>
      *
-     * for example：
+     * <p>example analysis for different field types:</p>
+     * <pre>{@code
+     * public class Test {
+     *     private List<String> field1;
+     *     private List<List<?>> field2;
+     *     private List<List<String>> field3;
+     *     private List<? extends List<?>> field4;
+     *     private List<? extends List<? extends List<?>>> field5;
+     *     private String field6;
+     * }
+     * }</pre>
      *
-     *  public class Test {
-     *      private List&lt;String&gt; field1;
-     *      private List&lt;List&lt;?&gt;&gt; field2;
-     *      private List&lt;List&lt;String&gt;&gt; field3;
-     *      private List&lt;? extends List&lt;?&gt;&gt; field4;
-     *      private List&lt;? extends List&lt;? extends List&lt;?&gt;&gt;&gt; field5;
-     *      private String field6;
-     *  }
+     * <p>return value patterns:</p>
+     * <ul>
+     *  <li>{@code Types.getEmbedGenericTypes(Test.class, "field1")} → {@code [class java.lang.String]}</li>
+     *  <li>{@code Types.getEmbedGenericTypes(Test.class, "field2")} → {@code [java.util.List<?>]}</li>
+     *  <li>{@code Types.getEmbedGenericTypes(Test.class, "field3")} → {@code [java.util.List<java.lang.String>]}</li>
+     *  <li>{@code Types.getEmbedGenericTypes(Test.class, "field4")} → {@code [? extends java.util.List<?>]}</li>
+     *  <li>{@code Types.getEmbedGenericTypes(Test.class, "field5")} → {@code [? extends java.util.List<? extends java.util.List<?>>]}</li>
+     *  <li>{@code Types.getEmbedGenericTypes(Test.class, "field6")} → {@code [java.lang.String]}</li>
+     * </ul>
      *
-     *  Types.getEmbedGenericTypes(Test.class, "field1"), the output is: Type[0] {Class@1994}                 class java.lang.String
-     *  Types.getEmbedGenericTypes(Test.class, "field2"), the output is: Type[0] {ParameterizedTypeImpl@1994} java.util.List&lt;?&gt;
-     *  Types.getEmbedGenericTypes(Test.class, "field3"), the output is: Type[0] {ParameterizedTypeImpl@1994} java.util.List&lt;java.lang.String&gt;
-     *  Types.getEmbedGenericTypes(Test.class, "field4"), the output is: Type[0] {WildcardTypeImpl@1994}      ? extends java.util.List&lt;?&gt;
-     *  Types.getEmbedGenericTypes(Test.class, "field5"), the output is: Type[0] {WildcardTypeImpl@1994}      ? extends java.util.List&lt;? extends java.util.List&lt;?&gt;&gt;
-     *  Types.getEmbedGenericTypes(Test.class, "field6"), the output is: Class   {Class@1994}                 class java.lang.String
+     * <p>recommended companion methods:</p>
+     * <ul>
+     *  <li>for simple generic fields → {@link #getEmbedGenericTypeClass(Class, String)}</li>
+     *  <li>for non-generic fields → {@link #getTypeClass(Class, String)}</li>
+     * </ul>
      *
-     *  about field1，you can use {@link #getEmbedGenericTypeClass(Class, String)} to get the generic class
-     *  about field6，you can use {@link #getTypeClass(Class, String)} to get the generic class
-     * </pre>
-     *
-     * @param fieldLocatedClass the class where this field is located
-     * @param fieldName         the field name
-     * @return the embed generic types
+     * @param fieldLocatedClass the declaring class containing the field
+     * @param fieldName         the name of the field to analyze
+     * @return an array of {@link Type} objects representing the generic parameters,
+     * or empty array if no generics exist
      * @see #getTypeClass(Class, String)
      * @see #getEmbedGenericTypeClass(Class, String)
      */
@@ -197,24 +203,32 @@ public class Types {
     }
 
     /**
-     * <pre>
-     * get the generic type of the specified array class.
+     * <p>retrieves the component type of the specified array class.</p>
      *
-     * example code:
-     * {@code
-     *      public class Test {
-     *          public static void main(String[] args) {
-     *              // the output is String.class.
-     *              Types.getArrayGenericType(String[].class);
-     *              // the output is null.
-     *              Types.getArrayGenericType(String.class);
-     *              // the output is null.
-     *              // see {@link #getEmbedGenericTypeClass(Class, String)} to get embed generic type
-     *              Types.getArrayGenericType(List.class);
-     *          }
-     *      }
-     * }
-     * </pre>
+     * <p>usage examples:</p>
+     * <pre>{@code
+     * // String[].class → returns String.class
+     * Class<?> arrayType = Types.getArrayGenericType(String[].class);
+     *
+     * // String.class → returns null
+     * Class<?> nonArrayType = Types.getArrayGenericType(String.class);
+     *
+     * // List.class → returns null (can use {@link #getEmbedGenericTypes(Class, String)} for collections)
+     * Class<?> collectionType = Types.getArrayGenericType(List.class);
+     * }</pre>
+     *
+     * <p>key characteristics:</p>
+     * <ul>
+     *  <li>returns array component type for array classes</li>
+     *  <li>returns {@code null} for non-array classes</li>
+     *  <li>does not resolve generic type parameters for collections</li>
+     * </ul>
+     *
+     * <p>related methods:</p>
+     * <ul>
+     *  <li>for collection generic types → {@link #getEmbedGenericTypeClass(Class, String)}</li>
+     *  <li>for field type resolution → {@link #getTypeClass(Class, String)}</li>
+     * </ul>
      *
      * @param input the specified class
      * @return the generic type of the specified array class
@@ -224,44 +238,44 @@ public class Types {
     }
 
     /**
-     * <pre>
-     * get the generic type of the specified class.
+     * <p>retrieves the resolved generic type of the specified class first type parameter.</p>
      *
-     * example code:
-     * {@code
-     *      public class Test1<String> {
+     * <p>usage examples:</p>
+     * <pre>{@code
+     * class Test1<T> {}  // Generic class declaration
+     * class Test2 implements TestInterface<String> {}  // Interface implementation
+     * class Test3<T extends CharSequence> {}  // Bounded type parameter
+     * class Test4 {}  // Non-generic class
      *
-     *      }
+     * // returns String.class for Test1<String>
+     * Class<?> type1 = Types.getClassGenericType(Test1.class);
      *
-     *      public class Test2 implement TestInterface<String> {
+     * // returns String.class for Test2 implementing TestInterface<String>
+     * Class<?> type2 = Types.getClassGenericType(Test2.class);
      *
-     *      }
+     * // throws ClassCastException for bounded types (Test3<T extends CharSequence>)
+     * Class<?> type3 = Types.getClassGenericType(Test3.class);
      *
-     *      public class Test3<T extends CharSequence> {
+     * // returns null for non-generic class (Test4)
+     * Class<?> type4 = Types.getClassGenericType(Test4.class);
+     * }</pre>
      *
-     *      }
-     *
-     *      public class Test4 {
-     *
-     *      }
-     *
-     *      public class Test {
-     *          public static void main(String[] args) {
-     *              // the output is String.class.
-     *              Types.getClassGenericType(Test1);
-     *              // the output is String.class.
-     *              Types.getClassGenericType(Test2);
-     *              // unsupported embed generic type, will throw {@link ClassCastException}.
-     *              Types.getClassGenericType(Test3);
-     *              // the output is null.
-     *              Types.getClassGenericType(Test4);
-     *          }
-     *      }
-     * }
-     * </pre>
+     * <p>key constraints:</p>
+     * <ul>
+     *  <li>only resolves first type parameter</li>
+     *  <li>requires concrete type binding in class hierarchy</li>
+     *  <li>supports simple type parameters and interface implementations</li>
+     *  <li><em>does not support:</em>
+     *    <ul>
+     *      <li>bounded/wildcard types (e.g., {@code T extends CharSequence})</li>
+     *      <li>nested generic parameters</li>
+     *    </ul>
+     *  </li>
+     * </ul>
      *
      * @param input the specified class
-     * @return the generic type of the specified class
+     * @return the first generic type of the specified class
+     * @throws ClassCastException when encountering unsupported generic declarations
      * @see TypeUtil#getGenerics(Class)
      */
     public static Class<?> getClassGenericType(Class<?> input) {

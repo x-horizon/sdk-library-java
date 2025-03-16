@@ -7,7 +7,7 @@ import org.horizon.sdk.library.java.tool.lang.time.Times;
 import java.time.LocalDateTime;
 
 /**
- * the jackson deserializer to convert {@link String} like "2023-03-27 21:41:07.7697" to {@link LocalDateTime}
+ * the jackson deserializer to convert {@code String} like "2023-03-27 21:41:07.7697" to {@code LocalDateTime}
  *
  * @author wjm
  * @since 2023-03-28 10:00

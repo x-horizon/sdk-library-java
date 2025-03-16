@@ -23,36 +23,36 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 /**
- * Jackson 转换器
- * <pre>
- * 关于 Validator：
- * &#064;Null:                      只能为 null；
- * &#064;NotNull:                   必须不为 null；
- * &#064;NotEmpty:                  必须不为 null 且不为长度不为 0，只能标记在 CharSequence、Collection、Map、Array 上；
- * &#064;NotBlank:                  必须不为 null 且去除空格后长度不为 0，只能标记在 CharSequence 上；
- * &#064;AssertFalse:               必须为 false，只能标记在 boolean 及其包装类上；
- * &#064;AssertTrue:                必须为 true，只能标记在 boolean 及其包装类上；
- * &#064;Positive:                  必须为正数，只能标记在 BigInteger、BigDecimal、byte、short、int、long、float、double 及其包装类上；
- * &#064;Negative:                  必须为负数，只能标记在 BigInteger、BigDecimal、byte、short、int、long、float、double 及其包装类上；
- * &#064;PositiveOrZero:            必须为 0 或正数，只能标记在 BigInteger、BigDecimal、byte、short、int、long、float、double 及其包装类上；
- * &#064;NegativeOrZero:            必须为 0 或负数，只能标记在 BigInteger、BigDecimal、byte、short、int、long、float、double 及其包装类上；
- * &#064;Max(value):                必须为一个不大于指定值的数字，只能标记在 BigInteger、BigDecimal、byte、short、int、long 及其包装类上；
- * &#064;Min(value):                必须为一个不小于指定值的数字，只能标记在 BigInteger、BigDecimal、byte、short、int、long 及其包装类上；
- * &#064;DecimalMax(value):         必须为一个不大于指定值的数字；
- * &#064;DecimalMin(value):         必须为一个不小于指定值的数字；
- * &#064;Size(min, max):            长度必须在指定范围内，只能标记在 CharSequence、Collection、Map、Array 上；
- * &#064;Range(min, max):           必须在指定范围内；
- * &#064;Digits(integer, fraction): 必须为一个小数，且整数部分的位数不能超过 integer，小数部分的位数不能超过 fraction，只能标记在 BigInteger、BigDecimal、CharSequence、byte、short、int、long 及其包装类上；
- * &#064;Past:                      与当前时间比较必须为一个过去的时间，只能标记在 Date、JSR310 规范的 Instant、LocalDateTime、LocalDate、LocalTime、ZonedDateTime 上；
- * &#064;Future:                    与当前时间比较必须为一个未来的时间，只能标记在 Date、JSR310 规范的 Instant、LocalDateTime、LocalDate、LocalTime、ZonedDateTime 上；
- * &#064;PastOrPresent:             与当前时间比较必须为当前时间或一个过去的时间，只能标记在 Date、JSR310 规范的 Instant、LocalDateTime、LocalDate、LocalTime、ZonedDateTime 上；
- * &#064;FutureOrPresent:           与当前时间比较必须为当前时间或一个未来的时间，只能标记在 Date、JSR310 规范的 Instant、LocalDateTime、LocalDate、LocalTime、ZonedDateTime 上；
- * &#064;Pattern(regexp):           必须满足指定的正则规则，只能标记在 CharSequence 上；
- * &#064;Email:                     必须符合邮箱命名格式，只能标记在 CharSequence 上；
- * &#064;Email(regexp):             必须符合指定正则规则的邮箱命名格式，只能标记在 CharSequence 上；
- * &#064;Valid:                     递归验证，用于数组和集合，可以对其元素进行递归验证；
- * &#064;URL(xxx):                  必须为合法 URL，只能标记在 CharSequence 上；
- * </pre>
+ * <p>Jackson converter validation annotations reference.</p>
+ *
+ * <p>validator specifications:</p>
+ * <ul>
+ *     <li>{@code @Null} - must be null</li>
+ *     <li>{@code @NotNull} - must not be null</li>
+ *     <li>{@code @NotEmpty} - not null and not empty (applies to CharSequence, Collection, Map, Array)</li>
+ *     <li>{@code @NotBlank} - not null and trimmed length > 0 (CharSequence only)</li>
+ *     <li>{@code @AssertFalse} - must be false (boolean/Boolean)</li>
+ *     <li>{@code @AssertTrue} - must be true (boolean/Boolean)</li>
+ *     <li>{@code @Positive} - positive number (numeric types and wrappers)</li>
+ *     <li>{@code @Negative} - negative number (numeric types and wrappers)</li>
+ *     <li>{@code @PositiveOrZero} - ≥0 (numeric types and wrappers)</li>
+ *     <li>{@code @NegativeOrZero} - ≤0 (numeric types and wrappers)</li>
+ *     <li>{@code @Max(value)} - ≤ specified value (integral types and wrappers)</li>
+ *     <li>{@code @Min(value)} - ≥ specified value (integral types and wrappers)</li>
+ *     <li>{@code @DecimalMax(value)} - ≤ specified decimal value</li>
+ *     <li>{@code @DecimalMin(value)} - ≥ specified decimal value</li>
+ *     <li>{@code @Size(min, max)} - length in range (CharSequence, Collection, Map, Array)</li>
+ *     <li>{@code @Range(min, max)} - value in numeric range</li>
+ *     <li>{@code @Digits(integer, fraction)} - valid number format (numeric types and CharSequence)</li>
+ *     <li>{@code @Past} - past date (Date/JSR-310 temporal types)</li>
+ *     <li>{@code @Future} - future date (Date/JSR-310 temporal types)</li>
+ *     <li>{@code @PastOrPresent} - past or present date</li>
+ *     <li>{@code @FutureOrPresent} - future or present date</li>
+ *     <li>{@code @Pattern(regexp)} - matches regex (CharSequence only)</li>
+ *     <li>{@code @Email} - valid email format (CharSequence only)</li>
+ *     <li>{@code @Valid} - recursive validation for collection/array elements</li>
+ *     <li>{@code @URL} - valid URL format (CharSequence only)</li>
+ * </ul>
  *
  * @author wjm
  * @since 2021-05-01 14:13

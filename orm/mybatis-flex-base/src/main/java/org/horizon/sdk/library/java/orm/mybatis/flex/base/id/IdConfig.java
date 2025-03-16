@@ -19,43 +19,60 @@ import java.util.UUID;
 public @interface IdConfig {
 
     /**
-     * <pre>
-     * the specified global id generate type:
+     * <p>specifies the global ID generation strategy:</p>
      *
-     * 1. when use {@link IdGenerateType#AUTO_INCREMENT}, make sure the primary key in database has already set the autoincrement action,
-     *    and it is not necessary to set {@link #generator()}, {@link #generateSQL()}.
+     * <ol>
+     *  <li><p>{@link IdGenerateType#AUTO_INCREMENT}:</p>
+     *  <ul>
+     *    <li>requires database primary key to have auto-increment configuration</li>
+     *    <li>do <strong>not</strong> set {@code generator()} or {@code generateSQL()}</li>
+     *  </ul></li>
      *
-     * 2. when use {@link IdGenerateType#UUID}, it will generate the id by {@link UUID#randomUUID()} automatically before insert to database,
-     *    and it is not necessary to set {@link #generator()}, {@link #generateSQL()}.
+     *  <li><p>{@link IdGenerateType#UUID}:</p>
+     *  <ul>
+     *    <li>auto-generates ID using {@link UUID#randomUUID()} before insertion</li>
+     *    <li>do <strong>not</strong> set {@code generator()} or {@code generateSQL()}</li>
+     *  </ul></li>
      *
-     * 3. when use {@link IdGenerateType#SNOWFLAKE}, it will generate the id by {@link SnowflakeIds#get()} automatically before insert to database,
-     *    and it is not necessary to set {@link #generator()}, {@link #generateSQL()},
-     *    you must specified the annotation {@link EnableSnowflakeId} on your class path before using this id generate strategy,
-     *    about the algorithm of snowflake id as following:
-     *    <ul>
-     *      <li>{@link EnableSnowflakeId}</li>
-     *      <li>{@link SnowflakeIds}</li>
-     *      <li><a href="https://github.com/yitter/IdGenerator">the yitter snowflake id generator</a></li>
-     *    </ul>
-     * </pre>
+     *  <li><p>{@link IdGenerateType#SNOWFLAKE}:</p>
+     *  <ul>
+     *    <li>auto-generates ID using {@link SnowflakeIds#get()} before insertion</li>
+     *    <li>requires {@link EnableSnowflakeId} annotation on application classpath</li>
+     *    <li>do <strong>not</strong> set {@code generator()} or {@code generateSQL()}</li>
+     *    <li>implementation based on:
+     *      <ul>
+     *        <li>{@link EnableSnowflakeId} configuration</li>
+     *        <li>{@link SnowflakeIds} generator</li>
+     *        <li><a href="https://github.com/yitter/IdGenerator">yitter snowflake algorithm</a></li>
+     *      </ul>
+     *    </li>
+     *  </ul></li>
      *
-     * <pre>
-     * 4. when use {@link IdGenerateType#CUSTOMER}, you must need to specified a id generator implement {@link IdGenerator},
-     *    then will generate id by {@link IdGenerator#generate(Object, String)} before insert to database,
-     *    and it is not necessary to set {@link #generateSQL()}.
+     *  <li><p>{@link IdGenerateType#CUSTOMER}:</p>
+     *  <ul>
+     *    <li>requires custom {@link IdGenerator} implementation</li>
+     *    <li>generates ID via {@link IdGenerator#generate(Object, String)}</li>
+     *    <li>do <strong>not</strong> set {@code generateSQL()}</li>
+     *  </ul></li>
      *
-     * 5. when use {@link IdGenerateType#SQL}, you must need to specified a sql to generate id,
-     *    then will execute the specified {@link #generateSQL() sql} when insert to database, like "select SEQ_USER_ID.nextval as id from dual",
-     *    and it is not necessary to set {@link #generator()}.
+     *  <li><p>{@link IdGenerateType#SQL}:</p>
+     *  <ul>
+     *    <li>requires SQL statement in {@code generateSQL()}</li>
+     *    <li>example: <pre>{@code select SEQ_USER_ID.nextval as id from dual}</pre></li>
+     *    <li>do <strong>not</strong> set {@code generator()}</li>
+     *  </ul></li>
      *
-     * 6. when use {@link IdGenerateType#UNCONTROLLED}, the orm mybatis flex system will not interfere with the generation of id,
-     *    you can set the id value completely by yourself,
-     *    and it is not necessary to set {@link #generator()}, {@link #generateSQL()}.
-     * </pre>
+     *  <li><p>{@link IdGenerateType#UNCONTROLLED}:</p>
+     *  <ul>
+     *    <li>complete manual ID assignment</li>
+     *    <li>do <strong>not</strong> set {@code generator()} or {@code generateSQL()}</li>
+     *  </ul></li>
+     * </ol>
      *
-     * @return the specified id generate type
+     * @return configured ID generation strategy
      */
-    IdGenerateType generateType() default IdGenerateType.UNCONTROLLED; // TODO wjm 此处实现不够好，与 snowflake id 强绑定，客户端不一定需要用到 snowflake id，目前客户端必须提供正确的 redis 配置，否则项目启动报错
+    // TODO wjm The implementation here is not good enough, and it is strongly bound with snowflake id. The client does not necessarily need snowflake id. At present, the client must provide the correct redis configuration, otherwise the project will start with an error.
+    IdGenerateType generateType() default IdGenerateType.UNCONTROLLED;
 
     /**
      * the specified id generator implement by {@link IdGenerator}, you need to set it when using {@link IdGenerateType#CUSTOMER}.

@@ -6,45 +6,53 @@ import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import java.util.UUID;
 
 /**
- * <pre>
- * the postgresql jdbc uuid and java uuid relation type handler.
+ * <p>the postgresql jdbc uuid and Java {@link UUID} mapping relation type handler.</p>
  *
- * 1. the postgresql sql as following:
- * {@code
- *     CREATE TABLE example
- *     (
- *         id        BIGINT NOT NULL,
- *         family_id UUID, -- the value like "b9d8e022-dd38-42df-90b0-05055447910c"
- *         PRIMARY KEY (id)
- *     );
- * }
+ * <p>typical usage scenario:</p>
+ * <ol>
+ *  <li><p>postgresql table definition:</p>
+ *  <pre>{@code
+ *  CREATE TABLE example (
+ *      id        BIGINT NOT NULL,
+ *      family_id UUID,  -- value format: "b9d8e022-dd38-42df-90b0-05055447910c"
+ *      PRIMARY KEY (id)
+ *  );
+ *  }</pre></li>
  *
- * 2. the java object as following:
- * {@code
- *     @Data
- *     // need to replace this annotation from the specified orm framework
- *     @OrmFrameworkTableMarkedDemo(tableName = "example")
- *     public class ExamplePO implements Serializable {
+ *  <li><p>Java entity mapping:</p>
+ *  <pre>{@code
+ *  @Data
+ *  @OrmFrameworkTableMarkedDemo(tableName = "example")
+ *  public class ExamplePO implements Serializable {
+ *      @Serial
+ *      private static final long serialVersionUID = -7680901283684311918L;
  *
- *         @Serial private static final long serialVersionUID = -7680901283684311918L;
+ *      @OrmFrameworkIdMarkedDemo
+ *      @OrmFrameworkColumnMarkedDemo(columnName = "id")
+ *      private Long id;
  *
- *         // need to replace this annotation from the specified orm framework
- *         @OrmFrameworkIdMarkedDemo
- *         @OrmFrameworkColumnMarkedDemo(columnName = "id")
- *         private Long id;
+ *      @OrmFrameworkColumnMarkedDemo(
+ *          columnName = "family_id",
+ *          typeHandler = JdbcUUIDMappingJavaUUIDTypeHandler.class
+ *      )
+ *      private UUID familyId;
+ *  }
+ *  }</pre></li>
+ * </ol>
  *
- *         // need to replace this annotation from the specified orm framework
- *         // add the type handler
- *         @OrmFrameworkColumnMarkedDemo(columnName = "family_id", typeHandler = JdbcUUIDMappingJavaUUIDTypeHandler.class)
- *         private UUID familyId;
+ * <p><strong>core configuration:</strong></p>
+ * <pre>{@code
+ * @OrmFrameworkColumnMarkedDemo(
+ *     columnName = "family_id",
+ *     typeHandler = JdbcUUIDMappingJavaUUIDTypeHandler.class
+ * )
+ * }</pre>
  *
- *     }
- * }
- * </pre>
- *
- * <h2>note: the core of the postgresql jdbc uuid and java uuid mapping relation is:</h2>
- * <strong><em>@OrmFrameworkColumnMarkedDemo(columnName = "family_id", typeHandler = JdbcUUIDMappingJavaUUIDTypeHandler.class)</em></strong>
- * <p>
+ * <p><strong>data conversion features:</strong></p>
+ * <ul>
+ *  <li>native UUID type conversion without string serialization</li>
+ *  <li>automatic null safety handling</li>
+ * </ul>
  *
  * @author wjm
  * @since 2023-11-11 14:55

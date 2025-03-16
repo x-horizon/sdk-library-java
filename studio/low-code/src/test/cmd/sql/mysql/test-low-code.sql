@@ -13,9 +13,9 @@ CREATE TABLE school
     creator_name VARCHAR(64)  DEFAULT ''                   NOT NULL,
     updater_id   BIGINT       DEFAULT 0                    NOT NULL,
     updater_name VARCHAR(64)  DEFAULT ''                   NOT NULL,
-    create_time  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6) NOT NULL,
-    update_time  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6) NOT NULL,
-    delete_time  TIMESTAMP(6)                              NULL
+    create_time  DATETIME(6)  DEFAULT CURRENT_TIMESTAMP(6) NOT NULL,
+    update_time  DATETIME(6)  DEFAULT CURRENT_TIMESTAMP(6) NOT NULL,
+    delete_time  DATETIME(6)                               NULL
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='学校信息';
 
