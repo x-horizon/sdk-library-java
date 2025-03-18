@@ -3,6 +3,6 @@ library-java:
     configs:
       -
         type: minio
-        server-url: http://192.168.10.91:32501
-        access-key: 8yJgwMswSwMAAgB7Atch
-        secret-key: mQwAmPbUFU6VZct7l7PNL9ZRLOtd8ZCI7uGp2V2V
+        server-url: http://127.0.0.1:10010
+        access-key: MIJ2ve0v2ebWPJXZWqL1
+        secret-key: FkPJQvWbvFBKqghDMKQzhr81vHG8pCX7Jvx9sCbc
