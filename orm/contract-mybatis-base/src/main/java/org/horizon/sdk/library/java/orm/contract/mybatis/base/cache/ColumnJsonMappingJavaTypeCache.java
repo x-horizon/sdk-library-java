@@ -1,8 +1,7 @@
-package org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.cache;
+package org.horizon.sdk.library.java.orm.contract.mybatis.base.cache;
 
 import org.apache.ibatis.type.TypeHandler;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
-import org.horizon.sdk.library.java.orm.contract.mybatis.base.cache.ColumnMappingJavaTypeCache;
 import org.horizon.sdk.library.java.orm.contract.mybatis.base.handler.AbstractJdbcJsonTypeHandler;
 
 /**

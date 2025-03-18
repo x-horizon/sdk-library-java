@@ -1,8 +1,8 @@
-package org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.autoconfigure;
+package org.horizon.sdk.library.java.orm.contract.mybatis.flex.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
-import org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.cache.ColumnJsonMappingJavaTypeCache;
+import org.horizon.sdk.library.java.orm.contract.mybatis.flex.cache.ColumnJsonMappingJavaTypeCache;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @AutoConfiguration
-public class MybatisFlexPostgresqlAutoConfigurer {
+public class MybatisFlexContractAutoConfigurer {
 
     /**
      * register {@link ColumnJsonMappingJavaTypeCache}
