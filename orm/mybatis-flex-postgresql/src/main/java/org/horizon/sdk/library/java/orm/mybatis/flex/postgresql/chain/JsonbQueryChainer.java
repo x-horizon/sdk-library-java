@@ -184,7 +184,7 @@ public class JsonbQueryChainer<P extends PO, PJ extends POJO> extends BaseQueryC
     private <PJ1 extends POJO> QueryCondition getJsonbFunctionExistQueryConditional(JsonbQueryFunctionChainer<PJ1> chainer) {
         return exists(QueryWrapper.create()
                 .from(new RawQueryTable(Strings.format("({})", Strings.removeIfStartWith(chainer.getNativeQueryChain().toSQLIgnoreTable(), MybatisFlexDefaultDML.SELECT_SUFFIX))))
-                .as(GenericTableAlias.JSONB_QUERY_TABLE)
+                .as(GenericTableAlias.JSON_QUERY_TABLE)
                 .select("1")
         );
     }

@@ -6,11 +6,11 @@ import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import java.util.UUID;
 
 /**
- * <p>the postgresql jdbc uuid and Java {@link UUID} mapping relation type handler.</p>
+ * <p>the jdbc uuid and Java {@link UUID} mapping relation type handler.</p>
  *
  * <p>typical usage scenario:</p>
  * <ol>
- *  <li><p>postgresql table definition:</p>
+ *  <li><p>table definition:</p>
  *  <pre>{@code
  *  CREATE TABLE example (
  *      id        BIGINT NOT NULL,
@@ -22,16 +22,16 @@ import java.util.UUID;
  *  <li><p>Java entity mapping:</p>
  *  <pre>{@code
  *  @Data
- *  @OrmFrameworkTableMarkedDemo(tableName = "example")
+ *  @YourOrmTable(tableName = "example")
  *  public class ExamplePO implements Serializable {
  *      @Serial
  *      private static final long serialVersionUID = -7680901283684311918L;
  *
- *      @OrmFrameworkIdMarkedDemo
- *      @OrmFrameworkColumnMarkedDemo(columnName = "id")
+ *      @YourOrmColumnId
+ *      @YourOrmColumn(columnName = "id")
  *      private Long id;
  *
- *      @OrmFrameworkColumnMarkedDemo(
+ *      @YourOrmColumn(
  *          columnName = "family_id",
  *          typeHandler = JdbcUUIDMappingJavaUUIDTypeHandler.class
  *      )
@@ -42,7 +42,7 @@ import java.util.UUID;
  *
  * <p><strong>core configuration:</strong></p>
  * <pre>{@code
- * @OrmFrameworkColumnMarkedDemo(
+ * @YourOrmColumn(
  *     columnName = "family_id",
  *     typeHandler = JdbcUUIDMappingJavaUUIDTypeHandler.class
  * )
@@ -57,10 +57,10 @@ import java.util.UUID;
  * @author wjm
  * @since 2023-11-11 14:55
  */
-public class JdbcUUIDMappingJavaUUIDTypeHandler extends AbstractJdbcComplexTypeHandler<UUID> {
+public class JdbcUUIDMappingJavaUUIDTypeHandler extends AbstractJdbcComplexTypeHandler<UUID, UUID> {
 
     @Override
-    protected Object toJdbcObject(UUID javaObject) {
+    protected UUID toJdbcObject(UUID javaObject) {
         return javaObject;
     }
 

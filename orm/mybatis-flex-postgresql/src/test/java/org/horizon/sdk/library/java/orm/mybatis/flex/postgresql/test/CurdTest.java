@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 @MapperScan("org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.**")
+@EnableAspectJAutoProxy(exposeProxy = true)
 @EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
 @EnableMybatisFlexCustomizer(
         globalIdGenerateConfig = @IdConfig(generateType = IdGenerateType.SNOWFLAKE),
@@ -53,7 +54,6 @@ import java.util.Map;
 )
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@EnableAspectJAutoProxy(exposeProxy = true)
 class CurdTest {
 
     @Autowired private HomeService homeService;

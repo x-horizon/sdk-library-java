@@ -15,7 +15,7 @@ import java.sql.PreparedStatement;
  * @author wjm
  * @since 2023-03-14 15:39
  */
-public class JdbcGeometryMappingJavaGeometryTypeHandler extends AbstractJdbcComplexTypeHandler<Geometry> {
+public class JdbcGeometryMappingJavaGeometryTypeHandler extends AbstractJdbcComplexTypeHandler<Geometry, byte[]> {
 
     @Override
     protected byte[] toJdbcObject(Geometry javaObject) {

@@ -6,11 +6,11 @@ import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import java.util.UUID;
 
 /**
- * <p>the postgresql jdbc string and Java {@link UUID} mapping relation type handler.</p>
+ * <p>the jdbc string and Java {@link UUID} mapping relation type handler.</p>
  *
  * <p>typical usage scenario:</p>
  * <ol>
- *  <li><p>postgresql table definition:</p>
+ *  <li><p>table definition:</p>
  *  <pre>{@code
  *  CREATE TABLE example (
  *      id        BIGINT NOT NULL,
@@ -22,16 +22,16 @@ import java.util.UUID;
  *  <li><p>Java entity mapping:</p>
  *  <pre>{@code
  *  @Data
- *  @OrmFrameworkTableMarkedDemo(tableName = "example")
+ *  @YourOrmTable(tableName = "example")
  *  public class ExamplePO implements Serializable {
  *      @Serial
  *      private static final long serialVersionUID = -7680901283684311918L;
  *
- *      @OrmFrameworkIdMarkedDemo
- *      @OrmFrameworkColumnMarkedDemo(columnName = "id")
+ *      @YourOrmColumnId
+ *      @YourOrmColumn(columnName = "id")
  *      private Long id;
  *
- *      @OrmFrameworkColumnMarkedDemo(
+ *      @YourOrmColumn(
  *          columnName = "family_id",
  *          typeHandler = JdbcCharMappingJavaUUIDTypeHandler.class
  *      )
@@ -42,7 +42,7 @@ import java.util.UUID;
  *
  * <p><strong>core configuration:</strong></p>
  * <pre>{@code
- * @OrmFrameworkColumnMarkedDemo(
+ * @YourOrmColumn(
  *     columnName = "family_id",
  *     typeHandler = JdbcCharMappingJavaUUIDTypeHandler.class
  * )
@@ -50,17 +50,17 @@ import java.util.UUID;
  *
  * <p><strong>data conversion rules:</strong></p>
  * <ul>
- *  <li>UUID → 36-character string (with hyphens) for PostgreSQL CHAR(36)</li>
+ *  <li>UUID → 36-character string (with hyphens) for database column data type CHAR(36)</li>
  *  <li>null values are handled according to JDBC specification</li>
  * </ul>
  *
  * @author wjm
  * @since 2022-07-12 18:42
  */
-public class JdbcCharMappingJavaUUIDTypeHandler extends AbstractJdbcComplexTypeHandler<UUID> {
+public class JdbcCharMappingJavaUUIDTypeHandler extends AbstractJdbcComplexTypeHandler<UUID, String> {
 
     @Override
-    protected Object toJdbcObject(UUID javaObject) {
+    protected String toJdbcObject(UUID javaObject) {
         return javaObject.toString();
     }
 

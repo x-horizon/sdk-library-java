@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class GenericTableAlias {
 
-    public static final String JSONB_QUERY_TABLE = "jsonb_query_table";
+    public static final String JSON_QUERY_TABLE = "json_query_table";
 
 }

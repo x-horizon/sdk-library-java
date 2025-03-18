@@ -23,7 +23,7 @@ import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import static com.mybatisflex.core.query.QueryMethods.selectOne;
 
 /**
- * the postgresql jsonb function.
+ * the postgresql json function.
  *
  * @author wjm
  * @since 2024-04-18 20:34

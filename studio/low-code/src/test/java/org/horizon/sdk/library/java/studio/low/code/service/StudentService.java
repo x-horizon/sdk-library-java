@@ -2,6 +2,7 @@ package org.horizon.sdk.library.java.studio.low.code.service;
 
 import org.horizon.sdk.library.java.contract.model.throwable.DataNotFoundException;
 import org.horizon.sdk.library.java.orm.contract.model.page.PageResult;
+import org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.chain.JsonbQueryFunctionChainer;
 import org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.service.GenericService;
 import org.horizon.sdk.library.java.studio.low.code.model.bo.*;
 import org.horizon.sdk.library.java.studio.low.code.model.enums.StudentHobbyAchievementType;
@@ -57,7 +58,7 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
                 .switchToJsonbQuery()
                 .and(StudentPO::getHobbyBO, StudentHobbyBO::getLevelType).castToSmallint().equalsTo(conditionVO.getHobbyParticipationLevelType().getCode())
                 .and(StudentPO::getHobbyBO, StudentHobbyBO::getBookBO, StudentHobbyBookBO::getName).castToVarchar().likeIfNotBlank(conditionVO.getHobbyBookName())
-                .andExist(jsonbArrayElements(StudentPO::getTeacherIds)
+                .andExist(JsonbQueryFunctionChainer.jsonbArrayElements(StudentPO::getTeacherIds)
                         .addTableSuffix(StudentPO.class)
                         .where(StudentPO::getTeacherIds)
                         .castToBigint()
@@ -75,7 +76,7 @@ public class StudentService extends GenericService<StudentPO, StudentVO, Student
                         .castToVarchar()
                         .likeIfNotBlank(conditionVO.getHobbyToolName())
                 )
-                .andExist(jsonbArrayElements(StudentPO::getCourseBOs)
+                .andExist(JsonbQueryFunctionChainer.jsonbArrayElements(StudentPO::getCourseBOs)
                                 .addTableSuffix(StudentPO.class)
                                 .where(StudentPO::getCourseBOs, StudentCourseBO::getName).castToVarchar().likeIfNotBlank(conditionVO.getCourseName())
                                 .and(StudentPO::getCourseBOs, StudentCourseBO::getBookBO, StudentCourseBookBO::getName).castToVarchar().likeIfNotBlank(conditionVO.getCourseBookName())

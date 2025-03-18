@@ -92,11 +92,11 @@ public abstract class ColumnMappingJavaTypeCache {
      * <p>usage examples:</p>
      * <pre>{@code
      * // return cn.xxx.DetailPO for detailPO field
-     * @OrmFrameworkColumnMarkedDemo(typeHandler = ComplexTypeHandlerDemo.class)
+     * @YourOrmColumn(typeHandler = ComplexTypeHandlerDemo.class)
      * private DetailPO detailPO;
      *
      * // return cn.xxx.DetailPO for detailPOs field (generic type resolution)
-     * @OrmFrameworkColumnMarkedDemo(typeHandler = ComplexTypeHandlerDemo.class)
+     * @YourOrmColumn(typeHandler = ComplexTypeHandlerDemo.class)
      * private List<DetailPO> detailPOs;
      * }</pre>
      *
@@ -126,14 +126,14 @@ public abstract class ColumnMappingJavaTypeCache {
      * <p>usage examples:</p>
      * <pre>{@code
      * // return "detail_info" (explicit columnName value)
-     * @OrmFrameworkColumnMarkedDemo(
+     * @YourOrmColumn(
      *     columnName = "detail_info",
      *     typeHandler = ComplexTypeHandlerDemo.class
      * )
      * private DetailPO detailPO;
      *
      * // return "detail_pos" (auto-converted camelCase to snake_case)
-     * @OrmFrameworkColumnMarkedDemo(typeHandler = ComplexTypeHandlerDemo.class)
+     * @YourOrmColumn(typeHandler = ComplexTypeHandlerDemo.class)
      * private List<DetailPO> detailPOs;
      * }</pre>
      *

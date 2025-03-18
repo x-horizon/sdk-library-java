@@ -5,11 +5,11 @@ import lombok.SneakyThrows;
 import java.util.UUID;
 
 /**
- * <p>the postgresql jdbc uuid and Java string mapping relation type handler.</p>
+ * <p>the jdbc uuid and Java string mapping relation type handler.</p>
  *
  * <p>typical usage scenario:</p>
  * <ol>
- *  <li><p>postgresql table definition:</p>
+ *  <li><p>table definition:</p>
  *  <pre>{@code
  *  CREATE TABLE example (
  *      id        BIGINT NOT NULL,
@@ -21,16 +21,16 @@ import java.util.UUID;
  *  <li><p>Java entity mapping:</p>
  *  <pre>{@code
  *  @Data
- *  @OrmFrameworkTableMarkedDemo(tableName = "example")
+ *  @YourOrmTable(tableName = "example")
  *  public class ExamplePO implements Serializable {
  *      @Serial
  *      private static final long serialVersionUID = -7680901283684311918L;
  *
- *      @OrmFrameworkIdMarkedDemo
- *      @OrmFrameworkColumnMarkedDemo(columnName = "id")
+ *      @YourOrmColumnId
+ *      @YourOrmColumn(columnName = "id")
  *      private Long id;
  *
- *      @OrmFrameworkColumnMarkedDemo(
+ *      @YourOrmColumn(
  *          columnName = "family_id",
  *          typeHandler = JdbcUUIDMappingJavaStringTypeHandler.class
  *      )
@@ -41,7 +41,7 @@ import java.util.UUID;
  *
  * <p><strong>core configuration:</strong></p>
  * <pre>{@code
- * @OrmFrameworkColumnMarkedDemo(
+ * @YourOrmColumn(
  *     columnName = "family_id",
  *     typeHandler = JdbcUUIDMappingJavaStringTypeHandler.class
  * )
@@ -57,10 +57,10 @@ import java.util.UUID;
  * @author wjm
  * @since 2020-12-25 15:36
  */
-public class JdbcUUIDMappingJavaStringTypeHandler extends AbstractJdbcComplexTypeHandler<String> {
+public class JdbcUUIDMappingJavaStringTypeHandler extends AbstractJdbcComplexTypeHandler<String, UUID> {
 
     @Override
-    protected Object toJdbcObject(String javaObject) {
+    protected UUID toJdbcObject(String javaObject) {
         return UUID.fromString(javaObject);
     }
 

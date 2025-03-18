@@ -18,9 +18,9 @@ public class JsonbQueryFunctionCaster<PJ extends POJO> extends QueryCaster<PJ> {
     @Getter(AccessLevel.PROTECTED)
     private final JsonbQueryFunctionChainer<PJ> queryChainer;
 
-    public JsonbQueryFunctionCaster(String sql, SqlConnector sqlConnector, QueryChain<PJ> nativeQueryChain, JsonbQueryFunctionChainer<PJ> jsonbQueryChainer) {
+    public JsonbQueryFunctionCaster(String sql, SqlConnector sqlConnector, QueryChain<PJ> nativeQueryChain, JsonbQueryFunctionChainer<PJ> jsonQueryChainer) {
         super(sql, sqlConnector, nativeQueryChain);
-        this.queryChainer = jsonbQueryChainer;
+        this.queryChainer = jsonQueryChainer;
     }
 
     @Override
