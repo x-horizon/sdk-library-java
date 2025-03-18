@@ -6,12 +6,12 @@ import org.horizon.sdk.library.java.orm.contract.mybatis.base.cache.ColumnMappin
 import org.horizon.sdk.library.java.orm.contract.mybatis.base.handler.AbstractJdbcJsonTypeHandler;
 
 /**
- * the postgresql jdbc jsonb type and java type mapping cache
+ * the postgresql jdbc json type and java type mapping cache.
  *
  * @author wjm
  * @since 2023-11-07 15:57
  */
-public abstract class ColumnJsonbMappingJavaTypeCache extends ColumnMappingJavaTypeCache {
+public abstract class ColumnJsonMappingJavaTypeCache extends ColumnMappingJavaTypeCache {
 
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
     @Override

@@ -18,11 +18,11 @@ import java.util.function.BooleanSupplier;
  */
 public class NormalQueryChainer<P extends PO, PJ extends POJO> extends QueryChainer<P> {
 
-    private final JsonbQueryChainer<P, PJ> jsonbQueryChainer;
+    private final JsonQueryChainer<P, PJ> jsonQueryChainer;
 
     public NormalQueryChainer(QueryChain<P> nativeQueryChainer, String tableName, Class<P> poClass) {
         super(nativeQueryChainer);
-        this.jsonbQueryChainer = new JsonbQueryChainer<>(this, tableName, poClass);
+        this.jsonQueryChainer = new JsonQueryChainer<>(this, tableName, poClass);
     }
 
     @Override
@@ -107,8 +107,8 @@ public class NormalQueryChainer<P extends PO, PJ extends POJO> extends QueryChai
         return new QueryConditional<>(this, getNativeQueryChain().or(columnNameGetter));
     }
 
-    public JsonbQueryChainer<P, PJ> switchToJsonbQuery() {
-        return this.jsonbQueryChainer;
+    public JsonQueryChainer<P, PJ> switchToJsonbQuery() {
+        return this.jsonQueryChainer;
     }
 
 }

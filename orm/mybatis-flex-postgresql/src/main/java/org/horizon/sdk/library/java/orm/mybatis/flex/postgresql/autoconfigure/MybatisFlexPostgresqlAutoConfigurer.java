@@ -2,7 +2,7 @@ package org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
-import org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.cache.ColumnJsonbMappingJavaTypeCache;
+import org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.cache.ColumnJsonMappingJavaTypeCache;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -22,19 +22,19 @@ import java.util.stream.Collectors;
 public class MybatisFlexPostgresqlAutoConfigurer {
 
     /**
-     * register {@link ColumnJsonbMappingJavaTypeCache}
+     * register {@link ColumnJsonMappingJavaTypeCache}
      *
-     * @return {@link ColumnJsonbMappingJavaTypeCache columnJsonbMappingJavaTypeCache} bean
+     * @return {@link ColumnJsonMappingJavaTypeCache columnJsonbMappingJavaTypeCache} bean
      */
     @Bean
-    public ColumnJsonbMappingJavaTypeCache mybatisFlexColumnJsonbMappingRelationCache() {
-        log.debug("{}mybatis flex jdbc jsonb type caching system is enabled, starting initializing...", ModuleView.ORM_MYBATIS_SYSTEM);
+    public ColumnJsonMappingJavaTypeCache mybatisFlexColumnJsonbMappingRelationCache() {
+        log.debug("{}mybatis flex jdbc json type caching system is enabled, starting initializing...", ModuleView.ORM_MYBATIS_SYSTEM);
 
-        ColumnJsonbMappingJavaTypeCache columnJsonbMappingJavaTypeCache = new ColumnJsonbMappingJavaTypeCache();
+        ColumnJsonMappingJavaTypeCache columnJsonbMappingJavaTypeCache = new ColumnJsonMappingJavaTypeCache();
 
         if (Nil.isNotEmpty(columnJsonbMappingJavaTypeCache.getCache())) {
             log.debug(""" 
-                            {}mybatis flex jdbc jsonb type caching system has loaded the following cache:
+                            {}mybatis flex jdbc json type caching system has loaded the following cache:
                             --------------------------------------------------------------------------------------------------------------------------------
                             {}
                             --------------------------------------------------------------------------------------------------------------------------------""",
@@ -48,7 +48,7 @@ public class MybatisFlexPostgresqlAutoConfigurer {
             );
         }
 
-        log.debug("{}mybatis flex jdbc jsonb type caching system initialized.", ModuleView.ORM_MYBATIS_SYSTEM);
+        log.debug("{}mybatis flex jdbc json type caching system initialized.", ModuleView.ORM_MYBATIS_SYSTEM);
 
         return columnJsonbMappingJavaTypeCache;
     }
