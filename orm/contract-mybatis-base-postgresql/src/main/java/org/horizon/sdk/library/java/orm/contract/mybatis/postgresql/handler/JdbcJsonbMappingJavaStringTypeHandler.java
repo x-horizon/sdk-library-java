@@ -1,7 +1,6 @@
 package org.horizon.sdk.library.java.orm.contract.mybatis.postgresql.handler;
 
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
-import org.postgresql.util.PGobject;
 
 /**
  * <p>the postgresql jdbc jsonb data type and Java string mapping relation type handler.</p>
@@ -63,8 +62,8 @@ import org.postgresql.util.PGobject;
 public class JdbcJsonbMappingJavaStringTypeHandler extends AbstractJdbcJsonbMappingJavaObjectTypeHandler<String> {
 
     @Override
-    protected PGobject toJdbcObject(String javaObject) {
-        return toPostgresqlObject(javaObject);
+    protected String toJdbcObjectContent(String javaObject) {
+        return javaObject;
     }
 
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)

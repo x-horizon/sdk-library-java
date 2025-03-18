@@ -6,6 +6,7 @@ import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.model.throwable.LibraryJavaInternalException;
 import org.horizon.sdk.library.java.orm.contract.mybatis.base.type.JdbcComplexType;
+import org.horizon.sdk.library.java.tool.convert.api.Converts;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
 import java.util.Optional;
@@ -46,21 +47,6 @@ public abstract class AbstractJdbcJsonTypeHandler<T, J> extends AbstractJdbcComp
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
     protected abstract T doConvertToJavaObject(String columnValue, Class javaType);
 
-    /**
-     * convert to postgresql jdbc jsonb object
-     *
-     * @param javaObject the java object
-     * @return postgresql jdbc jsonb object
-     */
-    protected Object doConvertToJdbcObject(T javaObject) {
-        return javaObject;
-    }
-
-    @Override
-    protected J toJdbcObject(T javaObject) {
-        return null;
-    }
-
     @SuppressWarnings(SuppressWarningConstant.RAW_TYPE)
     @SneakyThrows
     @Override
@@ -80,6 +66,39 @@ public abstract class AbstractJdbcJsonTypeHandler<T, J> extends AbstractJdbcComp
                         columnName,
                         javaTypes.stream().map(Class::getName).toList()
                 )));
+    }
+
+    /**
+     * convert to jdbc object by java object content
+     *
+     * @param javaObjectContent the java object content
+     * @return jdbc object
+     */
+    protected abstract J toJdbcObjectByStringContent(String javaObjectContent);
+
+    @Override
+    protected J toJdbcObject(T javaObject) {
+        return toJdbcObjectByStringContent(toJdbcObjectContent(javaObject));
+    }
+
+    /**
+     * convert to jdbc object content
+     *
+     * @param javaObject the java object
+     * @return jdbc object content
+     */
+    protected String toJdbcObjectContent(T javaObject) {
+        return Converts.onJackson().toString(doConvertToJdbcObject(javaObject));
+    }
+
+    /**
+     * convert to postgresql jdbc jsonb object
+     *
+     * @param javaObject the java object
+     * @return postgresql jdbc jsonb object
+     */
+    protected Object doConvertToJdbcObject(T javaObject) {
+        return javaObject;
     }
 
 }
