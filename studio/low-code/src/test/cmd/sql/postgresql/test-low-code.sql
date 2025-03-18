@@ -38,6 +38,45 @@ COMMENT ON COLUMN school.update_time IS '更新时间';
 COMMENT ON COLUMN school.delete_time IS '删除时间';
 
 
+CREATE TABLE teacher
+(
+    id           BIGINT                                             NOT NULL,
+    school_id    BIGINT                         DEFAULT 0           NOT NULL,
+    code         BIGINT                         DEFAULT 0           NOT NULL,
+    name         VARCHAR(64)                    DEFAULT ''          NOT NULL,
+    status       SMALLINT                       DEFAULT 0           NOT NULL,
+    level_types  JSONB                          DEFAULT '[]'::JSONB NOT NULL,
+    course_types JSONB                          DEFAULT '[]'::JSONB NOT NULL,
+    version      BIGINT                         DEFAULT 0           NOT NULL,
+    remark       VARCHAR(255)                   DEFAULT ''          NOT NULL,
+    creator_id   BIGINT                         DEFAULT 0           NOT NULL,
+    creator_name VARCHAR(64)                    DEFAULT ''          NOT NULL,
+    updater_id   BIGINT                         DEFAULT 0           NOT NULL,
+    updater_name VARCHAR(64)                    DEFAULT ''          NOT NULL,
+    create_time  TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT NOW()       NOT NULL,
+    update_time  TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT NOW()       NOT NULL,
+    delete_time  TIMESTAMP(6) WITHOUT TIME ZONE,
+    PRIMARY KEY (id)
+);
+COMMENT ON TABLE teacher IS '教师信息';
+COMMENT ON COLUMN teacher.id IS 'id';
+COMMENT ON COLUMN teacher.school_id IS '学校id';
+COMMENT ON COLUMN teacher.code IS '编号';
+COMMENT ON COLUMN teacher.name IS '名字';
+COMMENT ON COLUMN teacher.status IS '状态';
+COMMENT ON COLUMN teacher.level_types IS '等级类型';
+COMMENT ON COLUMN teacher.course_types IS '课程类型';
+COMMENT ON COLUMN teacher.version IS '版本号';
+COMMENT ON COLUMN teacher.remark IS '备注';
+COMMENT ON COLUMN teacher.creator_id IS '创建人id';
+COMMENT ON COLUMN teacher.creator_name IS '创建人名字';
+COMMENT ON COLUMN teacher.updater_id IS '更新人id';
+COMMENT ON COLUMN teacher.updater_name IS '更新人名字';
+COMMENT ON COLUMN teacher.create_time IS '创建时间';
+COMMENT ON COLUMN teacher.update_time IS '更新时间';
+COMMENT ON COLUMN teacher.delete_time IS '删除时间';
+
+
 CREATE TABLE student
 (
     id           BIGINT                                             NOT NULL,
@@ -79,51 +118,64 @@ COMMENT ON COLUMN student.update_time IS '更新时间';
 COMMENT ON COLUMN student.delete_time IS '删除时间';
 
 
-CREATE TABLE teacher
-(
-    id           BIGINT                                             NOT NULL,
-    school_id    BIGINT                         DEFAULT 0           NOT NULL,
-    code         BIGINT                         DEFAULT 0           NOT NULL,
-    name         VARCHAR(64)                    DEFAULT ''          NOT NULL,
-    status       SMALLINT                       DEFAULT 0           NOT NULL,
-    level_types  JSONB                          DEFAULT '[]'::JSONB NOT NULL,
-    course_types JSONB                          DEFAULT '[]'::JSONB NOT NULL,
-    version      BIGINT                         DEFAULT 0           NOT NULL,
-    remark       VARCHAR(255)                   DEFAULT ''          NOT NULL,
-    creator_id   BIGINT                         DEFAULT 0           NOT NULL,
-    creator_name VARCHAR(64)                    DEFAULT ''          NOT NULL,
-    updater_id   BIGINT                         DEFAULT 0           NOT NULL,
-    updater_name VARCHAR(64)                    DEFAULT ''          NOT NULL,
-    create_time  TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT NOW()       NOT NULL,
-    update_time  TIMESTAMP(6) WITHOUT TIME ZONE DEFAULT NOW()       NOT NULL,
-    delete_time  TIMESTAMP(6) WITHOUT TIME ZONE,
-    PRIMARY KEY (id)
-);
-COMMENT ON TABLE teacher IS '教师信息';
-COMMENT ON COLUMN teacher.id IS 'id';
-COMMENT ON COLUMN teacher.school_id IS '学校id';
-COMMENT ON COLUMN teacher.code IS '编号';
-COMMENT ON COLUMN teacher.name IS '名字';
-COMMENT ON COLUMN teacher.status IS '状态';
-COMMENT ON COLUMN teacher.level_types IS '等级类型';
-COMMENT ON COLUMN teacher.course_types IS '课程类型';
-COMMENT ON COLUMN teacher.version IS '版本号';
-COMMENT ON COLUMN teacher.remark IS '备注';
-COMMENT ON COLUMN teacher.creator_id IS '创建人id';
-COMMENT ON COLUMN teacher.creator_name IS '创建人名字';
-COMMENT ON COLUMN teacher.updater_id IS '更新人id';
-COMMENT ON COLUMN teacher.updater_name IS '更新人名字';
-COMMENT ON COLUMN teacher.create_time IS '创建时间';
-COMMENT ON COLUMN teacher.update_time IS '更新时间';
-COMMENT ON COLUMN teacher.delete_time IS '删除时间';
-
-
 INSERT INTO school (id, name, type, address, enable_is, version, remark, creator_id, creator_name, updater_id, updater_name, create_time, update_time, delete_time)
 VALUES (1, '学校1', 1, '西藏自治区茂名市兴国县', TRUE, 0, '', 1, '', 1, '', '2024-04-24 17:57:26.102855', '2024-04-24 17:57:26.102855', NULL);
 INSERT INTO school (id, name, type, address, enable_is, version, remark, creator_id, creator_name, updater_id, updater_name, create_time, update_time, delete_time)
 VALUES (2, '学校2', 2, '西藏自治区茂名市兴国县', TRUE, 0, '', 1, '', 1, '', '2024-04-24 17:57:32.326921', '2024-04-24 17:57:32.326921', NULL);
 INSERT INTO school (id, name, type, address, enable_is, version, remark, creator_id, creator_name, updater_id, updater_name, create_time, update_time, delete_time)
 VALUES (3, '学校3', 3, '西藏自治区茂名市兴国县', TRUE, 0, '', 1, '', 1, '', '2024-04-24 17:57:37.165764', '2024-04-24 17:57:37.165764', NULL);
+
+
+INSERT INTO teacher (id, school_id, code, name, status, level_types, course_types, version, remark, creator_id, creator_name, updater_id, updater_name, create_time, update_time, delete_time)
+VALUES (1, 1, 1, '学校1-老师1', 1, '[
+  1,
+  2
+]', '[
+  "语文",
+  "数学"
+]', 0, '', 1, '', 1, '', '2024-04-24 17:59:30.886752', '2024-04-24 17:59:30.886752', NULL);
+INSERT INTO teacher (id, school_id, code, name, status, level_types, course_types, version, remark, creator_id, creator_name, updater_id, updater_name, create_time, update_time, delete_time)
+VALUES (2, 1, 2, '学校1-老师2', 2, '[
+  2,
+  3
+]', '[
+  "数学",
+  "英语"
+]', 0, '', 1, '', 1, '', '2024-04-24 18:00:03.400597', '2024-04-24 18:00:03.400597', NULL);
+INSERT INTO teacher (id, school_id, code, name, status, level_types, course_types, version, remark, creator_id, creator_name, updater_id, updater_name, create_time, update_time, delete_time)
+VALUES (3, 2, 3, '学校2-老师3', 2, '[
+  2,
+  3
+]', '[
+  "数学",
+  "英语"
+]', 0, '', 1, '', 1, '', '2024-04-24 18:00:11.428400', '2024-04-24 18:00:16.060970', NULL);
+INSERT INTO teacher (id, school_id, code, name, status, level_types, course_types, version, remark, creator_id, creator_name, updater_id, updater_name, create_time, update_time, delete_time)
+VALUES (4, 2, 4, '学校2-老师4', 2, '[
+  2,
+  3
+]', '[
+  "数学",
+  "英语"
+]', 0, '', 1, '', 1, '', '2024-04-24 18:00:14.428000', '2024-04-24 18:00:11.428400', NULL);
+INSERT INTO teacher (id, school_id, code, name, status, level_types, course_types, version, remark, creator_id, creator_name, updater_id, updater_name, create_time, update_time, delete_time)
+VALUES (5, 3, 5, '学校3-老师5', 2, '[
+  2,
+  3
+]', '[
+  "数学",
+  "英语"
+]', 0, '', 1, '', 1, '', '2024-04-24 18:00:56.350731', '2024-04-24 18:00:56.350731', NULL);
+INSERT INTO teacher (id, school_id, code, name, status, level_types, course_types, version, remark, creator_id, creator_name, updater_id, updater_name, create_time, update_time, delete_time)
+VALUES (6, 3, 6, '学校3-老师6', 2, '[
+  1,
+  2,
+  3
+]', '[
+  "语文",
+  "数学",
+  "英语"
+]', 0, '', 1, '', 1, '', '2024-04-24 18:01:14.598488', '2024-04-24 18:01:14.598488', NULL);
 
 
 INSERT INTO student (id, school_id, teacher_ids, code, name, sort, hobby_info, course_infos, version, remark, creator_id, creator_name, updater_id, updater_name, create_time, update_time, delete_time)
@@ -387,55 +439,3 @@ VALUES (6, 3, '[
     ]
   }
 ]', 0, '', 1, '', 1, '', '2024-04-24 18:10:02.705476', '2024-04-24 18:10:02.705476', NULL);
-
-
-INSERT INTO teacher (id, school_id, code, name, status, level_types, course_types, version, remark, creator_id, creator_name, updater_id, updater_name, create_time, update_time, delete_time)
-VALUES (1, 1, 1, '学校1-老师1', 1, '[
-  1,
-  2
-]', '[
-  "语文",
-  "数学"
-]', 0, '', 1, '', 1, '', '2024-04-24 17:59:30.886752', '2024-04-24 17:59:30.886752', NULL);
-INSERT INTO teacher (id, school_id, code, name, status, level_types, course_types, version, remark, creator_id, creator_name, updater_id, updater_name, create_time, update_time, delete_time)
-VALUES (2, 1, 2, '学校1-老师2', 2, '[
-  2,
-  3
-]', '[
-  "数学",
-  "英语"
-]', 0, '', 1, '', 1, '', '2024-04-24 18:00:03.400597', '2024-04-24 18:00:03.400597', NULL);
-INSERT INTO teacher (id, school_id, code, name, status, level_types, course_types, version, remark, creator_id, creator_name, updater_id, updater_name, create_time, update_time, delete_time)
-VALUES (3, 2, 3, '学校2-老师3', 2, '[
-  2,
-  3
-]', '[
-  "数学",
-  "英语"
-]', 0, '', 1, '', 1, '', '2024-04-24 18:00:11.428400', '2024-04-24 18:00:16.060970', NULL);
-INSERT INTO teacher (id, school_id, code, name, status, level_types, course_types, version, remark, creator_id, creator_name, updater_id, updater_name, create_time, update_time, delete_time)
-VALUES (4, 2, 4, '学校2-老师4', 2, '[
-  2,
-  3
-]', '[
-  "数学",
-  "英语"
-]', 0, '', 1, '', 1, '', '2024-04-24 18:00:14.428000', '2024-04-24 18:00:11.428400', NULL);
-INSERT INTO teacher (id, school_id, code, name, status, level_types, course_types, version, remark, creator_id, creator_name, updater_id, updater_name, create_time, update_time, delete_time)
-VALUES (5, 3, 5, '学校3-老师5', 2, '[
-  2,
-  3
-]', '[
-  "数学",
-  "英语"
-]', 0, '', 1, '', 1, '', '2024-04-24 18:00:56.350731', '2024-04-24 18:00:56.350731', NULL);
-INSERT INTO teacher (id, school_id, code, name, status, level_types, course_types, version, remark, creator_id, creator_name, updater_id, updater_name, create_time, update_time, delete_time)
-VALUES (6, 3, 6, '学校3-老师6', 2, '[
-  1,
-  2,
-  3
-]', '[
-  "语文",
-  "数学",
-  "英语"
-]', 0, '', 1, '', 1, '', '2024-04-24 18:01:14.598488', '2024-04-24 18:01:14.598488', NULL);
