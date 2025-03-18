@@ -68,7 +68,7 @@ import org.postgresql.util.PGobject;
  * <ul>
  *  <li>when {@code detailPOs} is {@code null} or empty list ➔ PostgreSQL stores {@code '[]'}</li>
  *  <li>when list contains elements where {@link NullableObject#isNull()} returns {@code true} ➔ filtered before storage</li>
- *  <li>non-null elements are serialized as JSON objects in the array</li>
+ *  <li>non-null elements are serialized as JSONB objects in the array</li>
  * </ul>
  *
  * @param <T> the java object data type

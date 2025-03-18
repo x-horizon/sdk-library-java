@@ -53,7 +53,7 @@ import org.postgresql.util.PGobject;
  * <p><strong>implementation requirements:</strong></p>
  * <ul>
  *  <li>Java string field must contain valid JSON format data</li>
- *  <li>Supports both JSON object ({@code {}}) and array ({@code []}) storage formats</li>
+ *  <li>Supports both JSONB object ({@code {}}) and array ({@code []}) storage formats</li>
  *  <li>Automatic conversion between JSONB and String types during persistence</li>
  * </ul>
  *
