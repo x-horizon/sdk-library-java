@@ -1,0 +1,41 @@
+package org.horizon.sdk.library.java.orm.mybatis.flex.mysql.model.bo;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
+import org.horizon.sdk.library.java.contract.model.base.BO;
+import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
+import org.horizon.sdk.library.java.tool.convert.jackson.NullableObject;
+
+import java.io.Serial;
+import java.util.List;
+
+@Schema(description = "学生课程信息")
+@Data
+@NoArgsConstructor
+@Accessors(chain = true)
+@SuperBuilder(toBuilder = true)
+public class StudentCourseBO implements BO, NullableObject {
+
+    @Serial private static final long serialVersionUID = -7236373958148461707L;
+
+    private transient boolean isNull;
+
+    @Schema(description = "名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
+    private String name;
+
+    @Schema(description = "学分", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.NUMBER)
+    private Short credit;
+
+    @Schema(description = "书本信息")
+    @JsonProperty("bookInfo")
+    private StudentCourseBookBO bookBO;
+
+    @Schema(description = "工具信息")
+    @JsonProperty("toolInfos")
+    private List<StudentCourseToolBO> toolBOs;
+
+}
