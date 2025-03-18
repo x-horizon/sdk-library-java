@@ -9,7 +9,7 @@ import org.postgresql.util.PGobject;
  * @author wjm
  * @since 2023-11-06 18:29
  */
-public interface PgObjectJsonConverter extends PgObjectConverter {
+public interface PostgresqlObjectJsonConverter extends PostgresqlObjectConverter {
 
     @Override
     default String getPgObjectType() {

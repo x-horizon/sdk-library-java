@@ -49,11 +49,11 @@ import org.postgresql.util.PGobject;
  * @author wjm
  * @since 2023-06-14 09:20
  */
-public class JdbcJsonMappingJavaListLongTypeHandler extends AbstractJdbcJsonMappingJavaListLongTypeHandler<PGobject> implements PgObjectJsonConverter {
+public class JdbcJsonMappingJavaListLongTypeHandler extends AbstractJdbcJsonMappingJavaListLongTypeHandler<PGobject> implements PostgresqlObjectJsonConverter {
 
     @Override
     public PGobject toJdbcObjectByStringContent(String javaObjectContent) {
-        return PgObjectJsonConverter.super.toJdbcObjectByStringContent(javaObjectContent);
+        return PostgresqlObjectJsonConverter.super.toJdbcObjectByStringContent(javaObjectContent);
     }
 
 }

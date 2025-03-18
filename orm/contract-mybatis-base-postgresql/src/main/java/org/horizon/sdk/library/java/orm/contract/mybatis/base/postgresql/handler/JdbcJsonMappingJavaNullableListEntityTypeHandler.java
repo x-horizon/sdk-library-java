@@ -75,11 +75,11 @@ import org.postgresql.util.PGobject;
  * @author wjm
  * @since 2022-09-07 10:35
  */
-public class JdbcJsonMappingJavaNullableListEntityTypeHandler<T extends NullableObject> extends AbstractJdbcJsonMappingJavaNullableListEntityTypeHandler<T, PGobject> implements PgObjectJsonConverter {
+public class JdbcJsonMappingJavaNullableListEntityTypeHandler<T extends NullableObject> extends AbstractJdbcJsonMappingJavaNullableListEntityTypeHandler<T, PGobject> implements PostgresqlObjectJsonConverter {
 
     @Override
     public PGobject toJdbcObjectByStringContent(String javaObjectContent) {
-        return PgObjectJsonConverter.super.toJdbcObjectByStringContent(javaObjectContent);
+        return PostgresqlObjectJsonConverter.super.toJdbcObjectByStringContent(javaObjectContent);
     }
 
 }
