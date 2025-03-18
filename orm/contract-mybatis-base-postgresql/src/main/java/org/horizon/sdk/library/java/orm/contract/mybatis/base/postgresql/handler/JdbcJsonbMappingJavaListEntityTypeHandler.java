@@ -1,4 +1,4 @@
-package org.horizon.sdk.library.java.orm.contract.mybatis.postgresql.handler;
+package org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handler;
 
 /**
  * <p>postgresql jdbc jsonb array type and java list entity mapping handler.</p>

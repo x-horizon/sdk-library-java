@@ -1,4 +1,4 @@
-package org.horizon.sdk.library.java.orm.contract.mybatis.postgresql.handler;
+package org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handler;
 
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.tool.lang.convert.Converts;

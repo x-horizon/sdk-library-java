@@ -1,4 +1,4 @@
-package org.horizon.sdk.library.java.orm.contract.mybatis.postgresql.handler;
+package org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handler;
 
 import lombok.SneakyThrows;
 import org.horizon.sdk.library.java.contract.constant.database.PostgresqlDataType;

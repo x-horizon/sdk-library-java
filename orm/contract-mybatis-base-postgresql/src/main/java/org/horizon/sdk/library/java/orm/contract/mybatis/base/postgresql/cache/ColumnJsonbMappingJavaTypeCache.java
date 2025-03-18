@@ -1,9 +1,9 @@
-package org.horizon.sdk.library.java.orm.contract.mybatis.postgresql.cache;
+package org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.cache;
 
 import org.apache.ibatis.type.TypeHandler;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.orm.contract.mybatis.base.cache.ColumnMappingJavaTypeCache;
-import org.horizon.sdk.library.java.orm.contract.mybatis.postgresql.handler.AbstractJdbcJsonbTypeHandler;
+import org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handler.AbstractJdbcJsonbTypeHandler;
 
 /**
  * the postgresql jdbc jsonb type and java type mapping cache
