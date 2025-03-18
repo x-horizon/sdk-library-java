@@ -66,11 +66,11 @@ import org.postgresql.util.PGobject;
  * @author wjm
  * @since 2023-11-09 18:45
  */
-public class JdbcJsonMappingJavaListEnumStringTypeHandler<E extends Enum<E>> extends AbstractJdbcJsonMappingJavaListEnumStringTypeHandler<E, PGobject> implements PostgresqlObjectJsonConverter {
+public class JdbcJsonMappingJavaListEnumStringTypeHandler<E extends Enum<E>> extends AbstractJdbcJsonMappingJavaListEnumStringTypeHandler<E, PGobject> implements PostgresqlJsonTypeConverter {
 
     @Override
     public PGobject toJdbcObjectByStringContent(String javaObjectContent) {
-        return PostgresqlObjectJsonConverter.super.toJdbcObjectByStringContent(javaObjectContent);
+        return PostgresqlJsonTypeConverter.super.toJdbcObjectByStringContent(javaObjectContent);
     }
 
 }

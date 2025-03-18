@@ -4,16 +4,16 @@ import org.horizon.sdk.library.java.contract.constant.database.PostgresqlDataTyp
 import org.postgresql.util.PGobject;
 
 /**
- * the {@link PGobject} jsonb converter.
+ * the {@link PGobject} json converter.
  *
  * @author wjm
  * @since 2023-11-06 18:29
  */
-public interface PostgresqlObjectJsonbConverter extends PostgresqlObjectConverter {
+public interface PostgresqlJsonTypeConverter extends PostgresqlComplexTypeConverter {
 
     @Override
     default String getPgObjectType() {
-        return PostgresqlDataType.JSONB.getValue();
+        return PostgresqlDataType.JSON.getValue();
     }
 
 }
