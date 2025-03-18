@@ -12,9 +12,9 @@ import org.postgresql.util.PGobject;
  *  <li><p>postgresql table definition:</p>
  *  <pre>{@code
  *  CREATE TABLE example (
- *      id           BIGINT              NOT NULL,
- *      detail_infos JSONB  DEFAULT '[]' NOT NULL,  -- value format: [{"name":"myName1","age":18},{"name":"myName2","age":18}]
- *      PRIMARY KEY (id)
+ *     id           BIGINT              NOT NULL,
+ *     detail_infos JSONB  DEFAULT '[]' NOT NULL, -- value format: [{"name":"myName1","age":18},{"name":"myName2","age":18}]
+ *     PRIMARY KEY (id)
  *  );
  *  }</pre></li>
  *
@@ -66,7 +66,7 @@ import org.postgresql.util.PGobject;
  *
  * <p><strong>null handling rules:</strong></p>
  * <ul>
- *  <li>when {@code detailPOs} is {@code null} or empty list ➔ PostgreSQL stores {@code '[]'}</li>
+ *  <li>when {@code detailPOs} is {@code null} or empty list ➔ postgresql stores {@code '[]'}</li>
  *  <li>when list contains elements where {@link NullableObject#isNull()} returns {@code true} ➔ filtered before storage</li>
  *  <li>non-null elements are serialized as JSONB objects in the array</li>
  * </ul>

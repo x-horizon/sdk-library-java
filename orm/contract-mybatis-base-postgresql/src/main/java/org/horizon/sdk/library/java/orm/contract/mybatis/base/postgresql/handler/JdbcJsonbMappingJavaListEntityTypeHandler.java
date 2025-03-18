@@ -11,9 +11,9 @@ import org.postgresql.util.PGobject;
  *     <li><b>database schema:</b>
  *         <pre>{@code
  * CREATE TABLE example (
- *     id           BIGINT             NOT NULL,
- *     detail_infos JSONB DEFAULT '[]' NOT NULL,  -- Example: [{"name":"myName1","age":18},{"name":"myName2","age":18}]
- *     PRIMARY KEY (id)
+ *    id           BIGINT              NOT NULL,
+ *    detail_infos JSONB  DEFAULT '[]' NOT NULL, -- Example: [{"name":"myName1","age":18},{"name":"myName2","age":18}]
+ *    PRIMARY KEY (id)
  * );
  *         }</pre>
  *     </li>

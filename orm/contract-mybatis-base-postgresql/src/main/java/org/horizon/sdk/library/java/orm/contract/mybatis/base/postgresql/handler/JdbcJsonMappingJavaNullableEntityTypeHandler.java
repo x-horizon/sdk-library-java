@@ -12,9 +12,9 @@ import org.postgresql.util.PGobject;
  *  <li><p>postgresql table definition:</p>
  *  <pre>{@code
  *  CREATE TABLE example (
- *      id          BIGINT              NOT NULL,
- *      detail_info JSON   DEFAULT '{}' NOT NULL,  -- value format: {"name": "myName", "age": 18}
- *      PRIMARY KEY (id)
+ *     id          BIGINT              NOT NULL,
+ *     detail_info JSON   DEFAULT '{}' NOT NULL, -- value format: {"name": "myName", "age": 18}
+ *     PRIMARY KEY (id)
  *  );
  *  }</pre></li>
  *

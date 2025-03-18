@@ -11,9 +11,9 @@ import org.postgresql.util.PGobject;
  *  <li><p>postgresql table definition:</p>
  *  <pre>{@code
  *  CREATE TABLE example (
- *      id         BIGINT              NOT NULL,
- *      family_ids JSON   DEFAULT '[]' NOT NULL,  -- value format: [441769244028997, 441769244028998, 441769244028999]
- *      PRIMARY KEY (id)
+ *     id         BIGINT              NOT NULL,
+ *     family_ids JSON   DEFAULT '[]' NOT NULL, -- value format: [100, 101, 102]
+ *     PRIMARY KEY (id)
  *  );
  *  }</pre></li>
  *
