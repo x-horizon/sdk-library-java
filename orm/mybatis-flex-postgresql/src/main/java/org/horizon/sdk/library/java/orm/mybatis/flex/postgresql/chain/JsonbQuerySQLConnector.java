@@ -16,7 +16,7 @@ import java.util.stream.IntStream;
  * @since 2024-04-30 12:12
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class JsonQuerySQLConnector {
+public class JsonbQuerySQLConnector {
 
     static String directConnect(String tableName, ColumnNameGetter<?>... columnNameGetters) {
         return Strings.format("({})", IntStream.range(CollectionConstant.INDEX_FIRST, columnNameGetters.length)

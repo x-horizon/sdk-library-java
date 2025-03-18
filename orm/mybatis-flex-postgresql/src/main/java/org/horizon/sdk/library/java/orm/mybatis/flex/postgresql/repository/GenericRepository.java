@@ -6,7 +6,7 @@ import org.horizon.sdk.library.java.contract.model.base.POJO;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.cache.MybatisFlexSystemCache;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.cache.MybatisFlexSystemCacheDTO;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.chain.QueryChain;
-import org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.chain.JsonQueryChainer;
+import org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.chain.JsonbQueryChainer;
 import org.horizon.sdk.library.java.orm.mybatis.flex.postgresql.chain.NormalQueryChainer;
 
 /**
@@ -26,13 +26,13 @@ public interface GenericRepository<P extends PO> extends org.horizon.sdk.library
         return new NormalQueryChainer<>(QueryChain.of(baseMapper), tableName, poClass);
     }
 
-    default <PJ extends POJO, R extends GenericRepository<P>> JsonQueryChainer<P, PJ> openJsonbQuery() {
+    default <PJ extends POJO, R extends GenericRepository<P>> JsonbQueryChainer<P, PJ> openJsonbQuery() {
         // warm up first to cache the proxy class
         this.getBaseMapper();
         MybatisFlexSystemCacheDTO<P, R> systemCache = MybatisFlexSystemCache.getInstance().getByRepositoryProxyClass(this.getClass());
         String tableName = systemCache.getTableName();
         Class<P> poClass = systemCache.getPoClass();
-        return new JsonQueryChainer<>(openNormalQuery(), tableName, poClass);
+        return new JsonbQueryChainer<>(openNormalQuery(), tableName, poClass);
     }
 
 }
