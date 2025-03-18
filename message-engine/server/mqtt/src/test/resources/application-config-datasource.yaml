@@ -1,16 +1,3 @@
-#spring:
-#  datasource:
-#    driverClassName: org.postgresql.Driver
-#    type: com.zaxxer.hikari.HikariDataSource
-#    hikari:
-#      connection-timeout: 3000
-#      minimum-idle: 1
-#      maximum-pool-size: 20
-#      idle-timeout: 60000
-#      auto-commit: true
-#      max-lifetime: 1800000
-#      connection-test-query: select 1
-
 spring:
   datasource:
     driverClassName: com.taosdata.jdbc.TSDBDriver
@@ -27,17 +14,3 @@ spring:
       jdbc-url: jdbc:TAOS-WS://127.0.0.1:10024/test_mqtt_server
       username: root
       password: taosdata
-
-#mybatis-flex:
-#  datasource:
-#    ds1:
-#      type: druid
-#      url: jdbc:mysql://127.0.0.1:3306/db
-#      username: root
-#      password: 123456
-#      asyncInit: true
-#    ds2:
-#      type: com.your.datasource.type2
-#      url: jdbc:mysql://127.0.0.1:3306/db2
-#      username: root
-#      password: 123456
