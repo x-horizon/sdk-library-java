@@ -57,10 +57,10 @@ import java.util.UUID;
  * @author wjm
  * @since 2023-11-11 14:55
  */
-public class JdbcUUIDMappingJavaUUIDTypeHandler extends AbstractJdbcComplexTypeHandler<UUID> {
+public class JdbcUUIDMappingJavaUUIDTypeHandler extends AbstractJdbcComplexTypeHandler<UUID, UUID> {
 
     @Override
-    protected Object toJdbcObject(UUID javaObject) {
+    protected UUID toJdbcObject(UUID javaObject) {
         return javaObject;
     }
 
