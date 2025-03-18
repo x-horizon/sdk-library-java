@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * the postgresql jdbc jsonb abstract type handler
+ * the jdbc json abstract type handler
  *
  * @param <T> the java object data type
  * @param <J> the jdbc object data type
@@ -23,19 +23,19 @@ import java.util.Set;
 public abstract class AbstractJdbcJsonTypeHandler<T, J> extends AbstractJdbcComplexTypeHandler<T, J> {
 
     /**
-     * return true if the postgresql jdbc jsonb column value is empty
+     * return true if the jdbc json column value is empty
      *
-     * @param columnValue the postgresql jdbc jsonb column value
-     * @return return true if the postgresql jdbc jsonb column value is empty
+     * @param columnValue the jdbc json column value
+     * @return return true if the jdbc json column value is empty
      */
-    protected abstract boolean isEmptyJsonbColumnValue(String columnValue);
+    protected abstract boolean isEmptyJsonColumnValue(String columnValue);
 
     /**
-     * convert to java object when the postgresql jdbc jsonb column value is empty
+     * convert to java object when the jdbc json column value is empty
      *
      * @return java object
      */
-    protected abstract T toJavaObjectWhenEmptyJsonbColumnValue();
+    protected abstract T toJavaObjectWhenEmptyJsonColumnValue();
 
     /**
      * convert to java object by column value and java type
@@ -51,8 +51,8 @@ public abstract class AbstractJdbcJsonTypeHandler<T, J> extends AbstractJdbcComp
     @SneakyThrows
     @Override
     protected T toJavaObject(String columnName, String columnValue) {
-        if (isEmptyJsonbColumnValue(columnValue)) {
-            return toJavaObjectWhenEmptyJsonbColumnValue();
+        if (isEmptyJsonColumnValue(columnValue)) {
+            return toJavaObjectWhenEmptyJsonColumnValue();
         }
         Set<Class> javaTypes = JdbcComplexType.JSON.getColumnMappingJavaTypeCache().getMappingJavaTypes(columnName);
         return javaTypes.stream()
@@ -92,10 +92,10 @@ public abstract class AbstractJdbcJsonTypeHandler<T, J> extends AbstractJdbcComp
     }
 
     /**
-     * convert to postgresql jdbc jsonb object
+     * convert to jdbc json object
      *
      * @param javaObject the java object
-     * @return postgresql jdbc jsonb object
+     * @return jdbc json object
      */
     protected Object doConvertToJdbcObject(T javaObject) {
         return javaObject;

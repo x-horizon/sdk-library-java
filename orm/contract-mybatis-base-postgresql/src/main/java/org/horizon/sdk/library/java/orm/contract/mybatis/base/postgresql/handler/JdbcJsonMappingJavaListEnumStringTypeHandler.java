@@ -4,7 +4,7 @@ import org.horizon.sdk.library.java.orm.contract.mybatis.base.handler.AbstractJd
 import org.postgresql.util.PGobject;
 
 /**
- * <p>the postgresql jdbc jsonb data type and java list enum string value mapping relation type handler.</p>
+ * <p>the postgresql jdbc json data type and java list enum string value mapping relation type handler.</p>
  *
  * <p>typical usage scenario:</p>
  * <ol>
@@ -12,7 +12,7 @@ import org.postgresql.util.PGobject;
  *  <pre>{@code
  *  CREATE TABLE example (
  *      id    BIGINT              NOT NULL,
- *      types JSONB  DEFAULT '[]' NOT NULL,  -- value format: ["a", "b", "c"]
+ *      types JSON   DEFAULT '[]' NOT NULL,  -- value format: ["a", "b", "c"]
  *      PRIMARY KEY (id)
  *  );
  *  }</pre></li>
@@ -31,7 +31,7 @@ import org.postgresql.util.PGobject;
  *
  *      @YourOrmColumn(
  *          columnName = "types",
- *          typeHandler = JdbcJsonbMappingJavaListEnumStringTypeHandler.class
+ *          typeHandler = JdbcJsonMappingJavaListEnumStringTypeHandler.class
  *      )
  *      private List<TypeEnum> types;
  *  }
@@ -58,7 +58,7 @@ import org.postgresql.util.PGobject;
  * <pre>{@code
  * @YourOrmColumn(
  *     columnName = "types",
- *     typeHandler = JdbcJsonbMappingJavaListEnumStringTypeHandler.class
+ *     typeHandler = JdbcJsonMappingJavaListEnumStringTypeHandler.class
  * )
  * }</pre>
  *
@@ -66,11 +66,11 @@ import org.postgresql.util.PGobject;
  * @author wjm
  * @since 2023-11-09 18:45
  */
-public class JdbcJsonbMappingJavaListEnumStringTypeHandler<E extends Enum<E>> extends AbstractJdbcJsonMappingJavaListEnumStringTypeHandler<E, PGobject> implements PgObjectJsonbConverter {
+public class JdbcJsonMappingJavaListEnumStringTypeHandler<E extends Enum<E>> extends AbstractJdbcJsonMappingJavaListEnumStringTypeHandler<E, PGobject> implements PgObjectJsonConverter {
 
     @Override
     public PGobject toJdbcObjectByStringContent(String javaObjectContent) {
-        return PgObjectJsonbConverter.super.toJdbcObjectByStringContent(javaObjectContent);
+        return PgObjectJsonConverter.super.toJdbcObjectByStringContent(javaObjectContent);
     }
 
 }

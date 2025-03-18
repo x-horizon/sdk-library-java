@@ -4,7 +4,7 @@ import org.horizon.sdk.library.java.orm.contract.mybatis.base.handler.AbstractJd
 import org.postgresql.util.PGobject;
 
 /**
- * <p>postgresql jdbc jsonb array type and java enum list mapping handler.</p>
+ * <p>postgresql jdbc json array type and java enum list mapping handler.</p>
  *
  * <p>implementation workflow:</p>
  * <ol>
@@ -12,7 +12,7 @@ import org.postgresql.util.PGobject;
  *         <pre>{@code
  * CREATE TABLE example (
  *     id    BIGINT              NOT NULL,
- *     types JSONB  DEFAULT '[]' NOT NULL,  -- Example: [1, 2, 3]
+ *     types JSON   DEFAULT '[]' NOT NULL,  -- Example: [1, 2, 3]
  *     PRIMARY KEY (id)
  * );
  *         }</pre>
@@ -29,7 +29,7 @@ import org.postgresql.util.PGobject;
  *
  *     @YourOrmColumn(
  *         columnName = "types",
- *         typeHandler = JdbcJsonbMappingJavaListEnumIntegerTypeHandler.class
+ *         typeHandler = JdbcJsonMappingJavaListEnumIntegerTypeHandler.class
  *     )
  *     private List<TypeEnum> types;
  * }
@@ -56,7 +56,7 @@ import org.postgresql.util.PGobject;
  * <pre>{@code
  * @YourOrmColumn(
  *     columnName = "types",
- *     typeHandler = JdbcJsonbMappingJavaListEnumIntegerTypeHandler.class
+ *     typeHandler = JdbcJsonMappingJavaListEnumIntegerTypeHandler.class
  * )
  * }</pre>
  *
@@ -64,11 +64,11 @@ import org.postgresql.util.PGobject;
  * @author wjm
  * @since 2023-05-09 10:35
  */
-public class JdbcJsonbMappingJavaListEnumIntegerTypeHandler<E extends Enum<E>> extends AbstractJdbcJsonMappingJavaListEnumIntegerTypeHandler<E, PGobject> implements PgObjectJsonbConverter {
+public class JdbcJsonMappingJavaListEnumIntegerTypeHandler<E extends Enum<E>> extends AbstractJdbcJsonMappingJavaListEnumIntegerTypeHandler<E, PGobject> implements PgObjectJsonConverter {
 
     @Override
     public PGobject toJdbcObjectByStringContent(String javaObjectContent) {
-        return PgObjectJsonbConverter.super.toJdbcObjectByStringContent(javaObjectContent);
+        return PgObjectJsonConverter.super.toJdbcObjectByStringContent(javaObjectContent);
     }
 
 }

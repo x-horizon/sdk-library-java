@@ -4,15 +4,15 @@ import org.horizon.sdk.library.java.orm.contract.mybatis.base.handler.AbstractJd
 import org.postgresql.util.PGobject;
 
 /**
- * <p>postgresql jdbc jsonb array type and java list entity mapping handler.</p>
+ * <p>postgresql jdbc json array type and java list entity mapping handler.</p>
  *
  * <p>implementation workflow:</p>
  * <ol>
  *     <li><b>database schema:</b>
  *         <pre>{@code
  * CREATE TABLE example (
- *     id           BIGINT             NOT NULL,
- *     detail_infos JSONB DEFAULT '[]' NOT NULL,  -- Example: [{"name":"myName1","age":18},{"name":"myName2","age":18}]
+ *     id           BIGINT              NOT NULL,
+ *     detail_infos JSON   DEFAULT '[]' NOT NULL,  -- Example: [{"name":"myName1","age":18},{"name":"myName2","age":18}]
  *     PRIMARY KEY (id)
  * );
  *         }</pre>
@@ -31,14 +31,14 @@ import org.postgresql.util.PGobject;
  *
  *     @YourOrmColumn(
  *         columnName = "detail_infos",
- *         typeHandler = JdbcJsonbMappingJavaListEntityTypeHandler.class
+ *         typeHandler = JdbcJsonMappingJavaListEntityTypeHandler.class
  *     )
  *     private List<DetailPO> detailPOs;
  * }
  *         }</pre>
  *     </li>
  *
- *     <li><b>jsonb element structure:</b>
+ *     <li><b>json element structure:</b>
  *         <pre>{@code
  * @Data
  * public class DetailPO implements Serializable {
@@ -55,7 +55,7 @@ import org.postgresql.util.PGobject;
  * <pre>{@code
  * @YourOrmColumn(
  *     columnName = "detail_infos",
- *     typeHandler = JdbcJsonbMappingJavaListEntityTypeHandler.class
+ *     typeHandler = JdbcJsonMappingJavaListEntityTypeHandler.class
  * )
  * }</pre>
  *
@@ -63,11 +63,11 @@ import org.postgresql.util.PGobject;
  * @author wjm
  * @since 2023-11-08 16:51
  */
-public class JdbcJsonbMappingJavaListEntityTypeHandler<T> extends AbstractJdbcJsonMappingJavaListEntityTypeHandler<T, PGobject> implements PgObjectJsonbConverter {
+public class JdbcJsonMappingJavaListEntityTypeHandler<T> extends AbstractJdbcJsonMappingJavaListEntityTypeHandler<T, PGobject> implements PgObjectJsonConverter {
 
     @Override
     public PGobject toJdbcObjectByStringContent(String javaObjectContent) {
-        return PgObjectJsonbConverter.super.toJdbcObjectByStringContent(javaObjectContent);
+        return PgObjectJsonConverter.super.toJdbcObjectByStringContent(javaObjectContent);
     }
 
 }

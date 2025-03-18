@@ -7,11 +7,11 @@ import org.postgresql.util.PGobject;
  * @author wjm
  * @since 2024-07-24 14:54
  */
-public class JdbcJsonbMappingJavaMapTypeHandler extends AbstractJdbcJsonMappingJavaMapTypeHandler<PGobject> implements PgObjectJsonbConverter {
+public class JdbcJsonMappingJavaMapTypeHandler extends AbstractJdbcJsonMappingJavaMapTypeHandler<PGobject> implements PgObjectJsonConverter {
 
     @Override
     public PGobject toJdbcObjectByStringContent(String javaObjectContent) {
-        return PgObjectJsonbConverter.super.toJdbcObjectByStringContent(javaObjectContent);
+        return PgObjectJsonConverter.super.toJdbcObjectByStringContent(javaObjectContent);
     }
 
 }

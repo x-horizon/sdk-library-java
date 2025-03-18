@@ -5,7 +5,7 @@ import org.horizon.sdk.library.java.tool.convert.jackson.NullableObject;
 import org.postgresql.util.PGobject;
 
 /**
- * <p>the postgresql jdbc jsonb data type and Java list nullable entity mapping relation type handler.</p>
+ * <p>the postgresql jdbc json data type and Java list nullable entity mapping relation type handler.</p>
  *
  * <p>typical usage scenario:</p>
  * <ol>
@@ -13,7 +13,7 @@ import org.postgresql.util.PGobject;
  *  <pre>{@code
  *  CREATE TABLE example (
  *      id           BIGINT              NOT NULL,
- *      detail_infos JSONB  DEFAULT '[]' NOT NULL,  -- value format: [{"name":"myName1","age":18},{"name":"myName2","age":18}]
+ *      detail_infos JSON   DEFAULT '[]' NOT NULL,  -- value format: [{"name":"myName1","age":18},{"name":"myName2","age":18}]
  *      PRIMARY KEY (id)
  *  );
  *  }</pre></li>
@@ -32,7 +32,7 @@ import org.postgresql.util.PGobject;
  *
  *      @YourOrmColumn(
  *          columnName = "detail_infos",
- *          typeHandler = JdbcJsonbMappingJavaNullableListEntityTypeHandler.class
+ *          typeHandler = JdbcJsonMappingJavaNullableListEntityTypeHandler.class
  *      )
  *      private List<DetailPO> detailPOs;
  *  }
@@ -60,7 +60,7 @@ import org.postgresql.util.PGobject;
  * <pre>{@code
  * @YourOrmColumn(
  *     columnName = "detail_infos",
- *     typeHandler = JdbcJsonbMappingJavaNullableListEntityTypeHandler.class
+ *     typeHandler = JdbcJsonMappingJavaNullableListEntityTypeHandler.class
  * )
  * }</pre>
  *
@@ -75,11 +75,11 @@ import org.postgresql.util.PGobject;
  * @author wjm
  * @since 2022-09-07 10:35
  */
-public class JdbcJsonbMappingJavaNullableListEntityTypeHandler<T extends NullableObject> extends AbstractJdbcJsonMappingJavaNullableListEntityTypeHandler<T, PGobject> implements PgObjectJsonbConverter {
+public class JdbcJsonMappingJavaNullableListEntityTypeHandler<T extends NullableObject> extends AbstractJdbcJsonMappingJavaNullableListEntityTypeHandler<T, PGobject> implements PgObjectJsonConverter {
 
     @Override
     public PGobject toJdbcObjectByStringContent(String javaObjectContent) {
-        return PgObjectJsonbConverter.super.toJdbcObjectByStringContent(javaObjectContent);
+        return PgObjectJsonConverter.super.toJdbcObjectByStringContent(javaObjectContent);
     }
 
 }

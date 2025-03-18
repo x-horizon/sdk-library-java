@@ -18,19 +18,19 @@ package org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handle
  * {@code
  *     @Data
  *     // need to replace this annotation from the specified orm framework
- *     @OrmFrameworkTableMarkedDemo(tableName = "example")
+ *     @YourOrmTable(tableName = "example")
  *     public class ExamplePO implements Serializable {
  *
  *         @Serial private static final long serialVersionUID = -7680901283684311918L;
  *
  *         // need to replace this annotation from the specified orm framework
- *         @OrmFrameworkIdMarkedDemo
- *         @OrmFrameworkColumnMarkedDemo(columnName = "id")
+ *         @YourOrmColumnId
+ *         @YourOrmColumn(columnName = "id")
  *         private Long id;
  *
  *         // need to replace this annotation from the specified orm framework
  *         // add the type handler
- *         @OrmFrameworkColumnMarkedDemo(columnName = "family_ids", typeHandler = JdbcJsonbMappingJavaListLongTypeHandler.class)
+ *         @YourOrmColumn(columnName = "family_ids", typeHandler = JdbcJsonbMappingJavaListLongTypeHandler.class)
  *         private List<Long> familyIds;
  *
  *     }
@@ -38,12 +38,15 @@ package org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handle
  * </pre>
  *
  * <h2>note: the core of the postgresql jdbc jsonb data type and java list long mapping relation is:</h2>
- * <strong><em>@OrmFrameworkColumnMarkedDemo(columnName = "family_ids", typeHandler = JdbcJsonbMappingJavaListLongTypeHandler.class)</em></strong>
+ * <strong><em>@YourOrmColumn(columnName = "family_ids", typeHandler = JdbcJsonbMappingJavaListLongTypeHandler.class)</em></strong>
  * <p>
  *
  * @author wjm
  * @since 2023-06-14 09:20
  */
+
+import org.horizon.sdk.library.java.orm.contract.mybatis.base.handler.AbstractJdbcJsonMappingJavaListLongTypeHandler;
+import org.postgresql.util.PGobject;
 
 /**
  * <p>the postgresql jdbc jsonb data type and Java list long mapping relation type handler.</p>
@@ -62,16 +65,16 @@ package org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handle
  *  <li><p>Java entity mapping:</p>
  *  <pre>{@code
  *  @Data
- *  @OrmFrameworkTableMarkedDemo(tableName = "example")
+ *  @YourOrmTable(tableName = "example")
  *  public class ExamplePO implements Serializable {
  *      @Serial
  *      private static final long serialVersionUID = -7680901283684311918L;
  *
- *      @OrmFrameworkIdMarkedDemo
- *      @OrmFrameworkColumnMarkedDemo(columnName = "id")
+ *      @YourOrmColumnId
+ *      @YourOrmColumn(columnName = "id")
  *      private Long id;
  *
- *      @OrmFrameworkColumnMarkedDemo(
+ *      @YourOrmColumn(
  *          columnName = "family_ids",
  *          typeHandler = JdbcJsonbMappingJavaListLongTypeHandler.class
  *      )
@@ -82,7 +85,7 @@ package org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handle
  *
  * <p><strong>core configuration:</strong></p>
  * <pre>{@code
- * @OrmFrameworkColumnMarkedDemo(
+ * @YourOrmColumn(
  *     columnName = "family_ids",
  *     typeHandler = JdbcJsonbMappingJavaListLongTypeHandler.class
  * )
@@ -91,6 +94,11 @@ package org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handle
  * @author wjm
  * @since 2023-06-14 09:20
  */
-public class JdbcJsonbMappingJavaListLongTypeHandler extends AbstractJdbcJsonbMappingJavaListObjectTypeHandler<Long> {
+public class JdbcJsonbMappingJavaListLongTypeHandler extends AbstractJdbcJsonMappingJavaListLongTypeHandler<PGobject> implements PgObjectJsonbConverter {
+
+    @Override
+    public PGobject toJdbcObjectByStringContent(String javaObjectContent) {
+        return PgObjectJsonbConverter.super.toJdbcObjectByStringContent(javaObjectContent);
+    }
 
 }

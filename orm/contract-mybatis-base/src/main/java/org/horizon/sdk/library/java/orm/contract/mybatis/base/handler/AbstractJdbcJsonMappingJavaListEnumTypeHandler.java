@@ -1,4 +1,4 @@
-package org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handler;
+package org.horizon.sdk.library.java.orm.contract.mybatis.base.handler;
 
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.tool.lang.convert.Converts;
@@ -8,13 +8,15 @@ import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import java.util.List;
 
 /**
- * the postgresql jdbc jsonb data type and java list enum mapping relation abstract type handler
+ * <p>provide a standard specification to explain the mapping relationship between jdbc json type and java list enum type.</p>
+ * <p>you can refer to the implementations of this class.</p>
  *
- * @param <E> the enum data type
+ * @param <E> the java object data type
+ * @param <J> the jdbc object data type
  * @author wjm
  * @since 2023-11-09 18:45
  */
-public abstract class AbstractJdbcJsonbMappingJavaListEnumTypeHandler<E extends Enum<E>> extends AbstractJdbcJsonbMappingJavaListObjectTypeHandler<E> {
+public abstract class AbstractJdbcJsonMappingJavaListEnumTypeHandler<E extends Enum<E>, J> extends AbstractJdbcJsonMappingJavaListObjectTypeHandler<E, J> {
 
     /**
      * <p>select the enum field type to persist.</p>
@@ -36,8 +38,8 @@ public abstract class AbstractJdbcJsonbMappingJavaListEnumTypeHandler<E extends 
      *
      * <p>persistence behavior:</p>
      * <ul>
-     *     <li>when returning {@code Integer.class} -> JDBC JSONB stores [1, 2, 3]</li>
-     *     <li>when returning {@code String.class} -> JDBC JSONB stores ["man", "woman", "unknown"]</li>
+     *     <li>when returning {@code Integer.class} -> JDBC JSON stores [1, 2, 3]</li>
+     *     <li>when returning {@code String.class} -> JDBC JSON stores ["man", "woman", "unknown"]</li>
      * </ul>
      *
      * @return the field type used for enum persistence

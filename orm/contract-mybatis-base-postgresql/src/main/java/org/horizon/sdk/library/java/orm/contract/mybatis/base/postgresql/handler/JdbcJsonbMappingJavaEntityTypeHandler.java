@@ -1,5 +1,8 @@
 package org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handler;
 
+import org.horizon.sdk.library.java.orm.contract.mybatis.base.handler.AbstractJdbcJsonMappingJavaEntityTypeHandler;
+import org.postgresql.util.PGobject;
+
 /**
  * <p>postgresql jdbc jsonb data type and java entity mapping relation type handler.</p>
  *
@@ -8,7 +11,7 @@ package org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handle
  *     <li><b>database schema:</b>
  *         <pre>{@code
  * CREATE TABLE example (
- *     id         BIGINT              NOT NULL,
+ *     id          BIGINT             NOT NULL,
  *     detail_info JSONB DEFAULT '{}' NOT NULL,  -- Example: {"name": "myName", "age": 18}
  *     PRIMARY KEY (id)
  * );
@@ -18,16 +21,16 @@ package org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handle
  *     <li><b>java entity mapping:</b>
  *         <pre>{@code
  * @Data
- * @OrmFrameworkTableMarkedDemo(tableName = "example")
+ * @YourOrmTable(tableName = "example")
  * public class ExamplePO implements Serializable {
  *     @Serial
  *     private static final long serialVersionUID = -7680901283684311918L;
  *
- *     @OrmFrameworkIdMarkedDemo
- *     @OrmFrameworkColumnMarkedDemo(columnName = "id")
+ *     @YourOrmColumnId
+ *     @YourOrmColumn(columnName = "id")
  *     private Long id;
  *
- *     @OrmFrameworkColumnMarkedDemo(
+ *     @YourOrmColumn(
  *         columnName = "detail_info",
  *         typeHandler = JdbcJsonbMappingJavaEntityTypeHandler.class
  *     )
@@ -52,16 +55,21 @@ package org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handle
  *
  * <p><strong>core configuration:</strong></p>
  * <pre>{@code
- * @OrmFrameworkColumnMarkedDemo(
+ * @YourOrmColumn(
  *     columnName = "detail_info",
  *     typeHandler = JdbcJsonbMappingJavaEntityTypeHandler.class
  * )
  * }</pre>
  *
- * @param <T> mapped java object type
+ * @param <T> the java object data type
  * @author wjm
  * @since 2023-11-08 16:51
  */
-public class JdbcJsonbMappingJavaEntityTypeHandler<T> extends AbstractJdbcJsonbMappingJavaObjectTypeHandler<T> {
+public class JdbcJsonbMappingJavaEntityTypeHandler<T> extends AbstractJdbcJsonMappingJavaEntityTypeHandler<T, PGobject> implements PgObjectJsonbConverter {
+
+    @Override
+    public PGobject toJdbcObjectByStringContent(String javaObjectContent) {
+        return PgObjectJsonbConverter.super.toJdbcObjectByStringContent(javaObjectContent);
+    }
 
 }

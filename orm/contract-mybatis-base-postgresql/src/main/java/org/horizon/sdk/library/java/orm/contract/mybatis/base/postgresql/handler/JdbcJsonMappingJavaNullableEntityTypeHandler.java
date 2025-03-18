@@ -5,7 +5,7 @@ import org.horizon.sdk.library.java.tool.convert.jackson.NullableObject;
 import org.postgresql.util.PGobject;
 
 /**
- * <p>the postgresql jdbc jsonb data type and Java nullable entity mapping relation type handler.</p>
+ * <p>the postgresql jdbc json data type and Java nullable entity mapping relation type handler.</p>
  *
  * <p>typical usage scenario:</p>
  * <ol>
@@ -13,7 +13,7 @@ import org.postgresql.util.PGobject;
  *  <pre>{@code
  *  CREATE TABLE example (
  *      id          BIGINT              NOT NULL,
- *      detail_info JSONB  DEFAULT '{}' NOT NULL,  -- value format: {"name": "myName", "age": 18}
+ *      detail_info JSON   DEFAULT '{}' NOT NULL,  -- value format: {"name": "myName", "age": 18}
  *      PRIMARY KEY (id)
  *  );
  *  }</pre></li>
@@ -32,7 +32,7 @@ import org.postgresql.util.PGobject;
  *
  *      @YourOrmColumn(
  *          columnName = "detail_info",
- *          typeHandler = JdbcJsonbMappingJavaNullableEntityTypeHandler.class
+ *          typeHandler = JdbcJsonMappingJavaNullableEntityTypeHandler.class
  *      )
  *      private DetailPO detailPO;
  *  }
@@ -55,7 +55,7 @@ import org.postgresql.util.PGobject;
  * <pre>{@code
  * @YourOrmColumn(
  *     columnName = "detail_info",
- *     typeHandler = JdbcJsonbMappingJavaNullableEntityTypeHandler.class
+ *     typeHandler = JdbcJsonMappingJavaNullableEntityTypeHandler.class
  * )
  * }</pre>
  *
@@ -63,18 +63,18 @@ import org.postgresql.util.PGobject;
  * <ul>
  *  <li>when {@code detailPO} field is {@code null}</li>
  *  <li>or {@link NullableObject#isNull()} returns {@code true}</li>
- *  <li>postgresql will store empty JSONB object {@code '{}'}</li>
+ *  <li>postgresql will store empty JSON object {@code '{}'}</li>
  * </ul>
  *
  * @param <T> the java object data type
  * @author wjm
  * @since 2022-09-07 10:35
  */
-public class JdbcJsonbMappingJavaNullableEntityTypeHandler<T extends NullableObject> extends AbstractJdbcJsonMappingJavaNullableEntityTypeHandler<T, PGobject> implements PgObjectJsonbConverter {
+public class JdbcJsonMappingJavaNullableEntityTypeHandler<T extends NullableObject> extends AbstractJdbcJsonMappingJavaNullableEntityTypeHandler<T, PGobject> implements PgObjectJsonConverter {
 
     @Override
     public PGobject toJdbcObjectByStringContent(String javaObjectContent) {
-        return PgObjectJsonbConverter.super.toJdbcObjectByStringContent(javaObjectContent);
+        return PgObjectJsonConverter.super.toJdbcObjectByStringContent(javaObjectContent);
     }
 
 }

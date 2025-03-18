@@ -4,7 +4,7 @@ import org.horizon.sdk.library.java.orm.contract.mybatis.base.handler.AbstractJd
 import org.postgresql.util.PGobject;
 
 /**
- * <p>the postgresql jdbc jsonb data type and Java string mapping relation type handler.</p>
+ * <p>the postgresql jdbc json data type and Java string mapping relation type handler.</p>
  *
  * <p>typical usage scenarios:</p>
  * <ol>
@@ -12,13 +12,13 @@ import org.postgresql.util.PGobject;
  *  <pre>{@code
  *  CREATE TABLE example (
  *      id          BIGINT              NOT NULL,
- *      detail_info JSONB  DEFAULT '{}' NOT NULL,  -- value example: {"name": "myName", "age": 18}
+ *      detail_info JSON  DEFAULT '{}' NOT NULL,  -- value example: {"name": "myName", "age": 18}
  *      PRIMARY KEY (id)
  *  );
  *  }</pre>
  *  <p>or:</p>
  *  <pre>{@code
- *  detail_info JSONB DEFAULT '[]' NOT NULL  -- value example: [{"name":"myName1"},{"name":"myName2"}]
+ *  detail_info JSON DEFAULT '[]' NOT NULL  -- value example: [{"name":"myName1"},{"name":"myName2"}]
  *  }</pre></li>
  *
  *  <li><p>Java entity mapping:</p>
@@ -35,7 +35,7 @@ import org.postgresql.util.PGobject;
  *
  *      @YourOrmColumn(
  *          columnName = "detail_info",
- *          typeHandler = JdbcJsonbMappingJavaStringTypeHandler.class
+ *          typeHandler = JdbcJsonMappingJavaStringTypeHandler.class
  *      )
  *      private String detailInfo;
  *  }
@@ -46,7 +46,7 @@ import org.postgresql.util.PGobject;
  * <pre>{@code
  * @YourOrmColumn(
  *     columnName = "detail_info",
- *     typeHandler = JdbcJsonbMappingJavaStringTypeHandler.class
+ *     typeHandler = JdbcJsonMappingJavaStringTypeHandler.class
  * )
  * }</pre>
  *
@@ -54,17 +54,17 @@ import org.postgresql.util.PGobject;
  * <ul>
  *  <li>Java string field must contain valid JSON format data</li>
  *  <li>Supports both JSON object ({@code {}}) and array ({@code []}) storage formats</li>
- *  <li>Automatic conversion between JSONB and String types during persistence</li>
+ *  <li>Automatic conversion between JSON and String types during persistence</li>
  * </ul>
  *
  * @author wjm
  * @since 2023-11-10 14:35
  */
-public class JdbcJsonbMappingJavaStringTypeHandler extends AbstractJdbcJsonMappingJavaStringTypeHandler<PGobject> implements PgObjectJsonbConverter {
+public class JdbcJsonMappingJavaStringTypeHandler extends AbstractJdbcJsonMappingJavaStringTypeHandler<PGobject> implements PgObjectJsonConverter {
 
     @Override
     public PGobject toJdbcObjectByStringContent(String javaObjectContent) {
-        return PgObjectJsonbConverter.super.toJdbcObjectByStringContent(javaObjectContent);
+        return PgObjectJsonConverter.super.toJdbcObjectByStringContent(javaObjectContent);
     }
 
 }
