@@ -241,7 +241,7 @@ public class CharacterSequences extends Characters {
     }
 
     /**
-     * connect multi strings into one string, example: "12", null, "34" => "1234".
+     * connect multi string values into one string, example: "12", null, "34" => "1234".
      *
      * @param inputs the input elements
      * @return after concat
@@ -264,7 +264,7 @@ public class CharacterSequences extends Characters {
 
     /**
      * <pre>
-     * convert collection to strings using {@link SymbolConstant#LF} as a separator.
+     * convert collection to string values using {@link SymbolConstant#LF} as a separator.
      *
      * example:
      *   the inputs are:       ["1", "2", "345"]
@@ -295,7 +295,7 @@ public class CharacterSequences extends Characters {
 
     /**
      * <pre>
-     * convert collection to strings using {@link SymbolConstant#COMMA} as a separator.
+     * convert collection to string values using {@link SymbolConstant#COMMA} as a separator.
      *
      * example:
      *   the inputs are:       ["1", "2", "345"]
@@ -312,7 +312,7 @@ public class CharacterSequences extends Characters {
 
     /**
      * <pre>
-     * convert collection to strings using {@link SymbolConstant#COMMA_CHINESE} as a separator.
+     * convert collection to string values using {@link SymbolConstant#COMMA_CHINESE} as a separator.
      *
      * example:
      *   the inputs are:       ["1", "2", "345"]
@@ -341,7 +341,7 @@ public class CharacterSequences extends Characters {
 
     /**
      * <pre>
-     * convert collection to strings using {@link SymbolConstant#COMMA} and {@link SymbolConstant#SPACE} as a separator.
+     * convert collection to string values using {@link SymbolConstant#COMMA} and {@link SymbolConstant#SPACE} as a separator.
      *
      * example:
      *   the inputs are:       ["1", "2", "345"]
@@ -370,7 +370,7 @@ public class CharacterSequences extends Characters {
 
     /**
      * <pre>
-     * convert collection to strings using {@link SymbolConstant#SINGLE_QUOTE} and {@link SymbolConstant#COMMA} as a separator.
+     * convert collection to string values using {@link SymbolConstant#SINGLE_QUOTE} and {@link SymbolConstant#COMMA} as a separator.
      *
      * example:
      *   the inputs are:       ["1", "2", "345"]
@@ -399,7 +399,7 @@ public class CharacterSequences extends Characters {
 
     /**
      * <pre>
-     * convert collection to strings using {@link SymbolConstant#DOUBLE_QUOTE} and {@link SymbolConstant#COMMA} as a separator.
+     * convert collection to string values using {@link SymbolConstant#DOUBLE_QUOTE} and {@link SymbolConstant#COMMA} as a separator.
      *
      * example:
      *   the inputs are:       ["1", "2", "345"]
@@ -428,7 +428,7 @@ public class CharacterSequences extends Characters {
 
     /**
      * <pre>
-     * convert collection to strings using conjunction as a separator.
+     * convert collection to string values using conjunction as a separator.
      *
      * example:
      *   the inputs are:       ["1", "2", "345"]
