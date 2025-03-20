@@ -12,7 +12,6 @@ import org.horizon.sdk.library.java.tool.lang.convert.Converts;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * the jackson serializer to convert {@code List<Long>} to {@code List<String>}
@@ -25,7 +24,7 @@ public class JacksonListLongToListStringSerializer extends JsonSerializer<List<L
     @Override
     @SneakyThrows
     public void serialize(List<Long> sourceValues, JsonGenerator jsonGenerator, SerializerProvider serializers) {
-        List<String> values = sourceValues.stream().filter(Nil::isNotNull).map(param -> Long.toString(param)).collect(Collectors.toList());
+        List<String> values = sourceValues.stream().filter(Nil::isNotNull).map(param -> Long.toString(param)).toList();
         jsonGenerator.writeArray(Converts.toArray(values, String.class), NumberConstant.ZERO_INT_VALUE, values.size());
     }
 
