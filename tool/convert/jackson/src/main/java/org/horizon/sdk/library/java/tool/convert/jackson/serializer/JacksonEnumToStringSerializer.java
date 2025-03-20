@@ -19,16 +19,16 @@ public class JacksonEnumToStringSerializer extends JsonSerializer<Enum<?>> {
 
     @Override
     @SneakyThrows
-    public void serialize(Enum<?> from, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
-        jsonGenerator.writeObject(Enums.getFieldValue(from, String.class));
+    public void serialize(Enum<?> sourceValue, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
+        jsonGenerator.writeObject(Enums.getFieldValue(sourceValue, String.class));
     }
 
     @Override
     @SneakyThrows
-    public void serializeWithType(Enum<?> value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) {
-        WritableTypeId typeIdDef = typeSerializer.writeTypePrefix(jsonGenerator, typeSerializer.typeId(value, JsonToken.VALUE_STRING));
-        serialize(value, jsonGenerator, serializerProvider);
-        typeSerializer.writeTypeSuffix(jsonGenerator, typeIdDef);
+    public void serializeWithType(Enum<?> sourceValue, JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) {
+        WritableTypeId writableTypeId = typeSerializer.writeTypePrefix(jsonGenerator, typeSerializer.typeId(sourceValue, JsonToken.VALUE_STRING));
+        serialize(sourceValue, jsonGenerator, serializerProvider);
+        typeSerializer.writeTypeSuffix(jsonGenerator, writableTypeId);
     }
 
 }

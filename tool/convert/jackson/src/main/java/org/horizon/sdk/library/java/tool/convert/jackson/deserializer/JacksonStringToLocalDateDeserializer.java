@@ -15,8 +15,8 @@ import java.time.format.DateTimeFormatter;
 public class JacksonStringToLocalDateDeserializer extends StdConverter<String, LocalDate> {
 
     @Override
-    public LocalDate convert(String from) {
-        return Times.toLocalDate(from, DateTimeFormatter.ISO_DATE);
+    public LocalDate convert(String sourceValue) {
+        return Times.toLocalDate(sourceValue, DateTimeFormatter.ISO_DATE);
     }
 
 }

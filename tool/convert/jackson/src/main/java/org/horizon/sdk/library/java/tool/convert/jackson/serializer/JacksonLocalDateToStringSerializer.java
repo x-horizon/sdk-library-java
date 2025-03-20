@@ -21,16 +21,16 @@ public class JacksonLocalDateToStringSerializer extends JsonSerializer<LocalDate
 
     @SneakyThrows
     @Override
-    public void serialize(LocalDate from, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
-        jsonGenerator.writeObject(Times.toStringYearMonthDay(from));
+    public void serialize(LocalDate sourceValue, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
+        jsonGenerator.writeObject(Times.toStringYearMonthDay(sourceValue));
     }
 
     @Override
     @SneakyThrows
-    public void serializeWithType(LocalDate value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) {
-        WritableTypeId typeIdDef = typeSerializer.writeTypePrefix(jsonGenerator, typeSerializer.typeId(value, JsonToken.VALUE_STRING));
-        serialize(value, jsonGenerator, serializerProvider);
-        typeSerializer.writeTypeSuffix(jsonGenerator, typeIdDef);
+    public void serializeWithType(LocalDate sourceValue, JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) {
+        WritableTypeId writableTypeId = typeSerializer.writeTypePrefix(jsonGenerator, typeSerializer.typeId(sourceValue, JsonToken.VALUE_STRING));
+        serialize(sourceValue, jsonGenerator, serializerProvider);
+        typeSerializer.writeTypeSuffix(jsonGenerator, writableTypeId);
     }
 
 }

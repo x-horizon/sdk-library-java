@@ -19,16 +19,16 @@ public class JacksonFloatToStringSerializer extends JsonSerializer<Float> {
 
     @Override
     @SneakyThrows
-    public void serialize(Float from, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
-        jsonGenerator.writeObject(Converts.toString(from));
+    public void serialize(Float sourceValue, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
+        jsonGenerator.writeObject(Converts.toString(sourceValue));
     }
 
     @Override
     @SneakyThrows
-    public void serializeWithType(Float value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) {
-        WritableTypeId typeIdDef = typeSerializer.writeTypePrefix(jsonGenerator, typeSerializer.typeId(value, JsonToken.VALUE_STRING));
-        serialize(value, jsonGenerator, serializerProvider);
-        typeSerializer.writeTypeSuffix(jsonGenerator, typeIdDef);
+    public void serializeWithType(Float sourceValue, JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) {
+        WritableTypeId writableTypeId = typeSerializer.writeTypePrefix(jsonGenerator, typeSerializer.typeId(sourceValue, JsonToken.VALUE_STRING));
+        serialize(sourceValue, jsonGenerator, serializerProvider);
+        typeSerializer.writeTypeSuffix(jsonGenerator, writableTypeId);
     }
 
 }

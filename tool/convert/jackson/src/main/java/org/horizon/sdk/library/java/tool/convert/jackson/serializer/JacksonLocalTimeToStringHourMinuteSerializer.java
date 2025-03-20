@@ -21,16 +21,16 @@ public class JacksonLocalTimeToStringHourMinuteSerializer extends JsonSerializer
 
     @SneakyThrows
     @Override
-    public void serialize(LocalTime from, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
-        jsonGenerator.writeObject(Times.toStringHourMinute(from));
+    public void serialize(LocalTime sourceValue, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
+        jsonGenerator.writeObject(Times.toStringHourMinute(sourceValue));
     }
 
     @Override
     @SneakyThrows
-    public void serializeWithType(LocalTime value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) {
-        WritableTypeId typeIdDef = typeSerializer.writeTypePrefix(jsonGenerator, typeSerializer.typeId(value, JsonToken.VALUE_STRING));
-        serialize(value, jsonGenerator, serializerProvider);
-        typeSerializer.writeTypeSuffix(jsonGenerator, typeIdDef);
+    public void serializeWithType(LocalTime sourceValue, JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) {
+        WritableTypeId writableTypeId = typeSerializer.writeTypePrefix(jsonGenerator, typeSerializer.typeId(sourceValue, JsonToken.VALUE_STRING));
+        serialize(sourceValue, jsonGenerator, serializerProvider);
+        typeSerializer.writeTypeSuffix(jsonGenerator, writableTypeId);
     }
 
 }

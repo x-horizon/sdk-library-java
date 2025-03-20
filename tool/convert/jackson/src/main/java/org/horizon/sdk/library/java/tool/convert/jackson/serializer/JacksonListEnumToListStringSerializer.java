@@ -22,18 +22,18 @@ public class JacksonListEnumToListStringSerializer extends JsonSerializer<List<E
 
     @Override
     @SneakyThrows
-    public void serialize(List<Enum<?>> from, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
+    public void serialize(List<Enum<?>> sourceValues, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
         List<String> prepareToSerializerValues = new ArrayList<>();
-        from.forEach(prepareToSerializerEnum -> prepareToSerializerValues.add(Enums.getFieldValue(prepareToSerializerEnum, String.class)));
+        sourceValues.forEach(prepareToSerializerEnum -> prepareToSerializerValues.add(Enums.getFieldValue(prepareToSerializerEnum, String.class)));
         jsonGenerator.writeObject(prepareToSerializerValues);
     }
 
     @Override
     @SneakyThrows
-    public void serializeWithType(List<Enum<?>> value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) {
-        WritableTypeId typeIdDef = typeSerializer.writeTypePrefix(jsonGenerator, typeSerializer.typeId(value, JsonToken.START_ARRAY));
-        serialize(value, jsonGenerator, serializerProvider);
-        typeSerializer.writeTypeSuffix(jsonGenerator, typeIdDef);
+    public void serializeWithType(List<Enum<?>> sourceValues, JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) {
+        WritableTypeId writableTypeId = typeSerializer.writeTypePrefix(jsonGenerator, typeSerializer.typeId(sourceValues, JsonToken.START_ARRAY));
+        serialize(sourceValues, jsonGenerator, serializerProvider);
+        typeSerializer.writeTypeSuffix(jsonGenerator, writableTypeId);
     }
 
 }

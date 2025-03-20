@@ -14,8 +14,8 @@ import java.time.LocalTime;
 public class JacksonStringToLocalTimeDeserializer extends StdConverter<String, LocalTime> {
 
     @Override
-    public LocalTime convert(String from) {
-        return Times.toLocalTime(from);
+    public LocalTime convert(String sourceValue) {
+        return Times.toLocalTime(sourceValue);
     }
 
 }
