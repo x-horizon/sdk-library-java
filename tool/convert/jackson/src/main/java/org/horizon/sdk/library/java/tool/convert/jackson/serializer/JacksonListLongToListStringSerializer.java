@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import lombok.SneakyThrows;
+import org.horizon.sdk.library.java.contract.constant.number.NumberConstant;
 import org.horizon.sdk.library.java.tool.lang.convert.Converts;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 
@@ -25,7 +26,7 @@ public class JacksonListLongToListStringSerializer extends JsonSerializer<List<L
     @SneakyThrows
     public void serialize(List<Long> from, JsonGenerator jsonGenerator, SerializerProvider serializers) {
         List<String> strings = from.stream().filter(Nil::isNotNull).map(param -> Long.toString(param)).collect(Collectors.toList());
-        jsonGenerator.writeArray(Converts.toArray(strings, String.class), 0, strings.size());
+        jsonGenerator.writeArray(Converts.toArray(strings, String.class), NumberConstant.ZERO_INT_VALUE, strings.size());
     }
 
     @Override
