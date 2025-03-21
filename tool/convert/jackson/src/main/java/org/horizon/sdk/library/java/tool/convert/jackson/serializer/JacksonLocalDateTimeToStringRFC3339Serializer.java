@@ -1,12 +1,5 @@
 package org.horizon.sdk.library.java.tool.convert.jackson.serializer;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.core.type.WritableTypeId;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
-import lombok.SneakyThrows;
 import org.horizon.sdk.library.java.tool.lang.time.Times;
 
 import java.time.LocalDateTime;
@@ -17,20 +10,11 @@ import java.time.LocalDateTime;
  * @author wjm
  * @since 2023-03-28 10:00
  */
-public class JacksonLocalDateTimeToStringRFC3339Serializer extends JsonSerializer<LocalDateTime> {
+public class JacksonLocalDateTimeToStringRFC3339Serializer extends JacksonSerializeToStringSerializer<LocalDateTime, String> {
 
     @Override
-    @SneakyThrows
-    public void serialize(LocalDateTime sourceValue, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
-        jsonGenerator.writeObject(Times.toStringWithRFC3339DateTime(sourceValue));
-    }
-
-    @Override
-    @SneakyThrows
-    public void serializeWithType(LocalDateTime sourceValue, JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) {
-        WritableTypeId writableTypeId = typeSerializer.writeTypePrefix(jsonGenerator, typeSerializer.typeId(sourceValue, JsonToken.VALUE_STRING));
-        serialize(sourceValue, jsonGenerator, serializerProvider);
-        typeSerializer.writeTypeSuffix(jsonGenerator, writableTypeId);
+    public String getTargetValue(LocalDateTime sourceValue) {
+        return Times.toStringWithRFC3339DateTime(sourceValue);
     }
 
 }
