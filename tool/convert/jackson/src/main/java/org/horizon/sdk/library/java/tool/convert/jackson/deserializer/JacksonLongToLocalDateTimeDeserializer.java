@@ -1,6 +1,9 @@
 package org.horizon.sdk.library.java.tool.convert.jackson.deserializer;
 
-import com.fasterxml.jackson.databind.util.StdConverter;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import lombok.SneakyThrows;
 import org.horizon.sdk.library.java.tool.lang.time.Times;
 
 import java.time.LocalDateTime;
@@ -11,11 +14,12 @@ import java.time.LocalDateTime;
  * @author wjm
  * @since 2022-10-28 11:18
  */
-public class JacksonLongToLocalDateTimeDeserializer extends StdConverter<Long, LocalDateTime> {
+public class JacksonLongToLocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
 
+    @SneakyThrows
     @Override
-    public LocalDateTime convert(Long from) {
-        return Times.toLocalDateTime(from);
+    public LocalDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) {
+        return Times.toLocalDateTime(jsonParser.getLongValue());
     }
 
 }

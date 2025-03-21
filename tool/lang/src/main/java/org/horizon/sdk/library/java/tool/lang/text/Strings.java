@@ -51,7 +51,7 @@ public class Strings extends CharacterSequences {
      * see {@link #getMostSimilar(String, Collection)}
      *
      * @param input            original string
-     * @param comparedElements the strings to compare
+     * @param comparedElements the string values to compare
      * @return the most similar string
      */
     public static String getMostSimilar(String input, String... comparedElements) {
@@ -69,7 +69,7 @@ public class Strings extends CharacterSequences {
      * </pre>
      *
      * @param input            original string
-     * @param comparedElements the strings to compare
+     * @param comparedElements the string values to compare
      * @return the most similar string
      */
     public static String getMostSimilar(String input, Collection<String> comparedElements) {
@@ -107,7 +107,7 @@ public class Strings extends CharacterSequences {
      *
      * note:
      * 1. ignore case.
-     * 2. if there are multiple longest common substrings, will return the last one.
+     * 2. if there are multiple longest common substring values, will return the last one.
      * </pre>
      *
      * @param input           the string to compare

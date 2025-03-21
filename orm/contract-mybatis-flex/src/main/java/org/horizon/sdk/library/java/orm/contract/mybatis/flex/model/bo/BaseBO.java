@@ -64,13 +64,13 @@ public class BaseBO implements BO {
     @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.TIMESTAMP)
     @Column(value = "create_time")
     @JsonSerialize(using = JacksonLocalDateTimeToLongSerializer.class)
-    @JsonDeserialize(converter = JacksonLongToLocalDateTimeDeserializer.class)
+    @JsonDeserialize(using = JacksonLongToLocalDateTimeDeserializer.class)
     private LocalDateTime createTime;
 
     @Schema(description = "更新时间", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.TIMESTAMP)
     @Column(value = "update_time")
     @JsonSerialize(using = JacksonLocalDateTimeToLongSerializer.class)
-    @JsonDeserialize(converter = JacksonLongToLocalDateTimeDeserializer.class)
+    @JsonDeserialize(using = JacksonLongToLocalDateTimeDeserializer.class)
     private LocalDateTime updateTime;
 
     @Schema(description = "删除时间")

@@ -1,34 +1,18 @@
 package org.horizon.sdk.library.java.tool.convert.jackson.serializer;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.core.type.WritableTypeId;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
-import lombok.SneakyThrows;
 import org.horizon.sdk.library.java.tool.lang.enums.Enums;
 
 /**
- * the jackson serializer to convert {@code Enum<?>} to the enum internal long value, see {@link Enums#getFieldValue(Enum, Class)}
+ * the jackson serializer to convert {@code Enum<E>} to the enum internal long value, see {@link Enums#getFieldValue(Enum, Class)}
  *
  * @author wjm
  * @since 2020-12-15 17:02
  */
-public class JacksonEnumToLongSerializer extends JsonSerializer<Enum<?>> {
+public class JacksonEnumToLongSerializer<E extends Enum<E>> extends JacksonSerializeToNumberSerializer<Enum<E>, Long> {
 
     @Override
-    @SneakyThrows
-    public void serialize(Enum<?> from, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
-        jsonGenerator.writeObject(Enums.getFieldValue(from, Long.class));
-    }
-
-    @Override
-    @SneakyThrows
-    public void serializeWithType(Enum<?> value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) {
-        WritableTypeId typeIdDef = typeSerializer.writeTypePrefix(jsonGenerator, typeSerializer.typeId(value, JsonToken.VALUE_NUMBER_INT));
-        serialize(value, jsonGenerator, serializerProvider);
-        typeSerializer.writeTypeSuffix(jsonGenerator, typeIdDef);
+    public Long getTargetValue(Enum<E> sourceValue) {
+        return Enums.getFieldValue(sourceValue, Long.class);
     }
 
 }

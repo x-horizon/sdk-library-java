@@ -41,7 +41,7 @@ public class JunctionSignalStepBO implements BO {
     @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.TIMESTAMP)
     @Column(value = "create_time")
     @JsonSerialize(using = JacksonLocalDateTimeToLongSerializer.class)
-    @JsonDeserialize(converter = JacksonLongToLocalDateTimeDeserializer.class)
+    @JsonDeserialize(using = JacksonLongToLocalDateTimeDeserializer.class)
     private LocalDateTime createTime;
 
 }
