@@ -15,7 +15,6 @@ import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.object.Objects;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
-import java.math.BigDecimal;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
@@ -745,62 +744,6 @@ public class Assert {
      *
      * @param input           the checked element
      * @param comparedElement the compared element
-     * @see Comparators#equals(long, long)
-     */
-    public void throwsIfEquals(long input, long comparedElement) {
-        Action.ifEquals(input, comparedElement).then(() -> {
-            this.messageTemplate = Objects.setIfNull(this.messageTemplate, () -> AssertMessage.NOT_EQUAL_CHECKED_MESSAGE);
-            return this.doThrows();
-        });
-    }
-
-    /**
-     * throws if the checked element equals compared element
-     *
-     * @param input           the checked element
-     * @param comparedElement the compared element
-     * @see Comparators#equals(float, float)
-     */
-    public void throwsIfEquals(float input, float comparedElement) {
-        Action.ifEquals(input, comparedElement).then(() -> {
-            this.messageTemplate = Objects.setIfNull(this.messageTemplate, () -> AssertMessage.NOT_EQUAL_CHECKED_MESSAGE);
-            return this.doThrows();
-        });
-    }
-
-    /**
-     * throws if the checked element equals compared element
-     *
-     * @param input           the checked element
-     * @param comparedElement the compared element
-     * @see Comparators#equals(double, double)
-     */
-    public void throwsIfEquals(double input, double comparedElement) {
-        Action.ifEquals(input, comparedElement).then(() -> {
-            this.messageTemplate = Objects.setIfNull(this.messageTemplate, () -> AssertMessage.NOT_EQUAL_CHECKED_MESSAGE);
-            return this.doThrows();
-        });
-    }
-
-    /**
-     * throws if the checked element equals compared element
-     *
-     * @param input           the checked element
-     * @param comparedElement the compared element
-     * @see Comparators#equals(BigDecimal, BigDecimal)
-     */
-    public void throwsIfEquals(BigDecimal input, BigDecimal comparedElement) {
-        Action.ifEquals(input, comparedElement).then(() -> {
-            this.messageTemplate = Objects.setIfNull(this.messageTemplate, () -> AssertMessage.NOT_EQUAL_CHECKED_MESSAGE);
-            return this.doThrows();
-        });
-    }
-
-    /**
-     * throws if the checked element equals compared element
-     *
-     * @param input           the checked element
-     * @param comparedElement the compared element
      * @see Comparators#equals(Number, Number)
      */
     public void throwsIfEquals(Number input, Number comparedElement) {
@@ -1406,62 +1349,6 @@ public class Assert {
     public void throwsIfAllNotPositive(Number... inputs) {
         Action.ifAllNotPositive(inputs).then(() -> {
             this.messageTemplate = Objects.setIfNull(this.messageTemplate, () -> AssertMessage.POSITIVE_CHECKED_MESSAGE);
-            return this.doThrows();
-        });
-    }
-
-    /**
-     * throws if the checked element not equals compared element
-     *
-     * @param input           the checked element
-     * @param comparedElement the compared element
-     * @see Comparators#notEquals(long, long)
-     */
-    public void throwsIfNotEquals(long input, long comparedElement) {
-        Action.ifNotEquals(input, comparedElement).then(() -> {
-            this.messageTemplate = Objects.setIfNull(this.messageTemplate, () -> AssertMessage.EQUAL_CHECKED_MESSAGE);
-            return this.doThrows();
-        });
-    }
-
-    /**
-     * throws if the checked element not equals compared element
-     *
-     * @param input           the checked element
-     * @param comparedElement the compared element
-     * @see Comparators#notEquals(float, float)
-     */
-    public void throwsIfNotEquals(float input, float comparedElement) {
-        Action.ifNotEquals(input, comparedElement).then(() -> {
-            this.messageTemplate = Objects.setIfNull(this.messageTemplate, () -> AssertMessage.EQUAL_CHECKED_MESSAGE);
-            return this.doThrows();
-        });
-    }
-
-    /**
-     * throws if the checked element not equals compared element
-     *
-     * @param input           the checked element
-     * @param comparedElement the compared element
-     * @see Comparators#notEquals(double, double)
-     */
-    public void throwsIfNotEquals(double input, double comparedElement) {
-        Action.ifNotEquals(input, comparedElement).then(() -> {
-            this.messageTemplate = Objects.setIfNull(this.messageTemplate, () -> AssertMessage.EQUAL_CHECKED_MESSAGE);
-            return this.doThrows();
-        });
-    }
-
-    /**
-     * throws if the checked element not equals compared element
-     *
-     * @param input           the checked element
-     * @param comparedElement the compared element
-     * @see Comparators#notEquals(BigDecimal, BigDecimal)
-     */
-    public void throwsIfNotEquals(BigDecimal input, BigDecimal comparedElement) {
-        Action.ifNotEquals(input, comparedElement).then(() -> {
-            this.messageTemplate = Objects.setIfNull(this.messageTemplate, () -> AssertMessage.EQUAL_CHECKED_MESSAGE);
             return this.doThrows();
         });
     }
