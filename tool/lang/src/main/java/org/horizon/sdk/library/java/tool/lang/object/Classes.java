@@ -57,20 +57,18 @@ public class Classes {
     }
 
     /**
-     * <pre>
-     * get the simple class name.
+     * <p>Gets the simple class name of the specified class.</p>
      *
-     * example code:
-     * {@code
-     *     public static void main(String[] args) {
-     *         // the output is "Classes"
-     *         Classes.getClassSimpleName(Classes.class);
-     *     }
+     * <p>Example:</p>
+     * <pre>{@code
+     * public static void main(String[] args) {
+     *     // Outputs "Classes"
+     *     String simpleName = Classes.getClassSimpleName(Classes.class);
      * }
-     * </pre>
+     * }</pre>
      *
-     * @param input the specified class
-     * @return the simple class name
+     * @param input the class to retrieve the simple name for
+     * @return the class name without package prefix
      * @see ClassUtil#getClassName(Object, boolean)
      */
     public static String getClassSimpleName(Class<?> input) {
@@ -78,20 +76,18 @@ public class Classes {
     }
 
     /**
-     * <pre>
-     * get the full class name.
+     * <p>Gets the fully qualified class name of the specified class.</p>
      *
-     * example code:
-     * {@code
-     *     public static void main(String[] args) {
-     *         // the output is "org.horizon.sdk.library.java.tool.lang.object.Classes"
-     *         Classes.getClassSimpleName(Classes.class);
-     *     }
+     * <p>Example:</p>
+     * <pre>{@code
+     * public static void main(String[] args) {
+     *     // Outputs "org.horizon.sdk.library.java.tool.lang.object.Classes"
+     *     String fullName = Classes.getClassFullName(Classes.class);
      * }
-     * </pre>
+     * }</pre>
      *
-     * @param input the specified class
-     * @return the full class name
+     * @param input the class to retrieve the fully qualified name for
+     * @return the complete class name including package
      * @see ClassUtil#getClassName(Object, boolean)
      */
     public static String getClassFullName(Class<?> input) {
@@ -109,26 +105,37 @@ public class Classes {
     }
 
     /**
-     * <pre>
-     * get the largest range package paths.
+     * <p>Finds the most inclusive package paths from a collection by eliminating nested paths.</p>
      *
-     * example code:
-     * {@code
-     * // "cn.test"    is contain "cn.test.lang1", "cn.test.lang1",     so keep only "cn.test".
-     * // "org.horizon.sdk.library" is contain "org.horizon.sdk.library.xxx", "org.horizon.sdk.library.ss.xx", so keep only "org.horizon.sdk.library".
-     * // "cn.core"    not contain the other package path, so keep it.
-     * // the output is ["cn.test", "org.horizon.sdk.library", "cn.core"]
-     * Classes.getTheMostLargerRangePackagePath(List.of("cn.test.lang1", "cn.test.lang1", "cn.test", "org.horizon.sdk.library", "org.horizon.sdk.library.xxx", "org.horizon.sdk.library.ss.xx", "cn.core"));
+     * <p>Behavior characteristics:</p>
+     * <ul>
+     * <li>Retains only root packages that contain other sub-packages</li>
+     * <li>Preserves unique packages without sub-packages</li>
+     * </ul>
      *
-     * // warning: this following is not the expected result:
-     * // all package paths start with "org.horizon.sdk.library", and although the second package name is inconsistent, it will also be filtered out.
-     * // the output is ["org.horizon.sdk.library"]
-     * Classes.getTheMostLargerRangePackagePath(List.of("org.horizon.sdk.library.lang1", "org.horizon.sdk.library.lang1", "org.horizon.sdk.library", "org.horizon.sdk.library2", "org.horizon.sdk.library2.xxx", "org.horizon.sdk.library2.ss.xx", "org.horizon.sdk.library3"));
-     * }
-     * </pre>
+     * <p>Usage examples:</p>
+     * <ol>
+     * <li><p>Basic deduplication:</p>
+     * <pre>{@code
+     * // Input:  ["cn.test.lang1", "cn.test.lang1", "cn.test",
+     * //         "org.horizon.sdk.library", "org.horizon.sdk.library.xxx",
+     * //         "org.horizon.sdk.library.ss.xx", "cn.core"]
+     * // Output: ["cn.test", "org.horizon.sdk.library", "cn.core"]
+     * List<String> result = Classes.getTheMostLargerRangePackagePath(inputs);
+     * }</pre></li>
      *
-     * @param packagePaths the package paths
-     * @return the largest range package paths
+     * <li><p>Handling similar root packages:</p>
+     * <pre>{@code
+     * // Input:  ["org.horizon.sdk.library.lang1", "org.horizon.sdk.library",
+     * //         "org.horizon.sdk.library2", "org.horizon.sdk.library2.xxx",
+     * //         "org.horizon.sdk.library3"]
+     * // Output: ["org.horizon.sdk.library"]
+     * // Note: library2/library3 are treated as distinct roots
+     * }</pre></li>
+     * </ol>
+     *
+     * @param packagePaths collection of package names (dot-separated format)
+     * @return the set of unique root packages in original order
      */
     public static Set<String> getTheLargestRangePackagePath(Collection<String> packagePaths) {
         Set<String> theMostLargerRangePackagePaths = Collections.ofHashSet(packagePaths);

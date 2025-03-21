@@ -289,31 +289,32 @@ public class Annotations {
     }
 
     /**
-     * <pre>
-     * get annotation field value.
+     * <p>Retrieves the value of a specified annotation field from an annotated element.</p>
      *
-     * example code:
-     *     {@code
-     *        public @interface TestAnnotation {
-     *            String fieldName() default "";
-     *        }
+     * <p>Usage example:</p>
+     * <pre>{@code
+     * public @interface TestAnnotation {
+     *     String fieldName() default "";
+     * }
      *
-     *        @TestAnnotation(fieldName = "myField")
-     *        public class Test {
-     *            public static void main(String[] args) {
-     *                // the output is "myField"
-     *                Annotations.getAnnotationValue(Test.class, TestAnnotation.class, String.class, "fieldName");
-     *            }
-     *        }
+     * @TestAnnotation(fieldName = "myField")
+     * public class Test {
+     *     public static void main(String[] args) {
+     *         // Outputs "myField"
+     *         String value = Annotations.getAnnotationValue(
+     *             Test.class,
+     *             TestAnnotation.class,
+     *             "fieldName"
+     *         );
      *     }
-     * </pre>
+     * }
+     * }</pre>
      *
-     * @param annotatedElement the annotated element
-     * @param annotationType   the annotation type
-     * @param fieldType        the field class
-     * @param fieldName        the annotation field name
-     * @param <T>              the field type
-     * @return the annotation field value
+     * @param annotatedElement the element containing the annotation (class/method/field)
+     * @param annotationType   the {@code Class} object of the target annotation
+     * @param fieldName        the name of the annotation attribute to retrieve
+     * @param <T>              the return type of the annotation attribute
+     * @return the attribute value from the annotation, or {@code null} if not found
      * @see AnnotationUtil#getAnnotationValue(AnnotatedElement, Class, String)
      */
     public static <T> T getAnnotationValue(AnnotatedElement annotatedElement, Class<? extends Annotation> annotationType, Class<T> fieldType, String fieldName) {

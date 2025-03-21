@@ -21,27 +21,33 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * <pre>
- * assert toolkit
+ * <p>Provides fluent assertion utilities with configurable exception handling.</p>
  *
- * example code:
- *    {@code
- *      public static void main(String[] args) {
- *           Assert.of()
- *                   // default status when throws
- *                   .setStatus(HttpStatus.INTERNAL_ERROR.getStatus())
- *                   // default exception when throws
- *                   .setThrowable(RunningException.class)
- *                   .setMessage("throw because of null object!")
- *                   .throwsIfNull(null);
- *       }
- *    }
- * </pre>
+ * <p>Key features:</p>
+ * <ul>
+ *   <li>Chainable assertion configuration</li>
+ *   <li>Customizable error status and exception types</li>
+ *   <li>Prebuilt common validation scenarios</li>
+ * </ul>
+ *
+ * <p>Usage example:</p>
+ * <pre>{@code
+ * public static void main(String[] args) {
+ *     Assert.of()
+ *         // the status when throws
+ *         .setStatus(HttpStatus.INTERNAL_ERROR.getStatus())
+ *         // the exception when throws
+ *         .setThrowable(RunningException.class)
+ *         // custom error message
+ *         .setMessage("Null object detected in critical path")
+ *         // execute null check validation
+ *         .throwsIfNull(null);
+ * }
+ * }</pre>
  *
  * @author wjm
  * @since 2020-06-13 20:05
  */
-
 @Accessors(chain = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Assert {
