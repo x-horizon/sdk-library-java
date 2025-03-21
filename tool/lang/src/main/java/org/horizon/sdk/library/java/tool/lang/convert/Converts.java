@@ -7,7 +7,6 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.dromara.hutool.core.array.ArrayUtil;
 import org.dromara.hutool.core.convert.ConvertUtil;
-import org.dromara.hutool.core.util.EnumUtil;
 import org.horizon.sdk.library.java.contract.constant.booleans.BooleanConstant;
 import org.horizon.sdk.library.java.contract.constant.collection.CollectionConstant;
 import org.horizon.sdk.library.java.contract.constant.number.NumberConstant;
@@ -153,24 +152,21 @@ public class Converts {
     }
 
     /**
-     * <pre>
-     * split a number string separated by separator to number collection.
+     * <p>split number string separated by separator to a numeric collection.</p>
      *
-     *  example:
+     * <p>example:</p>
+     * <pre>{@code
+     * public static void main(String[] args) {
+     *     // Result: [1, 2, 3, 4]
+     *     Converts.toNumbers("1,2,3,4", ",", Integer.class);
+     * }
+     * }</pre>
      *
-     *     {@code
-     *        public static void main(String[] args) {
-     *            // the output is [1, 2, 3, 4], data type is {@link Integer}
-     *           Converts.toNumbers("1,2,3,4", ",", Integer.class);
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param input             the input element
-     * @param separator         the separator
-     * @param outputNumberClass the output number class
-     * @param <T>               the output number type
-     * @return after split
+     * @param input             input string containing numbers
+     * @param separator         regex separator for splitting
+     * @param outputNumberClass target numeric type class (e.g. {@code Integer.class})
+     * @param <T>               type of the output numbers
+     * @return unmodifiable collection of converted numbers
      * @see Converts#toNumber(Object, Class)
      */
     public static <T extends Number> List<T> toNumbers(CharSequence input, CharSequence separator, Class<T> outputNumberClass) {
@@ -260,24 +256,19 @@ public class Converts {
     }
 
     /**
-     * <pre>
-     * convert collection to array.
+     * <p>convert collection to type-specific array.</p>
      *
-     *  example:
+     * <p>example:</p>
+     * <pre>{@code
+     * List<Integer> inputs = List.of(1, 2, 3, 4, 5);
+     * // Results: [1, 2, 3, 4, 5]
+     * Integer[] outputs = Converts.toArray(inputs, Integer[]::new);
+     * }</pre>
      *
-     *     {@code
-     *        public static void main(String[] args) {
-     *            List<Integer> inputs = List.of(1, 2, 3, 4, 5);
-     *            // the output is [1, 2, 3, 4, 5]
-     *            Integer[] outputs = Converts.toArray(inputs, Integer[]::new);
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs                the input elements
-     * @param outputConstructAction the array construct
-     * @param <T>                   the element type
-     * @return after convert
+     * @param inputs                source collection to be converted
+     * @param outputConstructAction array generator function (e.g. {@code Integer[]::new})
+     * @param <T>                   array component type
+     * @return newly created array containing collection elements
      */
     public static <T> T[] toArray(Iterable<T> inputs, IntFunction<T[]> outputConstructAction) {
         return Action.<T[]>ifEmpty(inputs)
@@ -302,22 +293,17 @@ public class Converts {
     }
 
     /**
-     * <pre>
-     * convert collection to array.
+     * <p>convert collection to object array.</p>
      *
-     *  example:
+     * <p>example:</p>
+     * <pre>{@code
+     * List<Integer> inputs = List.of(1, 2, 3, 4, 5);
+     * // Results: [1, 2, 3, 4, 5]
+     * Object[] outputs = Converts.toArray(inputs);
+     * }</pre>
      *
-     *     {@code
-     *        public static void main(String[] args) {
-     *            List<Integer> inputs = List.of(1, 2, 3, 4, 5);
-     *            // the output is [1, 2, 3, 4, 5]
-     *            Object[] outputs = Converts.toArray(inputs);
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs the input elements
-     * @return after convert
+     * @param inputs source collection to be converted
+     * @return newly created object array containing collection elements
      */
     public static Object[] toArray(Iterable<?> inputs) {
         return Action.<Object[]>ifEmpty(inputs)
@@ -366,40 +352,25 @@ public class Converts {
     }
 
     /**
-     * <pre>
-     * extract the specified field in collection element to become a new collection.
+     * <p>extract specified fields from collection elements to create a new collection.</p>
      *
-     *  example:
+     * <p>example with {@code Person} class:</p>
+     * <pre>{@code
+     * List<Person> inputs = List.of(
+     *     new Person("name1", 10),
+     *     new Person("name2", 11),
+     *     new Person("name3", 12)
+     * );
      *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
+     * // Extracted age values: [10, 11, 12]
+     * List<Integer> ages = Converts.toList(inputs, Person::getAge);
+     * }</pre>
      *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                List<Person> inputs = List.of(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(11).build(),
-     *                        Person.builder().name("name3").age(12).build(),
-     *                        Person.builder().name("name4").age(13).build()
-     *                );
-     *                // the output is [10, 11, 12, 13]
-     *                List<Integer> outputs = Converts.toList(inputs, Person::getAge);
-     *            }
-     *
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs        the input elements
-     * @param mappingAction the specified field in collection element
-     * @param <T>           the element type
-     * @param <R>           the field in collection element type
-     * @return after convert
+     * @param inputs        source collection containing elements
+     * @param mappingAction field extractor function (e.g. {@code Person::getAge})
+     * @param <T>           type of elements in source collection
+     * @param <R>           type of extracted field values
+     * @return newly list containing extracted field values
      */
     public static <T, R> List<R> toList(Iterable<T> inputs, Function<T, R> mappingAction) {
         return Action.<List<R>>ifEmpty(inputs)
@@ -423,40 +394,25 @@ public class Converts {
     }
 
     /**
-     * <pre>
-     * extract the specified field in array element to become a new collection.
+     * <p>extract specified fields from array elements to create a new collection.</p>
      *
-     *  example:
+     * <p>example with {@code Person} array:</p>
+     * <pre>{@code
+     * Person[] inputs = Arrays.asList(
+     *     new Person("name1", 10),
+     *     new Person("name2", 11),
+     *     new Person("name3", 12)
+     * );
      *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
+     * // Extracted age values: [10, 11, 12]
+     * List<Integer> ages = Converts.toList(inputs, Person::getAge);
+     * }</pre>
      *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                Person[] inputs = ofArray(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(11).build(),
-     *                        Person.builder().name("name3").age(12).build(),
-     *                        Person.builder().name("name4").age(13).build()
-     *                );
-     *                // the output is [10, 11, 12, 13]
-     *                List<Integer> outputs = Converts.toList(inputs, Person::getAge);
-     *            }
-     *
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs        the input elements
-     * @param mappingAction the specified field in array element
-     * @param <T>           the element type
-     * @param <R>           the new element type
-     * @return after convert
+     * @param inputs        source array containing elements
+     * @param mappingAction field extractor function (e.g. {@code Person::getAge})
+     * @param <T>           type of elements in source array
+     * @param <R>           type of extracted field values
+     * @return new unmodifiable list containing extracted values
      */
     public static <T, R> List<R> toList(T[] inputs, Function<T, R> mappingAction) {
         return Action.<List<R>>infer(Nil.isEmpty(inputs))
@@ -477,23 +433,18 @@ public class Converts {
     }
 
     /**
-     * <pre>
-     * convert array to hash set.
+     * <p>convert array to {@link java.util.Set} with unique elements.</p>
      *
-     *  example:
+     * <p>example with deduplication:</p>
+     * <pre>{@code
+     * Integer[] inputs = {1, 2, 3, 3, 4};
+     * // Resulting set contains unique values: [1, 2, 3, 4]
+     * Set<Integer> uniqueNumbers = Converts.toSet(inputs);
+     * }</pre>
      *
-     *     {@code
-     *        public static void main(String[] args) {
-     *            Integer[] inputs = ofArray(1, 2, 3, 3, 4);
-     *            // the output is [1, 2, 3, 4]
-     *            Set<Integer> outputs = Converts.toSet(inputs);
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs the input elements
-     * @param <T>    the element type
-     * @return after convert
+     * @param inputs source array
+     * @param <T>    type of array elements
+     * @return newly created {@code HashSet} containing deduplicated elements
      */
     public static <T> Set<T> toSet(T[] inputs) {
         return Action.<Set<T>>infer(Nil.isEmpty(inputs))
@@ -529,40 +480,26 @@ public class Converts {
     }
 
     /**
-     * <pre>
-     * extract the specified field in collection element to become a new collection.
+     * <p>extract unique field values from collection elements to create a {@code Set}.</p>
      *
-     *  example:
+     * <p>example with deduplication:</p>
+     * <pre>{@code
+     * List<Person> people = Arrays.asList(
+     *     new Person("name1", 10),
+     *     new Person("name2", 11),
+     *     new Person("name3", 11),  // duplicate age
+     *     new Person("name4", 12)
+     * );
      *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
+     * // Unique age values: [10, 11, 12]
+     * Set<Integer> uniqueAges = Converts.toSet(people, Person::getAge);
+     * }</pre>
      *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                List<Person> inputs = List.of(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(11).build(),
-     *                        Person.builder().name("name3").age(11).build(),
-     *                        Person.builder().name("name4").age(12).build()
-     *                );
-     *                // the output is [10, 11, 12]
-     *                Set<Integer> outputs = Converts.toSet(inputs, Person::getAge);
-     *            }
-     *
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs        the input elements
-     * @param mappingAction the specified field in collection element
-     * @param <T>           the element type
-     * @param <R>           the new element type
-     * @return after convert
+     * @param inputs        source collection containing elements
+     * @param mappingAction field value extractor (e.g. {@code Person::getAge})
+     * @param <T>           type of elements in source collection
+     * @param <R>           type of extracted field values
+     * @return {@code Set} containing unique extracted values
      */
     public static <T, R> Set<R> toSet(Iterable<T> inputs, Function<T, R> mappingAction) {
         return Action.<Set<R>>infer(Nil.isEmpty(inputs))
@@ -613,40 +550,30 @@ public class Converts {
     }
 
     /**
-     * <pre>
-     * extract the specified field in collection element to become a new map, the key is the specified field, the value is the element self.
+     * <p>convert collection to map using specified field as keys, with elements as values.</p>
      *
-     *  example:
+     * <p>example with {@code Person} mapping:</p>
+     * <pre>{@code
+     * List<Person> people = Arrays.asList(
+     *     new Person("name1", 10),
+     *     new Person("name2", 11),
+     *     new Person("name3", 12)
+     * );
      *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
+     * // Creates age-to-person mapping:
+     * // {
+     * //   10=Person[name="name1", age=10],
+     * //   11=Person[name="name2", age=11],
+     * //   12=Person[name="name3", age=12]
+     * // }
+     * Map<Integer, Person> ageMap = Converts.toMap(people, Person::getAge);
+     * }</pre>
      *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                List<Person> inputs = List.of(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(11).build(),
-     *                        Person.builder().name("name3").age(12).build(),
-     *                        Person.builder().name("name4").age(13).build()
-     *                );
-     *                // the output is {10:Person(name="name1", age=10), 11:Person(name="name2", age=11), 12:Person(name="name3", age=12), 13:Person(name="name4", age=13)}
-     *                Map<Integer, Person> outputs = Converts.toMap(inputs, Person::getAge);
-     *            }
-     *
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs       the input elements
-     * @param getKeyAction the specified field to be map key in collection element
-     * @param <K>          the key type of map
-     * @param <V>          the value type of map
-     * @return after convert
+     * @param inputs       source collection to convert
+     * @param getKeyAction key extractor function (e.g. {@code Person::getAge})
+     * @param <K>          type of map keys
+     * @param <V>          type of collection elements (map values)
+     * @return map where keys are extracted values, values are original elements
      */
     public static <K, V> Map<K, V> toMap(Iterable<V> inputs, Function<V, K> getKeyAction) {
         return Action.<Map<K, V>>infer(Nil.isEmpty(inputs))
@@ -656,42 +583,36 @@ public class Converts {
     }
 
     /**
-     * <pre>
-     * extract the specified field in collection element to become a new map, the key is the specified field, the value is the other specified field.
+     * <p>convert collection to map by extracting key-value pairs from elements.</p>
      *
-     *  example:
+     * <p>example with bi-field mapping:</p>
+     * <pre>{@code
+     * List<Person> people = Arrays.asList(
+     *     new Person("name1", 10),
+     *     new Person("name2", 11),
+     *     new Person("name3", 12)
+     * );
      *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
+     * // Creates age-to-name mapping:
+     * // {
+     * //   10="name1",
+     * //   11="name2",
+     * //   12="name3"
+     * // }
+     * Map<Integer, String> ageNameMap = Converts.toMap(
+     *     people,
+     *     Person::getAge,
+     *     Person::getName
+     * );
+     * }</pre>
      *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                List<Person> inputs = List.of(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(11).build(),
-     *                        Person.builder().name("name3").age(12).build(),
-     *                        Person.builder().name("name4").age(13).build()
-     *                );
-     *                // the output is {10:"name1", 11:"name2", 12:"name3", 13:"name4"}
-     *                Map<Integer, String> outputs = Converts.toMap(inputs, Person::getAge, Person::getName);
-     *            }
-     *
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs         the input elements
-     * @param getKeyAction   the specified field to be map key in collection element
-     * @param getValueAction the specified field to be map value in collection element
-     * @param <T>            the element type
-     * @param <K>            the key type of map
-     * @param <V>            the value type of map
-     * @return after convert
+     * @param inputs         source collection to convert
+     * @param getKeyAction   key extractor function (e.g. {@code Person::getAge})
+     * @param getValueAction value extractor function (e.g. {@code Person::getName})
+     * @param <T>            type of elements in source collection
+     * @param <K>            type of map keys
+     * @param <V>            type of map values
+     * @return map where keys are extracted values, values are corresponding field values
      */
     public static <T, K, V> Map<K, V> toMap(Iterable<T> inputs, Function<T, K> getKeyAction, Function<T, V> getValueAction) {
         return Action.<Map<K, V>>infer(Nil.isEmpty(inputs))
@@ -701,40 +622,31 @@ public class Converts {
     }
 
     /**
-     * <pre>
-     * extract the specified field in collection element to become a new map, the key is the specified field, the value is the duplicate key and convert element self to array list.
+     * <p>group collection elements into multimap by specified field, aggregating duplicates into lists.</p>
      *
-     *  example:
+     * <p>example with age grouping:</p>
+     * <pre>{@code
+     * List<Person> people = Arrays.asList(
+     *     new Person("name1", 10),
+     *     new Person("name2", 11),
+     *     new Person("name3", 11),  // duplicate key
+     *     new Person("name4", 12)
+     * );
      *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
+     * // Resulting multimap structure:
+     * // {
+     * //   10=[Person[name="name1", age=10]],
+     * //   11=[Person[name="name2", age=11], Person[name="name3", age=11]],
+     * //   12=[Person[name="name4", age=12]]
+     * // }
+     * Map<Integer, List<Person>> ageGroups = Converts.toMultiMap(people, Person::getAge);
+     * }</pre>
      *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                List<Person> inputs = List.of(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(11).build(),
-     *                        Person.builder().name("name3").age(11).build(),
-     *                        Person.builder().name("name4").age(12).build()
-     *                );
-     *                // the output is {10:[Person(name="name1", age=10)], 11:[Person(name="name2", age=11), Person(name="name3", age=11)], 12:[Person(name="name4", age=12)]}
-     *                Map<Integer, List<Person>> outputs = Converts.toMultiMap(inputs, Person::getAge);
-     *            }
-     *
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs       the input elements
-     * @param getKeyAction the specified field to be map key in collection element
-     * @param <K>          the key type of map
-     * @param <V>          the value type of map
-     * @return after convert
+     * @param inputs       source collection with potential duplicate keys
+     * @param getKeyAction key extractor function (e.g. {@code Person::getAge})
+     * @param <K>          type of grouping keys
+     * @param <V>          type of collection elements
+     * @return multimap where keys map to lists of associated elements
      */
     public static <K, V> Map<K, List<V>> toMultiMap(Iterable<V> inputs, Function<V, K> getKeyAction) {
         return Action.<Map<K, List<V>>>infer(Nil.isEmpty(inputs))
@@ -744,42 +656,37 @@ public class Converts {
     }
 
     /**
-     * <pre>
-     * extract the specified field in collection element to become a new map, the key is the specified field, the value is the duplicate key and convert the other specified field to array list.
+     * <p>group collection elements into multimap with key-value pairs, aggregating duplicate keys into value lists.</p>
      *
-     *  example:
+     * <p>example with bi-field grouping:</p>
+     * <pre>{@code
+     * List<Person> people = Arrays.asList(
+     *     new Person("name1", 10),
+     *     new Person("name2", 11),
+     *     new Person("name3", 11),  // duplicate key
+     *     new Person("name4", 12)
+     * );
      *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
+     * // Creates age-to-names mapping:
+     * // {
+     * //   10=["name1"],
+     * //   11=["name2", "name3"],
+     * //   12=["name4"]
+     * // }
+     * Map<Integer, List<String>> ageNameGroups = Converts.toMultiMap(
+     *     people,
+     *     Person::getAge,
+     *     Person::getName
+     * );
+     * }</pre>
      *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                List<Person> inputs = List.of(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(11).build(),
-     *                        Person.builder().name("name3").age(11).build(),
-     *                        Person.builder().name("name4").age(12).build()
-     *                );
-     *                // the output is {10:["name1"], 11:["name2", "name3"], 12:["name4"]}
-     *                Map<Integer, List<String>> outputs = Converts.toMultiMap(inputs, Person::getAge, Person::getName);
-     *            }
-     *
-     *        }
-     *     }
-     * </pre>
-     *
-     * @param inputs         the input elements
-     * @param getKeyAction   the specified field to be map key in collection element
-     * @param getValueAction the specified field to be map value in collection element
-     * @param <T>            the element type
-     * @param <K>            the key type of map
-     * @param <V>            the value type of map
-     * @return after convert
+     * @param inputs         source collection containing elements
+     * @param getKeyAction   key extractor function (e.g. {@code Person::getAge})
+     * @param getValueAction value extractor function (e.g. {@code Person::getName})
+     * @param <T>            type of elements in source collection
+     * @param <K>            type of grouping keys
+     * @param <V>            type of aggregated values
+     * @return multimap where keys map to lists of extracted values
      */
     public static <T, K, V> Map<K, List<V>> toMultiMap(Iterable<T> inputs, Function<T, K> getKeyAction, Function<T, V> getValueAction) {
         return Action.<Map<K, List<V>>>infer(Nil.isEmpty(inputs))
@@ -814,168 +721,128 @@ public class Converts {
     }
 
     /**
-     * <pre>
-     * convert to enum instance by enum field name.
+     * <p>Converts to enum instance by enum constant name.</p>
      *
-     *  example:
+     * <p>Example:</p>
+     * <pre>{@code
+     * public enum GenderType {
+     *     MAN,
+     *     WOMAN,
+     *     UNKNOWN;
      *
-     *     {@code
-     *        public enum GenderType {
-     *
-     *            MAN,
-     *            WOMAN,
-     *            UNKNOWN,
-     *
-     *            ;
-     *
-     *            public static void main(String[] args) {
-     *                // the output is GenderType.WOMAN
-     *                Converts.toEnumByName("WOMAN", GenderType.class);
-     *            }
-     *
-     *        }
+     *     public static void main(String[] args) {
+     *         // Results: GenderType.WOMAN
+     *         Converts.toEnumByName("WOMAN", GenderType.class);
      *     }
-     * </pre>
+     * }
+     * }</pre>
      *
-     * @param enumFiledName the enum field name
-     * @param enumClass     the enum class
-     * @param <E>           the enum type
-     * @return enum instance
+     * @param enumFieldName the enum constant name (case-sensitive)
+     * @param enumClass     the enum class type
+     * @param <E>           the type of the enum
+     * @return the corresponding enum constant
      */
-    public static <E extends Enum<E>> E toEnumByName(String enumFiledName, Class<E> enumClass) {
-        return Try.of(() -> Enum.valueOf(enumClass, enumFiledName)).getOrNull();
+    public static <E extends Enum<E>> E toEnumByName(String enumFieldName, Class<E> enumClass) {
+        return Try.of(() -> Enum.valueOf(enumClass, enumFieldName)).getOrNull();
     }
 
     /**
-     * <pre>
-     * convert to enum instance by enum field value.
+     * <p>converts to enum instance by enum constant's field value.</p>
      *
-     *  note 1. the most usually condition:
+     * <p>Usage notes:</p>
+     * <ol>
+     * <li><p>Typical usage with single match field:</p>
+     * <pre>{@code
+     * @Getter
+     * @AllArgsConstructor
+     * public enum GenderType {
+     *     MAN(1, "man"),
+     *     WOMAN(2, "woman"),
+     *     UNKNOWN(3, "unknown");
      *
-     *     {@code
-     *        @Getter
-     *        @AllArgsConstructor
-     *        public enum GenderType {
+     *     private final int code;
+     *     private final String description;
      *
-     *            MAN(1, "man"),
-     *            WOMAN(2, "woman"),
-     *            UNKNOWN(3, "unknown"),
-     *
-     *            ;
-     *
-     *            private final int code;
-     *            private final String description;
-     *
-     *            public static void main(String[] args) {
-     *                // the output is GenderType.WOMAN
-     *                Converts.toEnumByValue(2, GenderType.class);
-     *                // the output is GenderType.WOMAN
-     *                Converts.toEnumByValue("woman", GenderType.class);
-     *                // the output is null
-     *                Converts.toEnumByValue("2", GenderType.class);
-     *                // the output is null
-     *                Converts.toEnumByValue("WOMAN", GenderType.class);
-     *            }
-     *
-     *        }
+     *     public static void main(String[] args) {
+     *         // Outputs GenderType.WOMAN
+     *         Converts.toEnumByValue(2, GenderType.class);
+     *         // Outputs GenderType.WOMAN
+     *         Converts.toEnumByValue("woman", GenderType.class);
+     *         // Outputs null (type mismatch)
+     *         Converts.toEnumByValue("2", GenderType.class);
      *     }
+     * }
+     * }</pre></li>
      *
-     *  note 2. still valid if there are multiple field data type.
+     * <li><p>Handles multiple match fields:</p>
+     * <pre>{@code
+     * @Getter
+     * @AllArgsConstructor
+     * public enum GenderType {
+     *     MAN(1, "man", "Man"),
+     *     WOMAN(2, "woman", "Woman"),
+     *     UNKNOWN(3, "unknown", "Unknown");
      *
-     *     {@code
-     *        @Getter
-     *        @AllArgsConstructor
-     *        public enum GenderType {
+     *     private final int code;
+     *     private final String description1;
+     *     private final String description2;
      *
-     *            MAN(1, "man", "Man"),
-     *            WOMAN(2, "woman", "Woman"),
-     *            UNKNOWN(3, "unknown", "Unknown"),
-     *
-     *            ;
-     *
-     *            private final int code;
-     *            private final String description1;
-     *            private final String description2;
-     *
-     *            public static void main(String[] args) {
-     *                // the output is GenderType.WOMAN
-     *                Converts.toEnumByValue(2, GenderType.class);
-     *                // the output is GenderType.WOMAN
-     *                Converts.toEnumByValue("woman", GenderType.class);
-     *                // the output is GenderType.WOMAN
-     *                Converts.toEnumByValue("Woman", GenderType.class);
-     *                // the output is null
-     *                Converts.toEnumByValue("WOMAN", GenderType.class);
-     *                // the output is null
-     *                Converts.toEnumByValue("2", GenderType.class);
-     *            }
-     *
-     *        }
+     *     public static void main(String[] args) {
+     *         // Outputs GenderType.WOMAN (matches code)
+     *         Converts.toEnumByValue(2, GenderType.class);
+     *         // Outputs GenderType.WOMAN (matches description1)
+     *         Converts.toEnumByValue("woman", GenderType.class);
+     *         // Outputs GenderType.WOMAN (matches description2)
+     *         Converts.toEnumByValue("Woman", GenderType.class);
      *     }
+     * }
+     * }</pre></li>
      *
-     *  note 3. still valid if there are varargs field data type.
+     * <li><p>Supports varargs field types:</p>
+     * <pre>{@code
+     * @AllArgsConstructor
+     * public enum TimeUnitType {
+     *     MAN("man"),
+     *     WOMAN("woman", "Woman", "WOMAN"),
+     *     UNKNOWN("unknown", "Unknown");
      *
-     *     {@code
-     *        @Getter
-     *        @AllArgsConstructor
-     *        public enum GenderType {
+     *     private final String[] names;
      *
-     *            MAN("man"),
-     *            WOMAN("woman", "Woman", "WOMAN"),
-     *            UNKNOWN("unknown", "Unknown"),
-     *
-     *            ;
-     *
-     *            TimeUnitType(String... names) {
-     *                this.names = names;
-     *            }
-     *
-     *            private final String[] names;
-     *
-     *            public static void main(String[] args) {
-     *                // the output is GenderType.WOMAN
-     *                Converts.toEnumByValue("Woman", GenderType.class);
-     *                // the output is GenderType.UNKNOWN
-     *                Converts.toEnumByValue("unknown", GenderType.class);
-     *            }
-     *
-     *        }
+     *     public static void main(String[] args) {
+     *         // Outputs TimeUnitType.WOMAN
+     *         Converts.toEnumByValue("Woman", TimeUnitType.class);
      *     }
+     * }
+     * }</pre></li>
      *
-     *  note 4. it will always return null if the enum does not have additional fields.
+     * <li><p>Returns null for enums without fields:</p>
+     * <pre>{@code
+     * public enum GenderType {
+     *     MAN,
+     *     WOMAN,
+     *     UNKNOWN;
      *
-     *     {@code
-     *        public enum GenderType {
-     *
-     *            MAN,
-     *            WOMAN,
-     *            UNKNOWN,
-     *
-     *            ;
-     *
-     *            public static void main(String[] args) {
-     *                // the output is null
-     *                Converts.toEnumByValue("WOMAN", GenderType.class);
-     *            }
-     *
-     *        }
+     *     public static void main(String[] args) {
+     *         // Outputs null (no fields to match)
+     *         Converts.toEnumByValue("WOMAN", GenderType.class);
      *     }
-     * </pre>
+     * }
+     * }</pre></li>
+     * </ol>
      *
-     * @param enumFiledValue the enum field value
-     * @param enumClass      the enum class
-     * @param <E>            the enum type
-     * @return enum instance
+     * @param enumFieldValue the value to match against enum constants' fields
+     * @param enumClass      the target enum class type
+     * @param <E>            the type of the enum
+     * @return matching enum constant or {@code null} if not found
      * @see Enums#getFieldValue(Enum, Class)
-     * @see EnumUtil#likeValueOf(Class, Object)
      */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public static <E extends Enum<E>> E toEnumByValue(Object enumFiledValue, Class<E> enumClass) {
-        if (Nil.isAnyNull(enumFiledValue, enumClass)) {
+    public static <E extends Enum<E>> E toEnumByValue(Object enumFieldValue, Class<E> enumClass) {
+        if (Nil.isAnyNull(enumFieldValue, enumClass)) {
             return null;
         }
         return (E) ENUM_CACHE.computeIfAbsent(
-                Strings.format("{}-{}", enumClass.getName(), enumFiledValue),
+                Strings.format("{}-{}", enumClass.getName(), enumFieldValue),
                 ignore -> {
                     for (Field field : Reflects.getFields(enumClass)) {
                         // skip enum internal field
@@ -984,11 +851,11 @@ public class Converts {
                         }
                         for (E enumObj : enumClass.getEnumConstants()) {
                             Object fieldValue = Reflects.getFieldValueIgnoreThrowable(enumObj, field);
-                            if (Comparators.equals(fieldValue, enumFiledValue)) {
+                            if (Comparators.equals(fieldValue, enumFieldValue)) {
                                 return enumObj;
                             }
                             // handle varargs condition
-                            if (Collections.isArray(fieldValue) && Collections.contains((Object[]) fieldValue, enumFiledValue)) {
+                            if (Collections.isArray(fieldValue) && Collections.contains((Object[]) fieldValue, enumFieldValue)) {
                                 return enumObj;
                             }
                         }
@@ -1014,88 +881,71 @@ public class Converts {
     }
 
     /**
-     * <pre>
-     * split a number string separated by separator to enum collection.
+     * <p>Splits a numeric string by separator and converts to enum constants collection.</p>
      *
-     *  note 1. the most usually condition:
+     * <p>Usage patterns:</p>
+     * <ol>
+     * <li><p>Basic usage with single matching field:</p>
+     * <pre>{@code
+     * @Getter
+     * @AllArgsConstructor
+     * public enum GenderType {
+     *     MAN(1, "man"),
+     *     WOMAN(2, "woman"),
+     *     UNKNOWN(3, "unknown");
      *
-     *     {@code
-     *        @Getter
-     *        @AllArgsConstructor
-     *        public enum GenderType {
+     *     private final int code;
+     *     private final String description;
      *
-     *            MAN(1, "man"),
-     *            WOMAN(2, "woman"),
-     *            UNKNOWN(3, "unknown"),
-     *
-     *            ;
-     *
-     *            private final int code;
-     *
-     *            private final String description;
-     *
-     *            public static void main(String[] args) {
-     *                // the output is [GenderType.MAN, GenderType.WOMAN, GenderType.UNKNOWN]
-     *                Converts.toEnumsByString("1, 2, 3", ",", GenderType.class);
-     *            }
-     *
-     *        }
+     *     public static void main(String[] args) {
+     *         // Outputs [MAN, WOMAN, UNKNOWN]
+     *         Converts.toEnumsByString("1, 2, 3", ",", GenderType.class);
      *     }
+     * }
+     * }</pre></li>
      *
-     *  note 2. still valid if there are multiple field data type.
+     * <li><p>Supports multiple numeric fields:</p>
+     * <pre>{@code
+     * @Getter
+     * @AllArgsConstructor
+     * public enum GenderType {
+     *     MAN(1, 10, "Man"),
+     *     WOMAN(2, 11, "Woman"),
+     *     UNKNOWN(3, 12, "Unknown");
      *
-     *     {@code
-     *        @Getter
-     *        @AllArgsConstructor
-     *        public enum GenderType {
+     *     private final int code1;
+     *     private final int code2;
+     *     private final String description;
      *
-     *            MAN(1, 10, "Man"),
-     *            WOMAN(2, 11, "Woman"),
-     *            UNKNOWN(3, 12, "Unknown"),
-     *
-     *            ;
-     *
-     *            private final int code1;
-     *
-     *            private final int code2;
-     *
-     *            private final String description;
-     *
-     *            public static void main(String[] args) {
-     *                // the output is [GenderType.MAN, GenderType.WOMAN, GenderType.UNKNOWN]
-     *                Converts.toEnumsByString("1, 2, 3", ",", GenderType.class);
-     *                // the output is [GenderType.MAN, GenderType.WOMAN, GenderType.UNKNOWN]
-     *                Converts.toEnumsByString("10, 11, 12", ",", GenderType.class);
-     *            }
-     *
-     *        }
+     *     public static void main(String[] args) {
+     *         // Outputs [MAN, WOMAN, UNKNOWN] (matches code1)
+     *         Converts.toEnumsByString("1, 2, 3", ",", GenderType.class);
+     *         // Outputs [MAN, WOMAN, UNKNOWN] (matches code2)
+     *         Converts.toEnumsByString("10, 11, 12", ",", GenderType.class);
      *     }
+     * }
+     * }</pre></li>
      *
-     *  note 3. it will always return null if the enum does not have additional fields.
+     * <li><p>Returns null elements for enums without fields:</p>
+     * <pre>{@code
+     * public enum GenderType {
+     *     MAN,
+     *     WOMAN,
+     *     UNKNOWN;
      *
-     *     {@code
-     *        public enum GenderType {
-     *
-     *            MAN,
-     *            WOMAN,
-     *            UNKNOWN,
-     *
-     *            ;
-     *
-     *            public static void main(String[] args) {
-     *                // the output is [null, null, null]
-     *                Converts.toEnumsByString("1, 2, 3", ",", GenderType.class);
-     *            }
-     *
-     *        }
+     *     public static void main(String[] args) {
+     *         // Outputs [null, null, null] (no fields to match)
+     *         Converts.toEnumsByString("1, 2, 3", ",", GenderType.class);
      *     }
-     * </pre>
+     * }
+     * }</pre></li>
+     * </ol>
      *
-     * @param input       the input element
-     * @param separator   the separator
-     * @param outputClass the output enum class
-     * @param <E>         the output enum type
-     * @return after split
+     * @param input       the input string containing numeric values
+     * @param separator   the delimiter character/sequence
+     * @param outputClass the target enum class
+     * @param <E>         the enum type
+     * @return list of matching enum constants (may contain {@code null} elements)
      * @see #toNumbers(CharSequence, CharSequence, Class)
      * @see Converts#toEnumByValue(Object, Class)
      * @see Converts#toNumber(Object, Class)

@@ -1367,23 +1367,22 @@ public class Collections {
     }
 
     /**
-     * <pre>
-     * get the next element.
+     * <p>Finds the next element after the first occurrence matching the predicate.</p>
      *
-     * example code:
-     *     {@code
-     *        public static void main(String[] args) {
-     *            List<Integer> inputs = List.of(3, 1, 2, 4, 2, 6);
-     *            // the output is 4.
-     *            Integer nextElement = Collections.getNext(inputs, input -> input.equals(2)).get();
-     *        }
-     *     }
-     * </pre>
+     * <p>Example:</p>
+     * <pre>{@code
+     * public static void main(String[] args) {
+     *     List<Integer> inputs = List.of(3, 1, 2, 4, 2, 6);
      *
-     * @param inputs               the input elements
-     * @param currentElementAction the current element
-     * @param <T>                  the element type
-     * @return the next element
+     *     // Outputs Optional[4] (next element after first '2')
+     *     Optional<Integer> result = Collections.getNext(inputs, input -> input == 2);
+     * }
+     * }</pre>
+     *
+     * @param inputs               the collection to search
+     * @param currentElementAction predicate to identify the current element
+     * @param <T>                  the type of elements in the collection
+     * @return {@code Optional} containing the next element, or empty if no match found
      */
     public static <T> Optional<T> getNext(Iterable<T> inputs, Predicate<T> currentElementAction) {
         return Action.<Optional<T>>infer(Nil.isEmpty(inputs))
@@ -1436,121 +1435,112 @@ public class Collections {
     }
 
     /**
-     * <pre>
-     * get the minimum element of the given extracts {@link Comparable} collection.
+     * <p>Finds the minimum element in a comparable collection.</p>
      *
-     * example code:
-     *     {@code
-     *        public static void main(String[] args) {
-     *            List<Integer> inputs = List.of(3, 1, 6, 4, 5, 3);
-     *            // the output is 1.
-     *            Integer minimum = Collections.getMin(inputs).get();
-     *        }
-     *     }
-     * </pre>
+     * <p>Example:</p>
+     * <pre>{@code
+     * public static void main(String[] args) {
+     *     List<Integer> inputs = List.of(3, 1, 6, 4, 5, 3);
      *
-     * @param inputs the input elements
-     * @param <T>    the element type
-     * @return the minimum element of the given extracts {@link Comparable} collection.
+     *     // Outputs Optional[1]
+     *     Optional<Integer> result = Collections.getMin(inputs);
+     * }
+     * }</pre>
+     *
+     * @param inputs the collection of comparable elements
+     * @param <T>    the type of elements (must implement {@code Comparable<T>})
+     * @return {@code Optional} containing the minimum element, or empty for empty collections
      */
     public static <T extends Comparable<? super T>> Optional<T> getMin(Iterable<T> inputs) {
         return getFirst(asc(inputs));
     }
 
     /**
-     * <pre>
-     * get the minimum value of a field in an element in the given extracts {@link Comparable} collection.
+     * <p>Finds the minimum element based on a comparable field value.</p>
      *
-     * example code:
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
-     *            private String name;
-     *            private Integer age;
+     * <p>Usage example:</p>
+     * <pre>{@code
+     * @Data
+     * @SuperBuilder(toBuilder = true)
+     * public class Person {
+     *     private String name;
+     *     private Integer age;
      *
-     *            public static void main(String[] args) {
-     *                List<Person> inputs = List.of(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(43).build(),
-     *                        Person.builder().name("name3").age(1).build(),
-     *                        Person.builder().name("name4").age(11).build()
-     *                );
-     *                // the output is Person(name="name3", age=1)
-     *                Person minimum = Collections.getMin(inputs, Person::getAge).get();
-     *            }
-     *        }
+     *     public static void main(String[] args) {
+     *         List<Person> inputs = List.of(
+     *             Person.builder().name("name1").age(10).build(),
+     *             Person.builder().name("name2").age(43).build(),
+     *             Person.builder().name("name3").age(1).build(),
+     *             Person.builder().name("name4").age(11).build()
+     *         );
+     *
+     *         // Outputs Optional[Person(name=name3, age=1)]
+     *         Optional<Person> minPerson = Collections.getMin(inputs, Person::getAge);
      *     }
-     * </pre>
+     * }
+     * }</pre>
      *
-     * @param inputs        the input elements
-     * @param mappingAction the field in an element in the given extracts {@link Comparable} collection to compare
-     * @param <T>           the element type
-     * @param <U>           the field in an element type
-     * @return the minimum value of a field in an element in the given extracts {@link Comparable} collection.
+     * @param inputs        the collection to search
+     * @param mappingAction function to extract comparable sort key
+     * @param <T>           the type of elements in the collection
+     * @param <U>           the type of the comparable field (extends {@code Comparable<U>})
+     * @return {@code Optional} containing the minimum element, or empty if collection is empty
      */
     public static <T, U extends Comparable<? super U>> Optional<T> getMin(Iterable<T> inputs, Function<T, U> mappingAction) {
         return getFirst(asc(inputs, mappingAction));
     }
 
     /**
-     * <pre>
-     * get the maximum element of the given extracts {@link Comparable} collection.
+     * <p>Finds the maximum element in a comparable collection.</p>
      *
-     *  example:
+     * <p>Example:</p>
+     * <pre>{@code
+     * public static void main(String[] args) {
+     *     List<Integer> inputs = List.of(3, 1, 6, 4, 5, 3);
      *
-     *     {@code
-     *        public static void main(String[] args) {
-     *            List<Integer> inputs = List.of(3, 1, 6, 4, 5, 3);
-     *            // the output is 6.
-     *            Integer maximum = Collections.getMax(inputs).get();
-     *        }
-     *     }
-     * </pre>
+     *     // Outputs Optional[6]
+     *     Optional<Integer> result = Collections.getMax(inputs);
+     * }
+     * }</pre>
      *
-     * @param inputs the input elements
-     * @param <T>    the element type
-     * @return the maximum element of the given extracts {@link Comparable} collection.
+     * @param inputs the collection of comparable elements
+     * @param <T>    the type of elements (must implement {@code Comparable<T>})
+     * @return {@code Optional} containing the maximum element, or empty for empty collections
      */
     public static <T extends Comparable<? super T>> Optional<T> getMax(Iterable<T> inputs) {
         return getFirst(desc(inputs));
     }
 
     /**
-     * <pre>
-     * get the maximum value of a field in an element in the given extracts {@link Comparable} collection.
+     * <p>Finds the maximum element based on a comparable field value.</p>
      *
-     *  example:
+     * <p>Usage example:</p>
+     * <pre>{@code
+     * @Data
+     * @SuperBuilder(toBuilder = true)
+     * public class Person {
+     *     private String name;
+     *     private Integer age;
      *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
+     *     public static void main(String[] args) {
+     *         List<Person> inputs = List.of(
+     *             Person.builder().name("name1").age(10).build(),
+     *             Person.builder().name("name2").age(43).build(),
+     *             Person.builder().name("name3").age(1).build(),
+     *             Person.builder().name("name4").age(11).build()
+     *         );
      *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                List<Person> inputs = List.of(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(43).build(),
-     *                        Person.builder().name("name3").age(1).build(),
-     *                        Person.builder().name("name4").age(11).build()
-     *                );
-     *                // the output is Person(name="name2", age=43)
-     *                Person maximum = Collections.getMax(inputs, Person::getAge).get();
-     *            }
-     *
-     *        }
+     *         // Outputs Optional[Person(name=name2, age=43)]
+     *         Optional<Person> maxPerson = Collections.getMax(inputs, Person::getAge);
      *     }
-     * </pre>
+     * }
+     * }</pre>
      *
-     * @param inputs        the input elements
-     * @param mappingAction the specified field in collection element
-     * @param <T>           the element type
-     * @param <U>           the field in an element type
-     * @return the maximum value of a field in an element in the given extracts {@link Comparable} collection.
+     * @param inputs        the collection to search
+     * @param mappingAction function to extract comparable sort key
+     * @param <T>           the type of elements in the collection
+     * @param <U>           the type of the comparable field (extends {@code Comparable<U>})
+     * @return {@code Optional} containing the maximum element, or empty if collection is empty
      */
     public static <T, U extends Comparable<? super U>> Optional<T> getMax(Iterable<T> inputs, Function<T, U> mappingAction) {
         return getFirst(desc(inputs, mappingAction));
@@ -1681,63 +1671,57 @@ public class Collections {
     }
 
     /**
-     * <pre>
-     * asc the given {@link Comparable} collection.
+     * <p>Sorts the specified {@link Comparable} collection in natural ascending order.</p>
      *
-     *  example:
+     * <p>Example:</p>
+     * <pre>{@code
+     * public static void main(String[] args) {
+     *     List<Integer> inputs = List.of(3, 1, 6, 4, 5, 3);
      *
-     *     {@code
-     *        public static void main(String[] args) {
-     *            List<Integer> inputs = List.of(3, 1, 6, 4, 5, 3);
-     *            // the output is [1, 3, 3, 4, 5, 6].
-     *            List<Integer> outputs = Collections.asc(inputs);
-     *        }
-     *     }
-     * </pre>
+     *     // Outputs [1, 3, 3, 4, 5, 6]
+     *     List<Integer> results = Collections.asc(inputs);
+     * }
+     * }</pre>
      *
-     * @param inputs the input elements
-     * @param <T>    the element type
-     * @return after asc
+     * @param inputs the collection of comparable elements to be sorted
+     * @param <T>    the type of elements in the collection (must implement {@code Comparable<T>})
+     * @return new list containing elements in natural ascending order
      */
     public static <T extends Comparable<? super T>> List<T> asc(Iterable<T> inputs) {
         return asc(inputs, input -> input);
     }
 
     /**
-     * <pre>
-     * asc the given {@link Comparable} collection by the specified field in collection element.
+     * <p>Sorts the specified collection in ascending order based on a field value.</p>
      *
-     *  example:
+     * <p>Usage example:</p>
+     * <pre>{@code
+     * @Data
+     * @SuperBuilder(toBuilder = true)
+     * public class Person {
+     *     private String name;
+     *     private Integer age;
      *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
+     *     public static void main(String[] args) {
+     *         List<Person> inputs = List.of(
+     *             Person.builder().name("name1").age(10).build(),
+     *             Person.builder().name("name2").age(43).build(),
+     *             Person.builder().name("name3").age(1).build(),
+     *             Person.builder().name("name4").age(11).build()
+     *         );
      *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                List<Person> inputs = List.of(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(43).build(),
-     *                        Person.builder().name("name3").age(1).build(),
-     *                        Person.builder().name("name4").age(11).build()
-     *                );
-     *                // the output is [Person(name="name3", age=1), Person(name="name1", age=10), Person(name="name4", age=11), Person(name="name2", age=43)]
-     *                List<Person> outputs = Collections.asc(inputs, Person::getAge);
-     *            }
-     *
-     *        }
+     *         // Outputs [Person(name=name3, age=1), Person(name=name1, age=10),
+     *         //          Person(name=name4, age=11), Person(name=name2, age=43)]
+     *         List<Person> results = Collections.asc(inputs, Person::getAge);
      *     }
-     * </pre>
+     * }
+     * }</pre>
      *
-     * @param inputs        the input elements
-     * @param mappingAction the specified field in collection element
-     * @param <T>           the element type
-     * @param <U>           the field in collection element type
-     * @return after asc
+     * @param inputs        the collection to be sorted
+     * @param mappingAction function to extract the comparable sort key
+     * @param <T>           the type of elements in the collection
+     * @param <U>           the type of the comparable sort key (must implement {@code Comparable})
+     * @return new list containing elements sorted in natural order
      */
     public static <T, U extends Comparable<? super U>> List<T> asc(Iterable<T> inputs, Function<T, U> mappingAction) {
         return Action.<List<T>>ifEmpty(inputs)
@@ -1750,63 +1734,59 @@ public class Collections {
     }
 
     /**
-     * <pre>
-     * desc the given {@link Comparable} collection.
+     * <p>Sorts the specified {@link Comparable} collection in descending natural order.</p>
      *
-     *  example:
+     * <p>Example:</p>
+     * <pre>{@code
+     * public static void main(String[] args) {
+     *     List<Integer> inputs = List.of(3, 1, 6, 4, 5, 3);
      *
-     *     {@code
-     *        public static void main(String[] args) {
-     *            List<Integer> inputs = List.of(3, 1, 6, 4, 5, 3);
-     *            // the output is [6, 5, 4, 3, 3, 1].
-     *            List<Integer> outputs = Collections.desc(inputs);
-     *        }
-     *     }
-     * </pre>
+     *     // Outputs [6, 5, 4, 3, 3, 1]
+     *     List<Integer> results = Collections.desc(inputs);
+     * }
+     * }</pre>
      *
-     * @param inputs the input elements
-     * @param <T>    the element type
-     * @return after desc
+     * @param inputs the collection to be sorted
+     * @param <T>    the type of elements (must implement {@code Comparable<T>})
+     * @return new list containing elements sorted in descending natural order
      */
     public static <T extends Comparable<? super T>> List<T> desc(Iterable<T> inputs) {
         return desc(inputs, input -> input);
     }
 
     /**
-     * <pre>
-     * desc the given {@link Comparable} collection by the specified field in collection element.
+     * <p>Sorts the specified collection in descending order based on a field value.</p>
      *
-     *  example:
+     * <p>Usage example:</p>
+     * <pre>{@code
+     * @Data
+     * @SuperBuilder(toBuilder = true)
+     * public class Person {
+     *     private String name;
+     *     private Integer age;
      *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
+     *     public static void main(String[] args) {
+     *         List<Person> inputs = List.of(
+     *             Person.builder().name("name1").age(10).build(),
+     *             Person.builder().name("name2").age(43).build(),
+     *             Person.builder().name("name3").age(1).build(),
+     *             Person.builder().name("name4").age(11).build()
+     *         );
      *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                List<Person> inputs = List.of(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(43).build(),
-     *                        Person.builder().name("name3").age(1).build(),
-     *                        Person.builder().name("name4").age(11).build()
-     *                );
-     *                // the output is [Person(name="name2", age=43), Person(name="name4", age=11), Person(name="name1", age=10), Person(name="name3", age=1)]
-     *                List<Person> outputs = Collections.desc(inputs, Person::getAge);
-     *            }
-     *
-     *        }
+     *         // Outputs [
+     *         //          Person(name=name2, age=43), Person(name=name4, age=11),
+     *         //          Person(name=name1, age=10), Person(name=name3, age=1)
+     *         //         ]
+     *         List<Person> results = Collections.desc(inputs, Person::getAge);
      *     }
-     * </pre>
+     * }
+     * }</pre>
      *
-     * @param inputs        the input elements
-     * @param mappingAction the specified field in collection element
-     * @param <T>           the element type
-     * @param <U>           the field in collection element type
-     * @return after desc
+     * @param inputs        the collection to be sorted
+     * @param mappingAction function to extract the comparable sort key
+     * @param <T>           the type of elements in the collection
+     * @param <U>           the type of the comparable sort key (must implement {@code Comparable})
+     * @return new list containing elements sorted in descending order
      */
     public static <T, U extends Comparable<? super U>> List<T> desc(Iterable<T> inputs, Function<T, U> mappingAction) {
         return Action.<List<T>>ifEmpty(inputs)
@@ -1832,40 +1812,35 @@ public class Collections {
     }
 
     /**
-     * <pre>
-     * distinct the given collection by the specified field in collection element.
+     * <p>Deduplicates collection elements based on a specified field value.</p>
      *
-     *  example:
+     * <p>Usage example:</p>
+     * <pre>{@code
+     * @Data
+     * @SuperBuilder(toBuilder = true)
+     * public class Person {
+     *     private String name;
+     *     private Integer age;
      *
-     *     {@code
-     *        @Data
-     *        @SuperBuilder(toBuilder = true)
-     *        public class Person {
+     *     public static void main(String[] args) {
+     *         List<Person> inputs = List.of(
+     *             Person.builder().name("name1").age(10).build(),
+     *             Person.builder().name("name2").age(10).build(),
+     *             Person.builder().name("name3").age(11).build(),
+     *             Person.builder().name("name4").age(11).build()
+     *         );
      *
-     *            private String name;
-     *
-     *            private Integer age;
-     *
-     *            public static void main(String[] args) {
-     *                List<Person> inputs = List.of(
-     *                        Person.builder().name("name1").age(10).build(),
-     *                        Person.builder().name("name2").age(10).build(),
-     *                        Person.builder().name("name3").age(11).build(),
-     *                        Person.builder().name("name4").age(11).build()
-     *                );
-     *                // the output is [Person(name="name1", age=10), Person(name="name3", age=11)]
-     *                List<Person> outputs = Collections.distinct(inputs, Person::getAge);
-     *            }
-     *
-     *        }
+     *         // Outputs [Person(name=name1, age=10), Person(name=name3, age=11)]
+     *         List<Person> results = Collections.distinct(inputs, Person::getAge);
      *     }
-     * </pre>
+     * }
+     * }</pre>
      *
-     * @param inputs                   the input elements
-     * @param getFieldToDistinctAction the specified field in collection element
-     * @param <T>                      the element type
-     * @param <U>                      the field in collection element type
-     * @return after distinct
+     * @param inputs                   the source collection containing potential duplicates
+     * @param getFieldToDistinctAction function to extract field value for deduplication
+     * @param <T>                      the type of elements in the collection
+     * @param <U>                      the type of the field used for deduplication
+     * @return a new list containing first occurrence of elements with unique field values
      */
     public static <T, U> List<T> distinct(Iterable<T> inputs, Function<? super T, U> getFieldToDistinctAction) {
         return Action.<List<T>>infer(Nil.isEmpty(inputs))
@@ -1918,27 +1893,26 @@ public class Collections {
     }
 
     /**
-     * <pre>
-     * flatten nested collection of one layer
+     * <p>Flattens single-level nested collections into a one-dimensional list.</p>
      *
-     *  example:
+     * <p>Usage example:</p>
+     * <pre>{@code
+     * public static void main(String[] args) {
+     *     List<List<Integer>> inputs = List.of(
+     *         List.of(1, 2, 3),
+     *         List.of(4, 5, 6),
+     *         List.of(7, 8, 9)
+     *     );
      *
-     *     {@code
-     *        public static void main(String[] args) {
-     *            List<List<Integer>> inputs = List.of(
-     *                    List.of(1, 2, 3, 4, 5),
-     *                    List.of(6, 7, 8, 9, 10)
-     *            );
-     *            // the output is [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-     *            List<Integer> outputs = Collections.flattenNest1(inputs);
-     *        }
-     *     }
-     * </pre>
+     *     // Outputs [1, 2, 3, 4, 5, 6, 7, 8, 9]
+     *     List<Integer> results = Collections.flattenNest1(inputs);
+     * }
+     * }</pre>
      *
-     * @param inputs the input elements
-     * @param <T>    the element type
-     * @param <N1>   the first layer collection type
-     * @return after flatten
+     * @param inputs the two-dimensional collection to flatten
+     * @param <T>    the type of elements in the final list
+     * @param <N1>   the collection type containing elements (typically {@code List<T>})
+     * @return a flat list containing all elements from nested collections
      */
     public static <T, N1 extends Iterable<T>> List<T> flattenNest1(Iterable<N1> inputs) {
         return Action.<List<T>>ifEmpty(inputs)
@@ -1951,28 +1925,26 @@ public class Collections {
     }
 
     /**
-     * <pre>
-     * flatten nested collection of two layer
+     * <p>Flattens two-level nested collections into a single list.</p>
      *
-     *  example:
+     * <p>Example:</p>
+     * <pre>{@code
+     * public static void main(String[] args) {
+     *     List<List<List<Integer>>> inputs = List.of(
+     *         List.of(List.of(1, 2, 3), List.of(4, 5, 6)),
+     *         List.of(List.of(7, 8, 9), List.of(10, 11, 12))
+     *     );
      *
-     *     {@code
-     *        public static void main(String[] args) {
-     *            List<List<List<Integer>>> inputs = List.of(
-     *                    List.of(List.of(1, 2, 3, 4, 5), List.of(6, 7, 8, 9, 10)),
-     *                    List.of(List.of(11, 12, 13, 14, 15), List.of(16, 17, 18, 19, 20))
-     *            );
-     *            // the output is [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-     *            List<Integer> outputs = Collections.flattenNest2(inputs);
-     *        }
-     *     }
-     * </pre>
+     *     // Outputs [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+     *     List<Integer> results = Collections.flattenNest2(inputs);
+     * }
+     * }</pre>
      *
-     * @param inputs the input elements
-     * @param <T>    the element type
-     * @param <N1>   the first layer collection type
-     * @param <N2>   the second layer collection type
-     * @return after flatten
+     * @param inputs the two-level nested collection to flatten
+     * @param <T>    the type of elements in the final list
+     * @param <N1>   the first-level collection type (e.g., {@code List<List<T>>})
+     * @param <N2>   the second-level collection type (e.g., {@code List<T>})
+     * @return a flat list containing all elements from nested collections
      */
     public static <T, N1 extends Iterable<T>, N2 extends Iterable<N1>> List<T> flattenNest2(Iterable<N2> inputs) {
         return Action.<List<T>>ifEmpty(inputs)
@@ -1986,29 +1958,33 @@ public class Collections {
     }
 
     /**
-     * <pre>
-     * flatten nested collection of three layer
+     * <p>Flattens three-level nested collections into a single list.</p>
      *
-     *  example:
+     * <p>Example:</p>
+     * <pre>{@code
+     * public static void main(String[] args) {
+     *     List<List<List<List<Integer>>>> inputs = List.of(
+     *         List.of(
+     *             List.of(List.of(1, 2, 3), List.of(4, 5, 6)),
+     *             List.of(List.of(7, 8, 9), List.of(10, 11, 12))
+     *         ),
+     *         List.of(
+     *             List.of(List.of(13, 14, 15), List.of(16, 17, 18)),
+     *             List.of(List.of(19, 20, 21), List.of(22, 23, 24))
+     *         )
+     *     );
      *
-     *     {@code
-     *        public static void main(String[] args) {
-     *            List<List<List<List<Integer>>>> inputs = List.of(
-     *                    List.of(List.of(List.of(1, 2, 3, 4, 5), List.of(6, 7, 8, 9, 10)), List.of(List.of(11, 12, 13, 14, 15), List.of(16, 17, 18, 19, 20))),
-     *                    List.of(List.of(List.of(21, 22, 23, 24, 25), List.of(26, 27, 28, 29, 30)), List.of(List.of(31, 32, 33, 34, 35), List.of(36, 37, 38, 39, 40)))
-     *            );
-     *            // the output is [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
-     *            List<Integer> outputs = Collections.flattenNest3(inputs);
-     *        }
-     *     }
-     * </pre>
+     *     // Outputs [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+     *     List<Integer> results = Collections.flattenNest3(inputs);
+     * }
+     * }</pre>
      *
-     * @param inputs the input elements
-     * @param <T>    the element type
-     * @param <N1>   the first layer collection type
-     * @param <N2>   the second layer collection type
-     * @param <N3>   the third layer collection type
-     * @return after flatten
+     * @param inputs the three-level nested collection to flatten
+     * @param <T>    the type of elements in the final list
+     * @param <N1>   the first-level collection type (e.g., {@code List<List<List<T>>>})
+     * @param <N2>   the second-level collection type (e.g., {@code List<List<T>>})
+     * @param <N3>   the third-level collection type (e.g., {@code List<T>})
+     * @return a flat list containing all elements from nested collections
      */
     public static <T, N1 extends Iterable<T>, N2 extends Iterable<N1>, N3 extends Iterable<N2>> List<T> flattenNest3(Iterable<N3> inputs) {
         return Action.<List<T>>ifEmpty(inputs)
