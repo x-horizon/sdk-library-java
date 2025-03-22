@@ -1862,7 +1862,7 @@ public class Collections {
      * @see #distinct(Iterable, Function)
      */
     private static <T, U> Predicate<T> distinctSupporter(@NonNull Function<? super T, U> getFieldToDistinctAction) {
-        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+        Map<Object, Boolean> seen = CollectionConstant.DEFAULT_PARALLEL_STREAM_ENABLE ? newConcurrentHashMap() : newHashMap();
         return input -> {
             U seenResult = getFieldToDistinctAction.apply(input);
             if (Nil.isNull(seenResult)) {
