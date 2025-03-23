@@ -3,7 +3,7 @@ package org.horizon.sdk.library.java.tool.spring.webmvc.autoconfigure;
 import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.contract.constant.spring.SpringInitializeConstant;
-import org.horizon.sdk.library.java.contract.constant.spring.SpringWebMVCConstant;
+import org.horizon.sdk.library.java.contract.constant.spring.SpringWebMvcConstant;
 import org.horizon.sdk.library.java.tool.lang.annotation.Annotations;
 import org.horizon.sdk.library.java.tool.lang.convert.Converts;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
@@ -36,11 +36,11 @@ public class RestControllerAdvicePackagePathAutoConfigurer implements Applicatio
             if (Nil.isNotEmpty(advicePackagePaths)) {
                 RestControllerAdvice restControllerAdvice = Annotations.getAnnotation(WebMvcResponseBodyAdvice.class, RestControllerAdvice.class);
                 String[] beforeReplaceBasePackagePaths = restControllerAdvice.basePackages();
-                Reflects.setAnnotationValue(restControllerAdvice, SpringWebMVCConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE, Converts.toArray(advicePackagePaths, String[]::new));
+                Reflects.setAnnotationValue(restControllerAdvice, SpringWebMvcConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE, Converts.toArray(advicePackagePaths, String[]::new));
                 log.debug("{}replace the annotation [@{}] field [{}] value on class [@{}], before replace value {}, after replace value {}.",
                         ModuleView.TOOL_SPRING_WEBMVC_SYSTEM,
                         RestControllerAdvice.class.getSimpleName(),
-                        SpringWebMVCConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE,
+                        SpringWebMvcConstant.FIELD_NAME_BASE_PACKAGE_ON_ANNOTATION_REST_CONTROLLER_ADVICE,
                         WebMvcResponseBodyAdvice.class.getSimpleName(),
                         beforeReplaceBasePackagePaths,
                         advicePackagePaths
