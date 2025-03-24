@@ -15,7 +15,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_ORM_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-dependencies", "1.10.4"), // TODO wjm support spring-boot version to 2.7.11
     BOM_ORM_MYBATIS_PLUS("com.baomidou:mybatis-plus-bom", "3.5.9"), // TODO wjm support spring-boot version to 2.7.18
     BOM_OSS_ALL_FACED("org.dromara.x-file-storage:x-file-storage-parent", "2.2.1"), // TODO wjm support spring-boot version to 2.7.2
-    BOM_SECURITY_DEV33_SA_TOKEN("cn.dev33:sa-token-bom", "1.39.0"), // TODO wjm support spring-boot version to 2.5.15
+    BOM_SECURITY_DEV33_SA_TOKEN("cn.dev33:sa-token-bom", "1.41.0"), // TODO wjm support spring-boot version to 3.0.1
     BOM_TEST_MOCKITO("org.mockito:mockito-bom", "5.14.2"), // support spring-boot version to 3.4.1
     BOM_TEST_TESTCONTAINERS("org.testcontainers:testcontainers-bom", "1.20.4"),
     BOM_TOOL_CONTENT_ANALYSIS_APACHE_TIKA("org.apache.tika:tika-bom", "2.4.1"), // need to synchronize with "org.dromara.x-file-storage:x-file-storage-parent"
@@ -116,7 +116,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     SECURITY_PASSAY("org.passay:passay", "1.6.5"),
     SECURITY_SPRING_BOOT("org.springframework.boot:spring-boot-starter-security", ""),
     SECURITY_SA_TOKEN_ALONE_REDIS("cn.dev33:sa-token-alone-redis", ""),
-    SECURITY_SA_TOKEN_DAO_REDIS_JACKSON("cn.dev33:sa-token-redisson-jackson", ""),
+    SECURITY_SA_TOKEN_REDISSON("cn.dev33:sa-token-redisson", ""),
     SECURITY_SA_TOKEN_OAUTH2("cn.dev33:sa-token-oauth2", ""),
     SECURITY_SA_TOKEN_SPRING_BOOT_STARTER("cn.dev33:sa-token-spring-boot3-starter", ""),
 
