@@ -1,7 +1,7 @@
 package org.horizon.sdk.library.java.tool.thread.pool.contract;
 
-import org.dromara.dynamictp.core.spring.EnableDynamicTp;
 import org.dromara.dynamictp.core.support.DynamicTp;
+import org.dromara.dynamictp.spring.annotation.EnableDynamicTp;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
