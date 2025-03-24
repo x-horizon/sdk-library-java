@@ -3,6 +3,7 @@ plugins {
 }
 
 dependencies {
+    api(platform(GradleDependency.withVersion(GradleDependency.BOM_CACHE_REDISSON)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_CLOUD_NATIVE_DOCKER)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_DOC_SPRING_OPENAPI)))
     api(platform(GradleDependency.withVersion(GradleDependency.BOM_DOC_XIAOYMIN_KNIFE4J)))
