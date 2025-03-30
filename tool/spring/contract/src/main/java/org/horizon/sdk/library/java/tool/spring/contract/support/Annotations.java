@@ -61,47 +61,41 @@ public class Annotations extends org.horizon.sdk.library.java.tool.lang.annotati
     }
 
     /**
-     * <pre>
-     * get the annotation in the specified package path.
+     * <p>get the annotation in the specified package paths.</p>
      *
-     * for example:
-     *
-     * {@code
-     *     // define an annotation
-     *     @Retention(RetentionPolicy.RUNTIME)
-     *     @Target(ElementType.TYPE)
-     *     @Documented
-     *     public @interface CustomerAnnotation {
-     *
-     *        String fieldNames() default "";
-     *
-     *     }
-     *
-     *     // mark this annotation and specified the annotation field value
-     *     @CustomerAnnotation(fieldName = "test1")
-     *     public class Config {
-     *
-     *     }
-     *
-     *     // the unit test
-     *     public class Test {
-     *
-     *         public static void main(String[] args) {
-     *             CustomerAnnotation customerAnnotation = Annotations.getAnnotation(CustomerAnnotation.class, "org.horizon.sdk.library.test");
-     *             // the output is "test1"
-     *             String fieldName = customerAnnotation.fieldName;
-     *         }
-     *
-     *     }
+     * <p>example:</p>
+     * <pre>{@code
+     * // define an annotation
+     * @Retention(RetentionPolicy.RUNTIME)
+     * @Target(ElementType.TYPE)
+     * @Documented
+     * public @interface CustomerAnnotation {
+     *     String fieldNames() default "";
      * }
      *
-     * note: throw if there are more than one specified annotation in the specified package paths
-     * </pre>
+     * // mark this annotation and specified the annotation field value
+     * @CustomerAnnotation(fieldName = "test1")
+     * public class Config {}
      *
-     * @param annotationClass  the annotation class
-     * @param scanPackagePaths the package path to be scanned
+     * // the unit test
+     * public class Test {
+     *     public static void main(String[] args) {
+     *         CustomerAnnotation customerAnnotation = Annotations.getAnnotation(
+     *             CustomerAnnotation.class,
+     *             "org.horizon.sdk.library.test"
+     *         );
+     *         // the output is "test1"
+     *         String fieldName = customerAnnotation.fieldName;
+     *     }
+     * }
+     * }</pre>
+     *
+     * <p><strong>note:</strong> throw if there are more than one specified annotation in the specified package paths</p>
+     *
      * @param <T>              the field type in annotation
-     * @return the annotation in the specified package path
+     * @param annotationClass  the annotation class
+     * @param scanPackagePaths the packages to be scanned
+     * @return the annotation in the specified package paths
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see #getAnnotation(AnnotatedElement, Class)
      */
@@ -169,48 +163,44 @@ public class Annotations extends org.horizon.sdk.library.java.tool.lang.annotati
     }
 
     /**
-     * <pre>
-     * get the annotation field value in the specified package path.
+     * <p>get the annotation field value in the specified packages.</p>
      *
-     * for example:
-     *
-     * {@code
-     *     // define an annotation
-     *     @Retention(RetentionPolicy.RUNTIME)
-     *     @Target(ElementType.TYPE)
-     *     @Documented
-     *     public @interface CustomerAnnotation {
-     *
-     *        String fieldNames() default "";
-     *
-     *     }
-     *
-     *     // mark this annotation and specified the annotation field value
-     *     @CustomerAnnotation(fieldName = "test1")
-     *     public class Config {
-     *
-     *     }
-     *
-     *     // the unit test
-     *     public class Test {
-     *
-     *         public static void main(String[] args) {
-     *             // the output is "test1".
-     *             Annotations.getAnnotationValue(CustomerAnnotation.class, String.class, "fieldName", "org.horizon.sdk.library.test");
-     *         }
-     *
-     *     }
+     * <p>example:</p>
+     * <pre>{@code
+     * // define an annotation
+     * @Retention(RetentionPolicy.RUNTIME)
+     * @Target(ElementType.TYPE)
+     * @Documented
+     * public @interface CustomerAnnotation {
+     *     String fieldNames() default "";
      * }
      *
-     * note: throw if there are more than one specified annotation field value in the specified package paths
-     * </pre>
+     * // mark this annotation and specified the annotation field value
+     * @CustomerAnnotation(fieldName = "test1")
+     * public class Config {}
      *
+     * // the unit test
+     * public class Test {
+     *     public static void main(String[] args) {
+     *         // the output is "test1"
+     *         Annotations.getAnnotationValue(
+     *             CustomerAnnotation.class,
+     *             String.class,
+     *             "fieldName",
+     *             "org.horizon.sdk.library.test"
+     *         );
+     *     }
+     * }
+     * }</pre>
+     *
+     * <p><strong>note:</strong> throw if there are more than one specified annotation field value in the specified packages</p>
+     *
+     * @param <T>              the field type in annotation
      * @param annotationClass  the annotation class
      * @param fieldClass       the field class in annotation
      * @param fieldName        the field name in annotation
-     * @param scanPackagePaths the package path to be scanned
-     * @param <T>              the field type in annotation
-     * @return the annotation field value in the specified package path
+     * @param scanPackagePaths the packages to be scanned
+     * @return the annotation field value in the specified packages
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see #getAnnotationValue(AnnotatedElement, Class, Class, String)
      */
@@ -275,51 +265,46 @@ public class Annotations extends org.horizon.sdk.library.java.tool.lang.annotati
     }
 
     /**
-     * <pre>
-     * get the annotation field values in the specified package path.
+     * <p>get the annotation field values in the specified packages.</p>
      *
-     * for example:
+     * <p>example:</p>
+     * <pre>{@code
+     * // define an annotation
+     * @Retention(RetentionPolicy.RUNTIME)
+     * @Target(ElementType.TYPE)
+     * @Documented
+     * public @interface CustomerAnnotation {
+     *     String fieldName() default "";
+     * }
      *
-     * {@code
-     *     // define an annotation
-     *     @Retention(RetentionPolicy.RUNTIME)
-     *     @Target(ElementType.TYPE)
-     *     @Documented
-     *     public @interface CustomerAnnotation {
+     * // mark annotations with different values
+     * @CustomerAnnotation(fieldName = "test1")
+     * public class Config1 {}
      *
-     *        String fieldName() default "";
+     * @CustomerAnnotation(fieldName = "test2")
+     * public class Config2 {}
      *
-     *     }
-     *
-     *     // mark this annotation and specified the annotation field value
-     *     @CustomerAnnotation(fieldName = "test1")
-     *     public class Config1 {
-     *
-     *     }
-     *
-     *     // mark this annotation and specified the annotation field value
-     *     @CustomerAnnotation(fieldName = "test2")
-     *     public class Config2 {
-     *
-     *     }
-     *
-     *     // the unit test
-     *     public class Test {
-     *
-     *         public static void main(String[] args) {
-     *             // the output is ["test1", "test2"].
-     *             Annotations.getAnnotationValue(CustomerAnnotation.class, String.class, "fieldName", "org.horizon.sdk.library.test");
-     *         }
-     *
+     * // the unit test
+     * public class Test {
+     *     public static void main(String[] args) {
+     *         // the output will be ["test1", "test2"]
+     *         List<String> values = Annotations.getAnnotationValues(
+     *             CustomerAnnotation.class,
+     *             String.class,
+     *             "fieldName",
+     *             "org.horizon.sdk.library.test"
+     *         );
      *     }
      * }
-     * </pre>
+     * }</pre>
      *
-     * @param annotationClass  the annotation class
-     * @param fieldClass       the field class in annotation
-     * @param fieldName        the field name in annotation
-     * @param scanPackagePaths the package path to be scanned
+     * <p><strong>note:</strong> returns all annotation instances found in the specified packages</p>
+     *
      * @param <T>              the field type in annotation
+     * @param annotationClass  the annotation class
+     * @param fieldClass       the field type in annotation
+     * @param fieldName        the field name in annotation
+     * @param scanPackagePaths the packages to be scanned
      * @return the annotation field value in the specified package path
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see #getAnnotationValue(AnnotatedElement, Class, Class, String)
@@ -383,50 +368,46 @@ public class Annotations extends org.horizon.sdk.library.java.tool.lang.annotati
     }
 
     /**
-     * <pre>
-     * get the annotation field value in the specified package path.
+     * <p>get the annotation field value in the specified packages.</p>
      *
-     * for example:
-     *
-     * {@code
-     *     // define an annotation
-     *     @Retention(RetentionPolicy.RUNTIME)
-     *     @Target(ElementType.TYPE)
-     *     @Documented
-     *     public @interface CustomerAnnotation {
-     *
-     *        String[] fieldNames() default {};
-     *
-     *     }
-     *
-     *     // mark this annotation and specified the annotation field value
-     *     @CustomerAnnotation(fieldNames = {"test1", "test2"})
-     *     public class Config1 {
-     *
-     *     }
-     *
-     *     // the unit test
-     *     public class Test {
-     *
-     *         public static void main(String[] args) {
-     *             // the output is ["test1", "test2", "test3", "test4"]
-     *             Annotations.getAnnotationValue(CustomerAnnotation.class, String[].class, "fieldNames", "org.horizon.sdk.library.test");
-     *         }
-     *
-     *     }
+     * <p>example:</p>
+     * <pre>{@code
+     * // define an annotation with array field
+     * @Retention(RetentionPolicy.RUNTIME)
+     * @Target(ElementType.TYPE)
+     * @Documented
+     * public @interface CustomerAnnotation {
+     *     String[] fieldNames() default {};
      * }
      *
-     * note: throw if there are more than one specified annotation field value in the specified package paths
-     * </pre>
+     * // mark annotation with array values
+     * @CustomerAnnotation(fieldNames = {"test1", "test2"})
+     * public class Config1 {}
      *
+     * // the unit test
+     * public class Test {
+     *     public static void main(String[] args) {
+     *         // returns ["test1", "test2"]
+     *         String[] values = Annotations.getAnnotationValue(
+     *             CustomerAnnotation.class,
+     *             String[].class,
+     *             "fieldNames",
+     *             "org.horizon.sdk.library.test"
+     *         );
+     *     }
+     * }
+     * }</pre>
+     *
+     * <p><strong>note:</strong> when multiple annotations exist in packages, returns the <em>first found</em> array value</p>
+     *
+     * @param <T>              the field array component type
      * @param annotationClass  the annotation class
-     * @param fieldClass       the field class in annotation
+     * @param fieldClass       the array field type in annotation
      * @param fieldName        the field name in annotation
-     * @param scanPackagePaths the package path to be scanned
-     * @param <T>              the field type in annotation
+     * @param scanPackagePaths the packages to be scanned
      * @return the annotation field value in the specified package path
-     * @see #getAnnotationValue(Class, Class, String, Collection)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
+     * @see #getAnnotationValue(Class, Class, String, Collection)
      */
     public static <T> Set<T> getAnnotationNestValue(Class<? extends Annotation> annotationClass, Class<T[]> fieldClass, String fieldName, Collection<String> scanPackagePaths) {
         return Converts.toSet(getAnnotationValue(annotationClass, fieldClass, fieldName, scanPackagePaths));
@@ -483,52 +464,47 @@ public class Annotations extends org.horizon.sdk.library.java.tool.lang.annotati
     }
 
     /**
-     * <pre>
-     * get the annotation field value in the specified package path.
+     * <p>get the merged annotation array field values from multiple classes in the specified packages.</p>
      *
-     * for example:
+     * <p>example:</p>
+     * <pre>{@code
+     * // define an annotation with array field
+     * @Retention(RetentionPolicy.RUNTIME)
+     * @Target(ElementType.TYPE)
+     * @Documented
+     * public @interface CustomerAnnotation {
+     *     String[] fieldNames() default {};
+     * }
      *
-     * {@code
-     *     // define an annotation
-     *     @Retention(RetentionPolicy.RUNTIME)
-     *     @Target(ElementType.TYPE)
-     *     @Documented
-     *     public @interface CustomerAnnotation {
+     * // mark annotations with different values
+     * @CustomerAnnotation(fieldNames = {"test1", "test2"})
+     * public class Config1 {}
      *
-     *        String[] fieldNames() default {};
+     * @CustomerAnnotation(fieldNames = {"test3", "test4"})
+     * public class Config2 {}
      *
-     *     }
-     *
-     *     // mark this annotation and specified the annotation field value
-     *     @CustomerAnnotation(fieldNames = {"test1", "test2"})
-     *     public class Config1 {
-     *
-     *     }
-     *
-     *     // mark this annotation and specified the annotation field value
-     *     @CustomerAnnotation(fieldNames = {"test3", "test4"})
-     *     public class Config2 {
-     *
-     *     }
-     *
-     *     // the unit test
-     *     public class Test {
-     *
-     *         public static void main(String[] args) {
-     *             // the output is ["test1", "test2", "test3", "test4"]
-     *             Annotations.getAnnotationValue(CustomerAnnotation.class, String[].class, "fieldNames", "org.horizon.sdk.library.test");
-     *         }
-     *
+     * // the unit test
+     * public class Test {
+     *     public static void main(String[] args) {
+     *         // returns merged array ["test1", "test2", "test3", "test4"]
+     *         String[] values = Annotations.getAnnotationValues(
+     *             CustomerAnnotation.class,
+     *             String[].class,
+     *             "fieldNames",
+     *             Collections.singletonList("org.horizon.sdk.library.test")
+     *         );
      *     }
      * }
-     * </pre>
+     * }</pre>
      *
+     * <p><strong>note:</strong> merges array values from all matching annotations in the packages</p>
+     *
+     * @param <T>              the array component type
      * @param annotationClass  the annotation class
-     * @param fieldClass       the field class in annotation
+     * @param fieldClass       the array field type
      * @param fieldName        the field name in annotation
-     * @param scanPackagePaths the package path to be scanned
-     * @param <T>              the field type in annotation
-     * @return the annotation field value in the specified package path
+     * @param scanPackagePaths the packages to be scanned
+     * @return merged array values from all matching annotations
      * @see #getAnnotationValues(Class, Class, String, Collection)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      */
@@ -592,46 +568,44 @@ public class Annotations extends org.horizon.sdk.library.java.tool.lang.annotati
     }
 
     /**
-     * <pre>
-     * get the annotated class mapping the annotation field value in the specified package path.
+     * <p>get the mapping between annotation classes and their field values in specified packages.</p>
      *
-     * for example:
+     * <p>example:</p>
+     * <pre>{@code
+     * // define an annotation with array field
+     * @Retention(RetentionPolicy.RUNTIME)
+     * @Target(ElementType.TYPE)
+     * @Documented
+     * public @interface CustomerAnnotation {
+     *     String[] fieldNames() default {};
+     * }
      *
-     * {@code
-     *     // define an annotation
-     *     @Retention(RetentionPolicy.RUNTIME)
-     *     @Target(ElementType.TYPE)
-     *     @Documented
-     *     public @interface CustomerAnnotation {
+     * // mark annotation with array values
+     * @CustomerAnnotation(fieldNames = {"test1", "test2"})
+     * public class Config {}
      *
-     *        String[] fieldNames() default {};
-     *
-     *     }
-     *
-     *     // mark this annotation and specified the annotation field value
-     *     @CustomerAnnotation(fieldNames = {"test1", "test2"})
-     *     public class Config {
-     *
-     *     }
-     *
-     *     // the unit test
-     *     public class Test {
-     *
-     *         public static void main(String[] args) {
-     *             // the output map is: {Class<CustomerAnnotation>:["test1", "test2"]}
-     *             Annotations.getAnnotatedClassMappingAnnotationValueMap(CustomerAnnotation.class, String[].class, "fieldNames", "org.horizon.sdk.library.test");
-     *         }
-     *
+     * // unit test
+     * public class Test {
+     *     public static void main(String[] args) {
+     *         // returns {CustomerAnnotation.class: ["test1", "test2"]}
+     *         Map<Class<?>, String[]> valueMap = Annotations.getAnnotatedClassMappingAnnotationValueMap(
+     *             CustomerAnnotation.class,
+     *             String[].class,
+     *             "fieldNames",
+     *             "org.horizon.sdk.library.test"
+     *         );
      *     }
      * }
-     * </pre>
+     * }</pre>
      *
+     * <p><strong>note:</strong> returns a map where keys are annotation classes and values are corresponding field arrays</p>
+     *
+     * @param <T>              the array component type
      * @param annotationClass  the annotation class
-     * @param fieldClass       the field class in annotation
+     * @param fieldClass       the array field type
      * @param fieldName        the field name in annotation
-     * @param scanPackagePaths the package path to be scanned
-     * @param <T>              the field type in annotation
-     * @return the annotated class mapping the annotation field value in the specified package path
+     * @param scanPackagePaths the packages to be scanned
+     * @return map containing annotation classes as keys and field arrays as values
      * @see #getAnnotationValue(AnnotatedElement, Class, Class, String)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      */
@@ -694,46 +668,44 @@ public class Annotations extends org.horizon.sdk.library.java.tool.lang.annotati
     }
 
     /**
-     * <pre>
-     * get the annotation field value mapping the annotated class in the specified package path.
+     * <p>get the reverse mapping between annotation field values and annotated classes in specified packages.</p>
      *
-     * for example:
+     * <p>example:</p>
+     * <pre>{@code
+     * // define an annotation with array field
+     * @Retention(RetentionPolicy.RUNTIME)
+     * @Target(ElementType.TYPE)
+     * @Documented
+     * public @interface CustomerAnnotation {
+     *     String[] fieldNames() default {};
+     * }
      *
-     * {@code
-     *     // define an annotation
-     *     @Retention(RetentionPolicy.RUNTIME)
-     *     @Target(ElementType.TYPE)
-     *     @Documented
-     *     public @interface CustomerAnnotation {
+     * // mark annotation with array values
+     * @CustomerAnnotation(fieldNames = {"test1", "test2"})
+     * public class Config {}
      *
-     *        String[] fieldNames() default {};
-     *
-     *     }
-     *
-     *     // mark this annotation and specified the annotation field value
-     *     @CustomerAnnotation(fieldNames = {"test1", "test2"})
-     *     public class Config {
-     *
-     *     }
-     *
-     *     // the unit test
-     *     public class Test {
-     *
-     *         public static void main(String[] args) {
-     *             // the output map is: {["test1", "test2"]:Class<CustomerAnnotation>}
-     *             Annotations.getAnnotationValueMappingAnnotatedClassMap(CustomerAnnotation.class, String[].class, "fieldNames", "org.horizon.sdk.library.test");
-     *         }
-     *
+     * // unit test
+     * public class Test {
+     *     public static void main(String[] args) {
+     *         // returns {["test1", "test2"]: Config.class}
+     *         Map<String[], Class<?>> valueMap = Annotations.getAnnotationValueMappingAnnotatedClassMap(
+     *             CustomerAnnotation.class,
+     *             String[].class,
+     *             "fieldNames",
+     *             "org.horizon.sdk.library.test"
+     *         );
      *     }
      * }
-     * </pre>
+     * }</pre>
      *
+     * <p><strong>note:</strong> when multiple classes have same field values, the last scanned class will override previous entries</p>
+     *
+     * @param <T>              the array component type
      * @param annotationClass  the annotation class
-     * @param fieldClass       the field class in annotation
+     * @param fieldClass       the array field type
      * @param fieldName        the field name in annotation
-     * @param scanPackagePaths the package path to be scanned
-     * @param <T>              the field type in annotation
-     * @return the annotation field value mapping the annotated class in the specified package path
+     * @param scanPackagePaths the packages to be scanned
+     * @return map containing field value arrays as keys and annotated classes as values
      * @see #getAnnotationValue(AnnotatedElement, Class, Class, String)
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      */

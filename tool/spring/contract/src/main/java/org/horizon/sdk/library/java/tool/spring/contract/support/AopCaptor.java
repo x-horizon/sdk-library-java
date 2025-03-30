@@ -4,7 +4,6 @@ import lombok.SneakyThrows;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
-import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.core.StandardReflectionParameterNameDiscoverer;
 
 import java.lang.annotation.Annotation;
@@ -60,73 +59,75 @@ public interface AopCaptor {
     }
 
     /**
-     * <pre>
-     * get method parameter names marked on aop annotation.
+     * <p>get method parameter names marked on AOP annotation.</p>
      *
-     * note:
-     * let's see the following code:
-     *  {@code
-     *     @Bean
-     *     public SomeBean someBean(FooBar foo, FooBar bar) {
-     *         return new SomeBean(foo, bar);
+     * <p>note the following scenarios:</p>
+     * <pre>{@code
+     * @Bean
+     * public SomeBean someBean(FooBar foo, FooBar bar) {
+     *     return new SomeBean(foo, bar);
+     * }
+     *
+     * @Bean
+     * public FooBar foo() {
+     *     return new FooBar();
+     * }
+     *
+     * @Bean
+     * public FooBar bar() {
+     *     return new FooBar();
+     * }
+     * }</pre>
+     *
+     * <ol>
+     *   <li>
+     *     after Java compilation, method parameter names are not preserved. Spring resolves this through:
+     *     <ul>
+     *       <li>
+     *         before Spring 4.x: uses {@link org.springframework.core.LocalVariableTableParameterNameDiscoverer}
+     *         (ASM bytecode analysis)
+     *       </li>
+     *       <li>
+     *         Spring 4.x+: uses {@link StandardReflectionParameterNameDiscoverer} (JDK8 reflection)
+     *         <p>requires {@code -parameters} compiler argument</p>
+     *       </li>
+     *       <li>
+     *         Spring 6.x+: {@link org.springframework.core.LocalVariableTableParameterNameDiscoverer} is deprecated
+     *         <p>fallback behavior: returns "arg0", "arg1" without {@code -parameters} flag</p>
+     *       </li>
+     *     </ul>
+     *   </li>
+     *
+     *   <li>
+     *     configuration examples:
+     *     <p>maven:</p>
+     *     <pre>{@code
+     *     <build>
+     *         <plugins>
+     *             <plugin>
+     *                 <groupId>org.apache.maven.plugins</groupId>
+     *                 <artifactId>maven-compiler-plugin</artifactId>
+     *                 <configuration>
+     *                     <compilerArgs>
+     *                         <arg>-parameters</arg>
+     *                     </compilerArgs>
+     *                 </configuration>
+     *             </plugin>
+     *         </plugins>
+     *     </build>
+     *     }</pre>
+     *
+     *     <p>gradle (Kotlin DSL):</p>
+     *     <pre>{@code
+     *     tasks.withType<JavaCompile> {
+     *         options.compilerArgs.add("-parameters")
      *     }
+     *     }</pre>
+     *   </li>
+     * </ol>
      *
-     *     @Bean
-     *     public FooBar foo() {
-     *         return new FooBar();
-     *     }
-     *
-     *     @Bean
-     *     public FooBar bar() {
-     *         return new FooBar();
-     *     }
-     *  }
-     * <li>after java compilation, method parameter names are not preserved, so, how does Spring know whether to inject foo or bar when injecting FooBar?</li><br>
-     * <li>before spring 4.x version, the class {@link org.springframework.core.LocalVariableTableParameterNameDiscoverer} implement by {@link ParameterNameDiscoverer} use asm bytecode to obtain parameter names.</li><br>
-     * <li>after spring 4.x version, the class {@link StandardReflectionParameterNameDiscoverer} was used instead of {@link org.springframework.core.LocalVariableTableParameterNameDiscoverer},
-     *     it use the standard implementation of jdk8, which uses reflection to obtain variable names.
-     *     however, this method requires adding the -parameters parameter during compilation to preserve variable names.</li><br>
-     * <li>after spring 6.x version, the class {@link org.springframework.core.LocalVariableTableParameterNameDiscoverer} was marked as @{@link Deprecated},
-     *     when there is a situation where the variable name needs to be resolved,
-     *     but the -parameters parameter was not added during compilation,
-     *     {@link org.springframework.core.LocalVariableTableParameterNameDiscoverer} will still be called,
-     *     and a warning will be printed:
-     *     Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection.</li><br>
-     * <li>based on the above description, if your project does not include the -parameters parameter during compilation,
-     *     the parameter name by calling {@link #getMethodParameters(ProceedingJoinPoint)} result will be arg0, arg1...
-     *     you need to use function {@link #getMethodParameterNames(ProceedingJoinPoint)} to get the actual parameter name,
-     *     also you considering adding the -parameters parameter to compilation.<br><br>
-     *
-     *     in maven, you can adding the -parameters parameter to compilation like this:<br>
-     *     {@code
-     *        <build>
-     *            <plugins>
-     *                <plugin>
-     *                    <groupId>org.apache.maven.plugins</groupId>
-     *                    <artifactId>maven-compiler-plugin</artifactId>
-     *                    <version>{maven-compiler-plugin.version}</version>
-     *                    <configuration>
-     *                        <compilerArgs>
-     *                            <arg>-parameters</arg>
-     *                        </compilerArgs>
-     *                    </configuration>
-     *                </plugin>
-     *            </plugins>
-     *        </build>
-     *     }
-     *
-     *     <br><br>
-     *     in gradle kotlin dsl, you can adding the -parameters parameter to compilation like this:<br>
-     *     {@code
-     *        tasks.withType<JavaCompile> {
-     *            options.compilerArgs.plusAssign("-parameters")
-     *        }
-     *     }
-     *     </li><br>
-     * </pre>
-     *
-     * @param joinPoint {@link ProceedingJoinPoint}
-     * @return method parameter names marked on aop annotation
+     * @param joinPoint AOP {@link ProceedingJoinPoint}
+     * @return method parameter names from AOP annotations
      */
     default String[] getMethodParameterNames(ProceedingJoinPoint joinPoint) {
         return getMethodSignature(joinPoint).getParameterNames();
