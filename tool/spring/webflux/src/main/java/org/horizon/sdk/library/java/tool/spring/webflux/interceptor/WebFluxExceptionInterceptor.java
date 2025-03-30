@@ -54,11 +54,12 @@ public class WebFluxExceptionInterceptor extends WebExceptionInterceptor impleme
     }
 
     /**
-     * <pre>
-     * handle the exception sample as following:
+     * <p>handle the exception sample as following:</p>
      *
-     *  1. define a controller.
-     *  {@code
+     * <ol>
+     *   <li>
+     *     define a controller with invalid mapping:
+     *     <pre>{@code
      *     @RestController
      *     @RequestMapping("/foo")
      *     public class FooController {
@@ -69,13 +70,17 @@ public class WebFluxExceptionInterceptor extends WebExceptionInterceptor impleme
      *         }
      *
      *     }
-     *  }
+     *     }</pre>
+     *   </li>
      *
-     *  2. send a post request to /foo/sayHello2, will throw {@link NoResourceFoundException} and handled by this method.
-     * </pre>
+     *   <li>
+     *     send a POST request to {@code /foo/sayHello2} →
+     *     throws {@link NoResourceFoundException} (no handler method found)
+     *   </li>
+     * </ol>
      *
-     * @param uri       the http request uri
-     * @param exception the exception
+     * @param uri       the HTTP request URI (e.g. {@code "/foo/sayHello2"})
+     * @param exception the unresolved request exception
      * @return the web response
      */
     public WebResponse<Void> whenNoResourceFoundException(String uri, NoResourceFoundException exception) {

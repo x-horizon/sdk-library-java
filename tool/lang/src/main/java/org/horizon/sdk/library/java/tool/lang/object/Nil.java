@@ -37,7 +37,7 @@ public class Nil {
      * @return return true if the checked element is zero value
      */
     public static boolean isZeroValue(Boolean input) {
-        return Nil.isNull(input) || Booleans.isFalse(input);
+        return isNull(input) || Booleans.isFalse(input);
     }
 
     /**
@@ -47,7 +47,7 @@ public class Nil {
      * @return return true if the checked element is zero value
      */
     public static boolean isZeroValue(Number input) {
-        return Nil.isNull(input) || Comparators.equals(NumberConstant.ZERO_LONG_VALUE, input.longValue());
+        return isNull(input) || Comparators.equals(NumberConstant.ZERO_LONG_VALUE, input.longValue());
     }
 
     /**
@@ -67,7 +67,7 @@ public class Nil {
      * @return return true if the checked element is null
      */
     public static boolean isZeroValue(Object input) {
-        return Nil.isNull(input) || switch (input) {
+        return isNull(input) || switch (input) {
             case Number numberTypeInput -> isZeroValue(numberTypeInput);
             case Boolean booleanTypeInput -> isZeroValue(booleanTypeInput);
             case CharSequence charSequenceTypeInput -> isZeroValue(charSequenceTypeInput);
@@ -82,7 +82,7 @@ public class Nil {
      * @return return true if the checked element is null or zero size
      */
     public static boolean isEmpty(byte[] inputs) {
-        return Nil.isNull(inputs) || inputs.length == 0;
+        return isNull(inputs) || inputs.length == 0;
     }
 
     /**
@@ -92,7 +92,7 @@ public class Nil {
      * @return return true if the checked element is null or zero size
      */
     public static boolean isEmpty(short[] inputs) {
-        return Nil.isNull(inputs) || inputs.length == 0;
+        return isNull(inputs) || inputs.length == 0;
     }
 
     /**
@@ -102,7 +102,7 @@ public class Nil {
      * @return return true if the checked element is null or zero size
      */
     public static boolean isEmpty(int[] inputs) {
-        return Nil.isNull(inputs) || inputs.length == 0;
+        return isNull(inputs) || inputs.length == 0;
     }
 
     /**
@@ -112,7 +112,7 @@ public class Nil {
      * @return return true if the checked element is null or zero size
      */
     public static boolean isEmpty(long[] inputs) {
-        return Nil.isNull(inputs) || inputs.length == 0;
+        return isNull(inputs) || inputs.length == 0;
     }
 
     /**
@@ -122,7 +122,7 @@ public class Nil {
      * @return return true if the checked element is null or zero size
      */
     public static boolean isEmpty(float[] inputs) {
-        return Nil.isNull(inputs) || inputs.length == 0;
+        return isNull(inputs) || inputs.length == 0;
     }
 
     /**
@@ -132,7 +132,7 @@ public class Nil {
      * @return return true if the checked element is null or zero size
      */
     public static boolean isEmpty(double[] inputs) {
-        return Nil.isNull(inputs) || inputs.length == 0;
+        return isNull(inputs) || inputs.length == 0;
     }
 
     /**
@@ -142,7 +142,7 @@ public class Nil {
      * @return return true if the checked element is null or zero size
      */
     public static boolean isEmpty(boolean[] inputs) {
-        return Nil.isNull(inputs) || inputs.length == 0;
+        return isNull(inputs) || inputs.length == 0;
     }
 
     /**
@@ -152,7 +152,7 @@ public class Nil {
      * @return return true if the checked element is null or zero size
      */
     public static boolean isEmpty(char[] inputs) {
-        return Nil.isNull(inputs) || inputs.length == 0;
+        return isNull(inputs) || inputs.length == 0;
     }
 
     /**
@@ -162,7 +162,7 @@ public class Nil {
      * @return return true if the checked element is null or zero size
      */
     public static <T> boolean isEmpty(T[] inputs) {
-        return Nil.isNull(inputs) || inputs.length == 0;
+        return isNull(inputs) || inputs.length == 0;
     }
 
     /**
@@ -172,7 +172,7 @@ public class Nil {
      * @return return true if the checked element is null or zero size
      */
     public static boolean isEmpty(Iterator<?> inputs) {
-        return Nil.isNull(inputs) || !inputs.hasNext();
+        return isNull(inputs) || !inputs.hasNext();
     }
 
     /**
@@ -182,7 +182,7 @@ public class Nil {
      * @return return true if the checked element is null or zero size
      */
     public static boolean isEmpty(Iterable<?> inputs) {
-        return Nil.isNull(inputs) || isEmpty(inputs.iterator());
+        return isNull(inputs) || isEmpty(inputs.iterator());
     }
 
     /**
@@ -192,7 +192,7 @@ public class Nil {
      * @return return true if the checked element is null or zero size
      */
     public static boolean isEmpty(Enumeration<?> inputs) {
-        return Nil.isNull(inputs) || !inputs.hasMoreElements();
+        return isNull(inputs) || !inputs.hasMoreElements();
     }
 
     /**
@@ -202,7 +202,7 @@ public class Nil {
      * @return return true if the checked element is null or zero size
      */
     public static boolean isEmpty(Map<?, ?> inputs) {
-        return Nil.isNull(inputs) || inputs.isEmpty();
+        return isNull(inputs) || inputs.isEmpty();
     }
 
     /**
@@ -304,7 +304,7 @@ public class Nil {
      * @return return true if any checked element is null or zero size
      */
     public static boolean isAnyEmpty(Iterator<?>... inputs) {
-        if (Nil.isNull(inputs)) {
+        if (isNull(inputs)) {
             return true;
         }
         for (Iterator<?> input : inputs) {
@@ -322,7 +322,7 @@ public class Nil {
      * @return return true if any checked element is null or zero size
      */
     public static boolean isAnyEmpty(Iterable<?>... inputs) {
-        if (Nil.isNull(inputs)) {
+        if (isNull(inputs)) {
             return true;
         }
         for (Iterable<?> input : inputs) {
@@ -340,7 +340,7 @@ public class Nil {
      * @return return true if any checked element is null or zero size
      */
     public static boolean isAnyEmpty(Enumeration<?>... inputs) {
-        if (Nil.isNull(inputs)) {
+        if (isNull(inputs)) {
             return true;
         }
         for (Enumeration<?> input : inputs) {
@@ -358,7 +358,7 @@ public class Nil {
      * @return return true if any checked element is null or zero size
      */
     public static boolean isAnyEmpty(Map<?, ?>... inputs) {
-        if (Nil.isNull(inputs)) {
+        if (isNull(inputs)) {
             return true;
         }
         for (Map<?, ?> input : inputs) {
@@ -468,7 +468,7 @@ public class Nil {
      * @return return true if all checked elements are null or zero size
      */
     public static boolean isAllEmpty(Iterator<?>... inputs) {
-        if (Nil.isNull(inputs)) {
+        if (isNull(inputs)) {
             return true;
         }
         for (Iterator<?> input : inputs) {
@@ -486,7 +486,7 @@ public class Nil {
      * @return return true if all checked elements are null or zero size
      */
     public static boolean isAllEmpty(Iterable<?>... inputs) {
-        if (Nil.isNull(inputs)) {
+        if (isNull(inputs)) {
             return true;
         }
         for (Iterable<?> input : inputs) {
@@ -504,7 +504,7 @@ public class Nil {
      * @return return true if all checked elements are null or zero size
      */
     public static boolean isAllEmpty(Enumeration<?>... inputs) {
-        if (Nil.isNull(inputs)) {
+        if (isNull(inputs)) {
             return true;
         }
         for (Enumeration<?> input : inputs) {
@@ -522,7 +522,7 @@ public class Nil {
      * @return return true if all checked elements are null or zero size
      */
     public static boolean isAllEmpty(Map<?, ?>... inputs) {
-        if (Nil.isNull(inputs)) {
+        if (isNull(inputs)) {
             return true;
         }
         for (Map<?, ?> input : inputs) {

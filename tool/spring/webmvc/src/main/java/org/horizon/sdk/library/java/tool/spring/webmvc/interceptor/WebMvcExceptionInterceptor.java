@@ -14,7 +14,6 @@ import org.horizon.sdk.library.java.tool.spring.contract.interceptor.WebExceptio
 import org.springframework.core.annotation.Order;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -45,11 +44,12 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
     }
 
     /**
-     * <pre>
-     * handle the exception sample as following:
+     * <p>handle the exception sample as following:</p>
      *
-     *  1. define a controller.
-     *  {@code
+     * <ol>
+     *   <li>
+     *     define a controller:
+     *     <pre>{@code
      *     @RestController
      *     @RequestMapping("/foo")
      *     public class FooController {
@@ -60,12 +60,15 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
      *         }
      *
      *     }
-     *  }
+     *     }</pre>
+     *   </li>
+     *   <li>
+     *     send a POST request to {@code /foo/sayHello2}, will throw {@link NoResourceFoundException}
+     *     and handled by this method
+     *   </li>
+     * </ol>
      *
-     *  2. send a post request to /foo/sayHello2, will throw {@link NoResourceFoundException} and handled by this method.
-     * </pre>
-     *
-     * @param httpServletRequest the http servlet request
+     * @param httpServletRequest the HTTP servlet request
      * @param exception          the exception
      * @return the web response
      */
@@ -76,11 +79,12 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
     }
 
     /**
-     * <pre>
-     * handle the exception sample as following:
+     * <p>handle the exception sample as following:</p>
      *
-     *  1. define a view object.
-     *  {@code
+     * <ol>
+     *   <li>
+     *     define a view object:
+     *     <pre>{@code
      *     @Data
      *     @NoArgsConstructor
      *     @Accessors(chain = true)
@@ -94,10 +98,12 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
      *         private String name;
      *
      *     }
-     *  }
+     *     }</pre>
+     *   </li>
      *
-     *  2. define a controller.
-     *  {@code
+     *   <li>
+     *     define a controller:
+     *     <pre>{@code
      *     @RestController
      *     @RequestMapping("/foo")
      *     public class FooController {
@@ -108,12 +114,16 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
      *         }
      *
      *     }
-     *  }
+     *     }</pre>
+     *   </li>
      *
-     *  3. send a put request to /foo/sayHello, will throw {@link HttpRequestMethodNotSupportedException} and handled by this method.
-     * </pre>
+     *   <li>
+     *     send a PUT request to {@code /foo/sayHello}, will throw
+     *     {@link HttpRequestMethodNotSupportedException} and handled by this method
+     *   </li>
+     * </ol>
      *
-     * @param httpServletRequest the http servlet request
+     * @param httpServletRequest the HTTP servlet request
      * @param exception          the exception
      * @return the web response
      */
@@ -124,11 +134,12 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
     }
 
     /**
-     * <pre>
-     * handle the exception sample as following:
+     * <p>handle the exception sample as following:</p>
      *
-     *  1. define a view object.
-     *  {@code
+     * <ol>
+     *   <li>
+     *     define a view object:
+     *     <pre>{@code
      *     @Data
      *     @NoArgsConstructor
      *     @Accessors(chain = true)
@@ -142,10 +153,12 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
      *         private String name;
      *
      *     }
-     *  }
+     *     }</pre>
+     *   </li>
      *
-     *  2. define a controller.
-     *  {@code
+     *   <li>
+     *     define a controller:
+     *     <pre>{@code
      *     @RestController
      *     @RequestMapping("/foo")
      *     public class FooController {
@@ -156,20 +169,30 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
      *         }
      *
      *     }
-     *  }
-     *  </pre>
+     *     }</pre>
+     *   </li>
      *
-     * <p>3. send a post request to /foo/sayHello with null data, this means that the data cannot be deserialized to FooVO, will throw {@link HttpMessageNotReadableException} and handled by this method.
-     * <p>4. send a post request to /foo/sayHello with data like:
-     * <p>{@code
-     * {
-     * "id": "a wrong type id",
-     * "name": "normal name"
-     * }
-     * }</p>
-     * <p>this means that the id string value cannot be deserialized to FooVO long id, will throw {@link HttpMessageNotReadableException} and handled by this method.
+     *   <li>
+     *     send a POST request to {@code /foo/sayHello} with null data (cannot deserialize to FooVO):
+     *     <pre>{@code
+     *     // Request body: null
+     *     }</pre>
+     *     will throw {@link HttpMessageNotReadableException} and handled by this method
+     *   </li>
      *
-     * @param httpServletRequest the http servlet request
+     *   <li>
+     *     send a POST request to {@code /foo/sayHello} with type mismatch data:
+     *     <pre>{@code
+     *     {
+     *       "id": "invalid string id",
+     *       "name": "valid name"
+     *     }
+     *     }</pre>
+     *     will throw {@link HttpMessageNotReadableException} when deserializing to long id
+     *   </li>
+     * </ol>
+     *
+     * @param httpServletRequest the HTTP servlet request
      * @param exception          the exception
      * @return the web response
      */
@@ -180,11 +203,12 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
     }
 
     /**
-     * <pre>
-     * handle the exception sample as following:
+     * <p>handle the exception sample as following:</p>
      *
-     *  1. define a view object.
-     *  {@code
+     * <ol>
+     *   <li>
+     *     define a view object:
+     *     <pre>{@code
      *     @Data
      *     @NoArgsConstructor
      *     @Accessors(chain = true)
@@ -198,29 +222,50 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
      *         private String name;
      *
      *     }
-     *  }
+     *     }</pre>
+     *   </li>
      *
-     *  2. define a controller.
-     *  {@code
+     *   <li>
+     *     define a controller:
+     *     <pre>{@code
      *     @RestController
      *     @RequestMapping("/foo")
      *     public class FooController {
      *
      *         @PostMapping("/sayHello")
-     *         public void sayHello(@RequestParam(required = true) Long id, @RequestParam(required = true) String name) {
+     *         public void sayHello(
+     *             @RequestParam(required = true) Long id,
+     *             @RequestParam(required = true) String name
+     *         ) {
      *             System.out.println(id + name);
      *         }
      *
      *     }
-     *  }
-     * </pre>
+     *     }</pre>
+     *   </li>
+     * </ol>
      *
-     * <p>sample 1: send a post request to /foo/sayHello,              will throw {@link MissingServletRequestParameterException} and handled by this method because of the parameter [id] is missing.
-     * <p>sample 2: send a post request to /foo/sayHello?name="",      will throw {@link MissingServletRequestParameterException} and handled by this method because of the parameter [id] is missing.
-     * <p>sample 3: send a post request to /foo/sayHello?id=1,         will throw {@link MissingServletRequestParameterException} and handled by this method because of the parameter [name] is missing.
-     * <p>sample 4: send a post request to /foo/sayHello?id=1&name="", request success.
+     * <p>test cases:</p>
+     * <ul>
+     *   <li>
+     *     sample 1: send POST to {@code /foo/sayHello} (missing both parameters)<br>
+     *     → throws {@link MissingServletRequestParameterException} (parameter [id] missing)
+     *   </li>
+     *   <li>
+     *     sample 2: send POST to {@code /foo/sayHello?name=""} <br>
+     *     → throws {@link MissingServletRequestParameterException} (parameter [id] missing)
+     *   </li>
+     *   <li>
+     *     sample 3: send POST to {@code /foo/sayHello?id=1} <br>
+     *     → throws {@link MissingServletRequestParameterException} (parameter [name] missing)
+     *   </li>
+     *   <li>
+     *     sample 4: send POST to {@code /foo/sayHello?id=1&name=""} <br>
+     *     → request success
+     *   </li>
+     * </ul>
      *
-     * @param httpServletRequest the http servlet request
+     * @param httpServletRequest the HTTP servlet request
      * @param exception          the exception
      * @return the web response
      */
@@ -231,11 +276,12 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
     }
 
     /**
-     * <pre>
-     * handle the exception sample as following:
+     * <p>handle the exception sample as following:</p>
      *
-     *  1. define a view object.
-     *  {@code
+     * <ol>
+     *   <li>
+     *     define a view object:
+     *     <pre>{@code
      *     @Data
      *     @NoArgsConstructor
      *     @Accessors(chain = true)
@@ -249,30 +295,51 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
      *         private String name;
      *
      *     }
-     *  }
+     *     }</pre>
+     *   </li>
      *
-     *  2. define a controller.
-     *  {@code
+     *   <li>
+     *     define a controller with required parameters:
+     *     <pre>{@code
      *     @RestController
      *     @RequestMapping("/foo")
      *     public class FooController {
      *
      *         @PostMapping("/sayHello")
-     *         public void sayHello(@RequestParam(required = true) Long id, @RequestParam(required = true) String name) {
+     *         public void sayHello(
+     *             @RequestParam(required = true) Long id,
+     *             @RequestParam(required = true) String name
+     *         ) {
      *             System.out.println(id + name);
      *         }
      *
      *     }
-     *  }
-     * </pre>
+     *     }</pre>
+     *   </li>
+     * </ol>
      *
-     * <p>sample 1: send a post request to /foo/sayHello?id=null&name=null, the null value will be convert to "null", will throw {@link MethodArgumentTypeMismatchException} and handled by this method because of the parameter [id] type is wrong.
-     * <p>sample 2: send a post request to /foo/sayHello?id=null&name="",   the null value will be convert to "null", will throw {@link MethodArgumentTypeMismatchException} and handled by this method because of the parameter [id] type is wrong.
-     * <p>sample 3: send a post request to /foo/sayHello?id=1&name=null,    the null value will be convert to "null", request success.
-     * <p>sample 4: send a post request to /foo/sayHello?id=1&name="",      request success.
+     * <p>type conversion test cases:</p>
+     * <ul>
+     *   <li>
+     *     sample 1: POST {@code /foo/sayHello?id=null&name=null}<br>
+     *     → parameter converts to {@code id="null"} (String → Long conversion failed) → throws {@link MethodArgumentTypeMismatchException}
+     *   </li>
+     *   <li>
+     *     sample 2: POST {@code /foo/sayHello?id=null&name=""}<br>
+     *     → parameter converts to {@code id="null"} (String → Long conversion failed) → throws {@link MethodArgumentTypeMismatchException}
+     *   </li>
+     *   <li>
+     *     sample 3: POST {@code /foo/sayHello?id=1&name=null}<br>
+     *     → {@code name="null"} is acceptable for String type → request success
+     *   </li>
+     *   <li>
+     *     sample 4: POST {@code /foo/sayHello?id=1&name=""}<br>
+     *     → empty string is valid for String parameter → request success
+     *   </li>
+     * </ul>
      *
-     * @param httpServletRequest the http servlet request
-     * @param exception          the exception
+     * @param httpServletRequest the HTTP servlet request
+     * @param exception          the type conversion exception
      * @return the web response
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
@@ -282,11 +349,12 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
     }
 
     /**
-     * <pre>
-     * handle the exception sample as following:
+     * <p>handle the exception sample as following:</p>
      *
-     *  1. define a view object and marked the validation annotation like @{@link NotNull} on the specified field.
-     *  {@code
+     * <ol>
+     *   <li>
+     *     define a view object with validation annotations:
+     *     <pre>{@code
      *     @Data
      *     @NoArgsConstructor
      *     @Accessors(chain = true)
@@ -302,10 +370,12 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
      *         private String name;
      *
      *     }
-     *  }
+     *     }</pre>
+     *   </li>
      *
-     *  2. define a controller and marked @{@link Validated} on the view object.
-     *  {@code
+     *   <li>
+     *     define a controller with validation:
+     *     <pre>{@code
      *     @RestController
      *     @RequestMapping("/foo")
      *     public class FooController {
@@ -316,21 +386,26 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
      *         }
      *
      *     }
-     *  }
+     *     }</pre>
+     *   </li>
      *
-     *  3. send a post request to /foo/sayHello with data like:
-     *  {@code
+     *   <li>
+     *     send a POST request with invalid data:
+     *     <pre>{@code
      *     {
-     *         "id": null,
-     *         "name": "  "
+     *       "id": null,
+     *       "name": "  "
      *     }
-     *  }
+     *     }</pre>
+     *   </li>
      *
-     *  4. will throw {@link MethodArgumentNotValidException} and handled by this method.
-     * </pre>
+     *   <li>
+     *     throws {@link MethodArgumentNotValidException} when validation fails
+     *   </li>
+     * </ol>
      *
-     * @param httpServletRequest the http servlet request
-     * @param exception          the exception
+     * @param httpServletRequest the HTTP servlet request
+     * @param exception          the validation exception
      * @return the web response
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)

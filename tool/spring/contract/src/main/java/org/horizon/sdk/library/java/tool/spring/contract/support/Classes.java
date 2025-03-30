@@ -86,32 +86,45 @@ public class Classes extends org.horizon.sdk.library.java.tool.lang.object.Class
     }
 
     /**
-     * <pre>
-     * get the largest range package paths, support ant style package paths.
+     * <p>get the largest range package paths with Ant-style pattern support.</p>
      *
-     * example code:
-     * {@code
-     * // example 1:
-     * // "cn.test"    is contain "cn.test.lang1", "cn.test.lang1",     so keep only "cn.test".
-     * // "org.horizon.sdk.library" is contain "org.horizon.sdk.library.xxx", "org.horizon.sdk.library.ss.xx", so keep only "org.horizon.sdk.library".
-     * // "cn.core"    not contain the other package path, so keep it.
-     * // the output is ["cn.test", "org.horizon.sdk.library", "cn.core"]
-     * Classes.getTheMostLargerRangePackagePath(List.of("cn.test.lang1", "cn.test.lang1", "cn.test", "org.horizon.sdk.library", "org.horizon.sdk.library.xxx", "org.horizon.sdk.library.ss.xx", "cn.core"));
+     * <p>sample usage:</p>
+     * <ol>
+     *   <li>
+     *     basic filtering:
+     *     <pre>{@code
+     *     // input: ["cn.test.lang1", "cn.test.lang1", "cn.test", "cn.core", "org.horizon.sdk.library", "org.horizon.sdk.library.xxx", "org.horizon.sdk.library.ss.xx"]
+     *     // output: ["cn.test", "cn.core", "org.horizon.sdk.library"]
+     *     Classes.getTheMostLargerRangePackagePath(packagePaths);
+     *     }</pre>
+     *   </li>
      *
-     * // example 2:
-     * // there is a package path like ["cn.test.lang", "cn.test.lang.collection"].
-     * // the output is ["cn.test.lang"]
-     * Classes.getTheMostLargerRangePackagePath(List.of("cn.test.*", "cn.test.lang.collection"));
+     *   <li>
+     *     pattern matching:
+     *     <pre>{@code
+     *     // input: ["cn.test.*", "cn.test.lang.collection"]
+     *     // output: ["cn.test.lang"]
+     *     }</pre>
+     *   </li>
      *
-     * // warning: this following is not the expected result:
-     * // all package paths start with "org.horizon.sdk.library", and although the second package name is inconsistent, it will also be filtered out.
-     * // the output is ["org.horizon.sdk.library"]
-     * Classes.getTheMostLargerRangePackagePath(List.of("org.horizon.sdk.library.lang1", "org.horizon.sdk.library.lang1", "org.horizon.sdk.library", "org.horizon.sdk.library2", "org.horizon.sdk.library2.xxx", "org.horizon.sdk.library2.ss.xx", "org.horizon.sdk.library3"));
-     * }
-     * </pre>
+     *   <li>
+     *     edge case handling:
+     *     <pre>{@code
+     *     // input: ["org.horizon.sdk.library.lang1", "org.horizon.sdk.library", ...]
+     *     // output: ["org.horizon.sdk.library"]
+     *     }</pre>
+     *   </li>
+     * </ol>
      *
-     * @param packagePaths the package paths
-     * @return the largest range package paths
+     * <p>implementation rules:</p>
+     * <ul>
+     *   <li>returns the most specific parent package that contains multiple sub-packages</li>
+     *   <li>Ant-style patterns (e.g., "cn.test.*") are resolved before comparison</li>
+     *   <li>duplicate entries are automatically deduplicated</li>
+     * </ul>
+     *
+     * @param packagePaths the collection of package paths (supports Ant-style patterns)
+     * @return the filtered list containing only the largest scope packages
      * @see org.horizon.sdk.library.java.tool.lang.object.Classes#getTheLargestRangePackagePath(Collection)
      */
     public static Set<String> getTheLargestRangePackagePath(Collection<String> packagePaths) {
@@ -277,64 +290,59 @@ public class Classes extends org.horizon.sdk.library.java.tool.lang.object.Class
     }
 
     /**
-     * <pre>
-     * scan all {@link BeanDefinition}s by the specified {@link TypeFilter}s in the specified packages paths.
+     * <p>scan {@link BeanDefinition}s using specified {@link TypeFilter}s within given package paths.</p>
      *
-     * example code:
-     * {@code
+     * <p>example implementation flow:</p>
+     * <ol>
+     *   <li>
+     *     define interface and implementations:
+     *     <pre>{@code
+     *     public interface CustomerService {}
      *
-     *     // define an interface
-     *     public interface CustomerService {
+     *     public class CustomerServiceImpl1 implements CustomerService {}
      *
-     *     }
+     *     public class CustomerServiceImpl2 implements CustomerService {}
      *
-     *     // define the implement class1
-     *     public class CustomerServiceImpl1 implements CustomerService {
+     *     public class CustomerServiceImpl3 implements CustomerService {}
+     *     }</pre>
+     *   </li>
      *
-     *     }
-     *
-     *     // define the implement class2
-     *     public class CustomerServiceImpl2 implements CustomerService {
-     *
-     *     }
-     *
-     *     // define the implement class3
-     *     public class CustomerServiceImpl3 implements CustomerService {
-     *
-     *     }
-     *
-     *     // define enum with a customer annotation such as @CustomerAnnotation, and mark to a class like GenderType.
+     *   <li>
+     *     create annotated enum:
+     *     <pre>{@code
      *     @CustomerAnnotation
      *     public enum GenderType {
-     *
-     *         WOMAN,
-     *         MAN,
-     *         UNKNOWN,
-     *
-     *         ;
-     *
+     *         WOMAN, MAN, UNKNOWN
      *     }
+     *     }</pre>
+     *   </li>
      *
-     *     // the unit test
-     *     public class Test {
-     *         public static void main(String[] args) {
-     *             // the output is a set {@link BeanDefinition} contains [CustomerServiceImpl1, CustomerServiceImpl2, CustomerServiceImpl3, GenderType]
-     *             Springs.scanByTypeFilter(
-     *                     Collections.ofArrayList(
-     *                             // the annotation type filter, it will scan all objects containing the specified annotation in the specified package paths.
-     *                             new AnnotationTypeFilter(CustomerAnnotation.class),
-     *                             // the annotation type filter, it will scan all subclasses or implementation classes in the specified package paths.(not contains parent class)
-     *                             new AssignableTypeFilter(CustomerService.class)
-     *                     ),
-     *                     // the specified package paths
-     *                     "cn.xx1", "cn.xx2", "cn.xx3"
-     *             );
-     *         }
-     *     }
-     * }
-     * </pre>
+     *   <li>
+     *     configure type filters:
+     *     <pre>{@code
+     *     List<TypeFilter> filters = Arrays.asList(
+     *         // the annotation type filter, it will scan all objects containing the specified annotation in the specified package paths.
+     *         new AnnotationTypeFilter(CustomerAnnotation.class),
+     *         // the annotation type filter, it will scan all subclasses or implementation classes in the specified package paths.(not contains parent class)
+     *         new AssignableTypeFilter(CustomerService.class)
+     *     );
+     *     }</pre>
+     *   </li>
      *
-     * @param includeFilters   the specified {@link TypeFilter}s
+     *   <li>
+     *     execute scanning:
+     *     <pre>{@code
+     *     // the output is a set {@link BeanDefinition} contains [CustomerServiceImpl1, CustomerServiceImpl2, CustomerServiceImpl3, GenderType]
+     *     Set<BeanDefinition> definitions = Springs.scanByTypeFilter(
+     *         filters,
+     *         // the specified package paths
+     *         "cn.xx1", "cn.xx2", "cn.xx3"
+     *     );
+     *     }</pre>
+     *   </li>
+     * </ol>
+     *
+     * @param includeFilters   type filters for scanning (combination supported)
      * @param scanPackagePaths the specified package paths
      * @return all {@link BeanDefinition}s by the specified {@link TypeFilter}s in the specified packages paths.
      */
@@ -350,16 +358,23 @@ public class Classes extends org.horizon.sdk.library.java.tool.lang.object.Class
     }
 
     /**
-     * <pre>
-     * convert class name to resource path
+     * <p>convert class name to resource path with following rules:</p>
      *
-     * for example:
-     * the input is "Classes", the output is "Classes".
-     * the input is "org.horizon.sdk.library.java.tool.spring.base.Classes", the output is "org/horizon/sdk/library/java/tool/spring/base/Classes".
-     * </pre>
+     * <ul>
+     *   <li>simple class name remains unchanged
+     *     <pre>{@code
+     *     "Classes" → "Classes"
+     *     }</pre>
+     *   </li>
+     *   <li>fully-qualified names convert dots to path separators
+     *     <pre>{@code
+     *     "org.horizon...Classes" → "org/horizon/.../Classes"
+     *     }</pre>
+     *   </li>
+     * </ul>
      *
-     * @param className the class name
-     * @return the resource path
+     * @param className the fully-qualified class name (e.g. "java.lang.String")
+     * @return corresponding resource path for class loading
      * @see ClassUtils#convertClassNameToResourcePath(String)
      */
     public static String convertClassNameToResourcePath(String className) {
@@ -367,32 +382,52 @@ public class Classes extends org.horizon.sdk.library.java.tool.lang.object.Class
     }
 
     /**
-     * <pre>
-     * convert class name to class path
+     * <p>convert class name to classpath resource pattern with following rules:</p>
      *
-     * for example:
-     * the input is "Classes", the output is "classpath*:Classes".
-     * the input is "org.horizon.sdk.library.java.tool.spring.base.Classes", the output is "classpath*:org/horizon/sdk/library/java/tool/spring/base/Classes".
-     * </pre>
+     * <ul>
+     *   <li>
+     *     simple class name conversion:
+     *     <pre>{@code
+     *     "Classes" → "classpath*:Classes"
+     *     }</pre>
+     *   </li>
      *
-     * @param className the class name
-     * @return the class path
+     *   <li>
+     *     fully-qualified class name conversion:
+     *     <pre>{@code
+     *     "org.horizon.sdk...Classes" → "classpath*:org/horizon/sdk/.../Classes"
+     *     }</pre>
+     *   </li>
+     * </ul>
+     *
+     * @param className the class name (supports both simple and fully-qualified names)
+     * @return classpath resource pattern with wildcard prefix
      */
     public static String convertClassNameToClassPath(String className) {
         return ClassConstant.CLASS_PATH_PREFIX + convertClassNameToResourcePath(className);
     }
 
     /**
-     * <pre>
-     * convert resource path to class name
+     * <p>convert resource path to fully-qualified class name with following rules:</p>
      *
-     * for example:
-     * the input is "Classes", the output is "Classes".
-     * the input is "org/horizon/sdk/library/java/tool/spring/base/Classes", the output is "org.horizon.sdk.library.java.tool.spring.base.Classes".
-     * </pre>
+     * <ul>
+     *   <li>
+     *     simple resource path conversion:
+     *     <pre>{@code
+     *     "Classes" → "Classes"
+     *     }</pre>
+     *   </li>
      *
-     * @param resourcePath the class name
-     * @return the resource path
+     *   <li>
+     *     hierarchical path conversion:
+     *     <pre>{@code
+     *     "org/horizon/sdk/.../Classes" → "org.horizon.sdk....Classes"
+     *     }</pre>
+     *   </li>
+     * </ul>
+     *
+     * @param resourcePath the file system path or resource path (using '/' separators)
+     * @return corresponding Java class name with package structure
      * @see ClassUtils#convertResourcePathToClassName(String)
      */
     public static String convertResourcePathToClassName(String resourcePath) {
@@ -410,17 +445,16 @@ public class Classes extends org.horizon.sdk.library.java.tool.lang.object.Class
     }
 
     /**
-     * <pre>
-     * parse ant style package paths to package paths.
-     * the ant style see {@link AntPathMatcher}.
+     * <p>expand Ant-style package patterns to concrete package paths using {@link AntPathMatcher} semantics.</p>
      *
-     * for example:
-     * the input is "cn.test.*.lang"
-     * the output are ["cn.test.spring.lang", "cn.test.guava.lang", "cn.test.apache.lang"]
-     * </pre>
+     * <p>conversion examples:</p>
+     * <pre>{@code
+     * // matches any subpackage ending with "lang"
+     * "cn.test.*.lang" → ["cn.test.spring.lang", "cn.test.guava.lang", "cn.test.apache.lang"]
+     * }</pre>
      *
-     * @param antStylePackagePaths the ant style package paths
-     * @return package paths
+     * @param antStylePackagePaths package patterns with Ant-style wildcards (*, **)
+     * @return concrete package paths existing in classpath that match patterns
      * @see AntPathMatcher
      * @see PathMatchingResourcePatternResolver
      */
@@ -435,25 +469,25 @@ public class Classes extends org.horizon.sdk.library.java.tool.lang.object.Class
     /**
      * see {@link #parseAntStyleClassPathsToPackagePaths(Collection)}
      *
-     * @param antStyleClassPaths the ant style class paths
-     * @return package paths
+     * @param antStyleClassPaths package patterns with Ant-style wildcards (*, **)
+     * @return concrete package paths existing in classpath that match patterns
      */
     public static Set<String> parseAntStyleClassPathsToPackagePaths(String... antStyleClassPaths) {
         return parseAntStyleClassPathsToPackagePaths(Collections.ofHashSet(antStyleClassPaths));
     }
 
     /**
-     * <pre>
-     * parse ant style class paths to package paths.
-     * the ant style see {@link AntPathMatcher}.
+     * <p>parses ant-style class paths into package paths.</p>
      *
-     * for example:
-     * the input is "classpath*:cn/test/&#42;/lang"
-     * the output are ["cn.test.spring.lang", "cn.test.guava.lang", "cn.test.apache.lang"]
-     * </pre>
+     * <p>this uses ant-style patterns as implemented in {@link AntPathMatcher}.</p>
      *
-     * @param antStyleClassPaths the ant style class paths
-     * @return package paths
+     * <p>conversion examples:</p>
+     * <pre>{@code
+     * "classpath*:cn/test/* /lang" → ["cn.test.spring.lang", "cn.test.guava.lang", "cn.test.apache.lang"]
+     * }</pre>
+     *
+     * @param antStyleClassPaths package patterns with Ant-style wildcards (*, **)
+     * @return concrete package paths existing in classpath that match patterns
      * @see AntPathMatcher
      * @see PathMatchingResourcePatternResolver
      */
@@ -490,25 +524,30 @@ public class Classes extends org.horizon.sdk.library.java.tool.lang.object.Class
     /**
      * see {@link #parseAntStyleClassPathsToResourcePaths(Collection)}
      *
-     * @param antStyleClassPaths the ant style class paths
-     * @return resource paths
+     * @param antStyleClassPaths package patterns with Ant-style wildcards (*, **)
+     * @return concrete package paths existing in classpath that match patterns
      */
     public static Set<String> parseAntStyleClassPathsToResourcePaths(String... antStyleClassPaths) {
         return parseAntStyleClassPathsToResourcePaths(Collections.ofHashSet(antStyleClassPaths));
     }
 
     /**
-     * <pre>
-     * parse ant style class paths to resource paths.
-     * the ant style see {@link AntPathMatcher}.
+     * <p>parses ant-style class paths into resolved resource paths.</p>
      *
-     * for example:
-     * the input is "classpath*:cn/test/&#42;/lang"
-     * the output are ["/xxx/xxx/xxx/cn/test/spring/lang/", "/xxx/xxx/xxx/cn/test/guava/lang/", "/xxx/xxx/xxx/cn/test/apache/lang/"]
-     * </pre>
+     * <p>this uses ant-style patterns as implemented in {@link AntPathMatcher}.</p>
      *
-     * @param antStyleClassPaths the ant style class paths
-     * @return resource paths
+     * <p>example:</p>
+     * <pre>{@code
+     * input:  "classpath*:cn/test/* /lang"
+     * output: [
+     *     "/xxx/xxx/xxx/cn/test/spring/lang/",
+     *     "/xxx/xxx/xxx/cn/test/guava/lang/",
+     *     "/xxx/xxx/xxx/cn/test/apache/lang/"
+     * ]
+     * }</pre>
+     *
+     * @param antStyleClassPaths package patterns with Ant-style wildcards (*, **)
+     * @return concrete package paths existing in classpath that match patterns
      * @see AntPathMatcher
      * @see PathMatchingResourcePatternResolver#getResources(String)
      * @see #getResourceByAntStyleClassPath(String)
@@ -533,36 +572,41 @@ public class Classes extends org.horizon.sdk.library.java.tool.lang.object.Class
     }
 
     /**
-     * <pre>
-     * parse ant style package paths specified in annotation class to package paths.
-     * the ant style see {@link AntPathMatcher}.
+     * <p>parses ant-style package paths defined in annotation class fields.</p>
      *
-     * example code:
-     * {@code
-     *     // define an annotation to set the ant style package paths
-     *     @Retention(RetentionPolicy.RUNTIME)
-     *     @Target(ElementType.TYPE)
-     *     @Documented
-     *     public @interface Scanner {
-     *         String[] scanPackagePaths();
-     *     }
+     * <p>this uses ant-style patterns as implemented in {@link AntPathMatcher}.</p>
      *
-     *     // define a scanner marked with @Scanner("cn.test.*.lang")
-     *     @Scanner("cn.test.*.lang")
-     *     public class LangPackageScanner {}
-     *
-     *     // define a scanner marked with @Scanner("cn.test.*.stream")
-     *     @Scanner("cn.test.*.stream")
-     *     public class StreamPackageScanner {}
-     *
-     *     // then you can use this function to collection all actual package paths.
-     *     // the output example: ["cn.test.spring.lang", "cn.test.guava.lang", "cn.test.apache.lang", "cn.test.spring.stream", "cn.test.guava.stream", "cn.test.apache.stream"]
-     *     Classes.parseAnnotationAntStylePackagePathToPackagePath(Scanner.class, "scanPackagePaths");
+     * <p>example usage:</p>
+     * <pre>{@code
+     * // Define annotation with path configuration
+     * @Retention(RetentionPolicy.RUNTIME)
+     * @Target(ElementType.TYPE)
+     * @Documented
+     * public @interface Scanner {
+     *     String[] scanPackagePaths();
      * }
-     * </pre>
      *
-     * @param annotationType the annotation class
-     * @param fieldName      the field name in annotation class
+     * // Apply annotations to scanners
+     * @Scanner("cn.test.*.lang")
+     * public class LangPackageScanner {}
+     *
+     * @Scanner("cn.test.*.stream")
+     * public class StreamPackageScanner {}
+     *
+     * // Parse actual paths
+     * List<String> paths = Classes.parseAnnotationAntStylePackagePathToPackagePath(
+     *     Scanner.class,
+     *     "scanPackagePaths"
+     * );
+     * // Result: [
+     * //   "cn.test.spring.lang", "cn.test.guava.lang",
+     * //   "cn.test.apache.lang", "cn.test.spring.stream",
+     * //   "cn.test.guava.stream", "cn.test.apache.stream"
+     * // ]
+     * }</pre>
+     *
+     * @param annotationType the annotation class containing ant-style path definitions
+     * @param fieldName      the field name in the annotation that specifies package paths
      * @return package paths
      * @see AntPathMatcher
      * @see PathMatchingResourcePatternResolver
@@ -584,14 +628,24 @@ public class Classes extends org.horizon.sdk.library.java.tool.lang.object.Class
     }
 
     /**
-     * <pre>
-     * use {@link #parseAnnotationAntStylePackagePathsToPackagePaths(Class, String)} to parse ant style package paths specified in annotation class,
-     * then {@link #getTheLargestRangePackagePath(Collection)} by the package paths specified in annotation class and {@link Springs#getSpringBootApplicationPackagePath()}.
-     * </pre>
+     * <p>finds optimal package paths through multi-step resolution:</p>
+     * <ol>
+     *   <li>calls {@link #parseAnnotationAntStylePackagePathsToPackagePaths(Class, String)} to resolve annotation paths</li>
+     *   <li>determines coverage range via {@link #getTheLargestRangePackagePath(Collection)}</li>
+     *   <li>combines with {@link Springs#getSpringBootApplicationPackagePath()} for final optimization</li>
+     * </ol>
      *
-     * @param annotationType the annotation class
-     * @param fieldName      the field name in annotation class
-     * @return the optimal package paths
+     * <p>typical workflow:</p>
+     * <pre>{@code
+     * // annotation -> parsed paths -> coverage analysis -> combined with Spring Boot path
+     * Set<String> paths = parseAnnotationAntStylePackagePathsToPackagePaths(Scanner.class, "scanPaths");
+     * String largestPath = getTheLargestRangePackagePath(paths);
+     * String finalPath = largestPath + Springs.getSpringBootApplicationPackagePath();
+     * }</pre>
+     *
+     * @param annotationType the annotation class containing ant-style path definitions
+     * @param fieldName      the field name in annotation that stores package paths
+     * @return optimized package paths combining annotation config and Spring Boot context
      * @see #parseAnnotationAntStylePackagePathsToPackagePaths(Class, String)
      * @see #getTheLargestRangePackagePath(Collection)
      * @see Springs#getSpringBootApplicationPackagePath()
