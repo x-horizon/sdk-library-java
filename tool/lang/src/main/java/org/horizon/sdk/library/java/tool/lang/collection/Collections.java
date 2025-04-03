@@ -855,7 +855,21 @@ public class Collections {
     }
 
     /**
-     * return true if the field data type is an iterable type.
+     * return true if input is an iterable type.
+     *
+     * @param input the input instance
+     * @return return true if the field data type is an iterable type.
+     * @see #isIterable(Class)
+     */
+    public static boolean isIterable(Object input) {
+        if (Nil.isNull(input)) {
+            return false;
+        }
+        return isIterable(input.getClass());
+    }
+
+    /**
+     * return true if input is an iterable type.
      *
      * @param input the field
      * @return return true if the field data type is an iterable type.
@@ -870,7 +884,7 @@ public class Collections {
 
     /**
      * <pre>
-     * return true if the field data type is an iterable type.
+     * return true if input is an iterable type.
      * 1. the class type is {@link Iterable}
      * 2. the class type is {@link Iterator}
      * 3. the class type is {@link Map}
