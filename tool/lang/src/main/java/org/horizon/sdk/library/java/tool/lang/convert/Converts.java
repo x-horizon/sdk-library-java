@@ -1005,7 +1005,7 @@ public class Converts {
      */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public static <E extends Enum<E>> E toEnumByValueContainIgnoreCase(String comparedEnumFieldValue, Class<E> enumClass) {
-        Predicate<Object> originalEnumFieldValuePredicate = (originalEnumFieldValue) -> (originalEnumFieldValue instanceof CharSequence originalEnumFieldStringValue) && (Strings.containsIgnoreCase(comparedEnumFieldValue, originalEnumFieldStringValue) || Strings.containsIgnoreCase(originalEnumFieldStringValue, comparedEnumFieldValue));
+        Predicate<Object> originalEnumFieldValuePredicate = (originalEnumFieldValue) -> (originalEnumFieldValue instanceof CharSequence originalEnumFieldStringValue) && (Strings.containsIgnoreCase(comparedEnumFieldValue, originalEnumFieldStringValue));
         return (E) MATCH_BY_CONTAIN_IGNORE_CASE_ENUM_CACHE.computeIfAbsent(
                 getEnumCacheKey(comparedEnumFieldValue, enumClass),
                 ignore -> toEnumByValue(
