@@ -155,7 +155,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_SERIALIZATION_PROTOBUF_GOOGLE_PROTOC("com.google.protobuf:protoc", BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF.version), // TODO wjm bom is not invalid
     TOOL_SERIALIZATION_PROTOBUF_SQUAREUP_WIRE("com.squareup.wire:wire-schema", ""),
     TOOL_STREAM_JDFRAME("io.github.burukeyou:jdframe", "0.0.2"),
-    TOOL_TEMPLATE_ENGINE_APACHE_VELOCITY("org.apache.velocity:velocity", "1.7"), // TODO wjm 该包 1.7 版本后破坏性更新极大，暂使用旧版本，新版本为：TOOL_APACHE_TEMPLATE_ENGINE_VELOCITY("org.apache.velocity:velocity-engine-core", "2.3")，升级链接：https://velocity.apache.org/engine/2.3/upgrading.html#upgrading-from-velocity-17-to-velocity-20，目前暂使用旧版本
+    TOOL_TEMPLATE_ENGINE_APACHE_VELOCITY("org.apache.velocity:velocity-engine-core", "2.4.1"),
     TOOL_THREAD_POOL_DYNAMIC_TP_COMMON("org.dromara.dynamictp:dynamic-tp-spring-boot-starter-common", ""),
     TOOL_THREAD_POOL_DYNAMIC_TP_CONFIG_NACOS("org.dromara.dynamictp:dynamic-tp-spring-cloud-starter-nacos", ""),
     TOOL_THREAD_POOL_DYNAMIC_TP_INTEGRATION_GRPC("org.dromara.dynamictp:dynamic-tp-spring-boot-starter-adapter-grpc", ""),

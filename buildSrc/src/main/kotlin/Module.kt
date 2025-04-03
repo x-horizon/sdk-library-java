@@ -138,7 +138,7 @@ object GradleModule {
     const val TOOL_SPRING_CONTRACT = ":$ROOT_PROJECT_NAME-tool-spring-contract"
     const val TOOL_SPRING_WEBFLUX = ":$ROOT_PROJECT_NAME-tool-spring-webflux"
     const val TOOL_SPRING_WEBMVC = ":$ROOT_PROJECT_NAME-tool-spring-webmvc"
-    const val TOOL_TEMPLATE_ENGINE = ":$ROOT_PROJECT_NAME-tool-template-engine"
+    const val TOOL_TEMPLATE_ENGINE_VELOCITY = ":$ROOT_PROJECT_NAME-tool-template-engine-velocity"
     const val TOOL_THREAD_POOL_CONTRACT = ":$ROOT_PROJECT_NAME-tool-thread-pool-contract"
     const val TOOL_THREAD_POOL_CONFIG_NACOS = ":$ROOT_PROJECT_NAME-tool-thread-pool-config-nacos"
     const val TOOL_THREAD_POOL_INTEGRATION_GRPC = ":$ROOT_PROJECT_NAME-tool-thread-pool-integration-grpc"
