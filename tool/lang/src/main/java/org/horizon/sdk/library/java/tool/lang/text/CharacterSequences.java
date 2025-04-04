@@ -4,6 +4,7 @@ import io.vavr.control.Try;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.dromara.hutool.core.text.CharSequenceUtil;
+import org.dromara.hutool.core.text.NamingCase;
 import org.dromara.hutool.core.text.StrUtil;
 import org.dromara.hutool.core.text.split.SplitUtil;
 import org.horizon.sdk.library.java.contract.constant.regex.RegexConstant;
@@ -772,34 +773,67 @@ public class CharacterSequences extends Characters {
     }
 
     /**
-     * see {@link CharSequenceUtil#toUnderlineCase(CharSequence)}
+     * see {@link NamingCase#toUnderlineCase(CharSequence)}
      *
      * @param input the input element
-     * @return after underline case
+     * @return after underline case and lower
      */
-    public static String underlineCase(CharSequence input) {
-        return CharSequenceUtil.toUnderlineCase(input);
+    public static String underlineLowerCase(CharSequence input) {
+        return NamingCase.toUnderlineCase(input);
     }
 
     /**
-     * see {@link CharSequenceUtil#toSymbolCase(CharSequence, char)}
+     * using {@link #underlineLowerCase(CharSequence)} and upper it
+     *
+     * @param input the input element
+     * @return after underline case and upper
+     */
+    public static String underlineUpperCase(CharSequence input) {
+        if (Nil.isNull(input)) {
+            return null;
+        }
+        return underlineLowerCase(input).toUpperCase();
+    }
+
+    /**
+     * see {@link NamingCase#toSymbolCase(CharSequence, char)}
      *
      * @param input  the input element
      * @param symbol the symbol
      * @return after symbol case
      */
     public static String symbolCase(CharSequence input, char symbol) {
-        return CharSequenceUtil.toSymbolCase(input, symbol);
+        return NamingCase.toSymbolCase(input, symbol);
     }
 
     /**
-     * see {@link CharSequenceUtil#toCamelCase(CharSequence)}
+     * see {@link NamingCase#toCamelCase(CharSequence)}
      *
      * @param input the input element
      * @return after camel case
      */
     public static String camelCase(CharSequence input) {
-        return CharSequenceUtil.toCamelCase(input);
+        return NamingCase.toCamelCase(input);
+    }
+
+    /**
+     * see {@link NamingCase#toPascalCase(CharSequence)}
+     *
+     * @param input the input element
+     * @return after pascal case
+     */
+    public static String pascalCase(CharSequence input) {
+        return NamingCase.toPascalCase(input);
+    }
+
+    /**
+     * see {@link NamingCase#toKebabCase(CharSequence)}
+     *
+     * @param input the input element
+     * @return after kebab case
+     */
+    public static String kebabCase(CharSequence input) {
+        return NamingCase.toKebabCase(input);
     }
 
 }
