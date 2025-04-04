@@ -136,7 +136,7 @@ public class MybatisFlexs {
                 return jsonProperty.value();
             }
             // json property annotation exist and the entity is real table, using under line case json property name.
-            return Strings.underlineCase(jsonProperty.value());
+            return Strings.underlineLowerCase(jsonProperty.value());
         });
     }
 
