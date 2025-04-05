@@ -1,5 +1,6 @@
 package org.horizon.sdk.library.java.tool.lang.convert;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import io.vavr.Function3;
 import io.vavr.Function4;
 import io.vavr.control.Try;
@@ -26,10 +27,10 @@ import org.horizon.sdk.library.java.tool.lang.reflect.Reflects;
 import org.horizon.sdk.library.java.tool.lang.text.CharacterSequences;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
-import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * toolkit for convert
@@ -45,12 +46,12 @@ public class Converts {
     /**
      * the map with key as identify enum field value and value as enum and match by equal
      */
-    private static final Map<String, Object> MATCH_BY_EQUAL_ENUM_CACHE = Collections.newConcurrentHashMap(256);
+    private static final Map<String, Object> MATCH_BY_EQUAL_ENUM_CACHE = Collections.newConcurrentHashMap();
 
     /**
-     * the map with key as identify enum field value and value as enum and match by contain ignore case
+     * the map with key as identify enum field value and value as enum and match by most similar
      */
-    private static final Map<String, Object> MATCH_BY_CONTAIN_IGNORE_CASE_ENUM_CACHE = Collections.newConcurrentHashMap(256);
+    private static final Map<String, Object> MATCH_BY_MOST_SIMILAR_ENUM_CACHE = Collections.newConcurrentHashMap();
 
     /**
      * convert number to boolean.
@@ -769,40 +770,13 @@ public class Converts {
      *     private final String description;
      *
      *     public static void main(String[] args) {
-     *         // Outputs GenderType.WOMAN (matches code)
+     *         // Outputs GenderType.WOMAN (field code match)
      *         Converts.toEnumByValue(2, GenderType.class);
-     *         // Outputs GenderType.WOMAN (matches description)
+     *         // Outputs GenderType.WOMAN (field description match)
      *         Converts.toEnumByValue("woman", GenderType.class);
+     *
      *         // Outputs null (value mismatch)
      *         Converts.toEnumByValue("WOman", GenderType1.class);
-     *         // Outputs null (type mismatch)
-     *         Converts.toEnumByValue("2", GenderType.class);
-     *     }
-     * }
-     * }</pre></li>
-     *
-     * <li><p>Handles multiple match fields:</p>
-     * <pre>{@code
-     * @Getter
-     * @AllArgsConstructor
-     * public enum GenderType {
-     *     MAN(1, "man", "Man"),
-     *     WOMAN(2, "woman", "Woman"),
-     *     UNKNOWN(3, "unknown", "Unknown");
-     *
-     *     private final int code;
-     *     private final String description1;
-     *     private final String description2;
-     *
-     *     public static void main(String[] args) {
-     *         // Outputs GenderType.WOMAN (matches code)
-     *         Converts.toEnumByValue(2, GenderType.class);
-     *         // Outputs GenderType.WOMAN (matches description1)
-     *         Converts.toEnumByValue("woman", GenderType.class);
-     *         // Outputs GenderType.WOMAN (matches description2)
-     *         Converts.toEnumByValue("Woman", GenderType.class);
-     *         // Outputs null (value mismatch)
-     *         Converts.toEnumByValue("WOman", GenderType.class);
      *         // Outputs null (type mismatch)
      *         Converts.toEnumByValue("2", GenderType.class);
      *     }
@@ -824,12 +798,60 @@ public class Converts {
      *     private final String[] names;
      *
      *     public static void main(String[] args) {
-     *         // Outputs GenderType.WOMAN (any value match)
+     *         // Outputs GenderType.WOMAN (any value of names match)
      *         Converts.toEnumByValue("woman", GenderType.class);
-     *         // Outputs GenderType.WOMAN (any value match)
+     *         // Outputs GenderType.WOMAN (any value of names match)
      *         Converts.toEnumByValue("Woman", GenderType.class);
-     *         // Outputs GenderType.WOMAN (any value match)
+     *         // Outputs GenderType.WOMAN (any value of names match)
      *         Converts.toEnumByValue("WOMAN", GenderType.class);
+     *         // Outputs null (value mismatch)
+     *         Converts.toEnumByValue("WOman", GenderType.class);
+     *     }
+     * }
+     * }</pre></li>
+     *
+     * <li><p>Supports complex field types:</p>
+     * <pre>{@code
+     * @Getter
+     * public enum GenderType {
+     *     MAN(1, List.of(4, 5, 6), List.of("m"), "man"),
+     *     WOMAN(2, List.of(7, 8, 9), List.of("wo", "Wo", "WO"), "woman", "Woman", "WOMAN"),
+     *     UNKNOWN(3, List.of(10, 11, 12), List.of("un", "Un"), "unknown", "Unknown");
+     *
+     *     GenderType3(int code, List<Integer> codes, List<String> names1, String... names2) {
+     *         this.code = code;
+     *         this.codes = codes;
+     *         this.names1 = names1;
+     *         this.names2 = names2;
+     *     }
+     *
+     *     private final String[] names;
+     *
+     *     public static void main(String[] args) {
+     *         // Outputs GenderType.WOMAN (field code match)
+     *         Converts.toEnumByValue(2, GenderType.class);
+     *
+     *         // Outputs GenderType.WOMAN (field codes match)
+     *         Converts.toEnumByValue(8, GenderType.class);
+     *
+     *         // Outputs GenderType.WOMAN (field names1 match)
+     *         Converts.toEnumByValue("wo", GenderType.class);
+     *         // Outputs GenderType.WOMAN (field names1 match)
+     *         Converts.toEnumByValue("Wo", GenderType.class);
+     *         // Outputs GenderType.WOMAN (field names1 match)
+     *         Converts.toEnumByValue("WO", GenderType.class);
+     *
+     *         // Outputs GenderType.WOMAN (field names2 match)
+     *         Converts.toEnumByValue("woman", GenderType.class);
+     *         // Outputs GenderType.WOMAN (field names2 match)
+     *         Converts.toEnumByValue("Woman", GenderType.class);
+     *         // Outputs GenderType.WOMAN (field names2 match)
+     *         Converts.toEnumByValue("WOMAN", GenderType.class);
+     *
+     *         // Outputs null (value mismatch)
+     *         Converts.toEnumByValue(18, GenderType.class);
+     *         // Outputs null (value mismatch)
+     *         Converts.toEnumByValue("wom", GenderType.class);
      *         // Outputs null (value mismatch)
      *         Converts.toEnumByValue("WOman", GenderType.class);
      *     }
@@ -856,40 +878,32 @@ public class Converts {
      * @param <E>                    the type of the enum
      * @return matching enum constant or {@code null} if not found
      * @see Enums#getFieldValue(Enum, Class)
-     * @see #toEnumByValue(Class, Predicate, Predicate)
+     * @see #getEnumValueMappingEnumObjectsMap(Class)
      */
-    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.RAW_TYPE})
     public static <E extends Enum<E>> E toEnumByValue(Object comparedEnumFieldValue, Class<E> enumClass) {
         if (Nil.isAnyNull(comparedEnumFieldValue, enumClass)) {
             return null;
         }
         return (E) MATCH_BY_EQUAL_ENUM_CACHE.computeIfAbsent(
                 getEnumCacheKey(comparedEnumFieldValue, enumClass),
-                ignore -> toEnumByValue(
-                        enumClass,
-                        (originalEnumFieldValue) -> Comparators.equals(originalEnumFieldValue, comparedEnumFieldValue),
-                        (originalEnumFieldValues) -> Collections.contains(originalEnumFieldValues, comparedEnumFieldValue)
-                ));
-    }
-
-    private static <E extends Enum<E>> E toEnumByValue(Class<E> enumClass, Predicate<Object> originalEnumFieldValuePredicate, Predicate<Object[]> originalEnumFieldArrayValuePredicate) {
-        for (Field field : Reflects.getFields(enumClass)) {
-            // skip enum internal field
-            if (Enums.isInternalFieldName(field)) {
-                continue;
-            }
-            for (E enumObj : enumClass.getEnumConstants()) {
-                Object originalEnumFieldValue = Reflects.getFieldValueIgnoreThrowable(enumObj, field);
-                if (originalEnumFieldValuePredicate.test(originalEnumFieldValue)) {
-                    return enumObj;
-                }
-                // handle varargs condition
-                if (Collections.isArray(originalEnumFieldValue) && originalEnumFieldArrayValuePredicate.test((Object[]) originalEnumFieldValue)) {
-                    return enumObj;
-                }
-            }
-        }
-        return null;
+                ignore -> getEnumValueMappingEnumObjectsMap(enumClass).entrySet()
+                        .stream()
+                        .flatMap(entry -> {
+                            if (Comparators.equals(entry.getKey(), comparedEnumFieldValue)
+                                    ||
+                                    (entry.getKey().getClass().isArray() && Collections.contains((Object[]) entry.getKey(), comparedEnumFieldValue))
+                                    ||
+                                    (entry.getKey() instanceof Iterable iterableEnumValue && Collections.contains(iterableEnumValue, comparedEnumFieldValue))
+                            ) {
+                                return Stream.of(entry.getValue());
+                            }
+                            return Stream.empty();
+                        })
+                        .flatMap(Collection::stream)
+                        .findFirst()
+                        .orElse(null)
+        );
     }
 
     /**
@@ -910,44 +924,13 @@ public class Converts {
      *     private final String description;
      *
      *     public static void main(String[] args) {
-     *         // Outputs GenderType.MAN (equals match)
-     *         Converts.toEnumByValueContainIgnoreCase("man", GenderType.class);
-     *         // Outputs GenderType.MAN (contain ignore case match)
-     *         Converts.toEnumByValueContainIgnoreCase("Man", GenderType.class);
-     *         // Outputs GenderType.MAN (equals match and the enum field GenderType.MAN description "man" defined earlier than GenderType.WOMAN description "woman")
-     *         Converts.toEnumByValueContainIgnoreCase("woman", GenderType.class);
-     *         // Outputs GenderType.MAN (equals ignore case match and the enum field GenderType.MAN description "man" defined earlier than GenderType.WOMAN description "woman")
-     *         Converts.toEnumByValueContainIgnoreCase("WOman", GenderType.class);
-     *         // Outputs null (value mismatch)
-     *         Converts.toEnumByValueContainIgnoreCase("2", GenderType.class);
-     *     }
-     * }
-     * }</pre></li>
+     *         // Outputs GenderType.WOMAN (the most similar field description match)
+     *         Converts.toEnumByValueMostSimilar("woman", GenderType.class);
+     *         // Outputs GenderType.WOMAN (the most similar field description match)
+     *         Converts.toEnumByValueMostSimilar("WOman", GenderType1.class);
      *
-     * <li><p>Handles multiple match fields:</p>
-     * <pre>{@code
-     * @Getter
-     * @AllArgsConstructor
-     * public enum GenderType {
-     *     MAN(1, "man", "Man"),
-     *     WOMAN(2, "woman", "Woman"),
-     *     UNKNOWN(3, "unknown", "Unknown");
-     *
-     *     private final int code;
-     *     private final String description1;
-     *     private final String description2;
-     *
-     *     public static void main(String[] args) {
-     *         // Outputs GenderType.MAN (equals match)
-     *         Converts.toEnumByValueContainIgnoreCase("man", GenderType.class);
-     *         // Outputs GenderType.MAN (contain ignore case match)
-     *         Converts.toEnumByValueContainIgnoreCase("MAn", GenderType.class);
-     *         // Outputs GenderType.MAN (equals match and the enum field GenderType.MAN description1 "man" defined earlier than GenderType.WOMAN description1 "woman")
-     *         Converts.toEnumByValueContainIgnoreCase("woman", GenderType.class);
-     *         // Outputs GenderType.MAN (equals ignore case match and the enum field GenderType.MAN description1 "man" defined earlier than GenderType.WOMAN description1 "woman")
-     *         Converts.toEnumByValueContainIgnoreCase("WOman", GenderType.class);
-     *         // Outputs null (value mismatch)
-     *         Converts.toEnumByValueContainIgnoreCase("2", GenderType.class);
+     *         // Outputs GenderType.UNKNOWN (the most similar field description match , it seems unreasonable because of the most similar algorithm, you must know this)
+     *         Converts.toEnumByValueMostSimilar("2", GenderType.class);
      *     }
      * }
      * }</pre></li>
@@ -967,16 +950,57 @@ public class Converts {
      *     private final String[] names;
      *
      *     public static void main(String[] args) {
-     *         // Outputs GenderType.MAN (equals match)
-     *         Converts.toEnumByValueContainIgnoreCase("man", GenderType.class);
-     *         // Outputs GenderType.MAN (contain ignore case match)
-     *         Converts.toEnumByValueContainIgnoreCase("MAn", GenderType.class);
-     *         // Outputs GenderType.MAN (equals match and the enum field GenderType.MAN names "man" defined earlier than GenderType.WOMAN names "woman")
-     *         Converts.toEnumByValueContainIgnoreCase("woman", GenderType.class);
-     *         // Outputs GenderType.MAN (equals ignore case match and the enum field GenderType.MAN names "man" defined earlier than GenderType.WOMAN names "woman")
-     *         Converts.toEnumByValueContainIgnoreCase("WOman", GenderType.class);
-     *         // Outputs null (value mismatch)
-     *         Converts.toEnumByValueContainIgnoreCase("2", GenderType.class);
+     *         // Outputs GenderType.WOMAN (the most similar value of names match)
+     *         Converts.toEnumByValueMostSimilar("woman", GenderType.class);
+     *         // Outputs GenderType.WOMAN (the most similar value of names match)
+     *         Converts.toEnumByValueMostSimilar("Woman", GenderType.class);
+     *         // Outputs GenderType.WOMAN (the most similar value of names match)
+     *         Converts.toEnumByValueMostSimilar("WOMAN", GenderType.class);
+     *         // Outputs GenderType.WOMAN (the most similar value of names match)
+     *         Converts.toEnumByValueMostSimilar("WOman", GenderType.class);
+     *
+     *         // Outputs GenderType.UNKNOWN (the most similar matches names, it seems unreasonable because of the most similar algorithm, you must know this)
+     *         Converts.toEnumByValueMostSimilar("2", GenderType.class);
+     *     }
+     * }
+     * }</pre></li>
+     *
+     * <li><p>Supports complex field types:</p>
+     * <pre>{@code
+     * @Getter
+     * public enum GenderType {
+     *     MAN(1, List.of(4, 5, 6), List.of("m"), "man"),
+     *     WOMAN(2, List.of(7, 8, 9), List.of("wo", "Wo", "WO"), "woman", "Woman", "WOMAN"),
+     *     UNKNOWN(3, List.of(10, 11, 12), List.of("un", "Un"), "unknown", "Unknown");
+     *
+     *     GenderType3(int code, List<Integer> codes, List<String> names1, String... names2) {
+     *         this.code = code;
+     *         this.codes = codes;
+     *         this.names1 = names1;
+     *         this.names2 = names2;
+     *     }
+     *
+     *     private final String[] names;
+     *
+     *     public static void main(String[] args) {
+     *         // Outputs GenderType.WOMAN (the most similar field names1 match)
+     *         Converts.toEnumByValueMostSimilar("wo", GenderType.class);
+     *         // Outputs GenderType.WOMAN (the most similar field names1 match)
+     *         Converts.toEnumByValueMostSimilar("Wo", GenderType.class);
+     *         // Outputs GenderType.WOMAN (the most similar field names1 match)
+     *         Converts.toEnumByValueMostSimilar("WO", GenderType.class);
+     *
+     *         // Outputs GenderType.WOMAN (the most similar field names2 match)
+     *         Converts.toEnumByValueMostSimilar("woman", GenderType.class);
+     *         // Outputs GenderType.WOMAN (the most similar field names2 match)
+     *         Converts.toEnumByValueMostSimilar("Woman", GenderType.class);
+     *         // Outputs GenderType.WOMAN (the most similar field names2 match)
+     *         Converts.toEnumByValueMostSimilar("WOMAN", GenderType.class);
+     *         // Outputs GenderType.WOMAN (the most similar field names2 match)
+     *         Converts.toEnumByValueMostSimilar("WOman", GenderType.class);
+     *
+     *         // Outputs GenderType.UNKNOWN (the most similar matches names1 or names2, it seems unreasonable because of the most similar algorithm, you must know this)
+     *         Converts.toEnumByValueMostSimilar("2", GenderType.class);
      *     }
      * }
      * }</pre></li>
@@ -990,7 +1014,7 @@ public class Converts {
      *
      *     public static void main(String[] args) {
      *         // Outputs null (no fields to match)
-     *         Converts.toEnumByValueContainIgnoreCase("WOMAN", GenderType.class);
+     *         Converts.toEnumByValueMostSimilar("WOMAN", GenderType.class);
      *     }
      * }
      * }</pre></li>
@@ -1001,25 +1025,64 @@ public class Converts {
      * @param <E>                    the type of the enum
      * @return matching enum constant or {@code null} if not found
      * @see Enums#getFieldValue(Enum, Class)
-     * @see #toEnumByValue(Class, Predicate, Predicate)
+     * @see Strings#getMostSimilar(String, Collection)
+     * @see #getEnumValueMappingEnumObjectsMap(Class)
      */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    public static <E extends Enum<E>> E toEnumByValueContainIgnoreCase(String comparedEnumFieldValue, Class<E> enumClass) {
-        Predicate<Object> originalEnumFieldValuePredicate = (originalEnumFieldValue) -> (originalEnumFieldValue instanceof CharSequence originalEnumFieldStringValue) && (Strings.containsIgnoreCase(comparedEnumFieldValue, originalEnumFieldStringValue));
-        return (E) MATCH_BY_CONTAIN_IGNORE_CASE_ENUM_CACHE.computeIfAbsent(
+    @CanIgnoreReturnValue
+    public static <E extends Enum<E>> E toEnumByValueMostSimilar(String comparedEnumFieldValue, Class<E> enumClass) {
+        return (E) MATCH_BY_MOST_SIMILAR_ENUM_CACHE.computeIfAbsent(
                 getEnumCacheKey(comparedEnumFieldValue, enumClass),
-                ignore -> toEnumByValue(
-                        enumClass,
-                        originalEnumFieldValuePredicate,
-                        (originalEnumFieldValues) -> {
-                            for (Object originalEnumFieldValue : originalEnumFieldValues) {
-                                if (originalEnumFieldValuePredicate.test(originalEnumFieldValue)) {
-                                    return true;
+                ignore -> {
+                    List<Map<String, List<E>>> stringEnumValueMappingEnumObjectsMaps = getEnumValueMappingEnumObjectsMap(enumClass).entrySet()
+                            .stream()
+                            .flatMap(entry -> {
+                                if (entry.getKey() instanceof String stringEnumValue) {
+                                    return Stream.of(Collections.ofHashMap(stringEnumValue, entry.getValue()));
                                 }
-                            }
-                            return false;
-                        }
-                ));
+                                if (entry.getKey().getClass().isArray() && String.class == entry.getKey().getClass().getComponentType()) {
+                                    return Stream.of(Arrays.stream(((String[]) entry.getKey()))
+                                            .map(stringEnumValue -> Collections.ofPair(stringEnumValue, entry.getValue()))
+                                            .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue))
+                                    );
+                                }
+                                if (entry.getKey() instanceof Iterable<?> iterableEnumValue && Nil.isNotEmpty(iterableEnumValue) && Collections.getFirst(iterableEnumValue).orElseThrow() instanceof String) {
+                                    return Stream.of(Collections.ofUnknownSizeStream(iterableEnumValue)
+                                            .map(stringEnumValue -> Collections.ofPair((String) stringEnumValue, entry.getValue()))
+                                            .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue))
+                                    );
+                                }
+                                return Stream.empty();
+                            })
+                            .toList();
+                    Set<String> stringEnumValues = stringEnumValueMappingEnumObjectsMaps.stream()
+                            .map(Map::keySet)
+                            .flatMap(Collection::stream)
+                            .collect(Collectors.toSet());
+                    String theMostSimilarStringEnumValue = Strings.getMostSimilar(comparedEnumFieldValue, stringEnumValues);
+                    return stringEnumValueMappingEnumObjectsMaps.stream()
+                            .filter(stringEnumValueMappingEnumObjectsMap -> stringEnumValueMappingEnumObjectsMap.containsKey(theMostSimilarStringEnumValue))
+                            .map(stringEnumValueMappingEnumObjectsMap -> stringEnumValueMappingEnumObjectsMap.get(theMostSimilarStringEnumValue))
+                            .flatMap(Collection::stream)
+                            .findFirst()
+                            .orElse(null);
+                }
+        );
+    }
+
+    private static <E extends Enum<E>> Map<Object, List<E>> getEnumValueMappingEnumObjectsMap(Class<E> enumClass) {
+        List<String> enumObjectNames = Arrays.stream(enumClass.getEnumConstants())
+                .map(Enum::name)
+                .toList();
+        return Arrays.stream(Reflects.getFields(enumClass))
+                .filter(Enums::isNotInternalFieldName)
+                .filter(enumField -> Collections.notContains(enumObjectNames, enumField.getName()))
+                .map(enumField -> Arrays.stream(enumClass.getEnumConstants())
+                        .map(enumObject -> Collections.ofPair(Reflects.getFieldValueIgnoreThrowable(enumObject, enumField), enumObject))
+                        .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue))
+                )
+                .flatMap(enumValueMappingEnumObjectMap -> enumValueMappingEnumObjectMap.entrySet().stream())
+                .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.mapping(Map.Entry::getValue, Collectors.toList())));
     }
 
     private static <E extends Enum<E>> String getEnumCacheKey(Object comparedEnumFieldValue, Class<E> enumClass) {
