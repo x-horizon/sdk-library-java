@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.horizon.sdk.library.java.tool.lang.collection.Collections;
+import org.horizon.sdk.library.java.tool.lang.compare.Comparators;
 import org.horizon.sdk.library.java.tool.lang.functional.Action;
 import org.horizon.sdk.library.java.tool.lang.functional.Functional;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
@@ -62,6 +63,10 @@ public class Strings extends CharacterSequences {
      * <pre>
      * get the most similar string compare with original string ignore case.
      * similar define:
+     *   the comparedElements contains the input value.
+     *
+     *   or
+     *
      *   the length of the longest common substring as the similarity,
      *   the longer the public substring, the higher the similarity.
      *
@@ -75,16 +80,20 @@ public class Strings extends CharacterSequences {
     public static String getMostSimilar(String input, Collection<String> comparedElements) {
         return Action.<String>infer(Nil.isEmpty(input) || Nil.isEmpty(comparedElements))
                 .then(Functional.emptyStringSupplier())
-                .otherwise(() -> {
-                    Map<Integer, String> similarityMappingStringMap = Collections.newHashMap(comparedElements.size());
-                    List<Integer> similarities = new ArrayList<>(comparedElements.size());
-                    comparedElements.forEach(compareInput -> {
-                        int similarity = getLongestCommonSubstringLength(input, compareInput);
-                        similarities.add(similarity);
-                        similarityMappingStringMap.put(similarity, compareInput);
-                    });
-                    return similarityMappingStringMap.get(Collections.getMax(similarities).orElseThrow());
-                })
+                .otherwise(() -> comparedElements.stream()
+                        .filter(comparedElement -> Comparators.equals(comparedElement, input))
+                        .findFirst()
+                        .orElseGet(() -> {
+                            Map<Integer, String> similarityMappingStringMap = Collections.newHashMap(comparedElements.size());
+                            List<Integer> similarities = new ArrayList<>(comparedElements.size());
+                            comparedElements.forEach(compareInput -> {
+                                int similarity = getLongestCommonSubstringLength(input, compareInput);
+                                similarities.add(similarity);
+                                similarityMappingStringMap.put(similarity, compareInput);
+                            });
+                            return similarityMappingStringMap.get(Collections.getMax(similarities).orElseThrow());
+                        })
+                )
                 .get();
     }
 
