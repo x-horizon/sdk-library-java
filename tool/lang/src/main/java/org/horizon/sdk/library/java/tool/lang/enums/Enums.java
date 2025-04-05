@@ -61,6 +61,26 @@ public class Enums {
     }
 
     /**
+     * return true if the enum field name is any one in {@link EnumConstant#INTERNAL_FIELD_NAMES}
+     *
+     * @param field the enum field
+     * @return return true if the enum field name is any one in {@link EnumConstant#INTERNAL_FIELD_NAMES}
+     */
+    public static boolean isInternalFieldName(Field field) {
+        return isInternalFieldName(field.getName());
+    }
+
+    /**
+     * return true if the enum field name is any one in {@link EnumConstant#INTERNAL_FIELD_NAMES}
+     *
+     * @param fieldName the enum field name
+     * @return return true if the enum field name is any one in {@link EnumConstant#INTERNAL_FIELD_NAMES}
+     */
+    public static boolean isInternalFieldName(String fieldName) {
+        return EnumConstant.INTERNAL_FIELD_NAMES.stream().anyMatch(internalFieldName -> Comparators.equals(fieldName, internalFieldName));
+    }
+
+    /**
      * reverse {@link #isEnum(Class)}
      *
      * @param input the checked element
@@ -81,23 +101,23 @@ public class Enums {
     }
 
     /**
-     * return true if the enum field name is any one in {@link EnumConstant#INTERNAL_FIELD_NAMES}
+     * reverse {@link #isInternalFieldName(Field)}
      *
      * @param field the enum field
-     * @return return true if the enum field name is any one in {@link EnumConstant#INTERNAL_FIELD_NAMES}
+     * @return return true if the enum field name is all not in {@link EnumConstant#INTERNAL_FIELD_NAMES}
      */
-    public static boolean isInternalFieldName(Field field) {
-        return isInternalFieldName(field.getName());
+    public static boolean isNotInternalFieldName(Field field) {
+        return !(isInternalFieldName(field));
     }
 
     /**
-     * return true if the enum field name is any one in {@link EnumConstant#INTERNAL_FIELD_NAMES}
+     * reverse {@link #isInternalFieldName(String)}
      *
      * @param fieldName the enum field name
-     * @return return true if the enum field name is any one in {@link EnumConstant#INTERNAL_FIELD_NAMES}
+     * @return return true if the enum field name is all not in {@link EnumConstant#INTERNAL_FIELD_NAMES}
      */
-    public static boolean isInternalFieldName(String fieldName) {
-        return EnumConstant.INTERNAL_FIELD_NAMES.stream().anyMatch(internalFieldName -> Comparators.equals(fieldName, internalFieldName));
+    public static boolean isNotInternalFieldName(String fieldName) {
+        return !(isInternalFieldName(fieldName));
     }
 
     /**
