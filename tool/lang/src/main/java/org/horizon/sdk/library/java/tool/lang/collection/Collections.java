@@ -932,6 +932,21 @@ public class Collections {
     }
 
     /**
+     * return true if the checked element contains the searched element
+     *
+     * @param input           the checked element
+     * @param searchedElement the searched elements
+     * @param <T>             the element type
+     * @return return true if the checked element contains the searched element
+     */
+    public static <T> boolean contains(Iterable<T> input, T searchedElement) {
+        if (input instanceof Collection<T> collectionInput) {
+            return contains(collectionInput, searchedElement);
+        }
+        return ofUnknownSizeStream(input).anyMatch(item -> item.equals(searchedElement));
+    }
+
+    /**
      * see {@link CollUtil#safeContains(Collection, Object)}
      *
      * @param input           the checked element
