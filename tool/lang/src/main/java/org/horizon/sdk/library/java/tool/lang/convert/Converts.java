@@ -44,6 +44,11 @@ public class Converts {
     public static final boolean DEFAULT_CONVERT_QUIETLY = false;
 
     /**
+     * the map with key as identify enum field value and value as enums
+     */
+    private static final Map ENUM_CACHE = Collections.newConcurrentHashMap();
+
+    /**
      * the map with key as identify enum field value and value as enum and match by equal
      */
     private static final Map<String, Object> MATCH_BY_EQUAL_ENUM_CACHE = Collections.newConcurrentHashMap();
@@ -877,7 +882,6 @@ public class Converts {
      * @param enumClass              the target enum class type
      * @param <E>                    the type of the enum
      * @return matching enum constant or {@code null} if not found
-     * @see Enums#getFieldValue(Enum, Class)
      * @see #getEnumValueMappingEnumObjectsMap(Class)
      */
     @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.RAW_TYPE})
@@ -1024,7 +1028,6 @@ public class Converts {
      * @param enumClass              the target enum class type
      * @param <E>                    the type of the enum
      * @return matching enum constant or {@code null} if not found
-     * @see Enums#getFieldValue(Enum, Class)
      * @see Strings#getMostSimilar(String, Collection)
      * @see #getEnumValueMappingEnumObjectsMap(Class)
      */
@@ -1070,19 +1073,73 @@ public class Converts {
         );
     }
 
+    /**
+     * <p>get the enum value mapping enums map.</p>
+     *
+     * <p>Usage notes:</p>
+     * <pre>{@code
+     * @Getter
+     * public enum GenderType {
+     *     MAN(1, List.of(4, 5, 6), List.of("m"), "man"),
+     *     WOMAN(2, List.of(7, 8, 9), List.of("wo", "Wo", "WO"), "woman", "Woman", "WOMAN"),
+     *     UNKNOWN(3, List.of(10, 11, 12), List.of("un", "Un"), "unknown", "Unknown");
+     *
+     *     GenderType3(int code, List<Integer> codes, List<String> names1, String... names2) {
+     *         this.code = code;
+     *         this.codes = codes;
+     *         this.names1 = names1;
+     *         this.names2 = names2;
+     *     }
+     *
+     *     private final String[] names;
+     *
+     *     public static void main(String[] args) {
+     *         // the output map likes:
+     *         // {
+     *         //   1 :                             [ GenderType.MAN ],
+     *         //   2 :                             [ GenderType.WOMAN ],
+     *         //   3 :                             [ GenderType.UNKNOWN ],
+     *         //
+     *         //   [4, 5, 6] :                     [ GenderType.MAN ],
+     *         //   [7, 8, 9] :                     [ GenderType.WOMAN ],
+     *         //   [10, 11, 12] :                  [ GenderType.UNKNOWN ],
+     *         //
+     *         //   [ "m" ] :                       [ GenderType.MAN ],
+     *         //   [ "wo", "Wo", "WO" ] :          [ GenderType.WOMAN ]
+     *         //   [ "un", "Un" ] :                [ GenderType.UNKNOWN ],
+     *         //
+     *         //   [ "man" ] :                     [ GenderType.MAN ],
+     *         //   [ "woman", "Woman", "WOMAN" ] : [ GenderType.WOMAN ],
+     *         //   [ "unknown", "Unknown" ] :      [ GenderType.UNKNOWN ],
+     *         // }
+     *         Converts.getEnumValueMappingEnumObjectsMap(GenderType.class);
+     *     }
+     * }
+     * }</pre>
+     *
+     * @param enumClass the enum class
+     * @param <E>       the type of the enum
+     * @return the enum value mapping enums map
+     */
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     private static <E extends Enum<E>> Map<Object, List<E>> getEnumValueMappingEnumObjectsMap(Class<E> enumClass) {
-        List<String> enumObjectNames = Arrays.stream(enumClass.getEnumConstants())
-                .map(Enum::name)
-                .toList();
-        return Arrays.stream(Reflects.getFields(enumClass))
-                .filter(Enums::isNotInternalFieldName)
-                .filter(enumField -> Collections.notContains(enumObjectNames, enumField.getName()))
-                .map(enumField -> Arrays.stream(enumClass.getEnumConstants())
-                        .map(enumObject -> Collections.ofPair(Reflects.getFieldValueIgnoreThrowable(enumObject, enumField), enumObject))
-                        .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue))
-                )
-                .flatMap(enumValueMappingEnumObjectMap -> enumValueMappingEnumObjectMap.entrySet().stream())
-                .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.mapping(Map.Entry::getValue, Collectors.toList())));
+        return (Map<Object, List<E>>) ENUM_CACHE.computeIfAbsent(
+                enumClass,
+                ignore -> {
+                    List<String> enumObjectNames = Arrays.stream(enumClass.getEnumConstants())
+                            .map(Enum::name)
+                            .toList();
+                    return Arrays.stream(Reflects.getFields(enumClass))
+                            .filter(Enums::isNotInternalFieldName)
+                            .filter(enumField -> Collections.notContains(enumObjectNames, enumField.getName()))
+                            .map(enumField -> Arrays.stream(enumClass.getEnumConstants())
+                                    .map(enumObject -> Collections.ofPair(Reflects.getFieldValueIgnoreThrowable(enumObject, enumField), enumObject))
+                                    .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue))
+                            )
+                            .flatMap(enumValueMappingEnumObjectMap -> enumValueMappingEnumObjectMap.entrySet().stream())
+                            .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.mapping(Map.Entry::getValue, Collectors.toList())));
+                }
+        );
     }
 
     private static <E extends Enum<E>> String getEnumCacheKey(Object comparedEnumFieldValue, Class<E> enumClass) {
