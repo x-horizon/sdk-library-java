@@ -14,7 +14,7 @@ import java.io.StringWriter;
  * @since 2025-04-06 17:05
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Velocitys {
+public class Velocities {
 
     private static final String DEFAULT_VELOCITY_LOG_NAME = "defaultVelocityLog";
 
