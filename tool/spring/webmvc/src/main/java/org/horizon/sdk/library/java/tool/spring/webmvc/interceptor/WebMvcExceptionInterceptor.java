@@ -451,6 +451,30 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
     }
 
     /**
+     * handle the exception when throw {@link UnauthenticatedException}
+     *
+     * @param httpServletRequest the http servlet request
+     * @param exception          the exception
+     * @return the web response
+     */
+    @ExceptionHandler(UnauthenticatedException.class)
+    public WebResponse<Void> handleUnauthenticatedException(HttpServletRequest httpServletRequest, UnauthenticatedException exception) {
+        return whenUnauthenticatedException(httpServletRequest.getRequestURI(), exception);
+    }
+
+    /**
+     * handle the exception when throw {@link UnauthenticatedException}
+     *
+     * @param httpServletRequest the http servlet request
+     * @param exception          the exception
+     * @return the web response
+     */
+    @ExceptionHandler(UnauthorizedException.class)
+    public WebResponse<Void> handleUnauthorizedException(HttpServletRequest httpServletRequest, UnauthorizedException exception) {
+        return whenUnauthorizedException(httpServletRequest.getRequestURI(), exception);
+    }
+
+    /**
      * handle the exception when throw {@link UnsupportedException}
      *
      * @param httpServletRequest the http servlet request

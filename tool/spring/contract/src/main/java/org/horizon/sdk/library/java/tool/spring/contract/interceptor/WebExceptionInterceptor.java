@@ -5,10 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.constant.web.HttpStatus;
 import org.horizon.sdk.library.java.contract.model.protocol.WebResponse;
-import org.horizon.sdk.library.java.contract.model.throwable.ClientException;
-import org.horizon.sdk.library.java.contract.model.throwable.DataNotFoundException;
-import org.horizon.sdk.library.java.contract.model.throwable.InvalidArgumentException;
-import org.horizon.sdk.library.java.contract.model.throwable.RunningException;
+import org.horizon.sdk.library.java.contract.model.throwable.*;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
@@ -41,6 +38,18 @@ public abstract class WebExceptionInterceptor {
     protected WebResponse<Void> whenInvalidArgumentException(String uri, InvalidArgumentException exception) {
         log.warn(formatMessage(uri, exception.getMessage()));
         return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, exception.getMessage());
+    }
+
+    protected WebResponse<Void> whenUnauthenticatedException(String uri, UnauthenticatedException exception) {
+        String message = Nil.isBlank(exception.getMessage()) ? "操作失败：未认证" : exception.getMessage();
+        log.warn(formatMessage(uri, message));
+        return error(HttpStatus.UNAUTHENTICATED, exception.getMessage());
+    }
+
+    protected WebResponse<Void> whenUnauthorizedException(String uri, UnauthorizedException exception) {
+        String message = Nil.isBlank(exception.getMessage()) ? "操作失败：未授权" : exception.getMessage();
+        log.warn(formatMessage(uri, message));
+        return error(HttpStatus.UNAUTHORIZED, exception.getMessage());
     }
 
     protected WebResponse<Void> whenUnsupportedException(String uri) {
