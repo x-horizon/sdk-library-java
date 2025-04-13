@@ -97,9 +97,10 @@ object GradleModule {
     const val REGISTRATION_NACOS = ":$ROOT_PROJECT_NAME-registration-nacos"
     const val REGISTRATION_ZOOKEEPER = ":$ROOT_PROJECT_NAME-registration-zookeeper"
 
-    const val SECURITY_CONTRACT = ":$ROOT_PROJECT_NAME-security-contract"
     const val SECURITY_SPRING = ":$ROOT_PROJECT_NAME-security-spring"
-    const val SECURITY_SA_TOKEN = ":$ROOT_PROJECT_NAME-security-sa-token"
+    const val SECURITY_SA_TOKEN_CONTRACT = ":$ROOT_PROJECT_NAME-security-sa-token-contract"
+    const val SECURITY_SA_TOKEN_SPRING_WEBMVC = ":$ROOT_PROJECT_NAME-security-sa-token-spring-webmvc"
+    const val SECURITY_SA_TOKEN_SPRING_WEBFLUX = ":$ROOT_PROJECT_NAME-security-sa-token-spring-webflux"
 
     const val STUDIO_LOW_CODE = ":$ROOT_PROJECT_NAME-studio-low-code"
 

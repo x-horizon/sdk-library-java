@@ -116,10 +116,11 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     SECURITY_PASSAY("org.passay:passay", "1.6.5"),
     SECURITY_SPRING_BOOT("org.springframework.boot:spring-boot-starter-security", ""),
-    SECURITY_SA_TOKEN_ALONE_REDIS("cn.dev33:sa-token-alone-redis", ""),
-    SECURITY_SA_TOKEN_REDISSON("cn.dev33:sa-token-redisson", ""),
+    SECURITY_SA_TOKEN_CORE("cn.dev33:sa-token-core", ""),
+    SECURITY_SA_TOKEN_REDISSON("cn.dev33:sa-token-redisson-spring-boot-starter", ""),
     SECURITY_SA_TOKEN_OAUTH2("cn.dev33:sa-token-oauth2", ""),
-    SECURITY_SA_TOKEN_SPRING_BOOT_STARTER("cn.dev33:sa-token-spring-boot3-starter", ""),
+    SECURITY_SA_TOKEN_SPRING_BOOT_WEBMVC_STARTER("cn.dev33:sa-token-spring-boot3-starter", ""),
+    SECURITY_SA_TOKEN_SPRING_BOOT_WEBFLUX_STARTER("cn.dev33:sa-token-reactor-spring-boot3-starter", ""),
 
     TRANSACTION_SPRING("org.springframework:spring-tx", ""),
 
