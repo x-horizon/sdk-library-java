@@ -75,13 +75,12 @@ public enum HttpStatus {
     TOKEN_EXPIRED_OR_INVALID(498, "token expired/invalid"),
     CLIENT_CLOSED_REQUEST(499, "client closed request"),
     // extra
-    NOT_LOGGED_IN(460, "not logged in"),
-    WITHOUT_PERMISSION(461, "without permission"),
-    WITHOUT_ROLE(462, "without role"),
-    MESSAGE_NOT_READABLE(463, "http message not readable"),
-    MISSING_REQUEST_PARAMETER(464, "missing request param"),
-    WRONG_REQUEST_PARAMETER_TYPE(465, "wrong request message type"),
-    WRONG_REQUEST_MESSAGE_VALUE(466, "wrong request message value"),
+    UNAUTHENTICATED(460, "unauthorized"),
+    MESSAGE_NOT_READABLE(461, "http message not readable"),
+    MISSING_REQUEST_PARAMETER(462, "missing request param"),
+    WRONG_REQUEST_PARAMETER_TYPE(463, "wrong request message type"),
+    WRONG_REQUEST_MESSAGE_VALUE(464, "wrong request message value"),
+    DATA_NOT_FOUND(465, "data not found"),
 
     INTERNAL_ERROR(500, "internal server error"),
     NOT_IMPLEMENTED(501, "not implemented"),
@@ -100,8 +99,6 @@ public enum HttpStatus {
     SSL_HANDSHAKE_FAILED(525, "ssl handshake failed"),
     SITE_FROZEN(530, "site frozen"),
     NETWORK_CONNECT_TIMEOUT_ERROR(599, "network connect timeout error"),
-    // extra
-    DATA_NOT_FOUND(540, "data not found"),
 
     ;
 

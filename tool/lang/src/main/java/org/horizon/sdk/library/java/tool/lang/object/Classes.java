@@ -46,6 +46,17 @@ public class Classes {
     }
 
     /**
+     * check the target classes is any assignable from the source class
+     *
+     * @param sourceClass   the source class
+     * @param targetClasses the target classes
+     * @return return true if the target classes is any assignable from the source class
+     */
+    public static boolean isAnyAssignable(Class<?> sourceClass, Class<?>... targetClasses) {
+        return Arrays.stream(targetClasses).anyMatch(targetClass -> isAssignable(sourceClass, targetClass));
+    }
+
+    /**
      * reverse {@link #isAssignable(Class, Class)}
      *
      * @param sourceClass the source class
