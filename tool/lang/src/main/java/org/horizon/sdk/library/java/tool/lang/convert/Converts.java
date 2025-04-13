@@ -22,11 +22,13 @@ import org.horizon.sdk.library.java.tool.lang.enums.Enums;
 import org.horizon.sdk.library.java.tool.lang.functional.Action;
 import org.horizon.sdk.library.java.tool.lang.number.Hexes;
 import org.horizon.sdk.library.java.tool.lang.number.NumberType;
+import org.horizon.sdk.library.java.tool.lang.object.Classes;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.reflect.Reflects;
 import org.horizon.sdk.library.java.tool.lang.text.CharacterSequences;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.Collectors;
@@ -882,7 +884,7 @@ public class Converts {
      * @param enumClass              the target enum class type
      * @param <E>                    the type of the enum
      * @return matching enum constant or {@code null} if not found
-     * @see #getEnumValueMappingEnumObjectsMap(Class)
+     * @see #getSupportedConvertEnumValueMappingEnumObjectsMap(Class)
      */
     @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.RAW_TYPE})
     public static <E extends Enum<E>> E toEnumByValue(Object comparedEnumFieldValue, Class<E> enumClass) {
@@ -891,7 +893,7 @@ public class Converts {
         }
         return (E) MATCH_BY_EQUAL_ENUM_CACHE.computeIfAbsent(
                 getEnumCacheKey(comparedEnumFieldValue, enumClass),
-                ignore -> getEnumValueMappingEnumObjectsMap(enumClass).entrySet()
+                ignore -> getSupportedConvertEnumValueMappingEnumObjectsMap(enumClass).entrySet()
                         .stream()
                         .flatMap(entry -> {
                             if (Comparators.equals(entry.getKey(), comparedEnumFieldValue)
@@ -1029,7 +1031,7 @@ public class Converts {
      * @param <E>                    the type of the enum
      * @return matching enum constant or {@code null} if not found
      * @see Strings#getMostSimilar(String, Collection)
-     * @see #getEnumValueMappingEnumObjectsMap(Class)
+     * @see #getSupportedConvertEnumValueMappingEnumObjectsMap(Class)
      */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     @CanIgnoreReturnValue
@@ -1037,7 +1039,7 @@ public class Converts {
         return (E) MATCH_BY_MOST_SIMILAR_ENUM_CACHE.computeIfAbsent(
                 getEnumCacheKey(comparedEnumFieldValue, enumClass),
                 ignore -> {
-                    List<Map<String, List<E>>> stringEnumValueMappingEnumObjectsMaps = getEnumValueMappingEnumObjectsMap(enumClass).entrySet()
+                    List<Map<String, List<E>>> stringEnumValueMappingEnumObjectsMaps = getSupportedConvertEnumValueMappingEnumObjectsMap(enumClass).entrySet()
                             .stream()
                             .flatMap(entry -> {
                                 if (entry.getKey() instanceof String stringEnumValue) {
@@ -1112,7 +1114,7 @@ public class Converts {
      *         //   [ "woman", "Woman", "WOMAN" ] : [ GenderType.WOMAN ],
      *         //   [ "unknown", "Unknown" ] :      [ GenderType.UNKNOWN ],
      *         // }
-     *         Converts.getEnumValueMappingEnumObjectsMap(GenderType.class);
+     *         Converts.getSupportedConvertEnumValueMappingEnumObjectsMap(GenderType.class);
      *     }
      * }
      * }</pre>
@@ -1122,7 +1124,7 @@ public class Converts {
      * @return the enum value mapping enums map
      */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-    private static <E extends Enum<E>> Map<Object, List<E>> getEnumValueMappingEnumObjectsMap(Class<E> enumClass) {
+    private static <E extends Enum<E>> Map<Object, List<E>> getSupportedConvertEnumValueMappingEnumObjectsMap(Class<E> enumClass) {
         return (Map<Object, List<E>>) ENUM_CACHE.computeIfAbsent(
                 enumClass,
                 ignore -> {
@@ -1132,6 +1134,7 @@ public class Converts {
                     return Arrays.stream(Reflects.getFields(enumClass))
                             .filter(Enums::isNotInternalFieldName)
                             .filter(enumField -> Collections.notContains(enumObjectNames, enumField.getName()))
+                            .filter(Converts::supportEnumConvert)
                             .map(enumField -> Arrays.stream(enumClass.getEnumConstants())
                                     .map(enumObject -> Collections.ofPair(Reflects.getFieldValueIgnoreThrowable(enumObject, enumField), enumObject))
                                     .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue))
@@ -1140,6 +1143,10 @@ public class Converts {
                             .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.mapping(Map.Entry::getValue, Collectors.toList())));
                 }
         );
+    }
+
+    private static boolean supportEnumConvert(Field enumField) {
+        return Classes.isNotAssignable(enumField.getType(), Map.class);
     }
 
     private static <E extends Enum<E>> String getEnumCacheKey(Object comparedEnumFieldValue, Class<E> enumClass) {
