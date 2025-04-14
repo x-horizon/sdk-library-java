@@ -24,7 +24,7 @@ public abstract class WebExceptionInterceptor {
     protected abstract String getModuleView();
 
     protected WebResponse<Void> whenUnrecognizedPropertyException(String uri, UnrecognizedPropertyException exception) {
-        String message = STR."操作失败：遇到错误的字段名“\{exception.getPropertyName()}”，正确的字段名可能为“\{Strings.joinWithCommaAndSpace(exception.getKnownPropertyIds())}”，请检查！";
+        String message = STR."操作失败：发现错误的字段名[\{exception.getPropertyName()}]，正确的字段名可能为[\{Strings.getMostSimilar(exception.getPropertyName(), exception.getKnownPropertyIds().stream().map(Object::toString).toList())}]，当前所有字段名：[\{Strings.joinWithCommaAndSpace(exception.getKnownPropertyIds())}]，请检查！";
         log.warn(formatMessage(uri, message));
         return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, message);
     }
