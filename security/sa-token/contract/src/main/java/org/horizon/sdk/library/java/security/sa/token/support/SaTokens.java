@@ -26,13 +26,15 @@ public class SaTokens {
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static class AccountSession {
 
+        private static final String SESSION_KEY = "sessionKey";
+
         @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
-        public static <T> Optional<T> get(Object loginId, String key) {
-            return (Optional<T>) Optional.ofNullable(StpUtil.getSessionByLoginId(loginId).get(key));
+        public static <T> Optional<T> get(Object loginId) {
+            return (Optional<T>) Optional.ofNullable(StpUtil.getSessionByLoginId(loginId).get(SESSION_KEY));
         }
 
-        public static <T> void set(String key, T value) {
-            StpUtil.getSession().set(key, value);
+        public static <T> void set(T value) {
+            StpUtil.getSession().set(SESSION_KEY, value);
         }
 
     }
