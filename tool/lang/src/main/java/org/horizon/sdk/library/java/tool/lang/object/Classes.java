@@ -57,6 +57,16 @@ public class Classes {
     }
 
     /**
+     * return true if the class exist
+     *
+     * @param className like org.horizon.sdk.library.java.tool.lang.object.Classes
+     * @return true if the class exist
+     */
+    public static boolean isExist(String className) {
+        return ClassUtil.isClassExists(className, null);
+    }
+
+    /**
      * reverse {@link #isAssignable(Class, Class)}
      *
      * @param sourceClass the source class

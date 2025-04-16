@@ -797,10 +797,8 @@ public class CharacterSequences extends Characters {
      * @return after underline case and upper
      */
     public static String underlineUpperCase(CharSequence input) {
-        if (Nil.isNull(input)) {
-            return null;
-        }
-        return underlineLowerCase(input).toUpperCase();
+        String underlineLowerCaseInput = underlineLowerCase(input);
+        return Nil.isNull(underlineLowerCaseInput) ? null : underlineLowerCaseInput.toUpperCase();
     }
 
     /**
