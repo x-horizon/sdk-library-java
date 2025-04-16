@@ -84,8 +84,6 @@ dependencies {
 
         api(GradleDependency.withVersion(GradleDependency.PROTOCOL_JAVAX_SIP))
 
-        api(GradleDependency.withVersion(GradleDependency.SECURITY_PASSAY))
-
         api(GradleDependency.withVersion(GradleDependency.TOOL_ALIBABA_EASY_EXCEL))
         api(GradleDependency.withVersion(GradleDependency.TOOL_ALIBABA_TRANSMITTABLE_THREAD_LOCAL))
         api(GradleDependency.withVersion(GradleDependency.TOOL_ANNOTATION_API_JAVAX))
@@ -102,6 +100,7 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.TOOL_JNA_JPMS))
         api(GradleDependency.withVersion(GradleDependency.TOOL_JOB_QUARTZ))
         api(GradleDependency.withVersion(GradleDependency.TOOL_MAPSTRUCT_PLUS))
+        api(GradleDependency.withVersion(GradleDependency.TOOL_PASSAY))
         api(GradleDependency.withVersion(GradleDependency.TOOL_REFLECT_ASM))
         api(GradleDependency.withVersion(GradleDependency.TOOL_REFLECT_RONMAMO))
         api(GradleDependency.withVersion(GradleDependency.TOOL_RATE_LIMITING_BUCKET4J))
@@ -109,7 +108,9 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_FASTJSON2))
         api(GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_FST))
         api(GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_PROTOBUF_GOOGLE_PROTOC))
+        api(GradleDependency.withVersion(GradleDependency.TOOL_SPI_GOOGLE_AUTO_SERVICE))
         api(GradleDependency.withVersion(GradleDependency.TOOL_STREAM_JDFRAME))
+        api(GradleDependency.withVersion(GradleDependency.TOOL_SQUAREUP_JAVAPOET))
         api(GradleDependency.withVersion(GradleDependency.TOOL_VALIDATION_HIBERNATE))
         api(GradleDependency.withVersion(GradleDependency.TOOL_VALIDATION_JAKARTA))
         api(GradleDependency.withVersion(GradleDependency.TOOL_VALIDATION_JSON_SCHEMA))

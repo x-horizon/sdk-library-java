@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.horizon.sdk.library.java.contract.model.base.BO;
 import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
+import org.horizon.sdk.library.java.pluggable.annotation.api.processor.field.metadata.FieldMetadata;
 import org.horizon.sdk.library.java.tool.convert.jackson.NullableObject;
 
 import java.io.Serial;
@@ -20,6 +21,7 @@ import java.util.List;
  * @since 2024-04-15 23:57
  */
 @Schema(description = "学生课程信息")
+@FieldMetadata
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)

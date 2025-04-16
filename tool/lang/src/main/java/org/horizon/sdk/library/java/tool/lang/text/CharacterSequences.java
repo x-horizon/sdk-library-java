@@ -545,6 +545,14 @@ public class CharacterSequences extends Characters {
         return CharSequenceUtil.removeSuffix(input, suffix);
     }
 
+    public static String removeIfAnyEndWith(CharSequence input, Iterable<CharSequence> suffixes) {
+        String afterRemoveInput = input.toString();
+        for (CharSequence suffix : suffixes) {
+            afterRemoveInput = removeIfEndWith(afterRemoveInput, suffix);
+        }
+        return afterRemoveInput;
+    }
+
     /**
      * combine {@link #removeIfStartWith(CharSequence, CharSequence)} and {@link #removeIfEndWith(CharSequence, CharSequence)}
      *

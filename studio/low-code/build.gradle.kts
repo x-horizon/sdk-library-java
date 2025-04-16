@@ -14,7 +14,10 @@ dependencies {
     testImplementation(project(GradleModule.TOOL_VALIDATION_SPRING))
     testImplementation(project(GradleModule.ORM_MYBATIS_FLEX_POSTGRESQL))
 
+    testCompileOnly(project(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_FIELD_METADATA))
+
     testAnnotationProcessor(project(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING))
+    testAnnotationProcessor(project(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_FIELD_METADATA))
     testAnnotationProcessor(project(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PLUS))
     testAnnotationProcessor(project(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_MYBATIS_FLEX))
 }
