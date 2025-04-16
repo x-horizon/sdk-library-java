@@ -90,14 +90,14 @@ public class FieldMetadataProcessor extends AbstractProcessor {
                 .stream()
                 .filter(TypeElement.class::isInstance)
                 .map(TypeElement.class::cast)
-                .forEach(this::buildEntityFieldClass);
+                .forEach(this::processEntityFieldClass);
         return true;
     }
 
     @SneakyThrows
-    private void buildEntityFieldClass(TypeElement typeElement) {
-        String entityFieldClassName = getEntityFieldClassName(typeElement);
-        TypeSpec.Builder entityFieldClassBuilder = TypeSpec.classBuilder(entityFieldClassName)
+    private void processEntityFieldClass(TypeElement typeElement) {
+        String className = getEntityFieldClassName(typeElement);
+        TypeSpec.Builder classBuilder = TypeSpec.classBuilder(className)
                 .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
                 .addSuperinterface(EntityField.class)
                 .addMethod(MethodSpec.constructorBuilder()
@@ -105,30 +105,33 @@ public class FieldMetadataProcessor extends AbstractProcessor {
                         .build()
                 );
 
-        // build current class fields and inherited class fields
-        Stream.iterate(typeElement, Nil::isNotNull, this::getSuperClass)
-                .flatMap(elem -> getValidFieldElement(elem).stream())
-                .forEach(field -> processFieldMetadataClass(entityFieldClassBuilder, field));
-
-        // build current class inner classes and inherited class inner classes
-        Stream.iterate(typeElement, Nil::isNotNull, this::getSuperClass)
-                .flatMap(elem -> getValidClassElement(elem).stream())
-                .forEach(innerClassElement -> processInnerFieldMetadataClass(entityFieldClassBuilder, innerClassElement));
+        processCurrentAndParentClass(classBuilder, typeElement);
 
         String packageName = Strings.subBefore(this.elementUtil.getPackageOf(typeElement).toString(), SymbolConstant.DOT) + ENTITY_FIELD_CLASS_PACKAGE_NAME_SUFFIX;
-        JavaFile.builder(packageName, entityFieldClassBuilder.build())
+        JavaFile.builder(packageName, classBuilder.build())
                 .build()
                 .writeTo(this.processingEnv.getFiler());
     }
 
-    private void processFieldMetadataClassElement(Element element, TypeSpec.Builder classBuilder) {
-        // handle outer class field
-        getValidFieldElement(element).forEach(fieldElement -> processFieldMetadataClass(classBuilder, fieldElement));
-        // handle inner class
-        getValidClassElement(element).forEach(innerClassElement -> processInnerFieldMetadataClass(classBuilder, innerClassElement));
+    private void processCurrentAndParentClass(TypeSpec.Builder classBuilder, TypeElement typeElement) {
+        // build current class fields and parent class fields
+        Stream.iterate(typeElement, Nil::isNotNull, this::getSuperClass)
+                .flatMap(element -> element.getEnclosedElements().stream()
+                        .filter(enclosedElement -> enclosedElement.getKind() == ElementKind.FIELD)
+                        .filter(fieldElement -> Collections.notContainsAny(fieldElement.getModifiers(), Modifier.STATIC, Modifier.FINAL, Modifier.TRANSIENT))
+                )
+                .forEach(fieldElement -> processClass(classBuilder, fieldElement));
+
+        // build current class inner classes and parent class inner classes
+        Stream.iterate(typeElement, Nil::isNotNull, this::getSuperClass)
+                .flatMap(element -> element.getEnclosedElements().stream()
+                        .filter(enclosedElement -> enclosedElement.getKind() == ElementKind.CLASS)
+                        .filter(classElement -> LOMBOK_INNER_CLASS_NAME_FILTER.test(classElement.getSimpleName().toString()))
+                )
+                .forEach(innerClassElement -> processInnerClass(classBuilder, innerClassElement));
     }
 
-    private void processFieldMetadataClass(TypeSpec.Builder classBuilder, Element fieldElement) {
+    private void processClass(TypeSpec.Builder classBuilder, Element fieldElement) {
         String fieldName = fieldElement.getSimpleName().toString();
         String fieldComment = this.getFieldComment(fieldElement);
         String className = Strings.upperFirst(fieldElement.getSimpleName().toString());
@@ -168,30 +171,17 @@ public class FieldMetadataProcessor extends AbstractProcessor {
         );
     }
 
-    private void processInnerFieldMetadataClass(TypeSpec.Builder classBuilder, Element innerClassElement) {
-        String innerEntityFieldClassName = getEntityFieldClassName(innerClassElement);
-        TypeSpec.Builder innerClassBuilder = TypeSpec.classBuilder(innerEntityFieldClassName)
+    private void processInnerClass(TypeSpec.Builder classBuilder, Element innerClassElement) {
+        String innerClassName = getEntityFieldClassName(innerClassElement);
+        TypeSpec.Builder innerClassBuilder = TypeSpec.classBuilder(innerClassName)
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                .addSuperinterface(EntityField.class)
                 .addMethod(MethodSpec.constructorBuilder()
                         .addModifiers(Modifier.PRIVATE)
                         .build()
                 );
-        processFieldMetadataClassElement(innerClassElement, innerClassBuilder);
+        processCurrentAndParentClass(innerClassBuilder, (TypeElement) innerClassElement);
         classBuilder.addType(innerClassBuilder.build());
-    }
-
-    private List<? extends Element> getValidClassElement(Element element) {
-        return element.getEnclosedElements().stream()
-                .filter(enclosedElement -> enclosedElement.getKind() == ElementKind.CLASS)
-                .filter(classElement -> LOMBOK_INNER_CLASS_NAME_FILTER.test(classElement.getSimpleName().toString()))
-                .toList();
-    }
-
-    private List<? extends Element> getValidFieldElement(Element element) {
-        return element.getEnclosedElements().stream()
-                .filter(enclosedElement -> enclosedElement.getKind() == ElementKind.FIELD)
-                .filter(fieldElement -> Collections.notContainsAny(fieldElement.getModifiers(), Modifier.STATIC, Modifier.FINAL, Modifier.TRANSIENT))
-                .toList();
     }
 
     private String getFieldComment(Element fieldElement) {
