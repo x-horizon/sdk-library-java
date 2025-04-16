@@ -82,6 +82,7 @@ object GradleModule {
 
     const val PLUGGABLE_ANNOTATION_API_LOMBOK = ":$ROOT_PROJECT_NAME-pluggable-annotation-api-lombok"
     const val PLUGGABLE_ANNOTATION_API_MICA_AUTO = ":$ROOT_PROJECT_NAME-pluggable-annotation-api-mica-auto"
+    const val PLUGGABLE_ANNOTATION_API_PROCESSOR_FIELD_METADATA = ":$ROOT_PROJECT_NAME-pluggable-annotation-api-processor-field-metadata"
     const val PLUGGABLE_ANNOTATION_API_PROCESSOR_JMH = ":$ROOT_PROJECT_NAME-pluggable-annotation-api-processor-jmh"
     const val PLUGGABLE_ANNOTATION_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING = ":$ROOT_PROJECT_NAME-pluggable-annotation-api-processor-lombok-mapstruct-binding"
     const val PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PLUS = ":$ROOT_PROJECT_NAME-pluggable-annotation-api-processor-mapstruct-plus"
