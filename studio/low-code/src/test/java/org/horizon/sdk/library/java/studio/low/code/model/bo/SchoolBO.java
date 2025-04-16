@@ -48,10 +48,7 @@ public class SchoolBO extends BaseWithVersionBO {
     @JsonSerialize(using = JacksonLongToStringSerializer.class)
     private Long id;
 
-    /**
-     * 名字
-     */
-    // @Schema(description = "名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
+    @Schema(description = "名字", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = ApiDocConstant.STRING)
     @Column(value = "name")
     private String name;
 
