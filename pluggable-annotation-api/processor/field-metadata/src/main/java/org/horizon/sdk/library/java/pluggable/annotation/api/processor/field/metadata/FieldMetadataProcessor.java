@@ -86,8 +86,6 @@ public class FieldMetadataProcessor extends AbstractProcessor {
                         .addModifiers(Modifier.PRIVATE)
                         .build());
 
-        // TODO wjm 修改包名
-
         typeElement.getEnclosedElements().stream()
                 .filter(element -> element.getKind().isField())
                 .filter(element -> Collections.notContains(element.getModifiers(), Modifier.STATIC))
