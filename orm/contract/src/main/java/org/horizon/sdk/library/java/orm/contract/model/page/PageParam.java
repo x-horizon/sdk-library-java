@@ -32,17 +32,17 @@ public class PageParam implements DTO {
     @Serial private static final long serialVersionUID = -2956893884714618641L;
 
     @Schema(description = "page index", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
-    @Min(value = 1, message = "the minimum page index is 1")
+    @Min(value = 1, message = "页码最小值为 1")
     @Builder.Default
     private Integer pageIndex = PageConstant.DEFAULT_PAGE_INDEX;
 
     @Schema(description = "record number per page", requiredMode = Schema.RequiredMode.REQUIRED, example = "10")
-    @Range(min = 1, max = 100, message = "the range of record number per page is [1, 100]")
+    @Range(min = 1, max = 100, message = "每页显示条数最小值为 1，最大值为 100")
     @Builder.Default
     private Integer pageSize = PageConstant.DEFAULT_PAGE_SIZE;
 
     @Schema(description = "total record number, must > 0 if page index > 1", example = "999")
-    @NotNull(message = "the total record number must > 0 if page index > 1", groups = PageParamValidationGroup.TotalRecordNumberValidator.class)
+    @NotNull(message = "查询总数据量在页码大于 1 时必须大于 0", groups = PageParamValidationGroup.TotalRecordNumberValidator.class)
     private Long totalNumber;
 
 }
