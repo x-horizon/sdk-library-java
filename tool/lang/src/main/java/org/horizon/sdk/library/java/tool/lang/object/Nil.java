@@ -2,14 +2,17 @@ package org.horizon.sdk.library.java.tool.lang.object;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 import org.dromara.hutool.core.text.CharSequenceUtil;
 import org.horizon.sdk.library.java.contract.constant.number.NumberConstant;
+import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
 import org.horizon.sdk.library.java.tool.lang.booleans.Booleans;
 import org.horizon.sdk.library.java.tool.lang.compare.Comparators;
 
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * empty validator toolkit
@@ -213,6 +216,16 @@ public class Nil {
      */
     public static boolean isEmpty(CharSequence input) {
         return CharSequenceUtil.isEmpty(input);
+    }
+
+    /**
+     * see {@link ObjectUtils#isEmpty(Object)}
+     *
+     * @param input the checked element
+     * @return return true if the checked element is empty
+     */
+    public static boolean isEmpty(Object input) {
+        return ObjectUtils.isEmpty(input);
     }
 
     /**
@@ -724,12 +737,22 @@ public class Nil {
     }
 
     /**
-     * see {@link CharSequenceUtil#isNotEmpty(CharSequence)}
+     * reverse {@link Nil#isEmpty(CharSequence)}
      *
      * @param input the checked element
-     * @return return true if the checked element is not empty
+     * @return return true if the checked element is not null and at least one size
      */
     public static boolean isNotEmpty(CharSequence input) {
+        return !isEmpty(input);
+    }
+
+    /**
+     * reverse {@link Nil#isEmpty(Object)}
+     *
+     * @param input the checked elements
+     * @return return true if the checked element is not null and at least one size
+     */
+    public static boolean isNotEmpty(Object input) {
         return !isEmpty(input);
     }
 
@@ -841,6 +864,21 @@ public class Nil {
      */
     public static boolean isAllNotBlank(CharSequence... inputs) {
         return !isAnyBlank(inputs);
+    }
+
+    public static String zeroValueIfNull(CharSequence input) {
+        if (Nil.isNull(input)) {
+            return SymbolConstant.EMPTY;
+        }
+        return input.toString();
+    }
+
+    public static Integer zeroValueIfNull(Integer input) {
+        return Optional.ofNullable(input).orElse(NumberConstant.ZERO_INT_VALUE);
+    }
+
+    public static Long zeroValueIfNull(Long input) {
+        return Optional.ofNullable(input).orElse(NumberConstant.ZERO_LONG_VALUE);
     }
 
 }

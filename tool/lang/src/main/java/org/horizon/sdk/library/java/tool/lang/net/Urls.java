@@ -6,7 +6,6 @@ import org.dromara.hutool.core.net.url.UrlQuery;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
 import org.horizon.sdk.library.java.contract.constant.regex.RegexConstant;
 import org.horizon.sdk.library.java.contract.model.throwable.LibraryJavaInternalException;
-import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
 import java.net.URI;
@@ -19,14 +18,6 @@ import java.util.Optional;
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Urls {
-
-    public static boolean isValid(String url) {
-        return Nil.isNotNull(url) && RegexConstant.URL_PATTERN.matcher(url).matches();
-    }
-
-    public static boolean isNotValid(String url) {
-        return !isValid(url);
-    }
 
     public static String getProtocol(String url) {
         return Optional.ofNullable(Strings.getByRegex(url, RegexConstant.URL_PROTOCOL_PATTERN))

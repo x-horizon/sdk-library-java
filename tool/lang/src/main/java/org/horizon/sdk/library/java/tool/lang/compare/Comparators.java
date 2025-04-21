@@ -2,8 +2,10 @@ package org.horizon.sdk.library.java.tool.lang.compare;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.dromara.hutool.core.collection.iter.IterUtil;
 import org.dromara.hutool.core.math.NumberUtil;
 import org.dromara.hutool.core.text.CharSequenceUtil;
+import org.horizon.sdk.library.java.tool.lang.convert.Converts;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 
 import java.util.Arrays;
@@ -202,10 +204,22 @@ public class Comparators {
     }
 
     /**
+     * return true if two iterable are equal.
+     *
+     * @param input                    the checked element
+     * @param comparedElements         the compared elements
+     * @param needToIgnoreElementOrder need to ignore element order
+     * @return return true if two iterable are equal.
+     */
+    public static boolean equals(Iterable<?> input, Iterable<?> comparedElements, boolean needToIgnoreElementOrder) {
+        return IterUtil.equals(input, comparedElements, needToIgnoreElementOrder);
+    }
+
+    /**
      * return true if the checked element equals the compared element, use {@link #Object#equals(Object)}.
      *
      * @param input           the checked element
-     * @param comparedElement the compared element
+     * @param comparedElement the compared elements
      * @return return true if the checked element equals the compared element
      */
     public static boolean equals(Object input, Object comparedElement) {
@@ -428,6 +442,22 @@ public class Comparators {
      */
     public static boolean notEqualsIgnoreCase(CharSequence input, CharSequence... comparedElements) {
         return !equalsIgnoreCase(input, comparedElements);
+    }
+
+    public static boolean greaterThan(Number input, Number comparedElement) {
+        return Converts.toBigDecimal(input).compareTo(Converts.toBigDecimal(comparedElement)) > 0;
+    }
+
+    public static boolean greaterThanOrEquals(Number input, Number comparedElement) {
+        return Converts.toBigDecimal(input).compareTo(Converts.toBigDecimal(comparedElement)) >= 0;
+    }
+
+    public static boolean lessThan(Number input, Number comparedElement) {
+        return Converts.toBigDecimal(input).compareTo(Converts.toBigDecimal(comparedElement)) < 0;
+    }
+
+    public static boolean lessThanOrEquals(Number input, Number comparedElement) {
+        return Converts.toBigDecimal(input).compareTo(Converts.toBigDecimal(comparedElement)) <= 0;
     }
 
 }

@@ -83,6 +83,11 @@ public class ModuleView {
     public static final String TOOL_SPRING_WEBFLUX_SYSTEM = ROOT_MODULE + "Tool Spring WebFlux System - ";
 
     /**
+     * the tool spring webflux system module name
+     */
+    public static final String TOOL_VALIDATION_SYSTEM = ROOT_MODULE + "Tool Validation System - ";
+
+    /**
      * the registration nacos system module name
      */
     public static final String REGISTRATION_NACOS_SYSTEM = ROOT_MODULE + "Registration Nacos System - ";

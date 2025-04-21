@@ -5,6 +5,7 @@ import com.squareup.javapoet.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.SneakyThrows;
 import org.dromara.hutool.core.reflect.ClassUtil;
+import org.horizon.sdk.library.java.contract.constant.library.Knife4jClassNames;
 import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
 import org.horizon.sdk.library.java.contract.model.base.*;
 import org.horizon.sdk.library.java.pluggable.annotation.api.processor.field.metadata.FieldMetadata;
@@ -45,7 +46,7 @@ public class FieldMetadataProcessor extends AbstractProcessor {
             DTO.class.getSimpleName()
     );
 
-    private static final String KNIFE4J_SCHEMA_CLASS_NAME = "io.swagger.v3.oas.annotations.media.Schema";
+    private static final boolean IS_KNIFE4J_SCHEMA_CLASS_EXIST = ClassUtil.isClassExists(Knife4jClassNames.SCHEMA, null);
 
     private static final List<String> LOMBOK_INNER_CLASS_NAME_SUFFIXES = Collections.ofImmutableList("Builder", "BuilderImpl");
 
@@ -186,7 +187,7 @@ public class FieldMetadataProcessor extends AbstractProcessor {
 
     private String getFieldComment(Element fieldElement) {
         String fieldComment = Strings.removeBlank(this.elementUtil.getDocComment(fieldElement));
-        if (Nil.isNull(fieldComment) && ClassUtil.isClassExists(KNIFE4J_SCHEMA_CLASS_NAME, null)) {
+        if (Nil.isNull(fieldComment) && IS_KNIFE4J_SCHEMA_CLASS_EXIST) {
             Schema schema = fieldElement.getAnnotation(Schema.class);
             fieldComment = (Nil.isNull(schema)) ? SymbolConstant.EMPTY : schema.description();
         }

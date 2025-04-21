@@ -208,6 +208,29 @@ public class Collections {
     }
 
     /**
+     * create a {@link CollectionConstant#CAPACITY_DEFAULT_INITIALIZE_MAP default capacity} linked hash map
+     *
+     * @param <K> the key type of map
+     * @param <V> the value type of map
+     * @return a {@link CollectionConstant#CAPACITY_DEFAULT_INITIALIZE_MAP default capacity} linked hash map
+     */
+    public static <K, V> Map<K, V> newLinkedHashMap() {
+        return newLinkedHashMap(CollectionConstant.CAPACITY_DEFAULT_INITIALIZE_MAP);
+    }
+
+    /**
+     * create a specified init capacity linked hash map
+     *
+     * @param initCapacity the specified capacity
+     * @param <K>          the key type of map
+     * @param <V>          the value type of map
+     * @return a specified init capacity linked hash map
+     */
+    public static <K, V> Map<K, V> newLinkedHashMap(int initCapacity) {
+        return LinkedHashMap.newLinkedHashMap(initCapacity);
+    }
+
+    /**
      * create a {@link CollectionConstant#CAPACITY_DEFAULT_INITIALIZE_MAP default capacity} concurrent hash map
      *
      * @param <K> the key type of map
@@ -1307,6 +1330,14 @@ public class Collections {
         return (T) CollUtil.addAll(inputs, appendElements);
     }
 
+    public static <T> List<T> addFirst(List<T> inputs, T firstElement) {
+        if (Nil.isNull(inputs)) {
+            return ofArrayList(firstElement);
+        }
+        inputs.addFirst(firstElement);
+        return inputs;
+    }
+
     /**
      * return the specified map after add node
      *
@@ -1439,6 +1470,16 @@ public class Collections {
      */
     public static int getSize(Iterator<?> input) {
         return IterUtil.size(input);
+    }
+
+    /**
+     * return the input element size
+     *
+     * @param input the input element
+     * @return the size of input element
+     */
+    public static <K, V> int getSize(Map<K, V> input) {
+        return Nil.isNull(input) ? CollectionConstant.LENGTH_ZERO : input.size();
     }
 
     /**
@@ -1965,7 +2006,7 @@ public class Collections {
     }
 
     /**
-     * the same as {@link Converts#toMultiMap(Iterable, Function)}
+     * the same as {@link Converts#toMultiHashMap(Iterable, Function)}
      *
      * @param inputs       the input elements
      * @param getKeyAction the specified field to be map key in collection element
@@ -1974,7 +2015,7 @@ public class Collections {
      * @return after group by
      */
     public static <K, V> Map<K, List<V>> groupBy(Iterable<V> inputs, Function<V, K> getKeyAction) {
-        return Converts.toMultiMap(inputs, getKeyAction);
+        return Converts.toMultiHashMap(inputs, getKeyAction);
     }
 
     /**

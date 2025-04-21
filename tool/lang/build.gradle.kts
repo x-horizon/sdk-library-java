@@ -10,4 +10,9 @@ dependencies {
     api(GradleDependency.TOOL_REFLECT_RONMAMO.withoutVersion)
     api(GradleDependency.TOOL_STREAM_JDFRAME.withoutVersion)
     api(GradleDependency.TOOL_VJTOOL.withoutVersion)
+
+    implementation(GradleDependency.DOC_SPRING_OPENAPI_COMMON.withoutVersion)
+
+    testCompileOnly(project(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_FIELD_METADATA))
+    testAnnotationProcessor(project(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_FIELD_METADATA))
 }

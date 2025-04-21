@@ -534,6 +534,14 @@ public class CharacterSequences extends Characters {
         return CharSequenceUtil.removePrefix(input, prefix);
     }
 
+    public static String removeIfAnyStartWith(CharSequence input, Iterable<CharSequence> suffixes) {
+        String afterRemoveInput = input.toString();
+        for (CharSequence suffix : suffixes) {
+            afterRemoveInput = removeIfStartWith(afterRemoveInput, suffix);
+        }
+        return afterRemoveInput;
+    }
+
     /**
      * see {@link CharSequenceUtil#removeSuffix(CharSequence, CharSequence)}
      *

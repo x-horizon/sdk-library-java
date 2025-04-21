@@ -1,17 +1,26 @@
 package org.horizon.sdk.library.java.tool.lang.reflect;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.vavr.control.Try;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
 import org.dromara.hutool.core.reflect.ConstructorUtil;
 import org.dromara.hutool.core.reflect.FieldUtil;
 import org.dromara.hutool.core.reflect.ReflectUtil;
 import org.dromara.hutool.core.reflect.method.MethodUtil;
+import org.horizon.sdk.library.java.contract.constant.library.Knife4jClassNames;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.tool.lang.annotation.Annotations;
+import org.horizon.sdk.library.java.tool.lang.convert.Converts;
+import org.horizon.sdk.library.java.tool.lang.functional.SerializableConsumer;
+import org.horizon.sdk.library.java.tool.lang.functional.SerializableFunction;
+import org.horizon.sdk.library.java.tool.lang.object.Classes;
+import org.horizon.sdk.library.java.tool.lang.object.Nil;
 
 import java.lang.annotation.Annotation;
+import java.lang.invoke.SerializedLambda;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -25,6 +34,10 @@ import java.lang.reflect.Method;
 @CanIgnoreReturnValue
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Reflects {
+
+    private static final String SERIALIZABLE_WRITE_REPLACE_METHOD_NAME = "writeReplace";
+
+    private static final boolean IS_KNIFE4J_SCHEMA_CLASS_EXIST = Classes.isExist(Knife4jClassNames.SCHEMA);
 
     /**
      * see {@link MethodUtil#getMethod(Class, String, Class[])}
@@ -103,6 +116,27 @@ public class Reflects {
         return Try.of(() -> FieldUtil.getFieldValue(input, field)).getOrNull();
     }
 
+    @SneakyThrows
+    public static <T> String getFieldComment(SerializableConsumer<T> serializableConsumer) {
+        return getFieldComment(Converts.toSerializableFunction(serializableConsumer));
+    }
+
+    @SneakyThrows
+    public static <T, R> String getFieldComment(SerializableFunction<T, R> serializableFunction) {
+        Method method = setAccessible(serializableFunction.getClass().getDeclaredMethod(SERIALIZABLE_WRITE_REPLACE_METHOD_NAME));
+        SerializedLambda lambda = (SerializedLambda) method.invoke(serializableFunction);
+        Class<T> fieldClass = Classes.getClass(lambda.getImplClass());
+        String fieldName = Classes.getFieldName(lambda.getImplMethodName());
+        Field field = Classes.getField(fieldClass, fieldName);
+        if (IS_KNIFE4J_SCHEMA_CLASS_EXIST) {
+            Schema schema = field.getAnnotation(Schema.class);
+            assert schema != null;
+            String fieldDescription = schema.description();
+            fieldName = Nil.isBlank(fieldDescription) ? fieldName : fieldDescription;
+        }
+        return fieldName;
+    }
+
     /**
      * return all methods in a class and parent classes.
      *
@@ -119,9 +153,11 @@ public class Reflects {
      *
      * @param input the input element
      * @param <T>   the input element type
+     * @return return accessible object
      */
-    public static <T extends AccessibleObject> void setAccessible(T input) {
+    public static <T extends AccessibleObject> T setAccessible(T input) {
         ReflectUtil.setAccessible(input);
+        return input;
     }
 
     /**
