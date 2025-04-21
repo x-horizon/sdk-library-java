@@ -103,7 +103,7 @@ public class MqttV3ClientConfigStrategy extends MessageClientConfigStrategy<Mqtt
         return MqttV3ClientConfigDTO.ConsumerDTO.builder()
                 .clientDTO(getClientDTO(consumerAnnotation.config().mqttV3().clientConfig(), executeMethod))
                 .forwardProducerDTO(forwardProducerDTO)
-                .topics(Converts.toList(consumerAnnotation.topics()))
+                .topics(Converts.toArrayList(consumerAnnotation.topics()))
                 .build();
     }
 

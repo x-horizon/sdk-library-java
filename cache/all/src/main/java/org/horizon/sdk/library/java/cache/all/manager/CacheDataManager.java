@@ -58,7 +58,7 @@ public class CacheDataManager {
      */
     public static CacheDataManager build(List<CacheType> cacheTypes) {
         CacheDataManager cacheDataManager = new CacheDataManager();
-        Map<String, List<Integer>> duplicateCacheTypeMap = Converts.toMap(
+        Map<String, List<Integer>> duplicateCacheTypeMap = Converts.toHashMap(
                 Collections.groupBy(cacheTypes, CacheType::name).entrySet(),
                 Map.Entry::getKey,
                 entry -> {

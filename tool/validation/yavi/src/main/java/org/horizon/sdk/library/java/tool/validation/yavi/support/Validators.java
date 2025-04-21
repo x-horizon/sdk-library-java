@@ -22,11 +22,11 @@ public class Validators {
     }
 
     public static <T> void throwsIfFailed(Validator<T> validator, T model) {
-        validator.validate(model).throwIfInvalid(constraintViolations -> new InvalidArgumentException(Strings.joinWithChineseComma(Converts.toList(constraintViolations, ConstraintViolation::message))));
+        validator.validate(model).throwIfInvalid(constraintViolations -> new InvalidArgumentException(Strings.joinWithChineseComma(Converts.toArrayList(constraintViolations, ConstraintViolation::message))));
     }
 
     public static <T> void throwsIfFailed(Validator<T> validator, ValidationGroup validationGroup, T model) {
-        validator.validate(model, validationGroup).throwIfInvalid(constraintViolations -> new InvalidArgumentException(Strings.joinWithChineseComma(Converts.toList(constraintViolations, ConstraintViolation::message))));
+        validator.validate(model, validationGroup).throwIfInvalid(constraintViolations -> new InvalidArgumentException(Strings.joinWithChineseComma(Converts.toArrayList(constraintViolations, ConstraintViolation::message))));
     }
 
 }

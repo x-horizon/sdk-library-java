@@ -410,7 +410,7 @@ public class Annotations extends org.horizon.sdk.library.java.tool.lang.annotati
      * @see #getAnnotationValue(Class, Class, String, Collection)
      */
     public static <T> Set<T> getAnnotationNestValue(Class<? extends Annotation> annotationClass, Class<T[]> fieldClass, String fieldName, Collection<String> scanPackagePaths) {
-        return Converts.toSet(getAnnotationValue(annotationClass, fieldClass, fieldName, scanPackagePaths));
+        return Converts.toHashSet(getAnnotationValue(annotationClass, fieldClass, fieldName, scanPackagePaths));
     }
 
     /**

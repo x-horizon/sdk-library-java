@@ -35,7 +35,7 @@ public class JacksonListEnumValueToListEnumDeserializer<E extends Enum<E>> exten
                 .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfTrue(Enums.isNotEnum(fieldGenericType));
 
-        return Converts.toList(
+        return Converts.toArrayList(
                 jsonParser.readValuesAs(Jacksons.<List<?>>newTypeReference()).next(),
                 filedValue -> Converts.toEnumByValue(filedValue, (Class<E>) fieldGenericType)
         );

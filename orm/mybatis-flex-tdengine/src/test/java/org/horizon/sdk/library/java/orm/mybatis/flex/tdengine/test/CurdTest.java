@@ -183,7 +183,7 @@ class CurdTest {
         // INSERT INTO "people"("id", "home_id", "name1", "name2", "name3", "name4", "name5", "name6", "name7", "version", "creator_id", "updater_id", "create_time", "update_time")
         // VALUES (536748152579013, 536748152271813, 'people5', 'people5', 'people5', 'people5', 'people5', 'people5', 'people5', 0, 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51');
         List<HomePO> homePOs = homeRepository.listAll();
-        Map<String, Long> homeNameMappingHomeIdMap = Converts.toMap(homePOs, HomePO::getName, HomePO::getId);
+        Map<String, Long> homeNameMappingHomeIdMap = Converts.toHashMap(homePOs, HomePO::getName, HomePO::getId);
         peopleRepository.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_1)).build().setAllName(PEOPLE_NAME_1));
         peopleRepository.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_2)).build().setAllName(PEOPLE_NAME_2));
         peopleRepository.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_3)).build().setAllName(PEOPLE_NAME_3));
@@ -226,7 +226,7 @@ class CurdTest {
     //     testDelete();
     //     testSave();
     //
-    //     List<HomePO> homePOs = homeRepository.listAll().stream().peek(homePO -> homePO.setName(homePO.getName() + "*")).toList();
+    //     List<HomePO> homePOs = homeRepository.listAll().stream().peek(homePO -> homePO.setName(homePO.getName() + "*")).toArrayList();
     //     HomePO theFirstHomePO = Collections.getFirst(homePOs).orElseThrow();
     //     // UPDATE "home"
     //     // SET "name"        = 'home1*',
@@ -279,7 +279,7 @@ class CurdTest {
     //     // UPDATE "home" SET "name" = 'home15*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:02:13' , "update_time" = '2024-04-15 19:03:42'  WHERE "id" = 536750208787589  AND "delete_time" IS NULL;
     //     homeRepository.updateBatchById(homePOs, 2);
     //
-    //     List<PeoplePO> peoplePOs = peopleRepository.listAll().stream().map(peoplePO -> peoplePO.setAllName(peoplePO.getName1() + "*")).toList();
+    //     List<PeoplePO> peoplePOs = peopleRepository.listAll().stream().map(peoplePO -> peoplePO.setAllName(peoplePO.getName1() + "*")).toArrayList();
     //     PeoplePO theFirstPeoplePO = Collections.getFirst(peoplePOs).orElseThrow();
     //     // SELECT * FROM "people" WHERE "id" = 536750845867205  AND "delete_time" IS NULL;
     //     // UPDATE "people" SET "home_id" = 536750845560005 , "name1" = 'people1*' , "name2" = 'people1*' , "name3" = 'people1*' , "name4" = 'people1*' , "name5" = 'people1*' , "name6" = 'people1*' , "name7" = 'people1*' , "creator_id" = 1 , "updater_id" = 1 , "create_time" = '2024-04-15 19:04:48' , "update_time" = '2024-04-15 19:05:01' , "version" = "version" + 1  WHERE "id" = 536750845867205  AND "delete_time" IS NULL AND "version" = 0;
@@ -380,7 +380,7 @@ class CurdTest {
     // @Test
     // void testDelete() {
     //     List<HomePO> homePOs = homeRepository.listAll();
-    //     List<Long> homeIds = Converts.toList(homePOs, HomePO::getId);
+    //     List<Long> homeIds = Converts.toArrayList(homePOs, HomePO::getId);
     //     if (Nil.isNotEmpty(homeIds)) {
     //         Long theFirstHomeId = Collections.getFirst(homeIds).orElseThrow();
     //         // UPDATE "home"
@@ -447,7 +447,7 @@ class CurdTest {
     //     }
     //
     //     List<PeoplePO> peoplePOs = peopleRepository.listAll();
-    //     List<Long> peopleIds = Converts.toList(peoplePOs, PeoplePO::getId);
+    //     List<Long> peopleIds = Converts.toArrayList(peoplePOs, PeoplePO::getId);
     //     if (Nil.isNotEmpty(peopleIds)) {
     //         Long theFirstPeopleId = Collections.getFirst(peopleIds).orElseThrow();
     //         // UPDATE "people"

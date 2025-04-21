@@ -608,7 +608,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
         if (values instanceof Collection<?> collectionTypeValues) {
             return super.in(collectionTypeValues, condition);
         }
-        return super.in(Converts.toList(values), condition);
+        return super.in(Converts.toArrayList(values), condition);
     }
 
     /**
@@ -733,7 +733,7 @@ public class ConstrainedQueryColumn extends QueryColumn {
         if (values instanceof Collection<?> collectionTypeValues) {
             return super.notIn(collectionTypeValues, condition);
         }
-        return super.notIn(Converts.toList(values), condition);
+        return super.notIn(Converts.toArrayList(values), condition);
     }
 
     /**

@@ -178,7 +178,7 @@ public interface GenericRepository<P extends PO> {
         if (Nil.isEmpty(entities)) {
             return Collections.newArrayList();
         }
-        List<P> listTypeEntities = entities instanceof List<P> actualEntities ? actualEntities : Converts.toList(entities);
+        List<P> listTypeEntities = entities instanceof List<P> actualEntities ? actualEntities : Converts.toArrayList(entities);
         Action.ifTrue(listTypeEntities.size() <= GENERATE_FULL_SQL_BATCH_SIZE)
                 .then(() -> getBaseMapper().insertBatch(listTypeEntities, batchSizeEachTime))
                 .otherwise(() -> Db.executeBatch(listTypeEntities, batchSizeEachTime, ClassUtil.getUsefulClass(this.getClass()), GenericRepository::save));
@@ -261,7 +261,7 @@ public interface GenericRepository<P extends PO> {
         if (Nil.isEmpty(entities)) {
             return Collections.newArrayList();
         }
-        List<P> needToUpdateEntities = entities instanceof List<P> actualEntities ? actualEntities : Converts.toList(entities);
+        List<P> needToUpdateEntities = entities instanceof List<P> actualEntities ? actualEntities : Converts.toArrayList(entities);
         Db.executeBatch(
                 needToUpdateEntities,
                 batchSizeEachTime,
@@ -544,7 +544,7 @@ public interface GenericRepository<P extends PO> {
         if (Nil.isEmpty(ids)) {
             return;
         }
-        getBaseMapper().deleteBatchByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toSet(ids));
+        getBaseMapper().deleteBatchByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toHashSet(ids));
     }
 
     /**
@@ -575,7 +575,7 @@ public interface GenericRepository<P extends PO> {
      * @param ids collection of primary key values to delete permanently
      */
     default void deleteByIdsIgnoreLogicDelete(Iterable<? extends Serializable> ids) {
-        LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids instanceof Collection<? extends Serializable> ? ids : Converts.toSet(ids)));
+        LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids instanceof Collection<? extends Serializable> ? ids : Converts.toHashSet(ids)));
     }
 
     default Optional<P> getById(Serializable id) {
@@ -606,7 +606,7 @@ public interface GenericRepository<P extends PO> {
         if (Nil.isEmpty(ids)) {
             return Collections.newArrayList();
         }
-        return getBaseMapper().selectListByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toSet(ids));
+        return getBaseMapper().selectListByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toHashSet(ids));
     }
 
     default List<P> listByIdsIgnoreLogicDelete(Iterable<? extends Serializable> ids) {
@@ -674,8 +674,8 @@ public interface GenericRepository<P extends PO> {
     }
 
     private void setVersionFieldValues(Iterable<P> updatedEntities, Function<P, ? extends Serializable> getIdAction) {
-        Map<? extends Serializable, P> idMappingOldEntity = Converts.toMap(listByIds(Converts.toList(updatedEntities, getIdAction)), getIdAction);
-        Map<? extends Serializable, P> idMappingUpdatedEntity = Converts.toMap(updatedEntities, getIdAction);
+        Map<? extends Serializable, P> idMappingOldEntity = Converts.toHashMap(listByIds(Converts.toArrayList(updatedEntities, getIdAction)), getIdAction);
+        Map<? extends Serializable, P> idMappingUpdatedEntity = Converts.toHashMap(updatedEntities, getIdAction);
         idMappingOldEntity.forEach((id, oldEntity) -> setVersionFieldValue(oldEntity, idMappingUpdatedEntity.get(id)));
     }
 

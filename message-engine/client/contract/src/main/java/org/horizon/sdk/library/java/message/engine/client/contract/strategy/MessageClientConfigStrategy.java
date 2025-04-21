@@ -265,7 +265,7 @@ public abstract class MessageClientConfigStrategy<Property extends MessageClient
             verificationConfigDTO.getBrokerFailedReason().put("invalid server urls", STR."invalid server urls, you must provide them in the config file, see [\{getPropertyType().getName()}].");
         }
 
-        Map<String, MessageClientVerificationConfigDTO.ProducerDTO> producerMethodPointCache = Converts.toMap(verificationConfigDTO.getProducerFailedReasons(), MessageClientVerificationConfigDTO.ProducerDTO::getMethodPoint);
+        Map<String, MessageClientVerificationConfigDTO.ProducerDTO> producerMethodPointCache = Converts.toHashMap(verificationConfigDTO.getProducerFailedReasons(), MessageClientVerificationConfigDTO.ProducerDTO::getMethodPoint);
         verificationConfigDTO.setProducerFailedReasons(configDTO.getProducerDTOs()
                 .stream()
                 .map(producerDTO -> {
@@ -292,7 +292,7 @@ public abstract class MessageClientConfigStrategy<Property extends MessageClient
                 .toList()
         );
 
-        Map<String, MessageClientVerificationConfigDTO.ConsumerDTO> consumerMethodPointCache = Converts.toMap(verificationConfigDTO.getConsumerFailedReasons(), MessageClientVerificationConfigDTO.ConsumerDTO::getMethodPoint);
+        Map<String, MessageClientVerificationConfigDTO.ConsumerDTO> consumerMethodPointCache = Converts.toHashMap(verificationConfigDTO.getConsumerFailedReasons(), MessageClientVerificationConfigDTO.ConsumerDTO::getMethodPoint);
         verificationConfigDTO.setConsumerFailedReasons(configDTO.getConsumerDTOs()
                 .stream()
                 .map(consumerDTO -> {

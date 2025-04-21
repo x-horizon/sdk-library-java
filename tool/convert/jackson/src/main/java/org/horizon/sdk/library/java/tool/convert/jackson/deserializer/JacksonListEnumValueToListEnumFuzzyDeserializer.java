@@ -52,7 +52,7 @@ public class JacksonListEnumValueToListEnumFuzzyDeserializer<E extends Enum<E>> 
                 .setThrowable(LibraryJavaInternalException.class)
                 .throwsIfTrue(Enums.isNotEnum(fieldGenericType));
 
-        return Converts.toList(
+        return Converts.toArrayList(
                 jsonParser.readValuesAs(Jacksons.<List<?>>newTypeReference()).next(),
                 filedValue -> Converts.toEnumByValue(filedValue, (Class<E>) fieldGenericType)
         );
