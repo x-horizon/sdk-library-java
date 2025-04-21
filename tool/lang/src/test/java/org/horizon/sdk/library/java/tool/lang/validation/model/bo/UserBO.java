@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.horizon.sdk.library.java.contract.model.base.BO;
+import org.horizon.sdk.library.java.tool.lang.validation.model.enums.GenderType;
 
 import java.io.Serial;
 import java.util.List;
@@ -37,6 +38,9 @@ public class UserBO implements BO {
 
     @Schema(description = "用户名字")
     private String name;
+
+    @Schema(description = "性别")
+    private GenderType genderType;
 
     @Schema(description = "身份证")
     private String identityCard;

@@ -56,6 +56,10 @@ public class ConstraintBuilder<M> {
         return this.constraint(Reflects.getFieldComment(fieldValueGetter), fieldValueGetter, constraintOperator);
     }
 
+    public <V extends Enum<V>> ConstraintBuilder<M> constraint(EnumFunction<M, V> fieldValueGetter, UnaryOperator<EnumConstraint<V>> constraintOperator) {
+        return this.constraint(Reflects.getFieldComment(fieldValueGetter), fieldValueGetter, constraintOperator);
+    }
+
     public <V extends Iterable<E>, E> ConstraintBuilder<M> constraint(IterableFunction<M, V, E> fieldValueGetter, UnaryOperator<IterableConstraint<V, E>> constraintOperator) {
         return this.constraint(Reflects.getFieldComment(fieldValueGetter), fieldValueGetter, constraintOperator);
     }
@@ -94,6 +98,10 @@ public class ConstraintBuilder<M> {
 
     public ConstraintBuilder<M> constraint(String fieldName, CharSequenceFunction<M> fieldValueGetter, UnaryOperator<CharSequenceConstraint> constraintOperator) {
         return this.constraint(fieldName, fieldValueGetter, constraintOperator, CharSequenceConstraint::new);
+    }
+
+    public <V extends Enum<V>> ConstraintBuilder<M> constraint(String fieldName, EnumFunction<M, V> fieldValueGetter, UnaryOperator<EnumConstraint<V>> constraintOperator) {
+        return this.constraint(fieldName, fieldValueGetter, constraintOperator, EnumConstraint::new);
     }
 
     public <V extends Iterable<E>, E> ConstraintBuilder<M> constraint(String fieldName, IterableFunction<M, V, E> fieldValueGetter, UnaryOperator<IterableConstraint<V, E>> constraintOperator) {
@@ -161,6 +169,10 @@ public class ConstraintBuilder<M> {
     }
 
     public interface CharSequenceFunction<M> extends SerializableFunction<M, CharSequence> {
+
+    }
+
+    public interface EnumFunction<M, V extends Enum<V>> extends SerializableFunction<M, V> {
 
     }
 

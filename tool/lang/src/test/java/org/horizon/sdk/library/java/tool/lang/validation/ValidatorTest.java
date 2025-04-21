@@ -49,6 +49,7 @@ public class ValidatorTest {
             )
             .constraint(UserVO::getId, constraint -> constraint.mustNotNull().mustEquals(64L))
             .constraint(UserVO::getPostIds, constraint -> constraint.mustEquals(List.of(1L)))
+            .constraint(UserVO::getGenderType, constraint -> constraint.mustNotNull())
             .constraint(UserVO::getMap, constraint -> constraint
                     .mustEquals(Map.of("1L", 1L))
                     .mustGreaterThan(6)
