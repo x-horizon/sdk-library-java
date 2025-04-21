@@ -25,94 +25,94 @@ public class ConstraintBuilder<M> {
     private final ConstraintConditionAdaptor<M> defaultConstraintCondition = (ignore1, ignore2) -> true;
 
     public ConstraintBuilder<M> constraint(ByteFunction<M> fieldValueGetter, UnaryOperator<ByteConstraint> constraintOperator) {
-        return this.constraint(Reflects.getFieldComment(fieldValueGetter), fieldValueGetter, constraintOperator);
+        return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
     public ConstraintBuilder<M> constraint(ShortFunction<M> fieldValueGetter, UnaryOperator<ShortConstraint> constraintOperator) {
-        return this.constraint(Reflects.getFieldComment(fieldValueGetter), fieldValueGetter, constraintOperator);
+        return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
     public ConstraintBuilder<M> constraint(IntegerFunction<M> fieldValueGetter, UnaryOperator<IntegerConstraint> constraintOperator) {
-        return this.constraint(Reflects.getFieldComment(fieldValueGetter), fieldValueGetter, constraintOperator);
+        return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
     public ConstraintBuilder<M> constraint(LongFunction<M> fieldValueGetter, UnaryOperator<LongConstraint> constraintOperator) {
-        return this.constraint(Reflects.getFieldComment(fieldValueGetter), fieldValueGetter, constraintOperator);
+        return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
     public ConstraintBuilder<M> constraint(FloatFunction<M> fieldValueGetter, UnaryOperator<FloatConstraint> constraintOperator) {
-        return this.constraint(Reflects.getFieldComment(fieldValueGetter), fieldValueGetter, constraintOperator);
+        return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
     public ConstraintBuilder<M> constraint(DoubleFunction<M> fieldValueGetter, UnaryOperator<DoubleConstraint> constraintOperator) {
-        return this.constraint(Reflects.getFieldComment(fieldValueGetter), fieldValueGetter, constraintOperator);
+        return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
     public ConstraintBuilder<M> constraint(BigDecimalFunction<M> fieldValueGetter, UnaryOperator<BigDecimalConstraint> constraintOperator) {
-        return this.constraint(Reflects.getFieldComment(fieldValueGetter), fieldValueGetter, constraintOperator);
+        return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
     public ConstraintBuilder<M> constraint(CharSequenceFunction<M> fieldValueGetter, UnaryOperator<CharSequenceConstraint> constraintOperator) {
-        return this.constraint(Reflects.getFieldComment(fieldValueGetter), fieldValueGetter, constraintOperator);
+        return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
     public <V extends Enum<V>> ConstraintBuilder<M> constraint(EnumFunction<M, V> fieldValueGetter, UnaryOperator<EnumConstraint<V>> constraintOperator) {
-        return this.constraint(Reflects.getFieldComment(fieldValueGetter), fieldValueGetter, constraintOperator);
+        return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
     public <V extends Iterable<E>, E> ConstraintBuilder<M> constraint(IterableFunction<M, V, E> fieldValueGetter, UnaryOperator<IterableConstraint<V, E>> constraintOperator) {
-        return this.constraint(Reflects.getFieldComment(fieldValueGetter), fieldValueGetter, constraintOperator);
+        return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
     public <V extends Map<MapKey, MapValue>, MapKey, MapValue> ConstraintBuilder<M> constraint(MapFunction<M, V, MapKey, MapValue> fieldValueGetter, UnaryOperator<MapConstraint<V, MapKey, MapValue>> constraintOperator) {
-        return this.constraint(Reflects.getFieldComment(fieldValueGetter), fieldValueGetter, constraintOperator);
+        return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
-    public ConstraintBuilder<M> constraint(String fieldName, ByteFunction<M> fieldValueGetter, UnaryOperator<ByteConstraint> constraintOperator) {
-        return this.constraint(fieldName, fieldValueGetter, constraintOperator, ByteConstraint::new);
+    public ConstraintBuilder<M> constraint(ByteFunction<M> fieldValueGetter, String fieldName, UnaryOperator<ByteConstraint> constraintOperator) {
+        return this.constraint(fieldValueGetter, fieldName, constraintOperator, ByteConstraint::new);
     }
 
-    public ConstraintBuilder<M> constraint(String fieldName, ShortFunction<M> fieldValueGetter, UnaryOperator<ShortConstraint> constraintOperator) {
-        return this.constraint(fieldName, fieldValueGetter, constraintOperator, ShortConstraint::new);
+    public ConstraintBuilder<M> constraint(ShortFunction<M> fieldValueGetter, String fieldName, UnaryOperator<ShortConstraint> constraintOperator) {
+        return this.constraint(fieldValueGetter, fieldName, constraintOperator, ShortConstraint::new);
     }
 
-    public ConstraintBuilder<M> constraint(String fieldName, IntegerFunction<M> fieldValueGetter, UnaryOperator<IntegerConstraint> constraintOperator) {
-        return this.constraint(fieldName, fieldValueGetter, constraintOperator, IntegerConstraint::new);
+    public ConstraintBuilder<M> constraint(IntegerFunction<M> fieldValueGetter, String fieldName, UnaryOperator<IntegerConstraint> constraintOperator) {
+        return this.constraint(fieldValueGetter, fieldName, constraintOperator, IntegerConstraint::new);
     }
 
-    public ConstraintBuilder<M> constraint(String fieldName, LongFunction<M> fieldValueGetter, UnaryOperator<LongConstraint> constraintOperator) {
-        return this.constraint(fieldName, fieldValueGetter, constraintOperator, LongConstraint::new);
+    public ConstraintBuilder<M> constraint(LongFunction<M> fieldValueGetter, String fieldName, UnaryOperator<LongConstraint> constraintOperator) {
+        return this.constraint(fieldValueGetter, fieldName, constraintOperator, LongConstraint::new);
     }
 
-    public ConstraintBuilder<M> constraint(String fieldName, FloatFunction<M> fieldValueGetter, UnaryOperator<FloatConstraint> constraintOperator) {
-        return this.constraint(fieldName, fieldValueGetter, constraintOperator, FloatConstraint::new);
+    public ConstraintBuilder<M> constraint(FloatFunction<M> fieldValueGetter, String fieldName, UnaryOperator<FloatConstraint> constraintOperator) {
+        return this.constraint(fieldValueGetter, fieldName, constraintOperator, FloatConstraint::new);
     }
 
-    public ConstraintBuilder<M> constraint(String fieldName, DoubleFunction<M> fieldValueGetter, UnaryOperator<DoubleConstraint> constraintOperator) {
-        return this.constraint(fieldName, fieldValueGetter, constraintOperator, DoubleConstraint::new);
+    public ConstraintBuilder<M> constraint(DoubleFunction<M> fieldValueGetter, String fieldName, UnaryOperator<DoubleConstraint> constraintOperator) {
+        return this.constraint(fieldValueGetter, fieldName, constraintOperator, DoubleConstraint::new);
     }
 
-    public ConstraintBuilder<M> constraint(String fieldName, BigDecimalFunction<M> fieldValueGetter, UnaryOperator<BigDecimalConstraint> constraintOperator) {
-        return this.constraint(fieldName, fieldValueGetter, constraintOperator, BigDecimalConstraint::new);
+    public ConstraintBuilder<M> constraint(BigDecimalFunction<M> fieldValueGetter, String fieldName, UnaryOperator<BigDecimalConstraint> constraintOperator) {
+        return this.constraint(fieldValueGetter, fieldName, constraintOperator, BigDecimalConstraint::new);
     }
 
-    public ConstraintBuilder<M> constraint(String fieldName, CharSequenceFunction<M> fieldValueGetter, UnaryOperator<CharSequenceConstraint> constraintOperator) {
-        return this.constraint(fieldName, fieldValueGetter, constraintOperator, CharSequenceConstraint::new);
+    public ConstraintBuilder<M> constraint(CharSequenceFunction<M> fieldValueGetter, String fieldName, UnaryOperator<CharSequenceConstraint> constraintOperator) {
+        return this.constraint(fieldValueGetter, fieldName, constraintOperator, CharSequenceConstraint::new);
     }
 
-    public <V extends Enum<V>> ConstraintBuilder<M> constraint(String fieldName, EnumFunction<M, V> fieldValueGetter, UnaryOperator<EnumConstraint<V>> constraintOperator) {
-        return this.constraint(fieldName, fieldValueGetter, constraintOperator, EnumConstraint::new);
+    public <V extends Enum<V>> ConstraintBuilder<M> constraint(EnumFunction<M, V> fieldValueGetter, String fieldName, UnaryOperator<EnumConstraint<V>> constraintOperator) {
+        return this.constraint(fieldValueGetter, fieldName, constraintOperator, EnumConstraint::new);
     }
 
-    public <V extends Iterable<E>, E> ConstraintBuilder<M> constraint(String fieldName, IterableFunction<M, V, E> fieldValueGetter, UnaryOperator<IterableConstraint<V, E>> constraintOperator) {
-        return this.constraint(fieldName, fieldValueGetter, constraintOperator, IterableConstraint::new);
+    public <V extends Iterable<E>, E> ConstraintBuilder<M> constraint(IterableFunction<M, V, E> fieldValueGetter, String fieldName, UnaryOperator<IterableConstraint<V, E>> constraintOperator) {
+        return this.constraint(fieldValueGetter, fieldName, constraintOperator, IterableConstraint::new);
     }
 
-    public <V extends Map<MapKey, MapValue>, MapKey, MapValue> ConstraintBuilder<M> constraint(String fieldName, MapFunction<M, V, MapKey, MapValue> fieldValueGetter, UnaryOperator<MapConstraint<V, MapKey, MapValue>> constraintOperator) {
-        return this.constraint(fieldName, fieldValueGetter, constraintOperator, MapConstraint::new);
+    public <V extends Map<MapKey, MapValue>, MapKey, MapValue> ConstraintBuilder<M> constraint(MapFunction<M, V, MapKey, MapValue> fieldValueGetter, String fieldName, UnaryOperator<MapConstraint<V, MapKey, MapValue>> constraintOperator) {
+        return this.constraint(fieldValueGetter, fieldName, constraintOperator, MapConstraint::new);
     }
 
-    public <V, C extends Constraint<V, C>> ConstraintBuilder<M> constraint(String fieldName, SerializableFunction<M, V> fieldValueGetter, UnaryOperator<C> constraintOperator, Supplier<C> constraintGetter) {
+    public <V, C extends Constraint<V, C>> ConstraintBuilder<M> constraint(SerializableFunction<M, V> fieldValueGetter, String fieldName, UnaryOperator<C> constraintOperator, Supplier<C> constraintGetter) {
         this.conditionValidationSchemaMap
                 .computeIfAbsent(defaultConstraintCondition, ignore -> Collections.newArrayList())
                 .add(new ValidationSchema<>(fieldName, fieldValueGetter, constraintOperator.apply(constraintGetter.get()).validationRules));
