@@ -114,7 +114,6 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.TOOL_VALIDATION_HIBERNATE))
         api(GradleDependency.withVersion(GradleDependency.TOOL_VALIDATION_JAKARTA))
         api(GradleDependency.withVersion(GradleDependency.TOOL_VALIDATION_JSON_SCHEMA))
-        api(GradleDependency.withVersion(GradleDependency.TOOL_VALIDATION_YAVI))
         api(GradleDependency.withVersion(GradleDependency.TOOL_VJTOOL))
         api(GradleDependency.withVersion(GradleDependency.TOOL_XML_DOM4J))
         api(GradleDependency.withVersion(GradleDependency.TOOL_XML_JAVAX_JAXB_API))

@@ -150,7 +150,6 @@ object GradleModule {
     const val TOOL_VALIDATION_JAKARTA = ":$ROOT_PROJECT_NAME-tool-validation-jakarta"
     const val TOOL_VALIDATION_JSON_SCHEMA = ":$ROOT_PROJECT_NAME-tool-validation-json-schema"
     const val TOOL_VALIDATION_SPRING = ":$ROOT_PROJECT_NAME-tool-validation-spring"
-    const val TOOL_VALIDATION_YAVI = ":$ROOT_PROJECT_NAME-tool-validation-yavi"
     const val TOOL_XML = ":$ROOT_PROJECT_NAME-tool-xml"
 
     const val TRANSACTION_SPRING = ":$ROOT_PROJECT_NAME-transaction-spring"
