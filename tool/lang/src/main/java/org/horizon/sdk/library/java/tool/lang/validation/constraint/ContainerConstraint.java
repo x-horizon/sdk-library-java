@@ -5,16 +5,60 @@ import org.horizon.sdk.library.java.tool.lang.validation.support.ValidationRule;
 import org.horizon.sdk.library.java.tool.lang.validation.violation.ViolationMessageType;
 
 /**
+ * abstract constraint class for validating empty/non-empty states of container-like structures.
+ *
+ * <p>extends {@link SizeConstraint} to add container-specific validation rules for emptiness checks.
+ * works with various container types including strings, collections, maps, and arrays.</p>
+ *
+ * <p>usage example:
+ * <pre>{@code
+ * public class ListConstraint extends ContainerConstraint<List<String>, Integer, ListConstraint> {
+ *
+ *     @Override
+ *     protected Integer getComparedFieldValue(List<String> list) {
+ *         return list != null ? list.size() : 0;
+ *     }
+ *
+ *     @Override
+ *     protected ListConstraint toThis() {
+ *         return this;
+ *     }
+ *
+ * }
+ *
+ * new ListConstraint().mustNotEmpty().mustSizeGreaterThan(0);
+ * }</pre></p>
+ *
+ * @param <V> the container type being validated (e.g., String, Collection)
+ * @param <S> the size number type (typically Integer)
+ * @param <C> concrete constraint type for method chaining
  * @author wjm
+ * @see SizeConstraint
  * @since 2025-04-21 17:26
  */
 public abstract class ContainerConstraint<V, S extends Number, C extends ContainerConstraint<V, S, C>> extends SizeConstraint<V, S, C> {
 
+    /**
+     * adds a rule requiring the container to be empty.
+     *
+     * <p>uses {@link Nil#isEmpty} for validation check and generates {@link ViolationMessageType#EMPTY} message when violated.</p>
+     *
+     * @return current constraint instance for chaining
+     * @see Nil#isEmpty(Object)
+     */
     public C mustEmpty() {
         this.validationRules.add(new ValidationRule<>(null, ViolationMessageType.EMPTY, Nil::isEmpty));
         return toThis();
     }
 
+    /**
+     * adds a rule requiring the container to be non-empty.
+     *
+     * <p>uses {@link Nil#isNotEmpty} for validation check and generates {@link ViolationMessageType#NOT_EMPTY} message when violated.</p>
+     *
+     * @return current constraint instance for chaining
+     * @see Nil#isNotEmpty(Object)
+     */
     public C mustNotEmpty() {
         this.validationRules.add(new ValidationRule<>(null, ViolationMessageType.NOT_EMPTY, Nil::isNotEmpty));
         return toThis();

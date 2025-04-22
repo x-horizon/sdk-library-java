@@ -18,14 +18,53 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
+ * core validation executor that checks model objects against configured constraints.
+ *
+ * <p>typical workflow:
+ * <ol>
+ *   <li>receive model object and validation groups</li>
+ *   <li>find matching validation schemas based on conditions</li>
+ *   <li>execute field validation rules sequentially</li>
+ *   <li>aggregate all violations</li>
+ * </ol>
+ *
+ * @param <M> type of the model being validated
  * @author wjm
  * @since 2025-04-18 15:36
  */
 @AllArgsConstructor
 public class Validator<M> {
 
+    /**
+     * condition-based validation configuration storage.
+     * <ul>
+     *   <li>key: condition determining when to apply the rules</li>
+     *   <li>value: validation rules for matching conditions</li>
+     * </ul>
+     */
     private Map<ConstraintConditionAdaptor<M>, List<ValidationSchema<M, ?>>> conditionValidationSchemaMap;
 
+    /**
+     * performs validation on the target model and returns violation results.
+     *
+     * <p>execution steps:
+     * <ol>
+     *   <li>filter conditions matching current model state</li>
+     *   <li>retrieve all associated validation schemas</li>
+     *   <li>for each schema:
+     *     <ul>
+     *       <li>skip if field value is null and rules permit skipping</li>
+     *       <li>execute all validation rules</li>
+     *       <li>collect failed validations</li>
+     *     </ul>
+     *   </li>
+     *   <li>format violation messages using {@link Strings#format}</li>
+     * </ol>
+     *
+     * @param model            target object to validate
+     * @param validationGroups active validation groups
+     * @return violator containing all violations
+     */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public Violator validate(M model, ValidationGroup... validationGroups) {
         return new Violator(this.conditionValidationSchemaMap.entrySet().stream()
