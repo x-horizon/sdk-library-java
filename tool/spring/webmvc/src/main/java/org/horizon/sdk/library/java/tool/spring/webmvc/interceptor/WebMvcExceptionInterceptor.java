@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.stream.Collectors;
 
 import static org.horizon.sdk.library.java.contract.model.protocol.WebResponse.error;
@@ -413,6 +414,18 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
         String message = exception.getBindingResult().getFieldErrors().stream().map(FieldError::getDefaultMessage).distinct().collect(Collectors.joining(", "));
         log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
         return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, message);
+    }
+
+    /**
+     * handle the exception when throw {@link UndeclaredThrowableException}
+     *
+     * @param httpServletRequest the http servlet request
+     * @param exception          the exception
+     * @return the web response
+     */
+    @ExceptionHandler(UndeclaredThrowableException.class)
+    public WebResponse<Void> whenUndeclaredThrowableException(HttpServletRequest httpServletRequest, UndeclaredThrowableException exception) {
+        return whenUndeclaredThrowableException(httpServletRequest.getRequestURI(), exception);
     }
 
     /**

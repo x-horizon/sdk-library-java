@@ -10,6 +10,8 @@ import org.horizon.sdk.library.java.contract.model.throwable.*;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
+import java.lang.reflect.UndeclaredThrowableException;
+
 import static org.horizon.sdk.library.java.contract.model.protocol.WebResponse.error;
 
 /**
@@ -23,6 +25,13 @@ import static org.horizon.sdk.library.java.contract.model.protocol.WebResponse.e
 public abstract class WebExceptionInterceptor {
 
     protected abstract String getModuleView();
+
+    protected WebResponse<Void> whenUndeclaredThrowableException(String uri, UndeclaredThrowableException exception) {
+        return switch (exception.getCause()) {
+            case UnrecognizedPropertyException unrecognizedPropertyException -> whenUnrecognizedPropertyException(uri, unrecognizedPropertyException);
+            default -> whenThrowable(uri, exception);
+        };
+    }
 
     protected WebResponse<Void> whenUnrecognizedPropertyException(String uri, UnrecognizedPropertyException exception) {
         String message = STR."\{PromptConstant.OPERATION_FAILED}：发现错误的字段名[\{exception.getPropertyName()}]，正确的字段名可能为[\{Strings.getMostSimilar(exception.getPropertyName(), exception.getKnownPropertyIds().stream().map(Object::toString).toList())}]，当前所有字段名：[\{Strings.joinWithCommaAndSpace(exception.getKnownPropertyIds())}]，请检查！";
