@@ -26,7 +26,7 @@ import java.util.Map;
 public class MapConstraint<V extends Map<MapKey, MapValue>, MapKey, MapValue> extends ContainerConstraint<V, Integer, MapConstraint<V, MapKey, MapValue>> {
 
     /**
-     * calculates the entry count of map for validation comparisons.
+     * calculates the entry count of a map for validation comparisons.
      *
      * <p>uses {@link Collections#getSize} to determine map size, supporting all {@link Map} implementations including those that don't provide constant-time size calculations.</p>
      *

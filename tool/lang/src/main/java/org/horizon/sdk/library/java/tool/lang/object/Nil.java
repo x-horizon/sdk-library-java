@@ -239,6 +239,16 @@ public class Nil {
     }
 
     /**
+     * see {@link CharSequenceUtil#isBlank(CharSequence)}
+     *
+     * @param input the checked element
+     * @return return true if the checked element is blank
+     */
+    public static boolean isBlank(Object input) {
+        return input instanceof CharSequence charSequence && isBlank(charSequence);
+    }
+
+    /**
      * return true if any checked element is null
      *
      * @param inputs the checked elements
@@ -757,13 +767,23 @@ public class Nil {
     }
 
     /**
-     * see {@link CharSequenceUtil#isNotBlank(CharSequence)}
+     * reverse {@link #isBlank(CharSequence)}
      *
      * @param input the checked element
      * @return return true if the checked element is not blank
      */
     public static boolean isNotBlank(CharSequence input) {
         return !isBlank(input);
+    }
+
+    /**
+     * reverse {@link #isBlank(Object)}
+     *
+     * @param input the checked element
+     * @return return true if the checked element is not blank
+     */
+    public static boolean isNotBlank(Object input) {
+        return input instanceof CharSequence charSequence && isNotBlank(charSequence);
     }
 
     /**

@@ -16,6 +16,7 @@ import org.springframework.web.reactive.resource.NoResourceFoundException;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.lang.reflect.UndeclaredThrowableException;
 import java.nio.charset.StandardCharsets;
 
 import static org.horizon.sdk.library.java.contract.model.protocol.WebResponse.error;
@@ -41,6 +42,7 @@ public class WebFluxExceptionInterceptor extends WebExceptionInterceptor impleme
         String requestUri = exchange.getRequest().getPath().toString();
         return exchange.getResponse().writeWith(Mono.just(exchange.getResponse().bufferFactory().wrap(Converts.onJackson().toString(switch (throwable) {
                     case NoResourceFoundException exception -> whenNoResourceFoundException(requestUri, exception);
+                    case UndeclaredThrowableException exception -> whenUndeclaredThrowableException(requestUri, exception);
                     case UnrecognizedPropertyException exception -> whenUnrecognizedPropertyException(requestUri, exception);
                     case InvalidIdException ignore -> whenInvalidIdException(requestUri);
                     case InvalidArgumentException exception -> whenInvalidArgumentException(requestUri, exception);

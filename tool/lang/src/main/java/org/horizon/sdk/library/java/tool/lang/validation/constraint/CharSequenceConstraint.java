@@ -2,6 +2,7 @@ package org.horizon.sdk.library.java.tool.lang.validation.constraint;
 
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.text.Patterns;
+import org.horizon.sdk.library.java.tool.lang.validation.support.SkipCheckType;
 import org.horizon.sdk.library.java.tool.lang.validation.support.ValidationRule;
 import org.horizon.sdk.library.java.tool.lang.validation.violation.ViolationMessageType;
 
@@ -26,6 +27,22 @@ import org.horizon.sdk.library.java.tool.lang.validation.violation.ViolationMess
  */
 public class CharSequenceConstraint extends ContainerConstraint<CharSequence, Integer, CharSequenceConstraint> {
 
+    /**
+     * adds a rule to skip validation when the field value is blank.
+     * <p>when this rule is added, later validation rules will not be checked if the validated value is blank.</p>
+     *
+     * <p>example:
+     * <pre>{@code
+     * constraint.skipBlank().mustEquals("1");
+     * }</pre></p>
+     *
+     * @return current constraint instance for method chaining
+     */
+    public CharSequenceConstraint skipBlank() {
+        this.validationRules.add(new ValidationRule<>(SkipCheckType.BLANK));
+        return toThis();
+    }
+    
     /**
      * requires the string to contain only whitespace (blank).
      *

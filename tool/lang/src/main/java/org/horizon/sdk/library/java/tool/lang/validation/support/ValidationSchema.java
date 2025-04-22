@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 
 /**
@@ -49,6 +50,11 @@ public class ValidationSchema<M, V> {
      *   <li>empty list means no validation applied</li>
      * </ul>
      */
-    private List<ValidationRule<V>> rules;
+    private List<ValidationRule<V>> validationRules;
+
+    /**
+     * flag indicating whether to skip validation.
+     */
+    private Set<SkipCheckType> skipCheckTypes;
 
 }

@@ -3,6 +3,7 @@ package org.horizon.sdk.library.java.tool.lang.validation.constraint;
 import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 import org.horizon.sdk.library.java.tool.lang.compare.Comparators;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
+import org.horizon.sdk.library.java.tool.lang.validation.support.SkipCheckType;
 import org.horizon.sdk.library.java.tool.lang.validation.support.ValidationRule;
 import org.horizon.sdk.library.java.tool.lang.validation.violation.ViolationMessageType;
 
@@ -50,7 +51,7 @@ public abstract class Constraint<V, C extends Constraint<V, C>> {
 
     /**
      * adds a rule to skip validation when the field value is {@code null}.
-     * <p>when this rule is added, subsequent validation rules will not be checked if the validated value is {@code null}.</p>
+     * <p>when this rule is added, later validation rules will not be checked if the validated value is {@code null}.</p>
      *
      * <p>example:
      * <pre>{@code
@@ -58,10 +59,9 @@ public abstract class Constraint<V, C extends Constraint<V, C>> {
      * }</pre></p>
      *
      * @return current constraint instance for method chaining
-     * @see ValidationRule#isNeedToSkipNull()
      */
     public C skipNull() {
-        this.validationRules.add(new ValidationRule<>(true));
+        this.validationRules.add(new ValidationRule<>(SkipCheckType.NULL));
         return toThis();
     }
 
