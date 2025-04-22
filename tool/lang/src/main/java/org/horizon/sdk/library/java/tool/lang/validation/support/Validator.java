@@ -6,12 +6,10 @@ import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
 import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
-import org.horizon.sdk.library.java.tool.lang.validation.constraint.ConstraintConditionAdaptor;
 import org.horizon.sdk.library.java.tool.lang.validation.violation.Violation;
 import org.horizon.sdk.library.java.tool.lang.validation.violation.Violator;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -35,14 +33,12 @@ import java.util.stream.Stream;
 @AllArgsConstructor
 public class Validator<M> {
 
-    /**
-     * condition-based validation configuration storage.
-     * <ul>
-     *   <li>key: condition determining when to apply the rules</li>
-     *   <li>value: validation rules for matching conditions</li>
-     * </ul>
-     */
-    private Map<ConstraintConditionAdaptor<M>, List<ValidationSchema<M, ?>>> conditionValidationSchemaMap;
+    private ValidatorBuilder<M> validatorBuilder;
+
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public <T> ValidatorBuilder<T> toBuilder() {
+        return (ValidatorBuilder<T>) this.validatorBuilder;
+    }
 
     /**
      * performs validation on the target model and returns violation results.
@@ -67,7 +63,7 @@ public class Validator<M> {
      */
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public Violator validate(M model, ValidationGroup... validationGroups) {
-        return new Violator(this.conditionValidationSchemaMap.entrySet().stream()
+        return new Violator(this.validatorBuilder.conditionValidationSchemaMap.entrySet().stream()
                 .filter(entry -> entry.getKey().test(model, validationGroups))
                 .map(Map.Entry::getValue)
                 .flatMap(Collection::stream)

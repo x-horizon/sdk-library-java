@@ -58,7 +58,7 @@ public abstract class Constraint<V, C extends Constraint<V, C>> {
      * }</pre></p>
      *
      * @return current constraint instance for method chaining
-     * @see ValidationRule#needToSkipNull
+     * @see ValidationRule#isNeedToSkipNull()
      */
     public C skipNull() {
         this.validationRules.add(new ValidationRule<>(true));
