@@ -24,6 +24,7 @@ import org.horizon.sdk.library.java.orm.mybatis.flex.base.chain.UpdateChainer;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.support.MybatisFlexs;
 import org.horizon.sdk.library.java.tool.lang.collection.Collections;
+import org.horizon.sdk.library.java.tool.lang.compare.Comparators;
 import org.horizon.sdk.library.java.tool.lang.convert.Converts;
 import org.horizon.sdk.library.java.tool.lang.functional.Action;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
@@ -658,6 +659,36 @@ public interface GenericRepository<P extends PO> {
     default DeleteChainer<P> openDelete() {
         BaseMapper<P> baseMapper = getBaseMapper();
         return new DeleteChainer<>(UpdateChain.of(baseMapper));
+    }
+
+    default <U> boolean isUniqueOnSave(ColumnNameGetter<P> requireUniqueColumnNameGetter, U requireUniqueColumnValue) {
+        return Nil.isNull(requireUniqueColumnValue) || Nil.isZeroValue(openQuery()
+                .where(requireUniqueColumnNameGetter).equalsTo(requireUniqueColumnValue)
+                .count()
+        );
+    }
+
+    default <U, C> boolean isUniqueOnSave(ColumnNameGetter<P> requireUniqueColumnNameGetter, U requireUniqueColumnValue, ColumnNameGetter<P> conditionScopeColumnNameGetter, C conditionScopeColumnValue) {
+        return Nil.isNull(requireUniqueColumnValue) || Nil.isZeroValue(openQuery()
+                .where(requireUniqueColumnNameGetter).equalsTo(requireUniqueColumnValue)
+                .and(conditionScopeColumnNameGetter).equalsTo(conditionScopeColumnValue)
+                .count()
+        );
+    }
+
+    default <U> boolean isUniqueOnUpdate(Serializable id, ColumnNameGetter<P> requireUniqueColumnNameGetter, U requireUniqueColumnValue) {
+        return Nil.isNull(requireUniqueColumnValue) || getByField(requireUniqueColumnNameGetter, requireUniqueColumnValue)
+                .map(po -> Comparators.equals(MybatisFlexs.getPrimaryKeyValue(po), id))
+                .orElse(true);
+    }
+
+    default <U, C> boolean isUniqueOnUpdate(Serializable id, ColumnNameGetter<P> requireUniqueColumnNameGetter, U requireUniqueColumnValue, ColumnNameGetter<P> conditionScopeColumnNameGetter, C conditionScopeColumnValue) {
+        return Nil.isNull(requireUniqueColumnValue) || openQuery()
+                .where(requireUniqueColumnNameGetter).equalsTo(requireUniqueColumnValue)
+                .and(conditionScopeColumnNameGetter).equalsTo(conditionScopeColumnValue)
+                .get()
+                .map(po -> Comparators.equals(MybatisFlexs.getPrimaryKeyValue(po), id))
+                .orElse(true);
     }
 
     default BaseMapper<P> getBaseMapper() {

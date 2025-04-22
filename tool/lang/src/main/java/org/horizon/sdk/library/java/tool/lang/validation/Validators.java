@@ -2,7 +2,7 @@ package org.horizon.sdk.library.java.tool.lang.validation;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.horizon.sdk.library.java.tool.lang.validation.constraint.ConstraintBuilder;
+import org.horizon.sdk.library.java.tool.lang.validation.support.ValidatorBuilder;
 
 /**
  * tool kit for validation
@@ -37,8 +37,8 @@ public class Validators {
      * @param <M> type of the model to validate
      * @return new constraint builder instance
      */
-    public static <M> ConstraintBuilder<M> builder() {
-        return new ConstraintBuilder<>();
+    public static <M> ValidatorBuilder<M> builder() {
+        return new ValidatorBuilder<>();
     }
 
 }

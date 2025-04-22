@@ -1,11 +1,10 @@
-package org.horizon.sdk.library.java.tool.lang.validation.constraint;
+package org.horizon.sdk.library.java.tool.lang.validation.support;
 
+import org.horizon.sdk.library.java.contract.model.base.POJO;
 import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 import org.horizon.sdk.library.java.tool.lang.functional.SerializableFunction;
 import org.horizon.sdk.library.java.tool.lang.reflect.Reflects;
-import org.horizon.sdk.library.java.tool.lang.validation.support.ValidationGroup;
-import org.horizon.sdk.library.java.tool.lang.validation.support.ValidationSchema;
-import org.horizon.sdk.library.java.tool.lang.validation.support.Validator;
+import org.horizon.sdk.library.java.tool.lang.validation.constraint.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -43,7 +42,7 @@ import java.util.function.UnaryOperator;
  * @see Constraint
  * @since 2025-04-18 15:37
  */
-public class ConstraintBuilder<M> {
+public class ValidatorBuilder<M> {
 
     /**
      * map storing validation schemas organized by condition adaptors.
@@ -52,12 +51,14 @@ public class ConstraintBuilder<M> {
      *   <li>value: list of validation schemas for the condition</li>
      * </ul>
      */
-    private final Map<ConstraintConditionAdaptor<M>, List<ValidationSchema<M, ?>>> conditionValidationSchemaMap = Collections.newLinkedHashMap();
+    final Map<ConstraintConditionAdaptor<M>, List<ValidationSchema<M, ?>>> conditionValidationSchemaMap = Collections.newLinkedHashMap();
 
     /**
      * default condition that always applies (no specific condition)
      */
     private final ConstraintConditionAdaptor<M> defaultConstraintCondition = (ignore1, ignore2) -> true;
+
+    private static final String VALIDATION_RULE_FIELD_NAME = "validationRules";
 
     /**
      * adds byte type validation rules using reflection-based field name resolution.
@@ -72,7 +73,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see ByteConstraint
      */
-    public ConstraintBuilder<M> constraint(ByteFunction<M> fieldValueGetter, UnaryOperator<ByteConstraint> constraintOperator) {
+    public ValidatorBuilder<M> constraint(ByteFunction<M> fieldValueGetter, UnaryOperator<ByteConstraint> constraintOperator) {
         return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
@@ -89,7 +90,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see ShortConstraint
      */
-    public ConstraintBuilder<M> constraint(ShortFunction<M> fieldValueGetter, UnaryOperator<ShortConstraint> constraintOperator) {
+    public ValidatorBuilder<M> constraint(ShortFunction<M> fieldValueGetter, UnaryOperator<ShortConstraint> constraintOperator) {
         return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
@@ -106,7 +107,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see IntegerConstraint
      */
-    public ConstraintBuilder<M> constraint(IntegerFunction<M> fieldValueGetter, UnaryOperator<IntegerConstraint> constraintOperator) {
+    public ValidatorBuilder<M> constraint(IntegerFunction<M> fieldValueGetter, UnaryOperator<IntegerConstraint> constraintOperator) {
         return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
@@ -123,7 +124,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see LongConstraint
      */
-    public ConstraintBuilder<M> constraint(LongFunction<M> fieldValueGetter, UnaryOperator<LongConstraint> constraintOperator) {
+    public ValidatorBuilder<M> constraint(LongFunction<M> fieldValueGetter, UnaryOperator<LongConstraint> constraintOperator) {
         return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
@@ -140,7 +141,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see FloatConstraint
      */
-    public ConstraintBuilder<M> constraint(FloatFunction<M> fieldValueGetter, UnaryOperator<FloatConstraint> constraintOperator) {
+    public ValidatorBuilder<M> constraint(FloatFunction<M> fieldValueGetter, UnaryOperator<FloatConstraint> constraintOperator) {
         return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
@@ -157,7 +158,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see DoubleConstraint
      */
-    public ConstraintBuilder<M> constraint(DoubleFunction<M> fieldValueGetter, UnaryOperator<DoubleConstraint> constraintOperator) {
+    public ValidatorBuilder<M> constraint(DoubleFunction<M> fieldValueGetter, UnaryOperator<DoubleConstraint> constraintOperator) {
         return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
@@ -174,7 +175,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see BigDecimalConstraint
      */
-    public ConstraintBuilder<M> constraint(BigDecimalFunction<M> fieldValueGetter, UnaryOperator<BigDecimalConstraint> constraintOperator) {
+    public ValidatorBuilder<M> constraint(BigDecimalFunction<M> fieldValueGetter, UnaryOperator<BigDecimalConstraint> constraintOperator) {
         return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
@@ -191,7 +192,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see CharSequenceConstraint
      */
-    public ConstraintBuilder<M> constraint(CharSequenceFunction<M> fieldValueGetter, UnaryOperator<CharSequenceConstraint> constraintOperator) {
+    public ValidatorBuilder<M> constraint(CharSequenceFunction<M> fieldValueGetter, UnaryOperator<CharSequenceConstraint> constraintOperator) {
         return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
@@ -208,7 +209,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see EnumConstraint
      */
-    public <V extends Enum<V>> ConstraintBuilder<M> constraint(EnumFunction<M, V> fieldValueGetter, UnaryOperator<EnumConstraint<V>> constraintOperator) {
+    public <V extends Enum<V>> ValidatorBuilder<M> constraint(EnumFunction<M, V> fieldValueGetter, UnaryOperator<EnumConstraint<V>> constraintOperator) {
         return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
@@ -225,7 +226,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see IterableConstraint
      */
-    public <V extends Iterable<E>, E> ConstraintBuilder<M> constraint(IterableFunction<M, V, E> fieldValueGetter, UnaryOperator<IterableConstraint<V, E>> constraintOperator) {
+    public <V extends Iterable<E>, E> ValidatorBuilder<M> constraint(IterableFunction<M, V, E> fieldValueGetter, UnaryOperator<IterableConstraint<V, E>> constraintOperator) {
         return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
@@ -242,7 +243,24 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see MapConstraint
      */
-    public <V extends Map<MapKey, MapValue>, MapKey, MapValue> ConstraintBuilder<M> constraint(MapFunction<M, V, MapKey, MapValue> fieldValueGetter, UnaryOperator<MapConstraint<V, MapKey, MapValue>> constraintOperator) {
+    public <V extends Map<MapKey, MapValue>, MapKey, MapValue> ValidatorBuilder<M> constraint(MapFunction<M, V, MapKey, MapValue> fieldValueGetter, UnaryOperator<MapConstraint<V, MapKey, MapValue>> constraintOperator) {
+        return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
+    }
+
+    /**
+     * adds pojo type validation rules using reflection-based field name resolution.
+     *
+     * <p>example:
+     * <pre>{@code
+     * .constraint(UserVO::getAccountVO, "accountInfo", constraint -> constraint.mustNotNull())
+     * }</pre>
+     *
+     * @param fieldValueGetter   function to access the field value
+     * @param constraintOperator constraint configuration lambda
+     * @return current builder instance for chaining
+     * @see PojoConstraint
+     */
+    public <V extends POJO> ValidatorBuilder<M> constraint(PojoFunction<M, V> fieldValueGetter, UnaryOperator<PojoConstraint<V>> constraintOperator) {
         return this.constraint(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
     }
 
@@ -260,7 +278,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see ByteConstraint
      */
-    public ConstraintBuilder<M> constraint(ByteFunction<M> fieldValueGetter, String fieldName, UnaryOperator<ByteConstraint> constraintOperator) {
+    public ValidatorBuilder<M> constraint(ByteFunction<M> fieldValueGetter, String fieldName, UnaryOperator<ByteConstraint> constraintOperator) {
         return this.constraint(fieldValueGetter, fieldName, constraintOperator, ByteConstraint::new);
     }
 
@@ -278,7 +296,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see ShortConstraint
      */
-    public ConstraintBuilder<M> constraint(ShortFunction<M> fieldValueGetter, String fieldName, UnaryOperator<ShortConstraint> constraintOperator) {
+    public ValidatorBuilder<M> constraint(ShortFunction<M> fieldValueGetter, String fieldName, UnaryOperator<ShortConstraint> constraintOperator) {
         return this.constraint(fieldValueGetter, fieldName, constraintOperator, ShortConstraint::new);
     }
 
@@ -296,7 +314,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see IntegerConstraint
      */
-    public ConstraintBuilder<M> constraint(IntegerFunction<M> fieldValueGetter, String fieldName, UnaryOperator<IntegerConstraint> constraintOperator) {
+    public ValidatorBuilder<M> constraint(IntegerFunction<M> fieldValueGetter, String fieldName, UnaryOperator<IntegerConstraint> constraintOperator) {
         return this.constraint(fieldValueGetter, fieldName, constraintOperator, IntegerConstraint::new);
     }
 
@@ -314,7 +332,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see LongConstraint
      */
-    public ConstraintBuilder<M> constraint(LongFunction<M> fieldValueGetter, String fieldName, UnaryOperator<LongConstraint> constraintOperator) {
+    public ValidatorBuilder<M> constraint(LongFunction<M> fieldValueGetter, String fieldName, UnaryOperator<LongConstraint> constraintOperator) {
         return this.constraint(fieldValueGetter, fieldName, constraintOperator, LongConstraint::new);
     }
 
@@ -332,7 +350,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see FloatConstraint
      */
-    public ConstraintBuilder<M> constraint(FloatFunction<M> fieldValueGetter, String fieldName, UnaryOperator<FloatConstraint> constraintOperator) {
+    public ValidatorBuilder<M> constraint(FloatFunction<M> fieldValueGetter, String fieldName, UnaryOperator<FloatConstraint> constraintOperator) {
         return this.constraint(fieldValueGetter, fieldName, constraintOperator, FloatConstraint::new);
     }
 
@@ -350,7 +368,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see DoubleConstraint
      */
-    public ConstraintBuilder<M> constraint(DoubleFunction<M> fieldValueGetter, String fieldName, UnaryOperator<DoubleConstraint> constraintOperator) {
+    public ValidatorBuilder<M> constraint(DoubleFunction<M> fieldValueGetter, String fieldName, UnaryOperator<DoubleConstraint> constraintOperator) {
         return this.constraint(fieldValueGetter, fieldName, constraintOperator, DoubleConstraint::new);
     }
 
@@ -368,7 +386,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see BigDecimalConstraint
      */
-    public ConstraintBuilder<M> constraint(BigDecimalFunction<M> fieldValueGetter, String fieldName, UnaryOperator<BigDecimalConstraint> constraintOperator) {
+    public ValidatorBuilder<M> constraint(BigDecimalFunction<M> fieldValueGetter, String fieldName, UnaryOperator<BigDecimalConstraint> constraintOperator) {
         return this.constraint(fieldValueGetter, fieldName, constraintOperator, BigDecimalConstraint::new);
     }
 
@@ -386,7 +404,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see CharSequenceConstraint
      */
-    public ConstraintBuilder<M> constraint(CharSequenceFunction<M> fieldValueGetter, String fieldName, UnaryOperator<CharSequenceConstraint> constraintOperator) {
+    public ValidatorBuilder<M> constraint(CharSequenceFunction<M> fieldValueGetter, String fieldName, UnaryOperator<CharSequenceConstraint> constraintOperator) {
         return this.constraint(fieldValueGetter, fieldName, constraintOperator, CharSequenceConstraint::new);
     }
 
@@ -404,7 +422,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see EnumConstraint
      */
-    public <V extends Enum<V>> ConstraintBuilder<M> constraint(EnumFunction<M, V> fieldValueGetter, String fieldName, UnaryOperator<EnumConstraint<V>> constraintOperator) {
+    public <V extends Enum<V>> ValidatorBuilder<M> constraint(EnumFunction<M, V> fieldValueGetter, String fieldName, UnaryOperator<EnumConstraint<V>> constraintOperator) {
         return this.constraint(fieldValueGetter, fieldName, constraintOperator, EnumConstraint::new);
     }
 
@@ -422,7 +440,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see IterableConstraint
      */
-    public <V extends Iterable<E>, E> ConstraintBuilder<M> constraint(IterableFunction<M, V, E> fieldValueGetter, String fieldName, UnaryOperator<IterableConstraint<V, E>> constraintOperator) {
+    public <V extends Iterable<E>, E> ValidatorBuilder<M> constraint(IterableFunction<M, V, E> fieldValueGetter, String fieldName, UnaryOperator<IterableConstraint<V, E>> constraintOperator) {
         return this.constraint(fieldValueGetter, fieldName, constraintOperator, IterableConstraint::new);
     }
 
@@ -440,8 +458,26 @@ public class ConstraintBuilder<M> {
      * @return current builder instance for chaining
      * @see MapConstraint
      */
-    public <V extends Map<MapKey, MapValue>, MapKey, MapValue> ConstraintBuilder<M> constraint(MapFunction<M, V, MapKey, MapValue> fieldValueGetter, String fieldName, UnaryOperator<MapConstraint<V, MapKey, MapValue>> constraintOperator) {
+    public <V extends Map<MapKey, MapValue>, MapKey, MapValue> ValidatorBuilder<M> constraint(MapFunction<M, V, MapKey, MapValue> fieldValueGetter, String fieldName, UnaryOperator<MapConstraint<V, MapKey, MapValue>> constraintOperator) {
         return this.constraint(fieldValueGetter, fieldName, constraintOperator, MapConstraint::new);
+    }
+
+    /**
+     * adds pojo type validation rules with explicit field name specification.
+     *
+     * <p>example:
+     * <pre>{@code
+     * .constraint(UserVO::getAccountVO, "accountInfo", constraint -> constraint.mustNotNull())
+     * }</pre>
+     *
+     * @param fieldValueGetter   function to access the field value
+     * @param fieldName          display name for a validation message
+     * @param constraintOperator constraint configuration lambda
+     * @return current builder instance for chaining
+     * @see PojoConstraint
+     */
+    public <V extends POJO> ValidatorBuilder<M> constraint(PojoFunction<M, V> fieldValueGetter, String fieldName, UnaryOperator<PojoConstraint<V>> constraintOperator) {
+        return this.constraint(fieldValueGetter, fieldName, constraintOperator, PojoConstraint::new);
     }
 
     /**
@@ -455,15 +491,15 @@ public class ConstraintBuilder<M> {
      * </ul>
      *
      * @param fieldValueGetter   function to access the field value
-     * @param fieldName          human-readable field name for error messages
-     * @param constraintOperator lambda to configure constraints
+     * @param fieldName          display name for a validation message
+     * @param constraintOperator constraint configuration lambda
      * @param constraintGetter   supplier for constraint instance
      * @return current builder instance
      */
-    private <V, C extends Constraint<V, C>> ConstraintBuilder<M> constraint(SerializableFunction<M, V> fieldValueGetter, String fieldName, UnaryOperator<C> constraintOperator, Supplier<C> constraintGetter) {
+    private <V, C extends Constraint<V, C>> ValidatorBuilder<M> constraint(SerializableFunction<M, V> fieldValueGetter, String fieldName, UnaryOperator<C> constraintOperator, Supplier<C> constraintGetter) {
         this.conditionValidationSchemaMap
                 .computeIfAbsent(defaultConstraintCondition, ignore -> Collections.newArrayList())
-                .add(new ValidationSchema<>(fieldName, fieldValueGetter, constraintOperator.apply(constraintGetter.get()).validationRules));
+                .add(new ValidationSchema<>(fieldName, fieldValueGetter, Reflects.getFieldValue(constraintOperator.apply(constraintGetter.get()), VALIDATION_RULE_FIELD_NAME)));
         return this;
     }
 
@@ -481,7 +517,7 @@ public class ConstraintBuilder<M> {
      * @return current builder instance
      * @see ValidationGroup
      */
-    public ConstraintBuilder<M> constraintOnGroup(ValidationGroup validationGroup, Consumer<ConstraintBuilder<M>> validatorBuilderOperator) {
+    public ValidatorBuilder<M> constraintOnGroup(ValidationGroup validationGroup, Consumer<ValidatorBuilder<M>> validatorBuilderOperator) {
         return constraintOnConditionAdaptor(validatorBuilderOperator, (ignore, validationGroups) -> Collections.contains(validationGroups, validationGroup));
     }
 
@@ -498,7 +534,7 @@ public class ConstraintBuilder<M> {
      * @param validatorBuilderOperator constraint configuration for the condition
      * @return current builder instance
      */
-    public ConstraintBuilder<M> constraintOnCondition(ConstraintCondition<M> constraintCondition, Consumer<ConstraintBuilder<M>> validatorBuilderOperator) {
+    public ValidatorBuilder<M> constraintOnCondition(ConstraintCondition<M> constraintCondition, Consumer<ValidatorBuilder<M>> validatorBuilderOperator) {
         return constraintOnConditionAdaptor(validatorBuilderOperator, constraintCondition.toAdaptor());
     }
 
@@ -511,12 +547,12 @@ public class ConstraintBuilder<M> {
      * @see #constraintOnGroup(ValidationGroup, Consumer)
      * @see #constraintOnCondition(ConstraintCondition, Consumer)
      */
-    private ConstraintBuilder<M> constraintOnConditionAdaptor(Consumer<ConstraintBuilder<M>> validatorBuilderOperator, ConstraintConditionAdaptor<M> constraintConditionAdaptor) {
-        ConstraintBuilder<M> constraintBuilder = new ConstraintBuilder<>();
-        validatorBuilderOperator.accept(constraintBuilder);
+    private ValidatorBuilder<M> constraintOnConditionAdaptor(Consumer<ValidatorBuilder<M>> validatorBuilderOperator, ConstraintConditionAdaptor<M> constraintConditionAdaptor) {
+        ValidatorBuilder<M> validatorBuilder = new ValidatorBuilder<>();
+        validatorBuilderOperator.accept(validatorBuilder);
         this.conditionValidationSchemaMap
                 .computeIfAbsent(constraintConditionAdaptor, ignore -> Collections.newArrayList())
-                .addAll(constraintBuilder.conditionValidationSchemaMap.getOrDefault(defaultConstraintCondition, Collections.newArrayList()));
+                .addAll(validatorBuilder.conditionValidationSchemaMap.getOrDefault(defaultConstraintCondition, Collections.newArrayList()));
         return this;
     }
 
@@ -534,7 +570,7 @@ public class ConstraintBuilder<M> {
      * @see Validator
      */
     public Validator<M> build() {
-        return new Validator<>(this.conditionValidationSchemaMap);
+        return new Validator<>(this);
     }
 
     public interface ByteFunction<M> extends SerializableFunction<M, Byte> {
@@ -578,6 +614,10 @@ public class ConstraintBuilder<M> {
     }
 
     public interface MapFunction<M, V extends Map<MapKey, MapValue>, MapKey, MapValue> extends SerializableFunction<M, V> {
+
+    }
+
+    public interface PojoFunction<M, V extends POJO> extends SerializableFunction<M, V> {
 
     }
 
