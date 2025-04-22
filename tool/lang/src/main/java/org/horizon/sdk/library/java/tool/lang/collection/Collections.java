@@ -208,6 +208,29 @@ public class Collections {
     }
 
     /**
+     * create a {@link CollectionConstant#CAPACITY_DEFAULT_INITIALIZE_MAP default capacity} linked hash map
+     *
+     * @param <K> the key type of map
+     * @param <V> the value type of map
+     * @return a {@link CollectionConstant#CAPACITY_DEFAULT_INITIALIZE_MAP default capacity} linked hash map
+     */
+    public static <K, V> Map<K, V> newLinkedHashMap() {
+        return newLinkedHashMap(CollectionConstant.CAPACITY_DEFAULT_INITIALIZE_MAP);
+    }
+
+    /**
+     * create a specified init capacity linked hash map
+     *
+     * @param initCapacity the specified capacity
+     * @param <K>          the key type of map
+     * @param <V>          the value type of map
+     * @return a specified init capacity linked hash map
+     */
+    public static <K, V> Map<K, V> newLinkedHashMap(int initCapacity) {
+        return LinkedHashMap.newLinkedHashMap(initCapacity);
+    }
+
+    /**
      * create a {@link CollectionConstant#CAPACITY_DEFAULT_INITIALIZE_MAP default capacity} concurrent hash map
      *
      * @param <K> the key type of map
@@ -910,8 +933,8 @@ public class Collections {
     /**
      * see {@link ArrayUtil#contains(Object[], Object)}
      *
-     * @param input           the checked element
-     * @param searchedElement the searched elements
+     * @param input           the checked elements
+     * @param searchedElement the searched element
      * @param <T>             the element type
      * @return return true if the checked element contains the searched element
      */
@@ -922,8 +945,8 @@ public class Collections {
     /**
      * see {@link CollUtil#contains(Collection, Object)}
      *
-     * @param input           the checked element
-     * @param searchedElement the searched elements
+     * @param input           the checked elements
+     * @param searchedElement the searched element
      * @param <T>             the element type
      * @return return true if the checked element contains the searched element
      */
@@ -934,8 +957,8 @@ public class Collections {
     /**
      * return true if the checked element contains the searched element
      *
-     * @param input           the checked element
-     * @param searchedElement the searched elements
+     * @param input           the checked elements
+     * @param searchedElement the searched element
      * @param <T>             the element type
      * @return return true if the checked element contains the searched element
      */
@@ -949,12 +972,101 @@ public class Collections {
     /**
      * see {@link CollUtil#safeContains(Collection, Object)}
      *
-     * @param input           the checked element
-     * @param searchedElement the searched elements
+     * @param input           the checked elements
+     * @param searchedElement the searched element
      * @return return true if the checked element contains the searched element and return false if not contains or occur throwable
      */
     public static boolean containsIgnoreThrowable(Collection<?> input, Object searchedElement) {
         return CollUtil.safeContains(input, searchedElement);
+    }
+
+    /**
+     * return true if the checked element contains any of searched elements
+     *
+     * @param input            the checked elements
+     * @param searchedElements the searched elements
+     * @param <T>              the element type
+     * @return return true if the checked element contains any of searched elements
+     */
+    public static <T> boolean containsAny(Iterable<T> input, T... searchedElements) {
+        return containsAny(input, ofImmutableList(searchedElements));
+    }
+
+    /**
+     * return true if the checked element contains any of searched elements
+     *
+     * @param input            the checked elements
+     * @param searchedElements the searched elements
+     * @param <T>              the element type
+     * @return return true if the checked element contains any of searched elements
+     */
+    public static <T> boolean containsAny(Collection<T> input, Collection<T> searchedElements) {
+        return CollUtil.containsAny(input, searchedElements);
+    }
+
+    /**
+     * return true if the checked element contains any of searched elements
+     *
+     * @param input            the checked elements
+     * @param searchedElements the searched elements
+     * @param <T>              the element type
+     * @return return true if the checked element contains any of searched elements
+     */
+    public static <T> boolean containsAny(Iterable<T> input, Iterable<T> searchedElements) {
+        if (input instanceof Collection<T> collectionInput && searchedElements instanceof Collection<T> collectionSearchedElements) {
+            return containsAny(collectionInput, collectionSearchedElements);
+        }
+        if (Nil.isEmpty(input) || Nil.isEmpty(searchedElements)) {
+            return false;
+        }
+        Set<T> setSearchedElements = ofUnknownSizeStream(searchedElements).collect(Collectors.toSet());
+        return ofUnknownSizeStream(input).anyMatch(setSearchedElements::contains);
+    }
+
+    /**
+     * return true if the checked element contains all of searched elements
+     *
+     * @param input            the checked elements
+     * @param searchedElements the searched elements
+     * @param <T>              the element type
+     * @return return true if the checked element contains all of searched elements
+     */
+    public static <T> boolean containsAll(Iterable<T> input, T... searchedElements) {
+        return containsAll(input, ofImmutableList(searchedElements));
+    }
+
+    /**
+     * return true if the checked element contains all of searched elements
+     *
+     * @param input            the checked elements
+     * @param searchedElements the searched elements
+     * @param <T>              the element type
+     * @return return true if the checked element contains all of searched elements
+     */
+    public static <T> boolean containsAll(Collection<T> input, Collection<T> searchedElements) {
+        return CollUtil.containsAll(input, searchedElements);
+    }
+
+    /**
+     * return true if the checked element contains all of searched elements
+     *
+     * @param input            the checked elements
+     * @param searchedElements the searched elements
+     * @param <T>              the element type
+     * @return return true if the checked element contains all of searched elements
+     */
+    public static <T> boolean containsAll(Iterable<T> input, Iterable<T> searchedElements) {
+        if (input instanceof Collection<T> collectionInput && searchedElements instanceof Collection<T> collectionSearchedElements) {
+            return containsAll(collectionInput, collectionSearchedElements);
+        }
+        if (Nil.isEmpty(input)) {
+            return Nil.isEmpty(searchedElements);
+        }
+        if (Nil.isEmpty(searchedElements)) {
+            return true;
+        }
+        Set<T> setInput = ofUnknownSizeStream(input).collect(Collectors.toSet());
+        return ofUnknownSizeStream(searchedElements).allMatch(setInput::contains);
     }
 
     /**
@@ -978,6 +1090,54 @@ public class Collections {
      */
     public static <T> boolean notContains(Collection<T> input, T searchedElement) {
         return !contains(input, searchedElement);
+    }
+
+    /**
+     * reverse {@link #containsAny(Iterable, Iterable)}
+     *
+     * @param input            the checked elements
+     * @param searchedElements the searched elements
+     * @param <T>              the element type
+     * @return return true if the checked element not contains all of searched elements
+     */
+    public static <T> boolean notContainsAny(Iterable<T> input, T... searchedElements) {
+        return !containsAny(input, searchedElements);
+    }
+
+    /**
+     * reverse {@link #containsAny(Iterable, Iterable)}
+     *
+     * @param input            the checked elements
+     * @param searchedElements the searched elements
+     * @param <T>              the element type
+     * @return return true if the checked element not contains all of searched elements
+     */
+    public static <T> boolean notContainsAny(Iterable<T> input, Iterable<T> searchedElements) {
+        return !containsAny(input, searchedElements);
+    }
+
+    /**
+     * reverse {@link #containsAll(Iterable, Iterable)}
+     *
+     * @param input            the checked elements
+     * @param searchedElements the searched elements
+     * @param <T>              the element type
+     * @return return true if the checked element not contains any of searched elements
+     */
+    public static <T> boolean notContainsAll(Iterable<T> input, T... searchedElements) {
+        return !containsAll(input, searchedElements);
+    }
+
+    /**
+     * reverse {@link #containsAll(Iterable, Iterable)}
+     *
+     * @param input            the checked elements
+     * @param searchedElements the searched elements
+     * @param <T>              the element type
+     * @return return true if the checked element not contains any of searched elements
+     */
+    public static <T> boolean notContainsAll(Iterable<T> input, Iterable<T> searchedElements) {
+        return !containsAll(input, searchedElements);
     }
 
     /**
@@ -1170,6 +1330,14 @@ public class Collections {
         return (T) CollUtil.addAll(inputs, appendElements);
     }
 
+    public static <T> List<T> addFirst(List<T> inputs, T firstElement) {
+        if (Nil.isNull(inputs)) {
+            return ofArrayList(firstElement);
+        }
+        inputs.addFirst(firstElement);
+        return inputs;
+    }
+
     /**
      * return the specified map after add node
      *
@@ -1302,6 +1470,16 @@ public class Collections {
      */
     public static int getSize(Iterator<?> input) {
         return IterUtil.size(input);
+    }
+
+    /**
+     * return the input element size
+     *
+     * @param input the input element
+     * @return the size of input element
+     */
+    public static <K, V> int getSize(Map<K, V> input) {
+        return Nil.isNull(input) ? CollectionConstant.LENGTH_ZERO : input.size();
     }
 
     /**
@@ -1828,7 +2006,7 @@ public class Collections {
     }
 
     /**
-     * the same as {@link Converts#toMultiMap(Iterable, Function)}
+     * the same as {@link Converts#toMultiHashMap(Iterable, Function)}
      *
      * @param inputs       the input elements
      * @param getKeyAction the specified field to be map key in collection element
@@ -1837,7 +2015,7 @@ public class Collections {
      * @return after group by
      */
     public static <K, V> Map<K, List<V>> groupBy(Iterable<V> inputs, Function<V, K> getKeyAction) {
-        return Converts.toMultiMap(inputs, getKeyAction);
+        return Converts.toMultiHashMap(inputs, getKeyAction);
     }
 
     /**

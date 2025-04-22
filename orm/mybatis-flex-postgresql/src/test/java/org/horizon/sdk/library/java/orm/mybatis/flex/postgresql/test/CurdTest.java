@@ -184,7 +184,7 @@ class CurdTest {
         // INSERT INTO "people"("id", "home_id", "name1", "name2", "name3", "name4", "name5", "name6", "name7", "version", "creator_id", "updater_id", "create_time", "update_time")
         // VALUES (536748152579013, 536748152271813, 'people5', 'people5', 'people5', 'people5', 'people5', 'people5', 'people5', 0, 1, 1, '2024-04-15 18:53:51', '2024-04-15 18:53:51');
         List<HomePO> homePOs = homeRepository.listAll();
-        Map<String, Long> homeNameMappingHomeIdMap = Converts.toMap(homePOs, HomePO::getName, HomePO::getId);
+        Map<String, Long> homeNameMappingHomeIdMap = Converts.toHashMap(homePOs, HomePO::getName, HomePO::getId);
         peopleRepository.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_1)).build().setAllName(PEOPLE_NAME_1));
         peopleRepository.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_2)).build().setAllName(PEOPLE_NAME_2));
         peopleRepository.save(PeoplePO.builder().homeId(homeNameMappingHomeIdMap.get(HOME_NAME_3)).build().setAllName(PEOPLE_NAME_3));
@@ -381,7 +381,7 @@ class CurdTest {
     @Test
     void testDelete() {
         List<HomePO> homePOs = homeRepository.listAll();
-        List<Long> homeIds = Converts.toList(homePOs, HomePO::getId);
+        List<Long> homeIds = Converts.toArrayList(homePOs, HomePO::getId);
         if (Nil.isNotEmpty(homeIds)) {
             Long theFirstHomeId = Collections.getFirst(homeIds).orElseThrow();
             // UPDATE "home"
@@ -448,7 +448,7 @@ class CurdTest {
         }
 
         List<PeoplePO> peoplePOs = peopleRepository.listAll();
-        List<Long> peopleIds = Converts.toList(peoplePOs, PeoplePO::getId);
+        List<Long> peopleIds = Converts.toArrayList(peoplePOs, PeoplePO::getId);
         if (Nil.isNotEmpty(peopleIds)) {
             Long theFirstPeopleId = Collections.getFirst(peopleIds).orElseThrow();
             // UPDATE "people"

@@ -14,6 +14,7 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
 import org.horizon.sdk.library.java.orm.contract.mybatis.flex.model.bo.BaseWithVersionBO;
+import org.horizon.sdk.library.java.pluggable.annotation.api.processor.field.metadata.FieldMetadata;
 import org.horizon.sdk.library.java.studio.low.code.model.enums.SchoolType;
 import org.horizon.sdk.library.java.studio.low.code.model.po.SchoolPO;
 import org.horizon.sdk.library.java.studio.low.code.model.vo.SchoolVO;
@@ -30,6 +31,7 @@ import java.io.Serial;
  * @since 2024-04-15 23:57
  */
 @Schema(description = "学校信息")
+@FieldMetadata
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)

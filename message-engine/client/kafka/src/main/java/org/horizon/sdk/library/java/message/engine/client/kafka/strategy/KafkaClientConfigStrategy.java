@@ -101,7 +101,7 @@ public class KafkaClientConfigStrategy<K, V> extends MessageClientConfigStrategy
         return KafkaClientConfigDTO.ConsumerDTO.builder()
                 .clientDTO(getClientDTO(consumerAnnotation.config().kafka().clientConfig(), executeMethod))
                 .forwardProducerDTO(forwardProducerDTO)
-                .topics(Converts.toList(consumerAnnotation.topics()))
+                .topics(Converts.toArrayList(consumerAnnotation.topics()))
                 .groupId(consumerConfig.groupId())
                 .allowToAutoCreateTopic(consumerConfig.allowToAutoCreateTopic())
                 .ackMode(consumerConfig.ackMode())

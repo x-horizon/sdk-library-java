@@ -15,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 import org.horizon.sdk.library.java.doc.knife4j.contract.constant.ApiDocConstant;
 import org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handler.JdbcJsonbMappingJavaListEnumIntegerTypeHandler;
 import org.horizon.sdk.library.java.orm.contract.mybatis.flex.model.bo.BaseWithVersionBO;
+import org.horizon.sdk.library.java.pluggable.annotation.api.processor.field.metadata.FieldMetadata;
 import org.horizon.sdk.library.java.studio.low.code.model.enums.TeacherLevelType;
 import org.horizon.sdk.library.java.studio.low.code.model.enums.TeacherStatus;
 import org.horizon.sdk.library.java.studio.low.code.model.po.TeacherPO;
@@ -34,6 +35,7 @@ import java.util.List;
  * @author TODO 请填写作者名字
  * @since 2024-04-15 23:57
  */
+@FieldMetadata
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)

@@ -102,8 +102,6 @@ public class MybatisFlexProcessor extends AbstractProcessor {
                 return true;
             }
 
-            System.out.println("mybatis flex processor run start...");
-
             // 是否所有的类常量都生成在 Tables 类里
             boolean allInTablesEnable = "true".equalsIgnoreCase(configuration.get(ConfigurationKey.ALL_IN_TABLES_ENABLE));
 

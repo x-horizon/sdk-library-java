@@ -114,7 +114,6 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     REGISTRATION_SPRING_CLOUD_ALIBABA_NACOS_DISCOVERY("com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery", ""),
     REGISTRATION_SPRING_CLOUD_ZOOKEEPER("org.springframework.cloud:spring-cloud-starter-zookeeper-discovery", ""),
 
-    SECURITY_PASSAY("org.passay:passay", "1.6.5"),
     SECURITY_SPRING_BOOT("org.springframework.boot:spring-boot-starter-security", ""),
     SECURITY_SA_TOKEN_CORE("cn.dev33:sa-token-core", ""),
     SECURITY_SA_TOKEN_REDISSON("cn.dev33:sa-token-redisson-spring-boot-starter", ""),
@@ -142,6 +141,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_JNA_JPMS("net.java.dev.jna:jna-jpms", TOOL_JNA_VERSION.version),
     TOOL_JOB_QUARTZ("org.quartz-scheduler:quartz", "2.3.2"),
     TOOL_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-spring-boot-starter", ""),
+    TOOL_PASSAY("org.passay:passay", "1.6.5"),
     TOOL_REFLECT_ASM("com.esotericsoftware:reflectasm", "1.11.9"),
     TOOL_REFLECT_RONMAMO("org.reflections:reflections", "0.10.2"),
     TOOL_RATE_LIMITING_BUCKET4J("com.github.vladimir-bukhtoyarov:bucket4j-core", "7.6.0"),
@@ -155,7 +155,9 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_SERIALIZATION_PROTOBUF_GOOGLE_JAVA_UTIL("com.google.protobuf:protobuf-java-util", ""),
     TOOL_SERIALIZATION_PROTOBUF_GOOGLE_PROTOC("com.google.protobuf:protoc", BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF.version), // TODO wjm bom is not invalid
     TOOL_SERIALIZATION_PROTOBUF_SQUAREUP_WIRE("com.squareup.wire:wire-schema", ""),
+    TOOL_SPI_GOOGLE_AUTO_SERVICE("com.google.auto.service:auto-service", "1.1.1"),
     TOOL_STREAM_JDFRAME("io.github.burukeyou:jdframe", "0.0.2"),
+    TOOL_SQUAREUP_JAVAPOET("com.squareup:javapoet", "1.13.0"),
     TOOL_TEMPLATE_ENGINE_APACHE_VELOCITY("org.apache.velocity:velocity-engine-core", "2.4.1"),
     TOOL_THREAD_POOL_DYNAMIC_TP_COMMON("org.dromara.dynamictp:dynamic-tp-spring-boot-starter-common", ""),
     TOOL_THREAD_POOL_DYNAMIC_TP_CONFIG_NACOS("org.dromara.dynamictp:dynamic-tp-spring-cloud-starter-nacos", ""),
@@ -166,7 +168,6 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_VALIDATION_JAKARTA("jakarta.validation:jakarta.validation-api", "3.0.2"), // support spring-boot version to 3.4.1
     TOOL_VALIDATION_JSON_SCHEMA("com.networknt:json-schema-validator", "1.5.0"),
     TOOL_VALIDATION_SPRING("org.springframework.boot:spring-boot-starter-validation", ""),
-    TOOL_VALIDATION_YAVI("am.ik.yavi:yavi", "0.14.4"),
     TOOL_VJTOOL("com.vip.vjtools:vjkit", "1.0.8"),
     TOOL_XML_DOM4J("org.dom4j:dom4j", "2.1.4"),
     TOOL_XML_JACKSON("com.fasterxml.jackson.dataformat:jackson-dataformat-xml", ""),

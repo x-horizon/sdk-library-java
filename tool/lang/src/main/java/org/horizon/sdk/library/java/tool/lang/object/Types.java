@@ -115,7 +115,7 @@ public class Types {
      * </ul>
      */
     public static List<String> getParameterTypeNames(Method input) {
-        return Converts.toList(getParameterTypes(input), Type::getTypeName);
+        return Converts.toArrayList(getParameterTypes(input), Type::getTypeName);
     }
 
     /**

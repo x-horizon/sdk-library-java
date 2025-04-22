@@ -24,6 +24,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Classes {
 
+    private static final List<CharSequence> GET_SET_METHOD_NAMES = Collections.ofImmutableList("get", "set", "is");
+
     /**
      * the annotation class and the annotated class cache
      */
@@ -57,6 +59,16 @@ public class Classes {
     }
 
     /**
+     * return true if the class exist
+     *
+     * @param className like org.horizon.sdk.library.java.tool.lang.object.Classes
+     * @return true if the class exist
+     */
+    public static boolean isExist(String className) {
+        return ClassUtil.isClassExists(className, null);
+    }
+
+    /**
      * reverse {@link #isAssignable(Class, Class)}
      *
      * @param sourceClass the source class
@@ -65,6 +77,18 @@ public class Classes {
      */
     public static boolean isNotAssignable(Class<?> sourceClass, Class<?> targetClass) {
         return !isAssignable(sourceClass, targetClass);
+    }
+
+    /**
+     * get class by class name
+     *
+     * @param className the class name
+     * @return the class
+     * @see ClassUtil#forName(String, boolean, ClassLoader)
+     */
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
+    public static <T> Class<T> getClass(String className) {
+        return (Class<T>) ClassUtil.forName(className, false, null);
     }
 
     /**
@@ -224,6 +248,19 @@ public class Classes {
                 .then(Collections::newArrayList)
                 .otherwise(() -> Arrays.stream(input.getDeclaredFields()).toList())
                 .get();
+    }
+
+    public static String getFieldName(String methodName) {
+        String fieldName = Strings.removeIfAnyStartWith(methodName, GET_SET_METHOD_NAMES);
+        if (Nil.isNull(fieldName)) {
+            return null;
+        }
+        if (fieldName.isEmpty()) {
+            return fieldName;
+        }
+        return fieldName.substring(0, 1)
+                .toLowerCase(Locale.ENGLISH)
+                .concat(fieldName.substring(1));
     }
 
     /**

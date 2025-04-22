@@ -82,6 +82,7 @@ object GradleModule {
 
     const val PLUGGABLE_ANNOTATION_API_LOMBOK = ":$ROOT_PROJECT_NAME-pluggable-annotation-api-lombok"
     const val PLUGGABLE_ANNOTATION_API_MICA_AUTO = ":$ROOT_PROJECT_NAME-pluggable-annotation-api-mica-auto"
+    const val PLUGGABLE_ANNOTATION_API_PROCESSOR_FIELD_METADATA = ":$ROOT_PROJECT_NAME-pluggable-annotation-api-processor-field-metadata"
     const val PLUGGABLE_ANNOTATION_API_PROCESSOR_JMH = ":$ROOT_PROJECT_NAME-pluggable-annotation-api-processor-jmh"
     const val PLUGGABLE_ANNOTATION_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING = ":$ROOT_PROJECT_NAME-pluggable-annotation-api-processor-lombok-mapstruct-binding"
     const val PLUGGABLE_ANNOTATION_API_PROCESSOR_MAPSTRUCT_PLUS = ":$ROOT_PROJECT_NAME-pluggable-annotation-api-processor-mapstruct-plus"
@@ -149,7 +150,6 @@ object GradleModule {
     const val TOOL_VALIDATION_JAKARTA = ":$ROOT_PROJECT_NAME-tool-validation-jakarta"
     const val TOOL_VALIDATION_JSON_SCHEMA = ":$ROOT_PROJECT_NAME-tool-validation-json-schema"
     const val TOOL_VALIDATION_SPRING = ":$ROOT_PROJECT_NAME-tool-validation-spring"
-    const val TOOL_VALIDATION_YAVI = ":$ROOT_PROJECT_NAME-tool-validation-yavi"
     const val TOOL_XML = ":$ROOT_PROJECT_NAME-tool-xml"
 
     const val TRANSACTION_SPRING = ":$ROOT_PROJECT_NAME-transaction-spring"

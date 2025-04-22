@@ -534,6 +534,14 @@ public class CharacterSequences extends Characters {
         return CharSequenceUtil.removePrefix(input, prefix);
     }
 
+    public static String removeIfAnyStartWith(CharSequence input, Iterable<CharSequence> suffixes) {
+        String afterRemoveInput = input.toString();
+        for (CharSequence suffix : suffixes) {
+            afterRemoveInput = removeIfStartWith(afterRemoveInput, suffix);
+        }
+        return afterRemoveInput;
+    }
+
     /**
      * see {@link CharSequenceUtil#removeSuffix(CharSequence, CharSequence)}
      *
@@ -543,6 +551,14 @@ public class CharacterSequences extends Characters {
      */
     public static String removeIfEndWith(CharSequence input, CharSequence suffix) {
         return CharSequenceUtil.removeSuffix(input, suffix);
+    }
+
+    public static String removeIfAnyEndWith(CharSequence input, Iterable<CharSequence> suffixes) {
+        String afterRemoveInput = input.toString();
+        for (CharSequence suffix : suffixes) {
+            afterRemoveInput = removeIfEndWith(afterRemoveInput, suffix);
+        }
+        return afterRemoveInput;
     }
 
     /**
@@ -789,10 +805,8 @@ public class CharacterSequences extends Characters {
      * @return after underline case and upper
      */
     public static String underlineUpperCase(CharSequence input) {
-        if (Nil.isNull(input)) {
-            return null;
-        }
-        return underlineLowerCase(input).toUpperCase();
+        String underlineLowerCaseInput = underlineLowerCase(input);
+        return Nil.isNull(underlineLowerCaseInput) ? null : underlineLowerCaseInput.toUpperCase();
     }
 
     /**

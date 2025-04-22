@@ -130,7 +130,7 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public WebResponse<Void> handleHttpRequestMethodNotSupportedException(HttpServletRequest httpServletRequest, HttpRequestMethodNotSupportedException exception) {
         log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()));
-        return error(HttpStatus.BAD_METHOD, STR."supported request methods are \{Converts.toList(exception.getSupportedMethods())}, but current request method is [\{exception.getMethod()}]");
+        return error(HttpStatus.BAD_METHOD, STR."supported request methods are \{Converts.toArrayList(exception.getSupportedMethods())}, but current request method is [\{exception.getMethod()}]");
     }
 
     /**

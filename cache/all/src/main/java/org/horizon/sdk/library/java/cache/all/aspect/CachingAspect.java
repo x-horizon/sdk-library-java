@@ -38,7 +38,7 @@ public class CachingAspect extends CacheAspect {
     public Object aroundPointcut(ProceedingJoinPoint joinPoint) {
         Caching cachingAnnotation = getAnnotationMarkedOnMethod(joinPoint, Caching.class);
         // handle read
-        List<CacheAspectContext> readContexts = Converts.toList(cachingAnnotation.read(), annotation -> buildCacheReadContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.keyGenerator(), annotation.key(), annotation.allowEmptyValue()));
+        List<CacheAspectContext> readContexts = Converts.toArrayList(cachingAnnotation.read(), annotation -> buildCacheReadContext(joinPoint, annotation.namespaces(), annotation.cacheTypes(), annotation.keyGenerator(), annotation.key(), annotation.allowEmptyValue()));
         Object value = doRead(joinPoint, readContexts);
         // handle write
         for (CacheWrite annotation : cachingAnnotation.write()) {

@@ -20,6 +20,7 @@ import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 import org.horizon.sdk.library.java.tool.lang.compare.Comparators;
 import org.horizon.sdk.library.java.tool.lang.enums.Enums;
 import org.horizon.sdk.library.java.tool.lang.functional.Action;
+import org.horizon.sdk.library.java.tool.lang.functional.SerializableFunction;
 import org.horizon.sdk.library.java.tool.lang.number.Hexes;
 import org.horizon.sdk.library.java.tool.lang.number.NumberType;
 import org.horizon.sdk.library.java.tool.lang.object.Classes;
@@ -29,6 +30,7 @@ import org.horizon.sdk.library.java.tool.lang.text.CharacterSequences;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.Collectors;
@@ -188,6 +190,16 @@ public class Converts {
                 CharacterSequences.split(input, separator).stream().map(value -> toNumber(value, outputNumberClass)).collect(Collectors.toList());
     }
 
+    public static BigDecimal toBigDecimal(Number input) {
+        if (Nil.isNull(input)) {
+            return BigDecimal.ZERO;
+        }
+        if (input instanceof BigDecimal bigDecimalInput) {
+            return bigDecimalInput;
+        }
+        return new BigDecimal(input.toString());
+    }
+
     /**
      * convert byte array to string
      *
@@ -269,6 +281,21 @@ public class Converts {
     }
 
     /**
+     * convert collection to array.
+     *
+     * @param inputs    the input elements
+     * @param inputType the input element class
+     * @param <T>       the element type
+     * @return after convert
+     */
+    public static <T> T[] toArray(Collection<T> inputs, Class<T> inputType) {
+        return Action.<T[]>ifEmpty(inputs)
+                .then(() -> Collections.newArray(inputType))
+                .otherwise(() -> ArrayUtil.ofArray(inputs, inputType))
+                .get();
+    }
+
+    /**
      * <p>convert collection to type-specific array.</p>
      *
      * <p>example:</p>
@@ -287,21 +314,6 @@ public class Converts {
         return Action.<T[]>ifEmpty(inputs)
                 .then(() -> outputConstructAction.apply(CollectionConstant.CAPACITY_EMPTY))
                 .otherwise(() -> Collections.ofUnknownSizeStream(inputs).toArray(outputConstructAction))
-                .get();
-    }
-
-    /**
-     * convert collection to array.
-     *
-     * @param inputs    the input elements
-     * @param inputType the input element class
-     * @param <T>       the element type
-     * @return after convert
-     */
-    public static <T> T[] toArray(Collection<T> inputs, Class<T> inputType) {
-        return Action.<T[]>ifEmpty(inputs)
-                .then(() -> Collections.newArray(inputType))
-                .otherwise(() -> ArrayUtil.ofArray(inputs, inputType))
                 .get();
     }
 
@@ -326,80 +338,13 @@ public class Converts {
     }
 
     /**
-     * convert iterable to list
-     *
-     * @param inputs the input element
-     * @return after convert
-     */
-    public static <T> List<T> toList(Iterable<T> inputs) {
-        return Action.<List<T>>ifEmpty(inputs)
-                .then(Collections::newArrayList)
-                .otherwise(() -> Collections.ofUnknownSizeStream(inputs).collect(Collectors.toList()))
-                .get();
-    }
-
-    /**
-     * convert iterable to list
-     *
-     * @param inputs the input element
-     * @return after convert
-     */
-    public static <T> List<T> toList(Iterator<T> inputs) {
-        return Action.<List<T>>ifEmpty(inputs)
-                .then(Collections::newArrayList)
-                .otherwise(() -> Collections.ofUnknownSizeStream(inputs).collect(Collectors.toList()))
-                .get();
-    }
-
-    /**
-     * convert collection to list
-     *
-     * @param inputs the input element
-     * @return after convert
-     */
-    public static <T> List<T> toList(Collection<T> inputs) {
-        return Action.<List<T>>ifEmpty(inputs)
-                .then(Collections::newArrayList)
-                .otherwise(() -> Collections.ofArrayList(inputs))
-                .get();
-    }
-
-    /**
-     * <p>extract specified fields from collection elements to create a new collection.</p>
-     *
-     * <p>example with {@code Person} class:</p>
-     * <pre>{@code
-     * List<Person> inputs = List.of(
-     *     new Person("name1", 10),
-     *     new Person("name2", 11),
-     *     new Person("name3", 12)
-     * );
-     *
-     * // Extracted age values: [10, 11, 12]
-     * List<Integer> ages = Converts.toList(inputs, Person::getAge);
-     * }</pre>
-     *
-     * @param inputs        source collection containing elements
-     * @param mappingAction field extractor function (e.g. {@code Person::getAge})
-     * @param <T>           type of elements in source collection
-     * @param <R>           type of extracted field values
-     * @return newly list containing extracted field values
-     */
-    public static <T, R> List<R> toList(Iterable<T> inputs, Function<T, R> mappingAction) {
-        return Action.<List<R>>ifEmpty(inputs)
-                .then(Collections::newArrayList)
-                .otherwise(() -> Collections.ofUnknownSizeStream(inputs).map(mappingAction).collect(Collectors.toList()))
-                .get();
-    }
-
-    /**
      * convert array to list.
      *
      * @param inputs the input elements
      * @param <T>    the element type
-     * @return after convert
+     * @return {@link java.util.ArrayList}
      */
-    public static <T> List<T> toList(T[] inputs) {
+    public static <T> List<T> toArrayList(T[] inputs) {
         return Action.<List<T>>infer(Nil.isEmpty(inputs))
                 .then(Collections::newArrayList)
                 .otherwise(() -> Arrays.stream(inputs).collect(Collectors.toList()))
@@ -407,7 +352,7 @@ public class Converts {
     }
 
     /**
-     * <p>extract specified fields from array elements to create a new collection.</p>
+     * <p>convert array to {@link java.util.ArrayList} with unique elements.</p>
      *
      * <p>example with {@code Person} array:</p>
      * <pre>{@code
@@ -418,16 +363,16 @@ public class Converts {
      * );
      *
      * // Extracted age values: [10, 11, 12]
-     * List<Integer> ages = Converts.toList(inputs, Person::getAge);
+     * List<Integer> ages = Converts.toArrayList(inputs, Person::getAge);
      * }</pre>
      *
      * @param inputs        source array containing elements
      * @param mappingAction field extractor function (e.g. {@code Person::getAge})
      * @param <T>           type of elements in source array
      * @param <R>           type of extracted field values
-     * @return new unmodifiable list containing extracted values
+     * @return {@link java.util.ArrayList}
      */
-    public static <T, R> List<R> toList(T[] inputs, Function<T, R> mappingAction) {
+    public static <T, R> List<R> toArrayList(T[] inputs, Function<T, R> mappingAction) {
         return Action.<List<R>>infer(Nil.isEmpty(inputs))
                 .then(Collections::newArrayList)
                 .otherwise(() -> Arrays.stream(inputs).map(mappingAction).collect(Collectors.toList()))
@@ -435,31 +380,98 @@ public class Converts {
     }
 
     /**
-     * convert anything to list
+     * convert collection to list
+     *
+     * @param inputs the input element
+     * @return {@link java.util.ArrayList}
+     */
+    public static <T> List<T> toArrayList(Collection<T> inputs) {
+        return Action.<List<T>>ifEmpty(inputs)
+                .then(Collections::newArrayList)
+                .otherwise(() -> Collections.ofArrayList(inputs))
+                .get();
+    }
+
+    /**
+     * convert iterable to list
+     *
+     * @param inputs the input element
+     * @return {@link java.util.ArrayList}
+     */
+    public static <T> List<T> toArrayList(Iterable<T> inputs) {
+        return Action.<List<T>>ifEmpty(inputs)
+                .then(Collections::newArrayList)
+                .otherwise(() -> Collections.ofUnknownSizeStream(inputs).collect(Collectors.toList()))
+                .get();
+    }
+
+    /**
+     * convert iterable to list
+     *
+     * @param inputs the input element
+     * @return {@link java.util.ArrayList}
+     */
+    public static <T> List<T> toArrayList(Iterator<T> inputs) {
+        return Action.<List<T>>ifEmpty(inputs)
+                .then(Collections::newArrayList)
+                .otherwise(() -> Collections.ofUnknownSizeStream(inputs).collect(Collectors.toList()))
+                .get();
+    }
+
+    /**
+     * <p>convert iterable to {@link java.util.ArrayList} with unique elements.</p>
+     *
+     * <p>example with {@code Person} class:</p>
+     * <pre>{@code
+     * List<Person> inputs = List.of(
+     *     new Person("name1", 10),
+     *     new Person("name2", 11),
+     *     new Person("name3", 12)
+     * );
+     *
+     * // Extracted age values: [10, 11, 12]
+     * List<Integer> ages = Converts.toArrayList(inputs, Person::getAge);
+     * }</pre>
+     *
+     * @param inputs        source collection containing elements
+     * @param mappingAction field extractor function (e.g. {@code Person::getAge})
+     * @param <T>           type of elements in source collection
+     * @param <R>           type of extracted field values
+     * @return {@link java.util.ArrayList}
+     */
+    public static <T, R> List<R> toArrayList(Iterable<T> inputs, Function<T, R> mappingAction) {
+        return Action.<List<R>>ifEmpty(inputs)
+                .then(Collections::newArrayList)
+                .otherwise(() -> Collections.ofUnknownSizeStream(inputs).map(mappingAction).collect(Collectors.toList()))
+                .get();
+    }
+
+    /**
+     * convert anything to array list
      *
      * @param input the input element
-     * @return after convert
+     * @return {@link java.util.ArrayList}
      */
     @SuppressWarnings(SuppressWarningConstant.ALL)
-    public static List<?> toList(Object input) {
+    public static List<?> toArrayList(Object input) {
         return ConvertUtil.convert(List.class, input);
     }
 
     /**
-     * <p>convert array to {@link java.util.Set} with unique elements.</p>
+     * <p>convert array to {@link java.util.HashSet} with unique elements.</p>
      *
      * <p>example with deduplication:</p>
      * <pre>{@code
      * Integer[] inputs = {1, 2, 3, 3, 4};
      * // Resulting set contains unique values: [1, 2, 3, 4]
-     * Set<Integer> uniqueNumbers = Converts.toSet(inputs);
+     * Set<Integer> uniqueNumbers = Converts.toHashSet(inputs);
      * }</pre>
      *
      * @param inputs source array
      * @param <T>    type of array elements
-     * @return newly created {@code HashSet} containing deduplicated elements
+     * @return {@link java.util.HashSet}
      */
-    public static <T> Set<T> toSet(T[] inputs) {
+    public static <T> Set<T> toHashSet(T[] inputs) {
         return Action.<Set<T>>infer(Nil.isEmpty(inputs))
                 .then(Collections::newHashSet)
                 .otherwise(() -> Arrays.stream(inputs).collect(Collectors.toSet()))
@@ -467,25 +479,12 @@ public class Converts {
     }
 
     /**
-     * convert iterable to set
+     * convert collection to hash set
      *
      * @param inputs the input element
-     * @return after convert
+     * @return {@link java.util.HashSet}
      */
-    public static <T> Set<T> toSet(Iterable<T> inputs) {
-        return Action.<Set<T>>ifEmpty(inputs)
-                .then(Collections::newHashSet)
-                .otherwise(() -> Collections.ofUnknownSizeStream(inputs).collect(Collectors.toSet()))
-                .get();
-    }
-
-    /**
-     * convert collection to set
-     *
-     * @param inputs the input element
-     * @return after convert
-     */
-    public static <T> Set<T> toSet(Collection<T> inputs) {
+    public static <T> Set<T> toHashSet(Collection<T> inputs) {
         return Action.<Set<T>>ifEmpty(inputs)
                 .then(Collections::newHashSet)
                 .otherwise(() -> Collections.ofHashSet(inputs))
@@ -493,7 +492,20 @@ public class Converts {
     }
 
     /**
-     * <p>extract unique field values from collection elements to create a {@code Set}.</p>
+     * convert iterable to hash set
+     *
+     * @param inputs the input element
+     * @return {@link java.util.HashSet}
+     */
+    public static <T> Set<T> toHashSet(Iterable<T> inputs) {
+        return Action.<Set<T>>ifEmpty(inputs)
+                .then(Collections::newHashSet)
+                .otherwise(() -> Collections.ofUnknownSizeStream(inputs).collect(Collectors.toSet()))
+                .get();
+    }
+
+    /**
+     * <p>convert iterable to {@link java.util.HashSet} with unique elements.</p>
      *
      * <p>example with deduplication:</p>
      * <pre>{@code
@@ -505,16 +517,16 @@ public class Converts {
      * );
      *
      * // Unique age values: [10, 11, 12]
-     * Set<Integer> uniqueAges = Converts.toSet(people, Person::getAge);
+     * Set<Integer> uniqueAges = Converts.toHashSet(people, Person::getAge);
      * }</pre>
      *
      * @param inputs        source collection containing elements
      * @param mappingAction field value extractor (e.g. {@code Person::getAge})
      * @param <T>           type of elements in source collection
      * @param <R>           type of extracted field values
-     * @return {@code Set} containing unique extracted values
+     * @return {@link java.util.HashSet}
      */
-    public static <T, R> Set<R> toSet(Iterable<T> inputs, Function<T, R> mappingAction) {
+    public static <T, R> Set<R> toHashSet(Iterable<T> inputs, Function<T, R> mappingAction) {
         return Action.<Set<R>>infer(Nil.isEmpty(inputs))
                 .then(Collections::newHashSet)
                 .otherwise(() -> Collections.ofUnknownSizeStream(inputs).map(mappingAction).collect(Collectors.toSet()))
@@ -522,14 +534,90 @@ public class Converts {
     }
 
     /**
-     * convert anything to set
+     * convert anything to hash set
      *
      * @param input the input element
      * @return after convert
      */
     @SuppressWarnings(SuppressWarningConstant.ALL)
-    public static Set<?> toSet(Object input) {
+    public static Set<?> toHashSet(Object input) {
         return ConvertUtil.convert(Set.class, input);
+    }
+
+    /**
+     * <p>convert array to {@link java.util.LinkedHashSet} with unique elements.</p>
+     *
+     * <p>example with deduplication:</p>
+     * <pre>{@code
+     * Integer[] inputs = {1, 2, 3, 3, 4};
+     * // Resulting set contains unique values: [1, 2, 3, 4]
+     * Set<Integer> uniqueNumbers = Converts.toLinkedHashSet(inputs);
+     * }</pre>
+     *
+     * @param inputs source array
+     * @param <T>    type of array elements
+     * @return {@link java.util.LinkedHashSet}
+     */
+    public static <T> Set<T> toLinkedHashSet(T[] inputs) {
+        return Action.<Set<T>>infer(Nil.isEmpty(inputs))
+                .then(Collections::newLinkedHashSet)
+                .otherwise(() -> Arrays.stream(inputs).collect(Collectors.toCollection(LinkedHashSet::new)))
+                .get();
+    }
+
+    /**
+     * convert collection to linked hash set
+     *
+     * @param inputs the input element
+     * @return {@link java.util.LinkedHashSet}
+     */
+    public static <T> Set<T> toLinkedHashSet(Collection<T> inputs) {
+        return Action.<Set<T>>ifEmpty(inputs)
+                .then(Collections::newLinkedHashSet)
+                .otherwise(() -> Collections.ofLinkedHashSet(inputs))
+                .get();
+    }
+
+    /**
+     * convert iterable to linked hash set
+     *
+     * @param inputs the input element
+     * @return {@link java.util.LinkedHashSet}
+     */
+    public static <T> Set<T> toLinkedHashSet(Iterable<T> inputs) {
+        return Action.<Set<T>>ifEmpty(inputs)
+                .then(Collections::newLinkedHashSet)
+                .otherwise(() -> Collections.ofUnknownSizeStream(inputs).collect(Collectors.toCollection(LinkedHashSet::new)))
+                .get();
+    }
+
+    /**
+     * <p>convert iterable to {@link java.util.LinkedHashSet} with unique elements.</p>
+     *
+     * <p>example with deduplication:</p>
+     * <pre>{@code
+     * List<Person> people = Arrays.asList(
+     *     new Person("name1", 10),
+     *     new Person("name2", 11),
+     *     new Person("name3", 11),  // duplicate age
+     *     new Person("name4", 12)
+     * );
+     *
+     * // Unique age values: [10, 11, 12]
+     * Set<Integer> uniqueAges = Converts.toLinkedHashSet(people, Person::getAge);
+     * }</pre>
+     *
+     * @param inputs        source collection containing elements
+     * @param mappingAction field value extractor (e.g. {@code Person::getAge})
+     * @param <T>           type of elements in source collection
+     * @param <R>           type of extracted field values
+     * @return {@link java.util.LinkedHashSet}
+     */
+    public static <T, R> Set<R> toLinkedHashSet(Iterable<T> inputs, Function<T, R> mappingAction) {
+        return Action.<Set<R>>infer(Nil.isEmpty(inputs))
+                .then(Collections::newLinkedHashSet)
+                .otherwise(() -> Collections.ofUnknownSizeStream(inputs).map(mappingAction).collect(Collectors.toCollection(LinkedHashSet::new)))
+                .get();
     }
 
     /**
@@ -579,7 +667,7 @@ public class Converts {
      * //   11=Person[name="name2", age=11],
      * //   12=Person[name="name3", age=12]
      * // }
-     * Map<Integer, Person> ageMap = Converts.toMap(people, Person::getAge);
+     * Map<Integer, Person> ageMap = Converts.toHashMap(people, Person::getAge);
      * }</pre>
      *
      * @param inputs       source collection to convert
@@ -588,7 +676,7 @@ public class Converts {
      * @param <V>          type of collection elements (map values)
      * @return map where keys are extracted values, values are original elements
      */
-    public static <K, V> Map<K, V> toMap(Iterable<V> inputs, Function<V, K> getKeyAction) {
+    public static <K, V> Map<K, V> toHashMap(Iterable<V> inputs, Function<V, K> getKeyAction) {
         return Action.<Map<K, V>>infer(Nil.isEmpty(inputs))
                 .then(Collections::newHashMap)
                 .otherwise(() -> Collections.ofUnknownSizeStream(inputs).collect(Collectors.toMap(getKeyAction, item -> item)))
@@ -612,7 +700,7 @@ public class Converts {
      * //   11="name2",
      * //   12="name3"
      * // }
-     * Map<Integer, String> ageNameMap = Converts.toMap(
+     * Map<Integer, String> ageNameMap = Converts.toHashMap(
      *     people,
      *     Person::getAge,
      *     Person::getName
@@ -627,7 +715,7 @@ public class Converts {
      * @param <V>            type of map values
      * @return map where keys are extracted values, values are corresponding field values
      */
-    public static <T, K, V> Map<K, V> toMap(Iterable<T> inputs, Function<T, K> getKeyAction, Function<T, V> getValueAction) {
+    public static <T, K, V> Map<K, V> toHashMap(Iterable<T> inputs, Function<T, K> getKeyAction, Function<T, V> getValueAction) {
         return Action.<Map<K, V>>infer(Nil.isEmpty(inputs))
                 .then(Collections::newHashMap)
                 .otherwise(() -> Collections.ofUnknownSizeStream(inputs).collect(Collectors.toMap(getKeyAction, getValueAction)))
@@ -652,7 +740,7 @@ public class Converts {
      * //   11=[Person[name="name2", age=11], Person[name="name3", age=11]],
      * //   12=[Person[name="name4", age=12]]
      * // }
-     * Map<Integer, List<Person>> ageGroups = Converts.toMultiMap(people, Person::getAge);
+     * Map<Integer, List<Person>> ageGroups = Converts.toMultiHashMap(people, Person::getAge);
      * }</pre>
      *
      * @param inputs       source collection with potential duplicate keys
@@ -661,7 +749,7 @@ public class Converts {
      * @param <V>          type of collection elements
      * @return multimap where keys map to lists of associated elements
      */
-    public static <K, V> Map<K, List<V>> toMultiMap(Iterable<V> inputs, Function<V, K> getKeyAction) {
+    public static <K, V> Map<K, List<V>> toMultiHashMap(Iterable<V> inputs, Function<V, K> getKeyAction) {
         return Action.<Map<K, List<V>>>infer(Nil.isEmpty(inputs))
                 .then(Collections::newHashMap)
                 .otherwise(() -> Collections.ofUnknownSizeStream(inputs).collect(Collectors.groupingBy(getKeyAction, Collectors.mapping(item -> item, Collectors.toList()))))
@@ -686,7 +774,7 @@ public class Converts {
      * //   11=["name2", "name3"],
      * //   12=["name4"]
      * // }
-     * Map<Integer, List<String>> ageNameGroups = Converts.toMultiMap(
+     * Map<Integer, List<String>> ageNameGroups = Converts.toMultiHashMap(
      *     people,
      *     Person::getAge,
      *     Person::getName
@@ -701,7 +789,7 @@ public class Converts {
      * @param <V>            type of aggregated values
      * @return multimap where keys map to lists of extracted values
      */
-    public static <T, K, V> Map<K, List<V>> toMultiMap(Iterable<T> inputs, Function<T, K> getKeyAction, Function<T, V> getValueAction) {
+    public static <T, K, V> Map<K, List<V>> toMultiHashMap(Iterable<T> inputs, Function<T, K> getKeyAction, Function<T, V> getValueAction) {
         return Action.<Map<K, List<V>>>infer(Nil.isEmpty(inputs))
                 .then(Collections::newHashMap)
                 .otherwise(() -> Collections.ofUnknownSizeStream(inputs).collect(Collectors.groupingBy(getKeyAction, Collectors.mapping(getValueAction, Collectors.toList()))))
@@ -717,7 +805,7 @@ public class Converts {
      * @return tree list
      */
     public static <Key, T extends BTreeNode<Key, T>> List<T> toTree(List<T> nodes) {
-        Map<Key, T> nodeIdMappingNodeMap = toMap(nodes, T::getId);
+        Map<Key, T> nodeIdMappingNodeMap = toHashMap(nodes, T::getId);
         List<T> treeNodes = Collections.newArrayList();
         nodes.forEach(node -> {
             if (Nil.isZeroValue(node.getParentId()) || Collections.notContainsKey(nodeIdMappingNodeMap, node.getParentId())) {
@@ -1274,6 +1362,17 @@ public class Converts {
 
     public static <T1, T2, T3, T4, R> Function4<T1, T2, T3, T4, R> toFunction4(Function3<T1, T2, T3, R> action) {
         return (input1, input2, input3, ignore) -> action.apply(input1, input2, input3);
+    }
+
+    public static <T> SerializableFunction<Void, T> toSerializableFunction(Supplier<T> action) {
+        return ignore -> action.get();
+    }
+
+    public static <T> SerializableFunction<T, Void> toSerializableFunction(Consumer<T> action) {
+        return input -> {
+            action.accept(input);
+            return null;
+        };
     }
 
 }

@@ -58,7 +58,7 @@ public class OpenFeignClientResponseInterceptor implements Interceptor {
             throw new LibraryJavaInternalException(Strings.format(
                     "\ncould not parse feign result to any model defined in class [{}], \ncurrent define models are {}, \nplease check your config! \ncurrent feign result is {}",
                     Classes.getClassFullName(EnableOpenFeignClientResponseModelResolver.class),
-                    org.horizon.sdk.library.java.tool.lang.convert.Converts.toList(OpenFeignClientResponseModelCache.get(), Classes::getClassFullName),
+                    org.horizon.sdk.library.java.tool.lang.convert.Converts.toArrayList(OpenFeignClientResponseModelCache.get(), Classes::getClassFullName),
                     responseBody
             ));
         }

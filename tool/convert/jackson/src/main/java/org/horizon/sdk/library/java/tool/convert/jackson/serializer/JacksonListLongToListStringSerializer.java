@@ -14,7 +14,7 @@ public class JacksonListLongToListStringSerializer extends JacksonSerializeToArr
 
     @Override
     public List<String> getTargetValue(List<Long> sourceValues) {
-        return Converts.toList(sourceValues, Converts::toString);
+        return Converts.toArrayList(sourceValues, Converts::toString);
     }
 
 }

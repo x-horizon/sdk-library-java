@@ -252,7 +252,7 @@ public class Enums {
                         Class<?> inputClassEnumFieldType = inputClassField.getType();
                         // handle varargs condition
                         if (Collections.isArray(inputClassEnumFieldType) && Comparators.equals(enumFieldDataTypeClass, Types.getArrayGenericType(inputClassEnumFieldType))) {
-                            return Collections.getFirst(Converts.toList(Reflects.getFieldValue(input, inputClassField, inputClassEnumFieldType))).orElse(null);
+                            return Collections.getFirst(Converts.toArrayList(Reflects.getFieldValue(input, inputClassField, inputClassEnumFieldType))).orElse(null);
                         }
                         // skip enum internal field
                         if (isEnum(inputClassEnumFieldType) || isInternalFieldName(inputClassEnumFieldName) || Classes.isNotAssignable(inputClassEnumFieldType, enumFieldDataTypeClass)) {

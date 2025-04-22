@@ -15,7 +15,7 @@ public class JacksonListEnumToListIntegerSerializer<E extends Enum<E>> extends J
 
     @Override
     public List<Integer> getTargetValue(List<Enum<E>> sourceValues) {
-        return Converts.toList(sourceValues, sourceValue -> Enums.getFieldValue(sourceValue, Integer.class));
+        return Converts.toArrayList(sourceValues, sourceValue -> Enums.getFieldValue(sourceValue, Integer.class));
     }
 
 }

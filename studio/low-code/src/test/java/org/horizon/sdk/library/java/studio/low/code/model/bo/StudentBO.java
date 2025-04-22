@@ -17,6 +17,7 @@ import org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handler
 import org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handler.JdbcJsonbMappingJavaListEntityTypeHandler;
 import org.horizon.sdk.library.java.orm.contract.mybatis.base.postgresql.handler.JdbcJsonbMappingJavaListLongTypeHandler;
 import org.horizon.sdk.library.java.orm.contract.mybatis.flex.model.bo.BaseWithVersionBO;
+import org.horizon.sdk.library.java.pluggable.annotation.api.processor.field.metadata.FieldMetadata;
 import org.horizon.sdk.library.java.studio.low.code.model.po.StudentPO;
 import org.horizon.sdk.library.java.studio.low.code.model.vo.StudentVO;
 import org.horizon.sdk.library.java.tool.convert.jackson.serializer.JacksonListLongToListStringSerializer;
@@ -32,6 +33,7 @@ import java.util.List;
  * @since 2024-04-15 23:57
  */
 @Schema(description = "学生信息")
+@FieldMetadata
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
