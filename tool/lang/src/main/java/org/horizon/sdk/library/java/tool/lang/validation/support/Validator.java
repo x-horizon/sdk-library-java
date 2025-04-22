@@ -69,10 +69,13 @@ public class Validator<M> {
                 .flatMap(Collection::stream)
                 .flatMap(validationSchema -> {
                     Object fieldValue = validationSchema.getFieldValueGetter().apply(model);
-                    if (Nil.isNull(fieldValue) && validationSchema.getRules().stream().anyMatch(ValidationRule::isNeedToSkipNull)) {
+                    if (validationSchema.getSkipCheckTypes().stream().anyMatch(skipCheckType -> skipCheckType.getPredicate().test(fieldValue))) {
                         return Stream.empty();
                     }
-                    String failedMessage = validationSchema.getRules().stream()
+                    // if (Nil.isNull(fieldValue) && validationSchema.getValidationRules().stream().anyMatch(ValidationRule::isNeedToSkipNull)) {
+                    //     return Stream.empty();
+                    // }
+                    String failedMessage = validationSchema.getValidationRules().stream()
                             .filter(validationRule -> !((Predicate<Object>) validationRule.getPredicate()).test(fieldValue))
                             .map(failedValidationRule -> Strings.format(failedValidationRule.getMessageType().getMessage(), Collections.addFirst(failedValidationRule.getArguments(), validationSchema.getFieldName()).toArray()))
                             .collect(Collectors.joining(SymbolConstant.LF));

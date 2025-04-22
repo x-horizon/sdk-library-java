@@ -17,14 +17,9 @@ import java.util.function.Predicate;
 public class ValidationRule<V> {
 
     /**
-     * flag indicating whether to skip validation for null values.
-     * <p>when set to true:
-     * <ul>
-     *   <li>null values will bypass validation</li>
-     *   <li>predicate won't be executed for null inputs</li>
-     * </ul>
+     * flag indicating whether to skip validation.
      */
-    private boolean needToSkipNull = false;
+    private SkipCheckType skipCheckType;
 
     /**
      * parameters for error message formatting.
@@ -58,10 +53,10 @@ public class ValidationRule<V> {
     /**
      * constructs a null-skipping validation rule.
      *
-     * @param needToSkipNull when true, skips validation for null values
+     * @param skipCheckType the flag indicating whether to skip validation
      */
-    public ValidationRule(boolean needToSkipNull) {
-        this.needToSkipNull = needToSkipNull;
+    public ValidationRule(SkipCheckType skipCheckType) {
+        this.skipCheckType = skipCheckType;
         this.predicate = ignored -> true;
     }
 

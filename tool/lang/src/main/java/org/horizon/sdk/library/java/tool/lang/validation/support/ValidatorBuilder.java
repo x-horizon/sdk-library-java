@@ -3,6 +3,7 @@ package org.horizon.sdk.library.java.tool.lang.validation.support;
 import org.horizon.sdk.library.java.contract.model.base.POJO;
 import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 import org.horizon.sdk.library.java.tool.lang.functional.SerializableFunction;
+import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.reflect.Reflects;
 import org.horizon.sdk.library.java.tool.lang.validation.constraint.*;
 
@@ -12,6 +13,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 /**
  * builder class for constructing validation constraints with fluent api.
@@ -497,9 +499,18 @@ public class ValidatorBuilder<M> {
      * @return current builder instance
      */
     private <V, C extends Constraint<V, C>> ValidatorBuilder<M> constraint(SerializableFunction<M, V> fieldValueGetter, String fieldName, UnaryOperator<C> constraintOperator, Supplier<C> constraintGetter) {
+        List<ValidationRule<V>> validationRules = Reflects.getFieldValue(constraintOperator.apply(constraintGetter.get()), VALIDATION_RULE_FIELD_NAME);
         this.conditionValidationSchemaMap
                 .computeIfAbsent(defaultConstraintCondition, ignore -> Collections.newArrayList())
-                .add(new ValidationSchema<>(fieldName, fieldValueGetter, Reflects.getFieldValue(constraintOperator.apply(constraintGetter.get()), VALIDATION_RULE_FIELD_NAME)));
+                .add(new ValidationSchema<>(
+                        fieldName,
+                        fieldValueGetter,
+                        validationRules,
+                        validationRules.stream()
+                                .map(ValidationRule::getSkipCheckType)
+                                .filter(Nil::isNotNull)
+                                .collect(Collectors.toSet())
+                ));
         return this;
     }
 

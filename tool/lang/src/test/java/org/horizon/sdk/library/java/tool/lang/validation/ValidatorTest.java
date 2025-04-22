@@ -24,7 +24,7 @@ public class ValidatorTest {
             .constraintOnCondition(userVO -> Nil.isNull(userVO.getAvatarFileId()), builder -> builder.constraint(UserVO::getId, Constraint::mustNotNull))
             .constraintOnCondition(userVO -> Nil.isNull(userVO.getAvatarFileId()), builder -> builder.constraint(UserVO::getId, Constraint::mustNotNull))
             .constraint(UserVO::getName, constraint -> constraint
-                    .mustNotBlank()
+                    .skipBlank()
                     .mustLessThanOrEquals(64)
                     .mustValidUuid()
                     .mustValidHex()
@@ -66,7 +66,7 @@ public class ValidatorTest {
     public static void main(String[] args) {
         UserVO userVO = new UserVO();
         // userVO.setId(0L);
-        // userVO.setName("test");
+        userVO.setName(" ");
         // userVO.setIdentityCard("test");
         // userVO.setName("<UNK>");
         userVO.setMap(Map.of("1L", 2L));

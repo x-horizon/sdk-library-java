@@ -1,6 +1,7 @@
 package org.horizon.sdk.library.java.tool.lang.validation.constraint;
 
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
+import org.horizon.sdk.library.java.tool.lang.validation.support.SkipCheckType;
 import org.horizon.sdk.library.java.tool.lang.validation.support.ValidationRule;
 import org.horizon.sdk.library.java.tool.lang.validation.violation.ViolationMessageType;
 
@@ -37,6 +38,22 @@ import org.horizon.sdk.library.java.tool.lang.validation.violation.ViolationMess
  * @since 2025-04-21 17:26
  */
 public abstract class ContainerConstraint<V, S extends Number, C extends ContainerConstraint<V, S, C>> extends SizeConstraint<V, S, C> {
+
+    /**
+     * adds a rule to skip validation when the field value is empty.
+     * <p>when this rule is added, later validation rules will not be checked if the validated value is empty.</p>
+     *
+     * <p>example:
+     * <pre>{@code
+     * constraint.skipEmpty().mustEquals("1");
+     * }</pre></p>
+     *
+     * @return current constraint instance for method chaining
+     */
+    public C skipEmpty() {
+        this.validationRules.add(new ValidationRule<>(SkipCheckType.EMPTY));
+        return toThis();
+    }
 
     /**
      * adds a rule requiring the container to be empty.
