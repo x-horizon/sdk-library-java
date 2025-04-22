@@ -7,10 +7,7 @@ import org.horizon.sdk.library.java.contract.model.base.PO;
 import org.horizon.sdk.library.java.contract.model.base.VO;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.repository.GenericRepository;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.support.ColumnNameGetter;
-import org.horizon.sdk.library.java.orm.mybatis.flex.base.support.MybatisFlexs;
 import org.horizon.sdk.library.java.tool.lang.collection.Collections;
-import org.horizon.sdk.library.java.tool.lang.compare.Comparators;
-import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
@@ -245,33 +242,19 @@ public class GenericService<P extends PO, V extends VO, R extends GenericReposit
     }
 
     public <U> boolean isUniqueOnSave(ColumnNameGetter<P> requireUniqueColumnNameGetter, U requireUniqueColumnValue) {
-        return Nil.isNull(requireUniqueColumnValue) || Nil.isZeroValue(repository.openQuery()
-                .where(requireUniqueColumnNameGetter).equalsTo(requireUniqueColumnValue)
-                .count()
-        );
+        return repository.isUniqueOnSave(requireUniqueColumnNameGetter, requireUniqueColumnValue);
     }
 
     public <U, C> boolean isUniqueOnSave(ColumnNameGetter<P> requireUniqueColumnNameGetter, U requireUniqueColumnValue, ColumnNameGetter<P> conditionScopeColumnNameGetter, C conditionScopeColumnValue) {
-        return Nil.isNull(requireUniqueColumnValue) || Nil.isZeroValue(repository.openQuery()
-                .where(requireUniqueColumnNameGetter).equalsTo(requireUniqueColumnValue)
-                .and(conditionScopeColumnNameGetter).equalsTo(conditionScopeColumnValue)
-                .count()
-        );
+        return repository.isUniqueOnSave(requireUniqueColumnNameGetter, requireUniqueColumnValue, conditionScopeColumnNameGetter, conditionScopeColumnValue);
     }
 
     public <U> boolean isUniqueOnUpdate(Serializable id, ColumnNameGetter<P> requireUniqueColumnNameGetter, U requireUniqueColumnValue) {
-        return Nil.isNull(requireUniqueColumnValue) || repository.getByField(requireUniqueColumnNameGetter, requireUniqueColumnValue)
-                .map(po -> Comparators.equals(MybatisFlexs.getPrimaryKeyValue(po), id))
-                .orElse(true);
+        return repository.isUniqueOnUpdate(id, requireUniqueColumnNameGetter, requireUniqueColumnValue);
     }
 
     public <U, C> boolean isUniqueOnUpdate(Serializable id, ColumnNameGetter<P> requireUniqueColumnNameGetter, U requireUniqueColumnValue, ColumnNameGetter<P> conditionScopeColumnNameGetter, C conditionScopeColumnValue) {
-        return Nil.isNull(requireUniqueColumnValue) || repository.openQuery()
-                .where(requireUniqueColumnNameGetter).equalsTo(requireUniqueColumnValue)
-                .and(conditionScopeColumnNameGetter).equalsTo(conditionScopeColumnValue)
-                .get()
-                .map(po -> Comparators.equals(MybatisFlexs.getPrimaryKeyValue(po), id))
-                .orElse(true);
+        return repository.isUniqueOnUpdate(id, requireUniqueColumnNameGetter, requireUniqueColumnValue, conditionScopeColumnNameGetter, conditionScopeColumnValue);
     }
 
 }
