@@ -70,7 +70,7 @@ public abstract class WebExceptionInterceptor {
 
     protected WebResponse<Void> whenDataNotFoundException(String uri, DataNotFoundException exception) {
         String message = Nil.isBlank(exception.getMessage()) ? STR."\{PromptConstant.OPERATION_FAILED}：数据不存在" : exception.getMessage();
-        log.warn(formatMessage(uri, message));
+        log.error(formatMessage(uri, message));
         return error(HttpStatus.DATA_NOT_FOUND, message);
     }
 
