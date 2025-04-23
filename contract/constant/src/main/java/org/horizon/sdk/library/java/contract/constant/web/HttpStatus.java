@@ -75,7 +75,7 @@ public enum HttpStatus {
     TOKEN_EXPIRED_OR_INVALID(498, "token expired/invalid"),
     CLIENT_CLOSED_REQUEST(499, "client closed request"),
     // extra
-    UNAUTHENTICATED(460, "unauthorized"),
+    UNAUTHENTICATED(460, "unauthenticated"),
     MESSAGE_NOT_READABLE(461, "http message not readable"),
     MISSING_REQUEST_PARAMETER(462, "missing request param"),
     WRONG_REQUEST_PARAMETER_TYPE(463, "wrong request message type"),
