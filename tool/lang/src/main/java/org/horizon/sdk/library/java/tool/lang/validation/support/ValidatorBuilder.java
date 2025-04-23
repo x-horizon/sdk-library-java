@@ -7,6 +7,8 @@ import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.reflect.Reflects;
 import org.horizon.sdk.library.java.tool.lang.validation.constraint.*;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +46,9 @@ import java.util.stream.Collectors;
  * @see Constraint
  * @since 2025-04-18 15:37
  */
-public class ValidatorBuilder<M> {
+public class ValidatorBuilder<M> implements Serializable {
+
+    @Serial private static final long serialVersionUID = 7280325325661930737L;
 
     /**
      * map storing validation schemas organized by condition adaptors.
