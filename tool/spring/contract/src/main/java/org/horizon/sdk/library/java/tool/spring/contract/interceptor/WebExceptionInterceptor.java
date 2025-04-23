@@ -35,62 +35,62 @@ public abstract class WebExceptionInterceptor {
 
     protected WebResponse<Void> whenUnrecognizedPropertyException(String uri, UnrecognizedPropertyException exception) {
         String message = STR."\{PromptConstant.OPERATION_FAILED}：发现错误的字段名[\{exception.getPropertyName()}]，正确的字段名可能为[\{Strings.getMostSimilar(exception.getPropertyName(), exception.getKnownPropertyIds().stream().map(Object::toString).toList())}]，当前所有字段名：[\{Strings.joinWithCommaAndSpace(exception.getKnownPropertyIds())}]，请检查！";
-        log.warn(formatMessage(uri, message));
+        log.warn(formatMessage(uri, HttpStatus.WRONG_REQUEST_MESSAGE_VALUE.getStatus(), message));
         return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, message);
     }
 
     protected WebResponse<Void> whenInvalidIdException(String uri) {
         String message = STR." \{PromptConstant.OPERATION_FAILED}：未提供 id";
-        log.warn(formatMessage(uri, message));
+        log.warn(formatMessage(uri, HttpStatus.WRONG_REQUEST_MESSAGE_VALUE.getStatus(), message));
         return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, message);
     }
 
     protected WebResponse<Void> whenInvalidArgumentException(String uri, InvalidArgumentException exception) {
-        log.warn(formatMessage(uri, exception.getMessage()));
+        log.warn(formatMessage(uri, HttpStatus.WRONG_REQUEST_MESSAGE_VALUE.getStatus(), exception.getMessage()));
         return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, exception.getMessage());
     }
 
     protected WebResponse<Void> whenUnauthenticatedException(String uri, UnauthenticatedException exception) {
         String message = Nil.isBlank(exception.getMessage()) ? STR."\{PromptConstant.OPERATION_FAILED}：未认证" : exception.getMessage();
-        log.warn(formatMessage(uri, message));
+        log.warn(formatMessage(uri, HttpStatus.UNAUTHENTICATED.getStatus(), message));
         return error(HttpStatus.UNAUTHENTICATED, exception.getMessage());
     }
 
     protected WebResponse<Void> whenUnauthorizedException(String uri, UnauthorizedException exception) {
         String message = Nil.isBlank(exception.getMessage()) ? STR."\{PromptConstant.OPERATION_FAILED}：未授权" : exception.getMessage();
-        log.warn(formatMessage(uri, message));
+        log.warn(formatMessage(uri, HttpStatus.UNAUTHORIZED.getStatus(), message));
         return error(HttpStatus.UNAUTHORIZED, exception.getMessage());
     }
 
     protected WebResponse<Void> whenUnsupportedException(String uri) {
         String message = STR."\{PromptConstant.OPERATION_FAILED}：不支持该操作";
-        log.warn(formatMessage(uri, message));
+        log.warn(formatMessage(uri, HttpStatus.NOT_IMPLEMENTED.getStatus(), message));
         return error(HttpStatus.NOT_IMPLEMENTED, message);
     }
 
     protected WebResponse<Void> whenDataNotFoundException(String uri, DataNotFoundException exception) {
         String message = Nil.isBlank(exception.getMessage()) ? STR."\{PromptConstant.OPERATION_FAILED}：数据不存在" : exception.getMessage();
-        log.error(formatMessage(uri, message));
+        log.error(formatMessage(uri, HttpStatus.DATA_NOT_FOUND.getStatus(), message));
         return error(HttpStatus.DATA_NOT_FOUND, message);
     }
 
     protected WebResponse<Void> whenClientException(String uri, ClientException exception) {
-        log.warn(formatMessage(uri, exception.getMessage()), exception);
+        log.warn(formatMessage(uri, HttpStatus.BAD_REQUEST.getStatus(), exception.getMessage()), exception);
         return error(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 
     protected WebResponse<Void> whenRunningException(String uri, RunningException exception) {
-        log.warn(formatMessage(uri, exception.getMessage()), exception);
+        log.warn(formatMessage(uri, exception.getStatus(), exception.getMessage()), exception);
         return error(exception.getStatus(), exception.getMessage());
     }
 
     protected WebResponse<Void> whenThrowable(String uri, Throwable exception) {
-        log.error(formatMessage(uri, exception.getMessage()), exception);
+        log.error(formatMessage(uri, HttpStatus.INTERNAL_ERROR.getStatus(), exception.getMessage()), exception);
         return error(HttpStatus.INTERNAL_ERROR, "服务繁忙，请稍后再试！");
     }
 
-    protected String formatMessage(String requestUri, String message) {
-        return STR."\{getModuleView()}请求资源地址：'\{requestUri}'，错误信息：\{message}";
+    protected String formatMessage(String requestUri, int httpStatusCode, String message) {
+        return STR."\{getModuleView()}请求资源地址：'\{requestUri}'，状态码：\{httpStatusCode}，错误信息：\{message}";
     }
 
 }
