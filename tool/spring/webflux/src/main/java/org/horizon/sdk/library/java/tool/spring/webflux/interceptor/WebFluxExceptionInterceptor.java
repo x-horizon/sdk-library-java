@@ -88,7 +88,7 @@ public class WebFluxExceptionInterceptor extends WebExceptionInterceptor impleme
      * @return the web response
      */
     public WebResponse<Void> whenNoResourceFoundException(String uri, NoResourceFoundException exception) {
-        log.warn(formatMessage(uri, exception.getReason()));
+        log.warn(formatMessage(uri, HttpStatus.NOT_FOUND.getStatus(), exception.getReason()));
         return error(HttpStatus.NOT_FOUND, exception.getReason());
     }
 
