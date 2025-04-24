@@ -1,4 +1,4 @@
-package org.horizon.sdk.library.java.cache.redis.autoconfigue;
+package org.horizon.sdk.library.java.cache.redis.autoconfigure;
 
 import org.horizon.sdk.library.java.cache.redis.model.property.RedisCacheProperty;
 import org.redisson.spring.starter.RedissonAutoConfiguration;

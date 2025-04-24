@@ -1,4 +1,4 @@
-package org.horizon.sdk.library.java.web.openfeign.autoconfigue;
+package org.horizon.sdk.library.java.web.openfeign.autoconfigure;
 
 import okhttp3.OkHttpClient;
 import org.horizon.sdk.library.java.contract.constant.booleans.BooleanConstant;

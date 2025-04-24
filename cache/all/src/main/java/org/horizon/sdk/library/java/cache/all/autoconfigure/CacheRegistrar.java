@@ -1,4 +1,4 @@
-package org.horizon.sdk.library.java.cache.all.autoconfigue;
+package org.horizon.sdk.library.java.cache.all.autoconfigure;
 
 /**
  * the {@link EnableCache cache system} registrar

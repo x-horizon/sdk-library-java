@@ -5,6 +5,7 @@ import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningCo
 import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
 import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
+import org.horizon.sdk.library.java.tool.lang.object.Objects;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import org.horizon.sdk.library.java.tool.lang.validation.violation.Violation;
 import org.horizon.sdk.library.java.tool.lang.validation.violation.Violator;
@@ -37,7 +38,7 @@ public class Validator<M> {
 
     @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public <T> ValidatorBuilder<T> toBuilder() {
-        return (ValidatorBuilder<T>) this.validatorBuilder;
+        return (ValidatorBuilder<T>) Objects.clone(this.validatorBuilder);
     }
 
     /**

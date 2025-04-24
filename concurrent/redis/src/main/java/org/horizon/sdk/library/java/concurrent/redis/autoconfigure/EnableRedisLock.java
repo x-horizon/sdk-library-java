@@ -1,4 +1,4 @@
-package org.horizon.sdk.library.java.concurrent.redis.autoconfigue;
+package org.horizon.sdk.library.java.concurrent.redis.autoconfigure;
 
 import org.springframework.context.annotation.Import;
 

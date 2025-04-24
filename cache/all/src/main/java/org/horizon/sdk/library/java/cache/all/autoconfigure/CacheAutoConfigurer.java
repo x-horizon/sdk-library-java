@@ -1,4 +1,4 @@
-package org.horizon.sdk.library.java.cache.all.autoconfigue;
+package org.horizon.sdk.library.java.cache.all.autoconfigure;
 
 import org.horizon.sdk.library.java.cache.all.aspect.*;
 import org.horizon.sdk.library.java.cache.all.model.property.CacheProperty;

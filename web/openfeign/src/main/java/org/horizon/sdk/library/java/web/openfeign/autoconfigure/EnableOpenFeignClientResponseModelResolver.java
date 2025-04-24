@@ -1,4 +1,4 @@
-package org.horizon.sdk.library.java.web.openfeign.autoconfigue;
+package org.horizon.sdk.library.java.web.openfeign.autoconfigure;
 
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.model.protocol.TransportModel;

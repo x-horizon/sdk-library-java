@@ -1,12 +1,12 @@
 package org.horizon.sdk.library.java.cache.all.test;
 
-import org.horizon.sdk.library.java.cache.all.autoconfigue.EnableCache;
+import org.horizon.sdk.library.java.cache.all.autoconfigure.EnableCache;
 import org.horizon.sdk.library.java.cache.all.model.BookPO;
 import org.horizon.sdk.library.java.cache.all.service.CacheAllowEmptyValueService;
 import org.horizon.sdk.library.java.cache.all.service.CacheContextWithCacheConfigBuildingService;
 import org.horizon.sdk.library.java.cache.all.service.CacheContextWithoutCacheConfigBuildingService;
 import org.horizon.sdk.library.java.cache.all.service.CacheNotAllowEmptyValueService;
-import org.horizon.sdk.library.java.concurrent.redis.autoconfigue.EnableRedisLock;
+import org.horizon.sdk.library.java.concurrent.redis.autoconfigure.EnableRedisLock;
 import org.horizon.sdk.library.java.contract.model.throwable.LibraryJavaInternalException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

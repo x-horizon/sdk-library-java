@@ -11,9 +11,7 @@ import lombok.SneakyThrows;
 import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.model.throwable.UnauthenticatedException;
 import org.horizon.sdk.library.java.contract.model.throwable.UnauthorizedException;
-import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -68,21 +66,10 @@ public class SaTokens {
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Exception {
 
-        private static final Map<String, String> NOT_LOGIN_TRANSLATOR = Collections.ofImmutableMap(
-                NotLoginException.NOT_TOKEN_MESSAGE, NotLoginException.NOT_TOKEN_MESSAGE,
-                NotLoginException.INVALID_TOKEN_MESSAGE, NotLoginException.INVALID_TOKEN_MESSAGE,
-                NotLoginException.TOKEN_TIMEOUT_MESSAGE, NotLoginException.TOKEN_TIMEOUT_MESSAGE,
-                NotLoginException.BE_REPLACED_MESSAGE, NotLoginException.BE_REPLACED_MESSAGE,
-                NotLoginException.KICK_OUT_MESSAGE, NotLoginException.KICK_OUT_MESSAGE,
-                NotLoginException.TOKEN_FREEZE_MESSAGE, NotLoginException.TOKEN_FREEZE_MESSAGE,
-                NotLoginException.NO_PREFIX_MESSAGE, NotLoginException.NO_PREFIX_MESSAGE,
-                NotLoginException.DEFAULT_MESSAGE, NotLoginException.DEFAULT_MESSAGE
-        );
-
         @SneakyThrows
         public static void doThrow(Throwable throwable) {
             switch (throwable) {
-                case NotLoginException notLoginException -> throw new UnauthenticatedException(NOT_LOGIN_TRANSLATOR.get(notLoginException.getMessage()));
+                case NotLoginException notLoginException -> throw new UnauthenticatedException(notLoginException.getMessage());
                 case NotPermissionException notPermissionException -> throw new UnauthorizedException(notPermissionException.getMessage());
                 case NotRoleException notRoleException -> throw new UnauthorizedException(notRoleException.getMessage());
                 default -> throw throwable;

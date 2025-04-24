@@ -75,7 +75,7 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
      */
     @ExceptionHandler(NoResourceFoundException.class)
     public WebResponse<Void> handleNoResourceFoundException(HttpServletRequest httpServletRequest, NoResourceFoundException exception) {
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()));
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), HttpStatus.NOT_FOUND.getStatus(), exception.getMessage()));
         return error(HttpStatus.NOT_FOUND, STR."the resource path [\{exception.getResourcePath()}] not found");
     }
 
@@ -130,7 +130,7 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public WebResponse<Void> handleHttpRequestMethodNotSupportedException(HttpServletRequest httpServletRequest, HttpRequestMethodNotSupportedException exception) {
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()));
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), HttpStatus.BAD_METHOD.getStatus(), exception.getMessage()));
         return error(HttpStatus.BAD_METHOD, STR."supported request methods are \{Converts.toArrayList(exception.getSupportedMethods())}, but current request method is [\{exception.getMethod()}]");
     }
 
@@ -199,7 +199,7 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public WebResponse<Void> handleHttpMessageNotReadableException(HttpServletRequest httpServletRequest, HttpMessageNotReadableException exception) {
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()));
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), HttpStatus.MESSAGE_NOT_READABLE.getStatus(), exception.getMessage()));
         return error(HttpStatus.MESSAGE_NOT_READABLE, "http message not readable");
     }
 
@@ -272,7 +272,7 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
      */
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public WebResponse<Void> handleMissingServletRequestParameterException(HttpServletRequest httpServletRequest, MissingServletRequestParameterException exception) {
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()));
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), HttpStatus.MISSING_REQUEST_PARAMETER.getStatus(), exception.getMessage()));
         return error(HttpStatus.MISSING_REQUEST_PARAMETER, STR."the parameter [\{exception.getParameterName()}] with type [\{exception.getParameterType()}] is missing");
     }
 
@@ -345,7 +345,7 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public WebResponse<Void> handleMethodArgumentTypeMismatchException(HttpServletRequest httpServletRequest, MethodArgumentTypeMismatchException exception) {
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), exception.getMessage()));
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), HttpStatus.WRONG_REQUEST_PARAMETER_TYPE.getStatus(), exception.getMessage()));
         return error(HttpStatus.WRONG_REQUEST_PARAMETER_TYPE, STR."failed to convert [\{exception.getValue()}] to parameter [\{exception.getName()}] with type [\{Classes.getClassSimpleName(exception.getRequiredType())}]");
     }
 
@@ -412,7 +412,7 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public WebResponse<Void> handleMethodArgumentNotValidException(HttpServletRequest httpServletRequest, MethodArgumentNotValidException exception) {
         String message = exception.getBindingResult().getFieldErrors().stream().map(FieldError::getDefaultMessage).distinct().collect(Collectors.joining(", "));
-        log.warn(formatMessage(httpServletRequest.getRequestURI(), message));
+        log.warn(formatMessage(httpServletRequest.getRequestURI(), HttpStatus.WRONG_REQUEST_MESSAGE_VALUE.getStatus(), message));
         return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, message);
     }
 
