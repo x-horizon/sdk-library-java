@@ -42,7 +42,7 @@ public class CharSequenceConstraint extends ContainerConstraint<CharSequence, In
         this.validationRules.add(new ValidationRule<>(SkipCheckType.BLANK));
         return toThis();
     }
-    
+
     /**
      * requires the string to contain only whitespace (blank).
      *
@@ -157,6 +157,19 @@ public class CharSequenceConstraint extends ContainerConstraint<CharSequence, In
      */
     public CharSequenceConstraint mustValidEmail() {
         this.validationRules.add(new ValidationRule<>(null, ViolationMessageType.STRING_INVALID_EMAIL, Patterns::isEmail));
+        return this;
+    }
+
+    /**
+     * validates the string as qq email address format.
+     *
+     * <p>uses {@link Patterns#isEmailQQ} for validation check and generates {@link ViolationMessageType#STRING_INVALID_EMAIL_QQ} message when violated.</p>
+     *
+     * @return current constraint instance
+     * @see Patterns#isEmailQQ
+     */
+    public CharSequenceConstraint mustValidEmailQQ() {
+        this.validationRules.add(new ValidationRule<>(null, ViolationMessageType.STRING_INVALID_EMAIL_QQ, Patterns::isEmailQQ));
         return this;
     }
 

@@ -44,6 +44,7 @@ public enum ViolationMessageType {
     STRING_INVALID_IPV6("“{}”必须为有效的IPV6地址"),
     STRING_INVALID_MAC_ADDRESS("“{}”必须为有效的MAC地址"),
     STRING_INVALID_EMAIL("“{}”必须为有效的邮箱"),
+    STRING_INVALID_EMAIL_QQ("“{}”必须为有效的QQ邮箱"),
     STRING_INVALID_IDENTITY_CARD("“{}”必须为有效的身份证"),
     STRING_INVALID_UNIFY_SOCIAL_CREDIT_CODE("“{}”必须为有效的统一社会信用代码"),
     STRING_INVALID_POSTCODE("“{}”必须为有效的邮政编码"),

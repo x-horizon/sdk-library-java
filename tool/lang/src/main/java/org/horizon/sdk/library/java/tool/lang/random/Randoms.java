@@ -23,6 +23,15 @@ public class Randoms {
     }
 
     /**
+     * see {@link RandomUtil#randomNumbers(int)}
+     *
+     * @return random number
+     */
+    public static String getNumber(int length) {
+        return RandomUtil.randomNumbers(length);
+    }
+
+    /**
      * see {@link RandomUtil#randomString(int)}
      *
      * @return random string
