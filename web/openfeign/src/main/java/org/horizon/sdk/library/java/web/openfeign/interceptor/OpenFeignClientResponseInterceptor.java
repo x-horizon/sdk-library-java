@@ -13,7 +13,7 @@ import org.horizon.sdk.library.java.tool.convert.api.Converts;
 import org.horizon.sdk.library.java.tool.lang.object.Classes;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
-import org.horizon.sdk.library.java.web.openfeign.autoconfigue.EnableOpenFeignClientResponseModelResolver;
+import org.horizon.sdk.library.java.web.openfeign.autoconfigure.EnableOpenFeignClientResponseModelResolver;
 import org.horizon.sdk.library.java.web.openfeign.cache.OpenFeignClientResponseModelCache;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.lang.NonNull;

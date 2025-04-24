@@ -1,1 +1,1 @@
-org.horizon.sdk.library.java.concurrent.redis.autoconfigue.RedisLockAutoConfigurer
+org.horizon.sdk.library.java.concurrent.redis.autoconfigure.RedisLockAutoConfigurer

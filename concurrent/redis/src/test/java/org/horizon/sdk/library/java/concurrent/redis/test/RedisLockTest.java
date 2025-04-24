@@ -2,7 +2,7 @@ package org.horizon.sdk.library.java.concurrent.redis.test;
 
 import lombok.Setter;
 import lombok.SneakyThrows;
-import org.horizon.sdk.library.java.concurrent.redis.autoconfigue.EnableRedisLock;
+import org.horizon.sdk.library.java.concurrent.redis.autoconfigure.EnableRedisLock;
 import org.horizon.sdk.library.java.concurrent.redis.strategy.RedisFairLockHandler;
 import org.horizon.sdk.library.java.contract.model.throwable.LibraryJavaInternalException;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;

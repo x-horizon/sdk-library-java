@@ -1,4 +1,4 @@
-package org.horizon.sdk.library.java.cache.caffeine.autoconfigue;
+package org.horizon.sdk.library.java.cache.caffeine.autoconfigure;
 
 import org.horizon.sdk.library.java.cache.caffeine.model.property.CaffeineCacheProperty;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
