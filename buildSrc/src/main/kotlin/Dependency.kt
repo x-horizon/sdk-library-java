@@ -135,7 +135,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_GOOGLE_GUAVA("com.google.guava:guava", "33.3.0-jre"),
     TOOL_HUTOOL("org.dromara.hutool:hutool-all", "6.0.0-M19"),
     TOOL_IO_VAVR("io.vavr:vavr", "0.10.4"),
-    TOOL_JDK_BURNING_WAVE_CORE("org.burningwave:core", "12.65.2"),
+    TOOL_JDK_BURNING_WAVE_CORE("org.burningwave:core", "12.66.2"),
     TOOL_JNA_VERSION("", "5.13.0"),
     TOOL_JNA("net.java.dev.jna:jna", TOOL_JNA_VERSION.version),
     TOOL_JNA_JPMS("net.java.dev.jna:jna-jpms", TOOL_JNA_VERSION.version),
