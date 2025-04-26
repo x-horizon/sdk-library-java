@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.dromara.hutool.core.util.RandomUtil;
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.tool.convert.api.mapstruct.model.vo.GradeVO;
+import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -29,11 +29,10 @@ public class GradeDO implements Serializable {
 
     private List<StudentDO> students;
 
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static GradeDO newDO() {
         return GradeDO.builder()
                 .id(RandomUtil.randomInt(99))
-                .name(STR."\{RandomUtil.randomInt(1, 7)}年级")
+                .name(Strings.format("{}年级", RandomUtil.randomInt(1, 7)))
                 .students(StudentDO.newDOs())
                 .build();
     }

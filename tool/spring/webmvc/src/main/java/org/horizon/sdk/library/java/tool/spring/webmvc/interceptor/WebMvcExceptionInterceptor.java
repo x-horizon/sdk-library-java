@@ -4,12 +4,12 @@ import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.constant.web.HttpStatus;
 import org.horizon.sdk.library.java.contract.model.protocol.WebResponse;
 import org.horizon.sdk.library.java.contract.model.throwable.*;
 import org.horizon.sdk.library.java.tool.lang.convert.Converts;
 import org.horizon.sdk.library.java.tool.lang.object.Classes;
+import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import org.horizon.sdk.library.java.tool.spring.contract.interceptor.WebExceptionInterceptor;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -33,7 +33,6 @@ import static org.horizon.sdk.library.java.contract.model.protocol.WebResponse.e
  * @author wjm
  * @since 2020-06-13 20:05
  */
-@SuppressWarnings(SuppressWarningConstant.PREVIEW)
 @Slf4j
 @Order
 @RestControllerAdvice
@@ -76,7 +75,7 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
     @ExceptionHandler(NoResourceFoundException.class)
     public WebResponse<Void> handleNoResourceFoundException(HttpServletRequest httpServletRequest, NoResourceFoundException exception) {
         log.warn(formatMessage(httpServletRequest.getRequestURI(), HttpStatus.NOT_FOUND.getStatus(), exception.getMessage()));
-        return error(HttpStatus.NOT_FOUND, STR."the resource path [\{exception.getResourcePath()}] not found");
+        return error(HttpStatus.NOT_FOUND, Strings.format("the resource path [{}] not found", exception.getResourcePath()));
     }
 
     /**
@@ -131,7 +130,7 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public WebResponse<Void> handleHttpRequestMethodNotSupportedException(HttpServletRequest httpServletRequest, HttpRequestMethodNotSupportedException exception) {
         log.warn(formatMessage(httpServletRequest.getRequestURI(), HttpStatus.BAD_METHOD.getStatus(), exception.getMessage()));
-        return error(HttpStatus.BAD_METHOD, STR."supported request methods are \{Converts.toArrayList(exception.getSupportedMethods())}, but current request method is [\{exception.getMethod()}]");
+        return error(HttpStatus.BAD_METHOD, Strings.format("supported request methods are {}, but current request method is [{}]", Converts.toArrayList(exception.getSupportedMethods()), exception.getMethod()));
     }
 
     /**
@@ -273,7 +272,7 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public WebResponse<Void> handleMissingServletRequestParameterException(HttpServletRequest httpServletRequest, MissingServletRequestParameterException exception) {
         log.warn(formatMessage(httpServletRequest.getRequestURI(), HttpStatus.MISSING_REQUEST_PARAMETER.getStatus(), exception.getMessage()));
-        return error(HttpStatus.MISSING_REQUEST_PARAMETER, STR."the parameter [\{exception.getParameterName()}] with type [\{exception.getParameterType()}] is missing");
+        return error(HttpStatus.MISSING_REQUEST_PARAMETER, Strings.format("the parameter [{}] with type [{}] is missing", exception.getParameterName(), exception.getParameterType()));
     }
 
     /**
@@ -346,7 +345,7 @@ public class WebMvcExceptionInterceptor extends WebExceptionInterceptor {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public WebResponse<Void> handleMethodArgumentTypeMismatchException(HttpServletRequest httpServletRequest, MethodArgumentTypeMismatchException exception) {
         log.warn(formatMessage(httpServletRequest.getRequestURI(), HttpStatus.WRONG_REQUEST_PARAMETER_TYPE.getStatus(), exception.getMessage()));
-        return error(HttpStatus.WRONG_REQUEST_PARAMETER_TYPE, STR."failed to convert [\{exception.getValue()}] to parameter [\{exception.getName()}] with type [\{Classes.getClassSimpleName(exception.getRequiredType())}]");
+        return error(HttpStatus.WRONG_REQUEST_PARAMETER_TYPE, Strings.format("failed to convert [{}] to parameter [{}] with type [{}]", exception.getValue(), exception.getName(), Classes.getClassSimpleName(exception.getRequiredType())));
     }
 
     /**

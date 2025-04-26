@@ -9,7 +9,6 @@ import org.dromara.x.file.storage.core.ProgressListener;
 import org.dromara.x.file.storage.core.upload.UploadPretreatment;
 import org.horizon.sdk.library.java.contract.component.oss.model.enums.OssType;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
 import org.horizon.sdk.library.java.contract.model.throwable.LibraryJavaInternalException;
 import org.horizon.sdk.library.java.oss.contract.constant.OssConstant;
@@ -33,6 +32,7 @@ import java.util.function.Consumer;
  * @author wjm
  * @since 2024-07-17 19:12
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Oss {
 
     private static final Map<String, Boolean> ALREADY_REGISTER_PLATFORM_CACHE = Collections.newConcurrentHashMap();
@@ -69,9 +69,8 @@ public class Oss {
         return !exist(url, ossFileDO);
     }
 
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static String getPlatform(OssType ossType, String bucketName) {
-        return STR."\{ossType.getValue()}-\{bucketName}";
+        return Strings.format("{}-{}", ossType.getValue(), bucketName);
     }
 
     private static OssType parseOssType(String url) {
@@ -84,10 +83,6 @@ public class Oss {
         return Optional.ofNullable(Urls.getQueryParam(url, OssConstant.BUCKET_NAME))
                 .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}could not parse bucket name from url [{}], example url like: [minio:///foo/test?{}=myBucketName], please check!", ModuleView.OSS_SYSTEM, url, OssConstant.BUCKET_NAME)))
                 .toString();
-    }
-
-    private static String parsePath(String url) {
-        return Urls.getUri(url);
     }
 
     private static void registerFileStoragePropertiesIfNeed(String url) {
@@ -188,6 +183,10 @@ public class Oss {
                 uploadPretreatment.thumbnail(this.thumbnail);
             }
             return OssFileDO.from(uploadPretreatment.upload());
+        }
+
+        private static String parsePath(String url) {
+            return Urls.getUri(url);
         }
 
     }

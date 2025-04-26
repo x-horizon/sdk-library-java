@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import org.dromara.hutool.core.annotation.AnnotationUtil;
 import org.horizon.sdk.library.java.contract.constant.annotation.AnnotationConstant;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.model.throwable.LibraryJavaInternalException;
 import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 import org.horizon.sdk.library.java.tool.lang.object.BasePackagePath;
@@ -166,9 +165,8 @@ public class Annotations {
      * @param scanPackagePaths the specified packages path
      * @return all methods containing the specified annotation in the specified package paths
      */
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static Set<Method> getAnnotatedMethods(Class<? extends Annotation> annotationClass, Collection<String> scanPackagePaths) {
-        return ANNOTATION_CLASS_MAPPING_ANNOTATED_CLASSES_CACHE.computeIfAbsent(STR."\{annotationClass.getName()} in [\{Strings.joinWithCommaAndSpace(scanPackagePaths)}]", ignore ->
+        return ANNOTATION_CLASS_MAPPING_ANNOTATED_CLASSES_CACHE.computeIfAbsent(Strings.format("{} in [{}]", annotationClass.getName(), Strings.joinWithCommaAndSpace(scanPackagePaths)), ignore ->
                 scanPackagePaths.stream()
                         .map(scanPackagePath -> new Reflections(new ConfigurationBuilder()
                                 .setUrls(ClasspathHelper.forPackage(scanPackagePath))

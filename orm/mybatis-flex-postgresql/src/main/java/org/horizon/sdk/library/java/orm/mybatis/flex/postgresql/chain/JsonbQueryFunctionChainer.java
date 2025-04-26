@@ -7,7 +7,6 @@ import com.mybatisflex.core.query.RawQueryTable;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.horizon.sdk.library.java.contract.constant.database.PostgresqlFunctionType;
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.constant.text.SymbolConstant;
 import org.horizon.sdk.library.java.contract.model.base.PO;
 import org.horizon.sdk.library.java.contract.model.base.POJO;
@@ -44,19 +43,16 @@ public class JsonbQueryFunctionChainer<PJ extends POJO> extends BaseQueryChainer
         this.sqlAppender = sqlAppender;
     }
 
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static <PJ1 extends POJO> JsonbQueryFunctionChainer<PJ1> jsonbArrayElements(ColumnNameGetter<PJ1> columnNameGetter) {
-        return new JsonbQueryFunctionChainer<>(STR."\{PostgresqlFunctionType.JSONB_ARRAY_ELEMENTS.getValue()}({}\{MybatisFlexs.getColumnName(columnNameGetter)})");
+        return new JsonbQueryFunctionChainer<>(Strings.format("{}({}{})", PostgresqlFunctionType.JSONB_ARRAY_ELEMENTS.getValue(), MybatisFlexs.getColumnName(columnNameGetter)));
     }
 
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static <PJ1 extends POJO> JsonbQueryFunctionChainer<PJ1> jsonbArrayElements(JsonbQueryFunctionChainer<PJ1> function) {
-        return new JsonbQueryFunctionChainer<>(STR."\{PostgresqlFunctionType.JSONB_ARRAY_ELEMENTS.getValue()}(\{function.getSqlAppender()})");
+        return new JsonbQueryFunctionChainer<>(Strings.format("{}({})", PostgresqlFunctionType.JSONB_ARRAY_ELEMENTS.getValue(), function.getSqlAppender()));
     }
 
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static <PJ1 extends POJO, PJ2 extends POJO, PJ3 extends POJO> JsonbQueryFunctionChainer<PJ1> jsonbExtractPath(ColumnNameGetter<PJ2> columnNameGetter, ColumnNameGetter<PJ3> jsonKeyGetter) {
-        return new JsonbQueryFunctionChainer<>(STR."\{PostgresqlFunctionType.JSONB_EXTRACT_PATH.getValue()}({}\{MybatisFlexs.getColumnName(columnNameGetter)}, '\{MybatisFlexs.getFieldName(jsonKeyGetter)}')");
+        return new JsonbQueryFunctionChainer<>(Strings.format("{}({}{}, '{}')", PostgresqlFunctionType.JSONB_EXTRACT_PATH.getValue(), MybatisFlexs.getColumnName(columnNameGetter), MybatisFlexs.getFieldName(jsonKeyGetter)));
     }
 
     public <P extends PO> JsonbQueryFunctionChainer<PJ> addTableSuffix(Class<P> poClass) {

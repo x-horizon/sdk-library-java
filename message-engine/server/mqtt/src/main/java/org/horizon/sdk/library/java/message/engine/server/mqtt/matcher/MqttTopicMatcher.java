@@ -1,9 +1,9 @@
 package org.horizon.sdk.library.java.message.engine.server.mqtt.matcher;
 
 import lombok.Getter;
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.tool.lang.functional.Assert;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
+import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
 import java.util.regex.Pattern;
 
@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
  * @author wjm
  * @since 2025-01-05 20:37
  */
-@SuppressWarnings(SuppressWarningConstant.PREVIEW)
 public class MqttTopicMatcher {
 
     @Getter private final String topic;
@@ -21,7 +20,7 @@ public class MqttTopicMatcher {
     public MqttTopicMatcher(String topic) {
         Assert.of("topic cannot be blank, please check!").throwsIfBlank(topic);
         this.topic = topic;
-        this.topicRegex = Pattern.compile(STR."\{topic.replace("+", "[^/]+").replace("#", ".+")}$");
+        this.topicRegex = Pattern.compile(Strings.format("{}$", topic.replace("+", "[^/]+").replace("#", ".+")));
     }
 
     public boolean match(String topic) {

@@ -6,7 +6,6 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.message.engine.server.mqtt.constant.MqttServerConstant;
 import org.horizon.sdk.library.java.message.engine.server.mqtt.context.MqttClientSessionContext;
 import org.horizon.sdk.library.java.message.engine.server.mqtt.context.MqttServerContext;
@@ -23,9 +22,10 @@ import java.util.UUID;
  * @since 2025-01-05 22:55
  */
 @Slf4j
-@SuppressWarnings(SuppressWarningConstant.PREVIEW)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class NettyMqtts {
+
+    private static final String LOG_FORMAT = "{} - {}";
 
     public static MqttQoS getMaxSupportQualityOfService(MqttQoS requestQualityOfService) {
         return MqttQoS.valueOf(Math.min(requestQualityOfService.value(), MqttServerConstant.MAX_SUPPORTED_QUALITY_OF_SERVICE.value()));
@@ -117,23 +117,23 @@ public class NettyMqtts {
     }
 
     public static void logTrace(ChannelHandlerContext channelHandlerContext, InetSocketAddress clientAddress, UUID sessionId, String logMessage, Object... logParams) {
-        log.trace(Strings.format(STR."\{getBaseLog(channelHandlerContext, clientAddress, sessionId)} - \{logMessage}", logParams));
+        log.trace(Strings.format(Strings.format(LOG_FORMAT, getBaseLog(channelHandlerContext, clientAddress, sessionId), logMessage), logParams));
     }
 
     public static void logDebug(ChannelHandlerContext channelHandlerContext, InetSocketAddress clientAddress, UUID sessionId, String logMessage, Object... logParams) {
-        log.debug(Strings.format(STR."\{getBaseLog(channelHandlerContext, clientAddress, sessionId)} - \{logMessage}", logParams));
+        log.debug(Strings.format(Strings.format(LOG_FORMAT, getBaseLog(channelHandlerContext, clientAddress, sessionId), logMessage), logParams));
     }
 
     public static void logInfo(ChannelHandlerContext channelHandlerContext, InetSocketAddress clientAddress, UUID sessionId, String logMessage, Object... logParams) {
-        log.info(Strings.format(STR."\{getBaseLog(channelHandlerContext, clientAddress, sessionId)} - \{logMessage}", logParams));
+        log.info(Strings.format(Strings.format(LOG_FORMAT, getBaseLog(channelHandlerContext, clientAddress, sessionId), logMessage), logParams));
     }
 
     public static void logWarn(ChannelHandlerContext channelHandlerContext, InetSocketAddress clientAddress, UUID sessionId, String logMessage, Object... logParams) {
-        log.warn(Strings.format(STR."\{getBaseLog(channelHandlerContext, clientAddress, sessionId)} - \{logMessage}", logParams));
+        log.warn(Strings.format(Strings.format(LOG_FORMAT, getBaseLog(channelHandlerContext, clientAddress, sessionId), logMessage), logParams));
     }
 
     public static void logError(ChannelHandlerContext channelHandlerContext, InetSocketAddress clientAddress, UUID sessionId, String logMessage, Object... logParams) {
-        log.error(Strings.format(STR."\{getBaseLog(channelHandlerContext, clientAddress, sessionId)} - \{logMessage}", logParams));
+        log.error(Strings.format(Strings.format(LOG_FORMAT, getBaseLog(channelHandlerContext, clientAddress, sessionId), logMessage), logParams));
     }
 
     private static String getBaseLog(ChannelHandlerContext channelHandlerContext, InetSocketAddress clientAddress, UUID sessionId) {

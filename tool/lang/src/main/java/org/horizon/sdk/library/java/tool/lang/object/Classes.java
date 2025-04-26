@@ -333,9 +333,8 @@ public class Classes {
      * @return all classes containing the specified annotation in the specified package paths
      * @see ClassUtil#scanPackageByAnnotation(String, Class)
      */
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static Set<Class<?>> scanByAnnotation(Class<? extends Annotation> annotationClass, Collection<String> scanPackagePaths) {
-        return ANNOTATION_CLASS_MAPPING_ANNOTATED_CLASSES_CACHE.computeIfAbsent(STR."\{annotationClass.getName()} in [\{Strings.joinWithCommaAndSpace(scanPackagePaths)}]", ignore ->
+        return ANNOTATION_CLASS_MAPPING_ANNOTATED_CLASSES_CACHE.computeIfAbsent(Strings.format("{} in [{}]", annotationClass.getName(), Strings.joinWithCommaAndSpace(scanPackagePaths)), ignore ->
                 Collections.emptyIfNull(scanPackagePaths)
                         .stream()
                         .map(path -> ClassUtil.scanPackageByAnnotation(path, annotationClass))
@@ -364,9 +363,9 @@ public class Classes {
      * @param <T>              the specified class type
      * @return all subclasses or implementation classes of the specified class or interface in the specified package paths
      */
-    @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.PREVIEW})
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public static <T> Set<Class<? extends T>> scanBySuper(Class<T> rootClass, Collection<String> scanPackagePaths) {
-        return (Set<Class<? extends T>>) (Set<?>) CLASS_MAPPING_SUBCLASSES_OR_IMPLEMENTATION_CLASSES_CACHE.computeIfAbsent(STR."\{rootClass.getName()} in [\{Strings.joinWithCommaAndSpace(scanPackagePaths)}]", ignore -> {
+        return (Set<Class<? extends T>>) (Set<?>) CLASS_MAPPING_SUBCLASSES_OR_IMPLEMENTATION_CLASSES_CACHE.computeIfAbsent(Strings.format("{} in [{}]", rootClass.getName(), Strings.joinWithCommaAndSpace(scanPackagePaths)), ignore -> {
             Set<Class<?>> subClasses = Collections.newHashSet();
             Collections.emptyIfNull(scanPackagePaths).forEach(packageName -> Collections.add(subClasses, ClassUtil.scanPackageBySuper(packageName, rootClass)));
             return subClasses;

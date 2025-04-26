@@ -7,9 +7,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.model.throwable.DataNotFoundException;
 import org.horizon.sdk.library.java.tool.convert.api.Converts;
+import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import org.horizon.sdk.library.java.tool.spring.contract.support.Springs;
 
 import java.util.Optional;
@@ -18,7 +18,6 @@ import java.util.Optional;
  * @author wjm
  * @since 2025-04-13 18:16
  */
-@SuppressWarnings(SuppressWarningConstant.PREVIEW)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Nacos {
 
@@ -85,7 +84,7 @@ public class Nacos {
 
         private static ConfigType getFileExtensionType(String fileExtensionType) {
             return Optional.ofNullable(Converts.toEnumByValue(fileExtensionType, ConfigType.class))
-                    .orElseThrow(() -> new DataNotFoundException(STR."\{ModuleView.REGISTRATION_NACOS_SYSTEM}invalid file extension type: \{fileExtensionType}"));
+                    .orElseThrow(() -> new DataNotFoundException(Strings.format("{}invalid file extension type: {}", ModuleView.REGISTRATION_NACOS_SYSTEM, fileExtensionType)));
         }
 
         private static NacosConfigManager getManager() {

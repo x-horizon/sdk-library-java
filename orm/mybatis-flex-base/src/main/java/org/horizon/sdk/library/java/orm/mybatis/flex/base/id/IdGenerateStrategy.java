@@ -2,9 +2,9 @@ package org.horizon.sdk.library.java.orm.mybatis.flex.base.id;
 
 import com.mybatisflex.core.FlexGlobalConfig;
 import org.horizon.sdk.library.java.contract.constant.module.ModuleView;
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.tool.lang.compare.Comparators;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
+import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,9 +19,8 @@ public interface IdGenerateStrategy {
 
     Logger log = LoggerFactory.getLogger(IdGenerateStrategy.class);
 
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     default String getGeneratorName() {
-        return STR."mybatisFlexId-\{this.getClass().getSimpleName()}";
+        return Strings.format("mybatisFlexId-{}", this.getClass().getSimpleName());
     }
 
     default void warningIfNotDefaultIdGenerateType(IdGenerateType idGenerateType) {
