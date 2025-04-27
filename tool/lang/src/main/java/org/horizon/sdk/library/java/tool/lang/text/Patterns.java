@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.dromara.hutool.core.data.PhoneUtil;
 import org.dromara.hutool.core.lang.Validator;
+import org.dromara.hutool.core.regex.ReUtil;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 
 /**
@@ -12,6 +13,8 @@ import org.horizon.sdk.library.java.tool.lang.object.Nil;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Patterns {
+
+    private static final String EMAIL_QQ_REGEX = "^[a-zA-Z0-9_.%+-]+@(qq|foxmail)\\.com$";
 
     public static boolean isUuid(CharSequence value) {
         return Validator.isUUID(value);
@@ -39,6 +42,10 @@ public class Patterns {
 
     public static boolean isEmail(CharSequence value) {
         return Validator.isEmail(value);
+    }
+
+    public static boolean isEmailQQ(CharSequence value) {
+        return ReUtil.isMatch(EMAIL_QQ_REGEX, value);
     }
 
     public static boolean isIdentityCard(CharSequence value) {

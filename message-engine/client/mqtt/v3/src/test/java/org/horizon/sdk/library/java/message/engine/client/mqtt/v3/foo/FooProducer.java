@@ -1,11 +1,11 @@
 package org.horizon.sdk.library.java.message.engine.client.mqtt.v3.foo;
 
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.message.engine.client.contract.MessageClientConfig;
 import org.horizon.sdk.library.java.message.engine.client.contract.MessageClientProducer;
 import org.horizon.sdk.library.java.message.engine.client.contract.model.enums.MessageClientType;
 import org.horizon.sdk.library.java.message.engine.client.contract.model.enums.MessageQualityOfServiceType;
 import org.horizon.sdk.library.java.message.engine.client.mqtt.v3.MqttV3Config;
+import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import org.horizon.sdk.library.java.tool.lang.time.Times;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
  * @author wjm
  * @since 2024-05-27 14:50
  */
-@SuppressWarnings(SuppressWarningConstant.PREVIEW)
 @Component
 public class FooProducer {
 
@@ -24,7 +23,7 @@ public class FooProducer {
             ))
     )
     public String send1() {
-        System.out.println(STR."生产者1 -------- \{Times.getCurrentDateTime()}-producer-send1");
+        System.out.println(Strings.format("生产者1 -------- {}-producer-send1", Times.getCurrentDateTime()));
         return "send1";
     }
 
@@ -35,7 +34,7 @@ public class FooProducer {
             ))
     )
     public String send2() {
-        System.out.println(STR."生产者2 -------- \{Times.getCurrentDateTime()}-producer-send2");
+        System.out.println(Strings.format("生产者2 -------- {}-producer-send2", Times.getCurrentDateTime()));
         return "send2";
     }
 

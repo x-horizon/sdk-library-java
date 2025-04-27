@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.dromara.hutool.core.util.RandomUtil;
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.tool.convert.api.mapstruct.model.domain.StudentDO;
+import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -37,11 +37,10 @@ public class StudentVO implements Serializable {
 
     private String studentSexName;
 
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static StudentVO newVO() {
         return StudentVO.builder()
                 .studentId(RandomUtil.randomInt(99))
-                .studentName(STR."name\{RandomUtil.randomNumbers(2)}")
+                .studentName(Strings.format("name{}", RandomUtil.randomNumbers(2)))
                 .studentAge(RandomUtil.randomInt(15, 20))
                 .studentSexName(StudentDO.Sex.GIRL.name())
                 .studentSexNumber(StudentDO.Sex.GIRL.getNumber())

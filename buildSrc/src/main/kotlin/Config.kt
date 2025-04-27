@@ -20,7 +20,7 @@ object GradleConfig {
     const val PROJECT_DESCRIPTION = "the library java sdk for all."
     const val PROJECT_INCEPTION_YEAR = "2021"
 
-    const val JAVA_VERSION = "21"
+    const val JAVA_VERSION = "24"
 
     const val WITH_PARAMETERS_ARG = "-parameters"
     const val WITH_ENABLE_PREVIEW_ARG = "--enable-preview"

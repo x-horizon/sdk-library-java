@@ -14,6 +14,7 @@ import org.horizon.sdk.library.java.studio.low.code.manager.orm.MybatisUpdateLis
 import org.horizon.sdk.library.java.tool.enums.autoconfigure.EnableEnumAutowired;
 import org.horizon.sdk.library.java.tool.id.snowflake.autoconfigure.EnableSnowflakeId;
 import org.horizon.sdk.library.java.tool.id.snowflake.model.enums.SnowflakeIdEnvironment;
+import org.horizon.sdk.library.java.tool.spring.contract.autoconfigure.EnableJvmPrinter;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,6 +22,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @MapperScan("org.horizon.sdk.library.java.studio.low.code.**.repository")
 @EnableAspectJAutoProxy(exposeProxy = true)
+@EnableJvmPrinter
 @EnableEnumAutowired
 @EnableSnowflakeId(environment = SnowflakeIdEnvironment.MULTIPLE_NODE)
 @EnableMybatisFlexCustomizer(

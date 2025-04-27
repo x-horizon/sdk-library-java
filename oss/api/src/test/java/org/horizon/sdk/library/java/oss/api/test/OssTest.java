@@ -1,11 +1,11 @@
 package org.horizon.sdk.library.java.oss.api.test;
 
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.oss.contract.Oss;
 import org.horizon.sdk.library.java.oss.contract.model.domain.OssFileDO;
 import org.horizon.sdk.library.java.oss.local.autoconfigure.EnableOssLocal;
 import org.horizon.sdk.library.java.oss.minio.autoconfigure.EnableOssMinio;
 import org.horizon.sdk.library.java.tool.lang.file.Files;
+import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +17,6 @@ import java.io.File;
  * @author wjm
  * @since 2024-07-16 18:58
  */
-@SuppressWarnings(SuppressWarningConstant.PREVIEW)
 @EnableOssLocal
 @EnableOssMinio
 @ExtendWith(SpringExtension.class)
@@ -32,15 +31,15 @@ class OssTest {
         OssFileDO ossFileDO = Oss.openUpload()
                 .scale()
                 .thumbnail()
-                .progressListener((alreadyUploadSize, totalSize) -> System.out.println(STR."upload already size：\{alreadyUploadSize}, total size: \{totalSize}"))
+                .progressListener((alreadyUploadSize, totalSize) -> System.out.println(Strings.format("upload already size：{}, total size: {}", alreadyUploadSize, totalSize)))
                 .upload(file, "模型校验样张3.jpg", url);
 
         byte[] originalBytes = Oss.download(url, ossFileDO)
-                .setProgressListener((currentDownSize, totalSize) -> System.out.println(STR."current download original size：\{currentDownSize}, total size: \{totalSize}"))
+                .setProgressListener((currentDownSize, totalSize) -> System.out.println(Strings.format("current download original size：{}, total size: {}", currentDownSize, totalSize)))
                 .bytes();
 
         byte[] thumbnailBytes = Oss.downloadThumbnail(url, ossFileDO)
-                .setProgressListener((currentDownSize, totalSize) -> System.out.println(STR."current download thumbnail size：\{currentDownSize}, total size: \{totalSize}"))
+                .setProgressListener((currentDownSize, totalSize) -> System.out.println(Strings.format("current download thumbnail size：{}, total size: {}", currentDownSize, totalSize)))
                 .bytes();
 
         boolean isExistBeforeDelete = Oss.exist(url, ossFileDO);

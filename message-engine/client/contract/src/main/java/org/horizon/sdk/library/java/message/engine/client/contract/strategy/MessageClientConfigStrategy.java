@@ -148,7 +148,7 @@ public abstract class MessageClientConfigStrategy<Property extends MessageClient
                 });
     }
 
-    @SuppressWarnings({SuppressWarningConstant.PREVIEW, SuppressWarningConstant.UNCHECKED})
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public IntegrationFlowContext.IntegrationFlowRegistration getIntegrationFlowRegistration(Method producerMethod, String[] producerMethodParameterNames, Object[] producerMethodParameterValues, String staticFlowId) {
         IntegrationFlowContext integrationFlowContext = Springs.getBean(IntegrationFlowContext.class);
         IntegrationFlowContext.IntegrationFlowRegistration integrationFlowRegistration = integrationFlowContext.getRegistrationById(staticFlowId);
@@ -161,7 +161,7 @@ public abstract class MessageClientConfigStrategy<Property extends MessageClient
         MessageClientType messageClientType = getMessageEngineType();
         String topic = Optional.ofNullable(Expressions.getInstance().parse(producerMethodParameterNames, producerMethodParameterValues, producerDTO.getTopic()))
                 .map(Object::toString)
-                .orElseThrow(() -> new LibraryJavaInternalException(STR."\{ModuleView.MESSAGE_ENGINE_CLIENT_SYSTEM}could not parse the topic from method [\{Methods.getFullName(producerMethod)}], the method parameter names are \{producerMethodParameterNames}, the method parameter value are \{producerMethodParameterValues}, the topic expression is [\{producerDTO.getTopic()}], please check!"));
+                .orElseThrow(() -> new LibraryJavaInternalException(Strings.format("{}could not parse the topic from method [{}], the method parameter names are {}, the method parameter value are {}, the topic expression is [{}], please check!", ModuleView.MESSAGE_ENGINE_CLIENT_SYSTEM, Methods.getFullName(producerMethod), producerMethodParameterNames, producerMethodParameterValues, producerDTO.getTopic())));
         String dynamicFlowId = MessageClientFlows.getDynamicFlowId(messageClientType, producerMethod, topic);
         integrationFlowRegistration = integrationFlowContext.getRegistrationById(dynamicFlowId);
         if (Nil.isNotNull(integrationFlowRegistration)) {
@@ -258,11 +258,10 @@ public abstract class MessageClientConfigStrategy<Property extends MessageClient
                 .register();
     }
 
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     private void verifyConfig(MessageClientType engineType, Config configDTO) {
         MessageClientVerificationConfigDTO verificationConfigDTO = getVerificationConfigDTO(configDTO);
         if (Nil.isEmpty(configDTO.getBrokerDTO().getServerUrls())) {
-            verificationConfigDTO.getBrokerFailedReason().put("invalid server urls", STR."invalid server urls, you must provide them in the config file, see [\{getPropertyType().getName()}].");
+            verificationConfigDTO.getBrokerFailedReason().put("invalid server urls", Strings.format("invalid server urls, you must provide them in the config file, see [{}].", getPropertyType().getName()));
         }
 
         Map<String, MessageClientVerificationConfigDTO.ProducerDTO> producerMethodPointCache = Converts.toHashMap(verificationConfigDTO.getProducerFailedReasons(), MessageClientVerificationConfigDTO.ProducerDTO::getMethodPoint);
@@ -275,7 +274,7 @@ public abstract class MessageClientConfigStrategy<Property extends MessageClient
                     }
                     Class<?> producerDeclaringClass = producerDTO.getClientDTO().getExecuteMethod().getDeclaringClass();
                     if (Springs.notExistBean(producerDeclaringClass)) {
-                        producerFailedReasons.put("producer instance not found", STR."could not find the producer [\{producerDeclaringClass.getName()}] instance in spring ioc, please add it into spring ioc!");
+                        producerFailedReasons.put("producer instance not found", Strings.format("could not find the producer [{}] instance in spring ioc, please add it into spring ioc!", producerDeclaringClass.getName()));
                     }
 
                     MessageClientVerificationConfigDTO.ProducerDTO producerFailedReasonDTO = producerMethodPointCache.computeIfAbsent(
@@ -301,11 +300,11 @@ public abstract class MessageClientConfigStrategy<Property extends MessageClient
                         consumerFailedReasons.put("topics not found", "could not find topics to consume, please check!");
                     }
                     if (Nil.isNotZeroValue(consumerDTO.getTopics().stream().filter(Nil::isBlank).count())) {
-                        consumerFailedReasons.put("invalid topic names", STR."found blank topic name in \{consumerDTO.getTopics()}, please check!");
+                        consumerFailedReasons.put("invalid topic names", Strings.format("found blank topic name in {}, please check!", consumerDTO.getTopics()));
                     }
                     Class<?> consumerDeclaringClass = consumerDTO.getClientDTO().getExecuteMethod().getDeclaringClass();
                     if (Springs.notExistBean(consumerDeclaringClass)) {
-                        consumerFailedReasons.put("consumer instance not found", STR."could not find the consumer [\{consumerDeclaringClass.getName()}] instance in spring ioc, please add it into spring ioc!");
+                        consumerFailedReasons.put("consumer instance not found", Strings.format("could not find the consumer [{}] instance in spring ioc, please add it into spring ioc!", consumerDeclaringClass.getName()));
                     }
 
                     MessageClientVerificationConfigDTO.ConsumerDTO consumerFailedReasonDTO = consumerMethodPointCache.computeIfAbsent(

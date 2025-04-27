@@ -17,6 +17,7 @@ import org.horizon.sdk.library.java.message.engine.client.mqtt.v3.model.property
 import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 import org.horizon.sdk.library.java.tool.lang.convert.Converts;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
+import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import org.horizon.sdk.library.java.tool.lang.time.Times;
 import org.horizon.sdk.library.java.tool.spring.contract.support.Springs;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -202,14 +203,13 @@ public class MqttV3ClientConfigStrategy extends MessageClientConfigStrategy<Mqtt
         return verificationConfigDTO;
     }
 
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     private Map<String, String> verifyClientConfig(MqttV3ClientConfigDTO.ClientDTO clientDTO) {
         Map<String, String> failedReasons = Collections.newHashMap();
         if (Times.isInvalidTimeFormat(clientDTO.getCompletionTimeout())) {
-            failedReasons.put("invalid completion timeout", STR."could not parse time from completion timeout value [\{clientDTO.getCompletionTimeout()}], please check!");
+            failedReasons.put("invalid completion timeout", Strings.format("could not parse time from completion timeout value [{}], please check!", clientDTO.getCompletionTimeout()));
         }
         if (Times.isInvalidTimeFormat(clientDTO.getDisconnectCompletionTimeout())) {
-            failedReasons.put("invalid disconnect completion timeout", STR."could not parse time from disconnect completion timeout value [\{clientDTO.getDisconnectCompletionTimeout()}], please check!");
+            failedReasons.put("invalid disconnect completion timeout", Strings.format("could not parse time from disconnect completion timeout value [{}], please check!", clientDTO.getDisconnectCompletionTimeout()));
         }
         return failedReasons;
     }

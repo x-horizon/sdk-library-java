@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.dromara.hutool.core.util.RandomUtil;
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.tool.convert.api.mapstruct.model.vo.StudentVO;
+import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -46,11 +46,10 @@ public class StudentDO implements Serializable {
         private final int number;
     }
 
-    @SuppressWarnings(SuppressWarningConstant.PREVIEW)
     public static StudentDO newDO() {
         return StudentDO.builder()
                 .id(RandomUtil.randomInt(99))
-                .name(STR."name\{RandomUtil.randomNumbers(2)}")
+                .name(Strings.format("name{}", RandomUtil.randomNumbers(2)))
                 .age(RandomUtil.randomInt(15, 20))
                 .sex(Sex.GIRL)
                 .build();

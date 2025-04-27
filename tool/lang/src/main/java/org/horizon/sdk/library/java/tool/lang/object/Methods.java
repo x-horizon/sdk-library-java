@@ -2,8 +2,8 @@ package org.horizon.sdk.library.java.tool.lang.object;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.tool.lang.functional.Action;
+import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
  * @author wjm
  * @since 2024-08-13 19:26
  */
-@SuppressWarnings(SuppressWarningConstant.PREVIEW)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Methods {
 
@@ -38,8 +37,8 @@ public class Methods {
     public static String getFullName(Method method) {
         String methodDeclaredClassName = method.getDeclaringClass().getName();
         String methodName = method.getName();
-        String methodParameterTypeName = Arrays.stream(method.getParameters()).map(parameter -> STR."\{parameter.getType().getSimpleName()} \{parameter.getName()}").collect(Collectors.joining(", "));
-        return STR."\{methodDeclaredClassName}.\{methodName}(\{methodParameterTypeName})";
+        String methodParameterTypeName = Arrays.stream(method.getParameters()).map(parameter -> Strings.format("{} {}", parameter.getType().getSimpleName(), parameter.getName())).collect(Collectors.joining(", "));
+        return Strings.format("{}.{}({})", methodDeclaredClassName, methodName, methodParameterTypeName);
     }
 
 }

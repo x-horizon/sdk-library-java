@@ -5,7 +5,7 @@ object GradlePlugin {
     const val JAVA_TEST_FIXTURES = "java-test-fixtures"
 
     const val MAVEN_PUBLISH = "com.vanniktech.maven.publish"
-    const val MAVEN_PUBLISH_VERSION = "0.30.0"
+    const val MAVEN_PUBLISH_VERSION = "0.31.0"
 
     const val PROTOBUF = "com.google.protobuf"
     const val PROTOBUF_VERSION = "0.9.4"

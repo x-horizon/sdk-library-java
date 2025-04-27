@@ -3,7 +3,6 @@ package org.horizon.sdk.library.java.tool.spring.contract.interceptor;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import lombok.extern.slf4j.Slf4j;
 import org.horizon.sdk.library.java.contract.constant.prompt.PromptConstant;
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.contract.constant.web.HttpStatus;
 import org.horizon.sdk.library.java.contract.model.protocol.WebResponse;
 import org.horizon.sdk.library.java.contract.model.throwable.*;
@@ -21,7 +20,6 @@ import static org.horizon.sdk.library.java.contract.model.protocol.WebResponse.e
  * @since 2024-07-04 11:32
  */
 @Slf4j
-@SuppressWarnings(SuppressWarningConstant.PREVIEW)
 public abstract class WebExceptionInterceptor {
 
     protected abstract String getModuleView();
@@ -34,13 +32,19 @@ public abstract class WebExceptionInterceptor {
     }
 
     protected WebResponse<Void> whenUnrecognizedPropertyException(String uri, UnrecognizedPropertyException exception) {
-        String message = STR."\{PromptConstant.OPERATION_FAILED}：发现错误的字段名[\{exception.getPropertyName()}]，正确的字段名可能为[\{Strings.getMostSimilar(exception.getPropertyName(), exception.getKnownPropertyIds().stream().map(Object::toString).toList())}]，当前所有字段名：[\{Strings.joinWithCommaAndSpace(exception.getKnownPropertyIds())}]，请检查！";
+        String message = Strings.format(
+                "{}：发现错误的字段名[{}]，正确的字段名可能为[{}]，当前所有字段名：[{}]，请检查！",
+                PromptConstant.OPERATION_FAILED,
+                exception.getPropertyName(),
+                Strings.getMostSimilar(exception.getPropertyName(), exception.getKnownPropertyIds().stream().map(Object::toString).toList()),
+                Strings.joinWithCommaAndSpace(exception.getKnownPropertyIds())
+        );
         log.warn(formatMessage(uri, HttpStatus.WRONG_REQUEST_MESSAGE_VALUE.getStatus(), message));
         return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, message);
     }
 
     protected WebResponse<Void> whenInvalidIdException(String uri) {
-        String message = STR." \{PromptConstant.OPERATION_FAILED}：未提供 id";
+        String message = Strings.format(" {}：未提供 id", PromptConstant.OPERATION_FAILED);
         log.warn(formatMessage(uri, HttpStatus.WRONG_REQUEST_MESSAGE_VALUE.getStatus(), message));
         return error(HttpStatus.WRONG_REQUEST_MESSAGE_VALUE, message);
     }
@@ -51,25 +55,25 @@ public abstract class WebExceptionInterceptor {
     }
 
     protected WebResponse<Void> whenUnauthenticatedException(String uri, UnauthenticatedException exception) {
-        String message = Nil.isBlank(exception.getMessage()) ? STR."\{PromptConstant.OPERATION_FAILED}：未认证" : exception.getMessage();
+        String message = Nil.isBlank(exception.getMessage()) ? Strings.format("{}：未认证", PromptConstant.OPERATION_FAILED) : exception.getMessage();
         log.warn(formatMessage(uri, HttpStatus.UNAUTHENTICATED.getStatus(), message));
         return error(HttpStatus.UNAUTHENTICATED, exception.getMessage());
     }
 
     protected WebResponse<Void> whenUnauthorizedException(String uri, UnauthorizedException exception) {
-        String message = Nil.isBlank(exception.getMessage()) ? STR."\{PromptConstant.OPERATION_FAILED}：未授权" : exception.getMessage();
+        String message = Nil.isBlank(exception.getMessage()) ? Strings.format("{}：未授权", PromptConstant.OPERATION_FAILED) : exception.getMessage();
         log.warn(formatMessage(uri, HttpStatus.UNAUTHORIZED.getStatus(), message));
         return error(HttpStatus.UNAUTHORIZED, exception.getMessage());
     }
 
     protected WebResponse<Void> whenUnsupportedException(String uri) {
-        String message = STR."\{PromptConstant.OPERATION_FAILED}：不支持该操作";
+        String message = Strings.format("{}：不支持该操作", PromptConstant.OPERATION_FAILED);
         log.warn(formatMessage(uri, HttpStatus.NOT_IMPLEMENTED.getStatus(), message));
         return error(HttpStatus.NOT_IMPLEMENTED, message);
     }
 
     protected WebResponse<Void> whenDataNotFoundException(String uri, DataNotFoundException exception) {
-        String message = Nil.isBlank(exception.getMessage()) ? STR."\{PromptConstant.OPERATION_FAILED}：数据不存在" : exception.getMessage();
+        String message = Nil.isBlank(exception.getMessage()) ? Strings.format("{}：数据不存在", PromptConstant.OPERATION_FAILED) : exception.getMessage();
         log.error(formatMessage(uri, HttpStatus.DATA_NOT_FOUND.getStatus(), message));
         return error(HttpStatus.DATA_NOT_FOUND, message);
     }
@@ -90,7 +94,7 @@ public abstract class WebExceptionInterceptor {
     }
 
     protected String formatMessage(String requestUri, int httpStatusCode, String message) {
-        return STR."\{getModuleView()}请求资源地址：'\{requestUri}'，状态码：\{httpStatusCode}，错误信息：\{message}";
+        return Strings.format("{}请求资源地址：'{}'，状态码：{}，错误信息：{}", getModuleView(), requestUri, httpStatusCode, message);
     }
 
 }

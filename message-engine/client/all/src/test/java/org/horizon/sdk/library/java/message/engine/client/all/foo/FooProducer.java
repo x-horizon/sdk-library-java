@@ -1,12 +1,12 @@
 package org.horizon.sdk.library.java.message.engine.client.all.foo;
 
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
 import org.horizon.sdk.library.java.message.engine.client.contract.MessageClientConfig;
 import org.horizon.sdk.library.java.message.engine.client.contract.MessageClientProducer;
 import org.horizon.sdk.library.java.message.engine.client.contract.model.enums.MessageClientType;
 import org.horizon.sdk.library.java.message.engine.client.contract.model.enums.MessageQualityOfServiceType;
 import org.horizon.sdk.library.java.message.engine.client.kafka.KafkaConfig;
 import org.horizon.sdk.library.java.message.engine.client.mqtt.v3.MqttV3Config;
+import org.horizon.sdk.library.java.tool.lang.text.Strings;
 import org.horizon.sdk.library.java.tool.lang.time.Times;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
  * @author wjm
  * @since 2024-05-27 14:50
  */
-@SuppressWarnings(SuppressWarningConstant.PREVIEW)
 @Component
 public class FooProducer {
 
@@ -25,7 +24,7 @@ public class FooProducer {
             config = @MessageClientConfig(engineType = MessageClientType.KAFKA, kafka = @KafkaConfig)
     )
     public String kafkaSend1() {
-        System.out.println(STR."kafka - 生产者1 -------- \{Times.getCurrentDateTime()}-producer-send1");
+        System.out.println(Strings.format("kafka - 生产者1 -------- {}-producer-send1", Times.getCurrentDateTime()));
         return "send1";
     }
 
@@ -34,7 +33,7 @@ public class FooProducer {
             config = @MessageClientConfig(engineType = MessageClientType.KAFKA, kafka = @KafkaConfig)
     )
     public String kafkaSend2() {
-        System.out.println(STR."kafka - 生产者2 -------- \{Times.getCurrentDateTime()}-producer-send2");
+        System.out.println(Strings.format("kafka - 生产者2 -------- {}-producer-send2", Times.getCurrentDateTime()));
         return "send2";
     }
 
@@ -47,7 +46,7 @@ public class FooProducer {
             ))
     )
     public String mqttV3Send1() {
-        System.out.println(STR."mqtt-v3 - 生产者1 -------- \{Times.getCurrentDateTime()}-producer-send1");
+        System.out.println(Strings.format("mqtt-v3 - 生产者1 -------- {}-producer-send1", Times.getCurrentDateTime()));
         return "send1";
     }
 
@@ -58,7 +57,7 @@ public class FooProducer {
             ))
     )
     public String mqttV3Send2() {
-        System.out.println(STR."mqtt-v3 - 生产者2 -------- \{Times.getCurrentDateTime()}-producer-send2");
+        System.out.println(Strings.format("mqtt-v3 - 生产者2 -------- {}-producer-send2", Times.getCurrentDateTime()));
         return "send2";
     }
 
@@ -69,7 +68,7 @@ public class FooProducer {
             ))
     )
     public String mqttV3SendDynamic(String topic) {
-        System.out.println(STR."mqtt-v3 - 动态生产者 -------- \{Times.getCurrentDateTime()}-dynamic-producer-send");
+        System.out.println(Strings.format("mqtt-v3 - 动态生产者 -------- {}-dynamic-producer-send", Times.getCurrentDateTime()));
         return "send2";
     }
 

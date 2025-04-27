@@ -99,9 +99,9 @@ public class Annotations extends org.horizon.sdk.library.java.tool.lang.annotati
      * @see Classes#scanByAnnotationTypeFilter(Class, Collection)
      * @see #getAnnotation(AnnotatedElement, Class)
      */
-    @SuppressWarnings({SuppressWarningConstant.UNCHECKED, SuppressWarningConstant.PREVIEW})
+    @SuppressWarnings(SuppressWarningConstant.UNCHECKED)
     public static <T extends Annotation> T getAnnotation(Class<T> annotationClass, Collection<String> scanPackagePaths) {
-        return (T) ANNOTATION_CLASS_MAPPING_ANNOTATED_INSTANCE_CACHE.computeIfAbsent(STR."\{annotationClass.getName()} in [\{Strings.joinWithCommaAndSpace(scanPackagePaths)}]", ignore -> {
+        return (T) ANNOTATION_CLASS_MAPPING_ANNOTATED_INSTANCE_CACHE.computeIfAbsent(Strings.format("{} in [{}]", annotationClass.getName(), Strings.joinWithCommaAndSpace(scanPackagePaths)), ignore -> {
             Set<BeanDefinition> beanDefinitions = Classes.scanByAnnotationTypeFilter(annotationClass, scanPackagePaths);
             if (Collections.hasMoreThanOneElement(beanDefinitions)) {
                 throw new LibraryJavaInternalException(Strings.format("{}found more than one annotations {} in package paths {}, please check!", ModuleView.TOOL_ANNOTATION_SYSTEM, beanDefinitions.stream().map(BeanDefinition::getBeanClassName).toList(), scanPackagePaths));

@@ -3,7 +3,7 @@ package org.horizon.sdk.library.java.tool.lang.concurrent;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.horizon.sdk.library.java.contract.constant.suppress.SuppressWarningConstant;
+import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
 import java.util.concurrent.*;
 
@@ -13,7 +13,6 @@ import java.util.concurrent.*;
  * @author wjm
  * @since 2024-08-20 17:16
  */
-@SuppressWarnings(SuppressWarningConstant.PREVIEW)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Threads {
 
@@ -33,7 +32,7 @@ public class Threads {
      * @return current thread name after formatted
      */
     public static String formatThreadName(String prefix) {
-        return STR."\{prefix}-thread-\{getId()}";
+        return Strings.format("{}-thread-{}", prefix, getId());
     }
 
     /**
