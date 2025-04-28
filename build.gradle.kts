@@ -51,6 +51,7 @@ allprojects {
         jvmArgs(
             GradleConfig.WITH_ENABLE_PREVIEW_ARG,
             GradleConfig.WITH_ENABLE_DYNAMIC_AGENT_LOADING,
+            GradleConfig.WITH_RESTRICT_CONTENDED,
         )
     }
 
