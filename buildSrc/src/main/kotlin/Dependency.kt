@@ -194,7 +194,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     WEB_IO_NETTY_HANDLER("io.netty:netty-handler", ""),
     WEB_IO_NETTY_TRANSPORT("io.netty:netty-transport", ""),
     WEB_IO_REACTOR("io.projectreactor:reactor-core", ""),
-    WEB_OKHTTPS("cn.zhxu:okhttps-jackson", "4.0.3"),
+    WEB_OKHTTPS("cn.zhxu:okhttps-jackson", "4.1.0"),
     WEB_OPEN_FEIGN_OKHTTP("io.github.openfeign:feign-okhttp", ""),
     WEB_SPRING_CLOUD_OPEN_FEIGN("org.springframework.cloud:spring-cloud-starter-openfeign", ""),
     WEB_SPRING_BOOT_WEBSOCKET("org.springframework.boot:spring-boot-starter-websocket", ""),
