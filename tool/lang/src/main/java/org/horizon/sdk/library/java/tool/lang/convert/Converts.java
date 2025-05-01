@@ -1224,6 +1224,7 @@ public class Converts {
                             .filter(enumField -> Collections.notContains(enumObjectNames, enumField.getName()))
                             .filter(Converts::supportEnumConvert)
                             .map(enumField -> Arrays.stream(enumClass.getEnumConstants())
+                                    .filter(enumObject -> Nil.isNotNull(Reflects.getFieldValueIgnoreThrowable(enumObject, enumField)))
                                     .map(enumObject -> Collections.ofPair(Reflects.getFieldValueIgnoreThrowable(enumObject, enumField), enumObject))
                                     .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue))
                             )
