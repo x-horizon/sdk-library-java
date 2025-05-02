@@ -3,6 +3,8 @@ package org.horizon.sdk.library.java.tool.lang.validation.support;
 import lombok.Getter;
 import org.horizon.sdk.library.java.tool.lang.validation.violation.ViolationMessageType;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -14,7 +16,9 @@ import java.util.function.Predicate;
  * @since 2025-04-19 01:04
  */
 @Getter
-public class ValidationRule<V> {
+public class ValidationRule<V> implements Serializable {
+
+    @Serial private static final long serialVersionUID = -4299445295003717158L;
 
     /**
      * flag indicating whether to skip validation.
