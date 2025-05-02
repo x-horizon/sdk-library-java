@@ -6,6 +6,8 @@ import org.horizon.sdk.library.java.tool.lang.validation.support.SkipCheckType;
 import org.horizon.sdk.library.java.tool.lang.validation.support.ValidationRule;
 import org.horizon.sdk.library.java.tool.lang.validation.violation.ViolationMessageType;
 
+import java.io.Serial;
+
 /**
  * constraint implementation for {@link CharSequence} validation with string-specific rules.
  *
@@ -26,6 +28,8 @@ import org.horizon.sdk.library.java.tool.lang.validation.violation.ViolationMess
  * @since 2025-04-18 17:01
  */
 public class CharSequenceConstraint extends ContainerConstraint<CharSequence, Integer, CharSequenceConstraint> {
+
+    @Serial private static final long serialVersionUID = -4873693719663326822L;
 
     /**
      * adds a rule to skip validation when the field value is blank.

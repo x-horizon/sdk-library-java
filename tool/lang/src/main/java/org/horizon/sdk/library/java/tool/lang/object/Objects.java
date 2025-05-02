@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.dromara.hutool.core.util.ObjUtil;
 import org.horizon.sdk.library.java.tool.lang.number.Numbers;
 
+import java.io.Serializable;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -65,7 +66,7 @@ public class Objects {
      * @param <T>   the cloned object type
      * @return object after clone
      */
-    public static <T> T clone(T input) {
+    public static <T extends Serializable> T clone(T input) {
         return ObjUtil.clone(input);
     }
 

@@ -2,10 +2,12 @@ package org.horizon.sdk.library.java.tool.lang.validation.support;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.horizon.sdk.library.java.tool.lang.functional.SerializableFunction;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Function;
 
 /**
  * represents a complete validation configuration for a specific field in a model.
@@ -17,7 +19,9 @@ import java.util.function.Function;
  */
 @Getter
 @AllArgsConstructor
-public class ValidationSchema<M, V> {
+public class ValidationSchema<M, V> implements Serializable {
+
+    @Serial private static final long serialVersionUID = -7753047651937086803L;
 
     /**
      * display name for the field in validation messages.
@@ -39,7 +43,7 @@ public class ValidationSchema<M, V> {
      *   <li>supports nested properties (e.g. {@code Order::getCustomer::getName})</li>
      * </ul>
      */
-    private Function<M, V> fieldValueGetter;
+    private SerializableFunction<M, V> fieldValueGetter;
 
     /**
      * collection of validation rules for the field.

@@ -6,6 +6,8 @@ import org.horizon.sdk.library.java.tool.lang.compare.Comparators;
 import org.horizon.sdk.library.java.tool.lang.validation.support.ValidationRule;
 import org.horizon.sdk.library.java.tool.lang.validation.violation.ViolationMessageType;
 
+import java.io.Serial;
+
 /**
  * abstract base class for numeric value validation constraints.
  *
@@ -35,6 +37,8 @@ import org.horizon.sdk.library.java.tool.lang.validation.violation.ViolationMess
  * @since 2025-04-20 00:08
  */
 public abstract class NumberConstraint<V, N extends Number, C extends NumberConstraint<V, N, C>> extends Constraint<V, C> {
+
+    @Serial private static final long serialVersionUID = -4436264418840677932L;
 
     /**
      * adds a rule requiring the value to be greater than the specified number.

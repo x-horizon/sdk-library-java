@@ -1,5 +1,7 @@
 package org.horizon.sdk.library.java.tool.lang.validation.constraint;
 
+import java.io.Serial;
+
 /**
  * specialized constraint implementation for validating {@link Enum} type values.
  *
@@ -20,6 +22,8 @@ package org.horizon.sdk.library.java.tool.lang.validation.constraint;
  * @since 2025-04-22 00:35
  */
 public class EnumConstraint<V extends Enum<V>> extends Constraint<V, EnumConstraint<V>> {
+
+    @Serial private static final long serialVersionUID = -7904944752649918738L;
 
     /**
      * returns {@code this} instance to support fluent method chaining.

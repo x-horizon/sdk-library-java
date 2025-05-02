@@ -1,6 +1,7 @@
 enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     BOM_CACHE_REDISSON("org.redisson:redisson-parent", "3.45.1"), // TODO wjm support spring-boot version to 3.4.2
+    BOM_CLOUD_COMMUNICATION_DROMARA_SMS4J("", "3.3.4"), // TODO wjm support spring-boot version to 2.7.18
     BOM_CLOUD_NATIVE_DOCKER("com.github.docker-java:docker-java-bom", "3.4.0"),
     BOM_DOC_SPRING_OPENAPI("org.springdoc:springdoc-openapi", "2.8.5"), // TODO wjm support spring-boot version to 3.4.2
     BOM_DOC_XIAOYMIN_KNIFE4J("com.github.xiaoymin:knife4j-dependencies", "4.5.0"), // TODO wjm support spring-boot version to 3.0.4
@@ -36,8 +37,8 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     CACHE_LETTUCE("io.lettuce:lettuce-core", "6.4.2.RELEASE"), // support spring-boot version to 3.4.5
     CACHE_REDISSON("org.redisson:redisson-spring-boot-starter", BOM_CACHE_REDISSON.version), // TODO wjm bom is not invalid
 
-    CLOUD_COMMUNICATION_JAKARTA_MAIL("com.sun.mail:jakarta.mail", "2.0.1"),
-    CLOUD_COMMUNICATION_DROMARA_SMS("org.dromara.sms4j:sms4j-spring-boot-starter", "3.3.4"), // TODO wjm support spring-boot version to 2.7.18
+    CLOUD_COMMUNICATION_DROMARA_EMAIL("org.dromara.sms4j:sms4j-email-jakarta-core", BOM_CLOUD_COMMUNICATION_DROMARA_SMS4J.version),
+    CLOUD_COMMUNICATION_DROMARA_SMS("org.dromara.sms4j:sms4j-spring-boot-starter", BOM_CLOUD_COMMUNICATION_DROMARA_SMS4J.version),
     CLOUD_NATIVE_DOCKER_CORE("com.github.docker-java:docker-java-core", ""),
     CLOUD_NATIVE_DOCKER_TRANSPORT_OKHTTP("com.github.docker-java:docker-java-transport-okhttp", ""),
     CLOUD_NATIVE_KUBERNETES("org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8-all", ""),
@@ -194,7 +195,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     WEB_IO_NETTY_HANDLER("io.netty:netty-handler", ""),
     WEB_IO_NETTY_TRANSPORT("io.netty:netty-transport", ""),
     WEB_IO_REACTOR("io.projectreactor:reactor-core", ""),
-    WEB_OKHTTPS("cn.zhxu:okhttps-jackson", "4.0.3"),
+    WEB_OKHTTPS("cn.zhxu:okhttps-jackson", "4.1.0"),
     WEB_OPEN_FEIGN_OKHTTP("io.github.openfeign:feign-okhttp", ""),
     WEB_SPRING_CLOUD_OPEN_FEIGN("org.springframework.cloud:spring-cloud-starter-openfeign", ""),
     WEB_SPRING_BOOT_WEBSOCKET("org.springframework.boot:spring-boot-starter-websocket", ""),

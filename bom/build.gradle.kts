@@ -44,8 +44,8 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.CACHE_LETTUCE))
         api(GradleDependency.withVersion(GradleDependency.CACHE_REDISSON))
 
+        api(GradleDependency.withVersion(GradleDependency.CLOUD_COMMUNICATION_DROMARA_EMAIL))
         api(GradleDependency.withVersion(GradleDependency.CLOUD_COMMUNICATION_DROMARA_SMS))
-        api(GradleDependency.withVersion(GradleDependency.CLOUD_COMMUNICATION_JAKARTA_MAIL))
 
         api(GradleDependency.withVersion(GradleDependency.JDBC_DA_MENG))
         api(GradleDependency.withVersion(GradleDependency.JDBC_HSQLDB))

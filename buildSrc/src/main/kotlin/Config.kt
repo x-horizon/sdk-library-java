@@ -25,6 +25,7 @@ object GradleConfig {
     const val WITH_PARAMETERS_ARG = "-parameters"
     const val WITH_ENABLE_PREVIEW_ARG = "--enable-preview"
     const val WITH_ENABLE_DYNAMIC_AGENT_LOADING = "-XX:+EnableDynamicAgentLoading"
+    const val WITH_RESTRICT_CONTENDED = "-XX:-RestrictContended"
 
     const val ACTIVE_ENVIRONMENT_FIELD_NAME = "activeEnvironmentName"
     var activeEnvironmentName = activeEnvironment.handler.getActiveEnvironmentName()

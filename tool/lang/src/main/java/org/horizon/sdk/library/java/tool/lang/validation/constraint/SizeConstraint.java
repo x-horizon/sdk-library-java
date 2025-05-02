@@ -5,6 +5,8 @@ import org.horizon.sdk.library.java.tool.lang.compare.Comparators;
 import org.horizon.sdk.library.java.tool.lang.validation.support.ValidationRule;
 import org.horizon.sdk.library.java.tool.lang.validation.violation.ViolationMessageType;
 
+import java.io.Serial;
+
 /**
  * abstract constraint class for size-based validation of collection-like structures.
  *
@@ -36,6 +38,8 @@ import org.horizon.sdk.library.java.tool.lang.validation.violation.ViolationMess
  * @since 2025-04-20 01:21
  */
 public abstract class SizeConstraint<V, S extends Number, C extends SizeConstraint<V, S, C>> extends NumberConstraint<V, S, C> {
+
+    @Serial private static final long serialVersionUID = -4053968057923694495L;
 
     /**
      * adds a rule requiring the container size to exactly match the specified value.

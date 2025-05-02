@@ -1,11 +1,11 @@
 package org.horizon.sdk.library.java.tool.lang.validation.constraint;
 
-import java.util.function.Predicate;
+import org.horizon.sdk.library.java.tool.lang.functional.SerializablePredicate;
 
 /**
  * functional interface for defining custom validation conditions with model-based predicates.
  *
- * <p>serves as bridge between standard {@link Predicate} and validation framework by providing
+ * <p>serves as bridge between standard {@link SerializablePredicate} and validation framework by providing
  * adaptor conversion. primarily used to create reusable validation conditions that can be adapted
  * to different validation contexts.</p>
  *
@@ -15,7 +15,7 @@ import java.util.function.Predicate;
  * @since 2025-04-21 21:36
  */
 @FunctionalInterface
-public interface ConstraintCondition<M> extends Predicate<M> {
+public interface ConstraintCondition<M> extends SerializablePredicate<M> {
 
     /**
      * converts current condition to {@link ConstraintConditionAdaptor} for validation integration.
