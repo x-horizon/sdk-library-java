@@ -7,6 +7,8 @@ import org.horizon.sdk.library.java.tool.lang.validation.support.SkipCheckType;
 import org.horizon.sdk.library.java.tool.lang.validation.support.ValidationRule;
 import org.horizon.sdk.library.java.tool.lang.validation.violation.ViolationMessageType;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -33,7 +35,9 @@ import java.util.List;
  * @author wjm
  * @since 2025-04-18 17:01
  */
-public abstract class Constraint<V, C extends Constraint<V, C>> {
+public abstract class Constraint<V, C extends Constraint<V, C>> implements Serializable {
+
+    @Serial private static final long serialVersionUID = -2180382402368887129L;
 
     /**
      * stores all validation rules for this constraint.

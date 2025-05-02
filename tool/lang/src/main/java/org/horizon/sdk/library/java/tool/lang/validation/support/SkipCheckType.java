@@ -2,9 +2,8 @@ package org.horizon.sdk.library.java.tool.lang.validation.support;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.horizon.sdk.library.java.tool.lang.functional.SerializablePredicate;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
-
-import java.util.function.Predicate;
 
 /**
  * @author wjm
@@ -19,5 +18,5 @@ public enum SkipCheckType {
 
     ;
 
-    private final Predicate<Object> predicate;
+    private final SerializablePredicate<Object> predicate;
 }

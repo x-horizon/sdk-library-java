@@ -1,5 +1,7 @@
 package org.horizon.sdk.library.java.tool.lang.validation.constraint;
 
+import java.io.Serial;
+
 /**
  * constraint implementation for {@link Float} type numerical validation.
  *
@@ -19,6 +21,8 @@ package org.horizon.sdk.library.java.tool.lang.validation.constraint;
  * @since 2025-04-21 17:44
  */
 public class FloatConstraint extends NumberConstraint<Float, Float, FloatConstraint> {
+
+    @Serial private static final long serialVersionUID = -5630662206581478065L;
 
     /**
      * {@inheritDoc}

@@ -1,5 +1,6 @@
 package org.horizon.sdk.library.java.tool.lang.validation.constraint;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 
 /**
@@ -21,6 +22,8 @@ import java.math.BigDecimal;
  * @since 2025-04-21 17:44
  */
 public class BigDecimalConstraint extends NumberConstraint<BigDecimal, BigDecimal, BigDecimalConstraint> {
+
+    @Serial private static final long serialVersionUID = 3921881441037781185L;
 
     /**
      * {@inheritDoc}

@@ -2,6 +2,8 @@ package org.horizon.sdk.library.java.tool.lang.validation.constraint;
 
 import org.horizon.sdk.library.java.tool.lang.collection.Collections;
 
+import java.io.Serial;
+
 /**
  * constraint implementation for validating {@link Iterable} types (collections, lists, etc.).
  *
@@ -21,6 +23,8 @@ import org.horizon.sdk.library.java.tool.lang.collection.Collections;
  * @since 2025-04-20 01:17
  */
 public class IterableConstraint<V extends Iterable<E>, E> extends ContainerConstraint<V, Integer, IterableConstraint<V, E>> {
+
+    @Serial private static final long serialVersionUID = 8826274164332082751L;
 
     /**
      * calculates the size of iterable containers for validation comparisons.

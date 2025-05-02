@@ -1,5 +1,7 @@
 package org.horizon.sdk.library.java.tool.lang.validation.constraint;
 
+import java.io.Serial;
+
 /**
  * constraint implementation for {@link Double} type numerical validation.
  *
@@ -19,6 +21,8 @@ package org.horizon.sdk.library.java.tool.lang.validation.constraint;
  * @since 2025-04-21 17:44
  */
 public class DoubleConstraint extends NumberConstraint<Double, Double, DoubleConstraint> {
+
+    @Serial private static final long serialVersionUID = 4833392151770258894L;
 
     /**
      * {@inheritDoc}

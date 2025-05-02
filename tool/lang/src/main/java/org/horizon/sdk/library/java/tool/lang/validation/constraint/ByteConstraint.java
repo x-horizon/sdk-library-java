@@ -1,5 +1,7 @@
 package org.horizon.sdk.library.java.tool.lang.validation.constraint;
 
+import java.io.Serial;
+
 /**
  * constraint implementation for {@link Byte} type numerical validation.
  *
@@ -20,6 +22,8 @@ package org.horizon.sdk.library.java.tool.lang.validation.constraint;
  * @since 2025-04-21 17:44
  */
 public class ByteConstraint extends NumberConstraint<Byte, Byte, ByteConstraint> {
+
+    @Serial private static final long serialVersionUID = 6392273892555853858L;
 
     /**
      * {@inheritDoc}

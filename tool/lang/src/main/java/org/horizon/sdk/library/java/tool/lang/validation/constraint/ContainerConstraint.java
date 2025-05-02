@@ -5,6 +5,8 @@ import org.horizon.sdk.library.java.tool.lang.validation.support.SkipCheckType;
 import org.horizon.sdk.library.java.tool.lang.validation.support.ValidationRule;
 import org.horizon.sdk.library.java.tool.lang.validation.violation.ViolationMessageType;
 
+import java.io.Serial;
+
 /**
  * abstract constraint class for validating empty/non-empty states of container-like structures.
  *
@@ -38,6 +40,8 @@ import org.horizon.sdk.library.java.tool.lang.validation.violation.ViolationMess
  * @since 2025-04-21 17:26
  */
 public abstract class ContainerConstraint<V, S extends Number, C extends ContainerConstraint<V, S, C>> extends SizeConstraint<V, S, C> {
+
+    @Serial private static final long serialVersionUID = 5220505304411851250L;
 
     /**
      * adds a rule to skip validation when the field value is empty.

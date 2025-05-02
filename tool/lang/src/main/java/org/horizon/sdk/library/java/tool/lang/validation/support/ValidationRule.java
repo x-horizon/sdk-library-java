@@ -1,12 +1,12 @@
 package org.horizon.sdk.library.java.tool.lang.validation.support;
 
 import lombok.Getter;
+import org.horizon.sdk.library.java.tool.lang.functional.SerializablePredicate;
 import org.horizon.sdk.library.java.tool.lang.validation.violation.ViolationMessageType;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
-import java.util.function.Predicate;
 
 /**
  * represents a single validation rule containing validation logic and error messaging configuration.
@@ -52,7 +52,7 @@ public class ValidationRule<V> implements Serializable {
      * <p>validation succeeds when:
      * <pre>{@code predicate.test(fieldValue) == true}</pre>
      */
-    private final Predicate<V> predicate;
+    private final SerializablePredicate<V> predicate;
 
     /**
      * constructs a null-skipping validation rule.
@@ -71,7 +71,7 @@ public class ValidationRule<V> implements Serializable {
      * @param messageType template for violation messages
      * @param predicate   validation logic to execute
      */
-    public ValidationRule(List<Object> arguments, ViolationMessageType messageType, Predicate<V> predicate) {
+    public ValidationRule(List<Object> arguments, ViolationMessageType messageType, SerializablePredicate<V> predicate) {
         this.arguments = arguments;
         this.messageType = messageType;
         this.predicate = predicate;
