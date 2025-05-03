@@ -271,6 +271,23 @@ public class ValidatorBuilder<M> implements Serializable {
     }
 
     /**
+     * adds object type validation rules using reflection-based field name resolution.
+     *
+     * <p>example:
+     * <pre>{@code
+     * .constraintObject(UserVO::getAccountVO, "accountInfo", constraint -> constraint.mustNotNull())
+     * }</pre>
+     *
+     * @param fieldValueGetter   function to access the field value
+     * @param constraintOperator constraint configuration lambda
+     * @return current builder instance for chaining
+     * @see ObjectConstraint
+     */
+    public ValidatorBuilder<M> constraintObject(ObjectFunction<M> fieldValueGetter, UnaryOperator<ObjectConstraint> constraintOperator) {
+        return this.constraintObject(fieldValueGetter, Reflects.getFieldComment(fieldValueGetter), constraintOperator);
+    }
+
+    /**
      * adds byte type validation rules with explicit field name specification.
      *
      * <p>example:
@@ -487,6 +504,24 @@ public class ValidatorBuilder<M> implements Serializable {
     }
 
     /**
+     * adds object type validation rules with explicit field name specification.
+     *
+     * <p>example:
+     * <pre>{@code
+     * .constraintObject(UserVO::getAccountVO, "accountInfo", constraint -> constraint.mustNotNull())
+     * }</pre>
+     *
+     * @param fieldValueGetter   function to access the field value
+     * @param fieldName          display name for a validation message
+     * @param constraintOperator constraint configuration lambda
+     * @return current builder instance for chaining
+     * @see ObjectConstraint
+     */
+    public ValidatorBuilder<M> constraintObject(ObjectFunction<M> fieldValueGetter, String fieldName, UnaryOperator<ObjectConstraint> constraintOperator) {
+        return this.constraint(fieldValueGetter, fieldName, constraintOperator, ObjectConstraint::new);
+    }
+
+    /**
      * adding validation constraints with custom configuration.
      *
      * <p>handle the following:
@@ -633,6 +668,10 @@ public class ValidatorBuilder<M> implements Serializable {
     }
 
     public interface PojoFunction<M, V extends POJO> extends SerializableFunction<M, V> {
+
+    }
+
+    public interface ObjectFunction<M> extends SerializableFunction<M, Object> {
 
     }
 
