@@ -129,14 +129,6 @@ public class GenericService<P extends PO, V extends VO, R extends GenericReposit
         repository.deleteById(id);
     }
 
-    public void deleteByIdIgnoreLogicDelete(V entity) {
-        LogicDeleteManager.execWithoutLogicDelete(() -> deleteById(entity));
-    }
-
-    public void deleteByIdIgnoreLogicDelete(Serializable id) {
-        LogicDeleteManager.execWithoutLogicDelete(() -> deleteById(id));
-    }
-
     public void deleteByIds(Serializable... ids) {
         repository.deleteByIds(ids);
     }
@@ -145,12 +137,28 @@ public class GenericService<P extends PO, V extends VO, R extends GenericReposit
         repository.deleteByIds(ids);
     }
 
+    public void deleteByField(ColumnNameGetter<P> columnNameGetter, Object value) {
+        repository.deleteByField(columnNameGetter, value);
+    }
+
+    public void deleteByIdIgnoreLogicDelete(V entity) {
+        repository.deleteByIdIgnoreLogicDelete(entity);
+    }
+
+    public void deleteByIdIgnoreLogicDelete(Serializable id) {
+        repository.deleteByIdIgnoreLogicDelete(id);
+    }
+
     public void deleteByIdsIgnoreLogicDelete(Serializable... ids) {
-        LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids));
+        repository.deleteByIdsIgnoreLogicDelete(ids);
     }
 
     public void deleteByIdsIgnoreLogicDelete(Iterable<? extends Serializable> ids) {
-        LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids));
+        repository.deleteByIdsIgnoreLogicDelete(ids);
+    }
+
+    public void deleteByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, Object value) {
+        repository.deleteByFieldIgnoreLogicDelete(columnNameGetter, value);
     }
 
     public Optional<V> getById(Serializable id) {
