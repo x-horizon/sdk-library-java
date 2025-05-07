@@ -45,8 +45,6 @@ import java.util.stream.Stream;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Converts {
 
-    public static final boolean DEFAULT_CONVERT_QUIETLY = false;
-
     /**
      * the map with key as identify enum field value and value as enums
      */
