@@ -473,41 +473,6 @@ public interface GenericRepository<P extends PO> {
     }
 
     /**
-     * <p>performs unconditional physical delete ignoring logical delete markers.</p>
-     *
-     * <p>key characteristics:</p>
-     * <ul>
-     *     <li>executes direct DELETE statement regardless of logical delete configuration</li>
-     *     <li>recommended for entities with composite primary keys</li>
-     * </ul>
-     *
-     * <p>execution example:</p>
-     * <pre>{@code
-     * Entity:
-     * TestTablePO(id1=1L, id2=2L, rowIsDeleted=null)
-     *
-     * SQL:
-     * DELETE FROM test_table
-     * WHERE id1 = 1 AND id2 = 2
-     * }</pre>
-     *
-     * @param entity target entity with composite primary keys to delete permanently
-     */
-    default void deleteByIdIgnoreLogicDelete(P entity) {
-        LogicDeleteManager.execWithoutLogicDelete(() -> deleteById(entity));
-    }
-
-    /**
-     * delete ignore logic delete.
-     *
-     * @param id the primary key value
-     * @see #deleteByIdsIgnoreLogicDelete(Iterable)
-     */
-    default void deleteByIdIgnoreLogicDelete(Serializable id) {
-        LogicDeleteManager.execWithoutLogicDelete(() -> deleteById(id));
-    }
-
-    /**
      * delete batch by ids.
      *
      * @param ids the primary key values
@@ -548,6 +513,45 @@ public interface GenericRepository<P extends PO> {
         getBaseMapper().deleteBatchByIds(ids instanceof Collection<? extends Serializable> ? (Collection<? extends Serializable>) ids : Converts.toHashSet(ids));
     }
 
+    default void deleteByField(ColumnNameGetter<P> columnNameGetter, Object value) {
+        getBaseMapper().deleteByMap(Collections.ofImmutableMap(MybatisFlexs.getColumnName(columnNameGetter), value));
+    }
+
+    /**
+     * <p>performs unconditional physical delete ignoring logical delete markers.</p>
+     *
+     * <p>key characteristics:</p>
+     * <ul>
+     *     <li>executes direct DELETE statement regardless of logical delete configuration</li>
+     *     <li>recommended for entities with composite primary keys</li>
+     * </ul>
+     *
+     * <p>execution example:</p>
+     * <pre>{@code
+     * Entity:
+     * TestTablePO(id1=1L, id2=2L, rowIsDeleted=null)
+     *
+     * SQL:
+     * DELETE FROM test_table
+     * WHERE id1 = 1 AND id2 = 2
+     * }</pre>
+     *
+     * @param entity target entity with composite primary keys to delete permanently
+     */
+    default void deleteByIdIgnoreLogicDelete(P entity) {
+        LogicDeleteManager.execWithoutLogicDelete(() -> deleteById(entity));
+    }
+
+    /**
+     * delete ignore logic delete.
+     *
+     * @param id the primary key value
+     * @see #deleteByIdsIgnoreLogicDelete(Iterable)
+     */
+    default void deleteByIdIgnoreLogicDelete(Serializable id) {
+        LogicDeleteManager.execWithoutLogicDelete(() -> deleteById(id));
+    }
+
     /**
      * delete batch ignore logic delete.
      *
@@ -577,6 +581,10 @@ public interface GenericRepository<P extends PO> {
      */
     default void deleteByIdsIgnoreLogicDelete(Iterable<? extends Serializable> ids) {
         LogicDeleteManager.execWithoutLogicDelete(() -> deleteByIds(ids instanceof Collection<? extends Serializable> ? ids : Converts.toHashSet(ids)));
+    }
+
+    default void deleteByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, Object value) {
+        LogicDeleteManager.execWithoutLogicDelete(() -> deleteByField(columnNameGetter, value));
     }
 
     default Optional<P> getById(Serializable id) {

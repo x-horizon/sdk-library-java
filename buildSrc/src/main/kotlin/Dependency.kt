@@ -165,8 +165,8 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_THREAD_POOL_DYNAMIC_TP_INTEGRATION_GRPC("org.dromara.dynamictp:dynamic-tp-spring-boot-starter-adapter-grpc", ""),
     TOOL_THREAD_POOL_DYNAMIC_TP_INTEGRATION_OKHTTP3("org.dromara.dynamictp:dynamic-tp-spring-boot-starter-adapter-okhttp3", ""),
     TOOL_THREAD_POOL_DYNAMIC_TP_INTEGRATION_TOMCAT("org.dromara.dynamictp:dynamic-tp-spring-boot-starter-adapter-webserver", ""),
-    TOOL_VALIDATION_HIBERNATE("org.hibernate.validator:hibernate-validator", "8.0.2.Final"), // support spring-boot version to 3.4.1
-    TOOL_VALIDATION_JAKARTA("jakarta.validation:jakarta.validation-api", "3.0.2"), // support spring-boot version to 3.4.1
+    TOOL_VALIDATION_HIBERNATE("org.hibernate.validator:hibernate-validator", "8.0.2.Final"), // support spring-boot version to 3.4.5
+    TOOL_VALIDATION_JAKARTA("jakarta.validation:jakarta.validation-api", "3.0.2"), // support spring-boot version to 3.4.5
     TOOL_VALIDATION_JSON_SCHEMA("com.networknt:json-schema-validator", "1.5.0"),
     TOOL_VALIDATION_SPRING("org.springframework.boot:spring-boot-starter-validation", ""),
     TOOL_VJTOOL("com.vip.vjtools:vjkit", "1.0.8"),
@@ -176,7 +176,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_YITTER_SNOWFLAKE_ID("com.github.yitter:yitter-idgenerator", "1.0.6"),
 
     TEST_CONTAINER("org.testcontainers:testcontainers", ""),
-    TEST_JUNIT("org.junit.jupiter:junit-jupiter-api", "5.11.4"), // support spring-boot version to 3.4.1
+    TEST_JUNIT("org.junit.jupiter:junit-jupiter-api", "5.11.4"), // support spring-boot version to 3.4.5
     TEST_MOCKITO_CORE("org.mockito:mockito-core", ""),
     TEST_OPENJDK_JMH_CORE("org.openjdk.jmh:jmh-core", PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_OPENJDK_JMH.version),
     TEST_SPRING_BOOT_TEST("org.springframework.boot:spring-boot-starter-test", ""),

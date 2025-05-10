@@ -16,6 +16,7 @@ import java.util.Map;
 public class ValidatorTest {
 
     public static final Validator<UserVO> VALIDATOR = Validators.<UserVO>builder()
+            .constraintObject(UserVO::getName, Constraint::mustNotNull)
             .constraintOnGroup(ValidationGroup.CREATE, builder -> builder.constraint(UserVO::getId, Constraint::mustNull))
             .constraintOnGroup(ValidationGroup.UPDATE, builder -> builder.constraint(UserVO::getId, Constraint::mustNotNull))
             .constraintOnCondition(userVO -> Nil.isNull(userVO.getName()), builder -> builder.constraint(UserVO::getId, Constraint::mustNotNull))

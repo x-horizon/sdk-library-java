@@ -33,8 +33,8 @@ allprojects {
         options.release = Integer.valueOf(GradleConfig.JAVA_VERSION)
         options.encoding = GradleConfig.PROJECT_CHARSET
         options.compilerArgs = listOf(
-            GradleConfig.WITH_PARAMETERS_ARG,
-            GradleConfig.WITH_ENABLE_PREVIEW_ARG,
+            GradleConfig.JVM_ARGUMENT_COMPILE_PARAMETERS,
+            GradleConfig.JVM_ARGUMENT_COMPILE_ENABLE_PREVIEW,
             // "-Xlint:all",
         )
     }
@@ -42,16 +42,16 @@ allprojects {
     tasks.withType<Test> {
         useJUnitPlatform()
         jvmArgs(
-            GradleConfig.WITH_ENABLE_PREVIEW_ARG,
-            GradleConfig.WITH_ENABLE_DYNAMIC_AGENT_LOADING,
+            GradleConfig.JVM_ARGUMENT_COMPILE_ENABLE_PREVIEW,
+            GradleConfig.JVM_ARGUMENT_EXEC_ENABLE_DYNAMIC_AGENT_LOADING,
         )
     }
 
     tasks.withType<JavaExec> {
         jvmArgs(
-            GradleConfig.WITH_ENABLE_PREVIEW_ARG,
-            GradleConfig.WITH_ENABLE_DYNAMIC_AGENT_LOADING,
-            GradleConfig.WITH_RESTRICT_CONTENDED,
+            GradleConfig.JVM_ARGUMENT_COMPILE_ENABLE_PREVIEW,
+            GradleConfig.JVM_ARGUMENT_EXEC_ENABLE_DYNAMIC_AGENT_LOADING,
+            GradleConfig.JVM_ARGUMENT_EXEC_RESTRICT_CONTENDED,
         )
     }
 
