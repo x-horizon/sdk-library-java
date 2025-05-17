@@ -646,6 +646,54 @@ public interface GenericRepository<P extends PO> {
         return LogicDeleteManager.execWithoutLogicDelete(this::listAll);
     }
 
+    default boolean existById(Serializable id) {
+        return !notExistById(id);
+    }
+
+    default boolean existById(P entity) {
+        return !notExistById(entity);
+    }
+
+    default boolean existByIdIgnoreLogicDelete(Serializable id) {
+        return !notExistByIdIgnoreLogicDelete(id);
+    }
+
+    default boolean existByIdIgnoreLogicDelete(P entity) {
+        return !notExistByIdIgnoreLogicDelete(entity);
+    }
+
+    default boolean existByField(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return !notExistByField(columnNameGetter, value);
+    }
+
+    default boolean existByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return !notExistByFieldIgnoreLogicDelete(columnNameGetter, value);
+    }
+
+    default boolean notExistById(Serializable id) {
+        return getById(id).isEmpty();
+    }
+
+    default boolean notExistById(P entity) {
+        return getById(entity).isEmpty();
+    }
+
+    default boolean notExistByIdIgnoreLogicDelete(Serializable id) {
+        return getByIdIgnoreLogicDelete(id).isEmpty();
+    }
+
+    default boolean notExistByIdIgnoreLogicDelete(P entity) {
+        return getByIdIgnoreLogicDelete(entity).isEmpty();
+    }
+
+    default boolean notExistByField(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return getByField(columnNameGetter, value).isEmpty();
+    }
+
+    default boolean notExistByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return getByFieldIgnoreLogicDelete(columnNameGetter, value).isEmpty();
+    }
+
     default long countAll() {
         return getBaseMapper().selectCountByQuery(QueryWrapper.create());
     }

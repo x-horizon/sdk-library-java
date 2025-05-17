@@ -241,6 +241,54 @@ public class GenericService<P extends PO, V extends VO, R extends GenericReposit
         return LogicDeleteManager.execWithoutLogicDelete(this::listAll);
     }
 
+    public boolean existById(Serializable id) {
+        return !notExistById(id);
+    }
+
+    public boolean existById(P entity) {
+        return !notExistById(entity);
+    }
+
+    public boolean existByIdIgnoreLogicDelete(Serializable id) {
+        return !notExistByIdIgnoreLogicDelete(id);
+    }
+
+    public boolean existByIdIgnoreLogicDelete(P entity) {
+        return !notExistByIdIgnoreLogicDelete(entity);
+    }
+
+    public boolean existByField(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return !notExistByField(columnNameGetter, value);
+    }
+
+    public boolean existByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return !notExistByFieldIgnoreLogicDelete(columnNameGetter, value);
+    }
+
+    public boolean notExistById(Serializable id) {
+        return repository.notExistById(id);
+    }
+
+    public boolean notExistById(P entity) {
+        return repository.notExistById(entity);
+    }
+
+    public boolean notExistByIdIgnoreLogicDelete(Serializable id) {
+        return repository.notExistByIdIgnoreLogicDelete(id);
+    }
+
+    public boolean notExistByIdIgnoreLogicDelete(P entity) {
+        return repository.notExistByIdIgnoreLogicDelete(entity);
+    }
+
+    public boolean notExistByField(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return repository.notExistByField(columnNameGetter, value);
+    }
+
+    public boolean notExistByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return repository.notExistByFieldIgnoreLogicDelete(columnNameGetter, value);
+    }
+
     public long countAll() {
         return repository.countAll();
     }
