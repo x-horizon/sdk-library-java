@@ -185,16 +185,16 @@ public class GenericService<P extends PO, V extends VO, R extends GenericReposit
         return LogicDeleteManager.execWithoutLogicDelete(() -> getById(entity));
     }
 
-    public Optional<V> getByField(ColumnNameGetter<P> columnNameGetter, String name) {
-        Optional<P> po = repository.getByField(columnNameGetter, name);
+    public Optional<V> getByField(ColumnNameGetter<P> columnNameGetter, Object value) {
+        Optional<P> po = repository.getByField(columnNameGetter, value);
         if (po.isPresent()) {
             return Optional.ofNullable((V) po.orElseThrow().toVO());
         }
         return Optional.empty();
     }
 
-    public Optional<V> getByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, String name) {
-        return LogicDeleteManager.execWithoutLogicDelete(() -> getByField(columnNameGetter, name));
+    public Optional<V> getByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, Object value) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> getByField(columnNameGetter, value));
     }
 
     public List<V> listByIds(Iterable<? extends Serializable> ids) {
@@ -208,15 +208,15 @@ public class GenericService<P extends PO, V extends VO, R extends GenericReposit
         return LogicDeleteManager.execWithoutLogicDelete(() -> listByIds(ids));
     }
 
-    public List<V> listByField(ColumnNameGetter<P> columnNameGetter, Object value) {
-        return repository.listByField(columnNameGetter, value)
+    public List<V> listByField(ColumnNameGetter<P> columnNameGetter, Iterable<?> values) {
+        return repository.listByField(columnNameGetter, values)
                 .stream()
                 .map(po -> (V) po.toVO())
                 .collect(Collectors.toList());
     }
 
-    public List<V> listByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, Object value) {
-        return LogicDeleteManager.execWithoutLogicDelete(() -> listByField(columnNameGetter, value));
+    public List<V> listByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, Iterable<?> values) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> listByField(columnNameGetter, values));
     }
 
     public List<V> listLikeByField(ColumnNameGetter<P> columnNameGetter, String value) {

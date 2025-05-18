@@ -622,8 +622,14 @@ public interface GenericRepository<P extends PO> {
         return LogicDeleteManager.execWithoutLogicDelete(() -> listByIdsIgnoreLogicDelete(ids));
     }
 
-    default List<P> listByField(ColumnNameGetter<P> columnNameGetter, Object value) {
-        return getBaseMapper().selectListByMap(Collections.ofImmutableMap(MybatisFlexs.getColumnName(columnNameGetter), value));
+    default List<P> listByField(ColumnNameGetter<P> columnNameGetter, Iterable<?> values) {
+        Object actualValue;
+        if (values instanceof Collection<?> collectionTypeValues) {
+            actualValue = collectionTypeValues.toArray();
+        } else {
+            actualValue = Converts.toArray(values);
+        }
+        return getBaseMapper().selectListByMap(Collections.ofImmutableMap(MybatisFlexs.getColumnName(columnNameGetter), actualValue));
     }
 
     default List<P> listByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, Object value) {
