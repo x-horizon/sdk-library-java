@@ -61,9 +61,6 @@ public class MybatisFlexSystemCache<P extends PO, R extends GenericRepository<P>
         Classes.scanBySuper(BaseMapper.class)
                 .stream()
                 .map(baseMapperClass -> Collections.ofPair(baseMapperClass.getSimpleName(), baseMapperClass))
-                .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, entry -> (Class<B>) entry.getValue()))
-                .entrySet()
-                .stream()
                 .map(entry -> {
                     String actualRepositoryClassSimpleName = Strings.removeIfStartWith(entry.getKey(), MYBATIS_FLEX_INTERNAL_REPOSITORY_CLASS_NAME_PREFIX);
                     Class<R> actualRepositoryClass = repositoryClassNameMappingRepositoryClassMap.get(actualRepositoryClassSimpleName);
