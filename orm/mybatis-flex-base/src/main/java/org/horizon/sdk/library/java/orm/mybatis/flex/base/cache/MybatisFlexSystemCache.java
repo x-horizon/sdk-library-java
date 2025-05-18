@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * @author wjm
  * @since 2023-12-18 23:34
  */
-public class MybatisFlexSystemCache<P extends PO, R extends GenericRepository<P>, B extends BaseMapper<P>> implements SmartInitializingSingleton {
+public class MybatisFlexSystemCache<P extends PO, R extends GenericRepository<P>> implements SmartInitializingSingleton {
 
     private final Map<Class<R>, MybatisFlexSystemCacheDTO<P, R>> repositoryClassMappingSystemCacheMap = Collections.newConcurrentHashMap(256);
 
@@ -37,7 +37,7 @@ public class MybatisFlexSystemCache<P extends PO, R extends GenericRepository<P>
 
     private static final String MYBATIS_FLEX_INTERNAL_REPOSITORY_CLASS_NAME_PREFIX = "MybatisFlexInternal";
 
-    @Getter private static MybatisFlexSystemCache<?, ?, ?> instance = null;
+    @Getter private static MybatisFlexSystemCache<?, ?> instance = null;
 
     @PostConstruct
     public void initialize() {
