@@ -28,7 +28,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     BOM_TOOL_SERIALIZATION_FASTERXML_JACKSON("com.fasterxml.jackson:jackson-bom", "2.19.0"), // support spring-boot version to 3.5.0
     BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF("com.google.protobuf:protobuf-bom", "3.25.1"), // need to synchronize with "io.grpc:grpc-bom", "net.devh:grpc-spring-boot-starter"
     BOM_TOOL_SERIALIZATION_SQUAREUP_WIRE("com.squareup.wire:wire-bom", "5.1.0"),
-    BOM_WEB_FEIGN("io.github.openfeign:feign-bom", "13.5"), // support spring-cloud version to 2024.0.1
+    BOM_WEB_FEIGN("io.github.openfeign:feign-bom", "13.6"), // support spring-cloud version to 2025.0.0-SNAPSHOT
     BOM_WEB_GRPC("io.grpc:grpc-bom", "1.63.0"), // need to synchronize with "net.devh:grpc-spring-boot-starter"
     BOM_WEB_NETTY("io.netty:netty-bom", "4.1.121.Final"), // support spring-boot version to 3.5.0
     BOM_WEB_REACTOR("io.projectreactor:reactor-bom", "2024.0.6"), // support spring-boot version to 3.5.0
