@@ -52,7 +52,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     FRAMEWORK_SPRING_BOOT_WEBFLUX("org.springframework.boot:spring-boot-starter-webflux", ""),
     FRAMEWORK_SPRING_BOOT_WEBMVC("org.springframework.boot:spring-boot-starter-web", ""),
 
-    GATEWAY_SPRING_CLOUD("org.springframework.cloud:spring-cloud-starter-gateway", ""),
+    GATEWAY_SPRING_CLOUD("org.springframework.cloud:spring-cloud-starter-gateway-server-webflux", ""),
 
     JDBC_CASSANDRA("org.springframework.boot:spring-boot-starter-data-cassandra", ""),
     JDBC_DA_MENG("com.dameng:DmJdbcDriver18", "8.1.3.140"),
