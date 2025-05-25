@@ -70,6 +70,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     MESSAGE_KAFKA_SPRING_INTEGRATION("org.springframework.integration:spring-integration-kafka", ""),
     MESSAGE_MQTT_SPRING_INTEGRATION("org.springframework.integration:spring-integration-mqtt", ""),
+    MESSAGE_MQTT_V3_ECLIPSE_PAHO("org.eclipse.paho:org.eclipse.paho.client.mqttv3", BOM_ECLIPSE_PAHO.version), // TODO wjm bom is not invalid
     MESSAGE_MQTT_V5_ECLIPSE_PAHO("org.eclipse.paho:org.eclipse.paho.mqttv5.client", BOM_ECLIPSE_PAHO.version), // TODO wjm bom is not invalid
     MESSAGE_RABBITMQ_SPRING_CLOUD_STREAM("org.springframework.cloud:spring-cloud-starter-stream-rabbit", ""),
     MESSAGE_ROCKETMQ_SPRING_CLOUD_STREAM("com.alibaba.cloud:spring-cloud-starter-stream-rocketmq", ""),
