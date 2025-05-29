@@ -1,6 +1,5 @@
 package org.horizon.sdk.library.java.orm.mybatis.flex.base.autoconfigure;
 
-import com.mybatisflex.core.BaseMapper;
 import org.horizon.sdk.library.java.contract.model.base.PO;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.cache.MybatisFlexSystemCache;
 import org.horizon.sdk.library.java.orm.mybatis.flex.base.repository.GenericRepository;
@@ -32,7 +31,7 @@ public class MybatisFlexAutoConfigurer {
     }
 
     @Bean
-    public <P extends PO, R extends GenericRepository<P>, B extends BaseMapper<P>> MybatisFlexSystemCache<P, R, B> mybatisFlexSystemCache() {
+    public <P extends PO, R extends GenericRepository<P>> MybatisFlexSystemCache<P, R> mybatisFlexSystemCache() {
         return new MybatisFlexSystemCache<>();
     }
 

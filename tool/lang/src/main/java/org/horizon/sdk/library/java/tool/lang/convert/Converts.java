@@ -48,7 +48,7 @@ public class Converts {
     /**
      * the map with key as identify enum field value and value as enums
      */
-    private static final Map ENUM_CACHE = Collections.newConcurrentHashMap();
+    private static final Map<Object, Object> ENUM_CACHE = Collections.newConcurrentHashMap();
 
     /**
      * the map with key as identify enum field value and value as enum and match by equal
@@ -817,6 +817,30 @@ public class Converts {
             }
         });
         return treeNodes;
+    }
+
+    public static <Key, T extends BTreeNode<Key, T>, S extends Comparable<? super S>> List<T> toAscTree(List<T> nodes, Function<T, S> sortFieldGetter) {
+        return toSortTree(nodes, sortFieldGetter, true);
+    }
+
+    public static <Key, T extends BTreeNode<Key, T>, S extends Comparable<? super S>> List<T> toDescTree(List<T> nodes, Function<T, S> sortFieldGetter) {
+        return toSortTree(nodes, sortFieldGetter, false);
+    }
+
+    private static <Key, T extends BTreeNode<Key, T>, S extends Comparable<? super S>> List<T> toSortTree(List<T> nodes, Function<T, S> sortFieldGetter, boolean needToAsc) {
+        List<T> treeNodes = toTree(nodes);
+        sortTree(treeNodes, needToAsc ? Comparator.comparing(sortFieldGetter) : Comparator.comparing(sortFieldGetter).reversed());
+        return treeNodes;
+    }
+
+    private static <Key, T extends BTreeNode<Key, T>> void sortTree(List<T> treeNodes, Comparator<T> comparator) {
+        treeNodes.sort(comparator);
+        treeNodes.forEach(treeNode -> {
+            List<T> children = treeNode.getChildren();
+            if (Nil.isNotEmpty(children)) {
+                sortTree(children, comparator);
+            }
+        });
     }
 
     /**

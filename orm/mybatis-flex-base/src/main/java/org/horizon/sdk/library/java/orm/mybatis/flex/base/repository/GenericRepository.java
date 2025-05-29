@@ -35,10 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.sql.Statement;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 
 /**
@@ -619,15 +616,15 @@ public interface GenericRepository<P extends PO> {
     }
 
     default List<P> listByIdsIgnoreLogicDelete(Iterable<? extends Serializable> ids) {
-        return LogicDeleteManager.execWithoutLogicDelete(() -> listByIdsIgnoreLogicDelete(ids));
+        return LogicDeleteManager.execWithoutLogicDelete(() -> listByIds(ids));
     }
 
-    default List<P> listByField(ColumnNameGetter<P> columnNameGetter, Object value) {
-        return getBaseMapper().selectListByMap(Collections.ofImmutableMap(MybatisFlexs.getColumnName(columnNameGetter), value));
+    default List<P> listByField(ColumnNameGetter<P> columnNameGetter, Iterable<?> values) {
+        return getBaseMapper().selectListByQuery(QueryWrapper.create().in(MybatisFlexs.getColumnName(columnNameGetter), values instanceof ArrayList<?> arrayListValues ? arrayListValues : Converts.toArrayList(values)));
     }
 
-    default List<P> listByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, Object value) {
-        return LogicDeleteManager.execWithoutLogicDelete(() -> listByFieldIgnoreLogicDelete(columnNameGetter, value));
+    default List<P> listByFieldIgnoreLogicDelete(ColumnNameGetter<P> columnNameGetter, Iterable<?> values) {
+        return LogicDeleteManager.execWithoutLogicDelete(() -> listByField(columnNameGetter, values));
     }
 
     default List<P> listLikeByField(ColumnNameGetter<P> columnNameGetter, String value) {

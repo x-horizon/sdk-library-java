@@ -64,6 +64,7 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.OSS_ALL_FACED))
         api(GradleDependency.withVersion(GradleDependency.OSS_MINIO))
 
+        api(GradleDependency.withVersion(GradleDependency.MESSAGE_MQTT_V3_ECLIPSE_PAHO))
         api(GradleDependency.withVersion(GradleDependency.MESSAGE_MQTT_V5_ECLIPSE_PAHO))
         api(GradleDependency.withVersion(GradleDependency.MESSAGE_ROCKETMQ_TODO)) // TODO wjm need to remove
 

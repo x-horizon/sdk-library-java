@@ -1,40 +1,40 @@
 enum class GradleDependency(val withoutVersion: String, val version: String) {
 
-    BOM_CACHE_REDISSON("org.redisson:redisson-parent", "3.45.1"), // TODO wjm support spring-boot version to 3.4.2
+    BOM_CACHE_REDISSON("org.redisson:redisson-parent", "3.47.0"), // TODO wjm support spring-boot version to 3.4.2
     BOM_CLOUD_COMMUNICATION_DROMARA_SMS4J("", "3.3.4"), // TODO wjm support spring-boot version to 2.7.18
     BOM_CLOUD_NATIVE_DOCKER("com.github.docker-java:docker-java-bom", "3.4.0"),
     BOM_DOC_SPRING_OPENAPI("org.springdoc:springdoc-openapi", "2.8.5"), // TODO wjm support spring-boot version to 3.4.2
     BOM_DOC_XIAOYMIN_KNIFE4J("com.github.xiaoymin:knife4j-dependencies", "4.5.0"), // TODO wjm support spring-boot version to 3.0.4
-    BOM_ECLIPSE_PAHO("org.eclipse.paho:java-parent", "1.2.5"), // support spring-boot version to 3.4.5, need to synchronize with "spring-integration-mqtt"
+    BOM_ECLIPSE_PAHO("org.eclipse.paho:java-parent", "1.2.5"), // support spring-integration-mqtt version to 6.5.0
     BOM_FRAMEWORK_ALIBABA_SPRING_CLOUD("com.alibaba.cloud:spring-cloud-alibaba-dependencies", "2023.0.3.2"), // TODO wjm support spring-boot version to 3.2.9
-    BOM_FRAMEWORK_SPRING("org.springframework:spring-framework-bom", "6.2.6"), // support spring-boot version to 3.4.5
-    BOM_FRAMEWORK_SPRING_BOOT("org.springframework.boot:spring-boot-dependencies", "3.4.5"),
-    BOM_FRAMEWORK_SPRING_CLOUD("org.springframework.cloud:spring-cloud-dependencies", "2024.0.1"), // TODO wjm support spring-boot version to 3.4.3
-    BOM_FRAMEWORK_SPRING_INTEGRATION("org.springframework.integration:spring-integration-bom", "6.4.4"), // support spring-boot version to 3.4.5
+    BOM_FRAMEWORK_SPRING("org.springframework:spring-framework-bom", "6.2.7"), // support spring-boot version to 3.5.0
+    BOM_FRAMEWORK_SPRING_BOOT("org.springframework.boot:spring-boot-dependencies", "3.5.0"),
+    BOM_FRAMEWORK_SPRING_CLOUD("org.springframework.cloud:spring-cloud-dependencies", "2025.0.0-SNAPSHOT"), // support spring-boot version to 3.5.0
+    BOM_FRAMEWORK_SPRING_INTEGRATION("org.springframework.integration:spring-integration-bom", "6.5.0"), // support spring-boot version to 3.5.0
     BOM_JDBC_POSTGIS("net.postgis:postgis-java-aggregator", "2024.1.0"),
-    BOM_METRIC_DROPWIZARD("io.dropwizard.metrics:metrics-bom", "4.2.28"), // support spring-boot version to 3.4.5
-    BOM_METRIC_MICROMETER("io.micrometer:micrometer-bom", "1.14.6"), // support spring-boot version to 3.4.5
+    BOM_METRIC_DROPWIZARD("io.dropwizard.metrics:metrics-bom", "4.2.28"), // support spring-boot version to 3.5.0
+    BOM_METRIC_MICROMETER("io.micrometer:micrometer-bom", "1.15.0"), // support spring-boot version to 3.5.0
     BOM_ORM_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-dependencies", "1.10.9"), // TODO wjm support spring-boot version to 2.7.11
-    BOM_ORM_MYBATIS_PLUS("com.baomidou:mybatis-plus-bom", "3.5.10.1"), // TODO wjm support spring-boot version to 3.4.1
+    BOM_ORM_MYBATIS_PLUS("com.baomidou:mybatis-plus-bom", "3.5.12"), // TODO wjm support spring-boot version to 3.4.1
     BOM_OSS_ALL_FACED("org.dromara.x-file-storage:x-file-storage-parent", "2.2.1"), // TODO wjm support spring-boot version to 2.7.2
-    BOM_SECURITY_DEV33_SA_TOKEN("cn.dev33:sa-token-bom", "1.42.0"), // TODO wjm support spring-boot version to 3.0.1
-    BOM_TEST_MOCKITO("org.mockito:mockito-bom", "5.14.2"), // support spring-boot version to 3.4.5
+    BOM_SECURITY_DEV33_SA_TOKEN("cn.dev33:sa-token-bom", "1.43.0"), // TODO wjm support spring-boot version to 3.0.1
+    BOM_TEST_MOCKITO("org.mockito:mockito-bom", "5.17.0"), // support spring-boot version to 3.5.0
     BOM_TEST_TESTCONTAINERS("org.testcontainers:testcontainers-bom", "1.20.6"),
     BOM_TOOL_CONTENT_ANALYSIS_APACHE_TIKA("org.apache.tika:tika-bom", "2.4.1"), // need to synchronize with "org.dromara.x-file-storage:x-file-storage-parent"
     BOM_TOOL_DYNAMIC_TP("org.dromara.dynamictp:dynamic-tp-dependencies", "1.2.0"), // TODO wjm support spring-boot version to 2.7.18、support spring-cloud-alibaba version to 2021.0.5.0
     BOM_TOOL_GEOMETRY_JTS("org.locationtech.jts:jts", "1.20.0"),
     BOM_TOOL_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-pom", "1.4.8"), // TODO wjm support spring-boot version to 2.7.18
     BOM_TOOL_MAPSTRUCT_PROTOBUF("no.entur.mapstruct.spi:spi-protobuf-parent", "1.44"), // TODO wjm support com.google.protobuf:protobuf-bom version to 3.23.0
-    BOM_TOOL_SERIALIZATION_FASTERXML_JACKSON("com.fasterxml.jackson:jackson-bom", "2.18.3"), // support spring-boot version to 3.4.5
+    BOM_TOOL_SERIALIZATION_FASTERXML_JACKSON("com.fasterxml.jackson:jackson-bom", "2.19.0"), // support spring-boot version to 3.5.0
     BOM_TOOL_SERIALIZATION_GOOGLE_PROTOBUF("com.google.protobuf:protobuf-bom", "3.25.1"), // need to synchronize with "io.grpc:grpc-bom", "net.devh:grpc-spring-boot-starter"
     BOM_TOOL_SERIALIZATION_SQUAREUP_WIRE("com.squareup.wire:wire-bom", "5.1.0"),
-    BOM_WEB_FEIGN("io.github.openfeign:feign-bom", "13.5"), // support spring-cloud version to 2024.0.1
+    BOM_WEB_FEIGN("io.github.openfeign:feign-bom", "13.6"), // support spring-cloud version to 2025.0.0-SNAPSHOT
     BOM_WEB_GRPC("io.grpc:grpc-bom", "1.63.0"), // need to synchronize with "net.devh:grpc-spring-boot-starter"
-    BOM_WEB_NETTY("io.netty:netty-bom", "4.1.119.Final"), // support spring-boot version to 3.4.5
-    BOM_WEB_REACTOR("io.projectreactor:reactor-bom", "2024.0.5"), // support spring-boot version to 3.4.5
+    BOM_WEB_NETTY("io.netty:netty-bom", "4.1.121.Final"), // support spring-boot version to 3.5.0
+    BOM_WEB_REACTOR("io.projectreactor:reactor-bom", "2024.0.6"), // support spring-boot version to 3.5.0
 
-    CACHE_CAFFEINE("com.github.ben-manes.caffeine:caffeine", "3.1.8"), // support spring-boot version to 3.4.5
-    CACHE_LETTUCE("io.lettuce:lettuce-core", "6.4.2.RELEASE"), // support spring-boot version to 3.4.5
+    CACHE_CAFFEINE("com.github.ben-manes.caffeine:caffeine", "3.2.0"), // support spring-boot version to 3.5.0
+    CACHE_LETTUCE("io.lettuce:lettuce-core", "6.5.5.RELEASE"), // support spring-boot version to 3.5.0
     CACHE_REDISSON("org.redisson:redisson-spring-boot-starter", BOM_CACHE_REDISSON.version), // TODO wjm bom is not invalid
 
     CLOUD_COMMUNICATION_DROMARA_EMAIL("org.dromara.sms4j:sms4j-email-jakarta-core", BOM_CLOUD_COMMUNICATION_DROMARA_SMS4J.version),
@@ -52,17 +52,17 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     FRAMEWORK_SPRING_BOOT_WEBFLUX("org.springframework.boot:spring-boot-starter-webflux", ""),
     FRAMEWORK_SPRING_BOOT_WEBMVC("org.springframework.boot:spring-boot-starter-web", ""),
 
-    GATEWAY_SPRING_CLOUD("org.springframework.cloud:spring-cloud-starter-gateway", ""),
+    GATEWAY_SPRING_CLOUD("org.springframework.cloud:spring-cloud-starter-gateway-server-webflux", ""),
 
     JDBC_CASSANDRA("org.springframework.boot:spring-boot-starter-data-cassandra", ""),
     JDBC_DA_MENG("com.dameng:DmJdbcDriver18", "8.1.3.140"),
     JDBC_ELASTICSEARCH("org.springframework.boot:spring-boot-starter-data-elasticsearch", ""),
-    JDBC_HSQLDB("org.hsqldb:hsqldb", "2.7.3"), // support spring-boot version to 3.4.5
+    JDBC_HSQLDB("org.hsqldb:hsqldb", "2.7.3"), // support spring-boot version to 3.5.0
     JDBC_MARIADB("org.mariadb.jdbc:mariadb-java-client", "3.5.2"),
-    JDBC_MYSQL("com.mysql:mysql-connector-j", "9.1.0"), // support spring-boot version to 3.4.5
+    JDBC_MYSQL("com.mysql:mysql-connector-j", "9.2.0"), // support spring-boot version to 3.5.0
     JDBC_POSTGIS("net.postgis:postgis-jdbc-jts", BOM_JDBC_POSTGIS.version), // TODO wjm bom is not invalid
-    JDBC_POSTGRESQL("org.postgresql:postgresql", "42.7.5"), // support spring-boot version to 3.4.5
-    JDBC_SQL_SERVER("com.microsoft.sqlserver:mssql-jdbc", "12.8.1.jre11"),
+    JDBC_POSTGRESQL("org.postgresql:postgresql", "42.7.5"), // support spring-boot version to 3.5.0
+    JDBC_SQL_SERVER("com.microsoft.sqlserver:mssql-jdbc", "12.10.0.jre11"), // support spring-boot version to 3.5.0
     JDBC_TDENGINE("com.taosdata.jdbc:taos-jdbcdriver", "3.5.1"),
 
     LOADBALANCER_SPRING_CLOUD("org.springframework.cloud:spring-cloud-loadbalancer", ""),
@@ -70,6 +70,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     MESSAGE_KAFKA_SPRING_INTEGRATION("org.springframework.integration:spring-integration-kafka", ""),
     MESSAGE_MQTT_SPRING_INTEGRATION("org.springframework.integration:spring-integration-mqtt", ""),
+    MESSAGE_MQTT_V3_ECLIPSE_PAHO("org.eclipse.paho:org.eclipse.paho.client.mqttv3", BOM_ECLIPSE_PAHO.version), // TODO wjm bom is not invalid
     MESSAGE_MQTT_V5_ECLIPSE_PAHO("org.eclipse.paho:org.eclipse.paho.mqttv5.client", BOM_ECLIPSE_PAHO.version), // TODO wjm bom is not invalid
     MESSAGE_RABBITMQ_SPRING_CLOUD_STREAM("org.springframework.cloud:spring-cloud-starter-stream-rabbit", ""),
     MESSAGE_ROCKETMQ_SPRING_CLOUD_STREAM("com.alibaba.cloud:spring-cloud-starter-stream-rocketmq", ""),
@@ -84,7 +85,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     METRIC_OSHI_CORE("com.github.oshi:oshi-core", "6.4.6"),
     METRIC_SPRING_BOOT_ACTUATOR("org.springframework.boot:spring-boot-starter-actuator", ""),
 
-    ORM_MYBATIS("org.mybatis.spring.boot:mybatis-spring-boot-starter", "3.0.3"), // need to synchronize with "com.mybatis-flex:mybatis-flex-dependencies"
+    ORM_MYBATIS("org.mybatis.spring.boot:mybatis-spring-boot-starter", "3.0.4"), // need to synchronize with "com.mybatis-flex:mybatis-flex-dependencies"
     ORM_MYBATIS_FLEX("com.mybatis-flex:mybatis-flex-spring-boot-starter", ""),
     ORM_MYBATIS_FLEX_ANNOTATION("com.mybatis-flex:mybatis-flex-annotation", ""),
     ORM_MYBATIS_PLUS("com.baomidou:mybatis-plus-spring-boot3-starter", ""),
@@ -96,7 +97,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     OSS_ALL_FACED("org.dromara.x-file-storage:x-file-storage-spring", BOM_OSS_ALL_FACED.version), // TODO wjm bom is not invalid
     OSS_MINIO("io.minio:minio", "8.5.2"), // need to synchronize with "org.dromara.x-file-storage:x-file-storage-parent"
 
-    PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK("org.projectlombok:lombok", "1.18.38"), // support spring-boot version to 3.4.5
+    PLUGGABLE_ANNOTATION_PROCESSING_API_LOMBOK("org.projectlombok:lombok", "1.18.38"), // support spring-boot version to 3.5.0
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_LOMBOK_MAPSTRUCT_BINDING("org.projectlombok:lombok-mapstruct-binding", "0.2.0"),
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-processor", BOM_TOOL_MAPSTRUCT_PLUS.version),
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_MAPSTRUCT_PROTOBUF("no.entur.mapstruct.spi:protobuf-spi-impl", BOM_TOOL_MAPSTRUCT_PROTOBUF.version),
@@ -106,8 +107,8 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_SPRING_AUTOCONFIGURE("org.springframework.boot:spring-boot-autoconfigure-processor", BOM_FRAMEWORK_SPRING_BOOT.version),
     PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_SPRING_CONFIGURATION("org.springframework.boot:spring-boot-configuration-processor", BOM_FRAMEWORK_SPRING_BOOT.version),
 
-    POOL_DATABASE_HIKARICP("com.zaxxer:HikariCP", "5.1.0"), // support spring-boot version to 3.4.5
-    POOL_APACHE("org.apache.commons:commons-pool2", "2.12.1"), // support spring-boot version to 3.4.5
+    POOL_DATABASE_HIKARICP("com.zaxxer:HikariCP", "6.2.1"), // support spring-boot version to 3.5.0
+    POOL_APACHE("org.apache.commons:commons-pool2", "2.12.1"), // support spring-boot version to 3.5.0
 
     PROTOCOL_JAVAX_SIP("javax.sip:jain-sip-ri", "1.3.0-91"),
 
@@ -140,7 +141,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_JNA_VERSION("", "5.13.0"),
     TOOL_JNA("net.java.dev.jna:jna", TOOL_JNA_VERSION.version),
     TOOL_JNA_JPMS("net.java.dev.jna:jna-jpms", TOOL_JNA_VERSION.version),
-    TOOL_JOB_QUARTZ("org.quartz-scheduler:quartz", "2.3.2"),
+    TOOL_JOB_QUARTZ("org.quartz-scheduler:quartz", "2.5.0"), // support spring-boot version to 3.5.0
     TOOL_MAPSTRUCT_PLUS("io.github.linpeilie:mapstruct-plus-spring-boot-starter", ""),
     TOOL_PASSAY("org.passay:passay", "1.6.5"),
     TOOL_REFLECT_ASM("com.esotericsoftware:reflectasm", "1.11.9"),
@@ -165,8 +166,8 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_THREAD_POOL_DYNAMIC_TP_INTEGRATION_GRPC("org.dromara.dynamictp:dynamic-tp-spring-boot-starter-adapter-grpc", ""),
     TOOL_THREAD_POOL_DYNAMIC_TP_INTEGRATION_OKHTTP3("org.dromara.dynamictp:dynamic-tp-spring-boot-starter-adapter-okhttp3", ""),
     TOOL_THREAD_POOL_DYNAMIC_TP_INTEGRATION_TOMCAT("org.dromara.dynamictp:dynamic-tp-spring-boot-starter-adapter-webserver", ""),
-    TOOL_VALIDATION_HIBERNATE("org.hibernate.validator:hibernate-validator", "8.0.2.Final"), // support spring-boot version to 3.4.5
-    TOOL_VALIDATION_JAKARTA("jakarta.validation:jakarta.validation-api", "3.0.2"), // support spring-boot version to 3.4.5
+    TOOL_VALIDATION_HIBERNATE("org.hibernate.validator:hibernate-validator", "8.0.2.Final"), // support spring-boot version to 3.5.0
+    TOOL_VALIDATION_JAKARTA("jakarta.validation:jakarta.validation-api", "3.0.2"), // support spring-boot version to 3.5.0
     TOOL_VALIDATION_JSON_SCHEMA("com.networknt:json-schema-validator", "1.5.0"),
     TOOL_VALIDATION_SPRING("org.springframework.boot:spring-boot-starter-validation", ""),
     TOOL_VJTOOL("com.vip.vjtools:vjkit", "1.0.8"),
@@ -176,7 +177,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_YITTER_SNOWFLAKE_ID("com.github.yitter:yitter-idgenerator", "1.0.6"),
 
     TEST_CONTAINER("org.testcontainers:testcontainers", ""),
-    TEST_JUNIT("org.junit.jupiter:junit-jupiter-api", "5.11.4"), // support spring-boot version to 3.4.5
+    TEST_JUNIT("org.junit.jupiter:junit-jupiter-api", "5.12.1"), // support spring-boot version to 3.5.0
     TEST_MOCKITO_CORE("org.mockito:mockito-core", ""),
     TEST_OPENJDK_JMH_CORE("org.openjdk.jmh:jmh-core", PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_OPENJDK_JMH.version),
     TEST_SPRING_BOOT_TEST("org.springframework.boot:spring-boot-starter-test", ""),
