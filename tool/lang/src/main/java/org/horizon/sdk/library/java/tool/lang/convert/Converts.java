@@ -48,7 +48,7 @@ public class Converts {
     /**
      * the map with key as identify enum field value and value as enums
      */
-    private static final Map ENUM_CACHE = Collections.newConcurrentHashMap();
+    private static final Map<Object, Object> ENUM_CACHE = Collections.newConcurrentHashMap();
 
     /**
      * the map with key as identify enum field value and value as enum and match by equal
