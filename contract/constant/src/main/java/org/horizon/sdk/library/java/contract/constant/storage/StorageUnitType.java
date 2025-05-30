@@ -11,15 +11,21 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum StorageUnitType {
 
-    BIT("Bit"),
-    BYTE("Byte"),
-    KB("KB"),
-    MB("MB"),
-    GB("GB"),
-    TB("TB"),
+    BIT(8, "Bit"),
+    BYTE(1, "Byte"),
+    KB(1024, "KB"),
+    MB(1024 * 1024, "MB"),
+    GB(1024 * 1024 * 1024, "GB"),
+    TB(1024L * 1024 * 1024 * 1024, "TB"),
 
     ;
 
-    private final String value;
+    private final long byteFactor;
+
+    private final String description;
+
+    public double toSize(long bytes) {
+        return BIT == this ? bytes * this.byteFactor : (double) bytes / this.byteFactor;
+    }
 
 }
