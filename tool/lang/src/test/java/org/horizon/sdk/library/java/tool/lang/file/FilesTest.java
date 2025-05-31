@@ -4,6 +4,7 @@ import org.horizon.sdk.library.java.contract.constant.storage.StorageUnitType;
 import org.horizon.sdk.library.java.tool.lang.object.Nil;
 import org.horizon.sdk.library.java.tool.lang.text.Strings;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -12,16 +13,19 @@ import java.util.List;
  */
 public class FilesTest {
 
+    private static final String[] FILTER_FILE_NAMES = {};
+
     public static void main(String[] args) {
         List<FileDTO> fileDTOs = Files.listFiles("/myPath", StorageUnitType.MB);
-        filterFileByName(fileDTOs, "");
+        filterAndSortFileByName(fileDTOs, FILTER_FILE_NAMES);
         System.out.println(formatFileTree(fileDTOs, StorageUnitType.MB));
     }
 
-    public static void filterFileByName(List<FileDTO> fileDTOs, String... filterNames) {
+    public static void filterAndSortFileByName(List<FileDTO> fileDTOs, String... filterNames) {
         fileDTOs.removeIf(fileDTO -> {
             if (Nil.isNotEmpty(fileDTO.getChildren())) {
-                filterFileByName(fileDTO.getChildren(), filterNames);
+                fileDTO.getChildren().sort(Comparator.comparing(FileDTO::getName));
+                filterAndSortFileByName(fileDTO.getChildren(), filterNames);
             }
             String fullFileName = Nil.isNull(fileDTO.getExtensionType()) ? fileDTO.getName() : fileDTO.getName() + "." + fileDTO.getExtensionType().getValue();
             return Strings.containsAny(fullFileName, filterNames);
