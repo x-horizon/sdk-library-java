@@ -15,7 +15,6 @@ import org.horizon.sdk.library.java.tool.lang.object.Nil;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -196,29 +195,23 @@ public class Files {
     }
 
     public static List<FileDTO> listFiles(String absolutePath) {
-        return listFiles(absolutePath, StorageUnitType.BYTE, false);
-    }
-
-    public static List<FileDTO> listFiles(String absolutePath, StorageUnitType storageUnitType) {
-        return listFiles(absolutePath, storageUnitType, false);
+        return listFiles(absolutePath, StorageUnitType.BYTE);
     }
 
     @SneakyThrows
-    public static List<FileDTO> listFiles(String absolutePath, StorageUnitType storageUnitType, boolean needToAscByFileName) {
+    public static List<FileDTO> listFiles(String absolutePath, StorageUnitType storageUnitType) {
         Path path = Path.of(absolutePath);
         if (isRegularFile(path)) {
             return Collections.ofArrayList(buildRegularFileDTO(path, storageUnitType));
         } else if (isDirectory(path)) {
             @Cleanup Stream<Path> childAbsolutePaths = java.nio.file.Files.list(path);
-            Stream<FileDTO> fileStream = childAbsolutePaths
+            return childAbsolutePaths
                     .filter(Files::exist)
                     .map(childAbsolutePath -> isDirectory(childAbsolutePath)
                             ? buildDirectoryFileDTO(childAbsolutePath, storageUnitType)
                             : buildRegularFileDTO(childAbsolutePath, storageUnitType)
-                    );
-            return needToAscByFileName
-                    ? fileStream.sorted(Comparator.comparing(FileDTO::getName)).collect(Collectors.toList())
-                    : fileStream.collect(Collectors.toList());
+                    )
+                    .collect(Collectors.toList());
         }
         return Collections.newArrayList();
     }
