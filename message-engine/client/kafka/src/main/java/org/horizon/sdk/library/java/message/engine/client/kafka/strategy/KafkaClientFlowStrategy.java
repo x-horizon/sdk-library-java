@@ -14,7 +14,7 @@ public class KafkaClientFlowStrategy implements MessageClientFlowStrategy {
 
     @Override
     public String getFlowId(Method producerMethod) {
-        return Springs.getBean(KafkaClientConfigDTO.class).getProducerRouter().get(producerMethod).getClientDTO().getFlowId();
+        return Springs.getBean(KafkaClientConfigDTO.class.getName(), KafkaClientConfigDTO.class).getProducerRouter().get(producerMethod).getClientDTO().getFlowId();
     }
 
 }
