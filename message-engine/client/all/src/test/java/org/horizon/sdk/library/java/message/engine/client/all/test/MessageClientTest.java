@@ -21,10 +21,10 @@ import java.util.concurrent.TimeUnit;
  */
 @EnableMessageKafkaClient
 @EnableMessageMqttV3Client
-// @EnableMessageEngineMqttV5
-// @EnableMessageEngineRabbitMq
-// @EnableMessageEngineRedisStream
-// @EnableMessageEngineRocketMq
+// @EnableMessageMqttV5Client
+// @EnableMessageRabbitMqClient
+// @EnableMessageRedisStreamClient
+// @EnableMessageRocketMqClient
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @SpringIntegrationTest
