@@ -178,6 +178,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
 
     TEST_CONTAINER("org.testcontainers:testcontainers", ""),
     TEST_JUNIT("org.junit.jupiter:junit-jupiter-api", "5.12.1"), // support spring-boot version to 3.5.0
+    TEST_JUNIT_PLATFORM_LAUNCHER("org.junit.platform:junit-platform-launcher", ""),
     TEST_MOCKITO_CORE("org.mockito:mockito-core", ""),
     TEST_OPENJDK_JMH_CORE("org.openjdk.jmh:jmh-core", PLUGGABLE_ANNOTATION_PROCESSING_API_PROCESSOR_OPENJDK_JMH.version),
     TEST_SPRING_BOOT_TEST("org.springframework.boot:spring-boot-starter-test", ""),
