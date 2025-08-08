@@ -1,0 +1,5 @@
+debug: false
+
+logging:
+  level:
+    org.horizon.sdk.library.java: trace
