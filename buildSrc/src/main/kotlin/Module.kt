@@ -130,7 +130,7 @@ object GradleModule {
     const val TOOL_JOB_QUARTZ = ":$ROOT_PROJECT_NAME-tool-job-quartz"
     const val TOOL_LANG = ":$ROOT_PROJECT_NAME-tool-lang"
     const val TOOL_LOG = ":$ROOT_PROJECT_NAME-tool-log"
-    const val TOOL_RATE_LIMITING = ":$ROOT_PROJECT_NAME-tool-rate-limiting"
+    const val TOOL_RATE_LIMITING_SENTINEL = ":$ROOT_PROJECT_NAME-tool-rate-limiting-sentinel"
     const val TOOL_SERIALIZATION_FASTJSON = ":$ROOT_PROJECT_NAME-tool-serialization-fastjson"
     const val TOOL_SERIALIZATION_FASTJSON2 = ":$ROOT_PROJECT_NAME-tool-serialization-fastjson2"
     const val TOOL_SERIALIZATION_FST = ":$ROOT_PROJECT_NAME-tool-serialization-fst"

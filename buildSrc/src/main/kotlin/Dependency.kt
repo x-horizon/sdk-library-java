@@ -146,7 +146,7 @@ enum class GradleDependency(val withoutVersion: String, val version: String) {
     TOOL_PASSAY("org.passay:passay", "1.6.5"),
     TOOL_REFLECT_ASM("com.esotericsoftware:reflectasm", "1.11.9"),
     TOOL_REFLECT_RONMAMO("org.reflections:reflections", "0.10.2"),
-    TOOL_RATE_LIMITING_BUCKET4J("com.github.vladimir-bukhtoyarov:bucket4j-core", "7.6.0"),
+    TOOL_RATE_LIMITING_SENTINEL("com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel", ""),
     TOOL_SERIALIZATION_FASTJSON("com.alibaba:fastjson", "1.2.83"),
     TOOL_SERIALIZATION_FASTJSON2("com.alibaba.fastjson2:fastjson2", "2.0.52"),
     TOOL_SERIALIZATION_FST("de.ruedigermoeller:fst", "3.0.4-jdk17"),
