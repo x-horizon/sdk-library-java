@@ -1,6 +1,6 @@
 plugins {
     id(GradlePlugin.JAVA_LIBRARY)
-    id(GradlePlugin.MAVEN_PUBLISH) version (GradlePlugin.MAVEN_PUBLISH_VERSION)
+    id(GradlePlugin.MAVEN_PUBLISH).version(GradlePlugin.MAVEN_PUBLISH_VERSION)
     id(GradlePlugin.CHECK_STYLE)
 }
 
@@ -80,7 +80,6 @@ subprojects {
             testImplementation(project(GradleModule.TEST_JUNIT))
             testImplementation(project(GradleModule.TOOL_LOG))
             testImplementation(project(GradleModule.TEST_SPRING_BOOT))
-            testRuntimeOnly(project(GradleModule.TEST_JUNIT))
             testAnnotationProcessor(project(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_JMH))
             testAnnotationProcessor(project(GradleModule.PLUGGABLE_ANNOTATION_API_PROCESSOR_SPRING))
         }
