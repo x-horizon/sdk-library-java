@@ -8,7 +8,7 @@ object GradlePlugin {
     const val MAVEN_PUBLISH_VERSION = "0.31.0"
 
     const val PROTOBUF = "com.google.protobuf"
-    const val PROTOBUF_VERSION = "0.9.4"
+    const val PROTOBUF_VERSION = "0.9.5"
 
     const val GRPC = "grpc"
 
