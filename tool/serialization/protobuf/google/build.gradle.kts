@@ -1,5 +1,5 @@
 plugins {
-    id(GradlePlugin.PROTOBUF) version (GradlePlugin.PROTOBUF_VERSION)
+    id(GradlePlugin.PROTOBUF).version(GradlePlugin.PROTOBUF_VERSION)
 }
 
 dependencies {

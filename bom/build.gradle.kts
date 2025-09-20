@@ -104,7 +104,6 @@ dependencies {
         api(GradleDependency.withVersion(GradleDependency.TOOL_PASSAY))
         api(GradleDependency.withVersion(GradleDependency.TOOL_REFLECT_ASM))
         api(GradleDependency.withVersion(GradleDependency.TOOL_REFLECT_RONMAMO))
-        api(GradleDependency.withVersion(GradleDependency.TOOL_RATE_LIMITING_BUCKET4J))
         api(GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_FASTJSON))
         api(GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_FASTJSON2))
         api(GradleDependency.withVersion(GradleDependency.TOOL_SERIALIZATION_FST))

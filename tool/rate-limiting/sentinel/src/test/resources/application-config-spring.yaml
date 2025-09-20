@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: sdk-library-java-tool-rate-limiting-sentinel-test
+#  threads:
+#    virtual:
+#      enabled: true

@@ -2,7 +2,7 @@ import com.google.protobuf.gradle.id
 
 plugins {
     id(GradlePlugin.JAVA_TEST_FIXTURES)
-    id(GradlePlugin.PROTOBUF) version (GradlePlugin.PROTOBUF_VERSION)
+    id(GradlePlugin.PROTOBUF).version(GradlePlugin.PROTOBUF_VERSION)
 }
 
 dependencies {

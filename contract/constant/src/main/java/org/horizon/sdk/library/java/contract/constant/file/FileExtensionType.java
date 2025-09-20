@@ -30,6 +30,7 @@ public enum FileExtensionType {
     MOV("mov"),
     MP4("mp4"),
     MPEG("mpeg"),
+    RMVB("rmvb"),
 
     CSS("css"),
     CSV("csv"),

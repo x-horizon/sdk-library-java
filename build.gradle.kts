@@ -1,6 +1,6 @@
 plugins {
     id(GradlePlugin.JAVA_LIBRARY)
-    id(GradlePlugin.MAVEN_PUBLISH) version (GradlePlugin.MAVEN_PUBLISH_VERSION)
+    id(GradlePlugin.MAVEN_PUBLISH).version(GradlePlugin.MAVEN_PUBLISH_VERSION)
     id(GradlePlugin.CHECK_STYLE)
 }
 
